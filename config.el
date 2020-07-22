@@ -89,7 +89,7 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
   (require 'find-lisp)
-  (setq cdom/org-agenda-directory "~/Dropbox/org/gtd"
+  (setq cdom/org-agenda-directory "~/org/gtd"
     org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
     org-log-refile 'time))
 
