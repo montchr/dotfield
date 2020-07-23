@@ -103,8 +103,8 @@
   )
 )
 
-;; Point deft to the `org' directory.
-(setq deft-directory "~/org")
+(setq deft-directory "~/org"
+      deft-recursive t)
 
 (use-package! org-roam
   :init
