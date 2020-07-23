@@ -127,6 +127,11 @@
         org-journal-date-format "%A, %d %B %Y"
         org-journal-enable-agenda-integration t))
 
+(use-package! fish-mode
+  :config
+  (setq fish-indent-offset 2
+    fish-enable-auto-indent t))
+
 ;; https://github.com/ema2159/centaur-tabs#my-personal-configuration
 (use-package! centaur-tabs
   :config
