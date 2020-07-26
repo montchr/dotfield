@@ -41,10 +41,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! doct
-  :ensure t
-  :commands (doct))
-
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq undo-limit 80000000
@@ -70,10 +66,11 @@
 ;; List magit branches by date.
 (setq magit-list-refs-sortby "-creatordate")
 
+(setq cdom/org-agenda-directory "~/Dropbox/org/gtd/")
+
 ;; Attempts to prevent vterm from loading emacs from within itself,
 ;; but DOESN'T WORK!
 (use-package! with-editor
-  :ensure t
   :general
   ([remap async-shell-command] 'with-editor-async-shell-command)
   ([remap shell-command] 'with-editor-shell-command)
@@ -89,40 +86,56 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
   (require 'find-lisp)
-  (setq cdom/org-agenda-directory "~/org/gtd"
-        org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
+  (setq org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
         org-log-refile 'time))
 
-(after! doct
-  (setq org-capture-templates
-        (doct '(("Tasks"
-                 :keys "t"
-                 :file (concat cdom/org-agenda-directory "inbox.org")
-                 :prepend t
-                 :template "* %{todo-state} %^{Description}")))
-        )
-  )
+(use-package! doct
+  :after (org)
+  :commands (doct))
 
-(setq deft-directory "~/org"
-      deft-recursive t)
+(after! doct
+  (defun +doct-org-roam (groups)
+    (let (converted)
+      (dolist (group groups)
+        (let* ((props (nthcdr 5 group))
+                (roam-properties (plist-get (plist-get props :doct) :org-roam)))
+          (push `(,@group ,@roam-properties) converted)))
+      (setq doct-templates (nreverse converted))))
+  (setq doct-after-conversion-functions '(+doct-org-roam))
+  (setq org-capture-templates
+        (doct `(("Tasks"
+                 :keys "t"
+                 :file ,(concat cdom/org-agenda-directory "inbox.org")
+                 :prepend t
+                 :template "* %{todo-state} %^{Description}")))))
+
+(use-package! deft
+  :config
+  (setq deft-directory "~/org"
+    deft-recursive t))
 
 (use-package! org-roam
   :init
   (setq org-roam-directory "~/org")
+  :after (doct)
   :config
   (setq org-roam-dailies-capture-templates
-        '(("d" "daily" plain #'org-roam-capture--get-point
-           ""
-           :immediate-finish t
-           :file-name "%<%Y-%m-%d>"
-           :head "#+title: %<%A, %d %B %Y>")))
+    (doct `(("daily") :keys "d"
+             :type plain
+             :function org-roam-capture--get-point
+             :template "%?"
+             :unnarrowed t
+             :immediate-finish t
+             :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
+             :head "#+title: %<%A, %d %B %Y>")))
   (setq +org-roam-open-buffer-on-find-file nil))
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :init
   (setq org-journal-date-prefix "#+title: "
-        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-file-type 'monthly
+        org-journal-file-format "%Y-%m.org"
         org-journal-dir cdom/org-agenda-directory
         org-journal-date-format "%A, %d %B %Y"
         org-journal-enable-agenda-integration t))
