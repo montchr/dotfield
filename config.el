@@ -207,5 +207,7 @@
 ;; [BROKEN] Archive items to an archive sibling instead of a separate file
 (setq org-archive-default-command 'org-archive-to-archive-sibling)
 
-(setq +doom-quit-messages ("(setq nothing t everything 'permitted)"
-                           "Hey! Hey, M-x listen!"))
+(setq +doom-quit-messages '("(setq nothing t everything 'permitted)"
+                             "Hey! Hey, M-x listen!"
+                             "How fast can you take your time, kid?"
+                             "Sous les pavés, la plage!"))
