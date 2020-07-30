@@ -13,7 +13,7 @@
                 ('light (load-theme 'doom-one-light t))
                 ('dark (load-theme 'doom-monokai-pro t)))))
 
-(setq org-directory "~/org/")
+(setq org-directory "~/org")
 
 ;; org-capture settings
 (setq org-capture-todo-file "inbox.org")
@@ -66,7 +66,7 @@
 ;; List magit branches by date.
 (setq magit-list-refs-sortby "-creatordate")
 
-(setq cdom/org-agenda-directory "~/Dropbox/org/gtd/")
+(setq cdom/org-agenda-directory "~/org/gtd/")
 
 ;; Attempts to prevent vterm from loading emacs from within itself,
 ;; but DOESN'T WORK!
@@ -133,8 +133,7 @@
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :init
-  (setq org-journal-date-prefix "#+title: "
-        org-journal-file-type 'monthly
+  (setq org-journal-file-type 'monthly
         org-journal-file-format "%Y-%m.org"
         org-journal-dir cdom/org-agenda-directory
         org-journal-date-format "%A, %d %B %Y"
