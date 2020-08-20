@@ -143,7 +143,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +dragndrop +journal +pomodoro +roam)               ; organize your plain life in plain text
+       (org +dragndrop +journal +pomodoro +pretty +roam)               ; organize your plain life in plain text
        ;;perl              ; write code no one else can comprehend
        php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
