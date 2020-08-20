@@ -90,7 +90,6 @@
         org-log-refile 'time))
 
 (use-package! doct
-  :after (org)
   :commands (doct))
 
 (after! doct
@@ -98,37 +97,39 @@
     (let (converted)
       (dolist (group groups)
         (let* ((props (nthcdr 5 group))
-                (roam-properties (plist-get (plist-get props :doct) :org-roam)))
+               (roam-properties (plist-get (plist-get props :doct) :org-roam)))
           (push `(,@group ,@roam-properties) converted)))
       (setq doct-templates (nreverse converted))))
-  (setq doct-after-conversion-functions '(+doct-org-roam))
-  (setq org-capture-templates
-        (doct `(("Tasks"
-                 :keys "t"
-                 :file ,(concat cdom/org-agenda-directory "inbox.org")
-                 :prepend t
-                 :template "* %{todo-state} %^{Description}")))))
+  (setq doct-after-conversion-functions '(+doct-org-roam)))
+
+;; (setq org-capture-templates
+;;       (doct `(("Tasks"
+;;                :keys "t"
+;;                :file ,(concat cdom/org-agenda-directory "inbox.org")
+;;                :prepend t
+;;                :template "* %{todo-state} %^{Description}"
+;;                :todo-state "TODO"))))
 
 (use-package! deft
   :config
   (setq deft-directory "~/org"
-    deft-recursive t))
+        deft-recursive t))
 
 (use-package! org-roam
   :init
   (setq org-roam-directory "~/org")
-  :after (doct)
-  :config
-  (setq org-roam-dailies-capture-templates
-    (doct `(("daily") :keys "d"
-             :type plain
-             :function org-roam-capture--get-point
-             :template "%?"
-             :unnarrowed t
-             :immediate-finish t
-             :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
-             :head "#+title: %<%A, %d %B %Y>")))
-  (setq +org-roam-open-buffer-on-find-file nil))
+  :after (doct))
+  ;; :config
+  ;; (setq org-roam-dailies-capture-templates
+  ;;       (doct `(("daily") :keys "d"
+  ;;               :type plain
+  ;;               :function org-roam-capture--get-point
+  ;;               :template "%?"
+  ;;               :unnarrowed t
+  ;;               :immediate-finish t
+  ;;               :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
+  ;;               :head "#+title: %<%A, %d %B %Y>")))
+  ;; (setq +org-roam-open-buffer-on-find-file nil))
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
@@ -207,6 +208,6 @@
 (setq org-archive-default-command 'org-archive-to-archive-sibling)
 
 (setq +doom-quit-messages '("(setq nothing t everything 'permitted)"
-                             "Hey! Hey, M-x listen!"
-                             "How fast can you take your time, kid?"
-                             "Sous les pavés, la plage!"))
+                            "Hey! Hey, M-x listen!"
+                            "How fast can you take your time, kid?"
+                            "Sous les pavés, la plage!"))
