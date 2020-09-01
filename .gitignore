@@ -1,0 +1,12 @@
+git/gitconfig.local.symlink
+
+.viminfo
+.netrwhist
+tmp-jhbuild-revision
+vim/bundle/*
+!vim/bundle/Vundle.vim
+
+node_modules
+
+fish_variables
+fzf_key_bindings.fish
