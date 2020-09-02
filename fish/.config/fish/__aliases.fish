@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 # Directory navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -25,6 +23,7 @@ alias egrep='egrep --color=auto'
 # Simple swapping
 alias rm="trash"
 alias search="fd"
+alias cat="bat"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
@@ -92,7 +91,6 @@ alias glb="git log --oneline --decorate \$GIT_PRIMARY_BRANCH.."
 # Based on https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
 alias gla="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(green)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(bold cyan)%s%C(reset) %C(dim white)- %an%C(reset)%n''' --all"
 
-# Magically fix everything submodule-related
 alias gsumo="git submodule update --init --recursive"
 
 #
