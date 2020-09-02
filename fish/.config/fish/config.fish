@@ -6,10 +6,10 @@ end
 set -xg TERM "xterm-256color"
 set -xg DOTS "$HOME/.dots"
 
-source $DOTS/__abbreviations.fish
-source $DOTS/__aliases.fish
-source $DOTS/__env.fish
-source $DOTS/__path.fish
+source $__fish_config_dir/__abbreviations.fish
+source $__fish_config_dir/__aliases.fish
+source $__fish_config_dir/__env.fish
+source $__fish_config_dir/__path.fish
 
 # Completions
 # for completion_dir in $DOTFILES/*/completions
