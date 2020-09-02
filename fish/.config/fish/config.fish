@@ -4,12 +4,12 @@ if not status --is-interactive
 end
 
 set -xg TERM "xterm-256color"
-# set -xg DOTFILES "$HOME/.dotfiles"
+set -xg DOTS "$HOME/.dots"
 
-source "__abbreviations.fish"
-source "__aliases.fish"
-source "__env.fish"
-source "__path.fish"
+source $DOTS/__abbreviations.fish
+source $DOTS/__aliases.fish
+source $DOTS/__env.fish
+source $DOTS/__path.fish
 
 # Completions
 # for completion_dir in $DOTFILES/*/completions
@@ -33,21 +33,21 @@ starship init fish | source
 # direnv
 direnv hook fish | source
 
-if test -e "$HOME/.localrc"
-    source "$HOME/.localrc"
+if test -e $HOME/.localrc
+    source $HOME/.localrc
 end
 
 # emacs-libvterm integration
 function vterm_printf
-    if [ -n "$TMUX" ]
+    if [ -n $TMUX ]
         # tell tmux to pass the escape sequences through
         # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-        printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
-    else if string match -q -- "screen*" "$TERM"
+        printf "\ePtmux;\e\e]%s\007\e\\" $argv
+    else if string match -q -- "screen*" $TERM
         # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$argv"
+        printf "\eP\e]%s\007\e\\" $argv
     else
-        printf "\e]%s\e\\" "$argv"
+        printf "\e]%s\e\\" $argv
     end
 end
 
