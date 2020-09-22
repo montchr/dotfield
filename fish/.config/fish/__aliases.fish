@@ -21,7 +21,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Simple swapping
-alias rm="trash"
+# alias rm="trash" # macOS only
 alias search="fd"
 alias cat="bat"
 
