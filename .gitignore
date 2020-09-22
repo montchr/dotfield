@@ -40,3 +40,4 @@ fish_variables
 karabiner/*
 !karabiner/install.sh
 !karabiner/karabiner.json
+/emacs/org/roam/org-roam.db
