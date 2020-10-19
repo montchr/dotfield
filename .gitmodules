@@ -7,3 +7,6 @@
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
 	url = git@github.com:gpakosz/.tmux.git
+[submodule "tmuxp/.tmuxp"]
+	path = tmuxp/.tmuxp
+	url = git@github.com:montchr/tmuxp-config.git
