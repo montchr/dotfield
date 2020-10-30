@@ -1,44 +1,59 @@
-prompt_order = [
-    "username",
-    "hostname",
-    # "kubernetes",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    # "hg_branch",
-    # "package",
-    # "dotnet",
-    # "golang",
-    # "java",
-    "nodejs",
-    # "php",
-    # "python",
-    # "ruby",
-    # "rust",
-    # "terraform",
-    "nix_shell",
-    # "conda",
-    "memory_usage",
-    "aws",
-    "env_var",
-    "cmd_duration",
-    "time",
-    "line_break",
-    "jobs",
-    "battery",
-    "character",
-]
+format = """
+$username\
+$hostname\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$docker_context\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$cmd_duration\
+$custom\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$character"""
 
-[directory]
-# truncate_to_repo = false
-truncation_length = 1
-fish_style_pwd_dir_length = 1
+# [directory]
+# # truncate_to_repo = false
+# truncation_length = 1
+# fish_style_pwd_dir_length = 1
 
 [git_branch]
 style = "green"
-symbol = ""
 
 [time]
 disabled = false
