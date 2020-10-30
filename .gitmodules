@@ -10,3 +10,6 @@
 [submodule "tmuxp/.tmuxp"]
 	path = tmuxp/.tmuxp
 	url = git@github.com:montchr/tmuxp-config.git
+[submodule "spacehammer/.hammerspoon"]
+	path = spacehammer/.hammerspoon
+	url = git@github.com:agzam/spacehammer.git
