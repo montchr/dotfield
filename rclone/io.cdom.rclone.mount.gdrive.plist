@@ -4,21 +4,24 @@
 <plist version="1.0">
   <dict>
     <key>Program</key>
-    <string>
-    /Users/chrismontgomery/.dotfiles-lite/rclone/mount.sh</string>
+    <string>/Users/chrismontgomery/.dotfiles-lite/rclone/mount.sh</string>
+
     <key>Label</key>
     <string>io.cdom.rclone.mount.gdrive</string>
+
     <key>WorkingDirectory</key>
     <string>/Users/chrismontgomery</string>
+
     <key>RunAtLoad</key>
     <true />
+
     <key>KeepAlive</key>
     <dict>
       <key>SuccessfulExit</key>
       <false />
     </dict>
+
     <key>StandardErrorPath</key>
-    <string>
-    /Users/chrismontgomery/Library/Logs/io.cdom.rclone.mount.gdrive.log</string>
+    <string>/Users/chrismontgomery/Library/Logs/io.cdom.rclone.mount.gdrive.log</string>
   </dict>
 </plist>
