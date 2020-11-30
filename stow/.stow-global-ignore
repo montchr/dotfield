@@ -1,0 +1,9 @@
+^/\.git
+^/\.gitignore
+^/\.gitmodules
+^/\.venv
+^/(^.*)(\.bak$)
+
+^/(Brewfile|Pipfile)(.*$)
+
+^/install\.sh
