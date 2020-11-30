@@ -11,19 +11,6 @@ source $__fish_config_dir/__aliases.fish
 source $__fish_config_dir/__env.fish
 source $__fish_config_dir/__path.fish
 
-# Completions
-# for completion_dir in $DOTFILES/*/completions
-#     set -p fish_complete_path $completion_dir
-# end
-
-# Functions
-# for func_dir in $DOTFILES/*/functions
-#     set -p fish_function_path $func_dir
-# end
-
-# rbenv
-# status --is-interactive; and source (rbenv init -|psub)
-
 # pyenv
 status --is-interactive; and source (pyenv init -|psub)
 
@@ -31,7 +18,9 @@ status --is-interactive; and source (pyenv init -|psub)
 starship init fish | source
 
 # direnv
-direnv hook fish | source
+if type -q direnv
+    direnv hook fish | source
+end
 
 if test -e $HOME/.localrc
     source $HOME/.localrc
