@@ -25,7 +25,7 @@ source $__fish_config_dir/__path.fish
 # status --is-interactive; and source (rbenv init -|psub)
 
 # pyenv
-# pyenv init - | source
+status --is-interactive; and source (pyenv init -|psub)
 
 # starship
 starship init fish | source
