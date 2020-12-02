@@ -1,9 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq user-full-name "Chris Montgomery"
+(setq! user-full-name "Chris Montgomery"
       user-mail-address "chris@cdom.io")
 
-(setq doom-font (font-spec
+(setq! doom-font (font-spec
                   :family "Input Mono Condensed"
                   :size 18)
   doom-variable-pitch-font (font-spec
@@ -18,43 +18,39 @@
                 ('light (load-theme 'doom-one-light t))
                 ('dark (load-theme 'doom-monokai-pro t)))))
 
-(setq org-directory "~/org")
+(setq! org-directory "~/org")
 
 ;; org-capture settings
-(setq org-capture-todo-file "inbox.org")
+(setq! org-capture-todo-file "inbox.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-;; (setq display-line-numbers-type 'relative)
+;; (setq! display-line-numbers-type 'relative)
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
-(setq undo-limit 80000000
+(setq! undo-limit 80000000
       evil-want-fine-undo nil
       truncate-string-ellipsis "…")
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
-(setq ns-right-alternate-modifier 'none)
+(setq! ns-right-alternate-modifier 'none)
 
 ;; Autosave
-(setq auto-save-default t
-      auto-save-no-message t)
+(setq! auto-save-default t
+  auto-save-no-message t)
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; Add prompt to select buffer upon opening new window
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
-(setq evil-vsplit-window-right t
+(setq! evil-vsplit-window-right t
       evil-split-window-below t)
 
 ;; Show previews in ivy.
-(setq +ivy-buffer-preview t)
+(setq! +ivy-buffer-preview t)
 
 ;; List magit branches by date.
-(setq magit-list-refs-sortby "-creatordate")
+(setq! magit-list-refs-sortby "-creatordate")
 ;; Show gravatars in magit
-(setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
-
-(setq cdom/org-agenda-directory "~/org/gtd/")
 
 ;; Attempts to prevent vterm from loading emacs from within itself,
 ;; but DOESN'T WORK!
@@ -98,31 +94,26 @@
 ;;                :template "* %{todo-state} %^{Description}"
 ;;                :todo-state "TODO"))))
 
-(use-package! deft
-  :config
-  (setq deft-directory "~/org"
-        deft-recursive t))
-
 (use-package! org-roam
   :init
-  (setq org-roam-directory "~/org")
+  (setq! org-roam-directory "~/org")
   :after (doct))
-  ;; :config
-  ;; (setq org-roam-dailies-capture-templates
-  ;;       (doct `(("daily") :keys "d"
-  ;;               :type plain
-  ;;               :function org-roam-capture--get-point
-  ;;               :template "%?"
-  ;;               :unnarrowed t
-  ;;               :immediate-finish t
-  ;;               :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
-  ;;               :head "#+title: %<%A, %d %B %Y>")))
-  ;; (setq +org-roam-open-buffer-on-find-file nil))
+;; :config
+;; (setq! org-roam-dailies-capture-templates
+;;       (doct `(("daily") :keys "d"
+;;               :type plain
+;;               :function org-roam-capture--get-point
+;;               :template "%?"
+;;               :unnarrowed t
+;;               :immediate-finish t
+;;               :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
+;;               :head "#+title: %<%A, %d %B %Y>")))
+;; (setq! +org-roam-open-buffer-on-find-file nil))
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :init
-  (setq org-journal-file-type 'monthly
+  (setq! org-journal-file-type 'monthly
         org-journal-file-format "%Y-%m.org"
         org-journal-dir cdom/org-agenda-directory
         org-journal-date-format "%A, %d %B %Y"
@@ -130,13 +121,13 @@
 
 (use-package! fish-mode
   :config
-  (setq fish-indent-offset 2
+  (setq! fish-indent-offset 2
         fish-enable-auto-indent t))
 
-;; [BROKEN] Archive items to an archive sibling instead of a separate file
-(setq org-archive-default-command 'org-archive-to-archive-sibling)
 
-(setq +doom-quit-messages '("(setq nothing t everything 'permitted)"
+;; [BROKEN] Archive items to an archive sibling instead of a separate file
+(setq! org-archive-default-command 'org-archive-to-archive-sibling)
+(setq! +doom-quit-messages '("(setq nothing t everything 'permitted)")
                             "Hey! Hey, M-x listen!"
                             "How fast can you take your time, kid?"
                             "Sous les pavés, la plage!"))
