@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq user-full-name "Chris Montgomery"
-      user-mail-address "chris@montchr.io")
+      user-mail-address "chris@cdom.io")
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15))
 
