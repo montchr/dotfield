@@ -46,4 +46,10 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! fish-mode)
+(package! almost-mono-themes)
+(package! tao-theme)
+
+(package! ox-jira :recipe (:branch "trunk"))
+
+(package! vimrc-mode)
+(package! reaper)
