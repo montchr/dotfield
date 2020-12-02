@@ -124,6 +124,9 @@
   (setq! fish-indent-offset 2
         fish-enable-auto-indent t))
 
+(setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
+  lsp-vetur-format-default-formatter-ts "prettier-eslint"
+  lsp-vetur-use-workspace-dependencies t)
 
 ;; [BROKEN] Archive items to an archive sibling instead of a separate file
 (setq! org-archive-default-command 'org-archive-to-archive-sibling)
