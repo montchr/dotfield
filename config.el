@@ -63,6 +63,8 @@
   (term-exec  . with-editor-export-editor)
   (eshell-mode . with-editor-export-editor)
   (vterm-mode . with-editor-export-editor))
+(setq! magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+
 
 (setq! +zen-text-scale 1)
 
@@ -74,7 +76,7 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
   (require 'find-lisp)
-  (setq org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
+  (setq! org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
         org-log-refile 'time))
 
 (use-package! doct
@@ -87,10 +89,10 @@
         (let* ((props (nthcdr 5 group))
                (roam-properties (plist-get (plist-get props :doct) :org-roam)))
           (push `(,@group ,@roam-properties) converted)))
-      (setq doct-templates (nreverse converted))))
-  (setq doct-after-conversion-functions '(+doct-org-roam)))
+      (setq! doct-templates (nreverse converted))))
+  (setq! doct-after-conversion-functions '(+doct-org-roam)))
 
-;; (setq org-capture-templates
+;; (setq! org-capture-templates
 ;;       (doct `(("Tasks"
 ;;                :keys "t"
 ;;                :file ,(concat cdom/org-agenda-directory "inbox.org")
