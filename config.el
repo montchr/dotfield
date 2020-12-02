@@ -124,6 +124,9 @@
   (setq! fish-indent-offset 2
         fish-enable-auto-indent t))
 
+(use-package! vimrc-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
   lsp-vetur-format-default-formatter-ts "prettier-eslint"
   lsp-vetur-use-workspace-dependencies t)
