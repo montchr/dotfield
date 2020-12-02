@@ -64,6 +64,8 @@
   (eshell-mode . with-editor-export-editor)
   (vterm-mode . with-editor-export-editor))
 
+(setq! cdom/org-agenda-directory "~/org/gtd/")
+
 (after! org
   (defun cdom/org-archive-done-tasks ()
     "Archive all completed tasks."
