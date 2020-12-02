@@ -130,4 +130,9 @@
 (setq! +doom-quit-messages '("(setq nothing t everything 'permitted)")
                             "Hey! Hey, M-x listen!"
                             "How fast can you take your time, kid?"
-                            "Sous les pavés, la plage!"))
+                            "Sous les pavés, la plage!"
+                            "You know how everyone's into weirdness right now?"
+                            "We have such sights to show you..."
+                            "Take a break."
+                            "Is Control controlled by its need to control?")
+
