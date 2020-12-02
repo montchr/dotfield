@@ -136,3 +136,5 @@
                             "Take a break."
                             "Is Control controlled by its need to control?")
 
+
+(load! "~/.emacs.private")
