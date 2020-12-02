@@ -74,7 +74,7 @@
   (defun cdom/org-archive-done-tasks ()
     "Archive all completed tasks."
     (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE" 'file))
+    (org-map-entries 'org-archive-subtree "/DONE|KILL" 'file))
   (require 'find-lisp)
   (setq! org-agenda-files (find-lisp-find-files cdom/org-agenda-directory "\.org$")
         org-log-refile 'time))
