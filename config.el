@@ -3,7 +3,12 @@
 (setq user-full-name "Chris Montgomery"
       user-mail-address "chris@cdom.io")
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 15))
+(setq doom-font (font-spec
+                  :family "Input Mono Condensed"
+                  :size 18)
+  doom-variable-pitch-font (font-spec
+                             :family "Input Sans Narrow"
+                             :size 18))
 
 ;; Change theme based on macOS light/dark mode.
 (add-hook 'ns-system-appearance-change-functions
