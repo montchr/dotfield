@@ -64,6 +64,8 @@
   (eshell-mode . with-editor-export-editor)
   (vterm-mode . with-editor-export-editor))
 
+(setq! +zen-text-scale 1)
+
 (setq! cdom/org-agenda-directory "~/org/gtd/")
 
 (after! org
