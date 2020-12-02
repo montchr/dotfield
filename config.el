@@ -51,6 +51,8 @@
 
 ;; List magit branches by date.
 (setq magit-list-refs-sortby "-creatordate")
+;; Show gravatars in magit
+(setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
 (setq cdom/org-agenda-directory "~/org/gtd/")
 
