@@ -46,10 +46,13 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
+;; Themes
 (package! almost-mono-themes)
 (package! tao-theme)
 
-(package! ox-jira :recipe (:branch "trunk"))
-
-(package! vimrc-mode)
-(package! reaper)
+(package! doct)       ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! ox-jira     ; Export to Jira syntax
+  :recipe (:branch "trunk"))
+(package! reaper)     ; Harvest time tracking mode
+(package! with-editor)
+(package! vimrc-mode) ; vimrc syntax
