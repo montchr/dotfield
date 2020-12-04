@@ -19,9 +19,14 @@
 # keypress.
 #
 # A high-level overview of the bindings can be found in bindings.txt
+
+
  
 
 :: default  : yabai -m config active_window_border_color 0x00775759
+# @todo indicate mode with color or some other way
+:: app    @                                                          # Launch apps
+:: sys    @                                                          # System control mode
 :: focus  @ : yabai -m config active_window_border_color 0xffe06c75  # Focus window, desktop, monitors
 :: grid   @ : yabai -m config active_window_border_color 0xff56b6c2  # Floating window layout
 :: swap   @ : yabai -m config active_window_border_color 0xffc678dd  # Swap windows
@@ -29,12 +34,40 @@
 :: warpnf @ : yabai -m config active_window_border_color 0xffd19a66  # Same, but don't follow focus
 :: resize @ : yabai -m config active_window_border_color 0xff98c379  # Resize window operations
 
+# APP LAUNCHER mode
+default < hyper - a ; app
+app     < hyper - a ; default
+app     < escape    ; default
+
+# _f_irefox
+app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
+              -new-window \
+              -foreground ; \
+              skhd -k 'escape'
+# _t_erminal (Kitty)
+app     < t : /Applications/kitty.app/Contents/MacOS/kitty --single-instance ; \
+              kitty-theme --live ; \
+              skhd -k 'escape'
+
+# SYSTEM mode
+default < hyper - s ; sys
+sys     < hyper - s ; default
+sys     < escape    ; default
+
+sys     < d : dark-mode ; \
+              kitty-theme -t --live ; \
+              skhd -k 'escape'
+
 # HYPER-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
 # always to FOCUS mode. Getting out of any mode can also be done with ESCAPE.
 default                                 < hyper - space     ; focus
 focus, grid, swap, warp, warpnf, resize < hyper - space     ; default
 grid, swap, warp, warpnf, resize < escape                   ; focus
 focus < escape                                              ; default
+
+# Restart yabai
+# @todo not compatible with fish shell -- see discussion in https://github.com/koekeishiya/skhd/issues/42
+# default < hyper - y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Once in FOCUS mode (or any other mode other than default), you can switch
 # modes with single keystroke. (mnemonic: letter corresponds to first letter of
@@ -63,19 +96,13 @@ focus, grid, swap, warp, warpnf, resize < p                 : yabai -m window --
 focus, grid, swap, warp, warpnf, resize < i                 : yabai -m window --toggle split         # mnemonic: couldn't think of one!
 focus, grid, swap, warp, warpnf, resize < f                 : yabai -m window --toggle float         # mnemonic: _f_loat
 
-# Global hotkeys which I limit so as to not pollute the global namespace 
-# @todo use a different binding
-# default         < ctrl - return     : open -na kitty --single-instance
-# @todo update chunkc
-# default         < ctrl - return      : chunkc set window_float_next 1; open -na iTerm
-
 # Change focus using standard vi directional keys. Enter changes focus to the
 # biggest window. You'll see this theme repeated over and over again. Since this
 # is such a common operation, no modifier keys are used.
-focus           < k                 : yabai -m window --focus north
-focus           < j                 : yabai -m window --focus south
-focus           < l                 : yabai -m window --focus east
-focus           < h                 : yabai -m window --focus west
+focus           < k                 : yabai -m window --focus north || yabai -m display --focus north
+focus           < j                 : yabai -m window --focus south || yabai -m display --focus south
+focus           < l                 : yabai -m window --focus east || yabai -m display --focus east
+focus           < h                 : yabai -m window --focus west || yabai -m display --focus west
 focus           < return            : yabai -m window --focus biggest
 
 # Change the next insertion point to be something other than the default (left)
@@ -104,6 +131,8 @@ focus           < 2                 : yabai -m space --focus 2
 focus           < 3                 : yabai -m space --focus 3
 focus           < tab               : yabai -m space --focus next
 focus           < shift - tab       : yabai -m space --focus prev
+focus           < shift - h         : yabai -m space --focus prev
+focus           < shift - l         : yabai -m space --focus next
 
 # Prefix the above with ctrl to change the monitor focus using numbers
 # corresponding to monitor or cycle through the monitors using tab and shift -
@@ -113,6 +142,8 @@ focus           < ctrl - 2           : yabai -m display --focus 2
 focus           < ctrl - 3           : yabai -m display --focus 3
 focus           < ctrl - tab         : yabai -m display --focus next
 focus           < ctrl + shift - tab : yabai -m display --focus prev
+focus           < ctrl - h           : yabai -m display --focus west
+focus           < ctrl - l           : yabai -m display --focus east
 
 # Change the layout mode of a desktop to one of the three supported modes.
 focus           < ctrl - b           : yabai -m space --layout bsp     # mnemonic: _b_sp

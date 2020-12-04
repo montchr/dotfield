@@ -7,25 +7,28 @@ export const initialState = "[00-...] ...";
 const getSpaceName = (index) => {
   switch (index) {
     case 1:
-      return "ter";
+      return "task";
       break;
     case 2:
-      return "gnr";
+      return "insp";
       break;
     case 3:
-      return "dsn";
+      return "code";
       break;
     case 4:
-      return "cod";
+      return "term";
       break;
     case 5:
-      return "wrt";
+      return "sys";
       break;
     case 6:
-      return "mus";
+      return "dots";
       break;
     case 7:
-      return "com";
+      return "self";
+      break;
+    case 8:
+      return "music";
       break;
     default:
       return "ukw";
