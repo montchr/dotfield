@@ -4,10 +4,10 @@
        user-mail-address "chris@cdom.io")
 
 (setq! doom-font (font-spec
-                  :family "Input Mono Condensed"
+                  :family "Iosevka"
                   :size 18)
        doom-variable-pitch-font (font-spec
-                                 :family "Input Sans Narrow"
+                                 :family "Iosevka Sparkle"
                                  :size 18))
 
 ;; Change theme based on macOS light/dark mode.
@@ -152,9 +152,9 @@
          ;; :composition   "∘"
          ;; :map           "↦"
          ;; Types
-         ;; :null          "∅"
-         ;; :true          "𝕋"
-         ;; :false         "𝔽"
+         :null          "∅"
+         :true          "𝕋"
+         :false         "𝔽"
          ;; :int           "ℤ"
          ;; :float         "ℝ"
          ;; :str           "𝕊"
@@ -162,17 +162,17 @@
          ;; :list          "𝕃"
          ;; Flow
          ;; :not           "￢"
-         ;; :in            "∈"
-         ;; :not-in        "∉"
-         ;; :and           "∧"
-         ;; :or            "∨"
+         :in            "∈"
+         :not-in        "∉"
+         :and           "∧"
+         :or            "∨"
          ;; :for           "∀"
          ;; :some          "∃"
          ;; :return        "⟼"
          ;; :yield         "⟻"
          ;; Other
-         ;; :union         "⋃"
-         ;; :intersect     "∩"
+         :union         "⋃"
+         :intersect     "∩"
          ;; :diff          "∖"
          ;; :tuple         "⨂"
          ;; :pipe          "" ;; FIXME: find a non-private char
