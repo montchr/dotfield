@@ -43,6 +43,9 @@ yabai -m space 9 --label 'music' && yabai -m space 9 --display 2
 yabai -m rule --add app='^Emacs$' title='^\s*(-|–|—){1}\s+\(' \
 	manage=off \
 	mouse_follows_focus=off
+yabai -m rule --add app='^Emacs$' title='^$' \
+	manage=off \
+	mouse_follows_focus=off
 
 # @todo what happened?
 # yabai -m rule --add title="^$" manage=off
