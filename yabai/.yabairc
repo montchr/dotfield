@@ -53,7 +53,7 @@ yabai -m rule --add app=Fantastical manage=off title='^$'
 yabai -m rule --add app=Fantastical title!='^$' space='comm'
 # let firefox exist wherever so multiple windows can exist?
 # yabai -m rule --add app=Firefox space='self'
-yabai -m rule --add app=Harvest space='comm'
+yabai -m rule --add app=Harvest manage=off
 # PhpStorm doesn't seem to get along with yabai?
 # yabai -m rule --add app=PhpStorm space='code'
 # caused yabai to crash?
