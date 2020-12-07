@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # Homebrew
-set -xp PATH /home/linuxbrew/.linuxbrew/bin /usr/local/bin /usr/local/sbin
+set -xp PATH /home/linuxbrew/.linuxbrew/sbin /home/linuxbrew/.linuxbrew/bin /usr/local/bin /usr/local/sbin
 
 # Custom sources
 set -xp PATH "$DOTFILES/bin" "$HOME/bin"
