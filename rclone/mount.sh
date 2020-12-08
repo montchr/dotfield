@@ -1,6 +1,6 @@
 #!/bin/sh
 
-/usr/local/bin/rclone cmount \
+/usr/local/bin/rclone mount \
 	--rc \
 	--transfers 8 \
 	--volname CDOM \
