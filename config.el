@@ -49,6 +49,7 @@
 
 ;; Attempts to prevent vterm from loading emacs from within itself
 (use-package! with-editor
+  :after (vterm)
   :general
   ([remap async-shell-command] 'with-editor-async-shell-command)
   ([remap shell-command] 'with-editor-shell-command)
