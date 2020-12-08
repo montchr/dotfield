@@ -51,6 +51,7 @@
 (package! tao-theme)
 
 (package! doct)       ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! ox-gfm)     ; Export to GFM syntax
 (package! ox-jira     ; Export to Jira syntax
   :recipe (:branch "trunk"))
 (package! reaper)     ; Harvest time tracking mode

@@ -127,6 +127,9 @@
          org-journal-date-format "%A, %d %B %Y"
          org-journal-enable-agenda-integration t))
 
+(use-package! ox-gfm
+  :after org)
+
 (use-package! ox-jira
   :after org)
 
