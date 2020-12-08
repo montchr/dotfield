@@ -77,13 +77,15 @@
          org-export-copy-to-kill-ring 'if-interactive
          org-log-refile 'time))
 
+(use-package! doct
+  :after (org)
+  :commands (doct))
+
 (use-package! org-roam
   :init
   (setq! org-roam-directory "~/org")
   :after (doct))
 
-(use-package! doct
-  :commands (doct))
 
 (after! doct org-roam
   (defun +doct-org-roam (groups)
