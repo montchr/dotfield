@@ -41,3 +41,6 @@ karabiner/*
 !karabiner/install.sh
 !karabiner/karabiner.json
 /emacs/org/roam/org-roam.db
+
+# Allow font archives.
+!/iosevka/**/*.tar.gz
