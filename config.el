@@ -3,12 +3,15 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec
-                  :family "Iosevka"
-                  :size 18)
-       doom-variable-pitch-font (font-spec
-                                 :family "Iosevka Sparkle"
-                                 :size 18))
+(setq! doom-font (font-spec :family "Iosevka" :size 18 :weight 'light)
+       doom-unicode-font (font-spec :family "Iosevka")
+       doom-variable-pitch-font (font-spec :family "Iosevka Sparkle"))
+
+;; Enable font ligatures in emacs-mac@27.
+(mac-auto-operator-composition-mode t)
+
+;; Reduce the size of text in Zen Mode.
+(setq! +zen-text-scale 1)
 
 ;; Change theme based on macOS light/dark mode.
 (add-hook 'ns-system-appearance-change-functions
@@ -18,10 +21,10 @@
                 ('light (load-theme 'doom-one-light t))
                 ('dark (load-theme 'doom-monokai-pro t)))))
 
-(setq! org-directory "~/org")
-
-;; org-capture settings
-(setq! org-capture-todo-file "inbox.org")
+(setq! org-directory              "~/org"
+       +cdom/org-agenda-directory "~/org/gtd"
+       org-capture-todo-file      "inbox.org"
+       org-roam-directory         "~/org")
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
@@ -62,10 +65,6 @@
 ;; Show gravatars in magit
 (setq! magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
-(setq! +zen-text-scale 1)
-
-(setq! +cdom/org-agenda-directory "~/org/gtd/")
-
 (after! org
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks."
@@ -83,10 +82,9 @@
 
 (use-package! org-roam
   :init
-  (setq! org-roam-directory "~/org")
   :after (doct))
 
-
+;; Add doct support to org-roam capture templates.
 (after! doct org-roam
   (defun +doct-org-roam (groups)
     (let (converted)
