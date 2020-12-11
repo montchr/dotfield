@@ -3,7 +3,7 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "Iosevka" :size 18 :weight 'light)
+(setq! doom-font (font-spec :family "Iosevka" :size 18)
        doom-unicode-font (font-spec :family "Iosevka")
        doom-variable-pitch-font (font-spec :family "Iosevka Sparkle"))
 
@@ -42,7 +42,7 @@
 
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
 (setq! evil-vsplit-window-right t
-      evil-split-window-below t)
+       evil-split-window-below t)
 
 ;; Show previews in ivy.
 (setq! +ivy-buffer-preview t)
@@ -67,11 +67,13 @@
 
 (after! org
   (defun +cdom/org-archive-done-tasks ()
-    "Archive all completed tasks."
+    "Archive all completed tasks in a file to an archive sibling."
     (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE|KILL" 'file))
-  (setq! org-agenda-files +cdom/org-agenda-directory
-         ;; [BROKEN] Archive items to an archive sibling instead of a separate file
+    (org-map-entries 'org-archive-to-archive-sibling "/DONE|KILL" 'file))
+  (require 'find-lisp)
+  (setq! org-agenda-files (find-lisp-find-files
+                           +cdom/org-agenda-directory
+                           "\.org$")
          org-archive-default-command 'org-archive-to-archive-sibling
          org-export-copy-to-kill-ring 'if-interactive
          org-log-refile 'time))
@@ -153,7 +155,7 @@
          ;; Functional
          :lambda        "λ"
          :def           "ƒ"
-         ;; :composition   "∘"
+         :composition   "∘"
          ;; :map           "↦"
          ;; Types
          :null          "∅"
@@ -172,8 +174,8 @@
          :or            "∨"
          ;; :for           "∀"
          ;; :some          "∃"
-         ;; :return        "⟼"
-         ;; :yield         "⟻"
+         :return        "⟼"
+         :yield         "⟻"
          ;; Other
          :union         "⋃"
          :intersect     "∩"
