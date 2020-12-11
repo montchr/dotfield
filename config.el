@@ -31,10 +31,10 @@
                 ('light (load-theme 'doom-one-light t))
                 ('dark (load-theme 'doom-monokai-pro t)))))
 
-(setq! org-directory              "~/org"
-       +cdom/org-agenda-directory "~/org/gtd"
-       org-capture-todo-file      "inbox.org"
-       org-roam-directory         "~/org")
+(setq! org-directory "~/org"
+       +cdom/org-agenda-directory "~/org/gtd/"
+       org-capture-todo-file "inbox.org"
+       org-roam-directory "~/org")
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
@@ -79,7 +79,7 @@
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
     (interactive)
-    (org-map-entries 'org-archive-to-archive-sibling "/DONE|KILL" 'file))
+    (org-map-entries 'org-archive-subtree "/DONE|KILL" 'file))
   (require 'find-lisp)
   (setq! org-agenda-files (find-lisp-find-files
                            +cdom/org-agenda-directory
