@@ -13,6 +13,16 @@
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
+;; @TODO disable this if the emacs wrapper application can handle it (see below)
+;; @TODO defer?! but it needs to load quickly
+;; (use-package! auto-dark-emacs
+;;   :hook 'load-theme
+;;   :custom
+;;   (auto-dark-emacs/dark-theme 'doom-monokai-pro)
+;;   (auto-dark-emacs/light-theme 'doom-plain))
+
+(load-theme 'doom-monokai-pro t)
+
 ;; Change theme based on macOS light/dark mode.
 (add-hook 'ns-system-appearance-change-functions
           #'(lambda (appearance)
