@@ -56,7 +56,11 @@ sys     < hyper - s ; default
 sys     < escape    ; default
 
 sys     < d : dark-mode ; \
-              kitty-theme -t --live ; \
+              test (dark-mode status) = 'on' \
+                   && kitty @ --to unix:/tmp/kitty-socket \
+                      set-colors -a -c "~/.config/kitty/dark-theme.conf" \
+                   || kitty @ --to unix:/tmp/kitty-socket \
+                      set-colors -a -c "~/.config/kitty/light-theme.conf" ; \
               skhd -k 'escape'
 
 # HYPER-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
