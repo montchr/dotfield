@@ -4,6 +4,7 @@
 ^/\.venv
 ^/(^.*)(\.bak$)
 
-^/(Brewfile|Pipfile)(.*$)
+^/Brewfile(\.lock)?$
+^/Pipfile(\.lock)?$
 
 ^/install\.sh
