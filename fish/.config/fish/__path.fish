@@ -52,7 +52,7 @@ set -xp PATH $DOTFILES/node_modules/.bin
 # PHP
 #
 
-set -xp PATH (brew --prefix php)/bin
+set -xp PATH (brew --prefix php@7.3)/bin
 set -xp PATH "$HOME/.wp-cli/bin"
 
 
