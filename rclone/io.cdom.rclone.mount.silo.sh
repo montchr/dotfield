@@ -2,10 +2,10 @@
 
 /usr/local/bin/rclone mount \
 	--transfers 8 \
-	--volname CDOM \
+	--volname Silo \
 	--allow-other \
 	--log-level INFO \
 	--buffer-size 32M \
 	--vfs-cache-mode writes \
 	--vfs-cache-max-size 8G \
-	gdrive:/ /Users/chrismontgomery/.mount/gdrive
+	silo:/ /Users/chrismontgomery/.mount/silo

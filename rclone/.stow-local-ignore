@@ -1,0 +1,2 @@
+# Ignore all root-level files
+^.*\..{1,4}$
