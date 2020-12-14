@@ -4,7 +4,7 @@
 set -xp PATH /home/linuxbrew/.linuxbrew/sbin /home/linuxbrew/.linuxbrew/bin /usr/local/bin /usr/local/sbin
 
 # Custom sources
-set -xp PATH "$DOTFILES/bin" "$HOME/bin"
+set -xp PATH "$DOTS/bin" "$DOTFILES/bin" "$HOME/bin"
 
 # PHP
 set -xp PATH "$HOME/.composer/vendor/bin"
