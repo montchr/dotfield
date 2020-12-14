@@ -1,0 +1,2 @@
+--single-instance
+--listen-on unix:/tmp/kitty-socket

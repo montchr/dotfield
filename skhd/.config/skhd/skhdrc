@@ -44,9 +44,10 @@ app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
               -new-window \
               -foreground ; \
               skhd -k 'escape'
+
 # _t_erminal (Kitty)
-app     < t : /Applications/kitty.app/Contents/MacOS/kitty --single-instance ; \
-              kitty-theme --live ; \
+app     < t : kitty @ --to unix:/tmp/kitty-socket \
+              new-window --window-type os ; \
               skhd -k 'escape'
 
 # SYSTEM mode
