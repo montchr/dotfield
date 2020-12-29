@@ -72,9 +72,6 @@
   (eshell-mode . with-editor-export-editor)
   (vterm-mode . with-editor-export-editor))
 
-;; Show gravatars in magit
-(setq! magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
-
 (after! org
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
