@@ -42,7 +42,11 @@ default < hyper - a ; app
 app     < hyper - a ; default
 app     < escape    ; default
 
-# _f_irefox
+# _e_macs -- create a new frame
+app     < e : emacsclient -cn; \
+              skhd -k 'escape'
+
+# _f_irefox -- new window
 app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
               -new-window \
               -foreground ; \
