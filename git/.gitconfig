@@ -1,0 +1,62 @@
+[include]
+  path = .gitconfig.local
+
+[alias]
+        # Custom graph log (append any tree-ish)
+        lg = log --pretty=nice --date-order --graph
+        # Custom graph log for all branches
+        lga = log --pretty=nice --date-order --graph --all
+
+        # List recent branches
+        recent = "!r(){git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'}; r"
+
+        # Temporarily ignore/unignore files, and list ignored files
+        ignore = !git update-index --assume-unchanged
+        unignore = !git update-index --no-assume-unchanged
+        ignored = !git ls-files -v | grep ^[a-z]
+[hub]
+        protocol = https
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+        interactive = auto
+[core]
+        excludesfile = ~/.gitignore
+        pager = diff-so-fancy | less -FXRi
+[apply]
+        whitespace = nowarn
+
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+[pretty]
+        # tut: http://gitimmersion.com/lab_10.html
+        # ref: http://linux.die.net/man/1/git-log
+        # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+        nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
+[help]
+        autocorrect = 1
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        default = current
+[rerere]
+	enabled = true
+[fetch]
+	recurseSubmodules = true
+[init]
+	templateDir = ~/.git-templates
+	defaultBranch = main
+[pull]
+	rebase = true

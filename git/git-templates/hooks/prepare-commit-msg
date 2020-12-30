@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# Prepare Commit Message
+# ~/.git-templates/hooks/
+#
+# https://github.com/goodguyry/dotfiles/blob/master/dev/prepare-commit-msg
+# https://gist.github.com/bartoszmajsak/1396344
+#
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# Do nothing if amending or if this is a merge commit
+if [[ 'merge' == "$COMMIT_SOURCE" || $SHA1 ]]; then
+	exit
+fi
+
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+	BRANCHES_TO_SKIP=(main master develop dev test production preprod staging qa)
+fi
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME=$(echo "${BRANCH_NAME}" | tr '[:lower:]' '[:upper:]')
+
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+
+if [[ "${BRANCH_NAME}" =~ ([A-Z]{2,8}-[0-9]{1,4}) ]]; then
+	# Verify branch name
+	if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
+		gsed -i.bak -e "1s/^/${BASH_REMATCH[1]} \n/" "$1"
+	fi
+fi

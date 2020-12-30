@@ -1,0 +1,14 @@
+[user]
+        name = "Chris Montgomery"
+        email = "chris@montchr.io"
+
+[credential]
+  helper = "osxkeychain"
+[core]
+  editor = "emacsclient"
+[merge]
+  tool = vscode
+[diff]
+  tool = vscode
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"

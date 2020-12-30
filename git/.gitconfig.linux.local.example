@@ -1,0 +1,8 @@
+[user]
+        name = AUTHORNAME
+        email = AUTHOREMAIL
+
+[credential]
+        helper = cache
+[core]
+  editor = "emacs -nw"
