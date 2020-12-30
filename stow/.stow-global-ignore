@@ -8,3 +8,4 @@
 ^/Pipfile(\.lock)?$
 
 ^/install\.sh
+\.example$
