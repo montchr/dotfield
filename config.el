@@ -64,6 +64,10 @@
 ;; List magit branches by date.
 (setq! magit-list-refs-sortby "-creatordate")
 
+;; Prevent evil-lion from removing extra spaces.
+;; Add any desired extra space prior to invoking evil-lion.
+(setq! evil-lion-squeeze-spaces nil)
+
 ;; Attempts to prevent vterm from loading emacs from within itself
 (use-package! with-editor
   :after (vterm)
