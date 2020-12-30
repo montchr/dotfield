@@ -201,11 +201,13 @@ warp, warpnf    < h                 : yabai -m window --warp west
 warp, warpnf    < return            : yabai -m window --warp biggest
 
 # Warp window to monitor and follow.
-warp            < ctrl - 1                 : yabai -m window --display 1; yabai -m display --focus 1
-warp            < ctrl - 2                 : yabai -m window --display 2; yabai -m display --focus 2
-warp            < ctrl - 3                 : yabai -m window --display 3; yabai -m display --focus 3
-warp            < ctrl - tab               : yabai -m window --display next; yabai -m display --focus next
-warp            < ctrl + shift - tab       : yabai -m window --display prev; yabai -m display --focus prev
+warp            < ctrl - 1           : yabai -m window --display 1; yabai -m display --focus 1
+warp            < ctrl - 2           : yabai -m window --display 2; yabai -m display --focus 2
+warp            < ctrl - 3           : yabai -m window --display 3; yabai -m display --focus 3
+warp            < ctrl - tab         : yabai -m window --display next; yabai -m display --focus next
+warp            < ctrl + shift - tab : yabai -m window --display prev; yabai -m display --focus prev
+warp            < ctrl - l           : yabai -m window --display next; yabai -m display --focus next
+warp            < ctrl - h           : yabai -m window --display prev; yabai -m display --focus prev
 
 # Warp window to space and follow.
 warp            < 1                : yabai -m window --space 1; yabai -m space --focus 1
