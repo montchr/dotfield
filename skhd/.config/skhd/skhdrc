@@ -203,11 +203,13 @@ warp            < ctrl - tab               : yabai -m window --display next; yab
 warp            < ctrl + shift - tab       : yabai -m window --display prev; yabai -m display --focus prev
 
 # Warp window to space and follow.
-warp            < 1                 : yabai -m window --space 1; yabai -m space --focus 1
-warp            < 2                 : yabai -m window --space 2; yabai -m space --focus 2
-warp            < 3                 : yabai -m window --space 3; yabai -m space --focus 3
-warp            < tab               : yabai -m window --space next; yabai -m space --focus next
-warp            < shift - tab       : yabai -m window --space prev; yabai -m space --focus prev
+warp            < 1                : yabai -m window --space 1; yabai -m space --focus 1
+warp            < 2                : yabai -m window --space 2; yabai -m space --focus 2
+warp            < 3                : yabai -m window --space 3; yabai -m space --focus 3
+warp            < tab              : yabai -m window --space next; yabai -m space --focus next
+warp            < shift - tab      : yabai -m window --space prev; yabai -m space --focus prev
+warp            < shift - l        : yabai -m window --space next; yabai -m space --focus next
+warp            < shift - h        : yabai -m window --space prev; yabai -m space --focus prev
 
 # Warp window to space, but do NOT follow.
 warpnf          < 1                 : yabai -m window --space 1
