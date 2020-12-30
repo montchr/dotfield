@@ -30,14 +30,14 @@ yabai -m config right_padding 6
 yabai -m config window_gap 6
 
 yabai -m space 1 --label 'task'
-yabai -m space 2 --label 'inspect' && yabai -m space 2 --display 1
-yabai -m space 3 --label 'code' && yabai -m space 3 --display 2
-yabai -m space 4 --label 'comm' && yabai -m space 4 --display 2
-yabai -m space 5 --label 'term' && yabai -m space 5 --display 2
-yabai -m space 6 --label 'sys' && yabai -m space 6 --display 2
-yabai -m space 7 --label 'dots' && yabai -m space 7 --display 2
-yabai -m space 8 --label 'self' && yabai -m space 8 --display 2
-yabai -m space 9 --label 'music' && yabai -m space 9 --display 2
+yabai -m space 2 --label 'inspect' && yabai -m space 2
+yabai -m space 3 --label 'code' && yabai -m space 3
+yabai -m space 4 --label 'comm' && yabai -m space 4
+yabai -m space 5 --label 'term' && yabai -m space 5
+# yabai -m space 6 --label 'sys' && yabai -m space 6
+# yabai -m space 7 --label 'dots' && yabai -m space 7
+# yabai -m space 8 --label 'self' && yabai -m space 8
+# yabai -m space 9 --label 'music' && yabai -m space 9
 
 # Float Emacs popups
 yabai -m rule --add app='^Emacs$' title='^\s*(-|–|—){1}\s+\(' \
