@@ -55,12 +55,9 @@ default < hyper - s ; sys
 sys     < hyper - s ; default
 sys     < escape    ; default
 
-sys     < d : dark-mode ; \
-              test (dark-mode status) = 'on' \
-                   && kitty @ --to unix:/tmp/kitty-socket \
-                      set-colors -a -c "~/.config/kitty/dark-theme.conf" \
-                   || kitty @ --to unix:/tmp/kitty-socket \
-                      set-colors -a -c "~/.config/kitty/light-theme.conf" ; \
+# Toggle dark mode.
+# @TODO: avoid a hard-coded path -- can an envar be used?
+sys     < d : ~/.dotfiles-lite/scripts/toggle-dark-mode.sh ; \
               skhd -k 'escape'
 
 # HYPER-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
