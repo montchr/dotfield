@@ -25,8 +25,8 @@ yabai -m config external_bar all:23:23
 yabai -m config layout bsp
 yabai -m config top_padding 6
 yabai -m config bottom_padding 6
-yabai -m config left_padding 12
-yabai -m config right_padding 12
+yabai -m config left_padding 6
+yabai -m config right_padding 6
 yabai -m config window_gap 6
 
 yabai -m space 1 --label 'task'
