@@ -10,6 +10,10 @@
 ;; Enable font ligatures in emacs-mac@27.
 (mac-auto-operator-composition-mode t)
 
+;; Start the emacs server.
+;; Open a new frame with `emacsclient -cn'.
+(server-start)
+
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
