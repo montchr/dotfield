@@ -20,5 +20,5 @@
 	path = intellij/.intellimacs
 	url = git@github.com:MarcoIeni/intellimacs.git
 [submodule "stackline"]
-	path = hammerspoon/.hammerspoon/stackline
+	path = hammerspoon/dot-hammerspoon/stackline
 	url = git@github.com:AdamWagner/stackline.git
