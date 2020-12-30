@@ -33,6 +33,9 @@
 :: warp   @ : yabai -m config active_window_border_color 0xffe5c07b  # Warp and send to desktop/monitors
 :: warpnf @ : yabai -m config active_window_border_color 0xffd19a66  # Same, but don't follow focus
 :: resize @ : yabai -m config active_window_border_color 0xff98c379  # Resize window operations
+# @TODO: use a different color -- this one is copied from warpnf
+:: stack  @ : yabai -m config active_window_border_color 0xffd19a66  # Stack windows
+
 
 # APP LAUNCHER mode
 default < hyper - a ; app
@@ -45,7 +48,7 @@ app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
               -foreground ; \
               skhd -k 'escape'
 
-# _t_erminal (Kitty)
+# _t_erminal (Kitty) -- new os-window
 app     < t : kitty @ --to unix:/tmp/kitty-socket \
               new-window --window-type os ; \
               skhd -k 'escape'
@@ -62,10 +65,10 @@ sys     < d : ~/.dotfiles-lite/scripts/toggle-dark-mode.sh ; \
 
 # HYPER-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
 # always to FOCUS mode. Getting out of any mode can also be done with ESCAPE.
-default                                 < hyper - space     ; focus
-focus, grid, swap, warp, warpnf, resize < hyper - space     ; default
-grid, swap, warp, warpnf, resize < escape                   ; focus
-focus < escape                                              ; default
+default                                 < hyper - space            ; focus
+focus, grid, swap, warp, warpnf, resize, stack < hyper - space     ; default
+grid, swap, warp, warpnf, resize, stack < escape                   ; focus
+focus < escape                                                     ; default
 
 # Restart yabai
 # @todo not compatible with fish shell -- see discussion in https://github.com/koekeishiya/skhd/issues/42
@@ -82,6 +85,7 @@ focus < escape                                              ; default
 focus, grid, swap, warp, warpnf, resize < g                 ; grid 
 focus, grid, swap, warp, warpnf, resize < s                 ; swap
 focus, grid, swap, warp, warpnf, resize < r                 ; resize
+focus, grid, swap, warp, warpnf, resize < t                 ; stack
 focus, grid, swap, warp, warpnf, resize < w                 ; warp
 focus, grid, swap, warp, warpnf, resize < shift - w         ; warpnf
 
