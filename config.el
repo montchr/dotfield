@@ -108,6 +108,9 @@
   :init
   :after (doct))
 
+(use-package! org-web-tools
+  :after (org))
+
 ;; Add doct support to org-roam capture templates.
 (after! doct org-roam
   (defun +doct-org-roam (groups)
