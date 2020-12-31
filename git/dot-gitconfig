@@ -5,7 +5,7 @@
 
 [core]
     excludesfile = ~/.gitignore
-    pager = diff-so-fancy | less -FXRi
+    pager = delta
 
 [alias]
     # Custom graph log (append any tree-ish)
@@ -28,6 +28,10 @@
     branch = auto
     ui = true
     interactive = auto
+[delta]
+    plus-color = "#012800"
+    minus-color = "#340001"
+    syntax-theme = Monokai Extended
 [fetch]
     recurseSubmodules = true
 [help]
@@ -37,6 +41,8 @@
 [init]
     templateDir = ~/.git-templates
     defaultBranch = main
+[interactive]
+    diffFilter = delta --color-only
 [pretty]
     # tut: http://gitimmersion.com/lab_10.html
     # ref: http://linux.die.net/man/1/git-log
