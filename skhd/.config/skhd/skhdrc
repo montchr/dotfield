@@ -126,11 +126,13 @@ focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --m
 # is such a common operation, no modifier keys are used.
 # 
 
-focus           < k                 : yabai -m window --focus north || yabai -m display --focus north
-focus           < j                 : yabai -m window --focus south || yabai -m display --focus south
-focus           < l                 : yabai -m window --focus east || yabai -m display --focus east
-focus           < h                 : yabai -m window --focus west || yabai -m display --focus west
-focus           < return            : yabai -m window --focus biggest
+focus           < k         : yabai -m window --focus north || yabai -m display --focus north
+focus           < j         : yabai -m window --focus south || yabai -m display --focus south
+focus           < l         : yabai -m window --focus east || yabai -m display --focus east
+focus           < h         : yabai -m window --focus west || yabai -m display --focus west
+focus           < shift - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+focus           < n         : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+focus           < return    : yabai -m window --focus biggest
 
 # Change the space focus using numbers corresponding to space or cycle
 # through the spaces using tab and shift - tab combination. You'll see this
@@ -267,6 +269,16 @@ resize          < shift - k         : yabai -m window --resize top:0:48
 resize          < shift - j         : yabai -m window --resize bottom:0:-48 
 resize          < shift - l         : yabai -m window --resize right:-48:0  
 resize          < shift - h         : yabai -m window --resize left:48:0 
+
+# STACK mode -- for moving windows amongst stacks.
+stack    < k                 : yabai -m window --stack north
+stack    < j                 : yabai -m window --stack south
+stack    < l                 : yabai -m window --stack east
+stack    < h                 : yabai -m window --stack west
+stack    < return            : yabai -m window --stack biggest
+# @TODO: command doesn't seem to work, even when running in shell
+# stack    < i                 : hs -c 'stackline.config:toggle("appearance.showIcons")'
+
 
 #
 # YABAI :: errata

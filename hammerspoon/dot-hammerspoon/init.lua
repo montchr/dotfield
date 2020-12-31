@@ -1,4 +1,11 @@
 -- Stackline: yabai stack visualization
 -- https://github.com/AdamWagner/stackline
 stackline = require "stackline.stackline.stackline"
-stackline:init()
+
+local stacklineConfig = {
+  appearance = {
+    showIcons = false,
+  }
+}
+
+stackline:init(stacklineConfig)
