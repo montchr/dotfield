@@ -1,14 +1,16 @@
+# -*- mode: gitconfig -*-
+
 [user]
-        name = "Chris Montgomery"
-        email = "chris@montchr.io"
+    name = "Chris Montgomery"
+    email = "chris@montchr.io"
 
 [credential]
-  helper = "osxkeychain"
+    helper = "osxkeychain"
 [core]
-  editor = "emacsclient -cn"
+    editor = "emacsclient -cn"
 [merge]
-  tool = vscode
+    tool = vscode
 [diff]
-  tool = vscode
+    tool = vscode
 [difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"

@@ -1,8 +1,10 @@
+# -*- mode: gitconfig -*-
+
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+    name = AUTHORNAME
+    email = AUTHOREMAIL
 
 [credential]
-        helper = cache
+    helper = cache
 [core]
-  editor = "emacs -nw"
+    editor = "emacs -nw"
