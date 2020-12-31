@@ -118,20 +118,41 @@ focus, grid, swap, warp, warpnf, resize < x                 : yabai -m space --m
 focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --mirror y-axis           # vertical
 
 
-#
+# 
 # YABAI :: FOCUS mode
 # ========================================
 # Change focus using standard vi directional keys. Enter changes focus to the
-# biggest window. You'll see this theme repeated over and over again. Since this
-# is such a common operation, no modifier keys are used.
+# biggest window. You'll see this theme repeated over and over again.
+#
+# FOCUS mode does a lot of heavy lifting, inferring some "do what I mean" behavior.
+#
+# 
+# If a window doesn't exist in the specified direction, then fall back to
+# focusing the next available display in that direction. If there's no available
+# display, then, as a last resort, try paging through a window stack.
 # 
 
-focus           < k         : yabai -m window --focus north || yabai -m display --focus north
-focus           < j         : yabai -m window --focus south || yabai -m display --focus south
-focus           < l         : yabai -m window --focus east || yabai -m display --focus east
-focus           < h         : yabai -m window --focus west || yabai -m display --focus west
+# UP/DOWN           :
+# 1. window north/south
+# 2. display north/south
+# 3. stack prev/next
+# 4. stack last/first (cycle)
+focus           < k : yabai -m window --focus north || yabai -m display --focus north \
+                              || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+focus           < j : yabai -m window --focus south || yabai -m display --focus south \
+                              || yabai -m window --focus stack.next || yabai -m window --focus stack.first
+
+# LEFT/RIGHT
+# 1. window east/west
+# 2. dispay east/west
+# 3. space next/prev
+focus           < h : yabai -m window --focus west || yabai -m display --focus west || yabai -m space --focus prev
+focus           < l : yabai -m window --focus east || yabai -m display --focus east || yabai -m space --focus next
+
+# Change the window focused in the current stack, cycling around to the beginning/end.
 focus           < shift - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 focus           < n         : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+
 focus           < return    : yabai -m window --focus biggest
 
 # Change the space focus using numbers corresponding to space or cycle
@@ -139,13 +160,13 @@ focus           < return    : yabai -m window --focus biggest
 # pattern repeated when we get WARP mode as well. The non-modified keys will
 # warp to a space, and prefixing with ctrl will warp to a monitor. Again, the
 # goal was to aim for consistency.
-focus           < 1                 : yabai -m space --focus 1
-focus           < 2                 : yabai -m space --focus 2
-focus           < 3                 : yabai -m space --focus 3
-focus           < tab               : yabai -m space --focus next
-focus           < shift - tab       : yabai -m space --focus prev
-focus           < shift - h         : yabai -m space --focus prev
-focus           < shift - l         : yabai -m space --focus next
+focus           < 1           : yabai -m space --focus 1
+focus           < 2           : yabai -m space --focus 2
+focus           < 3           : yabai -m space --focus 3
+focus           < tab         : yabai -m space --focus next
+focus           < shift - tab : yabai -m space --focus prev
+focus           < shift - h   : yabai -m space --focus prev
+focus           < shift - l   : yabai -m space --focus next
 
 # Prefix the above with ctrl to change the monitor focus using numbers
 # corresponding to monitor or cycle through the monitors using tab and shift -
@@ -159,9 +180,10 @@ focus           < ctrl - h           : yabai -m display --focus west
 focus           < ctrl - l           : yabai -m display --focus east
 
 # Change the layout mode of a desktop to one of the three supported modes.
-focus           < ctrl - b           : yabai -m space --layout bsp     # mnemonic: _b_sp
-focus           < ctrl - s           : yabai -m space --layout stack   # mnemonic: _s_tack
-focus           < ctrl - f           : yabai -m space --layout float   # mnemonic: _f_loat
+focus           < shift - b : yabai -m space --layout bsp     # mnemonic: _b_sp
+focus           < shift - s : yabai -m space --layout stack   # mnemonic: _s_tack
+focus           < shift - f : yabai -m space --layout float   # mnemonic: _f_loat
+
 
 #
 # YABAI :: GRID mode
@@ -215,9 +237,14 @@ swap            < return            : yabai -m window --swap biggest
 # whether you are in WARP or WARPNF mode.
 warp, warpnf    < k                 : yabai -m window --warp north
 warp, warpnf    < j                 : yabai -m window --warp south
-warp, warpnf    < l                 : yabai -m window --warp east
-warp, warpnf    < h                 : yabai -m window --warp west
 warp, warpnf    < return            : yabai -m window --warp biggest
+
+# WARP and WARPNF modes handle east/west differenttly
+# @TODO: Handle fallback to display and then space -- but 'following' relies on a sequence
+warp      < l : yabai -m window --warp east || yabai -m window --space next; yabai -m space --focus next
+warp      < h : yabai -m window --warp west || yabai -m window --space prev; yabai -m space --focus prev
+warpnf    < l : yabai -m window --warp east
+warpnf    < h : yabai -m window --warp west
 
 # Warp window to monitor and follow.
 warp            < ctrl - 1           : yabai -m window --display 1; yabai -m display --focus 1
