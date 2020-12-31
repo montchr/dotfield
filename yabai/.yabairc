@@ -50,17 +50,23 @@ yabai -m rule --add app='^Emacs$' title='^$' \
 # @todo what happened?
 # yabai -m rule --add title="^$" manage=off
 
-yabai -m rule --add app=1Password manage=off
+yabai -m rule --add app=1Password title="^$" manage=off
 yabai -m rule --add app=Browserosaurus manage=off
-yabai -m rule --add app=Fantastical manage=off title='^$'
-yabai -m rule --add app=Fantastical title!='^$' space='comm'
+
+# @todo Fantastical menu bar popup has a name, so these rules don't work
+# yabai -m rule --add app=Fantastical manage=off title='^$'
+# yabai -m rule --add app=Fantastical title!='^$' space='comm'
+
 # let firefox exist wherever so multiple windows can exist?
 # yabai -m rule --add app=Firefox space='self'
+
 yabai -m rule --add app=Harvest manage=off
+
 # PhpStorm doesn't seem to get along with yabai?
 # yabai -m rule --add app=PhpStorm space='code'
 # caused yabai to crash?
 # yabai -m rule --add app=PhpStorm title='^$' manage=off
+
 yabai -m rule --add app=Slack space='comm'
 yabai -m rule --add app=Spark space='comm'
 yabai -m rule --add app=Stickies manage=off
