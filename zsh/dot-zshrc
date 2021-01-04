@@ -1,34 +1,148 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+
+#
+# ========================================================================
+# https://github.com/montchr/dots/zsh/dot-zshrc
+#
+# Sources:
+# https://github.com/zdharma/zinit-configs/blob/master/psprint/zshrc.zsh
+# https://github.com/NICHOLAS85/dotfiles/
+#
+# ========================================================================
+#
+
+typeset -g HISTSIZE=290000 SAVEHIST=290000 HISTFILE=~/.zhistory
+
+# Use chpwd_recent_dirs to start new sessions from last working dir
+# Populate dirstack with chpwd history
+autoload -Uz chpwd_recent_dirs add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-file "${TMPDIR}/chpwd-recent-dirs"
+dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]} 2>/dev/null))
+[[ ${PWD} = ${HOME}  || ${PWD} = "." ]] && (){
+  local dir
+  for dir ($dirstack){
+      [[ -d ${dir} ]] && { cd -q ${dir}; break }
+    }
+} 2>/dev/null
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
+ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
+ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
+### Added by Zinit's installer
+if [[ ! -f ${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+  command mkdir -p "${ZINIT_HOME}" && command chmod g-rwX "${ZINIT_HOME}"
+  command git clone https://github.com/zdharma/zinit "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f"
+fi
+source "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
+  zinit-zsh/z-a-rust \
+  zinit-zsh/z-a-as-monitor \
+  zinit-zsh/z-a-patch-dl \
+  zinit-zsh/z-a-bin-gem-node
 
 ### End of Zinit's installer chunk
 
-# 
-# Exports
+
+# zt() : First argument is a wait time and suffix, ie "0a". Anything that
+# doesn't match will be passed as if it were an ice mod. Default ices depth'3'
+# and lucid
+zt()  { zinit depth'3' lucid ${1/#[0-9][a-c]/wait"$1"} "${@:2}"; }
+# zct(): First argument provides $MYPROMPT value used in load'' and unload''
+# ices. Sources a config file with tracking for easy unloading using $MYPROMPT
+# value. Small hack to function in for-syntax
+zct() {
+  thmf="${ZINIT[PLUGINS_DIR]}/_local---config-files/themes"
+  if [[ ${1} != ${MYPROMPT=p10k} ]] && { ___turbo=1; .zinit-ice \
+    load"[[ \${MYPROMPT} = ${1} ]]" unload"[[ \${MYPROMPT} != ${1} ]]" }
+     .zinit-ice atload'! [[ -f "${thmf}/${MYPROMPT}-post.zsh" ]] && source "${thmf}/${MYPROMPT}-post.zsh"' \
+       nocd id-as"${1}-theme";
+     ICE+=("${(kv)ZINIT_ICES[@]}"); ZINIT_ICES=();
+}
+
+# Initial Prompt
+# Annexes
+# Config Source
+# ================================================
+
+zt light-mode for \
+  pick'async.zsh' \
+    mafredri/zsh-async \
+    romkatv/powerlevel10k
+
+zt for \
+  if'zct dolphin' \
+    zdharma/null \
+  if'zct p10k' \
+    zdharma/null
+
+zt light-mode compile'*handler' for \
+  zinit-zsh/z-a-patch-dl \
+  zinit-zsh/z-a-bin-gem-node \
+  zinit-zsh/z-a-submods
+
+# Load config files plugin.
+zt light-mode blockf for \
+  _local/config-files
+
+#
+# Plugins
+# ================================================
+
+zt atinit'HISTFILE="${HOME}/.histfile"' for \
+  OMZL::history.zsh
+
+# Trigger-load block
+zt light-mode for \
+  trigger-load'!x' \
+    OMZ::plugins/extract/extract.plugin.zsh \
+  trigger-load'!man' \
+    ael-code/zsh-colored-man-pages \
+  trigger-load'!ga;!gcf;!gclean;!gd;!glo;!grh;!gss' \
+    wfxr/forgit \
+  trigger-load'!zshz' blockf \
+    agkozak/zsh-z \
+  trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
+    atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
+    RobSis/zsh-completion-generator
+
+zt 0a light-mode for \
+    OMZL::completion.zsh \
+  if'false' ver'dev' \
+    marlonrichert/zsh-autocomplete \
+  has'systemctl' \
+    OMZP::systemd/systemd.plugin.zsh \
+    OMZP::sudo/sudo.plugin.zsh \
+  blockf \
+    zsh-users/zsh-completions \
+  compile'{src/*.zsh,src/strategies/*}' pick'zsh-autosuggestions.zsh' \
+  atload'_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+  pick'fz.sh' atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert __fz_zsh_completion)' \
+    changyuheng/fz
+
+
+
+
+
+#
+# Abbreviations
 #
 
-export EDITOR="emacsclient -cn"
-export CDOM_DOOM_EMACS_THEME_DARK="doom-monokai-pro"
-export CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain"
 
-#
-# Aliases
-# 
+# @TODO abbreviations: https://github.com/olets/zsh-abbr
+# abbr gbn '(git rev-parse --abbrev-ref HEAD)'
+# abbr gbl 'git branch -a --sort=-committerdate'
