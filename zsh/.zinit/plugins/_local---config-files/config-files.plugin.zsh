@@ -21,8 +21,8 @@ thmf="${0:h}/themes"
 GENCOMPL_FPATH="${0:h}/completions"
 WD_CONFIG="${ZPFX}/warprc"
 ZSHZ_DATA="${ZPFX}/z"
-# AUTOENV_AUTH_FILE="${ZPFX}/autoenv_auth"
-# export CUSTOMIZEPKG_CONFIG="${HOME}/.config/customizepkg"
+AUTOENV_AUTH_FILE="${ZPFX}/autoenv_auth"
+export CUSTOMIZEPKG_CONFIG="${HOME}/.config/customizepkg"
 
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -46,13 +46,13 @@ export \
 
 # GPG
 # https://unix.stackexchange.com/questions/217737/pinentry-fails-with-gpg-agent-and-ssh
-export GPG_TTY='/usr/bin/tty'
-export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+# export GPG_TTY='/usr/bin/tty'
+# export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
 # SND
-export SND="$HOME/Music/0-sounds-0"
-export SNDS="$HOME/Music/0-sounds-0/-- samples --"
-export SNDBACKUPS="$HOME/Music/0-sounds-0/--- backup ---"
+# export SND="$HOME/Music/0-sounds-0"
+# export SNDS="$HOME/Music/0-sounds-0/-- samples --"
+# export SNDBACKUPS="$HOME/Music/0-sounds-0/--- backup ---"
 
 # nvm
 export NODE_VERSIONS="~/.nvm/versions/node/"

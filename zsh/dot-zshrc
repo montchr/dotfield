@@ -10,7 +10,15 @@
 # ========================================================================
 #
 
-typeset -g HISTSIZE=290000 SAVEHIST=290000 HISTFILE=~/.zhistory
+typeset -g \
+  HISTSIZE=290000 \
+  SAVEHIST=290000 \
+  HISTFILE=~/.zhistory \
+  ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
+
+(( ABSD )) && {
+    export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
+}
 
 # Use chpwd_recent_dirs to start new sessions from last working dir
 # Populate dirstack with chpwd history
@@ -21,8 +29,8 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
 [[ ${PWD} = ${HOME}  || ${PWD} = "." ]] && (){
   local dir
   for dir ($dirstack){
-      [[ -d ${dir} ]] && { cd -q ${dir}; break }
-    }
+    [[ -d ${dir} ]] && { cd -q ${dir}; break }
+  }
 } 2>/dev/null
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -116,11 +124,11 @@ zt light-mode for \
   trigger-load'!zshz' blockf \
     agkozak/zsh-z \
   trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
-    atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
+  atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
     RobSis/zsh-completion-generator
 
 zt 0a light-mode for \
-    OMZL::completion.zsh \
+  OMZL::completion.zsh \
   if'false' ver'dev' \
     marlonrichert/zsh-autocomplete \
   has'systemctl' \
@@ -135,8 +143,53 @@ zt 0a light-mode for \
     changyuheng/fz
 
 
+zt 0b light-mode for \
+  # @TODO: doesn't work out of the box for macOS
+  # trapd00r/LS_COLORS \
+  compile'{hsmw-*,test/*}' \
+    zdharma/history-search-multi-word \
+    OMZP::command-not-found/command-not-found.plugin.zsh \
+  pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
+    hlissner/zsh-autopair \
+  trackbinds patch"$pchf/%PLUGIN%.patch" \
+  reset pick'dircycle.zsh' \
+    michaelxmcbride/zsh-dircycle \
+  autoload'#manydots-magic' \
+    knu/zsh-manydots-magic \
+  pick'autoenv.zsh' nocompletions \
+    Tarrasch/zsh-autoenv \
+  atinit'zicompinit_fast; zicdreplay' atload'FAST_HIGHLIGHT[chroma-man]=' \
+    zdharma/fast-syntax-highlighting \
+  atload'bindkey "$terminfo[kcuu1]" history-substring-search-up;
+    bindkey "$terminfo[kcud1]" history-substring-search-down' \
+      zsh-users/zsh-history-substring-search \
+  as'completion' mv'*.zsh -> _git' \
+    felipec/git-completion
 
 
+zt 0c light-mode for \
+  pack'bgn-binary' \
+    junegunn/fzf \
+  from'gh-r' as'program' \
+    sei40kr/fast-alias-tips-bin \
+    sei40kr/zsh-fast-alias-tips
+
+zt 0c light-mode binary for \
+  sbin'fd*/fd;fd*/fd -> fdfind' from"gh-r" \
+    @sharkdp/fd \
+  sbin'bin/git-ignore' atload'export GI_TEMPLATE="$PWD/.git-ignore"; alias gi="git-ignore"' \
+    laggardkernel/git-ignore
+
+zt 0c light-mode null for \
+  sbin"bin/git-dsf;bin/diff-so-fancy" \
+    zdharma/zsh-diff-so-fancy \
+  sbin \
+    paulirish/git-open \
+  sbin'*/rm-trash' atload'alias rm="rm-trash ${rm_opts}"' reset \
+  patch"$pchf/%PLUGIN%.patch" \
+    nateshmbhat/rm-trash \
+  id-as'Cleanup' nocd atinit'unset -f zct zt; SPACESHIP_PROMPT_ADD_NEWLINE=true; _zsh_autosuggest_bind_widgets' \
+    zdharma/null
 
 #
 # Abbreviations
