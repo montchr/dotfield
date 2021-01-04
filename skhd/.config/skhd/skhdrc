@@ -240,10 +240,11 @@ warp, warpnf    < return            : yabai -m window --warp biggest
 
 # WARP and WARPNF modes handle east/west differenttly
 # @TODO: Handle fallback to display and then space -- but 'following' relies on a sequence
-warp      < l : yabai -m window --warp east || yabai -m window --space next; yabai -m space --focus next
-warp      < h : yabai -m window --warp west || yabai -m window --space prev; yabai -m space --focus prev
-warpnf    < l : yabai -m window --warp east
-warpnf    < h : yabai -m window --warp west
+# @TODO: Query for additional window in the specified direction before attempting to warp to the next space
+# warp      < l : yabai -m window --warp east || yabai -m window --space next; yabai -m space --focus next
+# warp      < h : yabai -m window --warp west || yabai -m window --space prev; yabai -m space --focus prev
+warp, warpnf    < l : yabai -m window --warp east
+warp, warpnf    < h : yabai -m window --warp west
 
 # Warp window to monitor and follow.
 warp            < ctrl - 1           : yabai -m window --display 1; yabai -m display --focus 1
