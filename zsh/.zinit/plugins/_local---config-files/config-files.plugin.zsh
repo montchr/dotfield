@@ -62,10 +62,12 @@ export \
 # export SNDS="$HOME/Music/0-sounds-0/-- samples --"
 # export SNDBACKUPS="$HOME/Music/0-sounds-0/--- backup ---"
 
-# nvm
+# nvm / node
+export NVM_SYMLINK_CURRENT='true'
+export NVM_DIR="$HOME/.nvm"
+export NVM_LAZY_LOAD=true
 export NODE_VERSIONS="~/.nvm/versions/node/"
 export NODE_VERSION_PREFIX='v'
-export NVM_SYMLINK_CURRENT='true'
 
 # Personal preferences.
 export \
