@@ -4,7 +4,7 @@
 <plist version="1.0">
   <dict>
     <key>Program</key>
-    <string>/Users/chrismontgomery/.dotfiles-lite/rclone/io.cdom.rclone.mount.silo.sh</string>
+    <string>/Users/chrismontgomery/.dots/rclone/.scripts/io.cdom.rclone.mount.silo.sh</string>
 
     <key>Label</key>
     <string>io.cdom.rclone.mount.silo</string>
