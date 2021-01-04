@@ -70,7 +70,7 @@ sys     < escape    ; default
 
 # Toggle dark mode.
 # @TODO: avoid a hard-coded path -- can an envar be used? `$DOTS` didn't work
-sys     < d : ~/.dotfiles-lite/scripts/toggle-dark-mode.sh ; \
+sys     < d : ~/.dots/scripts/toggle-dark-mode.sh ; \
               skhd -k 'escape'
 
 
@@ -86,8 +86,7 @@ grid, swap, warp, warpnf, resize, stack < escape                   ; focus
 focus < escape                                                     ; default
 
 # Restart yabai
-# @todo not compatible with fish shell -- see discussion in https://github.com/koekeishiya/skhd/issues/42
-# default < hyper - y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+default < hyper - y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Once in FOCUS mode (or any other mode other than default), you can switch
 # modes with single keystroke. (mnemonic: letter corresponds to first letter of
