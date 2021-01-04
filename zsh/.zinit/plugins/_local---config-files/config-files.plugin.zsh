@@ -104,9 +104,9 @@ else
 fi
 
 
-#########################
-#       Aliases         #
-#########################
+# - - - - - - - - - - - - - - - - - - - -
+# Aliases
+# - - - - - - - - - - - - - - - - - - - -
 
 # Access zsh config files
 alias zshconf="(){ setopt extendedglob local_options; e ${HOME}/.zshrc ${0:h}/config-files.plugin.zsh ${0:h}/themes/\${MYPROMPT}-*~*.zwc }"
@@ -124,13 +124,13 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
 # Listing files
+# @TODO use lsd
 alias l='exa --all --oneline'
 alias ll='exa -Flagh --git'
 alias la='exa -Fal'
 alias lld='exa -Flagh --git --group-directories-first'
 alias ld='exa -D1'
 alias tree='exa --tree'
-alias ls='grc ls'
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -139,7 +139,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Simple swapping
-# alias rm="trash" # macOS only
 alias search="fd"
 alias cat="bat"
 
@@ -244,9 +243,10 @@ alias chrome-debug="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chro
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
-#########################
-#         Other         #
-#########################
+
+# - - - - - - - - - - - - - - - - - - - -
+# Miscellaneous
+# - - - - - - - - - - - - - - - - - - - -
 
 bindkey -v                  # VI bindings
 setopt append_history       # Allow multiple terminal sessions to all append to one zsh command history
