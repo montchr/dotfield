@@ -48,7 +48,6 @@ Thumbs.db
 *.orig
 *.pyc
 *.rej
-*.sass-cache
 *.sw?
 *.vi
 *.bak
@@ -56,10 +55,10 @@ Thumbs.db
 # Credentials and Sensitive Info
 sftp-config.json
 .env
-.timetrap-sheet
 TODO
 .envrc
 .scratch
+*localrc
 
 # Other stuff
 upgrade
