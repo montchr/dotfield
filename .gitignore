@@ -6,33 +6,13 @@ Brewfile.lock.json
 
 *.taskpaper
 
-.viminfo
-.netrwhist
-tmp-jhbuild-revision
-vim/bundle/*
-!vim/bundle/Vundle.vim
-
-# Beets etc.
-library.db
-state.pickle
-discogs_token.json
-local-config.yaml
-whatlastgenre/config
-whatlastgenre/cache
-betanin/config.toml
-
 node_modules
-
-# Antigen should be installed to this location during initial dotfiles install
-zsh/antigen.zsh
 
 # Ignore repos contained within
 perspective-icons
 hcl/config
 beets/beets
 emacs/emacs.d
-
-fish_variables
 
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the
