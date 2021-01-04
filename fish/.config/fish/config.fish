@@ -41,5 +41,3 @@ function vterm_printf
 end
 
 fish_ssh_agent
-
-source $HOME/.phpbrew/phpbrew.fish
