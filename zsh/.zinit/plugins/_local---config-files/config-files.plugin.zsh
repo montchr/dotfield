@@ -12,9 +12,17 @@ autoload -Uz $fpath[1]/*(.:t)
 
 add-zsh-hook chpwd chpwd_ls
 
-#########################
-#       Variables       #
-#########################
+# - - - - - - - - - - - - - - - - - - - -
+# PATH Modifications
+# - - - - - - - - - - - - - - - - - - - -
+
+# Doom Emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Variables
+# - - - - - - - - - - - - - - - - - - - -
 
 pchf="${0:h}/patches"
 thmf="${0:h}/themes"
