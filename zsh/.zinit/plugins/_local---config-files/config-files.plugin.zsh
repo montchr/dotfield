@@ -89,21 +89,21 @@ FZF_DEFAULT_OPTS="
 "
 FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 
-AUTO_LS_COMMANDS="colorls"
+AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
 FZ_HISTORY_CD_CMD=zshz
 ZSHZ_CMD="" # Don't set the alias, fz will cover that
 ZSHZ_UNCOMMON=1
-# forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
+forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
 
 
 # Export variables when connected via SSH
 if [[ -n $SSH_CONNECTION ]]; then
   export DISPLAY=:0
-  alias ls="lsd --group-dirs=first --icon=never"
+  alias ls="exa --group-directories-first"
 else
-  alias ls='lsd --group-dirs=first'
+  alias ls="exa --group-directories-first --icons"
 fi
 
 
@@ -124,7 +124,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
 # Listing files
-# @TODO use lsd
 alias l='exa --all --oneline'
 alias ll='exa -Flagh --git'
 alias la='exa -Fal'
@@ -247,7 +246,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 # Miscellaneous
 # - - - - - - - - - - - - - - - - - - - -
 
-bindkey -v                  # VI bindings
+bindkey -e                  # Emacs bindings
 setopt append_history       # Allow multiple terminal sessions to all append to one zsh command history
 setopt hist_ignore_all_dups # delete old recorded entry if new entry is a duplicate.
 setopt no_beep              # don't beep on error
