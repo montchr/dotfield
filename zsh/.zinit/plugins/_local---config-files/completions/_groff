@@ -1,0 +1,48 @@
+#compdef groff
+
+# zsh completions for 'groff'
+# automatically generated with http://github.com/RobSis/zsh-completion-generator
+local arguments
+
+arguments=(
+  '-h[print this message]'
+  '-t[preprocess with tbl]'
+  '-p[preprocess with pic]'
+  '-e[preprocess with eqn]'
+  '-g[preprocess with grn]'
+  '-G[preprocess with grap]'
+  '-s[preprocess with soelim]'
+  '-R[preprocess with refer]'
+  '-Tdev[use device dev]'
+  '-X[use X11 previewer rather than usual postprocessor]'
+  '-mname[read macros tmac.name]'
+  '-dcs[define a string c as s]'
+  '-rcn[define a number register c as n]'
+  '-nnum[number first page n]'
+  '-olist[output only pages in list]'
+  '-ffam[use fam as the default font family]'
+  '-Fdir[search dir for device directories]'
+  '-Mdir[search dir for macro files]'
+  '-v[print version number]'
+  '-z[suppress formatted output]'
+  '-Z[dont postprocess]'
+  '-a[produce ASCII description of output]'
+  '-i[read standard input after named input files]'
+  '-wname[enable warning name]'
+  '-Wname[inhibit warning name]'
+  '-E[inhibit all errors]'
+  '-b[print backtraces with errors or warnings]'
+  '-l[spool the output]'
+  '-c[disable color output]'
+  '-C[enable compatibility mode]'
+  '-V[print commands on stdout instead of running them]'
+  '-Parg[pass arg to the postprocessor]'
+  '-Larg[pass arg to the spooler]'
+  '-N[dont allow newlines within eqn delimiters]'
+  '-S[enable safer mode (the default)]'
+  '-U[enable unsafe mode]'
+  '-Idir[search dir for soelim, troff, and grops.  Implies -s]'
+  '*:filename:_files'
+)
+
+_arguments -s $arguments

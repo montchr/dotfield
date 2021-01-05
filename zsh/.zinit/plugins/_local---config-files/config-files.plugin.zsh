@@ -12,13 +12,6 @@ autoload -Uz $fpath[1]/*(.:t)
 
 add-zsh-hook chpwd chpwd_ls
 
-# - - - - - - - - - - - - - - - - - - - -
-# PATH Modifications
-# - - - - - - - - - - - - - - - - - - - -
-
-# Doom Emacs
-export PATH="$HOME/.emacs.d/bin:$PATH"
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # Variables
@@ -46,11 +39,19 @@ export rm_opts=(-I -v)
 
 export \
   EDITOR="emacsclient -cn" \
-  DOTS="${HOME}/.dots" \
   GIT_EDITOR="${EDITOR}" \
   GIT_PRIMARY_BRACH="main" \
   SYSTEMD_EDITOR=${EDITOR}
 
+
+#
+# PATH Modifications
+#
+
+export PATH="$DOTS/bin:$PATH"
+
+# Doom Emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 # GPG
 # https://unix.stackexchange.com/questions/217737/pinentry-fails-with-gpg-agent-and-ssh
@@ -110,9 +111,6 @@ fi
 # Aliases
 # - - - - - - - - - - - - - - - - - - - -
 
-# Access zsh config files
-alias zshconf="(){ setopt extendedglob local_options; e ${HOME}/.zshrc ${0:h}/config-files.plugin.zsh ${0:h}/themes/\${MYPROMPT}-*~*.zwc }"
-
 alias e='emacsclient -t'
 alias ec='emacsclient -cn'
 alias g="git"
@@ -141,7 +139,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Simple swapping
-alias search="fd"
 alias cat="bat"
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -257,7 +254,7 @@ setopt no_beep              # don't beep on error
 setopt auto_cd              # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
 setopt multios              # perform implicit tees or cats when multiple redirections are attempted
 setopt prompt_subst         # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
-setopt interactive_comments # Allow comments even in interactive shells (especially for Muness)
+setopt interactive_comments # Allow comments even in interactive shells
 setopt pushd_ignore_dups    # don't push multiple copies of the same directory onto the directory stack
 setopt auto_pushd           # make cd push the old directory onto the directory stack
 setopt pushdminus           # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean
@@ -286,3 +283,5 @@ zstyle ':completion:*' rehash true
 
 bindkey -s '^[[5~' ''            # Do nothing on pageup and pagedown. Better than printing '~'.
 bindkey -s '^[[6~' ''
+
+. "$HOME/.localrc"

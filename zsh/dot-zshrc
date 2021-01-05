@@ -1,14 +1,44 @@
-
 #
 # ========================================================================
+#
+# Chris Montgomery's ZSH Configuration
+#
 # https://github.com/montchr/dots/zsh/dot-zshrc
 #
 # Sources:
-# https://github.com/zdharma/zinit-configs/blob/master/psprint/zshrc.zsh
+# https://github.com/zdharma/zinit-configs/
 # https://github.com/NICHOLAS85/dotfiles/
 #
 # ========================================================================
 #
+
+# - - - - - - - - - - - - - - - - - - - -
+# Profiling Tools
+# - - - - - - - - - - - - - - - - - - - -
+
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    zmodload zsh/zprof
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2>$HOME/startlog.$$
+    setopt xtrace prompt_subst
+fi
+
+# - - - - - - - - - - - - - - - - - - - -
+# Instant Prompt
+# - - - - - - - - - - - - - - - - - - - -
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# - - - - - - - - - - - - - - - - - - - -
+# Zsh Core Configuration
+# - - - - - - - - - - - - - - - - - - - -
 
 typeset -g \
   HISTSIZE=290000 \
@@ -19,6 +49,17 @@ typeset -g \
 (( ABSD )) && {
     export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
 }
+
+# Requred by Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export DOTFILES="$HOME/.dotfiles"
+export DOTS="$HOME/.dots"
+export ZSH_DOTS="$DOTS/zsh"
+
+export CACHEDIR="$HOME/.local/share"
+[[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 
 # Use chpwd_recent_dirs to start new sessions from last working dir
 # Populate dirstack with chpwd history
@@ -33,12 +74,6 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
   }
 } 2>/dev/null
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
 ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
@@ -69,38 +104,19 @@ zinit light-mode for \
 # doesn't match will be passed as if it were an ice mod. Default ices depth'3'
 # and lucid
 zt()  { zinit depth'3' lucid ${1/#[0-9][a-c]/wait"$1"} "${@:2}"; }
-# zct(): First argument provides $MYPROMPT value used in load'' and unload''
-# ices. Sources a config file with tracking for easy unloading using $MYPROMPT
-# value. Small hack to function in for-syntax
-zct() {
-  thmf="${ZINIT[PLUGINS_DIR]}/_local---config-files/themes"
-  if [[ ${1} != ${MYPROMPT=p10k} ]] && { ___turbo=1; .zinit-ice \
-    load"[[ \${MYPROMPT} = ${1} ]]" unload"[[ \${MYPROMPT} != ${1} ]]" }
-     .zinit-ice atload'! [[ -f "${thmf}/${MYPROMPT}-post.zsh" ]] && source "${thmf}/${MYPROMPT}-post.zsh"' \
-       nocd id-as"${1}-theme";
-     ICE+=("${(kv)ZINIT_ICES[@]}"); ZINIT_ICES=();
-}
 
+# - - - - - - - - - - - - - - - - - - - -
 # Initial Prompt
 # Annexes
 # Config Source
-# ================================================
+# - - - - - - - - - - - - - - - - - - - -
 
 zt light-mode for \
   pick'async.zsh' \
     mafredri/zsh-async \
-    romkatv/powerlevel10k
 
-zt for \
-  if'zct dolphin' \
-    zdharma/null \
-  if'zct p10k' \
-    zdharma/null
-
-zt light-mode compile'*handler' for \
-  zinit-zsh/z-a-patch-dl \
-  zinit-zsh/z-a-bin-gem-node \
-  zinit-zsh/z-a-submods
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
 
 # Load config files plugin.
 zt light-mode blockf for \
@@ -108,7 +124,7 @@ zt light-mode blockf for \
 
 #
 # Plugins
-# ================================================
+# - - - - - - - - - - - - - - - - - - - -
 
 zt atinit'HISTFILE="${HOME}/.histfile"' for \
   OMZL::history.zsh
@@ -136,7 +152,6 @@ zt 0a light-mode for \
     OMZP::sudo/sudo.plugin.zsh \
   blockf \
     zsh-users/zsh-completions \
-  compile'{src/*.zsh,src/strategies/*}' pick'zsh-autosuggestions.zsh' \
   atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   pick'fz.sh' atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert __fz_zsh_completion)' \
@@ -144,11 +159,6 @@ zt 0a light-mode for \
 
 
 zt 0b light-mode for \
-  # @TODO: doesn't work out of the box for macOS
-  # trapd00r/LS_COLORS \
-  compile'{hsmw-*,test/*}' \
-    zdharma/history-search-multi-word \
-    OMZP::command-not-found/command-not-found.plugin.zsh \
   pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
     hlissner/zsh-autopair \
   trackbinds patch"$pchf/%PLUGIN%.patch" \
@@ -158,13 +168,13 @@ zt 0b light-mode for \
     knu/zsh-manydots-magic \
   pick'autoenv.zsh' nocompletions \
     Tarrasch/zsh-autoenv \
-  atinit'zicompinit_fast; zicdreplay' atload'FAST_HIGHLIGHT[chroma-man]=' \
-    zdharma/fast-syntax-highlighting \
-  atload'bindkey "$terminfo[kcuu1]" history-substring-search-up;
-    bindkey "$terminfo[kcud1]" history-substring-search-down' \
-      zsh-users/zsh-history-substring-search \
   as'completion' mv'*.zsh -> _git' \
-    felipec/git-completion
+    felipec/git-completion \
+  zsh-users/zsh-history-substring-search \
+  zdharma/history-search-multi-word \
+  OMZP::command-not-found \
+  atinit'zicompinit; zicdreplay' \
+    zdharma/fast-syntax-highlighting
 
 
 zt 0c light-mode for \
@@ -191,7 +201,7 @@ zt 0c light-mode null for \
   sbin'*/rm-trash' atload'alias rm="rm-trash ${rm_opts}"' reset \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash \
-  id-as'Cleanup' nocd atinit'unset -f zct zt; SPACESHIP_PROMPT_ADD_NEWLINE=true; _zsh_autosuggest_bind_widgets' \
+  id-as'Cleanup' nocd atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
 
 #
@@ -202,3 +212,17 @@ zt 0c light-mode null for \
 # @TODO abbreviations: https://github.com/olets/zsh-abbr
 # abbr gbn '(git rev-parse --abbrev-ref HEAD)'
 # abbr gbl 'git branch -a --sort=-committerdate'
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# End Profiling Script
+# - - - - - - - - - - - - - - - - - - - -
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+    zprof > ~/zshprofile$(date +'%s')
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
