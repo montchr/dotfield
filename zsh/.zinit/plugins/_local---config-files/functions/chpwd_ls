@@ -1,2 +1,2 @@
 emulate -L zsh
-lsd --group-dirs=first
+exa --group-directories-first
