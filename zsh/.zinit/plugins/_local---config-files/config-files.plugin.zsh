@@ -246,7 +246,16 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 # Miscellaneous
 # - - - - - - - - - - - - - - - - - - - -
 
-bindkey -e                  # Emacs bindings
+bindkey -v                  # Vi bindings
+bindkey "^A"      beginning-of-line     "^E"      end-of-line
+bindkey "^?"      backward-delete-char  "^H"      backward-delete-char
+bindkey "^W"      backward-kill-word    "\e[1~"   beginning-of-line
+bindkey "\e[7~"   beginning-of-line     "\e[H"    beginning-of-line
+bindkey "\e[4~"   end-of-line           "\e[8~"   end-of-line
+bindkey "\e[F"    end-of-line           "\e[3~"   delete-char
+bindkey "^J"      accept-line           "^M"      accept-line
+bindkey "^T"      accept-line           "^R"      history-incremental-search-backward
+
 setopt append_history       # Allow multiple terminal sessions to all append to one zsh command history
 setopt hist_ignore_all_dups # delete old recorded entry if new entry is a duplicate.
 setopt no_beep              # don't beep on error
