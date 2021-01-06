@@ -194,7 +194,15 @@ zt 0b light-mode for \
     autoload'#manydots-magic' \
         knu/zsh-manydots-magic \
     pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
-        hlissner/zsh-autopair
+        hlissner/zsh-autopair \
+    reset \
+    atclone"local P=${${(M)OSTYPE:#*darwin*}:+g}
+            \${P}sed -i \
+            '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
+            \${P}dircolors -b LS_COLORS > c.zsh" \
+    atpull'%atclone' pick"c.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"' \
+        trapd00r/LS_COLORS
 
 zt 0b light-mode from'gh-r' as'program' for \
     junegunn/fzf \
