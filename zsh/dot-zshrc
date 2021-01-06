@@ -229,8 +229,6 @@ zt 0c light-mode atinit"
 
 
 zt 0c light-mode binary for \
-  as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd" \
-    @sharkdp/fd \
   sbin'bin/git-ignore' atload'export GI_TEMPLATE="$PWD/.git-ignore"; alias gi="git-ignore"' \
     laggardkernel/git-ignore
 
