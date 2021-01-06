@@ -53,10 +53,14 @@ typeset -g \
 # Requred by Homebrew
 export PATH="/usr/local/sbin:$PATH"
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export DOTFILES="$HOME/.dotfiles"
-export DOTS="$HOME/.dots"
-export ZSH_DOTS="$DOTS/zsh"
+export \
+    XDG_CONFIG_HOME="$HOME/.config" \
+    DOTFILES="$HOME/.dotfiles" \
+    DOTS="$HOME/.dots" \
+    ZSH_DOTS="$DOTS/zsh" \
+  EDITOR="emacsclient -cn" \
+  GIT_EDITOR="${EDITOR}" \
+  SYSTEMD_EDITOR=${EDITOR}
 
 export CACHEDIR="$HOME/.local/share"
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
@@ -126,8 +130,39 @@ zt light-mode blockf for \
 # Plugins
 # - - - - - - - - - - - - - - - - - - - -
 
-zt atinit'HISTFILE="${HOME}/.histfile"' for \
-  OMZL::history.zsh
+# setopt promptsubst
+
+    # atinit"
+    #     ZSH_TMUX_FIXTERM=true
+    #     ZSH_TMUX_AUTOSTART=true
+    #     ZSH_TMUX_AUTOCONNECT=true
+    # " \
+    #     OMZP::tmux \
+
+# Explanation:
+# - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
+# - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
+zt for \
+    atinit"HIST_STAMPS=yyyy.mm.dd" \
+        OMZL::history.zsh
+
+zt 0a for \
+    atload"
+        alias ..='cd .. 2>/dev/null || cd "$(dirname $PWD)"' # Allows leaving from deleted directories
+        alias ...='cd ../..'
+        alias ....='cd ../../..'
+        alias .....='cd ../../../..'
+        alias ......='cd ../../../../..'
+    " \
+        OMZL::directories.zsh \
+    OMZL::git.zsh \
+    OMZL::grep.zsh \
+    OMZL::termsupport.zsh \
+    OMZP::git \
+    OMZP::command-not-found \
+    skywind3000/z.lua \
+    djui/alias-tips \
+    chriskempson/base16-shell
 
 # Trigger-load block
 zt light-mode for \
@@ -136,59 +171,65 @@ zt light-mode for \
   trigger-load'!man' \
     ael-code/zsh-colored-man-pages \
   trigger-load'!ga;!gcf;!gclean;!gd;!glo;!grh;!gss' \
-    wfxr/forgit \
-  trigger-load'!zshz' blockf \
-    agkozak/zsh-z \
-  trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
-  atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
-    RobSis/zsh-completion-generator
+    wfxr/forgit
 
-zt 0a light-mode for \
-  OMZL::completion.zsh \
-  if'false' ver'dev' \
-    marlonrichert/zsh-autocomplete \
-  has'systemctl' \
-    OMZP::systemd/systemd.plugin.zsh \
-    OMZP::sudo/sudo.plugin.zsh \
-  blockf \
-    zsh-users/zsh-completions \
+zt 0a for \
   atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
-  pick'fz.sh' atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert __fz_zsh_completion)' \
-    changyuheng/fz
-
+  if'false' ver'dev' \
+    marlonrichert/zsh-autocomplete \
+  pick'autoenv.zsh' nocompletions \
+    Tarrasch/zsh-autoenv
 
 zt 0b light-mode for \
-  pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
-    hlissner/zsh-autopair \
-  trackbinds patch"$pchf/%PLUGIN%.patch" \
-  reset pick'dircycle.zsh' \
-    michaelxmcbride/zsh-dircycle \
-  autoload'#manydots-magic' \
-    knu/zsh-manydots-magic \
-  pick'autoenv.zsh' nocompletions \
-    Tarrasch/zsh-autoenv \
-  as'completion' mv'*.zsh -> _git' \
-    felipec/git-completion \
-  zsh-users/zsh-history-substring-search \
-  zdharma/history-search-multi-word \
-  OMZP::command-not-found \
-  atinit'zicompinit; zicdreplay' \
-    zdharma/fast-syntax-highlighting
+    atload'export ENHANCD_FILTER=fzf:fzy:peco' \
+        b4b4r07/enhancd \
+    atload'
+        bindkey "$terminfo[kcuu1]" history-substring-search-up;
+        bindkey "$terminfo[kcud1]" history-substring-search-down;
+        bindkey "^[[A" history-substring-search-up;
+        bindkey "^[[B" history-substring-search-down;
+        bindkey -M vicmd "k" history-substring-search-up;
+        bindkey -M vicmd "j" history-substring-search-down;
+    ' \
+        zsh-users/zsh-history-substring-search \
+    bindmap"^R -> ^H" atinit"
+        zstyle :history-search-multi-word page-size 10
+        zstyle :history-search-multi-word highlight-color fg=red,bold
+        zstyle :plugin:history-search-multi-word reset-prompt-protect 1
+    " \
+      zdharma/history-search-multi-word \
+    autoload'#manydots-magic' \
+        knu/zsh-manydots-magic \
+    pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
+        hlissner/zsh-autopair
 
-
-zt 0c light-mode for \
-  pack'bgn-binary' \
+zt 0b light-mode from'gh-r' as'program' for \
     junegunn/fzf \
-  from'gh-r' as'program' \
     sei40kr/fast-alias-tips-bin \
     sei40kr/zsh-fast-alias-tips
 
+
+# Load additional fzf helpers
 zt 0c light-mode for \
-  lukechilds/zsh-nvm
+    as"command" pick"bin/fzf-tmux" \
+        junegunn/fzf \
+    multisrc"shell/{completion,key-bindings}.zsh" \
+    id-as"junegunn/fzf_completions" \
+    pick"/dev/null" \
+        junegunn/fzf
+
+zt 0c light-mode atinit"
+    typeset -gA FAST_HIGHLIGHT;
+    FAST_HIGHLIGHT[git-cmsg-len]=100;
+    ZINIT[COMPINIT_OPTS]=-C;
+    zicompinit;
+    zicdreplay;
+  " for zdharma/fast-syntax-highlighting
+
 
 zt 0c light-mode binary for \
-  sbin'fd*/fd;fd*/fd -> fdfind' from"gh-r" \
+  as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd" \
     @sharkdp/fd \
   sbin'bin/git-ignore' atload'export GI_TEMPLATE="$PWD/.git-ignore"; alias gi="git-ignore"' \
     laggardkernel/git-ignore
@@ -198,11 +239,24 @@ zt 0c light-mode null for \
     zdharma/zsh-diff-so-fancy \
   sbin \
     paulirish/git-open \
-  sbin'*/rm-trash' atload'alias rm="rm-trash ${rm_opts}"' reset \
+  sbin'*/rm-trash' reset \
   patch"$pchf/%PLUGIN%.patch" \
-    nateshmbhat/rm-trash \
-  id-as'Cleanup' nocd atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
+    nateshmbhat/rm-trash
+
+zt 1a for \
+  Aloxaf/fzf-tab \
+  lukechilds/zsh-nvm \
+  zdharma/zui \
+  zdharma/zbrowse
+
+zt 1b blockf atpull'zinit creinstall -q .' atload"zicompinit; zicdreplay" for zsh-users/zsh-completions
+
+
+zt 1b for \
+  id-as'Cleanup' nocd \
+  atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
+
 
 #
 # Abbreviations
@@ -212,6 +266,14 @@ zt 0c light-mode null for \
 # @TODO abbreviations: https://github.com/olets/zsh-abbr
 # abbr gbn '(git rev-parse --abbrev-ref HEAD)'
 # abbr gbl 'git branch -a --sort=-committerdate'
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Miscellaneous
+# - - - - - - - - - - - - - - - - - - - -
+
+zinit is-snippet for \
+    if"[[ -f $HOME/.localrc  ]]" $HOME/.localrc
 
 
 # - - - - - - - - - - - - - - - - - - - -

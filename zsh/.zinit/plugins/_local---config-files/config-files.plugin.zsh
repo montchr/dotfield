@@ -35,14 +35,8 @@ FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
 export OPENCV_LOG_LEVEL=ERROR # Hide nonimportant errors for howdy
-export rm_opts=(-I -v)
-
-export \
-  EDITOR="emacsclient -cn" \
-  GIT_EDITOR="${EDITOR}" \
-  GIT_PRIMARY_BRACH="main" \
-  SYSTEMD_EDITOR=${EDITOR}
-
+# @TODO doesn't work with trash-cli
+# export rm_opts=(-I -v)
 
 #
 # PATH Modifications
@@ -72,6 +66,7 @@ export NODE_VERSION_PREFIX='v'
 
 # Personal preferences.
 export \
+  GIT_PRIMARY_BRANCH="main" \
   CDOM_DOOM_EMACS_THEME_DARK="doom-monokai-pro" \
   CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain"
 
@@ -92,9 +87,6 @@ FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
-FZ_HISTORY_CD_CMD=zshz
-ZSHZ_CMD="" # Don't set the alias, fz will cover that
-ZSHZ_UNCOMMON=1
 forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
 
 
@@ -117,11 +109,6 @@ alias g="git"
 alias t='tail -f'
 
 # Directory navigation
-alias ..='cd .. 2>/dev/null || cd "$(dirname $PWD)"' # Allows leaving from deleted directories
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
 
 # Listing files
 alias l='exa --all --oneline'
@@ -272,7 +259,6 @@ zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
 
-# Pretty completions
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -288,8 +274,9 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
 
 bindkey -s '^[[5~' ''            # Do nothing on pageup and pagedown. Better than printing '~'.
 bindkey -s '^[[6~' ''
-
-. "$HOME/.localrc"
