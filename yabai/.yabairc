@@ -21,13 +21,14 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 
 # general space settings
+GLOBAL_PADDING=48
 yabai -m config external_bar all:23:23
 yabai -m config layout bsp
-yabai -m config top_padding 6
-yabai -m config bottom_padding 6
-yabai -m config left_padding 6
-yabai -m config right_padding 6
-yabai -m config window_gap 6
+yabai -m config top_padding $GLOBAL_PADDING
+yabai -m config bottom_padding $GLOBAL_PADDING
+yabai -m config left_padding $GLOBAL_PADDING
+yabai -m config right_padding $GLOBAL_PADDING
+yabai -m config window_gap $GLOBAL_PADDING
 
 yabai -m space 1 --label 'task'
 yabai -m space 2 --label 'inspect' && yabai -m space 2
