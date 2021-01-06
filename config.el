@@ -17,17 +17,11 @@
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
-;; @TODO disable this if the emacs wrapper application can handle it (see below)
-;; @TODO defer?! but it needs to load quickly
-;; (use-package! auto-dark-emacs
-;;   :hook 'load-theme
-;;   :custom
-;;   (auto-dark-emacs/dark-theme 'doom-monokai-pro)
-;;   (auto-dark-emacs/light-theme 'doom-plain))
-
+;; Load default theme.
 (load-theme 'doom-monokai-pro t)
 
 ;; Change theme based on macOS light/dark mode.
+;; Only works in emacs-plus.
 (add-hook 'ns-system-appearance-change-functions
           #'(lambda (appearance)
               (mapc #'disable-theme custom-enabled-themes)
@@ -59,14 +53,14 @@
        evil-split-window-below t)
 
 ;; Show previews in ivy.
-(setq! +ivy-buffer-preview t)
+;; (setq! +ivy-buffer-preview t)
 
 ;; List magit branches by date.
 (setq! magit-list-refs-sortby "-creatordate")
 
 ;; Prevent evil-lion from removing extra spaces.
 ;; Add any desired extra space prior to invoking evil-lion.
-(setq! evil-lion-squeeze-spaces nil)
+;; (setq! evil-lion-squeeze-spaces nil)
 
 ;; Attempts to prevent vterm from loading emacs from within itself
 (use-package! with-editor
@@ -93,19 +87,25 @@
          org-export-copy-to-kill-ring 'if-interactive
          org-log-refile 'time))
 
+
 (use-package! doct
   :after (org)
   :commands (doct))
 
+(use-package! org-board
+  :defer t)
 
 ;; Add a CREATED property to org-mode headings.
 (use-package! org-expiry
   :after (org)
   :config
-  (setq! org-expiry-inactive-timestamps t)
-  (org-expiry-insinuate))
+  (setq! org-expiry-inactive-timestamps t))
+;; (org-expiry-insinuate))
+
+;; (use-package! org-protocol-capture-html
+;;   :after (org))
+
 (use-package! org-roam
-  :init
   :after (doct))
 
 (use-package! org-web-tools
@@ -217,6 +217,7 @@
          "You know how everyone's into weirdness right now?"
          "We have such sights to show you..."
          "Take a break."
-         "Is Control controlled by its need to control?"))
+         "Is Control controlled by its need to control?"
+         "Nothing here now but the recordings..."))
 
 (load! "~/.emacs.private")

@@ -50,11 +50,14 @@
 (package! almost-mono-themes)
 (package! tao-theme)
 
-(package! doct)       ; _d_eclarative _o_rg _c_apture _t_emplates
-(package! ox-gfm)     ; Export to GFM syntax
-(package! ox-jira     ; Export to Jira syntax
+(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! firestarter)               ; Do things upon save.
+(package! org-board)                 ; Pinboard-ish for org-mode
+;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
+(package! ox-gfm)                    ; Export to GFM syntax
+(package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
-(package! reaper)     ; Harvest time tracking mode
+(package! reaper)                    ; Harvest time tracking mode
 (package! with-editor)
-(package! vimrc-mode) ; vimrc syntax
+(package! vimrc-mode)                ; vimrc syntax
