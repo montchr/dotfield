@@ -1,0 +1,48 @@
+{
+  "entries": {
+    "brew": {
+      "osxfuse": null,
+      "rclone": {
+        "version": "1.53.2",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/rclone-1.53.2.catalina.bottle.tar.gz",
+              "sha256": "3b50cc675b356f43b62f4f5a8acef082a56163ddf1dfdf03a4f360ee6969cdfe"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/rclone-1.53.2.mojave.bottle.tar.gz",
+              "sha256": "a59703acea34bb4bff3fcd878af83d425a993fc1012b35b7a4210066e6279eab"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/rclone-1.53.2.high_sierra.bottle.tar.gz",
+              "sha256": "cea1a5bf6e0346731ba8357e313ae6eb3633e14400c2e9e67bd5a3f8524721f6"
+            }
+          }
+        }
+      }
+    },
+    "cask": {
+      "osxfuse": {
+        "version": "3.11.2",
+        "options": {
+          "full_name": "osxfuse"
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.5.8",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "f36605f90d312557e809738d374629f7e607cfc1",
+        "CLT": "12.0.0.0.1.1599194153",
+        "Xcode": "12.0",
+        "macOS": "10.15.6"
+      }
+    }
+  }
+}

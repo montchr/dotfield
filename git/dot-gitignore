@@ -7,6 +7,7 @@
 *.exe
 *.o
 *.so
+*.zwc
 
 # Packages
 # it's better to unpack these files and commit the raw source
@@ -65,4 +66,3 @@ upgrade
 .php_cs.cache
 
 local-silence-other-rest-route-warnings.php
-*.zwc

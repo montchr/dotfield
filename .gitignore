@@ -1,17 +1,10 @@
 git/dot-gitconfig.local
 
 # Copy the Brewfile from one of the OS-specific example files.
-Brewfile
-Brewfile.lock.json
-
-*.taskpaper
-
-node_modules
+/Brewfile
+/Brewfile.lock.json
 
 # Ignore repos contained within
-perspective-icons
-hcl/config
-beets/beets
 emacs/emacs.d
 
 # Karabiner Elements directory contains numerous backup and assets files we
@@ -20,7 +13,13 @@ emacs/emacs.d
 karabiner/*
 !karabiner/install.sh
 !karabiner/karabiner.json
+
+# Emacs
 /emacs/org/roam/org-roam.db
 
 # Allow font archives.
 !/iosevka/**/*.tar.gz
+
+# ZSH
+/zsh/.zinit/*
+!/zsh/.zinit/plugins/_local*

@@ -1,0 +1,4 @@
+brew 'pandoc'
+
+# https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lookup/README.org#prerequisites
+brew 'wordnet'
