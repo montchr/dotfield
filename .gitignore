@@ -1,4 +1,4 @@
-git/gitconfig.local.symlink
+git/dot-gitconfig.local
 
 # Copy the Brewfile from one of the OS-specific example files.
 Brewfile
