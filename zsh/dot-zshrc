@@ -160,18 +160,10 @@ zt 0a for \
     OMZL::termsupport.zsh \
     OMZP::git \
     OMZP::command-not-found \
+    OMZ::plugins/extract/extract.plugin.zsh \
     skywind3000/z.lua \
     djui/alias-tips \
     chriskempson/base16-shell
-
-# Trigger-load block
-zt light-mode for \
-  trigger-load'!x' \
-    OMZ::plugins/extract/extract.plugin.zsh \
-  trigger-load'!man' \
-    ael-code/zsh-colored-man-pages \
-  trigger-load'!ga;!gcf;!gclean;!gd;!glo;!grh;!gss' \
-    wfxr/forgit
 
 zt 0a for \
   atload'_zsh_autosuggest_start' \
@@ -249,10 +241,17 @@ zt 1a for \
   zdharma/zui \
   zdharma/zbrowse
 
-zt 1b blockf atpull'zinit creinstall -q .' atload"zicompinit; zicdreplay" for zsh-users/zsh-completions
 
+zt 2a light-mode for \
+  ael-code/zsh-colored-man-pages \
+  wfxr/forgit
 
-zt 1b for \
+zt 2b blockf \
+  atpull'zinit creinstall -q .' \
+  atload"zicompinit; zicdreplay" for \
+    zsh-users/zsh-completions
+
+zt 2b for \
   id-as'Cleanup' nocd \
   atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
