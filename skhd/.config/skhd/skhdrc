@@ -109,7 +109,6 @@ focus, grid, swap, warp, warpnf, resize < b                 : yabai -m space --b
 focus, grid, swap, warp, warpnf, resize < f                 : yabai -m window --toggle float           # mnemonic: _f_loat
 focus, grid, swap, warp, warpnf, resize < i                 : yabai -m window --toggle split           
 focus, grid, swap, warp, warpnf, resize < m                 : yabai -m window --toggle zoom-fullscreen # mnemonic: monocle 
-focus, grid, swap, warp, warpnf, resize < o                 : yabai -m space --toggle padding          # mnemonic: _o_ffset
 focus, grid, swap, warp, warpnf, resize < p                 : yabai -m window --toggle zoom-parent     # mnemonic: _p_arent
 focus, grid, swap, warp, warpnf, resize < q                 : yabai -m window --close                  # mnemonic: _q_uit
 focus, grid, swap, warp, warpnf, resize < shift - space     : yabai -m space --rotate 270
