@@ -68,7 +68,8 @@ export NODE_VERSION_PREFIX='v'
 export \
   GIT_PRIMARY_BRANCH="main" \
   CDOM_DOOM_EMACS_THEME_DARK="doom-monokai-pro" \
-  CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain"
+  CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain" \
+  YABAI_SCRIPTS="$DOTS/yabai/scripts"
 
 FZF_DEFAULT_OPTS="
 --border
