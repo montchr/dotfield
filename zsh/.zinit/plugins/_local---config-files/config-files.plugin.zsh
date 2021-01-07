@@ -8,7 +8,7 @@
 
 # Autoload personal functions
 fpath=("${0:h}/functions" "${fpath[@]}")
-autoload -Uz $fpath[1]/*(.:t)
+autoload -Uz $fpath[1]/*(:t)
 
 add-zsh-hook chpwd chpwd_ls
 
