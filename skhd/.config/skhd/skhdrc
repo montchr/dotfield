@@ -96,7 +96,8 @@ default < hyper - y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # can free up a keybinding.
 # focus, grid, swap, warp, warpnf, resize < f                 ; focus
 
-focus, grid, swap, warp, warpnf, resize < g                 ; grid 
+# focus, grid, swap, warp, warpnf, resize < g                 ; grid
+focus < g                 ; grid
 focus, grid, swap, warp, warpnf, resize < r                 ; resize
 focus, grid, swap, warp, warpnf, resize < s                 ; swap
 focus, grid, swap, warp, warpnf, resize < shift - w         ; warpnf
