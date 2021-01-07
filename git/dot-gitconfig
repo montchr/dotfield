@@ -37,7 +37,7 @@
 [help]
     autocorrect = 1
 [hub]
-    protocol = https
+	protocol = ssh
 [init]
     templateDir = ~/.git-templates
     defaultBranch = main
