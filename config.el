@@ -17,17 +17,30 @@
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
-;; Load default theme.
-(load-theme 'doom-monokai-pro t)
+;; Load default theme based on dark mode status.
+;; @TODO do this right
+;; (defun +cdom/theme-system-appearance
+;;         (require 'subr-x)
+;;   (unless IS-MAC
+;;         (pcase (string-trim-right (shell-command-to-string "dark-mode status")
+;;                 ('on (setq! +cdom/theme "base16-black-metal-bathory"))
+;;                 ('off (setq! +cdom/theme "doom-plain")))))
+
+
+(use-package! base16-theme
+  :config
+  (setq! base16-theme-256-color-source "base16-shell"))
+
+(setq! doom-theme 'base16-black-metal-bathory)
 
 ;; Change theme based on macOS light/dark mode.
 ;; Only works in emacs-plus.
-(add-hook 'ns-system-appearance-change-functions
-          #'(lambda (appearance)
-              (mapc #'disable-theme custom-enabled-themes)
-              (pcase appearance
-                ('light (load-theme 'doom-one-light t))
-                ('dark (load-theme 'doom-monokai-pro t)))))
+;; (add-hook 'ns-system-appearance-change-functions
+;;           #'(lambda (appearance)
+;;               (mapc #'disable-theme custom-enabled-themes)
+;;               (pcase appearance
+;;                 ('light (load-theme 'doom-one-light t))
+;;                 ('dark (load-theme 'doom-monokai-pro t)))))
 
 (setq! org-directory "~/org"
        +cdom/org-agenda-directory "~/org/gtd/"

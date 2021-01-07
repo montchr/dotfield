@@ -48,6 +48,7 @@
 
 ;; Themes
 (package! almost-mono-themes)
+(package! base16-theme)
 (package! tao-theme)
 
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
