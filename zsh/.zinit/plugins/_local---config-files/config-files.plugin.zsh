@@ -108,6 +108,7 @@ alias e='emacsclient -t'
 alias ec='emacsclient -cn'
 alias g="git"
 alias t='tail -f'
+alias sshk='kitty +kitten ssh'
 
 # Directory navigation
 
