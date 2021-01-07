@@ -67,7 +67,7 @@ export NODE_VERSION_PREFIX='v'
 # Personal preferences.
 export \
   GIT_PRIMARY_BRANCH="main" \
-  CDOM_DOOM_EMACS_THEME_DARK="doom-monokai-pro" \
+  CDOM_DOOM_EMACS_THEME_DARK="base16-black-metal-bathory" \
   CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain" \
   YABAI_SCRIPTS="$DOTS/yabai/scripts"
 

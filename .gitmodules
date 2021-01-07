@@ -19,3 +19,6 @@
 [submodule "stackline"]
 	path = hammerspoon/dot-hammerspoon/stackline
 	url = git@github.com:AdamWagner/stackline.git
+[submodule "kitty/.config/kitty/base16-kitty"]
+	path = kitty/.config/kitty/base16-kitty
+	url = git@github.com:kdrag0n/base16-kitty.git
