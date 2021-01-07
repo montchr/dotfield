@@ -130,8 +130,6 @@ zt light-mode blockf for \
 # Plugins
 # - - - - - - - - - - - - - - - - - - - -
 
-# setopt promptsubst
-
     # atinit"
     #     ZSH_TMUX_FIXTERM=true
     #     ZSH_TMUX_AUTOSTART=true

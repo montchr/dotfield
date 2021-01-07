@@ -225,7 +225,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 # Miscellaneous
 # - - - - - - - - - - - - - - - - - - - -
 
-bindkey -v                  # Vi bindings
+bindkey -v        # Vi bindings
 bindkey "^A"      beginning-of-line     "^E"      end-of-line
 bindkey "^?"      backward-delete-char  "^H"      backward-delete-char
 bindkey "^W"      backward-kill-word    "\e[1~"   beginning-of-line
@@ -235,10 +235,66 @@ bindkey "\e[F"    end-of-line           "\e[3~"   delete-char
 bindkey "^J"      accept-line           "^M"      accept-line
 bindkey "^T"      accept-line           "^R"      history-incremental-search-backward
 
+# Use case-insensitve globbing.
+unsetopt case_glob
+# glob dotfiles as well
+setopt globdots
+# use extended globbing
+setopt extendedglob
+# Automatically change directory if a directory is entered
+setopt autocd
+# Allow brace character class list expansion.
+setopt brace_ccl
+# Combine zero-length punctuation characters (accents) with the base character.
+setopt combining_chars
+# Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+setopt rc_quotes
+# Don't print a warning message if a mail file has been accessed.
+unsetopt mail_warning
+
+#
+# Jobs
+#
+
+# List jobs in the long format by default.
+setopt long_list_jobs
+# Attempt to resume existing job before creating a new process.
+setopt auto_resume
+# Report status of background jobs immediately.
+setopt notify
+# Don't run all background jobs at a lower priority.
+unsetopt bg_nice
+# Don't kill jobs on shell exit.
+unsetopt hup
+# Don't report on jobs when shell exit.
+unsetopt check_jobs
+# Turn on corrections
+setopt correct
+
+#
+# Completion Options
+#
+
+# Complete from both ends of a word.
+setopt complete_in_word
+# Move cursor to the end of a completed word.
+setopt always_to_end
+# Perform path search even on command names with slashes.
+setopt path_dirs
+# Show completion menu on a successive tab press.
+setopt auto_menu
+# Automatically list choices on ambiguous completion.
+setopt auto_list
+# Do not autoselect the first completion entry.
+# setopt menu_complete
+# Disable start/stop characters in shell editor.
+# unsetopt flow_control
+
+
+
 setopt append_history       # Allow multiple terminal sessions to all append to one zsh command history
 setopt hist_ignore_all_dups # delete old recorded entry if new entry is a duplicate.
 setopt no_beep              # don't beep on error
-setopt auto_cd              # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
 setopt multios              # perform implicit tees or cats when multiple redirections are attempted
 setopt prompt_subst         # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt interactive_comments # Allow comments even in interactive shells
