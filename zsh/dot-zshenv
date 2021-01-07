@@ -1,0 +1,3 @@
+eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
+# Skip the not really helping Ubuntu global compinit
+skip_global_compinit=1

@@ -44,7 +44,8 @@ typeset -g \
   HISTSIZE=290000 \
   SAVEHIST=290000 \
   HISTFILE=~/.zhistory \
-  ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
+  ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1} \
+  TMPDIR=/tmp
 
 (( ABSD )) && {
     export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
@@ -293,3 +294,4 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
