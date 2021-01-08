@@ -261,9 +261,12 @@ zt 2a light-mode for \
   ael-code/zsh-colored-man-pages \
   wfxr/forgit
 
-zt 2b blockf \
+zt 2b blockf for \
+  pick'zsh-completion-generator.plugin.zsh' \
+  atload'alias gencomp="gencomp; zinit creinstall -q _local/config-files; zicompinit"' \
+    RobSis/zsh-completion-generator \
   atpull'zinit creinstall -q .' \
-  atload"zicompinit; zicdreplay" for \
+  atload"zicompinit; zicdreplay" \
     zsh-users/zsh-completions
 
 zt 2b for \
