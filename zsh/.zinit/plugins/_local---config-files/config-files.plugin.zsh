@@ -72,10 +72,15 @@ FZF_DEFAULT_OPTS="
 --cycle
 --bind ctrl-s:toggle-sort
 --bind 'alt-e:execute($EDITOR {} >/dev/tty </dev/tty)'
---preview \"(bat --color=always {} || ls -l --color=always {}) 2>/dev/null | head -200\"
---preview-window right:60%
 "
 FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
+
+# @TODO while the preview is nice in the terminal, it shouldn't be used as a default
+# this may have caused emacs counsel-file to crash when attempting to load previews for particularly heavy binary files
+# see fzf readme for more info: https://github.com/junegunn/fzf#preview-window
+# --preview \"(bat --color=always {} || ls -l --color=always {}) 2>/dev/null | head -200\"
+# --preview-window right:60%
+
 
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
