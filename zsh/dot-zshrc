@@ -12,6 +12,7 @@
 # ========================================================================
 #
 
+setopt extended_glob no_short_loops rc_quotes
 
 # - - - - - - - - - - - - - - - - - - - -
 # Instant Prompt
