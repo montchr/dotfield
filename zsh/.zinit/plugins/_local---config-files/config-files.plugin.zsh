@@ -90,7 +90,8 @@ forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
 
 # Export variables when connected via SSH
 if [[ -n $SSH_CONNECTION ]]; then
-  export DISPLAY=:0
+  # @TODO this might actually cause some issues with emacs in tty?
+  # export DISPLAY=:0
   alias ls="exa --group-directories-first"
 else
   alias ls="exa --group-directories-first --icons"
