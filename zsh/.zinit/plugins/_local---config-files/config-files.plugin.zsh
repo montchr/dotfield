@@ -50,11 +50,12 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 # export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
 # nvm / node
-export NVM_SYMLINK_CURRENT='true'
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
-export NODE_VERSIONS="~/.nvm/versions/node/"
-export NODE_VERSION_PREFIX='v'
+export NVM_AUTO_USE=true \
+  NVM_DIR="$HOME/.nvm" \
+  NVM_LAZY_LOAD=true \
+  NVM_SYMLINK_CURRENT=true \
+  NODE_VERSIONS="$NVM_DIR/versions/node/" \
+  NODE_VERSION_PREFIX='v'
 
 # Personal preferences.
 export \
