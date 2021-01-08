@@ -146,7 +146,28 @@ zt 0a for \
     OMZL::git.zsh \
     OMZL::grep.zsh \
     OMZL::termsupport.zsh \
-    OMZP::git \
+    atload"
+        alias gs='forgit::add'
+        alias gap='git add -p'
+        alias gdt='git difftool'
+        alias gca='git commit --amend'
+        alias gcam='git commit --amend -C HEAD'
+        alias grs='git reset'
+        alias gcob='git checkout -b'
+        alias gpl='git pull'
+        alias gplo='git pull origin'
+        alias gpls='git pull && gsumo'
+        alias gps='git push'
+        alias gpsu='git push -u'
+        alias gpso='git push origin'
+        alias gpss='git push && gsumo'
+        alias gsh='git stash'
+        alias gsha='git stash apply'
+        alias gshp='git stash pop'
+        alias gshl='git stash list'
+        alias gl='git log --oneline --decorate -20'
+    " \
+        OMZP::git \
     OMZP::command-not-found \
     OMZ::plugins/extract/extract.plugin.zsh \
     skywind3000/z.lua \

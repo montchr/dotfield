@@ -136,47 +136,20 @@ alias reload="exec $SHELL -l"
 # @TODO: many of these need to be functions
 #
 
-alias gs='forgit::add'
 
-# commits / index
-alias gap="git add -p"
-alias gdt="git difftool"
-alias gca="git commit --amend"
-# amend commit without editing message
-alias gcam="git commit --amend -C HEAD"
-alias grs='git reset'
+# List all the commits on the current branch ahead of master
+alias glb='git log --oneline --decorate \$GIT_PRIMARY_BRANCH..'
 
-# branches / refs
-alias gcob="git checkout -b"
+# Based on https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
+# alias gla='git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(green)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(bold cyan)%s%C(reset) %C(dim white)- %an%C(reset)%n''' --all'
 
-# remotes
-alias gpl="git pull"
-alias gplo='git pull origin'
-# alias gpls="git pull && gsumo"
-alias gps="git push"
-alias gpsu="git push -u"
-alias gpso="git push origin"
-# alias gpss="git push && gsumo"
-
-# stashes
-alias gsh="git stash"
-alias gsha="git stash apply"
-alias gshp="git stash pop"
-alias gshl="git stash list"
+# magical fix for all submodule issues
+alias gsumo='git submodule update --init --recursive'
 
 # Show list of files changed in a commit
 # Follow with commit hash
 # alias gdl="git diff-tree --no-commit-id --name-only -r $1"
 
-# logs
-alias gl="git log --oneline --decorate -20"
-# List all the commits on the current branch ahead of master
-alias glb="git log --oneline --decorate \$GIT_PRIMARY_BRANCH.."
-# Based on https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
-alias gla="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(green)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(bold cyan)%s%C(reset) %C(dim white)- %an%C(reset)%n''' --all"
-
-# magical fix for all submodule issues
-alias gsumo="git submodule update --init --recursive"
 
 #
 # Node
