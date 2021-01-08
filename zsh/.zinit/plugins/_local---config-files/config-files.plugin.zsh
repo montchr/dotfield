@@ -111,7 +111,7 @@ alias sshk='kitty +kitten ssh'
 # Directory navigation
 
 # Listing files
-alias l='exa --all --oneline'
+alias l='exa --oneline'
 alias ll='exa -Flagh --git'
 alias la='exa -Fal'
 alias lld='exa -Flagh --git --group-directories-first'
