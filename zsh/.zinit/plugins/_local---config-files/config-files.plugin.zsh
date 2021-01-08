@@ -7,8 +7,9 @@
 # Then ${0:h} to get plugin's directory
 
 # Autoload personal functions
+# (Except those beginning with an underscore)
 fpath=("${0:h}/functions" "${fpath[@]}")
-autoload -Uz $fpath[1]/*(:t)
+autoload -Uz $fpath[1]/^_*(:t)
 
 add-zsh-hook chpwd chpwd_ls
 

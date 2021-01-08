@@ -113,7 +113,7 @@ zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
 # Load config files plugin.
-zt light-mode blockf for \
+zt light-mode for \
   _local/config-files
 
 #
