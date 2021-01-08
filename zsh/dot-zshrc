@@ -45,6 +45,7 @@ export PATH="/usr/local/sbin:$PATH"
 
 export \
     XDG_CONFIG_HOME="$HOME/.config" \
+    CACHEDIR="$HOME/.local/share" \
     DOTFILES="$HOME/.dotfiles" \
     DOTS="$HOME/.dots" \
     ZSH_DOTS="$DOTS/zsh" \
@@ -52,12 +53,13 @@ export \
   GIT_EDITOR="${EDITOR}" \
   SYSTEMD_EDITOR=${EDITOR}
 
-export CACHEDIR="$HOME/.local/share"
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
+
+autoload -Uz add-zsh-hook
 
 # Use chpwd_recent_dirs to start new sessions from last working dir
 # Populate dirstack with chpwd history
-autoload -Uz chpwd_recent_dirs add-zsh-hook
+autoload -Uz chpwd_recent_dirs
 add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ':chpwd:*' recent-dirs-file "${TMPDIR}/chpwd-recent-dirs"
 dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]} 2>/dev/null))
