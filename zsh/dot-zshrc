@@ -12,18 +12,6 @@
 # ========================================================================
 #
 
-# - - - - - - - - - - - - - - - - - - - -
-# Profiling Tools
-# - - - - - - - - - - - - - - - - - - - -
-
-PROFILE_STARTUP=false
-if [[ "$PROFILE_STARTUP" == true ]]; then
-    zmodload zsh/zprof
-    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
-    PS4=$'%D{%M%S%.} %N:%i> '
-    exec 3>&2 2>$HOME/startlog.$$
-    setopt xtrace prompt_subst
-fi
 
 # - - - - - - - - - - - - - - - - - - - -
 # Instant Prompt
@@ -147,7 +135,7 @@ zt for \
 
 zt 0a for \
     atload"
-        alias ..='cd .. 2>/dev/null || cd "$(dirname $PWD)"' # Allows leaving from deleted directories
+        alias ..='cd ..'
         alias ...='cd ../..'
         alias ....='cd ../../..'
         alias .....='cd ../../../..'
@@ -280,18 +268,7 @@ zinit is-snippet for \
     if"[[ -f $HOME/.localrc  ]]" $HOME/.localrc
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# End Profiling Script
-# - - - - - - - - - - - - - - - - - - - -
-
-if [[ "$PROFILE_STARTUP" == true ]]; then
-    unsetopt xtrace
-    exec 2>&3 3>&-
-    zprof > ~/zshprofile$(date +'%s')
-fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"

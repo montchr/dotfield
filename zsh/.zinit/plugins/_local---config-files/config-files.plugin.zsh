@@ -34,10 +34,6 @@ FAST_ALIAS_TIPS_PREFIX="» $(tput setaf 6)"
 FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
-export OPENCV_LOG_LEVEL=ERROR # Hide nonimportant errors for howdy
-# @TODO doesn't work with trash-cli
-# export rm_opts=(-I -v)
-
 #
 # PATH Modifications
 #
@@ -52,11 +48,6 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 # export GPG_TTY='/usr/bin/tty'
 # export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
-# SND
-# export SND="$HOME/Music/0-sounds-0"
-# export SNDS="$HOME/Music/0-sounds-0/-- samples --"
-# export SNDBACKUPS="$HOME/Music/0-sounds-0/--- backup ---"
-
 # nvm / node
 export NVM_SYMLINK_CURRENT='true'
 export NVM_DIR="$HOME/.nvm"
@@ -70,6 +61,7 @@ export \
   CDOM_DOOM_EMACS_THEME_DARK="base16-black-metal-bathory" \
   CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain" \
   YABAI_SCRIPTS="$DOTS/yabai/scripts"
+
 
 FZF_DEFAULT_OPTS="
 --border
