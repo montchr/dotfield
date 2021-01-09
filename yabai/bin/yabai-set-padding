@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 padding=$1
 
 yabai -m config top_padding "$padding"

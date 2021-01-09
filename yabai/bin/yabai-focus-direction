@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+emulate -L zsh
+setopt extended_glob warn_create_global typeset_silent \
+        no_short_loops rc_quotes no_auto_pushd
+
+focus_window_display() {
+  yabai -m window --focus "$1" || yabai -m display --focus "$1"
+}
+
+focus_window_fallback() {
+  case "$1" in
+    north)
+      yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+      ;;
+    south)
+      yabai -m window --focus stack.next || yabai -m window --focus stack.first
+      ;;
+    east)
+      yabai -m space --focus next
+      ;;
+    west)
+      yabai -m space --focus prev
+      ;;
+  esac
+}
+
+focus_window_display "$1" || focus_stack "$1"

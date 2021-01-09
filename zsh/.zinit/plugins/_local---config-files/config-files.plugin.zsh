@@ -39,7 +39,7 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=set
 # PATH Modifications
 #
 
-export PATH="$DOTS/bin:$PATH"
+export PATH="$HOME/bin:$DOTS/bin:$PATH"
 
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
