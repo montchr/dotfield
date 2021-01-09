@@ -37,5 +37,5 @@ export \
 # - - - - - - - - - - - - - - - - - - - -
 
 export \
-  CDOM_EMACS_THEME_DARK="base16-black-metal-khol" \
+  CDOM_EMACS_THEME_DARK="base16-black-metal-khold" \
   CDOM_EMACS_THEME_LIGHT="doom-plain" \
