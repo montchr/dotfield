@@ -109,14 +109,6 @@ alias g="git"
 alias t='tail -f'
 alias sshk='kitty +kitten ssh'
 
-# Listing files
-alias l='exa --oneline'
-alias ll='exa -Flagh --git'
-alias la='exa -Fal'
-alias lld='exa -Flagh --git --group-directories-first'
-alias ld='exa -D1'
-alias tree='exa --tree'
-
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'

@@ -143,6 +143,12 @@ zt 0a for \
         alias ....='cd ../../..'
         alias .....='cd ../../../..'
         alias ......='cd ../../../../..'
+        alias l='exa --oneline'
+        alias ll='exa -Flagh --git'
+        alias la='exa -Fal'
+        alias lld='exa -Flagh --git --group-directories-first'
+        alias ld='exa -D1'
+        alias tree='exa --tree'
     " \
         OMZL::directories.zsh \
     OMZL::git.zsh \
