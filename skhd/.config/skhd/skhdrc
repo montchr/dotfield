@@ -137,15 +137,15 @@ focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --m
 # 3. stack prev/next
 # 4. stack last/first (cycle)
 
-focus           < k : $HOME/bin/yabai-focus-direction north
-focus           < j : $HOME/bin/yabai-focus-direction south
+focus           < k : yabai-focus-direction north
+focus           < j : yabai-focus-direction south
 
 # LEFT/RIGHT
 # 1. window east/west
 # 2. dispay east/west
 # 3. space next/prev
-focus           < h : $HOME/bin/yabai-focus-direction west
-focus           < l : $HOME/bin/yabai-focus-direction east
+focus           < h : yabai-focus-direction west
+focus           < l : yabai-focus-direction east
 
 # Change the window focused in the current stack, cycling around to the beginning/end.
 focus           < shift - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last

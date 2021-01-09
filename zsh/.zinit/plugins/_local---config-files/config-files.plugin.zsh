@@ -103,8 +103,7 @@ fi
 # Aliases
 # - - - - - - - - - - - - - - - - - - - -
 
-alias e='emacsclient -t'
-alias ec='emacsclient -cn'
+alias e="${EDITOR}"
 alias g="git"
 alias t='tail -f'
 alias sshk='kitty +kitten ssh'

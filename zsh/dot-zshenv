@@ -1,3 +1,41 @@
-eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
+# -*- mode: sh; -*-
+
+[[ -e /opt/aliases ]] && eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
+
 # Skip the not really helping Ubuntu global compinit
 skip_global_compinit=1
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# PATH Modifications
+# - - - - - - - - - - - - - - - - - - - -
+
+export PATH="$HOME/bin:$DOTS/bin:$PATH"
+
+# Requred by Homebrew
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Core Configuration
+# - - - - - - - - - - - - - - - - - - - -
+
+export \
+  XDG_CONFIG_HOME="$HOME/.config" \
+  CACHEDIR="$HOME/.local/share" \
+  DOTFILES="$HOME/.dotfiles" \
+  DOTS="$HOME/.dots" \
+  ZSH_DOTS="$DOTS/zsh" \
+  EDITOR="emacsclient -cn" \
+  GIT_EDITOR="$EDITOR" \
+  SYSTEMD_EDITOR="$EDITOR" \
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Personal Preferences
+# - - - - - - - - - - - - - - - - - - - -
+
+export \
+  CDOM_EMACS_THEME_DARK="base16-black-metal-khol" \
+  CDOM_EMACS_THEME_LIGHT="doom-plain" \
