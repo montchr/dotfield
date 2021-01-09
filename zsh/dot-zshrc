@@ -172,6 +172,7 @@ zt 0a for \
         OMZP::git \
     OMZP::command-not-found \
     OMZ::plugins/extract/extract.plugin.zsh \
+    OMZP::pyenv \
     skywind3000/z.lua \
     djui/alias-tips \
     chriskempson/base16-shell
