@@ -9,13 +9,12 @@ emacs/emacs.d
 
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the
-# software overwrites this file upon modifying settings
-karabiner/*
-!karabiner/install.sh
-!karabiner/karabiner.json
+# software overwrites this file upon modifying settings.
+karabiner/.config/karabiner/*
+!karabiner/.config/karabiner/karabiner.json
 
 # Emacs
-/emacs/org/roam/org-roam.db
+org-roam.db
 
 # Allow font archives.
 !/iosevka/**/*.tar.gz
