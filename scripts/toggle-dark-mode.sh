@@ -9,10 +9,10 @@ dark-mode
 	{
 		kitty @ --to unix:/tmp/kitty-socket \
 			set-colors -a -c "~/.config/kitty/dark-theme.conf"
-		emacsclient -e "(load-theme 'doom-monokai-pro)"
+		emacsclient -e "(load-theme '$CDOM_EMACS_THEME_DARK t)"
 	} ||
 	{
 		kitty @ --to unix:/tmp/kitty-socket \
 			set-colors -a -c "~/.config/kitty/light-theme.conf"
-		emacsclient -e "(load-theme 'doom-plain)"
+		emacsclient -e "(load-theme '$CDOM_EMACS_THEME_LIGHT t)"
 	}

@@ -60,10 +60,9 @@ export NVM_AUTO_USE=true \
 # Personal preferences.
 export \
   GIT_PRIMARY_BRANCH="main" \
-  CDOM_DOOM_EMACS_THEME_DARK="base16-black-metal-bathory" \
-  CDOM_DOOM_EMACS_THEME_LIGHT="doom-plain" \
+  CDOM_EMACS_THEME_DARK="base16-black-metal-khol" \
+  CDOM_EMACS_THEME_LIGHT="doom-plain" \
   YABAI_SCRIPTS="$DOTS/yabai/scripts"
-
 
 FZF_DEFAULT_OPTS="
 --border
@@ -109,8 +108,6 @@ alias ec='emacsclient -cn'
 alias g="git"
 alias t='tail -f'
 alias sshk='kitty +kitten ssh'
-
-# Directory navigation
 
 # Listing files
 alias l='exa --oneline'
