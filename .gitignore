@@ -19,7 +19,3 @@ karabiner/*
 
 # Allow font archives.
 !/iosevka/**/*.tar.gz
-
-# ZSH
-/zsh/.zinit/*
-!/zsh/.zinit/plugins/_local*
