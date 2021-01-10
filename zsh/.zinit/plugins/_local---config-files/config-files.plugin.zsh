@@ -39,8 +39,6 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=set
 # PATH Modifications
 #
 
-export PATH="$HOME/bin:$DOTS/bin:$PATH"
-
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
@@ -49,20 +47,16 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 # export GPG_TTY='/usr/bin/tty'
 # export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
+#
 # nvm / node
+#
+
 export NVM_AUTO_USE=true \
   NVM_DIR="$HOME/.nvm" \
   NVM_LAZY_LOAD=true \
   NVM_SYMLINK_CURRENT=true \
   NODE_VERSIONS="$NVM_DIR/versions/node/" \
   NODE_VERSION_PREFIX='v'
-
-# Personal preferences.
-export \
-  GIT_PRIMARY_BRANCH="main" \
-  CDOM_EMACS_THEME_DARK="base16-black-metal-khol" \
-  CDOM_EMACS_THEME_LIGHT="doom-plain" \
-  YABAI_SCRIPTS="$DOTS/yabai/scripts"
 
 FZF_DEFAULT_OPTS="
 --border

@@ -1,4 +1,4 @@
-# -*- mode: sh; -*-
+# -*- mode: sh -*-
 
 [[ -e /opt/aliases ]] && eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
 
