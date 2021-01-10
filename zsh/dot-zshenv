@@ -7,17 +7,6 @@ skip_global_compinit=1
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# PATH Modifications
-# - - - - - - - - - - - - - - - - - - - -
-
-export PATH="$HOME/bin:$DOTS/bin:$PATH"
-
-# Requred by Homebrew
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
-
-# - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
 
@@ -30,6 +19,17 @@ export \
   EDITOR="emacsclient -cn" \
   GIT_EDITOR="$EDITOR" \
   SYSTEMD_EDITOR="$EDITOR" \
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# PATH Modifications
+# - - - - - - - - - - - - - - - - - - - -
+
+export PATH="$HOME/bin:$DOTS/bin:$PATH"
+
+# Requred by Homebrew
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 
 # - - - - - - - - - - - - - - - - - - - -
