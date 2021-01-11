@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+#
+# Toggle system dark mode and run various related effects.
+#
+
+emulate -L zsh
+setopt extended_glob warn_create_global typeset_silent \
+        no_short_loops rc_quotes no_auto_pushd
+
+.kitty-theme-change () {
+  local dir="${XDG_CONFIG_HOME}/kitty"
+  ln -sf "${dir}/${1}-theme.conf" "${dir}/theme.conf"
+  kitty @ --to unix:/tmp/kitty-socket \
+    set-colors -a -c "${dir}/theme.conf"
+}
+
+.emacs-theme-change () {
+  emacsclient --no-wait --suppress-output --eval "(load-theme '$1 t)"
+}
+
+# @TODO this could be a great place to use zsh hooks
++dark-mode-effects () {
+  local is_dark
+  is_dark=${${(M)1:#on}:+1}
+  .kitty-theme-change ${${is_dark:+dark}:-light}
+  .emacs-theme-change ${${is_dark:+$CDOM_EMACS_THEME_DARK}:-$CDOM_EMACS_THEME_LIGHT}
+}
+
+dark-mode
++dark-mode-effects $(dark-mode status)

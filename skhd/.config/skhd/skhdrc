@@ -56,7 +56,7 @@ app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
 
 # _t_erminal (Kitty) -- new os-window
 app     < t : kitty @ --to unix:/tmp/kitty-socket \
-              new-window --window-type os ; \
+                      new-window --window-type os ; \
               skhd -k 'escape'
 
 
@@ -69,8 +69,7 @@ sys     < hyper - s ; default
 sys     < escape    ; default
 
 # Toggle dark mode.
-# @TODO: avoid a hard-coded path -- can an envar be used? `$DOTS` didn't work
-sys     < d : ~/.dots/scripts/toggle-dark-mode.sh ; \
+sys     < d : toggle-dark-mode ; \
               skhd -k 'escape'
 
 
