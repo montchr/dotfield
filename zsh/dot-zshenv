@@ -10,9 +10,16 @@ skip_global_compinit=1
 # Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
 
+# Define XDG base directories before all others.
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export \
   XDG_CONFIG_HOME="$HOME/.config" \
-  CACHEDIR="$HOME/.local/share" \
+  XDG_CACHE_HOME="$HOME/.cache" \
+  XDG_DATA_HOME="$HOME/.local/share" \
+  XDG_RUNTIME_DIR="$HOME/.run" \
+
+export \
+  CACHEDIR="$XDG_CACHE_HOME" \
   DOTFILES="$HOME/.dotfiles" \
   DOTS="$HOME/.dots" \
   ZSH_DOTS="$DOTS/zsh" \

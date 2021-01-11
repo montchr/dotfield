@@ -40,20 +40,9 @@ typeset -g \
     export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
 }
 
-# Requred by Homebrew
-export PATH="/usr/local/sbin:$PATH"
-
-export \
-    XDG_CONFIG_HOME="$HOME/.config" \
-    CACHEDIR="$HOME/.local/share" \
-    DOTFILES="$HOME/.dotfiles" \
-    DOTS="$HOME/.dots" \
-    ZSH_DOTS="$DOTS/zsh" \
-  EDITOR="emacsclient -cn" \
-  GIT_EDITOR="${EDITOR}" \
-  SYSTEMD_EDITOR=${EDITOR}
 
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
+[[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -p "$XDG_RUNTIME_DIR"
 
 autoload -Uz add-zsh-hook
 
@@ -304,5 +293,3 @@ zinit is-snippet for \
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
