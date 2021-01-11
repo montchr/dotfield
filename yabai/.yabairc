@@ -25,7 +25,7 @@ yabai -m config mouse_action2 resize
 # general space settings
 yabai -m config external_bar all:23:23
 yabai -m config layout bsp
-"$YABAI_SCRIPTS/yabai-set-padding" 48
+yabai-set-padding 24
 
 yabai -m space 1 --label 'task'
 yabai -m space 2 --label 'inspect' && yabai -m space 2
