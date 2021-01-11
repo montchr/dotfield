@@ -259,10 +259,12 @@ zt 2a light-mode for \
   ael-code/zsh-colored-man-pages \
   wfxr/forgit
 
+zt 2b light-mode for \
+    trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
+    atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
+        RobSis/zsh-completion-generator
+
 zt 2b blockf for \
-  pick'zsh-completion-generator.plugin.zsh' \
-  atload'alias gencomp="gencomp; zinit creinstall -q _local/config-files; zicompinit"' \
-    RobSis/zsh-completion-generator \
   atpull'zinit creinstall -q .' \
   atload"zicompinit; zicdreplay" \
     zsh-users/zsh-completions
