@@ -25,4 +25,4 @@ focus_window_fallback() {
   esac
 }
 
-focus_window_display "$1" || focus_stack "$1"
+focus_window_display "$1" || focus_window_fallback "$1"
