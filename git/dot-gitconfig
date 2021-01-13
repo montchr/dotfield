@@ -3,6 +3,11 @@
 [include]
     path = .gitconfig.local
 
+[user]
+    name = Chris Montgomery
+    email = chris@cdom.io
+    signingkey = A7498482
+
 [core]
     excludesfile = ~/.gitignore
     pager = delta
@@ -28,16 +33,22 @@
     branch = auto
     ui = true
     interactive = auto
+[commit]
+    gpgsign = true
 [delta]
     plus-color = "#012800"
     minus-color = "#340001"
     syntax-theme = Monokai Extended
 [fetch]
     recurseSubmodules = true
+[github]
+    user = montchr
+[gpg]
+    program = /usr/local/bin/gpg
 [help]
     autocorrect = 1
 [hub]
-	protocol = ssh
+    protocol = ssh
 [init]
     templateDir = ~/.git-templates
     defaultBranch = main
@@ -69,11 +80,3 @@
 [mergetool "Kaleidoscope"]
     cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
-[github]
-	user = montchr
-[gpg]
-	program = /usr/local/bin/gpg
-[user]
-	signingkey = A7498482
-[commit]
-	gpgsign = true

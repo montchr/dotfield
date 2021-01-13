@@ -1,13 +1,8 @@
 # -*- mode: gitconfig -*-
 
-[user]
-    name = AUTHORNAME
-    email = AUTHOREMAIL
 
 [credential]
     helper = "osxkeychain"
-[core]
-    editor = "emacsclient -cn"
 [merge]
     tool = vscode
 [diff]
