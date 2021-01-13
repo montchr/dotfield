@@ -53,6 +53,7 @@
 
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! firestarter)               ; Do things upon save.
+(package! magit-delta)               ; Use delta in magit diffs.
 (package! org-board)                 ; Pinboard-ish for org-mode
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
