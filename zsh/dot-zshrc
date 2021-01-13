@@ -33,8 +33,6 @@ typeset -g \
   HISTSIZE=290000 \
   SAVEHIST=290000 \
   HISTFILE=~/.zhistory \
-  ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1} \
-  TMPDIR=/tmp
 
 (( ABSD )) && {
     export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
@@ -282,7 +280,6 @@ zt 2b for \
 
 # @TODO abbreviations: https://github.com/olets/zsh-abbr
 # abbr gbn '(git rev-parse --abbrev-ref HEAD)'
-# abbr gbl 'git branch -a --sort=-committerdate'
 
 
 # - - - - - - - - - - - - - - - - - - - -

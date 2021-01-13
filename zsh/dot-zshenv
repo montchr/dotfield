@@ -5,6 +5,8 @@
 # Skip the not really helping Ubuntu global compinit
 skip_global_compinit=1
 
+export ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
@@ -13,19 +15,18 @@ skip_global_compinit=1
 # Define XDG base directories before all others.
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export \
-  XDG_CONFIG_HOME="$HOME/.config" \
   XDG_CACHE_HOME="$HOME/.cache" \
+  XDG_CONFIG_HOME="$HOME/.config" \
   XDG_DATA_HOME="$HOME/.local/share" \
   XDG_RUNTIME_DIR="$HOME/.run" \
 
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
-  DOTFILES="$HOME/.dotfiles" \
   DOTS="$HOME/.dots" \
+  DOTFILES="$HOME/.dotfiles" \
+  KITTY_SOCKET="unix:/tmp/kitty-socket" \
+  TMPDIR=/tmp \
   ZSH_DOTS="$DOTS/zsh" \
-  EDITOR="emacsclient -cn" \
-  GIT_EDITOR="$EDITOR" \
-  SYSTEMD_EDITOR="$EDITOR" \
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -43,6 +44,13 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 # Personal Preferences
 # - - - - - - - - - - - - - - - - - - - -
 
+# System editor settings.
+export \
+  EDITOR="emacsclient -cn" \
+  GIT_EDITOR="$EDITOR" \
+  SYSTEMD_EDITOR="$EDITOR" \
+
+# Emacs-specific configuration.
 export \
   CDOM_EMACS_THEME_DARK="base16-black-metal-khold" \
   CDOM_EMACS_THEME_LIGHT="doom-plain" \
