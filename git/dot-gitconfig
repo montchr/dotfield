@@ -69,3 +69,11 @@
 [mergetool "Kaleidoscope"]
     cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
+[github]
+	user = montchr
+[gpg]
+	program = /usr/local/bin/gpg
+[user]
+	signingkey = A7498482
+[commit]
+	gpgsign = true

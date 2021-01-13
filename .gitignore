@@ -18,3 +18,9 @@ org-roam.db
 
 # Allow font archives.
 !/iosevka/**/*.tar.gz
+
+# GPG
+# Ignore everything but configuration files.
+/gpg/dot-gnupg/*
+!/gpg/dot-gnupg/gpg-agent.conf
+!/gpg/dot-gnupg/gpg.conf
