@@ -35,6 +35,10 @@ FAST_ALIAS_TIPS_PREFIX="» $(tput setaf 6)"
 FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
+export BASE16_THEME_DARK='black-metal-khold'
+export BASE16_THEME_LIGHT='grayscale-light'
+export BASE16_THEME=${${$(is-dark-mode):+${BASE16_THEME_DARK}}:-${BASE16_THEME_LIGHT}}
+
 #
 # PATH Modifications
 #

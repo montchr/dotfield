@@ -7,6 +7,8 @@ emulate -L zsh
 setopt extended_glob warn_create_global typeset_silent \
         no_short_loops rc_quotes no_auto_pushd
 
+local IS_DARK
+
 .kitty-theme-change () {
   local dir="${XDG_CONFIG_HOME}/kitty"
   ln -sf "${dir}/${1}-theme.conf" "${dir}/theme.conf"
@@ -18,13 +20,9 @@ setopt extended_glob warn_create_global typeset_silent \
   emacsclient --no-wait --suppress-output --eval "(load-theme '$1 t)"
 }
 
-# @TODO this could be a great place to use zsh hooks
-+dark-mode-effects () {
-  local is_dark
-  is_dark=${${(M)1:#on}:+1}
-  .kitty-theme-change ${${is_dark:+dark}:-light}
-  .emacs-theme-change ${${is_dark:+$CDOM_EMACS_THEME_DARK}:-$CDOM_EMACS_THEME_LIGHT}
-}
-
 dark-mode
-+dark-mode-effects $(dark-mode status)
+IS_DARK=$(is-dark-mode)
+
+.kitty-theme-change ${${IS_DARK:+dark}:-light}
+base16-set-theme ${${$(is-dark-mode):+${BASE16_THEME_DARK}}:-${BASE16_THEME_LIGHT}}
+.emacs-theme-change ${${IS_DARK:+$CDOM_EMACS_THEME_DARK}:-$CDOM_EMACS_THEME_LIGHT}
