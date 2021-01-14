@@ -26,12 +26,12 @@
 ;;                 ('on (setq! +cdom/theme "base16-black-metal-bathory"))
 ;;                 ('off (setq! +cdom/theme "doom-plain")))))
 
-
 (use-package! base16-theme
   :config
-  (setq! base16-theme-256-color-source "base16-shell"))
+  (setq! base16-theme-256-color-source "base16-shell"
+         base16-distinct-fringe-background nil))
 
-(setq! doom-theme 'base16-black-metal-bathory)
+(setq! doom-theme 'base16-black-metal-khold)
 
 ;; Change theme based on macOS light/dark mode.
 ;; Only works in emacs-plus.
