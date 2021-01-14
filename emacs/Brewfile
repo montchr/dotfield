@@ -1,3 +1,4 @@
+brew 'delta' # magit-delta
 brew 'pandoc'
 
 # https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lookup/README.org#prerequisites
