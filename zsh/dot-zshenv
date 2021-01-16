@@ -7,6 +7,9 @@ skip_global_compinit=1
 
 export ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
 
+# Check whether a command exists.
+command_exists() { print type "$1" >/dev/null 2>&1 }
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
@@ -24,6 +27,7 @@ export \
   CACHEDIR="$XDG_CACHE_HOME" \
   DOTS="$HOME/.dots" \
   DOTFILES="$HOME/.dotfiles" \
+  KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:/tmp/kitty-socket" \
   TMPDIR=/tmp \
   ZSH_DOTS="$DOTS/zsh" \
@@ -37,12 +41,17 @@ export PATH="$HOME/bin:$DOTS/bin:$PATH"
 
 # Requred by Homebrew
 export PATH="/usr/local/sbin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:$PATH"
+
+# Doom Emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 
 # - - - - - - - - - - - - - - - - - - - -
 # Personal Preferences
 # - - - - - - - - - - - - - - - - - - - -
+
+# typeset -A Cdom
 
 # System editor settings.
 export \
@@ -50,7 +59,30 @@ export \
   GIT_EDITOR="$EDITOR" \
   SYSTEMD_EDITOR="$EDITOR" \
 
+
+export BASE16_THEME_DARK='black-metal-khold' \
+       BASE16_THEME_LIGHT='grayscale-light'
+
+# Check for dark mode here and now, avoiding calling a script which might source this file.
+# @TODO consider exporting dark mode status to SSH sessions
+export cdom-dark-mode-status () { command_exists dark-mode && dark-mode status }
+# @TODO only set as an override for ssh sessions -- document this!
+# export CDOM_OS_APPEARANCE=${${CDOM_OS_APPEARANCE}:-$(cdom-os-appearance)}
+export cdom-os-appearance () {
+  $([[ $CDOM_OS_APPEARANCE ]] && print "$CDOM_OS_APPEARANCE") \
+    || [[ $(cdom-dark-mode-status) = "on" ]] && print "dark" || print "light";
+}
+export cdom-base16-theme () {
+  case $1 in
+    on|dark) print ${BASE16_THEME_DARK} ;;
+    off|light) print ${BASE16_THEME_LIGHT} ;;
+    *) print ${BASE16_THEME_DARK} ;;
+  esac
+}
+
+export BASE16_THEME=$(cdom-base16-theme $(cdom-os-appearance))
+
 # Emacs-specific configuration.
 export \
-  CDOM_EMACS_THEME_DARK="base16-black-metal-khold" \
-  CDOM_EMACS_THEME_LIGHT="doom-plain" \
+  CDOM_EMACS_THEME_DARK="base16-${BASE16_THEME_DARK}" \
+  CDOM_EMACS_THEME_LIGHT="doom-plain"
