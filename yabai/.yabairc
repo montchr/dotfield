@@ -6,11 +6,12 @@ YABAI_SCRIPTS="$HOME/.dots/yabai/scripts"
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse autofocus
 yabai -m config window_placement second_child
-yabai -m config window_topmost on
+yabai -m config window_topmost off
 yabai -m config window_opacity on
 yabai -m config window_shadow on
 yabai -m config window_border on
 yabai -m config window_border_width 6
+# @TODO use theme colors
 yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
 yabai -m config insert_window_border_color 0xffd75f5f
@@ -38,9 +39,9 @@ yabai -m space 5 --label 'term' && yabai -m space 5
 # yabai -m space 9 --label 'music' && yabai -m space 9
 
 # Float Emacs popups
-yabai -m rule --add app='^Emacs$' title='^\s*(-|–|—){1}\s+\(' \
-	manage=off \
-	mouse_follows_focus=off
+# yabai -m rule --add app='^Emacs$' title='^\s*(-|–|—){1}\s+\(' \
+# 	manage=off \
+# 	mouse_follows_focus=off
 yabai -m rule --add app='^Emacs$' title='^$' \
 	manage=off \
 	mouse_follows_focus=off
@@ -65,11 +66,12 @@ yabai -m rule --add app=Harvest manage=off
 # caused yabai to crash?
 # yabai -m rule --add app=PhpStorm title='^$' manage=off
 
-yabai -m rule --add app=Slack space='comm'
-yabai -m rule --add app=Spark space='comm'
+# yabai -m rule --add app=Slack space='comm'
+# yabai -m rule --add app=Spark space='comm'
 yabai -m rule --add app=Stickies manage=off
-yabai -m rule --add app=Spotify space='music'
+# yabai -m rule --add app=Spotify space='music'
 yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add app=Zoom space='task'
 
+# @TODO add timestamp
 echo "yabai configuration loaded.."
