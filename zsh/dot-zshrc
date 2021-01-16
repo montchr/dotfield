@@ -244,7 +244,21 @@ zt 0c light-mode null for \
     nateshmbhat/rm-trash
 
 zt 1a for \
-  Aloxaf/fzf-tab \
+  atload"
+    # Use fzf-tab after second tab press
+    # via https://github.com/mrksr/dotfiles/blob/e3dd8bde7d7be6a294f5a2a245cb7e4a15837d71/shell/.zshrc#L101-L113
+    fzf-tab-partial-and-complete() {
+      if [[ \$LASTWIDGET = 'fzf-tab-partial-and-complete' ]]; then
+        fzf-tab-complete
+      else
+        zle complete-word
+      fi
+    }
+
+    zle -N fzf-tab-partial-and-complete
+    bindkey '^I' fzf-tab-partial-and-complete
+  " \
+    Aloxaf/fzf-tab \
   lukechilds/zsh-nvm \
   zdharma/zui \
   zdharma/zbrowse
