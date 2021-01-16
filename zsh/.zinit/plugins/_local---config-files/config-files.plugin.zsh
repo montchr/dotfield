@@ -35,21 +35,16 @@ FAST_ALIAS_TIPS_PREFIX="» $(tput setaf 6)"
 FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
-export BASE16_THEME_DARK='black-metal-khold'
-export BASE16_THEME_LIGHT='grayscale-light'
-export BASE16_THEME=${${$(is-dark-mode):+${BASE16_THEME_DARK}}:-${BASE16_THEME_LIGHT}}
 
 #
-# PATH Modifications
-#
-
-# Doom Emacs
-export PATH="$HOME/.emacs.d/bin:$PATH"
-
 # GPG
+#
+
 export GPG_TTY="$(tty)"
+# @TODO pass GPG through SSH connections?
 # https://unix.stackexchange.com/questions/217737/pinentry-fails-with-gpg-agent-and-ssh
 # export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+
 
 #
 # nvm / node
@@ -61,6 +56,11 @@ export NVM_AUTO_USE=true \
   NVM_SYMLINK_CURRENT=true \
   NODE_VERSIONS="$NVM_DIR/versions/node/" \
   NODE_VERSION_PREFIX='v'
+
+
+#
+# fzf
+#
 
 FZF_DEFAULT_OPTS="
 --border
@@ -81,11 +81,14 @@ FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 # --preview-window right:60%
 
 
+#
+# ls etc.
+#
+
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
 forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
-
 
 # Export variables when connected via SSH
 if [[ -n $SSH_CONNECTION ]]; then

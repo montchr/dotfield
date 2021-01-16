@@ -1,19 +1,4 @@
 # -*- mode: sh; eval: (sh-set-shell "zsh") -*-
-#
-# ========================================================================
-#
-# Chris Montgomery's ZSH Configuration
-#
-# https://github.com/montchr/dots/zsh/dot-zshrc
-#
-# Sources:
-# https://github.com/zdharma/zinit-configs/
-# https://github.com/NICHOLAS85/dotfiles/
-#
-# ========================================================================
-#
-
-setopt extended_glob no_short_loops rc_quotes
 
 # - - - - - - - - - - - - - - - - - - - -
 # Instant Prompt
@@ -34,11 +19,6 @@ typeset -g \
   HISTSIZE=290000 \
   SAVEHIST=290000 \
   HISTFILE=~/.zhistory \
-
-(( ABSD )) && {
-    # export LSCOLORS=dxfxcxdxbxegedabagacad CLICOLOR="1"
-}
-
 
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 [[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -p "$XDG_RUNTIME_DIR"
@@ -125,6 +105,12 @@ zt for \
         OMZL::history.zsh
 
 zt 0a for \
+  trigger-load"!base16-set-shell" \
+  atload"base16_${BASE16_THEME}" \
+  nocompile \
+    chriskempson/base16-shell
+
+zt 0a for \
     atload"
         alias ..='cd ..'
         alias ...='cd ../..'
@@ -171,13 +157,16 @@ zt 0a for \
     djui/alias-tips \
 
 zt 0a for \
-  atload"base16_$BASE16_THEME" \
-    chriskempson/base16-shell \
-  as"command" pick"colortest" \
-    chriskempson/base16-shell \
+  trigger-load'!base16-fzf' \
   pick"bash/base16-${BASE16_THEME}.config" \
   nocompile'!' \
-    nicodebo/base16-fzf \
+    nicodebo/base16-fzf
+
+  # @TODO this can happen way later
+  # as"command" pick"colortest" \
+  #   chriskempson/base16-shell \
+
+zt 0a for \
   atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   if'false' ver'dev' \

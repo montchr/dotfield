@@ -12,3 +12,5 @@
 
 \.python-version
 /\.scripts
+
+.DS_Store

@@ -50,7 +50,7 @@
     protocol = ssh
 [init]
     templateDir = ~/.git-templates
-    defaultBranch = main
+	defaultBranch = main
 [interactive]
     diffFilter = delta --color-only
 [pretty]

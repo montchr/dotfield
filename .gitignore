@@ -24,3 +24,4 @@ org-roam.db
 /gpg/dot-gnupg/*
 !/gpg/dot-gnupg/gpg-agent.conf
 !/gpg/dot-gnupg/gpg.conf
+/kitty/.config/kitty/theme.conf

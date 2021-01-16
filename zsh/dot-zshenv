@@ -1,9 +1,12 @@
-# -*- mode: sh -*-
+# -*- mode: sh; eval: (sh-set-shell "zsh") -*-
 
+# Set basic zsh options.
+setopt extended_glob no_short_loops rc_quotes
 
-# Skip the not really helping Ubuntu global compinit
+# Skip the not really helping Ubuntu global compinit.
 skip_global_compinit=1
 
+# Whether the OS is a BSD.
 export ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
 
 # Check whether a command exists.
