@@ -1,0 +1,27 @@
+{
+  "entries": {
+    "tap": {
+      "federico-terzi/espanso": {
+        "revision": "c62a394a884630fc91929d437e596ec7625c2b4b"
+      }
+    },
+    "brew": {
+      "espanso": {
+        "version": "0.7.3",
+        "bottle": false
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.7.1",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "eb5e075b316b7084668725aa2db31da5d7c65cc6",
+        "CLT": "12.3.0.0.1.1607026830",
+        "Xcode": "12.0",
+        "macOS": "10.15.7"
+      }
+    }
+  }
+}
