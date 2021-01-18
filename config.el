@@ -17,6 +17,13 @@
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
+;; Adjust the size of the modeline.
+(use-package! doom-modeline
+  :config
+  (setq! doom-modeline-height 1)
+  (set-face-attribute 'mode-line nil :family "Iosevka" :height 120)
+  (set-face-attribute 'mode-line-inactive nil :family "Iosevka" :height 120))
+
 (defun +cdom/os-theme (status)
   "Get the theme corresponding to the system's current dark mode status."
   (intern
