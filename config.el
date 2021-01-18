@@ -20,10 +20,10 @@
 (defun +cdom/os-theme (status)
   "Get the theme corresponding to the system's current dark mode status."
   (intern
-    (pcase status
-      ("dark" (getenv "CDOM_EMACS_THEME_DARK"))
-      ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
-      (_ "base16-black-metal-khold"))))
+   (pcase status
+     ("dark" (getenv "CDOM_EMACS_THEME_DARK"))
+     ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
+     (_ "base16-black-metal-khold"))))
 
 ;; @TODO accept param to avoid needing to call `cdom-os-appearance' :performance:
 (defun +cdom/load-os-theme ()
