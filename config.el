@@ -24,6 +24,8 @@
   (set-face-attribute 'mode-line nil :family "Iosevka" :height 120)
   (set-face-attribute 'mode-line-inactive nil :family "Iosevka" :height 120))
 
+(setq! evil-shift-width 2)
+
 (defun +cdom/os-theme (status)
   "Get the theme corresponding to the system's current dark mode status."
   (intern
