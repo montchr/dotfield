@@ -34,6 +34,7 @@ export \
   TMPDIR=/tmp \
   ZSH_DOTS="$DOTS/zsh" \
 
+[[ -e /opt/aliases ]] && eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
 
 # - - - - - - - - - - - - - - - - - - - -
 # PATH Modifications
