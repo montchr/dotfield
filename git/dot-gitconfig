@@ -7,24 +7,10 @@
     name = Chris Montgomery
     email = chris@cdom.io
     signingkey = A7498482
-
 [core]
     excludesfile = ~/.gitignore
     pager = delta
 
-[alias]
-    # Custom graph log (append any tree-ish)
-    lg = log --pretty=nice --date-order --graph
-    # Custom graph log for all branches
-    lga = log --pretty=nice --date-order --graph --all
-
-    # List recent branches
-    recent = "!r(){git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'}; r"
-
-    # Temporarily ignore/unignore files, and list ignored files
-    ignore = !git update-index --assume-unchanged
-    unignore = !git update-index --no-assume-unchanged
-    ignored = !git ls-files -v | grep ^[a-z]
 [apply]
     whitespace = nowarn
 [color]
@@ -50,7 +36,7 @@
     protocol = ssh
 [init]
     templateDir = ~/.git-templates
-	defaultBranch = main
+    defaultBranch = main
 [interactive]
     diffFilter = delta --color-only
 [pretty]
@@ -80,6 +66,6 @@
     cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
 [diff]
-	tool = ediff
+    tool = ediff
 [difftool "ediff"]
     cmd = ediff \"$LOCAL\" \"$REMOTE\"
