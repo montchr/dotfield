@@ -50,9 +50,10 @@
 (+cdom/load-os-theme)
 
 
+(defvar +cdom/org-agenda-directory "~/org/gtd/")
+
 (setq! org-directory "~/org"
-       +cdom/org-agenda-directory "~/org/gtd/"
-       org-capture-todo-file "inbox.org"
+       +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
        org-roam-directory "~/org")
 
 ;; Simple settings.
@@ -113,7 +114,7 @@
 
 
 (use-package! doct
-  :after (org)
+  :after (org-capture)
   :commands (doct))
 
 (use-package! org-board
@@ -136,15 +137,15 @@
   :after (org))
 
 ;; Add doct support to org-roam capture templates.
-(after! doct org-roam
-  (defun +doct-org-roam (groups)
-    (let (converted)
-      (dolist (group groups)
-        (let* ((props (nthcdr 5 group))
-               (roam-properties (plist-get (plist-get props :doct) :org-roam)))
-          (push `(,@group ,@roam-properties) converted)))
-      (setq! doct-templates (nreverse converted))))
-  (setq! doct-after-conversion-functions '(+doct-org-roam)))
+;; (after! doct org-roam)
+;; (defun +doct-org-roam (groups)
+;;   (let (converted)
+;;     (dolist (group groups)
+;;       (let* ((props (nthcdr 5 group))
+;;              (roam-properties (plist-get (plist-get props :doct) :org-roam)))
+;;         (push `(,@group ,@roam-properties) converted)))
+;;     (setq! doct-templates (nreverse converted))))
+;; (setq! doct-after-conversion-functions '(+doct-org-roam)))
 ;; :config
 ;; (setq! org-roam-dailies-capture-templates
 ;;       (doct `(("daily") :keys "d"
@@ -156,6 +157,23 @@
 ;;               :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
 ;;               :head "#+title: %<%A, %d %B %Y>")))
 ;; (setq! +org-roam-open-buffer-on-find-file nil))
+;;
+
+(after! org-capture
+  (defun set-org-capture-templates ()
+    (setq! org-capture-templates
+           (doct `(("Personal todo"
+                    :keys "t"
+                    :icon ("checklist" :set "octicon" :color "green")
+                    :file +org-capture-todo-file
+                    :prepend t
+                    :headline "Inbox"
+                    :type entry
+                    :template ("* TODO %?"
+                               "%i %a"))))))
+  (set-org-capture-templates))
+
+
 
 ;; (setq! org-capture-templates
 ;;       (doct `(("Tasks"
