@@ -106,7 +106,7 @@ zt for \
 
 zt 0a for \
   trigger-load"!base16-set-shell" \
-  atload"base16_${BASE16_THEME}" \
+  pick"scripts/base16-${BASE16_THEME}.sh" \
   nocompile \
     chriskempson/base16-shell
 
@@ -161,10 +161,6 @@ zt 0a for \
   pick"bash/base16-${BASE16_THEME}.config" \
   nocompile'!' \
     nicodebo/base16-fzf
-
-  # @TODO this can happen way later
-  # as"command" pick"colortest" \
-  #   chriskempson/base16-shell \
 
 zt 0a for \
   atload'_zsh_autosuggest_start' \
@@ -257,6 +253,12 @@ zt 2a light-mode for \
   ael-code/zsh-colored-man-pages \
   wfxr/forgit
 
+zt 2b light-mode for \
+  as"command" \
+  pick"colortest" \
+  atload"alias colortest=\"colortest base16-${BASE16_THEME}.sh\"" \
+  blockf \
+    chriskempson/base16-shell \
 zt 2b light-mode for \
     trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
     atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
