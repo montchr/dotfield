@@ -150,7 +150,6 @@ zt 0a for \
         alias gl='git log --oneline --decorate -20'
     " \
         OMZP::git \
-    OMZP::command-not-found \
     OMZ::plugins/extract/extract.plugin.zsh \
     OMZP::pyenv \
     skywind3000/z.lua \
@@ -248,8 +247,9 @@ zt 1a for \
   zdharma/zui \
   zdharma/zbrowse
 
-
 zt 2a light-mode for \
+  OMZP::command-not-found \
+  OMZP::composer \
   ael-code/zsh-colored-man-pages \
   wfxr/forgit
 
@@ -259,17 +259,18 @@ zt 2b light-mode for \
   atload"alias colortest=\"colortest base16-${BASE16_THEME}.sh\"" \
   blockf \
     chriskempson/base16-shell \
+
 zt 2b light-mode for \
     trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
     atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
         RobSis/zsh-completion-generator
 
-zt 2b blockf for \
+zt 2c blockf for \
   atpull'zinit creinstall -q .' \
   atload"zicompinit; zicdreplay" \
     zsh-users/zsh-completions
 
-zt 2b for \
+zt 2c for \
   id-as'Cleanup' nocd \
   atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
@@ -281,7 +282,6 @@ zt 2b for \
 
 zinit is-snippet for \
     if"[[ -f $HOME/.localrc ]]" $HOME/.localrc
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
