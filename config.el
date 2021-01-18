@@ -17,30 +17,29 @@
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
-;; Load default theme based on dark mode status.
-;; @TODO do this right
-;; (defun +cdom/theme-system-appearance
-;;         (require 'subr-x)
-;;   (unless IS-MAC
-;;         (pcase (string-trim-right (shell-command-to-string "dark-mode status")
-;;                 ('on (setq! +cdom/theme "base16-black-metal-bathory"))
-;;                 ('off (setq! +cdom/theme "doom-plain")))))
+(defun +cdom/os-theme (status)
+  "Get the theme corresponding to the system's current dark mode status."
+  (intern
+    (pcase status
+      ("dark" (getenv "CDOM_EMACS_THEME_DARK"))
+      ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
+      (_ "base16-black-metal-khold"))))
+
+;; @TODO accept param to avoid needing to call `cdom-os-appearance' :performance:
+(defun +cdom/load-os-theme ()
+  "Load the theme corresponding to the system's dark mode status."
+  (interactive)
+  (load-theme (+cdom/os-theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))) t))
 
 (use-package! base16-theme
+  :after-call +cdom/load-os-theme
   :config
   (setq! base16-theme-256-color-source "base16-shell"
          base16-distinct-fringe-background nil))
 
-(setq! doom-theme 'base16-black-metal-khold)
+;; Load default theme based on macOS dark mode status.
+(+cdom/load-os-theme)
 
-;; Change theme based on macOS light/dark mode.
-;; Only works in emacs-plus.
-;; (add-hook 'ns-system-appearance-change-functions
-;;           #'(lambda (appearance)
-;;               (mapc #'disable-theme custom-enabled-themes)
-;;               (pcase appearance
-;;                 ('light (load-theme 'doom-one-light t))
-;;                 ('dark (load-theme 'doom-monokai-pro t)))))
 
 (setq! org-directory "~/org"
        +cdom/org-agenda-directory "~/org/gtd/"
