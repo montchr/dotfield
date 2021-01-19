@@ -10,7 +10,7 @@ skip_global_compinit=1
 export ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
 
 # Check whether a command exists.
-command_exists() { print type "$1" >/dev/null 2>&1 }
+command_exists() { type "$1" >/dev/null 2>&1 }
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -34,7 +34,6 @@ export \
   TMPDIR=/tmp \
   ZSH_DOTS="$DOTS/zsh" \
 
-[[ -e /opt/aliases ]] && eval "$(find /opt/aliases -type f -path '*zsh/*.sh' | while read af; do echo "source $af"; done)"
 
 # - - - - - - - - - - - - - - - - - - - -
 # PATH Modifications
