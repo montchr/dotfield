@@ -50,7 +50,8 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# Personal Preferences
+# - Personal Preferences
+# - System Appearance
 # - - - - - - - - - - - - - - - - - - - -
 
 # typeset -A Cdom
@@ -65,14 +66,13 @@ export \
 export BASE16_THEME_DARK='black-metal-khold' \
        BASE16_THEME_LIGHT='grayscale-light'
 
-# Check for dark mode here and now, avoiding calling a script which might source this file.
-# @TODO consider exporting dark mode status to SSH sessions
 export cdom-dark-mode-status () { command_exists dark-mode && dark-mode status }
-# @TODO only set as an override for ssh sessions -- document this!
-# export CDOM_OS_APPEARANCE=${${CDOM_OS_APPEARANCE}:-$(cdom-os-appearance)}
 export cdom-os-appearance () {
-  $([[ $CDOM_OS_APPEARANCE ]] && print "$CDOM_OS_APPEARANCE") \
-    || [[ $(cdom-dark-mode-status) = "on" ]] && print "dark" || print "light";
+  if [[ $(cdom-dark-mode-status) = "on" ]]; then
+    print "dark"
+  else
+    print "light"
+  fi
 }
 export cdom-base16-theme () {
   case $1 in
@@ -82,7 +82,8 @@ export cdom-base16-theme () {
   esac
 }
 
-export BASE16_THEME=$(cdom-base16-theme $(cdom-os-appearance))
+export CDOM_OS_APPEARANCE=${${CDOM_OS_APPEARANCE}:-$(cdom-os-appearance)}
+export BASE16_THEME=$(cdom-base16-theme ${CDOM_OS_APPEARANCE})
 
 # Emacs-specific configuration.
 export \
