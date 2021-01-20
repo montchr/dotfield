@@ -20,9 +20,11 @@
 ;; Adjust the size of the modeline.
 (use-package! doom-modeline
   :config
-  (setq! doom-modeline-height 1)
-  (set-face-attribute 'mode-line nil :family "Iosevka" :height 120)
-  (set-face-attribute 'mode-line-inactive nil :family "Iosevka" :height 120))
+  (when IS-MAC
+    (setq! doom-modeline-height 1)
+    (custom-set-faces!
+      '(mode-line ((t (:family "Iosevka" :height 0.9))))
+      '(mode-line-inactive ((t (:family "Iosevka" :height 0.9)))))))
 
 (setq! evil-shift-width 2)
 
