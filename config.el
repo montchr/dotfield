@@ -40,7 +40,8 @@
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
-  (load-theme (+cdom/os-theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))) t))
+  (let ((theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))))
+    (load-theme (+cdom/os-theme theme) t)))
 
 (use-package! base16-theme
   :after-call +cdom/load-os-theme
