@@ -1,4 +1,7 @@
-brew 'delta' # magit-delta
+brew 'aspell'
+brew 'direnv'
+brew 'git-delta' # magit-delta
+brew 'ledger'
 brew 'pandoc'
 
 # https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lookup/README.org#prerequisites
