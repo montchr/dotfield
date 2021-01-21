@@ -75,7 +75,6 @@ FZF_DEFAULT_OPTS="
 FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 
 # @TODO while the preview is nice in the terminal, it shouldn't be used as a default
-# this may have caused emacs counsel-file to crash when attempting to load previews for particularly heavy binary files
 # see fzf readme for more info: https://github.com/junegunn/fzf#preview-window
 # --preview \"(bat --color=always {} || ls -l --color=always {}) 2>/dev/null | head -200\"
 # --preview-window right:60%
@@ -94,9 +93,6 @@ forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
 if [[ -n $SSH_CONNECTION ]]; then
   # @TODO this might actually cause some issues with emacs in tty?
   # export DISPLAY=:0
-  alias ls="exa --group-directories-first"
-else
-  alias ls="exa --group-directories-first --icons"
 fi
 
 
