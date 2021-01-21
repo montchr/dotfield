@@ -103,6 +103,8 @@
   (vterm-mode . with-editor-export-editor))
 
 (after! org
+  (setq! org-image-actual-width 300
+         org-startup-with-inline-images t)
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
     (interactive)
