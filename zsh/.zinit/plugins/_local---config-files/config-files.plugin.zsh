@@ -103,7 +103,9 @@ fi
 alias e="${EDITOR}"
 alias g="git"
 alias t='tail -f'
-alias sshk='kitty +kitten ssh'
+
+# Use Kitty terminal's ssh helper kitten
+alias sshk="kitty +kitten ssh -o SendEnv=CDOM_OS_APPEARANCE"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
