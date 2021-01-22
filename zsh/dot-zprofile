@@ -70,10 +70,10 @@ export BASE16_THEME_DARK='black-metal-khold' \
 #
 # Returns either "light" or "dark". Defaults to "dark".
 export cdom-os-appearance () {
-  if [[ $(command_exists "dark-mode") ]]; then
-     [[ $(dark-mode status) = "off" ]] && print "light" || print "dark"
-  elif [[ -e ${CDOM_OS_APPEARANCE} ]]; then
-    print ${CDOM_OS_APPEARANCE}
+  if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
+    print "${CDOM_OS_APPEARANCE}"
+  elif [[ $(command_exists "dark-mode" && dark-mode status) == "off" ]]; then
+    print "light"
   else
     print "dark"
   fi
@@ -92,7 +92,7 @@ export cdom-base16-theme () {
 
 # Set the OS appearance, using the existing value if it exists, or by attempting to query the current status.
 export CDOM_OS_APPEARANCE=${${CDOM_OS_APPEARANCE}:-$(cdom-os-appearance)}
-# Set the base16 theme.
+# Set the base16 theme based on OS appearance.
 export BASE16_THEME=$(cdom-base16-theme ${CDOM_OS_APPEARANCE})
 
 # Emacs-specific configuration.
