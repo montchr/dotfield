@@ -18,13 +18,11 @@
 (setq! +zen-text-scale 1)
 
 ;; Adjust the size of the modeline.
-(use-package! doom-modeline
-  :config
+(after! doom-modeline
   (when IS-MAC
     (setq! doom-modeline-height 1)
     (custom-set-faces!
-      '(mode-line ((t (:family "Iosevka" :height 0.9))))
-      '(mode-line-inactive ((t (:family "Iosevka" :height 0.9)))))))
+      '((mode-line mode-line-inactive) :family "Iosevka Term"))))
 
 (setq! evil-shift-width 2)
 
