@@ -152,23 +152,18 @@ zt 0a for \
     " \
         OMZP::git \
     OMZ::plugins/extract/extract.plugin.zsh \
-    OMZP::pyenv \
     skywind3000/z.lua \
-    djui/alias-tips \
+    djui/alias-tips
 
 zt 0a for \
   trigger-load'!base16-fzf' \
   pick"bash/base16-${BASE16_THEME}.config" \
   nocompile'!' \
-    nicodebo/base16-fzf
-
-zt 0a for \
+    nicodebo/base16-fzf \
   atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   if'false' ver'dev' \
-    marlonrichert/zsh-autocomplete \
-  pick'autoenv.zsh' nocompletions \
-    Tarrasch/zsh-autoenv
+    marlonrichert/zsh-autocomplete
 
 zt 0b light-mode for \
     atload'export ENHANCD_FILTER=fzf:fzy:peco' \
@@ -244,7 +239,6 @@ zt 1a for \
     bindkey '^I' fzf-tab-partial-and-complete
   " \
     Aloxaf/fzf-tab \
-  lukechilds/zsh-nvm \
   zdharma/zui \
   zdharma/zbrowse
 
@@ -259,12 +253,65 @@ zt 2b light-mode for \
   pick"colortest" \
   atload"alias colortest=\"colortest base16-${BASE16_THEME}.sh\"" \
   blockf \
-    chriskempson/base16-shell \
+    chriskempson/base16-shell
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# - asdf version manager
+# - direnv via asdf
+# - - - - - - - - - - - - - - - - - - - -
+
+function .asdf-plugins {
+  local p
+  for p in $cdom_asdf_plugins; do asdf plugin ${1} $p; done
+}
+
+function .load-asdf-direnv {
+  zt 1a for \
+    id-as'asdf-init' \
+      atclone'.asdf-plugins add' \
+      atpull'asdf update; asdf plugin update --all; .asdf-plugins reshim' \
+        zdharma/null \
+    id-as'asdf-direnv-preinit' \
+      atclone'
+        asdf install direnv latest
+        $(asdf exec direnv hook zsh) > asdf-direnv-zhook.zsh
+      ' \
+      atpull'%atclone' \
+      atinit'direnv() { asdf exec direnv "$@"; }' \
+      pick'asdf-direnv-zhook.zsh' \
+        zdharma/null \
+    id-as'asdf-direnv-init' \
+      trigger-load'direnv-hook-asdf' \
+      bash src'lib/commands/command-hook-asdf.bash' \
+        @asdf-community/asdf-direnv
+}
+
+# Initialize ASDF-VM
+# @TODO prevent output
+zt 2a for \
+  atclone'[[ ! -d "$ASDF_DATA_DIR" ]] && mkdir -p "$ASDF_DATA_DIR"' \
+  atload'.load-asdf-direnv' \
+    @asdf-vm/asdf
+
+# Update plugins upon changing the global tool versions file.
+zinit subscribe'~/.tool-versions' for \
+  atload'
+    asdf update; asdf plugin update --all; asdf install
+    .asdf-plugins reshim
+  ' \
+    @zdharma/null
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# - Completions
+# - Cleanup
+# - - - - - - - - - - - - - - - - - - - -
 
 zt 2b light-mode for \
-    trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
-    atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
-        RobSis/zsh-completion-generator
+  trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
+  atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
+    RobSis/zsh-completion-generator
 
 zt 2c blockf for \
   atpull'zinit creinstall -q .' \
@@ -283,6 +330,7 @@ zt 2c for \
 
 zinit is-snippet for \
     if"[[ -f $HOME/.localrc ]]" $HOME/.localrc
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

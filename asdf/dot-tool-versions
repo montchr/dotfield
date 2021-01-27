@@ -1,0 +1,5 @@
+direnv 2.27.0
+nodejs lts
+php 7.4
+python 3.8
+ruby latest

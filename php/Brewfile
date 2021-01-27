@@ -1,3 +1,22 @@
 #!/usr/bin/env ruby
 
 brew 'php@7.4'
+
+# asdf-php dependencies
+brew 'autoconf'
+brew 'automake'
+brew 'bison'
+brew 'freetype'
+brew 'gd'
+brew 'gettext'
+brew 'icu4c'
+brew 'krb5'
+brew 'libedit'
+brew 'libiconv'
+brew 'libjpeg'
+brew 'libpng'
+brew 'libxml2'
+brew 'libzip'
+brew 'pkg-config'
+brew 're2c'
+brew 'zlib'

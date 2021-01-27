@@ -47,15 +47,27 @@ export GPG_TTY="$(tty)"
 
 
 #
+# asdf version manager
+#
+
+export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf-vm"
+export cdom_asdf_plugins=(
+  direnv
+  nodejs
+  php
+  python
+  ruby
+)
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+
+#
 # nvm / node
 #
 
 export NVM_AUTO_USE=true \
-  NVM_DIR="$HOME/.nvm" \
-  NVM_LAZY_LOAD=true \
-  NVM_SYMLINK_CURRENT=true \
-  NODE_VERSIONS="$NVM_DIR/versions/node/" \
-  NODE_VERSION_PREFIX='v'
+  # NVM_DIR="$HOME/.nvm" \
+  NVM_LAZY_LOAD=true
 
 
 #
