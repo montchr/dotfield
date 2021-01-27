@@ -32,7 +32,7 @@ export \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:/tmp/kitty-socket" \
   TMPDIR=/tmp \
-  ZSH_DOTS="$DOTS/zsh" \
+  ZSH_DOTS="$DOTS/zsh"
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -43,7 +43,8 @@ export PATH="$HOME/bin:$DOTS/bin:$PATH"
 
 # Requred by Homebrew
 export PATH="/usr/local/sbin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
