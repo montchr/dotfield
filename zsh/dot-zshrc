@@ -267,28 +267,24 @@ function .asdf-plugins {
 }
 
 function .load-asdf-direnv {
-  zt 1a for \
+  zt 0a for \
     id-as'asdf-init' \
-      atclone'.asdf-plugins add' \
-      atpull'asdf update; asdf plugin update --all; .asdf-plugins reshim' \
-        zdharma/null \
-    id-as'asdf-direnv-preinit' \
-      atclone'
-        asdf install direnv latest
-        $(asdf exec direnv hook zsh) > asdf-direnv-zhook.zsh
-      ' \
-      atpull'%atclone' \
-      atinit'direnv() { asdf exec direnv "$@"; }' \
-      pick'asdf-direnv-zhook.zsh' \
-        zdharma/null \
+    atclone'.asdf-plugins add; asdf install' \
+    atpull'asdf update; asdf plugin update --all; .asdf-plugins reshim' \
+      @zdharma/null
+  zt 0b for \
     id-as'asdf-direnv-init' \
-      trigger-load'direnv-hook-asdf' \
-      bash src'lib/commands/command-hook-asdf.bash' \
-        @asdf-community/asdf-direnv
+    atclone'
+      asdf install direnv latest && asdf exec direnv hook zsh > zhook.zsh
+    ' \
+    atpull'%atclone' \
+    atinit'direnv() { asdf exec direnv "$@"; }' \
+    src'zhook.zsh' \
+      @zdharma/null
 }
 
 # Initialize ASDF-VM
-# @TODO prevent output
+# @TODO prevent output?
 zt 2a for \
   atclone'[[ ! -d "$ASDF_DATA_DIR" ]] && mkdir -p "$ASDF_DATA_DIR"' \
   atload'.load-asdf-direnv' \
