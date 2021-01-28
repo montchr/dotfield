@@ -1,6 +1,6 @@
 source "$(asdf direnv hook asdf)"
 
 # Read Node version from the current directory's package.json
-# read_version_from_package_json() {
-#   jq -r '.engines.node' package.json | egrep -oe "[0-9\.]+"
-# }
+read_version_from_package_json() {
+  jq -r '.engines.node' package.json | egrep -oe "[0-9\.]+"
+}

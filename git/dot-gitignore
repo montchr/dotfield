@@ -57,6 +57,7 @@ Thumbs.db
 sftp-config.json
 .env
 TODO
+.direnv/*
 .envrc
 .autoenv.zsh
 .scratch
@@ -67,3 +68,6 @@ upgrade
 .php_cs.cache
 
 local-silence-other-rest-route-warnings.php
+
+# asdf
+.tool-versions
