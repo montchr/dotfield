@@ -46,6 +46,11 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
+# Prefer GNU coreutils
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
