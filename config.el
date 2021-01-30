@@ -214,6 +214,9 @@
          lsp-vetur-format-default-formatter-ts "prettier-eslint"
          lsp-vetur-use-workspace-dependencies t))
 
+(use-package! literate-calc-mode
+  :defer-incrementally t)
+
 (setq! +ligatures-extra-symbols
        '(
          ;; org
