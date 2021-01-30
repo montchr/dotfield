@@ -10,7 +10,7 @@ yabai -m config window_topmost off
 yabai -m config window_opacity on
 yabai -m config window_shadow on
 yabai -m config window_border on
-yabai -m config window_border_width 6
+yabai -m config window_border_width 3
 # @TODO use theme colors
 yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
@@ -26,7 +26,7 @@ yabai -m config mouse_action2 resize
 # general space settings
 yabai -m config external_bar all:23:23
 yabai -m config layout bsp
-yabai-set-padding 24
+yabai-set-padding 6
 
 yabai -m space 1 --label 'task'
 yabai -m space 2 --label 'inspect' && yabai -m space 2
