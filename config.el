@@ -211,6 +211,10 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 
+(use-package! projectile
+  :config
+  (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
+
 (after! lsp
   :config
   (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
