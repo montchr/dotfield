@@ -49,7 +49,8 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 # Prefer GNU coreutils
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
+# Prefer brew's sqlite3
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
