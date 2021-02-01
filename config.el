@@ -105,6 +105,7 @@
 (after! org
   (setq! org-image-actual-width 300
          org-startup-with-inline-images t)
+  (add-to-list 'org-babel-load-languages '(literate-calc . t))
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
     (interactive)
