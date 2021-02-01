@@ -24,6 +24,7 @@
     (custom-set-faces!
       '((mode-line mode-line-inactive) :family "Iosevka Term"))))
 
+;; Default indent by 2 spaces
 (setq! evil-shift-width 2)
 
 (defun +cdom/os-theme (status)
@@ -69,6 +70,7 @@
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
+;; @TODO This still throws a message because it's called on the hook, unaffected by ~auto-save-no-message~
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
@@ -88,7 +90,7 @@
 ;; Add any desired extra space prior to invoking evil-lion.
 ;; (setq! evil-lion-squeeze-spaces nil)
 
-;; Attempts to prevent vterm from loading emacs from within itself
+;; Prevent vterm from loading emacs from within itself
 (use-package! with-editor
   :after (vterm)
   :general
