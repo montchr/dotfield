@@ -6,10 +6,16 @@
 
 # Then ${0:h} to get plugin's directory
 
+
+# - - - - - - - - - - - - - - - - - - - -
+# Functions
+# - - - - - - - - - - - - - - - - - - - -
+
 # Autoload personal functions
-# (Except those beginning with an underscore)
-fpath=("${0:h}/functions" "${fpath[@]}")
-autoload -Uz $fpath[1]/^_*(:t)
+if [[ -z ${fpath[(r)${0:h}/functions]} ]] {
+  fpath=("${0:h}/functions" "${fpath[@]}")
+}
+autoload -Uz $fpath[1]/*(:t)
 
 add-zsh-hook chpwd chpwd_ls
 
@@ -20,6 +26,7 @@ add-zsh-hook chpwd chpwd_ls
 
 pchf="${0:h}/patches"
 thmf="${0:h}/themes"
+
 GENCOMPL_FPATH="${0:h}/completions"
 WD_CONFIG="${ZPFX}/warprc"
 ZSHZ_DATA="${ZPFX}/z"
