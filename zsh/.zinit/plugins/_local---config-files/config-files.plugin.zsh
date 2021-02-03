@@ -30,7 +30,6 @@ thmf="${0:h}/themes"
 GENCOMPL_FPATH="${0:h}/completions"
 WD_CONFIG="${ZPFX}/warprc"
 ZSHZ_DATA="${ZPFX}/z"
-AUTOENV_AUTH_FILE="${ZPFX}/autoenv_auth"
 export CUSTOMIZEPKG_CONFIG="${HOME}/.config/customizepkg"
 
 ZSH_AUTOSUGGEST_USE_ASYNC=true
@@ -38,8 +37,10 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c100,)"
 ZSH_AUTOSUGGEST_MANUAL_REBIND=set
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 FAST_ALIAS_TIPS_PREFIX="» $(tput setaf 6)"
 FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
+
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
 
@@ -48,9 +49,6 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=set
 #
 
 export GPG_TTY="$(tty)"
-# @TODO pass GPG through SSH connections?
-# https://unix.stackexchange.com/questions/217737/pinentry-fails-with-gpg-agent-and-ssh
-# export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
 
 #
@@ -73,7 +71,6 @@ export PATH="$ASDF_DATA_DIR/shims:$PATH"
 #
 
 export NVM_AUTO_USE=true \
-  # NVM_DIR="$HOME/.nvm" \
   NVM_LAZY_LOAD=true
 
 
@@ -202,7 +199,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# Miscellaneous
+# Bindings
 # - - - - - - - - - - - - - - - - - - - -
 
 bindkey -v        # Vi bindings
@@ -214,6 +211,15 @@ bindkey "\e[4~"   end-of-line           "\e[8~"   end-of-line
 bindkey "\e[F"    end-of-line           "\e[3~"   delete-char
 bindkey "^J"      accept-line           "^M"      accept-line
 bindkey "^T"      accept-line           "^R"      history-incremental-search-backward
+
+# Do nothing on pageup and pagedown. Better than printing '~'.
+bindkey -s '^[[5~' ''
+bindkey -s '^[[6~' ''
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Options
+# - - - - - - - - - - - - - - - - - - - -
 
 # Use case-insensitve globbing.
 unsetopt case_glob
@@ -270,8 +276,6 @@ setopt auto_list
 # Disable start/stop characters in shell editor.
 # unsetopt flow_control
 
-
-
 setopt append_history       # Allow multiple terminal sessions to all append to one zsh command history
 setopt hist_ignore_all_dups # delete old recorded entry if new entry is a duplicate.
 setopt no_beep              # don't beep on error
@@ -281,6 +285,11 @@ setopt interactive_comments # Allow comments even in interactive shells
 setopt pushd_ignore_dups    # don't push multiple copies of the same directory onto the directory stack
 setopt auto_pushd           # make cd push the old directory onto the directory stack
 setopt pushdminus           # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Completions
+# - - - - - - - - - - - - - - - - - - - -
 
 # Fuzzy matching of completions for when you mistype them:
 zstyle ':completion:*' completer _complete _match _approximate
@@ -305,6 +314,3 @@ zstyle ':completion:*' rehash true
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
 zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-
-bindkey -s '^[[5~' ''            # Do nothing on pageup and pagedown. Better than printing '~'.
-bindkey -s '^[[6~' ''
