@@ -43,6 +43,9 @@ FAST_ALIAS_TIPS_SUFFIX="$(tput sgr0) «"
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=set
 
+# Store homebrew prefix for later use to avoid re-executing
+export BREW_PREFIX=$(brew --prefix)
+
 
 #
 # GPG
