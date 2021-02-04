@@ -166,8 +166,8 @@
 (use-package! org-expiry
   :after (org)
   :config
-  (setq! org-expiry-inactive-timestamps t))
-;; (org-expiry-insinuate))
+  (setq! org-expiry-inactive-timestamps t)
+  (org-expiry-insinuate))
 
 ;; (use-package! org-protocol-capture-html
 ;;   :after (org))
