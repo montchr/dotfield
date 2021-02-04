@@ -1,7 +1,28 @@
-.DS_Store
-.idea
-*.log
-tmp/
+git/dot-gitconfig.local
 
-flycheck_config.el
-custom.el
+# Copy the Brewfile from one of the OS-specific example files.
+/Brewfile
+/Brewfile.lock.json
+
+# Ignore repos contained within
+emacs/emacs.d
+
+# Karabiner Elements directory contains numerous backup and assets files we
+# don't want. `karabiner.json` can't be symlinked directly because the
+# software overwrites this file upon modifying settings.
+karabiner/.config/karabiner/*
+!karabiner/.config/karabiner/karabiner.json
+
+# Emacs
+org-roam.db
+
+# Allow font archives.
+!/iosevka/**/*.tar.gz
+
+# GPG
+# Ignore everything but configuration files.
+/gpg/dot-gnupg/*
+!/gpg/dot-gnupg/gpg-agent.conf
+!/gpg/dot-gnupg/gpg.conf
+/kitty/.config/kitty/theme.conf
+/zsh/dot-zshenv
