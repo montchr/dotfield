@@ -36,11 +36,27 @@
 :: stack  @ : yabai -m config active_window_border_color 0xffd19a66  # Stack windows
 
 
-# ========================================
-# APP LAUNCHER mode
-# ========================================
 
-default < hyper - a ; app
+# - - - - - - - - - - - - - - - - - - - -
+# DEFAULT mode
+# - - - - - - - - - - - - - - - - - - - -
+
+# APP LAUNCHER mode
+default < hyper - a     ; app
+# SYSTEM mode
+default < hyper - s     ; sys
+# Open ephemeral org-capture frame
+default < hyper - x     : org-capture
+# Restart yabai
+default < hyper - y     : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# YABAI / HYPER-SPACE mode
+default < hyper - space ; focus
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# APP LAUNCHER mode
+# - - - - - - - - - - - - - - - - - - - -
+
 app     < hyper - a ; default
 app     < escape    ; default
 
@@ -64,7 +80,6 @@ app     < t : kitty @ --to unix:/tmp/kitty-socket \
 # SYSTEM mode
 # ========================================
 
-default < hyper - s ; sys
 sys     < hyper - s ; default
 sys     < escape    ; default
 
@@ -77,15 +92,11 @@ sys     < d : toggle-dark-mode ; \
 # HYPER-SPACE / YABAI modes
 # ========================================
 
-# HYPER-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
-# always to FOCUS mode. Getting out of any mode can also be done with ESCAPE.
-default                                 < hyper - space            ; focus
+# Entry to HYPER-SPACE modals is always to FOCUS mode. Getting out of any mode
+# can also be done with ESCAPE.
 focus, grid, swap, warp, warpnf, resize, stack < hyper - space     ; default
 grid, swap, warp, warpnf, resize, stack < escape                   ; focus
 focus < escape                                                     ; default
-
-# Restart yabai
-default < hyper - y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Once in FOCUS mode (or any other mode other than default), you can switch
 # modes with single keystroke. (mnemonic: letter corresponds to first letter of
@@ -298,7 +309,7 @@ stack    < j                 : yabai -m window --stack south
 stack    < l                 : yabai -m window --stack east
 stack    < h                 : yabai -m window --stack west
 stack    < return            : yabai -m window --stack biggest
-# @TODO: command doesn't seem to work, even when running in shell
+# @TODO: command doesn't seem to work, even when running in shell. maybe because `i` is already bound?
 # stack    < i                 : hs -c 'stackline.config:toggle("appearance.showIcons")'
 
 

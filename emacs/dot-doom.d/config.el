@@ -78,12 +78,11 @@
        truncate-string-ellipsis "…"
        display-line-numbers-type 'relative)
 
-;; Change default buffer names.
-(setq! doom-fallback-buffer-name "► Doom"
-       +doom-dashboard-name "► Doom")
-
+;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
-(setq! frame-title-format
+(setq! doom-fallback-buffer-name "► Doom"
+       +doom-dashboard-name "► Doom"
+       frame-title-format
        '(""
          (:eval
           (if (s-contains-p org-roam-directory (or buffer-file-name ""))
