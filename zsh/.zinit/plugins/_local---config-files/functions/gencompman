@@ -1,0 +1,6 @@
+# -*- mode: sh -*-
+# Generate completions from a manpage
+# https://github.com/RobSis/zsh-completion-generator/issues/17#issuecomment-720338731
+
+# @TODO env var not set
+man "$1" | cat | python "$ZSH_COMPLETION_GENERATOR_SRCDIR/help2comp.py" "$1" >|"$GENCOMPL_FPATH/_$1"
