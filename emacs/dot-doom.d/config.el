@@ -62,10 +62,14 @@
 
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
+(defvar +cdom/org-notes-directory "~/org/notes/")
+(defvar +cdom/org-mind-directory "~/org/mind/")
 
 (setq! org-directory "~/org"
        +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
-       org-roam-directory "~/org")
+       org-roam-directory +cdom/org-mind-directory
+       deft-directory org-directory
+       deft-recursive t)
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
