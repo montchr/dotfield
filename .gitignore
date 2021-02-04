@@ -1,4 +1,5 @@
 git/dot-gitconfig.local
+/zsh/dot-zshenv
 
 # Copy the Brewfile from one of the OS-specific example files.
 /Brewfile
@@ -15,6 +16,7 @@ karabiner/.config/karabiner/*
 
 # Emacs
 org-roam.db
+/emacs/dot-doom.d/custom.el
 
 # Allow font archives.
 !/iosevka/**/*.tar.gz
@@ -24,5 +26,9 @@ org-roam.db
 /gpg/dot-gnupg/*
 !/gpg/dot-gnupg/gpg-agent.conf
 !/gpg/dot-gnupg/gpg.conf
+
+#
+# Misc.
+#
+
 /kitty/.config/kitty/theme.conf
-/zsh/dot-zshenv
