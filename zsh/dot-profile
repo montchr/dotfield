@@ -79,7 +79,7 @@ export \
 function cdom-os-appearance() {
   if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
     print "${CDOM_OS_APPEARANCE}"
-  elif [[ $(command_exists "dark-mode" && dark-mode status) == "off" ]]; then
+  elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
     print "light"
   else
     print "dark"
