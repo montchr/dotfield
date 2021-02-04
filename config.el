@@ -74,6 +74,25 @@
        truncate-string-ellipsis "…"
        display-line-numbers-type 'relative)
 
+;; Change default buffer names.
+(setq! doom-fallback-buffer-name "► Doom"
+       +doom-dashboard-name "► Doom")
+
+;; https://tecosaur.github.io/emacs-config/config.html#window-title
+(setq! frame-title-format
+       '(""
+         (:eval
+          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+              (replace-regexp-in-string
+               ".*/[0-9]*-?" "☰ "
+               (subst-char-in-string ?_ ?  buffer-file-name))
+            "%b"))
+         (:eval
+          (let ((project-name (projectile-project-name)))
+            (unless (string= "-" project-name)
+              (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))
+         (:eval " ▲ doom")))
+
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
 
