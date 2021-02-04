@@ -71,7 +71,8 @@
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
        evil-want-fine-undo nil
-       truncate-string-ellipsis "…")
+       truncate-string-ellipsis "…"
+       display-line-numbers-type 'relative)
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
