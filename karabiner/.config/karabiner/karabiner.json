@@ -110,7 +110,7 @@
                         ]
                     },
                     {
-                        "description": "Change tab to fn if pressed with other keys, to tab if pressed alone",
+                        "description": "Change tab to meh if pressed with other keys, to tab if pressed alone",
                         "manipulators": [
                             {
                                 "from": {
@@ -128,7 +128,11 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "fn",
+                                        "key_code": "left_shift",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ],
                                         "lazy": true
                                     }
                                 ],
