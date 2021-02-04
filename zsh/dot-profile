@@ -1,17 +1,15 @@
-# -*- mode: sh; eval: (sh-set-shell "zsh") -*-
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+#
+# ~/.profile
+#
+# Core shell environment setup file.
+#
 
-# Set basic zsh options.
-setopt extended_glob no_short_loops rc_quotes
-
-# Skip the not really helping Ubuntu global compinit.
-skip_global_compinit=1
-
-# Whether the OS is a BSD.
-export ABSD=${${(M)OSTYPE:#*(darwin|bsd)*}:+1}
 
 # Check whether a command exists.
-command_exists() { type "$1" >/dev/null 2>&1 }
-
+function has() {
+  type "$1" >/dev/null 2>&1
+}
 
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
@@ -23,17 +21,16 @@ export \
   XDG_CACHE_HOME="$HOME/.cache" \
   XDG_CONFIG_HOME="$HOME/.config" \
   XDG_DATA_HOME="$HOME/.local/share" \
-  XDG_RUNTIME_DIR="$HOME/.run" \
+  XDG_RUNTIME_DIR="/tmp"
 
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
   DOTS="$HOME/.dots" \
   DOTFILES="$HOME/.dotfiles" \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
-  KITTY_SOCKET="unix:/tmp/kitty-socket" \
-  TMPDIR=/tmp \
+  KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
+  TMPDIR="/tmp" \
   ZSH_DOTS="$DOTS/zsh"
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # PATH Modifications
@@ -55,7 +52,6 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
-
 # - - - - - - - - - - - - - - - - - - - -
 # - Personal Preferences
 # - System Appearance
@@ -67,11 +63,10 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 export \
   EDITOR="emacsclient -cn" \
   GIT_EDITOR="$EDITOR" \
-  SYSTEMD_EDITOR="$EDITOR" \
-
+  SYSTEMD_EDITOR="$EDITOR"
 
 export BASE16_THEME_DARK='black-metal-khold' \
-       BASE16_THEME_LIGHT='grayscale-light'
+  BASE16_THEME_LIGHT='grayscale-light'
 
 # Emacs-specific configuration.
 export \
@@ -81,7 +76,7 @@ export \
 # Get the current OS appearance.
 #
 # Returns either "light" or "dark". Defaults to "dark".
-export cdom-os-appearance () {
+function cdom-os-appearance() {
   if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
     print "${CDOM_OS_APPEARANCE}"
   elif [[ $(command_exists "dark-mode" && dark-mode status) == "off" ]]; then
@@ -94,15 +89,19 @@ export cdom-os-appearance () {
 # Select a color theme based on dark mode status.
 #
 # Accepts either on/dark or off/light. Defaults to a dark theme.
-export cdom-base16-theme () {
+function cdom-base16-theme() {
   case $1 in
-    on|dark) print ${BASE16_THEME_DARK} ;;
-    off|light) print ${BASE16_THEME_LIGHT} ;;
+    on | dark) print ${BASE16_THEME_DARK} ;;
+    off | light) print ${BASE16_THEME_LIGHT} ;;
     *) print ${BASE16_THEME_DARK} ;;
   esac
 }
 
-# Set the OS appearance, using the existing value if it exists, or by attempting to query the current status.
-export CDOM_OS_APPEARANCE=${${CDOM_OS_APPEARANCE}:-$(cdom-os-appearance)}
+# Set the OS appearance by attempting to query the current status.
+[[ -z $CDOM_OS_APPEARANCE ]] &&
+  CDOM_OS_APPEARANCE="$(cdom-os-appearance)" &&
+  export CDOM_OS_APPEARANCE
+
 # Set the base16 theme based on OS appearance.
-export BASE16_THEME=$(cdom-base16-theme ${CDOM_OS_APPEARANCE})
+BASE16_THEME=$(cdom-base16-theme "$CDOM_OS_APPEARANCE") &&
+  export BASE16_THEME

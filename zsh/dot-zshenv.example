@@ -1,5 +1,3 @@
 # -*- mode: sh; eval: (sh-set-shell "zsh") -*-
 
-if [[ -e "$HOME/.zprofile" ]]; then
-  . "$HOME/.zprofile"
-fi
+[[ -e "$HOME/.profile" ]] && . "$HOME/.profile"
