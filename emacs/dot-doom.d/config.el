@@ -139,6 +139,7 @@
 
 (after! org
   (setq! org-image-actual-width 300
+         org-startup-folded t
          org-startup-with-inline-images t)
   (add-to-list 'org-babel-load-languages '(literate-calc . t))
   (defun +cdom/org-archive-done-tasks ()
