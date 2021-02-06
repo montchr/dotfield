@@ -266,6 +266,17 @@ zt 2b light-mode for \
   blockf \
     chriskempson/base16-shell
 
+zt 2b as'program' for \
+  pick'revolver' \
+    molovo/revolver \
+  pick'zunit' \
+  atclone'./build.zsh' atpull'%atclone' \
+    molovo/zunit \
+  pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" nocompile light-mode \
+    tj/git-extras \
+  id-as'git-unique' pick'git-unique' \
+    https://github.com/Osse/git-scripts/blob/master/git-unique
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # - asdf version manager
