@@ -167,27 +167,31 @@ zt 0a for \
     marlonrichert/zsh-autocomplete
 
 zt 0b light-mode for \
-    atload'export ENHANCD_FILTER=fzf:fzy:peco' \
-        b4b4r07/enhancd \
-    atload'
-        bindkey "$terminfo[kcuu1]" history-substring-search-up;
-        bindkey "$terminfo[kcud1]" history-substring-search-down;
-        bindkey "^[[A" history-substring-search-up;
-        bindkey "^[[B" history-substring-search-down;
-        bindkey -M vicmd "k" history-substring-search-up;
-        bindkey -M vicmd "j" history-substring-search-down;
-    ' \
-        zsh-users/zsh-history-substring-search \
-    bindmap"^R -> ^H" atinit"
-        zstyle :history-search-multi-word page-size 10
-        zstyle :history-search-multi-word highlight-color fg=red,bold
-        zstyle :plugin:history-search-multi-word reset-prompt-protect 1
-    " \
-      zdharma/history-search-multi-word \
-    autoload'#manydots-magic' \
-        knu/zsh-manydots-magic \
-    pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
-        hlissner/zsh-autopair \
+  atload'export ENHANCD_FILTER=fzf:fzy:peco' \
+    b4b4r07/enhancd \
+  as'program' cp'wd.sh -> wd' mv'_wd.sh -> _wd' \
+  atpull'!git reset --hard' \
+  pick'wd' \
+    mfaerevaag/wd \
+  atload'
+    bindkey "$terminfo[kcuu1]" history-substring-search-up;
+    bindkey "$terminfo[kcud1]" history-substring-search-down;
+    bindkey "^[[A" history-substring-search-up;
+    bindkey "^[[B" history-substring-search-down;
+    bindkey -M vicmd "k" history-substring-search-up;
+    bindkey -M vicmd "j" history-substring-search-down;
+  ' \
+    zsh-users/zsh-history-substring-search \
+  bindmap"^R -> ^H" atinit"
+    zstyle :history-search-multi-word page-size 10
+    zstyle :history-search-multi-word highlight-color fg=red,bold
+    zstyle :plugin:history-search-multi-word reset-prompt-protect 1
+  " \
+    zdharma/history-search-multi-word \
+  autoload'#manydots-magic' \
+    knu/zsh-manydots-magic \
+  pick'autopair.zsh' nocompletions atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
+    hlissner/zsh-autopair \
 
 zt 0b light-mode from'gh-r' as'program' for \
     junegunn/fzf \
