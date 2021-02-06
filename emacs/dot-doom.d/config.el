@@ -138,6 +138,16 @@
   "Return t if FILEPATH is within any of `projectile-ignored-projects'"
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 
+;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
+;; @TODO bindings in which-key no longer line up along a column
+;; https://tecosaur.github.io/emacs-config/config.html#which-key
+(setq! which-key-allow-multiple-replacements t)
+(after! which-key
+  (pushnew!
+   which-key-replacement-alist
+   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+
 (after! magit
   ;; List magit branches by date.
   (setq! magit-list-refs-sortby "-creatordate")
