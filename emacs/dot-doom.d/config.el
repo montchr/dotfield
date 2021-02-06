@@ -108,6 +108,10 @@
 ;; @TODO This still throws a message because it's called on the hook, unaffected by ~auto-save-no-message~
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
+;; Load VLF.
+(use-package! vlf-setup
+  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
 (setq! evil-vsplit-window-right t
        evil-split-window-below t)

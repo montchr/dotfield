@@ -62,5 +62,6 @@
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
 (package! reaper)                    ; Harvest time tracking mode
-(package! with-editor)
+(package! with-editor)               ; pass $EDITOR to embedded terminal processes
 (package! vimrc-mode)                ; vimrc syntax
+(package! vlf)                       ; open Very Large Files in chunks
