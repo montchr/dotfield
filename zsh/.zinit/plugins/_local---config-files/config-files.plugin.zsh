@@ -68,6 +68,13 @@ export cdom_asdf_plugins=(
 )
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
+#
+# bat
+#
+
+# Compatibility with any base16 terminal theme
+export BAT_THEME="base16-256"
+
 
 #
 # nvm / node
@@ -105,8 +112,6 @@ FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
-
-forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
 
 # Export variables when connected via SSH
 if [[ -n $SSH_CONNECTION ]]; then
@@ -146,8 +151,8 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Simple swapping
-alias cat="bat"
+# Use cp from coreutils
+[[ $IS_MAC ]] && has ${BREW_PREFIX}/bin/gcp && alias cp=${BREW_PREFIX}/bin/gcp
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
