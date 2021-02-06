@@ -15,8 +15,8 @@ function has() {
 declare -x OSID IS_MAC IS_LINUX
 case "$OSTYPE" in
   solaris*) OSID="solaris" ;;
-  darwin*)  OSID="mac" && IS_MAC=1 ;;
-  linux*)   OSID="linux" && IS_LINUX=1 ;;
+  darwin*)  OSID="mac" && IS_MAC=true ;;
+  linux*)   OSID="linux" && IS_LINUX=true ;;
   bsd*)     OSID="bsd" ;;
   msys*)    OSID="windows" ;;
   *)        OSID="unknown" ;;
