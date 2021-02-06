@@ -170,11 +170,22 @@
   (eshell-mode . with-editor-export-editor)
   (vterm-mode . with-editor-export-editor))
 
-(after! org
+;; https://tecosaur.github.io/emacs-config/config.html#tweaking-defaults
+(use-package! org
+  :config
   (setq! org-image-actual-width 300
          org-startup-folded t
-         org-startup-with-inline-images t)
-  (add-to-list 'org-babel-load-languages '(literate-calc . t))
+         org-startup-with-inline-images t
+         org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+         org-use-property-inheritance t              ; it's convenient to have properties inherited
+         org-log-done 'time                          ; log the time an item was completed
+         org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+         org-export-in-background t                  ; run export processes in external emacs process
+         org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
+  ;; Allow literate-calc-mode blocks in org src blocks
+  (add-to-list 'org-babel-load-languages '(literate-calc . t)))
+
+(after! org
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
     (interactive)
