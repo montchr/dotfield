@@ -130,7 +130,7 @@ zt 0a for \
     OMZL::grep.zsh \
     OMZL::termsupport.zsh \
     atload"
-        alias gs='forgit::add'
+        alias gs='git status'
         alias gap='git add -p'
         alias gdt='git difftool'
         alias gca='git commit --amend'
