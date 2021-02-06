@@ -11,6 +11,18 @@ function has() {
   type "$1" >/dev/null 2>&1
 }
 
+# Detect the OS and export appropriate variables.
+declare -x OSID IS_MAC IS_LINUX
+case "$OSTYPE" in
+  solaris*) OSID="solaris" ;;
+  darwin*)  OSID="mac" && IS_MAC=1 ;;
+  linux*)   OSID="linux" && IS_LINUX=1 ;;
+  bsd*)     OSID="bsd" ;;
+  msys*)    OSID="windows" ;;
+  *)        OSID="unknown" ;;
+esac
+
+
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
