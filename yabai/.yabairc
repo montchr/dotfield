@@ -3,8 +3,8 @@
 YABAI_SCRIPTS="$HOME/.dots/yabai/scripts"
 
 # global settings
-yabai -m config mouse_follows_focus on
-yabai -m config focus_follows_mouse autofocus
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse autoraise
 yabai -m config window_placement second_child
 yabai -m config window_topmost off
 yabai -m config window_opacity on
@@ -16,7 +16,8 @@ yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
 yabai -m config insert_window_border_color 0xffd75f5f
 yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.90
+# yabai -m config normal_window_opacity 0.90
+yabai -m config normal_window_opacity 1.0
 yabai -m config split_ratio 0.6180339887
 yabai -m config auto_balance on
 yabai -m config mouse_modifier fn
@@ -50,6 +51,7 @@ yabai -m rule --add app='^Emacs$' title='^$' \
 # yabai -m rule --add title="^$" manage=off
 
 yabai -m rule --add app=1Password title="^$" manage=off
+# yabai -m rule --add app="Acrobat Reader" manage=off
 yabai -m rule --add app=Browserosaurus manage=off
 
 # @todo Fantastical menu bar popup has a name, so these rules don't work
