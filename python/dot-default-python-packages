@@ -1,0 +1,7 @@
+# Required by some bits of doom-emacs python integration
+black
+isort
+# nosetests
+pipenv
+pyflakes
+# pytest
