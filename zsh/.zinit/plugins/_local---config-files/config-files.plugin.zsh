@@ -68,6 +68,13 @@ export cdom_asdf_plugins=(
 )
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
+#
+# bat
+#
+
+# Compatibility with any base16 terminal theme
+export BAT_THEME="base16-256"
+
 
 #
 # nvm / node
