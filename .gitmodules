@@ -22,3 +22,7 @@
 [submodule "debounce-mac"]
 	path = debounce-mac/.source
 	url = git@github.com:toothbrush/debounce-mac.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
