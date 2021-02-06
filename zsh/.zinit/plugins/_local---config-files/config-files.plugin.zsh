@@ -153,8 +153,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Simple swapping
-alias cat="bat"
 # Use cp from coreutils
 [[ $IS_MAC ]] && has ${BREW_PREFIX}/bin/gcp && alias cp=${BREW_PREFIX}/bin/gcp
 
