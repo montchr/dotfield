@@ -119,6 +119,17 @@
 ;; Show previews in ivy.
 ;; (setq! +ivy-buffer-preview t)
 
+;; https://tecosaur.github.io/emacs-config/config.html#company
+(after! company
+  (setq! company-idle-delay 0.5
+         company-minimum-prefix-length 2
+         company-show-numbers t)
+  ;; Make aborting less annoying.
+  (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+;; Extend prescient history lifespan.
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
 (after! magit
   ;; List magit branches by date.
   (setq! magit-list-refs-sortby "-creatordate")
