@@ -115,6 +115,20 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 
+#
+# rclone
+#
+
+if [[ $IS_MAC ]]; then
+  MOUNT_DIR=${HOME}/.mount
+  declare -Ax Mounts
+  Mounts=(
+    [alley]=${MOUNT_DIR}/alley-gdrive
+    [cdom]=${MOUNT_DIR}/gdrive
+  )
+fi
+
+
 # - - - - - - - - - - - - - - - - - - - -
 # Aliases
 # - - - - - - - - - - - - - - - - - - - -
