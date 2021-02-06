@@ -113,8 +113,6 @@ FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
-forgit_ignore="/dev/null" #replaced gi with local git-ignore plugin
-
 # Export variables when connected via SSH
 if [[ -n $SSH_CONNECTION ]]; then
   # @TODO this might actually cause some issues with emacs in tty?
