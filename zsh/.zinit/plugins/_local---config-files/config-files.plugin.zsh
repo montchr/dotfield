@@ -155,6 +155,8 @@ alias egrep='egrep --color=auto'
 
 # Simple swapping
 alias cat="bat"
+# Use cp from coreutils
+[[ $IS_MAC ]] && has ${BREW_PREFIX}/bin/gcp && alias cp=${BREW_PREFIX}/bin/gcp
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"

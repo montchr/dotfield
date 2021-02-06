@@ -149,6 +149,7 @@ zt 0a for \
         alias gshp='git stash pop'
         alias gshl='git stash list'
         alias gl='git log --oneline --decorate -20'
+        unalias gcp
     " \
         OMZP::git \
     OMZ::plugins/extract/extract.plugin.zsh \
@@ -246,7 +247,11 @@ zt 2a light-mode for \
   OMZP::command-not-found \
   OMZP::composer \
   ael-code/zsh-colored-man-pages \
-  wfxr/forgit
+  atinit'
+    # avoid conflict with GNU cp
+    export forgit_cherry_pick="gyp"
+  ' \
+    wfxr/forgit
 
 zt 2b light-mode for \
   as"command" \
