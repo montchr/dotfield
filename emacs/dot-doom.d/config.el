@@ -207,11 +207,11 @@
   :defer t)
 
 ;; Add a CREATED property to org-mode headings.
-(use-package! org-expiry
-  :after (org)
-  :config
-  (setq! org-expiry-inactive-timestamps t)
-  (org-expiry-insinuate))
+;; (use-package! org-expiry
+;;   :after (org)
+;;   :config
+;;   (setq! org-expiry-inactive-timestamps t)
+;;   (org-expiry-insinuate))
 
 ;; (use-package! org-protocol-capture-html
 ;;   :after (org))
