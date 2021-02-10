@@ -90,11 +90,11 @@ export \
 # Returns either "light" or "dark". Defaults to "dark".
 function cdom-os-appearance() {
   if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
-    print "${CDOM_OS_APPEARANCE}"
+    echo "${CDOM_OS_APPEARANCE}"
   elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
-    print "light"
+    echo "light"
   else
-    print "dark"
+    echo "dark"
   fi
 }
 
@@ -103,9 +103,9 @@ function cdom-os-appearance() {
 # Accepts either on/dark or off/light. Defaults to a dark theme.
 function cdom-base16-theme() {
   case $1 in
-    on | dark) print ${BASE16_THEME_DARK} ;;
-    off | light) print ${BASE16_THEME_LIGHT} ;;
-    *) print ${BASE16_THEME_DARK} ;;
+    on | dark) echo ${BASE16_THEME_DARK} ;;
+    off | light) echo ${BASE16_THEME_LIGHT} ;;
+    *) echo ${BASE16_THEME_DARK} ;;
   esac
 }
 
