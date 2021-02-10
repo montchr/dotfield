@@ -82,8 +82,8 @@ export BASE16_THEME_DARK='black-metal-khold' \
 
 # Emacs-specific configuration.
 export \
-  CDOM_EMACS_THEME_DARK="base16-${BASE16_THEME_DARK}" \
-  CDOM_EMACS_THEME_LIGHT="base16-${BASE16_THEME_LIGHT}"
+  CDOM_EMACS_THEME_DARK="modus-vivendi" \
+  CDOM_EMACS_THEME_LIGHT="modus-operandi"
 
 # Get the current OS appearance.
 #

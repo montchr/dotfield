@@ -49,17 +49,30 @@
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
   (let ((theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))))
-    (load-theme (+cdom/os-theme theme) t)))
+    (load-theme (+cdom/os-theme theme) t)
+    (run-hooks 'modus-themes-after-load-theme-hook)))
 
-(use-package! base16-theme
-  :after-call +cdom/load-os-theme
-  :config
-  (setq! base16-theme-256-color-source "base16-shell"
-         base16-distinct-fringe-background nil))
+(use-package! modus-themes
+  :init
+  (require 'modus-themes)
+  (setq! modus-themes-bold-constructs t
+         modus-themes-fringes 'subtle
+         modus-themes-slanted-constructs t
+         ;; modus-themes-syntax 'faint
+         modus-themes-mode-line 'borderless
+         modus-themes-completions 'opinionated
+         ;; modus-themes-intense-hl-line t
+         modus-themes-paren-match 'subtle-bold)
+  (modus-themes-load-themes))
+
+;; (use-package! base16-theme
+;;   :after-call +cdom/load-os-theme
+;;   :config
+;;   (setq! base16-theme-256-color-source "base16-shell"
+;;          base16-distinct-fringe-background nil))
 
 ;; Load default theme based on macOS dark mode status.
 (+cdom/load-os-theme)
-
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")
