@@ -4,9 +4,11 @@ YABAI_SCRIPTS="$HOME/.dots/yabai/scripts"
 
 # global settings
 yabai -m config mouse_follows_focus off
-yabai -m config focus_follows_mouse autoraise
+# `autoraise` will override the effect of `window_topmost`
+yabai -m config focus_follows_mouse autofocus
 yabai -m config window_placement second_child
-yabai -m config window_topmost off
+# Display floating windows on top.
+yabai -m config window_topmost on
 yabai -m config window_opacity on
 yabai -m config window_shadow on
 yabai -m config window_border on
@@ -16,8 +18,8 @@ yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
 yabai -m config insert_window_border_color 0xffd75f5f
 yabai -m config active_window_opacity 1.0
-# yabai -m config normal_window_opacity 0.90
-yabai -m config normal_window_opacity 1.0
+yabai -m config normal_window_opacity 0.90
+# yabai -m config normal_window_opacity 1.0
 yabai -m config split_ratio 0.6180339887
 yabai -m config auto_balance on
 yabai -m config mouse_modifier fn
@@ -34,10 +36,6 @@ yabai -m space 2 --label 'inspect' && yabai -m space 2
 yabai -m space 3 --label 'code' && yabai -m space 3
 yabai -m space 4 --label 'comm' && yabai -m space 4
 yabai -m space 5 --label 'term' && yabai -m space 5
-# yabai -m space 6 --label 'sys' && yabai -m space 6
-# yabai -m space 7 --label 'dots' && yabai -m space 7
-# yabai -m space 8 --label 'self' && yabai -m space 8
-# yabai -m space 9 --label 'music' && yabai -m space 9
 
 # Float Emacs popups
 # yabai -m rule --add app='^Emacs$' title='^\s*(-|–|—){1}\s+\(' \
