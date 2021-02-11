@@ -43,8 +43,8 @@ yabai -m config normal_window_opacity 0.90
 
 # Window borders
 yabai -m config window_border on
-yabai -m config window_border_width 6
-# @TODO use theme colors
+yabai -m config window_border_width 10
+# @TODO use global theme colors
 yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
 yabai -m config insert_window_border_color 0xffd75f5f
