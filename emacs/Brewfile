@@ -1,9 +1,0 @@
-brew 'aspell'
-brew 'direnv'
-brew 'git-delta' # magit-delta
-brew 'ledger'
-brew 'pandoc'
-brew 'sqlite' # org-roam, lookup +docsets
-
-# https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lookup/README.org#prerequisites
-brew 'wordnet'

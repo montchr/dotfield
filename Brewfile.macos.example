@@ -1,0 +1,294 @@
+# Official taps
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/services"
+
+# Third-party taps
+tap "federico-terzi/espanso"
+tap "github/gh"
+tap "koekeishiya/formulae"
+tap "railwaycat/emacsmacport"
+tap "rcmdnk/file"
+
+
+# Load coreutils first.
+brew "coreutils"
+
+
+# Essentials
+brew "ack"
+brew "automake"
+brew "sqlite"
+brew "bash"
+brew "bash-completion"
+brew "binutils"
+brew "glib"
+brew "pkg-config"
+brew "cmake"
+brew "make"
+brew "curl"
+brew "gawk"
+brew "gcc"
+brew "git"
+brew "gnupg"
+brew "gpgme"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "wget"
+brew "zsh"
+brew "gnutls"
+brew "ripgrep"
+brew "rsync"
+
+
+# Infrastructure
+brew "ansible"
+
+
+# Emacs
+brew 'aspell'
+brew 'wordnet'
+# macOS only
+brew "railwaycat/emacsmacport/emacs-mac", args: ["with-no-title-bars"]
+# Linux only
+# brew 'emacs'
+
+
+# Audiovisual
+brew "ffmpeg"
+brew "graphicsmagick"
+# brew "gsl"
+brew "imagemagick"
+# brew "imagemagick@6"
+brew "imlib2"
+brew "jp2a"
+brew "libcaca"
+brew "librsvg"
+brew "optipng"
+brew "youtube-dl"
+
+
+# macOS only
+brew "dark-mode"
+brew "ical-buddy"
+brew "mas"
+brew "m-cli"
+brew "dnsmasq", restart_service: true
+brew "koekeishiya/formulae/skhd", args: ["with-logging"]
+brew "koekeishiya/formulae/yabai"
+brew "pinentry-mac"
+
+
+# Timekeeping
+brew "ddate"
+
+
+# Development and shell utilities
+brew "editorconfig"
+brew "exa"
+brew "fd"
+brew "fzf"
+brew "gh"
+brew "git-delta"
+brew "grc"
+brew "hub"
+brew "hyperfine"
+brew "gdb"
+brew "shellcheck"
+brew "shfmt"
+brew "tmux"
+brew "awscli"
+
+
+# File utilities
+brew "jq"
+brew "pandoc"
+brew "rename"
+brew "renameutils"
+brew "poppler"
+brew "stow"
+brew "unar"
+brew "yq"
+
+
+# Personal administration
+brew "ledger"
+brew "notmuch"
+brew "pass"
+brew "rclone"
+brew "federico-terzi/espanso/espanso"
+
+
+# Information retrieval
+brew "googler"
+brew "tldr"
+
+
+# System monitoring
+brew "netcat"
+brew "ncdu"
+
+
+# Languages
+brew "cabal-install"
+brew "go"
+brew "node"
+brew "python"
+brew "luarocks"
+brew "php@7.4"
+brew "ruby-build"
+brew "rust"
+
+
+# Misc. Databases
+brew "postgresql"
+
+
+# PHP build dependencies
+brew 'autoconf'
+brew 'bison'
+brew 'gettext'
+brew 're2c'
+# macOS only
+brew 'freetype'
+brew 'gd'
+brew 'icu4c'
+brew 'krb5'
+brew 'libedit'
+brew 'libiconv'
+brew 'libjpeg'
+brew 'libpng'
+brew 'libxml2'
+brew 'libzip'
+brew 'zlib'
+# Linux only
+# brew 'build-essential'
+# brew 'libcurl4-openssl-dev'
+# brew 'libedit-dev'
+# brew 'libicu-dev'
+# brew 'libgd-dev'
+# brew 'libjpeg-dev'
+# brew 'libmysqlclient-dev'
+# brew 'libonig-dev'
+# brew 'libpng-dev'
+# brew 'libpq-dev'
+# brew 'libreadline-dev'
+# brew 'libsqlite3-dev'
+# brew 'libssl-dev'
+# brew 'libxml2-dev'
+# brew 'libzip-dev'
+# brew 'zlib1g-dev'
+
+
+# Misc. libraries
+brew "libedit"
+brew "libiconv"
+brew "libmagic"
+brew "libpq"
+brew "pango"
+brew "rlwrap"
+brew "re2c"
+
+
+# Casks: macOS only
+cask "1password", args: { appdir: "/Applications" }
+cask "1password-cli"
+cask "a-better-finder-rename", args: { appdir: "/Applications" }
+cask "airfoil"
+cask "alfred", args: { appdir: "/Applications" }
+cask "appcleaner", args: { appdir: "/Applications" }
+cask "audio-hijack", args: { appdir: "/Applications" }
+cask "bartender", args: { appdir: "/Applications" }
+cask "basictex"
+# cask "beatunes", args: { appdir: "/Applications" }
+cask "bettertouchtool", args: { appdir: "/Applications" }
+cask "brave-browser", args: { appdir: "/Applications" }
+cask "calibre", args: { appdir: "/Applications" }
+cask "caprine", args: { appdir: "/Applications" }
+cask "cardhop", args: { appdir: "/Applications" }
+cask "cloudapp", args: { appdir: "/Applications" }
+cask "colloquy", args: { appdir: "/Applications" }
+cask "dash", args: { appdir: "/Applications" }
+cask "docker"
+cask "dropbox"
+cask "dupeguru", args: { appdir: "/Applications" }
+cask "fantastical", args: { appdir: "/Applications" }
+cask "fastscripts", args: { appdir: "/Applications" }
+cask "figma"
+cask "finicky"
+cask "firefox", args: { appdir: "/Applications" }
+cask "firefox-developer-edition", args: { appdir: "/Applications" }
+cask "google-chrome", args: { appdir: "/Applications" }
+cask "hammerspoon"
+cask "harvest", args: { appdir: "/Applications" }
+# @TODO replace with hammerspoon
+# cask "insomnia"
+cask "istat-menus", args: { appdir: "/Applications" }
+cask "kaleidoscope", args: { appdir: "/Applications" }
+cask "karabiner-elements", args: { appdir: "/Applications" }
+cask "keyboard-maestro", args: { appdir: "/Applications" }
+cask "keycue", args: { appdir: "/Applications" }
+cask "kitty"
+cask "libreoffice"
+# @TODO possibly unnecessary in 2021
+# cask "livereload", args: { appdir: "/Applications" }
+cask "marked", args: { appdir: "/Applications" }
+cask "muzzle", args: { appdir: "/Applications" }
+cask "osxfuse"
+cask "plexamp"
+cask "qlcolorcode", args: { appdir: "/Applications" }
+cask "qlmarkdown"
+cask "qlstephen", args: { appdir: "/Applications" }
+cask "qlvideo", args: { appdir: "/Applications" }
+cask "quicklook-json", args: { appdir: "/Applications" }
+cask "quicklookase", args: { appdir: "/Applications" }
+cask "script-debugger", args: { appdir: "/Applications" }
+cask "sequel-pro", args: { appdir: "/Applications" }
+cask "signal"
+cask "slack", args: { appdir: "/Applications" }
+cask "soundsource", args: { appdir: "/Applications" }
+cask "spotify"
+cask "sublime-text", args: { appdir: "/Applications" }
+cask "suspicious-package", args: { appdir: "/Applications" }
+cask "taskpaper"
+cask "tigervnc-viewer"
+cask "transmit", args: { appdir: "/Applications" }
+cask "ubersicht"
+cask "usb-overdrive"
+cask "virtualbox"
+cask "vagrant"
+cask "visual-studio-code", args: { appdir: "/Applications" }
+cask "vlc", args: { appdir: "/Applications" }
+cask "webpquicklook", args: { appdir: "/Applications" }
+cask "xquartz", args: { appdir: "/Applications" }
+cask "zoom"
+
+# Mac App Store
+mas "Affinity Photo", id: 824183456
+mas "Be Focused Pro", id: 961632517
+mas "DaisyDisk", id: 411643860
+mas "Day One", id: 1055511498
+mas "Deliveries", id: 924726344
+mas "Drafts", id: 1435957248
+mas "Due", id: 524373870
+mas "Focus Matrix", id: 1087284172
+mas "GoodTask", id: 1143437985
+mas "Harvest", id: 506189836
+mas "Jira", id: 1475897096
+mas "Keka", id: 470158793
+mas "Keynote", id: 409183694
+mas "NepTunes", id: 1006739057
+mas "New File Menu", id: 1064959555
+mas "NordVPN IKE", id: 1116599239
+mas "Paprika Recipe Manager 3", id: 1303222628
+mas "Patterns", id: 429449079
+mas "PlayOff", id: 1454620165
+mas "Reeder", id: 1449412482
+mas "SnippetsLab", id: 1006087419
+mas "Spark", id: 1176895641
+mas "Tweetbot", id: 1384080005
+mas "Xcode", id: 497799835
+mas "xScope", id: 889428659
+mas "Yoink", id: 457622435

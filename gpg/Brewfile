@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-brew 'pinentry-mac'
-brew 'gnupg'
-brew 'gpg2'
