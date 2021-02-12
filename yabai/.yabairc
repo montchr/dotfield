@@ -64,8 +64,6 @@ yabai -m space 5 --label 'term' && yabai -m space 5
 # 	manage=off \
 # 	mouse_follows_focus=off
 
-# @todo what happened?
-# yabai -m rule --add title="^$" manage=off
 
 yabai -m rule --add app=1Password manage=off
 yabai -m rule --add app="Fantastical Helper" manage=off
@@ -76,6 +74,8 @@ yabai -m rule --add app=Browserosaurus manage=off sticky=on
 yabai -m rule --add app=Harvest \
   manage=off \
   sticky=on
+# Float unnamed windows.
+yabai -m rule --add title="^$" manage=off
 
 # caused yabai to crash?
 # yabai -m rule --add app=PhpStorm title='^$' manage=off
