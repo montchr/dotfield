@@ -2,3 +2,4 @@ eslint
 prettier
 prettier-eslint
 stylelint
+svgo
