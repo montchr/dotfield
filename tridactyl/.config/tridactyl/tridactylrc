@@ -18,10 +18,6 @@
 " The advantage of running the command is that you can use the tridactyl
 " interface on addons.mozilla.org and other restricted sites.
 
-" Provided only as an example.
-" Do not install/run without reading through as you may be surprised by some
-" of the settings.
-
 " May require the latest beta builds.
 
 " Move this to $XDG_CONFIG_HOME/tridactyl/tridactylrc (that's
@@ -91,7 +87,7 @@ bind ;C composite hint_focus; !s xdotool key Menu
 " js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "st vim" : "auto"; tri.config.set("editorcmd", editorcmd)})
 
 " Sane hinting mode
-set hintfiltermode vimperator-reflow
+set hintfiltermode simple
 set hintnames short
 set hintdelay 100
 
