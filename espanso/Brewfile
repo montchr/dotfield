@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-
-tap 'federico-terzi/espanso'
-brew 'espanso'

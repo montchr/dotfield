@@ -1,0 +1,17 @@
+@namespace "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+
+/* https://fedidat.com/640-dark-newtab-firefox/ */
+#browser vbox#appcontent tabbrowser,
+#content,
+#tabbrowser-tabpanels,
+browser[type='content-primary'],
+browser[type='content'] > html {
+  background: #181a1b !important;
+}
+
+* {
+  font-family: "Iosevka Term", monospace;
+  font-size: 12px;
+}
+
+

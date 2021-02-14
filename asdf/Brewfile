@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-
-# Implicit dependency
-brew 'bash'
-
-# asdf-nodejs
-brew 'gawk'

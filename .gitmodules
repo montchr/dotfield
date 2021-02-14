@@ -22,6 +22,9 @@
 [submodule "debounce-mac"]
 	path = debounce-mac/.source
 	url = git@github.com:toothbrush/debounce-mac.git
+[submodule "firefox-i3wm-theme"]
+	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
+	url = git@github.com:aadilayub/firefox-i3wm-theme.git
 [submodule "dotbot"]
 	path = dotbot/dotbot
 	url = https://github.com/anishathalye/dotbot
