@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -e
+
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+META_DIR="meta"
+META_LIB_DIR="${META_DIR}/lib"
+DOTBOT_DIR="${META_LIB_DIR}/dotbot"
+CMD="${DOTBOT_DIR}/bin/dotbot"
+
+PROFILES_DIR="profiles"
+MODULES_DIR="modules"
+CONFIG_SUFFIX="conf"
+CONFIG_EXT="yaml"
+BASE_CONFIG="${MODULES_DIR}/base.${CONFIG_SUFFIX}:+conf.}${CONFIG_EXT}"
+
+cd "${BASE_DIR}"
+git -C "${META_LIB_DIR}" submodule sync --quiet --recursive
+git submodule update --init --recursive "${META_LIB_DIR}"
+
+function load_profile_configs {
+  while IFS= read -r config; do
+    CONFIGS+=" ${config}"
+  done < "${META_DIR}/${PROFILES_DIR}/$1"
+}
+
+function install_config () {
+  "$CMD" -d "${BASE_DIR}" \
+    --plugin-dir "${META_DIR}/dotbot-brew" \
+    -p "${META_DIR}/dotbot-aptget-sudo/aptget.py" \
+    -c "${META_DIR}/${1}.yaml"
+}
+
+load_profile_configs "$1"
+shift
+
+# @TODO thiis should be prepended to all configs
+"${CMD}" -d "${BASE_DIR}" \
+  --plugin-dir "${META_LIB_DIR}/dotbot-brewfile" \
+  -c "${BASE_CONFIG}"
+
+for config in ${CONFIGS} ${@}; do
+    echo -e "\nConfigure $config"
+    "${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" \
+      --plugin-dir "${META_DIR}/dotbot-brew" \
+      -p "${META_DIR}/dotbot-aptget-sudo/aptget.py" \
+      -c "${META_DIR}/${CONFIG_DIR}/${config}.yaml"
+done

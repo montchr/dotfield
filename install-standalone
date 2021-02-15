@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+META_DIR="meta"
+DOTBOT_DIR="dotbot"
+DOTBOT_BIN="bin/dotbot"
+
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+cd "${BASE_DIR}"
+git -C "${META_DIR}" submodule sync --quiet --recursive
+git submodule update --init --recursive "${META_DIR}"
+
+function dotbot_install_config () {
+  local DOTBOT_CMD="${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}"
+  $DOTBOT_CMD -d "${BASE_DIR}" \
+    --plugin-dir "${META_DIR}/dotbot-brewfile" \
+    -p "${META_DIR}/dotbot-aptget-sudo/aptget.py" \
+    -c "${META_DIR}/${1}.yaml"
+}
+
+dotbot_install_config "base"
+
+for config in ${@}; do
+  dotbot_install_config ${config}
+done

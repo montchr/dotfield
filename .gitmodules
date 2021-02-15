@@ -26,9 +26,9 @@
 	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
 	url = git@github.com:aadilayub/firefox-i3wm-theme.git
 [submodule "dotbot"]
-	path = dotbot/dotbot
+	path = meta/lib/dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
 [submodule "dotbot-brew"]
-	path = dotbot/dotbot-brew
+	path = meta/lib/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git

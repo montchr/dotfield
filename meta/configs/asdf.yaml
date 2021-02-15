@@ -1,0 +1,3 @@
+- link:
+    ${XDG_CONFIG_HOME}/asdf/dot-asdfrc:
+    ${XDG_CONFIG_HOME}/asdf/dot-tool-versions:
