@@ -2,16 +2,70 @@
 
 set -e
 
-CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+META_DIR="meta"
+META_LIB_DIR="${META_DIR}/lib"
+DOTBOT_DIR="${META_LIB_DIR}/dotbot"
 
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+PROFILES_DIR="profiles"
+MODULES_DIR="modules"
+CONFIG_SUFFIX=".conf"
+CONFIG_EXT="yaml"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" \
-  --plugin-dir dotbot-brew \
-  "${@}"
+BASE_CONFIG="${MODULES_DIR}/base${CONFIG_SUFFIX}.${CONFIG_EXT}"
+
+function install_profile {
+  local configs
+  while IFS= read -r config; do
+    configs+=" ${config}"
+  done < "${META_DIR}/${PROFILES_DIR}/$1"
+}
+
+function install_module {
+  local configFile
+  configFile="$(mktemp)"
+  echo -e "
+    $(<"${BASE_DIR}/${BASE_CONFIG}")
+    $(<"${MODULES_DIR}/${module}/install${CONFIG_SUFFIX}.${CONFIG_EXT}")
+  " > "$configFile"
+
+  "${DOTBOT_DIR}/bin/dotbot" -d "${BASE_DIR}" \
+    --plugin-dir "${META_DIR}/dotbot-brew" \
+    -c "$configFile"
+
+  rm -f "$configFile"
+}
+
+function install_modules {
+  for config in ${@}; do
+    install_module ${config}
+  done
+}
+
+
+cd "${BASE_DIR}"
+git -C "${META_LIB_DIR}" submodule sync --quiet --recursive
+git submodule update --init --recursive "${META_LIB_DIR}"
+
+case "$1" in
+  profile|module)
+    subcommand="$1"
+    shift 1
+    "install_${subcommand}" "$@"
+    ;;
+  *)
+    echo -n "[$(tput bold)$(tput setaf 1)error$(tput sgr0)] "
+    echo "command $(tput bold)$1$(tput sgr0) not found."
+    return 1
+    ;;
+esac
+
+# load_profile_configs "$1"
+# shift
+
+# @TODO use array and dedupe?
+for config in ${CONFIGS} ${@}; do
+  echo -e "\nConfigure $config"
+  install_module -c "${MODULES_DIR}/${config}.yaml"
+done
