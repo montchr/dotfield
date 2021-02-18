@@ -32,3 +32,6 @@
 [submodule "dotbot-brew"]
 	path = meta/lib/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
+[submodule "bats-core"]
+	path = lib/bats-core
+	url = git@github.com:bats-core/bats-core.git
