@@ -187,6 +187,10 @@ brew 'zlib'
 # brew 'zlib1g-dev'
 
 
+# Font building
+brew 'fontforge'
+
+
 # Misc. libraries
 brew "libedit"
 brew "libiconv"
