@@ -1,3 +1,5 @@
+# -*- mode: ruby -*-
+
 # Official taps
 tap "homebrew/core"
 tap "homebrew/bundle"
@@ -111,6 +113,7 @@ brew "rename"
 brew "renameutils"
 brew "poppler"
 brew "stow"
+brew 'sd'
 brew "unar"
 brew "yq"
 
@@ -187,7 +190,7 @@ brew 'zlib'
 # Misc. libraries
 brew "libedit"
 brew "libiconv"
-# brew "libmagic"
+brew "libmagic" # promnesia dependency on macOS
 brew "libpq"
 brew "pango"
 brew "rlwrap"
@@ -201,7 +204,6 @@ cask "a-better-finder-rename", args: { appdir: "/Applications" }
 cask 'adobe-acrobat-reader'
 cask "airfoil"
 cask "alfred", args: { appdir: "/Applications" }
-cask "appcleaner", args: { appdir: "/Applications" }
 cask "audio-hijack", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
 cask "basictex"
@@ -209,13 +211,10 @@ cask "bettertouchtool", args: { appdir: "/Applications" }
 cask "brave-browser", args: { appdir: "/Applications" }
 cask "calibre", args: { appdir: "/Applications" }
 cask "caprine", args: { appdir: "/Applications" }
-cask "cardhop", args: { appdir: "/Applications" }
 cask "cloudapp", args: { appdir: "/Applications" }
-cask "colloquy", args: { appdir: "/Applications" }
 cask "dash", args: { appdir: "/Applications" }
 cask "docker"
 cask "dropbox"
-cask "dupeguru", args: { appdir: "/Applications" }
 cask "fantastical", args: { appdir: "/Applications" }
 cask "fastscripts", args: { appdir: "/Applications" }
 cask "figma"
@@ -256,7 +255,6 @@ cask "suspicious-package", args: { appdir: "/Applications" }
 cask "taskpaper"
 cask "tigervnc-viewer"
 cask "transmit", args: { appdir: "/Applications" }
-cask "usb-overdrive"
 # Requires manual input.
 cask "virtualbox"
 cask "vagrant"
