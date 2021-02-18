@@ -15,14 +15,8 @@ CONFIG_EXT="yaml"
 
 BASE_CONFIG="${MODULES_DIR}/base${CONFIG_SUFFIX}.${CONFIG_EXT}"
 
-function install_profile {
-  local configs
-  while IFS= read -r config; do
-    configs+=" ${config}"
-  done < "${META_DIR}/${PROFILES_DIR}/$1"
-}
 
-function install_module {
+install_module() {
   local configFile
   configFile="$(mktemp)"
   echo -e "
@@ -37,16 +31,27 @@ function install_module {
   rm -f "$configFile"
 }
 
-function install_modules {
-  for config in ${@}; do
+install_modules() {
+  for config in "${@}"; do
     install_module ${config}
   done
+}
+
+install_profile() {
+  local -a configs
+  while IFS="" read -r config; do
+    configs+=" ${config}"
+  done < "${META_DIR}/${PROFILES_DIR}/$1"
+  shift
+  configs+=" ${*}"
+  install_modules "$configs"
 }
 
 
 cd "${BASE_DIR}"
 git -C "${META_LIB_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${META_LIB_DIR}"
+
 
 case "$1" in
   profile|module)
@@ -60,12 +65,3 @@ case "$1" in
     return 1
     ;;
 esac
-
-# load_profile_configs "$1"
-# shift
-
-# @TODO use array and dedupe?
-for config in ${CONFIGS} ${@}; do
-  echo -e "\nConfigure $config"
-  install_module -c "${MODULES_DIR}/${config}.yaml"
-done
