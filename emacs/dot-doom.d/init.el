@@ -174,6 +174,7 @@
   ;;(wanderlust +gmail)
 
   :app
+  everywhere     ; *leave* Emacs!? You must be joking
   calendar
   ;;irc          ; how neckbeards socialize
   ;; (rss +org)  ; emacs as an RSS reader

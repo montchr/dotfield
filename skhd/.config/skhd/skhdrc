@@ -45,6 +45,8 @@
 default < hyper - a     ; app
 # SYSTEM mode
 default < hyper - s     ; sys
+# Open emacs everywhere
+default < hyper - e     : doom everywhere
 # Open ephemeral org-capture frame
 default < hyper - x     : org-capture
 # Restart yabai
