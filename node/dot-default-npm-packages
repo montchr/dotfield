@@ -1,5 +1,6 @@
 eslint
 prettier
 prettier-eslint
+@prettier/plugin-php
 stylelint
 svgo

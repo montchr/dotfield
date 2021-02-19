@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+composer global require \
+  d11wtq/boris \
+  phpunit/phpunit \
+  techlivezheng/phpctags \
+  friendsofphp/php-cs-fixer
+
+asdf reshim php
