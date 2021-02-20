@@ -122,7 +122,6 @@ brew "yq"
 brew "ledger"
 brew "notmuch"
 brew "pass"
-brew "rclone"
 brew "federico-terzi/espanso/espanso"
 
 
