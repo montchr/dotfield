@@ -1,4 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# -*- mode: sh; eval: (sh-set-shell "sh") -*-
 #
 # ~/.profile
 #
@@ -7,7 +7,7 @@
 
 
 # Check whether a command exists.
-function has() {
+has() {
   type "$1" >/dev/null 2>&1
 }
 
@@ -61,7 +61,7 @@ fi
 
 export PATH="$HOME/bin:$DOTS/bin:$PATH"
 
-# Requred by Homebrew
+# Required by Homebrew
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
@@ -99,7 +99,7 @@ export \
 # Get the current OS appearance.
 #
 # Returns either "light" or "dark". Defaults to "dark".
-function cdom-os-appearance() {
+cdom-os-appearance() {
   if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
     echo "${CDOM_OS_APPEARANCE}"
   elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
