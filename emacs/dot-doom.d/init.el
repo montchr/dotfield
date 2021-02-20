@@ -4,7 +4,7 @@
 ;; in. Remember to run 'doom sync' after modifying it!
 
 ;; Respect visual line mode
-(setq! evil-respect-visual-line-mode t)
+;; (setq! evil-respect-visual-line-mode t)
 
 (doom! :input
   ;;chinese
