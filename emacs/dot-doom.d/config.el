@@ -308,11 +308,12 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
-(after! lsp
+(use-package! lsp
   :config
+  (setq! lsp-phpactor-path (concat (getenv "DOTS_BIN") "/phpactor"))
   (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
-         lsp-vetur-format-default-formatter-ts "prettier-eslint"
-         lsp-vetur-use-workspace-dependencies t))
+    lsp-vetur-format-default-formatter-ts "prettier-eslint"
+    lsp-vetur-use-workspace-dependencies t))
 
 (use-package! literate-calc-mode
   :defer-incrementally t)
