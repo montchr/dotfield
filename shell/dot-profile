@@ -12,16 +12,9 @@ has() {
 }
 
 # Detect the OS and export appropriate variables.
-declare -x OSID IS_MAC IS_LINUX
-case "$OSTYPE" in
-  solaris*) OSID="solaris" ;;
-  darwin*)  OSID="mac" && IS_MAC=true ;;
-  linux*)   OSID="linux" && IS_LINUX=true ;;
-  bsd*)     OSID="bsd" ;;
-  msys*)    OSID="windows" ;;
-  *)        OSID="unknown" ;;
-esac
-
+declare -x IS_LINUX IS_MAC
+[[ $OSTYPE == linux* ]] && IS_LINUX=true
+[[ $OSTYPE == darwin* ]] && IS_MAC=true
 
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
