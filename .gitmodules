@@ -25,3 +25,6 @@
 [submodule "firefox-i3wm-theme"]
 	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
 	url = git@github.com:aadilayub/firefox-i3wm-theme.git
+[submodule "iosevka"]
+	path = iosevka
+	url = git@git.sr.ht:~montchr/iosevka-builds
