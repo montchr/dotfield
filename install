@@ -47,6 +47,11 @@ install_profile() {
   install_modules "$configs"
 }
 
+install_profiles() {
+  for profile in "${@}"; do
+    install_profiles ${profile}
+  done
+}
 
 cd "${BASE_DIR}"
 git -C "${META_LIB_DIR}" submodule sync --quiet --recursive
@@ -56,8 +61,8 @@ git submodule update --init --recursive "${META_LIB_DIR}"
 case "$1" in
   profile|module)
     subcommand="$1"
-    shift 1
-    "install_${subcommand}" "$@"
+    shift
+    "install_${subcommand}s" "$@"
     ;;
   *)
     echo -n "[$(tput bold)$(tput setaf 1)error$(tput sgr0)] "
