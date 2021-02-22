@@ -16,6 +16,7 @@ declare -x IS_LINUX IS_MAC
 [[ $OSTYPE == linux* ]] && IS_LINUX=true
 [[ $OSTYPE == darwin* ]] && IS_MAC=true
 
+
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
