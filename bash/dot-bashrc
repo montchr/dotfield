@@ -1,0 +1,3 @@
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+
+[[ -e "$HOME/.profile" ]] && . "$HOME/.profile"

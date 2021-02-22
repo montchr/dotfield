@@ -1,8 +1,7 @@
 git/dot-gitconfig.local
 /zsh/dot-zshenv
 
-# Copy the Brewfile from one of the OS-specific example files.
-/Brewfile
+# The homebrew-bundle lock file will be different between macOS/Linux
 /Brewfile.lock.json
 
 # Ignore repos contained within

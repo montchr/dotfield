@@ -87,9 +87,9 @@
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
-       evil-want-fine-undo nil
-       truncate-string-ellipsis "…"
-       display-line-numbers-type 'relative)
+  evil-want-fine-undo nil
+  truncate-string-ellipsis "…"
+  display-line-numbers-type 'relative)
 
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
@@ -154,12 +154,12 @@
 ;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
 ;; @TODO bindings in which-key no longer line up along a column
 ;; https://tecosaur.github.io/emacs-config/config.html#which-key
-(setq! which-key-allow-multiple-replacements t)
-(after! which-key
-  (pushnew!
-   which-key-replacement-alist
-   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+;; (setq! which-key-allow-multiple-replacements t)
+;; (after! which-key
+;;   (pushnew!
+;;    which-key-replacement-alist
+;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
 
 (after! magit
   ;; List magit branches by date.

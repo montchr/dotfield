@@ -69,6 +69,7 @@ yabai -m rule --add app='Emacs' title="doom-capture" \
 
 
 yabai -m rule --add app=1Password manage=off
+yabai -m rule --add app="Affinity" manage=off
 yabai -m rule --add app="Fantastical Helper" manage=off
 yabai -m rule --add app=Stickies manage=off
 yabai -m rule --add app='^System Preferences$' manage=off

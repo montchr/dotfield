@@ -1,0 +1,130 @@
+# -*- mode: sh; eval: (sh-set-shell "sh") -*-
+#
+# ~/.profile
+#
+# Core shell environment setup file.
+#
+
+
+# Check whether a command exists.
+has() {
+  type "$1" >/dev/null 2>&1
+}
+
+# Detect the OS and export appropriate variables.
+declare -x OSID IS_MAC IS_LINUX
+case "$OSTYPE" in
+  solaris*) OSID="solaris" ;;
+  darwin*)  OSID="mac" && IS_MAC=true ;;
+  linux*)   OSID="linux" && IS_LINUX=true ;;
+  bsd*)     OSID="bsd" ;;
+  msys*)    OSID="windows" ;;
+  *)        OSID="unknown" ;;
+esac
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Core Configuration
+# - - - - - - - - - - - - - - - - - - - -
+
+# Define XDG base directories before all others.
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export \
+  XDG_CACHE_HOME="$HOME/.cache" \
+  XDG_CONFIG_HOME="$HOME/.config" \
+  XDG_DATA_HOME="$HOME/.local/share" \
+  XDG_RUNTIME_DIR="/tmp"
+
+export \
+  CACHEDIR="$XDG_CACHE_HOME" \
+  DOTS="$HOME/.dots" \
+  DOTFILES="$HOME/.dotfiles" \
+  KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
+  KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
+  TMPDIR="/tmp" \
+  ZSH_DOTS="$DOTS/zsh"
+
+if [[ $IS_LINUX ]]; then
+  export \
+    HOMEBREW_BUNDLE_FILE="${DOTS}/Brewfile.linux.bundle" \
+    HOMEBREW_BUNDLE_CASK_SKIP=true \
+    HOMEBREW_BUNDLE_MAS_SKIP=true
+elif [[ $IS_MAC ]]; then
+  export \
+    HOMEBREW_BUNDLE_FILE="${DOTS}/Brewfile.darwin.bundle"
+fi
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# PATH Modifications
+# - - - - - - - - - - - - - - - - - - - -
+
+export PATH="$HOME/bin:$DOTS/bin:$PATH"
+
+# Required by Homebrew
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+# Prefer GNU coreutils
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# Prefer brew's sqlite3
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+
+# Doom Emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
+# - - - - - - - - - - - - - - - - - - - -
+# - Personal Preferences
+# - System Appearance
+# - - - - - - - - - - - - - - - - - - - -
+
+# typeset -A Cdom
+
+# System editor settings.
+export \
+  EDITOR="emacsclient -cn" \
+  GIT_EDITOR="$EDITOR" \
+  SYSTEMD_EDITOR="$EDITOR"
+
+export BASE16_THEME_DARK='black-metal-khold' \
+  BASE16_THEME_LIGHT='grayscale-light'
+
+# Emacs-specific configuration.
+export \
+  CDOM_EMACS_THEME_DARK="modus-vivendi" \
+  CDOM_EMACS_THEME_LIGHT="modus-operandi"
+
+# Get the current OS appearance.
+#
+# Returns either "light" or "dark". Defaults to "dark".
+cdom-os-appearance() {
+  if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
+    echo "${CDOM_OS_APPEARANCE}"
+  elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
+    echo "light"
+  else
+    echo "dark"
+  fi
+}
+
+# Select a color theme based on dark mode status.
+#
+# Accepts either on/dark or off/light. Defaults to a dark theme.
+function cdom-base16-theme() {
+  case $1 in
+    on | dark) echo ${BASE16_THEME_DARK} ;;
+    off | light) echo ${BASE16_THEME_LIGHT} ;;
+    *) echo ${BASE16_THEME_DARK} ;;
+  esac
+}
+
+# Set the OS appearance by attempting to query the current status.
+[[ -z $CDOM_OS_APPEARANCE ]] &&
+  CDOM_OS_APPEARANCE="$(cdom-os-appearance)" &&
+  export CDOM_OS_APPEARANCE
+
+# Set the base16 theme based on OS appearance.
+BASE16_THEME=$(cdom-base16-theme "$CDOM_OS_APPEARANCE") &&
+  export BASE16_THEME
