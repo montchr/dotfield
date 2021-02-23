@@ -110,7 +110,7 @@
   ;;coq                ; proofs-as-programs
   ;;crystal            ; ruby at the speed of c
   ;;csharp             ; unity, .NET, and mono shenanigans
-  ;;data               ; config/data formats
+  data               ; config/data formats
   ;;(dart +flutter)    ; paint ui and not much else
   ;;elixir             ; erlang done right
   ;;elm                ; care for a cup of TEA?
