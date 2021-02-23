@@ -119,6 +119,7 @@ brew "yq"
 
 
 # Personal administration
+brew "bitwarden-cli"
 brew "ledger"
 brew "notmuch"
 brew "pass"
@@ -211,6 +212,7 @@ cask "audio-hijack", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
 cask "basictex"
 cask "bettertouchtool", args: { appdir: "/Applications" }
+cask "bitwarden", args: { appdir: "/Applications" }
 cask "brave-browser", args: { appdir: "/Applications" }
 cask "calibre", args: { appdir: "/Applications" }
 cask "caprine", args: { appdir: "/Applications" }
