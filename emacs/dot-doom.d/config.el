@@ -144,9 +144,9 @@
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-;; Prevent projectile from adding documentation directories as projects.
+;; Prevent projectile from adding unwanted directories as projects.
 ;; https://tecosaur.github.io/emacs-config/config.html#projectile
-(setq! projectile-ignored-projects '("~/" "/tmp" "~/.emacs.d/.local/straight/repos/"))
+(setq! projectile-ignored-projects '("~/" "/tmp" "~/.emacs.d" "~/.emacs.d/.local/straight/repos/"))
 (defun projectile-ignored-project-function (filepath)
   "Return t if FILEPATH is within any of `projectile-ignored-projects'"
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
