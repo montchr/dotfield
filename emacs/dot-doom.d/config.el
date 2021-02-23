@@ -302,6 +302,16 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 
+(use-package! web-mode
+  :config
+  ;; Prevent web-mode from loading for all PHP files in WordPress themes.
+  ;; Instead, prioritize php-mode for files providing functionality.
+  ;; Overrides doom behavior.
+  (add-to-list 'auto-mode-alist '("wp-content/themes/.+/inc/.+\\.php\\'" . php-mode))
+  ;; Template partials should load web-mode.
+  (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
+
+
 (use-package! projectile
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
