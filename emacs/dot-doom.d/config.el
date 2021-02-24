@@ -311,14 +311,13 @@
   ;; Template partials should load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
-
 (use-package! projectile
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
 (use-package! lsp
   :config
-  (setq! lsp-phpactor-path (concat (getenv "DOTS_BIN") "/phpactor"))
+  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor"))
   (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
     lsp-vetur-format-default-formatter-ts "prettier-eslint"
     lsp-vetur-use-workspace-dependencies t))

@@ -70,6 +70,7 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
+
 # - - - - - - - - - - - - - - - - - - - -
 # - Personal Preferences
 # - System Appearance

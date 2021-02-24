@@ -28,6 +28,3 @@
 [submodule "iosevka"]
 	path = iosevka
 	url = git@git.sr.ht:~montchr/iosevka-builds
-[submodule "phpactor"]
-	path = lib/phpactor
-	url = git@github.com:phpactor/phpactor
