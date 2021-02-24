@@ -279,6 +279,7 @@ function .load-asdf-direnv {
   zt 0a for \
     id-as'asdf-init' \
     atclone"
+      export PHP_WITHOUT_PEAR=true
       .asdf-plugins add
       asdf install
       asdf install direnv ${ASDF_DIRENV_VERSION}
