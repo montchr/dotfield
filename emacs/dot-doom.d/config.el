@@ -259,37 +259,26 @@
 (after! org-capture
   (defun set-org-capture-templates ()
     (setq! org-capture-templates
-           (doct `(("Personal todo"
-                    :keys "t"
-                    :icon ("checklist" :set "octicon" :color "green")
-                    :file +org-capture-todo-file
-                    :prepend t
-                    :headline "Inbox"
-                    :type entry
-                    :template ("* TODO %?"
-                               "%i %a"))))))
+      (doct `(("Personal todo"
+                :keys "t"
+                :icon ("checklist" :set "octicon" :color "green")
+                :file +org-capture-todo-file
+                :prepend t
+                :headline "Inbox"
+                :type entry
+                :template ("* TODO %?"
+                            "%i %a"))))))
   (set-org-capture-templates))
-
-
-
-;; (setq! org-capture-templates
-;;       (doct `(("Tasks"
-;;                :keys "t"
-;;                :file ,(concat cdom/org-agenda-directory "inbox.org")
-;;                :prepend t
-;;                :template "* %{todo-state} %^{Description}"
-;;                :todo-state "TODO"))))
-
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :defer-incrementally t
   :init
   (setq! org-journal-file-type 'monthly
-         org-journal-file-format "%Y-%m.org"
-         org-journal-dir +cdom/org-agenda-directory
-         org-journal-date-format "%A, %d %B %Y"
-         org-journal-enable-agenda-integration t))
+    org-journal-file-format "%Y-%m.org"
+    org-journal-dir +cdom/org-agenda-directory
+    org-journal-date-format "%A, %d %B %Y"
+    org-journal-enable-agenda-integration t))
 
 (use-package! ox-gfm
   :after org)
