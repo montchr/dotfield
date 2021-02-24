@@ -25,6 +25,7 @@
       '((mode-line mode-line-inactive) :family "Iosevka Term"))))
 
 ;; Hide 'UTF-8' encoding from the modeline, since it's the default.
+;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?
 ;; https://tecosaur.github.io/emacs-config/config.html
 (defun doom-modeline-conditional-buffer-encoding ()
   "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
