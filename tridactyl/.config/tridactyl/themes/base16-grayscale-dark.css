@@ -6,7 +6,7 @@
   --tridactyl-cmdl-font-family: 'Iosevka Term' !important;
   --tridactyl-status-font-family: 'Iosevka Term' !important;
   --tridactyl-cmplt-font-family: 'Iosevka Term' !important;
-  --tridactyl-hintspan-font-family: 'Iosevka Term' !important;
+  --tridactyl-hintspan-font-family: 'Iosevka Curly' !important;
 
   --base00: #101010;
   --base01: #252525;
@@ -54,8 +54,8 @@
   padding: 1rem;
   color: var(--tridactyl-fg);
   width: 90%;
-  font-size: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.25rem;
+  line-height: 1.3;
   background: var(--tridactyl-bg);
   padding-left: unset;
   padding: 1rem;
@@ -63,7 +63,7 @@
 
 #completions table {
   font-size: 0.8rem;
-  font-weight: 200;
+  font-weight: normal;
   border-spacing: 0;
   table-layout: fixed;
   padding: 1rem;
@@ -84,7 +84,7 @@
   background: var(--tridactyl-bg);
   display: inline-block;
   font-size: unset;
-  font-weight: 200;
+  font-weight: normal;
   overflow: hidden;
   width: 100%;
   border-top: unset;
@@ -136,7 +136,7 @@
 
 #completions .sectionHeader {
   background: unset;
-  font-weight: 200;
+  font-weight: normal;
   border-bottom: unset;
   padding: 1rem !important;
   padding-left: unset;
