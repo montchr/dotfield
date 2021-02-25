@@ -29,6 +29,11 @@ export \
   XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share} \
   XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp}
 
+# Non-standard XDG-inspired locations
+export \
+  XDG_BIN_HOME=${XDG_BIN_HOME:-${HOME}/.local/bin} \
+  XDG_LIB_HOME=${XDG_LIB_HOME:-${HOME}/.local/lib}
+
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
   DOTS="$HOME/.dots" \
@@ -54,7 +59,7 @@ fi
 # PATH Modifications
 # - - - - - - - - - - - - - - - - - - - -
 
-export PATH="$HOME/bin:$DOTS/bin:$PATH"
+export PATH="$XDG_BIN_HOME:$HOME/bin:$DOTS/bin:$PATH"
 
 # Required by Homebrew
 export PATH="/usr/local/sbin:$PATH"
