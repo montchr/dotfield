@@ -24,10 +24,10 @@ declare -x IS_LINUX IS_MAC
 # Define XDG base directories before all others.
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export \
-  XDG_CACHE_HOME="$HOME/.cache" \
-  XDG_CONFIG_HOME="$HOME/.config" \
-  XDG_DATA_HOME="$HOME/.local/share" \
-  XDG_RUNTIME_DIR="/tmp"
+  XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache} \
+  XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config} \
+  XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share} \
+  XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp}
 
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
@@ -36,7 +36,7 @@ export \
   DOTFILES="$HOME/.dotfiles" \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
-  TMPDIR="/tmp" \
+  TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}} \
   ZSH_DOTS="$DOTS/zsh"
 
 if [[ $IS_LINUX ]]; then
