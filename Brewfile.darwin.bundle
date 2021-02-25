@@ -13,6 +13,7 @@ tap "github/gh"
 tap "koekeishiya/formulae"
 tap "railwaycat/emacsmacport"
 tap "rcmdnk/file"
+tap "shivammathur/php"
 
 
 # Load coreutils first.
@@ -142,7 +143,8 @@ brew "go"
 brew "node"
 brew "python"
 brew "luarocks"
-brew "php@7.4"
+brew "shivammathur/php/php@7.4"
+brew "shivammathur/php/php@8.0"
 brew "ruby-build"
 brew "rust"
 
@@ -261,8 +263,8 @@ cask "taskpaper"
 cask "tigervnc-viewer"
 cask "transmit", args: { appdir: "/Applications" }
 # Requires manual input.
-cask "virtualbox"
-cask "vagrant"
+# cask "virtualbox"
+# cask "vagrant"
 cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "vlc", args: { appdir: "/Applications" }
 cask "webpquicklook", args: { appdir: "/Applications" }
