@@ -1,9 +1,6 @@
 {
-  "name": "montchr/php-dev",
-  "description": "Libraries and resources for PHP development with LSP in Doom Emacs",
-  "type": "metapackage",
   "minimum-stability": "dev",
-  "require-dev": {
+  "require": {
     "phpactor/phpactor": "^0.17.0",
     "szepeviktor/phpstan-wordpress": "^0.7.3",
     "phpstan/extension-installer": "^1.1",
@@ -12,14 +9,9 @@
     "techlivezheng/phpctags": "dev-master",
     "friendsofphp/php-cs-fixer": "2.18.x-dev",
     "phpstan/phpstan": "0.12.x-dev",
-    "phpstan/phpstan-phpunit": "0.12.x-dev"
+    "phpstan/phpstan-phpunit": "0.12.x-dev",
+    "serenata/serenata": "dev-master"
   },
-  "authors": [
-    {
-      "name": "Chris Montgomery",
-      "email": "chris@cdom.io"
-    }
-  ],
   "scripts": {
     "post-install-cmd": [
       "phpactor extension:install phpactor/language-server-phpstan-extension"

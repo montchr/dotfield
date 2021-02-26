@@ -295,6 +295,11 @@ function .load-asdf-direnv {
     atpull'%atclone' \
     atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
     src'zhook.zsh' \
+    atload'
+      export COMPOSER_HOME=${COMPOSER_HOME:-${XDG_CONFIG_HOME}/composer}
+      # Ensure Composer bin is low priority
+      export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
+    ' \
       @zdharma/null
 }
 
