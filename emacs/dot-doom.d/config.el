@@ -152,15 +152,28 @@
   "Return t if FILEPATH is within any of `projectile-ignored-projects'"
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 
-;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
-;; @TODO bindings in which-key no longer line up along a column
-;; https://tecosaur.github.io/emacs-config/config.html#which-key
-;; (setq! which-key-allow-multiple-replacements t)
-;; (after! which-key
-;;   (pushnew!
-;;    which-key-replacement-alist
-;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+(use-package! which-key
+  :config
+  ;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
+  ;; @TODO bindings in which-key no longer line up along a column
+  ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+  (setq! which-key-allow-multiple-replacements t)
+  (pushnew!
+    which-key-replacement-alist
+    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1")))
+  (setq! which-key-sort-order
+    ;; default
+    ;; 'which-key-key-order
+    ;; same as default, except single characters are sorted alphabetically
+    ;; 'which-key-key-order-alpha
+    ;; same as default, except all prefix keys are grouped together at the end
+    ;; 'which-key-prefix-then-key-order
+    ;; same as default, except all keys from local maps shown first
+    'which-key-local-then-key-order
+    ;; sort based on the key description ignoring case
+    ;; 'which-key-description-order
+    ))
 
 (after! magit
   ;; List magit branches by date.
