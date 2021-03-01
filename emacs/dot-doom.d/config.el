@@ -30,8 +30,8 @@
 (defun doom-modeline-conditional-buffer-encoding ()
   "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding
-    (unless (or (eq buffer-file-coding-system 'utf-8-unix)
-              (eq buffer-file-coding-system 'utf-8)))))
+              (unless (or (eq buffer-file-coding-system 'utf-8-unix)
+                          (eq buffer-file-coding-system 'utf-8)))))
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
 ;; Default indent by 2 spaces
@@ -88,9 +88,8 @@
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
-  evil-want-fine-undo nil
-  truncate-string-ellipsis "…"
-  display-line-numbers-type 'relative)
+       truncate-string-ellipsis "…"
+       display-line-numbers-type 'relative)
 
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
@@ -159,9 +158,9 @@
   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
   (setq! which-key-allow-multiple-replacements t)
   (pushnew!
-    which-key-replacement-alist
-    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1")))
+   which-key-replacement-alist
+   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1")))
   (setq! which-key-sort-order
     ;; default
     ;; 'which-key-key-order
@@ -201,14 +200,15 @@
 (use-package! org
   :config
   (setq! org-image-actual-width 300
-    org-startup-folded t
-    org-startup-with-inline-images t
-    org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
-    org-use-property-inheritance t              ; it's convenient to have properties inherited
-    org-log-done 'time                          ; log the time an item was completed
-    org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-    org-export-in-background t                  ; run export processes in external emacs process
-    org-catch-invisible-edits 'smart))          ; try not to accidently do weird stuff in invisible regions
+         org-startup-folded t
+         org-startup-with-inline-images t
+         org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+         org-cycle-separator-lines -1
+         org-use-property-inheritance t              ; it's convenient to have properties inherited
+         org-log-done 'time                          ; log the time an item was completed
+         org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+         org-export-in-background t                  ; run export processes in external emacs process
+         org-catch-invisible-edits 'smart))          ; try not to accidently do weird stuff in invisible regions
 
 (after! org
   (defun +cdom/org-archive-done-tasks ()
@@ -273,15 +273,15 @@
 (after! org-capture
   (defun set-org-capture-templates ()
     (setq! org-capture-templates
-      (doct `(("Personal todo"
-                :keys "t"
-                :icon ("checklist" :set "octicon" :color "green")
-                :file +org-capture-todo-file
-                :prepend t
-                :headline "Inbox"
-                :type entry
-                :template ("* TODO %?"
-                            "%i %a"))))))
+           (doct `(("Personal todo"
+                    :keys "t"
+                    :icon ("checklist" :set "octicon" :color "green")
+                    :file +org-capture-todo-file
+                    :prepend t
+                    :headline "Inbox"
+                    :type entry
+                    :template ("* TODO %?"
+                               "%i %a"))))))
   (set-org-capture-templates))
 
 ;; Configure org-journal for compatability with org-roam-dailies
@@ -289,10 +289,10 @@
   :defer-incrementally t
   :init
   (setq! org-journal-file-type 'monthly
-    org-journal-file-format "%Y-%m.org"
-    org-journal-dir +cdom/org-agenda-directory
-    org-journal-date-format "%A, %d %B %Y"
-    org-journal-enable-agenda-integration t))
+         org-journal-file-format "%Y-%m.org"
+         org-journal-dir +cdom/org-agenda-directory
+         org-journal-date-format "%A, %d %B %Y"
+         org-journal-enable-agenda-integration t))
 
 (use-package! ox-gfm
   :after org)
@@ -321,8 +321,8 @@
   :config
   (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor"))
   (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
-    lsp-vetur-format-default-formatter-ts "prettier-eslint"
-    lsp-vetur-use-workspace-dependencies t))
+         lsp-vetur-format-default-formatter-ts "prettier-eslint"
+         lsp-vetur-use-workspace-dependencies t))
 
 (use-package! literate-calc-mode
   :defer-incrementally t)
