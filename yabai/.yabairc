@@ -73,6 +73,7 @@ yabai -m rule --add app="Affinity" manage=off
 yabai -m rule --add app="Fantastical Helper" manage=off
 yabai -m rule --add app=Stickies manage=off
 yabai -m rule --add app='^System Preferences$' manage=off
+yabai -m rule --add app='Zoom' opacity=1.0
 
 yabai -m rule --add app=Browserosaurus manage=off sticky=on
 yabai -m rule --add app=Harvest \
