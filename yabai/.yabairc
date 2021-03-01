@@ -76,8 +76,7 @@ yabai -m rule --add app='^System Preferences$' manage=off
 
 yabai -m rule --add app=Browserosaurus manage=off sticky=on
 yabai -m rule --add app=Harvest \
-  manage=off \
-  sticky=on
+  manage=off
 # Float unnamed windows.
 yabai -m rule --add title="^$" manage=off
 
