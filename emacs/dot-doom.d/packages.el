@@ -59,6 +59,7 @@
 (package! vimrc-mode)                ; vimrc syntax
 
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! hledger-mode)
 (package! firestarter)               ; Do things upon save.
 (package! magit-delta)               ; Use delta in magit diffs.
 (package! org-board)                 ; Pinboard-ish for org-mode

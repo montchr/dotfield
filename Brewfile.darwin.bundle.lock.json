@@ -3084,6 +3084,29 @@
             }
           }
         }
+      },
+      "hledger": {
+        "version": "1.20.4",
+        "bottle": {
+          "rebuild": 0,
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "root_url": "https://homebrew.bintray.com/bottles",
+          "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/hledger-1.20.4.big_sur.bottle.tar.gz",
+              "sha256": "3fcdfd761351cc052d8e88477288056592559574bb45605c3fa5674a2df0dc49"
+            },
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/hledger-1.20.4.catalina.bottle.tar.gz",
+              "sha256": "9d4da9897d54c3d5a92b1462d5583530dc6aaf789bf5248020c93a7469bb4e4d"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/hledger-1.20.4.mojave.bottle.tar.gz",
+              "sha256": "41634adcf3e65ca93e31ffbfc048ca45e6b6282a546545bf0c1a914ae86c9343"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -3580,7 +3603,7 @@
     "mas": {
       "Affinity Photo": {
         "id": "824183456",
-        "version": "1.9.0"
+        "version": "1.9.1"
       },
       "Be Focused Pro": {
         "id": "961632517",
@@ -3612,7 +3635,7 @@
       },
       "GoodTask": {
         "id": "1143437985",
-        "version": "6.4.2"
+        "version": "6.5.1"
       },
       "Harvest": {
         "id": "506189836",
