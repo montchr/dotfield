@@ -105,6 +105,7 @@ brew "tmux"
 brew "awscli"
 brew "bat"
 brew 'direnv'
+brew 'asciinema'
 
 
 # File utilities
