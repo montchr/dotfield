@@ -1,4 +1,0 @@
---dir=.
---target=${COMPOSER_HOME}/..
---ignore=.envrc
---ignore=.stowrc
