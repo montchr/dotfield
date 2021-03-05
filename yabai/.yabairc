@@ -17,7 +17,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 # Default space settings
 yabai -m config external_bar off
 yabai -m config layout bsp
-yabai-set-padding 6
+yabai-set-padding 16
 
 # Mouse behavior
 yabai -m config mouse_follows_focus off
