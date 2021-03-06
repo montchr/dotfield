@@ -21,7 +21,7 @@ setopt extended_glob warn_create_global typeset_silent \
 }
 
 local THEME
-dark-mode && THEME=$(cdom-base16-theme $(cdom-os-appearance)) && () {
+dark-mode && THEME=$(cdom_base16_theme $(cdom_os_appearance)) && () {
     .kitty-theme-change $THEME
     # @TODO set base16-shell and base16-fzf colors on demand
     # base16-set-theme $THEME

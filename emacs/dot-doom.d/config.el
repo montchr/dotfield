@@ -48,11 +48,11 @@
      ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
      (_ "base16-black-metal-khold"))))
 
-;; @TODO accept param to avoid needing to call `cdom-os-appearance' :performance:
+;; @TODO accept param to avoid needing to call `cdom_os_appearance' :performance:
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
-  (let ((theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))))
+  (let ((theme (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
     (load-theme (+cdom/os-theme theme) t)
     (run-hooks 'modus-themes-after-load-theme-hook)))
 
