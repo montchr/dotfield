@@ -172,10 +172,10 @@
          ;; same as default, except all prefix keys are grouped together at the end
          ;; 'which-key-prefix-then-key-order
          ;; same as default, except all keys from local maps shown first
-         'which-key-local-then-key-order
+         'which-key-local-then-key-order))
          ;; sort based on the key description ignoring case
          ;; 'which-key-description-order
-         ))
+         
 
 (after! magit
   ;; List magit branches by date.
