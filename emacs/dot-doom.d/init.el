@@ -6,9 +6,11 @@
 ;; Respect visual line mode
 ;; (setq! evil-respect-visual-line-mode t)
 
+
 (doom! :input
   ;;chinese
   ;;japanese
+  ;;layout            ; auie,ctsrnm is the superior home row
 
   :completion
   (company +tng)          ; the ultimate code completion backend
@@ -174,8 +176,9 @@
   ;;(wanderlust +gmail)
 
   :app
-  everywhere     ; *leave* Emacs!? You must be joking
   calendar
+  ;;emms
+  everywhere     ; *leave* Emacs!? You must be joking
   ;;irc          ; how neckbeards socialize
   ;; (rss +org)  ; emacs as an RSS reader
   ;; twitter     ; twitter client https://twitter.com/vnought
