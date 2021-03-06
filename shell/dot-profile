@@ -1,4 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "sh") -*-
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
 # ~/.profile
 #
