@@ -14,6 +14,9 @@
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
 
+;; Display the fill-column indicator.
+(global-display-fill-column-indicator-mode +1)
+
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
