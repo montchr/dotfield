@@ -20,10 +20,12 @@ setopt extended_glob warn_create_global typeset_silent \
   emacsclient --no-wait --eval "(+cdom/load-os-theme)"
 }
 
-local THEME
-dark-mode && THEME=$(cdom_base16_theme $(cdom_os_appearance)) && () {
-    .kitty-theme-change $THEME
+dark-mode && \
+  () {
+    local appearance=$(cdom_os_appearance)
+    local theme=$(cdom_base16_theme ${appearance})
+    .kitty-theme-change $theme
     # @TODO set base16-shell and base16-fzf colors on demand
-    # base16-set-theme $THEME
-    .emacs-theme-change $THEME
+    # base16-set-theme $theme
+    .emacs-theme-change $theme
   }
