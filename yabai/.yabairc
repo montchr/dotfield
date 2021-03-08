@@ -43,9 +43,8 @@ yabai -m config normal_window_opacity 0.90
 
 # Window borders
 yabai -m config window_border on
-# @TODO use global theme colors
-yabai-border 000000 4
 yabai -m config normal_window_border_color 0x00505050
+yabai-border $(yabai-element-color border) "${YABAI_BORDER_WIDTH}"
 
 
 yabai -m space 1 --label 'task'

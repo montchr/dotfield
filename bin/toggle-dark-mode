@@ -24,6 +24,7 @@ dark-mode && \
   () {
     local appearance=$(cdom_os_appearance)
     local theme=$(cdom_base16_theme ${appearance})
+    yabai-border $(yabai-element-color border $appearance)
     .kitty-theme-change $theme
     # @TODO set base16-shell and base16-fzf colors on demand
     # base16-set-theme $theme

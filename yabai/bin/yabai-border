@@ -3,9 +3,13 @@
 # yabai-border
 #
 
-RGB="${1:-000000}"
+RGB="${1}"
 WIDTH="${2:-4}"
 ALPHA="${3:-ff}"
+
+if [[ -z $RGB ]]; then
+  RGB=$(yabai-element-color border)
+fi
 
 COLOR="${ALPHA}${RGB}"
 
