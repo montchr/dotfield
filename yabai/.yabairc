@@ -74,8 +74,13 @@ yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add app=Browserosaurus manage=off sticky=on
 yabai -m rule --add app=Harvest \
   manage=off
+
 # Float unnamed windows.
-yabai -m rule --add title="^$" manage=off
+#
+# @TODO enabling this, for some reason, prevents phpstorm windows from being
+# managed by yabai
+#
+# yabai -m rule --add title="^$" manage=off
 
 # caused yabai to crash?
 # yabai -m rule --add app=PhpStorm title='^$' manage=off
