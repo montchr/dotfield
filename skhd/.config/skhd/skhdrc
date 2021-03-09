@@ -67,9 +67,8 @@ app     < e : emacsclient -cn; \
               skhd -k 'escape'
 
 # _f_irefox -- new window
-app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
-              -new-window \
-              -foreground ; \
+app     < f : "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
+              --new-window ; \
               skhd -k 'escape'
 
 # _t_erminal (Kitty) -- new os-window
