@@ -49,8 +49,6 @@ default < hyper - q     ; sys
 default < hyper - e     : doom everywhere
 # Open ephemeral org-capture frame
 default < hyper - x     : org-capture
-# Restart yabai
-default < hyper - y     : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # YABAI / HYPER-SPACE mode
 default < hyper - space ; focus
 
@@ -86,6 +84,10 @@ sys     < escape    ; default
 
 # Toggle dark mode.
 sys     < d : toggle-dark-mode ; \
+              skhd -k 'escape'
+
+# Restart yabai
+sys     < y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" ; \
               skhd -k 'escape'
 
 
