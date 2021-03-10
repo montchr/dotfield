@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# bootstrap
+#
+# thanks to:
+# - https://github.com/webpro/dotfiles/blob/master/remote-install.sh
+
+# BASE_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+SOURCE="https://github.com/montchr/dots"
+TARBALL="$SOURCE/tarball/main"
+TARGET="$HOME/.dots"
+TAR_CMD="tar -xzv -C ${TARGET} --strip-components=1 --exclude='{.gitignore}'"
+
+is_executable() {
+  type "$1" > /dev/null 2>&1
+}
+
+echo "Installing dotfiles..."
+mkdir -p "${TARGET}"
+if is_executable "git"; then
+  git clone ${SOURCE} "${TARGET}"
+elif is_executable "curl"; then
+  curl -#L ${TARBALL} | "${TAR_CMD}"
+elif is_executable "wget"; then
+  wget --no-check-certificate -O - ${TARBALL} | "${TAR_CMD}"
+else
+  echo "No git, curl or wget available. Aborting."
+  exit 1
+fi
