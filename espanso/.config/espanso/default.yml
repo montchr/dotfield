@@ -1,0 +1,33 @@
+# espanso configuration file
+
+matches:
+  # Example
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  - trigger: ":s:cmd"
+    replace: "⌘"
+
+  - trigger: ":s:shift"
+    replace: "⇧"
+
+  - trigger: ":s:ctrl"
+    replace: "⌃"
+
+  - trigger: ":s:shift"
+    replace: "⌥"
+
+  - trigger: ":arr:l"
+    replace: "←"
+
+  - trigger: ":arr:r"
+    replace: "→"
+
+  - trigger: ":arr:u"
+    replace: "↑"
+
+  - trigger: ":arr:d"
+    replace: "↓"
+
+  - trigger: ":s:esc"
+    replace: "⎋"
