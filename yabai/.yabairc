@@ -17,12 +17,12 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 # Default space settings
 yabai -m config external_bar off
 yabai -m config layout bsp
-yabai-set-padding 6
+yabai-set-padding 16
 
 # Mouse behavior
 yabai -m config mouse_follows_focus off
 # `autoraise` will override the effect of `window_topmost`
-yabai -m config focus_follows_mouse autofocus
+yabai -m config focus_follows_mouse off
 yabai -m config mouse_modifier fn
 yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
@@ -30,12 +30,12 @@ yabai -m config mouse_action2 resize
 # Default window layout
 yabai -m config window_placement second_child
 # Display floating windows on top.
-yabai -m config window_topmost on
+yabai -m config window_topmost off
 yabai -m config split_ratio 0.6180339887
-yabai -m config auto_balance on
+yabai -m config auto_balance off
 
 # Window opacity
-yabai -m config window_opacity on
+yabai -m config window_opacity off
 yabai -m config window_shadow on
 yabai -m config active_window_opacity 1.0
 yabai -m config normal_window_opacity 0.90
@@ -43,11 +43,8 @@ yabai -m config normal_window_opacity 0.90
 
 # Window borders
 yabai -m config window_border on
-yabai -m config window_border_width 10
-# @TODO use global theme colors
-yabai -m config active_window_border_color 0x00775759
 yabai -m config normal_window_border_color 0x00505050
-yabai -m config insert_window_border_color 0xffd75f5f
+yabai-border $(yabai-element-color border) "${YABAI_BORDER_WIDTH}"
 
 
 yabai -m space 1 --label 'task'
@@ -76,10 +73,14 @@ yabai -m rule --add app='^System Preferences$' manage=off
 
 yabai -m rule --add app=Browserosaurus manage=off sticky=on
 yabai -m rule --add app=Harvest \
-  manage=off \
-  sticky=on
+  manage=off
+
 # Float unnamed windows.
-yabai -m rule --add title="^$" manage=off
+#
+# @TODO enabling this, for some reason, prevents phpstorm windows from being
+# managed by yabai
+#
+# yabai -m rule --add title="^$" manage=off
 
 # caused yabai to crash?
 # yabai -m rule --add app=PhpStorm title='^$' manage=off

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# phpvm
+#
+# A rudimentary version manager for Homebrew-installed PHP versions.
+#
+
+VERSION="$1"
+
+[[ -z "$VERSION" ]] && echo 'Version not specified!' && exit 1
+
+recipe="php@${VERSION}"
+conf_src="${XDG_CONFIG_HOME:-${HOME}/.config}/php/conf.d"
+brew_prefix="$(brew --prefix)"
+
+# @TODO upgrades everything, not just php...
+# brew upgrade "shivammathur/php/${recipe}"
+brew link --overwrite --force "${recipe}"
+
+# @TODO this doesn't work!
+if [[ -d "${conf_src}" ]]; then
+  echo "Linking custom ini files..."
+  fd --type f --extension ini . "${conf_src}" \
+    -x ln -sv {} "${brew_prefix}/etc/php/${VERSION}/conf.d"
+  echo "Done linking files."
+else
+  echo "Custom conf file directory ${conf_src} not found. Skipping linking step..."
+fi
+
+printf "\nSuccess!\n\n"
+
+which php
+echo ""
+php --version

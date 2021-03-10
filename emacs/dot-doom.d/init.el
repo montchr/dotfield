@@ -6,9 +6,11 @@
 ;; Respect visual line mode
 ;; (setq! evil-respect-visual-line-mode t)
 
+
 (doom! :input
   ;;chinese
   ;;japanese
+  ;;layout            ; auie,ctsrnm is the superior home row
 
   :completion
   (company +tng)          ; the ultimate code completion backend
@@ -24,7 +26,7 @@
   ;; fill-column               ; a `fill-column' indicator
   (emoji +unicode +github)     ; 🙂
   hl-todo                      ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-  hydra
+  ;; hydra
   ;; indent-guides             ; highlighted indent columns
   (ligatures +extra)  ; ligatures and symbols
   minimap                   ; show a map of the code on the side
@@ -51,7 +53,7 @@
   ;;lispy            ; vim for lisp, for people who don't like vim
   ;;multiple-cursors   ; editing in many places at once
   ;;objed            ; text object editing for the innocent
-  parinfer           ; turn lisp into python, sort of
+  (parinfer +rust)           ; turn lisp into python, sort of
   rotate-text        ; cycle region at point between text candidates
   snippets           ; my elves. They type so I don't have to
   word-wrap          ; soft wrapping with language-aware indent
@@ -92,11 +94,11 @@
   (pass +auth)       ; password manager for nerds
   pdf              ; pdf enhancements
   ;;prodigy          ; FIXME managing external services & code builders
-  ;;rgb              ; creating color strings
+  rgb              ; creating color strings
   taskrunner       ; taskrunner for all your projects
-  terraform          ; infrastructure as code
+  ;;terraform          ; infrastructure as code
   tmux               ; an API for interacting with tmux
-  upload           ; map local to remote projects via ssh/ftp
+  ;;upload           ; map local to remote projects via ssh/ftp
 
   :os
   (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -110,7 +112,7 @@
   ;;coq                ; proofs-as-programs
   ;;crystal            ; ruby at the speed of c
   ;;csharp             ; unity, .NET, and mono shenanigans
-  ;;data               ; config/data formats
+  data               ; config/data formats
   ;;(dart +flutter)    ; paint ui and not much else
   ;;elixir             ; erlang done right
   ;;elm                ; care for a cup of TEA?
@@ -122,7 +124,7 @@
   ;;fstar              ; (dependent) types and (monadic) effects and Z3
   ;;gdscript           ; the language you waited for
   ;;(go +lsp)          ; the hipster dialect
-  ;;(haskell +dante)   ; a language that's lazier than I am
+  (haskell +dante)     ; a language that's lazier than I am
   ;;hy                 ; readability of scheme w/ speed of python
   ;;idris              ;
   (json +lsp)          ; At least it ain't XML
@@ -174,8 +176,9 @@
   ;;(wanderlust +gmail)
 
   :app
-  everywhere     ; *leave* Emacs!? You must be joking
   calendar
+  ;;emms
+  everywhere     ; *leave* Emacs!? You must be joking
   ;;irc          ; how neckbeards socialize
   ;; (rss +org)  ; emacs as an RSS reader
   ;; twitter     ; twitter client https://twitter.com/vnought

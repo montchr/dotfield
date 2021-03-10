@@ -20,5 +20,9 @@
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
+	<key>StandardOutPath</key>
+	<string>/usr/local/var/log/debounce-mac/debounce-mac.out.log</string>
+	<key>StandardErrorPath</key>
+	<string>/usr/local/var/log/debounce-mac/debounce-mac.err.log</string>
 </dict>
 </plist>

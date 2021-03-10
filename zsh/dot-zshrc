@@ -294,6 +294,7 @@ function .load-asdf-direnv {
   zt 0a for \
     id-as'asdf-init' \
     atclone"
+      export PHP_WITHOUT_PEAR=true
       .asdf-plugins add
       asdf install
       asdf install direnv ${ASDF_DIRENV_VERSION}
@@ -309,6 +310,11 @@ function .load-asdf-direnv {
     atpull'%atclone' \
     atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
     src'zhook.zsh' \
+    atload'
+      export COMPOSER_HOME=${COMPOSER_HOME:-${XDG_CONFIG_HOME}/composer}
+      # Ensure Composer bin is low priority
+      export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
+    ' \
       @zdharma/null
 }
 

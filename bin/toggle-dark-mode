@@ -7,23 +7,26 @@ emulate -L zsh
 setopt extended_glob warn_create_global typeset_silent \
   no_short_loops rc_quotes no_auto_pushd
 
+
 .kitty-theme-change () {
-  #@TODO use realpath?
-  local dots_config_dir="$DOTS/kitty/.config/kitty"
-  local theme_path="$dots_config_dir/base16-kitty/colors/base16-$1-256.conf"
-  ln -sfv "$theme_path" "$dots_config_dir/theme.conf"
+  ln -sfv \
+    "${XDG_CONFIG_HOME}/kitty/base16-kitty/colors/base16-${1}-256.conf" \
+    "${XDG_CONFIG_HOME}/kitty/theme.conf"
   kitty @ --to unix:/tmp/kitty-socket \
-    set-colors -a -c "$dots_config_dir/theme.conf"
+    set-colors -a -c "${XDG_CONFIG_HOME}/kitty/theme.conf"
 }
 
 .emacs-theme-change () {
   emacsclient --no-wait --eval "(+cdom/load-os-theme)"
 }
 
-local THEME
-dark-mode && THEME=$(cdom-base16-theme $(cdom-os-appearance)) && () {
-    .kitty-theme-change $THEME
+dark-mode && \
+  () {
+    local appearance=$(cdom_os_appearance)
+    local theme=$(cdom_base16_theme ${appearance})
+    yabai-border $(yabai-element-color border $appearance)
+    .kitty-theme-change $theme
     # @TODO set base16-shell and base16-fzf colors on demand
-    # base16-set-theme $THEME
-    .emacs-theme-change $THEME
+    # base16-set-theme $theme
+    .emacs-theme-change $theme
   }

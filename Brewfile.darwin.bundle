@@ -13,6 +13,7 @@ tap "github/gh"
 tap "koekeishiya/formulae"
 tap "railwaycat/emacsmacport"
 tap "rcmdnk/file"
+tap "shivammathur/php"
 
 
 # Load coreutils first.
@@ -104,6 +105,7 @@ brew "tmux"
 brew "awscli"
 brew "bat"
 brew 'direnv'
+brew 'asciinema'
 
 
 # File utilities
@@ -119,6 +121,8 @@ brew "yq"
 
 
 # Personal administration
+brew "bitwarden-cli"
+brew "hledger"
 brew "ledger"
 brew "notmuch"
 brew "pass"
@@ -128,6 +132,7 @@ brew "federico-terzi/espanso/espanso"
 # Information retrieval
 brew "googler"
 brew "tldr"
+brew "navi"
 
 
 # System monitoring
@@ -136,12 +141,13 @@ brew "ncdu"
 
 
 # Languages
-brew "cabal-install"
 brew "go"
+brew "haskell-stack"
 brew "node"
 brew "python"
 brew "luarocks"
-brew "php@7.4"
+brew "shivammathur/php/php@7.4"
+brew "shivammathur/php/php@8.0"
 brew "ruby-build"
 brew "rust"
 
@@ -211,6 +217,7 @@ cask "audio-hijack", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
 cask "basictex"
 cask "bettertouchtool", args: { appdir: "/Applications" }
+cask "bitwarden", args: { appdir: "/Applications" }
 cask "brave-browser", args: { appdir: "/Applications" }
 cask "calibre", args: { appdir: "/Applications" }
 cask "caprine", args: { appdir: "/Applications" }
@@ -259,8 +266,8 @@ cask "taskpaper"
 cask "tigervnc-viewer"
 cask "transmit", args: { appdir: "/Applications" }
 # Requires manual input.
-cask "virtualbox"
-cask "vagrant"
+# cask "virtualbox"
+# cask "vagrant"
 cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "vlc", args: { appdir: "/Applications" }
 cask "webpquicklook", args: { appdir: "/Applications" }

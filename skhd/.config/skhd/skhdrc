@@ -22,18 +22,18 @@
 
 
 
-:: default  : yabai -m config active_window_border_color 0x00775759
+:: default  : yabai-border
 # @todo indicate mode with color or some other way
 :: app    @                                                          # Launch apps
 :: sys    @                                                          # System control mode
-:: focus  @ : yabai -m config active_window_border_color 0xffe06c75  # Focus window, desktop, monitors
-:: grid   @ : yabai -m config active_window_border_color 0xff56b6c2  # Floating window layout
-:: swap   @ : yabai -m config active_window_border_color 0xffc678dd  # Swap windows
-:: warp   @ : yabai -m config active_window_border_color 0xffe5c07b  # Warp and send to desktop/monitors
-:: warpnf @ : yabai -m config active_window_border_color 0xffd19a66  # Same, but don't follow focus
-:: resize @ : yabai -m config active_window_border_color 0xff98c379  # Resize window operations
+:: focus  @ : yabai-border e06c75  # Focus window, desktop, monitors
+:: grid   @ : yabai-border 56b6c2  # Floating window layout
+:: swap   @ : yabai-border c678dd  # Swap windows
+:: warp   @ : yabai-border e5c07b  # Warp and send to desktop/monitors
+:: warpnf @ : yabai-border d19a66  # Same, but don't follow focus
+:: resize @ : yabai-border 98c379  # Resize window operations
 # @TODO: use a different color -- this one is copied from warpnf
-:: stack  @ : yabai -m config active_window_border_color 0xffd19a66  # Stack windows
+:: stack  @ : yabai-border d19a66  # Stack windows
 
 
 
@@ -44,13 +44,11 @@
 # APP LAUNCHER mode
 default < hyper - a     ; app
 # SYSTEM mode
-default < hyper - s     ; sys
+default < hyper - q     ; sys
 # Open emacs everywhere
 default < hyper - e     : doom everywhere
 # Open ephemeral org-capture frame
 default < hyper - x     : org-capture
-# Restart yabai
-default < hyper - y     : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # YABAI / HYPER-SPACE mode
 default < hyper - space ; focus
 
@@ -67,9 +65,8 @@ app     < e : emacsclient -cn; \
               skhd -k 'escape'
 
 # _f_irefox -- new window
-app     < f : /Applications/Firefox.app/Contents/MacOS/firefox \
-              -new-window \
-              -foreground ; \
+app     < f : "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
+              --new-window ; \
               skhd -k 'escape'
 
 # _t_erminal (Kitty) -- new os-window
@@ -87,6 +84,10 @@ sys     < escape    ; default
 
 # Toggle dark mode.
 sys     < d : toggle-dark-mode ; \
+              skhd -k 'escape'
+
+# Restart yabai
+sys     < y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" ; \
               skhd -k 'escape'
 
 

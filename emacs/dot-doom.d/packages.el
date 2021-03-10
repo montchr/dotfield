@@ -52,9 +52,15 @@
 (package! modus-themes)
 (package! tao-theme)
 
-(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
-(package! firestarter)               ; Do things upon save.
+;; Languages
 (package! literate-calc-mode)        ; like soulver, but in emacs
+(package! neon-mode
+  :recipe (:host github :repo "montchr/neon-mode"))
+(package! vimrc-mode)                ; vimrc syntax
+
+(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! hledger-mode)
+(package! firestarter)               ; Do things upon save.
 (package! magit-delta)               ; Use delta in magit diffs.
 (package! org-board)                 ; Pinboard-ish for org-mode
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
@@ -64,5 +70,4 @@
   :recipe (:branch "trunk"))
 (package! reaper)                    ; Harvest time tracking mode
 (package! with-editor)               ; pass $EDITOR to embedded terminal processes
-(package! vimrc-mode)                ; vimrc syntax
 (package! vlf)                       ; open Very Large Files in chunks

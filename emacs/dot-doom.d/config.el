@@ -14,6 +14,9 @@
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
 
+;; Display the fill-column indicator.
+(global-display-fill-column-indicator-mode +1)
+
 ;; Reduce the size of text in Zen Mode.
 (setq! +zen-text-scale 1)
 
@@ -25,13 +28,14 @@
       '((mode-line mode-line-inactive) :family "Iosevka Term"))))
 
 ;; Hide 'UTF-8' encoding from the modeline, since it's the default.
+;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?
 ;; https://tecosaur.github.io/emacs-config/config.html
-(defun +doom-modeline-conditional-buffer-encoding ()
+(defun doom-modeline-conditional-buffer-encoding ()
   "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding
               (unless (or (eq buffer-file-coding-system 'utf-8-unix)
                           (eq buffer-file-coding-system 'utf-8)))))
-(add-hook 'after-change-major-mode-hook #'+doom-modeline-conditional-buffer-encoding)
+(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
 ;; Default indent by 2 spaces
 (setq! evil-shift-width 2)
@@ -44,11 +48,11 @@
      ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
      (_ "base16-black-metal-khold"))))
 
-;; @TODO accept param to avoid needing to call `cdom-os-appearance' :performance:
+;; @TODO accept param to avoid needing to call `cdom_os_appearance' :performance:
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
-  (let ((theme (string-trim-right (shell-command-to-string "cdom-os-appearance"))))
+  (let ((theme (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
     (load-theme (+cdom/os-theme theme) t)
     (run-hooks 'modus-themes-after-load-theme-hook)))
 
@@ -87,9 +91,8 @@
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
-  evil-want-fine-undo nil
-  truncate-string-ellipsis "…"
-  display-line-numbers-type 'relative)
+       truncate-string-ellipsis "…"
+       display-line-numbers-type 'relative)
 
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
@@ -144,22 +147,35 @@
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-;; Prevent projectile from adding documentation directories as projects.
+;; Prevent projectile from adding unwanted directories as projects.
 ;; https://tecosaur.github.io/emacs-config/config.html#projectile
-(setq! projectile-ignored-projects '("~/" "/tmp" "~/.emacs.d/.local/straight/repos/"))
+(setq! projectile-ignored-projects '("~/" "/tmp" "~/.emacs.d" "~/.emacs.d/.local/straight/repos/"))
 (defun projectile-ignored-project-function (filepath)
   "Return t if FILEPATH is within any of `projectile-ignored-projects'"
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 
-;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
-;; @TODO bindings in which-key no longer line up along a column
-;; https://tecosaur.github.io/emacs-config/config.html#which-key
-;; (setq! which-key-allow-multiple-replacements t)
-;; (after! which-key
-;;   (pushnew!
-;;    which-key-replacement-alist
-;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+(use-package! which-key
+  :config
+  ;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
+  ;; @TODO bindings in which-key no longer line up along a column
+  ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+  (setq! which-key-allow-multiple-replacements t)
+  (pushnew!
+   which-key-replacement-alist
+   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1")))
+  (setq! which-key-sort-order
+         ;; default
+         ;; 'which-key-key-order
+         ;; same as default, except single characters are sorted alphabetically
+         ;; 'which-key-key-order-alpha
+         ;; same as default, except all prefix keys are grouped together at the end
+         ;; 'which-key-prefix-then-key-order
+         ;; same as default, except all keys from local maps shown first
+         'which-key-local-then-key-order))
+         ;; sort based on the key description ignoring case
+         ;; 'which-key-description-order
+         
 
 (after! magit
   ;; List magit branches by date.
@@ -190,13 +206,12 @@
          org-startup-folded t
          org-startup-with-inline-images t
          org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+         org-cycle-separator-lines -1
          org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
          org-export-in-background t                  ; run export processes in external emacs process
-         org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
-  ;; Allow literate-calc-mode blocks in org src blocks
-  (add-to-list 'org-babel-load-languages '(literate-calc . t)))
+         org-catch-invisible-edits 'smart))          ; try not to accidently do weird stuff in invisible regions
 
 (after! org
   (defun +cdom/org-archive-done-tasks ()
@@ -272,17 +287,6 @@
                                "%i %a"))))))
   (set-org-capture-templates))
 
-
-
-;; (setq! org-capture-templates
-;;       (doct `(("Tasks"
-;;                :keys "t"
-;;                :file ,(concat cdom/org-agenda-directory "inbox.org")
-;;                :prepend t
-;;                :template "* %{todo-state} %^{Description}"
-;;                :todo-state "TODO"))))
-
-
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :defer-incrementally t
@@ -304,15 +308,107 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 
+(use-package! web-mode
+  :config
+  ;; Prevent web-mode from loading for all PHP files in WordPress themes.
+  ;; Overrides doom behavior.
+  (add-to-list 'auto-mode-alist '("wp-content/themes/.+\\.php\\'" . php-mode))
+  ;; Template partials should still load web-mode.
+  (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
+
 (use-package! projectile
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
-(after! lsp
+(use-package! lsp
   :config
+  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor"))
   (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
          lsp-vetur-format-default-formatter-ts "prettier-eslint"
          lsp-vetur-use-workspace-dependencies t))
+
+(use-package! hledger-mode
+  :defer
+  ;; :load-path "packages/rest/hledger-mode/"
+  :mode ("\\.journal\\'")
+  :commands hledger-enable-reporting
+  :preface
+  (defun hledger/next-entry ()
+    "Move to next entry and pulse."
+    (interactive)
+    (hledger-next-or-new-entry)
+    (hledger-pulse-momentary-current-entry))
+
+  (defface hledger-warning-face
+    '((((background dark))
+       :background "Red" :foreground "White")
+      (((background light))
+       :background "Red" :foreground "White")
+      (t :inverse-video t))
+    "Face for warning"
+    :group 'hledger)
+
+  (defun hledger/prev-entry ()
+    "Move to last entry and pulse."
+    (interactive)
+    (hledger-backward-entry)
+    (hledger-pulse-momentary-current-entry))
+
+  :bind (("C-c j" . hledger-run-command)
+         :map hledger-mode-map
+         ("C-c e" . hledger-jentry)
+         ("M-p" . hledger/prev-entry)
+         ("M-n" . hledger/next-entry))
+
+  :init
+  (setq! hledger-jfile (expand-file-name "~/Documents/finance/all.journal")
+         hledger-show-expanded-report nil)
+  (when (boundp 'cdom-hledger-service-fetch-url)
+    (setq! hledger-service-fetch-url
+           cdom-hledger-service-fetch-url))
+
+  :config
+  (add-hook 'hledger-view-mode-hook #'hl-line-mode)
+  (add-hook 'hledger-view-mode-hook #'center-text-for-reading)
+  (add-hook 'hledger-view-mode-hook
+            (lambda ()
+              (run-with-timer 1
+                              nil
+                              (lambda ()
+                                (when (equal hledger-last-run-command
+                                             "balancesheet")
+                                  ;; highlight frequently changing accounts
+                                  (highlight-regexp "^.*\\(savings\\|cash\\).*$")
+                                  (highlight-regexp "^.*credit-card.*$"
+                                                    'hledger-warning-face))))))
+  (add-hook 'hledger-mode-hook
+            (lambda ()
+              (make-local-variable 'company-backends)
+              (add-to-list 'company-backends 'hledger-company))))
+
+(use-package! hledger-input
+  ;; :pin manual
+  ;; :load-path "packages/rest/hledger-mode/"
+  :bind (("C-c e" . hledger-capture)
+         :map hledger-input-mode-map
+         ("C-c C-b" . popup-balance-at-point))
+  :preface
+  (defun popup-balance-at-point ()
+    "Show balance for account at point in a popup."
+    (interactive)
+    (if-let ((account (thing-at-point 'hledger-account)))
+        (message (hledger-shell-command-to-string (format " balance -N %s "
+                                                          account)))
+      (message "No account at point")))
+
+  :config
+  (setq! hledger-input-buffer-height 20)
+  (add-hook 'hledger-input-post-commit-hook #'hledger-show-new-balances)
+  (add-hook 'hledger-input-mode-hook #'auto-fill-mode)
+  (add-hook 'hledger-input-mode-hook
+            (lambda ()
+              (make-local-variable 'company-idle-delay)
+              (setq-local company-idle-delay 0.1))))
 
 (use-package! literate-calc-mode
   :defer-incrementally t)

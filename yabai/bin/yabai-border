@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# yabai-border
+#
+
+RGB="${1}"
+WIDTH="${2:-4}"
+ALPHA="${3:-ff}"
+
+if [[ -z $RGB ]]; then
+  RGB=$(yabai-element-color border)
+fi
+
+COLOR="${ALPHA}${RGB}"
+
+[[ $COLOR ]] && {
+  yabai -m config active_window_border_color "0x${COLOR}"
+  echo "[yabai] set border color to ${COLOR}"
+}
+
+[[ $WIDTH ]] && {
+  yabai -m config window_border_width "${WIDTH}"
+  echo "[yabai] set border width to ${WIDTH}"
+}

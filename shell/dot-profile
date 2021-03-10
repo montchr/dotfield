@@ -1,4 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "sh") -*-
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
 # ~/.profile
 #
@@ -16,6 +16,7 @@ declare -x IS_LINUX IS_MAC
 [[ $OSTYPE == linux* ]] && IS_LINUX=true
 [[ $OSTYPE == darwin* ]] && IS_MAC=true
 
+
 # - - - - - - - - - - - - - - - - - - - -
 # Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
@@ -23,18 +24,24 @@ declare -x IS_LINUX IS_MAC
 # Define XDG base directories before all others.
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export \
-  XDG_CACHE_HOME="$HOME/.cache" \
-  XDG_CONFIG_HOME="$HOME/.config" \
-  XDG_DATA_HOME="$HOME/.local/share" \
-  XDG_RUNTIME_DIR="/tmp"
+  XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache} \
+  XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config} \
+  XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share} \
+  XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp}
+
+# Non-standard XDG-inspired locations
+export \
+  XDG_BIN_HOME=${XDG_BIN_HOME:-${HOME}/.local/bin} \
+  XDG_LIB_HOME=${XDG_LIB_HOME:-${HOME}/.local/lib}
 
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
   DOTS="$HOME/.dots" \
+  DOTS_BIN="${DOTS}/bin" \
   DOTFILES="$HOME/.dotfiles" \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
-  TMPDIR="/tmp" \
+  TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}} \
   ZSH_DOTS="$DOTS/zsh"
 
 if [[ $IS_LINUX ]]; then
@@ -52,7 +59,7 @@ fi
 # PATH Modifications
 # - - - - - - - - - - - - - - - - - - - -
 
-export PATH="$HOME/bin:$DOTS/bin:$PATH"
+export PATH="$XDG_BIN_HOME:$HOME/bin:$DOTS/bin:$PATH"
 
 # Required by Homebrew
 export PATH="/usr/local/sbin:$PATH"
@@ -68,6 +75,7 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # Doom Emacs
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
+
 # - - - - - - - - - - - - - - - - - - - -
 # - Personal Preferences
 # - System Appearance
@@ -82,7 +90,10 @@ export \
   SYSTEMD_EDITOR="$EDITOR"
 
 export BASE16_THEME_DARK='black-metal-khold' \
-  BASE16_THEME_LIGHT='grayscale-light'
+  BASE16_THEME_LIGHT='grayscale-light' \
+  YABAI_BORDER_DARK="000000" \
+  YABAI_BORDER_LIGHT="ffffff" \
+  YABAI_BORDER_WIDTH="4"
 
 # Emacs-specific configuration.
 export \
@@ -92,7 +103,7 @@ export \
 # Get the current OS appearance.
 #
 # Returns either "light" or "dark". Defaults to "dark".
-cdom-os-appearance() {
+cdom_os_appearance () {
   if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
     echo "${CDOM_OS_APPEARANCE}"
   elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
@@ -105,7 +116,7 @@ cdom-os-appearance() {
 # Select a color theme based on dark mode status.
 #
 # Accepts either on/dark or off/light. Defaults to a dark theme.
-function cdom-base16-theme() {
+cdom_base16_theme () {
   case $1 in
     on | dark) echo ${BASE16_THEME_DARK} ;;
     off | light) echo ${BASE16_THEME_LIGHT} ;;
@@ -115,9 +126,9 @@ function cdom-base16-theme() {
 
 # Set the OS appearance by attempting to query the current status.
 [[ -z $CDOM_OS_APPEARANCE ]] &&
-  CDOM_OS_APPEARANCE="$(cdom-os-appearance)" &&
+  CDOM_OS_APPEARANCE="$(cdom_os_appearance)" &&
   export CDOM_OS_APPEARANCE
 
 # Set the base16 theme based on OS appearance.
-BASE16_THEME=$(cdom-base16-theme "$CDOM_OS_APPEARANCE") &&
+BASE16_THEME=$(cdom_base16_theme "$CDOM_OS_APPEARANCE") &&
   export BASE16_THEME
