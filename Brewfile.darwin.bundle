@@ -132,6 +132,7 @@ brew "federico-terzi/espanso/espanso"
 # Information retrieval
 brew "googler"
 brew "tldr"
+brew "navi"
 
 
 # System monitoring
