@@ -44,7 +44,7 @@
 # APP LAUNCHER mode
 default < hyper - a     ; app
 # SYSTEM mode
-default < hyper - s     ; sys
+default < hyper - q     ; sys
 # Open emacs everywhere
 default < hyper - e     : doom everywhere
 # Open ephemeral org-capture frame
