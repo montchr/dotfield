@@ -265,6 +265,7 @@ cask "suspicious-package", args: { appdir: "/Applications" }
 cask "taskpaper"
 cask "tigervnc-viewer"
 cask "transmit", args: { appdir: "/Applications" }
+cask "unshaky"
 # Requires manual input.
 # cask "virtualbox"
 # cask "vagrant"
