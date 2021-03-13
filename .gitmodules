@@ -25,3 +25,6 @@
 [submodule "iosevka"]
 	path = iosevka
 	url = git@git.sr.ht:~montchr/iosevka-builds
+[submodule "semver-tool"]
+	path = lib/semver-tool
+	url = git@github.com:fsaintjacques/semver-tool.git
