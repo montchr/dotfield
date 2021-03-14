@@ -318,6 +318,9 @@ zinit subscribe'~/.tool-versions' for \
 # - Cleanup
 # - - - - - - - - - - - - - - - - - - - -
 
+zt 0e nocompile nocompletions for \
+  @MenkeTechnologies/zsh-more-completions
+
 zt 2c light-mode for \
   trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
   atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
