@@ -19,9 +19,6 @@
 [submodule "kitty/.config/kitty/base16-kitty"]
 	path = kitty/.config/kitty/base16-kitty
 	url = git@github.com:kdrag0n/base16-kitty.git
-[submodule "debounce-mac"]
-	path = debounce-mac/.source
-	url = git@github.com:toothbrush/debounce-mac.git
 [submodule "firefox-i3wm-theme"]
 	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
 	url = git@github.com:aadilayub/firefox-i3wm-theme.git
@@ -38,3 +35,6 @@
 [submodule "iosevka"]
 	path = iosevka
 	url = git@git.sr.ht:~montchr/iosevka-builds
+[submodule "semver-tool"]
+	path = lib/semver-tool
+	url = git@github.com:fsaintjacques/semver-tool.git

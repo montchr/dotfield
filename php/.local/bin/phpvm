@@ -4,6 +4,8 @@
 #
 # A rudimentary version manager for Homebrew-installed PHP versions.
 #
+# @TODO run composer update?
+# @TODO consider offerring to attempt a patch version upgrade
 
 VERSION="$1"
 
@@ -12,12 +14,28 @@ VERSION="$1"
 recipe="php@${VERSION}"
 conf_src="${XDG_CONFIG_HOME:-${HOME}/.config}/php/conf.d"
 brew_prefix="$(brew --prefix)"
+current=$(php-version)
 
-# @TODO upgrades everything, not just php...
-# brew upgrade "shivammathur/php/${recipe}"
-brew link --overwrite --force "${recipe}"
+# The semver tool expects a valid semver number, but brew php versions only
+# include the major and minor version numbers. To handle this discrepancy, we
+# append a patch version number to the version argument.
+inferred_semver="${VERSION}.0"
 
-# @TODO this doesn't work!
+echo "Current PHP version is ${current}"
+
+case $(semver diff "${current}" "${inferred_semver}") in
+  major|minor)
+    echo "Changing PHP version to ${VERSION}"
+    ;;
+  *)
+    echo "Requested PHP version ${VERSION} is already active!"
+    exit 1
+    ;;
+esac
+
+brew upgrade "${recipe}"
+brew unlink php && brew link "${recipe}"
+
 if [[ -d "${conf_src}" ]]; then
   echo "Linking custom ini files..."
   fd --type f --extension ini . "${conf_src}" \

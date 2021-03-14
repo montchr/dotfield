@@ -1,10 +1,6 @@
 # espanso configuration file
 
 matches:
-  # Example
-  - trigger: ":espanso"
-    replace: "Hi there!"
-
   - trigger: ":s:cmd"
     replace: "⌘"
 
