@@ -246,14 +246,7 @@ zt 2a for \
 zt 2a light-mode for \
   OMZP::command-not-found \
   OMZP::composer \
-  ael-code/zsh-colored-man-pages \
-  atinit'
-    # free up `gi` alias
-    export forgit_ignore="/dev/null"
-    # avoid conflict with GNU cp
-    export forgit_cherry_pick="gyp"
-  ' \
-    wfxr/forgit
+  ael-code/zsh-colored-man-pages
 
 zt 2b light-mode for \
   as"command" \
