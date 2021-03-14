@@ -34,7 +34,7 @@ case $(semver diff "${current}" "${inferred_semver}") in
 esac
 
 brew upgrade "${recipe}"
-brew link --overwrite --force "${recipe}"
+brew unlink php && brew link "${recipe}"
 
 if [[ -d "${conf_src}" ]]; then
   echo "Linking custom ini files..."
