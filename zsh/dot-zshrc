@@ -318,17 +318,17 @@ zinit subscribe'~/.tool-versions' for \
 # - Cleanup
 # - - - - - - - - - - - - - - - - - - - -
 
-zt 2b light-mode for \
+zt 2c light-mode for \
   trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
   atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
     RobSis/zsh-completion-generator
 
-zt 2c blockf for \
+zt 2d blockf for \
   atpull'zinit creinstall -q .' \
   atload"zicompinit; zicdreplay" \
     zsh-users/zsh-completions
 
-zt 2c for \
+zt 2e for \
   id-as'Cleanup' nocd \
   atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
