@@ -67,7 +67,7 @@ zinit light-mode for \
 # zt() : First argument is a wait time and suffix, ie "0a". Anything that
 # doesn't match will be passed as if it were an ice mod. Default ices depth'3'
 # and lucid
-zt()  { zinit depth'3' lucid ${1/#[0-9][a-c]/wait"$1"} "${@:2}"; }
+zt()  { zinit depth'3' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
 
 # - - - - - - - - - - - - - - - - - - - -
 # Initial Prompt
@@ -228,7 +228,7 @@ zt 0c light-mode null for \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
 
-zt 1a for \
+zt 2a for \
   atload"
     # Use fzf-tab after second tab press
     # via https://github.com/mrksr/dotfiles/blob/e3dd8bde7d7be6a294f5a2a245cb7e4a15837d71/shell/.zshrc#L101-L113
@@ -250,14 +250,7 @@ zt 1a for \
 zt 2a light-mode for \
   OMZP::command-not-found \
   OMZP::composer \
-  ael-code/zsh-colored-man-pages \
-  atinit'
-    # free up `gi` alias
-    export forgit_ignore="/dev/null"
-    # avoid conflict with GNU cp
-    export forgit_cherry_pick="gyp"
-  ' \
-    wfxr/forgit
+  ael-code/zsh-colored-man-pages
 
 zt 2b light-mode for \
   as"command" \
@@ -340,17 +333,20 @@ zinit subscribe'~/.tool-versions' for \
 # - Cleanup
 # - - - - - - - - - - - - - - - - - - - -
 
+zt 0e nocompile nocompletions for \
+  @MenkeTechnologies/zsh-more-completions
+
 zt 2c light-mode for \
   trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
   atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
     RobSis/zsh-completion-generator
 
-zt 2c blockf for \
+zt 2d blockf for \
   atpull'zinit creinstall -q .' \
   atload"zicompinit; zicdreplay" \
     zsh-users/zsh-completions
 
-zt 2c for \
+zt 2e for \
   id-as'Cleanup' nocd \
   atinit'unset -f zt; _zsh_autosuggest_bind_widgets' \
     zdharma/null
