@@ -224,7 +224,7 @@ zt 0c light-mode null for \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
 
-zt 1a for \
+zt 2a for \
   atload"
     # Use fzf-tab after second tab press
     # via https://github.com/mrksr/dotfiles/blob/e3dd8bde7d7be6a294f5a2a245cb7e4a15837d71/shell/.zshrc#L101-L113
