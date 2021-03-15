@@ -223,6 +223,10 @@ zt 0c light-mode null for \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
 
+zt 1a for \
+  cargo'!exa' \
+    ogham/exa
+
 zt 2a for \
   atload"
     # Use fzf-tab after second tab press
