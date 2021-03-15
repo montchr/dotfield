@@ -100,8 +100,7 @@ zt light-mode for \
 # - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
 # - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
 zt for \
-    atinit"HIST_STAMPS=yyyy.mm.dd" \
-        OMZL::history.zsh
+  OMZL::history.zsh
 
 zt 0a for \
   trigger-load"!base16-set-shell" \
