@@ -118,7 +118,7 @@ zt 0a for \
         alias l='exa --oneline'
         alias ll='exa -Flagh --git'
         alias la='exa -Fal'
-        alias ls='exa --group-directories-first'
+        alias ls=\"${BREW_PREFIX}/bin/gls\"
         alias lld='exa -Flagh --git --group-directories-first'
         alias ld='exa -D1'
         alias tree='exa --tree'
