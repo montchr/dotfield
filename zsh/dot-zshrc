@@ -312,6 +312,14 @@ zinit subscribe'~/.tool-versions' for \
   ' \
     @zdharma/null
 
+# - - - - - - - - - - - - - - - - - - - -
+# Scripting Tools
+# - - - - - - - - - - - - - - - - - - - -
+
+zt 2b as'command' for \
+  make"--directory=resources install PREFIX=$HOME/.local" \
+    @matejak/argbash
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # - Completions
