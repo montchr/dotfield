@@ -78,9 +78,7 @@ zt() { zinit depth'1' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
 zt light-mode for \
   pick'async.zsh' \
     mafredri/zsh-async \
-
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
+  romkatv/powerlevel10k
 
 # Load config files plugin.
 zt light-mode for \
