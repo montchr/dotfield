@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+#
+# bootstrap-macos
+#
+
+. lib/utils.sh
+
+declare HOMEBREW_PREFIX
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Xcode Command Line Tools
+# - - - - - - - - - - - - - - - - - - - -
+
+# Install Xcode Command Line Tools
+xcode-select --install &> /dev/null
+execute "
+    until $(xcode-select --print-path &> /dev/null); do \
+      sleep 5; \
+    done
+  " "Xcode Command Line Tools"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Homebrew
+# - - - - - - - - - - - - - - - - - - - -
+
+function install_homebrew () {
+  print_in_purple "Homebrew"
+
+  if ! cmd_exists "brew"; then
+    printf "\n" | \
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh &> /dev/null
+  fi
+
+  print_result $? "Homebrew"
+}
+
+install_homebrew
+
+HOMEBREW_PREFIX=$(brew --prefix)
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Bash
+# - - - - - - - - - - - - - - - - - - - -
+
+function install_bash () {
+  print_in_purple "Bash"
+
+  declare -r LOCAL_SHELL_CONFIG_FILE="$HOME/.bash.local"
+
+  local brew_bash_path="${HOMEBREW_PREFIX}/bin/bash"
+
+  # Ensure we're using a recent version of Bash before anything else.
+  brew install bash
+
+  # Add the path of the Bash version installed through Homebrew to the list of
+  # allowed login shells in the `/etc/shells` file.
+  if ! grep "${brew_bash_path}" < /etc/shells &> /dev/null; then
+    execute \
+      "printf '%s\n' ${brew_bash_path} | sudo tee -a /etc/shells" \
+      "Bash (add '${brew_bash_path}' in '/etc/shells')" \
+    || return 1
+  fi
+
+  # Set Brew-installed version of Bash as the default (macOS comes with an
+  # outdated version of Bash).
+  chsh -s "${brew_bash_path}" &> /dev/null
+  print_result $? "Bash (use latest version)"
+}
+
+install_bash

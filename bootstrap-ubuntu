@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+#
+# bootstrap-ubuntu
+#
+
+set -e
+
+. lib/utils.sh
+
+function get_current_dir() {
+    local current_dir="${BASH_SOURCE%/*}"
+    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
+    echo "${current_dir}"
+}
+
+# Resynchronize the package index files from their sources.
+function apt_update () {
+  execute \
+    "sudo apt-get update -qqy" \
+    "APT (update)"
+}
+
+# Install the newest versions of all packages installed.
+function apt_upgrade() {
+  execute \
+    "export DEBIAN_FRONTEND=\"noninteractive\" \
+      && sudo apt-get -o Dpkg::Options::=\"--force-confnew\" upgrade -qqy" \
+    "APT (upgrade)"
+}
+
+function install_pkg () {
+  declare -r EXTRA_ARGUMENTS="$3"
+  declare -r PACKAGE="$2"
+  declare -r PACKAGE_READABLE_NAME="$1"
+
+  if ! is_pkg_installed "$PACKAGE"; then
+    execute "sudo apt-get install --allow-unauthenticated -qqy $EXTRA_ARGUMENTS $PACKAGE" "$PACKAGE_READABLE_NAME"
+  else
+    print_success "$PACKAGE_READABLE_NAME"
+  fi
+}
+
+function is_pkg_installed () {
+  dpkg -s "$1" &> /dev/null
+}
+
+# Add the new user account
+# Arguments:
+#   Account Username
+#   Account Password
+#   Flag to determine if user account is added silently. (With / Without GECOS prompt)
+function add_user_account () {
+    local username=${1}
+    local password=${2}
+    local silent_mode=${3}
+
+    if [[ ${silent_mode} == "true" ]]; then
+        sudo adduser --disabled-password --gecos '' "${username}"
+    else
+        sudo adduser --disabled-password "${username}"
+    fi
+
+    echo "${username}:${password}" | sudo chpasswd
+    sudo usermod -aG sudo "${username}"
+}
+
+# Add the local machine public SSH Key for the new user account
+# Arguments:
+#   Account Username
+#   Public SSH Key
+function add_user_ssh_key() {
+  local username=${1}
+  local sshKey=${2}
+
+  execAsUser "${username}" "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
+  execAsUser "${username}" "echo \"${sshKey}\" | sudo tee -a ~/.ssh/authorized_keys"
+  execAsUser "${username}" "chmod 600 ~/.ssh/authorized_keys"
+}
+
+OUTPUT_FILE="output.log"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Essential Packages
+# - - - - - - - - - - - - - - - - - - - -
+
+apt_update
+apt_upgrade
+
+install_pkg "Build Essential" "build-essential"
+install_pkg "GnuPG archive keys" "debian-archive-keyring"
+install_pkg "Git" "git"
+install_pkg "curl" "curl"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Sudo User Creation
+# - - - - - - - - - - - - - - - - - - - -
+
+# @TODO
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Homebrew
+# - - - - - - - - - - - - - - - - - - - -
+
+function install_homebrew () {
+  print_in_purple "Homebrew"
+
+  if ! cmd_exists "brew"; then
+    printf "\n" | \
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh &> /dev/null
+  fi
+
+  print_result $? "Homebrew"
+}
+
+install_homebrew
+
+HOMEBREW_PREFIX=$(brew --prefix)
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Bash
+# - - - - - - - - - - - - - - - - - - - -
+
+function install_bash () {
+  print_in_purple "Bash"
+
+  declare -r LOCAL_SHELL_CONFIG_FILE="$HOME/.bash.local"
+
+  local brew_bash_path="${HOMEBREW_PREFIX}/bin/bash"
+
+  # Ensure we're using a recent version of Bash before anything else.
+  brew install bash
+
+  # Add the path of the Bash version installed through Homebrew to the list of
+  # allowed login shells in the `/etc/shells` file.
+  if ! grep "${brew_bash_path}" < /etc/shells &> /dev/null; then
+    execute \
+      "printf '%s\n' ${brew_bash_path} | sudo tee -a /etc/shells" \
+      "Bash (add '${brew_bash_path}' in '/etc/shells')" \
+    || return 1
+  fi
+
+  # Set Brew-installed version of Bash as the default (macOS comes with an
+  # outdated version of Bash).
+  chsh -s "${brew_bash_path}" &> /dev/null
+  print_result $? "Bash (use latest version)"
+}
+
+install_bash

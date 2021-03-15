@@ -1,0 +1,192 @@
+#!/usr/bin/env bash
+
+declare -r GITHUB_REPOSITORY="montchr/dots"
+
+declare -r DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
+declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/main"
+declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/lib/utils.sh"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+declare dotfiles_dir="$HOME/.dots"
+declare skip_questions=false
+
+# ----------------------------------------------------------------------
+# | Helper Functions                                                   |
+# ----------------------------------------------------------------------
+
+download() {
+  local url="$1"
+  local output="$2"
+  if command -v "curl" &>/dev/null; then
+    curl -LsSo "$output" "$url" &>/dev/null
+    return $?
+  elif command -v "wget" &>/dev/null; then
+    wget -qO "$output" "$url" &>/dev/null
+    return $?
+  fi
+  return 1
+}
+
+download_dotfiles() {
+  local tmp_file=""
+
+  print_in_purple "\n • Download and extract archive\n\n"
+  tmp_file="$(mktemp /tmp/XXXXX)"
+  download "$DOTFILES_TARBALL_URL" "$tmp_file"
+  print_result $? "Download archive" "true"
+  printf "\n"
+
+  if ! $skip_questions; then
+    ask_for_confirmation "Do you want to store the dotfiles in '$dotfiles_dir'?"
+    if ! user_confirmed; then
+      dotfiles_dir=""
+      while [ -z "$dotfiles_dir" ]; do
+        ask "Please specify another location for the dotfiles (path): "
+        dotfiles_dir="$(get_answer)"
+      done
+    fi
+
+    # Ensure the `dotfiles` directory is available
+    while [ -e "$dotfiles_dir" ]; do
+      ask_for_confirmation "'$dotfiles_dir' already exists, do you want to overwrite it?"
+      if user_confirmed; then
+        rm -rf "$dotfiles_dir"
+        break
+      else
+        dotfiles_dir=""
+        while [ -z "$dotfiles_dir" ]; do
+          ask "Please specify another location for the dotfiles (path): "
+          dotfiles_dir="$(get_answer)"
+        done
+      fi
+    done
+
+    printf "\n"
+  else
+    rm -rf "$dotfiles_dir" &>/dev/null
+  fi
+
+  mkdir -p "$dotfiles_dir"
+  print_result $? "Create '$dotfiles_dir'" "true"
+
+  # Extract archive in the `dotfiles` directory.
+  extract "$tmp_file" "$dotfiles_dir"
+  print_result $? "Extract archive" "true"
+
+  rm -rf "$tmp_file"
+  print_result $? "Remove archive"
+
+  # @TODO change this directory
+  cd "$dotfiles_dir/src/os" ||
+    return 1
+}
+
+download_utils() {
+  local tmp_file=""
+  tmp_file="$(mktemp /tmp/XXXXX)"
+  download "$DOTFILES_UTILS_URL" "$tmp_file" &&
+    . "$tmp_file" &&
+    rm -rf "$tmp_file" &&
+    return 0
+  return 1
+}
+
+extract() {
+  local archive="$1"
+  local outputDir="$2"
+  if command -v "tar" &>/dev/null; then
+    tar -zxf "$archive" --strip-components 1 -C "$outputDir"
+    return $?
+  fi
+  return 1
+}
+
+verify_os() {
+  declare -r MINIMUM_MACOS_VERSION="10.10"
+  # @TODO handle debian!
+  declare -r MINIMUM_UBUNTU_VERSION="20.04"
+
+  local os_name
+  local os_version
+  os_name="$(get_os)"
+  os_version="$(get_os_version)"
+
+  # Check if the OS is `macOS` and it's above the required version.
+  if [ "$os_name" == "macos" ]; then
+    if is_supported_version "$os_version" "$MINIMUM_MACOS_VERSION"; then
+      return 0
+    else
+      printf "Sorry, this script is intended only for macOS %s+" "$MINIMUM_MACOS_VERSION"
+    fi
+
+    # Check if the OS is `Ubuntu` and it's above the required version.
+  elif [ "$os_name" == "ubuntu" ]; then
+    if is_supported_version "$os_version" "$MINIMUM_UBUNTU_VERSION"; then
+      return 0
+    else
+      printf "Sorry, this script is intended only for Ubuntu %s+" "$MINIMUM_UBUNTU_VERSION"
+    fi
+  else
+    printf "Sorry, this script is intended only for macOS and Ubuntu!"
+  fi
+
+  return 1
+}
+
+# ----------------------------------------------------------------------
+# | Main                                                               |
+# ----------------------------------------------------------------------
+
+main() {
+  # Ensure that the following actions are made relative to this file's path.
+  cd "$(dirname "${BASH_SOURCE[0]}")" ||
+    exit 1
+
+  # Load utils
+  if [ -x "lib/utils.sh" ]; then
+    . "lib/utils.sh" || exit 1
+  else
+    download_utils || exit 1
+  fi
+
+  # Ensure the OS is supported and it's above the required version.
+  verify_os ||
+    exit 1
+
+  skip_questions "$@" &&
+    skip_questions=true
+
+  ask_for_sudo
+
+  # Check if this script was run directly. If not, it most likely means that the
+  # dotfiles were not yet set up, and they will need to be downloaded.
+  printf "%s" "${BASH_SOURCE[0]}" | grep "setup.sh" &>/dev/null ||
+    download_dotfiles
+
+  # @TODO replace with dotbot setup
+  # ./create_symbolic_links.sh "$@"
+  # @TODO probably not necessary
+  # ./create_local_config_files.sh
+
+  # @TODO create a dotbot profile for each os
+  ./install "$(get_os)"
+
+
+  ./preferences/main.sh
+
+  if cmd_exists "git"; then
+    if [ "$(git config --get remote.origin.url)" != "$DOTFILES_ORIGIN" ]; then
+      ./initialize_git_repository.sh "$DOTFILES_ORIGIN"
+    fi
+    if ! $skip_questions; then
+      ./update_content.sh
+    fi
+  fi
+
+  if ! $skip_questions; then
+    ./restart.sh
+  fi
+}
+
+main "$@"
