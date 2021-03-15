@@ -67,7 +67,7 @@ zinit light-mode for \
 # zt() : First argument is a wait time and suffix, ie "0a". Anything that
 # doesn't match will be passed as if it were an ice mod. Default ices depth'3'
 # and lucid
-zt()  { zinit depth'3' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
+zt() { zinit depth'1' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
 
 # - - - - - - - - - - - - - - - - - - - -
 # Initial Prompt
