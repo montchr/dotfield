@@ -65,16 +65,90 @@ function add_user_account () {
 }
 
 # Add the local machine public SSH Key for the new user account
+#
 # Arguments:
 #   Account Username
 #   Public SSH Key
 function add_user_ssh_key() {
   local username=${1}
-  local sshKey=${2}
+  local pubkey=${2}
 
-  execAsUser "${username}" "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
-  execAsUser "${username}" "echo \"${sshKey}\" | sudo tee -a ~/.ssh/authorized_keys"
-  execAsUser "${username}" "chmod 600 ~/.ssh/authorized_keys"
+  exec_as_user "${username}" "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
+  exec_as_user "${username}" "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
+  exec_as_user "${username}" "chmod 600 ~/.ssh/authorized_keys"
+}
+
+# Keep prompting for the password and password confirmation
+#
+# Globals:
+#   $password
+function prompt_for_password () {
+  local PASSWORDS_MATCH
+  local password_confirmation
+  PASSWORDS_MATCH=false
+  while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
+    read -s -rp "Enter new UNIX password:" password
+    printf "\n"
+    read -s -rp "Retype new UNIX password:" password_confirmation
+    printf "\n"
+
+    if [[ "${password}" != "${password_confirmation}" ]]; then
+      echo "Passwords do not match! Please try again."
+      exit 1
+    else
+      PASSWORDS_MATCH=true
+    fi
+  done
+}
+
+# Disables the sudo password prompt for a user account by editing /etc/sudoers
+#
+# Arguments:
+#   Account username
+function disable_sudo_password () {
+  local username="${1}"
+  sudo cp /etc/sudoers /etc/sudoers.bak
+  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
+}
+
+# Add the local machine's public SSH key for the new user account.
+#
+# Arguments:
+#   Account Username
+#   Public SSH Key
+function add_ssh_pub_key () {
+  local username=${1}
+  local pubkey=${2}
+
+  exec_as_user "${username}" \
+    "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
+  exec_as_user "${username}" \
+    "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
+  exec_as_user "${username}" \
+    "chmod 600 ~/.ssh/authorized_keys"
+}
+
+# Execute a command as a certain user
+#
+# Arguments:
+#   Account Username
+#   Command to be executed
+function exec_as_user () {
+  local username=${1}
+  local exec_command=${2}
+  sudo -u "${username}" -H bash -c "${exec_command}"
+}
+
+# Modify the sshd_config file
+# shellcheck disable=2116
+function change_ssh_config () {
+  sudo sed -re \
+    's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' \
+    -i."$(echo 'old')" \
+    /etc/ssh/sshd_config
+  sudo sed -re \
+    's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' \
+    -i /etc/ssh/sshd_config
 }
 
 OUTPUT_FILE="output.log"
@@ -97,7 +171,166 @@ install_pkg "curl" "curl"
 # Sudo User Creation
 # - - - - - - - - - - - - - - - - - - - -
 
-# @TODO
+function .create_sudo_user () {
+  local username
+  local password
+  local ssh_pub_key
+
+  ask "Enter the username of the new user account:"
+  username=$(get_answer)
+  declare -r username
+
+  prompt_for_password
+
+  # Run setup functions
+  trap cleanup EXIT SIGHUP SIGINT SIGTERM
+
+  add_user_account "${username}" "${password}"
+
+  ask 'Paste in the public SSH key for the new user:\n'
+  ssh_pub_key=$(get_answer)
+
+  print_in_purple 'Running setup script...'
+
+  disable_sudo_password "${username}"
+  add_ssh_pub_key "${username}" "${ssh_pub_key}"
+  change_ssh_config
+
+} && .create_sudo_user
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# UFW
+# - - - - - - - - - - - - - - - - - - - -
+
+function .setup_ufw () {
+  sudo ufw allow OpenSSH
+  yes y | sudo ufw enable
+} && .setup_ufw
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Swapfile
+# - - - - - - - - - - - - - - - - - - - -
+
+# Get the amount of installed physical memory in GB (rounded up).
+function .swap.get_mem () {
+  local phymem
+  phymem="$(free -g|awk '/^Mem:/{print $2}')"
+
+  [[ ${phymem} == '0' ]] && \
+    exit 1
+
+  echo "${phymem}"
+}
+
+function .swap.create () {
+  local swapmem=$(($(.swap.get_mem) * 2))
+
+  # Anything over 4GB in swap is probably unnecessary as a RAM fallback
+  if [ ${swapmem} -gt 4 ]; then
+      swapmem=4
+  fi
+
+  sudo fallocate -l "${swapmem}G" /swapfile
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+}
+
+# Mount the swapfile.
+function .swap.mount () {
+  sudo cp /etc/fstab /etc/fstab.bak
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+}
+
+function .swap.adjust () {
+  local action=${1}
+  local swappiness=${2}
+  local vfs_cache_pressure=${3}
+
+  case action in
+    run)
+      sudo sysctl vm.swappiness="${swappiness}"
+      sudo sysctl vm.vfs_cache_pressure="${vfs_cache_pressure}"
+      ;;
+    save)
+      echo "vm.swappiness=${swappiness}" | sudo tee -a /etc/sysctl.d/50-swapfile.conf
+      echo "vm.vfs_cache_pressure=${vfs_cache_pressure}" | sudo tee -a /etc/sysctl.d/50-swapfile.conf
+      ;;
+    *)
+      print_error "Unknown action!"
+      exit 1
+      ;;
+  esac
+}
+
+# Create and configure swapfile if it doesn't yet exist.
+[[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
+  .swap.create
+  .swap.mount
+  .swap.adjust run '10' '50'
+  .swap.adjust save '10' '50'
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Time
+# - - - - - - - - - - - - - - - - - - - -
+
+function .setup_timezone () {
+
+  local timezone
+
+  ask "Enter the timezone for the server (Default is 'America/New_York')"
+  timezone=$(get_answer)
+  timezone=${timezone:-America/New_York}
+
+  # Set the timezone.
+  echo "${timezone}" | sudo tee /etc/timezone
+  sudo ln -fs \
+    "/usr/share/zoneinfo/${timezone}" \
+    /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+  sudo dpkg-reconfigure -f noninteractive tzdata
+
+  print_in_yellow "Timezone is set to $(cat /etc/timezone)" >&3
+
+} && .setup_timezone
+
+function .setup_ntp () {
+  ubuntu_version="$(lsb_release -sr)"
+
+  if [[ $ubuntu_version == '20.04' ]]; then
+    sudo systemctl restart systemd-timesyncd
+  else
+    sudo apt-get update
+    sudo apt-get --assume-yes install ntp
+  fi
+} && \
+  print_in_purple "Installing/configuring Network Time Protocol..." && \
+  .setup_ntp
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Cleanup
+# - - - - - - - - - - - - - - - - - - - -
+
+sudo service ssh restart
+
+# Restore the original /etc/sudoers file, forcing passwordless login.
+[[ -f "/etc/sudoers.bak" ]] && {
+  sudo mv /etc/sudoers.bak /etc/sudoers
+}
+
+print_success "Setup complete!"
+
+
+
+
+
+
+
+
 
 
 # - - - - - - - - - - - - - - - - - - - -

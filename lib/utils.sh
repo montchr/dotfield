@@ -80,6 +80,7 @@ execute() {
   return $exitCode
 }
 
+# Get the user's answer to the previous prompt.
 get_answer() {
   printf "%s" "$REPLY"
 }
