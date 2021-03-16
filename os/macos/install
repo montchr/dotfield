@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap-macos
+# os/macos/install
 #
 
 . lib/utils.sh

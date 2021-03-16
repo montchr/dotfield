@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap-ubuntu
+# os/ubuntu/install
 #
 
 set -e
