@@ -1,0 +1,11 @@
+name: time
+parent: default
+
+matches:
+  - trigger: ":d:d"
+    replace: "{{time}}"
+    vars:
+      - name: time
+        type: date
+        params:
+          format: "%Y-%m-%d"
