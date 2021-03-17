@@ -3,7 +3,9 @@
 # os/macos/install
 #
 
-. lib/utils.sh
+set -euo pipefail
+
+. ../../lib/utils.sh
 
 declare HOMEBREW_PREFIX
 

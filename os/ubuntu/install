@@ -3,9 +3,9 @@
 # os/ubuntu/install
 #
 
-set -e
+set -euo pipefail
 
-. lib/utils.sh
+. ../../lib/utils.sh
 
 function get_current_dir() {
     local current_dir="${BASH_SOURCE%/*}"
