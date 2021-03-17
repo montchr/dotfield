@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
+#
+# os/macos/configure
+#
+# Thanks:
+# https://mths.be/macos
+#
 
-# ~/.macos — https://mths.be/macos
+declare -r SYSTEM_NAME=${1}
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -16,11 +22,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
+
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "montalley"
-sudo scutil --set HostName "montalley"
-sudo scutil --set LocalHostName "montalley"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "montalley"
+if [[ -n "${SYSTEM_NAME}" ]]; then
+  sudo scutil --set ComputerName "${SYSTEM_NAME}"
+  sudo scutil --set HostName "${SYSTEM_NAME}"
+  sudo scutil --set LocalHostName "${SYSTEM_NAME}"
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${SYSTEM_NAME}"
+fi
 
 # Disable the sound effects on boot
 # sudo nvram SystemAudioVolume=" "
