@@ -1,0 +1,34 @@
+name: time
+parent: default
+
+global_vars:
+  - name: date
+    type: date
+    params:
+      format: "%F"
+  - name: time
+    type: date
+    params:
+      format: "%T"
+
+matches:
+  # Short date
+  - trigger: ":dt:dd"
+    replace: "{{date}}"
+
+  # Time
+  - trigger: ":dt:tt"
+    replace: "{{time}}"
+
+  # Date + Time
+  - trigger: ":dt:dt"
+    replace: "{{date}} {{time}}"
+
+  # Datetime ID
+  - trigger: ":dt:id"
+    replace: "{{id}}"
+    vars:
+      - name: id
+        type: date
+        params:
+          format: "%Y%m%d%H%M%S"

@@ -90,7 +90,6 @@ brew "ddate"
 
 # Development and shell utilities
 brew "editorconfig"
-brew "exa"
 brew "fd"
 brew "fzf"
 brew "gh"

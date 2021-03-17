@@ -38,6 +38,7 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
   }
 } 2>/dev/null
 
+export ZPFX="${HOME}/.local"
 
 ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
 ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
@@ -67,7 +68,7 @@ zinit light-mode for \
 # zt() : First argument is a wait time and suffix, ie "0a". Anything that
 # doesn't match will be passed as if it were an ice mod. Default ices depth'3'
 # and lucid
-zt()  { zinit depth'3' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
+zt() { zinit depth'1' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
 
 # - - - - - - - - - - - - - - - - - - - -
 # Initial Prompt
@@ -78,9 +79,7 @@ zt()  { zinit depth'3' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
 zt light-mode for \
   pick'async.zsh' \
     mafredri/zsh-async \
-
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
+  romkatv/powerlevel10k
 
 # Load config files plugin.
 zt light-mode for \
@@ -101,8 +100,7 @@ zt light-mode for \
 # - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
 # - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
 zt for \
-    atinit"HIST_STAMPS=yyyy.mm.dd" \
-        OMZL::history.zsh
+  OMZL::history.zsh
 
 zt 0a for \
   trigger-load"!base16-set-shell" \
@@ -120,7 +118,7 @@ zt 0a for \
         alias l='exa --oneline'
         alias ll='exa -Flagh --git'
         alias la='exa -Fal'
-        alias ls='exa --group-directories-first'
+        alias ls=\"${BREW_PREFIX}/bin/gls\"
         alias lld='exa -Flagh --git --group-directories-first'
         alias ld='exa -D1'
         alias tree='exa --tree'
@@ -228,6 +226,10 @@ zt 0c light-mode null for \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
 
+zt 1a for \
+  cargo'!exa' \
+    ogham/exa
+
 zt 2a for \
   atload"
     # Use fzf-tab after second tab press
@@ -326,6 +328,14 @@ zinit subscribe'~/.tool-versions' for \
     .asdf-plugins reshim
   ' \
     @zdharma/null
+
+# - - - - - - - - - - - - - - - - - - - -
+# Scripting Tools
+# - - - - - - - - - - - - - - - - - - - -
+
+zt 2b as'command' for \
+  make"--directory=resources install PREFIX=$HOME/.local" \
+    @matejak/argbash
 
 
 # - - - - - - - - - - - - - - - - - - - -
