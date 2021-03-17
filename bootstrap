@@ -154,7 +154,7 @@ main() {
   verify_os ||
     exit 1
 
-  skip_questions "$@" &&
+  should_skip_questions "$@" &&
     SKIP_QUESTIONS=true
 
   ask_for_sudo

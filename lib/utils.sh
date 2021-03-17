@@ -225,7 +225,7 @@ set_trap() {
     trap '$2' "$1"
 }
 
-skip_questions() {
+should_skip_questions() {
   while :; do
     case $1 in
       -y | --yes) return 0 ;;
