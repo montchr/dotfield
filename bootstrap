@@ -8,8 +8,8 @@ declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSIT
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-declare dotfiles_dir="$HOME/.dots"
-declare skip_questions=false
+declare DOTFILES_DIR="$HOME/.dots"
+declare SKIP_QUESTIONS=false
 
 # ----------------------------------------------------------------------
 # | Helper Functions                                                   |
@@ -37,48 +37,48 @@ download_dotfiles() {
   print_result $? "Download archive" "true"
   printf "\n"
 
-  if ! $skip_questions; then
-    ask_for_confirmation "Do you want to store the dotfiles in '$dotfiles_dir'?"
+  if ! $SKIP_QUESTIONS; then
+    ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
     if ! user_confirmed; then
-      dotfiles_dir=""
-      while [ -z "$dotfiles_dir" ]; do
+      DOTFILES_DIR=""
+      while [ -z "$DOTFILES_DIR" ]; do
         ask "Please specify another location for the dotfiles (path): "
-        dotfiles_dir="$(get_answer)"
+        DOTFILES_DIR="$(get_answer)"
       done
     fi
 
     # Ensure the `dotfiles` directory is available
-    while [ -e "$dotfiles_dir" ]; do
-      ask_for_confirmation "'$dotfiles_dir' already exists, do you want to overwrite it?"
+    while [ -e "$DOTFILES_DIR" ]; do
+      ask_for_confirmation "'$DOTFILES_DIR' already exists, do you want to overwrite it?"
       if user_confirmed; then
-        rm -rf "$dotfiles_dir"
+        rm -rf "$DOTFILES_DIR"
         break
       else
-        dotfiles_dir=""
-        while [ -z "$dotfiles_dir" ]; do
+        DOTFILES_DIR=""
+        while [ -z "$DOTFILES_DIR" ]; do
           ask "Please specify another location for the dotfiles (path): "
-          dotfiles_dir="$(get_answer)"
+          DOTFILES_DIR="$(get_answer)"
         done
       fi
     done
 
     printf "\n"
   else
-    rm -rf "$dotfiles_dir" &>/dev/null
+    rm -rf "$DOTFILES_DIR" &>/dev/null
   fi
 
-  mkdir -p "$dotfiles_dir"
-  print_result $? "Create '$dotfiles_dir'" "true"
+  mkdir -p "${DOTFILES_DIR}"
+  print_result $? "Create '$DOTFILES_DIR'" "true"
 
   # Extract archive in the `dotfiles` directory.
-  extract "$tmp_file" "$dotfiles_dir"
+  extract "$tmp_file" "$DOTFILES_DIR"
   print_result $? "Extract archive" "true"
 
   rm -rf "$tmp_file"
   print_result $? "Remove archive"
 
   # @TODO change this directory
-  cd "$dotfiles_dir/src/os" ||
+  cd "${DOTFILES_DIR}/os" ||
     return 1
 }
 
@@ -155,7 +155,7 @@ main() {
     exit 1
 
   skip_questions "$@" &&
-    skip_questions=true
+    SKIP_QUESTIONS=true
 
   ask_for_sudo
 
@@ -179,7 +179,7 @@ main() {
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
 
-  if ! $skip_questions; then
+  if ! $SKIP_QUESTIONS; then
     print_in_purple "\n • Restart\n\n"
 
     ask_for_confirmation "Do you want to restart? You probably should."
