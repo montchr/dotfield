@@ -3,8 +3,9 @@
 declare -r GITHUB_REPOSITORY="montchr/dots"
 
 declare -r DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
-declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/main"
-declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/lib/utils.sh"
+declare -r DOTFILES_BRANCH="feature/dotbot"
+declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/main"
+declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
