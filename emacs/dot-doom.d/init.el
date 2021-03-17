@@ -53,7 +53,8 @@
   ;;lispy            ; vim for lisp, for people who don't like vim
   ;;multiple-cursors   ; editing in many places at once
   ;;objed            ; text object editing for the innocent
-  (parinfer +rust)           ; turn lisp into python, sort of
+  ;; @TODO disabled parinfer due to annoying prompts saving org files
+  ;;(parinfer +rust)           ; turn lisp into python, sort of
   rotate-text        ; cycle region at point between text candidates
   snippets           ; my elves. They type so I don't have to
   word-wrap          ; soft wrapping with language-aware indent
