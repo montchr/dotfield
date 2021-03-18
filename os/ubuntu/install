@@ -244,7 +244,7 @@ function .swap.adjust () {
   local swappiness=${2}
   local vfs_cache_pressure=${3}
 
-  case action in
+  case $action in
     run)
       sudo sysctl vm.swappiness="${swappiness}"
       sudo sysctl vm.vfs_cache_pressure="${vfs_cache_pressure}"
