@@ -14,7 +14,7 @@ declare SKIP_QUESTIONS=false
 # | Helper Functions                                                   |
 # ----------------------------------------------------------------------
 
-download() {
+function download () {
   local url="$1"
   local output="$2"
   if command -v "curl" &>/dev/null; then
@@ -96,7 +96,7 @@ function download_dotfiles () {
     return 1
 }
 
-download_utils() {
+function download_utils () {
   local tmp_file=""
   tmp_file="$(mktemp /tmp/XXXXX)"
   download "$DOTFILES_UTILS_URL" "$tmp_file" &&
@@ -106,7 +106,7 @@ download_utils() {
   return 1
 }
 
-extract() {
+function extract () {
   local archive="$1"
   local outputDir="$2"
   if command -v "tar" &>/dev/null; then
@@ -116,7 +116,7 @@ extract() {
   return 1
 }
 
-verify_os() {
+function verify_os () {
   declare -r MINIMUM_MACOS_VERSION="10.10"
   # @TODO handle debian!
   declare -r MINIMUM_UBUNTU_VERSION="20.04"
@@ -152,7 +152,7 @@ verify_os() {
 # | Main                                                               |
 # ----------------------------------------------------------------------
 
-main() {
+function main () {
   # Ensure that the following actions are made relative to this file's path.
   cd "$(dirname "${BASH_SOURCE[0]}")" ||
     exit 1

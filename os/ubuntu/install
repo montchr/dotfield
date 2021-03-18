@@ -7,6 +7,10 @@ set -euo pipefail
 
 . ../../lib/utils.sh
 
+# - - - - - - - - - - - - - - - - - - - -
+# Helper Functions
+# - - - - - - - - - - - - - - - - - - - -
+
 function get_current_dir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -69,7 +73,7 @@ function add_user_account () {
 # Arguments:
 #   Account Username
 #   Public SSH Key
-function add_user_ssh_key() {
+function add_user_ssh_key () {
   local username=${1}
   local pubkey=${2}
 
@@ -225,6 +229,11 @@ function .swap.get_mem () {
   echo "${phymem}"
 }
 
+# Create swapfile.
+#
+# Uses
+#   .swap.get_mem
+#
 function .swap.create () {
   local swapmem=$(($(.swap.get_mem) * 2))
 
@@ -279,8 +288,8 @@ function .swap.adjust () {
 # Time
 # - - - - - - - - - - - - - - - - - - - -
 
+# Setup timezone.
 function .setup_timezone () {
-
   local timezone
 
   ask "Enter the timezone for the server (Default is 'America/New_York')"
