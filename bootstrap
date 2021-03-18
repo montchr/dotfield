@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 declare -r GITHUB_REPOSITORY="montchr/dots"
 declare -r DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
 declare -r DOTFILES_BRANCH="feature/dotbot"
@@ -172,8 +174,8 @@ function main () {
 
   DOWNLOAD_METHOD="archive"
 
-  [[ -n "$*" ]] && should_skip_questions "$@" &&
-    SKIP_QUESTIONS=true
+  # should_skip_questions "$@" &&
+  #   SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root! Dotfiles will be removed after creating sudo user."
@@ -183,9 +185,14 @@ function main () {
   fi
 
   print_in_purple "\n • Downloading Dotfiles repo\n"
-  [[ ! -f "${DOTFILES_DIR}/install" ]] &&
-    download_dotfiles "${DOWNLOAD_METHOD}" &&
+  [[ ! -f "${DOTFILES_DIR}/install" ]] && \
+    download_dotfiles "${DOWNLOAD_METHOD}" && \
       cd "${DOTFILES_DIR}" && print "$(pwd)"
+
+  if [[ $DOTFILES_DIR != "$(pwd)" ]]; then
+    print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
+    return 1
+  fi
 
   print_in_purple "\n • Install OS Essentials\n"
   "./os/$(get_os)/install"
