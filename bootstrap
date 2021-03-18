@@ -92,7 +92,8 @@ function download_dotfiles () {
       ;;
   esac
 
-  cd "${DOTFILES_DIR}/os" ||
+  # Verify dotfiles have been moved into place successfully.
+  [[ ! -d "${DOTFILES_DIR}/os" ]] ||
     return 1
 }
 

@@ -330,7 +330,6 @@ function main () {
   print_in_purple "Creating a new user with sudo capabilities..."
   .create_sudo_user
 
-
   print_in_purple "Setting up UFW..."
   .setup_ufw
 
