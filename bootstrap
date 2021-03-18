@@ -8,7 +8,7 @@ declare -r DOTFILES_BRANCH="feature/dotbot"
 declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 
-declare DOTFILES_DIR="$HOME/.dots"
+declare DOTFILES_DIR="${HOME}/.dots"
 declare SKIP_QUESTIONS=false
 
 # ----------------------------------------------------------------------
@@ -172,7 +172,7 @@ function main () {
   verify_os ||
     exit 1
 
-  OS_DIR="os/$(get_os)"
+  OS_DIR="${DOTFILES_DIR}/os/$(get_os)"
   INSTALLER="${OS_DIR}/install"
   CONFIGURATOR="${OS_DIR}/configure"
   DOWNLOAD_METHOD="archive"
@@ -192,7 +192,7 @@ function main () {
 
   print_in_purple "\n • Install OS Essentials • ${INSTALLER}\n"
   if [[ -f ${INSTALLER} ]]; then
-    "./${INSTALLER}"
+    ${INSTALLER}
   else
     print_error "No installer found for current OS '$(get_os)'! Aborting."
     exit 1
@@ -202,7 +202,7 @@ function main () {
   if [[ -f ${CONFIGURATOR} ]]; then
     ask "Set the system name: "
     system_name=$(get_answer)
-    "./${CONFIGURATOR} ${system_name}"
+    "${CONFIGURATOR} ${system_name}"
   else
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
