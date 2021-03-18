@@ -9,10 +9,11 @@ declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/$
 declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 
 # @TODO set up branch tracking and submodules
-declare -r GIT_INIT_CMD="git init && git remote add origin ${DOTFILES_ORIGIN}"
+declare -rx GIT_INIT_CMD="git init && git remote add origin ${DOTFILES_ORIGIN}"
+declare -rx DOTFILES_DIR="${HOME}/.dots"
 
-declare DOTFILES_DIR="${HOME}/.dots"
 declare SKIP_QUESTIONS=false
+
 
 # ----------------------------------------------------------------------
 # | Helper Functions                                                   |
