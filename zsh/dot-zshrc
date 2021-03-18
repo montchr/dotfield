@@ -226,6 +226,7 @@ zt 0c light-mode null for \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
 
+# @TODO doesn't seem to be bleeding edge... still contains dead symlink bug
 zt 1a for \
   cargo'!exa' \
     ogham/exa

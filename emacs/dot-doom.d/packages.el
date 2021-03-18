@@ -52,22 +52,34 @@
 (package! modus-themes)
 (package! tao-theme)
 
+;; UI
+(package! scroll-on-jump
+  :recipe (:host gitlab
+           :repo "ideasman42/emacs-scroll-on-jump"))
+
 ;; Languages
+(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! neon-mode
   :recipe (:host github :repo "montchr/neon-mode"))
 (package! vimrc-mode)                ; vimrc syntax
 
-(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
-(package! hledger-mode)
-(package! firestarter)               ; Do things upon save.
-(package! magit-delta)               ; Use delta in magit diffs.
-(package! org-board)                 ; Pinboard-ish for org-mode
+;; Import/Export
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
 (package! ox-gfm)                    ; Export to GFM syntax
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
+
+;; Apps
+(package! hledger-mode)
+(package! org-board)                 ; Pinboard-ish for org-mode
 (package! reaper)                    ; Harvest time tracking mode
+
+;; Tools
+(package! firestarter)               ; Do things upon save.
+(package! magit-delta)               ; Use delta in magit diffs.
 (package! with-editor)               ; pass $EDITOR to embedded terminal processes
+
+;; Miscellaneous
 (package! vlf)                       ; open Very Large Files in chunks
