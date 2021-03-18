@@ -10,3 +10,7 @@ nnoremap Y y$
 " Comma for major mode
 nmap , <leader>m
 vmap , <leader>m
+
+" Absolute line number for current line, relative line numbers for all others.
+:set relativenumber
+:set number
