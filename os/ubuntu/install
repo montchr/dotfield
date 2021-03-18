@@ -5,7 +5,8 @@
 
 set -euo pipefail
 
-. ../../lib/utils.sh
+# shellcheck source=../../lib/utils.sh
+. "${DOTFILES_DIR}/lib/utils.sh"
 
 # - - - - - - - - - - - - - - - - - - - -
 # Helper Functions
