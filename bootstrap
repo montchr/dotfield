@@ -27,14 +27,21 @@ download() {
   return 1
 }
 
-download_dotfiles() {
+# Download the dotfiles repo.
+#
+# Arguments:
+#   Download method. Can be either `archive` or `git`.
+function download_dotfiles () {
+  local method=${1}
   local tmp_file=""
 
-  print_in_purple "\n • Download and extract archive\n\n"
-  tmp_file="$(mktemp /tmp/XXXXX)"
-  download "$DOTFILES_TARBALL_URL" "$tmp_file"
-  print_result $? "Download archive" "true"
-  printf "\n"
+  if [[ 'archive' == "${method}" ]]; then
+    print_in_purple "\n • Download and extract archive\n\n"
+    tmp_file="$(mktemp /tmp/XXXXX)"
+    download "$DOTFILES_TARBALL_URL" "$tmp_file"
+    print_result $? "Download archive" "true"
+    printf "\n"
+  fi
 
   if ! $SKIP_QUESTIONS; then
     ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
@@ -67,15 +74,23 @@ download_dotfiles() {
     rm -rf "$DOTFILES_DIR" &>/dev/null
   fi
 
-  mkdir -p "${DOTFILES_DIR}"
-  print_result $? "Create '$DOTFILES_DIR'" "true"
+  case ${method} in
+    archive)
+      mkdir -p "${DOTFILES_DIR}"
+      print_result $? "Create '$DOTFILES_DIR'" "true"
 
-  # Extract archive in the `dotfiles` directory.
-  extract "$tmp_file" "$DOTFILES_DIR"
-  print_result $? "Extract archive" "true"
+      # Extract archive in the `dotfiles` directory.
+      extract "$tmp_file" "$DOTFILES_DIR"
+      print_result $? "Extract archive" "true"
 
-  rm -rf "$tmp_file"
-  print_result $? "Remove archive"
+      rm -rf "$tmp_file"
+      print_result $? "Remove archive"
+      ;;
+    git)
+      git clone -b "${DOTFILES_BRANCH}" "${DOTFILES_ORIGIN}" "${DOTFILES_DIR}"
+      print_result $? "Clone repo" "true"
+      ;;
+  esac
 
   cd "${DOTFILES_DIR}/os" ||
     return 1
@@ -156,14 +171,20 @@ main() {
   OS_DIR="os/$(get_os)"
   INSTALLER="${OS_DIR}/install"
   CONFIGURATOR="${OS_DIR}/configure"
+  DOWNLOAD_METHOD="archive"
 
   should_skip_questions "$@" &&
     SKIP_QUESTIONS=true
 
-  ask_for_sudo
+  if [[ "root" == $(whoami) ]]; then
+    print_warning "Running as root! Dotfiles will be removed after creating sudo user."
+  else
+    ask_for_sudo
+    DOWNLOAD_METHOD="git"
+  fi
 
-  # Download dotfiles if they aren't yet present.
-  [[ ! -f "${DOTFILES_DIR}/install" ]] && download_dotfiles
+  print_in_purple "\n • Downloading Dotfiles repo\n"
+  [[ ! -f "${DOTFILES_DIR}/install" ]] && download_dotfiles "${DOWNLOAD_METHOD}"
 
   print_in_purple "\n • Install OS Essentials\n"
   if [[ -f ${INSTALLER} ]]; then

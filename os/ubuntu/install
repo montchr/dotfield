@@ -190,13 +190,14 @@ function .create_sudo_user () {
   ask 'Paste in the public SSH key for the new user:\n'
   ssh_pub_key=$(get_answer)
 
-  print_in_purple 'Running setup script...'
-
+  print_in_purple 'Setting up SSH for the new user...'
   disable_sudo_password "${username}"
   add_ssh_pub_key "${username}" "${ssh_pub_key}"
   change_ssh_config
 
 } && .create_sudo_user
+  print_in_purple 'Cloning dotfiles for the new user...'
+  exec_as_user "download_dotfiles git"
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -315,22 +316,19 @@ function .setup_ntp () {
 # Cleanup
 # - - - - - - - - - - - - - - - - - - - -
 
-sudo service ssh restart
+function .cleanup () {
+  sudo service ssh restart
 
-# Restore the original /etc/sudoers file, forcing passwordless login.
-[[ -f "/etc/sudoers.bak" ]] && {
-  sudo mv /etc/sudoers.bak /etc/sudoers
+  [[ -f "/etc/sudoers.bak" ]] && {
+    print_in_purple "Restoring original /etc/sudoers file, forcing passwordless login..."
+    sudo mv /etc/sudoers.bak /etc/sudoers
+  }
+
+  [[ "root" == $(whoami) ]] && {
+    print_in_purple "Removing dotfiles archive for root user..."
+    rm -rf "${DOTFILES_DIR}"
+  }
 }
-
-print_success "Setup complete!"
-
-
-
-
-
-
-
-
 
 
 # - - - - - - - - - - - - - - - - - - - -
