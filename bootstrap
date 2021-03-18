@@ -174,7 +174,7 @@ function main () {
 
   DOWNLOAD_METHOD="archive"
 
-  should_skip_questions "$@" &&
+  [[ -n "$*" ]] && should_skip_questions "$@" &&
     SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
