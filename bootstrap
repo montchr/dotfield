@@ -172,9 +172,6 @@ function main () {
   verify_os ||
     exit 1
 
-  OS_DIR="${DOTFILES_DIR}/os/$(get_os)"
-  INSTALLER="${OS_DIR}/install"
-  CONFIGURATOR="${OS_DIR}/configure"
   DOWNLOAD_METHOD="archive"
 
   should_skip_questions "$@" &&
@@ -188,21 +185,18 @@ function main () {
   fi
 
   print_in_purple "\n • Downloading Dotfiles repo\n"
-  [[ ! -f "${DOTFILES_DIR}/install" ]] && download_dotfiles "${DOWNLOAD_METHOD}"
+  [[ ! -f "${DOTFILES_DIR}/install" ]] &&
+    download_dotfiles "${DOWNLOAD_METHOD}" &&
+      cd "${DOTFILES_DIR}" && print "$(pwd)"
 
-  print_in_purple "\n • Install OS Essentials • ${INSTALLER}\n"
-  if [[ -f ${INSTALLER} ]]; then
-    ${INSTALLER}
-  else
-    print_error "No installer found for current OS '$(get_os)'! Aborting."
-    exit 1
-  fi
+  print_in_purple "\n • Install OS Essentials\n"
+  "./os/$(get_os)/install"
 
+  # @TODO add ubuntu configurator
   print_in_purple "\n • Configure OS Preferences\n"
-  if [[ -f ${CONFIGURATOR} ]]; then
+  if [[ -f "os/$(get_os)/configure" ]]; then
     ask "Set the system name: "
-    system_name=$(get_answer)
-    "${CONFIGURATOR} ${system_name}"
+    "./os/$(get_os)/configure" "$(get_answer)"
   else
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
