@@ -7,8 +7,6 @@ declare -r DOTFILES_BRANCH="feature/dotbot"
 declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/main"
 declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 declare DOTFILES_DIR="$HOME/.dots"
 declare SKIP_QUESTIONS=false
 
@@ -49,6 +47,7 @@ download_dotfiles() {
     fi
 
     # Ensure the `dotfiles` directory is available
+    # @TODO unnecessary if this function is only called when they're available
     while [ -e "$DOTFILES_DIR" ]; do
       ask_for_confirmation "'$DOTFILES_DIR' already exists, do you want to overwrite it?"
       if user_confirmed; then
@@ -78,7 +77,6 @@ download_dotfiles() {
   rm -rf "$tmp_file"
   print_result $? "Remove archive"
 
-  # @TODO change this directory
   cd "${DOTFILES_DIR}/os" ||
     return 1
 }
@@ -113,7 +111,7 @@ verify_os() {
   os_name="$(get_os)"
   os_version="$(get_os_version)"
 
-  # Check if the OS is `macOS` and it's above the required version.
+  # Check if the OS is macOS and it's above the required version.
   if [ "$os_name" == "macos" ]; then
     if is_supported_version "$os_version" "$MINIMUM_MACOS_VERSION"; then
       return 0
@@ -155,29 +153,31 @@ main() {
   verify_os ||
     exit 1
 
+  OS_DIR="os/$(get_os)"
+  INSTALLER="${OS_DIR}/install"
+  CONFIGURATOR="${OS_DIR}/configure"
+
   should_skip_questions "$@" &&
     SKIP_QUESTIONS=true
 
   ask_for_sudo
 
-  # Check if this script was run directly. If not, it most likely means that the
-  # dotfiles were not yet set up, and they will need to be downloaded.
-  printf "%s" "${BASH_SOURCE[0]}" | grep "setup.sh" &>/dev/null ||
-    download_dotfiles
+  # Download dotfiles if they aren't yet present.
+  [[ ! -f "${DOTFILES_DIR}/install" ]] && download_dotfiles
 
-  print_in_purple "\n • Install\n"
-  if [[ -f "./os/$(get_os)/install" ]]; then
-    "./os/$(get_os)/install"
+  print_in_purple "\n • Install OS Essentials\n"
+  if [[ -f ${INSTALLER} ]]; then
+    "./${INSTALLER}"
   else
     print_error "No installer found for current OS '$(get_os)'! Aborting."
     exit 1
   fi
 
-  print_in_purple "\n • Preferences\n"
-  if [[ -f "./os/$(get_os)/configure" ]]; then
+  print_in_purple "\n • Configure OS Preferences\n"
+  if [[ -f ${CONFIGURATOR} ]]; then
     ask "Set the system name: "
     system_name=$(get_answer)
-    "./os/$(get_os)/configure ${system_name}"
+    "./${CONFIGURATOR} ${system_name}"
   else
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
