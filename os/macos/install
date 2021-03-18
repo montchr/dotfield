@@ -5,27 +5,18 @@
 
 set -euo pipefail
 
-. ../../lib/utils.sh
+# shellcheck source=../../lib/utils.sh
+. "${DOTFILES_DIR}/lib/utils.sh"
 
-declare HOMEBREW_PREFIX
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Xcode Command Line Tools
-# - - - - - - - - - - - - - - - - - - - -
-
-# Install Xcode Command Line Tools
-xcode-select --install &> /dev/null
-execute "
-    until $(xcode-select --print-path &> /dev/null); do \
-      sleep 5; \
-    done
-  " "Xcode Command Line Tools"
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Homebrew
-# - - - - - - - - - - - - - - - - - - - -
+function install_xcode_cli_tools () {
+  # Install Xcode Command Line Tools
+  xcode-select --install &> /dev/null
+  execute "
+      until $(xcode-select --print-path &> /dev/null); do \
+        sleep 5; \
+      done
+    " "Xcode Command Line Tools"
+}
 
 function install_homebrew () {
   print_in_purple "Homebrew"
@@ -37,15 +28,6 @@ function install_homebrew () {
 
   print_result $? "Homebrew"
 }
-
-install_homebrew
-
-HOMEBREW_PREFIX=$(brew --prefix)
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Bash
-# - - - - - - - - - - - - - - - - - - - -
 
 function install_bash () {
   print_in_purple "Bash"
@@ -72,4 +54,18 @@ function install_bash () {
   print_result $? "Bash (use latest version)"
 }
 
-install_bash
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function main () {
+  install_xcode_cli_tools
+  install_homebrew
+
+  HOMEBREW_PREFIX=$(brew --prefix)
+
+  install_bash
+}
+
+main "$@"
