@@ -112,7 +112,7 @@ function extract () {
   local archive="$1"
   local outputDir="$2"
   if command -v "tar" &>/dev/null; then
-    tar -xf "$archive" --strip-components 1 -C "$outputDir"
+    tar -zxf "$archive" --strip-components 1 -C "$outputDir"
     return $?
   fi
   return 1
