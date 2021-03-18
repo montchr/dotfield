@@ -8,6 +8,9 @@ declare -r DOTFILES_BRANCH="feature/dotbot"
 declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 
+# @TODO set up branch tracking and submodules
+declare -r GIT_INIT_CMD="git init && git remote add origin ${DOTFILES_ORIGIN}"
+
 declare DOTFILES_DIR="${HOME}/.dots"
 declare SKIP_QUESTIONS=false
 
@@ -33,16 +36,13 @@ function download () {
 # Arguments:
 #   Download method. Can be either `archive` or `git`.
 function download_dotfiles () {
-  local method=${1}
   local tmp_file=""
 
-  if [[ 'archive' == "${method}" ]]; then
-    print_in_purple "\n • Download and extract archive\n\n"
-    tmp_file="$(mktemp /tmp/XXXXX)"
-    download "$DOTFILES_TARBALL_URL" "$tmp_file"
-    print_result $? "Download archive" "true"
-    printf "\n"
-  fi
+  print_in_purple "\n • Download and extract archive\n\n"
+  tmp_file="$(mktemp /tmp/XXXXX)"
+  download "$DOTFILES_TARBALL_URL" "$tmp_file"
+  print_result $? "Download archive" "true"
+  printf "\n"
 
   if ! $SKIP_QUESTIONS; then
     ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
@@ -55,7 +55,6 @@ function download_dotfiles () {
     fi
 
     # Ensure the `dotfiles` directory is available
-    # @TODO unnecessary if this function is only called when they're available
     while [ -e "$DOTFILES_DIR" ]; do
       ask_for_confirmation "'$DOTFILES_DIR' already exists, do you want to overwrite it?"
       if user_confirmed; then
@@ -75,27 +74,19 @@ function download_dotfiles () {
     rm -rf "$DOTFILES_DIR" &>/dev/null
   fi
 
-  case ${method} in
-    archive)
-      mkdir -p "${DOTFILES_DIR}"
-      print_result $? "Create '$DOTFILES_DIR'" "true"
+  mkdir -p "${DOTFILES_DIR}"
+  print_result $? "Create '$DOTFILES_DIR'" "true"
 
-      # Extract archive in the `dotfiles` directory.
-      extract "$tmp_file" "$DOTFILES_DIR"
-      print_result $? "Extract archive" "true"
+  # Extract archive in the `dotfiles` directory.
+  extract "$tmp_file" "$DOTFILES_DIR"
+  print_result $? "Extract archive" "true"
 
-      rm -rf "$tmp_file"
-      print_result $? "Remove archive"
-      ;;
-    git)
-      git clone -b "${DOTFILES_BRANCH}" "${DOTFILES_ORIGIN}" "${DOTFILES_DIR}"
-      print_result $? "Clone repo" "true"
-      ;;
-  esac
+  rm -rf "$tmp_file"
+  print_result $? "Remove archive"
 
-  # Verify dotfiles have been moved into place successfully.
-  [[ ! -d "${DOTFILES_DIR}/os" ]] ||
-    return 1
+  cd "${DOTFILES_DIR}"
+  print_result $? "cd ${DOTFILES_DIR}"
+  return $?
 }
 
 function download_utils () {
@@ -172,8 +163,6 @@ function main () {
   verify_os ||
     exit 1
 
-  DOWNLOAD_METHOD="archive"
-
   # should_skip_questions "$@" &&
   #   SKIP_QUESTIONS=true
 
@@ -181,13 +170,10 @@ function main () {
     print_warning "Running as root! Dotfiles will be removed after creating sudo user."
   else
     ask_for_sudo
-    DOWNLOAD_METHOD="git"
   fi
 
   print_in_purple "\n • Downloading Dotfiles repo\n"
-  [[ ! -f "${DOTFILES_DIR}/install" ]] && \
-    download_dotfiles "${DOWNLOAD_METHOD}" && \
-      cd "${DOTFILES_DIR}" && print "$(pwd)"
+  download_dotfiles
 
   if [[ $DOTFILES_DIR != "$(pwd)" ]]; then
     print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
@@ -204,6 +190,16 @@ function main () {
     "./os/$(get_os)/configure" "$(get_answer)"
   else
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
+  fi
+
+  if [[ "root" == $(whoami) ]]; then
+    print_in_purple "Removing dotfiles archive for root user..."
+    cd "$HOME"
+    rm -rf "${DOTFILES_DIR}"
+  elif ! is_git_repository; then
+    execute \
+      "${GIT_INIT_CMD}" \
+      "Initialize the Git repository"
   fi
 
   if ! $SKIP_QUESTIONS; then
