@@ -132,6 +132,29 @@
 (setq! evil-vsplit-window-right t
        evil-split-window-below t)
 
+;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
+(use-package! scroll-on-jump
+  :after (evil)
+  :config
+  (setq! scroll-on-jump-duration 0.4
+         scroll-on-jump-smooth t
+         scroll-on-jump-use-curve nil)
+  (scroll-on-jump-advice-add evil-undo)
+  (scroll-on-jump-advice-add evil-redo)
+  (scroll-on-jump-advice-add evil-jump-item)
+  (scroll-on-jump-advice-add evil-jump-forward)
+  (scroll-on-jump-advice-add evil-jump-backward)
+  (scroll-on-jump-advice-add evil-ex-search-next)
+  (scroll-on-jump-advice-add evil-ex-search-previous)
+  (scroll-on-jump-advice-add evil-forward-paragraph)
+  (scroll-on-jump-advice-add evil-backward-paragraph)
+  ;; Actions that themselves scroll.
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
+
 ;; Show previews in ivy.
 ;; (setq! +ivy-buffer-preview t)
 
@@ -173,9 +196,9 @@
          ;; 'which-key-prefix-then-key-order
          ;; same as default, except all keys from local maps shown first
          'which-key-local-then-key-order))
-         ;; sort based on the key description ignoring case
-         ;; 'which-key-description-order
-         
+;; sort based on the key description ignoring case
+;; 'which-key-description-order
+
 
 (after! magit
   ;; List magit branches by date.
@@ -462,6 +485,7 @@
          "We have such sights to show you..."
          "Take a break."
          "Is Control controlled by its need to control?"
-         "Nothing here now but the recordings..."))
+          "Nothing here now but the recordings..."
+          "Eat protein!"))
 
 (load! "~/.emacs.private")
