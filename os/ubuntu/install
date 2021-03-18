@@ -155,21 +155,6 @@ function change_ssh_config () {
     -i /etc/ssh/sshd_config
 }
 
-OUTPUT_FILE="output.log"
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Essential Packages
-# - - - - - - - - - - - - - - - - - - - -
-
-apt_update
-apt_upgrade
-
-install_pkg "Build Essential" "build-essential"
-install_pkg "GnuPG archive keys" "debian-archive-keyring"
-install_pkg "Git" "git"
-install_pkg "curl" "curl"
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # Sudo User Creation
@@ -199,9 +184,9 @@ function .create_sudo_user () {
   add_ssh_pub_key "${username}" "${ssh_pub_key}"
   change_ssh_config
 
-} && .create_sudo_user
   print_in_purple 'Cloning dotfiles for the new user...'
   exec_as_user "download_dotfiles git"
+}
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -211,7 +196,7 @@ function .create_sudo_user () {
 function .setup_ufw () {
   sudo ufw allow OpenSSH
   yes y | sudo ufw enable
-} && .setup_ufw
+}
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -275,14 +260,6 @@ function .swap.adjust () {
   esac
 }
 
-# Create and configure swapfile if it doesn't yet exist.
-[[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
-  .swap.create
-  .swap.mount
-  .swap.adjust run '10' '50'
-  .swap.adjust save '10' '50'
-}
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # Time
@@ -304,8 +281,7 @@ function .setup_timezone () {
   sudo dpkg-reconfigure -f noninteractive tzdata
 
   print_in_yellow "Timezone is set to $(cat /etc/timezone)" >&3
-
-} && .setup_timezone
+}
 
 function .setup_ntp () {
   ubuntu_version="$(lsb_release -sr)"
@@ -316,9 +292,7 @@ function .setup_ntp () {
     sudo apt-get update
     sudo apt-get --assume-yes install ntp
   fi
-} && \
-  print_in_purple "Installing/configuring Network Time Protocol..." && \
-  .setup_ntp
+}
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -341,52 +315,42 @@ function .cleanup () {
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# Homebrew
+# Main
 # - - - - - - - - - - - - - - - - - - - -
 
-function install_homebrew () {
-  print_in_purple "Homebrew"
+function main () {
+  apt_update
+  apt_upgrade
 
-  if ! cmd_exists "brew"; then
-    printf "\n" | \
-      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh &> /dev/null
-  fi
+  install_pkg "Build Essential" "build-essential"
+  install_pkg "GnuPG archive keys" "debian-archive-keyring"
+  install_pkg "Git" "git"
+  install_pkg "curl" "curl"
 
-  print_result $? "Homebrew"
+  print_in_purple "Creating a new user with sudo capabilities..."
+  .create_sudo_user
+
+
+  print_in_purple "Setting up UFW..."
+  .setup_ufw
+
+  # Create and configure swapfile if it doesn't yet exist.
+  [[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
+    print_in_purple "Swapfile doesn't exist! Creating and configuring swapfile..."
+    .swap.create
+    .swap.mount
+    .swap.adjust run '10' '50'
+    .swap.adjust save '10' '50'
+  }
+
+  print_in_purple "Configuring timezone..."
+  .setup_timezone
+
+  print_in_purple "Installing/configuring Network Time Protocol..."
+  .setup_ntp
+
+  print_in_purple "Cleaning up..."
+  .cleanup
+
+  print_success "Setup complete!"
 }
-
-install_homebrew
-
-HOMEBREW_PREFIX=$(brew --prefix)
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Bash
-# - - - - - - - - - - - - - - - - - - - -
-
-function install_bash () {
-  print_in_purple "Bash"
-
-  declare -r LOCAL_SHELL_CONFIG_FILE="$HOME/.bash.local"
-
-  local brew_bash_path="${HOMEBREW_PREFIX}/bin/bash"
-
-  # Ensure we're using a recent version of Bash before anything else.
-  brew install bash
-
-  # Add the path of the Bash version installed through Homebrew to the list of
-  # allowed login shells in the `/etc/shells` file.
-  if ! grep "${brew_bash_path}" < /etc/shells &> /dev/null; then
-    execute \
-      "printf '%s\n' ${brew_bash_path} | sudo tee -a /etc/shells" \
-      "Bash (add '${brew_bash_path}' in '/etc/shells')" \
-    || return 1
-  fi
-
-  # Set Brew-installed version of Bash as the default (macOS comes with an
-  # outdated version of Bash).
-  chsh -s "${brew_bash_path}" &> /dev/null
-  print_result $? "Bash (use latest version)"
-}
-
-install_bash
