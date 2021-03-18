@@ -188,7 +188,7 @@ function main () {
   print_in_purple "\n • Downloading Dotfiles repo\n"
   [[ ! -f "${DOTFILES_DIR}/install" ]] && download_dotfiles "${DOWNLOAD_METHOD}"
 
-  print_in_purple "\n • Install OS Essentials\n"
+  print_in_purple "\n • Install OS Essentials • ${INSTALLER}\n"
   if [[ -f ${INSTALLER} ]]; then
     "./${INSTALLER}"
   else
