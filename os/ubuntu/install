@@ -94,10 +94,10 @@ function main () {
   # Create and configure swapfile if it doesn't yet exist.
   [[ "$(swapon -s)" != *"/swapfile"* ]] && {
     print_in_purple "Swapfile doesn't exist! Creating and configuring swapfile..."
-    .swap.create
-    .swap.mount
-    .swap.adjust run '10' '50'
-    .swap.adjust save '10' '50'
+    swap::create
+    swap::mount
+    swap::adjust run '10' '50'
+    swap::adjust save '10' '50'
   }
 
   print_in_purple "Configuring timezone..."
