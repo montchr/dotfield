@@ -7,6 +7,8 @@ set -e
 
 # shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
+# shellcheck source=./lib/user.sh
+. "${DOTFILES_DIR}/os/ubuntu/lib/user.sh"
 
 # - - - - - - - - - - - - - - - - - - - -
 # Helper Functions
@@ -49,145 +51,6 @@ function is_pkg_installed () {
   dpkg -s "$1" &> /dev/null
 }
 
-# Add the new user account
-# Arguments:
-#   Account Username
-#   Account Password
-#   Flag to determine if user account is added silently. (With / Without GECOS prompt)
-function add_user_account () {
-    local username=${1}
-    local password=${2}
-    local silent_mode=${3}
-
-    if [[ ${silent_mode} == "true" ]]; then
-        sudo adduser --disabled-password --gecos '' "${username}"
-    else
-        sudo adduser --disabled-password "${username}"
-    fi
-
-    echo "${username}:${password}" | sudo chpasswd
-    sudo usermod -aG sudo "${username}"
-}
-
-# Add the local machine public SSH Key for the new user account
-#
-# Arguments:
-#   Account Username
-#   Public SSH Key
-function add_user_ssh_key () {
-  local username=${1}
-  local pubkey=${2}
-
-  exec_as_user "${username}" "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
-  exec_as_user "${username}" "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
-  exec_as_user "${username}" "chmod 600 ~/.ssh/authorized_keys"
-}
-
-# Keep prompting for the password and password confirmation
-#
-# Globals:
-#   $password
-function prompt_for_password () {
-  local PASSWORDS_MATCH
-  local password_confirmation
-  PASSWORDS_MATCH=false
-  while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
-    read -s -rp "Enter new UNIX password:" password
-    printf "\n"
-    read -s -rp "Retype new UNIX password:" password_confirmation
-    printf "\n"
-
-    if [[ "${password}" != "${password_confirmation}" ]]; then
-      echo "Passwords do not match! Please try again."
-      exit 1
-    else
-      PASSWORDS_MATCH=true
-    fi
-  done
-}
-
-# Disables the sudo password prompt for a user account by editing /etc/sudoers
-#
-# Arguments:
-#   Account username
-function disable_sudo_password () {
-  local username="${1}"
-  sudo cp /etc/sudoers /etc/sudoers.bak
-  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
-}
-
-# Add the local machine's public SSH key for the new user account.
-#
-# Arguments:
-#   Account Username
-#   Public SSH Key
-function add_ssh_pub_key () {
-  local username=${1}
-  local pubkey=${2}
-
-  exec_as_user "${username}" \
-    "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
-  exec_as_user "${username}" \
-    "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
-  exec_as_user "${username}" \
-    "chmod 600 ~/.ssh/authorized_keys"
-}
-
-# Execute a command as a certain user
-#
-# Arguments:
-#   Account Username
-#   Command to be executed
-function exec_as_user () {
-  local username=${1}
-  local exec_command=${2}
-  sudo -u "${username}" -H bash -c "${exec_command}"
-}
-
-# Modify the sshd_config file
-# shellcheck disable=2116
-function change_ssh_config () {
-  sudo sed -re \
-    's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' \
-    -i."$(echo 'old')" \
-    /etc/ssh/sshd_config
-  sudo sed -re \
-    's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' \
-    -i /etc/ssh/sshd_config
-}
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Sudo User Creation
-# - - - - - - - - - - - - - - - - - - - -
-
-function .create_sudo_user () {
-  local username
-  local password
-  local ssh_pub_key
-
-  ask "Enter the username of the new user account:"
-  username=$(get_answer)
-  declare -r username
-
-  prompt_for_password
-
-  # Run setup functions
-  trap cleanup EXIT SIGHUP SIGINT SIGTERM
-
-  add_user_account "${username}" "${password}"
-
-  ask 'Paste in the public SSH key for the new user:\n'
-  ssh_pub_key=$(get_answer)
-
-  print_in_purple 'Setting up SSH for the new user...'
-  disable_sudo_password "${username}"
-  add_ssh_pub_key "${username}" "${ssh_pub_key}"
-  change_ssh_config
-
-  print_in_purple 'Initializing dotfiles for the new user...'
-  exec_as_user "${username}" "download_dotfiles && init_git_repo"
-}
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -304,7 +167,7 @@ function .cleanup () {
   sudo service ssh restart
 
   [[ -f "/etc/sudoers.bak" ]] && {
-    print_in_purple "Restoring original /etc/sudoers file, forcing passwordless login..."
+    print_in_purple "Restoring original /etc/sudoers file..."
     sudo mv /etc/sudoers.bak /etc/sudoers
   }
 }
@@ -324,7 +187,7 @@ function main () {
   install_pkg "curl" "curl"
 
   print_in_purple "Creating a new user with sudo capabilities..."
-  .create_sudo_user
+  user::main
 
   print_in_purple "Setting up UFW..."
   .setup_ufw
