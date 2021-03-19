@@ -6,9 +6,21 @@ user_confirmed() {
       return 1
 }
 
+# Prompt the user for input.
+# Parameters:
+#   Prompt message
 ask() {
   print_question "$1"
   read -r
+}
+
+# Prompt the user for input without echoing response.
+# Parameters:
+#   Prompt message
+ask_silently() {
+  print_question "$1"
+  read -s -r
+  printf "\n"
 }
 
 ask_for_confirmation() {
