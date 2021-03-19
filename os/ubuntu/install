@@ -349,3 +349,5 @@ function main () {
 
   print_success "Setup complete!"
 }
+
+main "$@"
