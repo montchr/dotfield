@@ -3,7 +3,7 @@
 # os/ubuntu/install
 #
 
-set -euo pipefail
+set -e
 
 # shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
