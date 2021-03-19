@@ -2,17 +2,21 @@
 
 set -e
 
-declare -r GITHUB_REPOSITORY="montchr/dots"
-declare -r DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
-declare -r DOTFILES_BRANCH="feature/dotbot"
-declare -r DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
-declare -r DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
+GITHUB_REPOSITORY="montchr/dots"
+DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
+DOTFILES_BRANCH="feature/dotbot"
+DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
+DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
+DOTFILES_DIR="${HOME}/.dots"
 
-# @TODO set up branch tracking and submodules
-declare -rx GIT_INIT_CMD="git init && git remote add origin ${DOTFILES_ORIGIN}"
-declare -rx DOTFILES_DIR="${HOME}/.dots"
+readonly GITHUB_REPOSITORY
+readonly DOTFILES_ORIGIN
+readonly DOTFILES_BRANCH
+readonly DOTFILES_TARBALL_URL
+readonly DOTFILES_UTILS_URL
+readonly DOTFILES_DIR
 
-declare SKIP_QUESTIONS=false
+SKIP_QUESTIONS=false
 
 
 # ----------------------------------------------------------------------
@@ -144,6 +148,14 @@ function verify_os () {
   return 1
 }
 
+# Initialize dotfiles git repo in place.
+# Globals:
+#   DOTFILES_ORIGIN
+function init_git_repo () {
+  # @TODO set up branch tracking and submodules
+  git init && git remote add origin "${DOTFILES_ORIGIN}"
+}
+
 # ----------------------------------------------------------------------
 # | Main                                                               |
 # ----------------------------------------------------------------------
@@ -182,13 +194,13 @@ function main () {
   fi
 
   print_in_purple "\n • Install OS Essentials\n"
-  "./os/$(get_os)/install"
+  ./os/$(get_os)/install
 
   # @TODO add ubuntu configurator
   print_in_purple "\n • Configure OS Preferences\n"
-  if [[ -f "os/$(get_os)/configure" ]]; then
+  if [[ -f os/$(get_os)/configure ]]; then
     ask "Set the system name: "
-    "./os/$(get_os)/configure" "$(get_answer)"
+    ./os/$(get_os)/configure "$(get_answer)"
   else
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
@@ -199,7 +211,7 @@ function main () {
     rm -rf "${DOTFILES_DIR}"
   elif ! is_git_repository; then
     execute \
-      "${GIT_INIT_CMD}" \
+      init_git_repo \
       "Initialize the Git repository"
   fi
 
@@ -210,7 +222,7 @@ function main () {
     printf "\n"
 
     if answer_is_yes; then
-        sudo shutdown -r now &> /dev/null
+      sudo shutdown -r now &> /dev/null
     fi
   fi
 }

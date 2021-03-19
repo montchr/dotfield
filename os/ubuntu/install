@@ -5,8 +5,6 @@
 
 set -euo pipefail
 
-declare -I DOTFILES_DIR
-
 # shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
 
@@ -36,9 +34,9 @@ function apt_upgrade() {
 }
 
 function install_pkg () {
-  declare -r EXTRA_ARGUMENTS="$3"
-  declare -r PACKAGE="$2"
-  declare -r PACKAGE_READABLE_NAME="$1"
+  EXTRA_ARGUMENTS="$3"
+  PACKAGE="$2"
+  PACKAGE_READABLE_NAME="$1"
 
   if ! is_pkg_installed "$PACKAGE"; then
     execute "sudo apt-get install --allow-unauthenticated -qqy $EXTRA_ARGUMENTS $PACKAGE" "$PACKAGE_READABLE_NAME"
@@ -188,7 +186,7 @@ function .create_sudo_user () {
   change_ssh_config
 
   print_in_purple 'Initializing dotfiles for the new user...'
-  exec_as_user "${username}" "download_dotfiles && ${GIT_INIT_CMD}"
+  exec_as_user "${username}" "download_dotfiles && init_git_repo"
 }
 
 
