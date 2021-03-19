@@ -47,6 +47,12 @@ cmd_exists() {
   command -v "$1" &>/dev/null
 }
 
+function get_current_dir () {
+    local current_dir="${BASH_SOURCE%/*}"
+    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
+    echo "${current_dir}"
+}
+
 kill_all_subprocesses() {
   local i=""
   for i in $(jobs -p); do

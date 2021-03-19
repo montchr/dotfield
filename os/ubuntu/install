@@ -7,121 +7,15 @@ set -e
 
 # shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
+# shellcheck source=./lib/pkg.sh
+. "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
 # shellcheck source=./lib/user.sh
 . "${DOTFILES_DIR}/os/ubuntu/lib/user.sh"
 
-# - - - - - - - - - - - - - - - - - - - -
-# Helper Functions
-# - - - - - - - - - - - - - - - - - - - -
-
-function get_current_dir() {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
-}
-
-# Resynchronize the package index files from their sources.
-function apt_update () {
-  execute \
-    "sudo apt-get update -qqy" \
-    "APT (update)"
-}
-
-# Install the newest versions of all packages installed.
-function apt_upgrade() {
-  execute \
-    "export DEBIAN_FRONTEND=\"noninteractive\" \
-      && sudo apt-get -o Dpkg::Options::=\"--force-confnew\" upgrade -qqy" \
-    "APT (upgrade)"
-}
-
-function install_pkg () {
-  EXTRA_ARGUMENTS="$3"
-  PACKAGE="$2"
-  PACKAGE_READABLE_NAME="$1"
-
-  if ! is_pkg_installed "$PACKAGE"; then
-    execute "sudo apt-get install --allow-unauthenticated -qqy $EXTRA_ARGUMENTS $PACKAGE" "$PACKAGE_READABLE_NAME"
-  else
-    print_success "$PACKAGE_READABLE_NAME"
-  fi
-}
-
-function is_pkg_installed () {
-  dpkg -s "$1" &> /dev/null
-}
-
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# UFW
-# - - - - - - - - - - - - - - - - - - - -
 
 function .setup_ufw () {
   sudo ufw allow OpenSSH
   yes y | sudo ufw enable
-}
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Swapfile
-# - - - - - - - - - - - - - - - - - - - -
-
-# Get the amount of installed physical memory in GB (rounded up).
-function .swap.get_mem () {
-  local phymem
-  phymem="$(free -g|awk '/^Mem:/{print $2}')"
-
-  [[ ${phymem} == '0' ]] && \
-    exit 1
-
-  echo "${phymem}"
-}
-
-# Create swapfile.
-#
-# Uses
-#   .swap.get_mem
-#
-function .swap.create () {
-  local swapmem=$(($(.swap.get_mem) * 2))
-
-  # Anything over 4GB in swap is probably unnecessary as a RAM fallback
-  if [ ${swapmem} -gt 4 ]; then
-      swapmem=4
-  fi
-
-  sudo fallocate -l "${swapmem}G" /swapfile
-  sudo chmod 600 /swapfile
-  sudo mkswap /swapfile
-  sudo swapon /swapfile
-}
-
-# Mount the swapfile.
-function .swap.mount () {
-  sudo cp /etc/fstab /etc/fstab.bak
-  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-}
-
-function .swap.adjust () {
-  local action=${1}
-  local swappiness=${2}
-  local vfs_cache_pressure=${3}
-
-  case $action in
-    run)
-      sudo sysctl vm.swappiness="${swappiness}"
-      sudo sysctl vm.vfs_cache_pressure="${vfs_cache_pressure}"
-      ;;
-    save)
-      echo "vm.swappiness=${swappiness}" | sudo tee -a /etc/sysctl.d/50-swapfile.conf
-      echo "vm.vfs_cache_pressure=${vfs_cache_pressure}" | sudo tee -a /etc/sysctl.d/50-swapfile.conf
-      ;;
-    *)
-      print_error "Unknown action!"
-      exit 1
-      ;;
-  esac
 }
 
 
@@ -178,22 +72,27 @@ function .cleanup () {
 # - - - - - - - - - - - - - - - - - - - -
 
 function main () {
-  apt_update
-  apt_upgrade
+  if [[ "root" != $(whoami) ]]; then
+    print_error "Installer must be run as root! Aborting."
+    return 1
+  fi
 
-  install_pkg "Build Essential" "build-essential"
-  install_pkg "GnuPG archive keys" "debian-archive-keyring"
-  install_pkg "Git" "git"
-  install_pkg "curl" "curl"
+  pkg::update_repos
+  pkg::upgrade_all
 
-  print_in_purple "Creating a new user with sudo capabilities..."
+  pkg::install "Build Essential" "build-essential"
+  pkg::install "GnuPG archive keys" "debian-archive-keyring"
+  pkg::install "Git" "git"
+  pkg::install "curl" "curl"
+
+  print_in_purple "\n  Creating a new user with sudo capabilities...\n"
   user::main
 
   print_in_purple "Setting up UFW..."
   .setup_ufw
 
   # Create and configure swapfile if it doesn't yet exist.
-  [[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
+  [[ "$(swapon -s)" != *"/swapfile"* ]] && {
     print_in_purple "Swapfile doesn't exist! Creating and configuring swapfile..."
     .swap.create
     .swap.mount
