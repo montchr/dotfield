@@ -83,7 +83,7 @@ function download_dotfiles () {
   print_result $? "Extract archive" "true"
 
   rm -rf "$tmp_file"
-  print_result $? "Remove archive"
+  print_result $? "Remove archive file"
 
   cd "${DOTFILES_DIR}"
   print_result $? "cd ${DOTFILES_DIR}"
