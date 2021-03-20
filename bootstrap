@@ -207,9 +207,9 @@ function main () {
 
   print_hed "Initializing Dotfiles"
   if [[ "root" == $(whoami) ]]; then
-    print_in_purple "Removing dotfiles archive for root user..."
-    cd "$HOME"
-    rm -rf "${DOTFILES_DIR}"
+    execute \
+      "cd ${HOME} && rm -rf ${DOTFILES_DIR}" \
+      "Removing dotfiles archive for root user..."
   elif ! is_git_repository; then
     execute \
       init_git_repo \
