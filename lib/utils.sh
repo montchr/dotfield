@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
+#
+# utils
+#
 
-user_confirmed() {
-  [[ "$REPLY" =~ ^[Yy]$ ]] &&
-    return 0 ||
-      return 1
-}
+
+# - - - - - - - - - - - - - - - - - - - -
+# Messages + Prompts
+# - - - - - - - - - - - - - - - - - - - -
 
 # Prompt the user for input.
 # Parameters:
@@ -29,28 +31,86 @@ ask_for_confirmation() {
   printf "\n"
 }
 
-ask_for_sudo() {
-  # Ask for the administrator password upfront.
-  sudo -v &>/dev/null
-
-  # Update existing `sudo` time stamp until this script has finished.
-  #
-  # https://gist.github.com/cowboy/3118588
-  while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
-  done &>/dev/null &
+# Get the user's answer to the previous prompt.
+get_answer() {
+  printf "%s" "$REPLY"
 }
+
+function user_confirmed () {
+  [[ "$REPLY" =~ ^[Yy]$ ]] &&
+    return 0 ||
+      return 1
+}
+
+function print_hed () {
+  print_in_purple "\n • $1\n"
+}
+
+function print_subhed () {
+  print_in_green "   $1\n"
+}
+
+print_question() {
+  print_in_yellow "   [?] $1"
+}
+
+print_result() {
+  if [ "$1" -eq 0 ]; then
+    print_success "$2"
+  else
+    print_error "$2"
+  fi
+  return "$1"
+}
+
+print_success() {
+  print_in_green "   [✔] $1\n"
+}
+
+print_warning() {
+  print_in_yellow "   [!] $1\n"
+}
+
+print_error() {
+  print_in_red "   [✖] $1 $2\n"
+}
+
+print_error_stream() {
+  while read -r line; do
+    print_error "↳ ERROR: $line"
+  done
+}
+
+print_in_green() {
+  print_in_color "$1" 2
+}
+
+print_in_purple() {
+  print_in_color "$1" 5
+}
+
+print_in_red() {
+  print_in_color "$1" 1
+}
+
+print_in_yellow() {
+  print_in_color "$1" 3
+}
+
+print_in_color() {
+  printf "%b" \
+    "$(tput setaf "$2" 2>/dev/null)" \
+    "$1" \
+    "$(tput sgr0 2>/dev/null)"
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Commands
+# - - - - - - - - - - - - - - - - - - - -
 
 cmd_exists() {
   command -v "$1" &>/dev/null
-}
-
-function get_current_dir () {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
 }
 
 kill_all_subprocesses() {
@@ -98,9 +158,18 @@ execute() {
   return $exitCode
 }
 
-# Get the user's answer to the previous prompt.
-get_answer() {
-  printf "%s" "$REPLY"
+ask_for_sudo() {
+  # Ask for the administrator password upfront.
+  sudo -v &>/dev/null
+
+  # Update existing `sudo` time stamp until this script has finished.
+  #
+  # https://gist.github.com/cowboy/3118588
+  while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" || exit
+  done &>/dev/null &
 }
 
 get_os() {
@@ -138,6 +207,12 @@ get_os_version() {
   fi
 
   printf "%s" "$version"
+}
+
+function get_current_dir () {
+    local current_dir="${BASH_SOURCE%/*}"
+    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
+    echo "${current_dir}"
 }
 
 is_git_repository() {
@@ -184,59 +259,6 @@ mkd() {
   fi
 }
 
-print_error() {
-  print_in_red "   [✖] $1 $2\n"
-}
-
-print_error_stream() {
-  while read -r line; do
-    print_error "↳ ERROR: $line"
-  done
-}
-
-print_in_color() {
-  printf "%b" \
-    "$(tput setaf "$2" 2>/dev/null)" \
-    "$1" \
-    "$(tput sgr0 2>/dev/null)"
-}
-
-print_in_green() {
-  print_in_color "$1" 2
-}
-
-print_in_purple() {
-  print_in_color "$1" 5
-}
-
-print_in_red() {
-  print_in_color "$1" 1
-}
-
-print_in_yellow() {
-  print_in_color "$1" 3
-}
-
-print_question() {
-  print_in_yellow "   [?] $1"
-}
-
-print_result() {
-  if [ "$1" -eq 0 ]; then
-    print_success "$2"
-  else
-    print_error "$2"
-  fi
-  return "$1"
-}
-
-print_success() {
-  print_in_green "   [✔] $1\n"
-}
-
-print_warning() {
-  print_in_yellow "   [!] $1\n"
-}
 
 set_trap() {
   trap -p "$1" | grep "$2" &>/dev/null ||
