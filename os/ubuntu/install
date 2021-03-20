@@ -11,10 +11,6 @@ set -e
 . "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
 
 
-function .setup_ufw () {
-}
-
-
 # - - - - - - - - - - - - - - - - - - - -
 # Time
 # - - - - - - - - - - - - - - - - - - - -
