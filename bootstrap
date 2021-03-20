@@ -222,7 +222,7 @@ function main () {
     ask_for_confirmation "Do you want to restart? You probably should."
     printf "\n"
 
-    if answer_is_yes; then
+    if user_confirmed; then
       sudo shutdown -r now &> /dev/null
     fi
   fi
