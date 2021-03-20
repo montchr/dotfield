@@ -7,7 +7,7 @@ readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
 readonly DOTFILES_BRANCH="feature/dotbot"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
-readonly DOTFILES_DIR="${HOME}/.dots"
+DOTFILES_DIR="${HOME}/.dots"
 
 SKIP_QUESTIONS=false
 
@@ -16,6 +16,10 @@ SKIP_QUESTIONS=false
 # | Helper Functions                                                   |
 # ----------------------------------------------------------------------
 
+# Download file from a URL.
+# Parameters:
+#   URL
+#   Output path
 function download () {
   local url="$1"
   local output="$2"
@@ -36,7 +40,6 @@ function download () {
 function download_dotfiles () {
   local tmp_file=""
 
-  print_in_purple "\n • Download and extract archive\n\n"
   tmp_file="$(mktemp /tmp/XXXXX)"
   download "$DOTFILES_TARBALL_URL" "$tmp_file"
   print_result $? "Download archive" "true"
@@ -165,15 +168,14 @@ function main () {
     download_utils || exit 1
   fi
 
-  # Ensure the OS is supported and it's above the required version.
-  verify_os ||
-    exit 1
+  # Ensure the OS is supported and above the minimum version.
+  verify_os || exit 1
 
   # should_skip_questions "$@" &&
   #   SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
-    print_warning "Running as root! Dotfiles will be removed after creating sudo user."
+    print_warning "Running as root!"
   else
     ask_for_sudo
   fi
@@ -186,24 +188,20 @@ function main () {
     return 1
   fi
 
-  print_hed "Install OS Essentials"
-  . os/$(get_os)/install
+  print_hed "OS Essentials" \
+    && . os/$(get_os)/install
 
-  # @TODO add ubuntu configurator
-  print_hed "Configure OS Preferences"
-  if [[ -f os/$(get_os)/configure ]]; then
-    ask "Set the system name: "
-    . os/$(get_os)/configure "$(get_answer)"
-  else
-    print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
-  fi
+  print_hed "OS Preferences" && {
+    if [[ -f os/$(get_os)/configure ]]; then
+      ask "Set the system name: "
+      . os/$(get_os)/configure "$(get_answer)"
+    else
+      print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
+    fi
+  }
 
-  print_hed "Initializing Dotfiles"
-  if [[ "root" == $(whoami) ]]; then
-    execute \
-      "cd ${HOME} && rm -rf ${DOTFILES_DIR}" \
-      "Removing dotfiles archive for root user..."
-  elif ! is_git_repository; then
+  if [[ "root" != $(whoami) ]] && ! is_git_repository; then
+    print_hed "Initializing Dotfiles"
     execute \
       "init_git_repo" \
       "Initialize the Git repository"

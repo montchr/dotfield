@@ -32,9 +32,8 @@ function install_homebrew () {
 function install_bash () {
   print_in_purple "Bash"
 
-  declare -r LOCAL_SHELL_CONFIG_FILE="$HOME/.bash.local"
-
-  local brew_bash_path="${HOMEBREW_PREFIX}/bin/bash"
+  local brew_bash_path
+  brew_bash_path="$(brew --prefix)/bin/bash"
 
   # Ensure we're using a recent version of Bash before anything else.
   brew install bash
@@ -62,9 +61,6 @@ function install_bash () {
 function main () {
   install_xcode_cli_tools
   install_homebrew
-
-  HOMEBREW_PREFIX=$(brew --prefix)
-
   install_bash
 }
 

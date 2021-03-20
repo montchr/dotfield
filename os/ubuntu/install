@@ -9,13 +9,9 @@ set -e
 . "${DOTFILES_DIR}/lib/utils.sh"
 # shellcheck source=./lib/pkg.sh
 . "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
-# shellcheck source=./lib/user.sh
-. "${DOTFILES_DIR}/os/ubuntu/lib/user.sh"
 
 
 function .setup_ufw () {
-  sudo ufw allow OpenSSH
-  yes y | sudo ufw enable
 }
 
 
@@ -72,10 +68,6 @@ function .cleanup () {
 # - - - - - - - - - - - - - - - - - - - -
 
 function main () {
-  if [[ "root" != $(whoami) ]]; then
-    print_error "Installer must be run as root! Aborting."
-    return 1
-  fi
 
   pkg::update_repos
   pkg::upgrade_all
@@ -85,14 +77,17 @@ function main () {
   pkg::install "Git" "git"
   pkg::install "curl" "curl"
 
-  print_subhed "Creating a new user with sudo capabilities..."
-  user::main
+  if [[ "root" != $(whoami) ]]; then
+    print_warning "Running as root! Creating a new user with sudo capabilities..."
+    . ./user.sh
+  fi
 
-  print_subhed "Setting up UFW..."
-  .setup_ufw
+  execute \
+    "sudo ufw allow OpenSSH; yes y | sudo ufw enable" \
+    "Configure UFW"
 
   # Create and configure swapfile if it doesn't yet exist.
-  [[ "$(swapon -s)" != *"/swapfile"* ]] && {
+  [[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
     print_subhed "Swapfile doesn't exist! Creating and configuring swapfile..."
     swap::create
     swap::mount

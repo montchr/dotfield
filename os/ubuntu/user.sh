@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# os/ubuntu/lib/user
+# os/ubuntu/user
 #
-# Utilities for working with users.
+# Set up a new sudo user.
 #
 
-# shellcheck source=../../../lib/utils.sh
+# shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
 
 
@@ -101,6 +101,15 @@ function user::change_ssh_config () {
     -i /etc/ssh/sshd_config
 }
 
+# Install dotfiles for a user.
+# Parameters:
+#   Username
+function user::install_dotfiles () {
+  local username=$1
+  user::exec "${username}" \
+    "sudo cp -r /root/.dots ~/."
+}
+
 # Create and set up the new user.
 # Globals:
 #   USERNAME
@@ -128,7 +137,6 @@ function user::main () {
   user::allow_passwordless_sudo "${USERNAME}"
   user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}"
   user::change_ssh_config
-
-  print_subhed 'Initializing dotfiles for the new user...'
-  user::exec "${USERNAME}" "download_dotfiles && init_git_repo"
 }
+
+user::main "$@"
