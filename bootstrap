@@ -212,7 +212,7 @@ function main () {
       "Removing dotfiles archive for root user..."
   elif ! is_git_repository; then
     execute \
-      init_git_repo \
+      "init_git_repo" \
       "Initialize the Git repository"
   fi
 
