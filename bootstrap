@@ -185,7 +185,7 @@ function main () {
     ask_for_sudo
   fi
 
-  print_in_purple "\n • Downloading Dotfiles repo\n"
+  print_hed "Downloading Dotfiles repo"
   download_dotfiles
 
   if [[ $DOTFILES_DIR != "$(pwd)" ]]; then
@@ -193,11 +193,11 @@ function main () {
     return 1
   fi
 
-  print_in_purple "\n • Install OS Essentials\n"
+  print_hed "Install OS Essentials"
   . os/$(get_os)/install
 
   # @TODO add ubuntu configurator
-  print_in_purple "\n • Configure OS Preferences\n"
+  print_hed "Configure OS Preferences"
   if [[ -f os/$(get_os)/configure ]]; then
     ask "Set the system name: "
     . os/$(get_os)/configure "$(get_answer)"
@@ -205,6 +205,7 @@ function main () {
     print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
   fi
 
+  print_hed "Initializing Dotfiles"
   if [[ "root" == $(whoami) ]]; then
     print_in_purple "Removing dotfiles archive for root user..."
     cd "$HOME"
@@ -216,7 +217,7 @@ function main () {
   fi
 
   if ! $SKIP_QUESTIONS; then
-    print_in_purple "\n • Restart\n\n"
+    print_hed "Restart"
 
     ask_for_confirmation "Do you want to restart? You probably should."
     printf "\n"

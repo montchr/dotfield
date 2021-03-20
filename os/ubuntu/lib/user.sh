@@ -17,6 +17,7 @@
 function user::exec () {
   local username=${1}
   local exec_command=${2}
+  # @TODO can `execute`'s nice feedback be used here?
   sudo -u "${username}" -H bash -c "${exec_command}"
 }
 
@@ -123,11 +124,11 @@ function user::main () {
   ask 'Paste in the public SSH key for the new user:\n'
   ssh_pub_key=$(get_answer)
 
-  print_in_purple 'Setting up SSH for the new user...'
+  print_subhed 'Setting up SSH for the new user...'
   user::allow_passwordless_sudo "${USERNAME}"
   user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}"
   user::change_ssh_config
 
-  print_in_purple 'Initializing dotfiles for the new user...'
+  print_subhed 'Initializing dotfiles for the new user...'
   user::exec "${USERNAME}" "download_dotfiles && init_git_repo"
 }
