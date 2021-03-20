@@ -2,19 +2,12 @@
 
 set -e
 
-GITHUB_REPOSITORY="montchr/dots"
-DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
-DOTFILES_BRANCH="feature/dotbot"
-DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
-DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
-DOTFILES_DIR="${HOME}/.dots"
-
-readonly GITHUB_REPOSITORY
-readonly DOTFILES_ORIGIN
-readonly DOTFILES_BRANCH
-readonly DOTFILES_TARBALL_URL
-readonly DOTFILES_UTILS_URL
-readonly DOTFILES_DIR
+readonly GITHUB_REPOSITORY="montchr/dots"
+readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
+readonly DOTFILES_BRANCH="feature/dotbot"
+readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
+readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
+readonly DOTFILES_DIR="${HOME}/.dots"
 
 SKIP_QUESTIONS=false
 
