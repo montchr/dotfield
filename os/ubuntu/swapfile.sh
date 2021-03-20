@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 #
-# os/ubuntu/lib/swapfile
+# os/ubuntu/swapfile
 #
-# Helper functions for swapfile setup.
+# Setup the OS swapfile.
 #
 
-# shellcheck source=../../../lib/utils.sh
+# shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
 
 
 # Get the amount of installed physical memory in GB (rounded up).
-function swap::get_mem () {
+function swapfile::get_mem () {
   local phymem
   phymem="$(free -g|awk '/^Mem:/{print $2}')"
 
@@ -23,9 +23,9 @@ function swap::get_mem () {
 # Create swapfile.
 #
 # Uses
-#   swap::get_mem
+#   swapfile::get_mem
 #
-function swap::create () {
+function swapfile::create () {
   local swapmem=$(($(.swap.get_mem) * 2))
 
   # Anything over 4GB in swap is probably unnecessary as a RAM fallback
@@ -40,7 +40,7 @@ function swap::create () {
 }
 
 # Mount the swapfile.
-function swap::mount () {
+function swapfile::mount () {
   sudo cp /etc/fstab /etc/fstab.bak
   echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 }
@@ -50,7 +50,7 @@ function swap::mount () {
 #   Runtime or permanent -- can be `run` or `save`
 #   Swappiness value
 #   VFS cache pressure value
-function swap::adjust () {
+function swapfile::adjust () {
   local action=${1}
   local swappiness=${2}
   local vfs_cache_pressure=${3}
@@ -70,3 +70,12 @@ function swap::adjust () {
       ;;
   esac
 }
+
+function swapfile::main () {
+  swapfile::create
+  swapfile::mount
+  swapfile::adjust run '10' '50'
+  swapfile::adjust save '10' '50'
+}
+
+swapfile::main

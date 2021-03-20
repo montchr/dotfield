@@ -85,10 +85,7 @@ function main () {
   # Create and configure swapfile if it doesn't yet exist.
   [[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
     print_subhed "Swapfile doesn't exist! Creating and configuring swapfile..."
-    swap::create
-    swap::mount
-    swap::adjust run '10' '50'
-    swap::adjust save '10' '50'
+    . ./swapfile.sh
   }
 
   print_subhed "Configuring timezone..."
