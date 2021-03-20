@@ -163,7 +163,7 @@
   ;;rust                ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
   ;;scala               ; java, but good
   scheme                ; a fully conniving family of lisps
-  sh                    ; she sells {ba,z,fi}sh shells on the C xor
+  (sh +lsp)             ; she sells {ba,z,fi}sh shells on the C xor
   ;;sml
   ;;solidity            ; do you need a blockchain? No.
   ;;swift               ; who asked for emoji variables?
