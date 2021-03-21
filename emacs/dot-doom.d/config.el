@@ -115,9 +115,6 @@
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
 
-;; Set default major-mode to org-mode.
-(setq-default major-mode 'org-mode)
-
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
@@ -350,6 +347,14 @@
          lsp-vetur-format-default-formatter-ts "prettier-eslint"
          lsp-vetur-use-workspace-dependencies t))
 
+;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
+;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
+(defun +cdom--lsp-flycheck-enable-shellcheck ()
+  "Enable Shellcheck for shell buffers under LSP."
+  (when (derived-mode-p 'sh-mode)
+    (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
+(add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck)
+
 (use-package! hledger-mode
   :defer
   ;; :load-path "packages/rest/hledger-mode/"
@@ -485,7 +490,7 @@
          "We have such sights to show you..."
          "Take a break."
          "Is Control controlled by its need to control?"
-          "Nothing here now but the recordings..."
-          "Eat protein!"))
+         "Nothing here now but the recordings..."
+         "Eat protein!"))
 
 (load! "~/.emacs.private")
