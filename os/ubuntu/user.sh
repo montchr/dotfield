@@ -53,9 +53,6 @@ function user::prompt_for_password () {
     ask_silently "Retype new UNIX password:"
     PASSWORD_CONFIRMATION=$(get_answer)
 
-    readonly PASSWORD
-    readonly PASSWORD_CONFIRMATION
-
     if [[ "${PASSWORD}" != "${PASSWORD_CONFIRMATION}" ]]; then
       echo "Passwords do not match! Please try again."
     else
