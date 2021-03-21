@@ -190,13 +190,15 @@ function main () {
 
   # shellcheck disable=SC1090
   print_hed "OS Essentials" \
-    && . "os/$(get_os)/install"
+    && . "os/$(get_os)/install" \
+    && print_result $? "\nOS Essentials"
 
   print_hed "OS Preferences" && {
     if [[ -f os/$(get_os)/configure ]]; then
       ask "Set the system name: "
       # shellcheck disable=SC1090
-      . "os/$(get_os)/configure" "$(get_answer)"
+      . "os/$(get_os)/configure" "$(get_answer)" \
+        && print_result $? "\nOS Preferences"
     else
       print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
     fi

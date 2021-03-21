@@ -57,7 +57,6 @@ function main () {
   .cleanup
 
   cd "$previous_directory"
-  print_success "Setup complete!"
 
 }
 
