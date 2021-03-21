@@ -5,7 +5,7 @@
 # Setup and configure time services.
 #
 
-# shellcheck source=../../../lib/utils.sh
+# shellcheck source=../../lib/utils.sh
 . "${DOTFILES_DIR}/lib/utils.sh"
 
 # Setup timezone.
