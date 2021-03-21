@@ -22,8 +22,6 @@ function time::setup_timezone () {
     "/usr/share/zoneinfo/${timezone}" \
     /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
   sudo dpkg-reconfigure -f noninteractive tzdata
-
-  print_in_yellow "Timezone is set to $(cat /etc/timezone)"
 }
 
 # Setup NTP.
