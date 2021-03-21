@@ -115,9 +115,6 @@
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
 
-;; Set default major-mode to org-mode.
-(setq-default major-mode 'org-mode)
-
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
