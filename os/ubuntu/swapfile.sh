@@ -26,7 +26,7 @@ function swapfile::get_mem () {
 #   swapfile::get_mem
 #
 function swapfile::create () {
-  local swapmem=$(($(.swap.get_mem) * 2))
+  local swapmem=$(($(swapfile::get_mem) * 2))
 
   # Anything over 4GB in swap is probably unnecessary as a RAM fallback
   if [ ${swapmem} -gt 4 ]; then
