@@ -56,7 +56,7 @@ function print_hed () {
 # Parameters:
 #   Message
 function print_subhed () {
-  print_in_green "   $1\n"
+  print_in_green "\n   $1\n"
 }
 
 # Prompt the user for a response to a question.
