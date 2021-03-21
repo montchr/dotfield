@@ -35,7 +35,7 @@ function main () {
   pkg::install "Git" "git"
   pkg::install "curl" "curl"
 
-  if [[ "root" != $(whoami) ]]; then
+  if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root! Creating a new user with sudo capabilities..."
     . ./user.sh
   fi
