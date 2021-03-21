@@ -11,44 +11,6 @@ set -e
 . "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Time
-# - - - - - - - - - - - - - - - - - - - -
-
-# Setup timezone.
-function .setup_timezone () {
-  local timezone
-
-  ask "Enter the timezone for the server (Default is 'America/New_York')"
-  timezone=$(get_answer)
-  timezone=${timezone:-America/New_York}
-
-  # Set the timezone.
-  echo "${timezone}" | sudo tee /etc/timezone
-  sudo ln -fs \
-    "/usr/share/zoneinfo/${timezone}" \
-    /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
-  sudo dpkg-reconfigure -f noninteractive tzdata
-
-  print_in_yellow "Timezone is set to $(cat /etc/timezone)" >&3
-}
-
-function .setup_ntp () {
-  ubuntu_version="$(lsb_release -sr)"
-
-  if [[ $ubuntu_version == '20.04' ]]; then
-    sudo systemctl restart systemd-timesyncd
-  else
-    sudo apt-get update
-    sudo apt-get --assume-yes install ntp
-  fi
-}
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Cleanup
-# - - - - - - - - - - - - - - - - - - - -
-
 function .cleanup () {
   sudo service ssh restart
 
@@ -88,16 +50,14 @@ function main () {
     . ./swapfile.sh
   }
 
-  print_subhed "Configuring timezone..."
-  .setup_timezone
-
-  print_subhed "Installing/configuring Network Time Protocol..."
-  .setup_ntp
+  # Setup time services.
+  . ./time.sh
 
   print_subhed "Cleaning up..."
   .cleanup
 
   print_success "Setup complete!"
+
 }
 
 main "$@"
