@@ -188,18 +188,21 @@ function main () {
     return 1
   fi
 
+  # shellcheck disable=SC1090
   print_hed "OS Essentials" \
-    && . os/$(get_os)/install
+    && . "os/$(get_os)/install"
 
   print_hed "OS Preferences" && {
     if [[ -f os/$(get_os)/configure ]]; then
       ask "Set the system name: "
-      . os/$(get_os)/configure "$(get_answer)"
+      # shellcheck disable=SC1090
+      . "os/$(get_os)/configure" "$(get_answer)"
     else
       print_warning "No configurator found for current OS '$(get_os)'! Continuing..."
     fi
   }
 
+  # Initialize the dotfiles directory as a git repo for a non-root user.
   if [[ "root" != $(whoami) ]] && ! is_git_repository; then
     print_hed "Initializing Dotfiles"
     execute \
