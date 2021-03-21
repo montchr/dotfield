@@ -74,8 +74,11 @@
 
   :checkers
   syntax   ; tasing you for every semicolon you forget
-  (spell +everywhere +flyspell)    ; tasing you for misspelling mispelling
-  grammar  ; tasing grammar mistake every you make
+  (spell
+    +aspell
+    +everywhere
+    +flyspell)    ; tasing you for misspelling mispelling
+  ;; grammar  ; tasing grammar mistake every you make
 
   :tools
   ansible
