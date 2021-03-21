@@ -490,7 +490,7 @@
          "We have such sights to show you..."
          "Take a break."
          "Is Control controlled by its need to control?"
-          "Nothing here now but the recordings..."
-          "Eat protein!"))
+         "Nothing here now but the recordings..."
+         "Eat protein!"))
 
 (load! "~/.emacs.private")
