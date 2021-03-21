@@ -130,10 +130,10 @@ function user::main () {
   ask 'Paste in the public SSH key for the new user:\n'
   ssh_pub_key=$(get_answer)
 
-  print_subhed 'Setting up SSH for the new user...'
-  user::allow_passwordless_sudo "${USERNAME}"
-  user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}"
-  user::change_ssh_config
+  user::allow_passwordless_sudo "${USERNAME}" \
+    && user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \
+    && user::change_ssh_config
+  print_result $? "Configure SSH"
 }
 
 user::main "$@"
