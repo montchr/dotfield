@@ -36,24 +36,40 @@ get_answer() {
   printf "%s" "$REPLY"
 }
 
+# Whether the user responded affirmatively to the previous prompt.
+# Globals:
+#   REPLY
 function user_confirmed () {
   [[ "$REPLY" =~ ^[Yy]$ ]] &&
     return 0 ||
       return 1
 }
 
+# Print a top-level heading message.
+# Parameters:
+#   Message
 function print_hed () {
   print_in_purple "\n • $1\n"
 }
 
+# Print a subheading message.
+# Parameters:
+#   Message
 function print_subhed () {
   print_in_green "   $1\n"
 }
 
+# Prompt the user for a response to a question.
+# Parameters:
+#   Message
 print_question() {
   print_in_yellow "   [?] $1"
 }
 
+# Print a message along with an indication of the result of the previous command.
+# Parameters:
+#   Result code
+#   Message
 print_result() {
   if [ "$1" -eq 0 ]; then
     print_success "$2"
@@ -63,14 +79,24 @@ print_result() {
   return "$1"
 }
 
+# Print a message indicating success.
+# Parameters:
+#   Message
 print_success() {
   print_in_green "   [✔] $1\n"
 }
 
+# Print a message indicating a warning.
+# Parameters:
+#   Message
 print_warning() {
   print_in_yellow "   [!] $1\n"
 }
 
+# Print a message indicating an error.
+# Parameters:
+#   Label
+#   Message
 print_error() {
   print_in_red "   [✖] $1 $2\n"
 }
