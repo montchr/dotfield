@@ -50,12 +50,6 @@ function main () {
     "sudo ufw allow OpenSSH; yes y | sudo ufw enable" \
     "Configure UFW"
 
-  # Create and configure swapfile if it doesn't yet exist.
-  [[ "$(sudo swapon -s)" != *"/swapfile"* ]] && {
-    print_subhed "Swapfile doesn't exist! Creating and configuring swapfile..."
-    . ./swapfile.sh
-  }
-
   # Setup time services.
   . ./time.sh
 
