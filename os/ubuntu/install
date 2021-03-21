@@ -26,6 +26,12 @@ function .cleanup () {
 # - - - - - - - - - - - - - - - - - - - -
 
 function main () {
+  local previous_directory
+  previous_directory=$(pwd)
+
+  # Ensure that the following actions are made relative to this file's path.
+  cd "$(dirname "${BASH_SOURCE[0]}")" ||
+    exit 1
 
   pkg::update_repos
   pkg::upgrade_all
@@ -56,6 +62,7 @@ function main () {
   print_subhed "Cleaning up..."
   .cleanup
 
+  cd "$previous_directory"
   print_success "Setup complete!"
 
 }
