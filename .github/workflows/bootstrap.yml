@@ -1,15 +1,20 @@
 name: Bootstrap OS
 
+env:
+  CDOM_INIT_INTERACTIVE: 'false'
+  CDOM_INIT_NEW_USER_NAME: 'cdom'
+  CDOM_INIT_NEW_USER_PASSWORD: ${{ secrets.IDPASSWORD }}
+  CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
+  CDOM_INIT_TIMEZONE: 'America/New_York'
+  CDOM_INIT_HOSTNAME: 'dotfield'
+
 on:
-  push:
-    branches: [ 'feature/dotbot' ]
   pull_request:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   bootstrap:
     runs-on: ${{ matrix.os }}
@@ -19,22 +24,6 @@ jobs:
         os: [macos-latest, ubuntu-latest]
     
     steps:
-      - name: SSH to GitHub Actions
-        uses: P3TERX/ssh2actions@v1.0.0
-        
       - name: Run bootstrap script
         run: |
-          bash -c "$(wget -qO - https://raw.github.com/montchr/dots/feature/dotbot/bootstrap)"
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          bash -c "$(wget -qO - https://raw.github.com/montchr/dots/main/bootstrap)"
