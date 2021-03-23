@@ -59,6 +59,13 @@ function print_subhed () {
   print_in_green "\n   $1\n"
 }
 
+# Print a basic informational message.
+# Parameters:
+#   Message
+function print_info() {
+  print_in_purple "\n   $1\n"
+}
+
 # Prompt the user for a response to a question.
 # Parameters:
 #   Message

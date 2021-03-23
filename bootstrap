@@ -225,11 +225,11 @@ function main () {
   # shellcheck disable=SC1090
   print_hed "OS Essentials" \
     && . "os/$(get_os)/install" \
-    && print_result $? "\nOS Essentials"
+    && print_result $? "OS Essentials"
 
   print_hed "OS Preferences" \
     && .do_configure \
-    && print_result $? "\nOS Preferences"
+    && print_result $? "OS Preferences"
 
   # Initialize the dotfiles directory as a git repo for a non-root user.
   if [[ "root" != $(whoami) ]] && ! is_git_repository; then
