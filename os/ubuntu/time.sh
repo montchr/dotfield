@@ -45,7 +45,7 @@ function time::setup_ntp () {
 
 function main () {
   print_subhed "Configuring timezone..."
-  time::setup_timezone "${CDOM_BOOTSTRAP_TIMEZONE}"
+  time::setup_timezone "${CDOM_INIT_TIMEZONE}"
   print_subhed "Installing/configuring Network Time Protocol..."
   time::setup_ntp
 }

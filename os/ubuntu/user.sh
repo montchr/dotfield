@@ -108,8 +108,8 @@ function user::main () {
     return 1
   fi
 
-  if [[ -n "${CDOM_NEW_USER_NAME}" ]]; then
-    USERNAME="${CDOM_NEW_USER_NAME}"
+  if [[ -n "${CDOM_INIT_NEW_USER_NAME}" ]]; then
+    USERNAME="${CDOM_INIT_NEW_USER_NAME}"
   else
     ask "Enter the username of the new user account:"
     USERNAME=$(get_answer)
@@ -117,8 +117,8 @@ function user::main () {
   readonly USERNAME
 
 
-  if [[ -n "${CDOM_NEW_USER_PASSWORD}" ]]; then
-    PASSWORD="${CDOM_NEW_USER_PASSWORD}"
+  if [[ -n "${CDOM_INIT_NEW_USER_PASSWORD}" ]]; then
+    PASSWORD="${CDOM_INIT_NEW_USER_PASSWORD}"
   else
     user::prompt_for_password
   fi
@@ -128,8 +128,8 @@ function user::main () {
 
   user::create_account "${USERNAME}" "${PASSWORD}"
 
-  if [[ -n "${CDOM_NEW_USER_PUBKEY}" ]]; then
-    ssh_pub_key="${CDOM_NEW_USER_PUBKEY}"
+  if [[ -n "${CDOM_INIT_PUBKEY}" ]]; then
+    ssh_pub_key="${CDOM_INIT_PUBKEY}"
   else
     ask 'Paste in the public SSH key for the new user:\n'
     ssh_pub_key=$(get_answer)

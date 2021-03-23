@@ -9,7 +9,7 @@ readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${D
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 DOTFILES_DIR="${HOME}/.dots"
 
-SKIP_QUESTIONS=false
+SKIP_QUESTIONS=${CDOM_INIT_INTERACTIVE:-false}
 
 
 # ----------------------------------------------------------------------
@@ -145,11 +145,7 @@ function verify_os () {
 }
 
 # Whether the bootstrap script should skip questions.
-# Globals:
-#   CDOM_BOOTSTRAP_SKIP_QUESTIONS
-should_skip_questions() {
-  [[ -n "${CDOM_BOOTSTRAP_SKIP_QUESTIONS}" ]] \
-    && return 0
+function .should_skip_questions() {
   while :; do
     case $1 in
       -y | --yes) return 0 ;;
@@ -170,7 +166,7 @@ function init_git_repo () {
 
 # Run configuration script, if available.
 # Globals:
-#   CDOM_HOSTNAME
+#   CDOM_INIT_HOSTNAME
 function .do_configure () {
   local hostname
 
@@ -178,8 +174,8 @@ function .do_configure () {
     || print_warning "No configurator found for current OS '$(get_os)'! Continuing..." \
       && return
 
-  if [[ -n "${CDOM_HOSTNAME}" ]]; then
-    hostname="${CDOM_HOSTNAME}"
+  if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
+    hostname="${CDOM_INIT_HOSTNAME}"
   else
     ask "Set the hostname: "
     hostname="$(get_answer)"
@@ -208,8 +204,9 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  should_skip_questions "$@" &&
-    SKIP_QUESTIONS=true
+  [[ "false" == "${SKIP_QUESTIONS}" ]] \
+    && .should_skip_questions "$@" \
+    && SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"
