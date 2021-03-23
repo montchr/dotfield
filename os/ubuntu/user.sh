@@ -25,18 +25,10 @@ function user::exec () {
 # Arguments:
 #   Account Username
 #   Account Password
-#   Flag to determine if user account is added silently. (With / Without GECOS prompt)
 function user::create_account () {
   local username=${1}
   local password=${2}
-  local silent_mode=${3}
-
-  if [[ ${silent_mode} == "true" ]]; then
-    sudo adduser --disabled-password --gecos '' "${username}"
-  else
-    sudo adduser --disabled-password "${username}"
-  fi
-
+  sudo adduser --disabled-password --gecos '' "${username}"
   echo "${username}:${password}" | sudo chpasswd
   sudo usermod -aG sudo "${username}"
 }
@@ -116,19 +108,32 @@ function user::main () {
     return 1
   fi
 
-  ask "Enter the username of the new user account:"
-  USERNAME=$(get_answer)
+  if [[ -n "${CDOM_NEW_USER_NAME}" ]]; then
+    USERNAME="${CDOM_NEW_USER_NAME}"
+  else
+    ask "Enter the username of the new user account:"
+    USERNAME=$(get_answer)
+  fi
   readonly USERNAME
 
-  user::prompt_for_password
+
+  if [[ -n "${CDOM_NEW_USER_PASSWORD}" ]]; then
+    PASSWORD="${CDOM_NEW_USER_PASSWORD}"
+  else
+    user::prompt_for_password
+  fi
 
   # Run setup functions
   trap .cleanup EXIT SIGHUP SIGINT SIGTERM
 
   user::create_account "${USERNAME}" "${PASSWORD}"
 
-  ask 'Paste in the public SSH key for the new user:\n'
-  ssh_pub_key=$(get_answer)
+  if [[ -n "${CDOM_NEW_USER_PUBKEY}" ]]; then
+    ssh_pub_key="${CDOM_NEW_USER_PUBKEY}"
+  else
+    ask 'Paste in the public SSH key for the new user:\n'
+    ssh_pub_key=$(get_answer)
+  fi
 
   user::allow_passwordless_sudo "${USERNAME}" \
     && user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \

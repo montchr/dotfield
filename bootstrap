@@ -152,6 +152,27 @@ function init_git_repo () {
   git init && git remote add origin "${DOTFILES_ORIGIN}"
 }
 
+# Run configuration script, if available.
+# Globals:
+#   CDOM_HOSTNAME
+function .do_configure () {
+  local hostname
+
+  [[ -f os/$(get_os)/configure ]] \
+    || print_warning "No configurator found for current OS '$(get_os)'! Continuing..." \
+      && return
+
+  if [[ -n "${CDOM_HOSTNAME}" ]]; then
+    hostname="${CDOM_HOSTNAME}"
+  else
+    ask "Set the hostname: "
+    hostname="$(get_answer)"
+  fi
+
+  # shellcheck disable=SC1090
+  . "os/$(get_os)/configure" "${hostname:-CDOM}"
+}
+
 # ----------------------------------------------------------------------
 # | Main                                                               |
 # ----------------------------------------------------------------------

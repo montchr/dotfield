@@ -9,11 +9,17 @@
 . "${DOTFILES_DIR}/lib/utils.sh"
 
 # Setup timezone.
+# Parameters:
+#   Timezone
 function time::setup_timezone () {
   local timezone
+  timezone="$1"
 
-  ask "Enter the timezone for the server (Default is 'America/New_York')"
-  timezone=$(get_answer)
+  if [[ -z "${timezone}" ]]; then
+    ask "Enter the timezone for the server (Default is 'America/New_York')"
+    timezone=$(get_answer)
+  fi
+
   timezone=${timezone:-America/New_York}
 
   # Set the timezone.
@@ -39,7 +45,7 @@ function time::setup_ntp () {
 
 function main () {
   print_subhed "Configuring timezone..."
-  time::setup_timezone
+  time::setup_timezone "${CDOM_BOOTSTRAP_TIMEZONE}"
   print_subhed "Installing/configuring Network Time Protocol..."
   time::setup_ntp
 }
