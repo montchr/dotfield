@@ -4,7 +4,7 @@ set -e
 
 readonly GITHUB_REPOSITORY="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
-readonly DOTFILES_BRANCH="feature/dotbot"
+readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
 DOTFILES_DIR="${HOME}/.dots"
