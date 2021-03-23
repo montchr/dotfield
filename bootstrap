@@ -144,6 +144,22 @@ function verify_os () {
   return 1
 }
 
+# Whether the bootstrap script should skip questions.
+# Globals:
+#   CDOM_BOOTSTRAP_SKIP_QUESTIONS
+should_skip_questions() {
+  [[ -n "${CDOM_BOOTSTRAP_SKIP_QUESTIONS}" ]] \
+    && return 0
+  while :; do
+    case $1 in
+      -y | --yes) return 0 ;;
+      *) break ;;
+    esac
+    shift 1
+  done
+  return 1
+}
+
 # Initialize dotfiles git repo in place.
 # Globals:
 #   DOTFILES_ORIGIN
@@ -192,8 +208,8 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  # should_skip_questions "$@" &&
-  #   SKIP_QUESTIONS=true
+  should_skip_questions "$@" &&
+    SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"

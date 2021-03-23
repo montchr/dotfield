@@ -291,16 +291,6 @@ set_trap() {
     trap '$2' "$1"
 }
 
-should_skip_questions() {
-  while :; do
-    case $1 in
-      -y | --yes) return 0 ;;
-      *) break ;;
-    esac
-    shift 1
-  done
-  return 1
-}
 
 show_spinner() {
   local -r FRAMES='/-\|'
