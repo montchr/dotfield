@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
+#
+# os/macos/configure
+#
+# Thanks:
+# https://mths.be/macos
+#
 
-# ~/.macos — https://mths.be/macos
+readonly HOSTNAME=${1}
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -17,10 +23,15 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "montalley"
-sudo scutil --set HostName "montalley"
-sudo scutil --set LocalHostName "montalley"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "montalley"
+if [[ -n "${HOSTNAME}" ]]; then
+  sudo scutil --set ComputerName "${HOSTNAME}"
+  sudo scutil --set HostName "${HOSTNAME}"
+  sudo scutil --set LocalHostName "${HOSTNAME}"
+  sudo defaults write \
+    /Library/Preferences/SystemConfiguration/com.apple.smb.server \
+    NetBIOSName \
+    -string "${HOSTNAME}"
+fi
 
 # Disable the sound effects on boot
 # sudo nvram SystemAudioVolume=" "
@@ -445,11 +456,11 @@ find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -dele
 # 11: Launchpad
 # 12: Notification Center
 # 13: Lock Screen
-# Top left screen corner → Mission Control
+# Top left screen corner →
 defaults write com.apple.dock wvous-tl-corner -int 0
 defaults write com.apple.dock wvous-tl-modifier -int 0
-# Top right screen corner → Desktop
-defaults write com.apple.dock wvous-tr-corner -int 4
+# Top right screen corner →
+defaults write com.apple.dock wvous-tr-corner -int 0
 defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → Start screen saver
 defaults write com.apple.dock wvous-bl-corner -int 5

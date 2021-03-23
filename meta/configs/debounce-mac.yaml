@@ -1,0 +1,5 @@
+- link:
+  ~/Library/LaunchAngents/com.debounceMac.app.plist:
+
+- shell:
+  - launchctl load com.debounceMac.app.plist

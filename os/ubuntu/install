@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+#
+# os/ubuntu/install
+#
+
+set -e
+
+# shellcheck source=../../lib/utils.sh
+. "${DOTFILES_DIR}/lib/utils.sh"
+# shellcheck source=./lib/pkg.sh
+. "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
+
+
+function .cleanup () {
+  sudo service ssh restart
+
+  [[ -f "/etc/sudoers.bak" ]] && {
+    print_in_purple "Restoring original /etc/sudoers file..."
+    sudo mv /etc/sudoers.bak /etc/sudoers
+  }
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function main () {
+  local previous_directory
+  previous_directory=$(pwd)
+
+  # Ensure that the following actions are made relative to this file's path.
+  cd "$(dirname "${BASH_SOURCE[0]}")" ||
+    exit 1
+
+  pkg::update_repos
+  pkg::upgrade_all
+
+  pkg::install "Build Essential" "build-essential"
+  pkg::install "GnuPG archive keys" "debian-archive-keyring"
+  pkg::install "Git" "git"
+  pkg::install "curl" "curl"
+
+  if [[ "root" == $(whoami) ]]; then
+    print_warning "Running as root! Creating a new user with sudo capabilities..."
+    . ./user.sh
+  fi
+
+  execute \
+    "sudo ufw allow OpenSSH; yes y | sudo ufw enable" \
+    "Configure UFW"
+
+  # Setup time services.
+  . ./time.sh
+
+  print_subhed "Cleaning up..."
+  .cleanup
+
+  cd "$previous_directory"
+
+}
+
+main "$@"

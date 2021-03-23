@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+#
+# install
+#
+# Install Dotbot modules by profiles or individually.
+#
+
+set -e
+
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+META_DIR="${BASE_DIR}/meta"
+MODULES_DIR="${BASE_DIR}/modules"
+PROFILES_DIR="${META_DIR}/profiles"
+META_LIB_DIR="${META_DIR}/lib"
+DOTBOT_DIR="${META_LIB_DIR}/dotbot"
+
+CONFIG_SUFFIX=".conf"
+CONFIG_EXT="yaml"
+
+BASE_CONFIG="${MODULES_DIR}/base${CONFIG_SUFFIX}.${CONFIG_EXT}"
+
+# Install a single module.
+install_module() {
+  local module="$1"
+  local config_file
+  config_file="$(mktemp)"
+  echo -e "
+    $(<"${BASE_CONFIG}")
+    $(<"${MODULES_DIR}/${module}/install${CONFIG_SUFFIX}.${CONFIG_EXT}")
+  " > "$config_file"
+
+  "${DOTBOT_DIR}/bin/dotbot" -d "${BASE_DIR}" \
+    --plugin-dir "${META_DIR}/dotbot-brew" \
+    -c "$config_file"
+
+  rm -f "$config_file"
+}
+
+# Install multiple modules.
+install_modules() {
+  local module
+  for module in "${@}"; do
+    install_module "${module}"
+  done
+}
+
+# Install a single profile.
+#
+# @TODO logging
+install_profile() {
+  local -a configs
+  while IFS="" read -r config; do
+    configs+=" ${config}"
+  done < "${PROFILES_DIR}/${1}"
+  shift
+  # Append any additional configs.
+  configs+=" ${*}"
+  install_modules "$configs"
+}
+
+# Install multiple profiles.
+#
+# @TODO logging
+install_profiles() {
+  local profile
+  for profile in "${@}"; do
+    install_profiles "${profile}"
+  done
+}
+
+cd "${BASE_DIR}"
+git -C "${META_LIB_DIR}" submodule sync --quiet --recursive
+git submodule update --init --recursive "${META_LIB_DIR}"
+
+case "$1" in
+  profile|module)
+    subcommand="$1"
+    shift
+    "install_${subcommand}s" "$@"
+    ;;
+  *)
+    echo -n "[$(tput bold)$(tput setaf 1)error$(tput sgr0)] "
+    echo "command $(tput bold)$1$(tput sgr0) not found."
+    return 1
+    ;;
+esac

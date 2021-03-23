@@ -22,6 +22,16 @@
 [submodule "firefox-i3wm-theme"]
 	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
 	url = git@github.com:aadilayub/firefox-i3wm-theme.git
+[submodule "dotbot"]
+	path = meta/lib/dotbot
+	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
+[submodule "dotbot-brew"]
+	path = meta/lib/dotbot-brew
+	url = https://github.com/d12frosted/dotbot-brew.git
+[submodule "bats-core"]
+	path = lib/bats-core
+	url = git@github.com:bats-core/bats-core.git
 [submodule "iosevka"]
 	path = iosevka
 	url = git@git.sr.ht:~montchr/iosevka-builds
