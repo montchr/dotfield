@@ -6,7 +6,7 @@ On macOS, run the following as the administrative user.
 On Linux, run the following as root, reboot, and run again as the sudo user.
 
 #+begin_src bash
-bash -c "$(wget -qO - https://raw.github.com/montchr/dots/feature/dotbot/bootstrap)"
+bash -c "$(wget -qO - https://raw.github.com/montchr/dots/main/bootstrap)"
 #+end_src
 
 ** Bootstrap
@@ -17,13 +17,14 @@ First, set ~CDOM_INIT_INTERACTIVE=false~.
 
 Then set the following values:
 
-| Name                          | Description                             |
-|-------------------------------+-----------------------------------------|
-| ~CDOM_INIT_NEW_USER_NAME~     | Name of the new sudo user to be created |
-| ~CDOM_INIT_NEW_USER_PASSWORD~ | Password for the new user               |
-| ~CDOM_INIT_PUBKEY~            | SSH public key for the new user         |
-| ~CDOM_INIT_TIMEZONE~          | System timezone                         |
-| ~CDOM_INIT_HOSTNAME~          | System hostname                         |
+| Name                          | Description                                 | Default             |
+|-------------------------------+---------------------------------------------+---------------------|
+| ~CDOM_INIT_DOTFILES_BRANCH~   | Branch from which dotfiles should be pulled | ~main~              |
+| ~CDOM_INIT_HOSTNAME~          | System hostname                             | ~CDOM~              |
+| ~CDOM_INIT_NEW_USER_NAME~     | Name of the new sudo user to be created     |                     |
+| ~CDOM_INIT_NEW_USER_PASSWORD~ | Password for the new user                   |                     |
+| ~CDOM_INIT_PUBKEY~            | SSH public key for the new user             |                     |
+| ~CDOM_INIT_TIMEZONE~          | System timezone                             | ~America/New_York~  |
 
 
 * Thank Yous + References
