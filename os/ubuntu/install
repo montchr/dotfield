@@ -15,7 +15,7 @@ function .cleanup () {
   sudo service ssh restart
 
   [[ -f "/etc/sudoers.bak" ]] && {
-    print_in_purple "Restoring original /etc/sudoers file..."
+    print_info "Restoring original /etc/sudoers file..."
     sudo mv /etc/sudoers.bak /etc/sudoers
   }
 }
