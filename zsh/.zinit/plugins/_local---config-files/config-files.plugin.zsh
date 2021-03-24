@@ -162,6 +162,7 @@ alias reload="exec $SHELL -l"
 # @TODO: many of these need to be functions
 #
 
+export GIT_BRANCH_NAME="$(git-branch-name)"
 
 # List all the commits on the current branch ahead of master
 alias glb='git log --oneline --decorate \$GIT_PRIMARY_BRANCH..'
