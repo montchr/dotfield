@@ -26,4 +26,4 @@ jobs:
     steps:
       - name: Run bootstrap script
         run: |
-          bash -c "$(wget -qO - https://raw.github.com/montchr/dots/main/bootstrap)"
+          bash -c "$(wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap)""
