@@ -146,7 +146,16 @@ function verify_os () {
 }
 
 # Whether the bootstrap script should skip questions.
+# Uses:
+#   is_interactive
+#   is_ci
+# Globals:
+#   CDOM_INIT_INTERACTIVE
 function .should_skip_questions() {
+  [[ "false" == "${CDOM_INIT_INTERACTIVE}" ]] && return 0
+  ! is_interactive && return 0
+  is_ci && return 0
+
   while :; do
     case $1 in
       -y | --yes) return 0 ;;
@@ -205,13 +214,9 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  if
-    .should_skip_questions "$@" \
-    || [[ "false" == "${CDOM_INIT_INTERACTIVE}" ]]
-  then
-    SKIP_QUESTIONS=1
-    print_warning "Skipping questions!"
-  fi
+  .should_skip_questions "$@" \
+    && SKIP_QUESTIONS=1 \
+    && print_warning "Skipping questions!"
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"
