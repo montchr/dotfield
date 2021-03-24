@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-sudo su -
+cd "${HOME}" || return 1
 
-echo "$GIT_BRANCH"
-bootstrap_url="https://raw.github.com/montchr/dots/${GIT_BRANCH}/bootstrap"
-
-bash -c "$(wget -qO - "${bootstrap_url}")"
+cp /vagrant/bootstrap "${HOME}/bootstrap"
+bash -c "${HOME}/bootstrap"
