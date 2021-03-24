@@ -206,6 +206,7 @@ function main () {
 
   [[ "false" == "${SKIP_QUESTIONS}" ]] \
     && .should_skip_questions "$@" \
+    && print_warning "Skipping questions!" \
     && SKIP_QUESTIONS=true
 
   if [[ "root" == $(whoami) ]]; then
