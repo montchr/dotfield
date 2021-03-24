@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
       "CDOM_INIT_NEW_USER_PASSWORD" => "vagrant",
       "CDOM_INIT_TIMEZONE"          => "America/New_York",
       "GIT_BRANCH"                  => ENV["GIT_BRANCH_NAME"],
+      "VAGRANT"                     => "true",
     }
     s.path = "vagrant-provision.sh"
   end
