@@ -244,6 +244,8 @@ function main () {
       "Initialize the Git repository"
   fi
 
+  print_hed "Bootstrapping complete!"
+
   if ! (( SKIP_QUESTIONS )); then
     print_hed "Restart"
 
