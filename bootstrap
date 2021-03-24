@@ -7,9 +7,9 @@ readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
 readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
-DOTFILES_DIR="${HOME}/.dots"
 
-SKIP_QUESTIONS=${CDOM_INIT_INTERACTIVE:-false}
+DOTFILES_DIR="${HOME}/.dots"
+SKIP_QUESTIONS=0
 
 
 # ----------------------------------------------------------------------
@@ -34,7 +34,8 @@ function download () {
 }
 
 # Download the dotfiles repo.
-#
+# Globals:
+#   SKIP_QUESTIONS
 # Arguments:
 #   Download method. Can be either `archive` or `git`.
 function download_dotfiles () {
@@ -45,7 +46,7 @@ function download_dotfiles () {
   print_result $? "Download archive" "true"
   printf "\n"
 
-  if ! $SKIP_QUESTIONS; then
+  if ! (( SKIP_QUESTIONS )); then
     ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
     if ! user_confirmed; then
       DOTFILES_DIR=""
@@ -204,10 +205,13 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  [[ "false" == "${SKIP_QUESTIONS}" ]] \
-    && .should_skip_questions "$@" \
-    && print_warning "Skipping questions!" \
-    && SKIP_QUESTIONS=true
+  if
+    .should_skip_questions "$@" \
+    || [[ "false" == "${CDOM_INIT_INTERACTIVE}" ]]
+  then
+    SKIP_QUESTIONS=1
+    print_warning "Skipping questions!"
+  fi
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"
@@ -240,7 +244,7 @@ function main () {
       "Initialize the Git repository"
   fi
 
-  if ! $SKIP_QUESTIONS; then
+  if ! (( SKIP_QUESTIONS )); then
     print_hed "Restart"
 
     ask_for_confirmation "Do you want to restart? You probably should."
