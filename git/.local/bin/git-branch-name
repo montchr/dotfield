@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# git-branch-name
+#
+# Echo the current git branch name, if any.
+
+git symbolic-ref --short -q HEAD
