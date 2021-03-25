@@ -50,13 +50,20 @@ brew "rsync"
 brew "ansible"
 
 
-# Emacs
+# Emacs {{{
+
 brew 'aspell'
 brew 'wordnet'
-# macOS only
+
+# macOS only {{
 brew "railwaycat/emacsmacport/emacs-mac", args: ["with-no-title-bars"]
+brew "pngpaste"
+# }}
+
 # Linux only
 # brew 'emacs'
+
+# /emacs }}}
 
 
 # Audiovisual

@@ -1,5 +1,6 @@
 # Required by some bits of doom-emacs python integration
 black
+grip # for doom-emacs markdown +grip
 isort
 # nosetests
 pipenv
