@@ -3,7 +3,7 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "Iosevka" :size 14)
+(setq! doom-font (font-spec :family "Iosevka" :size 16)
        doom-unicode-font (font-spec :family "Iosevka")
        doom-variable-pitch-font (font-spec :family "Iosevka Sparkle"))
 
