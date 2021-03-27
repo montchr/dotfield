@@ -58,6 +58,7 @@
            :repo "ideasman42/emacs-scroll-on-jump"))
 
 ;; Languages
+(package! bats-mode)                 ; mode for editing and running BATS tests
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! neon-mode
