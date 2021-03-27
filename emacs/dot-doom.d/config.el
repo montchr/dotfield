@@ -110,7 +110,9 @@
           (let ((project-name (projectile-project-name)))
             (unless (string= "-" project-name)
               (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))
-         (:eval " ▲ doom")))
+         (:eval " ▲ doom")
+         (:eval
+          (when (frame-parent) " ◂ [child]"))))
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
