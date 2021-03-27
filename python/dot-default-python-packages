@@ -1,11 +1,9 @@
-# Doom Emacs {{{
+# Required by some bits of doom-emacs python integration
 black
 grip # for doom-emacs markdown +grip
 isort
 # nosetests
 pipenv
-pyflakes
-pytest
-# }}}
-
 promnesia
+pyflakes
+# pytest

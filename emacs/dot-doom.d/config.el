@@ -8,7 +8,7 @@
        doom-variable-pitch-font (font-spec :family "Iosevka Sparkle"))
 
 ;; Enable font ligatures in emacs-mac@27.
-;; (if IS-MAC (mac-auto-operator-composition-mode t))
+(if IS-MAC (mac-auto-operator-composition-mode t))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
