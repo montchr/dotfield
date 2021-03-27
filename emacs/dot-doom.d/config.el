@@ -135,7 +135,7 @@
 (use-package! scroll-on-jump
   :after (evil)
   :config
-  (setq! scroll-on-jump-duration 0.4
+  (setq! scroll-on-jump-duration 0.2
          scroll-on-jump-smooth t
          scroll-on-jump-use-curve nil)
   (scroll-on-jump-advice-add evil-undo)
