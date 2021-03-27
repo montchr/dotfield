@@ -8,10 +8,10 @@ tap "homebrew/cask-versions"
 tap "homebrew/services"
 
 # Third-party taps
+tap "d12frosted/emacs-plus"
 tap "federico-terzi/espanso"
 tap "github/gh"
 tap "koekeishiya/formulae"
-tap "railwaycat/emacsmacport"
 tap "rcmdnk/file"
 tap "shivammathur/php"
 
@@ -56,7 +56,20 @@ brew 'aspell'
 brew 'wordnet'
 
 # macOS only {{
-brew "railwaycat/emacsmacport/emacs-mac", args: ["with-no-title-bars"]
+# brew "railwaycat/emacsmacport/emacs-mac", args: ["with-no-title-bars"]
+brew "emacs-plus@28",
+     args: [
+       "with-ctags",
+       "with-debug",
+       "with-mailutils",
+       "with-no-frame-refocus",
+       "with-no-titlebar",
+       "with-native-comp"
+     ]
+# haskell
+brew "hlint"
+# org-mode
+brew "graphviz"
 brew "pngpaste"
 # }}
 
