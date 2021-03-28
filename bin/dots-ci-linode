@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+#
+# dots-ci-linode
+#
+
+set -euo pipefail
+
+PASSWORD="${1:-}"
+
+cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+
+. ../lib/utils.sh
+
+LINODE_LABEL="cdom-dots"
+LINODE_IMAGE_LABEL="cdom-dots ubuntu 20.04 fresh"
+
+
+# Keep prompting for the password and password confirmation.
+# Globals:
+#   PASSWORD
+function .prompt_for_password () {
+  local passwords_match=0
+  local confirmation
+  while [ "${passwords_match}" -eq "0" ]; do
+    ask_silently "Enter new password:"
+    PASSWORD=$(get_answer)
+
+    ask_silently "Confirm password:"
+    confirmation=$(get_answer)
+
+    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
+      print_error "Passwords do not match! Please try again."
+    else
+      passwords_match=1
+    fi
+  done
+}
+
+function .get_id() {
+  local type=$1
+  local label="$2"
+  linode-cli --no-headers --text --format=id \
+    "${type}" list \
+      --label="${label}"
+}
+
+function get_password() {
+  local password
+
+  [[ -n $PASSWORD ]] \
+    && return
+
+  ask_for_confirmation "Do you want to generate a new password?"
+  if user_confirmed; then
+    if cmd_exists bw; then
+      PASSWORD=$(bw generate --words 3 --separator '.' -p)
+      print_success "Generated new password:"
+      print_info    "    ${PASSWORD}" ; printf "\n"
+    else
+      print_error "[Error]" "Couldn't find a password generator!"
+    fi
+  else
+    .prompt_for_password
+  fi
+}
+
+# Initialize a rebuild of the CI linode.
+# Parameters:
+#   Linode ID
+#   Image ID to be restored
+#   Root password
+function init_rebuild() {
+  local id=$1
+  local image=$2
+  local pass=$3
+
+  linode-cli linodes list --label="${LINODE_LABEL}"
+
+  print_warning "The CI linode will be destroyed and rebuilt!"
+  ask_for_confirmation "Do you want to continue?"
+
+  if ! user_confirmed; then
+    print_error "Cancelled! Exiting..."
+    exit 1
+  fi
+
+  linode-cli linodes rebuild "${id}" \
+    --image="${image}" \
+    --root_pass="${pass}" >/dev/null
+  print_result $? "Initiated linode rebuild..."
+}
+
+# Main entrypoint.
+function main() {
+  local linode_id
+  local image_id
+  local pass
+
+  if ! cmd_exists "linode-cli"; then
+    print_error "[Error]" "linode-cli not found!"
+    exit 1
+  fi
+
+  linode_id=$(.get_id linodes "${LINODE_LABEL}")
+  image_id=$(.get_id images "${LINODE_IMAGE_LABEL}")
+
+  get_password
+
+  init_rebuild "${linode_id}" "${image_id}" "${PASSWORD}"
+}
+
+main "$@"
