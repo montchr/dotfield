@@ -159,21 +159,18 @@ alias reload="exec $SHELL -l"
 
 #
 # Git
-# @TODO: many of these need to be functions
 #
 
+export GIT_BRANCH_NAME="$(git-branch-name)"
 
-# List all the commits on the current branch ahead of master
+# List all the commits on the current branch ahead of master.
 alias glb='git log --oneline --decorate \$GIT_PRIMARY_BRANCH..'
 
-# Based on https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
-# alias gla='git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(green)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(bold cyan)%s%C(reset) %C(dim white)- %an%C(reset)%n''' --all'
-
-# magical fix for all submodule issues
+# Magical fix for all submodule issues.
 alias gsumo='git submodule update --init --recursive'
 
 # Show list of files changed in a commit
-# Follow with commit hash
+# @TODO needs to be a function
 # alias gdl="git diff-tree --no-commit-id --name-only -r $1"
 
 
