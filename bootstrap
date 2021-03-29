@@ -7,9 +7,9 @@ readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
 readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
-DOTFILES_DIR="${HOME}/.dots"
 
-SKIP_QUESTIONS=${CDOM_INIT_INTERACTIVE:-false}
+DOTFILES_DIR="${HOME}/.dots"
+SKIP_QUESTIONS=0
 
 
 # ----------------------------------------------------------------------
@@ -34,7 +34,8 @@ function download () {
 }
 
 # Download the dotfiles repo.
-#
+# Globals:
+#   SKIP_QUESTIONS
 # Arguments:
 #   Download method. Can be either `archive` or `git`.
 function download_dotfiles () {
@@ -45,7 +46,7 @@ function download_dotfiles () {
   print_result $? "Download archive" "true"
   printf "\n"
 
-  if ! $SKIP_QUESTIONS; then
+  if ! (( SKIP_QUESTIONS )); then
     ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
     if ! user_confirmed; then
       DOTFILES_DIR=""
@@ -145,7 +146,16 @@ function verify_os () {
 }
 
 # Whether the bootstrap script should skip questions.
+# Uses:
+#   is_interactive
+#   is_ci
+# Globals:
+#   CDOM_INIT_INTERACTIVE
 function .should_skip_questions() {
+  [[ "false" == "${CDOM_INIT_INTERACTIVE}" ]] && return 0
+  ! is_interactive && return 0
+  is_ci && return 0
+
   while :; do
     case $1 in
       -y | --yes) return 0 ;;
@@ -204,9 +214,9 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  [[ "false" == "${SKIP_QUESTIONS}" ]] \
-    && .should_skip_questions "$@" \
-    && SKIP_QUESTIONS=true
+  .should_skip_questions "$@" \
+    && SKIP_QUESTIONS=1 \
+    && print_warning "Skipping questions!"
 
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"
@@ -239,7 +249,9 @@ function main () {
       "Initialize the Git repository"
   fi
 
-  if ! $SKIP_QUESTIONS; then
+  print_hed "Bootstrapping complete!"
+
+  if ! (( SKIP_QUESTIONS )); then
     print_hed "Restart"
 
     ask_for_confirmation "Do you want to restart? You probably should."

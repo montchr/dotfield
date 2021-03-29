@@ -171,8 +171,10 @@ execute() {
 
   cmdsPID=$!
 
-  # Show a spinner if the commands require more time to complete.
-  show_spinner "$cmdsPID" "$CMDS" "$MSG"
+  if is_interactive && ! is_ci; then
+    # Show a spinner if the commands require more time to complete.
+    show_spinner "$cmdsPID" "$CMDS" "$MSG"
+  fi
 
   # Wait for the commands to no longer be executing in the background, and then
   # get their exit code.
@@ -292,27 +294,48 @@ mkd() {
   fi
 }
 
+# Whether the current shell is interactive.
+# https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
+# Returns:
+#   0 = yes
+#   1 = no
+function is_interactive() {
+  [[ -n "$PS1" ]] && return 0
+  case "$-" in
+    *i*) return 0 ;;
+    *)   return 1 ;;
+  esac
+}
+
+# Whether the current shell is run within CI or Vagrant.
+# Returns:
+#   0 = yes
+#   1 = no
+function is_ci() {
+  if [[ -n "${VAGRANT}" ]] || [[ -n "${TRAVIS}" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
 
 set_trap() {
   trap -p "$1" | grep "$2" &>/dev/null ||
     trap '$2' "$1"
 }
 
-
 show_spinner() {
+  local -r PID="$1"
+  local -r CMDS="$2"
+  local -r MSG="$3"
+
   local -r FRAMES='/-\|'
   # shellcheck disable=SC2034
   local -r NUMBER_OR_FRAMES=${#FRAMES}
-  local -r CMDS="$2"
-  local -r MSG="$3"
-  local -r PID="$1"
   local i=0
   local frameText=""
 
-  TRAVIS="${TRAVIS:-false}"
-
-  # Travis CI needs special treatment.
-  if [ "$TRAVIS" != "true" ]; then
+  if is_interactive && ! is_ci; then
     # Provide more space so that the text hopefully doesn't reach the bottom
     # line of the terminal window.
     #
@@ -330,21 +353,14 @@ show_spinner() {
   while kill -0 "$PID" &>/dev/null; do
     frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
 
-    # Print frame text.
-    if [ "$TRAVIS" != "true" ]; then
+    if is_interactive && ! is_ci; then
       printf "%s\n" "$frameText"
-    else
-      printf "%s" "$frameText"
-    fi
-
-    sleep 0.2
-
-    # Clear frame text.
-    if [ "$TRAVIS" != "true" ]; then
+      sleep 0.2
       tput rc
     else
+      printf "%s" "$frameText"
+      sleep 0.2
       printf "\r"
     fi
-
   done
 }
