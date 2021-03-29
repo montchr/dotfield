@@ -110,7 +110,9 @@
           (let ((project-name (projectile-project-name)))
             (unless (string= "-" project-name)
               (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))
-         (:eval " ▲ doom")))
+         (:eval " ▲ doom")
+         (:eval
+          (when (frame-parent) " ◂ [child]"))))
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
@@ -121,10 +123,6 @@
 ;; @TODO This still throws a message because it's called on the hook, unaffected by ~auto-save-no-message~
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; Load VLF.
-(use-package! vlf-setup
-  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
-
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
 (setq! evil-vsplit-window-right t
        evil-split-window-below t)
@@ -133,7 +131,7 @@
 (use-package! scroll-on-jump
   :after (evil)
   :config
-  (setq! scroll-on-jump-duration 0.4
+  (setq! scroll-on-jump-duration 0.2
          scroll-on-jump-smooth t
          scroll-on-jump-use-curve nil)
   (scroll-on-jump-advice-add evil-undo)
@@ -163,6 +161,16 @@
   ;; Make aborting less annoying.
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
+(use-package! company-box
+  :config
+  ;; Disable the documentation childframe because it causes emacs to crash!
+  ;;
+  ;; FIXME Allow doc childframe flyout without crashing
+  ;;
+  ;; Note that Emacs doesn't crash when running Doom+modules without my config,
+  ;; so it's probably something in my config...
+  (setq! company-box-doc-enable nil))
+
 ;; Extend prescient history lifespan.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
@@ -176,26 +184,26 @@
 
 (use-package! which-key
   :config
-  ;; Remove ~evil-~ prefix from keybinding labels, and tweak some other things.
-  ;; @TODO bindings in which-key no longer line up along a column
-  ;; https://tecosaur.github.io/emacs-config/config.html#which-key
-  (setq! which-key-allow-multiple-replacements t)
-  (pushnew!
-   which-key-replacement-alist
-   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1")))
   (setq! which-key-sort-order
          ;; default
          ;; 'which-key-key-order
+         ;; sort based on the key description ignoring case
+         ;; 'which-key-description-order
          ;; same as default, except single characters are sorted alphabetically
          ;; 'which-key-key-order-alpha
          ;; same as default, except all prefix keys are grouped together at the end
          ;; 'which-key-prefix-then-key-order
          ;; same as default, except all keys from local maps shown first
          'which-key-local-then-key-order))
-;; sort based on the key description ignoring case
-;; 'which-key-description-order
 
+(setq! which-key-allow-multiple-replacements t)
+(after! which-key
+  ;; Remove ~evil-~ prefix from keybinding labels
+  ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+  (pushnew!
+   which-key-replacement-alist
+   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
 
 (after! magit
   ;; List magit branches by date.
