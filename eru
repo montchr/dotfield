@@ -408,10 +408,10 @@ guard::arch && {
 
     msg::section "Restart xmonad"
     if pgrep d12-xmonad; then
-      log "Found running instance of xmonad. Restarting..."
+      msg::info "Found running instance of xmonad. Restarting..."
       d12-xmonad --restart
     else
-      log "No running instance of xmonad is found. Meh..."
+      msg::info "No running instance of xmonad is found. Meh..."
     fi
   }
 }
