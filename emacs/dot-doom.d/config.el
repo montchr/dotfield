@@ -167,9 +167,25 @@
   ;;
   ;; FIXME Allow doc childframe flyout without crashing
   ;;
-  ;; Note that Emacs doesn't crash when running Doom+modules without my config,
-  ;; so it's probably something in my config...
+  ;; Note that Emacs doesn't crash when running Doom+modules without my config...
   (setq! company-box-doc-enable nil))
+
+(after! ivy-posframe
+  (setq! ivy-posframe-border-width 3
+         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  ;; Constrain the ivy-posframe size.
+  ;; https://github.com/tumashu/ivy-posframe/issues/105#issuecomment-750370286
+  (defun +cdom/ivy-posframe-get-size ()
+    "Set the ivy-posframe size according to the current frame."
+    (let ((width (min (or ivy-posframe-width 200) (round (* .62 (frame-width))))))
+      (list
+       :height 8
+       :min-height 4
+       :width width
+       :min-width width)))
+  (setq! ivy-posframe-size-function '+cdom/ivy-posframe-get-size)
+  ;; Globally enable ivy-posframe-mode.
+  (ivy-posframe-mode 1))
 
 ;; Extend prescient history lifespan.
 (setq-default history-length 1000)
