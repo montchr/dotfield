@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+#
+# eru
+#
+# my thanks go out to @d12frosted
+# gratefully transcribed from https://github.com/d12frosted/environment/
+#
+# Usage:
+#   eru [theme]...
+#
+
+querent="cdom"
+
+set -euo pipefail
+
+. ./lib/sh/main.sh
+
+msg::info "Kernel name:      $KERNEL_NAME"
+msg::info "Kernel release:   $KERNEL_RELEASE"
+msg::info "Operating system: $OS_NAME"
+msg::info "OS version:       $OS_VERSION"
+msg::info "User:             $USER"
+msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
+msg::info
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Helpers
+# - - - - - - - - - - - - - - - - - - - -
+
+msg::domain "Supporting" "Summoning helpers"
+
+function theme_guard() {
+  key=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+  local guard_ref="guard_$key"
+  local ignore_guard_ref="guard_ignore_$key"
+  guard="${!guard_ref}"
+  ignore_guard="${!ignore_guard_ref}"
+  if [[ ("$ALL" = "true" || "$guard" = "true") && "$ignore_guard" = "" ]]; then
+    optional_theme "$1" "${@:2}"
+    return 0
+  else
+    inactive_theme "$1" "${@:2}"
+    return 1
+  fi
+}
+
+function guard() {
+  local condition=$1
+
+  case $condition in
+    install)  [[ "$ACTION" == "install" ]]  ;;
+    upgrade)  [[ "$ACTION" == "upgrade" ]]  ;;
+    test)     [[ "$ACTION" == "test" ]]     ;;
+    arch)     [[ "$OS_NAME" == "arch" ]]    ;;
+    macos)    [[ "$OS_NAME" == "macos" ]]   ;;
+  esac
+
+  return
+}
+
+function qualify_repo_url() {
+  if [[ "$1" = "https://"* || "$1" = "git@"* ]]; then
+    echo "$1"
+  elif [[ "$2" = "github" ]]; then
+    if [[ "$USE_HTTPS" = "true" ]]; then
+      echo  "https://github.com/$1.git"
+    else
+      echo "git@github.com:$1.git"
+    fi
+  elif [[ "$2" = "gitlab" ]]; then
+    if [[ "$USE_HTTPS" = "true" ]]; then
+      echo  "https://gitlab.com/$1.git"
+    else
+      echo "git@gitlab.com:$1.git"
+    fi
+  fi
+}
+
+function git_lg() {
+  git --no-pager \
+      log \
+      --graph \
+      --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+      "$*"
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Variables
+# - - - - - - - - - - - - - - - - - - - -
+
+msg::domain "Supporting" "Defining variables"
+
+ALL="true"
+ACTION=
+case $1 in
+  install|upgrade|test)
+    ACTION=$1
+    shift
+    ;;
+  *)
+    echo
+    if [ -z "$1" ]; then
+      ACTION=install
+    else
+      error "action '$1' is not supported"
+      log "supported actions are: install, upgrade, test"
+      exit 1
+    fi
+    ;;
+esac
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+  if [[ "$1" != "" ]]; then
+    if [[ "$1" = -* ]]; then
+      key=$(echo "${1#-}" | tr '[:upper:]' '[:lower:]')
+      declare -r "guard_ignore_$key=true"
+    else
+      key=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+      declare -r "guard_$key=true"
+      ALL="false"
+    fi
+  fi
+  shift
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [[ "$INTERACTIVE" = "" ]]; then
+  INTERACTIVE=true
+fi
+
+# - - - - - - - - - - - - - - - - - - - -
+# Lockfile
+# - - - - - - - - - - - - - - - - - - - -
+
+msg::domain "Supporting" "Summoning helpers"

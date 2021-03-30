@@ -1,150 +1,17 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
-# utils
+# Shell Utilities
 #
 
-
-# - - - - - - - - - - - - - - - - - - - -
-# Messages + Prompts
-# - - - - - - - - - - - - - - - - - - - -
-
-# Prompt the user for input.
-# Parameters:
-#   Prompt message
-ask() {
-  print_question "$1"
-  read -r
-}
-
-# Prompt the user for input without echoing response.
-# Parameters:
-#   Prompt message
-ask_silently() {
-  print_question "$1"
-  read -s -r
-  printf "\n"
-}
-
-ask_for_confirmation() {
-  print_question "$1 (y/n) "
-  read -r -n 1
-  printf "\n"
-}
-
-# Get the user's answer to the previous prompt.
-get_answer() {
-  printf "%s" "$REPLY"
-}
-
-# Whether the user responded affirmatively to the previous prompt.
-# Globals:
-#   REPLY
-function user_confirmed () {
-  [[ "$REPLY" =~ ^[Yy]$ ]] &&
-    return 0 ||
-      return 1
-}
-
-# Print a top-level heading message.
-# Parameters:
-#   Message
-function print_hed () {
-  print_in_purple "\n • $1\n"
-}
-
-# Print a subheading message.
-# Parameters:
-#   Message
-function print_subhed () {
-  print_in_green "\n   $1\n"
-}
-
-# Print a basic informational message.
-# Parameters:
-#   Message
-function print_info() {
-  print_in_purple "\n   $1\n"
-}
-
-# Prompt the user for a response to a question.
-# Parameters:
-#   Message
-print_question() {
-  print_in_yellow "   [?] $1"
-}
-
-# Print a message along with an indication of the result of the previous command.
-# Parameters:
-#   Result code
-#   Message
-print_result() {
-  if [ "$1" -eq 0 ]; then
-    print_success "$2"
-  else
-    print_error "$2"
-  fi
-  return "$1"
-}
-
-# Print a message indicating success.
-# Parameters:
-#   Message
-print_success() {
-  print_in_green "   [✔] $1\n"
-}
-
-# Print a message indicating a warning.
-# Parameters:
-#   Message
-print_warning() {
-  print_in_yellow "   [!] $1\n"
-}
-
-# Print a message indicating an error.
-# Parameters:
-#   Label
-#   Message
-print_error() {
-  print_in_red "   [✖] $1 $2\n"
-}
-
-print_error_stream() {
-  while read -r line; do
-    print_error "↳ ERROR: $line"
-  done
-}
-
-print_in_green() {
-  print_in_color "$1" 2
-}
-
-print_in_purple() {
-  print_in_color "$1" 5
-}
-
-print_in_red() {
-  print_in_color "$1" 1
-}
-
-print_in_yellow() {
-  print_in_color "$1" 3
-}
-
-print_in_color() {
-  printf "%b" \
-    "$(tput setaf "$2" 2>/dev/null)" \
-    "$1" \
-    "$(tput sgr0 2>/dev/null)"
-}
-
+# @TODO ensure proper relative path via dirname
+. ./world.sh
+. ./msg.sh
+. ./fs.sh
 
 # - - - - - - - - - - - - - - - - - - - -
 # Commands
 # - - - - - - - - - - - - - - - - - - - -
 
-cmd_exists() {
-  command -v "$1" &>/dev/null
-}
 
 kill_all_subprocesses() {
   local i=""
@@ -208,40 +75,11 @@ ask_for_sudo() {
 }
 
 get_os() {
-  local os=""
-  local kernelName=""
-  kernelName="$(uname -s)"
-
-  if [ "$kernelName" == "Darwin" ]; then
-    os="macos"
-  elif [ "$kernelName" == "Linux" ] && [ -e "/etc/os-release" ]; then
-    os="$(
-      . /etc/os-release
-      printf "%s" "$ID"
-    )"
-  else
-    os="$kernelName"
-  fi
-
-  printf "%s" "$os"
+  echo "${OS_NAME}"
 }
 
 get_os_version() {
-  local os=""
-  local version=""
-
-  os="$(get_os)"
-
-  if [ "$os" == "macos" ]; then
-    version="$(sw_vers -productVersion)"
-  elif [ -e "/etc/os-release" ]; then
-    version="$(
-      . /etc/os-release
-      printf "%s" "$VERSION_ID"
-    )"
-  fi
-
-  printf "%s" "$version"
+  echo "${OS_VERSION}"
 }
 
 function get_current_dir () {
