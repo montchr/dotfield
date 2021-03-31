@@ -3,6 +3,10 @@
 # Shell Utilities :: Messages + Prompts
 #
 
+[[ ${Utils[msg]} ]] \
+  && return \
+  || Utils[msg]=${BASH_SOURCE[0]:-${(%):-%x}}
+
 readonly MSG_INDENT=""
 
 # Prompt the user for input.
@@ -149,4 +153,45 @@ function msg::in_color() {
     "$(tput setaf "$2" 2>/dev/null)" \
     "$1" \
     "$(tput sgr0 2>/dev/null)"
+}
+
+function msg::spinner() {
+  local -r PID="$1"
+  local -r CMDS="$2"
+  local -r MSG="$3"
+
+  local -r FRAMES='/-\|'
+  # shellcheck disable=SC2034
+  local -r NUMBER_OR_FRAMES=${#FRAMES}
+  local i=0
+  local frameText=""
+
+  if is_interactive && ! is_ci; then
+    # Provide more space so that the text hopefully doesn't reach the bottom
+    # line of the terminal window.
+    #
+    # This is a workaround for escape sequences not tracking the buffer position
+    # (accounting for scrolling).
+    #
+    # See also: https://unix.stackexchange.com/a/278888
+    printf "\n\n\n"
+
+    tput cuu 3
+    tput sc
+  fi
+
+  # Display spinner while the commands are being executed.
+  while kill -0 "$PID" &>/dev/null; do
+    frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
+
+    if is_interactive && ! is_ci; then
+      printf "%s\n" "$frameText"
+      sleep 0.2
+      tput rc
+    else
+      printf "%s" "$frameText"
+      sleep 0.2
+      printf "\r"
+    fi
+  done
 }

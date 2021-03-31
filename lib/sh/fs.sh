@@ -3,11 +3,16 @@
 # Shell Utilities :: Filesystem
 #
 
+[[ ${Utils[fs]} ]] \
+  && return \
+  || Utils[fs]=${BASH_SOURCE[0]:-${(%):-%x}}
+
+# @TODO deprecate for cmd_exists?
 function check() {
   command -v "$1" >/dev/null 2>&1
 }
 
-cmd_exists() {
+function cmd_exists() {
   command -v "$1" &>/dev/null
 }
 
@@ -16,6 +21,7 @@ function ensure_dir() {
     msg::info "create $1"
     mkdir -p "$1"
   fi
+  print_result $? "$1"
 }
 
 function linkfile() {

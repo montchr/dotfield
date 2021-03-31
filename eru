@@ -6,84 +6,20 @@
 # gratefully transcribed from https://github.com/d12frosted/environment/
 #
 # Usage:
-#   eru [theme]...
+#   eru [domain]...
 #
 
-querent="cdom"
+QUERENT="cdom"
 
 set -euo pipefail
 
+export Utilities=()
+
+
 . ./lib/sh/main.sh
 
-msg::info "Kernel name:      $KERNEL_NAME"
-msg::info "Kernel release:   $KERNEL_RELEASE"
-msg::info "Operating system: $OS_NAME"
-msg::info "OS version:       $OS_VERSION"
-msg::info "User:             $USER"
-msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
-msg::info
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Helpers
-# - - - - - - - - - - - - - - - - - - - -
-
-msg::domain "Supporting" "Summoning helpers"
-
-function theme_guard() {
-  key=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-  local guard_ref="guard_$key"
-  local ignore_guard_ref="guard_ignore_$key"
-  guard="${!guard_ref}"
-  ignore_guard="${!ignore_guard_ref}"
-  if [[ ("$ALL" = "true" || "$guard" = "true") && "$ignore_guard" = "" ]]; then
-    optional_theme "$1" "${@:2}"
-    return 0
-  else
-    inactive_theme "$1" "${@:2}"
-    return 1
-  fi
-}
-
-function guard() {
-  local condition=$1
-
-  case $condition in
-    install)  [[ "$ACTION" == "install" ]]  ;;
-    upgrade)  [[ "$ACTION" == "upgrade" ]]  ;;
-    test)     [[ "$ACTION" == "test" ]]     ;;
-    arch)     [[ "$OS_NAME" == "arch" ]]    ;;
-    macos)    [[ "$OS_NAME" == "macos" ]]   ;;
-  esac
-
-  return
-}
-
-function qualify_repo_url() {
-  if [[ "$1" = "https://"* || "$1" = "git@"* ]]; then
-    echo "$1"
-  elif [[ "$2" = "github" ]]; then
-    if [[ "$USE_HTTPS" = "true" ]]; then
-      echo  "https://github.com/$1.git"
-    else
-      echo "git@github.com:$1.git"
-    fi
-  elif [[ "$2" = "gitlab" ]]; then
-    if [[ "$USE_HTTPS" = "true" ]]; then
-      echo  "https://gitlab.com/$1.git"
-    else
-      echo "git@gitlab.com:$1.git"
-    fi
-  fi
-}
-
-function git_lg() {
-  git --no-pager \
-      log \
-      --graph \
-      --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-      "$*"
-}
+msg::domain "System" "Surveying the landscape"
+world::info
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -136,7 +72,7 @@ fi
 # Lockfile
 # - - - - - - - - - - - - - - - - - - - -
 
-msg::domain "Supporting" "Summoning helpers"
+msg::domain "Supporting" "Handling lock file"
 
 LOCK_FILE=$XDG_CACHE_HOME/eru/eru.lock
 if [[ -f "$LOCK_FILE" ]]; then
@@ -167,7 +103,7 @@ msg::domain "Guardian" "Ensure directories exist" && {
 }
 
 # @TODO Make sure it works for Linux
-theme_guard "SSH" "Checking SSH keys" && {
+guard::domain "SSH" "Checking SSH keys" && {
 
   if [[ "$INTERACTIVE" = "true" ]]; then
     ssh_key_add_url="https://github.com/settings/ssh/new"
@@ -187,7 +123,7 @@ theme_guard "SSH" "Checking SSH keys" && {
     msg::info "Starting ssh-agent"
     eval "$(ssh-agent -s)"
 
-    guard macos && {
+    guard::macos && {
       msg::info "Automatically load SSH key and use Keychain"
       echo "Host *
  AddKeysToAgent yes
@@ -206,12 +142,12 @@ theme_guard "SSH" "Checking SSH keys" && {
 
 }
 
-theme_guard "Repo" "Sync repos from Repofiles" && {
+guard::domain "Repo" "Sync repos from Repofiles" && {
   map_lines sync_repo "$target/Repofile" || true
   map_lines sync_repo "$XDG_CONFIG_CACHE/eru/Repofile" || true
 }
 
-theme_guard "Link" "Link all files as defined in Linkfiles" && {
+guard::domain "Link" "Link all files as defined in Linkfiles" && {
   linkfile "$target/Linkfile"
   linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
   linkfile "$XDG_CONFIG_CACHE/eru/Linkfile_${KERNEL_NAME}"
@@ -223,8 +159,8 @@ theme_guard "Link" "Link all files as defined in Linkfiles" && {
   done
 }
 
-guard arch && {
-  theme_guard "packages" "Bootstrap Arch Linux" && {
+guard::arch && {
+  guard::domain "packages" "Bootstrap Arch Linux" && {
     msg::section "Install crucial dependenices"
     sudo pacman -S --noconfirm --needed \
       base-devel \
@@ -266,8 +202,8 @@ guard arch && {
     }
   }
 
-  guard install && {
-    theme_guard "packages" "Install all dependencies" && {
+  guard::install && {
+    guard::domain "packages" "Install all dependencies" && {
       msg::info "Import known GPG keys"
       # spotify
       curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import
@@ -297,14 +233,14 @@ guard arch && {
     }
   }
 
-  guard upgrade && {
-    theme_guard "packages" "Upgrade Arch Linux" && {
+  guard::upgrade && {
+    guard::domain "packages" "Upgrade Arch Linux" && {
       sudo aura -Syu --noconfirm
       sudo aura -Aux --noconfirm
     }
   }
 
-  theme_guard "hardware" "Setup keyboard" && {
+  guard::domain "hardware" "Setup keyboard" && {
     if [[ ! -f /usr/share/X11/xkb/symbols/ua.bak ]]; then
       sudo mv /usr/share/X11/xkb/symbols/ua /usr/share/X11/xkb/symbols/ua.bak
     fi
@@ -314,16 +250,16 @@ guard arch && {
     setxkbmap -option caps:ctrl_modifier
   }
 
-  theme_guard "hardware" "Setup touchpad" && {
+  guard::domain "hardware" "Setup touchpad" && {
     sudo cp "$XDG_CONFIG_HOME/xorg/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
   }
 
-  theme_guard "hardware" "Setup autolock" && {
+  guard::domain "hardware" "Setup autolock" && {
     sudo cp "$XDG_CONFIG_HOME/arch/lock@.service" /etc/systemd/system/lock@.service
     systemctl enable "lock@${USER}.service" || error "systemd is not working"
   }
 
-  theme_guard "hardware" "Setup backlight rules" && {
+  guard::domain "hardware" "Setup backlight rules" && {
     tmp_rule=$(mktemp)
     for backlight in /sys/class/backlight/*; do
       name=$(basename "$backlight")
@@ -339,15 +275,15 @@ guard arch && {
     fi
   }
 
-  theme_guard "gnupg" "Fix permissions" && {
+  guard::domain "gnupg" "Fix permissions" && {
     chown -R "$(whoami)" ~/.gnupg/
     find ~/.gnupg -type f -exec chmod 600 {} \;
     find ~/.gnupg -type d -exec chmod 700 {} \;
   }
 }
 
-guard macos && {
-  theme_guard "packages" "Ensure brew exists" && {
+guard::macos && {
+  guard::domain "packages" "Ensure brew exists" && {
     check brew || {
       log "Installing brew"
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -355,14 +291,14 @@ guard macos && {
     }
   }
 
-  guard install && {
-    theme_guard "packages" "Install all dependencies" && {
+  guard::install && {
+    guard::domain "packages" "Install all dependencies" && {
       cd "$target/macos" && brew bundle
     }
   }
 
-  guard upgrade && {
-    theme_guard "packages" "Upgrade packages" && {
+  guard::upgrade && {
+    guard::domain "packages" "Upgrade packages" && {
       brew update
       brew upgrade
     }
@@ -373,18 +309,18 @@ msg::domain "Git" "Create a local git config file" && {
   touch "$target/git/local.config"
 }
 
-guard macos && {
-  theme_guard "OS" "Write all defaults" && {
+guard::macos && {
+  guard::domain "OS" "Write all defaults" && {
     cd "$target/macos" && sudo ./defaults.sh
   }
 
-  theme_guard "skhd" "Patch skhd application PATH" && {
+  guard::domain "skhd" "Patch skhd application PATH" && {
     check skhd && {
       "$target/bin/patch_skhd_path"
     }
   }
 
-  theme_guard "yabai" "Ensure scripting addition is installed" && {
+  guard::domain "yabai" "Ensure scripting addition is installed" && {
     # reinstall the scripting addition
     sudo yabai --uninstall-sa
     sudo yabai --install-sa
@@ -397,7 +333,7 @@ guard macos && {
 }
 
 guard::arch && {
-  theme_guard "xmonad" "Rebuild Xmonad configurations" && {
+  guard::domain "xmonad" "Rebuild Xmonad configurations" && {
     msg::section "Install xmonad"
     (
       cd "$XDG_CONFIG_HOME/xmonad"
@@ -416,6 +352,5 @@ guard::arch && {
   }
 }
 
-
-
-
+msg::success "Everything is good here" \
+  && return 0

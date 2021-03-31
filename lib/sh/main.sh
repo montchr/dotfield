@@ -3,10 +3,19 @@
 # Shell Utilities
 #
 
-# @TODO ensure proper relative path via dirname
-. ./world.sh
-. ./msg.sh
-. ./fs.sh
+BASE_DIR="$(dirname "${BASH_SOURCE[0]}")"
+
+# shellcheck source=./00-world.sh
+. "${BASE_DIR}/00-world.sh"
+# shellcheck source=./fs.sh
+. "${BASE_DIR}/fs.sh"
+# shellcheck source=./guard.sh
+. "${BASE_DIR}/guard.sh"
+# shellcheck source=./msg.sh
+. "${BASE_DIR}/msg.sh"
+# shellcheck source=./repo.sh
+. "${BASE_DIR}/repo.sh"
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Commands
@@ -88,9 +97,6 @@ function get_current_dir () {
     echo "${current_dir}"
 }
 
-is_git_repository() {
-  git rev-parse &>/dev/null
-}
 
 is_supported_version() {
   # shellcheck disable=SC2206
@@ -116,20 +122,6 @@ is_supported_version() {
       return 0
     fi
   done
-}
-
-mkd() {
-  if [ -n "$1" ]; then
-    if [ -e "$1" ]; then
-      if [ ! -d "$1" ]; then
-        print_error "$1 - a file with the same name already exists!"
-      else
-        print_success "$1"
-      fi
-    else
-      execute "mkdir -p $1" "$1"
-    fi
-  fi
 }
 
 # Whether the current shell is interactive.
@@ -162,43 +154,3 @@ set_trap() {
     trap '$2' "$1"
 }
 
-show_spinner() {
-  local -r PID="$1"
-  local -r CMDS="$2"
-  local -r MSG="$3"
-
-  local -r FRAMES='/-\|'
-  # shellcheck disable=SC2034
-  local -r NUMBER_OR_FRAMES=${#FRAMES}
-  local i=0
-  local frameText=""
-
-  if is_interactive && ! is_ci; then
-    # Provide more space so that the text hopefully doesn't reach the bottom
-    # line of the terminal window.
-    #
-    # This is a workaround for escape sequences not tracking the buffer position
-    # (accounting for scrolling).
-    #
-    # See also: https://unix.stackexchange.com/a/278888
-    printf "\n\n\n"
-
-    tput cuu 3
-    tput sc
-  fi
-
-  # Display spinner while the commands are being executed.
-  while kill -0 "$PID" &>/dev/null; do
-    frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
-
-    if is_interactive && ! is_ci; then
-      printf "%s\n" "$frameText"
-      sleep 0.2
-      tput rc
-    else
-      printf "%s" "$frameText"
-      sleep 0.2
-      printf "\r"
-    fi
-  done
-}

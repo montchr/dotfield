@@ -1,14 +1,37 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
 # Shell Utilities :: The World
 #
+
+
+[[ ${Utils[world]} ]] \
+  && return \
+  || Utils[world]=${BASH_SOURCE[0]:-${(%):-%x}}
+
+
+. ./msg.sh
+
+
+declare -gx \
+  DEVELOPER \
+  KERNEL_NAME \
+  KERNEL_RELEASE \
+  OS_NAME \
+  OS_VERSION \
+  QUERENT \
+  USER \
+  PATH \
+  XDG_CACHE_HOME \
+  XDG_CONFIG_CACHE \
+  XDG_CONFIG_HOME \
+  XDG_DATA_HOME
 
 
 # - - - - - - - - - - - - - - - - - - - -
 # The Querent
 # - - - - - - - - - - - - - - - - - - - -
 
-querent="cdom"
+QUERENT="cdom"
 
 if [ -z "$USER" ]; then
   USER=$(whoami)
@@ -50,7 +73,7 @@ esac
 # Home
 # - - - - - - - - - - - - - - - - - - - -
 
-export PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.local/bin:$PATH
 
 target=$HOME/.config
 if [[ -d "$XDG_CONFIG_HOME" ]]; then
@@ -60,12 +83,28 @@ if [[ -d "$GITHUB_WORKSPACE" ]]; then
   target="$GITHUB_WORKSPACE"
 fi
 
-export XDG_CONFIG_HOME=$target
-export XDG_CONFIG_CACHE="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
+XDG_CONFIG_HOME=$target
+XDG_CONFIG_CACHE="$HOME/.cache"
+XDG_DATA_HOME="$HOME/.local/share"
+XDG_CACHE_HOME="$HOME/.cache"
 
-export DEVELOPER=$HOME/dev
-if [[ "$USER" != "$querent" ]]; then
-  export DEVELOPER=$HOME/dev/personal
+DEVELOPER=$HOME/dev
+if [[ "$USER" != "$QUERENT" ]]; then
+  DEVELOPER=$HOME/dev/personal
 fi
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function world::info() {
+
+  msg::info "Kernel name:      $KERNEL_NAME"
+  msg::info "Kernel release:   $KERNEL_RELEASE"
+  msg::info "Operating system: $OS_NAME"
+  msg::info "OS version:       $OS_VERSION"
+  msg::info "User:             $USER"
+  msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
+  msg::info
+
+}
