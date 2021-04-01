@@ -13,19 +13,19 @@ global_vars:
 
 matches:
   # Short date
-  - trigger: ":dt:dd"
+  - trigger: ":d.dd"
     replace: "{{date}}"
 
   # Time
-  - trigger: ":dt:tt"
+  - trigger: ":d.tt"
     replace: "{{time}}"
 
   # Date + Time
-  - trigger: ":dt:dt"
+  - trigger: ":d.dt"
     replace: "{{date}} {{time}}"
 
   # Datetime ID
-  - trigger: ":dt:id"
+  - trigger: ":d.id"
     replace: "{{id}}"
     vars:
       - name: id
