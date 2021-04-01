@@ -44,7 +44,7 @@ export \
   CACHEDIR="$XDG_CACHE_HOME" \
   DOTS="$HOME/.dots" \
   DOTS_BIN="${DOTS}/bin" \
-  DOTFILES="$HOME/.dotfiles" \
+  DOTFILES="$HOME/.dots" \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
   TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
