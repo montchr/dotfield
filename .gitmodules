@@ -38,3 +38,6 @@
 [submodule "semver-tool"]
 	path = vendor/semver-tool
 	url = git@github.com:fsaintjacques/semver-tool.git
+[submodule "bash-oo-framework"]
+	path = vendor/bash-oo-framework
+	url = git@github.com:niieani/bash-oo-framework.git
