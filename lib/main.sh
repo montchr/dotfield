@@ -5,6 +5,9 @@
 
 BASE_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
+readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
+
+
 # shellcheck source=./00-world.sh
 . "${BASE_DIR}/00-world.sh"
 # shellcheck source=./fs.sh

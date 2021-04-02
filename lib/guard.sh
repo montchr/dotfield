@@ -59,3 +59,8 @@ function guard::macos() {
   [[ "$OS_NAME" == "macos" ]]
   return
 }
+
+function guard::user() {
+  [[ $(whoami) == "$1" ]]
+  return
+}
