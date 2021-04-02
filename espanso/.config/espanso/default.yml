@@ -27,3 +27,6 @@ matches:
 
   - trigger: ":s.esc"
     replace: "⎋"
+
+  - trigger: ":s.null"
+    replace: "∅"
