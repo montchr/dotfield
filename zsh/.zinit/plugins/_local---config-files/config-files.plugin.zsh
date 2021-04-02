@@ -141,6 +141,9 @@ alias e="${EDITOR}"
 alias g="git"
 alias t='tail -f'
 
+# make it easy to copy/paste script commands verbatim
+alias '$'=''
+
 # Use Kitty terminal's ssh helper kitten
 alias sshk="kitty +kitten ssh -o SendEnv=CDOM_OS_APPEARANCE -A"
 
