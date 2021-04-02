@@ -176,6 +176,13 @@ alias gsumo='git submodule update --init --recursive'
 # @TODO needs to be a function
 # alias gdl="git diff-tree --no-commit-id --name-only -r $1"
 
+#
+# kitty
+#
+
+# display images in kitty terminal
+alias icat="kitty +kitten icat"
+
 
 #
 # Node
