@@ -30,11 +30,11 @@
 	path = meta/lib/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
 [submodule "bats-core"]
-	path = lib/bats-core
+	path = vendor/bats-core
 	url = git@github.com:bats-core/bats-core.git
 [submodule "iosevka"]
 	path = iosevka
 	url = git@git.sr.ht:~montchr/iosevka-builds
 [submodule "semver-tool"]
-	path = lib/semver-tool
+	path = vendor/semver-tool
 	url = git@github.com:fsaintjacques/semver-tool.git
