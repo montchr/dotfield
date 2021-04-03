@@ -171,10 +171,8 @@ execute() {
 
   cmdsPID=$!
 
-  if is_interactive && ! is_ci; then
-    # Show a spinner if the commands require more time to complete.
-    show_spinner "$cmdsPID" "$CMDS" "$MSG"
-  fi
+  # Show a spinner if the commands require more time to complete.
+  show_spinner "$cmdsPID" "$CMDS" "$MSG"
 
   # Wait for the commands to no longer be executing in the background, and then
   # get their exit code.
@@ -330,7 +328,7 @@ show_spinner() {
   local i=0
   local frameText=""
 
-  if is_interactive && ! is_ci; then
+  if ! is_ci; then
     # Provide more space so that the text hopefully doesn't reach the bottom
     # line of the terminal window.
     #
@@ -348,14 +346,14 @@ show_spinner() {
   while kill -0 "$PID" &>/dev/null; do
     frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
 
-    if is_interactive && ! is_ci; then
-      printf "%s\n" "$frameText"
-      sleep 0.2
-      tput rc
-    else
+    if is_ci; then
       printf "%s" "$frameText"
       sleep 0.2
       printf "\r"
+    else
+      printf "%s\n" "$frameText"
+      sleep 0.2
+      tput rc
     fi
   done
 }
