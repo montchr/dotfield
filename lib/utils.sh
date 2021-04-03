@@ -296,27 +296,22 @@ mkd() {
 
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
-# Returns:
-#   0 = yes
-#   1 = no
 function is_interactive() {
-  [[ -n "$PS1" ]] && return 0
-  case "$-" in
-    *i*) return 0 ;;
-    *)   return 1 ;;
-  esac
+  [[ $- =~ 'i' ]] && return
+  local vars=(INTERACTIVE PS1)
+  for var in "${vars[@]}"; do
+    [[ -v "${var}" ]] && return
+  done
+  return 1
 }
 
 # Whether the current shell is run within CI or Vagrant.
-# Returns:
-#   0 = yes
-#   1 = no
 function is_ci() {
-  if [[ -n "${VAGRANT}" ]] || [[ -n "${TRAVIS}" ]]; then
-    return 0
-  else
-    return 1
-  fi
+  local vars=(CI TRAVIS VAGRANT)
+  for var in "${vars[@]}"; do
+    [[ -v "${var}" ]] && return
+  done
+  return 1
 }
 
 set_trap() {
