@@ -141,6 +141,9 @@ alias e="${EDITOR}"
 alias g="git"
 alias t='tail -f'
 
+# make it easy to copy/paste script commands verbatim
+alias '$'=''
+
 # Use Kitty terminal's ssh helper kitten
 alias sshk="kitty +kitten ssh -o SendEnv=CDOM_OS_APPEARANCE -A"
 
@@ -172,6 +175,13 @@ alias gsumo='git submodule update --init --recursive'
 # Show list of files changed in a commit
 # @TODO needs to be a function
 # alias gdl="git diff-tree --no-commit-id --name-only -r $1"
+
+#
+# kitty
+#
+
+# display images in kitty terminal
+alias icat="kitty +kitten icat"
 
 
 #
