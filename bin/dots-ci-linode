@@ -3,11 +3,13 @@
 # dots-ci-linode
 #
 
-set -euo pipefail
+set -eo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 . ../lib/utils.sh
+
+PASSWORD="${PASSWORD:-}"
 
 LINODE_LABEL="cdom-dots"
 LINODE_IMAGE_LABEL="cdom-dots ubuntu 20.04 fresh"
@@ -72,13 +74,7 @@ function print_linode_info() {
 }
 
 # Set the global $PASSWORD env var by generation or by prompt.
-# No effect if $PASSWORD is already set.
-# Globals:
-#   PASSWORD
 function set_password_global() {
-  [[ -n $PASSWORD ]] \
-    && return
-
   ask_for_confirmation "Do you want to generate a new password?"
   if user_confirmed; then
     if cmd_exists bw; then
@@ -163,16 +159,17 @@ function main() {
 
   if is_rebuilding "${LINODE_LABEL}"; then
     print_linode_info "${LINODE_LABEL}"
-    print_error "The linode '${LINODE_LABEL}' is already rebuilding!" "Aborting."
+    print_warning "The linode '${LINODE_LABEL}' is already rebuilding!" "Aborting."
     exit 1
+  else
+    [[ -z "${PASSWORD}" ]] \
+      && set_password_global
+
+    init_rebuild \
+      "${LINODE_LABEL}" \
+      "${LINODE_IMAGE_LABEL}" \
+      "${PASSWORD}"
   fi
-
-  set_password_global
-
-  init_rebuild \
-    "${LINODE_LABEL}" \
-    "${LINODE_IMAGE_LABEL}" \
-    "${PASSWORD}"
 
   check_status "${LINODE_LABEL}"
 

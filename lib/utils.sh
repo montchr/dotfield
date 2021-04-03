@@ -171,7 +171,7 @@ function msg::spinner() {
   local i=0
   local frameText=""
 
-  if is_interactive && ! is_ci; then
+  if ! is_ci; then
     # Provide more space so that the text hopefully doesn't reach the bottom
     # line of the terminal window.
     #
@@ -189,14 +189,14 @@ function msg::spinner() {
   while kill -0 "$PID" &>/dev/null; do
     frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
 
-    if is_interactive && ! is_ci; then
-      printf "%s\n" "$frameText"
-      sleep 0.2
-      tput rc
-    else
+    if is_ci; then
       printf "%s" "$frameText"
       sleep 0.2
       printf "\r"
+    else
+      printf "%s\n" "$frameText"
+      sleep 0.2
+      tput rc
     fi
   done
 }
@@ -231,10 +231,8 @@ execute() {
 
   cmdsPID=$!
 
-  if is_interactive && ! is_ci; then
-    # Show a spinner if the commands require more time to complete.
-    show_spinner "$cmdsPID" "$CMDS" "$MSG"
-  fi
+  # Show a spinner if the commands require more time to complete.
+  show_spinner "$cmdsPID" "$CMDS" "$MSG"
 
   # Wait for the commands to no longer be executing in the background, and then
   # get their exit code.
@@ -304,27 +302,22 @@ is_supported_version() {
 
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
-# Returns:
-#   0 = yes
-#   1 = no
 function is_interactive() {
-  [[ -n "$PS1" ]] && return 0
-  case "$-" in
-    *i*) return 0 ;;
-    *)   return 1 ;;
-  esac
+  [[ $- =~ 'i' ]] && return
+  local vars=(INTERACTIVE PS1)
+  for var in "${vars[@]}"; do
+    [[ -v "${var}" ]] && return
+  done
+  return 1
 }
 
 # Whether the current shell is run within CI or Vagrant.
-# Returns:
-#   0 = yes
-#   1 = no
 function is_ci() {
-  if [[ -n "${VAGRANT}" ]] || [[ -n "${TRAVIS}" ]]; then
-    return 0
-  else
-    return 1
-  fi
+  local vars=(CI TRAVIS VAGRANT)
+  for var in "${vars[@]}"; do
+    [[ -v "${var}" ]] && return
+  done
+  return 1
 }
 
 set_trap() {
