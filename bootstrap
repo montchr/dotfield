@@ -107,7 +107,7 @@ function source_ephemeral () {
   fi
 
   tmp_file="$(mktemp /tmp/XXXXXXXX)"
-  url="${DOTFILES_UTILS_BASE_URL}/${path}"
+  url="${DOTFILES_UTILS_BASE_URL}/${path}.sh"
 
   download "${url}" "${tmp_file}" && {
     # shellcheck disable=SC1090
