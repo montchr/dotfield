@@ -6,7 +6,7 @@ readonly GITHUB_REPOSITORY="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
 readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
-readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib/utils.sh"
+readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib"
 
 DOTFILES_DIR="${HOME}/.dots"
 SKIP_QUESTIONS=0
@@ -91,13 +91,28 @@ function download_dotfiles () {
   return $?
 }
 
-function download_utils () {
+# Source a file, falling back to sourcing ephemerally from the remote.
+# Parameter:
+#   Relative path to file
+function source_ephemeral () {
+  local path="$1"
   local tmp_file=""
-  tmp_file="$(mktemp /tmp/XXXXX)"
+  local url=""
 
-  download "$DOTFILES_UTILS_URL" "$tmp_file" && {
+  if [[ -f "${path}" ]]; then
     # shellcheck disable=SC1090
-    . "$tmp_file" && rm -rf "$tmp_file"
+    . "${path}" \
+      && return \
+      || return 1
+  fi
+
+  tmp_file="$(mktemp /tmp/XXXXXXXX)"
+  url="${DOTFILES_UTILS_BASE_URL}/${path}"
+
+  download "${url}" "${tmp_file}" && {
+    # shellcheck disable=SC1090
+    . "${tmp_file}" \
+      && rm -rf "${tmp_file}"
   } && return 0
 
   return 1
@@ -205,11 +220,11 @@ function main () {
     exit 1
 
   # Load utils
-  if [[ -x "lib/utils.sh" ]]; then
-    . "lib/utils.sh" || exit 1
-  else
-    download_utils || exit 1
-  fi
+  # if [[ -x "lib/utils.sh" ]]; then
+  #   . "lib/utils.sh" || exit 1
+  # else
+  #   download_utils || exit 1
+  # fi
 
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
