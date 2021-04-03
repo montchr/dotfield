@@ -9,7 +9,6 @@ readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${D
 readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib"
 
 DOTFILES_DIR="${HOME}/.dots"
-SKIP_QUESTIONS=0
 
 
 # ----------------------------------------------------------------------
@@ -34,8 +33,6 @@ function download () {
 }
 
 # Download the dotfiles repo.
-# Globals:
-#   SKIP_QUESTIONS
 # Arguments:
 #   Download method. Can be either `archive` or `git`.
 function download_dotfiles () {
@@ -46,7 +43,7 @@ function download_dotfiles () {
   print_result $? "Download archive" "true"
   printf "\n"
 
-  if ! (( SKIP_QUESTIONS )); then
+  if ! is_ci; then
     ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
     if ! user_confirmed; then
       DOTFILES_DIR=""
@@ -160,27 +157,6 @@ function verify_os () {
   return 1
 }
 
-# Whether the bootstrap script should skip questions.
-# Uses:
-#   is_interactive
-#   is_ci
-# Globals:
-#   CDOM_INIT_INTERACTIVE
-function .should_skip_questions() {
-  [[ "false" == "${CDOM_INIT_INTERACTIVE}" ]] && return 0
-  ! is_interactive && return 0
-  is_ci && return 0
-
-  while :; do
-    case $1 in
-      -y | --yes) return 0 ;;
-      *) break ;;
-    esac
-    shift 1
-  done
-  return 1
-}
-
 # Initialize dotfiles git repo in place.
 # Globals:
 #   DOTFILES_ORIGIN
@@ -224,10 +200,6 @@ function main () {
   # Ensure the OS is supported and above the minimum version.
   verify_os || exit 1
 
-  .should_skip_questions "$@" \
-    && SKIP_QUESTIONS=1 \
-    && print_warning "Skipping questions!"
-
   if [[ "root" == $(whoami) ]]; then
     print_warning "Running as root!"
   else
@@ -261,7 +233,7 @@ function main () {
 
   print_hed "Bootstrapping complete!"
 
-  if ! (( SKIP_QUESTIONS )); then
+  if ! is_ci; then
     print_hed "Restart"
 
     ask_for_confirmation "Do you want to restart? You probably should."
