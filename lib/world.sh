@@ -4,12 +4,6 @@
 #
 
 
-[[ ${Utils[world]} ]] \
-  && return \
-  || Utils[world]=${BASH_SOURCE[0]:-${(%):-%x}}
-
-
-. ./msg.sh
 
 
 declare -gx \
@@ -31,43 +25,89 @@ declare -gx \
 # The Querent
 # - - - - - - - - - - - - - - - - - - - -
 
-QUERENT="cdom"
-
 if [ -z "$USER" ]; then
   USER=$(whoami)
 fi
 
 
 # - - - - - - - - - - - - - - - - - - - -
+# Functions
+# - - - - - - - - - - - - - - - - - - - -
+
+# Get the santized name of the kernel.
+function world::get_kernel_name() {
+  uname -s | tr '[:upper:]' '[:lower:]'
+}
+
+# Get the OS name.
+function world::get_os_name() {
+  local kernel
+  local os_name
+  kernel="$(get_kernel_name)"
+
+  [[ "macos" == "${kernel}" ]] && {
+    echo "macos"
+    return
+  }
+
+  [[ "linux" != "${kernel}" ]] && {
+    echo "unknown"
+    return 1
+  }
+
+  os_name=$(
+   . /etc/os-release
+   printf "%s" "${ID}"
+  )
+
+  echo "$os_name"
+}
+
+# Get OS version.
+function world::get_os_version() {
+  local kernel
+  local os_name
+  kernel="$(get_kernel_name)"
+
+  [[ "macos" == "${kernel}" ]] && {
+    sw_vers -productVersion
+    return
+  }
+
+  [[ "linux" != "${kernel}" ]] \
+    && return 1
+
+  version_id=$(
+   . /etc/os-release
+   printf "%s" "${VERSION_ID}"
+  )
+
+  echo "${version_id}"
+}
+
+# @TODO needs testing! may not work...
+function world::get_os_info() {
+  local name=$1
+  name="$(echo "$name" | tr '[:upper:]')"
+  readonly name
+
+  [[ "linux" != "$(get_kernel_name)" ]] \
+    && return 1
+
+  echo "$(
+   . /etc/os-release
+   printf "%s" "${!name}"
+  )"
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
 # The Construct
 # - - - - - - - - - - - - - - - - - - - -
 
-KERNEL_NAME=$(uname -s | tr '[:upper:]' '[:lower:]')
-KERNEL_RELEASE=$(uname -r | tr '[:upper:]' '[:lower:]')
-OS_NAME="unknown"
-OS_VERSION="unknown"
-case $KERNEL_NAME in
-  darwin)
-    OS_NAME=macos
-    OS_VERSION=$(sw_vers -productVersion)
-    ;;
-  linux)
-    case $KERNEL_RELEASE in
-      *arch*|*coreos*)
-        OS_NAME="arch"
-        ;;
-    esac
-    if [[ -e /etc/os-release ]]; then
-      OS_VERSION="$(
-        . /etc/os-release
-        printf "%s" "$VERSION_ID"
-      )"
-    fi
-    ;;
-  *)
-    ;;
-esac
-
+KERNEL_NAME="$(world::get_kernel_name)"
+OS_NAME="$(world::get_os_name)"
+OS_VERSION="$(world::get_os_version)"
 
 # - - - - - - - - - - - - - - - - - - - -
 # Home
