@@ -2,11 +2,12 @@
 
 set -e
 
-readonly GITHUB_REPOSITORY="montchr/dots"
-readonly DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
+readonly QUERENT="montchr"
+readonly REPO_ID="montchr/dots"
+readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
 readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
-readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/${DOTFILES_BRANCH}"
-readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/${DOTFILES_BRANCH}/lib"
+readonly DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
+readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
 DOTFILES_DIR="${HOME}/.dots"
 
@@ -30,62 +31,6 @@ function download () {
     return $?
   fi
   return 1
-}
-
-# Download the dotfiles repo.
-# Arguments:
-#   Download method. Can be either `archive` or `git`.
-function download_dotfiles () {
-  local tmp_file=""
-
-  tmp_file="$(mktemp /tmp/XXXXX)"
-  download "$DOTFILES_TARBALL_URL" "$tmp_file"
-  print_result $? "Download archive" "true"
-  printf "\n"
-
-  if ! is_ci; then
-    ask_for_confirmation "Do you want to store the dotfiles in '$DOTFILES_DIR'?"
-    if ! user_confirmed; then
-      DOTFILES_DIR=""
-      while [ -z "$DOTFILES_DIR" ]; do
-        ask "Please specify another location for the dotfiles (path): "
-        DOTFILES_DIR="$(get_answer)"
-      done
-    fi
-
-    # Ensure the `dotfiles` directory is available
-    while [ -e "$DOTFILES_DIR" ]; do
-      ask_for_confirmation "'$DOTFILES_DIR' already exists, do you want to overwrite it?"
-      if user_confirmed; then
-        rm -rf "$DOTFILES_DIR"
-        break
-      else
-        DOTFILES_DIR=""
-        while [ -z "$DOTFILES_DIR" ]; do
-          ask "Please specify another location for the dotfiles (path): "
-          DOTFILES_DIR="$(get_answer)"
-        done
-      fi
-    done
-
-    printf "\n"
-  else
-    rm -rf "$DOTFILES_DIR" &>/dev/null
-  fi
-
-  mkdir -p "${DOTFILES_DIR}"
-  print_result $? "Create '$DOTFILES_DIR'" "true"
-
-  # Extract archive in the `dotfiles` directory.
-  extract "$tmp_file" "$DOTFILES_DIR"
-  print_result $? "Extract archive" "true"
-
-  rm -rf "$tmp_file"
-  print_result $? "Remove archive file"
-
-  cd "${DOTFILES_DIR}"
-  print_result $? "cd ${DOTFILES_DIR}"
-  return $?
 }
 
 # Source a file, falling back to sourcing ephemerally from the remote.
@@ -112,16 +57,6 @@ function source_ephemeral () {
       && rm -rf "${tmp_file}"
   } && return 0
 
-  return 1
-}
-
-function extract () {
-  local archive="$1"
-  local outputDir="$2"
-  if command -v "tar" &>/dev/null; then
-    tar -zxf "$archive" --strip-components 1 -C "$outputDir"
-    return $?
-  fi
   return 1
 }
 
@@ -199,18 +134,29 @@ function main () {
   verify_os || exit 1
 
   if [[ "root" == $(whoami) ]]; then
-    print_warning "Running as root!"
+    msg::warning "Running as root!"
   else
     ask_for_sudo
   fi
 
-  print_hed "Downloading Dotfiles repo"
-  download_dotfiles
+  source_ephemeral "utils"
 
-  if [[ $DOTFILES_DIR != "$(pwd)" ]]; then
+  msg::hed "Who am I? Installing self..."
+
+  source_ephemeral "world"
+
+  if [[ ! -x "${XDG_CONFIG_HOME}/bootstrap" ]]; then
+    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
+    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+  fi
+
+  cd "${XDG_CONFIG_HOME}" || {
     print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
     return 1
-  fi
+  }
+
+  # @TODO ...
+
 
   # shellcheck disable=SC1090
   print_hed "OS Essentials" \
