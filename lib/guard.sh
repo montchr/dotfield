@@ -50,6 +50,11 @@ function guard::test() {
   return
 }
 
+function guard::ubuntu() {
+  [[ "$OS_NAME" == "ubuntu" ]]
+  return
+}
+
 function guard::arch() {
   [[ "$OS_NAME" == "arch" ]]
   return
