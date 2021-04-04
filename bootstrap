@@ -61,35 +61,39 @@ function source_ephemeral () {
 }
 
 function verify_os () {
-  declare -r MINIMUM_MACOS_VERSION="10.10"
-  # @TODO handle debian!
-  declare -r MINIMUM_UBUNTU_VERSION="20.04"
-
+  declare -A Names Versions
   local os_name
   local os_version
-  os_name="$(get_os)"
-  os_version="$(get_os_version)"
+  local supported_version
 
-  # Check if the OS is macOS and it's above the required version.
-  if [ "$os_name" == "macos" ]; then
-    if is_supported_version "$os_version" "$MINIMUM_MACOS_VERSION"; then
-      return 0
-    else
-      printf "Sorry, this script is intended only for macOS %s+" "$MINIMUM_MACOS_VERSION"
-    fi
+  Names=(
+    [macos]="macOS"
+    [ubuntu]="Ubuntu"
+  )
 
-    # Check if the OS is `Ubuntu` and it's above the required version.
-  elif [ "$os_name" == "ubuntu" ]; then
-    if is_supported_version "$os_version" "$MINIMUM_UBUNTU_VERSION"; then
-      return 0
-    else
-      printf "Sorry, this script is intended only for Ubuntu %s+" "$MINIMUM_UBUNTU_VERSION"
-    fi
-  else
-    printf "Sorry, this script is intended only for macOS and Ubuntu!"
+  Versions=(
+    [macos]="10.10"
+    [ubuntu]="20.04"
+  )
+
+  os_version="$(world::get_os_version)"
+  os_name="$(world::get_os_name)"
+  supported_version="${Versions[$os_name]}"
+
+  if [[ -z "$supported_version" ]]; then
+    echo "Sorry, your OS is not supported!"
+    return 1
   fi
 
-  return 1
+  if is_supported_version "${os_version}" "${supported_version}"
+  then
+    return 0
+  else
+    printf "Sorry, this script is intended only for %s %s+" \
+      "${Names[$os_name]}" \
+      "${supported_version}"
+    return 1
+  fi
 }
 
 # Initialize dotfiles git repo in place.
