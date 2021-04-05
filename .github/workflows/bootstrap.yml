@@ -7,6 +7,9 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
+  CI: 'true'
+  LINODE_ROOT_PASSWORD: ${{ secrets.IDPASSWORD }}
+  LINODE_LABEL: "ci-dots-${GITHUB_REF}"
 
 on:
   pull_request:
@@ -22,11 +25,20 @@ on:
 jobs:
   bootstrap:
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-    
+
     steps:
+
+      - name: Linode CLI
+        uses: brendon1555/setup-linode-cli@v1.0.2
+        with:
+          LINODE_CLI_TOKEN: ${{ secrets.LINODE_TOKEN }}
+
+      - name: Create Linode
+        run: linode-cli
+
       - name: Run bootstrap script
         run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
