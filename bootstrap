@@ -158,39 +158,34 @@ function main () {
     print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
     return 1
   }
-
-  # @TODO ...
-
-
-  # shellcheck disable=SC1090
-  print_hed "OS Essentials" \
-    && . "os/$(get_os)/install" \
-    && print_result $? "OS Essentials"
+  
+  os_name=$(world::get_os_name)
+  
+  guard::$os_name \
+    && os/$os_name/install
+  print_result $? "OS Essentials"
 
   print_hed "OS Preferences" \
     && .do_configure \
     && print_result $? "OS Preferences"
 
-  # Initialize the dotfiles directory as a git repo for a non-root user.
-  if [[ "root" != $(whoami) ]] && ! is_git_repository; then
-    print_hed "Initializing Dotfiles"
-    execute \
-      "init_git_repo" \
-      "Initialize the Git repository"
-  fi
-
   print_hed "Bootstrapping complete!"
-
-  if ! is_ci; then
-    print_hed "Restart"
-
-    ask_for_confirmation "Do you want to restart? You probably should."
-    printf "\n"
-
-    if user_confirmed; then
-      sudo shutdown -r now &> /dev/null
+  
+  guard::install && {
+      
+    if ! is_ci; then
+      print_hed "Restart"
+  
+      ask_for_confirmation "Do you want to restart? You probably should."
+      printf "\n"
+  
+      if user_confirmed; then
+        sudo shutdown -r now &> /dev/null
+      fi
     fi
-  fi
+      
+  }
+
 }
 
 main "$@"
