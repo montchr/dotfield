@@ -9,11 +9,9 @@ cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 . ../lib/utils.sh
 
-PASSWORD="${PASSWORD:-}"
-
-LINODE_LABEL="cdom-dots"
-LINODE_IMAGE_LABEL="cdom-dots ubuntu 20.04 fresh"
-
+PASSWORD="${LINODE_ROOT_PASSWORD:-}"
+LINODE_LABEL="${LINODE_LABEL:-cdom-dots}"
+LINODE_IMAGE_LABEL="${LINODE_IMAGE:-linode/debian10}"
 
 # Keep prompting for the password and password confirmation.
 # Globals:
@@ -102,11 +100,14 @@ function init_rebuild() {
   print_linode_info "${linode_label}"
 
   print_warning "The CI linode will be destroyed and rebuilt!"
-  ask_for_confirmation "Do you want to continue?"
 
-  if ! user_confirmed; then
-    print_error "Cancelled!" "Exiting..."
-    exit 1
+  if ! is_ci; then
+    ask_for_confirmation "Do you want to continue?"
+
+    if ! user_confirmed; then
+      print_error "Cancelled!" "Exiting..."
+      exit 1
+    fi
   fi
 
   id=$(.get_field linode "${linode_label}" id)
@@ -162,8 +163,13 @@ function main() {
     print_warning "The linode '${LINODE_LABEL}' is already rebuilding!" "Aborting."
     exit 1
   else
-    [[ -z "${PASSWORD}" ]] \
-      && set_password_global
+    if [[ -z "${PASSWORD}" ]]; then
+      if is_ci; then
+        print_error "Root password is not set! Aborting."
+        exit 1
+      fi
+      set_password_global
+    fi
 
     init_rebuild \
       "${LINODE_LABEL}" \
