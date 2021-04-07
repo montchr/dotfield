@@ -11,6 +11,8 @@ readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/$
 
 DOTFILES_DIR="${HOME}/.dots"
 
+export BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
+
 
 # ----------------------------------------------------------------------
 # | Helper Functions                                                   |
@@ -133,9 +135,32 @@ function main () {
   # Ensure that the following actions are made relative to this file's path.
   cd "$(dirname "${BASH_SOURCE[0]}")" ||
     exit 1
+    
+  if [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]]; then
+    
+    msg::info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
+    
+  else
+    
+    source_ephemeral "utils"
+  
+    msg::info "Who am I? Where am I? This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
+  
+    source_ephemeral "world"
+  
+    # Ensure the OS is supported and above the minimum version.
+    verify_os || exit 1
 
-  # Ensure the OS is supported and above the minimum version.
-  verify_os || exit 1
+    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
+    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+    
+  fi
+
+  cd "${XDG_CONFIG_HOME}" || {
+    print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
+    msg::error "The world fades to black as we dematerialize…"
+    return 1
+  }
 
   if [[ "root" == $(whoami) ]]; then
     msg::warning "Running as root!"
@@ -143,21 +168,14 @@ function main () {
     ask_for_sudo
   fi
 
-  source_ephemeral "utils"
-
-  msg::hed "Who am I? Installing self..."
-
-  source_ephemeral "world"
-
-  if [[ ! -x "${XDG_CONFIG_HOME}/bootstrap" ]]; then
-    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
-    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
-  fi
-
-  cd "${XDG_CONFIG_HOME}" || {
-    print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
-    return 1
-  }
+  # shellcheck source=./vendor/bash-oo-framework/lib/oo-bootstrap.sh
+  . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
+  
+  import \
+    util/exception \
+    util/tryCatch \
+    util/namedParameters
+  
   
   os_name=$(world::get_os_name)
   
