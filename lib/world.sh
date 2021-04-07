@@ -20,12 +20,7 @@ declare -gx \
   XDG_CONFIG_HOME \
   XDG_DATA_HOME
 
-
-# - - - - - - - - - - - - - - - - - - - -
-# The Querent
-# - - - - - - - - - - - - - - - - - - - -
-
-if [ -z "$USER" ]; then
+if [[ -z "$USER" ]]; then
   USER=$(whoami)
 fi
 

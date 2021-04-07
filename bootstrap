@@ -127,6 +127,10 @@ function .do_configure () {
   . "os/$(get_os)/configure" "${hostname:-CDOM}"
 }
 
+function is_bootstrapped() {
+  [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]]
+}
+
 # ----------------------------------------------------------------------
 # | Main                                                               |
 # ----------------------------------------------------------------------
@@ -136,25 +140,25 @@ function main () {
   cd "$(dirname "${BASH_SOURCE[0]}")" ||
     exit 1
     
-  if [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]]; then
+  source_ephemeral "utils"
     
+  if is_bootstrapped; then 
     msg::info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
-    
   else
-    
-    source_ephemeral "utils"
-  
-    msg::info "Who am I? Where am I? This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
-  
-    source_ephemeral "world"
-  
-    # Ensure the OS is supported and above the minimum version.
-    verify_os || exit 1
-
-    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
-    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
-    
+    msg::info "This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
   fi
+  
+  source_ephemeral "world" \
+    && world::info
+
+  # Ensure the OS is supported and above the minimum version.
+  verify_os || return 1
+
+  if ! is_bootstrapped; then
+    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
+  fi  
+  
+  repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
 
   cd "${XDG_CONFIG_HOME}" || {
     print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
@@ -176,6 +180,7 @@ function main () {
     util/tryCatch \
     util/namedParameters
   
+  import utils world
   
   os_name=$(world::get_os_name)
   
