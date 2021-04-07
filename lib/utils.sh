@@ -410,7 +410,7 @@ function repo::sync() {
   forge="$(repo::get_forge_id "${forge}")"
   remote_branch="${forge}/${branch}"
 
-  # @TODO why is eval necessary?
+  # @TODO why is eval necessary? it's just a path
   wd=$(eval echo "${dir}")
   url=$(repo::qualify_url "${id}" "$forge")
 

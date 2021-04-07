@@ -75,11 +75,6 @@ function main() {
     msg::warning "Running as root!"
   }
 
-  msg::domain "Guardian" "Ensure directories exist" && {
-    ensure_dir "$HOME/.local/bin"
-    ensure_dir "$DEVELOPER"
-  }
-
   # @TODO Make sure it works for Linux
   guard::domain "SSH" "Checking SSH keys" && {
 

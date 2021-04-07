@@ -255,12 +255,14 @@ function main () {
   
   }
   
+  msg::domain "Guardian" "Ensure directories exist" && {
+    ensure_dir "$HOME/.local/bin"
+    ensure_dir "$DEVELOPER"
+  }
 
   guard::domain "Repo" "Sync repos from Repofiles" && {
-
     map_lines sync_repo "$target/Repofile" || true
     map_lines sync_repo "$XDG_CONFIG_CACHE/eru/Repofile" || true
-
   }
 
 
