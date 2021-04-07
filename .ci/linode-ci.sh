@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 #
-# dots-ci-linode
+# ci-linode-up
+#
+# Create a new Linode for CI purposes.
 #
 
-set -eo pipefail
+readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
-
-. ../lib/utils.sh
+# shellcheck source=../lib/utils.sh
+. "${BASE_DIR}/lib/utils.sh"
 
 PASSWORD="${LINODE_ROOT_PASSWORD:-}"
 LINODE_LABEL="${LINODE_LABEL:-cdom-dots}"
@@ -54,21 +55,24 @@ function .get_field() {
 # Parameters:
 #   Linode label
 function is_rebuilding() {
-  [[ "rebuilding" == $(.get_field linode "$1" status) ]]
+  local loabel=$1
+  [[ "rebuilding" == $(.get_field linode "${label}" status) ]]
 }
 
 # Whether a linode with the specified label is running.
 # Parameters:
 #   Linode label
 function is_running() {
-  [[ "running" == $(.get_field linode "$1" status) ]]
+  local label=$1
+  [[ "running" == $(.get_field linode "${label}" status) ]]
 }
 
 # Print a human-friendly table of info about the specified linode.
 # Parameters:
 #   Linode label
 function print_linode_info() {
-  linode-cli linodes list --label="$1"
+  local label=$1
+  linode-cli linodes list --label="${label}"
 }
 
 # Set the global $PASSWORD env var by generation or by prompt.
@@ -150,36 +154,68 @@ function check_status() {
   print_success "Linode '${label}' is running!"
 }
 
-# Main entrypoint.
+function create() {
+  local label=$1
+  linode-cli linodes create \
+    --type=g6-nanode-1 \
+    --region=us-east \
+    --backups_enabled=false \
+    --image="${LINODE_IMAGE}" \
+    --root_pass="${LINODE_ROOT_PASSWORD}" \
+    --booted=true \
+    --label="${label}" \
+    --tags=ci --tags=github-actions
+}
+
+function destroy() {
+  local label=$1
+  local id
+  id="$(.get_field linode "${label}" id)"
+  linode-cli linodes destroy "${id}"
+}
+
+function rebuild() {
+  local label
+
+  if is_rebuilding "${label}"; then
+    print_linode_info "${label}"
+    print_warning "The linode '${label}' is already rebuilding!" "Aborting."
+    return 1
+  else
+    if [[ -z "${PASSWORD}" ]]; then
+      if is_ci; then
+        print_error "Root password is not set! Aborting."
+        return 1
+      fi
+      set_password_global
+    fi
+
+    init_rebuild \
+      "${label}" \
+      "${LINODE_IMAGE_LABEL}" \
+      "${PASSWORD}"
+  fi
+
+  check_status "${label}"
+  print_linode_info "${label}"
+}
+
 function main() {
+  local action="$1"
+  local label="${2:-LINODE_LABEL}"
 
   if ! cmd_exists "linode-cli"; then
     print_error "[Error]" "linode-cli not found!"
     exit 1
   fi
 
-  if is_rebuilding "${LINODE_LABEL}"; then
-    print_linode_info "${LINODE_LABEL}"
-    print_warning "The linode '${LINODE_LABEL}' is already rebuilding!" "Aborting."
-    exit 1
-  else
-    if [[ -z "${PASSWORD}" ]]; then
-      if is_ci; then
-        print_error "Root password is not set! Aborting."
-        exit 1
-      fi
-      set_password_global
-    fi
+  case $action in
+    create) create "${label}" ;;
+    destroy) destroy "${label}" ;;
+    rebuild) rebuild "${label}" ;;
+    *) exit 1 ;;
+  esac
 
-    init_rebuild \
-      "${LINODE_LABEL}" \
-      "${LINODE_IMAGE_LABEL}" \
-      "${PASSWORD}"
-  fi
-
-  check_status "${LINODE_LABEL}"
-
-  print_linode_info "${LINODE_LABEL}"
 }
 
 main "$@"

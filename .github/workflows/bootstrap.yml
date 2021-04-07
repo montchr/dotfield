@@ -7,9 +7,8 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
-  CI: 'true'
   LINODE_ROOT_PASSWORD: ${{ secrets.IDPASSWORD }}
-  LINODE_LABEL: "ci-dots-${GITHUB_REF}"
+  LINODE_LABEL_PREFIX: "ci-dots-${GITHUB_REF}"
 
 on:
   pull_request:
@@ -24,21 +23,48 @@ on:
 
 jobs:
   bootstrap:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        include:
+          - image: 'ubuntu20.04'
+          - image: 'debian10'
+          - image: 'arch'
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Load utilities
+        run: "source ./lib/utils.sh"
+
+      - name: Prepare sanitized linode label
+        env:
+          LINODE_IMAGE: ${{ matrix.image }}
+        run: |
+          LINODE_LABEL="${LINODE_LABEL_PREFIX}--${LINODE_IMAGE}"
+          export LINODE_LABEL="$(string::sanitize "${LINODE_LABEL}")"
+          export LINODE_IMAGE="linode/${LINODE_IMAGE}"
 
       - name: Linode CLI
         uses: brendon1555/setup-linode-cli@v1.0.2
         with:
           LINODE_CLI_TOKEN: ${{ secrets.LINODE_TOKEN }}
 
-      - name: Create Linode
-        run: linode-cli
+      # @TODO check if linode already exists
 
-      - name: Run bootstrap script
-        run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+
+      - name: Create Linodes
+        run: |
+          cd .ci
+          ./linode-ci.sh create "${LINODE_LABEL}"
+
+      # - name: Run bootstrap script
+      #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+
+      - name: Destroy Linodes
+        run: |
+          cd .ci
+          ./linode-ci.sh destroy "${LINODE_LABEL}"
