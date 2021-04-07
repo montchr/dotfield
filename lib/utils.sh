@@ -2,6 +2,37 @@
 #
 # utils
 #
+# Thanks:
+# - https://github.com/dylanaraps/pure-bash-bible
+
+
+# Change a string to lowercase.
+# Parameters:
+#   String
+function string::lower() {
+  printf '%s\n' "${1,,}"
+}
+
+# Change a string to uppercase.
+# Parameters:
+#   String
+function string::upper() {
+    printf '%s\n' "${1^^}"
+}
+
+# Sanitize a string, leaving only alphanumerics, dashes, and underscores.
+# Parameters:
+#   String...
+function string::sanitize() {
+  local clean
+  clean="$(
+    echo "$*" \
+      | tr ' ' '-' \
+      | tr '/' '_'
+  )"
+  clean="${clean//[^a-zA-Z0-9-_]/}"
+  string::lower "${clean}"
+}
 
 
 # - - - - - - - - - - - - - - - - - - - -
