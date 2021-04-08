@@ -75,6 +75,47 @@ function user_confirmed () {
       return 1
 }
 
+# Set a global $PASSWORD variable by generation or by prompt.
+#
+# Globals:
+#   PASSWORD
+function set_password_global() {
+  ask_for_confirmation "Do you want to generate a new password?"
+  if user_confirmed; then
+    if cmd_exists bw; then
+      PASSWORD=$(bw generate --words 3 --separator '.' -p)
+      print_success "Generated new password:"
+      print_info    "    ${PASSWORD}" ; printf "\n"
+    else
+      print_error "[Error]" "Couldn't find a password generator!"
+    fi
+  else
+    .prompt_for_password
+  fi
+}
+
+# Keep prompting for the password and password confirmation.
+#
+# Globals:
+#   PASSWORD
+function prompt_for_password() {
+  local passwords_match=0
+  local confirmation
+  while [ "${passwords_match}" -eq "0" ]; do
+    ask_silently "Enter new password:"
+    PASSWORD=$(get_answer)
+
+    ask_silently "Confirm password:"
+    confirmation=$(get_answer)
+
+    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
+      print_error "Passwords do not match! Please try again."
+    else
+      passwords_match=1
+    fi
+  done
+}
+
 # Print a top-level heading message.
 # Parameters:
 #   Message

@@ -17,26 +17,6 @@ LINODE_IMAGE_LABEL="${LINODE_IMAGE_LABEL:-linode/debian10}"
 LINODE_LABEL="${LINODE_LABEL_BASE}--${LINODE_IMAGE_LABEL}"
 LINODE_LABEL="$(string::sanitize "${LINODE_LABEL}")"
 
-# Keep prompting for the password and password confirmation.
-# Globals:
-#   PASSWORD
-function .prompt_for_password () {
-  local passwords_match=0
-  local confirmation
-  while [ "${passwords_match}" -eq "0" ]; do
-    ask_silently "Enter new password:"
-    PASSWORD=$(get_answer)
-
-    ask_silently "Confirm password:"
-    confirmation=$(get_answer)
-
-    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
-      print_error "Passwords do not match! Please try again."
-    else
-      passwords_match=1
-    fi
-  done
-}
 
 # Get a field from a Linode resource.
 # Parameters:
@@ -76,22 +56,6 @@ function is_running() {
 function print_linode_info() {
   local label=$1
   linode-cli linodes list --label="${label}"
-}
-
-# Set the global $PASSWORD env var by generation or by prompt.
-function set_password_global() {
-  ask_for_confirmation "Do you want to generate a new password?"
-  if user_confirmed; then
-    if cmd_exists bw; then
-      PASSWORD=$(bw generate --words 3 --separator '.' -p)
-      print_success "Generated new password:"
-      print_info    "    ${PASSWORD}" ; printf "\n"
-    else
-      print_error "[Error]" "Couldn't find a password generator!"
-    fi
-  else
-    .prompt_for_password
-  fi
 }
 
 # Initialize a rebuild of the specified linode from an image.
