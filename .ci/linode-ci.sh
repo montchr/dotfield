@@ -5,7 +5,7 @@
 # Create a new Linode for CI purposes.
 #
 
-readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
+readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}/.." && pwd )"
 
 # shellcheck source=../lib/utils.sh
 . "${BASE_DIR}/lib/utils.sh"
@@ -110,7 +110,7 @@ function init_rebuild() {
 
     if ! user_confirmed; then
       print_error "Cancelled!" "Exiting..."
-      exit 1
+      return 1
     fi
   fi
 
@@ -204,16 +204,23 @@ function main() {
   local action="$1"
   local label="${2:-LINODE_LABEL}"
 
+  [[ -z "${action}" ]] && {
+    print_error "No action specified! Aborting."
+    return 1
+  }
+
   if ! cmd_exists "linode-cli"; then
     print_error "[Error]" "linode-cli not found!"
-    exit 1
+    return 1
   fi
 
   case $action in
     create) create "${label}" ;;
     destroy) destroy "${label}" ;;
     rebuild) rebuild "${label}" ;;
-    *) exit 1 ;;
+    *)
+      print_error "Invalid action '${action}' passed! Aborting."
+      return 1 ;;
   esac
 
 }

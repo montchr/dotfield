@@ -1,4 +1,0 @@
-#!/usr/bin/env zunit
-@test 'Example' {
-  assert "true" same_as "false"
-}
