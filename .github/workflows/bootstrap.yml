@@ -32,6 +32,9 @@ jobs:
           - image: 'debian10'
           - image: 'arch'
 
+    env:
+      LINODE_IMAGE: ${{ matrix.image }}
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -40,31 +43,16 @@ jobs:
       - name: Load utilities
         run: "source ./lib/utils.sh"
 
-      - name: Prepare sanitized linode label
-        env:
-          LINODE_IMAGE: ${{ matrix.image }}
-        run: |
-          LINODE_LABEL="${LINODE_LABEL_PREFIX}--${LINODE_IMAGE}"
-          export LINODE_LABEL="$(string::sanitize "${LINODE_LABEL}")"
-          export LINODE_IMAGE="linode/${LINODE_IMAGE}"
-
       - name: Linode CLI
         uses: brendon1555/setup-linode-cli@v1.0.2
         with:
           LINODE_CLI_TOKEN: ${{ secrets.LINODE_TOKEN }}
 
-      # @TODO check if linode already exists
-
-
       - name: Create Linodes
-        run: |
-          cd .ci
-          ./linode-ci.sh create "${LINODE_LABEL}"
+        run: ./.ci/linode-ci.sh create
 
       # - name: Run bootstrap script
       #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
 
       - name: Destroy Linodes
-        run: |
-          cd .ci
-          ./linode-ci.sh destroy "${LINODE_LABEL}"
+        run: ./.ci/linode-ci.sh destroy

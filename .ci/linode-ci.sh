@@ -10,9 +10,12 @@ readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}/.." && pwd )"
 # shellcheck source=../lib/utils.sh
 . "${BASE_DIR}/lib/utils.sh"
 
+BRANCH="${GITHUB_REF:-${GIT_BRANCH_NAME:-main}}"
 PASSWORD="${LINODE_ROOT_PASSWORD:-}"
-LINODE_LABEL="${LINODE_LABEL:-cdom-dots}"
-LINODE_IMAGE_LABEL="${LINODE_IMAGE:-linode/debian10}"
+LINODE_LABEL_BASE="ci-dots-${BRANCH}"
+LINODE_IMAGE_LABEL="${LINODE_IMAGE_LABEL:-linode/debian10}"
+LINODE_LABEL="${LINODE_LABEL_BASE}--${LINODE_IMAGE_LABEL}"
+LINODE_LABEL="$(string::sanitize "${LINODE_LABEL}")"
 
 # Keep prompting for the password and password confirmation.
 # Globals:
@@ -156,12 +159,31 @@ function check_status() {
 
 function create() {
   local label=$1
+
+  # @TODO validate label format with branch name and prefix
+  [[ -z "${label}" ]] && {
+    print_error "[ERROR] You need to specify a source image in order to create a new linode! Aborting."
+    return 1
+  }
+
+  [[ -z "${LINODE_IMAGE}" ]] && {
+    print_error "[ERROR] You need to specify a source image in order to create a new linode! Aborting."
+    return 1
+  }
+
+  # @TODO validate image name
+
+  [[ -z "${PASSWORD}" ]] && {
+    print_error "[ERROR] Linode root password not specified! Aborting."
+    return 1
+  }
+
   linode-cli linodes create \
     --type=g6-nanode-1 \
     --region=us-east \
     --backups_enabled=false \
     --image="${LINODE_IMAGE}" \
-    --root_pass="${LINODE_ROOT_PASSWORD}" \
+    --root_pass="${PASSWORD}" \
     --booted=true \
     --label="${label}" \
     --tags=ci --tags=github-actions
