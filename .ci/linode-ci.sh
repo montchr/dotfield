@@ -160,11 +160,20 @@ function check_status() {
 function create() {
   local label=$1
 
-  # @TODO validate label format with branch name and prefix
-  [[ -z "${label}" ]] && {
+  if [[ -n "${label}" ]]; then
+    if is_ci && [[ "${label}" != "ci-dots-"* ]]; then
+      print_error "[ERROR] Linode label '${label}' does not begin with 'ci-dots-'. Aborting."
+      return 1
+    fi
+
+    # @TODO validate label name
+    # see constraints in docs for "label"
+    # https://www.linode.com/docs/api/linode-instances/#linode-create
+
+  else
     print_error "[ERROR] You need to specify a source image in order to create a new linode! Aborting."
     return 1
-  }
+  fi
 
   [[ -z "${LINODE_IMAGE}" ]] && {
     print_error "[ERROR] You need to specify a source image in order to create a new linode! Aborting."
@@ -172,11 +181,14 @@ function create() {
   }
 
   # @TODO validate image name
+  # @TODO what does the linode-cli do if an invalid image name is passed?
 
   [[ -z "${PASSWORD}" ]] && {
     print_error "[ERROR] Linode root password not specified! Aborting."
     return 1
   }
+
+  exit
 
   linode-cli linodes create \
     --type=g6-nanode-1 \

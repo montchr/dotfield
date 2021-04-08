@@ -20,7 +20,9 @@ function string::upper() {
     printf '%s\n' "${1^^}"
 }
 
-# Sanitize a string, leaving only alphanumerics, periods, dashes, and underscores.
+# Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
+# underscores.
+#
 # Parameters:
 #   String...
 function string::sanitize() {
