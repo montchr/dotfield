@@ -1,4 +1,7 @@
 #!/usr/bin/env bats
+#
+# tests for string::sanitize
+#
 
 BASE="${BATS_TEST_DIRNAME}/../.."
 
@@ -11,7 +14,28 @@ main() {
   string::sanitize "$@"
 }
 
+@test "Replace spaces with dashes" {
+  run main " foo  bar "
+  assert_output "-foo--bar-"
+}
+
 @test "Replace slashes with underscores" {
-  run main "abcd/efgh//ijkl/"
-  assert_output "abcd_efgh__ijkl_"
+  run main '/f/o//o/'
+  assert_output "_f_o__o_"
+}
+
+@test "Ensure string is lowercased" {
+  run main "FOO"
+  assert_output "foo"
+}
+
+@test "Ensure valid characters are retained" {
+  run main 'a1B0._-'
+  assert_output 'a1b0._-'
+}
+
+@test "Ensure ignored characters are stripped" {
+  # shellcheck disable=SC2016
+  run main 'foo$($=\\``)bar'
+  assert_output "foobar"
 }

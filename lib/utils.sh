@@ -20,17 +20,14 @@ function string::upper() {
     printf '%s\n' "${1^^}"
 }
 
-# Sanitize a string, leaving only alphanumerics, dashes, and underscores.
+# Sanitize a string, leaving only alphanumerics, periods, dashes, and underscores.
 # Parameters:
 #   String...
 function string::sanitize() {
-  local clean
-  clean="$(
-    echo "$*" \
-      | tr ' ' '-' \
-      | tr '/' '_'
-  )"
-  clean="${clean//[^a-zA-Z0-9-_]/}"
+  local clean="$*"
+  clean="${clean//[[:space:]]/\-}"
+  clean="${clean//"/"/_}"
+  clean="${clean//[^[:word:].-]}"
   string::lower "${clean}"
 }
 
