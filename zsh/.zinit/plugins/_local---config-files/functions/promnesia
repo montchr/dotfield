@@ -1,0 +1,4 @@
+emulate -L zsh
+"${ASDF_USER_SHIMS}/promnesia" \
+  "$@" \
+  --config="${XDG_CONFIG_HOME}/promnesia/config.py"
