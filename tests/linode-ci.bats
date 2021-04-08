@@ -1,13 +1,15 @@
 #!/usr/bin/env bats
 
-load ../lib/utils.sh
-load ../vendor/bats-support/load
-load ../vendor/bats-assert/load
-load ../vendor/bats-file/load
+BASE="${BATS_TEST_DIRNAME}/.."
+
+load "${BASE}/lib/utils.sh"
+load "${BASE}/vendor/bats-support/load.bash"
+load "${BASE}/vendor/bats-assert/load.bash"
+load "${BASE}/vendor/bats-file/load.bash"
 
 
 main() {
-  bash "${BATS_TEST_DIRNAME}/../.ci/linode-ci.sh" "$@"
+  bash "${BASE}/.ci/linode-ci.sh" "$@"
 }
 
 @test "args are valid" {
