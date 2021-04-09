@@ -292,6 +292,68 @@ mkd() {
   fi
 }
 
+
+#======================================
+# Get the basename of a file path.
+#
+# Alternative to the external `basename`.
+#
+# https://github.com/dylanaraps/pure-bash-bible#get-the-base-name-of-a-file-path
+#
+# Usage:
+#   basename <path> [suffix]
+#
+# Arguments:
+#   File path.
+#   File suffix. Optional.
+# Outputs:
+#   STDOUT - Basename. Includes file extension unless specifying [suffix].
+#========================================
+basename() {
+    local tmp
+    tmp=${1%"${1##*[!/]}"}
+    tmp=${tmp##*/}
+    tmp=${tmp%"${2/"$tmp"}"}
+    printf '%s\n' "${tmp:-/}"
+}
+
+#========================================
+# Get the directory name of a file path.
+#
+# https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
+#
+# Alternative to the external `dirname`.
+#
+# Usage:
+#   dirname <path>
+# Arguments:
+#   File path.
+# Outputs:
+#   STDOUT - Directory name.
+# Returns:
+#   0 - If at root directory or no directory.
+#========================================
+function dirname() {
+    local tmp=${1:-.}
+
+    [[ $tmp != *[!/]* ]] && {
+        printf '/\n'
+        return
+    }
+
+    tmp=${tmp%%"${tmp##*[!/]}"}
+
+    [[ $tmp != */* ]] && {
+        printf '.\n'
+        return
+    }
+
+    tmp=${tmp%/*}
+    tmp=${tmp%%"${tmp##*[!/]}"}
+
+    printf '%s\n' "${tmp:-/}"
+}
+
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
 function is_interactive() {
