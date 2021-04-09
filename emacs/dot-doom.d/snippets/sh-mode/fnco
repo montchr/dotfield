@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: function comment
+# uuid: 7167bc8e-f6b9-45a2-8fc5-a98e8ba6b5bb
+# key: fnco
+# condition: t
+# --
+#========================================
+# $1
+${2:
+${5:# Globals:
+#   ${6:GLOBAL_NAME}}
+# Arguments:
+#   ${7:None}
+${8:# Outputs:
+${9:#   STDOUT - ${10:Description.}}
+${11:#   STDERR - ${12:Description.}}}
+${13:# Returns:
+#   0 - ${14:Description}}
+}#========================================
+function $4 {
+  $0
+}

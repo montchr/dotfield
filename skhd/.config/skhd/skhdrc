@@ -79,11 +79,15 @@ app     < t : kitty @ --to unix:/tmp/kitty-socket \
 # SYSTEM mode
 # ========================================
 
-sys     < hyper - s ; default
+sys     < hyper - q ; default
 sys     < escape    ; default
 
 # Toggle dark mode.
 sys     < d : toggle-dark-mode ; \
+              skhd -k 'escape'
+
+# Reload Espanso configs.
+sys     < p : espanso restart ; \
               skhd -k 'escape'
 
 # Restart yabai
