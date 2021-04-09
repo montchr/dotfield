@@ -79,7 +79,7 @@ app     < t : kitty @ --to unix:/tmp/kitty-socket \
 # SYSTEM mode
 # ========================================
 
-sys     < hyper - s ; default
+sys     < hyper - q ; default
 sys     < escape    ; default
 
 # Toggle dark mode.
