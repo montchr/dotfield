@@ -86,6 +86,10 @@ sys     < escape    ; default
 sys     < d : toggle-dark-mode ; \
               skhd -k 'escape'
 
+# Reload Espanso configs.
+sys     < p : espanso restart ; \
+              skhd -k 'escape'
+
 # Restart yabai
 sys     < y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" ; \
               skhd -k 'escape'
