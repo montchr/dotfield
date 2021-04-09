@@ -388,6 +388,7 @@ basename() {
     printf '%s\n' "${tmp:-/}"
 }
 
+
 #========================================
 # Get the directory name of a file path.
 #
