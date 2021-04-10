@@ -39,6 +39,15 @@ jobs:
         uses: brendon1555/setup-linode-cli@master
         with:
           LINODE_CLI_TOKEN: ${{ secrets.LINODE_CLI_TOKEN }}
+          
+      # - name: executing remote ssh commands using ssh key
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     script: whoami
 
       # - name: Run bootstrap script
       #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
