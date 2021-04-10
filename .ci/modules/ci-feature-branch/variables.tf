@@ -1,5 +1,6 @@
 variable "branch" {
   description = "Git branch"
+  default = "main"
 }
 
 variable "image_id" {

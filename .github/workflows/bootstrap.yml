@@ -7,17 +7,12 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
-  LINODE_ROOT_PASSWORD: ${{ secrets.IDPASSWORD }}
-  LINODE_LABEL_PREFIX: "ci-dots-${GITHUB_REF}"
+  TF_VAR_branch: "${GITHUB_REF}"
+  TF_VAR_ssh_pub_key: ${{ secrets.IDPUBKEY }}
+  TF_VAR_root_pass: ${{ secrets.IDPASSWORD }}
 
 on:
   pull_request:
-
-  # push:
-  #   paths:
-  #     - 'bootstrap'
-  #     - 'lib/*.sh'
-  #     - 'os/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
