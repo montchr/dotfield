@@ -12,11 +12,12 @@ env:
 
 on:
   pull_request:
-  push:
-    paths:
-      - 'bootstrap'
-      - 'lib/*.sh'
-      - 'os/**'
+
+  # push:
+  #   paths:
+  #     - 'bootstrap'
+  #     - 'lib/*.sh'
+  #     - 'os/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,34 +26,29 @@ jobs:
   bootstrap:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        include:
-          - image: 'ubuntu20.04'
-          - image: 'debian10'
-          - image: 'arch'
-
-    env:
-      LINODE_IMAGE: ${{ matrix.image }}
-
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Load utilities
         run: "source ./lib/utils.sh"
 
-      - name: Linode CLI
-        uses: brendon1555/setup-linode-cli@v1.0.2
+      - name: Deploy ephemeral linodes
+        uses: dflook/terraform-apply@v1
+        id: linode-ephemera
         with:
-          LINODE_CLI_TOKEN: ${{ secrets.LINODE_TOKEN }}
+          path: .ci/main.tf
+          auto_approve: true
 
-      - name: Create Linodes
-        run: ./.ci/linode-ci.sh create
+      - name: Setup Linode CLI
+        uses: brendon1555/setup-linode-cli@master
+        with:
+          LINODE_CLI_TOKEN: ${{ secrets.LINODE_CLI_TOKEN }}
 
       # - name: Run bootstrap script
       #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
 
-      - name: Destroy Linodes
-        run: ./.ci/linode-ci.sh destroy
+      - name: Destroy ephemeral linodes
+        uses: dflook/terraform-destroy-workspace@v1
+        with:
+          path: .ci/main.tf
