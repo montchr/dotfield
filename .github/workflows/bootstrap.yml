@@ -34,11 +34,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
-      - name: Setup Linode CLI
-        uses: brendon1555/setup-linode-cli@master
-        with:
-          LINODE_CLI_TOKEN: ${{ secrets.LINODE_CLI_TOKEN }}
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
