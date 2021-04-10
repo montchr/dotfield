@@ -32,7 +32,7 @@ jobs:
         uses: dflook/terraform-apply@v1
         id: linode-ephemera
         with:
-          path: .ci/main.tf
+          path: "./.ci/main.tf"
           auto_approve: true
 
       - name: Setup Linode CLI
@@ -55,4 +55,4 @@ jobs:
       - name: Destroy ephemeral linodes
         uses: dflook/terraform-destroy-workspace@v1
         with:
-          path: .ci/main.tf
+          path: "./.ci/main.tf"
