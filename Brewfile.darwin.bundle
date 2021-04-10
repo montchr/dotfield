@@ -46,9 +46,12 @@ brew "ripgrep"
 brew "rsync"
 
 
-# Infrastructure
-brew "ansible"
+# Infrastructure {{{
 
+brew "ansible"
+brew "terraform"
+
+# }}}
 
 # Emacs {{{
 
