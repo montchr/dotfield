@@ -8,13 +8,15 @@ terraform {
 }
 
 provider "linode" {
-  token = var.linode_api_token
+  token = var.LINODE_API_TOKEN
 }
 
 module "ci-feature-branch" {
   for_each = toset(["ubuntu20.04"])
-  source   = "./modules/ci-linode"
+  source   = "./modules/ci-feature-branch"
 
-  authorized_keys = [var.ssh_pub_key]
+  authorized_keys = [var.SSH_PUB_KEY]
+  branch          = var.BRANCH
   image_id        = "linode/${each.key}"
+  root_pass       = var.ROOT_PASS
 }

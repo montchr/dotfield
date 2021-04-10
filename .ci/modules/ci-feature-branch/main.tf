@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    linode = {
+      source  = "linode/linode"
+    }
+  }
+}
+
 locals {
   safe_label = replace(
     lower(
@@ -13,7 +21,6 @@ locals {
 }
 
 resource "linode_instance" "ci-feature-branch" {
-  name            = local.safe_label
   image           = var.image_id
   label           = local.safe_label
   group           = "Dotfield CI"

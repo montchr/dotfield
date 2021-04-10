@@ -7,9 +7,9 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
-  TF_VAR_branch: "$GITHUB_REF"
-  TF_VAR_ssh_pub_key: ${{ secrets.IDPUBKEY }}
-  TF_VAR_root_pass: ${{ secrets.IDPASSWORD }}
+  TF_VAR_BRANCH: "$GITHUB_REF"
+  TF_VAR_SSH_PUB_KEY: ${{ secrets.IDPUBKEY }}
+  TF_VAR_ROOT_PASS: ${{ secrets.IDPASSWORD }}
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
   
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt -check        
+        run: terraform fmt -check
         
       - name: Terraform Init
         id: init

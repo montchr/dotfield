@@ -33,3 +33,5 @@ org-roam.db
 /kitty/.config/kitty/theme.conf
 flycheck_config.el
 /.ci/.terraform/
+*.tfvars
+/.ci/*.tfstate*
