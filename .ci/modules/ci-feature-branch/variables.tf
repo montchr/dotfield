@@ -1,11 +1,11 @@
 variable "branch" {
   description = "Git branch"
-  default = "main"
+  default     = "main"
 }
 
 variable "image_id" {
   description = "Source image ID"
-  default = "linode/ubuntu20.04"
+  default     = "linode/ubuntu20.04"
 }
 
 variable "authorized_keys" {
@@ -18,5 +18,5 @@ variable "root_pass" {
 
 variable "region" {
   description = "Linode region"
-  default = "us-east"
+  default     = "us-east"
 }
