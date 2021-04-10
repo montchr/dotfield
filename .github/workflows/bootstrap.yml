@@ -8,6 +8,7 @@ env:
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
   TF_VAR_BRANCH: "$GITHUB_REF"
+  TF_VAR_LINODE_API_TOKEN: ${{ secrets.LINODE_API_TOKEN }}
   TF_VAR_SSH_PUB_KEY: ${{ secrets.IDPUBKEY }}
   TF_VAR_ROOT_PASS: ${{ secrets.IDPASSWORD }}
 
