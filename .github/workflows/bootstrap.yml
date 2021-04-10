@@ -23,6 +23,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: "$GITHUB_WORKSPACE/.ci"  
+    
 jobs:
   bootstrap:
     runs-on: ubuntu-latest
@@ -30,18 +34,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Deploy ephemeral linodes
-        uses: dflook/terraform-apply@v1
-        id: linode-ephemera
-        with:
-          path: "$GITHUB_WORKSPACE/.ci/main.tf"
-          auto_approve: true
-
+      
       - name: Setup Linode CLI
         uses: brendon1555/setup-linode-cli@master
         with:
           LINODE_CLI_TOKEN: ${{ secrets.LINODE_CLI_TOKEN }}
+          
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+  
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check        
+        
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        
+          
           
       # - name: executing remote ssh commands using ssh key
       #   uses: appleboy/ssh-action@master
@@ -54,8 +72,4 @@ jobs:
 
       # - name: Run bootstrap script
       #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
-
-      - name: Destroy ephemeral linodes
-        uses: dflook/terraform-destroy-workspace@v1
-        with:
-          path: "$GITHUB_WORKSPACE/.ci/main.tf"
+      
