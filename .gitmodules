@@ -38,3 +38,12 @@
 [submodule "semver-tool"]
 	path = vendor/semver-tool
 	url = git@github.com:fsaintjacques/semver-tool.git
+[submodule "bats-support"]
+	path = vendor/bats-support
+	url = https://github.com/bats-core/bats-support.git
+[submodule "bats-assert"]
+	path = vendor/bats-assert
+	url = https://github.com/bats-core/bats-assert.git
+[submodule "bats-file"]
+	path = vendor/bats-file
+	url = https://github.com/bats-core/bats-file.git

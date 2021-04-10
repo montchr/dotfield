@@ -120,7 +120,7 @@ function user::main () {
   if [[ -n "${CDOM_INIT_NEW_USER_PASSWORD}" ]]; then
     PASSWORD="${CDOM_INIT_NEW_USER_PASSWORD}"
   else
-    user::prompt_for_password
+    prompt_for_password
   fi
 
   # Run setup functions

@@ -7,26 +7,52 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
+  TF_VAR_branch: "${GITHUB_REF}"
+  TF_VAR_ssh_pub_key: ${{ secrets.IDPUBKEY }}
+  TF_VAR_root_pass: ${{ secrets.IDPASSWORD }}
 
 on:
   pull_request:
-  push:
-    paths:
-      - 'bootstrap'
-      - 'lib/*.sh'
-      - 'os/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   bootstrap:
-    runs-on: ${{ matrix.os }}
-    
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Run bootstrap script
-        run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Load utilities
+        run: "source ./lib/utils.sh"
+
+      - name: Deploy ephemeral linodes
+        uses: dflook/terraform-apply@v1
+        id: linode-ephemera
+        with:
+          path: .ci/main.tf
+          auto_approve: true
+
+      - name: Setup Linode CLI
+        uses: brendon1555/setup-linode-cli@master
+        with:
+          LINODE_CLI_TOKEN: ${{ secrets.LINODE_CLI_TOKEN }}
+          
+      # - name: executing remote ssh commands using ssh key
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     script: whoami
+
+      # - name: Run bootstrap script
+      #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+
+      - name: Destroy ephemeral linodes
+        uses: dflook/terraform-destroy-workspace@v1
+        with:
+          path: .ci/main.tf

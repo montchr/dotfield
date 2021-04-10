@@ -2,6 +2,36 @@
 #
 # utils
 #
+# Thanks:
+# - https://github.com/dylanaraps/pure-bash-bible
+
+
+# Change a string to lowercase.
+# Parameters:
+#   String
+function string::lower() {
+  printf '%s\n' "${1,,}"
+}
+
+# Change a string to uppercase.
+# Parameters:
+#   String
+function string::upper() {
+    printf '%s\n' "${1^^}"
+}
+
+# Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
+# underscores.
+#
+# Parameters:
+#   String...
+function string::sanitize() {
+  local clean="$*"
+  clean="${clean//[[:space:]]/\-}"
+  clean="${clean//"/"/_}"
+  clean="${clean//[^[:word:].-]}"
+  string::lower "${clean}"
+}
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -43,6 +73,47 @@ function user_confirmed () {
   [[ "$REPLY" =~ ^[Yy]$ ]] &&
     return 0 ||
       return 1
+}
+
+# Set a global $PASSWORD variable by generation or by prompt.
+#
+# Globals:
+#   PASSWORD
+function set_password_global() {
+  ask_for_confirmation "Do you want to generate a new password?"
+  if user_confirmed; then
+    if cmd_exists bw; then
+      PASSWORD=$(bw generate --words 3 --separator '.' -p)
+      print_success "Generated new password:"
+      print_info    "    ${PASSWORD}" ; printf "\n"
+    else
+      print_error "[Error]" "Couldn't find a password generator!"
+    fi
+  else
+    .prompt_for_password
+  fi
+}
+
+# Keep prompting for the password and password confirmation.
+#
+# Globals:
+#   PASSWORD
+function prompt_for_password() {
+  local passwords_match=0
+  local confirmation
+  while [ "${passwords_match}" -eq "0" ]; do
+    ask_silently "Enter new password:"
+    PASSWORD=$(get_answer)
+
+    ask_silently "Confirm password:"
+    confirmation=$(get_answer)
+
+    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
+      print_error "Passwords do not match! Please try again."
+    else
+      passwords_match=1
+    fi
+  done
 }
 
 # Print a top-level heading message.
@@ -316,6 +387,7 @@ basename() {
     tmp=${tmp%"${2/"$tmp"}"}
     printf '%s\n' "${tmp:-/}"
 }
+
 
 #========================================
 # Get the directory name of a file path.
