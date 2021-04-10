@@ -7,12 +7,18 @@ env:
   CDOM_INIT_PUBKEY: ${{ secrets.IDPUBKEY }}
   CDOM_INIT_TIMEZONE: 'America/New_York'
   CDOM_INIT_HOSTNAME: 'dotfield'
-  TF_VAR_branch: "${GITHUB_REF}"
+  TF_VAR_branch: "$GITHUB_REF"
   TF_VAR_ssh_pub_key: ${{ secrets.IDPUBKEY }}
   TF_VAR_root_pass: ${{ secrets.IDPASSWORD }}
 
 on:
+  push:
+    branches:
+      - main
+      
   pull_request:
+    branches:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,14 +31,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Load utilities
-        run: "source ./lib/utils.sh"
-
       - name: Deploy ephemeral linodes
         uses: dflook/terraform-apply@v1
         id: linode-ephemera
         with:
-          path: "./.ci/main.tf"
+          path: "$GITHUB_WORKSPACE/.ci/main.tf"
           auto_approve: true
 
       - name: Setup Linode CLI
@@ -55,4 +58,4 @@ jobs:
       - name: Destroy ephemeral linodes
         uses: dflook/terraform-destroy-workspace@v1
         with:
-          path: "./.ci/main.tf"
+          path: "$GITHUB_WORKSPACE/.ci/main.tf"
