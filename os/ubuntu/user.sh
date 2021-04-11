@@ -10,14 +10,12 @@
 
 
 # Execute a command as a certain user
-#
 # Arguments:
 #   Account Username
 #   Command to be executed
 function user::exec () {
   local username=${1}
   local exec_command=${2}
-  # @TODO can `execute`'s nice feedback be used here?
   sudo -u "${username}" -H bash -c "${exec_command}"
 }
 

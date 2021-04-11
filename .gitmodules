@@ -44,3 +44,6 @@
 [submodule "bats-file"]
 	path = vendor/bats-file
 	url = https://github.com/bats-core/bats-file.git
+[submodule "bash-oo-framework"]
+	path = vendor/bash-oo-framework
+	url = git@github.com:niieani/bash-oo-framework.git

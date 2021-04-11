@@ -1,6 +1,12 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
-# utils
+# Basic Shell Utilities
+#
+# This file MUST remain self-contained, with no additional dependencies. It
+# needs to remain lightweight enough that it can be downloaded and sourced on
+# its own. The primary use case is the bootstrapping script. Without these
+# utilities, the bootstrapping process would be at a disadvantage, so it
+# downloads them first thing.
 #
 # Thanks:
 # - https://github.com/dylanaraps/pure-bash-bible
@@ -41,35 +47,35 @@ function string::sanitize() {
 # Prompt the user for input.
 # Parameters:
 #   Prompt message
-ask() {
-  print_question "$1"
+function msg::ask() {
+  msg::question "$1"
   read -r
 }
 
 # Prompt the user for input without echoing response.
 # Parameters:
 #   Prompt message
-ask_silently() {
-  print_question "$1"
+function msg::ask_silently() {
+  msg::question "$1"
   read -s -r
   printf "\n"
 }
 
-ask_for_confirmation() {
-  print_question "$1 (y/n) "
+function msg::ask_for_confirmation() {
+  msg::question "$1 (y/n) "
   read -r -n 1
   printf "\n"
 }
 
 # Get the user's answer to the previous prompt.
-get_answer() {
+function msg::get_answer() {
   printf "%s" "$REPLY"
 }
 
 # Whether the user responded affirmatively to the previous prompt.
 # Globals:
 #   REPLY
-function user_confirmed () {
+function msg::is_confirmed () {
   [[ "$REPLY" =~ ^[Yy]$ ]] &&
     return 0 ||
       return 1
@@ -117,42 +123,60 @@ function prompt_for_password() {
 }
 
 # Print a top-level heading message.
+# Deprecated.
 # Parameters:
 #   Message
-function print_hed () {
-  print_in_purple "\n • $1\n"
+function msg::hed () {
+  msg::section "$@"
 }
 
 # Print a subheading message.
 # Parameters:
+#   Section name
 #   Message
-function print_subhed () {
-  print_in_green "\n   $1\n"
+function msg::subhed () {
+  msg::subsection "$@"
+}
+
+function msg::section() {
+  msg::in_green "\n => $1\n"
+}
+
+function msg::domain() {
+  msg::in_green "\n => $1 :: ${*:2}\n"
+}
+
+function msg::domain__lesser() {
+  msg::in_purple "\n -> $1 :: ${*:2}\n"
+}
+
+function msg::domain__inactive() {
+  print "\n <- $1 :: ${*:2}\n"
 }
 
 # Print a basic informational message.
 # Parameters:
 #   Message
-function print_info() {
-  print_in_purple "\n   $1\n"
+function msg::info() {
+  print "\n${MSG_INDENT}${1}\n"
 }
 
 # Prompt the user for a response to a question.
 # Parameters:
 #   Message
-print_question() {
-  print_in_yellow "   [?] $1"
+function msg::question() {
+  msg::in_yellow "${MSG_INDENT}[?] $1"
 }
 
 # Print a message along with an indication of the result of the previous command.
 # Parameters:
 #   Result code
 #   Message
-print_result() {
+function msg::result() {
   if [ "$1" -eq 0 ]; then
-    print_success "$2"
+    msg::success "$2"
   else
-    print_error "$2"
+    msg::error "$2"
   fi
   return "$1"
 }
@@ -160,62 +184,98 @@ print_result() {
 # Print a message indicating success.
 # Parameters:
 #   Message
-print_success() {
-  print_in_green "   [✔] $1\n"
+function msg::success() {
+  msg::in_green "${MSG_INDENT}[✔] $1\n"
 }
 
 # Print a message indicating a warning.
 # Parameters:
 #   Message
-print_warning() {
-  print_in_yellow "   [!] $1\n"
+function msg::warning() {
+  msg::in_yellow "${MSG_INDENT}[!] $1\n"
 }
 
 # Print a message indicating an error.
 # Parameters:
-#   Label
 #   Message
-print_error() {
-  print_in_red "   [✖] $1 $2\n"
+function msg::error() {
+  msg::in_red "${MSG_INDENT}[✖] $*\n"
 }
 
-print_error_stream() {
+function msg::stream::errors() {
   while read -r line; do
-    print_error "↳ ERROR: $line"
+    msg::error "↳ ERROR: $line"
   done
 }
 
-print_in_green() {
-  print_in_color "$1" 2
+function msg::in_green() {
+  msg::in_color "$1" 2
 }
 
-print_in_purple() {
-  print_in_color "$1" 5
+function msg::in_purple() {
+  msg::in_color "$1" 5
 }
 
-print_in_red() {
-  print_in_color "$1" 1
+function msg::in_red() {
+  msg::in_color "$1" 1
 }
 
-print_in_yellow() {
-  print_in_color "$1" 3
+function msg::in_yellow() {
+  msg::in_color "$1" 3
 }
 
-print_in_color() {
+function msg::in_color() {
   printf "%b" \
     "$(tput setaf "$2" 2>/dev/null)" \
     "$1" \
     "$(tput sgr0 2>/dev/null)"
 }
 
+function msg::spinner() {
+  local -r PID="$1"
+  local -r CMDS="$2"
+  local -r MSG="$3"
+
+  local -r FRAMES='/-\|'
+  # shellcheck disable=SC2034
+  local -r NUMBER_OR_FRAMES=${#FRAMES}
+  local i=0
+  local frameText=""
+
+  if ! is_ci; then
+    # Provide more space so that the text hopefully doesn't reach the bottom
+    # line of the terminal window.
+    #
+    # This is a workaround for escape sequences not tracking the buffer position
+    # (accounting for scrolling).
+    #
+    # See also: https://unix.stackexchange.com/a/278888
+    printf "\n\n\n"
+
+    tput cuu 3
+    tput sc
+  fi
+
+  # Display spinner while the commands are being executed.
+  while kill -0 "$PID" &>/dev/null; do
+    frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
+
+    if is_ci; then
+      printf "%s" "$frameText"
+      sleep 0.2
+      printf "\r"
+    else
+      printf "%s\n" "$frameText"
+      sleep 0.2
+      tput rc
+    fi
+  done
+}
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Commands
 # - - - - - - - - - - - - - - - - - - - -
-
-cmd_exists() {
-  command -v "$1" &>/dev/null
-}
 
 kill_all_subprocesses() {
   local i=""
@@ -276,42 +336,7 @@ ask_for_sudo() {
   done &>/dev/null &
 }
 
-get_os() {
-  local os=""
-  local kernelName=""
-  kernelName="$(uname -s)"
 
-  if [ "$kernelName" == "Darwin" ]; then
-    os="macos"
-  elif [ "$kernelName" == "Linux" ] && [ -e "/etc/os-release" ]; then
-    os="$(
-      . /etc/os-release
-      printf "%s" "$ID"
-    )"
-  else
-    os="$kernelName"
-  fi
-
-  printf "%s" "$os"
-}
-
-get_os_version() {
-  local os=""
-  local version=""
-
-  os="$(get_os)"
-
-  if [ "$os" == "macos" ]; then
-    version="$(sw_vers -productVersion)"
-  elif [ -e "/etc/os-release" ]; then
-    version="$(
-      . /etc/os-release
-      printf "%s" "$VERSION_ID"
-    )"
-  fi
-
-  printf "%s" "$version"
-}
 
 function get_current_dir () {
     local current_dir="${BASH_SOURCE%/*}"
@@ -319,9 +344,6 @@ function get_current_dir () {
     echo "${current_dir}"
 }
 
-is_git_repository() {
-  git rev-parse &>/dev/null
-}
 
 is_supported_version() {
   # shellcheck disable=SC2206
@@ -451,43 +473,152 @@ set_trap() {
     trap '$2' "$1"
 }
 
-show_spinner() {
-  local -r PID="$1"
-  local -r CMDS="$2"
-  local -r MSG="$3"
 
-  local -r FRAMES='/-\|'
-  # shellcheck disable=SC2034
-  local -r NUMBER_OR_FRAMES=${#FRAMES}
-  local i=0
-  local frameText=""
 
-  if ! is_ci; then
-    # Provide more space so that the text hopefully doesn't reach the bottom
-    # line of the terminal window.
-    #
-    # This is a workaround for escape sequences not tracking the buffer position
-    # (accounting for scrolling).
-    #
-    # See also: https://unix.stackexchange.com/a/278888
-    printf "\n\n\n"
+# - - - - - - - - - - - - - - - - - - - -
+# Repositories
+# - - - - - - - - - - - - - - - - - - - -
 
-    tput cuu 3
-    tput sc
+function repo::is_repo() {
+  git rev-parse &>/dev/null
+}
+
+# Qualify a repo URL.
+# Parameters:
+#   Repo identifier (e.g. montchr/dots) or URL.
+#   Forge name or shortname (e.g. github or gh).
+function repo::qualify_url() {
+  local identifier=$1
+  local forge=${2:-}
+
+  if [[ "${identifier}" = "https://"* || "${identifier}" = "git@"* ]]; then
+    msg::info "${identifier}"
+    return
   fi
 
-  # Display spinner while the commands are being executed.
-  while kill -0 "$PID" &>/dev/null; do
-    frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
+  case $forge in
+    gh|github)
+      if [[ "$USE_HTTPS" = "true" ]]; then
+        msg::info  "https://github.com/${identifier}.git"
+      else
+        msg::info "git@github.com:${identifier}.git"
+      fi
+      ;;
+    gl|gitlab)
+      if [[ "$USE_HTTPS" = "true" ]]; then
+        msg::info  "https://gitlab.com/${identifier}.git"
+      else
+        msg::info "git@gitlab.com:${identifier}.git"
+      fi
+      ;;
+    srht|sourcehut)
+      msg::error "sourcehut not yet supported!"
+      return 1
+      ;;
+  esac
+}
 
-    if is_ci; then
-      printf "%s" "$frameText"
-      sleep 0.2
-      printf "\r"
-    else
-      printf "%s\n" "$frameText"
-      sleep 0.2
-      tput rc
+function repo::log() {
+  git --no-pager \
+      log \
+      --graph \
+      --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+      "$*"
+}
+
+# Get the canonical forge ID.
+# Parameters:
+#   Forge name
+function repo::get_forge_id() {
+  local forge=$1
+  case $forge in
+    gh|github) echo "gh" ;;
+    gl|gitlab) echo "gl" ;;
+    srht|sourcehut) echo "srht" ;;
+  esac
+}
+
+# Synchronize a repository.
+# Parameters:
+#   Target directory
+#   Forge name (e.g. github or gh)
+#   Repo identifier (e.g. montchr/dots)
+#   Branch name. Defaults to `main`.
+function repo::sync() {
+  local dir=$1
+  local forge=$2
+  local id=$3
+  local branch="${4:-main}"
+
+  local url
+  local remote_branch
+
+  msg::section "repo::sync -> $*"
+
+  forge="$(repo::get_forge_id "${forge}")"
+  remote_branch="${forge}/${branch}"
+
+  # @TODO why is eval necessary? it's just a path
+  wd=$(eval echo "${dir}")
+  url=$(repo::qualify_url "${id}" "$forge")
+
+  if [[ -d "${wd}/.git" ]]; then
+    msg::info "${wd} already exists"
+  else
+    git clone "${url}" "${wd}" -b "${branch}"
+  fi
+
+  cd "${wd}" && {
+    git diff-index --quiet HEAD -- || {
+      msg::error "Your working directory is not clean."
+      msg::error "Please commit or stash all changes before proceeding."
+      return 1
+    }
+
+    current_branch=$(git symbolic-ref --short HEAD)
+    if [[ "${branch}" != "${current_branch}" ]]; then
+      msg::info "Switching from ${current_branch} to ${branch}"
+      git checkout "${branch}"
     fi
-  done
+
+    # Note that the remote will be named after the forge, not 'origin'.
+    if [[ -d ".git/refs/remotes/${forge}" ]]; then
+      current_url=$(git remote get-url "${forge}")
+      if [[ "${current_url}" != "${url}" ]]; then
+        msg::warning "Remote '${forge}' has wrong url, so updating it"
+        msg::warning "  ${current_url} -> ${url}"
+        git remote set-url "${forge}" "$url"
+      fi
+    else
+      msg::warning "Could not find remote '${forge}', so adding it"
+      git remote add "${forge}" "${url}"
+    fi
+
+    msg::info "fetch ${forge}"
+    git fetch "${forge}"
+    if [[ $(git rev-parse HEAD) == $(git rev-parse "${remote_branch}") ]]; then
+      msg::success "Everything up-to-date"
+      return 0
+    fi
+
+    if [ "$(git rev-list "HEAD..${remote_branch}" --count)" != 0 ]; then
+      msg::info "Fetched changes:"
+      repo::log "HEAD..${remote_branch}"
+      msg::info
+    fi
+
+    msg::info "rebase onto ${remote_branch}"
+    git rebase "${remote_branch}"
+
+    if [[ "${url}" = *"${QUERENT}"* ]]; then
+      if [ "$(git rev-list "${remote_branch}..HEAD" --count)" != 0 ]; then
+        msg::info "Changes to push:"
+        repo::log "${remote_branch}..HEAD"
+        msg::info
+      fi
+
+      msg::info "pushing changes"
+      git push "${forge}" "${branch}"
+    fi
+  }
 }
