@@ -3,9 +3,6 @@
 # Shell Utilities :: The World
 #
 
-
-
-
 declare -gx \
   DEVELOPER \
   KERNEL_NAME \
@@ -32,7 +29,7 @@ fi
 
 # Get the santized name of the kernel.
 function world::get_kernel_name() {
-  uname -s | tr '[:upper:]' '[:lower:]'
+  
 }
 
 # Get the OS name.
@@ -98,12 +95,13 @@ function world::get_os_info() {
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# The Construct
+# Orientation
 # - - - - - - - - - - - - - - - - - - - -
 
-KERNEL_NAME="$(world::get_kernel_name)"
+KERNEL_NAME="$(uname -s | tr '[:upper:]' '[:lower:]')"
 OS_NAME="$(world::get_os_name)"
 OS_VERSION="$(world::get_os_version)"
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Home
@@ -130,9 +128,15 @@ if [[ "$USER" != "$QUERENT" ]]; then
   DEVELOPER=$HOME/Developer/99-personal
 fi
 
+
 # - - - - - - - - - - - - - - - - - - - -
 # Main
 # - - - - - - - - - - - - - - - - - - - -
+
+function world::lock {
+  local lockfile="${XDG_CONFIG_HOME}/world.env.lock"
+  
+}
 
 function world::info() {
 

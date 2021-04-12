@@ -58,14 +58,12 @@ export GPG_TTY="$(tty)"
 # asdf version manager
 #
 
-export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf-vm"
 export cdom_asdf_plugins=(
   direnv
   nodejs
   python
   ruby
 )
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 #
 # bat
@@ -123,14 +121,14 @@ fi
 # rclone
 #
 
-if [[ $IS_MAC ]]; then
-  MOUNT_DIR=${HOME}/.mount
-  declare -Ax Mounts
-  Mounts=(
-    [alley]=${MOUNT_DIR}/alley-gdrive
-    [cdom]=${MOUNT_DIR}/gdrive
-  )
-fi
+# if [[ $IS_MAC ]]; then
+#   MOUNT_DIR=${HOME}/.mount
+#   declare -Ax Mounts
+#   Mounts=(
+#     [alley]=${MOUNT_DIR}/alley-gdrive
+#     [cdom]=${MOUNT_DIR}/gdrive
+#   )
+# fi
 
 
 # - - - - - - - - - - - - - - - - - - - -

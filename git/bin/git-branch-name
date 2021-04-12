@@ -5,7 +5,7 @@
 # Echo the current git branch name, if any.
 
 # shellcheck source=../../../lib/utils.sh
-. "${DOTFILES}/lib/utils.sh"
+. "${DOTFIELD_UTILS_DIR}/utils.sh"
 
 if is_git_repository; then
   git symbolic-ref --short -q HEAD

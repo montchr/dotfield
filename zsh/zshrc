@@ -18,7 +18,7 @@ fi
 typeset -g \
   HISTSIZE=290000 \
   SAVEHIST=290000 \
-  HISTFILE=~/.zhistory \
+  HISTFILE="${XDG_DATA_HOME}/zsh/history" \
 
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 [[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -p "$XDG_RUNTIME_DIR"
@@ -39,6 +39,8 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
 } 2>/dev/null
 
 export ZPFX="${HOME}/.local"
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+export ZINIT_HOME="${XDG_DATA_HOME}/zinit"
 
 ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
 ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
@@ -306,11 +308,6 @@ function .load-asdf-direnv {
     atpull'%atclone' \
     atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
     src'zhook.zsh' \
-    atload'
-      export COMPOSER_HOME=${COMPOSER_HOME:-${XDG_CONFIG_HOME}/composer}
-      # Ensure Composer bin is low priority
-      export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
-    ' \
       @zdharma/null
 }
 

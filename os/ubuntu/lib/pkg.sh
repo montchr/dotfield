@@ -6,7 +6,7 @@
 #
 
 # shellcheck source=../../../lib/utils.sh
-. "${DOTFILES_DIR}/lib/utils.sh"
+. "${DOTFIELD_UTILS_DIR}/utils.sh"
 
 
 # Resynchronize the package index files from their sources.

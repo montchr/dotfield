@@ -1,6 +1,5 @@
 # -*- mode: gitconfig -*-
 
-
 [credential]
     helper = "osxkeychain"
 [merge]

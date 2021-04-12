@@ -6,9 +6,9 @@
 set -e
 
 # shellcheck source=../../lib/utils.sh
-. "${DOTFILES_DIR}/lib/utils.sh"
+. "${DOTFIELD_UTILS_DIR}/utils.sh"
 # shellcheck source=./lib/pkg.sh
-. "${DOTFILES_DIR}/os/ubuntu/lib/pkg.sh"
+. "${DOTFIELD_DIR}/os/ubuntu/lib/pkg.sh"
 
 
 # - - - - - - - - - - - - - - - - - - - -

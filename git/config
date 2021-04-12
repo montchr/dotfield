@@ -1,14 +1,14 @@
 # -*- mode: gitconfig -*-
 
 [include]
-    path = .gitconfig.local
+    path = config.local
 
 [user]
     name = Chris Montgomery
     email = chris@cdom.io
     signingkey = A7498482
 [core]
-    excludesfile = ~/.gitignore
+    excludesfile = ignore
     pager = delta
 
 [apply]

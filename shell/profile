@@ -7,7 +7,9 @@
 # Ideally, this should be sourced by all shells as early as possible, as it sets
 # important environment variables.
 #
-# Bash:  source within ~/.bash_profile
+# @TODO Investigate making this POSIX-compliant
+#
+# Bash:  source within ~/.bashrc
 # ZSH:   source within ~/.zshenv (reloads on every prompt, so keep this file light!)
 #
 
@@ -29,9 +31,15 @@ has() {
 }
 
 # Detect the OS and export appropriate variables.
-declare -x IS_LINUX IS_MAC
-[[ $OSTYPE == linux* ]] && IS_LINUX=true
-[[ $OSTYPE == darwin* ]] && IS_MAC=true
+declare -gx IS_LINUX IS_MAC KERNEL_NAME
+[[ $OSTYPE == linux* ]] && {
+  IS_LINUX=true
+  KERNEL_NAME="linux"
+}
+[[ $OSTYPE == darwin* ]] && {
+  IS_MAC=true
+  KERNEL_NAME="darwin"
+} 
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -53,29 +61,89 @@ export \
 
 export \
   CACHEDIR="$XDG_CACHE_HOME" \
-  DOTS="$HOME/.dots" \
-  DOTS_BIN="${DOTS}/bin" \
-  DOTFILES="$HOME/.dots" \
-  KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
-  KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket" \
+  DOTFIELD="${XDG_CONFIG_HOME}" \
+  DOTFIELD_UTILS_DIR="${XDG_CONFIG_HOME}/lib" \
   TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
 
-if [[ $IS_LINUX ]]; then
-  export \
-    HOMEBREW_BUNDLE_FILE="${DOTS}/Brewfile.linux.bundle" \
-    HOMEBREW_BUNDLE_CASK_SKIP=true \
-    HOMEBREW_BUNDLE_MAS_SKIP=true
-elif [[ $IS_MAC ]]; then
-  export \
-    HOMEBREW_BUNDLE_FILE="${DOTS}/Brewfile.darwin.bundle"
-fi
+export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# App Configuration
+# - - - - - - - - - - - - - - - - - - - -
+
+# asdf version manager
+# https://asdf-vm.com/#/core-configuration?id=environment-variables
+export \
+  ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf" \
+  ASDF_DIR="${XDG_DATA_HOME}/asdf" \
+  ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
+
+# Composer
+export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
+
+# Docker
+export \
+  DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker \
+  MACHINE_STORAGE_PATH="$XDG_DATA_HOME"/docker-machine
+
+# Emacs
+# https://github.com/hlissner/doom-emacs/blob/ce65645fb87ed1b24fb1a46a33f77cf1dcc1c0d5/bin/doom#L18-L24
+export \
+  DOOMDIR="${XDG_CONFIG_HOME}/emacs" \
+  EMACSDIR="${XDG_DATA_HOME}/emacs"
+
+# Go
+export GOPATH="$XDG_DATA_HOME"/go
+
+# Kitty terminal
+export \
+  KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
+  KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket"
+
+# NodeJS
+export \
+  NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history" \
+  NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc" \
+  NVM_DIR="$XDG_DATA_HOME/nvm"
+
+# Pass
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
+
+# Readline
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+
+# Ruby / Bundler
+export \
+  BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle \
+  BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle \
+  BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
+
+# Rust
+export \
+  CARGO_HOME="${XDG_DATA_HOME}/cargo" \
+  RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
+# GNU Screen
+export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
+
+# Vagrant
+export \
+  VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases" \
+  VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+
+# Vim
+# Coax Vim into sourcing its config from XDG config home.
+export VIMINIT='source "$XDG_CONFIG_HOME/vim/vimrc"'
+  
 
 
 # - - - - - - - - - - - - - - - - - - - -
 # PATH Modifications
 # - - - - - - - - - - - - - - - - - - - -
 
-export PATH="$XDG_BIN_HOME:$HOME/bin:$DOTS/bin:$PATH"
+export PATH="${ASDF_DATA_DIR}/shims:${PATH}"
+export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # Required by Homebrew
 export PATH="/usr/local/sbin:$PATH"
@@ -89,7 +157,10 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # Doom Emacs
-export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="${EMACSDIR}/bin:$PATH"
+
+# Ensure Composer bin is low priority
+export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
 
 
 # - - - - - - - - - - - - - - - - - - - -

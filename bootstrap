@@ -9,20 +9,24 @@ readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
-DOTFILES_DIR="${HOME}/.dots"
+export DOTFIELD="${DOTFIELD:-${HOME}/.config}"
 
 export BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
 
-# ----------------------------------------------------------------------
-# | Helper Functions                                                   |
-# ----------------------------------------------------------------------
-
+#========================================
 # Download file from a URL.
-# Parameters:
+#
+# Usage:
+#   download <url> <dest-path>
+# Arguments:
 #   URL
-#   Output path
-function download () {
+#   Destination path
+# Returns:
+#   0 - Download succeeded.
+#   1 - Download failed.
+#========================================
+function download {
   local url="$1"
   local output="$2"
   if command -v "curl" &>/dev/null; then
@@ -35,10 +39,19 @@ function download () {
   return 1
 }
 
+
+#========================================
 # Source a file, falling back to sourcing ephemerally from the remote.
-# Parameter:
+#
+# Usage:
+#   source_ephemeral <relative-path>
+# Arguments:
 #   Relative path to file
-function source_ephemeral () {
+# Returns:
+#   0 - Sourcing succeeded.
+#   1 - Sourcing failed.
+#========================================
+function source_ephemeral {
   local path="$1"
   local tmp_file=""
   local url=""
@@ -62,10 +75,21 @@ function source_ephemeral () {
   return 1
 }
 
-function verify_os () {
+
+#========================================
+# Verify whether the current OS version is supported by this script.
+#
+# Globals:
+#   OS_NAME
+#   OS_VERSION
+# Outputs:
+#   Feedback on error.
+# Returns:
+#   0 - Supported.
+#   1 - Unsupported.
+#========================================
+function verify_os {
   declare -A Names Versions
-  local os_name
-  local os_version
   local supported_version
 
   Names=(
@@ -78,63 +102,44 @@ function verify_os () {
     [ubuntu]="20.04"
   )
 
-  os_version="$(world::get_os_version)"
-  os_name="$(world::get_os_name)"
-  supported_version="${Versions[$os_name]}"
+  OS_VERSION="$(world::get_OS_VERSION)"
+  OS_NAME="$(world::get_OS_NAME)"
+  supported_version="${Versions[$OS_NAME]}"
 
   if [[ -z "$supported_version" ]]; then
     echo "Sorry, your OS is not supported!"
     return 1
   fi
 
-  if is_supported_version "${os_version}" "${supported_version}"
+  if is_supported_version "${OS_VERSION}" "${supported_version}"
   then
     return 0
   else
     printf "Sorry, this script is intended only for %s %s+" \
-      "${Names[$os_name]}" \
+      "${Names[$OS_NAME]}" \
       "${supported_version}"
     return 1
   fi
 }
 
-# Initialize dotfiles git repo in place.
+
+#========================================
+# Verify whether this script is an executable file in the expected location.
+#
 # Globals:
-#   DOTFILES_ORIGIN
-function init_git_repo () {
-  # @TODO set up branch tracking and submodules
-  git init && git remote add origin "${DOTFILES_ORIGIN}"
-}
-
-# Run configuration script, if available.
-# Globals:
-#   CDOM_INIT_HOSTNAME
-function .do_configure () {
-  local hostname
-
-  [[ -f os/$(get_os)/configure ]] \
-    || print_warning "No configurator found for current OS '$(get_os)'! Continuing..." \
-      && return
-
-  if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
-    hostname="${CDOM_INIT_HOSTNAME}"
-  else
-    ask "Set the hostname: "
-    hostname="$(get_answer)"
-  fi
-
-  # shellcheck disable=SC1090
-  . "os/$(get_os)/configure" "${hostname:-CDOM}"
-}
-
-function is_bootstrapped() {
+#   XDG_CONFIG_HOME
+# Returns:
+#   0 - Bootstrap is an executable file.
+#   1 - Otherwise.
+#========================================
+function is_bootstrapped {
   [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]]
 }
 
-# ----------------------------------------------------------------------
-# | Main                                                               |
-# ----------------------------------------------------------------------
 
+#========================================
+# Entrypoint.
+#========================================
 function main () {
   # Ensure that the following actions are made relative to this file's path.
   cd "$(dirname "${BASH_SOURCE[0]}")" ||
@@ -160,6 +165,7 @@ function main () {
     msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
   fi  
   
+  # One cannot simply lift oneself up by one's own bootstraps...
   repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
 
   cd "${XDG_CONFIG_HOME}" || {
@@ -254,6 +260,7 @@ function main () {
     trap unlock INT TERM EXIT
   
   }
+
   
   msg::domain "Guardian" "Ensure directories exist" && {
 
@@ -267,6 +274,7 @@ function main () {
     }
 
   }
+
 
   guard::domain "Repo" "Sync repos from Repofiles" && {
     map_lines sync_repo "$target/Repofile" || true
@@ -291,13 +299,13 @@ function main () {
   }
 
 
-  guard::domain "Link" "Link all files from module bin directories" && {
+  # guard::domain "Link" "Link all files from module bin directories" && {
 
-    for f in "$target/*/bin/*"; do
-      safe_link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
-    done
+  #   for f in "$target/*/bin/*"; do
+  #     safe_link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
+  #   done
 
-  }
+  # }
 
   
   # - - - - - - - - - - - - - - - - - - - -
@@ -320,6 +328,19 @@ function main () {
       os/macos/configure
     }
 
+  }
+
+  # @TODO do this in os configure
+  guard::install "Hostname" "Set the system hostname" && {
+    if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
+      hostname="${CDOM_INIT_HOSTNAME}"
+    else
+      ask "Set the hostname: "
+      hostname="$(get_answer)"
+    fi
+
+    # shellcheck disable=SC1090
+    . "os/$(get_os)/configure" "${hostname:-CDOM}"
   }
 
 
