@@ -12,9 +12,14 @@
 # - https://github.com/dylanaraps/pure-bash-bible
 
 
-# Change a string to lowercase.
+#========================================
+# Convert a string to lowercase.
+# 
+# Usage:
+#   string::lower <string>
 # Parameters:
 #   String
+#========================================
 function string::lower() {
   printf '%s\n' "${1,,}"
 }
@@ -38,6 +43,33 @@ function string::sanitize() {
   clean="${clean//[^[:word:].-]}"
   string::lower "${clean}"
 }
+
+function string::is_supported_version() {
+  # shellcheck disable=SC2206
+  declare -a v1=(${1//./ })
+  # shellcheck disable=SC2206
+  declare -a v2=(${2//./ })
+  local i=""
+
+  # Fill empty positions in v1 with zeros.
+  for ((i = ${#v1[@]}; i < ${#v2[@]}; i++)); do
+    v1[i]=0
+  done
+
+  for ((i = 0; i < ${#v1[@]}; i++)); do
+    # Fill empty positions in v2 with zeros.
+    if [[ -z ${v2[i]} ]]; then
+      v2[i]=0
+    fi
+
+    if ((10#${v1[i]} < 10#${v2[i]})); then
+      return 1
+    elif ((10#${v1[i]} > 10#${v2[i]})); then
+      return 0
+    fi
+  done
+}
+
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -85,18 +117,18 @@ function msg::is_confirmed () {
 #
 # Globals:
 #   PASSWORD
-function set_password_global() {
-  ask_for_confirmation "Do you want to generate a new password?"
-  if user_confirmed; then
-    if cmd_exists bw; then
+function user::set_password_global() {
+  msg::ask_for_confirmation "Do you want to generate a new password?"
+  if msg::is_confirmed; then
+    if shell::has bw; then
       PASSWORD=$(bw generate --words 3 --separator '.' -p)
-      print_success "Generated new password:"
-      print_info    "    ${PASSWORD}" ; printf "\n"
+      msg::success "Generated new password:"
+      msg::info    "    ${PASSWORD}" ; printf "\n"
     else
-      print_error "[Error]" "Couldn't find a password generator!"
+      msg::error "[Error]" "Couldn't find a password generator!"
     fi
   else
-    .prompt_for_password
+    user::prompt_for_password
   fi
 }
 
@@ -104,7 +136,7 @@ function set_password_global() {
 #
 # Globals:
 #   PASSWORD
-function prompt_for_password() {
+function user::prompt_for_password() {
   local passwords_match=0
   local confirmation
   while [ "${passwords_match}" -eq "0" ]; do
@@ -202,7 +234,7 @@ function msg::error() {
   msg::in_red "${MSG_INDENT}[✖] $*\n"
 }
 
-function msg::stream::errors() {
+function msg::stream_errors() {
   while read -r line; do
     msg::error "↳ ERROR: $line"
   done
@@ -277,7 +309,7 @@ function msg::spinner() {
 # Commands
 # - - - - - - - - - - - - - - - - - - - -
 
-kill_all_subprocesses() {
+function cmd::kill_all_subprocesses {
   local i=""
   for i in $(jobs -p); do
     kill "$i"
@@ -285,7 +317,7 @@ kill_all_subprocesses() {
   done
 }
 
-execute() {
+function cmd::execute {
   local -r CMDS="$1"
   local -r MSG="${2:-$1}"
   local -r TMP_FILE="$(mktemp /tmp/XXXXX)"
@@ -322,7 +354,7 @@ execute() {
   return $exitCode
 }
 
-ask_for_sudo() {
+function cmd::ask_for_sudo {
   # Ask for the administrator password upfront.
   sudo -v &>/dev/null
 
@@ -338,40 +370,15 @@ ask_for_sudo() {
 
 
 
-function get_current_dir () {
+function cmd::get_current_dir {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
     echo "${current_dir}"
 }
 
 
-is_supported_version() {
-  # shellcheck disable=SC2206
-  declare -a v1=(${1//./ })
-  # shellcheck disable=SC2206
-  declare -a v2=(${2//./ })
-  local i=""
 
-  # Fill empty positions in v1 with zeros.
-  for ((i = ${#v1[@]}; i < ${#v2[@]}; i++)); do
-    v1[i]=0
-  done
-
-  for ((i = 0; i < ${#v1[@]}; i++)); do
-    # Fill empty positions in v2 with zeros.
-    if [[ -z ${v2[i]} ]]; then
-      v2[i]=0
-    fi
-
-    if ((10#${v1[i]} < 10#${v2[i]})); then
-      return 1
-    elif ((10#${v1[i]} > 10#${v2[i]})); then
-      return 0
-    fi
-  done
-}
-
-mkd() {
+function fs::mkd {
   if [ -n "$1" ]; then
     if [ -e "$1" ]; then
       if [ ! -d "$1" ]; then
@@ -402,7 +409,7 @@ mkd() {
 # Outputs:
 #   STDOUT - Basename. Includes file extension unless specifying [suffix].
 #========================================
-basename() {
+function basename {
     local tmp
     tmp=${1%"${1##*[!/]}"}
     tmp=${tmp##*/}
@@ -427,7 +434,7 @@ basename() {
 # Returns:
 #   0 - If at root directory or no directory.
 #========================================
-function dirname() {
+function dirname {
     local tmp=${1:-.}
 
     [[ $tmp != *[!/]* ]] && {
@@ -450,7 +457,7 @@ function dirname() {
 
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
-function is_interactive() {
+function shell::is_interactive {
   [[ $- =~ 'i' ]] && return
   local vars=(INTERACTIVE PS1)
   for var in "${vars[@]}"; do
@@ -460,7 +467,7 @@ function is_interactive() {
 }
 
 # Whether the current shell is run within CI or Vagrant.
-function is_ci() {
+function shell::is_ci {
   local vars=(CI TRAVIS VAGRANT)
   for var in "${vars[@]}"; do
     [[ -v "${var}" ]] && return
@@ -468,9 +475,13 @@ function is_ci() {
   return 1
 }
 
-set_trap() {
+function shell::set_trap {
   trap -p "$1" | grep "$2" &>/dev/null ||
     trap '$2' "$1"
+}
+
+function shell::has {
+  command -v "$1" >/dev/null 2>&1
 }
 
 
@@ -479,7 +490,7 @@ set_trap() {
 # Repositories
 # - - - - - - - - - - - - - - - - - - - -
 
-function repo::is_repo() {
+function repo::is_repo {
   git rev-parse &>/dev/null
 }
 
@@ -487,7 +498,7 @@ function repo::is_repo() {
 # Parameters:
 #   Repo identifier (e.g. montchr/dots) or URL.
 #   Forge name or shortname (e.g. github or gh).
-function repo::qualify_url() {
+function repo::qualify_url {
   local identifier=$1
   local forge=${2:-}
 
@@ -518,7 +529,7 @@ function repo::qualify_url() {
   esac
 }
 
-function repo::log() {
+function repo::log {
   git --no-pager \
       log \
       --graph \
@@ -529,7 +540,7 @@ function repo::log() {
 # Get the canonical forge ID.
 # Parameters:
 #   Forge name
-function repo::get_forge_id() {
+function repo::get_forge_id {
   local forge=$1
   case $forge in
     gh|github) echo "gh" ;;
@@ -544,7 +555,7 @@ function repo::get_forge_id() {
 #   Forge name (e.g. github or gh)
 #   Repo identifier (e.g. montchr/dots)
 #   Branch name. Defaults to `main`.
-function repo::sync() {
+function repo::sync {
   local dir=$1
   local forge=$2
   local id=$3

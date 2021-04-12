@@ -29,7 +29,7 @@ fi
 
 # Get the santized name of the kernel.
 function world::get_kernel_name() {
-  
+  uname -s | tr '[:upper:]' '[:lower:]'
 }
 
 # Get the OS name.
@@ -98,7 +98,7 @@ function world::get_os_info() {
 # Orientation
 # - - - - - - - - - - - - - - - - - - - -
 
-KERNEL_NAME="$(uname -s | tr '[:upper:]' '[:lower:]')"
+KERNEL_NAME="$(world::get_kernel_name)"
 OS_NAME="$(world::get_os_name)"
 OS_VERSION="$(world::get_os_version)"
 
@@ -109,15 +109,7 @@ OS_VERSION="$(world::get_os_version)"
 
 PATH=$HOME/.local/bin:$PATH
 
-target=$HOME/.config
-if [[ -d "$XDG_CONFIG_HOME" ]]; then
-  target="$XDG_CONFIG_HOME"
-fi
-if [[ -d "$GITHUB_WORKSPACE" ]]; then
-  target="$GITHUB_WORKSPACE"
-fi
-
-XDG_CONFIG_HOME=$target
+XDG_CONFIG_HOME="$DOTFIELD"
 XDG_CONFIG_CACHE="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"

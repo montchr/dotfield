@@ -5,14 +5,7 @@
 # https://d12frosted.io/posts/2018-11-04-revisiting-eru.html#dealing-with-multiple-optional-themes
 #
 
-[[ ${Utils[guard]} ]] \
-  && return \
-  || Utils[guard]=${BASH_SOURCE[0]:-${(%):-%x}}
-
-
-. ./00-world.sh
-. ./msg.sh
-
+import utils world
 
 function guard::domain() {
   local domain=$1

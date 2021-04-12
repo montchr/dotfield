@@ -9,9 +9,17 @@ readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
 readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
-export DOTFIELD="${DOTFIELD:-${HOME}/.config}"
+DOTFIELD="$HOME/.config"
+if [[ -d "$XDG_CONFIG_HOME" ]]; then
+  DOTFIELD="$XDG_CONFIG_HOME"
+fi
+if [[ -d "$GITHUB_WORKSPACE" ]]; then
+  DOTFIELD="$GITHUB_WORKSPACE"
+fi
+export DOTFIELD
 
-export BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
+BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
+export BASE_DIR
 
 
 #========================================
@@ -169,7 +177,7 @@ function main () {
   repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
 
   cd "${XDG_CONFIG_HOME}" || {
-    print_error "We seem to be lost in '$(pwd)'. Something went wrong!"
+    msg::error "We seem to be lost in '$(pwd)'. Something went wrong!"
     msg::error "The world fades to black as we dematerialize…"
     return 1
   }
@@ -177,7 +185,7 @@ function main () {
   if [[ "root" == $(whoami) ]]; then
     msg::warning "Running as root!"
   else
-    ask_for_sudo
+    cmd::ask_for_sudo
   fi
   
   msg::domain "Supporting" "Loading framework"
@@ -190,12 +198,12 @@ function main () {
     util/tryCatch \
     util/namedParameters
   
-  import utils world domain
+  import utils world guard fs
   
   msg::domain "Supporting" "Defining variables"
 
   ALL="true"
-  ACTION=
+  ACTION=""
   case $1 in
     install|upgrade|test)
       ACTION=$1
@@ -229,6 +237,8 @@ function main () {
     shift
   done
   set -- "${POSITIONAL[@]}" # restore positional parameters
+  export ALL
+  export ACTION
   
   # @TODO this might not be desirable
   # if [[ "$INTERACTIVE" = "" ]]; then
@@ -264,36 +274,36 @@ function main () {
   
   msg::domain "Guardian" "Ensure directories exist" && {
 
-    ensure_dir "${XDG_BIN_HOME}"
-    ensure_dir "$DEVELOPER"
+    fs::ensure_dir "${XDG_BIN_HOME}"
+    fs::ensure_dir "$DEVELOPER"
 
-    ensure_dir "$HOME/org" && {
-      ensure_dir "$HOME/org/gtd"
-      ensure_dir "$HOME/org/mind"
-      ensure_dir "$HOME/org/roam"
+    fs::ensure_dir "$HOME/org" && {
+      fs::ensure_dir "$HOME/org/gtd"
+      fs::ensure_dir "$HOME/org/mind"
+      fs::ensure_dir "$HOME/org/roam"
     }
 
   }
 
 
   guard::domain "Repo" "Sync repos from Repofiles" && {
-    map_lines sync_repo "$target/Repofile" || true
-    map_lines sync_repo "$XDG_CONFIG_CACHE/eru/Repofile" || true
+    fs::map_lines repo::sync "${DOTFIELD}/Repofile" || true
+    fs::map_lines repo::sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
   }
 
 
   guard::domain "Link" "Link all files as defined in Linkfiles" && {
 
-    linkfile "$target/Linkfile"
-    linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
-    linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
+    fs::linkfile "${DOTFIELD}/Linkfile"
+    fs::linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
+    fs::linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
 
-    for f in "$target"/**/Linkfile; do
-      linkfile "$f"
+    for f in "${DOTFIELD}"/**/Linkfile; do
+      fs::linkfile "$f"
     done
 
-    for f in "$target"/**/Linkfile."${KERNEL_NAME}"; do
-      linkfile "$f"
+    for f in "${DOTFIELD}"/**/Linkfile."${KERNEL_NAME}"; do
+      fs::linkfile "$f"
     done
 
   }
@@ -301,7 +311,7 @@ function main () {
 
   # guard::domain "Link" "Link all files from module bin directories" && {
 
-  #   for f in "$target/*/bin/*"; do
+  #   for f in "${DOTFIELD}/*/bin/*"; do
   #     safe_link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
   #   done
 
@@ -345,15 +355,16 @@ function main () {
 
 
   msg::domain "Git" "Create a local git config file" && {
-    touch "$target/git/local.config"
+    touch "${DOTFIELD}/git/config.local"
   }
 
 
   guard::macos && {
 
     guard::domain "skhd" "Patch skhd application PATH" && {
-      check skhd && {
-        "$target/bin/patch_skhd_path"
+      shell::has skhd && {
+        # @TODO update this
+        "${DOTFIELD}/bin/patch_skhd_path"
       }
     }
 
@@ -396,7 +407,7 @@ function main () {
     }
   }
   
-  print_hed "Bootstrapping complete!"
+  msg::success "Bootstrapping complete!"
   
   guard::install && {
       
@@ -413,7 +424,7 @@ function main () {
       
   }
 
-  msg::success "Everything is good here" \
+  msg::success "Everything is good here." \
     && return 0
 
 }

@@ -7,55 +7,49 @@
   && return \
   || Utils[fs]=${BASH_SOURCE[0]:-${(%):-%x}}
 
-# @TODO deprecate for cmd_exists?
-function check() {
-  command -v "$1" >/dev/null 2>&1
-}
 
-function cmd_exists() {
-  command -v "$1" &>/dev/null
-}
 
-function ensure_dir() {
+function fs::ensure_dir {
   if [[ ! -d "$1" ]]; then
     msg::info "create $1"
     mkdir -p "$1"
   fi
-  print_result $? "$1"
+  msg::error $? "$1"
 }
 
-function linkfile() {
+function fs::linkfile {
   local file="$1"
   if [ -f "$file" ]; then
     (
       cd "$(dirname "$file")" || return 1
-      map_lines safe_link "$file"
+      fs::map_lines fs::safe_link "$file"
     )
   fi
 }
 
-function safe_link_all() {
+# @TODO untested
+function fs::safe_link_all {
   local src_dir="$1"
   local target_dir="$2"
   
   if ! [[ -d "${src_dir}" ]]; then
-    print_error "[Error] Source '${src_dir}' is not a directory! Aborting."
+    msg::error "[Error] Source '${src_dir}' is not a directory! Aborting."
   fi
   if ! [[ -d "${target_dir}" ]]; then
-    print_error "[Error] Target '${target_dir}' is not a directory! Aborting."
+    msg::error "[Error] Target '${target_dir}' is not a directory! Aborting."
   fi
 
-  print_warning "Linking all files in '${src_dir}' to '${target_dir}':"
+  msg::warning "Linking all files in '${src_dir}' to '${target_dir}':"
   for f in "${src_dir}/*"; do
-    print_info "$f"
+    msg::info "$f"
   done
 
   for f in "${src_dir}/*"; do
-    safe_link "$f" "${target_dir}/$(basename "$f")"
+    fs::safe_link "$f" "${target_dir}/$(basename "$f")"
   done
 }
 
-function safe_link() {
+function fs::safe_link {
   local f
   local s
   local t
@@ -106,7 +100,7 @@ function safe_link() {
   fi
 }
 
-function map_lines() {
+function fs::map_lines {
   if [[ -f "$2" ]]; then
     while IFS='' read -r line || [[ -n "$line" ]]; do
       if [[ "$line" != "#"* ]]; then
@@ -118,7 +112,7 @@ function map_lines() {
 }
 
 # @TODO might not belong in this file
-function download_bin() {
+function fs::download_bin {
   fp="$HOME/.local/bin/$1"
   curl --silent -o "$fp" "$2"
   chmod a+x "$HOME/.local/bin/$1"
