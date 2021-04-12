@@ -76,6 +76,9 @@ jobs:
     runs-on: macos-latest
     
     steps:
+      - name: Download bootstrap script
+        run: wget "https://raw.github.com/montchr/dots/$GITHUB_REF/bootstrap"
+        
       - name: Run bootstrap script
-        run: bash -c "$(wget -qO - "https://raw.github.com/montchr/dots/$GITHUB_REF/bootstrap")"
+        run: ./bootstrap
       
