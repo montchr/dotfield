@@ -77,7 +77,7 @@ jobs:
       - name: Run bootstrap script
         run: |
           BOOTSTRAP=$(mktemp)
-          wget -O "$BOOTSTRAP" "https://raw.github.com/montchr/dots/${GITHUB_HEAD_REF:-${GITHUB_REF}}/bootstrap"
+          wget -O "$BOOTSTRAP" "https://raw.github.com/montchr/dots/${GITHUB_SHA}/bootstrap"
           chmod +x "$BOOTSTRAP"
           "$BOOTSTRAP"
       
