@@ -1,12 +1,16 @@
 # -*- mode: gitconfig -*-
 
-[include]
-    path = config.local
-
 [user]
     name = Chris Montgomery
     email = chris@cdom.io
-    signingkey = A7498482
+    # signingkey = F0B8FB42A7498482
+
+[include]
+    path = config.local
+
+[includeIf "gitdir:~/broadway/"]
+    path = work.config
+
 [core]
     excludesfile = ignore
     pager = delta
@@ -20,7 +24,7 @@
     ui = true
     interactive = auto
 [commit]
-    gpgsign = true
+    # gpgsign = true
 [delta]
     # plus-color = "#012800"
     # minus-color = "#340001"
