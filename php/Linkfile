@@ -1,0 +1,2 @@
+bin/php-version ~/.local/bin/php-version
+bin/phpvm ~/.local/bin/phpvm

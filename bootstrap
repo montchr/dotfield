@@ -256,8 +256,16 @@ function main () {
   }
   
   msg::domain "Guardian" "Ensure directories exist" && {
-    ensure_dir "$HOME/.local/bin"
+
+    ensure_dir "${XDG_BIN_HOME}"
     ensure_dir "$DEVELOPER"
+
+    ensure_dir "$HOME/org" && {
+      ensure_dir "$HOME/org/gtd"
+      ensure_dir "$HOME/org/mind"
+      ensure_dir "$HOME/org/roam"
+    }
+
   }
 
   guard::domain "Repo" "Sync repos from Repofiles" && {
@@ -270,17 +278,27 @@ function main () {
 
     linkfile "$target/Linkfile"
     linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
-    linkfile "$XDG_CONFIG_CACHE/eru/Linkfile_${KERNEL_NAME}"
+    linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
 
     for f in "$target"/**/Linkfile; do
       linkfile "$f"
     done
 
-    for f in "$target"/**/Linkfile_"${KERNEL_NAME}"; do
+    for f in "$target"/**/Linkfile."${KERNEL_NAME}"; do
       linkfile "$f"
     done
 
   }
+
+
+  guard::domain "Link" "Link all files from module bin directories" && {
+
+    for f in "$target/*/bin/*"; do
+      safe_link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
+    done
+
+  }
+
   
   # - - - - - - - - - - - - - - - - - - - -
   # OS-Specific

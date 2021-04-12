@@ -1,5 +1,0 @@
-- link:
-      ~/bin/:
-          glob: true
-          path: bin/*
-          relink: true

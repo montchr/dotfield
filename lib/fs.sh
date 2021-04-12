@@ -34,6 +34,27 @@ function linkfile() {
   fi
 }
 
+function safe_link_all() {
+  local src_dir="$1"
+  local target_dir="$2"
+  
+  if ! [[ -d "${src_dir}" ]]; then
+    print_error "[Error] Source '${src_dir}' is not a directory! Aborting."
+  fi
+  if ! [[ -d "${target_dir}" ]]; then
+    print_error "[Error] Target '${target_dir}' is not a directory! Aborting."
+  fi
+
+  print_warning "Linking all files in '${src_dir}' to '${target_dir}':"
+  for f in "${src_dir}/*"; do
+    print_info "$f"
+  done
+
+  for f in "${src_dir}/*"; do
+    safe_link "$f" "${target_dir}/$(basename "$f")"
+  done
+}
+
 function safe_link() {
   local f
   local s

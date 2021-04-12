@@ -18,7 +18,8 @@ declare -gx \
   XDG_CACHE_HOME \
   XDG_CONFIG_CACHE \
   XDG_CONFIG_HOME \
-  XDG_DATA_HOME
+  XDG_DATA_HOME \
+  XDG_BIN_HOME
 
 if [[ -z "$USER" ]]; then
   USER=$(whoami)
@@ -122,10 +123,11 @@ XDG_CONFIG_HOME=$target
 XDG_CONFIG_CACHE="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"
+XDG_BIN_HOME="${HOME}/.local/bin"
 
-DEVELOPER=$HOME/dev
+DEVELOPER=$HOME/Developer
 if [[ "$USER" != "$QUERENT" ]]; then
-  DEVELOPER=$HOME/dev/personal
+  DEVELOPER=$HOME/Developer/99-personal
 fi
 
 # - - - - - - - - - - - - - - - - - - - -

@@ -8,27 +8,20 @@
 	path = notmuch
 	url = git@github.com:montchr/notmuch-config.git
 [submodule "kitty/.config/kitty-themes"]
-	path = kitty/.config/kitty/kitty-themes
+	path = kitty/kitty-themes
 	url = git@github.com:dexpota/kitty-themes.git
 [submodule "intellij/.intellimacs"]
-	path = intellij/.intellimacs
+	path = intellij/intellimacs
 	url = git@github.com:MarcoIeni/intellimacs.git
 [submodule "stackline"]
-	path = hammerspoon/dot-hammerspoon/stackline
+	path = hammerspoon/stackline
 	url = git@github.com:AdamWagner/stackline.git
 [submodule "kitty/.config/kitty/base16-kitty"]
-	path = kitty/.config/kitty/base16-kitty
+	path = kitty/base16-kitty
 	url = git@github.com:kdrag0n/base16-kitty.git
 [submodule "firefox-i3wm-theme"]
-	path = firefox/.config/firefox/chrome/firefox-i3wm-theme
+	path = firefox/chrome/firefox-i3wm-theme
 	url = git@github.com:aadilayub/firefox-i3wm-theme.git
-[submodule "dotbot"]
-	path = meta/lib/dotbot
-	url = https://github.com/anishathalye/dotbot
-	ignore = dirty
-[submodule "dotbot-brew"]
-	path = meta/lib/dotbot-brew
-	url = https://github.com/d12frosted/dotbot-brew.git
 [submodule "bats-core"]
 	path = vendor/bats-core
 	url = git@github.com:bats-core/bats-core.git
