@@ -24,13 +24,16 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: ./.ci
+    
     
 jobs:
-  bootstrap:
+  
+  linode_ephemera:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./.ci
 
     steps:
       - name: Checkout
@@ -68,4 +71,11 @@ jobs:
 
       # - name: Run bootstrap script
       #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+      
+  macos:
+    runs-on: macos-latest
+    
+    steps:
+      - name: Run bootstrap script
+        run: bash -c "$(wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_HEAD_REF:-GITHUB_REF}/bootstrap")"
       
