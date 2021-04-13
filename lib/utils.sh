@@ -26,22 +26,6 @@ set -u
 
 {
 
-  declare -gx \
-    DEVELOPER \
-    KERNEL_NAME \
-    KERNEL_RELEASE \
-    OS_NAME \
-    OS_VERSION \
-    PATH \
-    QUERENT \
-    USER \
-    XDG_BIN_HOME \
-    XDG_CACHE_HOME \
-    XDG_CONFIG_CACHE \
-    XDG_CONFIG_HOME \
-    XDG_DATA_HOME
-
-
   [[ -z "${USER}" ]] && {
     USER="$(whoami)"
   }
@@ -86,6 +70,21 @@ set -u
   if [[ "$USER" != "$QUERENT" ]]; then
     DEVELOPER="${HOME}/Developer/99-personal"
   fi
+  
+  export \
+    DEVELOPER \
+    KERNEL_NAME \
+    KERNEL_RELEASE \
+    OS_NAME \
+    OS_VERSION \
+    PATH \
+    QUERENT \
+    USER \
+    XDG_BIN_HOME \
+    XDG_CACHE_HOME \
+    XDG_CONFIG_CACHE \
+    XDG_CONFIG_HOME \
+    XDG_DATA_HOME
 
 }
 
