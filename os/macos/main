@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# shellcheck shell=bash
 #
 # os/macos
 #
 
-# shellcheck source=../../vendor/bash-oo-framework/lib/oo-bootstrap.sh
+# shellcheck disable=SC1090
 source "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
-
 
 import \
   util/exception \
@@ -34,18 +34,18 @@ function __set_hostname {
 
 function main () {
 
-  guard::domain "packages" "Ensure core CLI tools exist" && {
+  guard.domain "packages" "Ensure core CLI tools exist" && {
     xcode-select --install &> /dev/null
-    shell::execute "
+    shell.execute "
         until $(xcode-select --print-path &> /dev/null); do \
           sleep 5; \
         done
       " "Xcode Command Line Tools"
   }
 
-  guard::domain "packages" "Ensure brew exists" && {
-    shell::has brew || {
-      msg::info "Installing brew"
+  guard.domain "packages" "Ensure brew exists" && {
+    shell.has brew || {
+      msg.info "Installing brew"
       printf "\n" | \
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh &> /dev/null
       brew update
@@ -53,14 +53,14 @@ function main () {
   }
 
 
-  guard::install && {
+  guard.install && {
 
-    guard::domain "packages" "Install all dependencies" && {
+    guard.domain "packages" "Install all dependencies" && {
       cd "$XDG_CONFIG_HOME" \
         && brew bundle -c "${XDG_CONFIG_HOME}/Brewfile.darwin.bundle"
     }
 
-    guard::domain "packages" "Allow Homebrew's Bash as login shell" && {
+    guard.domain "packages" "Allow Homebrew's Bash as login shell" && {
       local brew_bash_path
       brew_bash_path="$(brew --prefix)/bin/bash"
 
@@ -80,15 +80,15 @@ function main () {
 
     }
 
-    guard::domain "hostname" "Set system hostname" && {
+    guard.domain "hostname" "Set system hostname" && {
       __set_hostname "${HOSTNAME}"
     }
 
   }
 
 
-  guard::upgrade && {
-    guard::domain "packages" "Upgrade packages" && {
+  guard.upgrade && {
+    guard.domain "packages" "Upgrade packages" && {
       brew update
       brew upgrade
     }

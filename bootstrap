@@ -1,22 +1,30 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# shellcheck shell=bash
 # 
 # the revealing landscape
 #
 
+# shellcheck disable=SC2153
+[[ -n "$ZSH_VERSION" ]] \
+  && emulate -L bash
 
 set -eu
+
+DOTFIELD_BRANCH="feature/reshape"
 
 readonly QUERENT="montchr"
 readonly REPO_ID="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
-readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
+readonly DOTFILES_BRANCH="${DOTFIELD_BRANCH:-main}"
 readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
 DOTFIELD="$HOME/.config"
-if [[ -d "${XDG_CONFIG_HOME=${DOTFIELD}" ]]; then
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${DOTFIELD}}"
+if [[ -d "$XDG_CONFIG_HOME" ]]; then
   DOTFIELD="$XDG_CONFIG_HOME"
 fi
-if [[ -d "${GITHUB_WORKSPACE-}" ]]; then
+GITHUB_WORKSPACE=""
+if [[ -d "${GITHUB_WORKSPACE}" ]]; then
   DOTFIELD="$GITHUB_WORKSPACE"
 fi
 
@@ -160,7 +168,7 @@ function verify_os {
     return 1
   fi
 
-  string::is_supported_version \
+  string.is_supported_version \
     "${OS_VERSION}" \
     "${supported_version}" \
       && return 0
@@ -192,40 +200,40 @@ function is_bootstrapped {
 function main () {
   source_ephemeral "utils"
   
-  msg::domain "System" "Verifying system state"
-  world::info
+  msg.domain "System" "Verifying system state"
+  world.info
     
   if is_bootstrapped; then 
-    msg::info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
+    msg.info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
   else
-    msg::info "This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
+    msg.info "This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
   fi
 
   # Ensure the OS is supported and above the minimum version.
   verify_os || return 1
 
   if ! is_bootstrapped; then
-    msg::hed "Cloning dotfield into ${XDG_CONFIG_HOME}"
+    msg.hed "Cloning dotfield into ${XDG_CONFIG_HOME}"
   fi  
   
   # One cannot simply lift oneself up by one's own bootstraps...
-  repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+  repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
 
   cd "${XDG_CONFIG_HOME}" || {
-    msg::error "We seem to be lost in '$(pwd)'. Something went wrong!"
-    msg::error "The world fades to black as we dematerialize…"
+    msg.error "We seem to be lost in '$(pwd)'. Something went wrong!"
+    msg.error "The world fades to black as we dematerialize…"
     return 1
   }
 
   if [[ "root" == $(whoami) ]]; then
-    msg::warning "Running as root!"
+    msg.warning "Running as root!"
   else
-    cmd::ask_for_sudo
+    shell.ask_for_sudo
   fi
   
-  msg::domain "Supporting" "Loading framework"
+  msg.domain "Supporting" "Loading framework"
 
-  # shellcheck source=./vendor/bash-oo-framework/lib/oo-bootstrap.sh
+  # shellcheck disable=SC1090
   . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
   
   import \
@@ -235,7 +243,7 @@ function main () {
   
   import lib/utils
   
-  msg::domain "Supporting" "Defining variables"
+  msg.domain "Supporting" "Defining variables"
 
   ALL="true"
   ACTION=""
@@ -284,11 +292,11 @@ function main () {
   # Lockfile
   # - - - - - - - - - - - - - - - - - - - -
   
-  msg::domain "Supporting" "Handling lock file" && {
+  msg.domain "Supporting" "Handling lock file" && {
   
     LOCK_FILE=$XDG_CACHE_HOME/eru/eru.lock
     if [[ -f "$LOCK_FILE" ]]; then
-      msg::error "
+      msg.error "
     Yet another world is being shaped by Eru
   
     One must either wait patiently or embrace the horrors of the unknown and
@@ -307,8 +315,8 @@ function main () {
   }
 
 
-  guard::install  && {
-    msg::domain "Hostname" "Set the system hostname" && {
+  guard.install  && {
+    msg.domain "Hostname" "Set the system hostname" && {
       if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
         HOSTNAME="${CDOM_INIT_HOSTNAME}"
       else
@@ -319,44 +327,44 @@ function main () {
   }
 
   
-  msg::domain "Guardian" "Ensure directories exist" && {
+  msg.domain "Guardian" "Ensure directories exist" && {
 
-    fs::ensure_dir "${XDG_BIN_HOME}"
-    fs::ensure_dir "$DEVELOPER"
+    fs.ensure_dir "${XDG_BIN_HOME}"
+    fs.ensure_dir "$DEVELOPER"
 
-    fs::ensure_dir "$HOME/org" && {
-      fs::ensure_dir "$HOME/org/gtd"
-      fs::ensure_dir "$HOME/org/mind"
-      fs::ensure_dir "$HOME/org/roam"
+    fs.ensure_dir "$HOME/org" && {
+      fs.ensure_dir "$HOME/org/gtd"
+      fs.ensure_dir "$HOME/org/mind"
+      fs.ensure_dir "$HOME/org/roam"
     }
 
   }
 
 
-  guard::domain "Repo" "Sync repos from Repofiles" && {
-    fs::map_lines repo::sync "${DOTFIELD}/Repofile" || true
-    fs::map_lines repo::sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
+  guard.domain "Repo" "Sync repos from Repofiles" && {
+    fs.map_lines repo.sync "${DOTFIELD}/Repofile" || true
+    fs.map_lines repo.sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
   }
 
 
-  guard::domain "Link" "Link all files as defined in Linkfiles" && {
+  guard.domain "Link" "Link all files as defined in Linkfiles" && {
 
-    fs::linkfile "${DOTFIELD}/Linkfile"
-    fs::linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
-    fs::linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
+    fs.linkfile "${DOTFIELD}/Linkfile"
+    fs.linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
+    fs.linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
 
     for f in "${DOTFIELD}"/**/Linkfile; do
-      fs::linkfile "$f"
+      fs.linkfile "$f"
     done
 
     for f in "${DOTFIELD}"/**/Linkfile."${KERNEL_NAME}"; do
-      fs::linkfile "$f"
+      fs.linkfile "$f"
     done
 
   }
 
 
-  # guard::domain "Link" "Link all files from module bin directories" && {
+  # guard.domain "Link" "Link all files from module bin directories" && {
 
   #   for f in "${DOTFIELD}/*/bin/*"; do
   #     link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
@@ -365,33 +373,33 @@ function main () {
   # }
 
   
-  guard::arch && {
+  guard.arch && {
     ./os/arch/main
   }
 
-  guard::ubuntu && {
+  guard.ubuntu && {
     ./os/ubuntu/main
   }
 
-  guard::macos && {
+  guard.macos && {
     ./os/macos/main
   }
 
-  msg::domain "Git" "Create a local git config file" && {
+  msg.domain "Git" "Create a local git config file" && {
     touch "${DOTFIELD}/git/config.local"
   }
 
 
-  guard::macos && {
+  guard.macos && {
 
-    guard::domain "skhd" "Patch skhd application PATH" && {
-      shell::has skhd && {
+    guard.domain "skhd" "Patch skhd application PATH" && {
+      shell.has skhd && {
         # @TODO update this
         "${DOTFIELD}/bin/patch_skhd_path"
       }
     }
 
-    guard::domain "yabai" "Ensure scripting addition is installed" && {
+    guard.domain "yabai" "Ensure scripting addition is installed" && {
 
       # reinstall the scripting addition
       sudo yabai --uninstall-sa
@@ -407,45 +415,45 @@ function main () {
   }
 
 
-  guard::arch && {
+  guard.arch && {
 
-    guard::domain "xmonad" "Rebuild Xmonad configurations" && {
+    guard.domain "xmonad" "Rebuild Xmonad configurations" && {
 
-      msg::section "Install xmonad" && (
+      msg.section "Install xmonad" && (
         cd "$XDG_CONFIG_HOME/xmonad"
         stack --allow-different-user install || {
           notify send -a "Eru" -t "Failed to compile xmonad" -u critical
         }
       )
 
-      msg::section "Restart xmonad" && {
+      msg.section "Restart xmonad" && {
         if pgrep d12-xmonad; then
-          msg::info "Found running instance of xmonad. Restarting..."
+          msg.info "Found running instance of xmonad. Restarting..."
           d12-xmonad --restart
         else
-          msg::info "No running instance of xmonad is found. Meh..."
+          msg.info "No running instance of xmonad is found. Meh..."
         fi
       }
 
     }
   }
   
-  msg::success "Bootstrapping complete!"
+  msg.success "Bootstrapping complete!"
   
-  guard::install && {
+  guard.install && {
       
-    if ! shell::is_ci; then
-      msg::warning "Restart!"
-      msg::ask_for_confirmation "Restart?"
+    if ! shell.is_ci; then
+      msg.warning "Restart!"
+      msg.ask_for_confirmation "Restart?"
 
-      if msg::is_confirmed; then
+      if msg.is_confirmed; then
         sudo shutdown -r now &> /dev/null
       fi
     fi
       
   }
 
-  msg::success "Everything is good here." \
+  msg.success "Everything is good here." \
     && return 0
 
 }
