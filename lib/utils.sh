@@ -26,17 +26,17 @@ set -u
 
 {
 
-  [[ -z "${USER}" ]] && {
+  [[ ! -v "${USER}" ]] && {
     USER="$(whoami)"
   }
 
 
-  [[ -z "$KERNEL_NAME" ]] && {
+  [[ ! -v "$KERNEL_NAME" ]] && {
     KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
   }
 
 
-  [[ -z "$OS_NAME" || -z "$OS_VERSION" ]] && {
+  [[ ! -v "$OS_NAME" || ! -v "$OS_VERSION" ]] && {
     case "${KERNEL_NAME}" in
       darwin)
         OS_NAME="macos"
