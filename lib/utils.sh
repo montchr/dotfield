@@ -24,16 +24,20 @@ set +u
   && emulate -L bash
 set -u
 
-if [[ ! -v USER ]]; then
+USER="${USER:-}"
+if [[ -z "${USER}" ]]; then
   USER="$(whoami)"
 fi
+QUERENT="${QUERENT:-${USER}}"
 
-
-if [[ ! -v KERNEL_NAME ]]; then
+KERNEL_NAME="${KERNEL_NAME:-}"
+if [[ -z "${KERNEL_NAME}" ]]; then
   KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
 fi
 
-if [[ ! -v OS_NAME || ! -v OS_VERSION ]]; then
+OS_NAME="${OS_NAME:-}"
+OS_VERSION="${OS_VERSION:-}"
+if [[ -z "${OS_NAME}" || -z "${OS_VERSION}" ]]; then
   case "${KERNEL_NAME}" in
     darwin)
       OS_NAME="macos"
