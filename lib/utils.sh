@@ -28,7 +28,6 @@ USER="${USER:-}"
 if [[ -z "${USER}" ]]; then
   USER="$(whoami)"
 fi
-QUERENT="${QUERENT:-${USER}}"
 
 KERNEL_NAME="${KERNEL_NAME:-}"
 if [[ -z "${KERNEL_NAME}" ]]; then
