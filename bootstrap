@@ -2,12 +2,11 @@
 
 set -e
 
-declare -gxr QUERENT="montchr"
-declare -gxr REPO_ID="montchr/dots"
-declare -gxr DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
-declare -gxr DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
-declare -gxr DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
-declare -gxr DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
+readonly QUERENT="montchr"
+readonly REPO_ID="montchr/dots"
+readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
+readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
+readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
 DOTFIELD="$HOME/.config"
 if [[ -d "$XDG_CONFIG_HOME" ]]; then
@@ -22,7 +21,11 @@ BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 export \
   BASE_DIR \
   DOTFIELD \
-  HOSTNAME
+  DOTFILES_BRANCH \
+  DOTFILES_ORIGIN \
+  HOSTNAME \
+  QUERENT \
+  REPO_ID
 
 
 #========================================
