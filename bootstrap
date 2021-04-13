@@ -234,14 +234,16 @@ function main () {
   msg.domain "Supporting" "Loading framework"
 
   # shellcheck disable=1090
-  . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
+  # . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
   
-  import \
-    util/exception \
-    util/tryCatch \
-    util/namedParameters
+  # import \
+  #   util/exception \
+  #   util/tryCatch \
+  #   util/namedParameters
   
-  import lib/utils
+  # import lib/utils
+  
+  # . ./lib/utils.sh
   
   msg.domain "Supporting" "Defining variables"
 
