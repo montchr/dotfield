@@ -26,17 +26,16 @@ set -u
 
 {
 
-  [[ ! -v "${USER}" ]] && {
+  if ! [[ -v "${USER}" ]]; then
     USER="$(whoami)"
-  }
+  fi
 
 
-  [[ ! -v "$KERNEL_NAME" ]] && {
+  if ! [[ -v "$KERNEL_NAME" ]]; then
     KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
-  }
+  fi
 
-
-  [[ ! -v "$OS_NAME" || ! -v "$OS_VERSION" ]] && {
+  if ! [[ -v "$OS_NAME" ]] || ! [[ -v "$OS_VERSION" ]]; then
     case "${KERNEL_NAME}" in
       darwin)
         OS_NAME="macos"
@@ -56,7 +55,7 @@ set -u
         ;;
       *) OS_NAME="unknown" ;;
     esac
-  }
+  fi
 
   PATH="$HOME/.local/bin:$PATH"
 

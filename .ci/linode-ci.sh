@@ -188,7 +188,7 @@ function linode.destroy() {
 function rebuild() {
   local linode_label
 
-  [[ linode.is_rebuilding "${linode_label}" ]] && {
+  linode.is_rebuilding "${linode_label}" && {
     linode.print_info "${linode_label}"
     print_warning "The linode '${linode_label}' is already rebuilding!" "Aborting."
     return 1
@@ -219,7 +219,7 @@ function rebuild() {
 
   linode-cli linodes rebuild "${linode_id}" \
     --image="${LINODE_IMAGE_ID}" \
-    --root_pass="${pass}"
+    --root_pass="${PASSWORD}"
   print_result $? "Initiated linode rebuild"
 
   linode.check_status "${linode_label}"
