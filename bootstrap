@@ -120,16 +120,12 @@ function source_ephemeral {
       && return
   fi
 
-  tmp_file="$(mktemp /tmp/XXXXXXXX)"
+  tmp_file="$(mktemp "/tmp/${path}.XXXX")"
   url="${DOTFILES_UTILS_BASE_URL}/${path}.sh"
 
-  download "${url}" "${tmp_file}" && {
-    # shellcheck disable=SC1090
-    . "${tmp_file}" \
-      && rm -rf "${tmp_file}"
-  } && return 0
-
-  return 1
+  download "${url}" "${tmp_file}"
+  # shellcheck disable=SC1090
+  . "${tmp_file}"
 }
 
 
@@ -199,21 +195,19 @@ function main () {
   source_ephemeral "utils"
   
   msg::domain "System" "Verifying system state"
+  world::info
     
   if is_bootstrapped; then 
     msg::info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
   else
     msg::info "This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
   fi
-  
-  source_ephemeral "world" \
-    && world::info
 
   # Ensure the OS is supported and above the minimum version.
   verify_os || return 1
 
   if ! is_bootstrapped; then
-    msg::hed "Cloning dotfiles into ${XDG_CONFIG_HOME}"
+    msg::hed "Cloning dotfield into ${XDG_CONFIG_HOME}"
   fi  
   
   # One cannot simply lift oneself up by one's own bootstraps...
@@ -241,7 +235,7 @@ function main () {
     util/tryCatch \
     util/namedParameters
   
-  import utils world guard fs
+  import lib/utils
   
   msg::domain "Supporting" "Defining variables"
 
