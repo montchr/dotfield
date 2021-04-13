@@ -1,6 +1,6 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
-# Basic Shell Utilities
+# Shell Utilities
 #
 # This file MUST remain self-contained, with no additional dependencies. It
 # needs to remain lightweight enough that it can be downloaded and sourced on
@@ -10,25 +10,54 @@
 #
 # Thanks:
 # - https://github.com/dylanaraps/pure-bash-bible
+#
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  STRING MANIPULATION  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
 #========================================
 # Convert a string to lowercase.
 # 
 # Usage:
-#   string::lower <string>
+#   string::lower <string|@string>
 # Parameters:
-#   String
+#   String. Optionally prefixed by `@` for a nameref.
+# Outputs:
+#   Modified string, unless input is prefixed with `@`.
 #========================================
-function string::lower() {
-  printf '%s\n' "${1,,}"
+function string::lower {
+  if [[ "@" == "$1"* ]]; then
+    local -n str=${1}
+    str="${str,,}"
+    return
+  else
+    printf '%s\n' "${1,,}"
+  fi
 }
 
-# Change a string to uppercase.
+#========================================
+# Convert a string to uppercase.
+#
+# Usage:
+#   string::upper <string|@string>
 # Parameters:
-#   String
-function string::upper() {
+#   String. Optionally prefixed by `@` for a nameref.
+# Outputs:
+#   Modified string, unless input is prefixed with `@`.
+#========================================
+function string::upper {
+  if [[ "@" == "$1"* ]]; then
+    local -n str=${1}
+    str="${str^^}"
+    return
+  else
     printf '%s\n' "${1^^}"
+  fi
 }
 
 # Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
@@ -36,7 +65,7 @@ function string::upper() {
 #
 # Parameters:
 #   String...
-function string::sanitize() {
+function string::sanitize {
   local clean="$*"
   clean="${clean//[[:space:]]/\-}"
   clean="${clean//"/"/_}"
@@ -44,7 +73,7 @@ function string::sanitize() {
   string::lower "${clean}"
 }
 
-function string::is_supported_version() {
+function string::is_supported_version {
   # shellcheck disable=SC2206
   declare -a v1=(${1//./ })
   # shellcheck disable=SC2206
@@ -72,14 +101,17 @@ function string::is_supported_version() {
 
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Messages + Prompts
-# - - - - - - - - - - - - - - - - - - - -
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  MESSAGES + PROMPTS  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
 
 # Prompt the user for input.
 # Parameters:
 #   Prompt message
-function msg::ask() {
+function msg::ask {
   msg::question "$1"
   read -r
 }
@@ -87,78 +119,38 @@ function msg::ask() {
 # Prompt the user for input without echoing response.
 # Parameters:
 #   Prompt message
-function msg::ask_silently() {
+function msg::ask_silently {
   msg::question "$1"
   read -s -r
   printf "\n"
 }
 
-function msg::ask_for_confirmation() {
+function msg::ask_for_confirmation {
   msg::question "$1 (y/n) "
   read -r -n 1
   printf "\n"
 }
 
 # Get the user's answer to the previous prompt.
-function msg::get_answer() {
+function msg::get_answer {
   printf "%s" "$REPLY"
 }
 
 # Whether the user responded affirmatively to the previous prompt.
 # Globals:
 #   REPLY
-function msg::is_confirmed () {
+function msg::is_confirmed {
   [[ "$REPLY" =~ ^[Yy]$ ]] &&
     return 0 ||
       return 1
 }
 
-# Set a global $PASSWORD variable by generation or by prompt.
-#
-# Globals:
-#   PASSWORD
-function user::set_password_global() {
-  msg::ask_for_confirmation "Do you want to generate a new password?"
-  if msg::is_confirmed; then
-    if shell::has bw; then
-      PASSWORD=$(bw generate --words 3 --separator '.' -p)
-      msg::success "Generated new password:"
-      msg::info    "    ${PASSWORD}" ; printf "\n"
-    else
-      msg::error "[Error]" "Couldn't find a password generator!"
-    fi
-  else
-    user::prompt_for_password
-  fi
-}
-
-# Keep prompting for the password and password confirmation.
-#
-# Globals:
-#   PASSWORD
-function user::prompt_for_password() {
-  local passwords_match=0
-  local confirmation
-  while [ "${passwords_match}" -eq "0" ]; do
-    ask_silently "Enter new password:"
-    PASSWORD=$(get_answer)
-
-    ask_silently "Confirm password:"
-    confirmation=$(get_answer)
-
-    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
-      print_error "Passwords do not match! Please try again."
-    else
-      passwords_match=1
-    fi
-  done
-}
 
 # Print a top-level heading message.
 # Deprecated.
 # Parameters:
 #   Message
-function msg::hed () {
+function msg::hed {
   msg::section "$@"
 }
 
@@ -166,37 +158,37 @@ function msg::hed () {
 # Parameters:
 #   Section name
 #   Message
-function msg::subhed () {
+function msg::subhed {
   msg::subsection "$@"
 }
 
-function msg::section() {
+function msg::section {
   msg::in_green "\n => $1\n"
 }
 
-function msg::domain() {
+function msg::domain {
   msg::in_green "\n => $1 :: ${*:2}\n"
 }
 
-function msg::domain__lesser() {
+function msg::domain__lesser {
   msg::in_purple "\n -> $1 :: ${*:2}\n"
 }
 
-function msg::domain__inactive() {
+function msg::domain__inactive {
   print "\n <- $1 :: ${*:2}\n"
 }
 
 # Print a basic informational message.
 # Parameters:
 #   Message
-function msg::info() {
+function msg::info {
   print "\n${MSG_INDENT}${1}\n"
 }
 
 # Prompt the user for a response to a question.
 # Parameters:
 #   Message
-function msg::question() {
+function msg::question {
   msg::in_yellow "${MSG_INDENT}[?] $1"
 }
 
@@ -204,7 +196,7 @@ function msg::question() {
 # Parameters:
 #   Result code
 #   Message
-function msg::result() {
+function msg::result {
   if [ "$1" -eq 0 ]; then
     msg::success "$2"
   else
@@ -216,7 +208,7 @@ function msg::result() {
 # Print a message indicating success.
 # Parameters:
 #   Message
-function msg::success() {
+function msg::success {
   msg::in_green "${MSG_INDENT}[✔] $1\n"
 }
 
@@ -230,40 +222,40 @@ function msg::warning() {
 # Print a message indicating an error.
 # Parameters:
 #   Message
-function msg::error() {
+function msg::error {
   msg::in_red "${MSG_INDENT}[✖] $*\n"
 }
 
-function msg::stream_errors() {
+function msg::stream_errors {
   while read -r line; do
     msg::error "↳ ERROR: $line"
   done
 }
 
-function msg::in_green() {
+function msg::in_green {
   msg::in_color "$1" 2
 }
 
-function msg::in_purple() {
+function msg::in_purple {
   msg::in_color "$1" 5
 }
 
-function msg::in_red() {
+function msg::in_red {
   msg::in_color "$1" 1
 }
 
-function msg::in_yellow() {
+function msg::in_yellow {
   msg::in_color "$1" 3
 }
 
-function msg::in_color() {
+function msg::in_color {
   printf "%b" \
     "$(tput setaf "$2" 2>/dev/null)" \
     "$1" \
     "$(tput sgr0 2>/dev/null)"
 }
 
-function msg::spinner() {
+function msg::spinner {
   local -r PID="$1"
   local -r CMDS="$2"
   local -r MSG="$3"
@@ -274,7 +266,7 @@ function msg::spinner() {
   local i=0
   local frameText=""
 
-  if ! is_ci; then
+  if ! shell::is_ci; then
     # Provide more space so that the text hopefully doesn't reach the bottom
     # line of the terminal window.
     #
@@ -292,7 +284,7 @@ function msg::spinner() {
   while kill -0 "$PID" &>/dev/null; do
     frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
 
-    if is_ci; then
+    if shell::is_ci; then
       printf "%s" "$frameText"
       sleep 0.2
       printf "\r"
@@ -305,11 +297,14 @@ function msg::spinner() {
 }
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Commands
-# - - - - - - - - - - - - - - - - - - - -
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  SHELL  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-function cmd::kill_all_subprocesses {
+
+function shell::kill_all_subprocesses {
   local i=""
   for i in $(jobs -p); do
     kill "$i"
@@ -317,7 +312,7 @@ function cmd::kill_all_subprocesses {
   done
 }
 
-function cmd::execute {
+function shell::execute {
   local -r CMDS="$1"
   local -r MSG="${2:-$1}"
   local -r TMP_FILE="$(mktemp /tmp/XXXXX)"
@@ -325,7 +320,7 @@ function cmd::execute {
   local cmdsPID=""
 
   # If the current process is ended, also end all its subprocesses.
-  set_trap "EXIT" "kill_all_subprocesses"
+  shell::set_trap "EXIT" "kill_all_subprocesses"
 
   # Execute commands in background
   eval "$CMDS" \
@@ -335,7 +330,7 @@ function cmd::execute {
   cmdsPID=$!
 
   # Show a spinner if the commands require more time to complete.
-  show_spinner "$cmdsPID" "$CMDS" "$MSG"
+  msg::show_spinner "$cmdsPID" "$CMDS" "$MSG"
 
   # Wait for the commands to no longer be executing in the background, and then
   # get their exit code.
@@ -343,10 +338,10 @@ function cmd::execute {
   exitCode=$?
 
   # Print output based on what happened.
-  print_result $exitCode "$MSG"
+  msg::result $exitCode "$MSG"
 
   if [ $exitCode -ne 0 ]; then
-    print_error_stream <"$TMP_FILE"
+    msg::error_stream <"$TMP_FILE"
   fi
 
   rm -rf "$TMP_FILE"
@@ -354,7 +349,7 @@ function cmd::execute {
   return $exitCode
 }
 
-function cmd::ask_for_sudo {
+function shell::ask_for_sudo {
   # Ask for the administrator password upfront.
   sudo -v &>/dev/null
 
@@ -368,92 +363,6 @@ function cmd::ask_for_sudo {
   done &>/dev/null &
 }
 
-
-
-function cmd::get_current_dir {
-    local current_dir="${BASH_SOURCE%/*}"
-    if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo "${current_dir}"
-}
-
-
-
-function fs::mkd {
-  if [ -n "$1" ]; then
-    if [ -e "$1" ]; then
-      if [ ! -d "$1" ]; then
-        print_error "$1 - a file with the same name already exists!"
-      else
-        print_success "$1"
-      fi
-    else
-      execute "mkdir -p $1" "$1"
-    fi
-  fi
-}
-
-
-#======================================
-# Get the basename of a file path.
-#
-# Alternative to the external `basename`.
-#
-# https://github.com/dylanaraps/pure-bash-bible#get-the-base-name-of-a-file-path
-#
-# Usage:
-#   basename <path> [suffix]
-#
-# Arguments:
-#   File path.
-#   File suffix. Optional.
-# Outputs:
-#   STDOUT - Basename. Includes file extension unless specifying [suffix].
-#========================================
-function basename {
-    local tmp
-    tmp=${1%"${1##*[!/]}"}
-    tmp=${tmp##*/}
-    tmp=${tmp%"${2/"$tmp"}"}
-    printf '%s\n' "${tmp:-/}"
-}
-
-
-#========================================
-# Get the directory name of a file path.
-#
-# https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
-#
-# Alternative to the external `dirname`.
-#
-# Usage:
-#   dirname <path>
-# Arguments:
-#   File path.
-# Outputs:
-#   STDOUT - Directory name.
-# Returns:
-#   0 - If at root directory or no directory.
-#========================================
-function dirname {
-    local tmp=${1:-.}
-
-    [[ $tmp != *[!/]* ]] && {
-        printf '/\n'
-        return
-    }
-
-    tmp=${tmp%%"${tmp##*[!/]}"}
-
-    [[ $tmp != */* ]] && {
-        printf '.\n'
-        return
-    }
-
-    tmp=${tmp%/*}
-    tmp=${tmp%%"${tmp##*[!/]}"}
-
-    printf '%s\n' "${tmp:-/}"
-}
 
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
@@ -485,10 +394,257 @@ function shell::has {
 }
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  FILESYSTEM  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-# - - - - - - - - - - - - - - - - - - - -
-# Repositories
-# - - - - - - - - - - - - - - - - - - - -
+
+#======================================
+# Get the basename of a file path.
+#
+# Alternative to the external `basename`.
+#
+# https://github.com/dylanaraps/pure-bash-bible#get-the-base-name-of-a-file-path
+#
+# Usage:
+#   fs::basename <path> [suffix]
+#
+# Arguments:
+#   File path.
+#   File suffix. Optional.
+# Outputs:
+#   STDOUT - Basename. Includes file extension unless specifying [suffix].
+#========================================
+function fs::basename {
+    local tmp
+    tmp=${1%"${1##*[!/]}"}
+    tmp=${tmp##*/}
+    tmp=${tmp%"${2/"$tmp"}"}
+    printf '%s\n' "${tmp:-/}"
+}
+
+
+#========================================
+# Get the directory name of a file path.
+#
+# https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
+#
+# Alternative to the external `dirname`.
+#
+# Usage:
+#   fs::dirname <path>
+# Arguments:
+#   File path.
+# Outputs:
+#   STDOUT - Directory name.
+# Returns:
+#   0 - If at root directory or no directory.
+#========================================
+function fs::dirname {
+    local tmp=${1:-.}
+
+    [[ $tmp != *[!/]* ]] && {
+        printf '/\n'
+        return
+    }
+
+    tmp=${tmp%%"${tmp##*[!/]}"}
+
+    [[ $tmp != */* ]] && {
+        printf '.\n'
+        return
+    }
+
+    tmp=${tmp%/*}
+    tmp=${tmp%%"${tmp##*[!/]}"}
+
+    printf '%s\n' "${tmp:-/}"
+}
+
+
+function fs::ensure_dir {
+  if [[ ! -d "$1" ]]; then
+    msg::info "create $1"
+    mkdir -p "$1"
+  fi
+  msg::error $? "$1"
+}
+
+
+function fs::linkfile {
+  local file="$1"
+  [[ -f "${file}" ]] && (
+    cd "$(fs::dirname "${file}")" \
+      || return 1
+    fs::map_lines \
+      fs::link \
+      "${file}"
+  )
+}
+
+# @TODO untested
+function fs::link_all {
+  local src_dir="$1"
+  local target_dir="$2"
+
+  if ! [[ -d "${src_dir}" ]]; then
+    msg::error "[Error] Source '${src_dir}' is not a directory! Aborting."
+  fi
+  if ! [[ -d "${target_dir}" ]]; then
+    msg::error "[Error] Target '${target_dir}' is not a directory! Aborting."
+  fi
+
+  msg::warning "Linking all files in '${src_dir}' to '${target_dir}':"
+  for f in "${src_dir}"/*; do
+    msg::info "$f"
+  done
+
+  for f in "${src_dir}"/*; do
+    fs::link "$f" "${target_dir}/$(basename "$f")"
+  done
+}
+
+
+#========================================
+# Link files or directories safely.
+#
+# Usage:
+#   fs::link <src> <dest>
+# Parameters:
+#   Source path (relative)
+#   Target path (absolute)
+#========================================
+function fs::link {
+  local src_rel_path
+  local target_path
+  local src_abs_path
+  local target_dir
+  local owner
+
+  # @TODO is there a better way than eval and an unquoted argument?
+  # @TODO is `realpath` available?
+  # shellcheck disable=SC2086
+  src_rel_path=$(eval echo $1)
+  target_path=$(eval echo "$2")
+  readonly \
+    src_rel_path \
+    target_path
+
+  src_abs_path="$(pwd)/${src_rel_path}"
+  target_dir=$(dirname "${target_path}")
+
+  if [[ -d "${target_dir}" ]]; then
+    owner=$(stat -c '%U' "${target_dir}")
+    if [[ "${owner}" != "root" && "${owner}" != "${USER}" ]]; then
+      msg::error "can not link '${src_abs_path}' to '${target_path}'"
+      msg::error "owner of '${target_dir}' is ${owner}"
+      msg::error "allowed owners: root or ${USER}"
+      exit 1
+    fi
+  fi
+
+  if [[ ! -f "${src_abs_path}" && ! -d "${src_abs_path}" ]]; then
+    msg::error "can not link '${src_abs_path}' as it does not exist"
+    exit 1
+  fi
+
+  if [[ ! -d "${target_dir}" ]]; then
+    msg::info "create ${target_dir}"
+    mkdir -p "${target_dir}"
+  fi
+
+  if [[ -L "${target_path}" ]]; then
+    msg::info "relink ${src_abs_path} -> ${target_path}"
+    if [[ "${owner}" = "root" ]]; then
+      sudo rm "${target_path}"
+    else
+      rm "${target_path}"
+    fi
+  else
+    msg::info "link ${src_abs_path} -> ${target_path}"
+  fi
+
+  if [[ "${owner}" = "root" ]]; then
+    sudo ln -s "${src_abs_path}" "${target_path}"
+  else
+    ln -s "${src_abs_path}" "${target_path}"
+  fi
+}
+
+
+#========================================
+# Concatenate multiple files.
+#
+# Usage:
+#   fs::combine <file>...
+# Parameters:
+#   Files...
+# Outputs:
+#   Path to the combined file.
+#========================================
+function fs::combine {
+  local output
+  output=$(mktemp)
+  for f in "$@"; do
+    [[ -f $f ]] \
+      && cat "$f" >> "${output}"
+  done
+  echo "${output}"
+}
+
+
+#========================================
+# Invoke a command using every line in a file as arguments.
+#
+# Usage:
+#   fs::map_lines <callback> <file>
+# Parameters:
+#   Command to run for each line in a file
+#   File containing argument lists separated by linebreaks.
+#========================================
+function fs::map_lines {
+  local callback="$1"
+  local file="$2"
+
+  [[ ! -f "${file}" ]] \
+    && return 1
+
+  while IFS='' read -r line || [[ -n "${line}" ]]; do
+    # Ignore comment lines
+    [[ "${line}" == "#"* ]] && continue
+    # Pass the entire line as-is -- words will be split for separate args.
+    # shellcheck disable=SC2086
+    ${callback} ${line}
+  done < "${file}"
+}
+
+
+#========================================
+# Download a remote file, linking it to the current user's bin directory.
+#
+# Usage:
+#   fs::download_bin <name> <URL>
+# Parameters:
+#   Executable name
+#   Source URL
+#========================================
+function fs::download_bin {
+  local target="${XDG_BIN_HOME:-${${HOME}/.local/bin}}/${1}"
+  local src="$2"
+  curl --silent -o "${target}" "${src}"
+  chmod a+x "${target}"
+  hash -r
+}
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  REPOSITORIES  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
 
 function repo::is_repo {
   git rev-parse &>/dev/null
@@ -569,7 +725,7 @@ function repo::sync {
   forge="$(repo::get_forge_id "${forge}")"
   remote_branch="${forge}/${branch}"
 
-  # @TODO why is eval necessary? it's just a path
+  # @TODO avoid eval
   wd=$(eval echo "${dir}")
   url=$(repo::qualify_url "${id}" "$forge")
 
@@ -632,4 +788,232 @@ function repo::sync {
       git push "${forge}" "${branch}"
     fi
   }
+}
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::
+#::  ==>  GUARDIANS  <==  :::
+#::
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
+function guard::domain {
+  local domain=$1
+  local key
+  key=$(string::lower "${domain}")
+  shift
+
+  local message="$*"
+
+  local guard_ref="guard_$key"
+  local ignore_guard_ref="guard_ignore_$key"
+  guard="${!guard_ref}"
+  ignore_guard="${!ignore_guard_ref}"
+
+  if [[ ("$ALL" == "true" || "$guard" == "true") && "$ignore_guard" == "" ]]; then
+    msg::domain__lesser "${domain}" "${message}"
+    return 0
+  else
+    msg::domain__inactive "${domain}" "${message}"
+    return 1
+  fi
+}
+
+function guard::install {
+  [[ "$ACTION" == "install" ]]
+  return
+}
+
+function guard::upgrade {
+  [[ "$ACTION" == "upgrade" ]]
+  return
+}
+
+function guard::test {
+  [[ "$ACTION" == "test" ]]
+  return
+}
+
+function guard::ubuntu {
+  [[ "$OS_NAME" == "ubuntu" ]]
+  return
+}
+
+function guard::arch {
+  [[ "$OS_NAME" == "arch" ]]
+  return
+}
+
+function guard::macos {
+  [[ "$OS_NAME" == "macos" ]]
+  return
+}
+
+function guard::root {
+  [[ "$(whoami)" == "root" ]]
+  return
+}
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:   ==>  USER MANAGEMENT  <==  :::
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
+# Execute a command as a certain user
+# Arguments:
+#   Account Username
+#   Command to be executed
+function user::exec () {
+  local username=${1}
+  local exec_command=${2}
+  sudo -u "${username}" -H bash -c "${exec_command}"
+}
+
+# Create the new user account.
+# Arguments:
+#   Account Username
+#   Account Password
+function user::create_account () {
+  local username=${1}
+  local password=${2}
+  sudo adduser --disabled-password --gecos '' "${username}"
+  echo "${username}:${password}" | sudo chpasswd
+  sudo usermod -aG sudo "${username}"
+}
+
+
+# Set a global $PASSWORD variable by generation or by prompt.
+#
+# Globals:
+#   PASSWORD
+function user::set_password_global {
+  msg::ask_for_confirmation "Do you want to generate a new password?"
+  if msg::is_confirmed; then
+    if shell::has bw; then
+      PASSWORD=$(bw generate --words 3 --separator '.' -p)
+      msg::success "Generated new password:"
+      msg::info    "    ${PASSWORD}" ; printf "\n"
+    else
+      msg::error "[Error]" "Couldn't find a password generator!"
+    fi
+  else
+    user::prompt_for_password
+  fi
+}
+
+# Keep prompting for the password and password confirmation.
+#
+# Globals:
+#   PASSWORD
+function user::prompt_for_password {
+  local passwords_match=0
+  local confirmation
+  while [[ "${passwords_match}" -eq "0" ]]; do
+    msg::ask_silently "Enter new password:"
+    PASSWORD=$(msg::get_answer)
+
+    msg::ask_silently "Confirm password:"
+    confirmation=$(msg::get_answer)
+
+    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
+      msg::error "Passwords do not match! Please try again."
+    else
+      passwords_match=1
+    fi
+  done
+}
+
+
+# Allow passwordless sudo for a user.
+# Parameters:
+#   Username
+function user::allow_passwordless_sudo () {
+  local username="${1}"
+  sudo cp /etc/sudoers /etc/sudoers.bak
+  sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
+}
+
+# Add an SSH public key for a user.
+# Parameters:
+#   Username
+#   SSH public key
+function user::add_ssh_pub_key () {
+  local username=${1}
+  local pubkey=${2}
+
+  user::exec "${username}" \
+    "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
+  user::exec "${username}" \
+    "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
+  user::exec "${username}" \
+    "chmod 600 ~/.ssh/authorized_keys"
+}
+
+# Modify the sshd_config file.
+function user::change_ssh_config () {
+  # shellcheck disable=2116
+  sudo sed -re \
+    's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' \
+    -i."$(echo 'old')" \
+    /etc/ssh/sshd_config
+  sudo sed -re \
+    's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' \
+    -i /etc/ssh/sshd_config
+}
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:   ==>  PACKAGE MANAGEMENT  <==   [[ pkg ]]
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
+#
+# : Debian/Ubuntu :: [apt]
+# - - - - - - - - - - - - - - - - - - -
+
+# Resynchronize the package index files from their sources.
+function pkg::apt::update_repos () {
+  shell::execute \
+    "sudo apt-get update -qqy" \
+    "APT (update)"
+}
+
+# Install the newest versions of all installed packages.
+function pkg::apt::upgrade_all() {
+  shell::execute \
+    "export DEBIAN_FRONTEND=\"noninteractive\" \
+      && sudo apt-get -o Dpkg::Options::=\"--force-confnew\" upgrade -qqy" \
+    "APT (upgrade)"
+}
+
+# Install a package.
+# Parameters:
+#   Package description
+#   Package name
+#   Extra arguments to apt-get
+function pkg::apt::install () {
+  local DESCRIPTION="$1"
+  local PACKAGE="$2"
+  local EXTRA_ARGUMENTS="$3"
+
+  if ! pkg::apt::exists "${PACKAGE}"; then
+    shell::execute \
+      "sudo apt-get install --allow-unauthenticated -qqy ${EXTRA_ARGUMENTS} ${PACKAGE}" \
+      "${DESCRIPTION}"
+  else
+    msg::success "${DESCRIPTION}"
+  fi
+}
+
+# Whether a package is installed.
+# Parameters:
+#   Package name
+function pkg::apt::exists () {
+  dpkg -s "$1" &> /dev/null
 }

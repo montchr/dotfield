@@ -2,12 +2,12 @@
 
 set -e
 
-readonly QUERENT="montchr"
-readonly REPO_ID="montchr/dots"
-readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
-readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
-readonly DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
-readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
+declare -gxr QUERENT="montchr"
+declare -gxr REPO_ID="montchr/dots"
+declare -gxr DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
+declare -gxr DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
+declare -gxr DOTFILES_TARBALL_URL="https://github.com/${REPO_ID}/tarball/${DOTFILES_BRANCH}"
+declare -gxr DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
 DOTFIELD="$HOME/.config"
 if [[ -d "$XDG_CONFIG_HOME" ]]; then
@@ -16,10 +16,13 @@ fi
 if [[ -d "$GITHUB_WORKSPACE" ]]; then
   DOTFIELD="$GITHUB_WORKSPACE"
 fi
-export DOTFIELD
 
 BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
-export BASE_DIR
+
+export \
+  BASE_DIR \
+  DOTFIELD \
+  HOSTNAME
 
 
 #========================================
@@ -67,8 +70,7 @@ function source_ephemeral {
   if [[ -f "${path}" ]]; then
     # shellcheck disable=SC1090
     . "${path}" \
-      && return \
-      || return 1
+      && return
   fi
 
   tmp_file="$(mktemp /tmp/XXXXXXXX)"
@@ -110,8 +112,6 @@ function verify_os {
     [ubuntu]="20.04"
   )
 
-  OS_VERSION="$(world::get_OS_VERSION)"
-  OS_NAME="$(world::get_OS_NAME)"
   supported_version="${Versions[$OS_NAME]}"
 
   if [[ -z "$supported_version" ]]; then
@@ -119,15 +119,15 @@ function verify_os {
     return 1
   fi
 
-  if is_supported_version "${OS_VERSION}" "${supported_version}"
-  then
-    return 0
-  else
-    printf "Sorry, this script is intended only for %s %s+" \
-      "${Names[$OS_NAME]}" \
-      "${supported_version}"
-    return 1
-  fi
+  string::is_supported_version \
+    "${OS_VERSION}" \
+    "${supported_version}" \
+      && return 0
+
+  printf "Sorry, this script is intended only for %s %s+" \
+    "${Names[$OS_NAME]}" \
+    "${supported_version}"
+  return 1
 }
 
 
@@ -149,10 +149,6 @@ function is_bootstrapped {
 # Entrypoint.
 #========================================
 function main () {
-  # Ensure that the following actions are made relative to this file's path.
-  cd "$(dirname "${BASH_SOURCE[0]}")" ||
-    exit 1
-    
   source_ephemeral "utils"
   
   msg::domain "System" "Verifying system state"
@@ -271,6 +267,18 @@ function main () {
   
   }
 
+
+  guard::install  && {
+    msg::domain "Hostname" "Set the system hostname" && {
+      if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
+        HOSTNAME="${CDOM_INIT_HOSTNAME}"
+      else
+        ask "Enter a name: "
+        HOSTNAME="$(get_answer)"
+      fi
+    }
+  }
+
   
   msg::domain "Guardian" "Ensure directories exist" && {
 
@@ -312,47 +320,23 @@ function main () {
   # guard::domain "Link" "Link all files from module bin directories" && {
 
   #   for f in "${DOTFIELD}/*/bin/*"; do
-  #     safe_link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
+  #     link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
   #   done
 
   # }
 
   
-  # - - - - - - - - - - - - - - - - - - - -
-  # OS-Specific
-  # - - - - - - - - - - - - - - - - - - - -
+  guard::arch && {
+    ./os/arch/main
+  }
 
-  guard::ubuntu \
-    && os/ubuntu/install
-
-  guard::arch \
-    && os/arch/install
+  guard::ubuntu && {
+    ./os/ubuntu/main
+  }
 
   guard::macos && {
-
-    guard::domain "OS" "Install Essentials" && {
-      os/macos/install
-    }
-
-    guard::domain "OS" "Write all defaults" && {
-      os/macos/configure
-    }
-
+    ./os/macos/main
   }
-
-  # @TODO do this in os configure
-  guard::install "Hostname" "Set the system hostname" && {
-    if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
-      hostname="${CDOM_INIT_HOSTNAME}"
-    else
-      ask "Set the hostname: "
-      hostname="$(get_answer)"
-    fi
-
-    # shellcheck disable=SC1090
-    . "os/$(get_os)/configure" "${hostname:-CDOM}"
-  }
-
 
   msg::domain "Git" "Create a local git config file" && {
     touch "${DOTFIELD}/git/config.local"
@@ -411,13 +395,11 @@ function main () {
   
   guard::install && {
       
-    if ! is_ci; then
-      print_hed "Restart"
-  
-      ask_for_confirmation "Do you want to restart? You probably should."
-      printf "\n"
-  
-      if user_confirmed; then
+    if ! shell::is_ci; then
+      msg::warning "Restart!"
+      msg::ask_for_confirmation "Restart?"
+
+      if msg::is_confirmed; then
         sudo shutdown -r now &> /dev/null
       fi
     fi

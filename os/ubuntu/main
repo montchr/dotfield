@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+#
+# os/ubuntu/install
+#
+
+BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
+
+# shellcheck source=../../vendor/bash-oo-framework/lib/oo-bootstrap.sh
+. "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
+
+import \
+  util/exception \
+  util/tryCatch \
+  util/namedParameters
+
+# shellcheck source=../../lib/utils.sh
+import lib/utils.sh
+
+
+function __provision_user {
+  if [[ -n "${CDOM_INIT_NEW_USER_NAME}" ]]; then
+    USERNAME="${CDOM_INIT_NEW_USER_NAME}"
+  else
+    ask "Enter the username of the new user account:"
+    USERNAME=$(get_answer)
+  fi
+  readonly USERNAME
+
+  if [[ -n "${CDOM_INIT_NEW_USER_PASSWORD}" ]]; then
+    PASSWORD="${CDOM_INIT_NEW_USER_PASSWORD}"
+  else
+    prompt_for_password
+  fi
+
+  # Run setup functions
+  trap .cleanup EXIT SIGHUP SIGINT SIGTERM
+
+  user::create_account "${USERNAME}" "${PASSWORD}"
+
+  if [[ -n "${CDOM_INIT_PUBKEY}" ]]; then
+    ssh_pub_key="${CDOM_INIT_PUBKEY}"
+  else
+    ask 'Paste in the public SSH key for the new user:\n'
+    ssh_pub_key=$(get_answer)
+  fi
+
+  user::allow_passwordless_sudo "${USERNAME}" \
+    && user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \
+    && user::change_ssh_config
+  print_result $? "Configure SSH"
+}
+
+
+function __setup_time () {
+  local timezone
+  timezone="$1"
+
+  if [[ -z "${timezone}" ]]; then
+    msg::ask "Enter the timezone for the server (Default is 'America/New_York')"
+    timezone=$(msg::get_answer)
+  fi
+
+  timezone=${timezone:-America/New_York}
+  echo "${timezone}" > /etc/timezone
+  sudo ln -fs \
+    "/usr/share/zoneinfo/${timezone}" \
+    /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+  sudo dpkg-reconfigure -f noninteractive tzdata
+
+  sudo systemctl restart systemd-timesyncd
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function main () {
+  local previous_directory
+  previous_directory="$PWD"
+
+  # Ensure that the following actions are made relative to this file's path.
+  cd "$(dirname "${BASH_SOURCE[0]}")" ||
+    exit 1
+    
+  guard::domain "packages" "Updating apt repositories" && {
+    pkg::update_repos
+  }
+  
+  guard::install && {
+  
+    guard::domain "packages" "Upgrading existing dependencies" && {
+      pkg::apt::upgrade_all
+    }
+    
+    guard::domain "packages" "Installing crucial dependencies" && {
+      fs::map_lines \
+        pkg::apt::install \
+        "${DOTFIELD}/ubuntu/Aptfile"
+
+      sudo ufw allow OpenSSH
+      yes y | sudo ufw enable
+    }
+
+    guard::root && {
+      guard::domain "user" "Creating a new user with sudo capabilities..." && {
+        __provision_user
+      }
+    }
+
+    guard::domain "time" "Rolling time into sync" && {
+      time::setup_timezone "${CDOM_INIT_TIMEZONE}"
+      time::setup_ntp
+    }
+
+  }
+  
+  
+  guard::upgrade && {
+    pkg::upgrade_all
+  }
+  
+  
+  guard::install && {
+
+    guard::domain "ssh" "Restarting SSH service" && {
+      sudo service ssh restart
+    }
+
+    guard::domain "user" "Restoring original /etc/sudoers file" && {
+      [[ -f "/etc/sudoers.bak" ]] && {
+        sudo mv /etc/sudoers.bak /etc/sudoers
+      }
+    }
+
+  }
+  
+  cd "$previous_directory" || return
+
+}
+
+main "$@"

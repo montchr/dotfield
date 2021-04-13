@@ -6,8 +6,6 @@
 # https://mths.be/macos
 #
 
-readonly HOSTNAME=${1}
-
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -21,17 +19,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
-
-# Set computer name (as done via System Preferences → Sharing)
-if [[ -n "${HOSTNAME}" ]]; then
-  sudo scutil --set ComputerName "${HOSTNAME}"
-  sudo scutil --set HostName "${HOSTNAME}"
-  sudo scutil --set LocalHostName "${HOSTNAME}"
-  sudo defaults write \
-    /Library/Preferences/SystemConfiguration/com.apple.smb.server \
-    NetBIOSName \
-    -string "${HOSTNAME}"
-fi
 
 # Disable the sound effects on boot
 # sudo nvram SystemAudioVolume=" "

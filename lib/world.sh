@@ -1,7 +1,14 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 #
-# Shell Utilities :: The World
 #
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::   \\\
+#:: ======>     THE WORLD   ○    [[  shell utilities  ]]
+#::   ///
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+#
+#
+
 
 declare -gx \
   DEVELOPER \
@@ -9,135 +16,70 @@ declare -gx \
   KERNEL_RELEASE \
   OS_NAME \
   OS_VERSION \
+  PATH \
   QUERENT \
   USER \
-  PATH \
+  XDG_BIN_HOME \
   XDG_CACHE_HOME \
   XDG_CONFIG_CACHE \
   XDG_CONFIG_HOME \
-  XDG_DATA_HOME \
-  XDG_BIN_HOME
-
-if [[ -z "$USER" ]]; then
-  USER=$(whoami)
-fi
+  XDG_DATA_HOME
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Functions
-# - - - - - - - - - - - - - - - - - - - -
-
-# Get the santized name of the kernel.
-function world::get_kernel_name() {
-  uname -s | tr '[:upper:]' '[:lower:]'
-}
-
-# Get the OS name.
-function world::get_os_name() {
-  local kernel
-  local os_name
-  kernel="$(get_kernel_name)"
-
-  [[ "macos" == "${kernel}" ]] && {
-    echo "macos"
-    return
-  }
-
-  [[ "linux" != "${kernel}" ]] && {
-    echo "unknown"
-    return 1
-  }
-
-  os_name=$(
-   . /etc/os-release
-   printf "%s" "${ID}"
-  )
-
-  echo "$os_name"
-}
-
-# Get OS version.
-function world::get_os_version() {
-  local kernel
-  local os_name
-  kernel="$(get_kernel_name)"
-
-  [[ "macos" == "${kernel}" ]] && {
-    sw_vers -productVersion
-    return
-  }
-
-  [[ "linux" != "${kernel}" ]] \
-    && return 1
-
-  version_id=$(
-   . /etc/os-release
-   printf "%s" "${VERSION_ID}"
-  )
-
-  echo "${version_id}"
-}
-
-# @TODO needs testing! may not work...
-function world::get_os_info() {
-  local name=$1
-  name="$(echo "$name" | tr '[:upper:]')"
-  readonly name
-
-  [[ "linux" != "$(get_kernel_name)" ]] \
-    && return 1
-
-  echo "$(
-   . /etc/os-release
-   printf "%s" "${!name}"
-  )"
+[[ -z "${USER}" ]] && {
+  USER="$(whoami)"
 }
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Orientation
-# - - - - - - - - - - - - - - - - - - - -
-
-KERNEL_NAME="$(world::get_kernel_name)"
-OS_NAME="$(world::get_os_name)"
-OS_VERSION="$(world::get_os_version)"
+[[ -z "$KERNEL_NAME" ]] && {
+  KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
+}
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Home
-# - - - - - - - - - - - - - - - - - - - -
+[[ -z "$OS_NAME" || -z "$OS_VERSION" ]] && {
+  case "${KERNEL_NAME}" in
+    darwin)
+      OS_NAME="macos"
+      OS_VERSION="$(sw_vers -productVersion)"
+      ;;
+    linux)
+      # shellcheck disable=SC1091
+      OS_NAME="$(
+        . /etc/os-release
+        printf "%s" "${ID}"
+      )"
+      # shellcheck disable=SC1091
+      OS_VERSION="$(
+        . /etc/os-release
+        printf "%s" "${VERSION_ID}"
+      )"
+      ;;
+    *) OS_NAME="unknown" ;;
+  esac
+}
 
-PATH=$HOME/.local/bin:$PATH
+PATH="$HOME/.local/bin:$PATH"
 
-XDG_CONFIG_HOME="$DOTFIELD"
+XDG_CONFIG_HOME="${DOTFIELD:-${HOME}/.config}"
 XDG_CONFIG_CACHE="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_BIN_HOME="${HOME}/.local/bin"
 
-DEVELOPER=$HOME/Developer
+DEVELOPER="${HOME}/Developer"
 if [[ "$USER" != "$QUERENT" ]]; then
-  DEVELOPER=$HOME/Developer/99-personal
+  DEVELOPER="${HOME}/Developer/99-personal"
 fi
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Main
-# - - - - - - - - - - - - - - - - - - - -
-
-function world::lock {
-  local lockfile="${XDG_CONFIG_HOME}/world.env.lock"
-  
-}
-
 function world::info() {
 
-  msg::info "Kernel name:      $KERNEL_NAME"
-  msg::info "Kernel release:   $KERNEL_RELEASE"
-  msg::info "Operating system: $OS_NAME"
-  msg::info "OS version:       $OS_VERSION"
-  msg::info "User:             $USER"
-  msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
-  msg::info
+  echo "Kernel name:      $KERNEL_NAME"
+  echo "Kernel release:   $KERNEL_RELEASE"
+  echo "Operating system: $OS_NAME"
+  echo "OS version:       $OS_VERSION"
+  echo "User:             $USER"
+  echo "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
+  echo
 
 }
