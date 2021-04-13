@@ -118,16 +118,12 @@ function source_ephemeral {
       && return
   fi
 
-  tmp_file="$(mktemp /tmp/XXXXXXXX)"
+  tmp_file="$(mktemp "/tmp/${path}.XXXX")"
   url="${DOTFILES_UTILS_BASE_URL}/${path}.sh"
 
-  download "${url}" "${tmp_file}" && {
-    # shellcheck disable=SC1090
-    . "${tmp_file}" \
-      && rm -rf "${tmp_file}"
-  } && return 0
-
-  return 1
+  download "${url}" "${tmp_file}"
+  # shellcheck disable=SC1090
+  . "${tmp_file}"
 }
 
 
