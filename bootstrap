@@ -13,10 +13,12 @@ readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
 readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
 
 DOTFIELD="$HOME/.config"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${DOTFIELD}}"
 if [[ -d "$XDG_CONFIG_HOME" ]]; then
   DOTFIELD="$XDG_CONFIG_HOME"
 fi
-if [[ -d "$GITHUB_WORKSPACE" ]]; then
+GITHUB_WORKSPACE=""
+if [[ -d "${GITHUB_WORKSPACE}" ]]; then
   DOTFIELD="$GITHUB_WORKSPACE"
 fi
 
