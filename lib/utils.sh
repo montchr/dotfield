@@ -19,7 +19,7 @@
 #
 
 set +u
-# shellcheck disable=SC2153
+# shellcheck disable=2153
 [[ -n "$ZSH_VERSION" ]] \
   && emulate -L bash
 set -u
@@ -42,12 +42,12 @@ set -u
         OS_VERSION="$(sw_vers -productVersion)"
         ;;
       linux)
-        # shellcheck disable=SC1091
+        # shellcheck disable=1091
         OS_NAME="$(
           . /etc/os-release
           printf "%s" "${ID}"
         )"
-        # shellcheck disable=SC1091
+        # shellcheck disable=1091
         OS_VERSION="$(
           . /etc/os-release
           printf "%s" "${VERSION_ID}"
@@ -179,9 +179,9 @@ function string.sanitize {
 }
 
 function string.is_supported_version {
-  # shellcheck disable=SC2206
+  # shellcheck disable=2206
   declare -a v1=(${1//./ })
-  # shellcheck disable=SC2206
+  # shellcheck disable=2206
   declare -a v2=(${2//./ })
   local i=""
 
@@ -628,7 +628,7 @@ function fs.link {
 
   # @TODO is there a better way than eval and an unquoted argument?
   # @TODO is `realpath` available?
-  # shellcheck disable=SC2086
+  # shellcheck disable=2086
   src_rel_path=$(eval echo $1)
   target_path=$(eval echo "$2")
   readonly \
@@ -718,7 +718,7 @@ function fs.map_lines {
     # Ignore comment lines
     [[ "${line}" == "#"* ]] && continue
     # Pass the entire line as-is -- words will be split for separate args.
-    # shellcheck disable=SC2086
+    # shellcheck disable=2086
     ${callback} ${line}
   done < "${file}"
 }

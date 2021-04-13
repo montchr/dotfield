@@ -221,6 +221,6 @@ BASE16_THEME=$(cdom_base16_theme "$CDOM_OS_APPEARANCE") &&
   export BASE16_THEME
 
 # Load Nix environment
-# shellcheck disable=SC1090
+# shellcheck disable=1090
 [[ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]] \
   && . "${HOME}/.nix-profile/etc/profile.d/nix.sh"

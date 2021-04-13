@@ -35,7 +35,7 @@ main() {
 }
 
 @test "Ensure ignored characters are stripped" {
-  # shellcheck disable=SC2016
+  # shellcheck disable=2016
   run main 'foo$($=\\``)bar'
   assert_output "foobar"
 }

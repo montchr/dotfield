@@ -4,7 +4,7 @@
 # os/macos
 #
 
-# shellcheck disable=SC1090
+# shellcheck disable=1090
 source "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
 
 import \
