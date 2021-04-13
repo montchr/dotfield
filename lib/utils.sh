@@ -26,16 +26,16 @@ set -u
 
 {
 
-  if ! [[ -v "${USER}" ]]; then
+  if [[ ! -v USER ]]; then
     USER="$(whoami)"
   fi
 
 
-  if ! [[ -v "$KERNEL_NAME" ]]; then
+  if [[ ! -v KERNEL_NAME ]]; then
     KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
   fi
 
-  if ! [[ -v "$OS_NAME" ]] || ! [[ -v "$OS_VERSION" ]]; then
+  if [[ ! -v OS_NAME || ! -v OS_VERSION ]]; then
     case "${KERNEL_NAME}" in
       darwin)
         OS_NAME="macos"
