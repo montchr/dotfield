@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# shellcheck shell=bash
 #
 # os/ubuntu/install
 #
 
 BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
-# shellcheck source=../../vendor/bash-oo-framework/lib/oo-bootstrap.sh
+# shellcheck disable=SC1090
 . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
 
 import \
@@ -35,7 +36,7 @@ function __provision_user {
   # Run setup functions
   trap .cleanup EXIT SIGHUP SIGINT SIGTERM
 
-  user::create_account "${USERNAME}" "${PASSWORD}"
+  user.create_account "${USERNAME}" "${PASSWORD}"
 
   if [[ -n "${CDOM_INIT_PUBKEY}" ]]; then
     ssh_pub_key="${CDOM_INIT_PUBKEY}"
@@ -44,9 +45,9 @@ function __provision_user {
     ssh_pub_key=$(get_answer)
   fi
 
-  user::allow_passwordless_sudo "${USERNAME}" \
-    && user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \
-    && user::change_ssh_config
+  user.allow_passwordless_sudo "${USERNAME}" \
+    && user.add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \
+    && user.change_ssh_config
   print_result $? "Configure SSH"
 }
 
@@ -56,8 +57,8 @@ function __setup_time () {
   timezone="$1"
 
   if [[ -z "${timezone}" ]]; then
-    msg::ask "Enter the timezone for the server (Default is 'America/New_York')"
-    timezone=$(msg::get_answer)
+    msg.ask "Enter the timezone for the server (Default is 'America/New_York')"
+    timezone=$(msg.get_answer)
   fi
 
   timezone=${timezone:-America/New_York}
@@ -83,51 +84,50 @@ function main () {
   cd "$(dirname "${BASH_SOURCE[0]}")" ||
     exit 1
     
-  guard::domain "packages" "Updating apt repositories" && {
-    pkg::update_repos
+  guard.domain "packages" "Updating apt repositories" && {
+    pkg.apt.update_repos
   }
   
-  guard::install && {
+  guard.install && {
   
-    guard::domain "packages" "Upgrading existing dependencies" && {
-      pkg::apt::upgrade_all
+    guard.domain "packages" "Upgrading existing dependencies" && {
+      pkg.apt.upgrade_all
     }
     
-    guard::domain "packages" "Installing crucial dependencies" && {
-      fs::map_lines \
-        pkg::apt::install \
+    guard.domain "packages" "Installing crucial dependencies" && {
+      fs.map_lines \
+        pkg.apt.install \
         "${DOTFIELD}/ubuntu/Aptfile"
 
       sudo ufw allow OpenSSH
       yes y | sudo ufw enable
     }
 
-    guard::root && {
-      guard::domain "user" "Creating a new user with sudo capabilities..." && {
+    guard.root && {
+      guard.domain "user" "Creating a new user with sudo capabilities..." && {
         __provision_user
       }
     }
 
-    guard::domain "time" "Rolling time into sync" && {
-      time::setup_timezone "${CDOM_INIT_TIMEZONE}"
-      time::setup_ntp
+    guard.domain "time" "Rolling time into sync" && {
+      __setup_time "${CDOM_INIT_TIMEZONE}"
     }
 
   }
   
   
-  guard::upgrade && {
-    pkg::upgrade_all
+  guard.upgrade && {
+    pkg.apt.upgrade_all
   }
   
   
-  guard::install && {
+  guard.install && {
 
-    guard::domain "ssh" "Restarting SSH service" && {
+    guard.domain "ssh" "Restarting SSH service" && {
       sudo service ssh restart
     }
 
-    guard::domain "user" "Restoring original /etc/sudoers file" && {
+    guard.domain "user" "Restoring original /etc/sudoers file" && {
       [[ -f "/etc/sudoers.bak" ]] && {
         sudo mv /etc/sudoers.bak /etc/sudoers
       }

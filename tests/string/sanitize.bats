@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 #
-# tests for string::sanitize
+# tests for string.sanitize
 #
 
 BASE="${BATS_TEST_DIRNAME}/../.."
@@ -11,7 +11,7 @@ load "${BASE}/vendor/bats-assert/load.bash"
 load "${BASE}/vendor/bats-file/load.bash"
 
 main() {
-  string::sanitize "$@"
+  string.sanitize "$@"
 }
 
 @test "Replace spaces with dashes" {

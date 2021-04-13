@@ -26,9 +26,9 @@ readonly LINODE_LABEL="ci-${REPO}-${BRANCH}-${LINODE_IMAGE_ID#linode/}"
 # Wrapper for running a linode-cli command with machine-readable output.
 #
 # Usage:
-#   linode::run <args>...
+#   linode.run <args>...
 #========================================
-function linode::run {
+function linode.run {
   linode-cli --no-headers --text "$*"
 }
 
@@ -37,13 +37,13 @@ function linode::run {
 # Get a field from a Linode resource.
 #
 # Usage:
-#   linode::get_field <resource-type> <resource-label> <field-key>
+#   linode.get_field <resource-type> <resource-label> <field-key>
 #========================================
-function linode::get_field {
+function linode.get_field {
   local type=$1
   local label="$2"
   local key="$3"
-  linode::run "${type}s" list \
+  linode.run "${type}s" list \
     --format="${key}" \
     --label="${label}"
 }
@@ -53,11 +53,11 @@ function linode::get_field {
 # Whether a linode with the specified label is rebuilding.
 #
 # Usage:
-#   linode::is_rebuilding <linode-label>
+#   linode.is_rebuilding <linode-label>
 #========================================
-function linode::is_rebuilding() {
+function linode.is_rebuilding() {
   local label=$1
-  [[ "rebuilding" == $(linode::get_field linode "${label}" status) ]]
+  [[ "rebuilding" == $(linode.get_field linode "${label}" status) ]]
 }
 
 
@@ -65,11 +65,11 @@ function linode::is_rebuilding() {
 # Whether a linode with the specified label is running.
 #
 # Usage:
-#   linode::is_running <linode-label>
+#   linode.is_running <linode-label>
 #========================================
-function linode::is_running() {
+function linode.is_running() {
   local label=$1
-  [[ "running" == $(linode::get_field linode "${label}" status) ]]
+  [[ "running" == $(linode.get_field linode "${label}" status) ]]
 }
 
 
@@ -77,9 +77,9 @@ function linode::is_running() {
 # Print a human-friendly table of info about the specified linode.
 #
 # Usage:
-#   linode::print_info <linode-label>
+#   linode.print_info <linode-label>
 #========================================
-function linode::print_info() {
+function linode.print_info() {
   local label=$1
   linode-cli linodes list --label="${label}"
 }
@@ -89,14 +89,14 @@ function linode::print_info() {
 # Monitor a linode for an expected status.
 #
 # Usage:
-#   linode::check_status <linode-label> <expected-status>
+#   linode.check_status <linode-label> <expected-status>
 #========================================
-function linode::check_status() {
+function linode.check_status() {
   local label=$1
   local expected_status=$2
   local pause=10
 
-  until "linode::is_${expected_status}" "${label}"; do
+  until "linode.is_${expected_status}" "${label}"; do
     [[ pause -eq 0 ]] && {
       print_error "[Error]" "Status check timed out. Aborting."
       print_warning "You may want to verify the status manually."
@@ -117,9 +117,9 @@ function linode::check_status() {
 # Create a linode with the specified label.
 #
 # Usage:
-#   linode::create <linode-label>
+#   linode.create <linode-label>
 #========================================
-function linode::create() {
+function linode.create() {
   local label=$1
 
   if [[ -n "${label}" ]]; then
@@ -152,7 +152,7 @@ function linode::create() {
 
   exit
 
-  linode::run linodes create \
+  linode.run linodes create \
     --type=g6-nanode-1 \
     --region=us-east \
     --backups_enabled=false \
@@ -169,13 +169,13 @@ function linode::create() {
 # Destroy a linode.
 #
 # Usage:
-#   linode::destroy <linode-label>
+#   linode.destroy <linode-label>
 #========================================
-function linode::destroy() {
+function linode.destroy() {
   local label=$1
   local id
-  id="$(linode::get_field linode "${label}" id)"
-  linode::run linodes destroy "${id}"
+  id="$(linode.get_field linode "${label}" id)"
+  linode.run linodes destroy "${id}"
 }
 
 
@@ -183,13 +183,13 @@ function linode::destroy() {
 # Rebuild a linode from a source image.
 #
 # Usage:
-#   linode::rebuild <linode-label>
+#   linode.rebuild <linode-label>
 #========================================
 function rebuild() {
   local linode_label
 
-  [[ linode::is_rebuilding "${linode_label}" ]] && {
-    linode::print_info "${linode_label}"
+  [[ linode.is_rebuilding "${linode_label}" ]] && {
+    linode.print_info "${linode_label}"
     print_warning "The linode '${linode_label}' is already rebuilding!" "Aborting."
     return 1
   }
@@ -202,7 +202,7 @@ function rebuild() {
     set_password_global
   fi
 
-  linode::print_info "${linode_label}"
+  linode.print_info "${linode_label}"
 
   print_warning "The CI linode will be destroyed and rebuilt!"
 
@@ -215,15 +215,15 @@ function rebuild() {
     fi
   fi
 
-  linode_id=$(linode::get_field linode "${linode_label}" id)
+  linode_id=$(linode.get_field linode "${linode_label}" id)
 
   linode-cli linodes rebuild "${linode_id}" \
     --image="${LINODE_IMAGE_ID}" \
     --root_pass="${pass}"
   print_result $? "Initiated linode rebuild"
 
-  linode::check_status "${linode_label}"
-  linode::print_info "${linode_label}"
+  linode.check_status "${linode_label}"
+  linode.print_info "${linode_label}"
 }
 
 function main() {
