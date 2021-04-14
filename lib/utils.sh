@@ -691,19 +691,21 @@ function fs.link {
   fi
 
   if [[ ! -d "${target_dir}" ]]; then
-    msg.info "create ${target_dir}"
+    msg.info "create: ${target_dir}"
     mkdir -p "${target_dir}"
   fi
 
   if [[ -L "${target_path}" ]]; then
-    msg.info "relink ${src_abs_path} -> ${target_path}"
+    msg.info "relink: ${src_abs_path}
+${MSG__INDENT}          -> ${target_path}"
     if [[ "${owner}" = "root" ]]; then
       sudo rm "${target_path}"
     else
       rm "${target_path}"
     fi
   else
-    msg.info "link ${src_abs_path} -> ${target_path}"
+    msg.info "link: ${src_abs_path}
+${MSG__INDENT}        -> ${target_path}"
   fi
 
   if [[ "${owner}" = "root" ]]; then
