@@ -18,11 +18,11 @@
 # - https://github.com/dylanaraps/pure-bash-bible
 #
 
-set +u
+
 # shellcheck disable=2153
-[[ -n "$ZSH_VERSION" ]] \
+[[ -n "${ZSH_VERSION+t}" ]] \
   && emulate -L bash
-set -u
+
 
 USER="${USER:-}"
 if [[ -z "${USER}" ]]; then
@@ -105,14 +105,15 @@ export \
 #========================================
 function world.info() {
 
-  echo "Kernel name:      $KERNEL_NAME"
-  echo "Kernel release:   $KERNEL_RELEASE"
-  echo "Operating system: $OS_NAME"
-  echo "OS version:       $OS_VERSION"
-  echo "User:             $USER"
-  echo "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
-  echo "XDG_BIN_HOME:     $XDG_BIN_HOME"
-  echo
+  msg::info "Kernel name:      $KERNEL_NAME"
+  # @TODO
+  # msg::info "Kernel release:   $KERNEL_RELEASE"
+  msg::info "Operating system: $OS_NAME"
+  msg::info "OS version:       $OS_VERSION"
+  msg::info "User:             $USER"
+  msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
+  msg::info "XDG_BIN_HOME:     $XDG_BIN_HOME"
+  msg::info
 
 }
 
@@ -135,6 +136,11 @@ function world.info() {
 #   Modified string, unless input is prefixed with `@`.
 #========================================
 function string.lower {
+  shell.is_outdated && {
+    echo "$1" | tr '[:upper:]' '[:lower:]'
+    return
+  }
+
   if [[ "@" == "$1"* ]]; then
     local -n str=${1}
     str="${str,,}"
@@ -155,6 +161,11 @@ function string.lower {
 #   Modified string, unless input is prefixed with `@`.
 #========================================
 function string.upper {
+  shell.is_outdated && {
+    echo "$1" | tr '[:lower:]' '[:upper:]'
+    return
+  }
+
   if [[ "@" == "$1"* ]]; then
     local -n str=${1}
     str="${str^^}"
@@ -170,6 +181,11 @@ function string.upper {
 # Parameters:
 #   String...
 function string.sanitize {
+  shell.is_outdated && {
+    msg::error "You need to use a more recent version of Bash!"
+    return 1
+  }
+
   local clean="$*"
   clean="${clean//[[:space:]]/\-}"
   clean="${clean//"/"/_}"
@@ -178,6 +194,11 @@ function string.sanitize {
 }
 
 function string.is_supported_version {
+  shell.is_outdated && {
+    msg::error "You need to use a more recent version of Bash!"
+    return 1
+  }
+
   # shellcheck disable=2206
   declare -a v1=(${1//./ })
   # shellcheck disable=2206
@@ -483,6 +504,14 @@ function shell.is_ci {
   return 1
 }
 
+# Whether the current shell is an outdated version.
+function shell.is_outdated {
+  case "${BASH_VERSION}" in
+    4*|5*) return 0 ;;
+    *)     return 1 ;;
+  esac
+}
+
 function shell.set_trap {
   trap -p "$1" | grep "$2" &>/dev/null ||
     trap '$2' "$1"
@@ -517,11 +546,11 @@ function shell.has {
 #   STDOUT - Basename. Includes file extension unless specifying [suffix].
 #========================================
 function fs.basename {
-    local tmp
-    tmp=${1%"${1##*[!/]}"}
-    tmp=${tmp##*/}
-    tmp=${tmp%"${2/"$tmp"}"}
-    printf '%s\n' "${tmp:-/}"
+  local tmp
+  tmp=${1%"${1##*[!/]}"}
+  tmp=${tmp##*/}
+  tmp=${tmp%"${2/"$tmp"}"}
+  printf '%s\n' "${tmp:-/}"
 }
 
 
@@ -542,24 +571,24 @@ function fs.basename {
 #   0 - If at root directory or no directory.
 #========================================
 function fs.dirname {
-    local tmp=${1:-.}
+  local tmp=${1:-.}
 
-    [[ $tmp != *[!/]* ]] && {
-        printf '/\n'
-        return
-    }
+  [[ $tmp != *[!/]* ]] && {
+    printf '/\n'
+    return
+  }
 
-    tmp=${tmp%%"${tmp##*[!/]}"}
+  tmp=${tmp%%"${tmp##*[!/]}"}
 
-    [[ $tmp != */* ]] && {
-        printf '.\n'
-        return
-    }
+  [[ $tmp != */* ]] && {
+    printf '.\n'
+    return
+  }
 
-    tmp=${tmp%/*}
-    tmp=${tmp%%"${tmp##*[!/]}"}
+  tmp=${tmp%/*}
+  tmp=${tmp%%"${tmp##*[!/]}"}
 
-    printf '%s\n' "${tmp:-/}"
+  printf '%s\n' "${tmp:-/}"
 }
 
 
