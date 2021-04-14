@@ -245,7 +245,7 @@ ${MSG__INDENT}| in the land below…"
     msg.info "
 ${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."  
 
-    repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+    repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}"
 
   }
  
