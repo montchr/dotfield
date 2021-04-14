@@ -357,8 +357,8 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
 
   guard.macos && ! shell.is_modern && {
-    # shellcheck source=./os/macos/install_bash.sh
-    . "${XDG_CONFIG_HOME}/os/macos/install_bash.sh"
+    # shellcheck source=./os/macos/_pre_install.sh
+    . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
   }
 
 

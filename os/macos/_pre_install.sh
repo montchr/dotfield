@@ -1,34 +1,26 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
 #
-# os/macos/install_bash
+# macOS :: Pre-Installation Requirements
 #
 
 function main () {
 
-  msg.domain "Shell" "Ensure core CLI tools exist" && {
-    xcode-select --install &> /dev/null
-    until xcode-select --print-path &> /dev/null; do
-      sleep 5
-    done
-    msg.success "Xcode Command Line Tools are present"
-  }
-
-  msg.domain "Bash" "Ensure Homebrew exists" && {
+  msg.domain "Shell" "Ensure Homebrew exists" && {
     shell.has brew || {
       msg.info "Installing brew"
-      printf "\n" | \
-        curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh &> /dev/null
+      printf "\n" \
+        | curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
       brew update
     }
   }
   
-  msg.domain "Bash" "Ensure a recent version of Bash exists" && {
+  msg.domain "Shell" "Ensure a recent version of Bash exists" && {
     brew install bash
   }
 
 
-  msg.domain "packages" "Allow Homebrew's Bash as login shell" && {
+  msg.domain "Shell" "Allow Homebrew's Bash as login shell" && {
     
     local brew_bash_path
     brew_bash_path="$(brew --prefix)/bin/bash"
