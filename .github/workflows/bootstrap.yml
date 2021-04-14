@@ -74,10 +74,12 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      - name: Run bootstrap script
+      - name: Download bootstrap script
         run: |
-          BOOTSTRAP=$(mktemp)
-          wget -O "$BOOTSTRAP" "https://raw.github.com/montchr/dots/${GITHUB_SHA}/bootstrap"
-          chmod +x "$BOOTSTRAP"
-          "$BOOTSTRAP"
-      
+          wget -O \
+            ./bootstrap \
+            "https://raw.github.com/montchr/dots/${GITHUB_SHA}/bootstrap"
+          chmod +x ./bootstrap
+
+      - name: Run bootstrap script
+        run: ./bootstrap || exit 1
