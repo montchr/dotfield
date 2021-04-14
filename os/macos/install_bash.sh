@@ -8,11 +8,10 @@ function main () {
 
   msg.domain "Shell" "Ensure core CLI tools exist" && {
     xcode-select --install &> /dev/null
-    shell.execute "
-        until $(xcode-select --print-path &> /dev/null); do \
-          sleep 5; \
-        done
-      " "Xcode Command Line Tools"
+    until xcode-select --print-path &> /dev/null; do
+      sleep 5
+    done
+    msg.success "Xcode Command Line Tools are present"
   }
 
   msg.domain "Bash" "Ensure Homebrew exists" && {
