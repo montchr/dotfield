@@ -39,7 +39,7 @@
 [hub]
     protocol = ssh
 [init]
-    templateDir = ~/.git-templates
+    templateDir = templates
     defaultBranch = main
 [interactive]
     diffFilter = delta --color-only
