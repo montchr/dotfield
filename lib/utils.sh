@@ -858,7 +858,7 @@ function repo.sync {
   local url
   local remote_branch
 
-  msg.section "repo.sync -> $*"
+  msg.subdomain "repo: -> $*"
 
   forge="$(repo.get_forge_id "${forge}")"
   remote_branch="${forge}/${branch}"

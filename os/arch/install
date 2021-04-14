@@ -3,27 +3,15 @@
 # os/arch/install
 #
 
-# shellcheck source=../../vendor/bash-oo-framework/lib/oo-bootstrap.sh
-source "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
-
-
-import \
-  util/exception \
-  util/tryCatch \
-  util/namedParameters
-
-import lib
-
-
 guard.domain "packages" "Bootstrap Arch Linux" && {
 
-  msg.section "Install crucial dependenices"
+  msg.subdomain "Install crucial dependenices"
   sudo pacman -S --noconfirm --needed \
     base-devel \
     git \
     pacman-contrib
 
-  msg.section "Rank mirrors for pacman"
+  msg.subdomain "Rank mirrors for pacman"
   mirrorlist="/etc/pacman.d/mirrorlist"
   mirrorlist_bak="${mirrorlist}.bak"
   if [[ -f "$mirrorlist_bak" ]]; then
@@ -38,7 +26,7 @@ guard.domain "packages" "Bootstrap Arch Linux" && {
     sudo sh -c "rankmirrors -n 6 '$mirrorlist_bak' > '$mirrorlist'"
   fi
 
-  msg.section "Install aura for simpler AUR access"
+  msg.subdomain "Install aura for simpler AUR access"
   check aura || {
     sudo mkdir -p /var/cache/pacman/pkg
     aura_dir=$(mktemp -d)
@@ -48,7 +36,7 @@ guard.domain "packages" "Bootstrap Arch Linux" && {
     }
   }
 
-  msg.section "Install yay for simpler AUR access"
+  msg.subdomain "Install yay for simpler AUR access"
   check yay || {
     yay_dir=$(mktemp -d)
     git clone https://aur.archlinux.org/yay.git "$yay_dir"

@@ -250,7 +250,7 @@ ${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."
   }
  
 
-  msg.domain "Travelling" "to Dotfield" && {
+  msg.domain "Travelling" "-> ${XDG_CONFIG_HOME}" && {
 
     cd "${XDG_CONFIG_HOME}" || {
 
@@ -277,7 +277,6 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
         shift
         ;;
       *)
-        echo
         if [[ -z "$1" ]]; then
           ACTION=install
         else
@@ -354,6 +353,12 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   
     trap unlock INT TERM EXIT
   
+  }
+
+
+  guard.macos && ! shell.is_modern && {
+    # shellcheck source=./os/macos/install_bash.sh
+    . "${XDG_CONFIG_HOME}/os/macos/install_bash.sh"
   }
 
 
@@ -459,14 +464,14 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
     guard.domain "xmonad" "Rebuild Xmonad configurations" && {
 
-      msg.section "Install xmonad" && (
+      msg.subdomain "Install xmonad" && (
         cd "$XDG_CONFIG_HOME/xmonad"
         stack --allow-different-user install || {
           notify send -a "Eru" -t "Failed to compile xmonad" -u critical
         }
       )
 
-      msg.section "Restart xmonad" && {
+      msg.subdomain "Restart xmonad" && {
         if pgrep d12-xmonad; then
           msg.info "Found running instance of xmonad. Restarting..."
           d12-xmonad --restart
