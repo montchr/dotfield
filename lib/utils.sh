@@ -470,19 +470,16 @@ function shell.ask_for_sudo {
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
 function shell.is_interactive {
   [[ $- =~ 'i' ]] && return
-  local vars=(INTERACTIVE PS1)
-  for var in "${vars[@]}"; do
-    [[ -v "${var}" ]] && return
-  done
+  [[ -n "${INTERACTIVE+t}" ]] && return
+  [[ -n "${PS1+t}" ]] && return
   return 1
 }
 
-# Whether the current shell is run within CI or Vagrant.
+# Whether the current shell is run within CI.
 function shell.is_ci {
-  local vars=(CI TRAVIS VAGRANT)
-  for var in "${vars[@]}"; do
-    [[ -v "${var}" ]] && return
-  done
+  [[ -n "${CI+t}" ]] && return
+  [[ -n "${TRAVIS+t}" ]] && return
+  [[ -n "${GITHUB_WORKSPACE+t}" ]] && return
   return 1
 }
 
