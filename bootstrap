@@ -439,16 +439,16 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
     }
 
     guard.domain "yabai" "Ensure scripting addition is installed" && {
+      shell.has yabai && {
+        # reinstall the scripting addition
+        sudo yabai --uninstall-sa
+        sudo yabai --install-sa
 
-      # reinstall the scripting addition
-      sudo yabai --uninstall-sa
-      sudo yabai --install-sa
+        # load the scripting addition
+        killall Dock || true
 
-      # load the scripting addition
-      killall Dock || true
-
-      sudo yabai --load-sa
-
+        sudo yabai --load-sa
+      }
     }
 
   }
