@@ -8,7 +8,7 @@
 [[ -n "$ZSH_VERSION" ]] \
   && emulate -L bash
 
-set -eu
+set -e
 
 DOTFIELD_BRANCH="feature/reshape"
 
@@ -16,7 +16,9 @@ readonly QUERENT="montchr"
 readonly REPO_ID="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
 readonly DOTFILES_BRANCH="${DOTFIELD_BRANCH:-main}"
-readonly DOTFILES_UTILS_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}/lib"
+readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}"
+
+USE_HTTPS="${USE_HTTPS:-true}"
 
 DOTFIELD="$HOME/.config"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${DOTFIELD}}"
@@ -105,20 +107,23 @@ function download {
 
 
 #========================================
-# Source a file, falling back to sourcing ephemerally from the remote.
+# Source a Dotfield file, falling back to sourcing ephemerally from the remote.
 #
 # Usage:
-#   source_ephemeral <relative-path>
+#   source_ephemeral <relative-path> [local-base]
 # Arguments:
 #   Relative path to file
+#   Local mirror base directory
 # Returns:
 #   0 - Sourcing succeeded.
 #   1 - Sourcing failed.
 #========================================
 function source_ephemeral {
   local path="$1"
+  local local_mirror="${2-}"
+  local filename
   local tmp_file=""
-  local url=""
+  local src_file=""
 
   if [[ -f "${path}" ]]; then
     # shellcheck disable=1090
@@ -126,10 +131,19 @@ function source_ephemeral {
       && return
   fi
 
-  tmp_file="$(mktemp "/tmp/${path}.XXXX")"
-  url="${DOTFILES_UTILS_BASE_URL}/${path}.sh"
+  filename="$(basename "${path}")"
+  tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
+  
+  if [[ -n "${local_mirror}" ]]; then
+    src_file="${local_mirror}/${path}"
+    echo "$src_file -> ${tmp_file}"
+    cp -f "${src_file}" "${tmp_file}"
+  else
+    src_file="${DOTFIELD_RAW_BASE_URL}/${path}"
+    echo "$src_file -> ${tmp_file}"
+    download "${src_file}" "${tmp_file}"
+  fi
 
-  download "${url}" "${tmp_file}"
   # shellcheck disable=1090
   . "${tmp_file}"
 }
@@ -198,97 +212,120 @@ function is_bootstrapped {
 # Entrypoint.
 #========================================
 function main () {
-  source_ephemeral "utils"
+  source_ephemeral "lib/utils.sh" "${DOTFIELD_TEST_BASE:-}"
   
   msg.domain "System" "Verifying system state"
   world.info
     
-  if is_bootstrapped; then 
-    msg.info "We arrive at a well-travelled outcropping, overlooking a familiar vista. Let's get a closer look…"
+  if is_bootstrapped
+  then 
+
+    msg.info "
+${MSG__INDENT}| We arrive at a well-travelled outcropping,
+${MSG__INDENT}| overlooking a familiar vista.
+${MSG__INDENT}|
+${MSG__INDENT}| Let's get a closer look…"
+
   else
-    msg.info "This world is beautiful, but dark. Let's get our bearings and see what we can see in the land below…"
+
+    msg.info "
+${MSG__INDENT}| This world is beautiful, but dark.
+${MSG__INDENT}| Let's get our bearings and
+${MSG__INDENT}| see what we can see
+${MSG__INDENT}| in the land below…"
+
   fi
 
   # Ensure the OS is supported and above the minimum version.
-  verify_os || return 1
+  # @TODO validation function doesn't work for older versions of bash and neither do associative arrays
+  # verify_os || return 1
 
-  if ! is_bootstrapped; then
-    msg.hed "Cloning dotfield into ${XDG_CONFIG_HOME}"
-  fi  
-  
-  # One cannot simply lift oneself up by one's own bootstraps...
-  repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+  msg.domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
 
-  cd "${XDG_CONFIG_HOME}" || {
-    msg.error "We seem to be lost in '$(pwd)'. Something went wrong!"
-    msg.error "The world fades to black as we dematerialize…"
-    return 1
+    msg.info "
+${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."  
+
+    repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}"
+
+  }
+ 
+
+  msg.domain "Travelling" "to Dotfield" && {
+
+    cd "${XDG_CONFIG_HOME}" || {
+
+      msg.error "
+${MSG__INDENT}| We seem to be lost in '$(pwd)'.
+${MSG__INDENT}| Something went wrong!
+${MSG__INDENT}|
+${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
+
+      return 1
+
+    }
+
+}
+
+
+  msg.domain "Supporting" "Defining variables" && {
+
+    ALL="true"
+    ACTION=""
+    case $1 in
+      install|upgrade|test)
+        ACTION=$1
+        shift
+        ;;
+      *)
+        echo
+        if [[ -z "$1" ]]; then
+          ACTION=install
+        else
+          msg.error "action '$1' is not supported"
+          msg.info "supported actions are: install, upgrade, test"
+          exit 1
+        fi
+        ;;
+    esac
+    
+    POSITIONAL=()
+    while [[ $# -gt 0 ]]
+    do
+      if [[ -n "$1" ]]; then
+        if [[ "$1" = -* ]]; then
+          key=$(string.lower "${1#-}")
+          declare -r "guard_ignore_${key}=true"
+        else
+          key=$(string.lower "$1")
+          declare -r "guard_${key}=true"
+          ALL="false"
+        fi
+      fi
+      shift
+    done
+    set -- "${POSITIONAL[@]}" # restore positional parameters
+    export ALL
+    export ACTION
+    
+    # @TODO this might not be desirable
+    # if [[ "$INTERACTIVE" = "" ]]; then
+    #   INTERACTIVE=true
+    # fi
+
   }
 
-  if [[ "root" == $(whoami) ]]; then
-    msg.warning "Running as root!"
-  else
-    shell.ask_for_sudo
-  fi
-  
-  msg.domain "Supporting" "Loading framework"
 
-  # shellcheck disable=1090
-  # . "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
-  
-  # import \
-  #   util/exception \
-  #   util/tryCatch \
-  #   util/namedParameters
-  
-  # import lib/utils
-  
-  # . ./lib/utils.sh
-  
-  msg.domain "Supporting" "Defining variables"
+  guard.install && {
+    msg.domain "Supporting" "Authorizing superuser" && {
+      if [[ "root" == $(whoami) ]]; then
+        msg.warning "Running as root!"
+      else
+        shell.ask_for_sudo
+      fi
+    }
+  }
 
-  ALL="true"
-  ACTION=""
-  case $1 in
-    install|upgrade|test)
-      ACTION=$1
-      shift
-      ;;
-    *)
-      echo
-      if [ -z "$1" ]; then
-        ACTION=install
-      else
-        error "action '$1' is not supported"
-        log "supported actions are: install, upgrade, test"
-        exit 1
-      fi
-      ;;
-  esac
-  
-  POSITIONAL=()
-  while [[ $# -gt 0 ]]
-  do
-    if [[ "$1" != "" ]]; then
-      if [[ "$1" = -* ]]; then
-        key=$(echo "${1#-}" | tr '[:upper:]' '[:lower:]')
-        declare -r "guard_ignore_$key=true"
-      else
-        key=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-        declare -r "guard_$key=true"
-        ALL="false"
-      fi
-    fi
-    shift
-  done
-  set -- "${POSITIONAL[@]}" # restore positional parameters
-  export ALL
-  export ACTION
-  
-  # @TODO this might not be desirable
-  # if [[ "$INTERACTIVE" = "" ]]; then
-  #   INTERACTIVE=true
-  # fi
+
   
   # - - - - - - - - - - - - - - - - - - - -
   # Lockfile
@@ -298,11 +335,14 @@ function main () {
   
     LOCK_FILE=$XDG_CACHE_HOME/eru/eru.lock
     if [[ -f "$LOCK_FILE" ]]; then
+
       msg.error "
-    Yet another world is being shaped by Eru
-  
-    One must either wait patiently or embrace the horrors of the unknown and
-    manually delete the $LOCK_FILE"
+${MSG__INDENT}| Yet another world is being shaped by Eru
+${MSG__INDENT}| 
+${MSG__INDENT}| One must either wait patiently
+${MSG__INDENT}| or embrace the horrors of the unknown
+${MSG__INDENT}| and manually delete the $LOCK_FILE"
+
       exit 1
     fi
     mkdir -p "$(dirname "$LOCK_FILE")"
@@ -322,8 +362,8 @@ function main () {
       if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
         HOSTNAME="${CDOM_INIT_HOSTNAME}"
       else
-        ask "Enter a name: "
-        HOSTNAME="$(get_answer)"
+        msg.ask "Enter a name: "
+        HOSTNAME="$(msg.get_answer)"
       fi
     }
   }
@@ -352,9 +392,7 @@ function main () {
   guard.domain "Link" "Link all files as defined in Linkfiles" && {
 
     fs.linkfile "${DOTFIELD}/Linkfile"
-    fs.linkfile "$XDG_CONFIG_CACHE/eru/Linkfile"
-    fs.linkfile "$XDG_CONFIG_CACHE/eru/Linkfile.${KERNEL_NAME}"
-
+    
     for f in "${DOTFIELD}"/**/Linkfile; do
       fs.linkfile "$f"
     done

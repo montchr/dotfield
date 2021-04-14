@@ -87,6 +87,9 @@ export \
   XDG_DATA_HOME
 
 
+readonly MSG__INDENT="    "
+
+
 #========================================
 # Print basic information about the known world.
 #
@@ -113,7 +116,6 @@ function world.info() {
   msg.info "User:             $USER"
   msg.info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
   msg.info "XDG_BIN_HOME:     $XDG_BIN_HOME"
-  msg.info
 
 }
 
@@ -136,7 +138,7 @@ function world.info() {
 #   Modified string, unless input is prefixed with `@`.
 #========================================
 function string.lower {
-  shell.is_outdated && {
+  ! shell.is_modern && {
     echo "$1" | tr '[:upper:]' '[:lower:]'
     return
   }
@@ -161,7 +163,7 @@ function string.lower {
 #   Modified string, unless input is prefixed with `@`.
 #========================================
 function string.upper {
-  shell.is_outdated && {
+  ! shell.is_modern && {
     echo "$1" | tr '[:lower:]' '[:upper:]'
     return
   }
@@ -181,7 +183,7 @@ function string.upper {
 # Parameters:
 #   String...
 function string.sanitize {
-  shell.is_outdated && {
+  ! shell.is_modern && {
     msg::error "You need to use a more recent version of Bash!"
     return 1
   }
@@ -194,7 +196,7 @@ function string.sanitize {
 }
 
 function string.is_supported_version {
-  shell.is_outdated && {
+  ! shell.is_modern && {
     msg::error "You need to use a more recent version of Bash!"
     return 1
   }
@@ -270,29 +272,12 @@ function msg.is_confirmed {
       return 1
 }
 
-
-# Print a top-level heading message.
-# Deprecated.
-# Parameters:
-#   Message
-function msg.hed {
-  msg.section "$@"
-}
-
-# Print a subheading message.
-# Parameters:
-#   Section name
-#   Message
-function msg.subhed {
-  msg.subsection "$@"
-}
-
-function msg.section {
-  msg.in_green "\n => $1\n"
+function msg.subdomain {
+  msg.in_green "\n${MSG__INDENT}${1}\n"
 }
 
 function msg.domain {
-  msg.in_green "\n => $1 :: ${*:2}\n"
+  msg.in_green "\n => $1 :: ${*:2}\n\n"
 }
 
 function msg.domain__lesser {
@@ -300,21 +285,21 @@ function msg.domain__lesser {
 }
 
 function msg.domain__inactive {
-  print "\n <- $1 :: ${*:2}\n"
+  msg.print "\n <- $1 :: ${*:2}\n"
 }
 
 # Print a basic informational message.
 # Parameters:
 #   Message
 function msg.info {
-  print "\n${MSG_INDENT}${1}\n"
+  msg.print "${MSG__INDENT}${1}"
 }
 
 # Prompt the user for a response to a question.
 # Parameters:
 #   Message
 function msg.question {
-  msg.in_yellow "${MSG_INDENT}[?] $1"
+  msg.in_yellow "${MSG__INDENT}[?] $1"
 }
 
 # Print a message along with an indication of the result of the previous command.
@@ -334,21 +319,21 @@ function msg.result {
 # Parameters:
 #   Message
 function msg.success {
-  msg.in_green "${MSG_INDENT}[✔] $1\n"
+  msg.in_green "${MSG__INDENT}[✔] $1\n"
 }
 
 # Print a message indicating a warning.
 # Parameters:
 #   Message
 function msg.warning() {
-  msg.in_yellow "${MSG_INDENT}[!] $1\n"
+  msg.in_yellow "${MSG__INDENT}[!] $1\n"
 }
 
 # Print a message indicating an error.
 # Parameters:
 #   Message
 function msg.error {
-  msg.in_red "${MSG_INDENT}[✖] $*\n"
+  msg.in_red "${MSG__INDENT}[✖] $*\n"
 }
 
 function msg.stream_errors {
@@ -380,6 +365,10 @@ function msg.in_color {
     "$(tput sgr0 2>/dev/null)"
 }
 
+function msg.print {
+  printf "%b" "$1\n"
+}
+
 function msg.spinner {
   local -r PID="$1"
   local -r CMDS="$2"
@@ -406,7 +395,7 @@ function msg.spinner {
 
   # Display spinner while the commands are being executed.
   while kill -0 "$PID" &>/dev/null; do
-    frameText="   [${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
+    frameText="${MSG__INDENT}[${FRAMES:i++%NUMBER_OR_FRAMES:1}] $MSG"
 
     if shell.is_ci; then
       printf "%s" "$frameText"
@@ -504,8 +493,8 @@ function shell.is_ci {
   return 1
 }
 
-# Whether the current shell is an outdated version.
-function shell.is_outdated {
+# Whether the current shell is a recent version.
+function shell.is_modern {
   case "${BASH_VERSION}" in
     4*|5*) return 0 ;;
     *)     return 1 ;;
@@ -546,6 +535,13 @@ function shell.has {
 #   STDOUT - Basename. Includes file extension unless specifying [suffix].
 #========================================
 function fs.basename {
+  ! shell.is_modern && {
+    msg::warning "Bash version 4+ is recommended! Version ${BASH_VERSION} detected."
+    msg::warning "Falling back to external 'basename' command..."
+    basename "$@"
+    return $?
+  }
+
   local tmp
   tmp=${1%"${1##*[!/]}"}
   tmp=${tmp##*/}
@@ -571,6 +567,13 @@ function fs.basename {
 #   0 - If at root directory or no directory.
 #========================================
 function fs.dirname {
+  ! shell.is_modern && {
+    msg::warning "Bash version 4+ is recommended! Version ${BASH_VERSION} detected."
+    msg::warning "Falling back to external 'dirname' command..."
+    dirname "$@"
+    return $?
+  }
+
   local tmp=${1:-.}
 
   [[ $tmp != *[!/]* ]] && {
@@ -593,18 +596,25 @@ function fs.dirname {
 
 
 function fs.ensure_dir {
-  if [[ ! -d "$1" ]]; then
-    msg.info "create $1"
+  if [[ -d "$1" ]]; then
+    msg.success "$1"
+    return
+  elif [[ ! -d "$1" ]]; then
+    msg.info "create: $1"
     mkdir -p "$1"
+    msg.success "$1"
+    return
   fi
-  msg.error $? "$1"
+  msg.error "$1"
+  return 1
 }
 
 
 function fs.linkfile {
   local file="$1"
+  msg.subdomain "linkfile: ${file}"
   [[ -f "${file}" ]] && (
-    cd "$(fs.dirname "${file}")" \
+    cd "$(dirname "${file}")" \
       || return 1
     fs.map_lines \
       fs.link \
@@ -787,23 +797,23 @@ function repo.qualify_url {
   local forge=${2:-}
 
   if [[ "${identifier}" = "https://"* || "${identifier}" = "git@"* ]]; then
-    msg.info "${identifier}"
+    echo "${identifier}"
     return
   fi
 
   case $forge in
     gh|github)
       if [[ "$USE_HTTPS" = "true" ]]; then
-        msg.info  "https://github.com/${identifier}.git"
+        echo "https://github.com/${identifier}.git"
       else
-        msg.info "git@github.com:${identifier}.git"
+        echo "git@github.com:${identifier}.git"
       fi
       ;;
     gl|gitlab)
       if [[ "$USE_HTTPS" = "true" ]]; then
-        msg.info  "https://gitlab.com/${identifier}.git"
+        echo  "https://gitlab.com/${identifier}.git"
       else
-        msg.info "git@gitlab.com:${identifier}.git"
+        echo "git@gitlab.com:${identifier}.git"
       fi
       ;;
     srht|sourcehut)
@@ -926,6 +936,7 @@ function repo.sync {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
+# @TODO won't work in old Bash because of namerefs!
 function guard.domain {
   local domain=$1
   local key
@@ -1024,7 +1035,7 @@ function user.set_password_global {
     if shell.has bw; then
       PASSWORD=$(bw generate --words 3 --separator '.' -p)
       msg.success "Generated new password:"
-      msg.info    "    ${PASSWORD}" ; printf "\n"
+      msg.info    "${MSG__INDENT}${PASSWORD}" ; printf "\n"
     else
       msg.error "[Error]" "Couldn't find a password generator!"
     fi
