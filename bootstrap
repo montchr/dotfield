@@ -417,19 +417,15 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
   
   guard.arch && {
-    ./os/arch/main
+    . ./os/arch/main
   }
 
   guard.ubuntu && {
-    ./os/ubuntu/main
+    . ./os/ubuntu/main
   }
 
   guard.macos && {
-    ./os/macos/main
-  }
-
-  msg.domain "Git" "Create a local git config file" && {
-    touch "${DOTFIELD}/git/config.local"
+    . ./os/macos/main
   }
 
 
