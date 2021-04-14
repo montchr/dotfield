@@ -35,3 +35,4 @@ flycheck_config.el
 /.ci/.terraform/
 *.tfvars
 /.ci/*.tfstate*
+git/config.local
