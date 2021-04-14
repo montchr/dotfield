@@ -105,15 +105,15 @@ export \
 #========================================
 function world.info() {
 
-  msg::info "Kernel name:      $KERNEL_NAME"
+  msg.info "Kernel name:      $KERNEL_NAME"
   # @TODO
-  # msg::info "Kernel release:   $KERNEL_RELEASE"
-  msg::info "Operating system: $OS_NAME"
-  msg::info "OS version:       $OS_VERSION"
-  msg::info "User:             $USER"
-  msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
-  msg::info "XDG_BIN_HOME:     $XDG_BIN_HOME"
-  msg::info
+  # msg.info "Kernel release:   $KERNEL_RELEASE"
+  msg.info "Operating system: $OS_NAME"
+  msg.info "OS version:       $OS_VERSION"
+  msg.info "User:             $USER"
+  msg.info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
+  msg.info "XDG_BIN_HOME:     $XDG_BIN_HOME"
+  msg.info
 
 }
 
