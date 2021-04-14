@@ -461,6 +461,7 @@ function shell.execute {
   return $exitCode
 }
 
+# @TODO doesnt work! prob needs a subprocess
 function shell.ask_for_sudo {
   # Ask for the administrator password upfront.
   sudo -v &>/dev/null

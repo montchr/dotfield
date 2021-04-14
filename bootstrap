@@ -405,6 +405,10 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
     done
 
   }
+  
+  msg.domain "Shell" "Sourcing profile" && {
+    . ./shell/profile
+  }
 
 
   # guard.domain "Link" "Link all files from module bin directories" && {
