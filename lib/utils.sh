@@ -674,7 +674,9 @@ function fs.link {
   target_dir=$(dirname "${target_path}")
 
   if [[ -d "${target_dir}" ]]; then
-    owner=$(stat -c '%U' "${target_dir}")
+    # @TODO doesn't work on macOS -- `-c` is not a valid option
+    # owner=$(stat -c '%U' "${target_dir}")
+    owner=$(stat -f '%Su' "${target_dir}")
     if [[ "${owner}" != "root" && "${owner}" != "${USER}" ]]; then
       msg.error "can not link '${src_abs_path}' to '${target_path}'"
       msg.error "owner of '${target_dir}' is ${owner}"
