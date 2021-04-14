@@ -755,6 +755,7 @@ function fs.map_lines {
     # Ignore comment lines
     [[ "${line}" == "#"* ]] && continue
     # Pass the entire line as-is -- words will be split for separate args.
+    # @TODO this might cause issues with paths containing spaces!
     # shellcheck disable=2086
     ${callback} ${line}
   done < "${file}"
