@@ -31,7 +31,6 @@ has() {
 }
 
 # Detect the OS and export appropriate variables.
-declare -gx IS_LINUX IS_MAC KERNEL_NAME
 [[ $OSTYPE == linux* ]] && {
   IS_LINUX=true
   KERNEL_NAME="linux"
@@ -39,7 +38,12 @@ declare -gx IS_LINUX IS_MAC KERNEL_NAME
 [[ $OSTYPE == darwin* ]] && {
   IS_MAC=true
   KERNEL_NAME="darwin"
-} 
+}
+
+export \
+  IS_LINUX \
+  IS_MAC \
+  KERNEL_NAME
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -211,12 +215,12 @@ cdom_base16_theme () {
 }
 
 # Set the OS appearance by attempting to query the current status.
-[[ -z $CDOM_OS_APPEARANCE ]] &&
+[[ -z "${CDOM_OS_APPEARANCE}" ]] &&
   CDOM_OS_APPEARANCE="$(cdom_os_appearance)" &&
   export CDOM_OS_APPEARANCE
 
 # Set the base16 theme based on OS appearance.
-BASE16_THEME=$(cdom_base16_theme "$CDOM_OS_APPEARANCE") &&
+BASE16_THEME="$(cdom_base16_theme "$CDOM_OS_APPEARANCE")" &&
   export BASE16_THEME
 
 # Load Nix environment
