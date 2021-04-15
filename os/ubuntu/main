@@ -1,22 +1,8 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
 #
-# os/ubuntu/install
+# OS :: Ubuntu :: Install
 #
-
-BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
-
-# shellcheck disable=1090
-. "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
-
-import \
-  util/exception \
-  util/tryCatch \
-  util/namedParameters
-
-# shellcheck source=../../lib/utils.sh
-import lib/utils.sh
-
 
 function __provision_user {
   if [[ -n "${CDOM_INIT_NEW_USER_NAME}" ]]; then
@@ -80,9 +66,7 @@ function main () {
   local previous_directory
   previous_directory="$PWD"
 
-  # Ensure that the following actions are made relative to this file's path.
-  cd "$(dirname "${BASH_SOURCE[0]}")" ||
-    exit 1
+  cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
     
   guard.domain "packages" "Updating apt repositories" && {
     pkg.apt.update_repos
@@ -97,7 +81,7 @@ function main () {
     guard.domain "packages" "Installing crucial dependencies" && {
       fs.map_lines \
         pkg.apt.install \
-        "${DOTFIELD}/ubuntu/Aptfile"
+        "${PWD}/Aptfile"
 
       sudo ufw allow OpenSSH
       yes y | sudo ufw enable
@@ -122,7 +106,6 @@ function main () {
   
   
   guard.install && {
-
     guard.domain "ssh" "Restarting SSH service" && {
       sudo service ssh restart
     }
@@ -132,10 +115,9 @@ function main () {
         sudo mv /etc/sudoers.bak /etc/sudoers
       }
     }
-
   }
   
-  cd "$previous_directory" || return
+  cd "${previous_directory}" || return
 
 }
 

@@ -60,7 +60,7 @@ export \
   XDG_LIB_HOME=${XDG_LIB_HOME:-${HOME}/.local/lib}
 
 export \
-  CACHEDIR="$XDG_CACHE_HOME" \
+  CACHEDIR="${XDG_CACHE_HOME}" \
   DOTFIELD="${XDG_CONFIG_HOME}" \
   DOTFIELD_UTILS_DIR="${XDG_CONFIG_HOME}/lib" \
   TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
@@ -94,7 +94,7 @@ export \
   EMACSDIR="${XDG_DATA_HOME}/emacs"
 
 # Go
-export GOPATH="$XDG_DATA_HOME"/go
+export GOPATH="${XDG_DATA_HOME}/go"
 
 # Kitty terminal
 export \
@@ -103,21 +103,21 @@ export \
 
 # NodeJS
 export \
-  NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history" \
-  NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc" \
-  NVM_DIR="$XDG_DATA_HOME/nvm"
+  NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history" \
+  NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc" \
+  NVM_DIR="${XDG_DATA_HOME}/nvm"
 
 # Pass
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
 
 # Readline
-export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 
 # Ruby / Bundler
 export \
-  BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle \
-  BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle \
-  BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
+  BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle" \
+  BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle" \
+  BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle"
 
 # Rust
 export \
@@ -125,15 +125,16 @@ export \
   RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 # GNU Screen
-export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
+export SCREENRC="${XDG_CONFIG_HOME}/screen/screenrc"
 
 # Vagrant
 export \
-  VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases" \
-  VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+  VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases" \
+  VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
 
 # Vim
 # Coax Vim into sourcing its config from XDG config home.
+# shellcheck disable=2016
 export VIMINIT='source "$XDG_CONFIG_HOME/vim/vimrc"'
   
 
@@ -167,8 +168,6 @@ export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
 # - Personal Preferences
 # - System Appearance
 # - - - - - - - - - - - - - - - - - - - -
-
-# typeset -A Cdom
 
 # System editor settings.
 export \

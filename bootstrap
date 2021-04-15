@@ -421,15 +421,18 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
   
   guard.arch && {
-    . ./os/arch/main
+    # shellcheck source=./os/arch/install
+    . "${XDG_CONFIG_HOME}/os/arch/install"
   }
 
   guard.ubuntu && {
-    . ./os/ubuntu/main
+    # shellcheck source=./os/ubuntu/main
+    . "${XDG_CONFIG_HOME}/os/ubuntu/main"
   }
 
   guard.macos && {
-    . ./os/macos/main
+    # shellcheck source=./os/macos/main
+    . "${XDG_CONFIG_HOME}/os/macos/main"
   }
 
 
@@ -437,7 +440,7 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
     guard.domain "skhd" "Patch skhd application PATH" && {
       shell.has skhd && {
-        # @TODO update this
+        # @TODO update this?
         "${DOTFIELD}/bin/patch_skhd_path"
       }
     }

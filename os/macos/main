@@ -23,8 +23,10 @@ function __set_hostname {
 # - - - - - - - - - - - - - - - - - - - -
 
 function main () {
+  local previous_directory
+  previous_directory="$PWD"
 
-  guard.install && {
+  cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
     guard.domain "packages" "Install all dependencies" && {
       cd "$XDG_CONFIG_HOME" \
@@ -39,16 +41,13 @@ function main () {
 
 
   guard.upgrade && {
-
     guard.domain "packages" "Upgrade packages" && {
-
       brew update
       brew upgrade
-      
     }
-
   }
 
+  cd "${previous_directory}" || return
 }
 
 main "$@"
