@@ -402,7 +402,7 @@ function msg::in_color {
 }
 
 function msg::print {
-  printf "%b" "$1\n"
+  printf "%b" "$*\n"
 }
 
 function msg::spinner {
@@ -665,17 +665,14 @@ function fs::link_all {
   local target_dir="$2"
 
   if ! [[ -d "${src_dir}" ]]; then
-    msg::error "[Error] Source '${src_dir}' is not a directory! Aborting."
-  fi
-  if ! [[ -d "${target_dir}" ]]; then
-    msg::error "[Error] Target '${target_dir}' is not a directory! Aborting."
+    msg::error "Source '${src_dir}' is not a directory! Aborting."
+    return 1
+  elif ! [[ -d "${target_dir}" ]]; then
+    msg::error "Target '${target_dir}' is not a directory! Aborting."
+    return 1
   fi
 
   msg::warning "Linking all files in '${src_dir}' to '${target_dir}':"
-  for f in "${src_dir}"/*; do
-    msg::info "$f"
-  done
-
   for f in "${src_dir}"/*; do
     fs::link "$f" "${target_dir}/$(basename "$f")"
   done
@@ -732,17 +729,47 @@ function fs::link {
     mkdir -p "${target_dir}"
   fi
 
-  if [[ -L "${target_path}" ]]; then
-    msg::info "relink: ${src_abs_path}
-${MSG__INDENT}          -> ${target_path}"
-    if [[ "${owner}" = "root" ]]; then
+  if [[ -L "${target_path}" ]]
+  then
+
+    msg::info \
+<<END
+relink: ${src_abs_path}
+     -> ${target_path}
+END
+
+    if [[ "${owner}" = "root" ]]
+    then
       sudo rm "${target_path}"
     else
       rm "${target_path}"
     fi
+
+  elif [[ -e "${target_path}" ]]
+  then
+    msg::warning "Target path '${target_path}' already exists!"
+    msg::info "Moving existing path to '${target_path}.bak'..."
+    
+    if [[ -e "${target_path}.bak" ]]
+    then
+      msg::error "Existing path '${target_path}' found, but also found a backup! Aborting."
+      return 1
+    fi
+
+    msg::warning \
+<<END
+backup: ${target_path}
+   -> ${target_path}.bak
+END
+
+    mv "${target_path}" "${target_path}.bak"
   else
-    msg::info "link: ${src_abs_path}
-${MSG__INDENT}        -> ${target_path}"
+
+    msg::info \
+<<END
+link: ${src_abs_path}
+   -> ${target_path}
+END
   fi
 
   if [[ "${owner}" = "root" ]]; then
@@ -816,6 +843,38 @@ function fs::download_bin {
   curl --silent -o "${target}" "${src}"
   chmod a+x "${target}"
   hash -r
+}
+
+
+#========================================
+# Parse a YAML file.
+# 
+# @TODO not tested!
+# 
+# Credits:
+#   - https://gist.github.com/pkuczynski/8665367
+#   - https://github.com/sameersbn/docker-redmine/blob/1a79e2781ec72c79dea94e2e3b81842db3df835f/assets/runtime/functions#L17-L35
+#
+# Usage:
+#   fs::parse_yaml <file>
+# Parameters:
+#   File path
+#========================================
+function fs::parse_yaml {
+   local prefix=$2
+   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+       -ne "s|^\($s\)\($w\)$s:$s'\(.*\)'$s\$|\1$fs\2$fs\3|p" \
+        -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p" $1 |
+   awk -F$fs '{
+      indent = length($1)/2;
+      vname[indent] = $2;
+      for (i in vname) {if (i > indent) {delete vname[i]}}
+      if (length($3) > 0) {
+         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+      }
+   }'
 }
 
 

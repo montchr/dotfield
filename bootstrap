@@ -243,7 +243,8 @@ ${MSG__INDENT}| in the land below…"
     msg::info "
 ${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."  
 
-    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}"
+    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" \
+      || exit 1
 
   }
  
@@ -437,14 +438,58 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   }
 
 
-  guard::macos && {
+  guard::install && {
+    msg::domain "Ediotr" "Installing Doom Emacs" && {
+      git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+      # @TODO the shell environment should reflect the user's login shell environment, not the environment this script was run within
+      doom install
+    }
 
-    guard::domain "skhd" "Patch skhd application PATH" && {
-      shell::has skhd && {
-        # @TODO update this?
-        "${DOTFIELD}/bin/patch_skhd_path"
+    guard::domain "php" "Install Composer" && {
+      # shellcheck source=./composer/install
+      . "${XDG_CONFIG_HOME}/composer/install"
+    }
+
+    guard::domain "espanso" "Install Espanso" && {
+      # shellcheck source=./espanso/install
+      . "${XDG_CONFIG_HOME}/espanso/install"
+    }
+
+    guard::domain "firefox" "Install Tridactyl" && {
+      # shellcheck source=./firefox/install_tridactyl
+      . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"      
+    }    
+
+
+    guard::macos && {
+      guard::domain "firefox" "Link user chrome directory into existing profiles" && {
+        for d in "${HOME}/Library/Application Support/Firefox/Profiles"/*
+        do
+          fs::link "${XDG_CONFIG_HOME}/firefox/chrome" "${d}/chrome"
+        done
       }
     }
+
+    
+  }
+
+
+  guard::upgrade && {
+    # @TODO run in login shell!
+    guard::domain "emacs" "Upgrading Doom Emacs" && {
+      doom upgrade
+    }
+  }
+
+
+  guard::macos && {
+
+    # guard::domain "skhd" "Patch skhd application PATH" && {
+    #   shell::has skhd && {
+    #     # @TODO update this?
+    #     "${DOTFIELD}/bin/patch_skhd_path"
+    #   }
+    # }
 
     guard::domain "yabai" "Ensure scripting addition is installed" && {
       shell::has yabai && {
