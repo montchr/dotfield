@@ -259,22 +259,28 @@ function main () {
   then 
 
     msg::info \
-<<END
+"$(cat <<END
+|
 | We arrive at a well-travelled outcropping,
 | overlooking a familiar vista.
 |
 | Let's get a closer look…
+|
 END
+)"
 
   else
 
     msg::info \
-<<END
+"$(cat <<END
+|
 | This world is beautiful, but dark.
 | Let's get our bearings and
 | see what we can see
 | in the land below…
+|
 END
+)"
 
   fi
 
@@ -300,12 +306,16 @@ END
     cd "${XDG_CONFIG_HOME}" || {
 
       msg::error \
-<<END
+"$(cat <<END
+ |
  | We seem to be lost in '$(pwd)'.
  | Something went wrong!
  |
  | ~ The world fades to black as we dematerialize… ~
+ |
+ #
 END
+)"
 
       return 1
 
@@ -361,7 +371,7 @@ END
     if lock::is_engaged; then
 
       msg::error \
-<<END
+"$(cat <<END
  |
  | Yet another world is being shaped by Eru
  | 
@@ -373,6 +383,7 @@ END
  |
  #
 END
+)"
 
       exit 1
     fi
