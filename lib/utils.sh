@@ -114,7 +114,8 @@ export \
   XDG_DATA_HOME
 
 
-readonly MSG__INDENT="    "
+readonly MSG__INDENT="    "  # 4 spaces
+readonly MSG__COL__GAP="  "  # 2 spaces
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -142,14 +143,34 @@ readonly MSG__INDENT="    "
 #========================================
 function world.info() {
 
-  msg::info "Kernel name:      $KERNEL_NAME"
-  # @TODO
-  # msg::info "Kernel release:   $KERNEL_RELEASE"
-  msg::info "Operating system: $OS_NAME"
-  msg::info "OS version:       $OS_VERSION"
-  msg::info "User:             $USER"
-  msg::info "XDG_CONFIG_HOME:  $XDG_CONFIG_HOME"
-  msg::info "XDG_BIN_HOME:     $XDG_BIN_HOME"
+  msg::tabular_row \
+    "Kernel name:" \
+      "${KERNEL_NAME}"
+
+  [[ -n "${KERNEL_RELEASE}" ]] && {
+    msg::tabular_row \
+      "Kernel release:" \
+        "${KERNEL_RELEASE}"
+  }
+  
+  msg::tabular_row \
+    "Operating system:" \
+      "${OS_NAME}"
+  msg::tabular_row \
+    "OS version:" \
+      "${OS_VERSION}"
+  msg::tabular_row \
+    "Bash version:" \
+      "${BASH_VERSION}"
+  msg::tabular_row \
+    "User:" \
+      "${USER}"
+  msg::tabular_row \
+    "XDG_CONFIG_HOME:" \
+      "${XDG_CONFIG_HOME}"
+  msg::tabular_row \
+    "XDG_BIN_HOME:" \
+      "${XDG_BIN_HOME}"
 
 }
 
@@ -401,6 +422,13 @@ function msg::in_color {
 
 function msg::print {
   printf "%b" "$*\n"
+}
+
+function msg::tabular_row {
+  for cell in "$@"; do
+    printf "%b" "${cell}${MSG__COL__GAP}"
+  done
+  printf "\n"
 }
 
 function msg::spinner {
