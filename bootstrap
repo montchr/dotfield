@@ -226,8 +226,9 @@ function bootstrap::lock {
 #   DOTFIELD_LOCK_FILE
 #========================================
 function bootstrap::unlock {
-  # Safety check since we're running `rm -rf`.
-  [[ -z "${DOTFIELD_LOCK_FILE}" ]] && return 1
+  if ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
+    return 0
+  fi
   rm -rf "${DOTFIELD_LOCK_FILE}"
 }
 
@@ -344,7 +345,17 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
       if [[ "root" == $(whoami) ]]; then
         msg::warning "Running as root!"
       else
-        shell::ask_for_sudo
+        # Ask for the administrator password upfront.
+        sudo -v &>/dev/null
+
+        # Update existing `sudo` time stamp until this script has finished.
+        #
+        # https://gist.github.com/cowboy/3118588
+        while true; do
+          sudo -n true
+          sleep 60
+          kill -0 "$$" || exit
+        done &>/dev/null &
       fi
     }
   }
