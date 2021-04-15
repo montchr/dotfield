@@ -393,9 +393,11 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
 #   }
 
 
-  guard::macos && ! shell::is_modern && {
-    # shellcheck source=./os/macos/_pre_install.sh
-    . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
+  guard::macos && {
+    shell::is_modern && {
+      # shellcheck source=./os/macos/_pre_install.sh
+      . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
+    }
   }
 
 
