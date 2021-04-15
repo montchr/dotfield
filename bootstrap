@@ -42,7 +42,6 @@ export \
 
 # https://docwhat.org/tracebacks-in-bash
 
-# trap bootstrap::unlock INT TERM EXIT
 trap _exit_trap EXIT
 trap _err_trap ERR
 _showed_traceback=f
@@ -214,9 +213,24 @@ function is_bootstrapped {
 # Globals:
 #   DOTFIELD_LOCK_FILE
 #========================================
-function bootstrap::lock {
+function lock::engage {
+  msg::domain "Supporting" "Engaging lock"
   mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
   touch "${DOTFIELD_LOCK_FILE}"
+}
+
+
+#========================================
+# Check whether the lock is engaged.
+#
+# Globals:
+#   DOTFIELD_LOCK_FILE
+# Returns:
+#   0 - If the lock is engaged i.e. the lockfile exists.
+#   1 - If the lock is disengaged i.e. the lockfile is absent.
+#========================================
+function lock::is_engaged {
+  ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]
 }
 
 
@@ -226,10 +240,11 @@ function bootstrap::lock {
 # Globals:
 #   DOTFIELD_LOCK_FILE
 #========================================
-function bootstrap::unlock {
+function lock::disengage {
   if ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
     return 0
   fi
+  msg::domain "Supporting" "Disengaging lock"
   rm -rf "${DOTFIELD_LOCK_FILE}"
 }
 
@@ -332,65 +347,57 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
     set -- "${POSITIONAL[@]}" # restore positional parameters
     export ALL
     export ACTION
-    
-    # @TODO this might not be desirable
-    # if [[ "$INTERACTIVE" = "" ]]; then
-    #   INTERACTIVE=true
-    # fi
 
   }
 
-
-  # guard::install && {
-  #   msg::domain "Supporting" "Authorizing superuser" && {
-  #     if [[ "root" == $(whoami) ]]; then
-  #       msg::warning "Running as root!"
-  #     else
-  #       # Ask for the administrator password upfront.
-  #       sudo -v &>/dev/null
-
-  #       # Update existing `sudo` time stamp until this script has finished.
-  #       #
-  #       # https://gist.github.com/cowboy/3118588
-  #       while true; do
-  #         sudo -n true
-  #         sleep 60
-  #         kill -0 "$$" || exit
-  #       done &>/dev/null &
-  #     fi
-  #   }
-  # }
-
-
   
-  # - - - - - - - - - - - - - - - - - - - -
-  # Lockfile
-  # - - - - - - - - - - - - - - - - - - - -
+  msg::domain "Supporting" "Handling lock file" && {
+
+    if lock::is_engaged; then
+
+      msg::error \
+<<END
+ |
+ | Yet another world is being shaped by Eru
+ | 
+ | One must either wait patiently
+ | or embrace the horrors of the unknown
+ | and manually delete the lockfile:
+ |
+ | :: ${DOTFIELD_LOCK_FILE}
+ |
+ #
+END
+
+      exit 1
+    fi
+
+    lock::engage
+
+    trap lock::disengage INT TERM EXIT
   
-#   msg::domain "Supporting" "Handling lock file" && {
+  }
 
-#     if [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
 
-#       msg::error \
-# <<END
-#  |
-#  | Yet another world is being shaped by Eru
-#  | 
-#  | One must either wait patiently
-#  | or embrace the horrors of the unknown
-#  | and manually delete the lockfile:
-#  |
-#  | :: ${DOTFIELD_LOCK_FILE}
-#  |
-#  #
-# END
+  guard::install && {
+    msg::domain "Supporting" "Authorizing superuser" && {
+      if [[ "root" == $(whoami) ]]; then
+        msg::warning "Running as root!"
+      else
+        # Ask for the administrator password upfront.
+        sudo -v &>/dev/null
 
-#       exit 1
-#     fi
-    
-    
-  
-#   }
+        # Update existing `sudo` time stamp until this script has finished.
+        #
+        # https://gist.github.com/cowboy/3118588
+        while true; do
+          sudo -n true
+          sleep 60
+          kill -0 "$$" || exit
+        done &>/dev/null &
+      fi
+    }
+  }  
 
 
   guard::macos && {
