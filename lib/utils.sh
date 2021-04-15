@@ -90,7 +90,6 @@ fi
 PATH="$HOME/.local/bin:$PATH"
 
 XDG_CONFIG_HOME="${DOTFIELD:-${HOME}/.config}"
-XDG_CONFIG_CACHE="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_BIN_HOME="${HOME}/.local/bin"
@@ -111,7 +110,6 @@ export \
   USER \
   XDG_BIN_HOME \
   XDG_CACHE_HOME \
-  XDG_CONFIG_CACHE \
   XDG_CONFIG_HOME \
   XDG_DATA_HOME
 

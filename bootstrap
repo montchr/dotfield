@@ -388,8 +388,9 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
 
 
   guard::domain "Repo" "Sync repos from Repofiles" && {
-    fs::map_lines repo::sync "${DOTFIELD}/Repofile" || true
-    fs::map_lines repo::sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
+    fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
+    # @TODO file doesn't exist. what's this for?
+    fs::map_lines repo::sync "${XDG_CACHE_HOME}/dotfield/Repofile" || true
   }
 
 
