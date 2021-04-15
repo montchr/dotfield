@@ -180,7 +180,7 @@ function verify_os {
     return 1
   fi
 
-  string.is_supported_version \
+  str::is_supported_version \
     "${OS_VERSION}" \
     "${supported_version}" \
       && return 0
@@ -212,13 +212,13 @@ function is_bootstrapped {
 function main () {
   source_ephemeral "lib/utils.sh" "${DOTFIELD_TEST_BASE:-}"
   
-  msg.domain "System" "Verifying system state"
+  msg::domain "System" "Verifying system state"
   world.info
     
   if is_bootstrapped
   then 
 
-    msg.info "
+    msg::info "
 ${MSG__INDENT}| We arrive at a well-travelled outcropping,
 ${MSG__INDENT}| overlooking a familiar vista.
 ${MSG__INDENT}|
@@ -226,7 +226,7 @@ ${MSG__INDENT}| Let's get a closer look…"
 
   else
 
-    msg.info "
+    msg::info "
 ${MSG__INDENT}| This world is beautiful, but dark.
 ${MSG__INDENT}| Let's get our bearings and
 ${MSG__INDENT}| see what we can see
@@ -238,21 +238,21 @@ ${MSG__INDENT}| in the land below…"
   # @TODO validation function doesn't work for older versions of bash and neither do associative arrays
   # verify_os || return 1
 
-  msg.domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
+  msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
 
-    msg.info "
+    msg::info "
 ${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."  
 
-    repo.sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}"
+    repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}"
 
   }
  
 
-  msg.domain "Travelling" "-> ${XDG_CONFIG_HOME}" && {
+  msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}" && {
 
     cd "${XDG_CONFIG_HOME}" || {
 
-      msg.error "
+      msg::error "
 ${MSG__INDENT}| We seem to be lost in '$(pwd)'.
 ${MSG__INDENT}| Something went wrong!
 ${MSG__INDENT}|
@@ -265,7 +265,7 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
 }
 
 
-  msg.domain "Supporting" "Defining variables" && {
+  msg::domain "Supporting" "Defining variables" && {
 
     ALL="true"
     ACTION=""
@@ -278,8 +278,8 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
         if [[ -z "$1" ]]; then
           ACTION=install
         else
-          msg.error "action '$1' is not supported"
-          msg.info "supported actions are: install, upgrade, test"
+          msg::error "action '$1' is not supported"
+          msg::info "supported actions are: install, upgrade, test"
           exit 1
         fi
         ;;
@@ -290,10 +290,10 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
     do
       if [[ -n "$1" ]]; then
         if [[ "$1" = -* ]]; then
-          key=$(string.lower "${1#-}")
+          key=$(str::lower "${1#-}")
           declare -r "guard_ignore_${key}=true"
         else
-          key=$(string.lower "$1")
+          key=$(str::lower "$1")
           declare -r "guard_${key}=true"
           ALL="false"
         fi
@@ -312,12 +312,12 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
   }
 
 
-  guard.install && {
-    msg.domain "Supporting" "Authorizing superuser" && {
+  guard::install && {
+    msg::domain "Supporting" "Authorizing superuser" && {
       if [[ "root" == $(whoami) ]]; then
-        msg.warning "Running as root!"
+        msg::warning "Running as root!"
       else
-        shell.ask_for_sudo
+        shell::ask_for_sudo
       fi
     }
   }
@@ -328,12 +328,12 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
   # Lockfile
   # - - - - - - - - - - - - - - - - - - - -
   
-  msg.domain "Supporting" "Handling lock file" && {
+  msg::domain "Supporting" "Handling lock file" && {
   
     LOCK_FILE=$XDG_CACHE_HOME/eru/eru.lock
     if [[ -f "$LOCK_FILE" ]]; then
 
-      msg.error "
+      msg::error "
 ${MSG__INDENT}| Yet another world is being shaped by Eru
 ${MSG__INDENT}| 
 ${MSG__INDENT}| One must either wait patiently
@@ -354,64 +354,64 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   }
 
 
-  guard.macos && ! shell.is_modern && {
+  guard::macos && ! shell::is_modern && {
     # shellcheck source=./os/macos/_pre_install.sh
     . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
   }
 
 
-  guard.install  && {
-    msg.domain "Hostname" "Set the system hostname" && {
+  guard::install  && {
+    msg::domain "Hostname" "Set the system hostname" && {
       if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
         HOSTNAME="${CDOM_INIT_HOSTNAME}"
       else
-        msg.ask "Enter a name: "
-        HOSTNAME="$(msg.get_answer)"
+        msg::ask "Enter a name: "
+        HOSTNAME="$(msg::get_answer)"
       fi
     }
   }
 
   
-  msg.domain "Guardian" "Ensure directories exist" && {
+  msg::domain "Guardian" "Ensure directories exist" && {
 
-    fs.ensure_dir "${XDG_BIN_HOME}"
-    fs.ensure_dir "$DEVELOPER"
+    fs::ensure_dir "${XDG_BIN_HOME}"
+    fs::ensure_dir "$DEVELOPER"
 
-    fs.ensure_dir "$HOME/org" && {
-      fs.ensure_dir "$HOME/org/gtd"
-      fs.ensure_dir "$HOME/org/mind"
-      fs.ensure_dir "$HOME/org/roam"
+    fs::ensure_dir "$HOME/org" && {
+      fs::ensure_dir "$HOME/org/gtd"
+      fs::ensure_dir "$HOME/org/mind"
+      fs::ensure_dir "$HOME/org/roam"
     }
 
   }
 
 
-  guard.domain "Repo" "Sync repos from Repofiles" && {
-    fs.map_lines repo.sync "${DOTFIELD}/Repofile" || true
-    fs.map_lines repo.sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
+  guard::domain "Repo" "Sync repos from Repofiles" && {
+    fs::map_lines repo::sync "${DOTFIELD}/Repofile" || true
+    fs::map_lines repo::sync "$XDG_CONFIG_CACHE/eru/Repofile" || true
   }
 
 
-  guard.domain "Link" "Link all files as defined in Linkfiles" && {
+  guard::domain "Link" "Link all files as defined in Linkfiles" && {
 
-    fs.linkfile "${DOTFIELD}/Linkfile"
+    fs::linkfile "${DOTFIELD}/Linkfile"
     
     for f in "${DOTFIELD}"/**/Linkfile; do
-      fs.linkfile "$f"
+      fs::linkfile "$f"
     done
 
     for f in "${DOTFIELD}"/**/Linkfile."${KERNEL_NAME}"; do
-      fs.linkfile "$f"
+      fs::linkfile "$f"
     done
 
   }
   
-  msg.domain "Shell" "Sourcing profile" && {
+  msg::domain "Shell" "Sourcing profile" && {
     . "${XDG_CONFIG_HOME}/shell/profile"
   }
 
 
-  # guard.domain "Link" "Link all files from module bin directories" && {
+  # guard::domain "Link" "Link all files from module bin directories" && {
 
   #   for f in "${DOTFIELD}/*/bin/*"; do
   #     link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
@@ -420,33 +420,33 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   # }
 
   
-  guard.arch && {
+  guard::arch && {
     # shellcheck source=./os/arch/install
     . "${XDG_CONFIG_HOME}/os/arch/install"
   }
 
-  guard.ubuntu && {
+  guard::ubuntu && {
     # shellcheck source=./os/ubuntu/main
     . "${XDG_CONFIG_HOME}/os/ubuntu/main"
   }
 
-  guard.macos && {
+  guard::macos && {
     # shellcheck source=./os/macos/main
     . "${XDG_CONFIG_HOME}/os/macos/main"
   }
 
 
-  guard.macos && {
+  guard::macos && {
 
-    guard.domain "skhd" "Patch skhd application PATH" && {
-      shell.has skhd && {
+    guard::domain "skhd" "Patch skhd application PATH" && {
+      shell::has skhd && {
         # @TODO update this?
         "${DOTFIELD}/bin/patch_skhd_path"
       }
     }
 
-    guard.domain "yabai" "Ensure scripting addition is installed" && {
-      shell.has yabai && {
+    guard::domain "yabai" "Ensure scripting addition is installed" && {
+      shell::has yabai && {
         # reinstall the scripting addition
         sudo yabai --uninstall-sa
         sudo yabai --install-sa
@@ -461,45 +461,45 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   }
 
 
-  guard.arch && {
+  guard::arch && {
 
-    guard.domain "xmonad" "Rebuild Xmonad configurations" && {
+    guard::domain "xmonad" "Rebuild Xmonad configurations" && {
 
-      msg.subdomain "Install xmonad" && (
+      msg::subdomain "Install xmonad" && (
         cd "$XDG_CONFIG_HOME/xmonad"
         stack --allow-different-user install || {
           notify send -a "Eru" -t "Failed to compile xmonad" -u critical
         }
       )
 
-      msg.subdomain "Restart xmonad" && {
+      msg::subdomain "Restart xmonad" && {
         if pgrep d12-xmonad; then
-          msg.info "Found running instance of xmonad. Restarting..."
+          msg::info "Found running instance of xmonad. Restarting..."
           d12-xmonad --restart
         else
-          msg.info "No running instance of xmonad is found. Meh..."
+          msg::info "No running instance of xmonad is found. Meh..."
         fi
       }
 
     }
   }
   
-  msg.success "Bootstrapping complete!"
+  msg::success "Bootstrapping complete!"
   
-  guard.install && {
+  guard::install && {
       
-    if ! shell.is_ci; then
-      msg.warning "Restart!"
-      msg.ask_for_confirmation "Restart?"
+    if ! shell::is_ci; then
+      msg::warning "Restart!"
+      msg::ask_for_confirmation "Restart?"
 
-      if msg.is_confirmed; then
+      if msg::is_confirmed; then
         sudo shutdown -r now &> /dev/null
       fi
     fi
       
   }
 
-  msg.success "Everything is good here." \
+  msg::success "Everything is good here." \
     && return 0
 
 }

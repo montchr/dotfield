@@ -3,20 +3,20 @@
 # os/arch/install
 #
 
-guard.domain "packages" "Bootstrap Arch Linux" && {
+guard::domain "packages" "Bootstrap Arch Linux" && {
 
-  msg.subdomain "Install crucial dependenices"
+  msg::subdomain "Install crucial dependenices"
   sudo pacman -S --noconfirm --needed \
     base-devel \
     git \
     pacman-contrib
 
-  msg.subdomain "Rank mirrors for pacman"
+  msg::subdomain "Rank mirrors for pacman"
   mirrorlist="/etc/pacman.d/mirrorlist"
   mirrorlist_bak="${mirrorlist}.bak"
   if [[ -f "$mirrorlist_bak" ]]; then
-    msg.info "Not updating mirrors list, because '$mirrorlist_bak' exists"
-    msg.info "Delete in order to re-rank mirrors"
+    msg::info "Not updating mirrors list, because '$mirrorlist_bak' exists"
+    msg::info "Delete in order to re-rank mirrors"
   else
     mirrorlist_tmp=$(mktemp)
     curl -s 'https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' \
@@ -26,7 +26,7 @@ guard.domain "packages" "Bootstrap Arch Linux" && {
     sudo sh -c "rankmirrors -n 6 '$mirrorlist_bak' > '$mirrorlist'"
   fi
 
-  msg.subdomain "Install aura for simpler AUR access"
+  msg::subdomain "Install aura for simpler AUR access"
   check aura || {
     sudo mkdir -p /var/cache/pacman/pkg
     aura_dir=$(mktemp -d)
@@ -36,7 +36,7 @@ guard.domain "packages" "Bootstrap Arch Linux" && {
     }
   }
 
-  msg.subdomain "Install yay for simpler AUR access"
+  msg::subdomain "Install yay for simpler AUR access"
   check yay || {
     yay_dir=$(mktemp -d)
     git clone https://aur.archlinux.org/yay.git "$yay_dir"
@@ -47,11 +47,11 @@ guard.domain "packages" "Bootstrap Arch Linux" && {
 }
 
 
-guard.install && {
+guard::install && {
 
-  guard.domain "packages" "Install all dependencies" && {
+  guard::domain "packages" "Install all dependencies" && {
 
-    msg.info "Import known GPG keys"
+    msg::info "Import known GPG keys"
     # spotify
     curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import
 
@@ -66,7 +66,7 @@ guard.install && {
       echo "$output"
     }
 
-    msg.info "Install packages"
+    msg::info "Install packages"
 
     pacman_file=$(combine_files "$target/arch/Pacmanfile" "$target/arch/Pacmanfile_$USER")
     pacman_ignore=$(combine_files "$target/arch/Pacmanignore" "$target/arch/Pacmanignore_$USER")
@@ -83,15 +83,15 @@ guard.install && {
 }
 
 
-guard.upgrade && {
-  guard.domain "packages" "Upgrade Arch Linux" && {
+guard::upgrade && {
+  guard::domain "packages" "Upgrade Arch Linux" && {
     sudo aura -Syu --noconfirm
     sudo aura -Aux --noconfirm
   }
 }
 
 
-guard.domain "hardware" "Setup keyboard" && {
+guard::domain "hardware" "Setup keyboard" && {
 
   if [[ ! -f /usr/share/X11/xkb/symbols/ua.bak ]]; then
     sudo mv /usr/share/X11/xkb/symbols/ua /usr/share/X11/xkb/symbols/ua.bak
@@ -104,18 +104,18 @@ guard.domain "hardware" "Setup keyboard" && {
 }
 
 
-guard.domain "hardware" "Setup touchpad" && {
+guard::domain "hardware" "Setup touchpad" && {
   sudo cp "$XDG_CONFIG_HOME/xorg/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
 }
 
 
-guard.domain "hardware" "Setup autolock" && {
+guard::domain "hardware" "Setup autolock" && {
   sudo cp "$XDG_CONFIG_HOME/arch/lock@.service" /etc/systemd/system/lock@.service
   systemctl enable "lock@${USER}.service" || error "systemd is not working"
 }
 
 
-guard.domain "hardware" "Setup backlight rules" && {
+guard::domain "hardware" "Setup backlight rules" && {
 
   tmp_rule=$(mktemp)
 
@@ -137,7 +137,7 @@ guard.domain "hardware" "Setup backlight rules" && {
 }
 
 
-guard.domain "gnupg" "Fix permissions" && {
+guard::domain "gnupg" "Fix permissions" && {
   chown -R "$(whoami)" ~/.gnupg/
   find ~/.gnupg -type f -exec chmod 600 {} \;
   find ~/.gnupg -type d -exec chmod 700 {} \;

@@ -45,7 +45,7 @@ import "$(get_import_base)/lib/main"
 # System Info
 # - - - - - - - - - - - - - - - - - - - -
 
-msg.domain "System" "Surveying the landscape" && {
+msg::domain "System" "Surveying the landscape" && {
   world.info
 }
 
@@ -71,12 +71,12 @@ msg.domain "System" "Surveying the landscape" && {
 
 function main() {
 
-  guard.user "root" && {
-    msg.warning "Running as root!"
+  guard::user "root" && {
+    msg::warning "Running as root!"
   }
 
   # @TODO Make sure it works for Linux
-  guard.domain "SSH" "Checking SSH keys" && {
+  guard::domain "SSH" "Checking SSH keys" && {
 
     if [[ "$INTERACTIVE" = "true" ]]; then
       ssh_key_add_url="https://github.com/settings/ssh/new"
@@ -85,20 +85,20 @@ function main() {
       ssh_config_path="$HOME/.ssh/config"
 
       if [[ -f "$ssh_key_path" ]]; then
-        msg.info "SSH key found at $ssh_key_path."
+        msg::info "SSH key found at $ssh_key_path."
       else
-        msg.info "No SSH key found."
+        msg::info "No SSH key found."
         mkdir -p "$(dirname "$ssh_key_path")"
         ssh-keygen -t rsa -b 4096 -C "$USER" -f "$ssh_key_path"
-        msg.info "SSH key was generated."
+        msg::info "SSH key was generated."
       fi
 
-      msg.info "Starting ssh-agent"
+      msg::info "Starting ssh-agent"
       eval "$(ssh-agent -s)"
 
-      guard.macos && {
+      guard::macos && {
 
-        msg.info "Automatically load SSH key and use Keychain"
+        msg::info "Automatically load SSH key and use Keychain"
         echo "Host *
 AddKeysToAgent yes
 UseKeychain yes
@@ -106,10 +106,10 @@ IdentityFile $ssh_key_path" > "$ssh_config_path"
 
       }
 
-      msg.info "Add SSH key to ssh-agent"
+      msg::info "Add SSH key to ssh-agent"
       ssh-add -K ~/.ssh/id_rsa
 
-      msg.info "Make sure to add SSH key to GitHub"
+      msg::info "Make sure to add SSH key to GitHub"
       pbcopy < "$ssh_key_pub_path"
       open "$ssh_key_add_url"
       read -rp "Press enter to continue"

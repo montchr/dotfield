@@ -28,22 +28,22 @@ function main () {
 
   cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
-  guard.install && {
-    guard.domain "packages" "Install all dependencies" && {
+  guard::install && {
+    guard::domain "packages" "Install all dependencies" && {
       cd "$XDG_CONFIG_HOME" && {
         export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
         brew bundle
       }
     }
 
-    guard.domain "hostname" "Set system hostname" && {
+    guard::domain "hostname" "Set system hostname" && {
       __set_hostname "${HOSTNAME}"
     }
   }
 
 
-  guard.upgrade && {
-    guard.domain "packages" "Upgrade packages" && {
+  guard::upgrade && {
+    guard::domain "packages" "Upgrade packages" && {
       brew update
       brew upgrade
     }
