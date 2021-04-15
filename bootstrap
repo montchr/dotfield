@@ -8,13 +8,12 @@
 [[ -n "$ZSH_VERSION" ]] \
   && emulate -L bash
 
-DOTFIELD_BRANCH="${GITHUB_SHA:-feature/reshape}"
+DOTFIELD_BRANCH="${${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/reshape}}##"refs/heads/"}"
 
 readonly QUERENT="montchr"
 readonly REPO_ID="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
-readonly DOTFILES_BRANCH="${DOTFIELD_BRANCH:-main}"
-readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}"
+readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
 USE_HTTPS="${USE_HTTPS:-true}"
@@ -34,7 +33,7 @@ BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 export \
   BASE_DIR \
   DOTFIELD \
-  DOTFILES_BRANCH \
+  DOTFIELD_BRANCH \
   DOTFILES_ORIGIN \
   HOSTNAME \
   QUERENT \

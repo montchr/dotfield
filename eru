@@ -17,7 +17,7 @@ BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 export -r IS_ERU=true
 
 readonly GITHUB_REPOSITORY="montchr/dots"
-readonly DOTFILES_BRANCH="${CDOM_INIT_DOTFILES_BRANCH:-main}"
+readonly DOTFIELD_BRANCH="${CDOM_INIT_DOTFIELD_BRANCH:-main}"
 
 # shellcheck source=./vendor/bash-oo-framework/lib/oo-bootstrap.sh
 source "${BASE_DIR}/vendor/bash-oo-framework/lib/oo-bootstrap.sh"
@@ -31,7 +31,7 @@ import \
 function get_import_base() {
   local IMPORT_BASE="."
   if [[ -n $IS_ERU ]]; then
-    IMPORT_BASE="github:${GITHUB_REPOSITORY}/${DOTFILES_BRANCH}"
+    IMPORT_BASE="github:${GITHUB_REPOSITORY}/${DOTFIELD_BRANCH}"
   fi
   echo "${IMPORT_BASE}"
 }

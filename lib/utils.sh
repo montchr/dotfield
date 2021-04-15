@@ -232,6 +232,44 @@ function str::upper {
   fi
 }
 
+
+#========================================
+# Strip pattern from start of string.
+# 
+# https://github.com/dylanaraps/pure-sh-bible#strip-pattern-from-start-of-string
+#
+# Usage:
+#   str::lstrip <string> <pattern>
+# Parameters:
+#   String
+#   Pattern
+# Outputs:
+#   Modified string.
+#========================================
+function str::lstrip {
+  printf '%s\n' "${1##$2}"
+}
+
+
+#========================================
+# Strip pattern from end of string.
+# 
+# https://github.com/dylanaraps/pure-sh-bible#strip-pattern-from-end-of-string
+#
+# Usage:
+#   str::rstrip <string> <pattern>
+# Parameters:
+#   String
+#   Pattern
+# Outputs:
+#   Modified string.
+#========================================
+function str::rstrip {
+    # Usage: rstrip "string" "pattern"
+    printf '%s\n' "${1%%$2}"
+}
+
+
 # Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
 # underscores.
 #
