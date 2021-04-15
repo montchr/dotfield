@@ -673,6 +673,39 @@ function fs::ensure_dir {
 }
 
 
+#======================================
+# Print the name of the owner user of the given file.
+#
+# On Darwin, favor `gstat` from GNU coreutils, falling back to alternative
+# options for use with Darwin's included `/usr/bin/stat`.
+#
+# https://github.com/dylanaraps/pure-bash-bible#get-the-base-name-of-a-file-path
+#
+# Usage: fs::get_owner_name <path>
+#
+# Arguments:
+#   Path
+# Outputs:
+#   STDOUT - Username
+# Returns:
+#   0 - Success
+#   1 - File not found
+#========================================
+function fs::get_owner_name {
+  local t="$1"
+  [[ ! -e "$t" ]] && return 1
+  if guard::macos; then 
+    if shell::has gstat; then
+      gstat -c '%U' "$t"
+    else
+      stat -f '%Su' "$t"
+    fi
+  else
+    stat -c '%U' "$t"
+  fi  
+}
+
+
 function fs::linkfile {
   local file="$1"
   msg::subdomain "linkfile: ${file}"
@@ -734,9 +767,7 @@ function fs::link {
   target_dir=$(dirname "${target_path}")
 
   if [[ -d "${target_dir}" ]]; then
-    # @TODO doesn't work on macOS -- `-c` is not a valid option
-    # owner=$(stat -c '%U' "${target_dir}")
-    owner=$(stat -f '%Su' "${target_dir}")
+    owner="$(fs::get_owner_name "${target_dir}")"
     if [[ "${owner}" != "root" && "${owner}" != "${USER}" ]]; then
       msg::error "can not link '${src_abs_path}' to '${target_path}'"
       msg::error "owner of '${target_dir}' is ${owner}"
