@@ -402,7 +402,7 @@ END
 
 
   guard::macos && {
-    shell::is_modern && {
+    (! shell::is_modern) && {
       # shellcheck source=./os/macos/_pre_install.sh
       . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
     }
