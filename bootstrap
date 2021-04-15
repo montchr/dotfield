@@ -407,6 +407,7 @@ ${MSG__INDENT}| and manually delete the $LOCK_FILE"
   }
   
   msg::domain "Shell" "Sourcing profile" && {
+    # shellcheck source=./shell/profile
     . "${XDG_CONFIG_HOME}/shell/profile"
   }
 
