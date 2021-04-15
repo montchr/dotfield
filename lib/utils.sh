@@ -828,10 +828,10 @@ function fs::link {
   then
 
     msg::info \
-<<END
+"
 relink: ${src_abs_path}
      -> ${target_path}
-END
+"
 
     if [[ "${owner}" = "root" ]]
     then
@@ -852,19 +852,19 @@ END
     fi
 
     msg::warning \
-<<END
+"
 backup: ${target_path}
    -> ${target_path}.bak
-END
+"
 
     mv "${target_path}" "${target_path}.bak"
   else
 
     msg::info \
-<<END
+"
 link: ${src_abs_path}
    -> ${target_path}
-END
+"
   fi
 
   if [[ "${owner}" = "root" ]]; then

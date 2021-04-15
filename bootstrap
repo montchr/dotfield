@@ -259,28 +259,26 @@ function main () {
   then 
 
     msg::info \
-"$(cat <<END
+"
 |
 | We arrive at a well-travelled outcropping,
 | overlooking a familiar vista.
 |
 | Let's get a closer look…
 |
-END
-)"
+"
 
   else
 
     msg::info \
-"$(cat <<END
+"
 |
 | This world is beautiful, but dark.
 | Let's get our bearings and
 | see what we can see
 | in the land below…
 |
-END
-)"
+"
 
   fi
 
@@ -291,9 +289,9 @@ END
   msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
 
     msg::info \
-<<END
+"
 | One cannot simply lift oneself up by one's own bootstraps...
-END
+"
 
     repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" \
       || exit 1
@@ -306,16 +304,14 @@ END
     cd "${XDG_CONFIG_HOME}" || {
 
       msg::error \
-"$(cat <<END
+"
  |
  | We seem to be lost in '$(pwd)'.
  | Something went wrong!
  |
  | ~ The world fades to black as we dematerialize… ~
  |
- #
-END
-)"
+"
 
       return 1
 
@@ -371,7 +367,7 @@ END
     if lock::is_engaged; then
 
       msg::error \
-"$(cat <<END
+ "
  |
  | Yet another world is being shaped by Eru
  | 
@@ -381,9 +377,7 @@ END
  |
  | :: ${DOTFIELD_LOCK_FILE}
  |
- #
-END
-)"
+ "
 
       exit 1
     fi
