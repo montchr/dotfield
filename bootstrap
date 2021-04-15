@@ -8,7 +8,7 @@
 [[ -n "$ZSH_VERSION" ]] \
   && emulate -L bash
 
-DOTFIELD_BRANCH="feature/reshape"
+DOTFIELD_BRANCH="${GITHUB_SHA:-feature/reshape}"
 
 readonly QUERENT="montchr"
 readonly REPO_ID="montchr/dots"
