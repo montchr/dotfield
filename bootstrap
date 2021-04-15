@@ -15,6 +15,7 @@ readonly REPO_ID="montchr/dots"
 readonly DOTFILES_ORIGIN="git@github.com:${REPO_ID}.git"
 readonly DOTFILES_BRANCH="${DOTFIELD_BRANCH:-main}"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}"
+readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
 USE_HTTPS="${USE_HTTPS:-true}"
 
@@ -207,6 +208,31 @@ function is_bootstrapped {
 
 
 #========================================
+# Create the bootstrap lockfile.
+#
+# Globals:
+#   DOTFIELD_LOCK_FILE
+#========================================
+function bootstrap::lock {
+  mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
+  touch "${DOTFIELD_LOCK_FILE}"
+}
+
+
+#========================================
+# Delete the bootstrap lockfile.
+#
+# Globals:
+#   DOTFIELD_LOCK_FILE
+#========================================
+function bootstrap::unlock {
+  # Safety check since we're running `rm -rf`.
+  [[ -z "${DOTFIELD_LOCK_FILE}" ]] && return 1
+  rm -rf "${DOTFIELD_LOCK_FILE}"
+}
+
+
+#========================================
 # Entrypoint.
 #========================================
 function main () {
@@ -330,27 +356,27 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
   # - - - - - - - - - - - - - - - - - - - -
   
   msg::domain "Supporting" "Handling lock file" && {
-  
-    LOCK_FILE=$XDG_CACHE_HOME/eru/eru.lock
-    if [[ -f "$LOCK_FILE" ]]; then
 
-      msg::error "
-${MSG__INDENT}| Yet another world is being shaped by Eru
-${MSG__INDENT}| 
-${MSG__INDENT}| One must either wait patiently
-${MSG__INDENT}| or embrace the horrors of the unknown
-${MSG__INDENT}| and manually delete the $LOCK_FILE"
+    if [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
+
+      msg::error \
+<<END
+ |
+ | Yet another world is being shaped by Eru
+ | 
+ | One must either wait patiently
+ | or embrace the horrors of the unknown
+ | and manually delete the lockfile:
+ |
+ | :: ${DOTFIELD_LOCK_FILE}
+ |
+ #
+END
 
       exit 1
     fi
-    mkdir -p "$(dirname "$LOCK_FILE")"
-    touch "$LOCK_FILE"
-  
-    function unlock() {
-      rm -rf "$LOCK_FILE"
-    }
-  
-    trap unlock INT TERM EXIT
+    
+    trap bootstrap::unlock INT TERM EXIT
   
   }
 
