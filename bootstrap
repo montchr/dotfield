@@ -356,7 +356,7 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
     if lock::is_engaged; then
 
       msg::error \
-<<END
+"$(cat <<END
  |
  | Yet another world is being shaped by Eru
  | 
@@ -368,6 +368,7 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
  |
  #
 END
+)"
 
       exit 1
     fi
