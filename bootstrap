@@ -42,6 +42,7 @@ export \
 
 # https://docwhat.org/tracebacks-in-bash
 
+# trap bootstrap::unlock INT TERM EXIT
 trap _exit_trap EXIT
 trap _err_trap ERR
 _showed_traceback=f
@@ -366,30 +367,30 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
   # Lockfile
   # - - - - - - - - - - - - - - - - - - - -
   
-  msg::domain "Supporting" "Handling lock file" && {
+#   msg::domain "Supporting" "Handling lock file" && {
 
-    if [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
+#     if [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
 
-      msg::error \
-<<END
- |
- | Yet another world is being shaped by Eru
- | 
- | One must either wait patiently
- | or embrace the horrors of the unknown
- | and manually delete the lockfile:
- |
- | :: ${DOTFIELD_LOCK_FILE}
- |
- #
-END
+#       msg::error \
+# <<END
+#  |
+#  | Yet another world is being shaped by Eru
+#  | 
+#  | One must either wait patiently
+#  | or embrace the horrors of the unknown
+#  | and manually delete the lockfile:
+#  |
+#  | :: ${DOTFIELD_LOCK_FILE}
+#  |
+#  #
+# END
 
-      exit 1
-    fi
+#       exit 1
+#     fi
     
-    trap bootstrap::unlock INT TERM EXIT
+    
   
-  }
+#   }
 
 
   guard::macos && ! shell::is_modern && {
