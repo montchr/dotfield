@@ -47,6 +47,12 @@
   && emulate -L bash
 
 
+# Attempt to prevent sourcing multiple times.
+[[ -n "${UTILS_LOADED}" ]] \
+  && exit 0
+readonly UTILS_LOADED="true"
+
+
 USER="${USER:-}"
 if [[ -z "${USER}" ]]; then
   USER="$(whoami)"
