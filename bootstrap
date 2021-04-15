@@ -258,19 +258,23 @@ function main () {
   if is_bootstrapped
   then 
 
-    msg::info "
-${MSG__INDENT}| We arrive at a well-travelled outcropping,
-${MSG__INDENT}| overlooking a familiar vista.
-${MSG__INDENT}|
-${MSG__INDENT}| Let's get a closer look…"
+    msg::info \
+<<END
+| We arrive at a well-travelled outcropping,
+| overlooking a familiar vista.
+|
+| Let's get a closer look…
+END
 
   else
 
-    msg::info "
-${MSG__INDENT}| This world is beautiful, but dark.
-${MSG__INDENT}| Let's get our bearings and
-${MSG__INDENT}| see what we can see
-${MSG__INDENT}| in the land below…"
+    msg::info \
+<<END
+| This world is beautiful, but dark.
+| Let's get our bearings and
+| see what we can see
+| in the land below…
+END
 
   fi
 
@@ -280,8 +284,10 @@ ${MSG__INDENT}| in the land below…"
 
   msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
 
-    msg::info "
-${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."  
+    msg::info \
+<<END
+| One cannot simply lift oneself up by one's own bootstraps...
+END
 
     repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" \
       || exit 1
@@ -293,11 +299,13 @@ ${MSG__INDENT}| One cannot simply lift oneself up by one's own bootstraps..."
 
     cd "${XDG_CONFIG_HOME}" || {
 
-      msg::error "
-${MSG__INDENT}| We seem to be lost in '$(pwd)'.
-${MSG__INDENT}| Something went wrong!
-${MSG__INDENT}|
-${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
+      msg::error \
+<<END
+ | We seem to be lost in '$(pwd)'.
+ | Something went wrong!
+ |
+ | ~ The world fades to black as we dematerialize… ~
+END
 
       return 1
 
@@ -353,7 +361,7 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
     if lock::is_engaged; then
 
       msg::error \
-"$(cat <<END
+<<END
  |
  | Yet another world is being shaped by Eru
  | 
@@ -365,7 +373,6 @@ ${MSG__INDENT}| ~ The world fades to black as we dematerialize… ~"
  |
  #
 END
-)"
 
       exit 1
     fi
