@@ -433,7 +433,7 @@ guard::domain "Link" "Link all files as defined in Linkfiles" && {
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
-#:    ==>   INSTALLATION
+#:    ==>   INSTALLATION + CONFIGURATION
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
@@ -492,11 +492,10 @@ guard::install && {
   }    
 
 
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   CONFIGURATION
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+  guard::domain "zsh" "Use XDG for ZSH" && {
+    msg::subdomain "Copying" "zshenv -> ${HOME}/.zshenv"
+    cp zshenv "${HOME}/.zshenv"
+  }    
 
 
   guard::macos && {
