@@ -15,6 +15,8 @@ tap "railwaycat/emacsmacport"
 tap "rcmdnk/file"
 tap "shivammathur/php"
 
+cask_args appdir: "/Applications", require_sha: true
+
 
 # Load coreutils first.
 brew "coreutils"
@@ -232,8 +234,12 @@ cask "fantastical"
 cask "fastscripts"
 cask "figma"
 cask "firefox"
-cask "firefox-developer-edition"
-cask "google-chrome"
+cask "firefox-developer-edition", args: {
+  force: true
+}
+cask "google-chrome", args: {
+  force: true
+}
 cask "hammerspoon"
 cask "harvest"
 # @TODO replace with hammerspoon
@@ -267,7 +273,9 @@ cask "transmit"
 # Requires manual input.
 # cask "virtualbox"
 # cask "vagrant"
-cask "visual-studio-code"
+cask "visual-studio-code", args: {
+  force: true
+}
 cask "vlc"
 cask "webpquicklook"
 cask "xquartz"
