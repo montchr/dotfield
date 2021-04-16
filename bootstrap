@@ -42,30 +42,21 @@ readonly REPO_ID="montchr/dots"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
-DOTFIELD="${HOME}/.config"
-if [[ -d "${XDG_CONFIG_HOME}" ]]; then
-  DOTFIELD="${XDG_CONFIG_HOME}"
-fi
-if [[ -d "${GITHUB_WORKSPACE}" ]]; then
-  DOTFIELD="${GITHUB_WORKSPACE}"
-fi
+: "${DOTFIELD:=${HOME}/.config}"
 : "${XDG_CONFIG_HOME:=${DOTFIELD}}"
 
-
-BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
-
 export \
-  BASE_DIR \
   DOTFIELD \
   DOTFIELD_BRANCH \
   DOTFIELD_HOSTNAME \
-  DOTFIELD_USERNAME \
-  DOTFIELD_USER_PASSWORD \
   DOTFIELD_SSH_PUBLIC_KEY \
   DOTFIELD_TIMEZONE \
+  DOTFIELD_USER_PASSWORD \
+  DOTFIELD_USERNAME \
   HOSTNAME \
   QUERENT \
-  REPO_ID
+  REPO_ID \
+  XDG_CONFIG_HOME
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -199,7 +190,9 @@ function verify_os {
 #   1 - Otherwise.
 #========================================
 function is_bootstrapped {
-  [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]]
+  [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]] \
+    && shell::is_modern
+  return
 }
 
 
