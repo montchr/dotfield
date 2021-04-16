@@ -224,7 +224,7 @@ function lock::engage {
 #   1 - If the lock is disengaged i.e. the lockfile is absent.
 #========================================
 function lock::is_engaged {
-  ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]
+  [[ -f "${DOTFIELD_LOCK_FILE}" ]]
 }
 
 
