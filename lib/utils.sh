@@ -409,7 +409,7 @@ function msg::warning() {
 # Parameters:
 #   Message
 function msg::error {
-  msg::in_red "${MSG__INDENT}[✖] $*\n"
+  msg::in_red "${MSG__INDENT}[✖] $1\n"
 }
 
 function msg::stream::info {
@@ -431,12 +431,13 @@ function msg::stream::errors {
 }
 
 function msg::stream::story {
-  printf "\n|"
+  msg::info ""
   msg::info "|"
   while read -r line; do
     msg::info "| ${line}"
   done
   msg::info "|"
+  msg::info ""
 }
 
 function msg::in_green {
