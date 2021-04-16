@@ -23,27 +23,27 @@ brew "coreutils"
 # Essentials
 brew "ack"
 brew "automake"
-brew "sqlite"
-brew "bash"
 brew "bash-completion"
+brew "bash"
 brew "binutils"
-brew "glib"
-brew "pkg-config"
 brew "cmake"
-brew "make"
 brew "curl"
 brew "gawk"
 brew "gcc"
 brew "git"
-brew "gnupg"
-brew "gpgme"
+brew "glib"
 brew "gnu-sed"
 brew "gnu-tar"
-brew "wget"
-brew "zsh"
+brew "gnupg"
 brew "gnutls"
+brew "gpgme"
+brew "make"
+brew "pkg-config"
 brew "ripgrep"
 brew "rsync"
+brew "sqlite"
+brew "wget"
+brew "zsh"
 
 
 # Infrastructure {{{
@@ -74,7 +74,6 @@ brew "ffmpeg"
 brew "graphicsmagick"
 # brew "gsl"
 brew "imagemagick"
-# brew "imagemagick@6"
 brew "imlib2"
 brew "jp2a"
 brew "libcaca"
@@ -85,12 +84,12 @@ brew "youtube-dl"
 
 # macOS only
 brew "dark-mode"
-brew "ical-buddy"
-brew "mas"
-brew "m-cli"
 brew "dnsmasq", restart_service: true
+brew "ical-buddy"
 brew "koekeishiya/formulae/skhd", args: ["with-logging"]
 brew "koekeishiya/formulae/yabai"
+brew "m-cli"
+brew "mas"
 brew "pinentry-mac"
 
 
@@ -99,66 +98,66 @@ brew "ddate"
 
 
 # Development and shell utilities
+brew 'asciinema'
+brew 'direnv'
+brew "awscli"
+brew "bat"
 brew "editorconfig"
 brew "fd"
 brew "fzf"
+brew "gdb"
 brew "gh"
 brew "git-delta"
 brew "grc"
 brew "hub"
 brew "hyperfine"
-brew "gdb"
 brew "shellcheck"
 brew "shfmt"
 brew "tmux"
-brew "awscli"
-brew "bat"
-brew 'direnv'
-brew 'asciinema'
 
 
 # File utilities
+brew 'sd'
 brew "jq"
 brew "pandoc"
+brew "poppler"
 brew "rename"
 brew "renameutils"
-brew "poppler"
 brew "stow"
-brew 'sd'
 brew "unar"
 brew "yq"
 
 
 # Personal administration
 brew "bitwarden-cli"
+brew "federico-terzi/espanso/espanso"
 brew "hledger"
 brew "ledger"
 brew "notmuch"
 brew "pass"
-brew "federico-terzi/espanso/espanso"
 
 
 # Information retrieval
 brew "googler"
-brew "tldr"
 brew "navi"
+brew "tldr"
 
 
 # System monitoring
-brew "netcat"
 brew "ncdu"
+brew "netcat"
 
 
 # Languages
 brew "go"
 brew "haskell-stack"
+brew "luarocks"
 brew "node"
 brew "python"
-brew "luarocks"
-brew "shivammathur/php/php@7.4"
-brew "shivammathur/php/php@8.0"
 brew "ruby-build"
 brew "rust"
+brew "shivammathur/php/php@7.4"
+brew "shivammathur/php/php@8.0"
 
 
 # Misc. Databases
@@ -211,8 +210,8 @@ brew "libiconv"
 brew "libmagic" # promnesia dependency on macOS
 brew "libpq"
 brew "pango"
-brew "rlwrap"
 brew "re2c"
+brew "rlwrap"
 
 
 # Casks: macOS only
