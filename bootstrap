@@ -1,8 +1,19 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
 # 
-# the revealing landscape
-#
+# 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#::   \\\
+#:: ======>      DOTFIELD PROVISIONER        ○
+#::   ///
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+# 
+# 
+# Thanks:
+#   - https://github.com/d12frosted/environment
+#   - https://github.com/alrra/dotfiles
+#   - https://github.com/jasonheecs/ubuntu-server-setup
+# 
 
 # shellcheck disable=2153
 [[ -n "$ZSH_VERSION" ]] \
@@ -37,43 +48,12 @@ export \
   QUERENT \
   REPO_ID
 
-# https://docwhat.org/tracebacks-in-bash
 
-# trap _exit_trap EXIT
-# trap _err_trap ERR
-# _showed_traceback=f
-
-# function _exit_trap() {
-#   local _ec="$?"
-#   if [[ $_ec != 0 && ${_showed_traceback} != t ]]; then
-#     traceback 1
-#   fi
-# }
-
-# function _err_trap() {
-#   local _ec="$?"
-#   local _cmd="${BASH_COMMAND:-unknown}"
-#   traceback 1
-#   _showed_traceback=t
-#   echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
-# }
-
-# function traceback() {
-#   # Hide the traceback() call.
-#   local -i start=$((${1:-0} + 1))
-#   local -i end=${#BASH_SOURCE[@]}
-#   local -i i=0
-#   local -i j=0
-
-#   echo "Traceback (last called is first):" 1>&2
-#   for ((i = start; i < end; i++)); do
-#     j=$((i - 1))
-#     local function="${FUNCNAME[$i]}"
-#     local file="${BASH_SOURCE[$i]}"
-#     local line="${BASH_LINENO[$j]}"
-#     echo "     ${function}() in ${file}:${line}" 1>&2
-#   done
-# }
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   HELPER FUNCTIONS
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
 #========================================
@@ -246,6 +226,11 @@ function lock::disengage {
 }
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   INITIALIZATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
 if is_bootstrapped
@@ -300,6 +285,13 @@ The world fades to black as we dematerialize…
 END
 exit 1
 }
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   PREPARATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
 msg::domain "Supporting" "Defining variables"
@@ -385,6 +377,13 @@ msg::domain "Supporting" "Authorizing superuser" && {
 }  
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   EXPECTATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
 guard::macos && {
 (! shell::is_modern) && {
   # shellcheck source=./os/macos/_pre_install.sh
@@ -445,6 +444,13 @@ msg::domain "Shell" "Sourcing profile"
 # }
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   INSTALLATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
 guard::arch && {
 # shellcheck source=./os/arch/install
 . "${XDG_CONFIG_HOME}/os/arch/install"
@@ -488,6 +494,13 @@ guard::install && {
     # shellcheck source=./firefox/install_tridactyl
     . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"      
   }    
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   CONFIGURATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
   guard::macos && {
@@ -556,6 +569,14 @@ guard::arch && {
 
   }
 }
+
+
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   REALIZATION
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
 
 msg::success "Bootstrapping complete!"
 

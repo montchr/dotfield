@@ -1,5 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-# shellcheck shell=bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*- shellcheck shell=bash
 #
 #
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -8,15 +7,15 @@
 #::   ///
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 #
-# This file MUST remain self-contained, with no additional dependencies. The
-# primary use case is the bootstrapping script. Without these utilities, the
-# bootstrapping process would be at a disadvantage, so it downloads them first
-# thing.
+# This file MUST remain self-contained, with no additional dependencies from
+# this repository. The primary use case is the bootstrapping script. Without
+# these utilities, the bootstrapping process would be at a disadvantage, so it
+# downloads them first thing.
 #
 # Thanks:
 # - https://github.com/dylanaraps/pure-bash-bible
 #
-# 
+#
 # ============= TABLE OF CONTENTS ============ #
 #                                              #
 # 0. The World            ::     [[ world ]]   #
@@ -119,9 +118,9 @@ readonly MSG__COL__GAP="  "  # 2 spaces
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  THE WORLD  <==  [[ world ]]
-#::
+#:
+#:    ==>   THE WORLD  [[ world ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -159,9 +158,9 @@ END
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  STRING MANIPULATION  <==  [[ str ]]
-#::
+#:
+#:    ==>   STRING MANIPULATION   [[ str ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -305,9 +304,9 @@ function str::is_supported_version {
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  MESSAGES + PROMPTS  <==  [[ msg ]]
-#::
+#:
+#:    ==>   MESSAGES + PROMPTS    [[ msg ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -516,9 +515,9 @@ function msg::spinner {
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  SHELL  <==  [[ shell ]]
-#::
+#:
+#:    ==>  SHELL  [[ shell ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -618,9 +617,9 @@ function shell::has {
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  FILESYSTEM  <==  [[ fs ]]
-#::
+#:
+#:    ==>  FILESYSTEM  [[ fs ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -978,9 +977,9 @@ function fs::parse_yaml {
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  REPOSITORIES  <==  [[ repo ]]
-#::
+#:
+#:    ==>  REPOSITORIES     [[ repo ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -1135,9 +1134,9 @@ function repo::sync {
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#::
-#::  ==>  GUARDIANS  <==  [[ guard ]]
-#::
+#:
+#:    ==>  GUARDIANS   [[ guard ]]
+#:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
@@ -1202,7 +1201,7 @@ function guard::root {
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
-#:   ==>  USER MANAGEMENT  <==  [[ user ]]
+#:    ==>  USER MANAGEMENT   [[ user ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
@@ -1312,7 +1311,7 @@ function user::change_ssh_config () {
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
-#:   ==>  PACKAGE MANAGEMENT  <==   [[ pkg ]]
+#:    ==>   PACKAGE MANAGEMENT    [[ pkg ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
