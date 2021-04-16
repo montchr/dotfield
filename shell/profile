@@ -1,4 +1,6 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# 
+# shellcheck shell=bash
 #
 # ~/.profile
 #
@@ -194,12 +196,12 @@ export \
 #
 # Returns either "light" or "dark". Defaults to "dark".
 cdom_os_appearance () {
-  if [[ $SSH_CONNECTION && $CDOM_OS_APPEARANCE ]]; then
-    echo "${CDOM_OS_APPEARANCE}"
+  if [[ -n "${SSH_CONNECTION}" ]] && [[ -n "${CDOM_OS_APPEARANCE}" ]]; then
+    printf "%s" "${CDOM_OS_APPEARANCE}"
   elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
-    echo "light"
+    printf "light"
   else
-    echo "dark"
+    printf "dark"
   fi
 }
 
@@ -215,15 +217,17 @@ cdom_base16_theme () {
 }
 
 # Set the OS appearance by attempting to query the current status.
-[[ -z "${CDOM_OS_APPEARANCE}" ]] &&
-  CDOM_OS_APPEARANCE="$(cdom_os_appearance)" &&
+[[ -z "${CDOM_OS_APPEARANCE}" ]] && {
+  CDOM_OS_APPEARANCE="$(cdom_os_appearance)"
   export CDOM_OS_APPEARANCE
+}
 
 # Set the base16 theme based on OS appearance.
-BASE16_THEME="$(cdom_base16_theme "$CDOM_OS_APPEARANCE")" &&
-  export BASE16_THEME
+BASE16_THEME="$(cdom_base16_theme "${CDOM_OS_APPEARANCE}")"
+export BASE16_THEME
 
 # Load Nix environment
 # shellcheck disable=1090
-[[ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]] \
-  && . "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+[[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && {
+   . "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+}
