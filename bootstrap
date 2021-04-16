@@ -464,6 +464,7 @@ guard::macos && {
 
 guard::install && {
   msg::domain "Editor" "Installing Doom Emacs" && {
+    # TODO: gracefailly fallback if this exists already -- do not delete it!
     git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
     # TODO: the shell environment should reflect the user's login shell
     # environment, not the environment this script was run within. this might not
