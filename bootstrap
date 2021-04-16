@@ -428,10 +428,6 @@ guard::domain "Link" "Link all files as defined in Linkfiles" && {
   done
 }
 
-msg::domain "Shell" "Sourcing profile"
-# shellcheck source=./shell/profile
-. "${XDG_CONFIG_HOME}/shell/profile"
-
 
 # guard::domain "Link" "Link all files from module bin directories" && {
 
