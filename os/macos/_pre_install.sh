@@ -34,12 +34,6 @@ function main () {
       if ! grep "${brew_bash_path}" < /etc/shells &> /dev/null; then
         printf '%s\n' "${brew_bash_path}" | sudo tee -a /etc/shells
       fi
-
-      # Set Brew-installed version of Bash as the default (macOS comes with an
-      # outdated version of Bash).
-      chsh -s "${brew_bash_path}" &> /dev/null
-      msg::result $? "Bash (use latest version)"
-
     }
   }
 
