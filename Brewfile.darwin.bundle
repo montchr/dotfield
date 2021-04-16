@@ -218,59 +218,59 @@ brew "rlwrap"
 cask "1password-cli"
 cask 'adobe-acrobat-reader'
 cask "airfoil"
-cask "alfred", args: { appdir: "/Applications" }
-cask "audio-hijack", args: { appdir: "/Applications" }
-cask "bartender", args: { appdir: "/Applications" }
+cask "alfred"
+cask "audio-hijack"
+cask "bartender"
 cask "basictex"
-cask "brave-browser", args: { appdir: "/Applications" }
-cask "calibre", args: { appdir: "/Applications" }
-cask "caprine", args: { appdir: "/Applications" }
-cask "dash", args: { appdir: "/Applications" }
+cask "brave-browser"
+cask "calibre"
+cask "caprine"
+cask "dash"
 cask "docker"
 cask "dropbox"
-cask "fantastical", args: { appdir: "/Applications" }
-cask "fastscripts", args: { appdir: "/Applications" }
+cask "fantastical"
+cask "fastscripts"
 cask "figma"
-cask "firefox", args: { appdir: "/Applications" }
-cask "firefox-developer-edition", args: { appdir: "/Applications" }
-cask "google-chrome", args: { appdir: "/Applications" }
+cask "firefox"
+cask "firefox-developer-edition"
+cask "google-chrome"
 cask "hammerspoon"
-cask "harvest", args: { appdir: "/Applications" }
+cask "harvest"
 # @TODO replace with hammerspoon
 # cask "insomnia"
-cask "istat-menus", args: { appdir: "/Applications" }
-cask "kaleidoscope", args: { appdir: "/Applications" }
-cask "karabiner-elements", args: { appdir: "/Applications" }
-cask "keyboard-maestro", args: { appdir: "/Applications" }
-cask "keycue", args: { appdir: "/Applications" }
+cask "istat-menus"
+cask "kaleidoscope"
+cask "karabiner-elements"
+cask "keyboard-maestro"
+cask "keycue"
 cask "kitty"
 cask "libreoffice"
-cask "marked", args: { appdir: "/Applications" }
-cask "muzzle", args: { appdir: "/Applications" }
+cask "marked"
+cask "muzzle"
 cask "osxfuse" # rclone mount dependency
 cask "plexamp"
-cask "qlcolorcode", args: { appdir: "/Applications" }
+cask "qlcolorcode"
 cask "qlmarkdown"
-cask "qlstephen", args: { appdir: "/Applications" }
-cask "qlvideo", args: { appdir: "/Applications" }
-cask "quicklook-json", args: { appdir: "/Applications" }
-cask "quicklookase", args: { appdir: "/Applications" }
-cask "script-debugger", args: { appdir: "/Applications" }
-cask "sequel-pro", args: { appdir: "/Applications" }
+cask "qlstephen"
+cask "qlvideo"
+cask "quicklook-json"
+cask "quicklookase"
+cask "script-debugger"
+cask "sequel-pro"
 cask "signal"
-cask "slack", args: { appdir: "/Applications" }
-cask "soundsource", args: { appdir: "/Applications" }
+cask "slack"
+cask "soundsource"
 cask "spotify"
-# cask "suspicious-package", args: { appdir: "/Applications" }
+# cask "suspicious-package"
 cask "tigervnc-viewer"
-cask "transmit", args: { appdir: "/Applications" }
+cask "transmit"
 # Requires manual input.
 # cask "virtualbox"
 # cask "vagrant"
-cask "visual-studio-code", args: { appdir: "/Applications" }
-cask "vlc", args: { appdir: "/Applications" }
-cask "webpquicklook", args: { appdir: "/Applications" }
-cask "xquartz", args: { appdir: "/Applications" }
+cask "visual-studio-code"
+cask "vlc"
+cask "webpquicklook"
+cask "xquartz"
 cask "zoom"
 
 # Mac App Store
