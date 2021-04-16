@@ -39,41 +39,41 @@ export \
 
 # https://docwhat.org/tracebacks-in-bash
 
-trap _exit_trap EXIT
-trap _err_trap ERR
-_showed_traceback=f
+# trap _exit_trap EXIT
+# trap _err_trap ERR
+# _showed_traceback=f
 
-function _exit_trap() {
-  local _ec="$?"
-  if [[ $_ec != 0 && ${_showed_traceback} != t ]]; then
-    traceback 1
-  fi
-}
+# function _exit_trap() {
+#   local _ec="$?"
+#   if [[ $_ec != 0 && ${_showed_traceback} != t ]]; then
+#     traceback 1
+#   fi
+# }
 
-function _err_trap() {
-  local _ec="$?"
-  local _cmd="${BASH_COMMAND:-unknown}"
-  traceback 1
-  _showed_traceback=t
-  echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
-}
+# function _err_trap() {
+#   local _ec="$?"
+#   local _cmd="${BASH_COMMAND:-unknown}"
+#   traceback 1
+#   _showed_traceback=t
+#   echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
+# }
 
-function traceback() {
-  # Hide the traceback() call.
-  local -i start=$((${1:-0} + 1))
-  local -i end=${#BASH_SOURCE[@]}
-  local -i i=0
-  local -i j=0
+# function traceback() {
+#   # Hide the traceback() call.
+#   local -i start=$((${1:-0} + 1))
+#   local -i end=${#BASH_SOURCE[@]}
+#   local -i i=0
+#   local -i j=0
 
-  echo "Traceback (last called is first):" 1>&2
-  for ((i = start; i < end; i++)); do
-    j=$((i - 1))
-    local function="${FUNCNAME[$i]}"
-    local file="${BASH_SOURCE[$i]}"
-    local line="${BASH_LINENO[$j]}"
-    echo "     ${function}() in ${file}:${line}" 1>&2
-  done
-}
+#   echo "Traceback (last called is first):" 1>&2
+#   for ((i = start; i < end; i++)); do
+#     j=$((i - 1))
+#     local function="${FUNCNAME[$i]}"
+#     local file="${BASH_SOURCE[$i]}"
+#     local line="${BASH_LINENO[$j]}"
+#     echo "     ${function}() in ${file}:${line}" 1>&2
+#   done
+# }
 
 
 #========================================
@@ -250,37 +250,35 @@ function lock::disengage {
 # Entrypoint.
 #========================================
 function main () {
-  source_ephemeral "lib/utils.sh" "${DOTFIELD_TEST_BASE:-}"
   
-  msg::domain "System" "Verifying system state"
-  world.info
-    
   if is_bootstrapped
   then 
 
-    msg::info \
-"
-|
-| We arrive at a well-travelled outcropping,
-| overlooking a familiar vista.
-|
-| Let's get a closer look…
-|
-"
+    # shellcheck source=./lib/utils.sh
+    . "${XDG_CONFIG_HOME}/lib/utils.sh"
+
+    msg::stream::story <<END
+We arrive at a well-travelled outcropping,
+overlooking a familiar vista.
+
+Let's get a closer look…
+END
 
   else
 
-    msg::info \
-"
-|
-| This world is beautiful, but dark.
-| Let's get our bearings and
-| see what we can see
-| in the land below…
-|
-"
+  source_ephemeral "lib/utils.sh" "${DOTFIELD_TEST_BASE:-}"
+
+msg::stream::story <<END
+This world is beautiful, but dark.
+
+Let's get our bearings and see what we can see
+in the land below…
+END
 
   fi
+
+  msg::domain "System" "Verifying system state"
+  world.info
 
   # Ensure the OS is supported and above the minimum version.
   # @TODO validation function doesn't work for older versions of bash and neither do associative arrays
@@ -288,10 +286,9 @@ function main () {
 
   msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}" && {
 
-    msg::info \
-"
-| One cannot simply lift oneself up by one's own bootstraps...
-"
+msg::stream::story <<END
+One cannot simply lift oneself up by one's own bootstraps...
+END
 
     repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" \
       || exit 1
@@ -303,15 +300,12 @@ function main () {
 
     cd "${XDG_CONFIG_HOME}" || {
 
-      msg::error \
-"
- |
- | We seem to be lost in '$(pwd)'.
- | Something went wrong!
- |
- | ~ The world fades to black as we dematerialize… ~
- |
-"
+msg::stream::errors <<END
+We seem to be lost in '$(pwd)'.
+Something went wrong!
+
+The world fades to black as we dematerialize…
+END
 
       return 1
 
@@ -366,18 +360,15 @@ function main () {
 
     if lock::is_engaged; then
 
-      msg::error \
- "
- |
- | Yet another world is being shaped by Eru
- | 
- | One must either wait patiently
- | or embrace the horrors of the unknown
- | and manually delete the lockfile:
- |
- | :: ${DOTFIELD_LOCK_FILE}
- |
- "
+msg::error <<END
+Yet another world is being shaped by Eru
+
+One must either wait patiently
+or embrace the horrors of the unknown
+and manually delete the lockfile:
+
+:: ${DOTFIELD_LOCK_FILE}
+END
 
       exit 1
     fi

@@ -131,6 +131,7 @@ readonly MSG__COL__GAP="  "  # 2 spaces
 # Usage:
 #   world.info
 # Globals:
+#   BASH_VERSION
 #   KERNEL_NAME
 #   KERNEL_RELEASE
 #   OS_NAME
@@ -143,34 +144,16 @@ readonly MSG__COL__GAP="  "  # 2 spaces
 #========================================
 function world.info() {
 
-  msg::tabular_row \
-    "Kernel name:" \
-      "${KERNEL_NAME}"
-
-  [[ -n "${KERNEL_RELEASE}" ]] && {
-    msg::tabular_row \
-      "Kernel release:" \
-        "${KERNEL_RELEASE}"
-  }
-  
-  msg::tabular_row \
-    "Operating system:" \
-      "${OS_NAME}"
-  msg::tabular_row \
-    "OS version:" \
-      "${OS_VERSION}"
-  msg::tabular_row \
-    "Bash version:" \
-      "${BASH_VERSION}"
-  msg::tabular_row \
-    "User:" \
-      "${USER}"
-  msg::tabular_row \
-    "XDG_CONFIG_HOME:" \
-      "${XDG_CONFIG_HOME}"
-  msg::tabular_row \
-    "XDG_BIN_HOME:" \
-      "${XDG_BIN_HOME}"
+msg::stream::info <<END
+Kernel name:         ${KERNEL_NAME}
+Kernel release:      ${KERNEL_RELEASE}
+Operating system:    ${OS_NAME}
+OS version:          ${OS_VERSION}
+Bash version:        ${BASH_VERSION}
+User:                ${USER}
+XDG_CONFIG_HOME:     ${XDG_CONFIG_HOME}
+XDG_BIN_HOME:        ${XDG_BIN_HOME}
+END
 
 }
 
@@ -385,7 +368,7 @@ function msg::domain__inactive {
 # Parameters:
 #   Message
 function msg::info {
-  msg::print "${MSG__INDENT}${1}"
+  msg::print "${MSG__INDENT}${*}"
 }
 
 # Prompt the user for a response to a question.
@@ -429,10 +412,31 @@ function msg::error {
   msg::in_red "${MSG__INDENT}[✖] $*\n"
 }
 
-function msg::stream_errors {
+function msg::stream::info {
   while read -r line; do
-    msg::error "↳ ERROR: $line"
+    msg::info "${line}"
   done
+}
+
+function msg::stream::warnings {
+  while read -r line; do
+    msg::warning "${line}"
+  done
+}
+
+function msg::stream::errors {
+  while read -r line; do
+    msg::error "$line"
+  done
+}
+
+function msg::stream::story {
+  printf "\n|"
+  msg::info "|"
+  while read -r line; do
+    msg::info "| ${line}"
+  done
+  msg::info "|"
 }
 
 function msg::in_green {
@@ -827,11 +831,10 @@ function fs::link {
   if [[ -L "${target_path}" ]]
   then
 
-    msg::info \
-"
+msg::stream::info <<END
 relink: ${src_abs_path}
      -> ${target_path}
-"
+END
 
     if [[ "${owner}" = "root" ]]
     then
@@ -851,20 +854,20 @@ relink: ${src_abs_path}
       return 1
     fi
 
-    msg::warning \
-"
+msg::stream::warnings <<END
 backup: ${target_path}
-   -> ${target_path}.bak
-"
+     -> ${target_path}.bak
+END
 
     mv "${target_path}" "${target_path}.bak"
+
   else
 
-    msg::info \
-"
+msg::stream::info <<END
 link: ${src_abs_path}
    -> ${target_path}
-"
+END
+
   fi
 
   if [[ "${owner}" = "root" ]]; then
