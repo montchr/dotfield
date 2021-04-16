@@ -1075,9 +1075,14 @@ function repo::sync {
 
   cd "${wd}" && {
     git diff-index --quiet HEAD -- || {
-      msg::error "Your working directory is not clean."
-      msg::error "Please commit or stash all changes before proceeding."
-      return 1
+      msg::warning "Your working directory is not clean."
+      if shell::is_ci; then
+        msg::warning "Running via CI workflow. Stashing changes."
+        git add . && git stash
+      else
+        msg::error "Please commit or stash all changes before proceeding."
+        return 1
+      fi
     }
 
     current_branch=$(git symbolic-ref --short HEAD)
