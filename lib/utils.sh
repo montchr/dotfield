@@ -1,4 +1,6 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*- shellcheck shell=bash
+# -*- mode: sh; eval: (sh-set-shell "bash") -*-
+# 
+# shellcheck shell=bash
 #
 #
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -941,38 +943,6 @@ function fs::download_bin {
   curl --silent -o "${target}" "${src}"
   chmod a+x "${target}"
   hash -r
-}
-
-
-#========================================
-# Parse a YAML file.
-# 
-# @TODO not tested!
-# 
-# Credits:
-#   - https://gist.github.com/pkuczynski/8665367
-#   - https://github.com/sameersbn/docker-redmine/blob/1a79e2781ec72c79dea94e2e3b81842db3df835f/assets/runtime/functions#L17-L35
-#
-# Usage:
-#   fs::parse_yaml <file>
-# Parameters:
-#   File path
-#========================================
-function fs::parse_yaml {
-   local prefix=$2
-   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
-   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
-       -ne "s|^\($s\)\($w\)$s:$s'\(.*\)'$s\$|\1$fs\2$fs\3|p" \
-        -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p" $1 |
-   awk -F$fs '{
-      indent = length($1)/2;
-      vname[indent] = $2;
-      for (i in vname) {if (i > indent) {delete vname[i]}}
-      if (length($3) > 0) {
-         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
-         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
-      }
-   }'
 }
 
 
