@@ -451,9 +451,14 @@ guard::ubuntu && {
 }
 
 guard::macos && {
+
   msg::domain "OS" "Installing macOS environment"
   # shellcheck source=./os/macos/main
   . "${XDG_CONFIG_HOME}/os/macos/main"
+
+  msg::domain "OS" "Configuring macOS preferences"
+  "${XDG_CONFIG_HOME}/os/macos/configure"
+
 }
 
 
