@@ -5,16 +5,16 @@
 #
 
 function __provision_user {
-  if [[ -n "${CDOM_INIT_NEW_USER_NAME}" ]]; then
-    USERNAME="${CDOM_INIT_NEW_USER_NAME}"
+  if [[ -n "${DOTFIELD_USERNAME}" ]]; then
+    USERNAME="${DOTFIELD_USERNAME}"
   else
     ask "Enter the username of the new user account:"
     USERNAME=$(get_answer)
   fi
   readonly USERNAME
 
-  if [[ -n "${CDOM_INIT_NEW_USER_PASSWORD}" ]]; then
-    PASSWORD="${CDOM_INIT_NEW_USER_PASSWORD}"
+  if [[ -n "${DOTFIELD_USER_PASSWORD}" ]]; then
+    PASSWORD="${DOTFIELD_USER_PASSWORD}"
   else
     prompt_for_password
   fi
@@ -24,8 +24,8 @@ function __provision_user {
 
   user::create_account "${USERNAME}" "${PASSWORD}"
 
-  if [[ -n "${CDOM_INIT_PUBKEY}" ]]; then
-    ssh_pub_key="${CDOM_INIT_PUBKEY}"
+  if [[ -n "${DOTFIELD_SSH_PUBLIC_KEY}" ]]; then
+    ssh_pub_key="${DOTFIELD_SSH_PUBLIC_KEY}"
   else
     ask 'Paste in the public SSH key for the new user:\n'
     ssh_pub_key=$(get_answer)
@@ -94,7 +94,7 @@ function main () {
     }
 
     guard::domain "time" "Rolling time into sync" && {
-      __setup_time "${CDOM_INIT_TIMEZONE}"
+      __setup_time "${DOTFIELD_TIMEZONE}"
     }
 
   }

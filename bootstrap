@@ -19,24 +19,36 @@
 [[ -n "$ZSH_VERSION" ]] \
   && emulate -L bash
 
+
+: "${DOTFIELD_HOSTNAME:=dotfield}"
+: "${DOTFIELD_USERNAME:=montchr}"
+: "${DOTFIELD_USER_PASSWORD:=}"
+: "${DOTFIELD_SSH_PUBLIC_KEY:=}"
+: "${DOTFIELD_TIMEZONE:=America/New_York}"
+
+: "${USE_HTTPS:-true}"
+
 DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/reshape}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
-USE_HTTPS="${USE_HTTPS:-true}"
+readonly DOTFIELD_BRANCH
 
-readonly QUERENT="montchr"
+# TODO
+# readonly QUERENT="${GITHUB_ACTOR:-montchr}"
+readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
 readonly REPO_ID="montchr/dots"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
-DOTFIELD="$HOME/.config"
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${DOTFIELD}}"
-if [[ -d "$XDG_CONFIG_HOME" ]]; then
-  DOTFIELD="$XDG_CONFIG_HOME"
+DOTFIELD="${HOME}/.config"
+if [[ -d "${XDG_CONFIG_HOME}" ]]; then
+  DOTFIELD="${XDG_CONFIG_HOME}"
 fi
 GITHUB_WORKSPACE=""
 if [[ -d "${GITHUB_WORKSPACE}" ]]; then
-  DOTFIELD="$GITHUB_WORKSPACE"
+  DOTFIELD="${GITHUB_WORKSPACE}"
 fi
+: "${XDG_CONFIG_HOME:=${DOTFIELD}}"
+
 
 BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )"
 
@@ -44,6 +56,11 @@ export \
   BASE_DIR \
   DOTFIELD \
   DOTFIELD_BRANCH \
+  DOTFIELD_HOSTNAME \
+  DOTFIELD_USERNAME \
+  DOTFIELD_USER_PASSWORD \
+  DOTFIELD_SSH_PUBLIC_KEY \
+  DOTFIELD_TIMEZONE \
   HOSTNAME \
   QUERENT \
   REPO_ID
@@ -394,8 +411,8 @@ guard::macos && {
 
 guard::install && {
 msg::domain "Hostname" "Set the system hostname" && {
-  if [[ -n "${CDOM_INIT_HOSTNAME}" ]]; then
-    HOSTNAME="${CDOM_INIT_HOSTNAME}"
+  if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
+    HOSTNAME="${DOTFIELD_HOSTNAME}"
   else
     msg::ask "Enter a name: "
     HOSTNAME="$(msg::get_answer)"

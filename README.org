@@ -18,18 +18,7 @@ bash -c "$(wget -qO - https://raw.github.com/montchr/dots/main/bootstrap)"
 
 *** Auto Setup with Environment Variables
 
-First, set ~CDOM_INIT_INTERACTIVE=false~.
-
-Then set the following values:
-
-| Name                          | Description                                 | Default             |
-|-------------------------------+---------------------------------------------+---------------------|
-| ~CDOM_INIT_DOTFIELD_BRANCH~   | Branch from which dotfiles should be pulled | ~main~              |
-| ~CDOM_INIT_HOSTNAME~          | System hostname                             | ~CDOM~              |
-| ~CDOM_INIT_NEW_USER_NAME~     | Name of the new sudo user to be created     |                     |
-| ~CDOM_INIT_NEW_USER_PASSWORD~ | Password for the new user                   |                     |
-| ~CDOM_INIT_PUBKEY~            | SSH public key for the new user             |                     |
-| ~CDOM_INIT_TIMEZONE~          | System timezone                             | ~America/New_York~  |
+Set the values at the beginning of the provisioning script.
 
 
 * Thank Yous + References
