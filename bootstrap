@@ -43,7 +43,6 @@ DOTFIELD="${HOME}/.config"
 if [[ -d "${XDG_CONFIG_HOME}" ]]; then
   DOTFIELD="${XDG_CONFIG_HOME}"
 fi
-GITHUB_WORKSPACE=""
 if [[ -d "${GITHUB_WORKSPACE}" ]]; then
   DOTFIELD="${GITHUB_WORKSPACE}"
 fi
