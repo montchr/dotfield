@@ -450,18 +450,21 @@ msg::domain "Shell" "Sourcing profile"
 
 
 guard::arch && {
-# shellcheck source=./os/arch/install
-. "${XDG_CONFIG_HOME}/os/arch/install"
+  msg::domain "OS" "Installing Arch Linux environment"
+  # shellcheck source=./os/arch/install
+  . "${XDG_CONFIG_HOME}/os/arch/install"
 }
 
 guard::ubuntu && {
-# shellcheck source=./os/ubuntu/main
-. "${XDG_CONFIG_HOME}/os/ubuntu/main"
+  msg::domain "OS" "Installing Ubuntu environment"
+  # shellcheck source=./os/ubuntu/main
+  . "${XDG_CONFIG_HOME}/os/ubuntu/main"
 }
 
 guard::macos && {
-# shellcheck source=./os/macos/main
-. "${XDG_CONFIG_HOME}/os/macos/main"
+  msg::domain "OS" "Installing macOS environment"
+  # shellcheck source=./os/macos/main
+  . "${XDG_CONFIG_HOME}/os/macos/main"
 }
 
 
