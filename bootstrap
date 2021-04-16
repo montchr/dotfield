@@ -291,8 +291,7 @@ repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
 
 
 msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}"
-cd "${XDG_CONFIG_HOME}" \
-|| {
+cd "${XDG_CONFIG_HOME}" || {
 msg::stream::errors <<END
 We seem to be lost in '$(pwd)'.
 Something went wrong!
@@ -343,12 +342,12 @@ export ALL
 export ACTION
 
 
-msg::domain "Supporting" "Handling lock file"
+msg::domain "Supporting" "Checking for lockfile"
 
 if lock::is_engaged
 then
 
-msg::error <<END
+msg::stream::errors <<END
 Yet another world is being shaped by Eru
 
 One must either wait patiently
