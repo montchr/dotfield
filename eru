@@ -46,7 +46,7 @@ import "$(get_import_base)/lib/main"
 # - - - - - - - - - - - - - - - - - - - -
 
 msg::domain "System" "Surveying the landscape" && {
-  world.info
+  world::info
 }
 
 

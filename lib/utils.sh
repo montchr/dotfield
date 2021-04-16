@@ -128,7 +128,7 @@ readonly MSG__COL__GAP="  "  # 2 spaces
 # Print basic information about the known world.
 #
 # Usage:
-#   world.info
+#   world::info
 # Globals:
 #   BASH_VERSION
 #   KERNEL_NAME
@@ -141,7 +141,7 @@ readonly MSG__COL__GAP="  "  # 2 spaces
 # Outputs:
 #   Values of various key global variables.
 #========================================
-function world.info() {
+function world::info {
 
 msg::stream::info <<END
 Kernel name:         ${KERNEL_NAME}

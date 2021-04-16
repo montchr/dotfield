@@ -260,7 +260,7 @@ fi
 
 
 msg::domain "System" "Verifying system state"
-world.info
+world::info
 
 
 # Ensure the OS is supported and above the minimum version.
