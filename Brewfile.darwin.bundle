@@ -215,21 +215,16 @@ brew "rlwrap"
 
 
 # Casks: macOS only
-cask "1password", args: { appdir: "/Applications" }
 cask "1password-cli"
-cask "a-better-finder-rename", args: { appdir: "/Applications" }
 cask 'adobe-acrobat-reader'
 cask "airfoil"
 cask "alfred", args: { appdir: "/Applications" }
 cask "audio-hijack", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
 cask "basictex"
-cask "bettertouchtool", args: { appdir: "/Applications" }
-cask "bitwarden", args: { appdir: "/Applications" }
 cask "brave-browser", args: { appdir: "/Applications" }
 cask "calibre", args: { appdir: "/Applications" }
 cask "caprine", args: { appdir: "/Applications" }
-cask "cloudapp", args: { appdir: "/Applications" }
 cask "dash", args: { appdir: "/Applications" }
 cask "docker"
 cask "dropbox"
@@ -250,11 +245,9 @@ cask "keyboard-maestro", args: { appdir: "/Applications" }
 cask "keycue", args: { appdir: "/Applications" }
 cask "kitty"
 cask "libreoffice"
-# @TODO possibly unnecessary in 2021
-# cask "livereload", args: { appdir: "/Applications" }
 cask "marked", args: { appdir: "/Applications" }
 cask "muzzle", args: { appdir: "/Applications" }
-cask "osxfuse"
+cask "osxfuse" # rclone mount dependency
 cask "plexamp"
 cask "qlcolorcode", args: { appdir: "/Applications" }
 cask "qlmarkdown"
@@ -268,12 +261,9 @@ cask "signal"
 cask "slack", args: { appdir: "/Applications" }
 cask "soundsource", args: { appdir: "/Applications" }
 cask "spotify"
-cask "sublime-text", args: { appdir: "/Applications" }
-cask "suspicious-package", args: { appdir: "/Applications" }
-cask "taskpaper"
+# cask "suspicious-package", args: { appdir: "/Applications" }
 cask "tigervnc-viewer"
 cask "transmit", args: { appdir: "/Applications" }
-cask "unshaky"
 # Requires manual input.
 # cask "virtualbox"
 # cask "vagrant"
@@ -287,11 +277,11 @@ cask "zoom"
 mas "Affinity Photo", id: 824183456
 mas "Be Focused Pro", id: 961632517
 mas "DaisyDisk", id: 411643860
-mas "Day One", id: 1055511498
+# mas "Day One", id: 1055511498
 mas "Deliveries", id: 924726344
 mas "Drafts", id: 1435957248
 mas "Due", id: 524373870
-mas "Focus Matrix", id: 1087284172
+# mas "Focus Matrix", id: 1087284172
 mas "GoodTask", id: 1143437985
 mas "Harvest", id: 506189836
 mas "Jira", id: 1475897096
@@ -302,10 +292,9 @@ mas "New File Menu", id: 1064959555
 mas "NordVPN IKE", id: 1116599239
 mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Patterns", id: 429449079
-mas "PlayOff", id: 1454620165
+# mas "PlayOff", id: 1454620165
 mas "Reeder", id: 1449412482
-mas "SnippetsLab", id: 1006087419
-mas "Spark", id: 1176895641
-mas "Tweetbot", id: 1384080005
+# mas "SnippetsLab", id: 1006087419
+# mas "Tweetbot", id: 1384080005
 mas "xScope", id: 889428659
-mas "Yoink", id: 457622435
+# mas "Yoink", id: 457622435
