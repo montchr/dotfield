@@ -20,6 +20,9 @@
   && emulate -L bash
 
 
+set -e
+
+
 : "${DOTFIELD_HOSTNAME:=dotfield}"
 : "${DOTFIELD_USERNAME:=montchr}"
 : "${DOTFIELD_USER_PASSWORD:=}"
