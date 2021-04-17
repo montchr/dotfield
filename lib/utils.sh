@@ -1,5 +1,5 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
-# 
+#
 # shellcheck shell=bash
 #
 #
@@ -38,9 +38,9 @@
 #                                              #
 # 8. Package Management   ::       [[ pkg ]]   #
 #                                              #
-#    8a. Debian/Ubuntu    --  [[ pkg::apt ]]   #   
+#    8a. Debian/Ubuntu    --  [[ pkg::apt ]]   #
 #                                              #
-#==============================================# 
+#==============================================#
 
 
 # shellcheck disable=2153
@@ -168,7 +168,7 @@ END
 
 #========================================
 # Convert a string to lowercase.
-# 
+#
 # Usage:
 #   str::lower <string|@string>
 # Parameters:
@@ -219,7 +219,7 @@ function str::upper {
 
 #========================================
 # Strip pattern from start of string.
-# 
+#
 # https://github.com/dylanaraps/pure-sh-bible#strip-pattern-from-start-of-string
 #
 # Usage:
@@ -237,7 +237,7 @@ function str::lstrip {
 
 #========================================
 # Strip pattern from end of string.
-# 
+#
 # https://github.com/dylanaraps/pure-sh-bible#strip-pattern-from-end-of-string
 #
 # Usage:
@@ -738,7 +738,7 @@ function fs::ensure_dir {
 function fs::get_owner_name {
   local t="$1"
   [[ ! -e "$t" ]] && return 1
-  if guard::macos; then 
+  if guard::macos; then
     if shell::has gstat; then
       gstat -c '%U' "$t"
     else
@@ -746,7 +746,7 @@ function fs::get_owner_name {
     fi
   else
     stat -c '%U' "$t"
-  fi  
+  fi
 }
 
 
@@ -849,7 +849,7 @@ END
   then
     msg::warning "Target path '${target_path}' already exists!"
     msg::info "Moving existing path to '${target_path}.bak'..."
-    
+
     if [[ -e "${target_path}.bak" ]]
     then
       msg::error "Existing path '${target_path}' found, but also found a backup! Aborting."
@@ -1039,7 +1039,7 @@ function repo::sync {
   if [[ -d "${wd}/.git" ]]; then
     msg::info "${wd} already exists"
   else
-    git clone "${url}" "${wd}" -b "${branch}"
+    git clone "${url}" "${wd}" -b "${branch}" --recursive
   fi
 
   cd "${wd}" && {
@@ -1088,6 +1088,9 @@ function repo::sync {
 
     msg::info "rebase onto ${remote_branch}"
     git rebase "${remote_branch}"
+
+    msg::info "update and reinit submodules"
+    git submodule update --init --recursive
 
     if [[ "${url}" = *"${QUERENT}"* ]]; then
       if [ "$(git rev-list "${remote_branch}..HEAD" --count)" != 0 ]; then
