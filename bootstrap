@@ -187,24 +187,7 @@ function verify_os {
 #   DOTFIELD_LOCK_FILE
 #========================================
 function lock__engage {
-  msg::domain "Supporting" "Engaging lock"
-  mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
-  touch "${DOTFIELD_LOCK_FILE}"
-}
 
-
-#========================================
-# Check whether the lock is engaged.
-#
-# Globals:
-#   DOTFIELD_LOCK_FILE
-# Returns:
-#   0 - If the lock is engaged i.e. the lockfile exists.
-#   1 - If the lock is disengaged i.e. the lockfile is absent.
-#========================================
-function lock__is_engaged {
-  [[ -f "${DOTFIELD_LOCK_FILE}" ]]
-  return
 }
 
 
@@ -330,7 +313,7 @@ export ACTION
 
 msg::domain "Supporting" "Checking for lockfile"
 
-if lock__is_engaged
+if [[ -f "${DOTFIELD_LOCK_FILE}" ]]
 then
 
 msg::stream::errors <<END
@@ -346,7 +329,10 @@ END
 exit 1
 fi
 
-lock__engage
+msg::domain "Supporting" "Engaging lock"
+mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
+touch "${DOTFIELD_LOCK_FILE}"
+
 trap lock__disengage INT TERM EXIT
 
 
