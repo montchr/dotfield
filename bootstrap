@@ -1,19 +1,19 @@
 # -*- mode: sh; eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
-# 
-# 
+#
+#
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #::   \\\
 #:: ======>      DOTFIELD PROVISIONER        ○
 #::   ///
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-# 
-# 
+#
+#
 # Thanks:
 #   - https://github.com/d12frosted/environment
 #   - https://github.com/alrra/dotfiles
 #   - https://github.com/jasonheecs/ubuntu-server-setup
-# 
+#
 
 # shellcheck disable=2153
 [[ -n "$ZSH_VERSION" ]] \
@@ -119,7 +119,7 @@ function source_ephemeral {
 
   filename="$(basename "${path}")"
   tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
-  
+
   if [[ -n "${local_mirror}" ]]; then
     src_file="${local_mirror}/${path}"
     echo "$src_file -> ${tmp_file}"
@@ -217,7 +217,6 @@ function lock::disengage {
   if ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
     return 0
   fi
-  msg::domain "Supporting" "Disengaging lock"
   rm -rf "${DOTFIELD_LOCK_FILE}"
 }
 
@@ -230,7 +229,7 @@ function lock::disengage {
 
 
 if [[ -f "${XDG_CONFIG_HOME}/lib/utils.sh" ]]
-then 
+then
 
 # shellcheck source=./lib/utils.sh
 . "${XDG_CONFIG_HOME}/lib/utils.sh"
@@ -448,8 +447,9 @@ guard::macos && {
 
 guard::install && {
   msg::domain "Editor" "Installing Doom Emacs" && {
-    # TODO: gracefailly fallback if this exists already -- do not delete it!
-    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+    [[ ! -d "${HOME}/.emacs.d" ]] && {
+      git clone --depth 1 https://github.com/hlissner/doom-emacs "${HOME}/.emacs.d"
+    }
     # TODO: the shell environment should reflect the user's login shell
     # environment, not the environment this script was run within. this might not
     # normally matter, but it could have a confusing effect if this was only run
@@ -472,14 +472,14 @@ guard::install && {
 
   guard::domain "firefox" "Install Tridactyl" && {
     # shellcheck source=./firefox/install_tridactyl
-    . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"      
-  }    
+    . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"
+  }
 
 
   guard::domain "zsh" "Use XDG for ZSH" && {
     msg::subdomain "Copying" "zshenv -> ${HOME}/.zshenv"
     cp zshenv "${HOME}/.zshenv"
-  }    
+  }
 
 
   guard::macos && {
@@ -560,7 +560,7 @@ guard::arch && {
 msg::success "Bootstrapping complete!"
 
 guard::install && {
-  
+
   if ! shell::is_ci; then
     msg::warning "Restart!"
     msg::ask_for_confirmation "Restart?"
@@ -569,7 +569,7 @@ guard::install && {
       sudo shutdown -r now &> /dev/null
     fi
   fi
-  
+
 }
 
 msg::success "Everything is good here."
