@@ -181,22 +181,6 @@ function verify_os {
 
 
 #========================================
-# Verify whether this script is an executable file in the expected location.
-#
-# Globals:
-#   XDG_CONFIG_HOME
-# Returns:
-#   0 - Bootstrap is an executable file.
-#   1 - Otherwise.
-#========================================
-function is_bootstrapped {
-  [[ -x "${XDG_CONFIG_HOME}/bootstrap" ]] \
-    && shell::is_modern
-  return
-}
-
-
-#========================================
 # Create the bootstrap lockfile.
 #
 # Globals:
@@ -245,7 +229,7 @@ function lock::disengage {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-if is_bootstrapped
+if [[ -f "${XDG_CONFIG_HOME}/lib/utils.sh" ]]
 then 
 
 # shellcheck source=./lib/utils.sh
