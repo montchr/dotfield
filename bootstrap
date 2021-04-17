@@ -478,7 +478,7 @@ guard::install && {
     # environment, not the environment this script was run within. this might not
     # normally matter, but it could have a confusing effect if this was only run
     # during initial bootstrapping
-    ~/.emacs.d/bin/doom install
+    # ~/.emacs.d/bin/doom install
   }
 
 
