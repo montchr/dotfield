@@ -834,8 +834,8 @@ function fs::link {
   then
 
 msg::stream::info <<END
-relink: ${src_abs_path}
-     -> ${target_path}
+┌╴relink: ${src_abs_path}
+└───────────╴${target_path}
 END
 
     if [[ "${owner}" = "root" ]]
@@ -857,8 +857,8 @@ END
     fi
 
 msg::stream::warnings <<END
-backup: ${target_path}
-     -> ${target_path}.bak
+┌╴backup: ${target_path}
+└───────────╴${target_path}.bak
 END
 
     mv "${target_path}" "${target_path}.bak"
@@ -866,8 +866,8 @@ END
   else
 
 msg::stream::info <<END
-link: ${src_abs_path}
-   -> ${target_path}
+┌╴link: ${src_abs_path}
+└─────────╴${target_path}
 END
 
   fi
