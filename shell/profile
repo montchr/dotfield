@@ -1,15 +1,13 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-# 
-# shellcheck shell=bash
+# -*- mode: sh; eval: (sh-set-shell "sh") -*-
+#
+# shellcheck shell=sh
 #
 # ~/.profile
 #
-# Core shell environment setup file.
+# (Nearly)-POSIX-compliant core shell environment setup file.
 #
 # Ideally, this should be sourced by all shells as early as possible, as it sets
 # important environment variables.
-#
-# @TODO Investigate making this POSIX-compliant
 #
 # Bash:  source within ~/.bashrc
 # ZSH:   source within ~/.zshenv (reloads on every prompt, so keep this file light!)
@@ -33,14 +31,17 @@ has() {
 }
 
 # Detect the OS and export appropriate variables.
-[[ $OSTYPE == linux* ]] && {
-  IS_LINUX=true
-  KERNEL_NAME="linux"
-}
-[[ $OSTYPE == darwin* ]] && {
-  IS_MAC=true
-  KERNEL_NAME="darwin"
-}
+# @TODO fails shellcheck for sh!
+case "${OSTYPE}" in
+  linux*)
+    IS_LINUX=true
+    KERNEL_NAME="linux"
+    ;;
+  darwin*)
+    IS_MAC=true
+    KERNEL_NAME="darwin"
+    ;;
+esac
 
 export \
   IS_LINUX \
@@ -141,7 +142,7 @@ export \
 # Coax Vim into sourcing its config from XDG config home.
 # shellcheck disable=2016
 export VIMINIT='source "$XDG_CONFIG_HOME/vim/vimrc"'
-  
+
 
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -195,9 +196,9 @@ export \
 #
 # Returns either "light" or "dark". Defaults to "dark".
 cdom_os_appearance () {
-  if [[ -n "${SSH_CONNECTION}" ]] && [[ -n "${CDOM_OS_APPEARANCE}" ]]; then
+  if [ -n "${SSH_CONNECTION}" ] && [ -n "${CDOM_OS_APPEARANCE}" ]; then
     printf "%s" "${CDOM_OS_APPEARANCE}"
-  elif [[ $(has "dark-mode" && dark-mode status) == "off" ]]; then
+  elif [ "$(has "dark-mode" && dark-mode status)" = "off" ]; then
     printf "light"
   else
     printf "dark"
@@ -216,7 +217,7 @@ cdom_base16_theme () {
 }
 
 # Set the OS appearance by attempting to query the current status.
-[[ -z "${CDOM_OS_APPEARANCE}" ]] && {
+[ -z "${CDOM_OS_APPEARANCE}" ] && {
   CDOM_OS_APPEARANCE="$(cdom_os_appearance)"
   export CDOM_OS_APPEARANCE
 }
@@ -227,6 +228,6 @@ export BASE16_THEME
 
 # Load Nix environment
 # shellcheck disable=1090
-[[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]] && {
+[ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ] && {
    . "${HOME}/.nix-profile/etc/profile.d/nix.sh"
 }
