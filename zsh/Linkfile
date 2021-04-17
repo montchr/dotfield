@@ -1,2 +1,2 @@
 config ~/.zinit/plugins/_local---config
-zshrc ./.zshrc
+zshenv ~/.zshenv
