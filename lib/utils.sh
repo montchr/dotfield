@@ -48,9 +48,9 @@
   && emulate -L bash
 
 
-# Attempt to prevent sourcing multiple times.
+# Gracefully return if sourcing multiple times.
 [[ -n "${UTILS_LOADED}" ]] \
-  && exit 0
+  && return 0
 readonly UTILS_LOADED="true"
 
 
