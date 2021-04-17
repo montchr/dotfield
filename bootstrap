@@ -204,6 +204,7 @@ function lock::engage {
 #========================================
 function lock::is_engaged {
   [[ -f "${DOTFIELD_LOCK_FILE}" ]]
+  return
 }
 
 
@@ -214,10 +215,8 @@ function lock::is_engaged {
 #   DOTFIELD_LOCK_FILE
 #========================================
 function lock::disengage {
-  if ! [[ -f "${DOTFIELD_LOCK_FILE}" ]]; then
-    return 0
-  fi
-  rm -rf "${DOTFIELD_LOCK_FILE}"
+  [[ -f "${DOTFIELD_LOCK_FILE}" ]] \
+    && rm -rf "${DOTFIELD_LOCK_FILE}"
 }
 
 
