@@ -1,33 +1,33 @@
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
-	url = git@github.com:gpakosz/.tmux.git
-[submodule "tmuxp/.tmuxp"]
+	url = https://github.com/gpakosz/.tmux.git
+[submodule "tmuxp"]
 	path = tmuxp/.tmuxp
 	url = git@github.com:montchr/tmuxp-config.git
 [submodule "notmuch"]
 	path = notmuch
 	url = git@github.com:montchr/notmuch-config.git
-[submodule "kitty/.config/kitty-themes"]
+[submodule "kitty-themes"]
 	path = kitty/kitty-themes
-	url = git@github.com:dexpota/kitty-themes.git
-[submodule "intellij/.intellimacs"]
+	url = https://github.com/dexpota/kitty-themes.git
+[submodule "intellimacs"]
 	path = intellij/intellimacs
-	url = git@github.com:MarcoIeni/intellimacs.git
+	url = https://github.com/MarcoIeni/intellimacs.git
 [submodule "stackline"]
 	path = hammerspoon/stackline
-	url = git@github.com:AdamWagner/stackline.git
-[submodule "kitty/.config/kitty/base16-kitty"]
+	url = https://github.com/AdamWagner/stackline.git
+[submodule "base16-kitty"]
 	path = kitty/base16-kitty
-	url = git@github.com:kdrag0n/base16-kitty.git
+	url = https://github.com/kdrag0n/base16-kitty.git
 [submodule "firefox-i3wm-theme"]
 	path = firefox/chrome/firefox-i3wm-theme
-	url = git@github.com:aadilayub/firefox-i3wm-theme.git
+	url = https://github.com/aadilayub/firefox-i3wm-theme.git
 [submodule "bats-core"]
 	path = vendor/bats-core
-	url = git@github.com:bats-core/bats-core.git
+	url = https://github.com/bats-core/bats-core.git
 [submodule "semver-tool"]
 	path = vendor/semver-tool
-	url = git@github.com:fsaintjacques/semver-tool.git
+	url = https://github.com/fsaintjacques/semver-tool.git
 [submodule "bats-support"]
 	path = vendor/bats-support
 	url = https://github.com/bats-core/bats-support.git
@@ -39,7 +39,7 @@
 	url = https://github.com/bats-core/bats-file.git
 [submodule "bash-oo-framework"]
 	path = vendor/bash-oo-framework
-	url = git@github.com:niieani/bash-oo-framework.git
+	url = https://github.com/niieani/bash-oo-framework.git
 [submodule "pfetch"]
 	path = vendor/pfetch
 	url = https://github.com/dylanaraps/pfetch.git
