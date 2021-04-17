@@ -382,10 +382,11 @@ touch "${DOTFIELD_LOCK_FILE}"
 
 
 guard::macos && {
-(! shell::is_modern) && {
+if ! shell::is_modern
+then
   # shellcheck source=./os/macos/_pre_install.sh
   . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
-}
+fi
 }
 
 
