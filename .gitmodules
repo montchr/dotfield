@@ -40,3 +40,6 @@
 [submodule "bash-oo-framework"]
 	path = vendor/bash-oo-framework
 	url = git@github.com:niieani/bash-oo-framework.git
+[submodule "pfetch"]
+	path = vendor/pfetch
+	url = https://github.com/dylanaraps/pfetch.git
