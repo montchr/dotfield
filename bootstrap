@@ -181,17 +181,6 @@ function verify_os {
 
 
 #========================================
-# Create the bootstrap lockfile.
-#
-# Globals:
-#   DOTFIELD_LOCK_FILE
-#========================================
-function lock__engage {
-
-}
-
-
-#========================================
 # Delete the bootstrap lockfile.
 #
 # Globals:
