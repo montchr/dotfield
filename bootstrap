@@ -211,6 +211,7 @@ function _exit_trap() {
   if [[ $_ec != 0 && ${__DID_TRACEBACK} != t ]]; then
     traceback 1
   fi
+  lock__disengage
 }
 
 function _err_trap() {
@@ -219,6 +220,7 @@ function _err_trap() {
   traceback 1
   __DID_TRACEBACK=t
   echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
+  lock__disengage
 }
 
 function traceback() {
