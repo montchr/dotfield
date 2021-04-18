@@ -42,4 +42,4 @@
 	url = https://github.com/niieani/bash-oo-framework.git
 [submodule "pfetch"]
 	path = vendor/pfetch
-	url = https://github.com/dylanaraps/pfetch.git
+	url = https://github.com/montchr/pfetch.git

@@ -275,7 +275,8 @@ fi
 
 
 msg::domain "System" "Verifying system state"
-world::info
+# shellcheck source=./vendor/pfetch/pfetch
+. "${XDG_CONFIG_HOME}/vendor/pfetch/pfetch"
 
 
 # Ensure the OS is supported and above the minimum version.
