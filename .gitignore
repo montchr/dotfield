@@ -37,3 +37,4 @@ flycheck_config.el
 /.ci/*.tfstate*
 git/config.local
 zsh/.zsh_history
+/composer/keys.*.pub
