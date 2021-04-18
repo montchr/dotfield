@@ -343,6 +343,9 @@
 (use-package! ox-jira
   :after org)
 
+(after! markdown
+  (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
+
 (use-package! vimrc-mode
   :defer-incrementally t
   :init
