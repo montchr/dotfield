@@ -156,7 +156,6 @@
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 (after! company
   (setq! company-idle-delay 0.5
-         company-minimum-prefix-length 2
          company-show-numbers t)
   ;; Make aborting less annoying.
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
@@ -253,11 +252,11 @@
          org-cycle-separator-lines -1
          org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
+         org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
          org-export-in-background t                  ; run export processes in external emacs process
-         org-catch-invisible-edits 'smart))          ; try not to accidently do weird stuff in invisible regions
-
-(after! org
+         org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
+         org-export-copy-to-kill-ring 'if-interactive)
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
     (interactive)
@@ -266,10 +265,7 @@
   (setq! org-agenda-files (find-lisp-find-files
                            +cdom/org-agenda-directory
                            "\.org$")
-         org-archive-default-command 'org-archive-to-archive-sibling
-         org-export-copy-to-kill-ring 'if-interactive
-         org-log-refile 'time))
-
+         org-archive-default-command 'org-archive-to-archive-sibling))
 
 (use-package! doct
   :after (org-capture)
@@ -347,6 +343,9 @@
 (use-package! ox-jira
   :after org)
 
+(after! markdown
+  (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
+
 (use-package! vimrc-mode
   :defer-incrementally t
   :init
@@ -363,6 +362,10 @@
 (use-package! projectile
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
+
+(use-package! treemacs
+  :config
+  (setq! treemacs-persist-file (concat doom-private-dir "/treemacs.org")))
 
 (use-package! lsp
   :config

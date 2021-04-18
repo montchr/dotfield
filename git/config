@@ -3,7 +3,7 @@
 [user]
     name = Chris Montgomery
     email = chris@cdom.io
-    # signingkey = F0B8FB42A7498482
+    signingkey = F0B8FB42A7498482
 
 [include]
     path = config.local
