@@ -388,6 +388,32 @@ guard::install && {
   guard::macos && {
     sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
   }
+
+  (shell::has nix) || {
+    msg::error "Nix is not available in the current shell environment!"
+    exit 1
+  }
+
+  msg::domain "Nix" "Add Nix channels" && {
+    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+    nix-channel --update
+  }
+
+  msg::domain "Nix" "Install Nix Home Manager" && {
+    nix-shell '<home-manager>' -A install
+  }
+
+  (shell::has home-manager) || {
+    msg::error "Nix Home Manager is not available in the current shell environment!"
+    exit 1
+  }
+}
+
+
+guard::update && {
+  msg::domain "Nix" "Updating Nix channels" && {
+    nix-channel --update
+  }
 }
 
 exit 0
