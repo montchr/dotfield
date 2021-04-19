@@ -384,7 +384,10 @@ touch "${DOTFIELD_LOCK_FILE}"
 
 guard::install && {
   msg::domain "Nix" "Install Nix package manager"
-  curl -L https://nixos.org/nix/install | sh
+
+  guard::macos && {
+    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+  }
 }
 
 exit 0
