@@ -410,10 +410,8 @@ guard::install && {
 }
 
 
-guard::update && {
-  msg::domain "Nix" "Updating Nix channels" && {
-    nix-channel --update
-  }
+msg::domain "Nix" "Updating Nix channels" && {
+  nix-channel --update
 }
 
 exit 0
