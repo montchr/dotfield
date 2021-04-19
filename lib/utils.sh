@@ -910,25 +910,30 @@ function fs::combine {
 # Invoke a command using every line in a file as arguments.
 #
 # Usage:
-#   fs::map_lines <callback> <file>
+#   fs::map_lines <callback> <file> [<args>...]
 # Parameters:
-#   Command to run for each line in a file
-#   File containing argument lists separated by linebreaks.
+#   Name of callback command.
+#   Path to file whose lines contain lists of args.
+#   Additional arguments to append to each invocation.
 #========================================
 function fs::map_lines {
   local callback="$1"
   local file="$2"
+  shift 2
 
-  [[ ! -f "${file}" ]] \
-    && return 1
+  local args="$*"
+  local line
+
+  [[ ! -f "${file}" ]] && return 1
 
   while IFS='' read -r line || [[ -n "${line}" ]]; do
     # Ignore comment lines
     [[ "${line}" == "#"* ]] && continue
     # Pass the entire line as-is -- words will be split for separate args.
-    # @TODO this might cause issues with paths containing spaces!
+    # Strings containing spaces must be quoted.
+    # Additional args will be appended.
     # shellcheck disable=2086
-    ${callback} ${line}
+    ${callback} ${line} "${args}"
   done < "${file}"
 }
 
