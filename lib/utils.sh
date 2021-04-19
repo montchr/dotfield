@@ -1113,7 +1113,8 @@ function repo::sync {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-# @TODO won't work in old Bash because of namerefs!
+# TODO: won't work in old Bash because of namerefs!
+# TODO: why doesn't an error happen every time was uses
 function guard::domain {
   local domain=$1
   local key
