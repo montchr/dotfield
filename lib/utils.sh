@@ -618,8 +618,20 @@ function shell::set_trap {
     trap '$2' "$1"
 }
 
+
+#======================================
+# Check for the existence of a command in the current shell environment.
+#
+# Usage:
+#   shell::has <command>...
+#
+# Arguments:
+#   Commands...
+#========================================
 function shell::has {
-  command -v "$1" >/dev/null 2>&1
+  for cmd in "$@"; do
+    command -v "${cmd}" >/dev/null 2>&1
+  done
 }
 
 
