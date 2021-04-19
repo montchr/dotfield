@@ -406,11 +406,16 @@ function msg::warning() {
   msg::in_yellow "${MSG__INDENT}[!] $1\n"
 }
 
-# Print a message indicating an error.
+# Print a message to standard error.
+#
+# TODO: Should only output ANSI color sequences if output to a terminal.
+#
 # Parameters:
 #   Message
+# Outputs:
+#   STDERR
 function msg::error {
-  msg::in_red "${MSG__INDENT}[✖] $1\n"
+  msg::in_red "${MSG__INDENT}[✖] $1\n" >&2
 }
 
 function msg::stream::info {
