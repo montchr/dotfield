@@ -116,6 +116,9 @@ export \
 # Pass
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
 
+# Promnesia
+export PROMNESIA_CONFIG="${XDG_CONFIG_HOME}/promnesia/config.py"
+
 # Readline
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 
