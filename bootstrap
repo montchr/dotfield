@@ -474,7 +474,7 @@ guard::macos && {
 guard::install && {
   msg::domain "Guardian" "Decrypting Dotfield secrets"
   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
-    transcrypt --import-gpg="${XDG_CONFIG_HOME}/.transcrypt"
+    transcrypt --yes --import-gpg="${XDG_CONFIG_HOME}/.transcrypt"
   fi
 }
 
