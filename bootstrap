@@ -382,6 +382,14 @@ touch "${DOTFIELD_LOCK_FILE}"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
+guard::install && {
+  msg::domain "Nix" "Install Nix package manager"
+  curl -L https://nixos.org/nix/install | sh
+}
+
+exit 0
+
+
 guard::macos && {
 if ! shell::is_modern
 then
