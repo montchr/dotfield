@@ -1137,6 +1137,7 @@ function repo::sync {
 
 # TODO: won't work in old Bash because of namerefs!
 # TODO: why doesn't an error happen every time was uses
+# TODO: guard_ref and ignore_guard_ref aren't available
 function guard::domain {
   local domain=$1
   local key
@@ -1159,36 +1160,113 @@ function guard::domain {
   fi
 }
 
+
+#========================================
+# Guard for the `install` action.
+#
+# Usage:
+#   guard::install && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::install {
   [[ "$ACTION" == "install" ]]
   return
 }
 
+
+#========================================
+# Guard for the `upgrade` action.
+#
+# Usage:
+#   guard::upgrade && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::upgrade {
   [[ "$ACTION" == "upgrade" ]]
   return
 }
 
+
+#========================================
+# Guard for the `test` action.
+#
+# Usage:
+#   guard::test && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::test {
   [[ "$ACTION" == "test" ]]
   return
 }
 
+
+#========================================
+# Guard for Linux systems.
+#
+# Usage:
+#   guard::linux && { ... }
+# Globals:
+#   KERNEL_NAME
+#========================================
+function guard::linux {
+  [[ "$KERNEL_NAME" == "linux" ]]
+  return
+}
+
+
+#========================================
+# Guard for Ubuntu.
+#
+# Usage:
+#   guard::ubuntu && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::ubuntu {
   [[ "$OS_NAME" == "ubuntu" ]]
   return
 }
 
+
+#========================================
+# Guard for Arch Linux.
+#
+# Usage:
+#   guard::arch && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::arch {
   [[ "$OS_NAME" == "arch" ]]
   return
 }
 
+
+#========================================
+# Guard for macOS.
+#
+# Usage:
+#   guard::ubuntu && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::macos {
   [[ "$OS_NAME" == "macos" ]]
   return
 }
 
+
+#========================================
+# Guard for the root user.
+#
+# Usage:
+#   guard::root && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::root {
   [[ "$(whoami)" == "root" ]]
   return
