@@ -389,9 +389,27 @@ guard::install && {
     sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
   }
 
-  (shell::has nix) || {
-    msg::error "Nix is not available in the current shell environment!"
+  nix_helper="${HOME}/.nix-profile/etc/profile.d/nix.sh"
+  [[ -f "${nix_helper}" ]] || {
+    msg::error "Nix profile helper not found!"
     exit 1
+  }
+
+  # shellcheck source=../.nix-profile/etc/profile.d/nix.sh
+  . "${nix_helper}"
+
+  (shell::has nix nix-build nix-channel nix-env nix-shell) || {
+    msg::error "Nix commands unavailable. Check your installation!"
+    exit 1
+  }
+
+  msg::domain "Nix" "Install nix-darwin" && {
+    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+    ./result/bin/darwin-installer
+  }
+
+  msg::domain "Nix" "Install Nix Flakes" && {
+    nix-env -iA nixpkgs.nixFlakes
   }
 
   msg::domain "Nix" "Add Nix channels" && {
