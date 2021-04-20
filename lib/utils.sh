@@ -1265,10 +1265,10 @@ function guard::macos {
 # Usage:
 #   guard::root && { ... }
 # Globals:
-#   OS_NAME
+#   USER
 #========================================
 function guard::root {
-  [[ "$(whoami)" == "root" ]]
+  [[ "${USER}" == "root" ]]
   return
 }
 
