@@ -233,4 +233,5 @@ export BASE16_THEME
 # shellcheck disable=1090
 [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ] && {
    . "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+   . "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
 }

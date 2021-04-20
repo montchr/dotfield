@@ -12,7 +12,7 @@
 function main () {
 
   guard::install && {
-    msg::domain "Shell" "Ensure Homebrew exists" && {
+    msg::subdomain "Ensure Homebrew exists" && {
       shell::has brew || {
         msg::info "Installing brew"
         /bin/bash -c "printf \"\n\" | $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -20,12 +20,12 @@ function main () {
       }
     }
 
-    msg::domain "Shell" "Ensure a recent version of Bash exists" && {
+    msg::subdomain "Ensure a recent version of Bash exists" && {
       brew install bash
     }
 
 
-    msg::domain "Shell" "Allow Homebrew's Bash as login shell" && {
+    msg::subdomain "Allow Homebrew's Bash as login shell" && {
       local brew_bash_path
       brew_bash_path="$(brew --prefix)/bin/bash"
 
