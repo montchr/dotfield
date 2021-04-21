@@ -23,6 +23,7 @@ Set the values at the beginning of the provisioning script.
 
 * Thank Yous + References
 
+- https://github.com/hardselius/dotfiles/
 - https://github.com/d12frosted/environment
 - https://github.com/alrra/dotfiles
 - https://github.com/jasonheecs/ubuntu-server-setup
