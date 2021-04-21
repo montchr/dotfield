@@ -29,7 +29,6 @@ rec {
       cachix
       coreutils
       curl
-      editorconfig
       exa
       fd
       findutils
@@ -37,8 +36,8 @@ rec {
       getopt
       gnumake
       gnupg
-      gnu-sed
-      gnu-tar
+      gnused
+      gnutar
       grc
       gpgme
       htop
@@ -61,7 +60,8 @@ rec {
       shfmt
       tldr
       tmux
-      unar
+      # TODO: unar is "unsupported" on darwin?
+      # unar
       # TODO: what is this? i keep seeing it
       # universal-ctags
       # TODO: investigate
