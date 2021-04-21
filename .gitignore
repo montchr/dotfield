@@ -40,3 +40,4 @@ zsh/.zsh_history
 /composer/keys.*.pub
 cachix/cachix.dhall
 .DS_Store
+nixpkgs/result

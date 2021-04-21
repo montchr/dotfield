@@ -29,27 +29,39 @@ rec {
       cachix
       coreutils
       curl
+      editorconfig
       exa
       fd
       findutils
+      gawk
       getopt
       gnumake
       gnupg
+      gnu-sed
+      gnu-tar
+      grc
       gpgme
       htop
+      hyperfine
       jq
       less
+      ncdu
       nodePackages.node2nix
       # nodePackages.vim-language-server
+      pandoc
       pass
       # plantuml
       pywal
+      rename # might not work
       # TODO: is this the perl rename, or the less-useful one?
-      # renameutils
+      renameutils
       ripgrep
       rsync
       shellcheck
       shfmt
+      tldr
+      tmux
+      unar
       # TODO: what is this? i keep seeing it
       # universal-ctags
       # TODO: investigate
@@ -57,6 +69,7 @@ rec {
       vim
       vim-vint
       wget
+      yq
     ];
   };
 

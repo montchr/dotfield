@@ -111,22 +111,22 @@
           };
         };
 
-        mochalles = darwin.lib.darwinSystem {
+        cdoAlley = darwin.lib.darwinSystem {
           inputs = inputs;
           modules = mkDarwinModules {
             user = "montchr";
-            host = "mochalles";
+            host = "cdoalley";
           };
         };
       };
 
       cloudVM = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
-        homeDirectory = "/home/martin";
-        username = "martin";
+        homeDirectory = "/home/cdom";
+        username = "cdom";
         configuration = {
           imports = [
-            (homeManagerConfig { user = "martin"; })
+            (homeManagerConfig { user = "cdom"; })
           ];
           nixpkgs = nixpkgsConfig;
         };
@@ -144,8 +144,8 @@
       # TODO: not sure what the following comment means:
       #   "Move them to `outputs.packages.<system>.name`"
       # https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
-      HodgePodge = self.darwinConfigurations.hodgepodge.system;
-      mochalles = self.darwinConfigurations.mochalles.system;
+      HodgePodge = self.darwinConfigurations.HodgePodge.system;
+      cdoAlley = self.darwinConfigurations.cdoAlley.system;
 
       overlays =
         let path = ./overlays; in

@@ -415,29 +415,31 @@ guard::install && {
   (shell::has nix nix-build nix-channel nix-env nix-shell) || {
     msg::domain "Nix" "Install Nix package manager"
     sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
+    if [[ ! -d /run ]]; then
+      msg::warning "Directory '/run' does not exist, but multi-user Nix requires it."
+      # msg::warning "Symlinking "
+      # echo runtprivate/var/run | sudo tee -a /etc/synthetic.conf
+      # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B
+      # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+    fi
     # TODO: automate
     msg::error "Unfortunately, you'll have to open a new shell and re-run the bootstrap script to get Nix working!"
     exit 1
   }
 
-  msg::subdomain "Install Nix Flakes" && {
-    nix-env -iA nixpkgs.nixFlakes
-    nix_flakes_feature_flag="experimental-features = nix-command flakes"
-    if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
-      msg::warning "Adding nix flakes feature flag to /etc/nix/nix.conf"
-      echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
-    fi
-  }
+  # msg::subdomain "Install Nix Flakes" && {
+  #   nix-env -iA nixpkgs.nixFlakes
+  #   nix_flakes_feature_flag="experimental-features = nix-command flakes"
+  #   if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
+  #     msg::warning "Adding nix flakes feature flag to /etc/nix/nix.conf"
+  #     echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
+  #   fi
+  # }
 }
 
 
 msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}/nixpkgs"
 cd "${XDG_CONFIG_HOME}/nixpkgs" || exit 1
-
-
-msg::domain "Nix" "Updating Nix channels" && {
-  nix-channel --update
-}
 
 msg::domain "Nix" "Build" && {
   guard::macos && {
