@@ -111,11 +111,11 @@
           };
         };
 
-        mochalley = darwin.lib.darwinSystem {
+        mochalles = darwin.lib.darwinSystem {
           inputs = inputs;
           modules = mkDarwinModules {
             user = "montchr";
-            host = "mochalley";
+            host = "mochalles";
           };
         };
       };
@@ -135,6 +135,17 @@
       darwinModules = { };
 
       homeManagerModules = { };
+
+      # for convenience:
+      #   nix build './#hodgepodge'
+      # instead of:
+      #   nix build './#darwinConfigurations.hodgepodge.system'
+      #
+      # TODO: not sure what the following comment means:
+      #   "Move them to `outputs.packages.<system>.name`"
+      # https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
+      hodgepodge = self.darwinConfigurations.hodgepodge.system;
+      mochalles = self.darwinConfigurations.mochalles.system;
 
       overlays =
         let path = ./overlays; in
