@@ -38,3 +38,5 @@ flycheck_config.el
 git/config.local
 zsh/.zsh_history
 /composer/keys.*.pub
+cachix/cachix.dhall
+.DS_Store
