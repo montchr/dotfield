@@ -22,7 +22,8 @@
 set -e
 
 
-: "${DOTFIELD_HOSTNAME:=dotfield}"
+: "${DOTFIELD_HOSTNAME:=}"
+: "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 : "${DOTFIELD_USERNAME:=montchr}"
 : "${DOTFIELD_ID_EMAIL:=}"
 : "${DOTFIELD_USER_PASSWORD:=}"
@@ -42,6 +43,9 @@ readonly REPO_ID="montchr/dots"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
+[[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
+  && DOTFIELD_NIX_HOSTNAME="$(hostname)"
+
 : "${DOTFIELD:=${HOME}/.config}"
 : "${XDG_CONFIG_HOME:=${DOTFIELD}}"
 
@@ -49,6 +53,7 @@ export \
   DOTFIELD \
   DOTFIELD_BRANCH \
   DOTFIELD_HOSTNAME \
+  DOTFIELD_NIX_HOSTNAME \
   DOTFIELD_SSH_PUBLIC_KEY \
   DOTFIELD_TIMEZONE \
   DOTFIELD_USER_PASSWORD \
@@ -393,44 +398,34 @@ guard::macos && {
 
 
 guard::install && {
+  msg::domain "Hostname" "Set the system hostname" && {
+    if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
+      HOSTNAME="${DOTFIELD_HOSTNAME}"
+    else
+      msg::ask "Enter a name: "
+      HOSTNAME="$(msg::get_answer)"
+      DOTFIELD_NIX_HOSTNAME="${HOSTNAME}"
+    fi
+  }
+}
+
+
+guard::install && {
   msg::domain "Nix" "Install Nix package manager"
 
   guard::macos && {
     sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
   }
 
-  # nix_helper="${HOME}/.nix-profile/etc/profile.d/nix.sh"
-  # [[ -f "${nix_helper}" ]] || {
-  #   msg::error "Nix profile helper not found!"
-  #   exit 1
-  # }
-
-  # # shellcheck source=../.nix-profile/etc/profile.d/nix.sh
-  # . "${nix_helper}"
-
   (shell::has nix nix-build nix-channel nix-env nix-shell) || {
-    msg::error "Nix commands unavailable. Check your installation!"
+    # TODO: automate
+    msg::error "Nix commands unavailable. Most likely, you'll need to open a new shell and run the bootstrap script again."
     exit 1
   }
-
-  # msg::subdomain "Install nix-darwin" && {
-  #   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-  #   ./result/bin/darwin-installer
-  #   # nix-darwin added `darwin-rebuild` -- make it available
-  #   [[ -f /etc/static/bashrc ]] && . /etc/static/bashrc
-  # }
 
   msg::subdomain "Install Nix Flakes" && {
     nix-env -iA nixpkgs.nixFlakes
   }
-
-  msg::subdomain "Back up system shell configurations" && {
-    sudo mv /etc/shells /etc/shells.old
-    sudo mv /etc/zshenv /etc/zshenv.old
-    sudo mv /etc/zshrc /etc/zshrc.old
-    sudo mv /etc/zprofile /etc/zprofile.old
-  }
-
 }
 
 
@@ -446,13 +441,13 @@ msg::domain "Nix" "Build" && {
   guard::macos && {
     # Note that flakes must be flagged on either via a flag passed to the
     # command or via `~/.config/nix/nix/conf`. I've chosen the latter approach.
-    nix build "./#$(hostname)" \
-      && "$DOTFIELD/result/sw/bin/darwin-rebuild" switch --flake "./#$(hostname)"
+    nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
+      && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
 
   guard::linux && {
     # TODO: does this work anywhere besides NixOS?
-    sudo nixos-rebuild switch --flake "./#$(hostname)"
+    sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
 
 }
@@ -465,16 +460,6 @@ exit 0
 
 
 
-guard::install && {
-msg::domain "Hostname" "Set the system hostname" && {
-  if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
-    HOSTNAME="${DOTFIELD_HOSTNAME}"
-  else
-    msg::ask "Enter a name: "
-    HOSTNAME="$(msg::get_answer)"
-  fi
-}
-}
 
 
 msg::domain "Guardian" "Ensure directories exist"

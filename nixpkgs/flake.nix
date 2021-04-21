@@ -144,7 +144,7 @@
       # TODO: not sure what the following comment means:
       #   "Move them to `outputs.packages.<system>.name`"
       # https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
-      hodgepodge = self.darwinConfigurations.hodgepodge.system;
+      HodgePodge = self.darwinConfigurations.hodgepodge.system;
       mochalles = self.darwinConfigurations.mochalles.system;
 
       overlays =
