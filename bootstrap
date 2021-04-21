@@ -423,7 +423,7 @@ guard::install && {
   msg::subdomain "Install Nix Flakes" && {
     nix-env -iA nixpkgs.nixFlakes
     nix_flakes_feature_flag="experimental-features = nix-command flakes"
-    if grep --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf >/dev/null; then
+    if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
       msg::warning "Adding nix flakes feature flag to /etc/nix/nix.conf"
       echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
     fi
