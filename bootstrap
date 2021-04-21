@@ -396,29 +396,29 @@ guard::install && {
   msg::domain "Nix" "Install Nix package manager"
 
   guard::macos && {
-    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
   }
 
-  nix_helper="${HOME}/.nix-profile/etc/profile.d/nix.sh"
-  [[ -f "${nix_helper}" ]] || {
-    msg::error "Nix profile helper not found!"
-    exit 1
-  }
+  # nix_helper="${HOME}/.nix-profile/etc/profile.d/nix.sh"
+  # [[ -f "${nix_helper}" ]] || {
+  #   msg::error "Nix profile helper not found!"
+  #   exit 1
+  # }
 
-  # shellcheck source=../.nix-profile/etc/profile.d/nix.sh
-  . "${nix_helper}"
+  # # shellcheck source=../.nix-profile/etc/profile.d/nix.sh
+  # . "${nix_helper}"
 
   (shell::has nix nix-build nix-channel nix-env nix-shell) || {
     msg::error "Nix commands unavailable. Check your installation!"
     exit 1
   }
 
-  msg::subdomain "Install nix-darwin" && {
-    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-    ./result/bin/darwin-installer
-    # nix-darwin added `darwin-rebuild` -- make it available
-    [[ -f /etc/static/bashrc ]] && . /etc/static/bashrc
-  }
+  # msg::subdomain "Install nix-darwin" && {
+  #   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+  #   ./result/bin/darwin-installer
+  #   # nix-darwin added `darwin-rebuild` -- make it available
+  #   [[ -f /etc/static/bashrc ]] && . /etc/static/bashrc
+  # }
 
   msg::subdomain "Install Nix Flakes" && {
     nix-env -iA nixpkgs.nixFlakes
@@ -434,9 +434,12 @@ guard::install && {
 }
 
 
+msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}/nixpkgs"
+cd "${XDG_CONFIG_HOME}/nixpkgs" || exit 1
+
+
 msg::domain "Nix" "Updating Nix channels" && {
   nix-channel --update
-  darwin-rebuild changelog
 }
 
 msg::domain "Nix" "Build" && {
