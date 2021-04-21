@@ -411,15 +411,12 @@ guard::install && {
 
 
 guard::install && {
-  msg::domain "Nix" "Install Nix package manager"
-
-  guard::macos && {
-    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
-  }
 
   (shell::has nix nix-build nix-channel nix-env nix-shell) || {
+    msg::domain "Nix" "Install Nix package manager"
+    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
     # TODO: automate
-    msg::error "Nix commands unavailable. Most likely, you'll need to open a new shell and run the bootstrap script again."
+    msg::error "Unfortunately, you'll have to open a new shell and re-run the bootstrap script to get Nix working!"
     exit 1
   }
 
