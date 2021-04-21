@@ -3,9 +3,9 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "Iosevka" :size 14)
-       doom-unicode-font (font-spec :family "Iosevka")
-       doom-variable-pitch-font (font-spec :family "Iosevka Sparkle"))
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
+       doom-unicode-font (font-spec :family "PragmataPro Liga")
+       doom-variable-pitch-font (font-spec :family "PragmataPro"))
 
 ;; Enable font ligatures in emacs-mac@27.
 (if IS-MAC (mac-auto-operator-composition-mode t))
@@ -25,7 +25,7 @@
   (when IS-MAC
     (setq! doom-modeline-height 1)
     (custom-set-faces!
-      '((mode-line mode-line-inactive) :family "Iosevka Term"))))
+      '((mode-line mode-line-inactive) :family "PragmataPro Mono"))))
 
 ;; Hide 'UTF-8' encoding from the modeline, since it's the default.
 ;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?

@@ -1,7 +1,7 @@
 :root {
-  --tridactyl-font-family: "Iosevka" !important;
-  --tridactyl-cmdl-font-family: "Iosevka Term" !important;
-  --tridactyl-status-font-family: "Iosevka Term" !important;
-  --tridactyl-cmplt-font-family: "Iosevka Term" !important;
-  --tridactyl-hintspan-font-family: "Iosevka Term" !important;
+  --tridactyl-font-family: "PragmataPro Liga" !important;
+  --tridactyl-cmdl-font-family: "PragmataPro Mono Liga" !important;
+  --tridactyl-status-font-family: "PragmataPro Mono" !important;
+  --tridactyl-cmplt-font-family: "PragmataPro Mono" !important;
+  --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
 }
