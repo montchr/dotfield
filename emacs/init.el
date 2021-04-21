@@ -31,7 +31,9 @@
   hl-todo                      ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
   hydra
   ;; indent-guides             ; highlighted indent columns
-  (ligatures +extra)  ; ligatures and symbols
+  (ligatures
+    +extra
+    +pragmata-pro)             ; ligatures and symbols
   ;; minimap                   ; show a map of the code on the side
   modeline                     ; snazzy, Atom-inspired modeline, plus API
   nav-flash                    ; blink cursor line after big motions
