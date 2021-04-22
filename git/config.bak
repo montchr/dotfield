@@ -12,7 +12,6 @@
     path = work.config
 
 [core]
-    excludesfile = ignore
     pager = delta
 
 [apply]

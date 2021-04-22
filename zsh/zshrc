@@ -85,7 +85,7 @@ zt light-mode for \
 
 # Load config files plugin.
 zt light-mode for \
-  _local/config-files
+  _local/config
 
 #
 # Plugins
@@ -285,7 +285,9 @@ export ASDF_DIRENV_VERSION="2.27.0"
 
 function .asdf-plugins {
   local p
-  for p in $cdom_asdf_plugins; do asdf plugin ${1} $p; done
+  for p in "${cdom_asdf_plugins[@]}"; do
+    asdf plugin "${1}" $p
+  done
 }
 
 function .load-asdf-direnv {
@@ -303,7 +305,7 @@ function .load-asdf-direnv {
     id-as'asdf-direnv-init' \
     atclone"
       env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION}
-      asdf exec direnv hook zsh > zhook.zsh
+      asdf exec direnv hook zsh | tee zhook.zsh
     " \
     atpull'%atclone' \
     atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
@@ -365,7 +367,8 @@ zt 2e for \
 # - - - - - - - - - - - - - - - - - - - -
 
 zinit is-snippet for \
-    if"[[ -f $HOME/.localrc ]]" $HOME/.localrc
+  if"[[ -f "${ZDOTDIR}/config.local" ]]" \
+    "${ZDOTDIR}/config.local"
 
-# To customize prompt, run `p10k configure` or edit ~/.dots/zsh/dot-p10k.zsh.
-[[ ! -f ~/.dots/zsh/dot-p10k.zsh ]] || source ~/.dots/zsh/dot-p10k.zsh
+[[ -f "${ZDOTDIR}/p10k.zsh" ]] \
+  && source "${ZDOTDIR}/p10k.zsh"
