@@ -180,6 +180,93 @@ function verify_os {
 }
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>  GUARDIANS
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
+#========================================
+# Guard against a lesser optional domain.
+#
+# Usage:
+#   guard::domain <domain> <message>
+# Globals:
+#   ALL
+#   GUARD_<DOMAIN>
+#   GUARD_IGNORE_<DOMAIN>
+# Parameters:
+#   Domain name. Used for message prefix and uppercased nameref.
+#   Message.
+# Outputs:
+#   Domain-prefixed message indicating domain is enabled.
+#   Domain-prefixed message indicating domain is disabled.
+# Returns:
+#   0 - Domain is enabled.
+#   1 - Domain is disabled.
+#========================================
+function guard::domain {
+  local domain=$1
+  local key
+  key=$(str::upper "${domain}")
+  shift
+
+  local message="$*"
+
+  local guard_ref="GUARD_$key"
+  local ignore_guard_ref="GUARD_IGNORE_$key"
+  guard="${!guard_ref}"
+  ignore_guard="${!ignore_guard_ref}"
+
+  if [[ \
+    ("${ALL}" == "true" || "${guard}" == "true") \
+    && -z "${ignore_guard}" \
+  ]]; then
+    msg::domain__lesser "${domain}" "${message}"
+    return 0
+  else
+    msg::domain__inactive "${domain}" "${message}"
+    return 1
+  fi
+}
+
+function guard::install {
+  [[ "$ACTION" == "install" ]]
+  return
+}
+
+function guard::upgrade {
+  [[ "$ACTION" == "upgrade" ]]
+  return
+}
+
+function guard::test {
+  [[ "$ACTION" == "test" ]]
+  return
+}
+
+function guard::ubuntu {
+  [[ "$OS_NAME" == "ubuntu" ]]
+  return
+}
+
+function guard::arch {
+  [[ "$OS_NAME" == "arch" ]]
+  return
+}
+
+function guard::macos {
+  [[ "$OS_NAME" == "macos" ]]
+  return
+}
+
+function guard::root {
+  [[ "$(whoami)" == "root" ]]
+  return
+}
+
+
 #========================================
 # Delete the bootstrap lockfile.
 #
@@ -493,32 +580,32 @@ guard::install && {
   }
 
 
-  guard::domain "php" "Install Composer" && {
+  guard::domain "PHP" "Install Composer" && {
     # shellcheck source=./composer/install
     . "${XDG_CONFIG_HOME}/composer/install"
   }
 
 
-  guard::domain "espanso" "Install Espanso" && {
+  guard::domain "Espanso" "Install Espanso" && {
     # shellcheck source=./espanso/install
     . "${XDG_CONFIG_HOME}/espanso/install"
   }
 
 
-  guard::domain "firefox" "Install Tridactyl" && {
+  guard::domain "Firefox" "Install Tridactyl" && {
     # shellcheck source=./firefox/install_tridactyl
     . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"
   }
 
 
-  guard::domain "zsh" "Use XDG for ZSH" && {
+  guard::domain "ZSH" "Use XDG for ZSH" && {
     msg::subdomain "Copying" "zshenv -> ${HOME}/.zshenv"
     cp zshenv "${HOME}/.zshenv"
   }
 
 
   guard::macos && {
-    guard::domain "firefox" "Link user chrome directory into existing profiles" && {
+    guard::domain "Firefox" "Link user chrome directory into existing profiles" && {
       for d in "${HOME}/Library/Application Support/Firefox/Profiles"/*
       do
         fs::link "${XDG_CONFIG_HOME}/firefox/chrome" "${d}/chrome"
@@ -530,7 +617,7 @@ guard::install && {
 
 guard::upgrade && {
   # @TODO run in login shell! see previous note
-  guard::domain "emacs" "Upgrading Doom Emacs" && {
+  guard::domain "Emacs" "Upgrading Doom Emacs" && {
     doom upgrade
   }
 }

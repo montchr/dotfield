@@ -44,7 +44,7 @@
 
 
 # shellcheck disable=2153
-[[ -n "${ZSH_VERSION+t}" ]] \
+[[ -n "${ZSH_VERSION}" ]] \
   && emulate -L bash
 
 
@@ -1113,90 +1113,6 @@ function repo::sync {
       git push "${forge}" "${branch}"
     fi
   }
-}
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>  GUARDIANS   [[ guard ]]
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-#========================================
-# Guard against a lesser optional domain.
-#
-# Usage:
-#   guard::domain <domain> <message>
-# Globals:
-#   ALL
-#   GUARD_<DOMAIN>
-#   GUARD_IGNORE_<DOMAIN>
-# Parameters:
-#   Domain name. Used for message prefix and uppercased nameref.
-#   Message.
-# Outputs:
-#   Domain-prefixed message indicating domain is enabled.
-#   Domain-prefixed message indicating domain is disabled.
-# Returns:
-#   0 - Domain is enabled.
-#   1 - Domain is disabled.
-#========================================
-function guard::domain {
-  local domain=$1
-  local key
-  key=$(str::upper "${domain}")
-  shift
-
-  local message="$*"
-
-  local guard_ref="GUARD_$key"
-  local ignore_guard_ref="GUARD_IGNORE_$key"
-  guard="${!guard_ref}"
-  ignore_guard="${!ignore_guard_ref}"
-
-  if [[ ("$ALL" == "true" || "$guard" == "true") && "$ignore_guard" == "" ]]; then
-    msg::domain__lesser "${domain}" "${message}"
-    return 0
-  else
-    msg::domain__inactive "${domain}" "${message}"
-    return 1
-  fi
-}
-
-function guard::install {
-  [[ "$ACTION" == "install" ]]
-  return
-}
-
-function guard::upgrade {
-  [[ "$ACTION" == "upgrade" ]]
-  return
-}
-
-function guard::test {
-  [[ "$ACTION" == "test" ]]
-  return
-}
-
-function guard::ubuntu {
-  [[ "$OS_NAME" == "ubuntu" ]]
-  return
-}
-
-function guard::arch {
-  [[ "$OS_NAME" == "arch" ]]
-  return
-}
-
-function guard::macos {
-  [[ "$OS_NAME" == "macos" ]]
-  return
-}
-
-function guard::root {
-  [[ "$(whoami)" == "root" ]]
-  return
 }
 
 
