@@ -481,14 +481,14 @@ fi
 
 
 guard::install && {
-msg::domain "Hostname" "Set the system hostname" && {
-  if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
-    HOSTNAME="${DOTFIELD_HOSTNAME}"
-  else
-    msg::ask "Enter a name: "
-    HOSTNAME="$(msg::get_answer)"
-  fi
-}
+  guard::domain "System" "Set the system hostname" && {
+    if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
+      HOSTNAME="${DOTFIELD_HOSTNAME}"
+    else
+      msg::ask "Enter a name: "
+      HOSTNAME="$(msg::get_answer)"
+    fi
+  }
 }
 
 
@@ -600,7 +600,7 @@ guard::install && {
 
   guard::domain "ZSH" "Use XDG for ZSH" && {
     msg::subdomain "Copying" "zshenv -> ${HOME}/.zshenv"
-    cp zshenv "${HOME}/.zshenv"
+    cp "${XDG_CONFIG_HOME}/zsh/zshenv" "${HOME}/.zshenv"
   }
 
 
