@@ -1,12 +1,3 @@
-git/dot-gitconfig.local
-/zsh/dot-zshenv
-
-# The homebrew-bundle lock file will be different between macOS/Linux
-/Brewfile.lock.json
-
-# Ignore repos contained within
-emacs/emacs.d
-
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the
 # software overwrites this file upon modifying settings.
@@ -16,9 +7,6 @@ karabiner/.config/karabiner/*
 # Emacs
 org-roam.db
 /emacs/dot-doom.d/custom.el
-
-# Allow font archives.
-!/iosevka/**/*.tar.gz
 
 # GPG
 # Ignore everything but configuration files.
@@ -31,10 +19,12 @@ org-roam.db
 #
 
 /kitty/.config/kitty/theme.conf
+
 flycheck_config.el
 /.ci/.terraform/
-*.tfvars
+/.ci/*.tfvars
 /.ci/*.tfstate*
 git/config.local
-zsh/.zsh_history
 /composer/keys.*.pub
+composer/**/.htaccess
+zsh/.zcompdump
