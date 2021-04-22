@@ -365,7 +365,8 @@ zt 2e for \
 # - - - - - - - - - - - - - - - - - - - -
 
 zinit is-snippet for \
-    if"[[ -f $HOME/.localrc ]]" $HOME/.localrc
+  if"[[ -f "${ZDOTDIR}/config.local" ]]" \
+    "${ZDOTDIR}/config.local"
 
-# To customize prompt, run `p10k configure` or edit ~/.dots/zsh/dot-p10k.zsh.
-[[ ! -f ~/.dots/zsh/dot-p10k.zsh ]] || source ~/.dots/zsh/dot-p10k.zsh
+[[ -f "${ZDOTDIR}/p10k.zsh" ]] \
+  && source "${ZDOTDIR}/p10k.zsh"
