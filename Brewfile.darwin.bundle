@@ -344,7 +344,9 @@ cask "sequel-pro"
 cask "signal"
 cask "slack"
 cask "soundsource"
-cask "spotify"
+cask "spotify", args: {
+  require_sha: false
+}
 cask "steermouse"
 cask "suspicious-package"
 cask "tigervnc-viewer"
