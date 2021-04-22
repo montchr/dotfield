@@ -481,14 +481,14 @@ fi
 
 
 guard::install && {
-  guard::domain "System" "Set the system hostname" && {
-    if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
-      HOSTNAME="${DOTFIELD_HOSTNAME}"
-    else
-      msg::ask "Enter a name: "
-      HOSTNAME="$(msg::get_answer)"
-    fi
-  }
+msg::domain "Hostname" "Set the system hostname" && {
+  if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
+    HOSTNAME="${DOTFIELD_HOSTNAME}"
+  else
+    msg::ask "Enter a name: "
+    HOSTNAME="$(msg::get_answer)"
+  fi
+}
 }
 
 
