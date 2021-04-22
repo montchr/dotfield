@@ -600,9 +600,9 @@ guard::install && {
 
   guard::macos && {
     guard::domain "Firefox" "Link user chrome directory into existing profiles" && {
-      for d in "${HOME}/Library/Application Support/Firefox/Profiles"/*
+      for dir in ~/Library/"Application Support"/Firefox/Profiles/*
       do
-        fs::link "${XDG_CONFIG_HOME}/firefox/chrome" "${d}/chrome"
+        fs::link "firefox/chrome" "${dir}/chrome"
       done
     }
   }
