@@ -111,11 +111,11 @@
           };
         };
 
-        cdoAlley = darwin.lib.darwinSystem {
+        alleymon = darwin.lib.darwinSystem {
           inputs = inputs;
           modules = mkDarwinModules {
             user = "montchr";
-            host = "cdoalley";
+            host = "alleymon";
           };
         };
       };
@@ -145,7 +145,7 @@
       #   "Move them to `outputs.packages.<system>.name`"
       # https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
-      cdoAlley = self.darwinConfigurations.cdoAlley.system;
+      alleymon = self.darwinConfigurations.alleymon.system;
 
       overlays =
         let path = ./overlays; in
