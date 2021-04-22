@@ -16,6 +16,10 @@ conf_src="${XDG_CONFIG_HOME:-${HOME}/.config}/php/conf.d"
 brew_prefix="$(brew --prefix)"
 current=$(php-version)
 
+semver() {
+  "${XDG_BIN_HOME}/semver" "$@"
+}
+
 # The semver tool expects a valid semver number, but brew php versions only
 # include the major and minor version numbers. To handle this discrepancy, we
 # append a patch version number to the version argument.
