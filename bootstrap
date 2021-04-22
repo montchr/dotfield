@@ -699,6 +699,4 @@ guard::install && {
 
 }
 
-msg::success "Everything is good here."
-
-return
+exit
