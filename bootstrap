@@ -615,20 +615,11 @@ msg::domain "Nix" "Build" && {
   }
 
   guard::linux && {
-    # TODO: does this work anywhere besides NixOS?
+    # TODO: does this work anywhere besides NixOS? (probably not)
     sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
 
 }
-
-
-
-# TODO: for testing nix only
-exit 0
-
-
-
-
 
 
 msg::domain "Guardian" "Ensure directories exist"
