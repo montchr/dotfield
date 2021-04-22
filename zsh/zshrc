@@ -285,7 +285,9 @@ export ASDF_DIRENV_VERSION="2.27.0"
 
 function .asdf-plugins {
   local p
-  for p in $cdom_asdf_plugins; do asdf plugin ${1} $p; done
+  for p in "${cdom_asdf_plugins[@]}"; do
+    asdf plugin "${1}" $p
+  done
 }
 
 function .load-asdf-direnv {
@@ -303,7 +305,7 @@ function .load-asdf-direnv {
     id-as'asdf-direnv-init' \
     atclone"
       env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION}
-      asdf exec direnv hook zsh > zhook.zsh
+      asdf exec direnv hook zsh | tee zhook.zsh
     " \
     atpull'%atclone' \
     atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
