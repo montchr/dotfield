@@ -598,12 +598,6 @@ guard::install && {
   }
 
 
-  guard::domain "ZSH" "Use XDG for ZSH" && {
-    msg::subdomain "Copying" "zshenv -> ${HOME}/.zshenv"
-    cp "${XDG_CONFIG_HOME}/zsh/zshenv" "${HOME}/.zshenv"
-  }
-
-
   guard::macos && {
     guard::domain "Firefox" "Link user chrome directory into existing profiles" && {
       for d in "${HOME}/Library/Application Support/Firefox/Profiles"/*
