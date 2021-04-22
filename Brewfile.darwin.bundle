@@ -319,7 +319,6 @@ cask "google-chrome", args: {
   force: true
 }
 cask "hammerspoon"
-cask "harvest"
 # @TODO replace with hammerspoon
 # cask "insomnia"
 cask "istat-menus"
@@ -350,7 +349,6 @@ cask "steermouse"
 cask "suspicious-package"
 cask "tigervnc-viewer"
 cask "transmit"
-cask "unshaky"
 cask "ubersicht"
 # Requires manual input.
 # cask "virtualbox"
