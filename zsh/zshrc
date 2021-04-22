@@ -85,7 +85,7 @@ zt light-mode for \
 
 # Load config files plugin.
 zt light-mode for \
-  _local/config-files
+  _local/config
 
 #
 # Plugins
