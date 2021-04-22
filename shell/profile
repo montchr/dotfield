@@ -15,13 +15,6 @@
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# Identity
-# - - - - - - - - - - - - - - - - - - - -
-
-export GITHUB_USER="montchr"
-
-
-# - - - - - - - - - - - - - - - - - - - -
 # Helpers
 # - - - - - - - - - - - - - - - - - - - -
 
@@ -72,6 +65,18 @@ export \
   TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
 
 export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Local Configuration + Identity
+# - - - - - - - - - - - - - - - - - - - -
+
+export GITHUB_USER="montchr"
+
+DOTFIELD_LOCAL_CONFIG="${XDG_CONFIG_HOME}/shell/profile.local"
+[[ -z "${DOTFIELD_LOCAL_LOADED}" ]] \
+  && [[ -f "${DOTFIELD_LOCAL_CONFIG}" ]] \
+    && . "${DOTFIELD_LOCAL_CONFIG}"
 
 
 # - - - - - - - - - - - - - - - - - - - -
