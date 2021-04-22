@@ -694,7 +694,7 @@ guard::install && {
   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
     transcrypt --yes --import-gpg="${XDG_CONFIG_HOME}/.transcrypt"
   else
-    msg::warning "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield...
+    msg::warning "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
   fi
 }
 
