@@ -1008,8 +1008,11 @@ function repo::qualify_url {
       fi
       ;;
     srht|sourcehut)
-      msg::error "sourcehut not yet supported!"
-      return 1
+      if [[ "$USE_HTTPS" = "true" ]]; then
+        echo  "https://git.sr.ht/~${identifier}"
+      else
+        echo "git@git.sr.ht:${identifier}"
+      fi
       ;;
   esac
 }
