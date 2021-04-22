@@ -628,14 +628,25 @@ guard::macos && {
 
   guard::domain "yabai" "Ensure scripting addition is installed" && {
     shell::has yabai && {
-      # reinstall the scripting addition
-      sudo yabai --uninstall-sa
-      sudo yabai --install-sa
+      if [[ $(csrutil status) == *enabled* ]]; then
+        msg::error "System integrity protection is enabled! yabai cannot function properly. Skipping."
+        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
+      else
+        # reinstall the scripting addition
+        sudo yabai --uninstall-sa
+        sudo yabai --install-sa
 
-      # load the scripting addition
-      killall Dock || true
+        # load the scripting addition
+        killall Dock || true
 
-      sudo yabai --load-sa
+        sudo yabai --load-sa
+      fi
+
+      [[ $(csrutil status) == *disabled* ]] && {
+        msg::error "System integrity protection is disabled! Your system is at risk!"
+        msg::warning "Now that the yabai scripting addition has been installed, you should re-enable SIP."
+        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
+      }
     }
   }
 
