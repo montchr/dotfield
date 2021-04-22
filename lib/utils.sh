@@ -1123,18 +1123,35 @@ function repo::sync {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-# TODO: won't work in old Bash because of namerefs!
-# TODO: why doesn't an error happen every time was uses
+#========================================
+# Guard against a lesser optional domain.
+#
+# Usage:
+#   guard::domain <domain> <message>
+# Globals:
+#   ALL
+#   GUARD_<DOMAIN>
+#   GUARD_IGNORE_<DOMAIN>
+# Parameters:
+#   Domain name. Used for message prefix and uppercased nameref.
+#   Message.
+# Outputs:
+#   Domain-prefixed message indicating domain is enabled.
+#   Domain-prefixed message indicating domain is disabled.
+# Returns:
+#   0 - Domain is enabled.
+#   1 - Domain is disabled.
+#========================================
 function guard::domain {
   local domain=$1
   local key
-  key=$(str::lower "${domain}")
+  key=$(str::upper "${domain}")
   shift
 
   local message="$*"
 
-  local guard_ref="guard_$key"
-  local ignore_guard_ref="guard_ignore_$key"
+  local guard_ref="GUARD_$key"
+  local ignore_guard_ref="GUARD_IGNORE_$key"
   guard="${!guard_ref}"
   ignore_guard="${!ignore_guard_ref}"
 

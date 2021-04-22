@@ -333,16 +333,18 @@ esac
 POSITIONAL=()
 while [[ $# -gt 0 ]]
 do
-  if [[ -n "$1" ]]; then
-    if [[ "$1" = -* ]]; then
-      key=$(str::lower "${1#-}")
-      declare -r "guard_ignore_${key}=true"
-    else
-      key=$(str::lower "$1")
-      declare -r "guard_${key}=true"
+  case "$1" in
+    "") : ;;
+    -*)
+      key=$(str::upper "${1#-}")
+      declare -rx "GUARD_IGNORE_${key}=true"
+      ;;
+    *)
+      key=$(str::upper "$1")
+      declare -rx "GUARD_${key}=true"
       ALL="false"
-    fi
-  fi
+      ;;
+  esac
   shift
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
