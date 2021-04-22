@@ -24,7 +24,7 @@ flycheck_config.el
 /.ci/.terraform/
 /.ci/*.tfvars
 /.ci/*.tfstate*
-git/config.local
 /composer/keys.*.pub
 composer/**/.htaccess
 zsh/.zcompdump
+*.local
