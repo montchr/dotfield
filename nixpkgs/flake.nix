@@ -1,164 +1,7 @@
-{
-  description = ":: Dotfield ::";
+# Thank you to https://github.com/ahmedelgabri/dotfiles/
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    darwin = {
-      url = "github:LnL7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-utils.url = "github:numtide/flake-utils";
-  };
-
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, ... }:
-    let
-      nixpkgsConfig = with inputs; {
-        config = {
-          allowUnfree = true;
-        };
-        overlays = self.overlays;
-      };
-
-      homeManagerConfig =
-        { user
-        , userConfig ? ./home + "/user-${user}.nix"
-        , ...
-        }: with self.homeManagerModules; {
-          imports = [
-            userConfig
-            ./home
-          ];
-        };
-
-      mkDarwinModules =
-        args @
-        { user
-        , host
-        , hostConfig ? ./config + "/host-${host}.nix"
-        , ...
-        }: [
-          home-manager.darwinModules.home-manager
-          ./config/darwin.nix
-          hostConfig
-          rec {
-            nix.nixPath = {
-              nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix";
-            };
-            nixpkgs = nixpkgsConfig;
-            users.users.${user}.home = "/Users/${user}";
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.${user} = homeManagerConfig args;
-          }
-        ];
-
-      mkNixosModules =
-        args @
-        { user
-        , host
-        , hostConfig ? ./config + "/host-${host}.nix"
-        , ...
-        }: [
-          home-manager.nixosModules.home-manager
-          ./config/shared.nix
-          hostConfig
-          ({ pkgs, ... }: rec {
-            nixpkgs = nixpkgsConfig;
-            users.users.${user} = {
-              createHome = true;
-              extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-              group = "${user}";
-              home = "/home/${user}";
-              isNormalUser = true;
-              shell = pkgs.zsh;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.${user} = homeManagerConfig args;
-          })
-        ];
-
-    in
-    {
-      darwinConfigurations = {
-
-        # Minimal configuration to bootstrap systems
-        bootstrap = darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = [
-            ./config/darwin-bootstrap.nix
-          ];
-        };
-
-        ghActions = darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = mkDarwinModules {
-            user = "runner";
-            host = "mac-gh";
-          };
-        };
-
-        HodgePodge = darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = mkDarwinModules {
-            user = "cdom";
-            host = "hodgepodge";
-          };
-        };
-
-        alleymon = darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = mkDarwinModules {
-            user = "montchr";
-            host = "alleymon";
-          };
-        };
-      };
-
-      cloudVM = home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/cdom";
-        username = "cdom";
-        configuration = {
-          imports = [
-            (homeManagerConfig { user = "cdom"; })
-          ];
-          nixpkgs = nixpkgsConfig;
-        };
-      };
-
-      darwinModules = { };
-
-      homeManagerModules = { };
-
-      # for convenience:
-      #   nix build './#hodgepodge'
-      # instead of:
-      #   nix build './#darwinConfigurations.hodgepodge.system'
-      #
-      # TODO: not sure what the following comment means:
-      #   "Move them to `outputs.packages.<system>.name`"
-      # https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
-      HodgePodge = self.darwinConfigurations.HodgePodge.system;
-      alleymon = self.darwinConfigurations.alleymon.system;
-
-      overlays =
-        let path = ./overlays; in
-        with builtins;
-        map (n: import (path + ("/" + n))) (filter
-          (n:
-            match ".*\\.nix" n != null
-            || pathExists (path + ("/" + n + "/default.nix")))
-          (attrNames (readDir path)));
-    };
-}
-
-# Helpful resources from https://github.com/ahmedelgabri/dotfiles/blob/master/flake.nix
+# As a first step, I will try to symlink my configs as much as possible then
+# migrate the configs to Nix
 #
 # https://nixcloud.io/ for Nix syntax
 # https://nix.dev/
@@ -188,3 +31,138 @@
 # https://github.com/malob/nixpkgs (Darwin, home-manager, homebrew in nix & PAM, this is a great example)
 # https://github.com/kclejeune/system (nice example)
 # https://github.com/mrkuz/nixos
+#
+
+{
+  description = "~ 🍭 ~";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    comma = {
+      url = "github:Shopify/comma";
+      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rnix-lsp = {
+      url = "github:nix-community/rnix-lsp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # pragmatapro = {
+    #   url = "sourcehut:montchr/pragmatapro";
+    #   flake = false;
+    # };
+
+    # Extras
+    # nixos-hardware.url = "github:nixos/nixos-hardware";
+  };
+
+  outputs = { self, ... }@inputs:
+    let
+      sharedHostsConfig = { config, pkgs, lib, options, ... }: {
+        nix = {
+          nixPath = [
+            "nixpkgs=${inputs.nixpkgs}"
+            "darwin=${inputs.darwin}"
+            "home-manager=${inputs.home-manager}"
+          ];
+          package = pkgs.nixFlakes;
+          extraOptions = "experimental-features = nix-command flakes";
+          binaryCaches = [
+            "https://cache.nixos.org"
+            "https://nix-community.cachix.org"
+            "https://nixpkgs.cachix.org"
+          ];
+          binaryCachePublicKeys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+            "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+          ];
+          # gc = {
+          #   automatic = true;
+          #   options = "--delete-older-than 3d";
+          # };
+        };
+
+        fonts = (lib.mkMerge [
+          # [note] Remove this condition when `nix-darwin` aligns with NixOS
+          (if (builtins.hasAttr "fontDir" options.fonts) then {
+            fontDir.enable = true;
+          } else {
+            enableFontDir = true;
+          })
+          # { fonts = with pkgs; [ pragmatapro ]; }
+        ]);
+
+        nixpkgs = {
+          config = { allowUnfree = true; };
+          overlays = [ self.overlay ];
+        };
+
+        time.timeZone = config.my.timezone;
+      };
+
+    in
+    {
+      overlay = (final: prev: {
+        # pragmatapro = (prev.callPackage ./nix/pkgs/pragmatapro.nix { });
+        comma = import inputs.comma { inherit (prev) pkgs; };
+      });
+
+      darwinConfigurations = {
+        "hodgepodge" = inputs.darwin.lib.darwinSystem {
+          inputs = inputs;
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            ./nix/modules/shared
+            sharedHostsConfig
+            ./nix/hosts/hodgepodge.nix
+          ];
+        };
+
+        "alleymon" = inputs.darwin.lib.darwinSystem {
+          inputs = inputs;
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            ./nix/modules/shared
+            sharedHostsConfig
+            ./nix/hosts/alleymon.nix
+          ];
+        };
+      };
+
+      # for convenience
+      # nix build './#darwinConfigurations.hodgepodge.system'
+      # vs
+      # nix build './#hodgepodge'
+      # Move them to `outputs.packages.<system>.name`
+      hodgepodge = self.darwinConfigurations.hodgepodge.system;
+      alleymon = self.darwinConfigurations.alleymon.system;
+
+      # [todo] very alpha, needs work
+      # nixosConfigurations = {
+      #   "nixos" = inputs.nixpkgs.lib.nixosSystem {
+      #     system = "x86_64-linux";
+      #     specialArgs = { inherit inputs; };
+      #     modules = [
+      #       inputs.home-manager.nixosModules.home-manager
+      #       ./nix/modules/shared
+      #       sharedHostsConfig
+      #       ./nix/hosts/nixos
+      #     ];
+      #   };
+      # };
+    };
+}

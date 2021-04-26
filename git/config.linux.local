@@ -1,4 +1,0 @@
-# -*- mode: gitconfig -*-
-
-[credential]
-    helper = cache

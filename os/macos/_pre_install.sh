@@ -20,12 +20,13 @@ function main () {
       }
     }
 
-    msg::subdomain "Ensure a recent version of Bash exists" && {
+    msg::subdomain "Ensure a recent version of Bash and ZSH exist" && {
       brew install bash
+      brew install zsh
     }
 
 
-    msg::subdomain "Allow Homebrew's Bash as login shell" && {
+    msg::subdomain "Allow Homebrew's Bash and ZSH as login shells" && {
       local brew_bash_path
       brew_bash_path="$(brew --prefix)/bin/bash"
 

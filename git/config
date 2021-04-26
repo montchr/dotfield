@@ -5,12 +5,6 @@
     email = chris@cdom.io
     signingkey = F0B8FB42A7498482
 
-[include]
-    path = config.local
-
-[includeIf "gitdir:~/broadway/"]
-    path = work.config
-
 [core]
     pager = delta
 
@@ -72,3 +66,6 @@
     tool = ediff
 [difftool "ediff"]
     cmd = ediff \"$LOCAL\" \"$REMOTE\"
+
+[include]
+    path = config.nix.local
