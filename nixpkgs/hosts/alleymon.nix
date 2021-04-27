@@ -20,7 +20,7 @@
     };
   };
 
-  networking = { hostName = "HodgePodge"; };
+  networking = { hostName = "alleymon"; };
   # TODO: What about the options in https://github.com/LnL7/nix-darwin/blob/073935fb9994ccfaa30b658ace9feda2f8bbafee/modules/system/defaults/smb.nix
   # system.defaults.smb = {
   #   NetBIOSName = ${networking.hostName};
