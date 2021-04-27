@@ -626,6 +626,7 @@ guard::install && guard::macos {
 
       msg::stream::info \
 <<END
+
 If you received a message like this:
 
 > Problem with the SSL CA cert (path? access rights?) (77)
@@ -633,8 +634,9 @@ If you received a message like this:
 ...then '${cert_file}' might be a dead symlink.
 Try removing and re-linking it by running the following:
 
-sudo rm ${cert_file}
-sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
+$ sudo rm ${cert_file}
+$ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
+
 END
 
       exit 1
