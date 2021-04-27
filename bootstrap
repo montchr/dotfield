@@ -579,25 +579,25 @@ guard::install && {
 guard::install && {
 
   (shell::has nix nix-build nix-channel nix-env nix-shell) || {
+
     msg::domain "Nix" "Install Nix package manager"
-    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
-    if [[ ! -d /run ]]; then
-      msg::warning "Directory '/run' does not exist, but multi-user Nix requires it."
-      # msg::warning "Symlinking "
-      # echo runtprivate/var/run | sudo tee -a /etc/synthetic.conf
-      # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B
-      # /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
-    fi
-    # TODO: automate
-    msg::error "Unfortunately, you'll have to open a new shell and re-run the bootstrap script to get Nix working!"
-    exit 1
+    sh <(curl -L https://nixos.org/nix/install) \
+      --darwin-use-unencrypted-nix-store-volume \
+      --daemon \
+
+    msg::subdomain "Sourcing /etc/bashrc for Nix additions"
+    . /etc/bashrc
+
+    msg::subdomain "Testing nix-shell"
+    nix-shell -p nix-info --run "nix-info -m"
+
   }
 
-  msg::subdomain "Install Nix Flakes" && {
+  msg::domain "Nix" "Install experimental Nix Flakes" && {
     nix-env -iA nixpkgs.nixFlakes
     nix_flakes_feature_flag="experimental-features = nix-command flakes"
     if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
-      msg::warning "Adding nix flakes feature flag to /etc/nix/nix.conf"
+      msg::subdomain "Adding nix flakes feature flag to /etc/nix/nix.conf"
       echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
     fi
   }
@@ -607,10 +607,45 @@ guard::install && {
 msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}/nixpkgs"
 cd "${XDG_CONFIG_HOME}/nixpkgs" || exit 1
 
+guard::install && guard::macos {
+  msg::domain "Nix" "Install nix-darwin" && {
+
+    [[ -d ./result ]] && {
+      msg::subdomain "Found existing ./result directory. Removing..."
+      rm -rf ./result
+    }
+
+    # Although nix-darwin supports flakes, at the time of writing, the installer
+    # does not. In order to install nix-darwin properly, it needs to be
+    # installed for the first time via the installer.
+    # See: https://github.com/LnL7/nix-darwin#flakes-experimental
+    msg::subdomain "Running nix-darwin installer"
+    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+    ./result/bin/darwin-installer
+
+
+    # TODO: may no longer be necessary if the nix-darwin installer is run properly
+    # if [[ ! -d /run ]]; then
+    #   msg::warning "Directory '/run' does not exist, but multi-user Nix requires it."
+    #   msg::warning "Checking for mapping in /etc/synthetic.conf..."
+    #   if grep "^run\sprivate\/var\/run$" /etc/synthetic.conf; then
+    #     msg::error "Mapping exists! I gave it my best shot. Something else is wrong. Aborting."
+    #     exit 1
+    #   fi
+    #   msg::warning "Mapping /run to /private/var/run..."
+    #   printf "%b" "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf || exit 1
+    #   # TODO: the following command doesn't appear to work on Big Sur
+    #   /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B &>/dev/null
+    #   /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t &>/dev/null
+    # fi
+
+}
+
+
+
 msg::domain "Nix" "Build" && {
+
   guard::macos && {
-    # Note that flakes must be flagged on either via a flag passed to the
-    # command or via `~/.config/nix/nix/conf`. I've chosen the latter approach.
     nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
       && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }

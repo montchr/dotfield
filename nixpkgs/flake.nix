@@ -146,9 +146,9 @@
       # for convenience
       # nix build './#darwinConfigurations.hodgepodge.system'
       # vs
-      # nix build './#hodgepodge'
+      # nix build './#HodgePodge'
       # Move them to `outputs.packages.<system>.name`
-      hodgepodge = self.darwinConfigurations.hodgepodge.system;
+      HodgePodge = self.darwinConfigurations.hodgepodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 
       # [todo] very alpha, needs work
