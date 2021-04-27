@@ -30,7 +30,7 @@
       window_opacity = "off";
       window_shadow = "on";
       active_window_opacity = 1.0;
-      normal_window_opacity = 0.90;
+      normal_window_opacity = 0.9;
       # normal_window_opacity = 1.0;
 
       # Window borders

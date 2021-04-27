@@ -2,8 +2,5 @@
 with pkgs;
 mkShell rec {
 
-  buildInputs = [
-    rnix-lsp
-    nixpkgs-fmt
-  ];
+  buildInputs = [ rnix-lsp nixpkgs-fmt ];
 }

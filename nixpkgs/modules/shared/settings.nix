@@ -26,8 +26,7 @@ let
       example = true;
     };
 
-in
-{
+in {
   options = with types; {
     my = {
       name = mkOptStr "Chris Montgomery";
@@ -46,22 +45,23 @@ in
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       };
-      xdg = {
-        cache = mkOpt t ${my.user.home}/.cache;
-        config = mkOpt t ${my.user.home}/.config;
-        data = mkOpt t ${my.user.home}/.local/share;
-        bin = mkOpt t ${my.user.home}/.local/bin;
+      xdg = let t = either str path;
+      in {
+        cache = mkOpt t "${my.user.home}/.cache";
+        config = mkOpt t "${my.user.home}/.config";
+        data = mkOpt t "${my.user.home}/.local/share";
+        bin = mkOpt t "${my.user.home}/.local/bin";
       };
-      dotfield = let t = either str path; in {
-        dir = mkOpt t
-          (findFirst pathExists (toString ../.) [
-            "${my.xdg.config}/dotfiles"
-            "/etc/dotfiles"
-          ]);
-        binDir     = mkOpt t "${my.dotfield.dir}/bin";
-        configDir  = mkOpt t "${my.dotfield.dir}/config";
+      dotfield = let t = either str path;
+      in {
+        dir = mkOpt t (findFirst pathExists (toString ../.) [
+          "${my.xdg.config}/dotfiles"
+          "/etc/dotfiles"
+        ]);
+        binDir = mkOpt t "${my.dotfield.dir}/bin";
+        configDir = mkOpt t "${my.dotfield.dir}/config";
         modulesDir = mkOpt t "${my.dotfield.dir}/modules";
-        themesDir  = mkOpt t "${my.dotfield.modulesDir}/themes";
+        themesDir = mkOpt t "${my.dotfield.modulesDir}/themes";
       };
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
@@ -79,11 +79,10 @@ in
   config = {
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
     my.user = {
-      home =
-        if pkgs.stdenv.isDarwin then
-          "/Users/${config.my.username}"
-        else
-          "/home/${config.my.username}";
+      home = if pkgs.stdenv.isDarwin then
+        "/Users/${config.my.username}"
+      else
+        "/home/${config.my.username}";
       description = "Primary user account";
     };
 

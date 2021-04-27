@@ -3,10 +3,9 @@
 let
 
   cfg = config.my.modules.ripgrep;
-  cfgDir = ${config.my.dotfield.configDir}/ripgrep;
+  cfgDir = "${config.my.dotfield.configDir}/ripgrep";
 
-in
-{
+in {
   options = with lib; {
     my.modules.ripgrep = {
       enable = mkEnableOption ''
@@ -24,7 +23,7 @@ in
       my.hm.configFile = {
         "ripgrep" = {
           recursive = true;
-          source = cfgDir;
+          source = builtins.toPath /. cfgDir;
         };
       };
     };

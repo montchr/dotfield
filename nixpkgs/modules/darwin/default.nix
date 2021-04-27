@@ -1,15 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  nix = {
-    trustedUsers = [
-      "@admin"
-    ];
-  };
+  nix = { trustedUsers = [ "@admin" ]; };
 
-  services = {
-    nix-daemon.enable = true;
-  };
+  services = { nix-daemon.enable = true; };
 
   users.nix.configureBuildUsers = true;
 

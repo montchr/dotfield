@@ -3,27 +3,25 @@
 let
 
   cfg = config.my.modules.gpg;
-  cfgDir = ${config.my.dotfield.configDir}/gpg;
+  cfgDir = "${config.my.dotfield.configDir}/gpg";
 
-  pinentry = (if stdenv.isDarwin then )
+  # TODO: what about pinentry?
+  # pinentry = (if stdenv.isDarwin then )
 
-in
-{
-  options = with lib, types; {
-    my.modules.gpg = {
-      enable = mkEnableOption ''
-        Whether to enable gpg module
-      '';
-      cacheTTL = mkOpt int 3600;  # 1hr
+in {
+  options = with lib;
+    with types; {
+      my.modules.gpg = {
+        enable = mkEnableOption ''
+          Whether to enable gpg module
+        '';
+        cacheTTL = mkOpt int 3600; # 1hr
+      };
     };
-  };
 
   config = with lib;
     mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        gnupg,
-        pinentry,
-      ];
+      environment.systemPackages = with pkgs; [ gnupg pinentry ];
       my.env = { GNUPGHOME = "$XDG_CONFIG_HOME/gnupg"; };
 
       programs.gnupg.agent = {

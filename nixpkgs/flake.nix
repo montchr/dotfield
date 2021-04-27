@@ -114,8 +114,7 @@
         time.timeZone = config.my.timezone;
       };
 
-    in
-    {
+    in {
       overlay = (final: prev: {
         # pragmatapro = (prev.callPackage ./nix/pkgs/pragmatapro.nix { });
         comma = import inputs.comma { inherit (prev) pkgs; };

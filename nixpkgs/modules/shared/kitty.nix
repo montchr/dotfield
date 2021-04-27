@@ -3,10 +3,9 @@
 let
 
   cfg = config.my.modules.kitty;
-  cfgDir = ${config.my.dotfield.configDir}/kitty;
+  cfgDir = "${config.my.dotfield.configDir}/kitty";
 
-in
-{
+in {
   options = with lib; {
     my.modules.kitty = {
       enable = mkEnableOption ''

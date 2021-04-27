@@ -3,10 +3,9 @@
 let
 
   cfg = config.my.modules.ssh;
-  cfgDir = ${config.my.dotfield.configDir}/ssh;
+  cfgDir = "${config.my.dotfield.configDir}/ssh";
 
-in
-{
+in {
   options = with lib; {
     my.modules.ssh = {
       enable = mkEnableOption ''
@@ -18,7 +17,7 @@ in
   config = with lib;
     mkIf cfg.enable {
       my.hm.file = {
-        ".ssh/config" = { source = ${cfgDir}/config; };
+        ".ssh/config" = { source = builtins.toPath /. "${cfgDir}/config"; };
       };
     };
 }

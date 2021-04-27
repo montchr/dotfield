@@ -4,10 +4,9 @@ let
   dotfield = config.my.dotfield;
 
   cfg = config.my.modules.git;
-  cfgDir = ${dotfield.configDir}/git;
+  cfgDir = "${dotfield.configDir}/git";
 
-in
-{
+in {
   options = with lib; {
     my.modules.git = {
       enable = mkEnableOption ''
@@ -70,16 +69,14 @@ in
 
           "git" = {
             recursive = true;
-            source = cfgDir;
+            source = builtins.toPath /. cfgDir;
           };
 
           "tig" = {
             recursive = true;
-            source = ${dotfield.configDir}/tig;
+            source = builtins.toPath /. "${dotfield.configDir}/tig";
           };
         };
       };
-
-
     };
 }

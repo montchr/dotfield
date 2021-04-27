@@ -2,12 +2,11 @@
 
 let
 
-  cfgDir = ${config.my.dotfield.configDir}/skhd;
+  cfgDir = "${config.my.dotfield.configDir}/skhd";
 
-in
-{
+in {
   home-manager.services.skhd = {
     enable = true;
-    skhdConfig = builtins.readFile ${cfgDir}/skhdrc;
+    skhdConfig = builtins.readFile builtins.toPath /. "${cfgDir}/skhdrc";
   };
 }

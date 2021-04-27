@@ -5,8 +5,7 @@ let
   cfg = config.my.modules.python;
   dotfield = config.my.dotfield;
 
-in
-{
+in {
   options = with lib; {
     my.modules.python = {
       enable = mkEnableOption ''
@@ -24,25 +23,19 @@ in
           packages = with pkgs;
             [
               # TODO
-              (python3.withPackages (ps:
-                with ps; [
-                  pip
-                  black
-                  setuptools
-                  pylint
-                  grip
-                ]))
+              (python3.withPackages
+                (ps: with ps; [ pip black setuptools pylint grip ]))
             ];
         };
 
         hm.configFile = {
           "python" = {
             recursive = true;
-            source = ${dotfield.configDir}/python;
+            source = builtins.toPath /. "${dotfield.configDir}/python";
           };
           "pip" = {
             recursive = true;
-            source = ${dotfield.configDir}/pip;
+            source = builtins.toPath /. "${dotfield.configDir}/pip";
           };
         };
       };

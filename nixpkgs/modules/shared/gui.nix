@@ -4,8 +4,7 @@ let
 
   cfg = config.my.modules.gui;
 
-in
-{
+in {
   options = with lib; {
     my.modules.gui = {
       enable = mkEnableOption ''
@@ -46,12 +45,7 @@ in
         };
       } else {
         my.user = {
-          packages = with pkgs; [
-            firefox
-            zoom-us
-            signal-desktop
-            slack
-          ];
+          packages = with pkgs; [ firefox zoom-us signal-desktop slack ];
         };
       })
     ]);

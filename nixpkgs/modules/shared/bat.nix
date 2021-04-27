@@ -3,10 +3,9 @@
 let
 
   cfg = config.my.modules.bat;
-  cfgDir = ${config.my.dotfield.configDir}/bat;
+  cfgDir = "${config.my.dotfield.configDir}/bat";
 
-in
-{
+in {
   options = with lib; {
     my.modules.bat = {
       enable = mkEnableOption ''
@@ -24,7 +23,7 @@ in
       my.hm.configFile = {
         "bat" = {
           recursive = true;
-          source = cfgDir;
+          source = builtins.toPath /. cfgDir;
         };
       };
     };

@@ -4,8 +4,7 @@ let
 
   cfg = config.my.modules.macos;
 
-in
-{
+in {
   imports = [ ./yabai.nix ];
 
   options = with lib; {

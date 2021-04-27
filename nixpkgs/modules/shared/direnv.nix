@@ -3,10 +3,9 @@
 let
 
   cfg = config.my.modules.direnv;
-  cfgDir = ${config.my.dotfield.configDir}/direnv;
+  cfgDir = "${config.my.dotfield.configDir}/direnv";
 
-in
-{
+in {
   options = with lib; {
     my.modules.ripgrep = {
       enable = mkEnableOption ''
@@ -22,7 +21,7 @@ in
       my.hm.configFile = {
         "direnv" = {
           recursive = true;
-          source = cfgDir;
+          source = builtins.toPath /. cfgDir;
         };
       };
     };

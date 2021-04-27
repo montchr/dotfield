@@ -9,8 +9,7 @@ let
   cfg = config.my.modules.vim;
   home = config.my.user.home;
   tailwind-lsp = pkgs.callPackage ../../pkgs/tailwind.nix { };
-in
-{
+in {
   options = with lib; {
     my.modules.vim = {
       enable = mkEnableOption ''
@@ -38,41 +37,42 @@ in
         MANPAGER = "$EDITOR +Man!";
       };
 
-      environment.shellAliases.e = "NVIM_LISTEN_ADDRESS=/tmp/nvimsocket $EDITOR";
+      environment.shellAliases.e =
+        "NVIM_LISTEN_ADDRESS=/tmp/nvimsocket $EDITOR";
 
       my.user = {
-        packages = with pkgs; [
-          fzf
-          par
-          fd
-          ripgrep
-          # editorconfig-checker # do I use it?
-          proselint # ???
-          nixpkgs-fmt
-          vim-vint
-          shellcheck
-          shfmt # Doesn't work with zsh, only sh & bash
-          nodePackages.neovim
-          nodePackages.prettier
-          nodePackages.bash-language-server
-          nodePackages.dockerfile-language-server-nodejs
-          nodePackages.typescript-language-server
-          nodePackages.vim-language-server
-          nodePackages.vscode-json-languageserver
-          nodePackages.pyright
-          nodePackages.yaml-language-server
-          # nodePackages.lua-fmt
-          nodePackages.vscode-css-languageserver-bin
-          tailwind-lsp
-          (writeScriptBin "tailwindlsp" ''
-            #!/usr/bin/env sh
-            node ${tailwind-lsp}/share/vscode/extensions/bradlc.vscode-tailwindcss/dist/server/index.js --stdio
-          '')
-          rnix-lsp
-          # neuron-notes
-        ] ++ (lib.optionals (!pkgs.stdenv.isDarwin) [
-          sumneko-lua-language-server
-        ]);
+        packages = with pkgs;
+          [
+            fzf
+            par
+            fd
+            ripgrep
+            # editorconfig-checker # do I use it?
+            proselint # ???
+            nixpkgs-fmt
+            vim-vint
+            shellcheck
+            shfmt # Doesn't work with zsh, only sh & bash
+            nodePackages.neovim
+            nodePackages.prettier
+            nodePackages.bash-language-server
+            nodePackages.dockerfile-language-server-nodejs
+            nodePackages.typescript-language-server
+            nodePackages.vim-language-server
+            nodePackages.vscode-json-languageserver
+            nodePackages.pyright
+            nodePackages.yaml-language-server
+            # nodePackages.lua-fmt
+            nodePackages.vscode-css-languageserver-bin
+            tailwind-lsp
+            (writeScriptBin "tailwindlsp" ''
+              #!/usr/bin/env sh
+              node ${tailwind-lsp}/share/vscode/extensions/bradlc.vscode-tailwindcss/dist/server/index.js --stdio
+            '')
+            rnix-lsp
+            # neuron-notes
+          ] ++ (lib.optionals (!pkgs.stdenv.isDarwin)
+            [ sumneko-lua-language-server ]);
       };
 
       system.activationScripts.postUserActivation.text = ''

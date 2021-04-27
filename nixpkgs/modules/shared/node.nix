@@ -5,8 +5,7 @@ let
   dotfield = config.my.dotfield;
   cfg = config.my.modules.node;
 
-in
-{
+in {
   options = with lib; {
     my.modules.node = {
       enable = mkEnableOption ''
@@ -45,7 +44,8 @@ in
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
-              ${builtins.readFile ${dotfield.configDir}/npm/npmrc}
+              ${builtins.readFile builtins.toPath /.
+              "${dotfield.configDir}/npm/npmrc"}
             '';
           };
         };

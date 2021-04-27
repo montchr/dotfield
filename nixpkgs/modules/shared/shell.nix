@@ -12,16 +12,15 @@ let
   home = config.my.user.home;
 
   cfg = config.my.modules.shell;
-  cfgDir = ${dotfield.configDir}/zsh;
+  cfgDir = "${dotfield.configDir}/zsh";
 
   # z = pkgs.callPackage ../../pkgs/z.nix { source = inputs.z; };
   # lookatme = pkgs.callPackage ../../pkgs/lookatme.nix { source = inputs.lookatme; };
-  local_zshrc = "${cfgDir}/zshrc.local";
+  local_zshrc = builtins.toPath /. "${cfgDir}/zshrc.local";
 
   # TODO: necessary? coreutils should certainly exist already
   darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
-in
-{
+in {
   options = with lib; {
     my.modules.shell = {
       enable = mkEnableOption ''
@@ -152,7 +151,7 @@ in
             configFile = {
               ".config/zsh" = {
                 recursive = true;
-                source = cfgDir;
+                source = builtins.toPath /. cfgDir;
               };
             };
 
@@ -163,7 +162,9 @@ in
             #     source = ${dotfield.configDir}/terminfo;
             #   };
             # }
-          }
+
+          };
+
         };
 
         programs.zsh = {
@@ -173,13 +174,12 @@ in
           enableGlobalCompInit = false;
 
           # zshenv
-          shellInit = builtins.readFile ${configDir}/zshenv;
+          shellInit =
+            builtins.readFile builtins.toPath /. "${configDir}/zshenv";
 
           # zshrc
           interactiveShellInit = lib.concatStringsSep "\n"
-            (map builtins.readFile [
-              ${configDir}/zshrc
-            ]);
+            (map builtins.readFile builtins.toPath /. [ "${configDir}/zshrc" ]);
 
           promptInit = "";
         };
