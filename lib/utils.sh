@@ -983,10 +983,8 @@ function fetch::file {
   local url="$2"
   if shell::has curl; then
     curl --silent -o "${target}" "${url}"
-    return $?
   elif shell::has wget; then
     wget -qO "${target}" "${url}" &>/dev/null
-    return $?
   else
     return 1
   fi
