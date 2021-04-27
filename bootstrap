@@ -623,6 +623,7 @@ guard::install && guard::macos {
     nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
 
       msg::error "Encountered an error installing nix-darwin"
+      cert_file="/etc/ssl/certs/ca-certificates.crt"
 
       msg::stream::info \
 <<END
@@ -632,6 +633,7 @@ If you received a message like this:
 > Problem with the SSL CA cert (path? access rights?) (77)
 
 ...then '${cert_file}' might be a dead symlink.
+
 Try removing and re-linking it by running the following:
 
 $ sudo rm ${cert_file}
