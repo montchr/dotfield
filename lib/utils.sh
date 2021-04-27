@@ -30,15 +30,17 @@
 #                                              #
 # 4. Filesystem           ::        [[ fs ]]   #
 #                                              #
-# 5. Repositories         ::      [[ repo ]]   #
+# 5. Download/Fetch       ::     [[ fetch ]]   #
 #                                              #
-# 6. Guardians            ::     [[ guard ]]   #
+# 6. Repositories         ::      [[ repo ]]   #
 #                                              #
-# 7. User Management      ::      [[ repo ]]   #
+# 7. Guardians            ::     [[ guard ]]   #
 #                                              #
-# 8. Package Management   ::       [[ pkg ]]   #
+# 8. User Management      ::      [[ repo ]]   #
 #                                              #
-#    8a. Debian/Ubuntu    --  [[ pkg::apt ]]   #
+# 9. Package Management   ::       [[ pkg ]]   #
+#                                              #
+#    9a. Debian/Ubuntu    --  [[ pkg::apt ]]   #
 #                                              #
 #==============================================#
 
@@ -938,19 +940,56 @@ function fs::map_lines {
 }
 
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   FETCH/DOWNLOAD  [[ fetch ]]
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
 #========================================
-# Download a remote file, linking it to the current user's bin directory.
+# Download a remote file to the current user's bin directory.
 #
 # Usage:
-#   fs::download_bin <name> <URL>
+#   fetch::to_bin <url> [name]
+# Globals:
+#   HOME
+#   XDG_BIN_HOME
 # Parameters:
-#   Executable name
+#   Source URL
+#   Executable name. Optional.
+#========================================
+function fetch::to_bin {
+  local url="$1"
+  local name="${2:-}"
+  [[ -z "${name}" ]] \
+    && name="$(basename "${url}")"
+  local target="${XDG_BIN_HOME:-${${HOME}/.local/bin}}/${name}"
+  fetch::file "${target}" "${url}"
+}
+
+
+#========================================
+# Download a remote file and make it executable.
+#
+# Usage:
+#   fetch::file <path> <URL>
+# Parameters:
+#   Path to target file
 #   Source URL
 #========================================
-function fs::download_bin {
-  local target="${XDG_BIN_HOME:-${${HOME}/.local/bin}}/${1}"
-  local src="$2"
-  curl --silent -o "${target}" "${src}"
+function fetch::file {
+  local target="$1"
+  local url="$2"
+  if shell::has curl; then
+    curl --silent -o "${target}" "${url}"
+    return $?
+  elif shell::has wget; then
+    wget -qO "${target}" "${url}" &>/dev/null
+    return $?
+  else
+    return 1
+  fi
   chmod a+x "${target}"
   hash -r
 }
@@ -1020,6 +1059,46 @@ function repo::get_forge_id {
     gl|gitlab) echo "gl" ;;
     srht|sourcehut) echo "srht" ;;
   esac
+}
+
+
+#========================================
+# Get a qualified raw URL for a file in a remote repo.
+#
+# Usage:
+#   repo::qualify_raw_url <forge> <repo_id> <branch> <path>
+# Parameters:
+#   Forge ID
+#   Repo ID
+#   Branch
+#   Relative path
+#========================================
+function repo::qualify_raw_url {
+  local forge="$1"
+  local repo_id="$2"
+  local branch="$3"
+  local path="$4"
+
+  case $forge in
+    gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
+    gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
+    srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
+  esac
+
+  printf "%s" "$_"
+}
+
+
+function repo::pluck {
+  local forge="$1"
+  local repo_id="$2"
+  local remote_path="$3"
+  local target="$4"
+  local branch="${5:-main}"
+
+  local repo_url
+  repo_url="$(repo::qualify_raw_url "${forge}" "${repo_id}" "${branch}" "${remote_path}")"
+  download::fetch "${target}" "${repo_url}"
 }
 
 # Synchronize a repository.

@@ -45,6 +45,7 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
 
 : "${DOTFIELD:=${HOME}/.config}"
 : "${XDG_CONFIG_HOME:=${DOTFIELD}}"
+: "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
 export \
   DOTFIELD \
@@ -58,6 +59,7 @@ export \
   HOSTNAME \
   QUERENT \
   REPO_ID \
+  XDG_BIN_HOME \
   XDG_CONFIG_HOME
 
 
@@ -69,28 +71,30 @@ export \
 
 
 #========================================
-# Download file from a URL.
+# Download a remote file and make it executable.
+#
+# Copied from fetch::file in lib/utils.sh for bootstrapping.
 #
 # Usage:
-#   download <url> <dest-path>
-# Arguments:
-#   URL
-#   Destination path
-# Returns:
-#   0 - Download succeeded.
-#   1 - Download failed.
+#   fetch::file <path> <URL>
+# Parameters:
+#   Path to target file
+#   Source URL
 #========================================
-function download {
-  local url="$1"
-  local output="$2"
-  if command -v "curl" &>/dev/null; then
-    curl -LsSo "$output" "$url" &>/dev/null
+function fetch::file {
+  local target="$1"
+  local url="$2"
+  if shell::has curl; then
+    curl --silent -o "${target}" "${url}"
     return $?
-  elif command -v "wget" &>/dev/null; then
-    wget -qO "$output" "$url" &>/dev/null
+  elif shell::has wget; then
+    wget -qO "${target}" "${url}" &>/dev/null
     return $?
+  else
+    return 1
   fi
-  return 1
+  chmod a+x "${target}"
+  hash -r
 }
 
 
@@ -101,36 +105,20 @@ function download {
 #   source_ephemeral <relative-path> [local-base]
 # Arguments:
 #   Relative path to file
-#   Local mirror base directory
 # Returns:
 #   0 - Sourcing succeeded.
 #   1 - Sourcing failed.
 #========================================
 function source_ephemeral {
   local path="$1"
-  local local_mirror="${2-}"
   local filename
   local tmp_file=""
   local src_file=""
 
-  if [[ -f "${path}" ]]; then
-    # shellcheck disable=1090
-    . "${path}" \
-      && return
-  fi
-
   filename="$(basename "${path}")"
   tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
 
-  if [[ -n "${local_mirror}" ]]; then
-    src_file="${local_mirror}/${path}"
-    echo "$src_file -> ${tmp_file}"
-    cp -f "${src_file}" "${tmp_file}"
-  else
-    src_file="${DOTFIELD_RAW_BASE_URL}/${path}"
-    echo "$src_file -> ${tmp_file}"
-    download "${src_file}" "${tmp_file}"
-  fi
+  download::fetch "${src_file}" "${tmp_file}"
 
   # shellcheck disable=1090
   . "${tmp_file}"
@@ -352,7 +340,13 @@ END
 
 else
 
-source_ephemeral "lib/utils.sh" "${DOTFIELD_TEST_BASE:-}"
+utils_path="lib/utils.sh"
+filename="$(basename "${utils_path}")"
+tmp_file="$(mktemp "utils.XXXX")"
+fetch::file "${tmp_file}" "${DOTFIELD_RAW_BASE_URL}/${utils_path}"
+# shellcheck disable=1090
+. "${tmp_file}"
+
 msg::stream::story <<END
 This world is beautiful, but dark.
 
@@ -363,9 +357,14 @@ END
 fi
 
 
+shell::has pfetch || {
+  msg::domain "System" "Summoning pfetch"
+  fetch::to_bin "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
+}
+
+
 msg::domain "System" "Verifying system state"
-# shellcheck source=./vendor/pfetch/pfetch
-"${XDG_CONFIG_HOME}/vendor/pfetch/pfetch"
+pfetch || "${XDG_BIN_HOME}/pfetch" || exit 1
 
 
 # Ensure the OS is supported and above the minimum version.
