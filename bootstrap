@@ -648,20 +648,8 @@ END
     msg::subdomain "Running nix-darwin installer"
     ./result/bin/darwin-installer
 
-    # TODO: may no longer be necessary if the nix-darwin installer is run properly
-    # if [[ ! -d /run ]]; then
-    #   msg::warning "Directory '/run' does not exist, but multi-user Nix requires it."
-    #   msg::warning "Checking for mapping in /etc/synthetic.conf..."
-    #   if grep "^run\sprivate\/var\/run$" /etc/synthetic.conf; then
-    #     msg::error "Mapping exists! I gave it my best shot. Something else is wrong. Aborting."
-    #     exit 1
-    #   fi
-    #   msg::warning "Mapping /run to /private/var/run..."
-    #   printf "%b" "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf || exit 1
-    #   # TODO: the following command doesn't appear to work on Big Sur
-    #   /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B &>/dev/null
-    #   /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t &>/dev/null
-    # fi
+    msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
+    . /etc/static/bashrc
 
 }
 
@@ -693,8 +681,6 @@ fs::ensure_dir "$HOME/org/roam"
 
 guard::domain "Repo" "Sync repos from Repofiles" && {
   fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
-  # @TODO file doesn't exist. what's this for?
-  fs::map_lines repo::sync "${XDG_CACHE_HOME}/dotfield/Repofile" || true
 }
 
 
