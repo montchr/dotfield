@@ -1,2 +1,1 @@
-config ~/.zinit/plugins/_local---config
-zshenv ~/.zshenv
+config ${XDG_DATA_HOME}/zinit/plugins/_local---config
