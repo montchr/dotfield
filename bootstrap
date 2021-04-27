@@ -619,10 +619,35 @@ guard::install && guard::macos {
     # does not. In order to install nix-darwin properly, it needs to be
     # installed for the first time via the installer.
     # See: https://github.com/LnL7/nix-darwin#flakes-experimental
-    msg::subdomain "Running nix-darwin installer"
-    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-    ./result/bin/darwin-installer
+    msg::subdomain "Building nix-darwin installer"
+    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
 
+      msg::error "Encountered an error installing nix-darwin"
+
+      cert_file="/etc/ssl/certs/ca-certificates.crt"
+      if [[ -h "${cert_file}" ]]
+      then
+
+        msg::stream::info \
+<<END
+If you received a message like this:
+
+    Problem with the SSL CA cert (path? access rights?) (77)
+
+...then '${cert_file}' might be a dead symlink.
+Try removing and re-linking it by running the following:
+
+sudo rm ${cert_file}
+sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
+END
+
+      else
+        exit 1
+      fi
+    }
+
+    msg::subdomain "Running nix-darwin installer"
+    ./result/bin/darwin-installer
 
     # TODO: may no longer be necessary if the nix-darwin installer is run properly
     # if [[ ! -d /run ]]; then
