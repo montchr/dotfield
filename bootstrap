@@ -75,6 +75,24 @@ export \
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
+#======================================
+# Check for the existence of a command in the current shell environment.
+#
+# Copied from lib/utils.sh for bootstrapping
+#
+# Usage:
+#   shell::has <command>...
+#
+# Arguments:
+#   Commands...
+#========================================
+function shell::has {
+  for cmd in "$@"; do
+    command -v "${cmd}" >/dev/null 2>&1
+  done
+}
+
+
 #========================================
 # Download a remote file and make it executable.
 #
@@ -123,7 +141,7 @@ function source_ephemeral {
   filename="$(basename "${path}")"
   tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
 
-  download::fetch "${src_file}" "${tmp_file}"
+  fetch::file "${src_file}" "${tmp_file}"
 
   # shellcheck disable=1090
   . "${tmp_file}"
@@ -191,6 +209,9 @@ function verify_os {
 #   ALL
 #   GUARD_<DOMAIN>
 #   GUARD_IGNORE_<DOMAIN>
+# Uses:
+#   msg::domain__lesser
+#   msg::domain__inactive
 # Parameters:
 #   Domain name. Used for message prefix and uppercased nameref.
 #   Message.
