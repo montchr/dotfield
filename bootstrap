@@ -461,7 +461,7 @@ fi
 
 shell::has pfetch || {
   msg::domain "System" "Summoning pfetch"
-  fetch::to_bin "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
+  fetch::to_bin pfetch "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
 }
 
 
