@@ -963,20 +963,18 @@ function fs::map_lines {
 # Download a remote file to the current user's bin directory.
 #
 # Usage:
-#   fetch::to_bin <url> [name]
+#   fetch::to_bin <name> <url>
 # Globals:
 #   HOME
 #   XDG_BIN_HOME
 # Parameters:
+#   Filename
 #   Source URL
-#   Executable name. Optional.
 #========================================
 function fetch::to_bin {
-  local url="$1"
-  local name="${2:-}"
-  [[ -z "${name}" ]] \
-    && name="$(basename "${url}")"
-  local target="${XDG_BIN_HOME:-${${HOME}/.local/bin}}/${name}"
+  local name="$1"
+  local url="$2"
+  local target="${XDG_BIN_HOME:-${HOME}/.local/bin}/${name}"
   fetch::file "${target}" "${url}"
 }
 
