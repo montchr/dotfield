@@ -66,7 +66,7 @@
     };
 
     # pragmatapro = {
-    #   url = "sourcehut:montchr/pragmatapro";
+    #   url = "sourcehut:montchr/pragmata-pro";
     #   flake = false;
     # };
 
@@ -77,7 +77,7 @@
   outputs = { self, ... }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
-        nix = {
+        dotfield = {
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
             "darwin=${inputs.darwin}"
@@ -121,7 +121,7 @@
 
     in {
       overlay = (final: prev: {
-        # pragmatapro = (prev.callPackage ./nix/pkgs/pragmatapro.nix { });
+        # pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
         comma = import inputs.comma { inherit (prev) pkgs; };
       });
 
@@ -130,9 +130,9 @@
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
-            ./nix/modules/shared
+            ./dotfield/modules/shared
             sharedHostsConfig
-            ./nix/hosts/hodgepodge.nix
+            ./dotfield/hosts/hodgepodge.nix
           ];
         };
 
@@ -140,9 +140,9 @@
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
-            ./nix/modules/shared
+            ./dotfield/modules/shared
             sharedHostsConfig
-            ./nix/hosts/alleymon.nix
+            ./dotfield/hosts/alleymon.nix
           ];
         };
       };
