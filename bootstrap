@@ -625,9 +625,6 @@ guard::install && {
 }
 
 
-msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}/nixpkgs"
-cd "${XDG_CONFIG_HOME}/nixpkgs" || exit 1
-
 guard::install && guard::macos {
   msg::domain "Nix" "Install nix-darwin" && {
 
