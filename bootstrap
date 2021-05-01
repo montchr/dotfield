@@ -760,12 +760,11 @@ guard::install && {
     # This seems to be a false positive. Regardless, we've already checked for
     # a dirty working tree so nothing should be lost at this point.
     transcrypt --yes --force --import-gpg="${XDG_CONFIG_HOME}/.transcrypt" || {
-      msg::error "Something went wrong!"
-      exit 1
+      msg::warning "Decryption failed. Have we been her before?"
     }
   else
     msg::error "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
-    exit 1
+    shell::is_interactive && exit 1
   fi
 }
 
