@@ -65,7 +65,7 @@ export \
   TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
 
 export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
-
+export HOMEBREW_BUNDLE_NO_LOCK=true
 
 # - - - - - - - - - - - - - - - - - - - -
 # Local Configuration + Identity
