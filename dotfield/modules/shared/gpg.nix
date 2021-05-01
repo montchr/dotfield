@@ -15,7 +15,6 @@ in {
         enable = mkEnableOption ''
           Whether to enable gpg module
         '';
-        cacheTTL = mkOpt int 3600; # 1hr
       };
     };
 
