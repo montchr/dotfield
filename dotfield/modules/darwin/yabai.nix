@@ -40,7 +40,7 @@
     };
 
     extraConfig.text = ''
-      ${XDG_BIN_HOME}/yabai-set-padding 12
+      $XDG_BIN_HOME/yabai-set-padding 12
 
       yabai -m space 1 --label 'task'
       yabai -m space 2 --label 'inspect' && yabai -m space 2
