@@ -77,7 +77,7 @@
   outputs = { self, ... }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
-        dotfield = {
+        nix = {
           nixPath = [
             "nixpkgs=${inputs.nixpkgs}"
             "darwin=${inputs.darwin}"
