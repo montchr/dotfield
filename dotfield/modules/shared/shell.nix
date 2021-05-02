@@ -8,7 +8,7 @@
 { pkgs, lib, config, inputs, options, ... }:
 
 let
-  dotfield = config.my.dotfield;
+  dotfield = config.dotfield;
   home = config.my.user.home;
 
   cfg = config.my.modules.shell;

@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.python;
-  dotfield = config.my.dotfield;
+  dotfield = config.dotfield;
 
 in {
   options = with lib; {

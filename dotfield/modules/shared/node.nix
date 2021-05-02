@@ -2,7 +2,7 @@
 
 let
 
-  dotfield = config.my.dotfield;
+  dotfield = config.dotfield;
   cfg = config.my.modules.node;
 
 in {

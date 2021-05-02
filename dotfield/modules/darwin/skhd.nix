@@ -2,7 +2,7 @@
 
 let
 
-  cfgDir = "${config.my.dotfield.configDir}/skhd";
+  cfgDir = "${config.dotfield.configDir}/skhd";
 
 in {
   home-manager.services.skhd = {

@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  dotfield = config.my.dotfield;
+  dotfield = config.dotfield;
 
   cfg = config.my.modules.git;
   cfgDir = "${dotfield.configDir}/git";

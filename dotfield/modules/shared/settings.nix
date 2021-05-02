@@ -34,10 +34,10 @@ in {
         "${config.my.user.home}/.config/dotfield"
         "/etc/dotfield"
       ]);
-      binDir = mkOpt t "${my.dotfield.dir}/bin";
-      configDir = mkOpt t "${my.dotfield.dir}/config";
-      modulesDir = mkOpt t "${my.dotfield.dir}/modules";
-      themesDir = mkOpt t "${my.dotfield.modulesDir}/themes";
+      binDir = mkOpt t "${dotfield.dir}/bin";
+      configDir = mkOpt t "${dotfield.dir}/config";
+      modulesDir = mkOpt t "${dotfield.dir}/modules";
+      themesDir = mkOpt t "${dotfield.modulesDir}/themes";
     };
 
     my = {
@@ -49,7 +49,7 @@ in {
       email = mkOptStr "chris@cdom.io";
       terminal = mkOptStr "kitty";
       nix_managed = mkOptStr
-        "DO NOT EDIT! - managed by Nix - see source inside ${my.dotfield.dir}";
+        "DO NOT EDIT! - managed by Nix - see source inside ${dotfield.dir}";
       user = mkOption { type = options.users.users.type.functor.wrapped; };
 
       # TODO: consider renaming to `home`

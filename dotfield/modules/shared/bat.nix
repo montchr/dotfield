@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.bat;
-  cfgDir = "${config.my.dotfield.configDir}/bat";
+  cfgDir = "${config.dotfield.configDir}/bat";
 
 in {
   options = with lib; {

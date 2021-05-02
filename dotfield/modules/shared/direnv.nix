@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.direnv;
-  cfgDir = "${config.my.dotfield.configDir}/direnv";
+  cfgDir = "${config.dotfield.configDir}/direnv";
 
 in {
   options = with lib; {
