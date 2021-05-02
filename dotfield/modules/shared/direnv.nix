@@ -7,7 +7,7 @@ let
 
 in {
   options = with lib; {
-    my.modules.ripgrep = {
+    my.modules.direnv = {
       enable = mkEnableOption ''
         Whether to enable direnv module
       '';
