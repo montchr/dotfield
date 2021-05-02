@@ -73,8 +73,7 @@ in {
               direnv
               nix-zsh-completions
               zsh
-              # TODO: use z.lua or something else
-              # z
+              z-lua
               rsync
             ];
         };
