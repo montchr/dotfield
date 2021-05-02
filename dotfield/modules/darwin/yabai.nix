@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services.yabai = {
     enable = true;
     package = pkgs.yabai;

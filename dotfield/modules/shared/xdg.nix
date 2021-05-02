@@ -6,11 +6,8 @@
 # See:
 #   - https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/modules/xdg.nix
 
-{ config, home-manager, lib, ... }:
-{
-  home-manager.users.${config.my.username} = {
-    xdg.enable = true;
-  };
+{ config, home-manager, lib, ... }: {
+  home-manager.users.${config.my.username} = { xdg.enable = true; };
 
   environment = {
     variables = {
