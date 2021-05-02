@@ -164,7 +164,8 @@ in {
           enable = true;
           enableCompletion = true;
           # Let zinit handle the zsh things.
-          enableGlobalCompInit = false;
+          # TODO: this doesn't exist in nix-darwin. is it necessary?
+          # enableGlobalCompInit = false;
 
           # zshenv
           shellInit =
