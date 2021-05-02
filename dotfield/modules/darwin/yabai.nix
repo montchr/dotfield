@@ -1,8 +1,8 @@
-{ config, home-manager, ... }:
-
+{ config, pkgs, ... }:
 {
-  home-manager.services.yabai = {
+  services.yabai = {
     enable = true;
+    package = pkgs.yabai;
     enableScriptingAddition = true;
 
     config = {
