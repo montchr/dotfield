@@ -74,12 +74,20 @@ in {
 
   config = {
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
+
     my.user = {
       home = if pkgs.stdenv.isDarwin then
         "/Users/${config.my.username}"
       else
         "/home/${config.my.username}";
       description = "Primary user account";
+    };
+
+    environment = {
+      variables = {
+        DOTFIELD = config.dotfield.dir;
+        DOTFIELD_BIN = config.dotfield.binDir;
+      };
     };
 
     home-manager = {
