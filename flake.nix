@@ -155,18 +155,5 @@
       HodgePodge = self.darwinConfigurations.hodgepodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 
-      # [todo] very alpha, needs work
-      # nixosConfigurations = {
-      #   "nixos" = inputs.nixpkgs.lib.nixosSystem {
-      #     system = "x86_64-linux";
-      #     specialArgs = { inherit inputs; };
-      #     modules = [
-      #       inputs.home-manager.nixosModules.home-manager
-      #       ./nix/modules/shared
-      #       sharedHostsConfig
-      #       ./nix/hosts/nixos
-      #     ];
-      #   };
-      # };
     };
 }

@@ -28,6 +28,18 @@ let
 
 in {
   options = with types; {
+    dotfield = let t = either str path;
+    in {
+      dir = mkOpt t (findFirst pathExists (toString ../.) [
+        "${config.my.user.home}/.config/dotfield"
+        "/etc/dotfield"
+      ]);
+      binDir = mkOpt t "${my.dotfield.dir}/bin";
+      configDir = mkOpt t "${my.dotfield.dir}/config";
+      modulesDir = mkOpt t "${my.dotfield.dir}/modules";
+      themesDir = mkOpt t "${my.dotfield.modulesDir}/themes";
+    };
+
     my = {
       name = mkOptStr "Chris Montgomery";
       timezone = mkOptStr "America/New_York";
@@ -39,30 +51,14 @@ in {
       nix_managed = mkOptStr
         "DO NOT EDIT! - managed by Nix - see source inside ${my.dotfield.dir}";
       user = mkOption { type = options.users.users.type.functor.wrapped; };
+
       # TODO: consider renaming to `home`
       hm = {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       };
-      xdg = let t = either str path;
-      in {
-        cache = mkOpt t "${my.user.home}/.cache";
-        config = mkOpt t "${my.user.home}/.config";
-        data = mkOpt t "${my.user.home}/.local/share";
-        bin = mkOpt t "${my.user.home}/.local/bin";
-      };
-      dotfield = let t = either str path;
-      in {
-        dir = mkOpt t (findFirst pathExists (toString ../.) [
-          "${my.xdg.config}/dotfiles"
-          "/etc/dotfiles"
-        ]);
-        binDir = mkOpt t "${my.dotfield.dir}/bin";
-        configDir = mkOpt t "${my.dotfield.dir}/config";
-        modulesDir = mkOpt t "${my.dotfield.dir}/modules";
-        themesDir = mkOpt t "${my.dotfield.modulesDir}/themes";
-      };
+
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
         apply = mapAttrs (n: v:
@@ -89,39 +85,38 @@ in {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-    };
 
-    # I only need a subset of home-manager's capabilities. That is, access to
-    # its home.file, home.xdg.configFile and home.xdg.dataFile so I can deploy
-    # files easily to my $HOME, but 'home-manager.users.${config.my.username}.home.file.*'
-    # is much too long and harder to maintain, so I've made aliases in:
-    #
-    #   my.hm.file        ->  home-manager.users.cdom.home.file
-    #   my.hm.configFile  ->  home-manager.users.cdom.home.xdg.configFile
-    #   my.hm.dataFile    ->  home-manager.users.cdom.home.xdg.dataFile
-    #
-    # See:
-    #   - https://github.com/ahmedelgabri/dotfiles/blob/c2da02d042275ccc476812f79298f0453c2a5263/nix/modules/shared/settings.nix
-    #   - https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/modules/options.nix
-    home-manager.users.${config.my.username} = {
-      xdg = {
-        enable = true;
-        configFile = mkAliasDefinitions options.my.hm.configFile;
-        dataFile = mkAliasDefinitions options.my.hm.dataFile;
-      };
+      # I only need a subset of home-manager's capabilities. That is, access to
+      # its home.file, home.xdg.configFile and home.xdg.dataFile so I can deploy
+      # files easily to my $HOME, but 'home-manager.users.${config.my.username}.home.file.*'
+      # is much too long and harder to maintain, so I've made aliases in:
+      #
+      #   my.hm.file        ->  home-manager.users.cdom.home.file
+      #   my.hm.configFile  ->  home-manager.users.cdom.home.xdg.configFile
+      #   my.hm.dataFile    ->  home-manager.users.cdom.home.xdg.dataFile
+      #
+      # See:
+      #   - https://github.com/ahmedelgabri/dotfiles/blob/c2da02d042275ccc476812f79298f0453c2a5263/nix/modules/shared/settings.nix
+      #   - https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/modules/options.nix
+      users.${config.my.username} = {
+        home = {
+          # Necessary for home-manager to work with flakes, otherwise it will
+          # look for a nixpkgs channel.
+          stateVersion =
+            if pkgs.stdenv.isDarwin then "21.05" else config.system.stateVersion;
+          username = config.my.username;
+          file = mkAliasDefinitions options.my.hm.file;
+        };
 
-      home = {
-        # Necessary for home-manager to work with flakes, otherwise it will
-        # look for a nixpkgs channel.
-        stateVersion =
-          if pkgs.stdenv.isDarwin then "21.05" else config.system.stateVersion;
-        username = config.my.username;
-        file = mkAliasDefinitions options.my.hm.file;
-      };
+        xdg = {
+          configFile = mkAliasDefinitions options.my.hm.configFile;
+          dataFile = mkAliasDefinitions options.my.hm.dataFile;
+        };
 
-      programs = {
-        # Let Home Manager install and manage itself.
-        home-manager.enable = true;
+        programs = {
+          # Let Home Manager install and manage itself.
+          home-manager.enable = true;
+        };
       };
     };
 

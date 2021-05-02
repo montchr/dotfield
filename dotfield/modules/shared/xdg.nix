@@ -12,8 +12,7 @@ let
   xdg = config.my.xdg;
 
 in {
-  # TODO: handled in settings.nix -- move those to this file?
-  # home-manager.users.${config.user.name}.xdg.enable = true;
+  home-manager.users.${config.user.name}.xdg.enable = true;
 
   environment = {
 
@@ -28,6 +27,9 @@ in {
     };
 
     variables = {
+      DOTFIELD = config.dotfield.dir;
+      DOTFIELD_BIN = config.dotfield.binDir;
+
       # Conform more programs to XDG conventions. The rest are handled by their
       # respective modules.
       #
@@ -44,11 +46,5 @@ in {
       LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     };
-
-    # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
-    # extraInit = ''
-    #   export XAUTHORITY=/tmp/Xauthority
-    #   [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
-    # '';
   };
 }
