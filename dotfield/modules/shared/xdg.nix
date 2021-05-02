@@ -8,7 +8,7 @@
 
 { config, home-manager, lib, ... }:
 {
-  home-manager.users.${config.user.name} = {
+  home-manager.users.${config.my.username} = {
     xdg.enable = true;
   };
 

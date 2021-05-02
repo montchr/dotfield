@@ -29,7 +29,7 @@ in {
             nodejs # LTS
             nodePackages.npm
             (yarn.override { inherit nodejs; })
-            dePackages.svgo
+            nodePackages.svgo
           ];
         };
 

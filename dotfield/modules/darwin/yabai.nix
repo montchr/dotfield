@@ -39,7 +39,7 @@
 
     };
 
-    extraConfig.text = ''
+    extraConfig = ''
       $XDG_BIN_HOME/yabai-set-padding 12
 
       yabai -m space 1 --label 'task'

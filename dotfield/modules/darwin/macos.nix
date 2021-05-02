@@ -88,8 +88,8 @@ in {
 
           # Firewall
           alf = {
-            allowdownloadsignedenabled = null;
-            allowsignedenabled = true;
+            allowdownloadsignedenabled = 0;
+            allowsignedenabled = 1;
             globalstate = 0;
             loggingenabled = 0;
             stealthenabled = 0;
@@ -136,8 +136,9 @@ in {
             ShutDownDisabled = false;
             ShutDownDisabledWhileLoggedIn = false;
             SleepDisabled = true;
-            # Absolutely not.
-            autoLoginUser = false;
+            # Documenting that this option exists, but we shouldn't use it.
+            # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.loginwindow.autoLoginUser
+            # autoLoginUser = false;
           };
 
           # The filesystem path to which screencaptures should be written.
@@ -164,7 +165,8 @@ in {
         keyboard = {
           enableKeyMapping = true;
           # Whether to remap the Tilde key on non-us keyboards.
-          remapTilde = false;
+          # TODO: `nix build` says this doesn't exist!
+          # remapTilde = false;
           remapCapsLockToControl = true;
           # remapCapsLockToEscape = false;
         };
