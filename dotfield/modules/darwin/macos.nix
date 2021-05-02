@@ -57,28 +57,28 @@ in {
             # Whether to autohide the menu bar.  The default is false.
             # _HIHideMenuBar = true;
             # Use F1, F2, etc. keys as standard function keys.
-            com.apple.keyboard.fnState = false;
+            "com.apple.keyboard.fnState" = false;
             # Configures the trackpad tap behavior. Mode 1 enables tap to click.
-            com.apple.mouse.tapBehavior = 1;
+            "com.apple.mouse.tapBehavior" = 1;
             # Apple menu > System Preferences > Sound Make a feedback sound when
             # the system volume changed. This setting accepts the integers 0 or
             # 1. Defaults to 1.
-            com.apple.sound.beep.feedback = 0;
+            "com.apple.sound.beep.feedback" = 0;
             # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.sound.beep.volume
-            # com.apple.sound.beep.volume = null;
+            # "com.apple.sound.beep.volume" = null;
             # Set the spring loading delay for directories. The default is the float `1.0`.
-            com.apple.springing.delay = 0;
+            "com.apple.springing.delay" = 0;
             # Whether to enable spring loading (expose) for directories.
-            com.apple.springing.enabled = true;
+            "com.apple.springing.enabled" = true;
             # Whether to enable "Natural" scrolling direction. The default is true.
-            com.apple.swipescrolldirection = false;
+            "com.apple.swipescrolldirection" = false;
             # Whether to enable trackpad secondary click. The default is true.
-            com.apple.trackpad.enableSecondaryClick = true;
+            "com.apple.trackpad.enableSecondaryClick" = true;
             # Configures the trackpad tracking speed (0 to 3). The default is "1".
-            com.apple.trackpad.scaling = 1;
+            "com.apple.trackpad.scaling" = 1;
             # Configures the trackpad corner click behavior. Mode 1 enables right click.
             # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.trackpad.trackpadCornerClickBehavior
-            com.apple.trackpad.trackpadCornerClickBehavior = null;
+            "com.apple.trackpad.trackpadCornerClickBehavior" = null;
           };
 
           # Prevent incessant nagging when opening downloaded apps.
