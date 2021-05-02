@@ -8,9 +8,8 @@
 
 { config, home-manager, lib, ... }:
 {
-  home-manager.users.${config.user.name}.xdg.enable = true;
-
-  config = {
+  home-manager.users.${config.user.name} = {
+    xdg.enable = true;
     home.sessionVariables = {
       # These are the defaults, and xdg.enable does set them, but due to load
       # order, they're not set before environment.variables are set, which could
