@@ -7,11 +7,7 @@
 #   - https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/modules/xdg.nix
 
 { config, home-manager, lib, ... }:
-let
-
-  xdg = config.my.xdg;
-
-in {
+{
   home-manager.users.${config.user.name}.xdg.enable = true;
 
   environment = {
