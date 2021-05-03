@@ -30,10 +30,12 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in {
-      dir = mkOpt t (findFirst pathExists (toString ../.) [
-        "${config.my.user.home}/.config/dotfield"
-        "/etc/dotfield"
-      ]);
+      # TODO: does this not work?
+      # dir = mkOpt t (findFirst pathExists (toString ../.) [
+      #   "${config.my.user.home}/.config/dotfield"
+      #   "/etc/dotfield"
+      # ]);
+      dir = mkOpt t "$XDG_CONFIG_HOME/dotfield";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       configDir = mkOpt t "${config.dotfield.dir}/config";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
