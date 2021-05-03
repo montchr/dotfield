@@ -27,6 +27,11 @@ in {
         defaults = {
           # ".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
+          smb = {
+            NetBIOSName = ${config.networking.hostName};
+            ServerDescription = ${config.networking.hostName};
+          };
+
           NSGlobalDomain = {
             AppleFontSmoothing = 0;
             AppleKeyboardUIMode = 3;
