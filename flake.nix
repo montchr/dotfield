@@ -92,11 +92,13 @@
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
           ];
-          # TODO: configure garbage collection
-          # gc = {
-          #   automatic = true;
-          #   options = "--delete-older-than 3d";
-          # };
+          # Auto upgrade nix package and the daemon service.
+          maxJobs = 4;
+          buildCores = 4;
+          gc = {
+            automatic = true;
+            options = "--delete-older-than 3d";
+          };
         };
 
         fonts = (lib.mkMerge [
@@ -126,8 +128,6 @@
       darwinConfigurations = {
         "hodgepodge" = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          # TODO: make DRY
-          system = "x86_64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             ./dotfield/modules/shared
@@ -138,8 +138,6 @@
 
         "alleymon" = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          # TODO: make DRY
-          system = "x86_64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             ./dotfield/modules/shared

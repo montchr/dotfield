@@ -18,11 +18,11 @@ in {
     mkIf cfg.enable {
       my.user = { packages = with pkgs; [ direnv ]; };
 
-      my.hm.configFile = {
-        "direnv" = {
-          recursive = true;
-          source = builtins.toPath /. cfgDir;
-        };
-      };
+      # my.hm.configFile = {
+      #   "direnv" = {
+      #     recursive = true;
+      #     source = builtins.toPath /. cfgDir;
+      #   };
+      # };
     };
 }

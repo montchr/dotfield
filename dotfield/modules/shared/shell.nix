@@ -2,7 +2,7 @@
 # before using nix or even improve it. Simple rules followed here are:
 #
 # - Setup things as early as possible when the shell runs
-# - Inline files when possible instead of souring then
+# - Inline files when possible instead of sourcing then
 # - User specific shell files are to override or for machine specific setup
 
 { pkgs, lib, config, inputs, options, ... }:
@@ -14,9 +14,7 @@ let
   cfg = config.my.modules.shell;
   cfgDir = "${dotfield.configDir}/zsh";
 
-  # z = pkgs.callPackage ../../pkgs/z.nix { source = inputs.z; };
-  # lookatme = pkgs.callPackage ../../pkgs/lookatme.nix { source = inputs.lookatme; };
-  local_zshrc = builtins.toPath /. "${cfgDir}/zshrc.local";
+  # local_zshrc = ./. + "${cfgDir}/zshrc.local";
 
   # TODO: necessary? coreutils should certainly exist already
   darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
@@ -142,9 +140,9 @@ in {
 
           hm = {
             configFile = {
-              ".config/zsh" = {
+              "zsh" = {
                 recursive = true;
-                source = builtins.toPath /. cfgDir;
+                source = builtins.toPath cfgDir;
               };
             };
 
@@ -168,12 +166,14 @@ in {
           # enableGlobalCompInit = false;
 
           # zshenv
-          shellInit =
-            builtins.readFile builtins.toPath /. "${configDir}/zshenv";
+          shellInit = builtins.readFile (builtins.toPath "${cfgDir}/zshenv");
 
           # zshrc
+          # TODO: might not be wise to link to config home while sourcing from here
           interactiveShellInit = lib.concatStringsSep "\n"
-            (map builtins.readFile builtins.toPath /. [ "${configDir}/zshrc" ]);
+            (map builtins.readFile [
+              (builtins.toPath "${cfgDir}/zshrc")
+            ]);
 
           promptInit = "";
         };

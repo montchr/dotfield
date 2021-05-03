@@ -14,10 +14,10 @@ in {
     };
   };
 
-  config = with lib;
-    mkIf cfg.enable {
-      my.hm.file = {
-        ".ssh/config" = { source = builtins.toPath /. "${cfgDir}/config"; };
-      };
-    };
+  # config = with lib;
+  #   mkIf cfg.enable {
+  #     my.hm.file = {
+  #       ".ssh/config" = { source = builtins.toPath /. "${cfgDir}/config"; };
+  #     };
+  #   };
 }

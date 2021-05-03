@@ -20,11 +20,11 @@ in {
 
       my.user = { packages = with pkgs; [ ripgrep ]; };
 
-      my.hm.configFile = {
-        "ripgrep" = {
-          recursive = true;
-          source = builtins.toPath /. cfgDir;
-        };
-      };
+      # my.hm.configFile = {
+      #   "ripgrep" = {
+      #     recursive = true;
+      #     source = builtins.toPath /. cfgDir;
+      #   };
+      # };
     };
 }

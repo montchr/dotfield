@@ -23,7 +23,18 @@ in {
       my.hm.configFile = {
         "bat" = {
           recursive = true;
-          source = builtins.toPath /. cfgDir;
+          text = ''
+            --theme="TwoDark"
+            --style="plain,changes"
+            --italic-text=always
+            --map-syntax '.*ignore:Git Ignore'
+            --map-syntax '.gitconfig.local:Git Config'
+            --map-syntax '**/mx*:Bourne Again Shell (bash)'
+            --map-syntax '**/completions/_*:Bourne Again Shell (bash)'
+            --map-syntax '.zsh*:Bourne Again Shell (bash)'
+            --map-syntax '.vimrc.local:VimL'
+            --map-syntax 'vimrc:VimL'
+          '';
         };
       };
     };

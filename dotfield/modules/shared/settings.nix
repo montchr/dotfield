@@ -35,7 +35,7 @@ in {
       #   "${config.my.user.home}/.config/dotfield"
       #   "/etc/dotfield"
       # ]);
-      dir = mkOpt t "$XDG_CONFIG_HOME/dotfield";
+      dir = mkOpt t "${config.my.user.home}/.config/dotfield";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       configDir = mkOpt t "${config.dotfield.dir}/config";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";

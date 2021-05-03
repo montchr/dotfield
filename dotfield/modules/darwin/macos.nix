@@ -73,7 +73,7 @@ in {
             # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.sound.beep.volume
             # "com.apple.sound.beep.volume" = null;
             # Set the spring loading delay for directories. The default is the float `1.0`.
-            "com.apple.springing.delay" = 0;
+            "com.apple.springing.delay" = "0.1";
             # Whether to enable spring loading (expose) for directories.
             "com.apple.springing.enabled" = true;
             # Whether to enable "Natural" scrolling direction. The default is true.
@@ -81,7 +81,7 @@ in {
             # Whether to enable trackpad secondary click. The default is true.
             "com.apple.trackpad.enableSecondaryClick" = true;
             # Configures the trackpad tracking speed (0 to 3). The default is "1".
-            "com.apple.trackpad.scaling" = 1;
+            "com.apple.trackpad.scaling" = "1.0";
             # Configures the trackpad corner click behavior. Mode 1 enables right click.
             # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.trackpad.trackpadCornerClickBehavior
             "com.apple.trackpad.trackpadCornerClickBehavior" = null;

@@ -28,16 +28,16 @@ in {
             ];
         };
 
-        hm.configFile = {
-          "python" = {
-            recursive = true;
-            source = builtins.toPath /. "${dotfield.configDir}/python";
-          };
-          "pip" = {
-            recursive = true;
-            source = builtins.toPath /. "${dotfield.configDir}/pip";
-          };
-        };
+        # hm.configFile = {
+        #   "python" = {
+        #     recursive = true;
+        #     source = builtins.toPath /. "${dotfield.configDir}/python";
+        #   };
+        #   "pip" = {
+        #     recursive = true;
+        #     source = builtins.toPath /. "${dotfield.configDir}/pip";
+        #   };
+        # };
       };
     };
 }

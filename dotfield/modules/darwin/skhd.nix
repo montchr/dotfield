@@ -7,6 +7,6 @@ let
 in {
   home-manager.services.skhd = {
     enable = true;
-    skhdConfig = builtins.readFile builtins.toPath /. "${cfgDir}/skhdrc";
+    # skhdConfig = builtins.readFile builtins.toPath /. "${cfgDir}/skhdrc";
   };
 }

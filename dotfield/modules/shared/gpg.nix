@@ -32,8 +32,6 @@ in {
         "gnupg/gpg-agent.conf" = {
           text = ''
             # ${config.my.nix_managed}
-            default-cache-ttl ${my.modules.gpg.cacheTTL}
-            max-cache-ttl 7200
             # TODO: make sure this path is valid
             pinentry-program ${pkgs.pinentry}/bin/pinentry
           '';

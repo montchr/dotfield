@@ -2,7 +2,6 @@
 
 let
 
-  dotfield = config.dotfield;
   cfg = config.my.modules.node;
 
 in {
@@ -44,8 +43,6 @@ in {
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
-              ${builtins.readFile builtins.toPath /.
-              "${dotfield.configDir}/npm/npmrc"}
             '';
           };
         };

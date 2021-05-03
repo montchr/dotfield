@@ -2,11 +2,6 @@
 {
   nix = {
     trustedUsers = [ "@admin" ];
-
-    # Auto upgrade nix package and the daemon service.
-    package = pkgs.nix;
-    maxJobs = 4;
-    buildCores = 4;
   };
 
   services.nix-daemon.enable = true;

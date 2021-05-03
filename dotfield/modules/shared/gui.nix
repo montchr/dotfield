@@ -37,12 +37,12 @@ in {
           "zoom"
         ];
 
-        my.hm.file = {
-          ".hammerspoon" = {
-            recursive = true;
-            source = ../../../config/.hammerspoon;
-          };
-        };
+        # my.hm.file = {
+        #   ".hammerspoon" = {
+        #     recursive = true;
+        #     source = ../../../config/.hammerspoon;
+        #   };
+        # };
       } else {
         my.user = {
           packages = with pkgs; [ firefox zoom-us signal-desktop slack ];

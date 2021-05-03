@@ -7,5 +7,5 @@
     website = "https://alley.co/";
   };
 
-  networking = { hostName = "alleymon"; };
+  networking.hostName = "alleymon";
 }

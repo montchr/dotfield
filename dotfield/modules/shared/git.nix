@@ -32,10 +32,6 @@ in {
       };
 
       my.hm = {
-        file = {
-
-        };
-
         configFile = {
           "git/config-nix" = with config.my; {
             text = ''
@@ -67,15 +63,15 @@ in {
             '';
           };
 
-          "git" = {
-            recursive = true;
-            source = builtins.toPath /. cfgDir;
-          };
+          # "git" = {
+          #   recursive = true;
+          #   source = builtins.toPath /. cfgDir;
+          # };
 
-          "tig" = {
-            recursive = true;
-            source = builtins.toPath /. "${dotfield.configDir}/tig";
-          };
+          # "tig" = {
+          #   recursive = true;
+          #   source = builtins.toPath /. "${dotfield.configDir}/tig";
+          # };
         };
       };
     };
