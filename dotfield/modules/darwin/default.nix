@@ -26,7 +26,7 @@
     # cleanup = "zap";
     # global.brewfile = true;
     global.noLock = true;
-  }
+  };
 
   imports = [ ./macos.nix ];
 

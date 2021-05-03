@@ -28,8 +28,8 @@ in {
           # ".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
           smb = {
-            NetBIOSName = ${config.networking.hostName};
-            ServerDescription = ${config.networking.hostName};
+            NetBIOSName = config.networking.hostName;
+            ServerDescription = config.networking.hostName;
           };
 
           NSGlobalDomain = {
