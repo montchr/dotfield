@@ -69,9 +69,6 @@
     #   url = "sourcehut:montchr/pragmata-pro";
     #   flake = false;
     # };
-
-    # Extras
-    # nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs = { self, ... }@inputs:
@@ -95,6 +92,7 @@
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
           ];
+          # TODO: configure garbage collection
           # gc = {
           #   automatic = true;
           #   options = "--delete-older-than 3d";
@@ -128,6 +126,8 @@
       darwinConfigurations = {
         "hodgepodge" = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
+          # TODO: make DRY
+          system = "x86_64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             ./dotfield/modules/shared
@@ -138,6 +138,8 @@
 
         "alleymon" = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
+          # TODO: make DRY
+          system = "x86_64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             ./dotfield/modules/shared

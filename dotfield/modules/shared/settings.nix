@@ -54,7 +54,6 @@ in {
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
       user = mkOption { type = options.users.users.type.functor.wrapped; };
 
-      # TODO: consider renaming to `home`
       hm = {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
@@ -69,7 +68,7 @@ in {
           else
             (toString v));
         default = { };
-        description = "TODO";
+        description = "Environment variables.";
       };
     };
   };
@@ -96,11 +95,6 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      # I only need a subset of home-manager's capabilities. That is, access to
-      # its home.file, home.xdg.configFile and home.xdg.dataFile so I can deploy
-      # files easily to my $HOME, but 'home-manager.users.${config.my.username}.home.file.*'
-      # is much too long and harder to maintain, so I've made aliases in:
-      #
       #   my.hm.file        ->  home-manager.users.cdom.home.file
       #   my.hm.configFile  ->  home-manager.users.cdom.home.xdg.configFile
       #   my.hm.dataFile    ->  home-manager.users.cdom.home.xdg.dataFile
