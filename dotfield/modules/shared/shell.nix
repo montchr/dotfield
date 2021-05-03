@@ -12,7 +12,7 @@ let
   home = config.my.user.home;
 
   cfg = config.my.modules.shell;
-  cfgDir = "${dotfield.configDir}/zsh";
+  # cfgDir = "${dotfield.configDir}/zsh";
 
   # local_zshrc = ./. + "${cfgDir}/zshrc.local";
 
@@ -139,12 +139,12 @@ in {
           };
 
           hm = {
-            configFile = {
-              "zsh" = {
-                recursive = true;
-                source = builtins.toPath cfgDir;
-              };
-            };
+            # configFile = {
+            #   "zsh" = {
+            #     recursive = true;
+            #     source = builtins.toPath cfgDir;
+            #   };
+            # };
 
             # TODO
             # file = {
@@ -166,16 +166,16 @@ in {
           # enableGlobalCompInit = false;
 
           # zshenv
-          shellInit = builtins.readFile (builtins.toPath "${cfgDir}/zshenv");
+          # shellInit = builtins.readFile (builtins.toPath "${cfgDir}/zshenv");
 
           # zshrc
           # TODO: might not be wise to link to config home while sourcing from here
-          interactiveShellInit = lib.concatStringsSep "\n"
-            (map builtins.readFile [
-              (builtins.toPath "${cfgDir}/zshrc")
-            ]);
+          # interactiveShellInit = lib.concatStringsSep "\n"
+          #   (map builtins.readFile [
+          #     (builtins.toPath "${cfgDir}/zshrc")
+          #   ]);
 
-          promptInit = "";
+          # promptInit = "";
         };
       }
     ]);

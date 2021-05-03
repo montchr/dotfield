@@ -30,11 +30,6 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in {
-      # TODO: does this not work?
-      # dir = mkOpt t (findFirst pathExists (toString ../.) [
-      #   "${config.my.user.home}/.config/dotfield"
-      #   "/etc/dotfield"
-      # ]);
       dir = mkOpt t "${config.my.user.home}/.config/dotfield";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       configDir = mkOpt t "${config.dotfield.dir}/config";

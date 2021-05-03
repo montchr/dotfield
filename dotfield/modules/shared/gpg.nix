@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.gpg;
-  cfgDir = "${config.dotfield.configDir}/gpg";
+  # cfgDir = "${config.dotfield.configDir}/gpg";
 
   # TODO: what about pinentry?
   # pinentry = (if stdenv.isDarwin then )

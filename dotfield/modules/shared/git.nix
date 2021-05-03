@@ -4,7 +4,7 @@ let
   dotfield = config.dotfield;
 
   cfg = config.my.modules.git;
-  cfgDir = "${dotfield.configDir}/git";
+  # cfgDir = "${dotfield.configDir}/git";
 
 in {
   options = with lib; {

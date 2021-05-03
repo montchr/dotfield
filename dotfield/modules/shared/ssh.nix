@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.ssh;
-  cfgDir = "${config.dotfield.configDir}/ssh";
+  # cfgDir = "${config.dotfield.configDir}/ssh";
 
 in {
   options = with lib; {

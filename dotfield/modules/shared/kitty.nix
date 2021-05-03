@@ -3,7 +3,7 @@
 let
 
   cfg = config.my.modules.kitty;
-  cfgDir = "${config.dotfield.configDir}/kitty";
+  # cfgDir = "${config.dotfield.configDir}/kitty";
 
 in {
   options = with lib; {
