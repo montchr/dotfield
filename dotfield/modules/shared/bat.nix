@@ -20,8 +20,7 @@ in {
       my.user = { packages = with pkgs; [ bat ]; };
 
       my.hm.configFile = {
-        "bat" = {
-          recursive = true;
+        "bat/batrc" = {
           text = ''
             --theme="TwoDark"
             --style="plain,changes"
