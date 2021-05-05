@@ -79,12 +79,12 @@ in {
             # Whether to enable "Natural" scrolling direction. The default is true.
             "com.apple.swipescrolldirection" = false;
             # Whether to enable trackpad secondary click. The default is true.
-            "com.apple.trackpad.enableSecondaryClick" = true;
+            # "com.apple.trackpad.enableSecondaryClick" = true;
             # Configures the trackpad tracking speed (0 to 3). The default is "1".
-            "com.apple.trackpad.scaling" = "1.0";
+            # "com.apple.trackpad.scaling" = "1.0";
             # Configures the trackpad corner click behavior. Mode 1 enables right click.
             # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.trackpad.trackpadCornerClickBehavior
-            "com.apple.trackpad.trackpadCornerClickBehavior" = null;
+            # "com.apple.trackpad.trackpadCornerClickBehavior" = null;
           };
 
           # Prevent incessant nagging when opening downloaded apps.
