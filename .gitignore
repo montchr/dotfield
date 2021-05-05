@@ -1,24 +1,21 @@
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the
 # software overwrites this file upon modifying settings.
-karabiner/.config/karabiner/*
-!karabiner/.config/karabiner/karabiner.json
+karabiner/*
+!karabiner/karabiner.json
+
+/git/config-nix
 
 # Emacs
 org-roam.db
 /emacs/dot-doom.d/custom.el
 
 # GPG
-# Ignore everything but configuration files.
-/gpg/dot-gnupg/*
-!/gpg/dot-gnupg/gpg-agent.conf
-!/gpg/dot-gnupg/gpg.conf
+/gnupg/*
 
 #
 # Misc.
 #
-
-/kitty/.config/kitty/theme.conf
 
 flycheck_config.el
 /.ci/.terraform/

@@ -28,6 +28,7 @@ set -e
 : "${DOTFIELD_ID_EMAIL:=}"
 : "${DOTFIELD_USER_PASSWORD:=}"
 : "${DOTFIELD_SSH_PUBLIC_KEY:=}"
+: "${DOTFIELD_PGP_KEY:=0x135EEDD0F71934F3}"
 : "${DOTFIELD_TIMEZONE:=America/New_York}"
 
 : "${USE_HTTPS:-true}"
@@ -593,6 +594,13 @@ guard::install && {
       HOSTNAME="$(msg::get_answer)"
       DOTFIELD_NIX_HOSTNAME="${HOSTNAME}"
     fi
+  }
+}
+
+
+guard::install &&  {
+  guard::domain "Identity" "Fetching PGP key" && {
+    gpg --recv-key "${DOTFIELD_PGP_KEY}"
   }
 }
 
