@@ -29,31 +29,6 @@ in {
 
   config = with lib;
     mkIf cfg.enable (mkMerge [
-      # TODO: look into this -- a terminal notifier would be great
-      # # Darwin
-      # (if (builtins.hasAttr "launchd" options) then {
-      #   launchd.user.agents."ui-mode-notify" = {
-      #     environment = {
-      #       # TODO: double check that this value matches the existing one
-      #       "KITTY_LISTEN_ON" = "unix:/tmp/kitty";
-      #     };
-      #     serviceConfig = {
-      #       ProgramArguments = [
-      #         "${home}/.config/zsh/bin/ui-mode-notify"
-      #         "${pkgs.zsh}/bin/zsh"
-      #         "-c"
-      #         "change-background"
-      #       ];
-      #       KeepAlive = true;
-      #       StandardOutPath = "${home}/Library/Logs/ui-mode-notify-output.log";
-      #       StandardErrorPath = "${home}/Library/Logs/ui-mode-notify-error.log";
-      #     };
-      #   };
-      # } else
-      #   {
-      #     # systemd
-      #   })
-
       {
 
         # List packages installed in system profile. To search by name, run:
@@ -139,12 +114,12 @@ in {
           };
 
           hm = {
-            # configFile = {
-            #   "zsh" = {
-            #     recursive = true;
-            #     source = builtins.toPath cfgDir;
-            #   };
-            # };
+            configFile = {
+              "zsh" = {
+                recursive = true;
+                source = ../../config/zsh;
+              };
+            };
 
             # TODO
             # file = {
@@ -166,14 +141,7 @@ in {
           # enableGlobalCompInit = false;
 
           # zshenv
-          # shellInit = builtins.readFile (builtins.toPath "${cfgDir}/zshenv");
-
-          # zshrc
-          # TODO: might not be wise to link to config home while sourcing from here
-          # interactiveShellInit = lib.concatStringsSep "\n"
-          #   (map builtins.readFile [
-          #     (builtins.toPath "${cfgDir}/zshrc")
-          #   ]);
+          # shellInit = builtins.readFile ../../config/zsh/zshenv;
 
           # promptInit = "";
         };
