@@ -1,29 +1,32 @@
+# Nix
+cachix/cachix.dhall
+result
+
+# Managed by Nix
+/git/config-nix
+/gnupg/*
+/zsh/*
+
+# Composer
+/composer/keys.*.pub
+/composer/**/.htaccess
+
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the
 # software overwrites this file upon modifying settings.
 karabiner/*
 !karabiner/karabiner.json
 
-/git/config-nix
 
 # Emacs
 org-roam.db
-/emacs/dot-doom.d/custom.el
+custom.el
+# flycheck_config.el
 
-# GPG
-/gnupg/*
+# Local files
+*.local
 
-#
-# Misc.
-#
-
-flycheck_config.el
+# CI
 /.ci/.terraform/
 /.ci/*.tfvars
 /.ci/*.tfstate*
-/composer/keys.*.pub
-cachix/cachix.dhall
-composer/**/.htaccess
-zsh/.zcompdump
-*.local
-result
