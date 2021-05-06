@@ -34,20 +34,24 @@ in {
         # List packages installed in system profile. To search by name, run:
         # $ nix-env -qaP | grep wget
         environment = {
-          shells = [ pkgs.bashInteractive_5 pkgs.zsh ];
+          shells = [
+            pkgs.bashInteractive_5
+            pkgs.zsh
+          ];
+
           systemPackages = with pkgs;
             (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
-              curl
-              wget
               # TODO: not yet
               # cachix
-              htop
-              fzf
+              curl
               direnv
+              fzf
+              htop
               nix-zsh-completions
-              zsh
-              z-lua
               rsync
+              wget
+              z-lua
+              zsh
             ];
         };
 
