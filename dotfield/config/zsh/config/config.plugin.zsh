@@ -28,9 +28,6 @@ pchf="${0:h}/patches"
 thmf="${0:h}/themes"
 
 GENCOMPL_FPATH="${0:h}/completions"
-WD_CONFIG="${ZPFX}/warprc"
-ZSHZ_DATA="${ZPFX}/z"
-export CUSTOMIZEPKG_CONFIG="${HOME}/.config/customizepkg"
 
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -54,10 +51,7 @@ export BREW_PREFIX=$(brew --prefix)
 export GPG_TTY="$(tty)"
 
 
-#
 # asdf version manager
-#
-
 export cdom_asdf_plugins=(
   direnv
   nodejs
@@ -65,26 +59,13 @@ export cdom_asdf_plugins=(
   ruby
 )
 
-#
-# bat
-#
 
-# Compatibility with any base16 terminal theme
-export BAT_THEME="base16-256"
-
-
-#
-# nvm / node
-#
-
+# nvm
 export NVM_AUTO_USE=true \
   NVM_LAZY_LOAD=true
 
 
-#
 # fzf
-#
-
 FZF_DEFAULT_OPTS="
 --border
 --height 80%
@@ -103,18 +84,15 @@ FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
 # --preview-window right:60%
 
 
-#
-# ls etc.
-#
-
+# ls et al.
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
 # Export variables when connected via SSH
-if [[ -n $SSH_CONNECTION ]]; then
-  # @TODO this might actually cause some issues with emacs in tty?
-  # export DISPLAY=:0
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   # @TODO this might actually cause some issues with emacs in tty?
+#   # export DISPLAY=:0
+# fi
 
 
 #

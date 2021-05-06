@@ -12,9 +12,6 @@ let
   home = config.my.user.home;
 
   cfg = config.my.modules.shell;
-  # cfgDir = "${dotfield.configDir}/zsh";
-
-  # local_zshrc = ./. + "${cfgDir}/zshrc.local";
 
   # TODO: necessary? coreutils should certainly exist already
   darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
@@ -28,127 +25,128 @@ in {
   };
 
   config = with lib;
-    mkIf cfg.enable (mkMerge [
-      {
+    mkIf cfg.enable (mkMerge [{
 
-        # List packages installed in system profile. To search by name, run:
-        # $ nix-env -qaP | grep wget
-        environment = {
-          shells = [
-            pkgs.bashInteractive_5
-            pkgs.zsh
+      # List packages installed in system profile. To search by name, run:
+      # $ nix-env -qaP | grep wget
+      environment = {
+        shells = [ pkgs.bashInteractive_5 pkgs.zsh ];
+
+        systemPackages = with pkgs;
+          (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
+            # TODO: not yet
+            # cachix
+            curl
+            direnv
+            fzf
+            htop
+            nix-zsh-completions
+            rsync
+            wget
+            z-lua
+            zsh
           ];
+      };
 
-          systemPackages = with pkgs;
-            (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
-              # TODO: not yet
-              # cachix
-              curl
-              direnv
-              fzf
-              htop
-              nix-zsh-completions
-              rsync
-              wget
-              z-lua
-              zsh
-            ];
+      my = {
+        env = {
+          ZDOTDIR            = "$XDG_CONFIG_HOME/zsh";
+          ZSH_CACHE          = "$XDG_CACHE_HOME/zsh";
+
+          # zinit
+          ZPFX               = "$HOME/.local";
+          ZINIT_HOME         = "$XDG_DATA_HOME/zsh";
+          ZINIT_BIN_DIR_NAME = "bin";
         };
 
-        my = {
-          user = {
-            # TODO: why does Darwin need a list?
-            shell = if pkgs.stdenv.isDarwin then [ pkgs.zsh ] else pkgs.zsh;
-            packages = with pkgs; [
-              _1password # CLI
-              asciinema
-              bandwhich # display current network utilization by process
-              bottom # fancy version of `top` with ASCII graphs
-              cacert
-              # TODO later
-              # cachix
-              comma
-              coreutils
-              curl
-              exa
-              fd
-              findutils
-              gawk
-              getopt
-              gnumake
-              gnupg
-              gnused
-              gnutar
-              grc
-              gpgme
-              htop
-              hyperfine
-              jq
-              less
-              lnav # System Log file navigator
-              ncdu
-              nodePackages.node2nix
-              # nodePackages.vim-language-server
-              pandoc
-              pass
-              # plantuml
-              pywal
-              rename # might not work
-              # TODO: is this the perl rename, or the less-useful one?
-              renameutils
-              ripgrep
-              rsync
-              shellcheck
-              shfmt
-              # TODO: any additional setup needed to have this replace tldr? also, why?
-              tealdeer # rust implementation of `tldr`
-              # tldr
-              tmux
-              # TODO: unar is "unsupported" on darwin?
-              # unar
-              # TODO: what is this? i keep seeing it
-              # universal-ctags
-              # TODO: investigate
-              # urlscan
-              vim
-              vim-vint
-              wget
-              yq
-            ];
-          };
-
-          hm = {
-            configFile = {
-              "zsh" = {
-                recursive = true;
-                source = ../../config/zsh;
-              };
+        hm = {
+          configFile = {
+            "shell" = {
+              recursive = true;
+              source    = "${dotfield.configDir}/shell";
             };
 
-            # TODO
-            # file = {
-            #   ".terminfo" = {
-            #     recursive = true;
-            #     source = ${dotfield.configDir}/terminfo;
-            #   };
-            # }
-
+            "zsh" = {
+              recursive = true;
+              source    = "${dotfield.configDir}/zsh";
+            };
           };
 
+          dataFile = {
+            "zsh/plugins/_local---config" = {
+              recursive = true;
+              source    = "${dotfield.configDir}/zsh/config";
+            };
+          };
         };
 
-        programs.zsh = {
-          enable = true;
-          enableCompletion = true;
-          # Let zinit handle the zsh things.
-          # TODO: this doesn't exist in nix-darwin. is it necessary?
-          # enableGlobalCompInit = false;
-
-          # zshenv
-          # shellInit = builtins.readFile ../../config/zsh/zshenv;
-
-          # promptInit = "";
+        user = {
+          shell = if pkgs.stdenv.isDarwin then [ pkgs.zsh ] else pkgs.zsh;
+          packages = with pkgs; [
+            # TODO: gzip: Payload.gz: No such file or directory
+            # _1password # CLI
+            asciinema
+            bandwhich # display current network utilization by process
+            bottom # fancy version of `top` with ASCII graphs
+            cacert
+            # TODO later
+            # cachix
+            coreutils
+            curl
+            exa
+            fd
+            findutils
+            gawk
+            getopt
+            gnumake
+            gnupg
+            gnused
+            gnutar
+            grc
+            gpgme
+            htop
+            hyperfine
+            jq
+            less
+            lnav # System Log file navigator
+            ncdu
+            # nix-zsh-completions
+            nodePackages.node2nix
+            # nodePackages.vim-language-server
+            pandoc
+            pass
+            # plantuml
+            pywal
+            rename # might not work
+            # TODO: is this the perl rename, or the less-useful one?
+            renameutils
+            ripgrep
+            rsync
+            shellcheck
+            shfmt
+            # TODO: any additional setup needed to have this replace tldr? also, why?
+            tealdeer # rust implementation of `tldr`
+            # tldr
+            tmux
+            # TODO: unar is "unsupported" on darwin?
+            # unar
+            # TODO: what is this? i keep seeing it
+            # universal-ctags
+            # TODO: investigate
+            # urlscan
+            vim
+            vim-vint
+            wget
+            yq
+          ];
         };
-      }
-    ]);
+
+
+      };
+
+      programs.zsh = {
+        enable = true;
+        enableCompletion = false;
+      };
+    }]);
 }

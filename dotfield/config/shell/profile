@@ -83,6 +83,10 @@ DOTFIELD_LOCAL_CONFIG="${XDG_CONFIG_HOME}/shell/profile.local"
 # - - - - - - - - - - - - - - - - - - - -
 # App Configuration
 # - - - - - - - - - - - - - - - - - - - -
+#
+# Sources:
+#   - https://wiki.archlinux.org/title/XDG_Base_Directory
+#
 
 # asdf version manager
 # https://asdf-vm.com/#/core-configuration?id=environment-variables
@@ -152,6 +156,13 @@ export \
 # shellcheck disable=2016
 # export VIMINIT='source "$XDG_CONFIG_HOME/vim/vimrc"'
 
+# wd
+# https://github.com/mfaerevaag/wd
+export WD_CONFIG="${XDG_CONFIG_HOME}/wd/warprc"
+
+# z.lua
+# https://github.com/skywind3000/z.lua
+export _ZL_DATA="${XDG_DATA_HOME}/zlua"
 
 
 # - - - - - - - - - - - - - - - - - - - -

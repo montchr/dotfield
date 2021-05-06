@@ -22,7 +22,7 @@ in {
       my.hm.configFile = {
         "bat/batrc" = {
           text = ''
-            --theme="TwoDark"
+            --theme="base16-256"
             --style="plain,changes"
             --italic-text=always
             --map-syntax '.*ignore:Git Ignore'

@@ -10,6 +10,8 @@
   home-manager.users.${config.my.username} = { xdg.enable = true; };
 
   environment = {
+
+    # Environment variables to be loaded for all users.
     variables = {
 
       # TODO: these may need be set in `environment.sessionVariables` for NixOS

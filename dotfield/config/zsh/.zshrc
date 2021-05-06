@@ -38,12 +38,6 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
   }
 } 2>/dev/null
 
-export ZPFX="${HOME}/.local"
-export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-export ZINIT_HOME="${XDG_DATA_HOME}/zinit"
-
-ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
-ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
 ### Added by Zinit's installer
 if [[ ! -f ${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
