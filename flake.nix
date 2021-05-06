@@ -54,12 +54,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    comma = {
-      url = "github:Shopify/comma";
-      flake = false;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -122,7 +116,6 @@
     in {
       overlay = (final: prev: {
         # pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
-        comma = import inputs.comma { inherit (prev) pkgs; };
       });
 
       darwinConfigurations = {
