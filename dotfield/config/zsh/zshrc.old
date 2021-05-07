@@ -85,7 +85,15 @@ zt light-mode for \
 # Plugins
 # - - - - - - - - - - - - - - - - - - - -
 
+    # atinit"
+    #     ZSH_TMUX_FIXTERM=true
+    #     ZSH_TMUX_AUTOSTART=true
+    #     ZSH_TMUX_AUTOCONNECT=true
+    # " \
+    #     OMZP::tmux \
+
 # Explanation:
+# - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
 # - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
 zt for \
   OMZL::history.zsh
@@ -106,8 +114,7 @@ zt 0a for \
         alias l='exa --oneline'
         alias ll='exa -Flagh --git'
         alias la='exa -Fal'
-        # TODO: use nix path
-        # alias ls=\"${BREW_PREFIX}/bin/gls\"
+        alias ls=\"${BREW_PREFIX}/bin/gls\"
         alias lld='exa -Flagh --git --group-directories-first'
         alias ld='exa -D1'
         alias tree='exa --tree'
@@ -140,6 +147,7 @@ zt 0a for \
     " \
         OMZP::git \
     OMZ::plugins/extract/extract.plugin.zsh \
+    skywind3000/z.lua \
     djui/alias-tips
 
 zt 0a for \
@@ -180,9 +188,19 @@ zt 0b light-mode for \
     hlissner/zsh-autopair \
 
 zt 0b light-mode from'gh-r' as'program' for \
+    junegunn/fzf \
     sei40kr/fast-alias-tips-bin \
     sei40kr/zsh-fast-alias-tips
 
+
+# Load additional fzf helpers
+zt 0c light-mode for \
+    as"command" pick"bin/fzf-tmux" \
+        junegunn/fzf \
+    multisrc"shell/{completion,key-bindings}.zsh" \
+    id-as"junegunn/fzf_completions" \
+    pick"/dev/null" \
+        junegunn/fzf
 
 zt 0c light-mode atinit"
     typeset -gA FAST_HIGHLIGHT;
@@ -193,12 +211,21 @@ zt 0c light-mode atinit"
   " for zdharma/fast-syntax-highlighting
 
 
+zt 0c light-mode binary for \
+  sbin'bin/git-ignore' atload'export GI_TEMPLATE="$PWD/.git-ignore"; alias gi="git-ignore"' \
+    laggardkernel/git-ignore
+
 zt 0c light-mode null for \
   sbin \
     paulirish/git-open \
   sbin'*/rm-trash' reset \
   patch"$pchf/%PLUGIN%.patch" \
     nateshmbhat/rm-trash
+
+# @TODO doesn't seem to be bleeding edge... still contains dead symlink bug
+zt 1a for \
+  cargo'!exa' \
+    ogham/exa
 
 zt 2a for \
   atload"
@@ -244,6 +271,59 @@ zt 2b as'program' for \
 
 
 # - - - - - - - - - - - - - - - - - - - -
+# - asdf version manager
+# - direnv via asdf
+# - - - - - - - - - - - - - - - - - - - -
+
+export ASDF_DIRENV_VERSION="2.27.0"
+
+function .asdf-plugins {
+  local p
+  for p in "${cdom_asdf_plugins[@]}"; do
+    asdf plugin "${1}" $p
+  done
+}
+
+function .load-asdf-direnv {
+  zt 0a for \
+    id-as'asdf-init' \
+    atclone"
+      export PHP_WITHOUT_PEAR=true
+      .asdf-plugins add
+      asdf install
+      asdf install direnv ${ASDF_DIRENV_VERSION}
+    " \
+    atpull'asdf update; asdf plugin update --all; .asdf-plugins reshim' \
+      @zdharma/null
+  zt 0b for \
+    id-as'asdf-direnv-init' \
+    atclone"
+      env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION}
+      asdf exec direnv hook zsh | tee zhook.zsh
+    " \
+    atpull'%atclone' \
+    atinit'direnv() { env ASDF_DIRENV_VERSION=${ASDF_DIRENV_VERSION} asdf exec direnv ${@}; }' \
+    src'zhook.zsh' \
+      @zdharma/null
+}
+
+# Initialize ASDF-VM
+# @TODO prevent output?
+zt 0a for \
+  atclone'[[ ! -d "$ASDF_DATA_DIR" ]] && mkdir -p "$ASDF_DATA_DIR"' \
+  atload'.load-asdf-direnv' \
+  pick'asdf.sh' \
+    @asdf-vm/asdf
+
+# Update plugins upon changing the global tool versions file.
+zinit subscribe'~/.tool-versions' for \
+  atload'
+    asdf update; asdf plugin update --all; asdf install
+    .asdf-plugins reshim
+  ' \
+    @zdharma/null
+
+# - - - - - - - - - - - - - - - - - - - -
 # Scripting Tools
 # - - - - - - - - - - - - - - - - - - - -
 
@@ -259,6 +339,11 @@ zt 2b as'command' for \
 
 zt 0e nocompile nocompletions for \
   @MenkeTechnologies/zsh-more-completions
+
+zt 2c light-mode for \
+  trigger-load'!gencomp' pick'zsh-completion-generator.plugin.zsh' blockf \
+  atload'alias gencomp="zinit silent nocd as\"null\" wait\"2\" atload\"zinit creinstall -q _local/config-files; zicompinit\" for /dev/null; gencomp"' \
+    RobSis/zsh-completion-generator
 
 zt 2d blockf for \
   atpull'zinit creinstall -q .' \
