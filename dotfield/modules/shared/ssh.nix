@@ -14,10 +14,17 @@ in {
     };
   };
 
-  # config = with lib;
-  #   mkIf cfg.enable {
-  #     my.hm.file = {
-  #       ".ssh/config" = { source = builtins.toPath /. "${cfgDir}/config"; };
-  #     };
-  #   };
+  config = with lib;
+    mkIf cfg.enable {
+      # TODO: option doesn't exist! maybe it's NixOS only.
+      # programs.ssh.startAgent = true;
+
+      my.hm.file = {
+        ".ssh/config" = {
+          # TODO: make a config, and use it.
+          # source = "${dotfield.configDir}/ssh/config";
+          text = "";
+        };
+      };
+    };
 }

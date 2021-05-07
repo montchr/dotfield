@@ -5,8 +5,8 @@ let
   cfg = config.my.modules.gpg;
   # cfgDir = "${config.dotfield.configDir}/gpg";
 
-  # TODO: what about pinentry?
-  # pinentry = (if stdenv.isDarwin then )
+  # TODO: make sure this works
+  # pinentry = (if stdenv.isDarwin then "pinentry_mac" else "pinentry");
 
 in {
   options = with lib;
@@ -28,21 +28,30 @@ in {
         transcrypt
       ];
 
-      my.env = { GNUPGHOME = "$XDG_CONFIG_HOME/gnupg"; };
-
-      programs.gnupg = {
-        agent = {
+      programs = {
+        # TODO: option doesn't exist! maybe it's NixOS only.
+        # ssh.startAgent = false;
+        gnupg.agent = {
           enable = true;
           enableSSHSupport = true;
         };
       };
+
+      my.env = { GNUPGHOME = "$XDG_CONFIG_HOME/gnupg"; };
 
       my.hm.configFile = {
         "gnupg/gpg-agent.conf" = {
           text = ''
             # ${config.my.nix_managed}
             # TODO: make sure this path is valid
-            pinentry-program ${pkgs.pinentry}/bin/pinentry
+            pinentry-program ${pkgs.pinentry_mac}/bin/pinentry
+          '';
+        };
+
+        "gnupg/scdaemon.conf" = {
+          text = ''
+            reader-port Yubico Yubi
+            disable-ccid
           '';
         };
 
@@ -97,9 +106,9 @@ in {
             # Group recipient keys (preferred ID last)
             group keygroup = 0xFF00000000000001 0xFF00000000000002 0x135EEDD0F71934F3
             # Keyserver URL
-            #keyserver hkps://keys.openpgp.org
+            keyserver hkps://keys.openpgp.org
             #keyserver hkps://keyserver.ubuntu.com:443
-            keyserver hkps://hkps.pool.sks-keyservers.net
+            # keyserver hkps://hkps.pool.sks-keyservers.net
             #keyserver hkps://pgp.ocf.berkeley.edu
             # Proxy to use for keyservers
             #keyserver-options http-proxy=http://127.0.0.1:8118
@@ -108,13 +117,6 @@ in {
             #verbose
             # Show expired subkeys
             #list-options show-unusable-subkeys
-          '';
-        };
-
-        "gnupg/scdaemon.conf" = {
-          text = ''
-            reader-port Yubico Yubi
-            disable-ccid
           '';
         };
       };
