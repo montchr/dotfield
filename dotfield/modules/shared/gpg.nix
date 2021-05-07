@@ -5,9 +5,6 @@ let
   cfg = config.my.modules.gpg;
   # cfgDir = "${config.dotfield.configDir}/gpg";
 
-  # TODO: make sure this works
-  # pinentry = (if stdenv.isDarwin then "pinentry_mac" else "pinentry");
-
 in {
   options = with lib;
     with types; {
@@ -44,7 +41,7 @@ in {
           text = ''
             # ${config.my.nix_managed}
             # TODO: make sure this path is valid
-            pinentry-program ${pkgs.pinentry_mac}/bin/pinentry
+            pinentry-program ${pkgs.pinentry}/bin/pinentry
           '';
         };
 
