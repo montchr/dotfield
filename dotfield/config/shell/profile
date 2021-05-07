@@ -71,8 +71,6 @@ export HOMEBREW_BUNDLE_NO_LOCK=true
 # Local Configuration + Identity
 # - - - - - - - - - - - - - - - - - - - -
 
-export GITHUB_USER="montchr"
-
 DOTFIELD_LOCAL_CONFIG="${XDG_CONFIG_HOME}/shell/profile.local"
 [ -z "${DOTFIELD_LOCAL_LOADED}" ] && [ -f "${DOTFIELD_LOCAL_CONFIG}" ] && {
   # shellcheck source=./shell/profile.local

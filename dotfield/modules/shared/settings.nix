@@ -85,6 +85,7 @@ in {
       variables = {
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
+        GITHUB_USER = config.my.github_username;
       };
     };
 
