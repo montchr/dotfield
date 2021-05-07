@@ -2,6 +2,8 @@
 
 let
 
+  dotfield = config.dotfield;
+
   cfg = config.my.modules.ssh;
   # cfgDir = "${config.dotfield.configDir}/ssh";
 

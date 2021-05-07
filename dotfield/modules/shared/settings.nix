@@ -30,11 +30,14 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in {
-      dir = mkOpt t "${config.my.user.home}/.config/dotfield";
+      dir = mkOpt t
+        (findFirst pathExists (toString ../../.) [
+          "${config.my.user.home}/.config/dotfield"
+          "/etc/dotfiles"
+        ]);
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       configDir = mkOpt t "${config.dotfield.dir}/config";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-      themesDir = mkOpt t "${config.dotfield.modulesDir}/themes";
     };
 
     my = {
