@@ -1,5 +1,0 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-
-[[ -f "${HOME}/.config/shell/profile" ]] && . "${HOME}/.config/shell/profile"
-
-export BASH_COMPLETION_USER_FILE="${XDG_CONFIG_HOME}/bash/completion"
