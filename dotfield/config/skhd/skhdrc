@@ -91,6 +91,7 @@ sys     < p : espanso restart ; \
               skhd -k 'escape'
 
 # Restart yabai
+# TODO: update for nix
 sys     < y : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" ; \
               skhd -k 'escape'
 

@@ -16,7 +16,6 @@ in {
   config = with lib;
     mkIf cfg.enable (mkMerge [
       (if (builtins.hasAttr "homebrew" options) then {
-        # [todo] (automate) Requires homebrew to be installed
         homebrew.taps = [ "homebrew/cask" "homebrew/cask-versions" ];
         homebrew.casks = [
           "1password"
@@ -24,7 +23,6 @@ in {
           "appcleaner"
           "corelocationcli"
           "db-browser-for-sqlite"
-          "figma"
           "google-chrome"
           "hammerspoon"
           "imageoptim"
