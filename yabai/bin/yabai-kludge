@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+#
+# yabai-kludge
+#
+# A useful implement when you load an outdated version of the yabai scripting
+# addition and need to restore Dock.app to its original state.
+#
+# Source:
+#   https://forums.macrumors.com/threads/missing-dock-and-background-flashing-on-mavericks-gm.1650020/post-18213002
 
 Files=(
   com.apple.spaces.plist
