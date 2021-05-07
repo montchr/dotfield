@@ -1,18 +1,18 @@
 { config, inputs, lib, pkgs, ... }: {
   nix = { trustedUsers = [ "@admin" ]; };
 
-  services.nix-daemon.enable    = true;
+  services.nix-daemon.enable = true;
   users.nix.configureBuildUsers = true;
 
   my = {
     modules = {
       macos.enable = true;
-      gpg.enable   = true;
+      gpg.enable = true;
     };
   };
 
   homebrew = {
-    enable     = true;
+    enable = true;
     autoUpdate = true;
     # TODO
     # cleanup = "zap";

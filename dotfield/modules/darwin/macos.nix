@@ -5,10 +5,7 @@ let
   cfg = config.my.modules.macos;
 
 in {
-  imports = [
-    ./skhd.nix
-    ./yabai.nix
-  ];
+  imports = [ ./skhd.nix ./yabai.nix ];
 
   options = with lib; {
     my.modules.macos = {
@@ -27,7 +24,7 @@ in {
       };
 
       my.modules = {
-        skhd.enable  = true;
+        skhd.enable = true;
         yabai.enable = true;
       };
 

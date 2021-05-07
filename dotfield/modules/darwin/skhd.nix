@@ -1,7 +1,6 @@
 { config, lib, options, ... }:
 
-let
-  cfgDir = "${config.dotfield.configDir}/skhd";
+let cfgDir = "${config.dotfield.configDir}/skhd";
 in {
   options = with lib; {
     my.modules.skhd = {
@@ -12,9 +11,7 @@ in {
   };
 
   config = {
-    services.skhd = {
-      enable = true;
-    };
+    services.skhd = { enable = true; };
 
     my.hm.configFile."skhd/skhdrc".source = "${cfgDir}/skhdrc";
   };
