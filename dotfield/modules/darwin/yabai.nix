@@ -1,5 +1,13 @@
-{ config, pkgs, ... }: {
-  services.yabai = {
+{ config, lib, options, pkgs, ... }: {
+  options = with lib; {
+    my.modules.yabai = {
+      enable = mkEnableOption ''
+        Whether to enable yabai module
+      '';
+    };
+  };
+
+  config.services.yabai = {
     enable = true;
     package = pkgs.yabai;
     enableScriptingAddition = true;

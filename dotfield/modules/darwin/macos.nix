@@ -5,7 +5,10 @@ let
   cfg = config.my.modules.macos;
 
 in {
-  imports = [ ./yabai.nix ];
+  imports = [
+    ./skhd.nix
+    ./yabai.nix
+  ];
 
   options = with lib; {
     my.modules.macos = {
@@ -21,6 +24,11 @@ in {
         LANG = "en_US.UTF-8";
         # TODO: double-check this -- en_GB doesn't seem right
         LC_TIME = "en_GB.UTF-8";
+      };
+
+      my.modules = {
+        skhd.enable  = true;
+        yabai.enable = true;
       };
 
       system = {

@@ -9,7 +9,7 @@
 # windows, swapping windows, and moving floating windows. Those four keys are
 # mapped differently depending on the current mode to provide a consistent user
 # experience.
-# 
+#
 # Six different modes are provided in this configuration in addition to the
 # default mode. The modes are tailored to their respective operations. Common
 # operations are generally available without the need of any modifier keys.
@@ -108,7 +108,7 @@ focus < escape                                                     ; default
 # Once in FOCUS mode (or any other mode other than default), you can switch
 # modes with single keystroke. (mnemonic: letter corresponds to first letter of
 # mode name, with exception of warpnf, which is a variant invoked with shift)
- 
+
 # Disable FOCUS mode switching since it's easy to get back to and so we
 # can free up a keybinding.
 # focus, grid, swap, warp, warpnf, resize < f                 ; focus
@@ -124,8 +124,8 @@ focus, grid, swap, warp, warpnf, resize < w                 ; warp
 # The following keybindings are available in all modes.
 focus, grid, swap, warp, warpnf, resize < b                 : yabai -m space --balance
 focus, grid, swap, warp, warpnf, resize < f                 : yabai -m window --toggle float           # mnemonic: _f_loat
-focus, grid, swap, warp, warpnf, resize < i                 : yabai -m window --toggle split           
-focus, grid, swap, warp, warpnf, resize < m                 : yabai -m window --toggle zoom-fullscreen # mnemonic: monocle 
+focus, grid, swap, warp, warpnf, resize < i                 : yabai -m window --toggle split
+focus, grid, swap, warp, warpnf, resize < m                 : yabai -m window --toggle zoom-fullscreen # mnemonic: monocle
 focus, grid, swap, warp, warpnf, resize < p                 : yabai -m window --toggle zoom-parent     # mnemonic: _p_arent
 focus, grid, swap, warp, warpnf, resize < q                 : yabai-close-window                  # mnemonic: _q_uit
 focus, grid, swap, warp, warpnf, resize < shift - space     : yabai -m space --rotate 270
@@ -134,7 +134,7 @@ focus, grid, swap, warp, warpnf, resize < x                 : yabai -m space --m
 focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --mirror y-axis           # vertical
 
 
-# 
+#
 # YABAI :: FOCUS mode
 # ========================================
 # Change focus using standard vi directional keys. Enter changes focus to the
@@ -142,11 +142,11 @@ focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --m
 #
 # FOCUS mode does a lot of heavy lifting, inferring some "do what I mean" behavior.
 #
-# 
+#
 # If a window doesn't exist in the specified direction, then fall back to
 # focusing the next available display in that direction. If there's no available
 # display, then, as a last resort, try paging through a window stack.
-# 
+#
 
 focus           < k : yabai-focus-direction north
 focus           < j : yabai-focus-direction south
@@ -179,7 +179,7 @@ focus           < shift - l   : yabai -m space --focus next
 
 # Prefix the above with ctrl to change the monitor focus using numbers
 # corresponding to monitor or cycle through the monitors using tab and shift -
-# tab combination. 
+# tab combination.
 focus           < ctrl - 1           : yabai -m display --focus 1
 focus           < ctrl - 2           : yabai -m display --focus 2
 focus           < ctrl - 3           : yabai -m display --focus 3
@@ -199,7 +199,7 @@ focus           < shift - f : yabai -m space --layout float   # mnemonic: _f_loa
 # ========================================
 # Grid mode bindings are to resize and place floating windows on your desktop
 # in well known positions.
-# 
+#
 
 # The standard non-modified keys are used to resize the window to the top-half,
 # bottom-half, right-half, left-half, and center of screen respectively.
@@ -227,9 +227,9 @@ grid            < ctrl - return      : yabai -m window --grid 6:6:2:2:2:2
 #
 # YABAI :: SWAP mode
 # ========================================
-# 
+#
 
-# Swap windows using standard vi directional keys. 
+# Swap windows using standard vi directional keys.
 swap            < k                 : yabai -m window --swap north
 swap            < j                 : yabai -m window --swap south
 swap            < l                 : yabai -m window --swap east
@@ -240,7 +240,7 @@ swap            < return            : yabai -m window --swap biggest
 #
 # YABAI :: WARP mode
 # ========================================
-# 
+#
 
 # Warp windows using standard vi directional keys. These bindings are the same
 # whether you are in WARP or WARPNF mode.
@@ -292,19 +292,19 @@ warpnf          < ctrl + shift - tab : yabai -m window --display prev
 #
 # YABAI :: RESIZE mode
 # ========================================
-# 
- 
+#
+
 # Increase size of window using standard vi directional keys.
 resize          < k                 : yabai -m window --resize top:0:-48
-resize          < j                 : yabai -m window --resize bottom:0:48 
-resize          < l                 : yabai -m window --resize right:48:0  
-resize          < h                 : yabai -m window --resize left:-48:0 
+resize          < j                 : yabai -m window --resize bottom:0:48
+resize          < l                 : yabai -m window --resize right:48:0
+resize          < h                 : yabai -m window --resize left:-48:0
 
 # Prefix the above with shift to decrease size of window using standard vi
 # directional keys.
 resize          < shift - k         : yabai -m window --resize top:0:48
-resize          < shift - j         : yabai -m window --resize bottom:0:-48 
-resize          < shift - l         : yabai -m window --resize right:-48:0  
+resize          < shift - j         : yabai -m window --resize bottom:0:-48
+resize          < shift - l         : yabai -m window --resize right:-48:0
 resize          < shift - h         : yabai -m window --resize left:48:0
 
 # Golden-ish ratio sizing
@@ -324,14 +324,14 @@ stack    < return            : yabai -m window --stack biggest
 #
 # YABAI :: errata
 # ========================================
-# 
+#
 
 # Change the next insertion point to be something other than the default (left)
 # using standard vi directional keys with the ctrl modifier. In addition, to
 # make the next window a floating window, we bind ctrl - t (using same mnemonic
 # as above). As these operations are intended for the next window that is
 # opened, we exit FOCUS mode immediately. Finally, to cancel any of these
-# "next" window operations, we bind ctrl - return. 
+# "next" window operations, we bind ctrl - return.
 #
 # @todo update these
 #

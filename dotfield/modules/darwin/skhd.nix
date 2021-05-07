@@ -1,12 +1,21 @@
-{ config, home-manager, ... }:
+{ config, lib, options, ... }:
 
 let
-
   cfgDir = "${config.dotfield.configDir}/skhd";
-
 in {
-  home-manager.services.skhd = {
-    enable = true;
-    # skhdConfig = builtins.readFile builtins.toPath /. "${cfgDir}/skhdrc";
+  options = with lib; {
+    my.modules.skhd = {
+      enable = mkEnableOption ''
+        Whether to enable skhd module
+      '';
+    };
+  };
+
+  config = {
+    services.skhd = {
+      enable = true;
+    };
+
+    my.hm.configFile."skhd/skhdrc".source = "${cfgDir}/skhdrc";
   };
 }
