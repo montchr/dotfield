@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+Files=(
+  com.apple.spaces.plist
+  com.apple.desktop.plist
+  com.apple.dock.plist
+  com.apple.dock.db
+)
+
+for file in "${Files[@]}"; do
+  rm "${HOME}/Library/Preferences/${file}"
+done
+
+killall Dock
