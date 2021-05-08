@@ -15,10 +15,9 @@ fi
 # Zsh Core Configuration
 # - - - - - - - - - - - - - - - - - - - -
 
-typeset -g \
-  HISTSIZE=290000 \
-  SAVEHIST=290000 \
-  HISTFILE="${XDG_DATA_HOME}/zsh/history" \
+HISTSIZE=1000000
+SAVEHIST="${HISTSIZE}"
+HISTFILE="${XDG_DATA_HOME}/zsh/history"
 
 [[ -d "$CACHEDIR" ]] || mkdir -pv "$CACHEDIR"
 [[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -pv "$XDG_RUNTIME_DIR"
@@ -38,19 +37,30 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
   }
 } 2>/dev/null
 
+# Autoload personal functions.
+fpath=(
+  ${ZDOTDIR}/functions
+  $fpath
+)
+autoload -Uz ${ZDOTDIR}/functions/**/*(N:t)
+
+# Configure zinit.
 declare -A ZINIT
 ZINIT[HOME_DIR]="${ZINIT_HOME}"
-ZINIT[BIN_DIR]="${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}"
+ZINIT[BIN_DIR]="${ZINIT_HOME}/bin"
+ZINIT[PLUGINS_DIR]="${ZINIT_HOME}/plugins"
+ZINIT[ZCOMPDUMP_PATH]="${ZSH_DATA}/zcompdump"
 
-### Added by Zinit's installer
-if [[ ! -f ${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh ]]; then
+# Load zinit.
+local __ZINIT="$ZINIT[BIN_DIR]/zinit.zsh"
+if [[ ! -f $__ZINIT ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
   command mkdir -p "${ZINIT_HOME}" && command chmod g-rwX "${ZINIT_HOME}"
-  command git clone https://github.com/zdharma/zinit "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}" && \
+  command git clone https://github.com/zdharma/zinit "${ZINIT_HOME}/bin" && \
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
     print -P "%F{160}▓▒░ The clone has failed.%f"
 fi
-source "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh"
+source "$__ZINIT"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -62,13 +72,27 @@ zinit light-mode for \
   zinit-zsh/z-a-patch-dl \
   zinit-zsh/z-a-bin-gem-node
 
-### End of Zinit's installer chunk
 
-
-# zt() : First argument is a wait time and suffix, ie "0a". Anything that
-# doesn't match will be passed as if it were an ice mod. Default ices depth'3'
-# and lucid
-zt() { zinit depth'1' lucid ${1/#[0-9][a-e]/wait"$1"} "${@:2}"; }
+#========================================
+# Zinit turbo mode helper.
+#
+# Wrapper for `zinit` providing `depth'1'` and `lucid` as default ice mods.
+#
+# Usage:
+#   zt [<wait-time>] [<ice-mods>...] <plugin>
+#   zt 2e zdharma/fast-syntax-highlighting
+#   zt 0a light-mode as'program' for ...
+#   zt blockf for ...
+# Parameters:
+#   Wait time+suffix. Optional.
+#   Other ice modifiers. Optional.
+#   Plugin identifier.
+#========================================
+function zt() {
+  zinit depth'1' lucid \
+    ${1/#[0-9][a-e]/wait"$1"} \
+    "${@:2}"
+}
 
 # - - - - - - - - - - - - - - - - - - - -
 # Initial Prompt

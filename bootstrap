@@ -463,7 +463,7 @@ fi
 # verify_os || return 1
 
 
-msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}"
+msg::domain "System" "Syncing dotfield"
 msg::stream::story <<END
 One cannot simply lift oneself up by one's own bootstraps...
 END

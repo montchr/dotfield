@@ -52,9 +52,7 @@ in {
 
         # zinit
         ZPFX = "$HOME/.local";
-        ZINIT_HOME = "$XDG_DATA_HOME/zsh";
-        # Where the zinit repo will live.
-        ZINIT_BIN_DIR_NAME = "zinit";
+        ZINIT_HOME = "$ZSH_DATA/zinit";
       };
 
       # List packages installed in system profile. To search by name, run:
@@ -178,6 +176,7 @@ in {
           vim-vint
           wget
           yq
+          zsh
         ];
       };
     };
