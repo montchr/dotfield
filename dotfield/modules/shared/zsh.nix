@@ -68,6 +68,7 @@ in {
             direnv
             fzf
             htop
+            manix # nix documentation search
             nix-zsh-completions
             rsync
             wget
