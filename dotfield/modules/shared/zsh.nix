@@ -95,7 +95,7 @@ in {
             aliasLines =
               mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
           in ''
-            ${config.my.nix_managed}
+            # ${config.my.nix_managed}
             ${concatStringsSep "\n" aliasLines}
             ${concatMapStrings (path: ''
               source '${path}'
@@ -104,7 +104,7 @@ in {
           '';
 
           "zsh/extra.zshenv".text = ''
-            ${config.my.nix_managed}
+            # ${config.my.nix_managed}
             ${concatMapStrings (path: ''
               source '${path}'
             '') cfg.envFiles}
