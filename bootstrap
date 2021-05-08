@@ -123,10 +123,10 @@ function fetch::file {
 
 
 #========================================
-# Source a Dotfield file, falling back to sourcing ephemerally from the remote.
+# Fetch and source a remote file.
 #
 # Usage:
-#   source_ephemeral <relative-path> [local-base]
+#   source_ephemeral <relative-path> [<url-base>]
 # Arguments:
 #   Relative path to file
 # Returns:
@@ -134,16 +134,10 @@ function fetch::file {
 #   1 - Sourcing failed.
 #========================================
 function source_ephemeral {
-  local path="$1"
-  local filename
+  local url="$1"
   local tmp_file=""
-  local src_file=""
-
-  filename="$(basename "${path}")"
-  tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
-
-  fetch::file "${src_file}" "${tmp_file}"
-
+  tmp_file="$(mktemp "/tmp/${url##*/}.XXXX")"
+  fetch::file "${tmp_file}" "${url}"
   # shellcheck disable=1090
   . "${tmp_file}"
 }
@@ -443,12 +437,7 @@ END
 
 else
 
-utils_path="lib/utils.sh"
-filename="$(basename "${utils_path}")"
-tmp_file="$(mktemp "utils.XXXX")"
-fetch::file "${tmp_file}" "${DOTFIELD_RAW_BASE_URL}/${utils_path}"
-# shellcheck disable=1090
-. "${tmp_file}"
+source_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
 
 msg::stream::story <<END
 This world is beautiful, but dark.
@@ -460,14 +449,13 @@ END
 fi
 
 
-shell::has pfetch || {
-  msg::domain "System" "Summoning pfetch"
-  fetch::to_bin pfetch "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
-}
-
-
 msg::domain "System" "Verifying system state"
-pfetch || "${XDG_BIN_HOME}/pfetch" || exit 1
+if shell::has pfetch; then
+  pfetch
+else
+  msg::domain "System" "Summoning pfetch"
+  source_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
+fi
 
 
 # Ensure the OS is supported and above the minimum version.
