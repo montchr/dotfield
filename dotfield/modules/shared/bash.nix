@@ -6,10 +6,12 @@ let
   home = config.my.user.home;
   cfg = config.my.modules.bash;
 in {
-  options.my.modules.shell.bash = {
-    enable = mkEnableOption ''
-      Whether to enable bash module
-    '';
+  options = with lib; {
+    my.modules.bash = {
+      enable = mkEnableOption ''
+        Whether to enable bash module
+      '';
+    };
   };
 
   config = mkIf cfg.enable {

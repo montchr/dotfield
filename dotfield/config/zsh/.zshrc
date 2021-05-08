@@ -20,8 +20,8 @@ typeset -g \
   SAVEHIST=290000 \
   HISTFILE="${XDG_DATA_HOME}/zsh/history" \
 
-[[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
-[[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -p "$XDG_RUNTIME_DIR"
+[[ -d "$CACHEDIR" ]] || mkdir -pv "$CACHEDIR"
+[[ -d "$XDG_RUNTIME_DIR" ]] || mkdir -pv "$XDG_RUNTIME_DIR"
 
 autoload -Uz add-zsh-hook
 
@@ -37,6 +37,10 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
     [[ -d ${dir} ]] && { cd -q ${dir}; break }
   }
 } 2>/dev/null
+
+declare -A ZINIT
+ZINIT[HOME_DIR]="${ZINIT_HOME}"
+ZINIT[BIN_DIR]="${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}"
 
 ### Added by Zinit's installer
 if [[ ! -f ${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh ]]; then

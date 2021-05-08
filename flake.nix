@@ -60,6 +60,7 @@
     # };
   };
 
+  # N.B. including nixpkgs here may cause yabai overlay to break!
   outputs = { self, ... }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
@@ -102,6 +103,11 @@
 
         time.timeZone = config.my.timezone;
       };
+
+      # TODO: come back to this fancy stuff later (maybe?)
+      # https://github.com/hlissner/dotfiles/blob/master/flake.nix
+      # lib = nixpkgs.lib.extend
+      #   (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
     in {
       overlays = (self: super: {
