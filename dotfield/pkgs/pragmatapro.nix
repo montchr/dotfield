@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, lib }:
+{ stdenv, fetchgit, lib }:
 
 let
   version = "0.828";
@@ -7,11 +7,10 @@ stdenv.mkDerivation {
   name = "pragmatapro-${version}";
   version = version;
 
-  src = fetchFromGitHub {
-    owner = "montchr";
-    repo = "pragmatapro";
-    rev = "v${version}";
-    sha256 = "sha256-BU8vPOQ6ZO1Z24wJELOS1/HrPBMKJX6N615VBmeOIgY="
+  src = fetchgit {
+    url = "git@github.com:montchr/pragmatapro.git";
+    rev = "refs/tags/v${version}";
+    sha256 = "sha256-BU8vPOQ6ZO1Z24wJELOS1/HrPBMKJX6N615VBmeOIgY=";
   };
 
   phases = [ "installPhase" ];

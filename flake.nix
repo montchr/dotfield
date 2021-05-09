@@ -86,7 +86,8 @@
           fonts = with pkgs; [
             ibm-plex
             inter
-            pragmatapro
+            # TODO: come back to this once ssh is working so we can access the private repo
+            # pragmatapro
             public-sans
           ];
         };
@@ -106,7 +107,7 @@
 
     in {
       overlays = (self: super: {
-        pragmatapro = (super.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+        # pragmatapro = (super.callPackage ./dotfield/pkgs/pragmatapro.nix { });
 
         # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
         yabai = super.yabai.overrideAttrs (o: rec {
