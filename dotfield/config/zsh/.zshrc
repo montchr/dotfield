@@ -310,5 +310,5 @@ zinit is-snippet for \
   if"[[ -f "${ZDOTDIR}/config.local" ]]" \
     "${ZDOTDIR}/config.local"
 
-[[ -f "${ZDOTDIR}/p10k.zsh" ]] \
-  && source "${ZDOTDIR}/p10k.zsh"
+[[ -f "${ZDOTDIR}/.p10k.zsh" ]] \
+  && source "${ZDOTDIR}/.p10k.zsh"
