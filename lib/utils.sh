@@ -620,8 +620,20 @@ function shell::set_trap {
     trap '$2' "$1"
 }
 
+
+#======================================
+# Check for the existence of a command in the current shell environment.
+#
+# Usage:
+#   shell::has <command>...
+#
+# Arguments:
+#   Commands...
+#========================================
 function shell::has {
-  command -v "$1" >/dev/null 2>&1
+  for cmd in "$@"; do
+    command -v "${cmd}" >/dev/null 2>&1
+  done
 }
 
 
@@ -951,20 +963,18 @@ function fs::map_lines {
 # Download a remote file to the current user's bin directory.
 #
 # Usage:
-#   fetch::to_bin <url> [name]
+#   fetch::to_bin <name> <url>
 # Globals:
 #   HOME
 #   XDG_BIN_HOME
 # Parameters:
+#   Filename
 #   Source URL
-#   Executable name. Optional.
 #========================================
 function fetch::to_bin {
-  local url="$1"
-  local name="${2:-}"
-  [[ -z "${name}" ]] \
-    && name="$(basename "${url}")"
-  local target="${XDG_BIN_HOME:-${${HOME}/.local/bin}}/${name}"
+  local name="$1"
+  local url="$2"
+  local target="${XDG_BIN_HOME:-${HOME}/.local/bin}/${name}"
   fetch::file "${target}" "${url}"
 }
 
@@ -1033,8 +1043,11 @@ function repo::qualify_url {
       fi
       ;;
     srht|sourcehut)
-      msg::error "sourcehut not yet supported!"
-      return 1
+      if [[ "$USE_HTTPS" = "true" ]]; then
+        echo  "https://git.sr.ht/~${identifier}"
+      else
+        echo "git@git.sr.ht:${identifier}"
+      fi
       ;;
   esac
 }

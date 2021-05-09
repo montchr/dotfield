@@ -56,3 +56,4 @@ upgrade
 .php_cs.cache
 
 local-silence-other-rest-route-warnings.php
+karabiner/automatic_backups

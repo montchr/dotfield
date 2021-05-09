@@ -29,35 +29,35 @@ cask_args appdir: "/Applications", require_sha: true
 brew "coreutils"
 
 # Build
-brew "automake"
-brew "binutils"
-brew "cmake"
+# brew "automake"
+# brew "binutils"
+# brew "cmake"
 brew "curl"
-brew "gcc"
+# brew "gcc"
 brew "git"
-brew "glib"
-brew "gnutls"
-brew "make"
-brew "pkg-config"
+# brew "glib"
+# brew "gnutls"
+# brew "make"
+# brew "pkg-config"
 
 # Shell
-brew "ack"
+# brew "ack"
 brew "bash"
 brew "bash-completion"
-brew "bzip2"
-brew "fd"
-brew "fzf"
-brew "gawk"
-brew "gnu-sed"
-brew "gnu-tar"
-brew "grc"
-brew "hyperfine"
-brew "jq"
-brew "ripgrep"
-brew "rsync"
-brew "tmux"
+# brew "bzip2"
+# brew "fd"
+# brew "fzf"
+# brew "gawk"
+# brew "gnu-sed"
+# brew "gnu-tar"
+# brew "grc"
+# brew "hyperfine"
+# brew "jq"
+# brew "ripgrep"
+# brew "rsync"
+# brew "tmux"
 brew "wget"
-brew "yq"
+# brew "yq"
 brew "zsh"
 
 # Security
@@ -75,8 +75,8 @@ brew "transcrypt"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "ansible"
-brew "terraform"
+# brew "ansible"
+# brew "terraform"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -86,21 +86,21 @@ brew "terraform"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "aspell"
-brew "graphviz"
-brew "wordnet"
+# brew "aspell"
+# brew "graphviz"
+# brew "wordnet"
 
-# macOS only
-brew "railwaycat/emacsmacport/emacs-mac", args: [
-       "with-ctags",
-       "with-emacs-big-sur-icon",
-       "with-glib",
-       "with-imagemagick",
-       "with-no-title-bars",
-       "with-rsvg",
-       "with-starter"
-     ]
-brew "pngpaste"
+# # macOS only
+# brew "railwaycat/emacsmacport/emacs-mac", args: [
+#        "with-ctags",
+#        "with-emacs-big-sur-icon",
+#        "with-glib",
+#        "with-imagemagick",
+#        "with-no-title-bars",
+#        "with-rsvg",
+#        "with-starter"
+#      ]
+# brew "pngpaste"
 
 # Linux only
 # brew "emacs"
@@ -113,16 +113,16 @@ brew "pngpaste"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "ffmpeg"
-brew "graphicsmagick"
-brew "imagemagick"
-brew "imlib2"
-brew "jp2a"
-brew "lame"
-brew "libcaca"
-brew "librsvg"
-brew "optipng"
-brew "youtube-dl"
+# brew "ffmpeg"
+# brew "graphicsmagick"
+# brew "imagemagick"
+# brew "imlib2"
+# brew "jp2a"
+# brew "lame"
+# brew "libcaca"
+# brew "librsvg"
+# brew "optipng"
+# brew "youtube-dl"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -134,10 +134,10 @@ brew "youtube-dl"
 
 # macOS only
 brew "dark-mode"
-brew "dnsmasq", restart_service: true
-brew "ical-buddy"
-brew "koekeishiya/formulae/skhd", args: ["with-logging"]
-brew "koekeishiya/formulae/yabai"
+# brew "dnsmasq", restart_service: true
+# brew "ical-buddy"
+# brew "koekeishiya/formulae/skhd", args: ["with-logging"]
+# brew "koekeishiya/formulae/yabai"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -147,8 +147,8 @@ brew "koekeishiya/formulae/yabai"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "cmatrix"
-brew "ddate"
+# brew "cmatrix"
+# brew "ddate"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -158,27 +158,27 @@ brew "ddate"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "asciinema"
-brew "awscli"
-brew "bat"
-brew "direnv"
-brew "editorconfig"
-brew "gdb"
-brew "gh"
-brew "git-delta"
-brew "hub"
-brew "pyenv"
-brew "shellcheck"
-brew "shfmt"
+# brew "asciinema"
+# brew "awscli"
+# brew "bat"
+# brew "direnv"
+# brew "editorconfig"
+# brew "gdb"
+# brew "gh"
+# brew "git-delta"
+# brew "hub"
+# brew "pyenv"
+# brew "shellcheck"
+# brew "shfmt"
 
 # Information retrieval
-brew "googler"
-brew "navi"
+# brew "googler"
+# brew "navi"
 brew "tldr"
 
 # System monitoring
-brew "netcat"
-brew "ncdu"
+# brew "netcat"
+# brew "ncdu"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -188,13 +188,13 @@ brew "ncdu"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "pandoc"
-brew "poppler"
-brew "rename"
-brew "renameutils"
-brew "stow"
-brew "unar"
-brew "sd"
+# brew "pandoc"
+# brew "poppler"
+# brew "rename"
+# brew "renameutils"
+# brew "stow"
+# brew "unar"
+# brew "sd"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -204,11 +204,11 @@ brew "sd"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "bitwarden-cli"
-brew "federico-terzi/espanso/espanso"
-brew "hledger"
-brew "ledger"
-brew "notmuch"
+# brew "bitwarden-cli"
+# brew "federico-terzi/espanso/espanso"
+# brew "hledger"
+# brew "ledger"
+# brew "notmuch"
 brew "pass"
 
 
@@ -219,40 +219,40 @@ brew "pass"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-brew "go"
-brew "haskell-stack"
-brew "luarocks"
-brew "node"
-brew "python"
-brew "ruby-build"
-brew "rust"
+# brew "go"
+# brew "haskell-stack"
+# brew "luarocks"
+# brew "node"
+# brew "python"
+# brew "ruby-build"
+# brew "rust"
 brew "shivammathur/php/php@7.4"
 brew "shivammathur/php/php@8.0"
 
 
 # Misc. Databases
-brew "postgresql"
-brew "sqlite"
+# brew "postgresql"
+# brew "sqlite"
 
 
 # PHP build dependencies
-brew "autoconf"
-brew "bison"
-brew "gettext"
-brew "re2c"
+# brew "autoconf"
+# brew "bison"
+# brew "gettext"
+# brew "re2c"
 
 # macOS only
-brew "freetype"
-brew "gd"
-brew "icu4c"
-brew "krb5"
-brew "libedit"
-brew "libiconv"
-brew "libjpeg"
-brew "libpng"
-brew "libxml2"
-brew "libzip"
-brew "zlib"
+# brew "freetype"
+# brew "gd"
+# brew "icu4c"
+# brew "krb5"
+# brew "libedit"
+# brew "libiconv"
+# brew "libjpeg"
+# brew "libpng"
+# brew "libxml2"
+# brew "libzip"
+# brew "zlib"
 
 # Linux only
 # brew "build-essential"
@@ -274,17 +274,17 @@ brew "zlib"
 
 
 # Font building
-brew "fontforge"
+# brew "fontforge"
 
 
 # Misc. libraries
-brew "libedit"
-brew "libiconv"
-brew "libmagic" # promnesia dependency on macOS
-brew "libpq"
-brew "pango"
-brew "re2c"
-brew "rlwrap"
+# brew "libedit"
+# brew "libiconv"
+# brew "libmagic" # promnesia dependency on macOS
+# brew "libpq"
+# brew "pango"
+# brew "re2c"
+# brew "rlwrap"
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -300,8 +300,10 @@ cask 'adobe-acrobat-reader'
 cask "airfoil"
 cask "alfred"
 cask "audio-hijack"
+cask "appcleaner"
 cask "bartender"
 cask "basictex"
+cask "bitwarden"
 cask "brave-browser"
 cask "calibre"
 cask "caprine"
@@ -344,15 +346,18 @@ cask "sequel-pro"
 cask "signal"
 cask "slack"
 cask "soundsource"
-cask "spotify"
+cask "spotify", args: {
+  require_sha: false
+}
 cask "steermouse"
+cask "sublime-text"
 cask "suspicious-package"
 cask "tigervnc-viewer"
 cask "transmit"
 cask "ubersicht"
 # Requires manual input.
-# cask "virtualbox"
-# cask "vagrant"
+cask "virtualbox"
+cask "vagrant"
 cask "visual-studio-code", args: {
   force: true
 }

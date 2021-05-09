@@ -36,7 +36,7 @@ function main () {
       }
     }
 
-    guard::domain "hostname" "Set system hostname" && {
+    guard::domain "hostname" "Set system hostname to '${HOSTNAME}'" && {
       __set_hostname "${HOSTNAME}"
     }
   }

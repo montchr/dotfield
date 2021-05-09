@@ -22,17 +22,19 @@
 set -e
 
 
-: "${DOTFIELD_HOSTNAME:=dotfield}"
+: "${DOTFIELD_HOSTNAME:=}"
+: "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 : "${DOTFIELD_USERNAME:=montchr}"
 : "${DOTFIELD_ID_EMAIL:=}"
 : "${DOTFIELD_USER_PASSWORD:=}"
 : "${DOTFIELD_SSH_PUBLIC_KEY:=}"
+: "${DOTFIELD_PGP_KEY:=0x135EEDD0F71934F3}"
 : "${DOTFIELD_TIMEZONE:=America/New_York}"
 
 : "${USE_HTTPS:-true}"
 : "${HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 
-DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/reshape}}}"
+DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/nix-home-manager}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
 readonly DOTFIELD_BRANCH
 
@@ -43,6 +45,9 @@ readonly REPO_ID="montchr/dots"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
+[[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
+  && DOTFIELD_NIX_HOSTNAME="$(hostname)"
+
 : "${DOTFIELD:=${HOME}/.config}"
 : "${XDG_CONFIG_HOME:=${DOTFIELD}}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
@@ -52,6 +57,7 @@ export \
   DOTFIELD_BRANCH \
   DOTFIELD_HOSTNAME \
   DOTFIELD_ID_EMAIL \
+  DOTFIELD_NIX_HOSTNAME \
   DOTFIELD_SSH_PUBLIC_KEY \
   DOTFIELD_TIMEZONE \
   DOTFIELD_USER_PASSWORD \
@@ -68,6 +74,24 @@ export \
 #:    ==>   HELPER FUNCTIONS
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+
+#======================================
+# Check for the existence of a command in the current shell environment.
+#
+# Copied from lib/utils.sh for bootstrapping
+#
+# Usage:
+#   shell::has <command>...
+#
+# Arguments:
+#   Commands...
+#========================================
+function shell::has {
+  for cmd in "$@"; do
+    command -v "${cmd}" >/dev/null 2>&1
+  done
+}
 
 
 #========================================
@@ -99,10 +123,10 @@ function fetch::file {
 
 
 #========================================
-# Source a Dotfield file, falling back to sourcing ephemerally from the remote.
+# Fetch and source a remote file.
 #
 # Usage:
-#   source_ephemeral <relative-path> [local-base]
+#   source_ephemeral <relative-path> [<url-base>]
 # Arguments:
 #   Relative path to file
 # Returns:
@@ -110,16 +134,10 @@ function fetch::file {
 #   1 - Sourcing failed.
 #========================================
 function source_ephemeral {
-  local path="$1"
-  local filename
+  local url="$1"
   local tmp_file=""
-  local src_file=""
-
-  filename="$(basename "${path}")"
-  tmp_file="$(mktemp "/tmp/${filename}.XXXX")"
-
-  download::fetch "${src_file}" "${tmp_file}"
-
+  tmp_file="$(mktemp "/tmp/${url##*/}.XXXX")"
+  fetch::file "${tmp_file}" "${url}"
   # shellcheck disable=1090
   . "${tmp_file}"
 }
@@ -186,6 +204,9 @@ function verify_os {
 #   ALL
 #   GUARD_<DOMAIN>
 #   GUARD_IGNORE_<DOMAIN>
+# Uses:
+#   msg::domain__lesser
+#   msg::domain__inactive
 # Parameters:
 #   Domain name. Used for message prefix and uppercased nameref.
 #   Message.
@@ -221,38 +242,114 @@ function guard::domain {
   fi
 }
 
+#========================================
+# Guard for the `install` action.
+#
+# Usage:
+#   guard::install && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::install {
   [[ "$ACTION" == "install" ]]
   return
 }
 
+
+#========================================
+# Guard for the `upgrade` action.
+#
+# Usage:
+#   guard::upgrade && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::upgrade {
   [[ "$ACTION" == "upgrade" ]]
   return
 }
 
+
+#========================================
+# Guard for the `test` action.
+#
+# Usage:
+#   guard::test && { ... }
+# Globals:
+#   ACTION
+#========================================
 function guard::test {
   [[ "$ACTION" == "test" ]]
   return
 }
 
+
+#========================================
+# Guard for Linux systems.
+#
+# Usage:
+#   guard::linux && { ... }
+# Globals:
+#   KERNEL_NAME
+#========================================
+function guard::linux {
+  [[ "$KERNEL_NAME" == "linux" ]]
+  return
+}
+
+
+#========================================
+# Guard for Ubuntu.
+#
+# Usage:
+#   guard::ubuntu && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::ubuntu {
   [[ "$OS_NAME" == "ubuntu" ]]
   return
 }
 
+
+#========================================
+# Guard for Arch Linux.
+#
+# Usage:
+#   guard::arch && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::arch {
   [[ "$OS_NAME" == "arch" ]]
   return
 }
 
+
+#========================================
+# Guard for macOS.
+#
+# Usage:
+#   guard::ubuntu && { ... }
+# Globals:
+#   OS_NAME
+#========================================
 function guard::macos {
   [[ "$OS_NAME" == "macos" ]]
   return
 }
 
+
+#========================================
+# Guard for the root user.
+#
+# Usage:
+#   guard::root && { ... }
+# Globals:
+#   USER
+#========================================
 function guard::root {
-  [[ "$(whoami)" == "root" ]]
+  [[ "${USER}" == "root" ]]
   return
 }
 
@@ -340,12 +437,7 @@ END
 
 else
 
-utils_path="lib/utils.sh"
-filename="$(basename "${utils_path}")"
-tmp_file="$(mktemp "utils.XXXX")"
-fetch::file "${tmp_file}" "${DOTFIELD_RAW_BASE_URL}/${utils_path}"
-# shellcheck disable=1090
-. "${tmp_file}"
+source_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
 
 msg::stream::story <<END
 This world is beautiful, but dark.
@@ -357,14 +449,13 @@ END
 fi
 
 
-shell::has pfetch || {
-  msg::domain "System" "Summoning pfetch"
-  fetch::to_bin "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
-}
-
-
 msg::domain "System" "Verifying system state"
-pfetch || "${XDG_BIN_HOME}/pfetch" || exit 1
+if shell::has pfetch; then
+  pfetch
+else
+  msg::domain "System" "Summoning pfetch"
+  source_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
+fi
 
 
 # Ensure the OS is supported and above the minimum version.
@@ -372,7 +463,7 @@ pfetch || "${XDG_BIN_HOME}/pfetch" || exit 1
 # verify_os || return 1
 
 
-msg::domain "System" "Syncing dotfield with ${XDG_CONFIG_HOME}"
+msg::domain "System" "Syncing dotfield"
 msg::stream::story <<END
 One cannot simply lift oneself up by one's own bootstraps...
 END
@@ -472,24 +563,124 @@ touch "${DOTFIELD_LOCK_FILE}"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
+
 guard::macos && {
-if ! shell::is_modern
-then
-  # shellcheck source=./os/macos/_pre_install.sh
-  . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
-fi
+  if ! shell::is_modern; then
+    msg::domain "Packages" "Install Homebrew and modern Bash"
+    # shellcheck source=./os/macos/_pre_install.sh
+    . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
+  fi
 }
 
 
 guard::install && {
-msg::domain "Hostname" "Set the system hostname" && {
-  if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
-    HOSTNAME="${DOTFIELD_HOSTNAME}"
-  else
-    msg::ask "Enter a name: "
-    HOSTNAME="$(msg::get_answer)"
-  fi
+  msg::domain "Hostname" "Set the system hostname" && {
+    if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
+      HOSTNAME="${DOTFIELD_HOSTNAME}"
+    else
+      msg::ask "Enter a name: "
+      HOSTNAME="$(msg::get_answer)"
+      DOTFIELD_NIX_HOSTNAME="${HOSTNAME}"
+    fi
+  }
 }
+
+
+guard::install &&  {
+  guard::domain "Identity" "Fetching PGP key" && {
+    gpg --recv-key "${DOTFIELD_PGP_KEY}"
+  }
+}
+
+
+guard::install && {
+
+  (shell::has nix nix-build nix-channel nix-env nix-shell) || {
+
+    msg::domain "Nix" "Install Nix package manager"
+    sh <(curl -L https://nixos.org/nix/install) \
+      --darwin-use-unencrypted-nix-store-volume \
+      --daemon \
+
+    msg::subdomain "Sourcing /etc/bashrc for Nix additions"
+    . /etc/bashrc
+
+    msg::subdomain "Testing nix-shell"
+    nix-shell -p nix-info --run "nix-info -m"
+
+  }
+
+  msg::domain "Nix" "Install experimental Nix Flakes" && {
+    nix-env -iA nixpkgs.nixFlakes
+    nix_flakes_feature_flag="experimental-features = nix-command flakes"
+    if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
+      msg::subdomain "Adding nix flakes feature flag to /etc/nix/nix.conf"
+      echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
+    fi
+  }
+}
+
+
+guard::install && guard::macos {
+  msg::domain "Nix" "Install nix-darwin" && {
+
+    [[ -d ./result ]] && {
+      msg::subdomain "Found existing ./result directory. Removing..."
+      rm -rf ./result
+    }
+
+    # Although nix-darwin supports flakes, at the time of writing, the installer
+    # does not. In order to install nix-darwin properly, it needs to be
+    # installed for the first time via the installer.
+    # See: https://github.com/LnL7/nix-darwin#flakes-experimental
+    msg::subdomain "Building nix-darwin installer"
+    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
+
+      msg::error "Encountered an error installing nix-darwin"
+      cert_file="/etc/ssl/certs/ca-certificates.crt"
+
+      msg::stream::info \
+<<END
+
+If you received a message like this:
+
+> Problem with the SSL CA cert (path? access rights?) (77)
+
+...then '${cert_file}' might be a dead symlink.
+
+Try removing and re-linking it by running the following:
+
+$ sudo rm ${cert_file}
+$ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
+
+END
+
+      exit 1
+
+    }
+
+    msg::subdomain "Running nix-darwin installer"
+    ./result/bin/darwin-installer
+
+    msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
+    . /etc/static/bashrc
+
+}
+
+
+
+msg::domain "Nix" "Build" && {
+
+  guard::macos && {
+    nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
+      && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+  }
+
+  guard::linux && {
+    # TODO: does this work anywhere besides NixOS? (probably not)
+    sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+  }
+
 }
 
 
@@ -504,8 +695,6 @@ fs::ensure_dir "$HOME/org/roam"
 
 guard::domain "Repo" "Sync repos from Repofiles" && {
   fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
-  # @TODO file doesn't exist. what's this for?
-  fs::map_lines repo::sync "${XDG_CACHE_HOME}/dotfield/Repofile" || true
 }
 
 
@@ -563,7 +752,15 @@ guard::macos && {
 guard::install && {
   msg::domain "Guardian" "Decrypting Dotfield secrets"
   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
-    transcrypt --yes --import-gpg="${XDG_CONFIG_HOME}/.transcrypt"
+    # Force transcrypt to run even if it thinks the working tree is dirty.
+    # This seems to be a false positive. Regardless, we've already checked for
+    # a dirty working tree so nothing should be lost at this point.
+    transcrypt --yes --force --import-gpg="${XDG_CONFIG_HOME}/.transcrypt" || {
+      msg::warning "Decryption failed. Have we been her before?"
+    }
+  else
+    msg::error "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
+    shell::is_interactive && exit 1
   fi
 }
 
