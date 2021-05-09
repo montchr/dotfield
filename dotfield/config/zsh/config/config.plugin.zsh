@@ -11,6 +11,12 @@
 # Functions
 # - - - - - - - - - - - - - - - - - - - -
 
+# Autoload personal functions
+if [[ -z ${fpath[(r)${0:h}/functions]} ]] {
+  fpath=("${0:h}/functions" "${fpath[@]}")
+}
+autoload -Uz $fpath[1]/*(:t)
+
 add-zsh-hook chpwd chpwd_ls
 
 

@@ -42,7 +42,8 @@ fpath=(
   ${ZDOTDIR}/functions
   $fpath
 )
-autoload -Uz ${ZDOTDIR}/functions/**/*(N:t)
+# TODO: this doesn't exist!
+# autoload -Uz ${ZDOTDIR}/functions/**/*(N:t)
 
 # Configure zinit.
 declare -A ZINIT
