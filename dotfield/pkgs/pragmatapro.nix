@@ -1,24 +1,24 @@
-{ stdenv, requireFile, unzip, lib }:
+{ stdenv, fetchFromGitHub, lib }:
 
-stdenv.mkDerivation rec {
+let
+  version = "0.828";
+in
+stdenv.mkDerivation {
   name = "pragmatapro-${version}";
-  version = "0.828-2";
+  version = version;
 
-  src = requireFile rec {
-    name = "PragmataPro${version}.zip";
-    url = "file://path/to/${name}";
-    sha256 = "19q6d0dxgd9k2mhr31944wpprks1qbqs1h5f400dyl5qzis2dji3";
-    message = ''
-      ${name} font not found in nix store, to add it run:
-      $ nix-store --add-fixed sha256 /path/to/${name}'';
+  src = fetchFromGitHub {
+    owner = "montchr";
+    repo = "pragmatapro";
+    rev = "v${version}";
+    sha256 = "sha256-BU8vPOQ6ZO1Z24wJELOS1/HrPBMKJX6N615VBmeOIgY="
   };
 
-  buildInputs = [ unzip ];
-  phases = [ "unpackPhase" "installPhase" ];
-  pathsToLink = [ "/share/fonts/truetype/" ];
+  phases = [ "installPhase" ];
+  pathsToLink = [ "/share/fonts/ttf/" ];
   sourceRoot = ".";
   installPhase = ''
-    install_path=$out/share/fonts/truetype
+    install_path=$out/share/fonts/ttf
     mkdir -p $install_path
     find -name "PragmataPro*.ttf" -exec cp {} $install_path \;
   '';

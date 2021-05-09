@@ -53,11 +53,6 @@
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # pragmatapro = {
-    #   url = "sourcehut:montchr/pragmata-pro";
-    #   flake = false;
-    # };
   };
 
   # N.B. including nixpkgs here may cause yabai overlay to break!
@@ -86,15 +81,15 @@
           };
         };
 
-        fonts = (lib.mkMerge [
-          # [note] Remove this condition when `nix-darwin` aligns with NixOS
-          (if (builtins.hasAttr "fontDir" options.fonts) then {
-            fontDir.enable = true;
-          } else {
-            enableFontDir = true;
-          })
-          # { fonts = with pkgs; [ pragmatapro ]; }
-        ]);
+        fonts = {
+          enableFontDir = true;
+          fonts = with pkgs; [
+            ibm-plex
+            inter
+            pragmatapro
+            public-sans
+          ];
+        };
 
         nixpkgs = {
           config = { allowUnfree = true; };
@@ -111,7 +106,7 @@
 
     in {
       overlays = (self: super: {
-        # pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+        pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
 
         # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
         yabai = super.yabai.overrideAttrs (o: rec {
