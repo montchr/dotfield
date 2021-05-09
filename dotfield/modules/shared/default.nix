@@ -3,7 +3,6 @@
 {
   # Roughly in order of precedence.
   imports = [
-    ./xdg.nix
     ./settings.nix
     ./zsh.nix
     ./bash.nix

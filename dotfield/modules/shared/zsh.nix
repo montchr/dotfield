@@ -52,7 +52,7 @@ in {
 
         # zinit
         ZPFX = "$HOME/.local";
-        ZINIT_HOME = "$ZSH_DATA/zinit";
+        ZINIT_HOME = "$XDG_DATA_HOME/zsh/zinit";
       };
 
       # List packages installed in system profile. To search by name, run:
@@ -112,7 +112,7 @@ in {
         };
 
         dataFile = {
-          "zsh/plugins/_local---config" = {
+          "zsh/zinit/plugins/_local---config" = {
             recursive = true;
             source = "${configDir}/zsh/config";
           };
