@@ -85,13 +85,6 @@ DOTFIELD_LOCAL_CONFIG="${XDG_CONFIG_HOME}/shell/profile.local"
 #   - https://wiki.archlinux.org/title/XDG_Base_Directory
 #
 
-# asdf version manager
-# https://asdf-vm.com/#/core-configuration?id=environment-variables
-export \
-  ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf" \
-  ASDF_DIR="${XDG_DATA_HOME}/asdf" \
-  ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
-
 # Composer
 export COMPOSER_HOME="${XDG_CONFIG_HOME}/composer"
 
@@ -170,15 +163,15 @@ export PATH="${ASDF_DATA_DIR}/shims:${PATH}"
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # Required by Homebrew
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+# export PATH="/usr/local/sbin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
+# export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # Prefer GNU coreutils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 # Prefer brew's sqlite3
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
+# export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # Doom Emacs
 export PATH="${EMACSDIR}/bin:$PATH"

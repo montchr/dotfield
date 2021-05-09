@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Reset Nix store permissions on Darwin
+#
+# https://github.com/LnL7/nix-darwin/issues/188#issuecomment-626132049
+
+chown -R root:nixbld /nix
+chmod 1777 /nix/var/nix/profiles/per-user
+chown -R "${USER}:staff" "/nix/var/nix/profiles/per-user/${USER}"
+# shellcheck disable=SC2174
+mkdir -m 1777 -p /nix/var/nix/gcroots/per-user
+chown -R "${USER}:staff" "/nix/var/nix/gcroots/per-user/${USER}"

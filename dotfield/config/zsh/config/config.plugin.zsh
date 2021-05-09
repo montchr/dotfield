@@ -51,15 +51,6 @@ export BREW_PREFIX=$(brew --prefix)
 export GPG_TTY="$(tty)"
 
 
-# asdf version manager
-export cdom_asdf_plugins=(
-  direnv
-  nodejs
-  python
-  ruby
-)
-
-
 # nvm
 export NVM_AUTO_USE=true \
   NVM_LAZY_LOAD=true

@@ -41,9 +41,10 @@ in {
       programs.zsh = {
         enable = true;
         enableCompletion = false;
+        enableBashCompletion = false;
+        promptInit = "";
       };
 
-      my.modules.zsh.envFiles = [ ("${configDir}/shell/profile") ];
 
       my.env = {
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
@@ -69,7 +70,7 @@ in {
             fzf
             htop
             manix # nix documentation search
-            nix-zsh-completions
+            # nix-zsh-completions
             rsync
             wget
             z-lua
@@ -79,11 +80,6 @@ in {
 
       my.hm = {
         configFile = {
-          "shell" = {
-            recursive = true;
-            source = "${configDir}/shell";
-          };
-
           # Write it recursively so other modules can write files to it
           "zsh" = {
             source = "${configDir}/zsh";
@@ -95,18 +91,25 @@ in {
               mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
           in ''
             # ${config.my.nix_managed}
+
             ${concatStringsSep "\n" aliasLines}
+
             ${concatMapStrings (path: ''
               source '${path}'
             '') cfg.rcFiles}
+
             ${cfg.rcInit}
           '';
 
+          "zsh/profile.zshenv".source = "${configDir}/shell/profile";
+
           "zsh/extra.zshenv".text = ''
             # ${config.my.nix_managed}
+
             ${concatMapStrings (path: ''
               source '${path}'
             '') cfg.envFiles}
+
             ${cfg.envInit}
           '';
         };

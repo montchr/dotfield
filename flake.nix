@@ -81,16 +81,17 @@
           };
         };
 
-        fonts = {
-          enableFontDir = true;
-          fonts = with pkgs; [
-            ibm-plex
-            inter
-            # TODO: come back to this once ssh is working so we can access the private repo
-            # pragmatapro
-            public-sans
-          ];
-        };
+        # TODO: get this working again! but pragmatapro is necessary
+        # fonts = {
+        #   enableFontDir = true;
+        #   fonts = with pkgs; [
+        #     ibm-plex
+        #     inter
+        #     # TODO: come back to this once ssh is working so we can access the private repo
+        #     # pragmatapro
+        #     public-sans
+        #   ];
+        # };
 
         nixpkgs = {
           config = { allowUnfree = true; };
