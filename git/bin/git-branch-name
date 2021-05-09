@@ -7,6 +7,6 @@
 # shellcheck source=../../../lib/utils.sh
 . "${XDG_CONFIG_HOME}/lib/utils.sh"
 
-if is_git_repository; then
+if repo::is_repo; then
   git symbolic-ref --short -q HEAD
 fi
