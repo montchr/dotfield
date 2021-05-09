@@ -106,7 +106,7 @@
 
     in {
       overlays = (self: super: {
-        pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+        pragmatapro = (super.callPackage ./dotfield/pkgs/pragmatapro.nix { });
 
         # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
         yabai = super.yabai.overrideAttrs (o: rec {

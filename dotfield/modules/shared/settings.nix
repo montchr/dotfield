@@ -80,7 +80,7 @@ in {
         "/home/${config.my.username}";
 
       description = "Primary user account";
-      shell = pkgs.zsh;
+      # shell = pkgs.zsh;
     };
 
     environment = {
@@ -88,7 +88,7 @@ in {
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
         GITHUB_USER = config.my.github_username;
-        # SHELL = pkgs.zsh.shellPath;
+        SHELL = pkgs.zsh.shellPath;
       };
     };
 
@@ -96,13 +96,6 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      #   my.hm.file        ->  home-manager.users.cdom.home.file
-      #   my.hm.configFile  ->  home-manager.users.cdom.home.xdg.configFile
-      #   my.hm.dataFile    ->  home-manager.users.cdom.home.xdg.dataFile
-      #
-      # See:
-      #   - https://github.com/ahmedelgabri/dotfiles/blob/c2da02d042275ccc476812f79298f0453c2a5263/nix/modules/shared/settings.nix
-      #   - https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/modules/options.nix
       users.${config.my.username} = {
         home = {
           # Necessary for home-manager to work with flakes, otherwise it will
@@ -116,6 +109,7 @@ in {
         };
 
         xdg = {
+          enable = true;
           configFile = mkAliasDefinitions options.my.hm.configFile;
           dataFile = mkAliasDefinitions options.my.hm.dataFile;
         };
