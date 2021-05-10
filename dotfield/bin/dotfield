@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# dotfield
+#
+# Usage:
+#   dotfield <subcommand> [<args>...]
+#   dotfield repl [<flake-output>]
+
+
+#========================================
+# Open a new nix repl shell for this machine's host.
+#
+# Arguments:
+#   Flake output name.
+#========================================
+function __nix::repl() {
+  local output="$1"
+  local conf
+  local flake_dir
+  conf="$(mktemp)"
+  flake_dir="$(git rev-parse --show-toplevel)"
+
+  echo "Loading flake from ${flake_dir}.${output}..."
+
+  cat > "${conf}" << EOF
+(builtins.getFlake (toString ${flake_dir})).${output}
+EOF
+
+  nix repl "${conf}"
+}
+
+#========================================
+# Entry point.
+#========================================
+function main() {
+  local SUBCOMMAND="$1"
+  shift
+
+  case $SUBCOMMAND in
+    repl)
+      local host_name
+      host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
+      __nix::repl "darwinConfigurations.${host_name}"
+      ;;
+    *)
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
