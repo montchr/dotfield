@@ -47,6 +47,10 @@
           };
         };
 
+        environment.systemPackages = with pkgs; [
+          rnix-lsp
+        ];
+
         # TODO: get this working again! but pragmatapro is necessary
         # fonts = {
         #   enableFontDir = true;
