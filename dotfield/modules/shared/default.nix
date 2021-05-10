@@ -11,6 +11,7 @@
     ./ssh.nix
     ./git.nix
     ./kitty.nix
+    ./tealdeer.nix
     ./bat.nix
     ./ripgrep.nix
     ./node.nix
@@ -29,6 +30,7 @@
     python.enable = true;
     ripgrep.enable = true;
     ssh.enable = true;
+    tealdeer.enable = true; # rust implementation of tldr
     zsh.enable = true;
   };
 

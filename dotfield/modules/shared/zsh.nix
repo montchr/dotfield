@@ -166,9 +166,6 @@ in {
           rsync
           shellcheck
           shfmt
-          # TODO: any additional setup needed to have this replace tldr? also, why?
-          tealdeer # rust implementation of `tldr`
-          # tldr
           tmux
           # TODO: unar is "unsupported" on darwin?
           # unar
