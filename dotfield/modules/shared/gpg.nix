@@ -14,7 +14,7 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      my.user.packages = with pkgs; [
+      environment.systemPackages = with pkgs; [
         gnupg
         gpgme
         # TODO: handle linux!
@@ -38,7 +38,7 @@ in {
         "gnupg/gpg-agent.conf" = {
           text = ''
             # ${config.my.nix_managed}
-            pinentry-program ${pkgs.pinentry_mac.binaryPath}
+            pinentry-program ${config.my.user.home}/${pkgs.pinentry_mac.binaryPath}
           '';
         };
 
