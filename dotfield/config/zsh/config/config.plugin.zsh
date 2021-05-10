@@ -44,13 +44,6 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=set
 export BREW_PREFIX=$(brew --prefix)
 
 
-#
-# GPG
-#
-
-export GPG_TTY="$(tty)"
-
-
 # nvm
 export NVM_AUTO_USE=true \
   NVM_LAZY_LOAD=true
@@ -190,6 +183,7 @@ alias spacer="defaults write com.apple.dock persistent-apps -array-add '{tile-da
 alias chrome-debug="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222"
 
 # Pipe my public key to my clipboard.
+# TODO: update to work with id_ed25519 (or ditch it, this isn't complicated)
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
 

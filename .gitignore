@@ -5,7 +5,6 @@ result
 # Managed by Nix
 /bat/*
 /git/config-nix
-/gnupg/*
 /shell/*
 /skhd/*
 /yabai/yabairc

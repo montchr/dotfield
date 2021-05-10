@@ -586,6 +586,7 @@ guard::install && {
 }
 
 
+# TODO: this needs to happen after nix is installed
 guard::install &&  {
   guard::domain "Identity" "Fetching PGP key" && {
     gpg --recv-key "${DOTFIELD_PGP_KEY}"

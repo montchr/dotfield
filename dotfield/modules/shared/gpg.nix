@@ -1,10 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-
   cfg = config.my.modules.gpg;
-  # cfgDir = "${config.dotfield.configDir}/gpg";
-
 in {
   options = with lib;
     with types; {
@@ -17,31 +14,31 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-
-      environment.systemPackages = with pkgs; [
+      my.user.packages = with pkgs; [
         gnupg
         gpgme
-        pinentry
+        # TODO: handle linux!
+        pinentry_mac
+        # TODO: this isn't specific to GPG and should move somewhere else
         transcrypt
       ];
 
       programs = {
-        # TODO: option doesn't exist! maybe it's NixOS only.
-        # ssh.startAgent = false;
-        gnupg.agent = {
-          enable = true;
-          enableSSHSupport = true;
+        gnupg = {
+          agent = {
+            enable = true;
+            enableSSHSupport = true;
+          };
         };
       };
 
-      my.env = { GNUPGHOME = "$XDG_CONFIG_HOME/gnupg"; };
+      my.env = { GNUPGHOME = "${config.my.xdg.data}/gnupg"; };
 
-      my.hm.configFile = {
+      my.hm.dataFile = {
         "gnupg/gpg-agent.conf" = {
           text = ''
             # ${config.my.nix_managed}
-            # TODO: make sure this path is valid
-            pinentry-program ${pkgs.pinentry}/bin/pinentry
+            pinentry-program ${pkgs.pinentry_mac.binaryPath}
           '';
         };
 
@@ -55,7 +52,10 @@ in {
         "gnupg/gpg.conf" = {
           text = ''
             # ${config.my.nix_managed}
+            # https://github.com/drduh/config/blob/master/gpg.conf
+            # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
             # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
+
             # Use AES256, 192, or 128 as cipher
             personal-cipher-preferences AES256 AES192 AES
             # Use SHA512, 384, or 256 as digest
