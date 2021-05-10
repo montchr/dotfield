@@ -1,5 +1,3 @@
-# Thank you to https://github.com/ahmedelgabri/dotfiles/
-
 {
   description = "Dotfield";
 
