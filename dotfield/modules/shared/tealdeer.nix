@@ -2,6 +2,7 @@
 
 let
   cfg = config.my.modules.tealdeer;
+  configDir = "${config.dotfield.configDir}/tealdeer";
 in {
   options = with lib; {
     my.modules.tealdeer = {
@@ -12,19 +13,32 @@ in {
   };
 
   config = with lib;
+    let
+      xdg = config.my.xdg;
+    in
     mkIf cfg.enable {
-      my.env = {
-        TEALDEER_CONFIG_DIR = "${my.xdg.config}/tealdeer/config.toml";
-        TEALDEER_CACHE_DIR = "${my.xdg.cache}/tealdeer";
-      };
+      my = {
+        env = {
+          TEALDEER_CONFIG_DIR = "${xdg.config}/tealdeer";
+          TEALDEER_CACHE_DIR = "${xdg.cache}/tealdeer";
+        };
 
-      my.user = { packages = with pkgs; [ tealdeer ]; };
+        user = { packages = with pkgs; [ tealdeer ]; };
 
-      my.hm.configFile = {
-        "tealdeer" = {
-          source = "${dotfield.configDir}/tealdeer";
-          recursive = true;
+        hm = {
+          configFile = {
+            "tealdeer" = {
+              source = configDir;
+              recursive = true;
+            };
+          };
+
         };
       };
+
+      system.activationScripts.postUserActivation.text = ''
+        mkdir -p ${xdg.cache}/tealdeer
+      '';
     };
+
 }
