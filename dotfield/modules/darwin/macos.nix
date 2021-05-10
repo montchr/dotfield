@@ -5,7 +5,11 @@ let
   cfg = config.my.modules.macos;
 
 in {
-  imports = [ ./skhd.nix ./yabai.nix ];
+  imports = [
+    ./security/pam.nix
+    ./skhd.nix
+    ./yabai.nix
+  ];
 
   options = with lib; {
     my.modules.macos = {
@@ -27,6 +31,9 @@ in {
         skhd.enable = true;
         yabai.enable = true;
       };
+
+      # https://github.com/LnL7/nix-darwin/pull/228
+      security.pam.enableSudoTouchIdAuth = true;
 
       system = {
         defaults = {
