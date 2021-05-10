@@ -51,17 +51,16 @@
           rnix-lsp
         ];
 
-        # TODO: get this working again! but pragmatapro is necessary
-        # fonts = {
-        #   enableFontDir = true;
-        #   fonts = with pkgs; [
-        #     ibm-plex
-        #     inter
-        #     # TODO: come back to this once ssh is working so we can access the private repo
-        #     # pragmatapro
-        #     public-sans
-        #   ];
-        # };
+        # TODO: come back to this once ssh is working so we can access the private pragmatapro repo
+        fonts = {
+          enableFontDir = true;
+          fonts = with pkgs; [
+            ibm-plex
+            inter
+            pragmatapro
+            public-sans
+          ];
+        };
 
         nixpkgs = {
           config = { allowUnfree = true; };
@@ -78,7 +77,7 @@
 
     in {
       overlays = (self: super: {
-        # pragmatapro = (super.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+        pragmatapro = (super.callPackage ./dotfield/pkgs/pragmatapro.nix { });
 
         # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
         yabai = super.yabai.overrideAttrs (o: rec {

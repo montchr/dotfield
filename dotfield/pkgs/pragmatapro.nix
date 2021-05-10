@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, lib }:
+{ stdenv, lib }:
 
 let
   version = "0.828";
@@ -7,17 +7,18 @@ stdenv.mkDerivation {
   name = "pragmatapro-${version}";
   version = version;
 
-  src = fetchgit {
-    url = "git@github.com:montchr/pragmatapro.git";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-BU8vPOQ6ZO1Z24wJELOS1/HrPBMKJX6N615VBmeOIgY=";
+  src = builtins.fetchGit {
+    # TODO: update url once fixed: https://github.com/NixOS/nix/issues/3503
+    url = "ssh://git@github.com/montchr/pragmatapro.git";
+    ref = "main";
+    rev = "01f95969f5931c9ede3a44e3cd10f44b8f459fa5";
   };
 
-  phases = [ "installPhase" ];
-  pathsToLink = [ "/share/fonts/ttf/" ];
+  phases = [ "unpackPhase" "installPhase" ];
+  pathsToLink = [ "/share/fonts/truetype/" ];
   sourceRoot = ".";
   installPhase = ''
-    install_path=$out/share/fonts/ttf
+    install_path=$out/share/fonts/truetype
     mkdir -p $install_path
     find -name "PragmataPro*.ttf" -exec cp {} $install_path \;
   '';
