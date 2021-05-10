@@ -33,7 +33,8 @@ in {
       };
 
       # https://github.com/LnL7/nix-darwin/pull/228
-      security.pam.enableSudoTouchIdAuth = true;
+      # TODO: errors on activation!
+      # security.pam.enableSudoTouchIdAuth = true;
 
       system = {
         defaults = {
