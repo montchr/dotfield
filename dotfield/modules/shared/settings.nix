@@ -57,6 +57,18 @@ in {
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       };
 
+      # TODO: do we need XDG_RUNTIME_DIR?
+      xdg = let
+        t = either str path;
+        home = config.my.user.home;
+      in {
+        bin = mkOpt t "${home}/.local/bin";
+        cache = mkOpt t "${home}/.cache";
+        config = mkOpt t "${home}/.config";
+        data = mkOpt t "${home}/.local/share";
+        lib = mkOpt t "${home}/.local/lib";
+      };
+
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
         apply = mapAttrs (n: v:
