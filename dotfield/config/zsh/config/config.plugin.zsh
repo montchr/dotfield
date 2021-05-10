@@ -124,34 +124,31 @@ alias reload="exec $SHELL -l"
 # Git
 #
 
-export GIT_BRANCH_NAME="$(git-branch-name)"
+export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"
 
 # List all the commits on the current branch ahead of master.
-alias glb='git log --oneline --decorate \$GIT_PRIMARY_BRANCH..'
+#
+# Globals:
+#   GIT_PRIMARY_BRANCH
+#   GIT_BRANCH_NAME
+function glb() {
+  git log --oneline --decorate ${GIT_PRIMARY_BRANCH}..${GIT_BRANCH_NAME}
+}
 
 # Magical fix for all submodule issues.
 alias gsumo='git submodule update --init --recursive'
 
 # Show list of files changed in a commit
-# @TODO needs to be a function
-# alias gdl="git diff-tree --no-commit-id --name-only -r $1"
-
 #
-# kitty
-#
+# Parameters:
+#   Commit hash or other ref
+function gdl() {
+  local ref="$1"
+  git diff-tree --no-commit-id --name-only -r "$1"
+}
 
-# display images in kitty terminal
+# Display an image in kitty
 alias icat="kitty +kitten icat"
-
-
-#
-# Node
-#
-
-alias lips="lorem-ipsum --copy"
-alias lipsw="lorem-ipsum --copy 1 word"
-alias lipss="lorem-ipsum --copy 1 sentence"
-alias lipsp="lorem-ipsum --copy 1 paragraph"
 
 #
 # macOS
@@ -167,14 +164,6 @@ alias flushdns="dscacheutil -flushcache"
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-# Show/hide hidden files in Finder
-alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Hide/show all desktop icons (useful when presenting)
-alias showdeskicons="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias hidedeskicons="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 
 # Create spacer for the Dock
 alias spacer="defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type=\"spacer-tile\";}'; killall Dock"

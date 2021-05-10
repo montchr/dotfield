@@ -1,2 +1,1 @@
-bin/git-branch-name ~/.local/bin/git-branch-name
 bin/git-submodule-rewrite ~/.local/bin/git-submodule-rewrite
