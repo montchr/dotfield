@@ -5,6 +5,7 @@ result
 # Managed by Nix
 /bat/*
 /git/config-nix
+/ripgrep/*
 /shell/*
 /skhd/*
 /tealdeer/*
