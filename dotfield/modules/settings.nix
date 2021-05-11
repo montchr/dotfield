@@ -57,7 +57,6 @@ in {
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       };
 
-      # TODO: do we need XDG_RUNTIME_DIR?
       xdg = let
         t = either str path;
         home = config.my.user.home;
