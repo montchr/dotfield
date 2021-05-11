@@ -114,13 +114,12 @@
       #   };
       # });
 
-
       darwinConfigurations = {
         "hodgepodge" = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules/shared
+            ./dotfield/modules
             sharedHostsConfig
             ./dotfield/hosts/hodgepodge.nix
           ];
@@ -130,7 +129,7 @@
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules/shared
+            ./dotfield/modules
             sharedHostsConfig
             ./dotfield/hosts/alleymon.nix
           ];

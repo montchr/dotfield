@@ -30,7 +30,7 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in {
-      dir = mkOpt t (findFirst pathExists (toString ../../.) [
+      dir = mkOpt t (findFirst pathExists (toString ../.) [
         "${config.my.user.home}/.config/dotfield"
         "/etc/dotfiles"
       ]);
