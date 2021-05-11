@@ -17,6 +17,8 @@
     ./node.nix
     ./gui.nix
     ./python.nix
+
+    ./editors/emacs
   ];
 
   my.modules = {
@@ -32,6 +34,13 @@
     ssh.enable = true;
     tealdeer.enable = true; # rust implementation of tldr
     zsh.enable = true;
+
+    editors = {
+      emacs = {
+        enable = true;
+        doom.enable = true;
+      };
+    };
   };
 
 }

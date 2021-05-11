@@ -8,6 +8,7 @@
     modules = {
       macos.enable = true;
       gpg.enable = true;
+      editors.emacs.enable = true;
     };
   };
 
