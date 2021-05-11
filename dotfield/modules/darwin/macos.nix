@@ -6,7 +6,7 @@ let
 
 in {
   imports = [
-    ./security/pam.nix
+    # ./security/pam.nix
     ./skhd.nix
     ./yabai.nix
   ];
