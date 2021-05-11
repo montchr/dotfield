@@ -45,15 +45,17 @@ in {
         promptInit = "";
       };
 
-
-      my.env = {
+      my.env = rec {
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
         ZSH_DATA = "$XDG_DATA_HOME/zsh";
 
+        ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
+        ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
+
         # zinit
-        ZPFX = "$HOME/.local";
-        ZINIT_HOME = "$XDG_DATA_HOME/zsh/zinit";
+        # ZPFX = "$HOME/.local";
+        # ZINIT_HOME = "$XDG_DATA_HOME/zsh/zinit";
       };
 
       # List packages installed in system profile. To search by name, run:
