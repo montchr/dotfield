@@ -20,7 +20,7 @@ in {
         user = { packages = with pkgs; [ ripgrep ]; };
 
         hm.configFile = {
-          "ripgrep/config" = "";
+          "ripgrep/config".text = "";
         };
       };
     };
