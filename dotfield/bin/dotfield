@@ -4,26 +4,47 @@
 #
 # Usage:
 #   dotfield <subcommand> [<args>...]
-#   dotfield repl [<flake-output>]
+#   dotfield build [<flake-name>]
+#   dotfield repl [<flake-name>]
 
+set -e
+
+DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
+
+#========================================
+# Build the flake.
+#
+# Global:
+#   DOTFIELD_DIR
+# Arguments:
+#   Flake output name.
+#========================================
+function __nix::build() {
+  local output="$1"
+
+  nix build -v "${DOTFIELD_DIR}/#${output}"
+
+  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" \
+    switch -v --flake "${DOTFIELD_DIR}/#${output}"
+}
 
 #========================================
 # Open a new nix repl shell for this machine's host.
 #
+# Global:
+#   DOTFIELD_DIR
 # Arguments:
 #   Flake output name.
 #========================================
 function __nix::repl() {
   local output="$1"
   local conf
-  local flake_dir
   conf="$(mktemp)"
-  flake_dir="$(git rev-parse --show-toplevel)"
 
-  echo "Loading flake from ${flake_dir}.${output}..."
+  echo "Loading flake from ${DOTFIELD_DIR}.${output}..."
 
   cat > "${conf}" << EOF
-(builtins.getFlake (toString ${flake_dir})).${output}
+(builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
 EOF
 
   nix repl "${conf}"
@@ -36,12 +57,19 @@ function main() {
   local SUBCOMMAND="$1"
   shift
 
+  local host_name
+  host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
+  shift
+
   case $SUBCOMMAND in
+    build)
+      __nix::build "${host_name}"
+      ;;
+
     repl)
-      local host_name
-      host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
       __nix::repl "darwinConfigurations.${host_name}"
       ;;
+
     *)
       exit 1
       ;;
