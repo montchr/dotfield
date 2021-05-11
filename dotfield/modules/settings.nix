@@ -91,7 +91,6 @@ in {
         "/home/${config.my.username}";
 
       description = "Primary user account";
-      # shell = pkgs.zsh;
     };
 
     environment = {
@@ -120,7 +119,10 @@ in {
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
         GITHUB_USER = config.my.github_username;
-        SHELL = "zsh";
+
+        # TODO: vim, for now.
+        EDITOR = "vim";
+        # SHELL = "zsh";
       };
     };
 
