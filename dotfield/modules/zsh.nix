@@ -65,14 +65,13 @@ in {
 
         systemPackages = with pkgs;
           (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
-            # TODO: not yet
-            # cachix
+            cachix
             curl
             direnv
             fzf
             htop
             manix # nix documentation search
-            # nix-zsh-completions
+            nix-zsh-completions
             rsync
             wget
             z-lua
@@ -131,10 +130,10 @@ in {
           # _1password # CLI
           asciinema
           bandwhich # display current network utilization by process
+          bitwarden
           bottom # fancy version of `top` with ASCII graphs
           cacert
-          # TODO later
-          # cachix
+          cachix
           coreutils
           curl
           exa
@@ -154,13 +153,10 @@ in {
           less
           lnav # System Log file navigator
           ncdu
-          # nix-zsh-completions
+          nix-zsh-completions
           nodePackages.node2nix
-          # nodePackages.vim-language-server
           pandoc
           pass
-          # plantuml
-          pywal
           rename # might not work
           # TODO: is this the perl rename, or the less-useful one?
           renameutils
@@ -173,8 +169,6 @@ in {
           # unar
           # TODO: what is this? i keep seeing it
           # universal-ctags
-          # TODO: investigate
-          # urlscan
           vim
           vim-vint
           wget

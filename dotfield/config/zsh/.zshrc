@@ -84,17 +84,27 @@ zgenom saved || {
   zgenom load StackExchange/blackbox
 
   # Load some oh-my-zsh plugins
-  zgenom oh-my-zsh plugins/pip
-  zgenom oh-my-zsh plugins/sudo
   zgenom oh-my-zsh plugins/aws
-  zgenom oh-my-zsh plugins/chruby
   zgenom oh-my-zsh plugins/colored-man-pages
+  zgenom oh-my-zsh plugins/command-not-found
+  zgenom oh-my-zsh plugins/composer
+  zgenom oh-my-zsh plugins/direnv
+  zgenom oh-my-zsh plugins/dotenv
+  zgenom oh-my-zsh plugins/fd
+  zgenom oh-my-zsh plugins/fzf
   zgenom oh-my-zsh plugins/git
   zgenom oh-my-zsh plugins/github
+  # TODO: prob requires configuration
+  # zgenom oh-my-zsh plugins/jira
+  # zgenom oh-my-zsh plugins/npm
+  # zgenom oh-my-zsh plugins/pass
+  zgenom oh-my-zsh plugins/pip
   zgenom oh-my-zsh plugins/python
   zgenom oh-my-zsh plugins/rsync
   zgenom oh-my-zsh plugins/screen
+  zgenom oh-my-zsh plugins/sudo
   zgenom oh-my-zsh plugins/vagrant
+  zgenom oh-my-zsh plugins/wp-cli
 
   if [[ $(uname -a | grep -ci Darwin) == 1 ]]; then
     # Load macOS-specific plugins
@@ -179,15 +189,15 @@ setopt extended_glob
 
 # Use fzf-tab after second tab press
 # via https://github.com/mrksr/dotfiles/blob/e3dd8bde7d7be6a294f5a2a245cb7e4a15837d71/shell/.zshrc#L101-L113
-fzf-tab-partial-and-complete() {
-  if [[ \$LASTWIDGET = 'fzf-tab-partial-and-complete' ]]; then
-    fzf-tab-complete
-  else
-    zle complete-word
-  fi
-}
-zle -N fzf-tab-partial-and-complete
-bindkey '^I' fzf-tab-partial-and-complete
+# fzf-tab-partial-and-complete() {
+#   if [[ \$LASTWIDGET = 'fzf-tab-partial-and-complete' ]]; then
+#     fzf-tab-complete
+#   else
+#     zle complete-word
+#   fi
+# }
+# zle -N fzf-tab-partial-and-complete
+# bindkey '^I' fzf-tab-partial-and-complete
 
 # Stop TRAMP (in Emacs) from hanging or term/shell from echoing back commands
 # https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/config/zsh/config.zsh#L1-L7
