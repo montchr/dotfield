@@ -2,6 +2,9 @@
 cachix/cachix.dhall
 result
 
+# Auto-generated cache file from npm.
+/configstore/update-notifier-npm.json
+
 # Managed by Nix
 /bat/*
 /git/config-nix
