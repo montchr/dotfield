@@ -130,7 +130,8 @@ in {
           # _1password # CLI
           asciinema
           bandwhich # display current network utilization by process
-          bitwarden
+          # TODO: "not packaged for macOS yet"
+          # bitwarden
           bottom # fancy version of `top` with ASCII graphs
           cacert
           cachix

@@ -74,7 +74,6 @@ zgenom saved || {
 
   zgenom load djui/alias-tips
   zgenom load unixorn/git-extra-commands
-  zgenom load unixorn/fzf-zsh-plugin
   zgenom load skx/sysadmin-util
 
   # Aliases for working with current repo on GitHub.
