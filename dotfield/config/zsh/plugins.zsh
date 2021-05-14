@@ -3,13 +3,6 @@ ZGEN_COMPLETIONS=()
 
 zgenom oh-my-zsh
 
-
-# Order matters here!
-# 1. Aloxaf/fzf-tab
-# 2. zsh-users/zsh-syntax-highlighting
-# 3. zsh-users/zsh-history-substring-search
-zgenom load Aloxaf/fzf-tab
-zgenom load zsh-users/zsh-syntax-highlighting
 zgenom load zsh-users/zsh-history-substring-search
 
 # Set keystrokes for substring searching
@@ -20,7 +13,7 @@ zgenom load unixorn/autoupdate-zgenom
 # Colorize command output.
 zgenom load unixorn/warhol.plugin.zsh
 
-# TODO: this plugin doesn't load efficiently. see old zshrc for prior art.
+# TODO: this plugin might not load efficiently. see old zshrc for prior art.
 zgenom load chriskempson/base16-shell
 
 # @unixorn's macOS helpers.
@@ -44,7 +37,6 @@ zgenom oh-my-zsh plugins/composer
 zgenom oh-my-zsh plugins/direnv
 zgenom oh-my-zsh plugins/dotenv
 zgenom oh-my-zsh plugins/fd
-# zgenom oh-my-zsh plugins/fzf
 zgenom oh-my-zsh plugins/git
 zgenom oh-my-zsh plugins/github
 # TODO: prob requires configuration
@@ -67,33 +59,31 @@ if [[ $(uname -a | grep -ci Darwin) == 1 ]]; then
 fi
 
 # TODO: barely does anything -- why not just copy?
-zgenom load chrissicool/zsh-256color
+# zgenom load chrissicool/zsh-256color
 
-zgenom load hlissner/zsh-autopair
+zgen load hlissner/zsh-autopair \
+  autopair.zsh
 
-zgenom load zsh-users/zsh-completions src
-zgenom load srijanshetty/docker-zsh
+zgenom load zsh-users/zsh-completions \
+  src
 
-# zsh-completion-generator
-: {
-  GENCOMPL_FPATH="${ZDOTDIR}/completions"
-  zgenom load RobSis/zsh-completion-generator
+# fzf completion
+zgen load junegunn/fzf \
+  shell
+
+# zgenom load srijanshetty/docker-zsh
+
+zgenom load RobSis/zsh-completion-generator
+
+zgenom load zsh-users/zsh-autosuggestions
+
+[[ -z "$SSH_CONNECTION" ]] && {
+  zgen load zdharma/fast-syntax-highlighting
 }
 
-# zsh-autosuggestions
-: {
-  ZSH_AUTOSUGGEST_USE_ASYNC=true
-  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-  ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c100,)"
-  ZSH_AUTOSUGGEST_MANUAL_REBIND=set
-  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)
+zgenom load softmoth/zsh-vim-mode
 
-  zgenom load zsh-users/zsh-autosuggestions
-}
-
-# Prompt
-zgenom load romkatv/powerlevel10k powerlevel10k
+zgenom load romkatv/powerlevel10k \
+  powerlevel10k
 
 zgenom save

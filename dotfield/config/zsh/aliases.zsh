@@ -1,8 +1,22 @@
 alias e="${EDITOR}"
 alias t='tail -f'
 
-# make it easy to copy/paste script commands verbatim
+# Make it easy to copy/paste script commands verbatim
 alias '$'=''
+
+alias q=exit
+alias clr=clear
+alias sudo='sudo '
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -pv'
+alias wget='wget -c'
+alias path='echo -e ${PATH//:/\\n}'
+
+alias rcpd='rcp --delete --delete-after'
+alias rcpu='rcp --chmod=go='
+alias rcpdu='rcpd --chmod=go='
 
 # Use Kitty terminal's ssh helper kitten
 alias sshk="kitty +kitten ssh -o SendEnv=CDOM_OS_APPEARANCE -A"
@@ -15,14 +29,22 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Use cp from coreutils
-# TODO: nix probably handles this
-# [[ $IS_MAC ]] && has ${BREW_PREFIX}/bin/gcp && {
-#   # alias cp=${BREW_PREFIX}/bin/gcp
-# }
-
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+
+
+#=====================================
+# Expand aliases inline
+# http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
+#=====================================
+function globalias() {
+   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+     zle _expand_alias
+     zle expand-word
+   fi
+   zle self-insert
+}
+zle -N globalias
 
 
 # -------------------------------------
@@ -34,14 +56,23 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
-alias l='exa --oneline'
-alias ll='exa -Flagh --git'
-alias la='exa -Fal'
-alias lld='exa -Flagh --git --group-directories-first'
-alias ld='exa -D1'
-alias tree='exa --tree'
+
+# ls / exa
+has exa && {
+  alias exa="exa --group-directories-first --git";
+  alias l='exa --oneline'
+  alias ll="exa -lg";
+  alias la='exa -Fal'
+  alias ld='exa -D1'
+  alias lld='exa -Flagh --git --group-directories-first'
+  alias tree='exa --tree'
+}
+
 # TODO: update for nix?
 # alias ls=\"${BREW_PREFIX}/bin/gls\"
+
+# Go to the top level of the current git repo.
+alias cdg='cd `git rev-parse --show-toplevel`'
 
 
 # -------------------------------------
