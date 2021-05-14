@@ -50,7 +50,7 @@ zgenom saved || {
   zgenom oh-my-zsh
 
   [[ -z "$SSH_CONNECTION" ]] && {
-    zgen load zdharma/fast-syntax-highlighting
+    zgenom load zdharma/fast-syntax-highlighting
   }
 
   zgenom load zsh-users/zsh-history-substring-search
@@ -105,17 +105,19 @@ zgenom saved || {
     zgenom oh-my-zsh plugins/osx
   fi
 
+  zgenom load skywind3000/z.lua
+
   # TODO: barely does anything -- why not just copy?
   # zgenom load chrissicool/zsh-256color
 
-  zgen load hlissner/zsh-autopair \
+  zgenom load hlissner/zsh-autopair \
     autopair.zsh
 
   zgenom load zsh-users/zsh-completions \
     src
 
   # fzf completion
-  zgen load junegunn/fzf \
+  zgenom load junegunn/fzf \
     shell
 
   # zgenom load srijanshetty/docker-zsh
