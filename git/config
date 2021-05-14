@@ -19,8 +19,8 @@
 [commit]
     gpgsign = true
 [delta]
-    # plus-color = "#012800"
-    # minus-color = "#340001"
+    line-numbers = true
+    navigate = true
 [fetch]
     recurseSubmodules = true
 [github]
@@ -63,6 +63,7 @@
     cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
 [diff]
+    colorMoved = default
     tool = ediff
 [difftool "ediff"]
     cmd = ediff \"$LOCAL\" \"$REMOTE\"

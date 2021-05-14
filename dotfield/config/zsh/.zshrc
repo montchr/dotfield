@@ -12,61 +12,55 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export COMPLETION_WAITING_DOTS="true"
+# export COMPLETION_WAITING_DOTS="true"
 
-# Correct spelling for commands
-setopt correct
-
-# turn off the infernal correctall for filenames
-unsetopt correctall
-
-# if has brew; then
-#   BREW_PREFIX=$(brew --prefix)
-#   if [[ -d "${BREW_PREFIX}/bin" ]]; then
-#     export PATH="$PATH:${BREW_PREFIX}/bin"
-#   fi
-#   if [[ -d "${BREW_PREFIX}/sbin" ]]; then
-#     export PATH="$PATH:${BREW_PREFIX}/sbin"
-#   fi
-# fi
-
+# Configure ls colors.
 # TODO: sync with color schemes?
 # http://geoff.greer.fm/lscolors/
 export LSCOLORS='Exfxcxdxbxegedabagacad'
 export LS_COLORS='di=1;34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
 
-# Summon zgenom.
+# Set up history.
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+export HISTFILE=$ZSH_DATA/history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+export GENCOMPL_FPATH="${ZDOTDIR}/completions"
+
+
+# -------------------------------------
+#  LOADING
+# -------------------------------------
+
+# Clone zgenom.
 [[ -d "${ZGEN_SRC_DIR}" ]] || {
   git clone https://github.com/jandamm/zgenom.git "${ZGEN_SRC_DIR}"
 }
 
+# Load zgenom library.
 source "${ZGEN_SRC_DIR}/zgenom.zsh"
 
+# Load plugins.
 zgenom saved || {
+
   ZGEN_LOADED=()
   ZGEN_COMPLETIONS=()
 
-  # TODO: what does this do?
   zgenom oh-my-zsh
 
-  # Order matters here!
-  # 1. zsh-users/zsh-syntax-highlighting
-  # 2. zsh-users/zsh-history-substring-search
-  zgenom load zsh-users/zsh-syntax-highlighting
-  zgenom load zsh-users/zsh-history-substring-search
+  [[ -z "$SSH_CONNECTION" ]] && {
+    zgenom load zdharma/fast-syntax-highlighting
+  }
 
-  # Set keystrokes for substring searching
-  zmodload zsh/terminfo
-  bindkey "$terminfo[kcuu1]" history-substring-search-up
-  bindkey "$terminfo[kcud1]" history-substring-search-down
+  zgenom load zsh-users/zsh-history-substring-search
 
   zgenom load unixorn/autoupdate-zgenom
 
   # Colorize command output.
   zgenom load unixorn/warhol.plugin.zsh
 
-  zgenom load ael-code/zsh-colored-man-pages
-  # TODO: this plugin doesn't load efficiently. see old zshrc for prior art.
+  # TODO: this plugin might not load efficiently. see old zshrc for prior art.
   zgenom load chriskempson/base16-shell
 
   # @unixorn's macOS helpers.
@@ -74,7 +68,6 @@ zgenom saved || {
 
   zgenom load djui/alias-tips
   zgenom load unixorn/git-extra-commands
-  zgenom load unixorn/fzf-zsh-plugin
   zgenom load skx/sysadmin-util
 
   # Aliases for working with current repo on GitHub.
@@ -91,12 +84,11 @@ zgenom saved || {
   zgenom oh-my-zsh plugins/direnv
   zgenom oh-my-zsh plugins/dotenv
   zgenom oh-my-zsh plugins/fd
-  zgenom oh-my-zsh plugins/fzf
   zgenom oh-my-zsh plugins/git
   zgenom oh-my-zsh plugins/github
   # TODO: prob requires configuration
   # zgenom oh-my-zsh plugins/jira
-  # zgenom oh-my-zsh plugins/npm
+  zgenom oh-my-zsh plugins/npm
   # zgenom oh-my-zsh plugins/pass
   zgenom oh-my-zsh plugins/pip
   zgenom oh-my-zsh plugins/python
@@ -104,6 +96,7 @@ zgenom saved || {
   zgenom oh-my-zsh plugins/screen
   zgenom oh-my-zsh plugins/sudo
   zgenom oh-my-zsh plugins/vagrant
+  zgenom oh-my-zsh plugins/wd
   zgenom oh-my-zsh plugins/wp-cli
 
   if [[ $(uname -a | grep -ci Darwin) == 1 ]]; then
@@ -112,217 +105,79 @@ zgenom saved || {
     zgenom oh-my-zsh plugins/osx
   fi
 
+  zgenom load skywind3000/z.lua
+
   # TODO: barely does anything -- why not just copy?
-  zgenom load chrissicool/zsh-256color
+  # zgenom load chrissicool/zsh-256color
 
-  zgenom load hlissner/zsh-autopair
+  zgenom load hlissner/zsh-autopair \
+    autopair.zsh
 
-  zgenom load zsh-users/zsh-completions src
-  zgenom load srijanshetty/docker-zsh
+  zgenom load zsh-users/zsh-completions \
+    src
 
-  # Load this last!
-  GENCOMPL_FPATH=${ZDOTDIR}/complete
+  # fzf completion
+  zgenom load junegunn/fzf \
+    shell
 
-  # Generate completions.
-  zgenom load RobSis/zsh-completion-generator
+  # zgenom load srijanshetty/docker-zsh
+
+  # zgenom load RobSis/zsh-completion-generator
 
   zgenom load zsh-users/zsh-autosuggestions
 
-  # Prompt
-  zgenom load romkatv/powerlevel10k powerlevel10k
+  zgenom load softmoth/zsh-vim-mode
+
+  zgenom load romkatv/powerlevel10k \
+    powerlevel10k
 
   zgenom save
+
 }
 
+source "${ZDOTDIR}/config.zsh"
+if [[ $TERM != dumb ]]; then
+  source "${ZDOTDIR}/keybindings.zsh"
+  source "${ZDOTDIR}/completion.zsh"
+  source "${ZDOTDIR}/functions.zsh"
+  source "${ZDOTDIR}/aliases.zsh"
 
-# -------------------------------------
-#  HISTORY
-# -------------------------------------
+  ##
+  function _cache {
+    command -v "$1" >/dev/null || return 1
+    local cache_dir="${XDG_CACHE_HOME}/${SHELL##*/}"
+    local cache="${cache_dir}/$1"
+    if [[ ! -f $cache || ! -s $cache ]]; then
+      echo "Caching $1"
+      mkdir -p $cache_dir
+      "$@" >$cache
+    fi
+    source $cache || rm -f $cache
+  }
 
-setopt append_history
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_ignore_all_dups
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
-setopt hist_save_no_dups
-setopt hist_verify
-setopt INC_APPEND_HISTORY
-unsetopt HIST_BEEP
+  has fd && {
+    export FZF_DEFAULT_OPTS="--reverse --ansi"
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+  }
+  # _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
 
-# Share history between all sessions.
-setopt share_history
-#setopt noclobber
+  ## Auto-generated by my nix config
+  source $ZDOTDIR/extra.zshrc
 
-HISTSIZE=1000000
-SAVEHIST=1000000
-HISTFILE=$ZSH_DATA/history
+  ##
+  autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
+  autopair-init
 
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
-
-
-# -------------------------------------
-#  DIRECTORIES
-# -------------------------------------
-
-setopt pushd_ignore_dups
-setopt AUTO_CD
-
-
-# -------------------------------------
-#  COMPLETIONS
-# -------------------------------------
-
-# Completions settings:
-setopt ALWAYS_TO_END     # Move cursor to the end of a completed word.
-setopt AUTO_LIST         # Automatically list choices on ambiguous completion.
-setopt AUTO_MENU         # Show completion menu on a successive tab press.
-setopt AUTO_PARAM_SLASH  # If completed parameter is a directory, add a trailing slash.
-setopt COMPLETE_IN_WORD  # Complete from both ends of a word.
-unsetopt MENU_COMPLETE   # Do not autoselect the first completion entry.
-
-# Enable comments in interactive shell.
-setopt INTERACTIVE_COMMENTS
-# Enable more powerful glob features
-setopt extended_glob
-
-# Use fzf-tab after second tab press
-# via https://github.com/mrksr/dotfiles/blob/e3dd8bde7d7be6a294f5a2a245cb7e4a15837d71/shell/.zshrc#L101-L113
-# fzf-tab-partial-and-complete() {
-#   if [[ \$LASTWIDGET = 'fzf-tab-partial-and-complete' ]]; then
-#     fzf-tab-complete
-#   else
-#     zle complete-word
-#   fi
-# }
-# zle -N fzf-tab-partial-and-complete
-# bindkey '^I' fzf-tab-partial-and-complete
-
-# Stop TRAMP (in Emacs) from hanging or term/shell from echoing back commands
-# https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/config/zsh/config.zsh#L1-L7
-if [[ $TERM == dumb || -n $INSIDE_EMACS ]]; then
-  unsetopt zle prompt_cr prompt_subst
-  whence -w precmd >/dev/null && unfunction precmd
-  whence -w preexec >/dev/null && unfunction preexec
-  PS1='$ '
+  [[ -f ~/.zshrc ]] && source ~/.zshrc
 fi
-
-
-# -------------------------------------
-#  TIME + UPDATES
-# -------------------------------------
-
-# Long running processes should return time (in seconds) when they complete.
-REPORTTIME=2
-TIMEFMT="%U user %S system %P cpu %*Es total"
-
-# Disable Oh-My-ZSH's internal updating -- we handle our own updates.
-DISABLE_AUTO_UPDATE=true
-
-
-# -------------------------------------
-#  ALIASES
-# -------------------------------------
-
-. $ZDOTDIR/aliases.zsh
-
-# Expand aliases inline
-# http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
-function globalias() {
-   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-     zle _expand_alias
-     zle expand-word
-   fi
-   zle self-insert
-}
-
-zle -N globalias
-
-bindkey " " globalias
-bindkey "^ " magic-space           # control-space to bypass completion
-bindkey -M isearch " " magic-space # normal space during searches
-
-# TODO: use dotfield msg utils
-# deal with screen, if we're using it - courtesy MacOSXHints.com
-# Login greeting ------------------
-# if [ "$TERM" = "screen" -a ! "$SHOWED_SCREEN_MESSAGE" = "true" ]; then
-#   detached_screens=$(screen -list | grep Detached)
-#   if [ ! -z "$detached_screens" ]; then
-#     echo "+---------------------------------------+"
-#     echo "| Detached screens are available:       |"
-#     echo "$detached_screens"
-#     echo "+---------------------------------------+"
-#   fi
-# fi
-
-# TODO: grc looks nice but:
-# 1. move this elsewhere
-# 2. make it work with nix
-#
-# # grc colorizes the output of a lot of commands. If the user installed it,
-# # use it.
-
-# # Try and find the grc setup file
-# if (( $+commands[grc] )); then
-#   GRC_SETUP='/usr/local/etc/grc.bashrc'
-# fi
-# if (( $+commands[grc] )) && (( $+commands[brew] ))
-# then
-#   GRC_SETUP="$(brew --prefix)/etc/grc.bashrc"
-# fi
-# if [[ -r "$GRC_SETUP" ]]; then
-#   source "$GRC_SETUP"
-# fi
-# unset GRC_SETUP
-
-# if (( $+commands[grc] ))
-# then
-#   function ping5(){
-#     grc --color=auto ping -c 5 "$@"
-#   }
-# else
-#   alias ping5='ping -c 5'
-# fi
-
-
-# -------------------------------------
-#  CLEANUP + OPTIMIZATION
-# -------------------------------------
-
-# Speed up autocomplete, force prefix mapping
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)*==34=34}:${(s.:.)LS_COLORS}")';
-
-# Load any custom zsh completions we've installed
-# TODO: load from zdotdir/completions
-
-
-# TODO: read up on what is this?
-autoload -U zmv
 
 # Dedupe PATH.
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path;
 
-
-
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)
-
-
-
-
-
-
-
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Miscellaneous
-# - - - - - - - - - - - - - - - - - - - -
+export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"
 
 ## Auto-generated by my nix config
 source $ZDOTDIR/extra.zshrc

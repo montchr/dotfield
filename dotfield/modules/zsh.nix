@@ -13,14 +13,15 @@ let
 
   # TODO: necessary? coreutils should certainly exist already
   darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
-in {
+in
+{
   options = with lib; {
     my.modules.zsh = with types; {
       enable = mkEnableOption ''
         Whether to enable zsh module
       '';
 
-      aliases = mkOpt (attrsOf (either str path)) { };
+      aliases = mkOpt (attrsOf (either str path)) {};
 
       rcInit = mkOpt' lines "" ''
         Zsh lines to be written to $XDG_CONFIG_HOME/zsh/extra.zshrc and sourced by
@@ -31,8 +32,8 @@ in {
         by $XDG_CONFIG_HOME/zsh/.zshenv
       '';
 
-      rcFiles = mkOpt (listOf (either str path)) [ ];
-      envFiles = mkOpt (listOf (either str path)) [ ];
+      rcFiles = mkOpt (listOf (either str path)) [];
+      envFiles = mkOpt (listOf (either str path)) [];
     };
   };
 
@@ -52,10 +53,6 @@ in {
 
         ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
         ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
-
-        # zinit
-        # ZPFX = "$HOME/.local";
-        # ZINIT_HOME = "$XDG_DATA_HOME/zsh/zinit";
       };
 
       # List packages installed in system profile. To search by name, run:
@@ -70,6 +67,7 @@ in {
             direnv
             fzf
             htop
+            lua
             manix # nix documentation search
             nix-zsh-completions
             rsync
@@ -87,39 +85,30 @@ in {
             recursive = true;
           };
 
-          "zsh/extra.zshrc".text = let
-            aliasLines =
-              mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
-          in ''
-            # ${config.my.nix_managed}
+          "zsh/extra.zshrc".text =
+            let
+              aliasLines =
+                mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
+            in
+              ''
+                # ${config.my.nix_managed}
 
-            ${concatStringsSep "\n" aliasLines}
+                ${concatStringsSep "\n" aliasLines}
 
-            ${concatMapStrings (path: ''
-              source '${path}'
-            '') cfg.rcFiles}
+                ${concatMapStrings (path: "source '${path}'") cfg.rcFiles}
 
-            ${cfg.rcInit}
-          '';
+                ${cfg.rcInit}
+              '';
 
           "zsh/profile.zshenv".source = "${configDir}/shell/profile";
 
           "zsh/extra.zshenv".text = ''
             # ${config.my.nix_managed}
 
-            ${concatMapStrings (path: ''
-              source '${path}'
-            '') cfg.envFiles}
+            ${concatMapStrings (path: "source '${path}'") cfg.envFiles}
 
             ${cfg.envInit}
           '';
-        };
-
-        dataFile = {
-          "zsh/zinit/plugins/_local---config" = {
-            recursive = true;
-            source = "${configDir}/zsh/config";
-          };
         };
       };
 
@@ -130,7 +119,8 @@ in {
           # _1password # CLI
           asciinema
           bandwhich # display current network utilization by process
-          bitwarden
+          # TODO: "not packaged for macOS yet"
+          # bitwarden
           bottom # fancy version of `top` with ASCII graphs
           cacert
           cachix
@@ -149,6 +139,7 @@ in {
           gpgme
           htop
           hyperfine
+          lua
           jq
           less
           lnav # System Log file navigator

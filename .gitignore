@@ -2,9 +2,13 @@
 cachix/cachix.dhall
 result
 
+# Auto-generated cache files from npm.
+/configstore/update-notifier-*
+
 # Managed by Nix
 /bat/*
 /git/config-nix
+/ripgrep/*
 /shell/*
 /skhd/*
 /tealdeer/*
@@ -21,6 +25,8 @@ result
 karabiner/*
 !karabiner/karabiner.json
 
+# Symlinked to currently-active theme (changes frequently).
+/kitty/theme.conf
 
 # Emacs
 org-roam.db
