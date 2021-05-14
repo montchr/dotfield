@@ -118,7 +118,7 @@ in
           # TODO: gzip: Payload.gz: No such file or directory
           # _1password # CLI
           asciinema
-          bandwhich # display current network utilization by process
+          # bandwhich # display current network utilization by process
           # TODO: "not packaged for macOS yet"
           # bitwarden
           bottom # fancy version of `top` with ASCII graphs
