@@ -106,12 +106,12 @@ in
     };
 
     environment = {
-      variables = {
-        XDG_BIN_HOME = "${my.xdg.bin}";
-        XDG_CACHE_HOME = "${my.xdg.cache}";
-        XDG_CONFIG_HOME = "${my.xdg.config}";
-        XDG_DATA_HOME = "${my.xdg.data}";
-        XDG_LIB_HOME = "${my.xdg.lib}";
+      variables = with config.my; {
+        XDG_BIN_HOME = "${xdg.bin}";
+        XDG_CACHE_HOME = "${xdg.cache}";
+        XDG_CONFIG_HOME = "${xdg.config}";
+        XDG_DATA_HOME = "${xdg.data}";
+        XDG_LIB_HOME = "${xdg.lib}";
 
         # Conform more programs to XDG conventions. The rest are handled by their
         # respective modules.
