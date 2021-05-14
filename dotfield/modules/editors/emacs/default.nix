@@ -15,9 +15,7 @@ in
 
   config = mkIf cfg.enable {
     my.user.packages = with pkgs; [
-      ## Emacs itself
-      binutils # native-comp needs 'as', provided by this
-      # emacsPgtkGcc # 28 + pgtk + native-comp
+      emacs
 
       ## Doom dependencies
       (ripgrep.override { withPCRE2 = true; })

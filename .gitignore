@@ -6,6 +6,7 @@ result
 /configstore/update-notifier-*
 
 # Managed by Nix
+/bash/*
 /bat/*
 /git/config-nix
 /ripgrep/*

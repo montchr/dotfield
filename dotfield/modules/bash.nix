@@ -5,7 +5,8 @@ let
   configDir = config.dotfield.configDir;
   home = config.my.user.home;
   cfg = config.my.modules.bash;
-in {
+in
+{
   options = with lib; {
     my.modules.bash = {
       enable = mkEnableOption ''
@@ -18,11 +19,23 @@ in {
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      interactiveShellInit = builtins.readFile "${configDir}/shell/profile";
+      interactiveShellInit = "source $HOME/.config/bash/bashrc";
     };
 
     my = {
       env = { BASH_COMPLETION_USER_FILE = "$XDG_DATA_HOME/bash/completion"; };
+
+      hm = {
+        configFile = {
+
+          "bash/bashrc".text = ''
+            # ${config.my.nix_managed}
+
+            ${builtins.readFile "${configDir}/shell/profile"}
+          '';
+
+        };
+      };
     };
 
     # List packages installed in system profile. To search by name, run:
