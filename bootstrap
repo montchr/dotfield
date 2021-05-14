@@ -454,7 +454,7 @@ if shell::has pfetch; then
   pfetch
 else
   msg::domain "System" "Summoning pfetch"
-  source_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")"
+  source_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")" || true
 fi
 
 
