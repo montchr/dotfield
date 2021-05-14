@@ -67,6 +67,7 @@ in
             direnv
             fzf
             htop
+            lua
             manix # nix documentation search
             nix-zsh-completions
             rsync
@@ -138,6 +139,7 @@ in
           gpgme
           htop
           hyperfine
+          lua
           jq
           less
           lnav # System Log file navigator
