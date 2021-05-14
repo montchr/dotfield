@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.tealdeer;
   configDir = "${config.dotfield.configDir}/tealdeer";
-in {
+in
+{
   options = with lib; {
     my.modules.tealdeer = {
       enable = mkEnableOption ''
@@ -13,14 +14,11 @@ in {
   };
 
   config = with lib;
-    let
-      xdg = config.my.xdg;
-    in
     mkIf cfg.enable {
       my = {
         env = {
-          TEALDEER_CONFIG_DIR = "${xdg.config}/tealdeer";
-          TEALDEER_CACHE_DIR = "${xdg.cache}/tealdeer";
+          TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer";
+          TEALDEER_CACHE_DIR = "$XDG_CACHE_HOME/tealdeer";
         };
 
         user = { packages = with pkgs; [ tealdeer ]; };
@@ -37,7 +35,7 @@ in {
       };
 
       system.activationScripts.postUserActivation.text = ''
-        mkdir -p ${xdg.cache}/tealdeer
+        mkdir -p "$XDG_CACHE_HOME/tealdeer"
       '';
     };
 

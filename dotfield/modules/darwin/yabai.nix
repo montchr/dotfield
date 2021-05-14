@@ -58,6 +58,7 @@ in
 
       };
 
+      # TODO: doesn't seem to have an effect?
       extraConfig = ''
         $XDG_BIN_HOME/yabai-set-padding 12
 

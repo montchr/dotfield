@@ -26,18 +26,23 @@ let
       example = true;
     };
 
-in {
+in
+{
   options = with types; {
-    dotfield = let t = either str path;
-    in {
-      dir = mkOpt t (findFirst pathExists (toString ../.) [
-        "${config.my.user.home}/.config/dotfield"
-        "/etc/dotfiles"
-      ]);
-      binDir = mkOpt t "${config.dotfield.dir}/bin";
-      configDir = mkOpt t "${config.dotfield.dir}/config";
-      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-    };
+    dotfield = let
+      t = either str path;
+    in
+      {
+        dir = mkOpt t (
+          findFirst pathExists (toString ../.) [
+            "${config.my.user.home}/.config/dotfield"
+            "/etc/dotfiles"
+          ]
+        );
+        binDir = mkOpt t "${config.dotfield.dir}/bin";
+        configDir = mkOpt t "${config.dotfield.dir}/config";
+        modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+      };
 
     my = {
       name = mkOptStr "Chris Montgomery";
@@ -52,30 +57,33 @@ in {
       user = mkOption { type = options.users.users.type.functor.wrapped; };
 
       hm = {
-        file = mkOpt' attrs { } "Files to place directly in $HOME";
-        configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
-        dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
+        file = mkOpt' attrs {} "Files to place directly in $HOME";
+        configFile = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
+        dataFile = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
       };
 
       xdg = let
         t = either str path;
         home = config.my.user.home;
-      in {
-        bin = mkOpt t "${home}/.local/bin";
-        cache = mkOpt t "${home}/.cache";
-        config = mkOpt t "${home}/.config";
-        data = mkOpt t "${home}/.local/share";
-        lib = mkOpt t "${home}/.local/lib";
-      };
+      in
+        {
+          bin = mkOpt t "$HOME/.local/bin";
+          cache = mkOpt t "$HOME/.cache";
+          config = mkOpt t "$HOME/.config";
+          data = mkOpt t "$HOME/.local/share";
+          lib = mkOpt t "$HOME/.local/lib";
+        };
 
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
-        apply = mapAttrs (n: v:
-          if isList v then
-            concatMapStringsSep ":" (x: toString x) v
-          else
-            (toString v));
-        default = { };
+        apply = mapAttrs (
+          n: v:
+            if isList v then
+              concatMapStringsSep ":" (x: toString x) v
+            else
+              (toString v)
+        );
+        default = {};
         description = "Environment variables.";
       };
     };
@@ -93,12 +101,17 @@ in {
       description = "Primary user account";
     };
 
+    my.env = {
+      GITHUB_USER = config.my.github_username;
+    };
+
     environment = {
       variables = {
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_BIN_HOME = "$HOME/.local/bin";
+        XDG_BIN_HOME = "${my.xdg.bin}";
+        XDG_CACHE_HOME = "${my.xdg.cache}";
+        XDG_CONFIG_HOME = "${my.xdg.config}";
+        XDG_DATA_HOME = "${my.xdg.data}";
+        XDG_LIB_HOME = "${my.xdg.lib}";
 
         # Conform more programs to XDG conventions. The rest are handled by their
         # respective modules.
@@ -118,11 +131,9 @@ in {
 
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
-        GITHUB_USER = config.my.github_username;
 
         # TODO: vim, for now.
         EDITOR = "vim";
-        # SHELL = "zsh";
       };
     };
 

@@ -2,7 +2,8 @@
 
 let
   cfg = config.my.modules.gpg;
-in {
+in
+{
   options = with lib;
     with types; {
       my.modules.gpg = {
@@ -32,7 +33,7 @@ in {
         };
       };
 
-      my.env = { GNUPGHOME = "${config.my.xdg.data}/gnupg"; };
+      my.env = { GNUPGHOME = "$XDG_DATA_HOME/gnupg"; };
 
       my.hm.dataFile = {
         "gnupg/gpg-agent.conf" = {
