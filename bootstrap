@@ -123,23 +123,24 @@ function fetch::file {
 
 
 #========================================
-# Fetch and source a remote file.
+# Fetch a remote file and output its path.
 #
 # Usage:
-#   source_ephemeral <relative-path> [<url-base>]
+#   fetch_ephemeral <url>
 # Arguments:
 #   Relative path to file
-# Returns:
-#   0 - Sourcing succeeded.
-#   1 - Sourcing failed.
+# Outputs:
+#   Path to file
 #========================================
-function source_ephemeral {
+function fetch_ephemeral {
   local url="$1"
   local tmp_file=""
   tmp_file="$(mktemp "/tmp/${url##*/}.XXXX")"
-  fetch::file "${tmp_file}" "${url}"
-  # shellcheck disable=1090
-  . "${tmp_file}"
+  fetch::file "${tmp_file}" "${url}" && {
+    echo "${tmp_file}"
+    return 0
+  }
+  return 1
 }
 
 
@@ -437,7 +438,8 @@ END
 
 else
 
-source_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
+utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh")"
+. $utils_path
 
 msg::stream::story <<END
 This world is beautiful, but dark.
@@ -454,7 +456,8 @@ if shell::has pfetch; then
   pfetch
 else
   msg::domain "System" "Summoning pfetch"
-  source_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")" || true
+  pfetch="$(fetch_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")")"
+  chmod +x $pfetch && $pfetch
 fi
 
 
