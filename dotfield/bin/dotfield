@@ -11,6 +11,9 @@ set -e
 
 DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 
+# shellcheck disable=SC1091
+. "${DOTFIELD_DIR}/lib/utils.sh"
+
 #========================================
 # Build the flake.
 #
@@ -41,7 +44,7 @@ function __nix::repl() {
   local conf
   conf="$(mktemp)"
 
-  echo "Loading flake from ${DOTFIELD_DIR}.${output}..."
+  msg::subdomain "Loading flake from ${DOTFIELD_DIR}.${output}..."
 
   cat > "${conf}" << EOF
 (builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
@@ -63,15 +66,18 @@ function main() {
 
   case $SUBCOMMAND in
     build)
+      msg::domain "Nix" "Building flake ${host_name}"
       __nix::build "${host_name}"
       ;;
 
     repl)
+      msg::domain "Nix" "Launching REPL shell for ${host_name}"
       __nix::repl "darwinConfigurations.${host_name}"
       ;;
 
     *)
-      exit 1
+      msg::error "[Error] Invalid subcommand ${SUBCOMMAND}! Aborting."
+      return 1
       ;;
   esac
 }
