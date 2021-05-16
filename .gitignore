@@ -8,6 +8,8 @@ result
 # Managed by Nix
 /bash/*
 /bat/*
+/doom/*
+/emacs/*
 /git/config-nix
 /ripgrep/*
 /shell/*
