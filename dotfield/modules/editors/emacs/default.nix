@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.editors.emacs;
-  configDir = config.dotfiles.configDir;
+  configDir = config.dotfield.configDir;
 in
 {
   options = with lib; {
@@ -52,7 +52,12 @@ in
 
       modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
-      configFile."doom".source = ../../config/doom;
+      hm.configFile."doom".source = ../../../config/doom;
+
+      env = {
+        DOOMDIR = "$XDG_CONFIG_HOME/doom";
+        EMACSDIR = "$XDG_DATA_HOME/emacs";
+      };
 
     };
 
@@ -61,8 +66,8 @@ in
     system.activationScripts.postUserActivation.text =
       with config.my;
       mkIf cfg.doom.enable ''
-        if [[ ! -d ${xdg.config}/emacs ]]; then
-          git clone https://github.com/hlissner/doom-emacs ${xdg.config}/emacs
+        if [[ ! -d "${xdg.data}/emacs" ]]; then
+          git clone https://github.com/hlissner/doom-emacs "${xdg.data}/emacs"
         fi
       '';
   };
