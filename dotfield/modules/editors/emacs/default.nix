@@ -56,15 +56,9 @@ in
 
       modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
-      hm = {
-        configFile = {
-          "doom".source = ../../../config/doom;
-        };
-      };
-
       env = {
         DOOMDIR = "$XDG_CONFIG_HOME/doom";
-        EMACSDIR = "$XDG_DATA_HOME/emacs";
+        EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
 
     };
@@ -74,8 +68,9 @@ in
     system.activationScripts.postUserActivation.text =
       with config.my;
       mkIf cfg.doom.enable ''
-        if [[ ! -d "${xdg.data}/emacs" ]]; then
-          git clone https://github.com/hlissner/doom-emacs "${xdg.data}/emacs"
+        # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
+        if [[ ! -d "${xdg.config}/emacs" ]]; then
+          git clone https://github.com/hlissner/doom-emacs "${xdg.config}/emacs"
         fi
       '';
   };
