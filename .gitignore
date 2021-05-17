@@ -2,12 +2,13 @@
 cachix/cachix.dhall
 result
 
-# Auto-generated cache files from npm.
-/configstore/update-notifier-*
+# Auto-generated junk from npm.
+/configstore
 
 # Managed by Nix
 /bash
 /bat
+/composer
 /doom
 /emacs
 /git/config-nix
@@ -18,9 +19,6 @@ result
 /yabai/yabairc
 /zsh
 
-# Composer
-/composer/keys.*.pub
-/composer/**/.htaccess
 
 # Karabiner Elements directory contains numerous backup and assets files we
 # don't want. `karabiner.json` can't be symlinked directly because the

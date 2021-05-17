@@ -1,4 +1,4 @@
-{ config, lib, pkgs, emacs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 let
@@ -14,14 +14,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.emacs = {
+    services.emacs = with pkgs; {
       enable = true;
       package = emacs;
     };
 
+    environment.systemPackages = with pkgs; [ emacs ];
+
     my = {
 
       user.packages = with pkgs; [
+        emacs
+
         ## Doom dependencies
         (ripgrep.override { withPCRE2 = true; })
         gnutls # for TLS connectivity
@@ -52,7 +56,11 @@ in
 
       modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
-      hm.configFile."doom".source = ../../../config/doom;
+      hm = {
+        configFile = {
+          "doom".source = ../../../config/doom;
+        };
+      };
 
       env = {
         DOOMDIR = "$XDG_CONFIG_HOME/doom";
