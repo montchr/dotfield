@@ -6,17 +6,17 @@ result
 /configstore/update-notifier-*
 
 # Managed by Nix
-/bash/*
-/bat/*
-/doom/*
-/emacs/*
+/bash
+/bat
+/doom
+/emacs
 /git/config-nix
-/ripgrep/*
-/shell/*
-/skhd/*
-/tealdeer/*
+/ripgrep
+/shell
+/skhd
+/tealdeer
 /yabai/yabairc
-/zsh/*
+/zsh
 
 # Composer
 /composer/keys.*.pub
