@@ -104,23 +104,6 @@
           }
         );
 
-        # TODO: SAD.
-        # flake-utils.lib.eachDefaultSystem ({
-        #   # Nix flakes REPL
-        #   # https://github.com/NixOS/nix/issues/3803#issuecomment-748612294
-        #   #
-        #   # Usage:
-        #   #   nix run .#repl
-        #   apps.repl = flake-utils.lib.mkApp {
-        #     drv = inputs.pkgs.writeShellScriptBin "repl" ''
-        #       confnix=$(mktemp)
-        #       echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
-        #       trap "rm $confnix" EXIT
-        #       nix repl $confnix
-        #     '';
-        #   };
-        # });
-
         darwinConfigurations = {
           "hodgepodge" = inputs.darwin.lib.darwinSystem {
             inputs = inputs;
