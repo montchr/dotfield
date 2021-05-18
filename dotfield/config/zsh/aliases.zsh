@@ -1,4 +1,3 @@
-alias e="${EDITOR}"
 alias t='tail -f'
 
 # Make it easy to copy/paste script commands verbatim

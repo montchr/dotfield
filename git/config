@@ -64,7 +64,9 @@
     trustExitCode = true
 [diff]
     colorMoved = default
-    tool = ediff
+    tool = vscode
+[merge]
+    tool = vscode
 [difftool "ediff"]
     cmd = ediff \"$LOCAL\" \"$REMOTE\"
 

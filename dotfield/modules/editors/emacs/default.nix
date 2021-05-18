@@ -54,7 +54,7 @@ in
         nodePackages.javascript-typescript-langserver
       ];
 
-      modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
+      # modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
       env = {
         DOOMDIR = "$XDG_CONFIG_HOME/doom";

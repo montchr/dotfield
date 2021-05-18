@@ -8,7 +8,7 @@
        doom-variable-pitch-font (font-spec :family "PragmataPro"))
 
 ;; Enable font ligatures in emacs-mac@27.
-(if IS-MAC (mac-auto-operator-composition-mode t))
+;; (if IS-MAC (mac-auto-operator-composition-mode t))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -520,4 +520,4 @@
          "Nothing here now but the recordings..."
          "Eat protein!"))
 
-(load! "~/.emacs.private")
+;; (load! "~/.emacs.private")
