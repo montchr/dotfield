@@ -72,6 +72,58 @@
         "type": "github"
       }
     },
+    "emacs": {
+      "inputs": {
+        "emacs-src": "emacs-src",
+        "emacs-vterm-src": "emacs-vterm-src",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1621215296,
+        "narHash": "sha256-X0HGKcL0zTREZL0gGrA8t74OnrGxtDglYGO9HGSs8d4=",
+        "owner": "cmacrae",
+        "repo": "emacs",
+        "rev": "a93c586e2ae9766e3fc230d61679855eaf8ce71a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmacrae",
+        "repo": "emacs",
+        "type": "github"
+      }
+    },
+    "emacs-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1621200473,
+        "narHash": "sha256-R58xkh9ixOakAe0wx0aevUahpk9ZqvOuVh56STjcwUo=",
+        "owner": "emacs-mirror",
+        "repo": "emacs",
+        "rev": "e761e12498ff108c3b82e9d27843baec6670447c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-mirror",
+        "repo": "emacs",
+        "type": "github"
+      }
+    },
+    "emacs-vterm-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1617983886,
+        "narHash": "sha256-jC/q6RAyZhKM3YRu0aefy7uR0/7m1h0FxtYqWrD74DM=",
+        "owner": "akermu",
+        "repo": "emacs-libvterm",
+        "rev": "2b1392cb2b14ec5bd0b7355197d5f353aa5d3983",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akermu",
+        "repo": "emacs-libvterm",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1620759905,
