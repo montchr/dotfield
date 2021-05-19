@@ -113,6 +113,9 @@ zgenom saved || {
   zgenom load hlissner/zsh-autopair \
     autopair.zsh
 
+  # TODO: these just seem to be busted
+  # zgenom load spwhitt/nix-zsh-completions
+
   zgenom load zsh-users/zsh-completions \
     src
 

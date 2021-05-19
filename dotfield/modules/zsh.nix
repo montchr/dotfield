@@ -69,7 +69,6 @@ in
             htop
             lua
             manix # nix documentation search
-            nix-zsh-completions
             rsync
             wget
             z-lua
@@ -144,7 +143,6 @@ in
           less
           lnav # System Log file navigator
           ncdu
-          nix-zsh-completions
           nodePackages.node2nix
           pandoc
           pass
