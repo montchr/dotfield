@@ -4,7 +4,8 @@ let
 
   cfg = config.my.modules.gui;
 
-in {
+in
+{
   options = with lib; {
     my.modules.gui = {
       enable = mkEnableOption ''
@@ -14,37 +15,41 @@ in {
   };
 
   config = with lib;
-    mkIf cfg.enable (mkMerge [
-      (if (builtins.hasAttr "homebrew" options) then {
-        homebrew.taps = [ "homebrew/cask" "homebrew/cask-versions" ];
-        homebrew.casks = [
-          "1password"
-          "alfred"
-          "appcleaner"
-          "corelocationcli"
-          "db-browser-for-sqlite"
-          "google-chrome"
-          "hammerspoon"
-          "imageoptim"
-          # "kap"
-          "launchcontrol"
-          "slack"
-          # "sync"
-          # "virtualbox"
-          "visual-studio-code"
-          "zoom"
-        ];
+    mkIf cfg.enable (
+      mkMerge [
+        (
+          if (builtins.hasAttr "homebrew" options) then {
+            homebrew.taps = [ "homebrew/cask" "homebrew/cask-versions" ];
+            homebrew.casks = [
+              "1password"
+              "alfred"
+              "appcleaner"
+              "corelocationcli"
+              "db-browser-for-sqlite"
+              "google-chrome"
+              "hammerspoon"
+              "imageoptim"
+              # "kap"
+              "launchcontrol"
+              "sketch"
+              "slack"
+              # "virtualbox"
+              "visual-studio-code"
+              "zoom"
+            ];
 
-        # my.hm.file = {
-        #   ".hammerspoon" = {
-        #     recursive = true;
-        #     source = ../../../config/.hammerspoon;
-        #   };
-        # };
-      } else {
-        my.user = {
-          packages = with pkgs; [ firefox zoom-us signal-desktop slack ];
-        };
-      })
-    ]);
+            # my.hm.file = {
+            #   ".hammerspoon" = {
+            #     recursive = true;
+            #     source = ../../../config/.hammerspoon;
+            #   };
+            # };
+          } else {
+            my.user = {
+              packages = with pkgs; [ firefox zoom-us signal-desktop slack ];
+            };
+          }
+        )
+      ]
+    );
 }
