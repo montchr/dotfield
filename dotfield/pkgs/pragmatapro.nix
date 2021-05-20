@@ -1,7 +1,7 @@
 { stdenv, lib }:
 
 let
-  version = "0.828";
+  version = "0829";
 in
 stdenv.mkDerivation {
   name = "pragmatapro-${version}";
@@ -15,12 +15,12 @@ stdenv.mkDerivation {
   };
 
   phases = [ "unpackPhase" "installPhase" ];
-  pathsToLink = [ "/share/fonts/truetype/" ];
+  pathsToLink = [ "/share/fonts/opentype/" ];
   sourceRoot = ".";
   installPhase = ''
-    install_path=$out/share/fonts/truetype
+    install_path=$out/share/fonts/opentype
     mkdir -p $install_path
-    find -name "PragmataPro*.ttf" -exec cp {} $install_path \;
+    find -name "PragmataPro*${version}*.otf" -exec cp {} $install_path \;
   '';
 
   meta = with lib; {
