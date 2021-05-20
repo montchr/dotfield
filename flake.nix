@@ -16,6 +16,7 @@
     };
 
     emacs.url = "github:cmacrae/emacs";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
@@ -23,7 +24,7 @@
     };
   };
 
-  outputs = { self, darwin, emacs, flake-utils, nixpkgs, ... }@inputs:
+  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, nixpkgs, ... }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
@@ -65,6 +66,7 @@
           config = { allowUnfree = true; };
           overlays = [
             emacs.overlay
+            emacs-overlay.overlay
             self.overlays
           ];
         };
