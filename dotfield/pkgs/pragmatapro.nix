@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     # TODO: update url once fixed: https://github.com/NixOS/nix/issues/3503
     url = "ssh://git@github.com/montchr/pragmatapro.git";
     ref = "main";
-    rev = "01f95969f5931c9ede3a44e3cd10f44b8f459fa5";
+    rev = "454ab36ca533f81b3e4a0226c0cd398e6a3526f1";
   };
 
   phases = [ "unpackPhase" "installPhase" ];
