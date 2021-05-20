@@ -27,6 +27,7 @@ in
               "corelocationcli"
               "db-browser-for-sqlite"
               "google-chrome"
+              "google-drive"
               "hammerspoon"
               "imageoptim"
               # "kap"
