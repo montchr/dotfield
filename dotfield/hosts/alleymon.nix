@@ -8,4 +8,17 @@
   };
 
   networking.hostName = "alleymon";
+
+  environment.systemPackages = with pkgs; [
+    dnsmasq
+  ];
+
+  services.dnsmasq = {
+    enable = true;
+    addresses = {
+      # Vagrant boxes.
+      http = "192.168.50.4";
+      test = "192.168.50.4";
+    };
+  };
 }
