@@ -4,6 +4,8 @@ with lib;
 let
   cfg = config.my.modules.editors.emacs;
   configDir = config.dotfield.configDir;
+  # emacs-server    = "${tmpdir}/emacs-emacs/server";
+  # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 in
 {
   options = with lib; {

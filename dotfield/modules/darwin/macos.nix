@@ -1,10 +1,9 @@
 { pkgs, lib, config, ... }:
 
 let
-
   cfg = config.my.modules.macos;
-
-in {
+in
+{
   imports = [
     # ./security/pam.nix
     ./skhd.nix
