@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 let
-  cfg = config.my.modules.editors.emacs;
+  cfg = config.my.modules.php;
   configDir = config.dotfield.configDir;
 in
 {
@@ -12,9 +12,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.user.packages = [
+    my.user.packages = with pkgs; [
       php
-      php74packages.composer
+      php74Packages.composer
     ];
   };
 }

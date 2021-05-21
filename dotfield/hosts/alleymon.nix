@@ -1,10 +1,17 @@
-{ config, inputs, ... }: {
-  imports = [ ../modules/darwin ];
+{ config, pkgs, ... }: {
+  imports = [
+    ../modules/darwin
+    ../modules/php.nix
+  ];
 
   my = {
     username = "montchr";
     email = "chris@alley.co";
     website = "https://alley.co/";
+
+    modules = {
+      php.enable = true;
+    };
   };
 
   networking.hostName = "alleymon";
