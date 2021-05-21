@@ -24,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, darwin, emacs, emacs-overlay, flake-utils, ... }@inputs:
+  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, ... }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
