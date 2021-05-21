@@ -12,6 +12,10 @@
     modules = {
       php.enable = true;
     };
+
+    env = {
+      PATH = [ "$HOME/broadway/bin" "$PATH" ];
+    };
   };
 
   networking.hostName = "alleymon";
