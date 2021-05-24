@@ -18,7 +18,16 @@
     };
   };
 
-  networking.hostName = "alleymon";
+  networking = {
+    hostName = "alleymon";
+
+    # $ networksetup -listallnetworkservices
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Bluetooth PAN"
+      "Thunderbolt Bridge"
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     dnsmasq
