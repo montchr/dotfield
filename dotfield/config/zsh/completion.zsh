@@ -165,3 +165,6 @@ has fzf && {
     )
   }
 }
+
+# RobSis/zsh-completion-generator
+zstyle :plugin:zsh-completion-generator programs grep yabai

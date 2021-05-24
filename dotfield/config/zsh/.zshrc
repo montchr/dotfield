@@ -125,7 +125,7 @@ zgenom saved || {
 
   # zgenom load srijanshetty/docker-zsh
 
-  # zgenom load RobSis/zsh-completion-generator
+  zgenom load RobSis/zsh-completion-generator
 
   zgenom load zsh-users/zsh-autosuggestions
 
