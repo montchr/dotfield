@@ -1,9 +1,15 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+#
+# Set yabai padding settings.
+#
+# Usage:
+#   yabai-set-padding [<amount>]
 
-padding=$1
 
-yabai -m config top_padding "$padding"
-yabai -m config bottom_padding "$padding"
-yabai -m config left_padding "$padding"
-yabai -m config right_padding "$padding"
-yabai -m config window_gap "$padding"
+PADDING="${1:-12}"
+
+yabai -m config top_padding "$PADDING"
+yabai -m config bottom_padding "$PADDING"
+yabai -m config left_padding "$PADDING"
+yabai -m config right_padding "$PADDING"
+yabai -m config window_gap "$PADDING"

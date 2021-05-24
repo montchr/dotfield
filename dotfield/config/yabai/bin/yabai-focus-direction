@@ -1,15 +1,19 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+#
+# Focus a window in the specified direction.
+#
+# Usage:
+#   yabai-focus-direction ( north | south | east | west )
+#
 
-emulate -L zsh
-setopt extended_glob warn_create_global typeset_silent \
-        no_short_loops rc_quotes no_auto_pushd
+function main() {
+  local direction=$1
+  yabai -m window --focus "${direction}" \
+    && exit 0
+  yabai -m display --focus "${direction}" \
+    && exit 0
 
-focus_window_display() {
-  yabai -m window --focus "$1" || yabai -m display --focus "$1"
-}
-
-focus_window_fallback() {
-  case "$1" in
+  case "${direction}" in
     north)
       yabai -m window --focus stack.prev || yabai -m window --focus stack.last
       ;;
@@ -25,4 +29,4 @@ focus_window_fallback() {
   esac
 }
 
-focus_window_display "$1" || focus_window_fallback "$1"
+main "$@"

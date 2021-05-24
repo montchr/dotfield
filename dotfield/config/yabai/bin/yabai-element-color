@@ -1,14 +1,10 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
-# yabai-element-color
-#
-# @TODO use bash -- but bash doesn't load required profile
+# Change the color of a yabai element.
 #
 
 ELEMENT="$1"
 APPEARANCE="$2"
-
-declare DARK_MODE
 
 if [[ -z "${APPEARANCE}" ]]; then
   APPEARANCE=$(cdom_os_appearance)
@@ -22,20 +18,20 @@ if [[ -z $ELEMENT ]] || [[ -z $APPEARANCE ]]; then
   exit 1
 fi
 
-if [[ "dark" == ${APPEARANCE} ]]; then
+if [[ "dark" == "${APPEARANCE}" ]]; then
   DARK_MODE=true
 else
   DARK_MODE=false
 fi
 
 case $ELEMENT in
-  border) {
+  border)
     if "${DARK_MODE}"; then
-      echo $YABAI_BORDER_LIGHT
+      echo "${YABAI_BORDER_LIGHT}"
     else
-      echo $YABAI_BORDER_DARK
+      echo "${YABAI_BORDER_DARK}"
     fi
-  } ;;
+  ;;
 
   *) echo "Unsupported element!" && exit 1 ;;
 esac

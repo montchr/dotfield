@@ -1,21 +1,18 @@
-#!/usr/bin/env zsh
-set -euo pipefail
+#!/usr/bin/env bash
+#
+# Close the currently-focused window.
+#
 
-emulate -L zsh
-setopt extended_glob warn_create_global typeset_silent \
-        no_short_loops rc_quotes no_auto_pushd
-
-local FOCUSED
 FOCUSED="$(yabai -m query --windows --window)"
 
-typeset -A Window
-Window[id]=$(jq -r '.id' <<< "$FOCUSED")
-Window[app]=$(jq -r '.app' <<< "$FOCUSED")
+WINDOW_ID="$(jq -r '.id' <<< "${FOCUSED}")"
+WINDOW_APP="$(jq -r '.app' <<< "${FOCUSED}")"
 
-case $Window[app] in
+case "${WINDOW_APP}" in
   kitty)
+    KITTY_WINDOW_ID="$(kitty-get-window-by-platform-id "${WINDOW_ID}" | jq -r '.id')"
     kitty @ --to "$KITTY_SOCKET" close-window -m \
-      id:$(kitty-get-window-by-platform-id "$Window[id]" | jq -r '.id')
+      "id:${KITTY_WINDOW_ID}"
     ;;
   *)
     yabai -m window --close
