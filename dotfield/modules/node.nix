@@ -1,10 +1,9 @@
 { pkgs, lib, config, inputs, ... }:
 
 let
-
   cfg = config.my.modules.node;
-
-in {
+in
+{
   options = with lib; {
     my.modules.node = {
       enable = mkEnableOption ''
@@ -26,9 +25,10 @@ in {
         user = {
           packages = with pkgs; [
             nodejs # LTS
+            nodePackages.node2nix
             nodePackages.npm
-            (yarn.override { inherit nodejs; })
             nodePackages.svgo
+            (yarn.override { inherit nodejs; })
           ];
         };
 

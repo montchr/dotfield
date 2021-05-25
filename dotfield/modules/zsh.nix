@@ -145,7 +145,6 @@ in
           lnav # System Log file navigator
           # TODO: may be replaced by `dua`
           ncdu
-          nodePackages.node2nix
           pandoc
           pass
           rename # might not work
