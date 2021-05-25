@@ -25,8 +25,6 @@
     recurseSubmodules = true
 [github]
     user = montchr
-[gpg]
-    program = /usr/local/bin/gpg
 [help]
     autocorrect = 1
 [hub]
