@@ -9,6 +9,7 @@ result
 /bash
 /bat
 /composer
+/direnv
 /emacs
 /git/config-nix
 /ripgrep
