@@ -107,6 +107,8 @@ zgenom saved || {
 
   zgenom load skywind3000/z.lua
 
+  zgenom load dominik-schwabe/zsh-fnm
+
   # TODO: barely does anything -- why not just copy?
   # zgenom load chrissicool/zsh-256color
 
