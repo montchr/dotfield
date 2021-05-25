@@ -125,6 +125,7 @@ in
           cachix
           coreutils
           curl
+          dua # ncdu alternative :: https://github.com/Byron/dua-cli
           exa
           fd
           findutils
@@ -142,6 +143,7 @@ in
           jq
           less
           lnav # System Log file navigator
+          # TODO: may be replaced by `dua`
           ncdu
           nodePackages.node2nix
           pandoc
