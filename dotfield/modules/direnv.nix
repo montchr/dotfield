@@ -1,11 +1,9 @@
 { pkgs, lib, config, ... }:
-
 let
-
   cfg = config.my.modules.direnv;
-  # cfgDir = "${config.dotfield.configDir}/direnv";
-
-in {
+  configDir = config.dotfield.configDir;
+in
+{
   options = with lib; {
     my.modules.direnv = {
       enable = mkEnableOption ''
@@ -16,13 +14,24 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      my.user = { packages = with pkgs; [ direnv ]; };
+      my = {
+        user = {
+          packages = with pkgs; [
+            direnv
+            nix-direnv
+          ];
+        };
 
-      # my.hm.configFile = {
-      #   "direnv" = {
-      #     recursive = true;
-      #     source = builtins.toPath /. cfgDir;
-      #   };
-      # };
+        hm.configFile = {
+          "direnv/direnvrc".text = ''
+            # Bootstrap nix-direnv
+            source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
+          '';
+        };
+      };
+
+      environment.pathsToLink = [
+        "/share/nix-direnv"
+      ];
     };
 }
