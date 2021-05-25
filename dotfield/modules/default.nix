@@ -7,6 +7,7 @@
     ./zsh.nix
     ./bash.nix
     ./direnv.nix
+    ./lorri.nix
     ./gpg.nix
     ./ssh.nix
     ./git.nix
@@ -28,6 +29,7 @@
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;
+    lorri.enable = true;
     node.enable = true;
     python.enable = true;
     ripgrep.enable = true;
