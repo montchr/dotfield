@@ -39,7 +39,7 @@ in {
               #ControlMaster auto
               #ControlPath ~/.ssh/master-%r@%h:%p
               #ControlPersist 300
-              # AddKeysToAgent yes
+              AddKeysToAgent yes
               AddressFamily inet
               IdentityFile ~/.ssh/id_ed25519_yubikey.pub
               HashKnownHosts yes
