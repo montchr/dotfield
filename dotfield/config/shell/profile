@@ -154,7 +154,6 @@ export _ZL_DATA="${XDG_DATA_HOME}/zlua"
 # PATH Modifications
 # - - - - - - - - - - - - - - - - - - - -
 
-export PATH="${ASDF_DATA_DIR}/shims:${PATH}"
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # Required by Homebrew

@@ -124,8 +124,9 @@ in
         # $XDG_CONFIG_HOME/aspell/en_US.pws; repl
         # $XDG_CONFIG_HOME/aspell/en.prepl;
         # '';
-        HISTFILE = "$XDG_DATA_HOME/bash/history";
-        INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
+
+        # HISTFILE = "$XDG_DATA_HOME/bash/history";
+        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
 
