@@ -45,7 +45,7 @@ Thumbs.db
 sftp-config.json
 .env
 TODO
-.direnv/*
+.direnv
 .envrc
 .autoenv.zsh
 .scratch
