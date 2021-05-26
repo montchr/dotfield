@@ -7,9 +7,6 @@
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro"))
 
-;; Enable font ligatures in emacs-mac@27.
-;; (if IS-MAC (mac-auto-operator-composition-mode t))
-
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
