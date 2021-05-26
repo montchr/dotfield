@@ -39,7 +39,7 @@ in {
               #ControlMaster auto
               #ControlPath ~/.ssh/master-%r@%h:%p
               #ControlPersist 300
-              #AddKeysToAgent yes
+              # AddKeysToAgent yes
               AddressFamily inet
               IdentityFile ~/.ssh/id_ed25519_yubikey.pub
               HashKnownHosts yes
@@ -57,7 +57,6 @@ in {
               MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
               KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
               HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-
           '';
         };
       };
