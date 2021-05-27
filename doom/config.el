@@ -85,6 +85,11 @@
        deft-directory org-directory
        deft-recursive t)
 
+;; Store the value of the shell environment's =SSH_*= variables when generating
+;; the env file.
+(when noninteractive
+  (add-to-list 'doom-env-whitelist "^SSH_"))
+
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
