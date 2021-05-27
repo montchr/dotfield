@@ -31,6 +31,8 @@ in
 
     system.activationScripts.postUserActivation.text = ''
       espanso register
+
+      ${builtins.map (p: "espanso package install ${p}") plugins}
     '';
   };
 }

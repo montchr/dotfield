@@ -1,4 +1,4 @@
 #pattern  filter=crypt diff=crypt merge=crypt
 doom/treemacs.org filter=crypt diff=crypt merge=crypt
-espanso/user/personal.yml filter=crypt diff=crypt merge=crypt
-espanso/user/work.yml filter=crypt diff=crypt merge=crypt
+dotfield/config/espanso/user/personal.yml filter=crypt diff=crypt merge=crypt
+dotfield/config/espanso/user/work.yml filter=crypt diff=crypt merge=crypt
