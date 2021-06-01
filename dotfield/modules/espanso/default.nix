@@ -1,5 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 
+# TODO: espanso doesn't install correctly on darwin! "unsupported system"
 with lib;
 let
   cfg = config.my.modules.espanso;
@@ -32,6 +33,7 @@ in
     system.activationScripts.postUserActivation.text = ''
       espanso register
 
+      # TODO: results in error
       ${builtins.map (p: "espanso package install ${p}") plugins}
     '';
   };

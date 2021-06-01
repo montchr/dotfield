@@ -20,6 +20,7 @@
     ./python.nix
 
     ./editors/emacs
+    ./espanso
   ];
 
   my.modules = {
@@ -34,7 +35,7 @@
     python.enable = true;
     ripgrep.enable = true;
     ssh.enable = true;
-    tealdeer.enable = true; # rust implementation of tldr
+    tealdeer.enable = true;
     zsh.enable = true;
 
     editors = {
