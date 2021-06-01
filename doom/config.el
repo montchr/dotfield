@@ -226,8 +226,8 @@
 (after! magit
   ;; List magit branches by date.
   (setq! magit-list-refs-sortby "-creatordate"))
-  ;; Enable delta diff viewer
-  ;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+;; Enable delta diff viewer
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
 
 ;; Prevent evil-lion from removing extra spaces.
 ;; Add any desired extra space prior to invoking evil-lion.
