@@ -133,8 +133,7 @@ in
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
 
-        # TODO: vim, for now.
-        EDITOR = "vim";
+        EDITOR = "emacsclient";
       };
     };
 
