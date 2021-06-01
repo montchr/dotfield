@@ -19,6 +19,13 @@ in
       };
     };
 
+    launchd.user.agents.yabai.serviceConfig = {
+      EnvironmentVariables = with lib; {
+        # TODO: prepend `XDG_BIN_HOME` to initial value without duplication
+        PATH = mkForce "$XDG_BIN_HOME:${config.services.yabai.package}/bin:${config.environment.systemPath}";
+      };
+    };
+
     services.yabai = {
       enable = true;
       package = pkgs.yabai;
