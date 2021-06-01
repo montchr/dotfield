@@ -3,9 +3,10 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 16)
+       doom-big-font (font-spec :family "PragmataPro Liga" :size 36)
        doom-unicode-font (font-spec :family "PragmataPro Liga")
-       doom-variable-pitch-font (font-spec :family "PragmataPro"))
+       doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -15,14 +16,14 @@
 (global-display-fill-column-indicator-mode +1)
 
 ;; Reduce the size of text in Zen Mode.
-(setq! +zen-text-scale 1)
+;; (setq! +zen-text-scale 1)
 
 ;; Adjust the size of the modeline.
 (after! doom-modeline
   (when IS-MAC
     (setq! doom-modeline-height 1)
     (custom-set-faces!
-      '((mode-line mode-line-inactive) :family "PragmataPro Mono"))))
+      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 14))))
 
 ;; Hide 'UTF-8' encoding from the modeline, since it's the default.
 ;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?
@@ -471,8 +472,7 @@
   :defer-incrementally t)
 
 (setq! +ligatures-extra-symbols
-       '(
-         ;; org
+       '(;; org
          :name          "»"
          :src_block     "»"
          :src_block_end "«"
@@ -487,8 +487,8 @@
          :null          "∅"
          :true          "𝕋"
          :false         "𝔽"
-         ;; :int           "ℤ"
-         ;; :float         "ℝ"
+         :int           "ℤ"
+         :float         "ℝ"
          :str           "𝕊"
          :bool          "𝔹"
          :list          "𝕃"
@@ -500,11 +500,11 @@
          :or            "∨"
          :for           "∀"
          :some          "∃"
-         :return        "⟼"
-         :yield         "⟻"
+         :return        "↦"
+         :yield         "↤"
          ;; Other
-         :union         "⋃"
-         :intersect     "∩"
+         ;; :union         "⋃"
+         ;; :intersect     "∩"
          ;; :diff          "∖"
          ;; :tuple         "⨂"
          ;; :pipe          "" ;; FIXME: find a non-private char
