@@ -2,11 +2,11 @@ final: prev: {
   # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
   yabai = prev.yabai.overrideAttrs (
     o: rec {
-      version = "3.3.8";
+      version = "3.3.10";
       src = builtins.fetchTarball {
         url =
           "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-        sha256 = "1qh1vf52j0b3lyrm005c8c98s39rk1lq61rrq0ml2yr4h77rq3xv";
+        sha256 = "1z95njalhvyfs2xx6d91p9b013pc4ad846drhw0k5gipvl03pp92";
       };
 
       installPhase = ''
