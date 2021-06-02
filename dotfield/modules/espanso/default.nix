@@ -4,7 +4,6 @@
 with lib;
 let
   cfg = config.my.modules.espanso;
-  configDir = config.dotfield.configDir;
   plugins = [ "greek-letters-alt" ];
 in
 {
@@ -19,15 +18,6 @@ in
       user.packages = with pkgs; [
         espanso
       ];
-
-      hm = {
-        configFile = {
-          "espanso" = {
-            source = "${configDir}/espanso";
-            recursive = true;
-          };
-        };
-      };
     };
 
     system.activationScripts.postUserActivation.text = ''

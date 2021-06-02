@@ -2,10 +2,7 @@
 
 let
   dotfield = config.dotfield;
-
   cfg = config.my.modules.git;
-  # cfgDir = "${dotfield.configDir}/git";
-
 in {
   options = with lib; {
     my.modules.git = {
@@ -62,16 +59,6 @@ in {
               ''}
             '';
           };
-
-          # "git" = {
-          #   recursive = true;
-          #   source = builtins.toPath /. cfgDir;
-          # };
-
-          # "tig" = {
-          #   recursive = true;
-          #   source = builtins.toPath /. "${dotfield.configDir}/tig";
-          # };
         };
       };
     };

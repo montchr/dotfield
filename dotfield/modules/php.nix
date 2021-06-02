@@ -2,7 +2,6 @@
 with lib;
 let
   cfg = config.my.modules.php;
-  configDir = config.dotfield.configDir;
 in
 {
   options = with lib; {

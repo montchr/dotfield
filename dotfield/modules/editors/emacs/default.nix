@@ -56,6 +56,7 @@ in
         nodePackages.javascript-typescript-langserver
       ];
 
+      # TODO: move this somewhere else
       # modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
       env = {

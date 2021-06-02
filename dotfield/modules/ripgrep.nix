@@ -2,7 +2,6 @@
 
 let
   cfg = config.my.modules.ripgrep;
-  cfgDir = "${config.dotfield.configDir}/ripgrep";
 in {
   options = with lib; {
     my.modules.ripgrep = {

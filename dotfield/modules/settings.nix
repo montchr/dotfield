@@ -32,15 +32,16 @@ in
     dotfield = let
       t = either str path;
     in
-      {
+      rec {
+        # TODO: or is there a way to just use the flake dir?
+        configDir = mkOpt t "${config.my.user.home}/.config";
         dir = mkOpt t (
           findFirst pathExists (toString ../.) [
-            "${config.my.user.home}/.config/dotfield"
+            "${configDir}/dotfield"
             "/etc/dotfiles"
           ]
         );
         binDir = mkOpt t "${config.dotfield.dir}/bin";
-        configDir = mkOpt t "${config.dotfield.dir}/config";
         modulesDir = mkOpt t "${config.dotfield.dir}/modules";
       };
 

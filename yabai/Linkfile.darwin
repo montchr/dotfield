@@ -1,5 +1,0 @@
-bin/yabai-border ~/.local/bin/yabai-border
-bin/yabai-close-window ~/.local/bin/yabai-close-window
-bin/yabai-element-color ~/.local/bin/yabai-element-color
-bin/yabai-focus-direction ~/.local/bin/yabai-focus-direction
-bin/yabai-set-padding ~/.local/bin/yabai-set-padding

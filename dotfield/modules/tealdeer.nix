@@ -2,7 +2,6 @@
 
 let
   cfg = config.my.modules.tealdeer;
-  configDir = "${config.dotfield.configDir}/tealdeer";
 in
 {
   options = with lib; {
@@ -22,16 +21,6 @@ in
         };
 
         user = { packages = with pkgs; [ tealdeer ]; };
-
-        hm = {
-          configFile = {
-            "tealdeer" = {
-              source = configDir;
-              recursive = true;
-            };
-          };
-
-        };
       };
 
       system.activationScripts.postUserActivation.text = ''
