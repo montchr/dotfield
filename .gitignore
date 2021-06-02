@@ -19,6 +19,7 @@ result
 !/composer/composer.json
 !/composer/composer.lock
 !/karabiner/karabiner.json
+/zsh/.zcompdump*
 
 # Symlinked to currently-active theme (changes frequently).
 /kitty/theme.conf
