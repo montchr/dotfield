@@ -8,7 +8,11 @@ WIDTH="${2:-4}"
 ALPHA="${3:-ff}"
 
 if [[ -z $RGB ]]; then
-  RGB=$(yabai-element-color border)
+  if [[ "dark" == "${CDOM_OS_APPEARANCE}" ]]; then
+    RGB="${YABAI_BORDER_LIGHT}"
+  else
+    RGB="${YABAI_BORDER_DARK}"
+  fi
 fi
 
 COLOR="${ALPHA}${RGB}"

@@ -42,9 +42,8 @@ function main() {
   printf "Base16 Theme:\t%s\n" "${theme}"
   printf "\n"
 
-  shell::has yabai-border yabai-element-color && {
-    yabai-border "$(yabai-element-color border "${appearance}")"
-  }
+  shell::has yabai-border \
+    && yabai-border
 
   shell::has kitty \
     && kitty::theme_change "${theme}"
