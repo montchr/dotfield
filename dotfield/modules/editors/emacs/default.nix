@@ -4,7 +4,6 @@ with lib;
 let
   cfg = config.my.modules.editors.emacs;
   configDir = config.dotfield.configDir;
-  # emacs-server    = "${tmpdir}/emacs-emacs/server";
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 in
 {
@@ -61,6 +60,7 @@ in
 
       env = {
         DOOMDIR = "$XDG_CONFIG_HOME/doom";
+        EDITOR = "emacsclient -n";
         EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
 

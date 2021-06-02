@@ -142,8 +142,6 @@ in
 
         DOTFIELD = config.dotfield.dir;
         DOTFIELD_BIN = config.dotfield.binDir;
-
-        EDITOR = "emacsclient";
       };
     };
 
