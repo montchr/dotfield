@@ -69,13 +69,13 @@ in
 
       # TODO: doesn't seem to have an effect?
       extraConfig = ''
-        yabai-set-padding 12
+        ${config.my.xdgPaths.bin}/yabai-set-padding 12
 
         yabai -m space 1 --label 'task'
-        yabai -m space 2 --label 'inspect' && yabai -m space 2
-        yabai -m space 3 --label 'code' && yabai -m space 3
-        yabai -m space 4 --label 'comm' && yabai -m space 4
-        yabai -m space 5 --label 'term' && yabai -m space 5
+        yabai -m space 2 --label 'inspect'
+        yabai -m space 3 --label 'code'
+        yabai -m space 4 --label 'comm'
+        yabai -m space 5 --label 'term'
 
         # Default to all Emacs windows unmanaged.
         yabai -m rule --add app='Emacs' \
