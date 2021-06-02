@@ -49,8 +49,9 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
   && DOTFIELD_NIX_HOSTNAME="$(hostname)"
 
 : "${DOTFIELD:=${GITHUB_WORKSPACE:-${HOME}/.config}}"
-: "${XDG_CONFIG_HOME:=${DOTFIELD}}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
+
+XDG_CONFIG_HOME="${DOTFIELD}"
 
 export \
   DOTFIELD \
