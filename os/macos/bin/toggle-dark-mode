@@ -2,13 +2,17 @@
 #
 # Toggle system dark mode and run various related effects.
 #
+# Supported applications:
+# - kitty
+# - base16-shell
+# - emacs
 
-emulate -L zsh
-setopt extended_glob warn_create_global typeset_silent \
-  no_short_loops rc_quotes no_auto_pushd
+emulate -L bash
 
+# shellcheck disable=SC1091
+. "${XDG_CONFIG_HOME}/lib/utils.sh"
 
-.kitty-theme-change () {
+function kitty::theme_change() {
   ln -sfv \
     "${XDG_CONFIG_HOME}/kitty/base16-kitty/colors/base16-${1}-256.conf" \
     "${XDG_CONFIG_HOME}/kitty/theme.conf"
@@ -16,22 +20,39 @@ setopt extended_glob warn_create_global typeset_silent \
     set-colors -a -c "${XDG_CONFIG_HOME}/kitty/theme.conf"
 }
 
-.emacs-theme-change () {
+function emacs::theme_change () {
   emacsclient --no-wait --eval "(+cdom/load-os-theme)"
 }
 
-dark-mode && \
-  () {
-    local appearance=$(cdom_os_appearance)
-    local theme=$(cdom_base16_theme ${appearance})
+function main() {
+  local appearance
+  local theme
+  local base16_cmd
 
-    printf "Appearance:\t%s\n" "${appearance}"
-    printf "Base16 Theme:\t%s\n" "${theme}"
-    printf "\n"
-
-    yabai-border $(yabai-element-color border $appearance)
-    .kitty-theme-change $theme
-    # @TODO set base16-shell and base16-fzf colors on demand
-    # base16-set-theme $theme
-    .emacs-theme-change $theme
+  dark-mode || {
+    msg::error "Could not switch system appearance mode!"
+    exit 1
   }
+
+  appearance="$(cdom_os_appearance)"
+  theme="$(cdom_base16_theme "${appearance}")"
+  base16_cmd="base16_${theme}"
+
+  printf "Appearance:\t%s\n" "${appearance}"
+  printf "Base16 Theme:\t%s\n" "${theme}"
+  printf "\n"
+
+  shell::has yabai-border yabai-element-color && {
+    yabai-border "$(yabai-element-color border "${appearance}")"
+  }
+
+  shell::has kitty \
+    && kitty::theme_change "${theme}"
+
+  shell::has "${base16_cmd}" \
+    && $base16_cmd
+
+  emacs::theme_change "${theme}"
+}
+
+main "$@"
