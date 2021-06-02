@@ -25,10 +25,10 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 function __nix::build() {
   local output="$1"
 
-  nix build -v "${DOTFIELD_DIR}/#${output}"
+  nix build -v "${DOTFIELD_DIR}/\#${output}"
 
   "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" \
-    switch -v --flake "${DOTFIELD_DIR}/#${output}"
+    switch -v --flake "${DOTFIELD_DIR}/\#${output}"
 }
 
 #========================================
