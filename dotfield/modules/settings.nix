@@ -34,10 +34,10 @@ in
     in
       rec {
         # TODO: or is there a way to just use the flake dir?
-        configDir = mkOpt t "${config.my.user.home}/.config";
+        configDir = mkOpt t (toString ../../.);
         dir = mkOpt t (
           findFirst pathExists (toString ../.) [
-            "${configDir}/dotfield"
+            "${config.my.user.home}/.config/dotfield"
             "/etc/dotfiles"
           ]
         );
