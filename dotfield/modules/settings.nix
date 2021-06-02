@@ -65,7 +65,6 @@ in
 
       xdg = let
         t = either str path;
-        home = config.my.user.home;
       in
         {
           bin = mkOpt t "$HOME/.local/bin";
@@ -74,6 +73,16 @@ in
           data = mkOpt t "$HOME/.local/share";
           lib = mkOpt t "$HOME/.local/lib";
         };
+
+      xdgPaths = let
+        home = config.my.user.home;
+      in {
+        bin = mkOpt str "${home}/.local/bin";
+        cache = mkOpt str "${home}/.cache";
+        config = mkOpt str "${home}/.config";
+        data = mkOpt str "${home}/.local/share";
+        lib = mkOpt str "${home}/.local/lib";
+      };
 
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
