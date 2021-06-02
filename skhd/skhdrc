@@ -91,7 +91,7 @@ sys     < p : espanso restart ; \
               skhd -k 'escape'
 
 # Restart yabai
-sys     < y : launchctl kickstart -k "org.nixos.yabai" ; \
+sys     < y : launchctl kickstart -k "gui/$UID/org.nixos.yabai" ; \
               skhd -k 'escape'
 
 
