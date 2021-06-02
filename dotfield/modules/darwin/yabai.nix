@@ -24,6 +24,8 @@ in
         # TODO: prepend `XDG_BIN_HOME` to initial value without duplication
         PATH = mkForce "$XDG_BIN_HOME:${config.services.yabai.package}/bin:${config.environment.systemPath}";
       };
+      StandardOutPath = "${config.my.xdgPaths.cache}/yabai.out.log";
+      StandardErrorPath = "${config.my.xdgPaths.cache}/yabai.err.log";
     };
 
     services.yabai = {
