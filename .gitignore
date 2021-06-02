@@ -12,6 +12,9 @@ result
 /emacs
 /git/config-nix
 /ripgrep
+/zsh/profile.zshenv
+/zsh/extra.zshenv
+/zsh/extra.zshrc
 
 # Config files amongst other unwanted files
 /composer/*
@@ -19,6 +22,7 @@ result
 !/composer/composer.json
 !/composer/composer.lock
 !/karabiner/karabiner.json
+
 /zsh/.zcompdump*
 
 # Symlinked to currently-active theme (changes frequently).
