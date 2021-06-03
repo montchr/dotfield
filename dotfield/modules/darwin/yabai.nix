@@ -13,10 +13,11 @@ in
 
   config = {
     my.hm.file = {
-      ".local/bin" = {
-        recursive = true;
-        source = "${configDir}/yabai/bin";
-      };
+      # TODO: this is no good! wipes out everything in the target!
+      # ".local/bin" = {
+      #   recursive = true;
+      #   source = "${configDir}/yabai/bin";
+      # };
     };
 
     launchd.user.agents.yabai.serviceConfig = {
