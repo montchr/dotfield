@@ -1,8 +1,25 @@
 { config, lib, options, pkgs, ... }:
 let
-  configDir = "${config.dotfield.configDir}";
-in
-{
+  configDir = "${config.dotfield.configDir}/yabai";
+
+  scripts = with pkgs; {
+    # TODO: DRY this up
+    border = (writeScriptBin "yabai-border"
+      (builtins.readFile "${configDir}/bin/yabai-border"));
+
+    closeWindow = (writeScriptBin "yabai-close-window"
+      (builtins.readFile "${configDir}/bin/yabai-close-window"));
+
+    focusDirection = (writeScriptBin "yabai-focus-direction"
+      (builtins.readFile "${configDir}/bin/yabai-focus-direction"));
+
+    kludge = (writeScriptBin "yabai-kludge"
+      (builtins.readFile "${configDir}/bin/yabai-kludge"));
+
+    setPadding = (writeScriptBin "yabai-set-padding"
+      (builtins.readFile "${configDir}/bin/yabai-set-padding"));
+  };
+in {
   options = with lib; {
     my.modules.yabai = {
       enable = mkEnableOption ''
@@ -12,19 +29,12 @@ in
   };
 
   config = {
-    my.hm.file = {
-      # TODO: this is no good! wipes out everything in the target!
-      # ".local/bin" = {
-      #   recursive = true;
-      #   source = "${configDir}/yabai/bin";
-      # };
+    my.user = {
+      packages = with builtins;
+        (map (key: getAttr key scripts) (attrNames scripts));
     };
 
     launchd.user.agents.yabai.serviceConfig = {
-      EnvironmentVariables = with lib; {
-        # TODO: prepend `XDG_BIN_HOME` to initial value without duplication
-        PATH = mkForce "$XDG_BIN_HOME:${config.services.yabai.package}/bin:${config.environment.systemPath}";
-      };
       StandardOutPath = "${config.my.xdgPaths.cache}/yabai.out.log";
       StandardErrorPath = "${config.my.xdgPaths.cache}/yabai.err.log";
     };
@@ -68,9 +78,8 @@ in
 
       };
 
-      # TODO: doesn't seem to have an effect?
       extraConfig = ''
-        ${config.my.xdgPaths.bin}/yabai-set-padding 12
+        ${scripts.setPadding}/bin/yabai-set-padding 12
 
         yabai -m space 1 --label 'task'
         yabai -m space 2 --label 'inspect'
