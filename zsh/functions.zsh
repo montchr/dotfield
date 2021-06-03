@@ -9,6 +9,12 @@ autoload -U zmv
 # ls on cd
 add-zsh-hook chpwd chpwd_ls
 
+
+# =============================================================================
+#    =%  FILESYSTEM  %=
+# =============================================================================
+
+
 #=====================================
 # Wrapper for rsync that respects gitignore.
 #=====================================
@@ -39,7 +45,49 @@ function rcp() {
 #=====================================
 function take() {
   mkdir -pv "$1" && cd "$1";
-}; compdef take=mkdir
+};
+compdef take=mkdir
+
+
+# =============================================================================
+#    =%  COLOR  %=
+# =============================================================================
+
+
+#=====================================
+# Print the current shell's color palette.
+#
+# Outputs:
+#   Available colors
+#=====================================
+function color::palette() {
+    local -a colors
+    for i in {000..255}; do
+        colors+=("%F{$i}$i%f")
+    done
+    print -cP $colors
+}
+
+
+#=====================================
+# Print an escape sequence for a given color code.
+#
+# Usage:
+#   color::print <color-code>
+# Parameters:
+#   Color code
+# Outputs:
+#   Escape sequence
+#=====================================
+function color::print() {
+    local color="%F{$1}"
+    echo -E ${(qqqq)${(%)color}}
+}
+
+
+# =============================================================================
+#    =%  MISCELLANEOUS  %=
+# =============================================================================
 
 #=====================================
 # Jump to the documentation for a zsh builtin.
@@ -51,9 +99,3 @@ function zman() {
   PAGER="less -g -I -s '+/^       "$1"'" man zshall;
 }
 
-# Create a reminder with human-readable durations, e.g. 15m, 1h, 40s, etc
-# TODO: make it work for darwin
-# r() {
-#   local time=$1; shift
-#   sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
-# }; compdef r=sched
