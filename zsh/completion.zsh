@@ -25,18 +25,22 @@ zstyle ':completion:*' matcher-list '' \
        'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
 # Group matches and describe.
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
 zstyle ':completion:*:*:*:*:*' menu select
+
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
-zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' verbose yes
+
+# TODO: fix broken colorization
+# zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+# zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+# zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+# zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+# zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 
 # Fuzzy match mistyped completions.
 zstyle ':completion:*' completer _complete _list _match _approximate
@@ -167,4 +171,4 @@ has fzf && {
 }
 
 # RobSis/zsh-completion-generator
-zstyle :plugin:zsh-completion-generator programs grep yabai
+zstyle :plugin:zsh-completion-generator programs grep

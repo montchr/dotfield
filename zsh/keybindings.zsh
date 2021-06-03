@@ -51,6 +51,5 @@ bindkey -M viins '^[[Z' reverse-menu-complete
 #  WIDGETS
 # -------------------------------------
 
-# bindkey '^I' fzf-tab-partial-and-complete
 # Expand aliases on <space>
 bindkey " " globalias
