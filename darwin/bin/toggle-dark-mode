@@ -2,12 +2,11 @@
 #
 # Toggle system dark mode and run various related effects.
 #
-# Supported applications:
+# Supports:
 # - kitty
 # - base16-shell
+# - base16-fzf
 # - emacs
-
-emulate -L bash
 
 # shellcheck disable=SC1091
 . "${XDG_CONFIG_HOME}/lib/utils.sh"
@@ -27,7 +26,7 @@ function emacs::theme_change () {
 function main() {
   local appearance
   local theme
-  local base16_cmd
+  local base16_fzf_dir
 
   dark-mode || {
     msg::error "Could not switch system appearance mode!"
@@ -36,20 +35,18 @@ function main() {
 
   appearance="$(cdom_os_appearance)"
   theme="$(cdom_base16_theme "${appearance}")"
-  base16_cmd="base16_${theme}"
 
   printf "Appearance:\t%s\n" "${appearance}"
   printf "Base16 Theme:\t%s\n" "${theme}"
   printf "\n"
 
-  shell::has yabai-border \
-    && yabai-border
+  yabai-border
 
-  shell::has kitty \
-    && kitty::theme_change "${theme}"
+  kitty::theme_change "${theme}"
 
-  shell::has "${base16_cmd}" \
-    && $base16_cmd
+  base16_fzf_dir="${ZSH_DATA}/sources/fnune/base16-fzf/___/bash/base16-${theme}.config"
+  [[ -e "${base16_fzf_dir}" ]] \
+    && . "${base16_fzf_dir}"
 
   emacs::theme_change "${theme}"
 }

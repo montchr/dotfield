@@ -17,8 +17,8 @@ fi
 # Configure ls colors.
 # TODO: sync with color schemes?
 # http://geoff.greer.fm/lscolors/
-export LSCOLORS='Exfxcxdxbxegedabagacad'
-export LS_COLORS='di=1;34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
+# export LSCOLORS='Exfxcxdxbxegedabagacad'
+# export LS_COLORS='di=1;34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
 
 # Set up history.
 export HISTSIZE=290000
@@ -60,9 +60,6 @@ zgenom saved || {
 
   # Colorize command output.
   zgenom load unixorn/warhol.plugin.zsh
-
-  # TODO: this plugin might not load efficiently. see old zshrc for prior art.
-  zgenom load chriskempson/base16-shell
 
   # @unixorn's macOS helpers.
   zgenom load unixorn/tumult.plugin.zsh
@@ -109,9 +106,6 @@ zgenom saved || {
   zgenom load skywind3000/z.lua
 
   zgenom load dominik-schwabe/zsh-fnm
-
-  # TODO: barely does anything -- why not just copy?
-  # zgenom load chrissicool/zsh-256color
 
   zgenom load hlissner/zsh-autopair \
     autopair.zsh
@@ -182,6 +176,10 @@ fi
 # Dedupe PATH.
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path;
+
+[[ -n "${BASE16_THEME}" ]] && {
+  zgenom load fnune/base16-fzf "bash/base16-${BASE16_THEME}.config"
+}
 
 export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"
 
