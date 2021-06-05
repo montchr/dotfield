@@ -23,6 +23,7 @@ result
 !/composer/composer.lock
 !/karabiner/karabiner.json
 
+/doom/treemacs.org
 /zsh/.zcompdump*
 
 # Symlinked to currently-active theme (changes frequently).
