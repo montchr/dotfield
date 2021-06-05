@@ -34,25 +34,29 @@ in
         ## Optional dependencies
         fd # faster projectile indexing
         imagemagick # for image-dired
-        (
-          mkIf (config.programs.gnupg.agent.enable)
-            pinentry_emacs
-        ) # in-emacs gnupg prompts
+        pinentry_emacs
         zstd # for undo-fu-session/undo-tree compression
 
         ## Module dependencies
         # :checkers spell
-        # (aspellWithDicts (ds: with ds; [
-        #   en en-computers en-science
-        # ]))
+        (aspellWithDicts (ds: with ds; [
+          en en-computers en-science
+        ]))
         # :checkers grammar
         languagetool
         # :tools editorconfig
         editorconfig-core-c
         # :tools lookup & :lang org +roam
         sqlite
+        # :tools terraform
+        terraform
         # :lang javascript
         nodePackages.javascript-typescript-langserver
+        # :lang org
+        graphviz
+        # :lang web
+        nodePackages.stylelint
+        nodePackages.js-beautify
       ];
 
       # TODO: move this somewhere else
