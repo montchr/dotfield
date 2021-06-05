@@ -356,9 +356,7 @@
 
 (use-package! lsp
   :config
-  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor"))
-  (setq! lsp-vetur-format-default-formatter-js "prettier-eslint"
-         lsp-vetur-format-default-formatter-ts "prettier-eslint"
+  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
          lsp-vetur-use-workspace-dependencies t))
 
 ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
