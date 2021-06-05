@@ -347,6 +347,7 @@
 
 (use-package! projectile
   :config
+  (setq! projectile-indexing-method 'native)
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
 (use-package! treemacs
