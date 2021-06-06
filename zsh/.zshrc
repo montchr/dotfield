@@ -48,6 +48,7 @@ zgenom saved || {
   ZGEN_LOADED=()
   ZGEN_COMPLETIONS=()
 
+  # Tab completions with an fzf frontend.
   zgenom load Aloxaf/fzf-tab
 
   zgenom oh-my-zsh
@@ -66,7 +67,9 @@ zgenom saved || {
   # @unixorn's macOS helpers.
   zgenom load unixorn/tumult.plugin.zsh
 
+  # Don't forget aliases, or else.
   zgenom load djui/alias-tips
+
   zgenom load unixorn/git-extra-commands
   zgenom load skx/sysadmin-util
 
@@ -105,14 +108,16 @@ zgenom saved || {
     zgenom oh-my-zsh plugins/osx
   fi
 
+  # Jump around, faster.
   zgenom load skywind3000/z.lua
 
+  # Like nvm but with a less-memorable name. And maybe it's faster?
   zgenom load dominik-schwabe/zsh-fnm
 
   zgenom load hlissner/zsh-autopair \
     autopair.zsh
 
-  # TODO: these just seem to be busted
+  # TODO: not updated for experimental cli i.e. the one supporting flakes
   # zgenom load spwhitt/nix-zsh-completions
 
   zgenom load zsh-users/zsh-completions \
@@ -124,6 +129,7 @@ zgenom saved || {
 
   # zgenom load srijanshetty/docker-zsh
 
+  # Manually generate completions from a command's `--help` output
   zgenom load RobSis/zsh-completion-generator
 
   zgenom load zsh-users/zsh-autosuggestions
