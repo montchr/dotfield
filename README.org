@@ -5,13 +5,13 @@
 On macOS, run the following as the administrative user:
 
 #+begin_src bash
-bash -c "$(curl -LsS https://raw.github.com/montchr/dots/main/bootstrap)"
+bash -c "$(curl -LsS https://raw.githubusercontent.com/montchr/dots/feature/reshape/bootstrap)"
 #+end_src
 
 On Linux, run the following as root, reboot, and run again as the sudo user.
 
 #+begin_src bash
-bash -c "$(wget -qO - https://raw.github.com/montchr/dots/main/bootstrap)"
+bash -c "$(wget -qO - https://raw.githubusercontent.com/montchr/dots/feature/reshape/bootstrap)"
 #+end_src
 
 ** Bootstrap
