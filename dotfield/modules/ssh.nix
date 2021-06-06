@@ -19,6 +19,8 @@ in {
             # https://github.com/drduh/config/blob/master/ssh_config
             # https://linux.die.net/man/5/ssh_config
 
+            Include ${config.my.user.home}/.config/ssh/config.local
+
             #Host router
             #  IdentityFile ~/.ssh/router
             #  HostName 192.168.1.1
