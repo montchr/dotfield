@@ -77,7 +77,8 @@ zgenom saved || {
   zgenom load peterhurford/git-it-on.zsh
 
   # Encrypt some repo files.
-  zgenom load StackExchange/blackbox
+  # TODO: use it or lose it
+  # zgenom load StackExchange/blackbox
 
   # Load some oh-my-zsh plugins
   zgenom oh-my-zsh plugins/aws
@@ -124,8 +125,8 @@ zgenom saved || {
     src
 
   # fzf completion
-  zgenom load junegunn/fzf \
-    shell
+  # zgenom load junegunn/fzf \
+  #   shell
 
   # zgenom load srijanshetty/docker-zsh
 
