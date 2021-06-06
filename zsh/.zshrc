@@ -130,6 +130,10 @@ zgenom saved || {
 
   # zgenom load srijanshetty/docker-zsh
 
+  # Automatic completion generator based on `--help` usage
+  # https://github.com/dim-an/cod
+  zgenom load dim-an/cod
+
   # Manually generate completions from a command's `--help` output
   zgenom load RobSis/zsh-completion-generator
 
