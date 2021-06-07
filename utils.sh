@@ -631,15 +631,11 @@ function fs::ensure_dirs() {
   for dir in "$@"; do
     if [[ -d "$1" ]]; then
       msg::success "$1"
-      continue
     else
       msg::info "create: $1"
       mkdir -p "$1"
       msg::success "$1"
-      continue
     fi
-    msg::error "$1"
-    return 1
   done
 }
 
