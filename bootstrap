@@ -442,7 +442,8 @@ else
 
 printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
 utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh")"
-. $utils_path
+# shellcheck source=./lib/utils.sh
+. "${utils_path}"
 
 msg::stream::story <<END
 This world is beautiful, but dark.
@@ -460,7 +461,7 @@ if shell::has pfetch; then
 else
   msg::domain "System" "Summoning pfetch"
   pfetch="$(fetch_ephemeral "$(repo::qualify_raw_url "gh" "montchr/pfetch" "master" "pfetch")")"
-  chmod +x $pfetch && $pfetch
+  chmod +x "${pfetch}" && "${pfetch}"
 fi
 
 
@@ -569,6 +570,34 @@ touch "${DOTFIELD_LOCK_FILE}"
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
+msg::domain "Guardian" "Ensure directories exist" && {
+  fs::ensure_dirs \
+    "${XDG_BIN_HOME}" \
+    "$DEVELOPER" \
+    "$HOME/org" \
+    "$HOME/org/gtd" \
+    "$HOME/org/mind" \
+    "$HOME/org/roam"
+}
+
+
+guard::domain "Repo" "Sync repos from Repofiles" && {
+  fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
+}
+
+
+guard::domain "Link" "Link all files as defined in Linkfiles" && {
+  fs::linkfile "${DOTFIELD}/Linkfile"
+
+  for f in "${DOTFIELD}"/**/Linkfile; do
+    fs::linkfile "$f";
+  done
+
+  for f in "${DOTFIELD}"/**/Linkfile."${KERNEL_NAME}"; do
+    fs::linkfile "$f"
+  done
+}
+
 
 guard::macos && {
   if ! shell::is_modern; then
@@ -589,15 +618,64 @@ guard::install && {
       DOTFIELD_NIX_HOSTNAME="${HOSTNAME}"
     fi
   }
-}
 
-
-# TODO: this needs to happen after nix is installed
-guard::install &&  {
   guard::domain "Identity" "Fetching PGP key" && {
     gpg --recv-key "${DOTFIELD_PGP_KEY}"
   }
 }
+
+
+guard::ubuntu && {
+  msg::domain "OS" "Preparing Ubuntu environment"
+  # shellcheck source=./os/ubuntu/main
+  . "${XDG_CONFIG_HOME}/os/ubuntu/main"
+}
+
+
+guard::macos && {
+  msg::domain "OS" "Preparing macOS environment"
+
+  # shellcheck source=./os/macos/main
+  . "${XDG_CONFIG_HOME}/os/macos/main"
+
+  # msg::domain "OS" "Configuring macOS preferences"
+  # "${XDG_CONFIG_HOME}/os/macos/configure"
+
+  guard::domain "yabai" "Check SIP status" && {
+    case $(csrutil status) in
+      *enabled*)
+        msg::error "System integrity protection is enabled! yabai cannot function properly. Skipping."
+        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
+        ;;
+      *disabled*)
+        if shell::has yabai; then
+          msg::error "System integrity protection is disabled! Your system is at risk!"
+          msg::warning "Now that the yabai scripting addition has been installed, you should re-enable SIP."
+          msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
+        else
+          msg::warning "System integrity protection is disabled -- yabai scripting addition can be injected."
+        fi
+        ;;
+    esac
+  }
+}
+
+
+# TODO: handle with nix?
+# guard::install && {
+#   msg::domain "Guardian" "Decrypting Dotfield secrets"
+#   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
+#     # Force transcrypt to run even if it thinks the working tree is dirty.
+#     # This seems to be a false positive. Regardless, we've already checked for
+#     # a dirty working tree so nothing should be lost at this point.
+#     transcrypt --yes --force --import-gpg="${XDG_CONFIG_HOME}/.transcrypt" || {
+#       msg::warning "Decryption failed. Have we been her before?"
+#     }
+#   else
+#     msg::error "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
+#     shell::is_interactive && exit 1
+#   fi
+# }
 
 
 guard::install && {
@@ -628,25 +706,24 @@ guard::install && {
 }
 
 
-guard::install && guard::macos {
-  msg::domain "Nix" "Install nix-darwin" && {
+guard::install && guard::macos && {
+  msg::domain "Nix" "Install nix-darwin"
+  [[ -d ./result ]] && {
+    msg::subdomain "Found existing ./result directory. Removing..."
+    rm -rf ./result
+  }
 
-    [[ -d ./result ]] && {
-      msg::subdomain "Found existing ./result directory. Removing..."
-      rm -rf ./result
-    }
+  # Although nix-darwin supports flakes, at the time of writing, the installer
+  # does not. In order to install nix-darwin properly, it needs to be
+  # installed for the first time via the installer.
+  # See: https://github.com/LnL7/nix-darwin#flakes-experimental
+  msg::subdomain "Building nix-darwin installer"
+  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
 
-    # Although nix-darwin supports flakes, at the time of writing, the installer
-    # does not. In order to install nix-darwin properly, it needs to be
-    # installed for the first time via the installer.
-    # See: https://github.com/LnL7/nix-darwin#flakes-experimental
-    msg::subdomain "Building nix-darwin installer"
-    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
+    msg::error "Encountered an error installing nix-darwin"
+    cert_file="/etc/ssl/certs/ca-certificates.crt"
 
-      msg::error "Encountered an error installing nix-darwin"
-      cert_file="/etc/ssl/certs/ca-certificates.crt"
-
-      msg::stream::info \
+    msg::stream::info \
 <<END
 
 If you received a message like this:
@@ -664,16 +741,15 @@ END
 
       exit 1
 
-    }
+  }
 
-    msg::subdomain "Running nix-darwin installer"
-    ./result/bin/darwin-installer
+  msg::subdomain "Running nix-darwin installer"
+  ./result/bin/darwin-installer
 
-    msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
-    . /etc/static/bashrc
+  msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
+  . /etc/static/bashrc
 
 }
-
 
 
 msg::domain "Nix" "Build" && {
@@ -688,197 +764,6 @@ msg::domain "Nix" "Build" && {
     sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
 
-}
-
-
-msg::domain "Guardian" "Ensure directories exist"
-fs::ensure_dir "${XDG_BIN_HOME}"
-fs::ensure_dir "$DEVELOPER"
-fs::ensure_dir "$HOME/org"
-fs::ensure_dir "$HOME/org/gtd"
-fs::ensure_dir "$HOME/org/mind"
-fs::ensure_dir "$HOME/org/roam"
-
-
-guard::domain "Repo" "Sync repos from Repofiles" && {
-  fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
-}
-
-
-guard::domain "Link" "Link all files as defined in Linkfiles" && {
-  fs::linkfile "${DOTFIELD}/Linkfile"
-  for f in "${DOTFIELD}"/**/Linkfile; do
-    fs::linkfile "$f";
-  done
-  for f in "${DOTFIELD}"/**/Linkfile."${KERNEL_NAME}"; do
-    fs::linkfile "$f"
-  done
-}
-
-
-# guard::domain "Link" "Link all files from module bin directories" && {
-
-#   for f in "${DOTFIELD}/*/bin/*"; do
-#     link "$f" "${XDG_BIN_HOME}/$(basename "$f")"
-#   done
-
-# }
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   INSTALLATION + CONFIGURATION
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-guard::arch && {
-  msg::domain "OS" "Installing Arch Linux environment"
-  # shellcheck source=./os/arch/install
-  . "${XDG_CONFIG_HOME}/os/arch/install"
-}
-
-guard::ubuntu && {
-  msg::domain "OS" "Installing Ubuntu environment"
-  # shellcheck source=./os/ubuntu/main
-  . "${XDG_CONFIG_HOME}/os/ubuntu/main"
-}
-
-guard::macos && {
-
-  msg::domain "OS" "Installing macOS environment"
-  # shellcheck source=./os/macos/main
-  . "${XDG_CONFIG_HOME}/os/macos/main"
-
-  # msg::domain "OS" "Configuring macOS preferences"
-  # "${XDG_CONFIG_HOME}/os/macos/configure"
-
-}
-
-
-guard::install && {
-  msg::domain "Guardian" "Decrypting Dotfield secrets"
-  if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
-    # Force transcrypt to run even if it thinks the working tree is dirty.
-    # This seems to be a false positive. Regardless, we've already checked for
-    # a dirty working tree so nothing should be lost at this point.
-    transcrypt --yes --force --import-gpg="${XDG_CONFIG_HOME}/.transcrypt" || {
-      msg::warning "Decryption failed. Have we been her before?"
-    }
-  else
-    msg::error "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
-    shell::is_interactive && exit 1
-  fi
-}
-
-
-guard::install && {
-  msg::domain "Editor" "Installing Doom Emacs" && {
-    [[ ! -d "${HOME}/.emacs.d" ]] && {
-      git clone --depth 1 https://github.com/hlissner/doom-emacs "${HOME}/.emacs.d"
-    }
-    # TODO: the shell environment should reflect the user's login shell
-    # environment, not the environment this script was run within. this might not
-    # normally matter, but it could have a confusing effect if this was only run
-    # during initial bootstrapping
-    # ~/.emacs.d/bin/doom install
-  }
-
-
-  guard::domain "PHP" "Install Composer" && {
-    # shellcheck source=./composer/install
-    . "${XDG_CONFIG_HOME}/composer/install"
-  }
-
-
-  guard::domain "Espanso" "Install Espanso" && {
-    # shellcheck source=./espanso/install
-    . "${XDG_CONFIG_HOME}/espanso/install"
-  }
-
-
-  guard::domain "Firefox" "Install Tridactyl" && {
-    # shellcheck source=./firefox/install_tridactyl
-    . "${XDG_CONFIG_HOME}/firefox/install_tridactyl"
-  }
-
-
-  guard::macos && {
-    guard::domain "Firefox" "Link user chrome directory into existing profiles" && {
-      for dir in ~/Library/"Application Support"/Firefox/Profiles/*
-      do
-        fs::link "firefox/chrome" "${dir}/chrome"
-      done
-    }
-  }
-}
-
-
-guard::upgrade && {
-  # @TODO run in login shell! see previous note
-  guard::domain "Emacs" "Upgrading Doom Emacs" && {
-    doom upgrade
-  }
-}
-
-
-guard::macos && {
-
-  # guard::domain "skhd" "Patch skhd application PATH" && {
-  #   shell::has skhd && {
-  #     # @TODO update this?
-  #     "${DOTFIELD}/bin/patch_skhd_path"
-  #   }
-  # }
-
-  guard::domain "yabai" "Ensure scripting addition is installed" && {
-    shell::has yabai && {
-      if [[ $(csrutil status) == *enabled* ]]; then
-        msg::error "System integrity protection is enabled! yabai cannot function properly. Skipping."
-        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
-      else
-        # reinstall the scripting addition
-        sudo yabai --uninstall-sa
-        sudo yabai --install-sa
-
-        # load the scripting addition
-        killall Dock || true
-
-        sudo yabai --load-sa
-      fi
-
-      [[ $(csrutil status) == *disabled* ]] && {
-        msg::error "System integrity protection is disabled! Your system is at risk!"
-        msg::warning "Now that the yabai scripting addition has been installed, you should re-enable SIP."
-        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
-      }
-    }
-  }
-
-}
-
-
-guard::arch && {
-
-  guard::domain "xmonad" "Rebuild Xmonad configurations" && {
-
-    msg::subdomain "Install xmonad" && (
-      cd "$XDG_CONFIG_HOME/xmonad"
-      stack --allow-different-user install || {
-        notify send -a "Eru" -t "Failed to compile xmonad" -u critical
-      }
-    )
-
-    msg::subdomain "Restart xmonad" && {
-      if pgrep d12-xmonad; then
-        msg::info "Found running instance of xmonad. Restarting..."
-        d12-xmonad --restart
-      else
-        msg::info "No running instance of xmonad is found. Meh..."
-      fi
-    }
-
-  }
 }
 
 
