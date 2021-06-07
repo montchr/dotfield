@@ -1204,6 +1204,34 @@ function user::allow_passwordless_sudo () {
 }
 
 #========================================
+# Get the home directory for a user.
+#
+# Usage:
+#   user::get_home [<username>]
+# Globals:
+#   KERNEL_NAME
+#   USER
+# Parameters:
+#   Username. Defaults to current user.
+# Outputs:
+#   Home directory path inferred from kernel name and username.
+#========================================
+function user::get_home() {
+  local username="${1:-${USER}}"
+  case $KERNEL_NAME in
+    linux)
+      case $username in
+        root) echo "/root" ;;
+        *) echo "/home/${username}" ;;
+      esac
+      return
+      ;;
+    darwin) echo "/Users/${username}" && return ;;
+  esac
+}
+
+
+#========================================
 # Clone a user's SSH configuration.
 #
 # Usage:
@@ -1215,8 +1243,11 @@ function user::allow_passwordless_sudo () {
 function user::clone_ssh() {
   local source_user=$1
   local target_user=$2
-  local source_dir="/home/${source_user}/.ssh"
-  local target_dir="/home/${target_user}/.ssh"
+  local source_dir
+  local target_dir
+
+  source_dir="$(user::get_home "${source_user}")/.ssh"
+  target_dir="$(user::get_home "${target_user}")/.ssh"
 
   [[ ! -d "$source_dir" ]] && {
     msg::error "[ERROR] Could not locate the SSH directory for '${source_user}'!"
