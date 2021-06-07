@@ -652,8 +652,8 @@ guard::domain "Link" "Link all files as defined in Linkfiles" && {
     fs::linkfile "$f"
   done
 
-  for f in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
-    fs::linkfile "$f"
+  for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
+    fs::linkfile "$fk"
   done
 }
 
