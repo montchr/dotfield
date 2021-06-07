@@ -692,7 +692,7 @@ function fs::linkfile {
 
   msg::subdomain "linkfile: ${file}"
 
-  [[ -f "${file}" ]] && {
+  [[ -e "${file}" ]] && {
     cd "$(dirname "${file}")" \
       || return 1
     fs::map_lines \
