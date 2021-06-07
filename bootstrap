@@ -204,32 +204,6 @@ function fetch_ephemeral {
   return 1
 }
 
-#========================================
-# Get the home directory for a user.
-#
-# Usage:
-#   get_user_home [<username>]
-# Globals:
-#   KERNEL_NAME
-#   USER
-# Parameters:
-#   Username. Defaults to current user.
-# Outputs:
-#   Home directory path inferred from kernel name and username.
-#========================================
-function get_user_home() {
-  local username="${1:-${USER}}"
-  case $KERNEL_NAME in
-    linux)
-      case $username in
-        root) echo "/root" ;;
-        *) echo "/home/${username}" ;;
-      esac
-      return
-      ;;
-    darwin) echo "/Users/${username}" && return ;;
-  esac
-}
 
 
 #========================================
