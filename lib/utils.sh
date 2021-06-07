@@ -721,18 +721,28 @@ function fs::dirname {
 }
 
 
-function fs::ensure_dir {
-  if [[ -d "$1" ]]; then
-    msg::success "$1"
-    return
-  elif [[ ! -d "$1" ]]; then
-    msg::info "create: $1"
-    mkdir -p "$1"
-    msg::success "$1"
-    return
-  fi
-  msg::error "$1"
-  return 1
+#========================================
+# Ensure directories exist.
+#
+# Usage:
+#   fs::ensure_dir <dirname>...
+# Parameters:
+#   Directories...
+#========================================
+function fs::ensure_dirs() {
+  for dir in "$@"; do
+    if [[ -d "$1" ]]; then
+      msg::success "$1"
+      continue
+    else
+      msg::info "create: $1"
+      mkdir -p "$1"
+      msg::success "$1"
+      continue
+    fi
+    msg::error "$1"
+    return 1
+  done
 }
 
 
