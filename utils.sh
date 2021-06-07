@@ -629,12 +629,12 @@ function fs::dirname {
 #========================================
 function fs::ensure_dirs() {
   for dir in "$@"; do
-    if [[ -d "$1" ]]; then
-      msg::success "$1"
+    if [[ -d "$dir" ]]; then
+      msg::success "$dir"
     else
-      msg::info "create: $1"
-      mkdir -p "$1"
-      msg::success "$1"
+      msg::info "create: $dir"
+      mkdir -p "$dir"
+      msg::success "$dir"
     fi
   done
 }
