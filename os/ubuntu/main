@@ -1,39 +1,38 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-# shellcheck shell=bash
+#!/usr/bin/env bash
 #
 # OS :: Ubuntu :: Install
 #
+
+# shellcheck source=../../lib/utils.sh
+. "${DOTFIELD}/lib/utils.sh"
 
 function __provision_user {
   if [[ -n "${DOTFIELD_USERNAME}" ]]; then
     USERNAME="${DOTFIELD_USERNAME}"
   else
-    ask "Enter the username of the new user account:"
-    USERNAME=$(get_answer)
+    msg::ask "Enter the username of the new user account:"
+    USERNAME=$(msg::get_answer)
   fi
   readonly USERNAME
 
   if [[ -n "${DOTFIELD_USER_PASSWORD}" ]]; then
     PASSWORD="${DOTFIELD_USER_PASSWORD}"
   else
-    prompt_for_password
+    user::prompt_for_password
   fi
-
-  # Run setup functions
-  trap .cleanup EXIT SIGHUP SIGINT SIGTERM
 
   user::create_account "${USERNAME}" "${PASSWORD}"
 
   if [[ -n "${DOTFIELD_SSH_PUBLIC_KEY}" ]]; then
-    ssh_pub_key="${DOTFIELD_SSH_PUBLIC_KEY}"
+    user::add_ssh_pub_key "${USERNAME}" "${DOTFIELD_SSH_PUBLIC_KEY}"
   else
-    ask 'Paste in the public SSH key for the new user:\n'
-    ssh_pub_key=$(get_answer)
+    user::clone_ssh "${USER}" "${USERNAME}"
   fi
 
   user::allow_passwordless_sudo "${USERNAME}" \
-    && user::add_ssh_pub_key "${USERNAME}" "${ssh_pub_key}" \
-    && user::change_ssh_config
+    && user::change_ssh_config \
+    && user::set_ssh_permissions
+
   print_result $? "Configure SSH"
 }
 

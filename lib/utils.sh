@@ -1287,20 +1287,73 @@ function user::allow_passwordless_sudo () {
   sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
 }
 
-# Add an SSH public key for a user::
+#========================================
+# Clone a user's SSH configuration.
+#
+# Usage:
+#   user::clone_ssh <source-user> <target-user>
+# Parameters:
+#   Source user name
+#   Target user name
+#========================================
+function user::clone_ssh() {
+  local source_user=$1
+  local target_user=$2
+  local source_dir="/home/${source_user}/.ssh"
+  local target_dir="/home/${target_user}/.ssh"
+
+  [[ ! -d "$source_dir" ]] && {
+    msg::error "[ERROR] Could not locate the SSH directory for '${source_user}'!"
+    return 1
+  }
+
+  [[ -d $target_dir ]] && {
+    msg::warning "The target user already has a '~/.ssh' directory!"
+    shell::is_ci || {
+        msg::ask_for_confirmation "Are you sure you want to continue?"
+        ! msg::is_confirmed && {
+          return 1
+        }
+    }
+  }
+
+  sudo cp -v "${source_dir}" "${target_dir}"
+}
+
+#========================================
+# Configure SSH for a user.
+#
+# Usage:
+#   user::add_ssh_pub_key <username> [<pubkey>]
 # Parameters:
 #   Username
 #   SSH public key
-function user::add_ssh_pub_key () {
+#========================================
+function user::add_ssh_pub_key() {
   local username=${1}
   local pubkey=${2}
 
   user::exec "${username}" \
-    "mkdir -p ~/.ssh; chmod 700 ~/.ssh; touch ~/.ssh/authorized_keys"
+    "mkdir -p ~/.ssh; touch ~/.ssh/authorized_keys"
+
+  [[ -n "${pubkey}" ]] && {
+    user::exec "${username}" \
+      "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
+  }
+
+}
+
+#========================================
+# Set the permissions for the user's SSH directory.
+#
+# Usage:
+#   user::set_ssh_permissions <username>
+# Parameters:
+#   Username
+#========================================
+function user::set_ssh_permissions() {
   user::exec "${username}" \
-    "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
-  user::exec "${username}" \
-    "chmod 600 ~/.ssh/authorized_keys"
+    "chown \"${username}\" ~/.ssh; chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys"
 }
 
 # Modify the sshd_config file.
