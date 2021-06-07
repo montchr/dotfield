@@ -677,16 +677,28 @@ function fs::get_owner_name {
 }
 
 
+#======================================
+# Link files from a manifest.
+#
+# Usage: fs::linkfile <path>
+#
+# Arguments:
+#   Path to a Linkfile manifest
+# Outputs:
+#   STDOUT - Feedback about link status
+#========================================
 function fs::linkfile {
   local file="$1"
+
   msg::subdomain "linkfile: ${file}"
-  [[ -f "${file}" ]] && (
+
+  [[ -f "${file}" ]] && {
     cd "$(dirname "${file}")" \
       || return 1
     fs::map_lines \
       fs::link \
       "${file}"
-  )
+  }
 }
 
 # @TODO untested
