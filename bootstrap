@@ -205,7 +205,6 @@ function fetch_ephemeral {
 }
 
 
-
 #========================================
 # Verify whether the current OS version is supported by this script.
 #

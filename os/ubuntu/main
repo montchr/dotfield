@@ -12,6 +12,23 @@ function __provision_user {
   else
     msg::ask "Enter the username of the new user account:"
     USERNAME=$(msg::get_answer)
+
+    user::exists "${USERNAME}" && {
+      msg::error "[ERROR] The user '${USERNAME}' already exists!"
+      msg::ask_for_confirmation "Try another?"
+      if msg::is_confirmed; then
+        msg::ask "Enter the username of the new user account:"
+        USERNAME=$(msg::get_answer)
+      else
+        msg::error "Aborting."
+        return 1
+      fi
+    }
+
+    user::exists "${USERNAME}" && {
+      msg::error "[ERROR] The user '${USERNAME}' also already exists! You should take a break..."
+      return 1
+    }
   fi
   readonly USERNAME
 

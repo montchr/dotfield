@@ -1152,6 +1152,24 @@ function user::create_account () {
 }
 
 
+#========================================
+# Whether a user exists.
+#
+# Usage:
+#   user::exists <username>
+# Parameters:
+#   Username
+# Returns:
+#   0 - User exists.
+#   1 - User does not exist.
+#========================================
+function user::exists() {
+  local username=$1
+  id "${username}" >/dev/null 2>&1
+  return $?
+}
+
+
 # Set a global $PASSWORD variable by generation or by prompt.
 #
 # Globals:
