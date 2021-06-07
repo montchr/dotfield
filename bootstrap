@@ -43,7 +43,7 @@ readonly DOTFIELD_BRANCH
 readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
 readonly REPO_ID="montchr/dots"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
-readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
+readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
 [[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
@@ -81,7 +81,7 @@ export \
 #======================================
 # Check for the existence of a command in the current shell environment.
 #
-# Copied from lib/utils.sh for bootstrapping
+# Copied from utils.sh for bootstrapping
 #
 # Usage:
 #   shell::has <command>...
@@ -99,7 +99,7 @@ function shell::has {
 #========================================
 # Download a remote file and make it executable.
 #
-# Copied from fetch::file in lib/utils.sh for bootstrapping.
+# Copied from fetch::file for bootstrapping.
 #
 # Usage:
 #   fetch::file <path> <URL>
@@ -425,11 +425,11 @@ function traceback() {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-if [[ -f "${XDG_CONFIG_HOME}/lib/utils.sh" ]]
+if [[ -f "${XDG_CONFIG_HOME}/utils.sh" ]]
 then
 
-# shellcheck source=./lib/utils.sh
-. "${XDG_CONFIG_HOME}/lib/utils.sh"
+# shellcheck source=./utils.sh
+. "${XDG_CONFIG_HOME}/utils.sh"
 
 msg::stream::story <<END
 We arrive at a well-travelled outcropping,
@@ -441,8 +441,8 @@ END
 else
 
 printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
-utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/lib/utils.sh")"
-# shellcheck source=./lib/utils.sh
+utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/utils.sh")"
+# shellcheck source=./utils.sh
 . "${utils_path}"
 
 msg::stream::story <<END

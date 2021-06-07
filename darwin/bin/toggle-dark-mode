@@ -9,7 +9,7 @@
 # - emacs
 
 # shellcheck disable=SC1091
-. "${XDG_CONFIG_HOME}/lib/utils.sh"
+. "${XDG_CONFIG_HOME}/utils.sh"
 
 function kitty::theme_change() {
   ln -sfv \

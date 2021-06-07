@@ -5,8 +5,8 @@
 #
 
 
-# shellcheck source=../../lib/utils.sh
-. "${XDG_CONFIG_HOME}/lib/utils.sh"
+# shellcheck source=../../utils.sh
+. "${XDG_CONFIG_HOME}/utils.sh"
 
 
 function main () {

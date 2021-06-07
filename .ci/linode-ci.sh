@@ -7,8 +7,8 @@
 
 readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}/.." && pwd )"
 
-# shellcheck source=../lib/utils.sh
-. "${BASE_DIR}/lib/utils.sh"
+# shellcheck source=../utils.sh
+. "${BASE_DIR}/utils.sh"
 
 # Repository name without a user prefix.
 REPO="${REPO:-${GITHUB_REPOSITORY#${GITHUB_USER}/}:-dots}"

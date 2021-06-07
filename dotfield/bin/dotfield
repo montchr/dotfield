@@ -12,7 +12,7 @@ set -e
 DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 
 # shellcheck disable=SC1091
-. "${DOTFIELD_DIR}/lib/utils.sh"
+. "${DOTFIELD_DIR}/utils.sh"
 
 #========================================
 # Build the flake.
