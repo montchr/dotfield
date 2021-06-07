@@ -1,5 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-# shellcheck shell=bash
+#!/usr/bin/env bash
 #
 # OS :: macOS :: Install
 #
