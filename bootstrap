@@ -54,8 +54,61 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
 
 XDG_CONFIG_HOME="${DOTFIELD}"
 
+#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
+#:
+#:    ==>   HELPER VARIABLES
+#:
+#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
+
+USER="${USER:-}"
+if [[ -z "${USER}" ]]; then
+  USER="$(whoami)"
+fi
+
+KERNEL_NAME="${KERNEL_NAME:-}"
+if [[ -z "${KERNEL_NAME}" ]]; then
+  KERNEL_NAME="$( uname -s | tr '[:upper:]' '[:lower:]')"
+fi
+
+OS_NAME="${OS_NAME:-}"
+OS_VERSION="${OS_VERSION:-}"
+if [[ -z "${OS_NAME}" || -z "${OS_VERSION}" ]]; then
+  case "${KERNEL_NAME}" in
+    darwin)
+      OS_NAME="macos"
+      OS_VERSION="$(sw_vers -productVersion)"
+      ;;
+    linux)
+      # shellcheck disable=1091
+      OS_NAME="$(
+        . /etc/os-release
+        printf "%s" "${ID}"
+      )"
+      # shellcheck disable=1091
+      OS_VERSION="$(
+        . /etc/os-release
+        printf "%s" "${VERSION_ID}"
+      )"
+      ;;
+    *) OS_NAME="unknown" ;;
+  esac
+fi
+
+PATH="$HOME/.local/bin:$PATH"
+
+XDG_DATA_HOME="$HOME/.local/share"
+XDG_CACHE_HOME="$HOME/.cache"
+XDG_BIN_HOME="${HOME}/.local/bin"
+
+DEVELOPER="${HOME}/Developer"
+if [[ "$USER" != "$QUERENT" ]]; then
+  DEVELOPER="${HOME}/Developer/99-personal"
+fi
+
 export \
+  DEVELOPER \
   DOTFIELD \
+  DOTFIELD_BOOTSTRAP \
   DOTFIELD_BRANCH \
   DOTFIELD_HOSTNAME \
   DOTFIELD_ID_EMAIL \
@@ -65,10 +118,16 @@ export \
   DOTFIELD_USER_PASSWORD \
   DOTFIELD_USERNAME \
   HOSTNAME \
+  KERNEL_NAME \
+  KERNEL_RELEASE \
+  OS_NAME \
+  OS_VERSION \
   QUERENT \
   REPO_ID \
   XDG_BIN_HOME \
-  XDG_CONFIG_HOME
+  XDG_CACHE_HOME \
+  XDG_CONFIG_HOME \
+  XDG_DATA_HOME
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
