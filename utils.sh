@@ -1164,9 +1164,9 @@ function user::create_account () {
 #   1 - User does not exist.
 #========================================
 function user::exists() {
-  local username=$1
-  id "${username}" >/dev/null 2>&1
-  return $?
+  id "$1" >/dev/null 2>&1 \
+    && return 0
+  return 1
 }
 
 
@@ -1212,7 +1212,7 @@ function user::prompt_for_password {
 }
 
 
-# Allow passwordless sudo for a user::
+# Allow passwordless sudo for a user
 # Parameters:
 #   Username
 function user::allow_passwordless_sudo () {
