@@ -24,7 +24,7 @@ in
       };
 
       system.activationScripts.postUserActivation.text = ''
-        mkdir -p "$XDG_CACHE_HOME/tealdeer"
+        mkdir -p "${config.my.xdg.cache}/tealdeer"
       '';
     };
 
