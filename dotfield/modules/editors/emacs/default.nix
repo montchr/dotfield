@@ -15,21 +15,24 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.emacs = with pkgs; {
-      enable = true;
-      package = emacs;
-    };
-
     environment.systemPackages = with pkgs; [ emacs ];
 
     my = {
+      env = {
+        DOOMDIR = "$XDG_CONFIG_HOME/doom";
+        EDITOR = "emacsclient -n";
+        EMACSDIR = "$XDG_CONFIG_HOME/emacs";
+      };
+
+      # TODO: move this somewhere else
+      # modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
       user.packages = with pkgs; [
         emacs
 
         ## Doom dependencies
         (ripgrep.override { withPCRE2 = true; })
-        gnutls # for TLS connectivity
+        gnutls
 
         ## Optional dependencies
         fd # faster projectile indexing
@@ -39,9 +42,15 @@ in
 
         ## Module dependencies
         # :checkers spell
-        (aspellWithDicts (ds: with ds; [
-          en en-computers en-science
-        ]))
+        (
+          aspellWithDicts (
+            ds: with ds; [
+              en
+              en-computers
+              en-science
+            ]
+          )
+        )
         # :checkers grammar
         languagetool
         # :tools editorconfig
@@ -58,16 +67,6 @@ in
         nodePackages.stylelint
         nodePackages.js-beautify
       ];
-
-      # TODO: move this somewhere else
-      # modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
-      env = {
-        DOOMDIR = "$XDG_CONFIG_HOME/doom";
-        EDITOR = "emacsclient -n";
-        EMACSDIR = "$XDG_CONFIG_HOME/emacs";
-      };
-
     };
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
