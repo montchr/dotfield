@@ -47,10 +47,6 @@
           };
         };
 
-        environment.systemPackages = with pkgs; [
-          rnix-lsp
-        ];
-
         networking = {
           # Use Cloudflare DNS
           # https://developers.cloudflare.com/1.1.1.1/

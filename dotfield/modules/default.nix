@@ -46,4 +46,8 @@
     };
   };
 
+  my.user.packages = with pkgs; [
+    rnix-lsp
+  ];
+
 }
