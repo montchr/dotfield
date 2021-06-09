@@ -78,6 +78,7 @@
 (package! reaper)                    ; Harvest time tracking mode
 
 ;; Tools
+(package! devdocs-browser)           ; Browse devdocs.io documents using EWW
 (package! firestarter)               ; Do things upon save.
 (package! magit-delta)               ; Use delta in magit diffs.
 (package! with-editor)               ; pass $EDITOR to embedded terminal processes

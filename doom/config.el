@@ -260,6 +260,9 @@
 (use-package! org-board
   :defer t)
 
+(use-package! devdocs-browser
+  :defer t)
+
 ;; Add a CREATED property to org-mode headings.
 ;; (use-package! org-expiry
 ;;   :after (org)
