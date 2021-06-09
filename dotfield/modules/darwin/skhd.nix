@@ -1,4 +1,4 @@
-{ config, lib, options, ... }:
+{ config, lib, options, pkgs, ... }:
 
 {
   options = with lib; {
@@ -10,10 +10,10 @@
   };
 
   config = {
+    my.user.packages = with pkgs; [ skhd ];
     services.skhd = { enable = true; };
 
     launchd.user.agents.skhd = {
-      path = [ config.my.xdgPaths.bin ];
       serviceConfig = {
         StandardOutPath = "${config.my.xdgPaths.cache}/skhd.out.log";
         StandardErrorPath = "${config.my.xdgPaths.cache}/skhd.err.log";
