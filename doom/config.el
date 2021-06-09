@@ -3,8 +3,8 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 16)
-       doom-big-font (font-spec :family "PragmataPro Liga" :size 36)
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
+       doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
 
@@ -23,7 +23,7 @@
   (when IS-MAC
     (setq! doom-modeline-height 1)
     (custom-set-faces!
-      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 14))))
+      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
 ;; Hide 'UTF-8' encoding from the modeline, since it's the default.
 ;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?
