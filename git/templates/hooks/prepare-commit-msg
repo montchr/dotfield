@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
-# Prepare Commit Message
-# ~/.git-templates/hooks/
+# prepare-commit-msg hook
+#
+# Prepend Jira ticket ID to commit message if included in branch name
 #
 # https://github.com/goodguyry/dotfiles/blob/master/dev/prepare-commit-msg
 # https://gist.github.com/bartoszmajsak/1396344
