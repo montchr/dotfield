@@ -354,7 +354,8 @@
 
 (use-package! lsp
   :config
-  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")))
+  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
+         lsp-vetur-use-workspace-dependencies t))
 
 ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
 ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
