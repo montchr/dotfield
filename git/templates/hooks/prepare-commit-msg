@@ -29,6 +29,7 @@ BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAM
 if [[ "${BRANCH_NAME}" =~ ([A-Z]{2,8}-[0-9]{1,4}) ]]; then
 	# Verify branch name
 	if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-		gsed -i.bak -e "1s/^/${BASH_REMATCH[1]} \n/" "$1"
+    # Requires GNU sed from coreutils
+		sed -i.bak -e "1s/^/${BASH_REMATCH[1]} \n/" "$1"
 	fi
 fi
