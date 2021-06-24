@@ -10,8 +10,6 @@ function main() {
   local direction=$1
   yabai -m window --focus "${direction}" \
     && exit 0
-  yabai -m display --focus "${direction}" \
-    && exit 0
 
   case "${direction}" in
     north)
