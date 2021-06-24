@@ -21,12 +21,14 @@
 
     ./editors/emacs
     ./espanso
+    ./firefox
   ];
 
   my.modules = {
     bat.enable = true;
     bash.enable = true;
     direnv.enable = true;
+    firefox.enable = true;
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;
