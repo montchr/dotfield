@@ -119,8 +119,12 @@
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
-;; @TODO This still throws a message because it's called on the hook, unaffected by ~auto-save-no-message~
-(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+;; TODO: This still throws a message because it's called on the hook, unaffected
+;; by ~auto-save-no-message~
+;;
+;; TODO: may be causing crashes when performing other actions simultaneously?
+;; not just limited to actions in org files fwiw.
+;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;; https://tecosaur.github.io/emacs-config/config.html#windows
 (setq! evil-vsplit-window-right t
