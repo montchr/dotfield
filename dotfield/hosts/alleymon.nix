@@ -34,7 +34,7 @@
   ];
 
   services.dnsmasq = {
-    enable = true;
+    enable = false;
     addresses = {
       # Vagrant boxes.
       http = "192.168.50.4";
