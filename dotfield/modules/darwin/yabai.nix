@@ -88,6 +88,7 @@ in {
         yabai -m space 5 --label 'term'
 
         # Default to all Emacs windows unmanaged.
+        # TODO: But why?
         yabai -m rule --add app='Emacs' \
           manage=off \
           mouse_follows_focus=off
