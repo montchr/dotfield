@@ -1282,7 +1282,7 @@ function user::clone_ssh() {
     }
   }
 
-  sudo cp -v "${source_dir}" "${target_dir}"
+  sudo cp -rv "${source_dir}" "${target_dir}"
 }
 
 #========================================
