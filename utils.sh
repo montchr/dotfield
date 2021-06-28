@@ -1216,8 +1216,8 @@ function user::prompt_for_password {
 # Parameters:
 #   Username
 function user::allow_passwordless_sudo () {
-  local username="${1}"
-  sudo cp /etc/sudoers /etc/sudoers.bak
+  local username=$1
+  sudo cp -v /etc/sudoers /etc/sudoers.bak
   sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
 }
 
