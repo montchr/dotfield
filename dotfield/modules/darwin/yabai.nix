@@ -87,16 +87,16 @@ in {
         yabai -m space 4 --label 'comm'
         yabai -m space 5 --label 'term'
 
-        # Default to all Emacs windows unmanaged.
-        # TODO: But why?
-        yabai -m rule --add app='Emacs' \
-          manage=off \
-          mouse_follows_focus=off
+        # # Default to all Emacs windows unmanaged.
+        # # TODO: But why?
+        # yabai -m rule --add app='Emacs' \
+        #   manage=off \
+        #   mouse_follows_focus=off
 
-        # Manage normal windows.
-        yabai -m rule --add app='Emacs' \
-          title=" ▲ doom(\s+(-|–|—){1}\s+\(\d+.+\d+\))?$" \
-          manage=on
+        # # Manage normal windows.
+        # yabai -m rule --add app='Emacs' \
+        #   title=" ▲ doom(\s+(-|–|—){1}\s+\(\d+.+\d+\))?$" \
+        #   manage=on
 
         # Float and center the doom capture window
         yabai -m rule --add app='Emacs' title="doom-capture" \
