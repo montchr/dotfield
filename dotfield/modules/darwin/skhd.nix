@@ -10,8 +10,8 @@
   };
 
   config = {
-    my.user.packages = with pkgs; [ skhd ];
     services.skhd = { enable = true; };
+    my.user.packages = with config.services; [ skhd.package ];
 
     launchd.user.agents.skhd = {
       serviceConfig = {
