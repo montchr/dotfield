@@ -126,9 +126,7 @@
 ;; not just limited to actions in org files fwiw.
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; https://tecosaur.github.io/emacs-config/config.html#windows
-(setq! evil-vsplit-window-right t
-       evil-split-window-below t)
+(setq! evil-vsplit-window-right t)
 
 ;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
 (use-package! scroll-on-jump
