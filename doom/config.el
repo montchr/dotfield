@@ -126,9 +126,7 @@
 ;; not just limited to actions in org files fwiw.
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; https://tecosaur.github.io/emacs-config/config.html#windows
-(setq! evil-vsplit-window-right t
-       evil-split-window-below t)
+(setq! evil-vsplit-window-right t)
 
 ;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
 (use-package! scroll-on-jump
@@ -158,8 +156,8 @@
 
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 (after! company
-  (setq! company-idle-delay 0.5
-         company-show-numbers t)
+  ;; (setq! company-idle-delay 0.5
+  ;;        company-show-numbers t)
   ;; Make aborting less annoying.
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 

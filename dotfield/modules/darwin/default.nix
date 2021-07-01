@@ -15,14 +15,10 @@
   homebrew = {
     enable = true;
     autoUpdate = true;
+    global.noLock = true;
     # TODO
     # cleanup = "zap";
     # global.brewfile = true;
-    global.noLock = true;
-
-    masApps = {
-      "Xcode" = 497799835;
-    };
   };
 
   imports = [ ./macos.nix ];

@@ -15,6 +15,7 @@ function __provision_user {
   fi
 
   user::exists "${USERNAME}" && {
+    # TODO: attempt to provision the user instead
     msg::error "[ERROR] The user '${USERNAME}' already exists! Aborting."
     return 1
   }
