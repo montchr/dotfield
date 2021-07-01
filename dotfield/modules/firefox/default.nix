@@ -39,7 +39,7 @@ in
       reduxdevtools
       refined-github
       sidebery
-      tridactyl
+      # tridactyl
       ublock-origin
       # vimium
     ];
@@ -105,6 +105,7 @@ in
                 pkgs.substituteAll {
                   name = "homeUserChrome";
                   src = "${configDir}/userChrome.css";
+                  # TODO: handle profile color differentiation
                   # tabLineColour = "#5e81ac";
                 }
               )
@@ -123,6 +124,7 @@ in
                 pkgs.substituteAll {
                   name = "workUserChrome";
                   src = "${configDir}/userChrome.css";
+                  # TODO: handle profile color differentiation
                   # tabLineColour = "#d08770";
                 }
               )
