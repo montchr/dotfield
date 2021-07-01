@@ -2,6 +2,10 @@
 #
 # Focus a window in the specified direction.
 #
+# TODO: When switching spaces, focus the closest window to the entry direction.
+#   E.G. `yabai -m space --focus next`, then: focus the western-most window.
+#   E.G. `yabai -m space --focus prev`, then: focus the eastern-most window.
+#
 # Usage:
 #   yabai-focus-direction ( north | south | east | west ) [--displays]
 #
