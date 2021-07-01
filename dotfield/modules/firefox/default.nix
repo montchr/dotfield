@@ -15,6 +15,21 @@ in
   };
 
   config = mkIf cfg.enable {
+    my.hm.file = {
+      # Provide extensions with a JavaScript binding for GPG.
+      # TODO: enable conditionally with gpg module
+      gpgmejson = {
+        target = "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
+        source = (builtins.toJSON {
+          name = "gpgmejson";
+          description = "JavaScript binding for GnuPG";
+          path = "${pkgs.gpgme.bin}/gpg-json";
+          type = "stdio";
+          allowed_extensions = "jid1-AQqSMBYb0a8ADg@jetpack";
+        });
+      };
+    };
+
     programs.firefox = {
       enable = true;
       # Handled by the Homebrew module

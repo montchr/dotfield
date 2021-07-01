@@ -1,7 +1,0 @@
-{
-  "name": "gpgmejson",
-  "description": "JavaScript binding for GnuPG",
-  "path": "/usr/local/bin/gpgme-json",
-  "type": "stdio",
-  "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
-}
