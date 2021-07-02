@@ -40,26 +40,26 @@ in
       package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
 
     extensions = with addons; [
-      1password-x-password-manager
-      copy-selection-as-markdown
-      darkreader
-      display-_anchors
-      firefox-color
-      mailvelope
-      multi-account-containers
-      octolinker
-      old-reddit-redirect
-      # org-capture
-      pinboard
-      privacy-redirect
-      react-devtools
-      reddit-enhancement-suite
-      reduxdevtools
-      refined-github
-      sidebery
-      # tridactyl
-      ublock-origin
-      # vimium
+      "1password-x-password-manager"
+      "copy-selection-as-markdown"
+      "darkreader"
+      "display-_anchors"
+      "firefox-color"
+      "mailvelope"
+      "multi-account-containers"
+      "octolinker"
+      "old-reddit-redirect"
+      # "org-capture"
+      "pinboard"
+      "privacy-redirect"
+      "react-devtools"
+      "reddit-enhancement-suite"
+      "reduxdevtools"
+      "refined-github"
+      "sidebery"
+      # "tridactyl"
+      "ublock-origin"
+      "vimium"
     ];
 
     profiles =
