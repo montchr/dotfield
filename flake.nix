@@ -60,12 +60,7 @@
 
         fonts = {
           enableFontDir = true;
-          fonts = with pkgs; [
-            ibm-plex
-            inter
-            pragmatapro
-            public-sans
-          ];
+          fonts = with pkgs; [ ibm-plex inter pragmatapro public-sans ];
         };
 
         nixpkgs = {
@@ -86,43 +81,40 @@
       # lib = nixpkgs.lib.extend
       #   (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
-    in
-      {
-        overlays = (
-          final: prev: {
-            pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix {});
-          }
-        );
+    in {
+      overlays = (final: prev: {
+        pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+      });
 
-        darwinConfigurations = {
-          "hodgepodge" = inputs.darwin.lib.darwinSystem {
-            inputs = inputs;
-            modules = [
-              inputs.home-manager.darwinModules.home-manager
-              ./dotfield/modules
-              sharedHostsConfig
-              ./dotfield/hosts/hodgepodge.nix
-            ];
-          };
-
-          "alleymon" = inputs.darwin.lib.darwinSystem {
-            inputs = inputs;
-            modules = [
-              inputs.home-manager.darwinModules.home-manager
-              ./dotfield/modules
-              sharedHostsConfig
-              ./dotfield/hosts/alleymon.nix
-            ];
-          };
+      darwinConfigurations = {
+        "hodgepodge" = inputs.darwin.lib.darwinSystem {
+          inputs = inputs;
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            ./dotfield/modules
+            sharedHostsConfig
+            ./dotfield/hosts/hodgepodge.nix
+          ];
         };
 
-        # for convenience
-        # nix build './#darwinConfigurations.hodgepodge.system'
-        # vs
-        # nix build './#HodgePodge'
-        # Move them to `outputs.packages.<system>.name`
-        HodgePodge = self.darwinConfigurations.hodgepodge.system;
-        alleymon = self.darwinConfigurations.alleymon.system;
-
+        "alleymon" = inputs.darwin.lib.darwinSystem {
+          inputs = inputs;
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            ./dotfield/modules
+            sharedHostsConfig
+            ./dotfield/hosts/alleymon.nix
+          ];
+        };
       };
+
+      # for convenience
+      # nix build './#darwinConfigurations.hodgepodge.system'
+      # vs
+      # nix build './#HodgePodge'
+      # Move them to `outputs.packages.<system>.name`
+      HodgePodge = self.darwinConfigurations.hodgepodge.system;
+      alleymon = self.darwinConfigurations.alleymon.system;
+
+    };
 }

@@ -20,8 +20,9 @@ let
       (builtins.readFile "${configDir}/bin/yabai-set-padding"));
 
     # For when things... get real bad...
-    kickstartSA = let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist"; in
-      (writeShellScriptBin "yabai-sa-kickstart" ''
+    kickstartSA =
+      let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
+      in (writeShellScriptBin "yabai-sa-kickstart" ''
         set -x
 
         # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head

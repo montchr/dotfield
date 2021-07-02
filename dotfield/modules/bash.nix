@@ -5,8 +5,7 @@ let
   configDir = config.dotfield.configDir;
   home = config.my.user.home;
   cfg = config.my.modules.bash;
-in
-{
+in {
   options = with lib; {
     my.modules.bash = {
       enable = mkEnableOption ''

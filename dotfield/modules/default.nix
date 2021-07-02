@@ -46,9 +46,6 @@
     };
   };
 
-  my.user.packages = with pkgs; [
-    nixfmt
-    rnix-lsp
-  ];
+  my.user.packages = with pkgs; [ nixfmt rnix-lsp ];
 
 }

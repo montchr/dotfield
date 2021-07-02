@@ -26,24 +26,19 @@ let
       example = true;
     };
 
-in
-{
+in {
   options = with types; {
-    dotfield = let
-      t = either str path;
-    in
-      rec {
-        # TODO: or is there a way to just use the flake dir?
-        configDir = mkOpt t (toString ../../.);
-        dir = mkOpt t (
-          findFirst pathExists (toString ../.) [
-            "${config.my.user.home}/.config/dotfield"
-            "/etc/dotfiles"
-          ]
-        );
-        binDir = mkOpt t "${config.dotfield.dir}/bin";
-        modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-      };
+    dotfield = let t = either str path;
+    in rec {
+      # TODO: or is there a way to just use the flake dir?
+      configDir = mkOpt t (toString ../../.);
+      dir = mkOpt t (findFirst pathExists (toString ../.) [
+        "${config.my.user.home}/.config/dotfield"
+        "/etc/dotfiles"
+      ]);
+      binDir = mkOpt t "${config.dotfield.dir}/bin";
+      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+    };
 
     my = {
       name = mkOptStr "Chris Montgomery";
@@ -58,24 +53,21 @@ in
       user = mkOption { type = options.users.users.type.functor.wrapped; };
 
       hm = {
-        file = mkOpt' attrs {} "Files to place directly in $HOME";
-        configFile = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
-        dataFile = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
+        file = mkOpt' attrs { } "Files to place directly in $HOME";
+        configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
+        dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
       };
 
-      xdg = let
-        t = either str path;
-      in
-        {
-          bin = mkOpt t "$HOME/.local/bin";
-          cache = mkOpt t "$HOME/.cache";
-          config = mkOpt t "$HOME/.config";
-          data = mkOpt t "$HOME/.local/share";
-          lib = mkOpt t "$HOME/.local/lib";
-        };
+      xdg = let t = either str path;
+      in {
+        bin = mkOpt t "$HOME/.local/bin";
+        cache = mkOpt t "$HOME/.cache";
+        config = mkOpt t "$HOME/.config";
+        data = mkOpt t "$HOME/.local/share";
+        lib = mkOpt t "$HOME/.local/lib";
+      };
 
-      xdgPaths = let
-        home = config.my.user.home;
+      xdgPaths = let home = config.my.user.home;
       in {
         bin = mkOpt str "${home}/.local/bin";
         cache = mkOpt str "${home}/.cache";
@@ -86,14 +78,12 @@ in
 
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
-        apply = mapAttrs (
-          n: v:
-            if isList v then
-              concatMapStringsSep ":" (x: toString x) v
-            else
-              (toString v)
-        );
-        default = {};
+        apply = mapAttrs (n: v:
+          if isList v then
+            concatMapStringsSep ":" (x: toString x) v
+          else
+            (toString v));
+        default = { };
         description = "Environment variables.";
       };
     };
@@ -112,9 +102,7 @@ in
         description = "Primary user account";
       };
 
-      env = {
-        GITHUB_USER = config.my.github_username;
-      };
+      env = { GITHUB_USER = config.my.github_username; };
 
       # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
       # hm = {
@@ -126,7 +114,6 @@ in
       #   };
       # };
     };
-
 
     environment = {
       variables = with config.my; {

@@ -5,20 +5,13 @@ with lib;
 let
   cfg = config.my.modules.espanso;
   plugins = [ "greek-letters-alt" ];
-in
-{
+in {
   options = with lib; {
-    my.modules.espanso = {
-      enable = mkEnableOption false;
-    };
+    my.modules.espanso = { enable = mkEnableOption false; };
   };
 
   config = mkIf cfg.enable {
-    my = {
-      user.packages = with pkgs; [
-        espanso
-      ];
-    };
+    my = { user.packages = with pkgs; [ espanso ]; };
 
     system.activationScripts.postUserActivation.text = ''
       espanso register

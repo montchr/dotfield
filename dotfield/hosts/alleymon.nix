@@ -1,37 +1,24 @@
 { config, pkgs, ... }: {
-  imports = [
-    ../modules/darwin
-    ../modules/php.nix
-  ];
+  imports = [ ../modules/darwin ../modules/php.nix ];
 
   my = {
     username = "montchr";
     email = "chris@alley.co";
     website = "https://alley.co/";
 
-    modules = {
-      php.enable = true;
-    };
+    modules = { php.enable = true; };
 
-    env = {
-      PATH = [ "$HOME/broadway/bin" "$PATH" ];
-    };
+    env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
   };
 
   networking = {
     hostName = "alleymon";
 
     # $ networksetup -listallnetworkservices
-    knownNetworkServices = [
-      "Wi-Fi"
-      "Bluetooth PAN"
-      "Thunderbolt Bridge"
-    ];
+    knownNetworkServices = [ "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
   };
 
-  environment.systemPackages = with pkgs; [
-    dnsmasq
-  ];
+  environment.systemPackages = with pkgs; [ dnsmasq ];
 
   services.dnsmasq = {
     enable = false;
