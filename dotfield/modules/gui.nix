@@ -38,9 +38,9 @@ in {
             "hammerspoon"
             "imageoptim"
             "istat-menus"
+            "kap"
             "karabiner-elements"
             "keyboard-maestro"
-            # "kap"
             "launchcontrol"
             "libreoffice"
             "marked"
@@ -66,10 +66,7 @@ in {
           ];
         };
       } else {
-        my.user = {
-          # TODO: provide more packages here
-          packages = with pkgs; [ firefox zoom-us signal-desktop slack ];
-        };
+        my.user = { packages = with pkgs; [ signal-desktop ]; };
       })
     ]);
 }
