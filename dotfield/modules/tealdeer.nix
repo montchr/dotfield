@@ -1,9 +1,7 @@
 { pkgs, lib, config, ... }:
 
-let
-  cfg = config.my.modules.tealdeer;
-in
-{
+let cfg = config.my.modules.tealdeer;
+in {
   options = with lib; {
     my.modules.tealdeer = {
       enable = mkEnableOption ''

@@ -1,8 +1,6 @@
 { pkgs, lib, config, inputs, ... }:
-let
-  cfg = config.my.modules.lorri;
-in
-{
+let cfg = config.my.modules.lorri;
+in {
   options = with lib; {
     my.modules.lorri = {
       enable = mkEnableOption ''
@@ -11,8 +9,5 @@ in
     };
   };
 
-  config = with lib;
-    mkIf cfg.enable {
-      services.lorri.enable = true;
-    };
+  config = with lib; mkIf cfg.enable { services.lorri.enable = true; };
 }

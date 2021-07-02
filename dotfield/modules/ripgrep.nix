@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 
-let
-  cfg = config.my.modules.ripgrep;
+let cfg = config.my.modules.ripgrep;
 in {
   options = with lib; {
     my.modules.ripgrep = {
@@ -18,9 +17,7 @@ in {
 
         user = { packages = with pkgs; [ ripgrep ]; };
 
-        hm.configFile = {
-          "ripgrep/config".text = "";
-        };
+        hm.configFile = { "ripgrep/config".text = ""; };
       };
     };
 }

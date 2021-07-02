@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 
-let
-  cfg = config.my.modules.ssh;
+let cfg = config.my.modules.ssh;
 in {
   options = with lib; {
     my.modules.ssh = {

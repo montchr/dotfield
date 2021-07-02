@@ -1,19 +1,10 @@
 { config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.my.modules.php;
-in
-{
-  options = with lib; {
-    my.modules.php = {
-      enable = mkEnableOption false;
-    };
-  };
+let cfg = config.my.modules.php;
+in {
+  options = with lib; { my.modules.php = { enable = mkEnableOption false; }; };
 
   config = mkIf cfg.enable {
-    my.user.packages = with pkgs; [
-      php
-      php74Packages.composer
-    ];
+    my.user.packages = with pkgs; [ php php74Packages.composer ];
   };
 }

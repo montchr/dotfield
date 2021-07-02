@@ -2,8 +2,7 @@
 let
   cfg = config.my.modules.direnv;
   configDir = config.dotfield.configDir;
-in
-{
+in {
   options = with lib; {
     my.modules.direnv = {
       enable = mkEnableOption ''
@@ -15,12 +14,7 @@ in
   config = with lib;
     mkIf cfg.enable {
       my = {
-        user = {
-          packages = with pkgs; [
-            direnv
-            nix-direnv
-          ];
-        };
+        user = { packages = with pkgs; [ direnv nix-direnv ]; };
 
         hm.configFile = {
           "direnv/direnvrc".text = ''
@@ -30,8 +24,6 @@ in
         };
       };
 
-      environment.pathsToLink = [
-        "/share/nix-direnv"
-      ];
+      environment.pathsToLink = [ "/share/nix-direnv" ];
     };
 }
