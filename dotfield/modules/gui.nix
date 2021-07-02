@@ -49,7 +49,8 @@ in
                 "libreoffice"
                 "marked"
                 "muzzle"
-                "plexamp"
+                # FIXME: disabled due to SHA256 mismatch!
+                # "plexamp"
                 "qlcolorcode"
                 "qlmarkdown"
                 "qlstephen"
