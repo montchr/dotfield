@@ -51,18 +51,40 @@ in
             ]
           )
         )
+
         # :checkers grammar
         languagetool
+
+        # :term vterm
+        # "Couldn't find cmake command. Vterm module won't compile"
+        # -- Probably unnecessary, but okay.
+        cmake
+
         # :tools editorconfig
         editorconfig-core-c
+
         # :tools lookup & :lang org +roam
         sqlite
+
         # :tools terraform
         terraform
+
         # :lang javascript
         nodePackages.javascript-typescript-langserver
+
+        # :lang ledger
+        # TODO: probably worth moving to its own module once ready
+        # ledger
+
+        # :lang nix
+        nixfmt
+        rnix-lsp
+
         # :lang org
         graphviz
+        # TODO: not found in nixpkgs -- so where?
+        # pngpaste
+
         # :lang web
         nodePackages.stylelint
         nodePackages.js-beautify
