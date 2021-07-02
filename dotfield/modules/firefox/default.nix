@@ -9,12 +9,9 @@ let
   configDir = "${config.dotfield.configDir}/firefox";
 
   addons = pkgs.nur.repos.rycee.firefox-addons;
-in
-{
+in {
   options = with lib; {
-    my.modules.firefox = {
-      enable = mkEnableOption false;
-    };
+    my.modules.firefox = { enable = mkEnableOption false; };
   };
 
   config = mkIf cfg.enable {
@@ -22,10 +19,12 @@ in
       # Provide extensions with a JavaScript binding for GPG.
       # TODO: enable conditionally with gpg module
       gpgmejson = {
-        target = "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
+        target =
+          "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
         source = (builtins.toJSON {
           name = "gpgmejson";
           description = "JavaScript binding for GnuPG";
+          # FIXME: error: attribute 'bin' missing
           path = "${pkgs.gpgme.bin}/gpg-json";
           type = "stdio";
           allowed_extensions = "jid1-AQqSMBYb0a8ADg@jetpack";
@@ -62,14 +61,14 @@ in
       "vimium"
     ];
 
-    profiles =
-      let
+      profiles = let
         defaultSettings = {
           "app.update.auto" = false;
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.ctrlTab.recentlyUsedOrder" = false;
           "browser.newtabpage.enabled" = false;
-          "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
+          "browser.search.hiddenOneOffs" =
+            "Google,Yahoo,Bing,Amazon.com,Twitter";
           "browser.search.region" = "US";
           "browser.search.suggest.enabled" = false;
           "browser.send_pings" = false;
@@ -87,7 +86,8 @@ in
           "font.name.monospace.x-western" = "PragmataPro Liga";
           "font.name.sans-serif.x-western" = "Inter";
           "font.size.monospace.x-western" = 16;
-          "identity.fxaccounts.account.device.name" = config.networking.hostName;
+          "identity.fxaccounts.account.device.name" =
+            config.networking.hostName;
           "network.dns.disablePrefetch" = true;
           "privacy.donottrackheader.enabled" = true;
           "privacy.donottrackheader.value" = 1;
@@ -113,43 +113,34 @@ in
             --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
           }
         '';
-      in
-        {
-          home = {
-            id = 0;
-            settings = defaultSettings;
-            userChrome = (
-              builtins.readFile (
-                pkgs.substituteAll {
-                  name = "homeUserChrome";
-                  src = "${configDir}/userChrome.css";
-                  # TODO: handle profile color differentiation
-                  # tabLineColour = "#5e81ac";
-                }
-              )
-            );
-            userContent = userContentCSS;
-          };
-
-          work = {
-            id = 1;
-            settings = defaultSettings // {
-              "browser.startup.homepage" = "about:blank";
-              "browser.urlbar.placeholderName" = "Google";
-            };
-            userChrome = (
-              builtins.readFile (
-                pkgs.substituteAll {
-                  name = "workUserChrome";
-                  src = "${configDir}/userChrome.css";
-                  # TODO: handle profile color differentiation
-                  # tabLineColour = "#d08770";
-                }
-              )
-            );
-            userContent = userContentCSS;
-          };
+      in {
+        home = {
+          id = 0;
+          settings = defaultSettings;
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "homeUserChrome";
+            src = "${configDir}/userChrome.css";
+            # TODO: handle profile color differentiation
+            # tabLineColour = "#5e81ac";
+          }));
+          userContent = userContentCSS;
         };
+
+        work = {
+          id = 1;
+          settings = defaultSettings // {
+            "browser.startup.homepage" = "about:blank";
+            "browser.urlbar.placeholderName" = "Google";
+          };
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "workUserChrome";
+            src = "${configDir}/userChrome.css";
+            # TODO: handle profile color differentiation
+            # tabLineColour = "#d08770";
+          }));
+          userContent = userContentCSS;
+        };
+      };
     };
   };
 }
