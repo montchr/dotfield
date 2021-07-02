@@ -18,6 +18,22 @@ let
 
     setPadding = (writeScriptBin "yabai-set-padding"
       (builtins.readFile "${configDir}/bin/yabai-set-padding"));
+
+    # For when things... get real bad...
+    kickstartSA = let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist"; in
+      (writeShellScriptBin "yabai-sa-kickstart" ''
+        set -x
+
+        # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head
+        [[ $(sudo launchctl list | grep yabai-sa) ]] && {
+          sudo launchctl unload ${daemonPath}
+        }
+        sudo yabai --uninstall-sa
+        sudo yabai --install-sa
+        sudo launchctl load ${daemonPath}
+
+        set +x
+      '');
   };
 in {
   options = with lib; {
@@ -45,7 +61,6 @@ in {
       enableScriptingAddition = true;
 
       config = {
-
         external_bar = "off";
         layout = "bsp";
 
@@ -75,7 +90,6 @@ in {
         # Window borders
         window_border = "on";
         normal_window_border_color = "0x00505050";
-
       };
 
       extraConfig = ''
