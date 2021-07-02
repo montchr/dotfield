@@ -32,11 +32,11 @@ in {
       };
     };
 
-    programs.firefox = {
+    my.hm.programs.firefox = {
       enable = true;
       # Handled by the Homebrew module
       # This populates a dummy package to satisfy the requirement
-      package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
+      package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
     extensions = with addons; [
       "1password-x-password-manager"

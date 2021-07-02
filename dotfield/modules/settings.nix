@@ -56,6 +56,7 @@ in {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
+        programs = mkOpt' attrs { } "home-manager programs config";
       };
 
       xdg = let t = either str path;
@@ -103,6 +104,11 @@ in {
       };
 
       env = { GITHUB_USER = config.my.github_username; };
+
+      hm.programs = {
+        # Let Home Manager install and manage itself.
+        home-manager.enable = true;
+      };
 
       # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
       # hm = {
@@ -167,10 +173,7 @@ in {
           dataFile = mkAliasDefinitions options.my.hm.dataFile;
         };
 
-        programs = {
-          # Let Home Manager install and manage itself.
-          home-manager.enable = true;
-        };
+        programs = mkAliasDefinitions options.my.hm.programs;
       };
     };
 
