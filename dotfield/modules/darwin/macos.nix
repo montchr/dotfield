@@ -3,6 +3,7 @@
 let cfg = config.my.modules.macos;
 in {
   imports = [
+    ./hammerspoon.nix
     # ./security/pam.nix
     ./skhd.nix
     ./yabai.nix
@@ -28,6 +29,7 @@ in {
       };
 
       my.modules = {
+        hammerspoon.enable = true;
         skhd.enable = true;
         yabai.enable = true;
       };
@@ -38,6 +40,7 @@ in {
 
       system = {
         defaults = {
+          # TODO: why disabled? caused an error?
           # ".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
           smb = {
