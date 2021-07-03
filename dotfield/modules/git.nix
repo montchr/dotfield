@@ -1,8 +1,13 @@
 { pkgs, lib, config, ... }:
 
 let
-  dotfield = config.dotfield;
   cfg = config.my.modules.git;
+  configDir = "${config.dotfield.configDir}/git";
+
+  scripts = with pkgs; {
+    submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
+      (builtins.readFile "${configDir}/bin/git-submodule-rewrite"));
+  };
 in {
   options = with lib; {
     my.modules.git = {
@@ -16,16 +21,20 @@ in {
     mkIf cfg.enable {
       environment.systemPackages = with pkgs; [ git ];
 
-      my.user = {
-        packages = with pkgs; [
-          gitAndTools.transcrypt
-          gitAndTools.delta
-          gitAndTools.hub
-          gitAndTools.gh
-          gitAndTools.tig
-          universal-ctags
-          exiftool
-        ];
+      my.user = let
+        userScripts =
+          (builtins.map (key: getAttr key scripts) (attrNames scripts));
+      in {
+        packages = with pkgs;
+          userScripts ++ [
+            gitAndTools.transcrypt
+            gitAndTools.delta
+            gitAndTools.hub
+            gitAndTools.gh
+            gitAndTools.tig
+            universal-ctags
+            exiftool
+          ];
       };
 
       my.hm = {
