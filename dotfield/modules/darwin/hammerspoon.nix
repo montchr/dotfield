@@ -14,7 +14,8 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      my.user.packages = with pkgs; [ hammerspoon ];
+      # No known Nix recipe as of writing.
+      homebrew.casks = [ "hammerspoon" ];
 
       # Point Hammerspoon to its init file.
       # https://github.com/Hammerspoon/hammerspoon/pull/582
