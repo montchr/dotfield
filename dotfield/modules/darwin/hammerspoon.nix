@@ -14,14 +14,12 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      my = { user = { packages = with pkgs; [ hammerspoon ]; }; };
+      my.user.packages = with pkgs; [ hammerspoon ];
 
       # Point Hammerspoon to its init file.
       # https://github.com/Hammerspoon/hammerspoon/pull/582
-      system.defaults = {
-        "org.hammerspoon.Hammerspoon" = {
-          MJConfigFile = "${configDir}/init.lua";
-        };
-      };
+      system.activationScripts.postUserActivation.text = ''
+        defaults write org.hammerspoon.Hammerspoon MJConfigFile "${configDir}/init.lua"
+      '';
     };
 }
