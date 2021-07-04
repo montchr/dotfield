@@ -6,7 +6,7 @@ end
 
 -- Stackline: yabai stack visualization
 -- https://github.com/AdamWagner/stackline
-stackline = require "stackline"
+stackline = require "stackline.stackline.stackline"
 
 local stacklineConfig = {
   appearance = {
