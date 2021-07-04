@@ -7,14 +7,6 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/services"
 
-# Third-party taps
-tap "federico-terzi/espanso"
-tap "github/gh"
-tap "koekeishiya/formulae"
-tap "railwaycat/emacsmacport"
-tap "rcmdnk/file"
-tap "shivammathur/php"
-
 cask_args appdir: "/Applications", require_sha: true
 
 
@@ -28,36 +20,14 @@ cask_args appdir: "/Applications", require_sha: true
 # Load coreutils first.
 brew "coreutils"
 
-# Build
-# brew "automake"
-# brew "binutils"
-# brew "cmake"
 brew "curl"
-# brew "gcc"
 brew "git"
-# brew "glib"
-# brew "gnutls"
-# brew "make"
-# brew "pkg-config"
 
 # Shell
 # brew "ack"
 brew "bash"
 brew "bash-completion"
-# brew "bzip2"
-# brew "fd"
-# brew "fzf"
-# brew "gawk"
-# brew "gnu-sed"
-# brew "gnu-tar"
-# brew "grc"
-# brew "hyperfine"
-# brew "jq"
-# brew "ripgrep"
-# brew "rsync"
-# brew "tmux"
 brew "wget"
-# brew "yq"
 brew "zsh"
 
 # Security
@@ -65,234 +35,17 @@ brew "gnupg"
 brew "gpgme"
 brew "pinentry-mac"
 brew "transcrypt"
-
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   ORCHESTRATION
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "ansible"
-# brew "terraform"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   EMACS + DOOM
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "aspell"
-# brew "graphviz"
-# brew "wordnet"
-
-# # macOS only
-# brew "railwaycat/emacsmacport/emacs-mac", args: [
-#        "with-ctags",
-#        "with-emacs-big-sur-icon",
-#        "with-glib",
-#        "with-imagemagick",
-#        "with-no-title-bars",
-#        "with-rsvg",
-#        "with-starter"
-#      ]
-# brew "pngpaste"
-
-# Linux only
-# brew "emacs"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   MULTIMEDIA
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "ffmpeg"
-# brew "graphicsmagick"
-# brew "imagemagick"
-# brew "imlib2"
-# brew "jp2a"
-# brew "lame"
-# brew "libcaca"
-# brew "librsvg"
-# brew "optipng"
-# brew "youtube-dl"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   UI
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
+brew "pass"
 
 # macOS only
+# TODO: don't rely on an external library!
 brew "dark-mode"
-# brew "dnsmasq", restart_service: true
-# brew "ical-buddy"
-# brew "koekeishiya/formulae/skhd", args: ["with-logging"]
-# brew "koekeishiya/formulae/yabai"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   FUNNY GAMES
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "cmatrix"
-# brew "ddate"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   DEVELOPER TOOLS
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "asciinema"
-# brew "awscli"
-# brew "bat"
-# brew "direnv"
-# brew "editorconfig"
-# brew "gdb"
-# brew "gh"
-# brew "git-delta"
-# brew "hub"
-# brew "pyenv"
-# brew "shellcheck"
-# brew "shfmt"
-
-# Information retrieval
-# brew "googler"
-# brew "navi"
-brew "tldr"
 
 # System monitoring
 # brew "netcat"
 # brew "ncdu"
 
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   FILE PROCESSING
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "pandoc"
-# brew "poppler"
-# brew "rename"
-# brew "renameutils"
-# brew "stow"
-# brew "unar"
-# brew "sd"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   PERSONAL ADMINISTRATION
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "bitwarden-cli"
-# brew "federico-terzi/espanso/espanso"
-# brew "hledger"
-# brew "ledger"
-# brew "notmuch"
-brew "pass"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   LANGUAGES
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
-# brew "go"
-# brew "haskell-stack"
-# brew "luarocks"
-# brew "node"
-# brew "python"
-# brew "ruby-build"
-# brew "rust"
-brew "shivammathur/php/php@7.4"
-brew "shivammathur/php/php@8.0"
-
-
-# Misc. Databases
-# brew "postgresql"
-# brew "sqlite"
-
-
-# PHP build dependencies
-# brew "autoconf"
-# brew "bison"
-# brew "gettext"
-# brew "re2c"
-
-# macOS only
-# brew "freetype"
-# brew "gd"
-# brew "icu4c"
-# brew "krb5"
-# brew "libedit"
-# brew "libiconv"
-# brew "libjpeg"
-# brew "libpng"
-# brew "libxml2"
-# brew "libzip"
-# brew "zlib"
-
-# Linux only
-# brew "build-essential"
-# brew "libcurl4-openssl-dev"
-# brew "libedit-dev"
-# brew "libicu-dev"
-# brew "libgd-dev"
-# brew "libjpeg-dev"
-# brew "libmysqlclient-dev"
-# brew "libonig-dev"
-# brew "libpng-dev"
-# brew "libpq-dev"
-# brew "libreadline-dev"
-# brew "libsqlite3-dev"
-# brew "libssl-dev"
-# brew "libxml2-dev"
-# brew "libzip-dev"
-# brew "zlib1g-dev"
-
-
-# Font building
-# brew "fontforge"
-
-
-# Misc. libraries
-# brew "libedit"
-# brew "libiconv"
-# brew "libmagic" # promnesia dependency on macOS
-# brew "libpq"
-# brew "pango"
-# brew "re2c"
-# brew "rlwrap"
-
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   CASKS
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
+brew "tldr"
 
 cask "1password", args: { appdir: "/Applications" }
 cask "1password-cli"
