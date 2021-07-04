@@ -23,8 +23,11 @@ in {
         user = {
           packages = with pkgs; [
             nodejs # LTS
+            nodePackages.eslint
             nodePackages.node2nix
             nodePackages.npm
+            nodePackages.prettier
+            nodePackages.stylelint
             nodePackages.svgo
             (yarn.override { inherit nodejs; })
           ];
