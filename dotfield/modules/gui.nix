@@ -35,7 +35,6 @@ in {
             "fantastical"
             "google-chrome"
             "google-drive"
-            "hammerspoon"
             "imageoptim"
             "istat-menus"
             "kap"
