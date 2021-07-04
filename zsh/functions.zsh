@@ -9,6 +9,20 @@ autoload -U zmv
 # ls on cd
 add-zsh-hook chpwd chpwd_ls
 
+# Use chpwd_recent_dirs to start new sessions from last working dir
+autoload -Uz chpwd_recent_dirs
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# Populate dirstack with chpwd history
+zstyle ':chpwd:*' recent-dirs-file "${ZSH_CACHE}/chpwd-recent-dirs"
+dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]} 2>/dev/null))
+[[ "${PWD}" == "${HOME}" || "${PWD}" == "." ]] && () {
+  local dir
+  for dir ($dirstack) {
+    [[ -d "${dir}" ]] && { cd -q "${dir}"; break }
+  }
+} 2>/dev/null
+
 
 # =============================================================================
 #    =%  FILESYSTEM  %=
