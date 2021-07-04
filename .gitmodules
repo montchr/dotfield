@@ -10,9 +10,6 @@
 [submodule "kitty-themes"]
 	path = kitty/kitty-themes
 	url = https://github.com/dexpota/kitty-themes.git
-[submodule "intellimacs"]
-	path = intellij/intellimacs
-	url = https://github.com/MarcoIeni/intellimacs.git
 [submodule "base16-kitty"]
 	path = kitty/base16-kitty
 	url = https://github.com/kdrag0n/base16-kitty.git
