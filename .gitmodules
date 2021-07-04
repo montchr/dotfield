@@ -4,9 +4,6 @@
 [submodule "tmuxp"]
 	path = tmuxp/.tmuxp
 	url = git@github.com:montchr/tmuxp-config.git
-[submodule "notmuch"]
-	path = notmuch
-	url = git@github.com:montchr/notmuch-config.git
 [submodule "kitty-themes"]
 	path = kitty/kitty-themes
 	url = https://github.com/dexpota/kitty-themes.git
