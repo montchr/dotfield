@@ -932,7 +932,7 @@ function repo::is_repo {
 
 # Qualify a repo URL.
 # Parameters:
-#   Repo identifier (e.g. montchr/dots) or URL.
+#   Repo identifier (e.g. montchr/dotfield) or URL.
 #   Forge name or shortname (e.g. github or gh).
 function repo::qualify_url {
   local identifier=$1
@@ -1032,7 +1032,7 @@ function repo::pluck {
 # Parameters:
 #   Target directory
 #   Forge name (e.g. github or gh)
-#   Repo identifier (e.g. montchr/dots)
+#   Repo identifier (e.g. montchr/dotfield)
 #   Branch name. Defaults to `main`.
 function repo::sync {
   local dir=$1

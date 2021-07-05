@@ -68,7 +68,7 @@ jobs:
       #     script: whoami
 
       # - name: Run bootstrap script
-      #   run: wget -qO - "https://raw.github.com/montchr/dots/${GITHUB_REF}/bootstrap"
+      #   run: wget -qO - "https://raw.github.com/montchr/dotfield/${GITHUB_REF}/bootstrap"
       
   macos:
     runs-on: macos-latest
@@ -78,7 +78,7 @@ jobs:
         run: |
           wget -O \
             ./bootstrap \
-            "https://raw.github.com/montchr/dots/${GITHUB_SHA}/bootstrap"
+            "https://raw.github.com/montchr/dotfield/${GITHUB_SHA}/bootstrap"
           chmod +x ./bootstrap
 
       - name: Run bootstrap script

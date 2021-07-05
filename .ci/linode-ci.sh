@@ -11,7 +11,7 @@ readonly BASE_DIR="$( cd "${BASH_SOURCE[0]%/*}/.." && pwd )"
 . "${BASE_DIR}/utils.sh"
 
 # Repository name without a user prefix.
-REPO="${REPO:-${GITHUB_REPOSITORY#${GITHUB_USER}/}:-dots}"
+REPO="${REPO:-${GITHUB_REPOSITORY#${GITHUB_USER}/}:-dotfield}"
 # Branch for the linode.
 BRANCH="${GITHUB_REF:-${GIT_BRANCH_NAME:-main}}"
 # Root password for the linode.
@@ -123,8 +123,8 @@ function linode.create() {
   local label=$1
 
   if [[ -n "${label}" ]]; then
-    if is_ci && [[ "${label}" != "ci-dots-"* ]]; then
-      print_error "[ERROR] Linode label '${label}' does not begin with 'ci-dots-'. Aborting."
+    if is_ci && [[ "${label}" != "ci-dotfield-"* ]]; then
+      print_error "[ERROR] Linode label '${label}' does not begin with 'ci-dotfield-'. Aborting."
       return 1
     fi
 

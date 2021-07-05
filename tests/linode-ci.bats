@@ -36,19 +36,19 @@ main() {
   assert_output -p "Linode label 'foo' does not begin with"
   assert_failure
 
-  run main create "foo-ci-dots-"
-  assert_output -p "Linode label 'foo-ci-dots-' does not begin with"
+  run main create "foo-ci-dotfield-"
+  assert_output -p "Linode label 'foo-ci-dotfield-' does not begin with"
   assert_failure
 
-  run main create "ci-dots-main"
-  assert_output -p "Linode label 'ci-dots-main' does not include an image"
+  run main create "ci-dotfield-main"
+  assert_output -p "Linode label 'ci-dotfield-main' does not include an image"
   assert_failure
 }
 
 @test "[create]: Label prefix in CI must not be the entire label" {
   CI=true
 
-  run main create "ci-dots-"
-  assert_output -p "Linode label 'ci-dots-' does not have enough information"
+  run main create "ci-dotfield-"
+  assert_output -p "Linode label 'ci-dotfield-' does not have enough information"
   assert_failure
 }

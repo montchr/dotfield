@@ -34,14 +34,14 @@ set -e
 : "${USE_HTTPS:-true}"
 : "${HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 
-DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/reshape}}}"
+DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
 readonly DOTFIELD_BRANCH
 
 # TODO
 # readonly QUERENT="${GITHUB_ACTOR:-montchr}"
 readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
-readonly REPO_ID="montchr/dots"
+readonly REPO_ID="montchr/dotfield"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
 readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
