@@ -22,10 +22,9 @@ in {
 
         user = {
           packages = with pkgs; [
-            nodejs # LTS
+            nodejs-16_x
             nodePackages.eslint
             nodePackages.node2nix
-            nodePackages.npm
             nodePackages.prettier
             nodePackages.stylelint
             nodePackages.svgo
