@@ -36,6 +36,7 @@ custom.el
 
 # Local files
 *.local
+/asciinema/install-id
 
 # CI
 /.ci/.terraform/
