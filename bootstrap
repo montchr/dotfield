@@ -678,8 +678,18 @@ guard::install && {
     fi
   }
 
-  guard::domain "Identity" "Fetching PGP key" && {
+  guard::domain "Identity" "Ensuring PGP key" && {
     gpg --recv-key "${DOTFIELD_PGP_KEY}"
+  }
+
+  guard::domain "Identity" "Ensuring SSH key" && {
+    [[ -f "$HOME/.ssh/id_ed25519_yubikey.pub" ]] || {
+      # Note that this will fail if the agent is aware of multiple cards.
+      #
+      # TODO: How are cards registered on the system prior to bootstrapping? This
+      # seems like a catch-22...
+      ssh-add -L | grep "cardno" > ~/.ssh/id_ed25519_yubikey.pub
+    }
   }
 }
 
