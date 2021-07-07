@@ -140,8 +140,8 @@ in {
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
 
-        DOTFIELD = config.dotfield.dir;
-        DOTFIELD_BIN = config.dotfield.binDir;
+        DOTFIELD = "$XDG_CONFIG_HOME";
+        DOTFIELD_BIN = "$XDG_BIN_HOME";
       };
     };
 
