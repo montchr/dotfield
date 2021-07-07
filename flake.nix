@@ -83,6 +83,7 @@
 
     in {
       overlays = (final: prev: {
+        nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
         pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
       });
 
