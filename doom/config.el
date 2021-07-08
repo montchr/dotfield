@@ -46,7 +46,8 @@
      ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
      (_ "base16-black-metal-khold"))))
 
-;; @TODO accept param to avoid needing to call `cdom_os_appearance' :performance:
+;; TODO: accept param to avoid needing to call `cdom_os_appearance' :performance:
+;; TODO: color theme inherits values from shell which can cause, for example, pointer to be the same color as background
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)

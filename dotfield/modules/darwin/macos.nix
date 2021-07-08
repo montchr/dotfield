@@ -1,6 +1,13 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.macos;
+let
+  cfg = config.my.modules.macos;
+  configDir = "${config.dotfield.configDir}/darwin";
+
+  scripts = with pkgs; {
+    toggleDarkMode = (writeScriptBin "toggle-dark-mode"
+      (builtins.readFile "${configDir}/bin/toggle-dark-mode"));
+  };
 in {
   imports = [
     ./hammerspoon.nix
@@ -33,6 +40,9 @@ in {
         skhd.enable = true;
         yabai.enable = true;
       };
+
+      my.user.packages = with builtins;
+        (map (key: getAttr key scripts) (attrNames scripts));
 
       # https://github.com/LnL7/nix-darwin/pull/228
       # TODO: errors on activation!
