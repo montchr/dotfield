@@ -127,7 +127,6 @@ in {
           gnused
           gnutar
           grc
-          gpgme
           htop
           hyperfine
           lua

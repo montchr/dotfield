@@ -28,7 +28,7 @@ function main () {
   cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
   guard::install && {
-    guard::domain "packages" "Install all dependencies" && {
+    guard::domain "packages" "Install baseline dependencies" && {
       cd "$XDG_CONFIG_HOME" && {
         export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
         brew bundle

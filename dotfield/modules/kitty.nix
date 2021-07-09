@@ -23,7 +23,6 @@ in {
   config = with lib;
     mkIf cfg.enable (mkMerge [
       {
-        homebrew.casks = [ "kitty" ];
         my.user.packages = (map (key: getAttr key scripts) (attrNames scripts));
         environment.variables = {
           TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";

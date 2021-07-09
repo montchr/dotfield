@@ -1,4 +1,7 @@
 # -*- mode: ruby -*-
+#
+# Brewfile for essential Darwin packages
+#
 
 # Official taps
 tap "homebrew/core"
@@ -9,14 +12,6 @@ tap "homebrew/services"
 
 cask_args appdir: "/Applications", require_sha: true
 
-
-#====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
-#:
-#:    ==>   ESSENTIALS
-#:
-#====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
-
 # Load coreutils first.
 brew "coreutils"
 
@@ -24,7 +19,6 @@ brew "curl"
 brew "git"
 
 # Shell
-# brew "ack"
 brew "bash"
 brew "bash-completion"
 brew "wget"
@@ -32,7 +26,6 @@ brew "zsh"
 
 # Security
 brew "gnupg"
-brew "gpgme"
 brew "pinentry-mac"
 brew "transcrypt"
 brew "pass"
@@ -41,108 +34,5 @@ brew "pass"
 # TODO: don't rely on an external library!
 brew "dark-mode"
 
-# System monitoring
-# brew "netcat"
-# brew "ncdu"
-
+# Help me...
 brew "tldr"
-
-cask "1password", args: { appdir: "/Applications" }
-cask "1password-cli"
-cask 'adobe-acrobat-reader'
-cask "airfoil"
-cask "alfred"
-cask "audio-hijack"
-cask "appcleaner"
-cask "bartender"
-cask "basictex"
-cask "bitwarden"
-cask "brave-browser"
-cask "calibre"
-cask "caprine"
-cask "dash"
-cask "docker"
-cask "dropbox"
-cask "fantastical"
-cask "fastscripts"
-cask "figma"
-cask "firefox"
-cask "firefox-developer-edition", args: {
-  force: true
-}
-cask "google-chrome", args: {
-  force: true
-}
-cask "hammerspoon"
-# @TODO replace with hammerspoon
-# cask "insomnia"
-cask "istat-menus"
-cask "kaleidoscope"
-cask "karabiner-elements"
-cask "keyboard-maestro"
-cask "keycue"
-cask "kitty"
-cask "libreoffice"
-cask "marked"
-cask "muzzle"
-cask "nextcloud"
-cask "osxfuse" # rclone mount dependency
-cask "plexamp"
-cask "qlcolorcode"
-cask "qlmarkdown"
-cask "qlstephen"
-cask "qlvideo"
-cask "quicklook-json"
-cask "quicklookase"
-cask "script-debugger"
-cask "sequel-pro"
-cask "signal"
-cask "slack"
-cask "soundsource"
-cask "spotify", args: {
-  require_sha: false
-}
-cask "steermouse"
-cask "sublime-text"
-cask "suspicious-package"
-cask "tigervnc-viewer"
-cask "transmit"
-cask "ubersicht"
-# Requires manual input.
-cask "virtualbox"
-cask "vagrant"
-cask "visual-studio-code", args: {
-  force: true
-}
-cask "vlc"
-cask "webpquicklook"
-cask "xquartz"
-cask "zoom"
-
-# Mac App Store
-mas "Affinity Photo", id: 824183456
-mas "Be Focused Pro", id: 961632517
-mas "Canary Mail", id: 1236045954
-mas "DaisyDisk", id: 411643860
-# mas "Day One", id: 1055511498
-mas "Deliveries", id: 924726344
-mas "Drafts", id: 1435957248
-mas "Due", id: 524373870
-# mas "Focus Matrix", id: 1087284172
-mas "GoodTask", id: 1143437985
-mas "Harvest", id: 506189836
-mas "Jira", id: 1475897096
-mas "Keka", id: 470158793
-mas "Keynote", id: 409183694
-mas "NepTunes", id: 1006739057
-mas "New File Menu", id: 1064959555
-mas "NordVPN IKE", id: 1116599239
-mas "Paprika Recipe Manager 3", id: 1303222628
-mas "Patterns", id: 429449079
-# mas "PlayOff", id: 1454620165
-mas "Reeder 5.", id: 1529448980
-# mas "SnippetsLab", id: 1006087419
-# mas "Tweetbot", id: 1384080005
-mas "Wallpaper App", id: 1518228413
-mas "xScope", id: 889428659
-# mas "Yoink", id: 457622435
