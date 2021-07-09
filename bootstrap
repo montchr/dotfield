@@ -369,20 +369,6 @@ function guard::ubuntu {
 
 
 #========================================
-# Guard for Arch Linux.
-#
-# Usage:
-#   guard::arch && { ... }
-# Globals:
-#   OS_NAME
-#========================================
-function guard::arch {
-  [[ "$OS_NAME" == "arch" ]]
-  return
-}
-
-
-#========================================
 # Guard for macOS.
 #
 # Usage:
