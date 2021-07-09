@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.ssh;
-  identityFile = "$HOME/.ssh/id_ed25519_yubikey.pub";
+  identityFile = "~/.ssh/id_ed25519_yubikey.pub";
 in {
   options = with lib; {
     my.modules.ssh = {
