@@ -32,7 +32,7 @@ in {
 
       # Ensure the correct permissions on darwin
       system.activationScripts.postUserActivation.text = ''
-        chown -R ${config.my.user.username} ${gnupgHome}
+        chown -R ${config.my.username} ${gnupgHome}
         find ${gnupgHome} -type f -exec chmod 600 {} \;
         find ${gnupgHome} -type d -exec chmod 700 {} \;
       '';
