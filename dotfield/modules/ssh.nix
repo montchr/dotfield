@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.ssh;
+let
+  cfg = config.my.modules.ssh;
+  identityFile = "$HOME/.ssh/id_ed25519_yubikey.pub";
 in {
   options = with lib; {
     my.modules.ssh = {
@@ -12,6 +14,11 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
+      # Ensure correct permissions
+      system.activationScripts.postUserActivation.text = ''
+        chmod 600 ${identityFile}
+      '';
+
       my.hm.file = {
         ".ssh/config" = {
           text = ''
@@ -33,7 +40,7 @@ in {
               User git
               ControlMaster no
               IdentitiesOnly yes
-              IdentityFile ~/.ssh/id_ed25519_yubikey.pub
+              IdentityFile ${identityFile}
               MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
 
             Host *
@@ -42,7 +49,7 @@ in {
               #ControlPersist 300
               AddKeysToAgent yes
               AddressFamily inet
-              IdentityFile ~/.ssh/id_ed25519_yubikey.pub
+              IdentityFile ${identityFile}
               HashKnownHosts yes
               VisualHostKey yes
               PasswordAuthentication no
