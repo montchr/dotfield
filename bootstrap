@@ -625,17 +625,17 @@ guard::domain "Repo" "Sync repos from Repofiles" && {
 }
 
 
-guard::domain "Link" "Link all files as defined in Linkfiles" && {
-  fs::linkfile "${DOTFIELD}/Linkfile"
+# guard::domain "Link" "Link all files as defined in Linkfiles" && {
+#   fs::linkfile "${DOTFIELD}/Linkfile"
 
-  for f in "${DOTFIELD}"/**/Linkfile; do
-    fs::linkfile "$f"
-  done
+#   for f in "${DOTFIELD}"/**/Linkfile; do
+#     fs::linkfile "$f"
+#   done
 
-  for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
-    fs::linkfile "$fk"
-  done
-}
+#   for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
+#     fs::linkfile "$fk"
+#   done
+# }
 
 
 guard::macos && {
