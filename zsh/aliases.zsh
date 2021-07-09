@@ -58,7 +58,7 @@ alias ......='cd ../../../../..'
 
 # ls / exa
 has exa && {
-  alias exa="exa --group-directories-first --git";
+  alias exa="exa --color always --group-directories-first --git";
   alias l='exa --oneline'
   alias ll="exa -lg";
   alias la='exa -Fal'
