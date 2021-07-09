@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.gpg;
+let
+  cfg = config.my.modules.gpg;
+  gnupgHome = "$XDG_DATA_HOME/gnupg";
 in {
   options = with lib;
     with types; {
@@ -13,13 +15,10 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      programs = {
-        gnupg = {
-          agent = {
-            enable = true;
-            enableSSHSupport = true;
-          };
-        };
+      # TODO: this is darwin-specific! home-manager uses `programs.gpg`
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
       };
 
       environment.systemPackages = with pkgs; [
@@ -31,16 +30,25 @@ in {
         transcrypt
       ];
 
+      # Ensure the correct permissions on darwin
+      system.activationScripts.postUserActivation.text = ''
+        chown -R ${config.my.user.username} ${gnupgHome}
+        find ${gnupgHome} -type f -exec chmod 600 {} \;
+        find ${gnupgHome} -type d -exec chmod 700 {} \;
+      '';
+
       my = {
         env = {
           DOTFIELD_PGP_KEY = config.my.key;
-          GNUPGHOME = "$XDG_DATA_HOME/gnupg";
+          GNUPGHOME = gnupgHome;
         };
 
         hm.dataFile = {
           "gnupg/gpg-agent.conf" = {
             text = ''
               # ${config.my.nix_managed}
+
+              # TODO: Linux support
               pinentry-program ${config.my.user.home}/${pkgs.pinentry_mac.binaryPath}
             '';
           };
