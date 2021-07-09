@@ -648,6 +648,7 @@ guard::macos && {
 
 
 guard::install && {
+  # TODO: handle with nix
   msg::domain "Hostname" "Set the system hostname" && {
     if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
       HOSTNAME="${DOTFIELD_HOSTNAME}"
@@ -689,6 +690,7 @@ guard::macos && {
   # shellcheck source=./os/macos/main
   . "${XDG_CONFIG_HOME}/os/macos/main"
 
+  # TODO: re-enable this because nix-darwin doesn't handle every available preference
   # msg::domain "OS" "Configuring macOS preferences"
   # "${XDG_CONFIG_HOME}/os/macos/configure"
 
@@ -713,6 +715,7 @@ guard::macos && {
 
 
 # TODO: handle with nix?
+# TODO: why was this disabled?
 # guard::install && {
 #   msg::domain "Guardian" "Decrypting Dotfield secrets"
 #   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
@@ -739,6 +742,9 @@ guard::install && {
       # Use the new installer from cachix until it becomes available in Nix 2.4
       # This fixes many difficulties with the installer for Nix on Darwin, and
       # finally allows for an encrypted Nix store.
+      #
+      # TODO: Alternatively, use the installer from Nix master branch.
+      #
       # https://github.com/NixOS/nix/pull/4289
       sh <(curl https://abathur-nix-install-tests.cachix.org/serve/yihf8zbs0jwph2rs9qfh80dnilijxdi2/install) \
         --tarball-url-prefix https://abathur-nix-install-tests.cachix.org/serve
@@ -754,7 +760,7 @@ guard::install && {
 
   }
 
-  msg::domain "Nix" "Install experimental Nix Flakes" && {
+  msg::domain "Nix" "Enable experimental Nix Flakes" && {
     nix-env -iA nixpkgs.nixFlakes
     nix_flakes_feature_flag="experimental-features = nix-command flakes"
     if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
@@ -819,7 +825,7 @@ msg::domain "Nix" "Build" && {
   }
 
   guard::linux && {
-    # TODO: does this work anywhere besides NixOS? (probably not)
+    # FIXME: this is NixOS-specific, so won't work for other distros
     sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
 
