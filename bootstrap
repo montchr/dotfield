@@ -14,13 +14,7 @@
 #   - https://github.com/jasonheecs/ubuntu-server-setup
 #
 
-# shellcheck disable=2153
-[[ -n "$ZSH_VERSION" ]] \
-  && emulate -L bash
-
-
 set -e
-
 
 : "${DOTFIELD_HOSTNAME:=}"
 : "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
