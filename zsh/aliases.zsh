@@ -60,8 +60,9 @@ alias ......='cd ../../../../..'
 has exa && {
   alias exa="exa --color always --group-directories-first --git";
   alias l='exa'
-  alias ll="exa --long --group";
-  alias la='exa --all --classify --long'
+  alias ll="exa --classify --group --icons --oneline";
+  # `--all --all` is intentional -- it includes the `.` and `..` directories.
+  alias la='exa --all --all --classify --extended --header --long'
   alias ld='exa --oneline --only-dirs'
   alias lld='exa --all --classify --git --group --group-directories-first --header --long'
   alias tree='exa --tree'
