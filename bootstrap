@@ -771,7 +771,7 @@ guard::install && {
 }
 
 
-guard::install && guard::macos && {
+guard::install && guard::macos && ! (shell::has darwin-help) && {
   msg::domain "Nix" "Install nix-darwin"
   [[ -d ./result ]] && {
     msg::subdomain "Found existing ./result directory. Removing..."
