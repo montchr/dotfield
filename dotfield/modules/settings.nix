@@ -103,7 +103,16 @@ in {
         description = "Primary user account";
       };
 
-      env = { GITHUB_USER = config.my.github_username; };
+      env = {
+        DOTFIELD = "$XDG_CONFIG_HOME";
+        DOTFIELD_DIR = "$XDG_CONFIG_HOME";
+        DOTFIELD_BIN = "$XDG_BIN_HOME";
+        GITHUB_USER = config.my.github_username;
+        # HISTFILE = "$XDG_DATA_HOME/bash/history";
+        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
+        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
+        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
+      };
 
       # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
       # hm = {
@@ -116,6 +125,10 @@ in {
       # };
     };
 
+    # TODO: these vars should more than likely live in `my.env` instead! for
+    # example, `$DOTFIELD` is empty, and `$WGETRC` is set to live at `/wgetrc`.
+    # but be careful, because we don't want to break the xdg vars. probably best
+    # to unset them here?
     environment = {
       variables = with config.my; {
         XDG_BIN_HOME = "${xdg.bin}";
@@ -136,13 +149,6 @@ in {
         # $XDG_CONFIG_HOME/aspell/en.prepl;
         # '';
 
-        # HISTFILE = "$XDG_DATA_HOME/bash/history";
-        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-
-        DOTFIELD = "$XDG_CONFIG_HOME";
-        DOTFIELD_BIN = "$XDG_BIN_HOME";
       };
     };
 
