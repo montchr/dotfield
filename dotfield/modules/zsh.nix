@@ -46,6 +46,10 @@ in {
       };
 
       my.env = rec {
+        # Default is "1" but with PragmataPro that leaves no space between the
+        # icon and its filename.
+        EXA_ICON_SPACING="2";
+
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
         ZSH_DATA = "$XDG_DATA_HOME/zsh";
