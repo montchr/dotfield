@@ -149,6 +149,8 @@ zgenom saved || {
 }
 
 source "${ZDOTDIR}/config.zsh"
+. "${DOTFIELD}/shell/color.sh"
+
 if [[ $TERM != dumb ]]; then
   source "${ZDOTDIR}/keybindings.zsh"
   source "${ZDOTDIR}/completion.zsh"
@@ -192,6 +194,7 @@ typeset -aU path;
 
 [[ -n "${BASE16_THEME}" ]] && {
   zgenom load fnune/base16-fzf "bash/base16-${BASE16_THEME}.config"
+
 }
 
 export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"

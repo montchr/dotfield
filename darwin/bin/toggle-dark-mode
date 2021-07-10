@@ -40,13 +40,16 @@ function main() {
   printf "Base16 Theme:\t%s\n" "${theme}"
   printf "\n"
 
+  echo "${theme}" > "${XDG_CACHE_HOME}/shell-color-theme.lock"
+
   yabai-border
 
   kitty::theme_change "${theme}"
 
-  base16_fzf_dir="${ZSH_DATA}/sources/fnune/base16-fzf/___/bash/base16-${theme}.config"
-  [[ -e "${base16_fzf_dir}" ]] \
-    && . "${base16_fzf_dir}"
+  # FIXME: sourcing has no effect, because this is a function
+  # base16_fzf_dir="${ZSH_DATA}/sources/fnune/base16-fzf/___/bash/base16-${theme}.config"
+  # [[ -e "${base16_fzf_dir}" ]] \
+  #   && . "${base16_fzf_dir}"
 
   emacs::theme_change "${theme}"
 }
