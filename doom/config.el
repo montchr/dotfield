@@ -92,6 +92,8 @@
 (when noninteractive
   (add-to-list 'doom-env-whitelist "^SSH_"))
 
+(appendq! safe-local-eval-forms '((sh-set-shell "sh") (sh-set-shell "zsh")))
+
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! undo-limit 80000000
