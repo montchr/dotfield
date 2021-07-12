@@ -17,10 +17,8 @@ result
 /zsh/extra.zshrc
 
 # Config files amongst other unwanted files
-/composer/*
+/composer
 /karabiner/*
-!/composer/composer.json
-!/composer/composer.lock
 !/karabiner/karabiner.json
 
 /doom/treemacs.org
