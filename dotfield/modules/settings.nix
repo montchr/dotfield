@@ -30,7 +30,6 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      # TODO: or is there a way to just use the flake dir?
       configDir = mkOpt t (toString ../../.);
       dir = mkOpt t (findFirst pathExists (toString ../.) [
         "${config.my.user.home}/.config/dotfield"
@@ -38,6 +37,10 @@ in {
       ]);
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+      flkConfigDir = mkOpt t (findFirst pathExists (toString ../config) [
+        "${config.my.user.home}/.config/dotfield/config"
+        "/etc/dotfiles/config"
+      ]);
     };
 
     my = {
@@ -57,6 +60,8 @@ in {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
+        lib = mkOpt' attrs config.home-manager.users.${config.my.username}.lib
+          "home-manager lib alias";
       };
 
       xdg = let t = either str path;
