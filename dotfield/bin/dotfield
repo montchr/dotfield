@@ -5,7 +5,7 @@
 # Usage:
 #   dotfield <subcommand> [<args>...]
 #   dotfield build [<flake-name>]
-#   dotfield repl [<flake-name>]
+#   dotfield repl [<hostname>]
 
 set -e
 
@@ -60,19 +60,20 @@ function main() {
   local SUBCOMMAND="$1"
   shift
 
-  local host_name
-  host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
-  shift
+  local flake_output
+  flake_output=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
+  flake_output="$(str::lower "${flake_output}")"
 
   case $SUBCOMMAND in
     build)
-      msg::domain "Nix" "Building flake ${host_name}"
-      __nix::build "${host_name}"
+      msg::domain "Nix" "Building flake ${flake_output}"
+      __nix::build "${flake_output}"
       ;;
 
     repl)
-      msg::domain "Nix" "Launching REPL shell for ${host_name}"
-      __nix::repl "darwinConfigurations.${host_name}"
+      msg::domain "Nix" "Launching REPL shell for ${flake_output}"
+      # TODO: Add support for NixOS
+      __nix::repl "darwinConfigurations.${flake_output}"
       ;;
 
     *)
