@@ -62,7 +62,6 @@ function main() {
 
   local host_name
   host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
-  shift
 
   case $SUBCOMMAND in
     build)
