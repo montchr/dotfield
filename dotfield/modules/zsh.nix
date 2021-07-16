@@ -131,19 +131,16 @@ in {
           gnused
           gnutar
           grc
+          grex # Generate regexps from user-provided test cases
           htop
           hyperfine
           lua
           jq
           less
           lnav # System Log file navigator
-          # TODO: may be replaced by `dua`
-          ncdu
+          nomino #  Batch rename utility for developers
           pandoc
           pass
-          rename # might not work
-          # TODO: is this the perl rename, or the less-useful one?
-          renameutils
           ripgrep
           rsync
           shellcheck
