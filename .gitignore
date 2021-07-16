@@ -8,6 +8,7 @@ result
 # Managed by Nix
 /bash
 /bat
+/composer
 /direnv
 /emacs
 /git/config-nix
@@ -17,10 +18,7 @@ result
 /zsh/extra.zshrc
 
 # Config files amongst other unwanted files
-/composer/*
 /karabiner/*
-!/composer/composer.json
-!/composer/composer.lock
 !/karabiner/karabiner.json
 
 /doom/treemacs.org
