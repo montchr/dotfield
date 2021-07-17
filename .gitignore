@@ -8,6 +8,7 @@ result
 # Managed by Nix
 /bash
 /bat
+/composer
 /direnv
 /emacs
 /git/config-nix
