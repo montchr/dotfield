@@ -18,6 +18,7 @@
     ./node.nix
     ./gui.nix
     ./python.nix
+    ./php.nix
 
     ./editors/emacs
     ./espanso
