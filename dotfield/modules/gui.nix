@@ -41,7 +41,7 @@ in {
             (optionalString config.my.modules.kitty.enable "kitty")
             "libreoffice"
             "marked"
-            # FIXME: disabled due to SHA256 mismatch!
+            "pdf-expert"
             "plexamp"
             "qlcolorcode"
             "qlmarkdown"
