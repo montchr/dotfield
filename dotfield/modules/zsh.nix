@@ -138,7 +138,8 @@ in {
           jq
           less
           lnav # System Log file navigator
-          nomino #  Batch rename utility for developers
+          # FIXME: Doesn't exist!
+          # nomino #  Batch rename utility for developers
           pandoc
           pass
           ripgrep
