@@ -36,11 +36,10 @@ in {
         yabai.enable = true;
       };
 
-      my.hm.file = with config.my.hm.lib.file; {
-        ".local/bin/toggle-dark-mode" = {
-          source = (mkOutOfStoreSymlink "${configDir}/toggle-dark-mode");
-        };
-      };
+      my.user.packages = with pkgs; [
+        (writeScriptBin "toggle-dark-mode"
+          (builtins.readFile "${configDir}/bin/toggle-dark-mode"))
+      ];
 
       # https://github.com/LnL7/nix-darwin/pull/228
       # TODO: errors on activation!

@@ -12,6 +12,7 @@
 . "${XDG_CONFIG_HOME}/utils.sh"
 
 function kitty::theme_change() {
+
   ln -sfv \
     "${XDG_CONFIG_HOME}/kitty/base16-kitty/colors/base16-${1}-256.conf" \
     "${XDG_CONFIG_HOME}/kitty/theme.conf"
