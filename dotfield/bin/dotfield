@@ -28,7 +28,7 @@ function __nix::build() {
   msg::subdomain "Rebuilding..."
   nix build -v "${output}"
 
-  msg::subdomain "Switching to new derivation..."
+  msg::subdomain "Switching to new generation..."
   local rebuild="${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild"
 
   [[ -e "${rebuild}" ]] && {
