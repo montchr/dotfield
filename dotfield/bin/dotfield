@@ -51,6 +51,8 @@ function __nix::repl() {
 
   msg::subdomain "Loading flake from ${output}..."
 
+  output="darwinConfigurations.$(str::lower "$output")"
+
   cat > "${conf}" << EOF
 (builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
 EOF
@@ -68,8 +70,7 @@ function main() {
 
   FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
 
-  local flake_path
-  flake_path="$(str::lower "${DOTFIELD_DIR}/#${FLAKE_OUTPUT}")"
+  local flake_path="${DOTFIELD_DIR}/#${FLAKE_OUTPUT}"
 
   case $SUBCOMMAND in
     build)
@@ -80,7 +81,7 @@ function main() {
     repl)
       msg::domain "Introspection" "Launching REPL shell for ${FLAKE_OUTPUT}"
       # TODO: Add support for NixOS
-      __nix::repl "darwinConfigurations.${FLAKE_OUTPUT}"
+      __nix::repl "${FLAKE_OUTPUT}"
       ;;
 
     *)
