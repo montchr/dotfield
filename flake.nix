@@ -94,7 +94,7 @@
       });
 
       darwinConfigurations = {
-        "hodgepodge" = inputs.darwin.lib.darwinSystem {
+        HodgePodge = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
@@ -104,7 +104,7 @@
           ];
         };
 
-        "alleymon" = inputs.darwin.lib.darwinSystem {
+        alleymon = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
           modules = [
             inputs.home-manager.darwinModules.home-manager
@@ -120,7 +120,7 @@
       # vs
       # nix build './#HodgePodge'
       # Move them to `outputs.packages.<system>.name`
-      HodgePodge = self.darwinConfigurations.hodgepodge.system;
+      HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 
     };
