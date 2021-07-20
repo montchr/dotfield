@@ -1,5 +1,4 @@
-# -*- mode: sh; eval: (sh-set-shell "bash") -*-
-#
+# -*- eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
 #
 #
@@ -647,6 +646,8 @@ function fs::ensure_dirs() {
 # options for use with Darwin's included `/usr/bin/stat`.
 #
 # https://github.com/dylanaraps/pure-bash-bible#get-the-base-name-of-a-file-path
+#
+# FIXME: `guard::` functions are only available in bootstrap script!
 #
 # Usage: fs::get_owner_name <path>
 #

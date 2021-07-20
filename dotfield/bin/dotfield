@@ -4,47 +4,52 @@
 #
 # Usage:
 #   dotfield <subcommand> [<args>...]
-#   dotfield build [<flake-name>]
-#   dotfield repl [<hostname>]
+#   dotfield build [<flake-output>]
+#   dotfield repl [<flake-output>]
 
 set -e
 
 DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 
-# shellcheck disable=SC1091
+# shellcheck source=../../utils.sh
 . "${DOTFIELD_DIR}/utils.sh"
 
 #========================================
-# Build the flake.
+# Build the flake and switch to the new derivation.
 #
 # Global:
 #   DOTFIELD_DIR
 # Arguments:
-#   Flake output name.
+#   Flake output URI.
 #========================================
 function __nix::build() {
   local output="$1"
 
-  nix build -v "${DOTFIELD_DIR}/\#${output}"
+  msg::subdomain "Rebuilding..."
+  nix build -v "${output}"
 
-  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" \
-    switch -v --flake "${DOTFIELD_DIR}/\#${output}"
+  msg::subdomain "Switching to new derivation..."
+  local rebuild="${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild"
+
+  [[ -e "${rebuild}" ]] && {
+    "${rebuild}" switch -v --flake "${output}"
+  }
 }
 
 #========================================
-# Open a new nix repl shell for this machine's host.
+# Open a new Nix REPL shell for a flake output.
 #
 # Global:
 #   DOTFIELD_DIR
 # Arguments:
-#   Flake output name.
+#   Flake output name. Defaults to the current hostname.
 #========================================
 function __nix::repl() {
   local output="$1"
   local conf
   conf="$(mktemp)"
 
-  msg::subdomain "Loading flake from ${DOTFIELD_DIR}.${output}..."
+  msg::subdomain "Loading flake from ${output}..."
 
   cat > "${conf}" << EOF
 (builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
@@ -57,23 +62,25 @@ EOF
 # Entry point.
 #========================================
 function main() {
-  local SUBCOMMAND="$1"
-  shift
 
-  local flake_output
-  flake_output=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
-  flake_output="$(str::lower "${flake_output}")"
+  local SUBCOMMAND="$1"
+  local FLAKE_OUTPUT
+
+  FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
+
+  local flake_path
+  flake_path="$(str::lower "${DOTFIELD_DIR}/#${FLAKE_OUTPUT}")"
 
   case $SUBCOMMAND in
     build)
-      msg::domain "Nix" "Building flake ${flake_output}"
-      __nix::build "${flake_output}"
+      msg::domain "Evolution" "Rebuilding '${FLAKE_OUTPUT}'"
+      __nix::build "${flake_path}"
       ;;
 
     repl)
-      msg::domain "Nix" "Launching REPL shell for ${flake_output}"
+      msg::domain "Introspection" "Launching REPL shell for ${FLAKE_OUTPUT}"
       # TODO: Add support for NixOS
-      __nix::repl "darwinConfigurations.${flake_output}"
+      __nix::repl "darwinConfigurations.${FLAKE_OUTPUT}"
       ;;
 
     *)

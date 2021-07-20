@@ -74,6 +74,12 @@
         };
 
         time.timeZone = config.my.timezone;
+
+        environment.systemPackages = with pkgs;
+          [
+            (writeScriptBin "dotfield"
+              (builtins.readFile ./dotfield/bin/dotfield))
+          ];
       };
 
       # TODO: come back to this fancy stuff later (maybe?)
