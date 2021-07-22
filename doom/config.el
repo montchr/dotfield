@@ -370,6 +370,10 @@
     (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
 (add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck)
 
+;; Add multi-root workspace folders on demand.
+;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
+(advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
+
 (use-package! hledger-mode
   :defer
   ;; :load-path "packages/rest/hledger-mode/"
