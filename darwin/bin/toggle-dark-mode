@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # Toggle system dark mode and run various related effects.
 #
@@ -26,7 +26,7 @@ function emacs::theme_change () {
 function main() {
   local appearance
   local theme
-  local base16_fzf_dir
+  # local base16_fzf_dir
 
   dark-mode || {
     msg::error "Could not switch system appearance mode!"
