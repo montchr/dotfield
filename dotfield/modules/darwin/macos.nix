@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.macos;
-  configDir = "${config.dotfield.flkConfigDir}/darwin";
+  configDir = config.dotfield.flkConfigDir;
 in {
   imports = [
     ./hammerspoon.nix
@@ -36,9 +36,16 @@ in {
         yabai.enable = true;
       };
 
+      my.hm.configFile = {
+        "drafts" = {
+          source = "${configDir}/drafts";
+          recursive = true;
+        };
+      };
+
       my.user.packages = with pkgs; [
         (writeScriptBin "toggle-dark-mode"
-          (builtins.readFile "${configDir}/bin/toggle-dark-mode"))
+          (builtins.readFile "${configDir}/darwin/bin/toggle-dark-mode"))
       ];
 
       # https://github.com/LnL7/nix-darwin/pull/228

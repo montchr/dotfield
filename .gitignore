@@ -10,6 +10,7 @@ result
 /bat
 /composer
 /direnv
+/drafts
 /emacs
 /git/config-nix
 /ripgrep
