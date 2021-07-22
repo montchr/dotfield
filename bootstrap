@@ -621,11 +621,6 @@ msg::domain "Guardian" "Ensure directories exist" && {
 }
 
 
-guard::domain "Repo" "Sync repos from Repofiles" && {
-  fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
-}
-
-
 # guard::domain "Link" "Link all files as defined in Linkfiles" && {
 #   fs::linkfile "${DOTFIELD}/Linkfile"
 
