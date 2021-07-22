@@ -30,17 +30,15 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      configDir = mkOpt t (toString ../../.);
-      dir = mkOpt t (findFirst pathExists (toString ../.) [
-        "${config.my.user.home}/.config/dotfield"
+      # TODO: point this to the config directory once everything is moved
+      configDir = mkOpt t "${config.dotfield.dir}";
+      dir = mkOpt t (findFirst pathExists (toString ../../.) [
+        "${config.my.user.home}/.config"
         "/etc/dotfiles"
       ]);
-      binDir = mkOpt t "${config.dotfield.dir}/bin";
-      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-      flkConfigDir = mkOpt t (findFirst pathExists (toString ../config) [
-        "${config.my.user.home}/.config/dotfield/config"
-        "/etc/dotfiles/config"
-      ]);
+      binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
+      modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
+      flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
     };
 
     my = {
@@ -110,7 +108,9 @@ in {
 
       env = {
         DOTFIELD = "$XDG_CONFIG_HOME";
+        # TODO: deprecate in favor of $DOTFIELD
         DOTFIELD_DIR = "$XDG_CONFIG_HOME";
+        # TODO: remove. this is unnecessary.
         DOTFIELD_BIN = "$XDG_BIN_HOME";
         GITHUB_USER = config.my.github_username;
         # HISTFILE = "$XDG_DATA_HOME/bash/history";
@@ -118,16 +118,6 @@ in {
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
-
-      # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
-      # hm = {
-      #   file = {
-      #     ".local/bin" = {
-      #       recursive = true;
-      #       source = ../bin;
-      #     };
-      #   };
-      # };
     };
 
     # TODO: these vars should more than likely live in `my.env` instead! for
