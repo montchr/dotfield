@@ -8,8 +8,8 @@
 # - base16-fzf
 # - emacs
 
-# shellcheck disable=SC1091
-. "${XDG_CONFIG_HOME}/utils.sh"
+# shellcheck source=../../../../utils.sh
+. "${DOTFIELD}/utils.sh"
 
 function kitty::theme_change() {
 
