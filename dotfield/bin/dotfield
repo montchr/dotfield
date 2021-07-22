@@ -25,10 +25,10 @@ DOTFIELD="$(git rev-parse --show-toplevel)"
 function __nix::build() {
   local output="$1"
 
-  msg::subdomain "Rebuilding..."
+  msg::subdomain "Rebuilding...\n"
   nix build -v "${output}"
 
-  msg::subdomain "Switching to new generation..."
+  msg::subdomain "Switching to new generation...\n"
   local rebuild="${DOTFIELD}/result/sw/bin/darwin-rebuild"
 
   [[ -e "${rebuild}" ]] && {
