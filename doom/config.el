@@ -258,6 +258,13 @@
   :after (org-capture)
   :commands (doct))
 
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
+
 (use-package! org-board
   :defer t)
 
