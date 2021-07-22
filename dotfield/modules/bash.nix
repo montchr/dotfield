@@ -6,6 +6,7 @@ let
   home = config.my.user.home;
   cfg = config.my.modules.bash;
   bash = pkgs.bashInteractive_5;
+  profileInit = "${configDir}/shell/profile";
 in {
   options = with lib; {
     my.modules.bash = {
@@ -29,11 +30,10 @@ in {
 
       hm = {
         configFile = {
-
           "bash/bashrc".text = ''
             # ${config.my.nix_managed}
 
-            ${builtins.readFile "${configDir}/shell/profile"}
+            ${builtins.readFile profileInit}
           '';
 
         };
@@ -43,6 +43,9 @@ in {
     environment = {
       shells = [ bash ];
       systemPackages = [ bash ];
+      variables = {
+        BASH_ENV = profileInit;
+      };
     };
   };
 }
