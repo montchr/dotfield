@@ -76,8 +76,8 @@
 
   :checkers
   syntax   ; tasing you for every semicolon you forget
-  (spell +flyspell)    ; tasing you for misspelling mispelling
-  grammar  ; tasing grammar mistake every you make
+  (spell)    ; tasing you for misspelling mispelling
+  ;; grammar  ; tasing grammar mistake every you make
 
   :tools
   ansible
@@ -90,7 +90,7 @@
   gist               ; interacting with github gists
   (lookup            ; navigate your code and its documentation
     +dictionary
-    +docsets)
+    +offline)
   (lsp +peek)
   (magit +forge)     ; a git porcelain for Emacs
   ;;make             ; run make tasks from Emacs
