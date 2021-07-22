@@ -46,6 +46,7 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
 : "${DOTFIELD:=${GITHUB_WORKSPACE:-${HOME}/.config}}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
+# TODO: should not necessarily be one and the same
 XDG_CONFIG_HOME="${DOTFIELD}"
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>

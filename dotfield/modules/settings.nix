@@ -107,7 +107,7 @@ in {
       };
 
       env = {
-        DOTFIELD = "$XDG_CONFIG_HOME";
+        DOTFIELD = config.dotfield.dir;
         GITHUB_USER = config.my.github_username;
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
