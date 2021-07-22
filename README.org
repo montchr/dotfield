@@ -1,7 +1,7 @@
 #+TITLE: montchr/dotfield
 
-This is Dotfield: my system configuration, my =$XDG_CONFIG_HOME= as a Nix flake. Primarily
-for macOS as my daily working environment, but gradually introducing NixOS
+This is Dotfield: my system configuration, some of my worlds as a Nix flake.
+Primarily for macOS as my daily driver, but gradually introducing NixOS
 configurations as well.
 
 * Setup
