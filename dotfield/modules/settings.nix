@@ -108,13 +108,7 @@ in {
 
       env = {
         DOTFIELD = "$XDG_CONFIG_HOME";
-        # TODO: deprecate in favor of $DOTFIELD
-        DOTFIELD_DIR = "$XDG_CONFIG_HOME";
-        # TODO: remove. this is unnecessary.
-        DOTFIELD_BIN = "$XDG_BIN_HOME";
         GITHUB_USER = config.my.github_username;
-        # HISTFILE = "$XDG_DATA_HOME/bash/history";
-        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };

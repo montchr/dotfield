@@ -9,16 +9,16 @@
 
 set -e
 
-DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
+DOTFIELD="$(git rev-parse --show-toplevel)"
 
 # shellcheck source=../../utils.sh
-. "${DOTFIELD_DIR}/utils.sh"
+. "${DOTFIELD}/utils.sh"
 
 #========================================
 # Build the flake and switch to the new derivation.
 #
 # Global:
-#   DOTFIELD_DIR
+#   DOTFIELD
 # Arguments:
 #   Flake output URI.
 #========================================
@@ -29,7 +29,7 @@ function __nix::build() {
   nix build -v "${output}"
 
   msg::subdomain "Switching to new generation..."
-  local rebuild="${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild"
+  local rebuild="${DOTFIELD}/result/sw/bin/darwin-rebuild"
 
   [[ -e "${rebuild}" ]] && {
     "${rebuild}" switch -v --flake "${output}"
@@ -40,7 +40,7 @@ function __nix::build() {
 # Open a new Nix REPL shell for a flake output.
 #
 # Global:
-#   DOTFIELD_DIR
+#   DOTFIELD
 # Arguments:
 #   Flake output name. Defaults to the current hostname.
 #========================================
@@ -54,7 +54,7 @@ function __nix::repl() {
   output="darwinConfigurations.$(str::lower "$output")"
 
   cat > "${conf}" << EOF
-(builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
+(builtins.getFlake (toString ${DOTFIELD})).${output}
 EOF
 
   nix repl "${conf}"
@@ -70,7 +70,7 @@ function main() {
 
   FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
 
-  local flake_path="${DOTFIELD_DIR}/#${FLAKE_OUTPUT}"
+  local flake_path="${DOTFIELD}/#${FLAKE_OUTPUT}"
 
   case $SUBCOMMAND in
     build)
