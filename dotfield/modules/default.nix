@@ -28,6 +28,7 @@
     bat.enable = true;
     bash.enable = true;
     direnv.enable = true;
+    espanso.enable = true;
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;

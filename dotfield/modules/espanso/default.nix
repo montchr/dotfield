@@ -1,6 +1,5 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, options, ... }:
 
-# TODO: espanso doesn't install correctly on darwin! "unsupported system"
 with lib;
 let
   cfg = config.my.modules.espanso;
@@ -10,14 +9,35 @@ in {
     my.modules.espanso = { enable = mkEnableOption false; };
   };
 
-  config = mkIf cfg.enable {
-    my = { user.packages = with pkgs; [ espanso ]; };
+  config = mkIf cfg.enable (mkMerge [
+    (if (builtins.hasAttr "homebrew" options) then
+      let cmd = "${config.homebrew.brewPrefix}/espanso";
+      in {
+        homebrew = {
+          taps = [ "federico-terzi/espanso" ];
+          brews = [ "espanso" ];
+        };
 
-    system.activationScripts.postUserActivation.text = ''
-      espanso register
+        # Match the default agent configuration from espanso.
+        launchd.user.agents.espanso = {
+          serviceConfig = {
+            ProgramArguments = [ cmd "daemon" ];
+            RunAtLoad = true;
+            StandardOutPath = "${config.my.xdgPaths.cache}/espanso.out.log";
+            StandardErrorPath = "${config.my.xdgPaths.cache}/espanso.err.log";
+          };
+        };
 
-      # TODO: results in error
-      ${builtins.map (p: "espanso package install ${p}") plugins}
-    '';
-  };
+        system.activationScripts.postUserActivation.text = ''
+          # Restart the daemon.
+          ${cmd} restart
+
+          # Install espanso plugins.
+          ${toString (map (p: "${cmd} package install ${p}") plugins)}
+        '';
+      }
+    else {
+      my.user.packages = with pkgs; [ espanso ];
+    })
+  ]);
 }
