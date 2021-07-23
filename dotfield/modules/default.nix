@@ -1,23 +1,22 @@
 { config, pkgs, ... }:
 
 {
-  # Roughly in order of precedence.
   imports = [
-    ./settings.nix
-    ./zsh.nix
     ./bash.nix
-    ./direnv.nix
-    ./lorri.nix
-    ./gpg.nix
-    ./ssh.nix
-    ./git.nix
-    ./kitty.nix
-    ./tealdeer.nix
     ./bat.nix
-    ./ripgrep.nix
-    ./node.nix
+    ./direnv.nix
+    ./git.nix
+    ./gpg.nix
     ./gui.nix
+    ./kitty.nix
+    ./lorri.nix
+    ./node.nix
     ./python.nix
+    ./ripgrep.nix
+    ./settings.nix
+    ./ssh.nix
+    ./tealdeer.nix
+    ./zsh.nix
 
     ./editors/emacs
     ./espanso
