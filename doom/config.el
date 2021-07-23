@@ -92,7 +92,9 @@
 (when noninteractive
   (add-to-list 'doom-env-whitelist "^SSH_"))
 
-(appendq! safe-local-eval-forms '((sh-set-shell "sh") (sh-set-shell "zsh")))
+(appendq! safe-local-eval-forms '((sh-set-shell "sh")
+                                  (sh-set-shell "bash")
+                                  (sh-set-shell "zsh")))
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
@@ -258,6 +260,13 @@
   :after (org-capture)
   :commands (doct))
 
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
+
 (use-package! org-board
   :defer t)
 
@@ -370,6 +379,10 @@
     (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
 (add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck)
 
+;; Add multi-root workspace folders on demand.
+;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
+(advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
+
 (use-package! hledger-mode
   :defer
   ;; :load-path "packages/rest/hledger-mode/"
@@ -456,44 +469,48 @@
 (use-package! literate-calc-mode
   :defer-incrementally t)
 
-(setq! +ligatures-extra-symbols
-       '(;; org
-         :name          "»"
-         :src_block     "»"
-         :src_block_end "«"
-         :quote         "“"
-         :quote_end     "”"
-         ;; Functional
-         :lambda        "λ"
-         :def           "ƒ"
-         :composition   "∘"
-         :map           "↦"
-         ;; Types
-         :null          "∅"
-         :true          "𝕋"
-         :false         "𝔽"
-         :int           "ℤ"
-         :float         "ℝ"
-         :str           "𝕊"
-         :bool          "𝔹"
-         :list          "𝕃"
-         ;; Flow
-         ;; :not           "￢"
-         :in            "∈"
-         :not-in        "∉"
-         :and           "∧"
-         :or            "∨"
-         :for           "∀"
-         :some          "∃"
-         :return        "↦"
-         :yield         "↤"
-         ;; Other
-         ;; :union         "⋃"
-         ;; :intersect     "∩"
-         ;; :diff          "∖"
-         ;; :tuple         "⨂"
-         ;; :pipe          "" ;; FIXME: find a non-private char
-         :dot           "•"))
+(set-ligatures! 'org-mode
+  :todo "TODO")
+
+(plist-put! +ligatures-extra-symbols
+            ;; org
+            :name          "»"
+            :src_block     "»"
+            :src_block_end "«"
+            :quote         "“"
+            :quote_end     "”"
+            ;; Functional
+            :lambda        "λ"
+            :def           "ƒ"
+            :composition   "∘"
+            :map           "↦"
+            ;; Types
+            :null          "∅"
+            :true          "𝕋"
+            :false         "𝔽"
+            :int           "ℤ"
+            :float         "ℝ"
+            :str           "𝕊"
+            :bool          "𝔹"
+            :list          "𝕃"
+            ;; Flow
+            ;; :not           "￢"
+            :in            "∈"
+            :not-in        "∉"
+            :and           "∧"
+            :or            "∨"
+            :for           "∀"
+            :some          "∃"
+            :return        "↦"
+            :yield         "↤"
+            ;; Other
+            ;; :union         "⋃"
+            ;; :intersect     "∩"
+            ;; :diff          "∖"
+            ;; :tuple         "⨂"
+            ;; :pipe          "" ;; FIXME: find a non-private char
+            :dot           "•")
+            ;; :todo #Xe2e9)
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"

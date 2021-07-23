@@ -4,7 +4,7 @@
 ;; in. Remember to run 'doom sync' after modifying it!
 
 ;; Respect visual line mode
-;; (setq! evil-respect-visual-line-mode t)
+(setq! evil-respect-visual-line-mode t)
 
 
 (doom! :input
@@ -40,9 +40,9 @@
   (popup +defaults)            ; tame sudden yet inevitable temporary windows
   ;; tabs                      ; an tab bar for Emacs
   (treemacs +lsp)              ; a project drawer, like neotree but cooler
-  ;; unicode                   ; extended unicode support for various languages
+  unicode                   ; extended unicode support for various languages
   vc-gutter                    ; vcs diff in the fringe
-  vi-tilde-fringe              ; fringe tildes to mark beyond EOB
+  ;; vi-tilde-fringe              ; fringe tildes to mark beyond EOB
   ;; window-select             ; visually switch windows
   workspaces                   ; tab emulation, persistence & separate workspaces
   zen                          ; distraction-free coding or writing
@@ -76,8 +76,8 @@
 
   :checkers
   syntax   ; tasing you for every semicolon you forget
-  (spell +flyspell)    ; tasing you for misspelling mispelling
-  grammar  ; tasing grammar mistake every you make
+  (spell)    ; tasing you for misspelling mispelling
+  ;; grammar  ; tasing grammar mistake every you make
 
   :tools
   ansible
@@ -90,7 +90,7 @@
   gist               ; interacting with github gists
   (lookup            ; navigate your code and its documentation
     +dictionary
-    +docsets)
+    +offline)
   (lsp +peek)
   (magit +forge)     ; a git porcelain for Emacs
   ;;make             ; run make tasks from Emacs
@@ -151,7 +151,6 @@
     +journal
     +pandoc
     +pomodoro
-    ;; +pretty
     +roam)
   ;;perl                ; write code no one else can comprehend
   (php +lsp)            ; perl's insecure younger brother
