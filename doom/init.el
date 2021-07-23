@@ -151,7 +151,6 @@
     +journal
     +pandoc
     +pomodoro
-    ;; +pretty
     +roam)
   ;;perl                ; write code no one else can comprehend
   (php +lsp)            ; perl's insecure younger brother
