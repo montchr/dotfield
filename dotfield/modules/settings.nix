@@ -105,6 +105,9 @@ in {
       };
 
       env = {
+        # `$DOTFIELD` should point to its absolute path on the system -- not to
+        # its location in the Nix store. ZSH may cache a path to an old
+        # derivation.
         DOTFIELD = config.dotfield.path;
         GITHUB_USER = config.my.github_username;
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
