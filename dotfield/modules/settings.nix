@@ -32,10 +32,8 @@ in {
     in rec {
       # TODO: point this to the config directory once everything is moved
       configDir = mkOpt t "${config.dotfield.dir}";
-      dir = mkOpt t (findFirst pathExists (toString ../../.) [
-        "${config.my.user.home}/.config"
-        "/etc/dotfiles"
-      ]);
+      dir = mkOpt t (toString ../../.);
+      path = mkOpt t "${config.my.user.home}/.config";
       binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
       modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
       flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
@@ -107,7 +105,7 @@ in {
       };
 
       env = {
-        DOTFIELD = config.dotfield.dir;
+        DOTFIELD = config.dotfield.path;
         GITHUB_USER = config.my.github_username;
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
