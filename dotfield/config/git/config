@@ -23,8 +23,6 @@
     navigate = true
 [fetch]
     recurseSubmodules = true
-[github]
-    user = montchr
 [help]
     autocorrect = 1
 [hub]
@@ -59,16 +57,13 @@
     cmd = code --wait $MERGED
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
-[mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-    trustExitCode = true
+[difftool "ediff"]
+    cmd = ediff \"$LOCAL\" \"$REMOTE\"
 [diff]
     colorMoved = default
     tool = vscode
 [merge]
     tool = vscode
-[difftool "ediff"]
-    cmd = ediff \"$LOCAL\" \"$REMOTE\"
 
 [include]
     path = config.nix.local
