@@ -12,6 +12,7 @@ result
 /direnv
 /drafts
 /emacs
+/espanso
 /git/config-nix
 /ripgrep
 /zsh/profile.zshenv
