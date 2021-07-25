@@ -65,11 +65,11 @@ in {
 
         systemPackages = with pkgs;
           (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
+            bottom
             cachix
             curl
             direnv
             fzf
-            htop
             lua
             manix # nix documentation search
             rsync
@@ -132,7 +132,6 @@ in {
           gnutar
           grc
           grex # Generate regexps from user-provided test cases
-          htop
           hyperfine
           lua
           jq
