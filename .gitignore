@@ -14,14 +14,11 @@ result
 /emacs
 /espanso
 /git
+/karabiner
 /ripgrep
 /zsh/profile.zshenv
 /zsh/extra.zshenv
 /zsh/extra.zshrc
-
-# Config files amongst other unwanted files
-/karabiner/*
-!/karabiner/karabiner.json
 
 /doom/treemacs.org
 /zsh/.zcompdump*

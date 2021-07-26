@@ -41,6 +41,11 @@ in {
           source = "${configDir}/drafts";
           recursive = true;
         };
+
+        "karabiner/karabiner.json" = with config.my.hm.lib.file; {
+          source = mkOutOfStoreSymlink
+            "${config.dotfield.path}/dotfield/config/karabiner/karabiner.json";
+        };
       };
 
       my.user.packages = with pkgs; [
