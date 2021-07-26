@@ -48,10 +48,11 @@ in {
         };
       };
 
-      my.user.packages = with pkgs; [
-        (writeScriptBin "toggle-dark-mode"
-          (builtins.readFile "${configDir}/darwin/bin/toggle-dark-mode"))
-      ];
+      my.user.packages = with pkgs;
+        [
+          (writeScriptBin "toggle-dark-mode"
+            (builtins.readFile "${configDir}/darwin/bin/toggle-dark-mode"))
+        ];
 
       # https://github.com/LnL7/nix-darwin/pull/228
       # TODO: errors on activation!
