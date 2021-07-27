@@ -44,7 +44,7 @@
   (interactive)
   (let ((status (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
     (if (equal "light" status)
-      (modus-themes-load-operandi)
+        (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))
 
 (use-package! modus-themes
@@ -502,7 +502,7 @@
             ;; :tuple         "⨂"
             ;; :pipe          "" ;; FIXME: find a non-private char
             :dot           "•")
-            ;; :todo #Xe2e9)
+;; :todo #Xe2e9)
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"
