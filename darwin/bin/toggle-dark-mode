@@ -8,6 +8,10 @@
 # - base16-fzf
 # - emacs
 
+
+# shellcheck disable=SC1091
+. "${XDG_CONFIG_HOME}/shell/profile"
+
 # shellcheck disable=SC1091
 . "${XDG_CONFIG_HOME}/utils.sh"
 

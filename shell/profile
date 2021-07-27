@@ -201,11 +201,11 @@ export \
 # Returns either "light" or "dark". Defaults to "dark".
 cdom_os_appearance () {
   if [ -n "${SSH_CONNECTION}" ] && [ -n "${CDOM_OS_APPEARANCE}" ]; then
-    printf "%s" "${CDOM_OS_APPEARANCE}"
+    echo "%s" "${CDOM_OS_APPEARANCE}"
   elif [ "$(has "dark-mode" && dark-mode status)" = "off" ]; then
-    printf "light"
+    echo "light"
   else
-    printf "dark"
+    echo "dark"
   fi
 }
 
