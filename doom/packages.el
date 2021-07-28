@@ -47,10 +47,8 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 ;; Themes
-(package! almost-mono-themes)
 (package! base16-theme)
 (package! modus-themes)
-(package! tao-theme)
 
 ;; UI
 (package! scroll-on-jump
