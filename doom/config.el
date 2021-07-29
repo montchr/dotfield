@@ -67,6 +67,11 @@
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
 
+(use-package! pragmatapro-lig
+  :init
+  (require 'pragmatapro-lig)
+  (pragmatapro-lig-global-mode)
+  :commands (pragmatapro-lig-global-mode pragmatapro-lig-mode))
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")
@@ -470,11 +475,13 @@
             :src_block_end "«"
             :quote         "“"
             :quote_end     "”"
+
             ;; Functional
             :lambda        "λ"
             :def           "ƒ"
             :composition   "∘"
             :map           "↦"
+
             ;; Types
             :null          "∅"
             :true          "𝕋"
@@ -484,24 +491,26 @@
             :str           "𝕊"
             :bool          "𝔹"
             :list          "𝕃"
+
             ;; Flow
-            ;; :not           "￢"
+            ;; :not           "!"
             :in            "∈"
             :not-in        "∉"
             :and           "∧"
             :or            "∨"
             :for           "∀"
             :some          "∃"
-            :return        "↦"
-            :yield         "↤"
+            :return        "⟼"
+            :yield         "⟻"
+
             ;; Other
-            ;; :union         "⋃"
-            ;; :intersect     "∩"
-            ;; :diff          "∖"
-            ;; :tuple         "⨂"
-            ;; :pipe          "" ;; FIXME: find a non-private char
-            :dot           "•")
-;; :todo #Xe2e9)
+            :union         "⋃"
+            :intersect     "∩"
+            :diff          "∖"
+            :tuple         "⨂"
+            :pipe          " "
+            :dot           "•"
+            :todo          "	")
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"
