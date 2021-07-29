@@ -48,7 +48,6 @@
       (modus-themes-load-vivendi))))
 
 (use-package! modus-themes
-  :ensure
   :init
   (require 'modus-themes)
   (setq! modus-themes-bold-constructs nil
