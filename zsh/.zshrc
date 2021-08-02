@@ -67,12 +67,6 @@ zgenom saved || {
 
   zgenom load unixorn/autoupdate-zgenom
 
-  # Colorize command output.
-  zgenom load unixorn/warhol.plugin.zsh
-
-  # @unixorn's macOS helpers.
-  zgenom load unixorn/tumult.plugin.zsh
-
   # Don't forget aliases, or else.
   zgenom load djui/alias-tips
 
@@ -81,10 +75,6 @@ zgenom saved || {
 
   # Aliases for working with current repo on GitHub.
   zgenom load peterhurford/git-it-on.zsh
-
-  # Encrypt some repo files.
-  # TODO: use it or lose it
-  # zgenom load StackExchange/blackbox
 
   # Load some oh-my-zsh plugins
   zgenom oh-my-zsh plugins/aws
