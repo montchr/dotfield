@@ -38,7 +38,6 @@
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "emacs.cachix.org-1:b1SMJNLY/mZF6GxQE+eDBeps7WnkT0Po55TAyzwOxTY="
           ];
-          # Auto upgrade nix package and the daemon service.
           maxJobs = "auto";
           buildCores = 4;
           gc = {

@@ -1,30 +1,24 @@
-# via https://gist.github.com/pkazmier/213d9dce6b1ea313eaf0a17b017c2b08
-# Modified from https://github.com/alyssais configuration.
+# skhd configuration
 #
-# The following configuration heavily leverages modal keymaps to minimize the
-# pollution of global keybindings. In addition, the modal keymaps facilitate
-# the consistent use of the same keybindings across different modes. For
-# example, this configuration uses 'h', 'l', 'j', and 'k' to represent west,
-# east, south, and north when: changing focus, warping windows, resizing
-# windows, swapping windows, and moving floating windows. Those four keys are
-# mapped differently depending on the current mode to provide a consistent user
-# experience.
+# === SOURCES ===
 #
-# Six different modes are provided in this configuration in addition to the
-# default mode. The modes are tailored to their respective operations. Common
-# operations are generally available without the need of any modifier keys.
-# When modifier keys are used, they are for infrequent actions or size related
-# actions. Entry into the modal system is via hyper - space, which enters FOCUS
-# mode. From there, any of the other modes can be activated with a single
-# keypress.
+# - https://gist.github.com/pkazmier/213d9dce6b1ea313eaf0a17b017c2b08
+# - https://github.com/alyssais
 #
-# A high-level overview of the bindings can be found in bindings.txt
-
+# === GOALS ===
+#
+# - Minimize usage of global keybinding namespace by favoring modal bindings.
+# - Vi-like direction navigation: h/l = west/east; j/k = south/north.
+# - The less common an operation in each mode, the more modifier keys.
+# - Shift+<key> often indicates a reversal of the unmodified action.
+# - FOCUS mode is the gate to the other modes, triggered by hyper-space.
+#
 
 
 :: default  : yabai-border
-# @todo indicate mode with color or some other way
+# TODO: indicate APP LAUNCHER mode with color or some other way
 :: app    @                                                          # Launch apps
+# TODO: indicate SYSTEM mode with color or some other way
 :: sys    @                                                          # System control mode
 :: focus  @ : yabai-border e06c75  # Focus window, desktop, monitors
 :: grid   @ : yabai-border 56b6c2  # Floating window layout
@@ -65,6 +59,7 @@ app     < e : emacsclient -cn; \
               skhd -k 'escape'
 
 # _f_irefox -- new window
+# FIXME: focus the new window
 app     < f : "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
               --new-window ; \
               skhd -k 'escape'
@@ -323,25 +318,3 @@ stack    < h                 : yabai -m window --stack west
 stack    < return            : yabai -m window --stack biggest
 # @TODO: command doesn't seem to work, even when running in shell. maybe because `i` is already bound?
 # stack    < i                 : hs -c 'stackline.config:toggle("appearance.showIcons")'
-
-
-#
-# YABAI :: errata
-# ========================================
-#
-
-# Change the next insertion point to be something other than the default (left)
-# using standard vi directional keys with the ctrl modifier. In addition, to
-# make the next window a floating window, we bind ctrl - t (using same mnemonic
-# as above). As these operations are intended for the next window that is
-# opened, we exit FOCUS mode immediately. Finally, to cancel any of these
-# "next" window operations, we bind ctrl - return.
-#
-# @todo update these
-#
-# focus           < ctrl - k           : chunkc tiling::window --use-insertion-point north; qes -k "hyper - space"
-# focus           < ctrl - j           : chunkc tiling::window --use-insertion-point south; qes -k "hyper - space"
-# focus           < ctrl - l           : chunkc tiling::window --use-insertion-point east; qes -k "hyper - space"
-# focus           < ctrl - h           : chunkc tiling::window --use-insertion-point west; qes -k "hyper - space"
-# focus           < ctrl - t           : chunkc set window_float_next 1; qes -k "hyper - space"
-# focus           < ctrl - return      : chunkc tiling::window --use-insertion-point cancel; chunkc set window_float_next 0; qes -k "hyper - space"
