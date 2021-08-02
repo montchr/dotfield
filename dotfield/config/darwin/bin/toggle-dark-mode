@@ -8,8 +8,12 @@
 # - base16-fzf
 # - emacs
 
+# shellcheck disable=SC1091
+. "${XDG_CONFIG_HOME}/shell/profile"
+
 # shellcheck source=../../../../utils.sh
-. "${DOTFIELD}/utils.sh"
+. "${XDG_CONFIG_HOME}/utils.sh"
+
 
 function kitty::theme_change() {
 
@@ -21,7 +25,7 @@ function kitty::theme_change() {
 }
 
 function emacs::theme_change () {
-  emacsclient --no-wait --eval "(+cdom/load-os-theme)"
+  emacsclient --no-wait --eval "(modus-themes-toggle)"
 }
 
 function main() {

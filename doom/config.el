@@ -38,44 +38,36 @@
 ;; Default indent by 2 spaces
 (setq! evil-shift-width 2)
 
-(defun +cdom/os-theme (status)
-  "Get the theme corresponding to the system's current dark mode status."
-  (intern
-   (pcase status
-     ("dark" (getenv "CDOM_EMACS_THEME_DARK"))
-     ("light" (getenv "CDOM_EMACS_THEME_LIGHT"))
-     (_ "base16-black-metal-khold"))))
-
-;; TODO: accept param to avoid needing to call `cdom_os_appearance' :performance:
 ;; TODO: color theme inherits values from shell which can cause, for example, pointer to be the same color as background
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
-  (let ((theme (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
-    (load-theme (+cdom/os-theme theme) t)
-    (run-hooks 'modus-themes-after-load-theme-hook)))
+  (let ((status (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
+    (if (equal "light" status)
+      (modus-themes-load-operandi)
+      (modus-themes-load-vivendi))))
 
 (use-package! modus-themes
+  :ensure
   :init
   (require 'modus-themes)
-  (setq! modus-themes-bold-constructs t
+  (setq! modus-themes-bold-constructs nil
          modus-themes-fringes 'subtle
          modus-themes-slanted-constructs t
-         ;; modus-themes-syntax 'faint
+         modus-themes-syntax '(faint yellow-comments green-string)
+         modus-themes-no-mixed-fonts t
          modus-themes-mode-line 'borderless
          modus-themes-completions 'opinionated
          ;; modus-themes-intense-hl-line t
-         modus-themes-paren-match 'subtle-bold)
-  (modus-themes-load-themes))
+         modus-themes-paren-match 'subtle-bold
+         modus-themes-headings '((1 . (background overline))
+                                 (2 . (rainbow))
+                                 (t . (no-bold))))
+  (modus-themes-load-themes)
+  :config
+  ;; Load theme based on macOS dark mode status.
+  (+cdom/load-os-theme))
 
-;; (use-package! base16-theme
-;;   :after-call +cdom/load-os-theme
-;;   :config
-;;   (setq! base16-theme-256-color-source "base16-shell"
-;;          base16-distinct-fringe-background nil))
-
-;; Load default theme based on macOS dark mode status.
-(+cdom/load-os-theme)
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")

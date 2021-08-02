@@ -29,7 +29,7 @@ result
 # Emacs
 org-roam.db
 custom.el
-# flycheck_config.el
+flycheck_config.el
 
 # Local files
 *.local
