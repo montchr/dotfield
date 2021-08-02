@@ -22,7 +22,10 @@ in {
 
         user = {
           packages = with pkgs; [
-            nodejs-16_x
+            # FIXME: nodejs-16_x recently updated to 16.6.0 and fails to build on HodgePodge
+            # https://github.com/NixOS/nixpkgs/commit/f5de4158dd462c51741ec48be2e47a3f8015930d
+            # nodejs-16_x
+            nodejs
             nodePackages.eslint
             nodePackages.node2nix
             nodePackages.prettier
