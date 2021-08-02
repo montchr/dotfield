@@ -67,9 +67,13 @@ in {
           (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
             bottom
             cachix
+            coreutils
             curl
             direnv
             fzf
+            gcc
+            gnumake
+            grc
             lua
             manix # nix documentation search
             rsync
@@ -118,19 +122,15 @@ in {
           bottom # fancy version of `top` with ASCII graphs
           cacert
           cachix
-          coreutils
-          curl
           dua # ncdu alternative :: https://github.com/Byron/dua-cli
           exa
           fd
           findutils
           gawk
           getopt
-          gnumake
           gnupg
           gnused
           gnutar
-          grc
           grex # Generate regexps from user-provided test cases
           hyperfine
           lua
