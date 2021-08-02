@@ -52,10 +52,8 @@ in {
             '';
           };
 
-          ".prettierrc" = {
+          "prettier/prettierrc.template" = {
             text = ''
-              # ${config.my.nix_managed}
-              ---
               arrowParens: 'always'
               bracketSpacing: true
               jsxBracketSameLine: false
