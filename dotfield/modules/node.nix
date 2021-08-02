@@ -31,12 +31,11 @@ in {
             nodePackages.prettier
             nodePackages.stylelint
             nodePackages.svgo
-            (yarn.override { inherit nodejs; })
           ];
         };
 
-        hm.file = {
-          ".npmrc" = with config.my; {
+        hm.configFile = {
+          "npm/npmrc" = with config.my; {
             text = ''
               # ${nix_managed}
               # vim:ft=conf
@@ -46,6 +45,10 @@ in {
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
+              prefix=$XDG_DATA_HOME/npm
+              cache=$XDG_CACHE_HOME/npm
+              tmp=$XDG_RUNTIME_DIR/npm
+              init-module=$XDG_CONFIG_HOME/npm/config/npm-init.js
             '';
           };
 
