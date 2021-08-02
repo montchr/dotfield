@@ -16,6 +16,7 @@ result
 /git
 /karabiner
 /npm
+/prettier
 /ripgrep
 /zsh/profile.zshenv
 /zsh/extra.zshenv
