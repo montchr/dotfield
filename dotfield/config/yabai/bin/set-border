@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 #
-# yabai-border
+# yabai-set-border
+#
+# Usage:
+#   yabai-set-border <color-hex> [<width>] [<alpha-hex>]
+#   yabai-set-border ffffff      # white
+#   yabai-set-border ffffff 4 ff # white, 4px wide, 1.0 opacity
 #
 
 RGB="${1}"

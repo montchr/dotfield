@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# yabai-close-window
+#
 # Close the currently-focused window.
 #
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# yabai-focus-direction
+#
 # Focus a window in the specified direction.
 #
 # TODO: When switching spaces, focus the closest window to the entry direction.
