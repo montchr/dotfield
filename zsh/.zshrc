@@ -145,7 +145,7 @@ zgenom saved || {
 }
 
 source "${ZDOTDIR}/config.zsh"
-. "${DOTFIELD}/shell/color.sh"
+. "${DOTFIELD_DIR}/lib/color.sh"
 
 if [[ $TERM != dumb ]]; then
   source "${ZDOTDIR}/keybindings.zsh"

@@ -8,6 +8,7 @@ result
 # Managed by Nix
 /bash
 /bat
+/brew
 /composer
 /direnv
 /drafts

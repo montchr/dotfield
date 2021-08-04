@@ -3,8 +3,8 @@
 # OS :: Ubuntu :: Install
 #
 
-# shellcheck source=../../utils.sh
-. "${DOTFIELD}/utils.sh"
+# shellcheck source=../../dotfield/lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 function __provision_user {
   if [[ -n "${DOTFIELD_USERNAME}" ]]; then

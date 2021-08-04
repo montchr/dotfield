@@ -2,11 +2,10 @@
 
 with lib;
 let
-  configDir = config.dotfield.configDir;
   home = config.my.user.home;
   cfg = config.my.modules.bash;
   bash = pkgs.bashInteractive_5;
-  profileInit = "${configDir}/shell/profile";
+  profileInit = "${config.dotfield.libDir}/profile.sh";
 in {
   options = with lib; {
     my.modules.bash = {

@@ -37,17 +37,20 @@ readonly DOTFIELD_BRANCH
 readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
 readonly REPO_ID="montchr/dotfield"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
-readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/utils.sh"
+# FIXME: https://github.com/montchr/dotfield/issues/21
+readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/dotfield/lib/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
 [[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
   && DOTFIELD_NIX_HOSTNAME="$(hostname)"
 
+# FIXME: allow specifying a different installation path
+# FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
 : "${DOTFIELD:=${GITHUB_WORKSPACE:-${HOME}/.config}}"
+: "${DOTFIELD_DIR:=${DOTFIELD}/dotfield}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
-# TODO: should not necessarily be one and the same
-XDG_CONFIG_HOME="${DOTFIELD}"
+XDG_CONFIG_HOME="${HOME}/.config"
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
@@ -465,11 +468,11 @@ function traceback() {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-if [[ -f "${XDG_CONFIG_HOME}/utils.sh" ]]
+if [[ -f "${DOTFIELD_DIR}/lib/utils.sh" ]]
 then
 
-# shellcheck source=./utils.sh
-. "${XDG_CONFIG_HOME}/utils.sh"
+# shellcheck source=./dotfield/lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 msg::stream::story <<END
 We arrive at a well-travelled outcropping,
@@ -481,8 +484,9 @@ END
 else
 
 printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
-utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/utils.sh")"
-# shellcheck source=./utils.sh
+utils_path="$(fetch_ephemeral "${DOTFIELD_UTILS_URL}")"
+# FIXME: update source path in https://github.com/montchr/dotfield/issues/21
+# shellcheck source=./dotfield/lib/utils.sh
 . "${utils_path}"
 
 msg::stream::story <<END

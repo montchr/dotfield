@@ -30,12 +30,14 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      # TODO: point this to the config directory once everything is moved
+      # TODO: point this to the flake config directory in https://github.com/montchr/dotfield/issues/21
       configDir = mkOpt t "${config.dotfield.dir}";
       dir = mkOpt t (toString ../../.);
       path = mkOpt t "${config.my.user.home}/.config";
       binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
+      libDir = mkOpt t "${config.dotfield.dir}/dotfield/lib";
       modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
+      # TODO: replace usages of this with `configDir` in https://github.com/montchr/dotfield/issues/21
       flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
     };
 
@@ -105,20 +107,23 @@ in {
       };
 
       env = {
-        # `$DOTFIELD` should point to its absolute path on the system -- not to
+        # `$DOTFIELD` must point to its absolute path on the system -- not to
         # its location in the Nix store. ZSH may cache a path to an old
         # derivation.
         DOTFIELD = config.dotfield.path;
+
+        # FIXME: `$DOTFIELD_DIR` should be preferred going forward, as it's
+        # easier to grep. for the time being, it also provides a direct path to
+        # the nix configuration within the repo, but that should change once
+        # we're ready to move the configuration to the top level.
+        DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
+
         GITHUB_USER = config.my.github_username;
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
     };
 
-    # TODO: these vars should more than likely live in `my.env` instead! for
-    # example, `$DOTFIELD` is empty, and `$WGETRC` is set to live at `/wgetrc`.
-    # but be careful, because we don't want to break the xdg vars. probably best
-    # to unset them here?
     environment = {
       variables = with config.my; {
         XDG_BIN_HOME = "${xdg.bin}";
@@ -126,19 +131,6 @@ in {
         XDG_CONFIG_HOME = "${xdg.config}";
         XDG_DATA_HOME = "${xdg.data}";
         XDG_LIB_HOME = "${xdg.lib}";
-
-        # Conform more programs to XDG conventions. The rest are handled by their
-        # respective modules.
-        #
-        # TODO: move a lot of the stuff in ~/.config/shell/profile into here or
-        # specific modules.
-        #
-        # TODO: setup aspell ASPELL_CONF = '' per-conf
-        # $XDG_CONFIG_HOME/aspell/aspell.conf; personal
-        # $XDG_CONFIG_HOME/aspell/en_US.pws; repl
-        # $XDG_CONFIG_HOME/aspell/en.prepl;
-        # '';
-
       };
     };
 

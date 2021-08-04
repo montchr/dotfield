@@ -8,15 +8,20 @@
 # - base16-fzf
 # - emacs
 
-# shellcheck disable=SC1091
-. "${XDG_CONFIG_HOME}/shell/profile"
+[[ -z $DOTFIELD_DIR ]] && {
+  echo 'DOTFIELD_DIR not defined!' 1>&2
+  return 1
+}
 
-# shellcheck source=../../../../utils.sh
-. "${XDG_CONFIG_HOME}/utils.sh"
+# shellcheck source=../../../lib/profile.sh
+. "${DOTFIELD_DIR}/lib/profile.sh"
+
+# shellcheck source=../../../lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 
 function kitty::theme_change() {
-
+  # FIXME: provide a default so we don't end up with an invalid color scheme
   ln -sfv \
     "${XDG_CONFIG_HOME}/kitty/base16-kitty/colors/base16-${1}-256.conf" \
     "${XDG_CONFIG_HOME}/kitty/theme.conf"

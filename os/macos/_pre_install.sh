@@ -3,9 +3,13 @@
 # OS :: macOS :: Pre-Installation Requirements
 #
 
+[[ -z $DOTFIELD_DIR ]] && {
+  echo "DOTFIELD_DIR is not defined!" 1>&2
+  exit 1
+}
 
-# shellcheck source=../../utils.sh
-. "${XDG_CONFIG_HOME}/utils.sh"
+# shellcheck source=../../dotfield/lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 
 function main () {

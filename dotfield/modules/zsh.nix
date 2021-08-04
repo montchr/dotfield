@@ -2,8 +2,8 @@
 
 with lib;
 let
-  configDir = config.dotfield.configDir;
   cfg = config.my.modules.zsh;
+  envInit = "${config.dotfield.libDir}/profile.sh";
 
   # TODO: copied from settings.nix because they're not available here! get them from the same place.
   # see: https://github.com/hlissner/dotfiles/blob/master/lib/options.nix
@@ -98,7 +98,7 @@ in {
             ${cfg.rcInit}
           '';
 
-          "zsh/profile.zshenv".source = "${configDir}/shell/profile";
+          "zsh/profile.zshenv".source = envInit;
 
           "zsh/extra.zshenv".text = ''
             # ${config.my.nix_managed}

@@ -9,16 +9,16 @@
 
 set -e
 
+# FIXME: change this to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
 DOTFIELD="$(git rev-parse --show-toplevel)"
+DOTFIELD_DIR="${DOTFIELD}/dotfield"
 
-# shellcheck source=../../utils.sh
-. "${DOTFIELD}/utils.sh"
+# shellcheck source=../lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 #========================================
 # Build the flake and switch to the new derivation.
 #
-# Global:
-#   DOTFIELD
 # Arguments:
 #   Flake output URI.
 #========================================
@@ -39,8 +39,6 @@ function __nix::build() {
 #========================================
 # Open a new Nix REPL shell for a flake output.
 #
-# Global:
-#   DOTFIELD
 # Arguments:
 #   Flake output name. Defaults to the current hostname.
 #========================================
