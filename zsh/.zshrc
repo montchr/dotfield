@@ -54,6 +54,9 @@ zgenom saved || {
   ZGEN_LOADED=()
   ZGEN_COMPLETIONS=()
 
+  zgenom load romkatv/powerlevel10k \
+    powerlevel10k
+
   # Tab completions with an fzf frontend.
   zgenom load Aloxaf/fzf-tab
 
@@ -136,9 +139,6 @@ zgenom saved || {
   zgenom load zsh-users/zsh-autosuggestions
 
   zgenom load softmoth/zsh-vim-mode
-
-  zgenom load romkatv/powerlevel10k \
-    powerlevel10k
 
   zgenom save
 
