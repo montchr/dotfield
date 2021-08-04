@@ -99,8 +99,8 @@ alias gsha='git stash apply'
 alias gshp='git stash pop'
 alias gshl='git stash list'
 alias gl='git log --oneline --decorate -20'
-# TODO: why? i think omz defines this too?
-unalias gcp
+# FIXME: Uncomment if loading OMZ, otherwise delete it.
+# unalias gcp
 
 # List all the commits on the current branch ahead of master.
 alias glb="git log --oneline --decorate ${GIT_PRIMARY_BRANCH:-main}..${GIT_BRANCH_NAME:-HEAD}"
