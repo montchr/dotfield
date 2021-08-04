@@ -23,7 +23,7 @@ fi
 # Set up history.
 export HISTSIZE=290000
 export SAVEHIST=290000
-export HISTFILE="${ZSH_DATA:-${HOME}}/.zhistory"
+export HISTFILE="${ZSH_DATA:-${HOME}}/zhistory"
 
 export GENCOMPL_FPATH="${ZDOTDIR}/completions"
 
