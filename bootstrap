@@ -641,8 +641,8 @@ msg::domain "Guardian" "Ensure directories exist" && {
 guard::macos && {
   if ! shell::is_modern; then
     msg::domain "Packages" "Install Homebrew and modern Bash"
-    # shellcheck source=./os/macos/_pre_install.sh
-    . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
+    # shellcheck source=./provision/macos/_pre_install.sh
+    . "${XDG_CONFIG_HOME}/provision/macos/_pre_install.sh"
   fi
 }
 
@@ -679,20 +679,20 @@ guard::install && {
 
 guard::ubuntu && {
   msg::domain "OS" "Preparing Ubuntu environment"
-  # shellcheck source=./os/ubuntu/main
-  . "${XDG_CONFIG_HOME}/os/ubuntu/main"
+  # shellcheck source=./provision/ubuntu/main
+  . "${XDG_CONFIG_HOME}/provision/ubuntu/main"
 }
 
 
 guard::macos && {
   msg::domain "OS" "Preparing macOS environment"
 
-  # shellcheck source=./os/macos/main
-  . "${XDG_CONFIG_HOME}/os/macos/main"
+  # shellcheck source=./provision/macos/main
+  . "${XDG_CONFIG_HOME}/provision/macos/main"
 
   # TODO: re-enable this because nix-darwin doesn't handle every available preference
   # msg::domain "OS" "Configuring macOS preferences"
-  # "${XDG_CONFIG_HOME}/os/macos/configure"
+  # "${XDG_CONFIG_HOME}/provision/macos/configure"
 
   guard::domain "yabai" "Check SIP status" && {
     case $(csrutil status) in
