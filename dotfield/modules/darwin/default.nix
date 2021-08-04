@@ -1,4 +1,6 @@
 { config, inputs, lib, pkgs, ... }: {
+  imports = [ ./macos.nix ];
+
   nix = { trustedUsers = [ "@admin" ]; };
 
   services.nix-daemon.enable = true;
@@ -25,8 +27,6 @@
     # cleanup = "zap";
     # global.brewfile = true;
   };
-
-  imports = [ ./macos.nix ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion

@@ -14,7 +14,7 @@ in {
   options = with lib; {
     my.modules.macos = {
       enable = mkEnableOption ''
-        Whether to enable macos module
+        Whether to enable macOS module
       '';
     };
   };
