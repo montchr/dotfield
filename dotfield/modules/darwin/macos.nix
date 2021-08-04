@@ -25,8 +25,6 @@ in {
         systemPackages = with pkgs; [ mas ];
         variables = {
           LANG = "en_US.UTF-8";
-          # TODO: double-check this -- en_GB doesn't seem right
-          LC_TIME = "en_GB.UTF-8";
         };
       };
 
