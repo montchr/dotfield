@@ -4,11 +4,16 @@
   services.nix-daemon.enable = true;
   users.nix.configureBuildUsers = true;
 
-  my = {
-    modules = {
-      macos.enable = true;
-      gpg.enable = true;
-      editors.emacs.enable = true;
+  my.modules = {
+    macos.enable = true;
+    gpg.enable = true;
+    editors.emacs.enable = true;
+  };
+
+  my.hm.configFile = {
+    "brew" = {
+      source = "${config.dotfield.flkConfigDir}/brew";
+      recursive = true;
     };
   };
 
