@@ -107,6 +107,14 @@ in {
       };
 
       env = {
+        GITHUB_USER = config.my.github_username;
+        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
+        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
+      };
+    };
+
+    environment = {
+      variables = with config.my; {
         # `$DOTFIELD` must point to its absolute path on the system -- not to
         # its location in the Nix store. ZSH may cache a path to an old
         # derivation.
@@ -118,14 +126,6 @@ in {
         # we're ready to move the configuration to the top level.
         DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
 
-        GITHUB_USER = config.my.github_username;
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-      };
-    };
-
-    environment = {
-      variables = with config.my; {
         XDG_BIN_HOME = "${xdg.bin}";
         XDG_CACHE_HOME = "${xdg.cache}";
         XDG_CONFIG_HOME = "${xdg.config}";

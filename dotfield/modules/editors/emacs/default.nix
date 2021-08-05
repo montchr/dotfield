@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.editors.emacs;
-  configDir = config.dotfield.configDir;
+  configDir = config.dotfield.flkConfigDir;
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 in {
   options = with lib; {
@@ -16,15 +16,17 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ emacs ];
 
+    my.hm.configFile."doom" = with config.my.hm.lib.file; {
+      source =
+        mkOutOfStoreSymlink "${config.dotfield.path}/dotfield/config/doom";
+    };
+
     my = {
       env = {
-        DOOMDIR = "$XDG_CONFIG_HOME/doom";
+        DOOMDIR = "$DOTFIELD_DIR/config/doom";
         EDITOR = "emacsclient -n";
         EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
-
-      # TODO: move this somewhere else
-      # modules.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
       user.packages = with pkgs; [
         emacs

@@ -11,6 +11,7 @@ result
 /brew
 /composer
 /direnv
+/doom
 /drafts
 /emacs
 /espanso
@@ -30,7 +31,7 @@ result
 /kitty/theme.conf
 
 # Emacs
-/doom/treemacs.org
+treemacs.org
 org-roam.db
 custom.el
 flycheck_config.el
