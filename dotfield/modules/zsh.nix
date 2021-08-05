@@ -47,14 +47,36 @@ in {
       };
 
       my.env = rec {
-        # Default is "1" but with PragmataPro that leaves no space between the
-        # icon and its filename.
-        EXA_ICON_SPACING="2";
+        # Default is "1". But when typeset in PragmataPro that leaves no space
+        # between the icon and its filename.
+        EXA_ICON_SPACING = "2";
 
+        # fzf
+        FZF_DEFAULT_COMMAND =
+          "fd --type f --hidden --follow --exclude .git 2>/dev/null";
+        FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
+        FZF_ALT_C_COMMAND = "fd -t d . $HOME";
+
+        # nvm -- must be set prior to load
+        # https://github.com/lukechilds/zsh-nvm
+        NVM_AUTO_USE = "true";
+        NVM_COMPLETION = "true";
+        NVM_LAZY_LOAD = "true";
+
+        # completions
+        GENCOMPL_FPATH = "$ZDOTDIR/completions";
+
+        # history
+        HISTFILE = "$ZSH_DATA/history";
+        HISTSIZE = "290000";
+        SAVEHIST = HISTSIZE;
+
+        # zsh paths
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
         ZSH_DATA = "$XDG_DATA_HOME/zsh";
 
+        # zgenom paths
         ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
         ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
       };
