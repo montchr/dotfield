@@ -57,6 +57,8 @@ zgenom saved || {
   zgenom load romkatv/powerlevel10k \
     powerlevel10k
 
+  zgenom load "${ZDOTDIR}/.p10k.zsh"
+
   # Tab completions with an fzf frontend.
   zgenom load Aloxaf/fzf-tab
 
@@ -160,6 +162,3 @@ source $ZDOTDIR/extra.zshrc
 
 [[ -f "${ZDOTDIR}/config.local" ]] \
   && source "${ZDOTDIR}/config.local"
-
-[[ -f "${ZDOTDIR}/.p10k.zsh" ]] \
-  && source "${ZDOTDIR}/.p10k.zsh"
