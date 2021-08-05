@@ -30,14 +30,15 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      # TODO: or is there a way to just use the flake dir?
-      configDir = mkOpt t (toString ../../.);
-      dir = mkOpt t (findFirst pathExists (toString ../.) [
-        "${config.my.user.home}/.config/dotfield"
-        "/etc/dotfiles"
-      ]);
-      binDir = mkOpt t "${config.dotfield.dir}/bin";
-      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+      # TODO: point this to the flake config directory in https://github.com/montchr/dotfield/issues/21
+      configDir = mkOpt t "${config.dotfield.dir}";
+      dir = mkOpt t (toString ../../.);
+      path = mkOpt t "${config.my.user.home}/.config";
+      binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
+      libDir = mkOpt t "${config.dotfield.dir}/dotfield/lib";
+      modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
+      # TODO: replace usages of this with `configDir` in https://github.com/montchr/dotfield/issues/21
+      flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
     };
 
     my = {
@@ -57,6 +58,8 @@ in {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
+        lib = mkOpt' attrs config.home-manager.users.${config.my.username}.lib
+          "home-manager lib alias";
       };
 
       xdg = let t = either str path;
@@ -104,51 +107,30 @@ in {
       };
 
       env = {
-        DOTFIELD = "$XDG_CONFIG_HOME";
-        DOTFIELD_DIR = "$XDG_CONFIG_HOME";
-        DOTFIELD_BIN = "$XDG_BIN_HOME";
         GITHUB_USER = config.my.github_username;
-        # HISTFILE = "$XDG_DATA_HOME/bash/history";
-        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
-
-      # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
-      # hm = {
-      #   file = {
-      #     ".local/bin" = {
-      #       recursive = true;
-      #       source = ../bin;
-      #     };
-      #   };
-      # };
     };
 
-    # TODO: these vars should more than likely live in `my.env` instead! for
-    # example, `$DOTFIELD` is empty, and `$WGETRC` is set to live at `/wgetrc`.
-    # but be careful, because we don't want to break the xdg vars. probably best
-    # to unset them here?
     environment = {
       variables = with config.my; {
+        # `$DOTFIELD` must point to its absolute path on the system -- not to
+        # its location in the Nix store. ZSH may cache a path to an old
+        # derivation.
+        DOTFIELD = config.dotfield.path;
+
+        # FIXME: `$DOTFIELD_DIR` should be preferred going forward, as it's
+        # easier to grep. for the time being, it also provides a direct path to
+        # the nix configuration within the repo, but that should change once
+        # we're ready to move the configuration to the top level.
+        DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
+
         XDG_BIN_HOME = "${xdg.bin}";
         XDG_CACHE_HOME = "${xdg.cache}";
         XDG_CONFIG_HOME = "${xdg.config}";
         XDG_DATA_HOME = "${xdg.data}";
         XDG_LIB_HOME = "${xdg.lib}";
-
-        # Conform more programs to XDG conventions. The rest are handled by their
-        # respective modules.
-        #
-        # TODO: move a lot of the stuff in ~/.config/shell/profile into here or
-        # specific modules.
-        #
-        # TODO: setup aspell ASPELL_CONF = '' per-conf
-        # $XDG_CONFIG_HOME/aspell/aspell.conf; personal
-        # $XDG_CONFIG_HOME/aspell/en_US.pws; repl
-        # $XDG_CONFIG_HOME/aspell/en.prepl;
-        # '';
-
       };
     };
 

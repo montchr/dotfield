@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.tealdeer;
+let
+  cfg = config.my.modules.tealdeer;
+  configDir = "${config.dotfield.flkConfigDir}/tealdeer";
 in {
   options = with lib; {
     my.modules.tealdeer = {
@@ -18,7 +20,19 @@ in {
           TEALDEER_CACHE_DIR = "$XDG_CACHE_HOME/tealdeer";
         };
 
-        user = { packages = with pkgs; [ tealdeer ]; };
+        user.packages = [ pkgs.tealdeer ];
+
+        hm.configFile."tealdeer/config.toml".text = ''
+          # https://dbrgn.github.io/tealdeer/config.html
+
+          [display]
+          use_pager = false
+          compact = false
+
+          [updates]
+          auto_update = true
+          auto_update_interval_hours = 24
+        '';
       };
 
       system.activationScripts.postUserActivation.text = ''

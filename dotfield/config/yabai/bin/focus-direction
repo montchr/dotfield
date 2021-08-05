@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# yabai-focus-direction
+#
+# Focus a window in the specified direction.
+#
+# TODO: When switching spaces, focus the closest window to the entry direction.
+#   E.G. `yabai -m space --focus next`, then: focus the western-most window.
+#   E.G. `yabai -m space --focus prev`, then: focus the eastern-most window.
+#
+# Usage:
+#   yabai-focus-direction ( north | south | east | west ) [--displays]
+#
+
+function main() {
+  local direction=$1
+  shift
+
+  yabai -m window --focus "${direction}" \
+    && return 0
+
+  for arg in "$@"; do
+    case "${arg}" in
+      --displays)
+        yabai -m display --focus "${direction}" \
+          && return 0
+        ;;
+      *) : ;;
+    esac
+  done
+
+  case "${direction}" in
+    north)
+      yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+      ;;
+    south)
+      yabai -m window --focus stack.next || yabai -m window --focus stack.first
+      ;;
+    east)
+      yabai -m space --focus next
+      ;;
+    west)
+      yabai -m space --focus prev
+      ;;
+  esac
+}
+
+main "$@"

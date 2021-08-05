@@ -11,6 +11,7 @@
     ./kitty.nix
     ./lorri.nix
     ./node.nix
+    ./php.nix
     ./python.nix
     ./ripgrep.nix
     ./settings.nix
@@ -19,6 +20,7 @@
     ./zsh.nix
 
     ./editors/emacs
+    ./editors/vim
     ./espanso
   ];
 
@@ -39,10 +41,9 @@
     zsh.enable = true;
 
     editors = {
-      emacs = {
-        enable = true;
-        doom.enable = true;
-      };
+      emacs.enable = true;
+      emacs.doom.enable = true;
+      vim.enable = true;
     };
   };
 

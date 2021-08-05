@@ -8,28 +8,30 @@ result
 # Managed by Nix
 /bash
 /bat
+/brew
+/composer
 /direnv
+/doom
+/drafts
 /emacs
-/git/config-nix
+/espanso
+/git
+/karabiner
+/npm
+/prettier
 /ripgrep
-/zsh/profile.zshenv
-/zsh/extra.zshenv
-/zsh/extra.zshrc
-
-# Config files amongst other unwanted files
-/composer/*
-/karabiner/*
-!/composer/composer.json
-!/composer/composer.lock
-!/karabiner/karabiner.json
-
-/doom/treemacs.org
-/zsh/.zcompdump*
+/shell
+/skhd
+/tealdeer
+/vim
+/yabai
+/zsh
 
 # Symlinked to currently-active theme (changes frequently).
 /kitty/theme.conf
 
 # Emacs
+treemacs.org
 org-roam.db
 custom.el
 flycheck_config.el

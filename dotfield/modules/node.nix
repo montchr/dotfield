@@ -22,18 +22,20 @@ in {
 
         user = {
           packages = with pkgs; [
-            nodejs-16_x
+            # FIXME: nodejs-16_x recently updated to 16.6.0 and fails to build on HodgePodge
+            # https://github.com/NixOS/nixpkgs/commit/f5de4158dd462c51741ec48be2e47a3f8015930d
+            # nodejs-16_x
+            nodejs
             nodePackages.eslint
             nodePackages.node2nix
             nodePackages.prettier
             nodePackages.stylelint
             nodePackages.svgo
-            (yarn.override { inherit nodejs; })
           ];
         };
 
-        hm.file = {
-          ".npmrc" = with config.my; {
+        hm.configFile = {
+          "npm/npmrc" = with config.my; {
             text = ''
               # ${nix_managed}
               # vim:ft=conf
@@ -43,13 +45,15 @@ in {
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
+              prefix=$XDG_DATA_HOME/npm
+              cache=$XDG_CACHE_HOME/npm
+              tmp=$XDG_RUNTIME_DIR/npm
+              init-module=$XDG_CONFIG_HOME/npm/config/npm-init.js
             '';
           };
 
-          ".prettierrc" = {
+          "prettier/prettierrc.template" = {
             text = ''
-              # ${config.my.nix_managed}
-              ---
               arrowParens: 'always'
               bracketSpacing: true
               jsxBracketSameLine: false

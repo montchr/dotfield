@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ ../modules/darwin ../modules/php.nix ];
+  imports = [ ../modules/darwin ];
 
   my = {
     username = "montchr";

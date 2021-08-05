@@ -2,8 +2,9 @@
 
 with lib;
 let
-  configDir = config.dotfield.configDir;
   cfg = config.my.modules.zsh;
+  configDir = "${config.dotfield.flkConfigDir}/zsh";
+  envInit = "${config.dotfield.libDir}/profile.sh";
 
   # TODO: copied from settings.nix because they're not available here! get them from the same place.
   # see: https://github.com/hlissner/dotfiles/blob/master/lib/options.nix
@@ -46,14 +47,16 @@ in {
       };
 
       my.env = rec {
-        # Default is "1" but with PragmataPro that leaves no space between the
-        # icon and its filename.
-        EXA_ICON_SPACING="2";
+        # Default is "1". But when typeset in PragmataPro that leaves no space
+        # between the icon and its filename.
+        EXA_ICON_SPACING = "2";
 
+        # zsh paths
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
         ZSH_DATA = "$XDG_DATA_HOME/zsh";
 
+        # zgenom paths
         ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
         ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
       };
@@ -67,9 +70,13 @@ in {
           (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
             bottom
             cachix
+            coreutils
             curl
             direnv
             fzf
+            gcc
+            gnumake
+            grc
             lua
             manix # nix documentation search
             rsync
@@ -81,6 +88,11 @@ in {
 
       my.hm = {
         configFile = {
+          "zsh" = {
+            source = configDir;
+            recursive = true;
+          };
+
           "zsh/extra.zshrc".text = let
             aliasLines =
               mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
@@ -94,7 +106,7 @@ in {
             ${cfg.rcInit}
           '';
 
-          "zsh/profile.zshenv".source = "${configDir}/shell/profile";
+          "zsh/profile.zshenv".source = envInit;
 
           "zsh/extra.zshenv".text = ''
             # ${config.my.nix_managed}
@@ -118,19 +130,15 @@ in {
           bottom # fancy version of `top` with ASCII graphs
           cacert
           cachix
-          coreutils
-          curl
           du-dust
           exa
           fd
           findutils
           gawk
           getopt
-          gnumake
           gnupg
           gnused
           gnutar
-          grc
           grex # Generate regexps from user-provided test cases
           hyperfine
           lua

@@ -2,12 +2,7 @@
 
 let
   cfg = config.my.modules.macos;
-  configDir = "${config.dotfield.configDir}/darwin";
-
-  scripts = with pkgs; {
-    toggleDarkMode = (writeScriptBin "toggle-dark-mode"
-      (builtins.readFile "${configDir}/bin/toggle-dark-mode"));
-  };
+  configDir = config.dotfield.flkConfigDir;
 in {
   imports = [
     ./hammerspoon.nix
@@ -19,7 +14,7 @@ in {
   options = with lib; {
     my.modules.macos = {
       enable = mkEnableOption ''
-        Whether to enable macos module
+        Whether to enable macOS module
       '';
     };
   };
@@ -30,8 +25,6 @@ in {
         systemPackages = with pkgs; [ mas ];
         variables = {
           LANG = "en_US.UTF-8";
-          # TODO: double-check this -- en_GB doesn't seem right
-          LC_TIME = "en_GB.UTF-8";
         };
       };
 
@@ -41,8 +34,23 @@ in {
         yabai.enable = true;
       };
 
-      my.user.packages = with builtins;
-        (map (key: getAttr key scripts) (attrNames scripts));
+      my.hm.configFile = {
+        "drafts" = {
+          source = "${configDir}/drafts";
+          recursive = true;
+        };
+
+        "karabiner/karabiner.json" = with config.my.hm.lib.file; {
+          source = mkOutOfStoreSymlink
+            "${config.dotfield.path}/dotfield/config/karabiner/karabiner.json";
+        };
+      };
+
+      my.user.packages = with pkgs;
+        [
+          (writeScriptBin "toggle-dark-mode"
+            (builtins.readFile "${configDir}/darwin/bin/toggle-dark-mode"))
+        ];
 
       # https://github.com/LnL7/nix-darwin/pull/228
       # TODO: errors on activation!

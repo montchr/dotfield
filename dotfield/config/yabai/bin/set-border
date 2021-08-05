@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# yabai-set-border
+#
+# Usage:
+#   yabai-set-border <color-hex> [<width>] [<alpha-hex>]
+#   yabai-set-border ffffff      # white
+#   yabai-set-border ffffff 4 ff # white, 4px wide, 1.0 opacity
+#
+
+RGB="${1}"
+WIDTH="${2:-4}"
+ALPHA="${3:-ff}"
+
+if [[ -z $RGB ]]; then
+  if [[ "dark" == "${CDOM_OS_APPEARANCE}" ]]; then
+    RGB="${YABAI_BORDER_LIGHT}"
+  else
+    RGB="${YABAI_BORDER_DARK}"
+  fi
+fi
+
+COLOR="${ALPHA}${RGB}"
+
+[[ $COLOR ]] && {
+  yabai -m config active_window_border_color "0x${COLOR}"
+  echo "[yabai] set border color to ${COLOR}"
+}
+
+[[ $WIDTH ]] && {
+  yabai -m config window_border_width "${WIDTH}"
+  echo "[yabai] set border width to ${WIDTH}"
+}

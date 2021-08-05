@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-#
-# php-version
-#
-# Get the current `php` executable's version number.
-#
-
-php -v | awk '/^PHP/{print $2}'

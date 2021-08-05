@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.git;
-  configDir = "${config.dotfield.configDir}/git";
+  configDir = "${config.dotfield.flkConfigDir}/git";
 
   scripts = with pkgs; {
     submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
@@ -39,34 +39,44 @@ in {
 
       my.hm = {
         configFile = {
-          "git/config-nix" = with config.my; {
-            text = ''
-              ; ${nix_managed}
-              ; vim: ft=gitconfig
+          "git/config".text = with config.my; ''
+            ; ${nix_managed}
 
-              [user]
-              ${optionalString (name != "") "  name = ${name}"}
-              ${optionalString (email != "") "  email = ${email}"}
-                useconfigonly = true
+            ${builtins.readFile "${configDir}/config"}
 
-              ${optionalString (github_username != "") ''
-                [github]
-                  username = ${github_username}
-              ''}
+            [user]
+              name = ${name}
+              email = ${email}
+              useconfigonly = true
+              ${optionalString (key != "") "signingkey = ${key}"}
 
-              [gpg]
-                program = ${pkgs.gnupg}/bin/gpg
+            ${optionalString (github_username != "") ''
+              [github]
+                username = ${github_username}
+            ''}
 
-              [diff "exif"]
-                textconv = ${pkgs.exiftool}/bin/exiftool
+            [gpg]
+              program = ${pkgs.gnupg}/bin/gpg
 
-              ${optionalString (pkgs.stdenv.isDarwin) ''
-                [diff "plist"]
-                  textconv = plutil -convert xml1 -o -
-                [credential]
-                  helper = "osxkeychain"
-              ''}
-            '';
+            [init]
+              templateDir = ${xdgPaths.config}/git/templates
+
+            [diff "exif"]
+              textconv = ${pkgs.exiftool}/bin/exiftool
+
+            ${optionalString (pkgs.stdenv.isDarwin) ''
+              [diff "plist"]
+                textconv = plutil -convert xml1 -o -
+              [credential]
+                helper = "osxkeychain"
+            ''}
+          '';
+
+          "git/ignore".source = "${configDir}/ignore";
+
+          "git/templates" = {
+            source = "${configDir}/templates";
+            recursive = true;
           };
         };
       };

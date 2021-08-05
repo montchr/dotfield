@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+#
+# OS :: Ubuntu :: Install
+#
+
+# shellcheck source=../../dotfield/lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
+
+function __provision_user {
+  if [[ -n "${DOTFIELD_USERNAME}" ]]; then
+    USERNAME="${DOTFIELD_USERNAME}"
+  else
+    msg::ask "Enter the username of the new user account:"
+    USERNAME=$(msg::get_answer)
+  fi
+
+  user::exists "${USERNAME}" && {
+    # TODO: attempt to provision the user instead
+    msg::error "[ERROR] The user '${USERNAME}' already exists! Aborting."
+    return 1
+  }
+
+  readonly USERNAME
+
+  if [[ -n "${DOTFIELD_USER_PASSWORD}" ]]; then
+    PASSWORD="${DOTFIELD_USER_PASSWORD}"
+  else
+    user::prompt_for_password
+  fi
+
+  user::create_account "${USERNAME}" "${PASSWORD}"
+
+  if [[ -n "${DOTFIELD_SSH_PUBLIC_KEY}" ]]; then
+    user::add_ssh_pub_key "${USERNAME}" "${DOTFIELD_SSH_PUBLIC_KEY}"
+  else
+    user::clone_ssh "${USER}" "${USERNAME}"
+  fi
+
+  user::allow_passwordless_sudo "${USERNAME}" \
+    && user::change_ssh_config \
+    && user::set_ssh_permissions
+
+  print_result $? "Configure SSH"
+}
+
+
+function __setup_time () {
+  local timezone
+  timezone="$1"
+
+  if [[ -z "${timezone}" ]]; then
+    msg::ask "Enter the timezone for the server (Default is 'America/New_York')"
+    timezone=$(msg::get_answer)
+  fi
+
+  timezone=${timezone:-America/New_York}
+  echo "${timezone}" > /etc/timezone
+  sudo ln -fs \
+    "/usr/share/zoneinfo/${timezone}" \
+    /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+  sudo dpkg-reconfigure -f noninteractive tzdata
+
+  sudo systemctl restart systemd-timesyncd
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function main () {
+  local previous_directory
+  previous_directory="$PWD"
+
+  cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+    
+  guard::domain "packages" "Updating apt repositories" && {
+    pkg::apt::update_repos
+  }
+  
+  guard::install && {
+  
+    guard::domain "packages" "Upgrading existing dependencies" && {
+      pkg::apt::upgrade_all
+    }
+    
+    guard::domain "packages" "Installing crucial dependencies" && {
+      fs::map_lines \
+        pkg::apt::install \
+        "${PWD}/Aptfile"
+
+      sudo ufw allow OpenSSH
+      yes y | sudo ufw enable
+    }
+
+    guard::root && {
+      guard::domain "user" "Creating a new user with sudo capabilities..." && {
+        __provision_user
+      }
+    }
+
+    guard::domain "time" "Rolling time into sync" && {
+      __setup_time "${DOTFIELD_TIMEZONE}"
+    }
+
+  }
+  
+  
+  guard::upgrade && {
+    pkg::apt::upgrade_all
+  }
+  
+  
+  guard::install && {
+    guard::domain "ssh" "Restarting SSH service" && {
+      sudo service ssh restart
+    }
+
+    guard::domain "user" "Restoring original /etc/sudoers file" && {
+      [[ -f "/etc/sudoers.bak" ]] && {
+        sudo mv /etc/sudoers.bak /etc/sudoers
+      }
+    }
+  }
+  
+  cd "${previous_directory}" || return
+
+}
+
+main "$@"
