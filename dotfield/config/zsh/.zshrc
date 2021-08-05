@@ -102,8 +102,6 @@ if [[ $TERM != dumb ]]; then
 
   autopair-init
   enable-fzf-tab
-
-  [[ -f ~/.zshrc ]] && source ~/.zshrc
 fi
 
 # Dedupe PATH.
