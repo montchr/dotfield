@@ -120,7 +120,7 @@ in {
           cachix
           coreutils
           curl
-          dua # ncdu alternative :: https://github.com/Byron/dua-cli
+          du-dust
           exa
           fd
           findutils
@@ -148,8 +148,7 @@ in {
           tmux
           # TODO: unar is "unsupported" on darwin?
           # unar
-          # TODO: what is this? i keep seeing it
-          # universal-ctags
+          universal-ctags
           vim
           vim-vint
           wget
