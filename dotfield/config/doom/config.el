@@ -356,7 +356,7 @@
 
 (use-package! treemacs
   :config
-  (setq! treemacs-persist-file (concat doom-private-dir "/treemacs.org")))
+  (setq! treemacs-persist-file (concat doom-private-dir "treemacs.org")))
 
 (use-package! lsp
   :config
