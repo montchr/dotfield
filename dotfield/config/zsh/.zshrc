@@ -17,6 +17,10 @@ export HISTSIZE=290000
 export SAVEHIST=290000
 export HISTFILE="${ZSH_DATA}/history"
 
+export ZSH_RECENT_DIRS_FILE="${ZSH_CACHE}/chpwd-recent-dirs"
+[[ ! -f "${ZSH_RECENT_DIRS_FILE}" ]] && \
+  touch "${ZSH_RECENT_DIRS_FILE}"
+
 export GENCOMPL_FPATH="${ZDOTDIR}/completions"
 
 # nvm configuration -- must be set prior to load
