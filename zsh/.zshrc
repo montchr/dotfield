@@ -104,6 +104,8 @@ zgenom saved || {
 
   zgenom save
 
+  zgenom compile $ZDOTDIR
+
 }
 
 source "${ZDOTDIR}/config.zsh"
