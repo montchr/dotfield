@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.zsh;
+  configDir = "${config.dotfield.flkConfigDir}/zsh";
   envInit = "${config.dotfield.libDir}/profile.sh";
 
   # TODO: copied from settings.nix because they're not available here! get them from the same place.
@@ -85,6 +86,11 @@ in {
 
       my.hm = {
         configFile = {
+          "zsh" = {
+            source = configDir;
+            recursive = true;
+          };
+
           "zsh/extra.zshrc".text = let
             aliasLines =
               mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;

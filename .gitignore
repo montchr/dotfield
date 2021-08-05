@@ -24,10 +24,7 @@ result
 /tealdeer
 /vim
 /yabai
-/zsh/profile.zshenv
-/zsh/extra.zshenv
-/zsh/extra.zshrc
-/zsh/.zcompdump*
+/zsh
 
 # Symlinked to currently-active theme (changes frequently).
 /kitty/theme.conf
