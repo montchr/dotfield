@@ -116,19 +116,6 @@ if [[ $TERM != dumb ]]; then
   source "${ZDOTDIR}/aliases.zsh"
   source "${ZDOTDIR}/fzf-tab.zsh"
 
-  ##
-  function _cache {
-    command -v "$1" >/dev/null || return 1
-    local cache_dir="${XDG_CACHE_HOME}/${SHELL##*/}"
-    local cache="${cache_dir}/$1"
-    if [[ ! -f $cache || ! -s $cache ]]; then
-      echo "Caching $1"
-      mkdir -p $cache_dir
-      "$@" >$cache
-    fi
-    source $cache || rm -f $cache
-  }
-
   has fd && {
     export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git 2>/dev/null"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
