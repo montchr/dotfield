@@ -80,13 +80,22 @@ alias cdg='cd `git rev-parse --show-toplevel`'
 # -------------------------------------
 
 alias g="git"
-alias gs='git status'
+
+# add / branch / checkout / reset
+alias ga='git add'
 alias gap='git add -p'
-alias gdt='git difftool'
-alias gca='git commit --amend'
-alias gcam='git commit --amend -C HEAD'
+alias gb='git branch'
 alias grs='git reset'
+alias gco='git checkout'
 alias gcob='git checkout -b'
+
+# commit
+alias gc='git commit -v'
+alias gca='git commit -v --amend'
+# amend in place with no edits to message
+alias gcam='git commit -v --amend -C HEAD'
+
+# pull / push
 alias gpl='git pull'
 alias gplo='git pull origin'
 alias gpls='git pull && gsumo'
@@ -94,22 +103,28 @@ alias gps='git push'
 alias gpsu='git push -u'
 alias gpso='git push origin'
 alias gpss='git push && gsumo'
+
+# status / diff / difftool
+alias gs='git status'
+alias gd='git diff'
+alias gdt='git difftool'
+# Show list of files changed in a specified commit or other ref
+alias gdl="git diff-tree --no-commit-id --name-only -r"
+
+# stash
 alias gsh='git stash'
 alias gsha='git stash apply'
 alias gshp='git stash pop'
 alias gshl='git stash list'
-alias gl='git log --oneline --decorate -20'
-# FIXME: Uncomment if loading OMZ, otherwise delete it.
-# unalias gcp
 
+# log
+alias gl='git log --oneline --decorate -20'
 # List all the commits on the current branch ahead of master.
 alias glb="git log --oneline --decorate ${GIT_PRIMARY_BRANCH:-main}..${GIT_BRANCH_NAME:-HEAD}"
 
+# submodule
 # Magical fix for all submodule issues.
 alias gsumo='git submodule update --init --recursive'
-
-# Show list of files changed in a specified commit or other ref
-alias gdl="git diff-tree --no-commit-id --name-only -r"
 
 
 # -------------------------------------
