@@ -49,7 +49,7 @@ function __nix::repl() {
 
   msg::subdomain "Loading flake from ${output}..."
 
-  output="darwinConfigurations.$(str::lower "$output")"
+  output="darwinConfigurations.${output}"
 
   cat > "${conf}" << EOF
 (builtins.getFlake (toString ${DOTFIELD})).${output}
