@@ -8,7 +8,6 @@
     ./git.nix
     ./gpg.nix
     ./gui.nix
-    ./kitty.nix
     ./lorri.nix
     ./node.nix
     ./php.nix
@@ -22,6 +21,7 @@
     ./editors/emacs
     ./editors/vim
     ./espanso
+    ./kitty
   ];
 
   my.modules = {

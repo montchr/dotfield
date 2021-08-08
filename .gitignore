@@ -17,6 +17,7 @@ result
 /espanso
 /git
 /karabiner
+/kitty
 /npm
 /prettier
 /ripgrep
@@ -26,9 +27,6 @@ result
 /vim
 /yabai
 /zsh
-
-# Symlinked to currently-active theme (changes frequently).
-/kitty/theme.conf
 
 # Emacs
 treemacs.org
