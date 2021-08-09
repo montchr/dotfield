@@ -148,14 +148,14 @@ focus           < j : yabai-focus-direction south
 focus           < h : yabai-focus-direction west
 focus           < l : yabai-focus-direction east
 
-default         < meh - k : yabai-focus-direction north
-default         < meh - j : yabai-focus-direction south
-default         < meh - h : yabai-focus-direction west
-default         < meh - l : yabai-focus-direction east
-default         < hyper - k : yabai-focus-direction north --displays
-default         < hyper - j : yabai-focus-direction south --displays
-default         < hyper - h : yabai-focus-direction west --displays
-default         < hyper - l : yabai-focus-direction east --displays
+default         < meh - k : yabai-focus-direction north --displays
+default         < meh - j : yabai-focus-direction south --displays
+default         < meh - h : yabai-focus-direction west --displays
+default         < meh - l : yabai-focus-direction east --displays
+default         < hyper - k : yabai-focus-direction north
+default         < hyper - j : yabai-focus-direction south
+default         < hyper - h : yabai-focus-direction west
+default         < hyper - l : yabai-focus-direction east
 
 # Change the window focused in the current stack, cycling around to the beginning/end.
 focus           < shift - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
