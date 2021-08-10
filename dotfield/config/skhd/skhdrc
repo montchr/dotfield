@@ -15,19 +15,19 @@
 #
 
 
-:: default  : yabai-border
+:: default  : yabai-set-border
 # TODO: indicate APP LAUNCHER mode with color or some other way
 :: app    @                                                          # Launch apps
 # TODO: indicate SYSTEM mode with color or some other way
 :: sys    @                                                          # System control mode
-:: focus  @ : yabai-border e06c75  # Focus window, desktop, monitors
-:: grid   @ : yabai-border 56b6c2  # Floating window layout
-:: swap   @ : yabai-border c678dd  # Swap windows
-:: warp   @ : yabai-border e5c07b  # Warp and send to desktop/monitors
-:: warpnf @ : yabai-border d19a66  # Same, but don't follow focus
-:: resize @ : yabai-border 98c379  # Resize window operations
+:: focus  @ : yabai-set-border e06c75  # Focus window, desktop, monitors
+:: grid   @ : yabai-set-border 56b6c2  # Floating window layout
+:: swap   @ : yabai-set-border c678dd  # Swap windows
+:: warp   @ : yabai-set-border e5c07b  # Warp and send to desktop/monitors
+:: warpnf @ : yabai-set-border d19a66  # Same, but don't follow focus
+:: resize @ : yabai-set-border 98c379  # Resize window operations
 # @TODO: use a different color -- this one is copied from warpnf
-:: stack  @ : yabai-border d19a66  # Stack windows
+:: stack  @ : yabai-set-border d19a66  # Stack windows
 
 
 
