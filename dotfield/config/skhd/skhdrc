@@ -85,6 +85,10 @@ sys     < d : toggle-dark-mode ; \
 sys     < p : espanso restart ; \
               skhd -k 'escape'
 
+# Reload skhd config
+sys     < s : skhd -r ; \
+              skhd -k 'escape'
+
 # Restart yabai
 sys     < y : launchctl kickstart -k "gui/$UID/org.nixos.yabai" ; \
               skhd -k 'escape'
