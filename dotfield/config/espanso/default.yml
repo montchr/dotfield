@@ -1,32 +1,28 @@
 # espanso configuration file
 
 matches:
+  # Common
   - trigger: ":s.cmd"
     replace: "⌘"
-
   - trigger: ":s.shift"
     replace: "⇧"
-
   - trigger: ":s.ctrl"
     replace: "⌃"
-
   - trigger: ":s.shift"
     replace: "⌥"
-
-  - trigger: ":s.a.l"
-    replace: "←"
-
-  - trigger: ":s.a.r"
-    replace: "→"
-
-  - trigger: ":s.a.u"
-    replace: "↑"
-
-  - trigger: ":s.a.d"
-    replace: "↓"
-
   - trigger: ":s.esc"
     replace: "⎋"
 
+  # Arrows :: :s.aa
+  - trigger: ":s.aal"
+    replace: "←"
+  - trigger: ":s.aar"
+    replace: "→"
+  - trigger: ":s.aau"
+    replace: "↑"
+  - trigger: ":s.aad"
+    replace: "↓"
+
+  # Misc.
   - trigger: ":s.null"
     replace: "∅"
