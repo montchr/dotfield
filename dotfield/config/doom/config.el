@@ -154,9 +154,6 @@
   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
 
-;; Show previews in ivy.
-;; (setq! +ivy-buffer-preview t)
-
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 (after! company
   ;; (setq! company-idle-delay 0.5
@@ -281,34 +278,8 @@
 ;; (use-package! org-protocol-capture-html
 ;;   :after (org))
 
-(use-package! org-roam
-  :after (doct))
-
 (use-package! org-web-tools
   :after (org))
-
-;; Add doct support to org-roam capture templates.
-;; (after! doct org-roam)
-;; (defun +doct-org-roam (groups)
-;;   (let (converted)
-;;     (dolist (group groups)
-;;       (let* ((props (nthcdr 5 group))
-;;              (roam-properties (plist-get (plist-get props :doct) :org-roam)))
-;;         (push `(,@group ,@roam-properties) converted)))
-;;     (setq! doct-templates (nreverse converted))))
-;; (setq! doct-after-conversion-functions '(+doct-org-roam)))
-;; :config
-;; (setq! org-roam-dailies-capture-templates
-;;       (doct `(("daily") :keys "d"
-;;               :type plain
-;;               :function org-roam-capture--get-point
-;;               :template "%?"
-;;               :unnarrowed t
-;;               :immediate-finish t
-;;               :file-name ,(concat cdom/org-agenda-directory "%<%Y-%m-%d>.org")
-;;               :head "#+title: %<%A, %d %B %Y>")))
-;; (setq! +org-roam-open-buffer-on-find-file nil))
-;;
 
 (after! org-capture
   (defun set-org-capture-templates ()
@@ -381,89 +352,6 @@
 ;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
 (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
 
-(use-package! hledger-mode
-  :defer
-  ;; :load-path "packages/rest/hledger-mode/"
-  :mode ("\\.journal\\'")
-  :commands hledger-enable-reporting
-  :preface
-  (defun hledger/next-entry ()
-    "Move to next entry and pulse."
-    (interactive)
-    (hledger-next-or-new-entry)
-    (hledger-pulse-momentary-current-entry))
-
-  (defface hledger-warning-face
-    '((((background dark))
-       :background "Red" :foreground "White")
-      (((background light))
-       :background "Red" :foreground "White")
-      (t :inverse-video t))
-    "Face for warning"
-    :group 'hledger)
-
-  (defun hledger/prev-entry ()
-    "Move to last entry and pulse."
-    (interactive)
-    (hledger-backward-entry)
-    (hledger-pulse-momentary-current-entry))
-
-  :bind (("C-c j" . hledger-run-command)
-         :map hledger-mode-map
-         ("C-c e" . hledger-jentry)
-         ("M-p" . hledger/prev-entry)
-         ("M-n" . hledger/next-entry))
-
-  :init
-  (setq! hledger-jfile (expand-file-name "~/Documents/finance/all.journal")
-         hledger-show-expanded-report nil)
-  (when (boundp 'cdom-hledger-service-fetch-url)
-    (setq! hledger-service-fetch-url
-           cdom-hledger-service-fetch-url))
-
-  :config
-  (add-hook 'hledger-view-mode-hook #'hl-line-mode)
-  (add-hook 'hledger-view-mode-hook #'center-text-for-reading)
-  (add-hook 'hledger-view-mode-hook
-            (lambda ()
-              (run-with-timer 1
-                              nil
-                              (lambda ()
-                                (when (equal hledger-last-run-command
-                                             "balancesheet")
-                                  ;; highlight frequently changing accounts
-                                  (highlight-regexp "^.*\\(savings\\|cash\\).*$")
-                                  (highlight-regexp "^.*credit-card.*$"
-                                                    'hledger-warning-face))))))
-  (add-hook 'hledger-mode-hook
-            (lambda ()
-              (make-local-variable 'company-backends)
-              (add-to-list 'company-backends 'hledger-company))))
-
-(use-package! hledger-input
-  ;; :pin manual
-  ;; :load-path "packages/rest/hledger-mode/"
-  :bind (("C-c e" . hledger-capture)
-         :map hledger-input-mode-map
-         ("C-c C-b" . popup-balance-at-point))
-  :preface
-  (defun popup-balance-at-point ()
-    "Show balance for account at point in a popup."
-    (interactive)
-    (if-let ((account (thing-at-point 'hledger-account)))
-        (message (hledger-shell-command-to-string (format " balance -N %s "
-                                                          account)))
-      (message "No account at point")))
-
-  :config
-  (setq! hledger-input-buffer-height 20)
-  (add-hook 'hledger-input-post-commit-hook #'hledger-show-new-balances)
-  (add-hook 'hledger-input-mode-hook #'auto-fill-mode)
-  (add-hook 'hledger-input-mode-hook
-            (lambda ()
-              (make-local-variable 'company-idle-delay)
-              (setq-local company-idle-delay 0.1))))
-
 (use-package! literate-calc-mode
   :defer-incrementally t)
 
@@ -525,5 +413,3 @@
          "Is Control controlled by its need to control?"
          "Nothing here now but the recordings..."
          "Eat protein!"))
-
-;; (load! "~/.emacs.private")
