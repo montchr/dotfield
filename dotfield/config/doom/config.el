@@ -231,7 +231,7 @@
          org-log-done 'time                          ; log the time an item was completed
          org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-         org-export-in-background t                  ; run export processes in external emacs process
+         ;; org-export-in-background t                  ; run export processes in external emacs process
          org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
          org-export-copy-to-kill-ring 'if-interactive)
   (defun +cdom/org-archive-done-tasks ()
