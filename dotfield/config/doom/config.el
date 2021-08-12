@@ -174,35 +174,28 @@
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-;; Prevent projectile from adding unwanted directories as projects.
-;; https://tecosaur.github.io/emacs-config/config.html#projectile
-(setq! projectile-ignored-projects '("~/" "/tmp" "~/.config/emacs"))
-(defun projectile-ignored-project-function (filepath)
-  "Return t if FILEPATH is within any of `projectile-ignored-projects'"
-  (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
+;; (use-package! which-key
+;;   :init
+;;   (setq! which-key-sort-order
+;;          ;; default
+;;          ;; 'which-key-key-order
+;;          ;; sort based on the key description ignoring case
+;;          ;; 'which-key-description-order
+;;          ;; same as default, except single characters are sorted alphabetically
+;;          ;; 'which-key-key-order-alpha
+;;          ;; same as default, except all prefix keys are grouped together at the end
+;;          ;; 'which-key-prefix-then-key-order
+;;          ;; same as default, except all keys from local maps shown first
+;;          'which-key-local-then-key-order))
 
-(use-package! which-key
-  :config
-  (setq! which-key-sort-order
-         ;; default
-         ;; 'which-key-key-order
-         ;; sort based on the key description ignoring case
-         ;; 'which-key-description-order
-         ;; same as default, except single characters are sorted alphabetically
-         ;; 'which-key-key-order-alpha
-         ;; same as default, except all prefix keys are grouped together at the end
-         ;; 'which-key-prefix-then-key-order
-         ;; same as default, except all keys from local maps shown first
-         'which-key-local-then-key-order))
-
-(setq! which-key-allow-multiple-replacements t)
-(after! which-key
-  ;; Remove ~evil-~ prefix from keybinding labels
-  ;; https://tecosaur.github.io/emacs-config/config.html#which-key
-  (pushnew!
-   which-key-replacement-alist
-   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+;; (setq! which-key-allow-multiple-replacements t)
+;; (after! which-key
+;;   ;; Remove ~evil-~ prefix from keybinding labels
+;;   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+;;   (pushnew!
+;;    which-key-replacement-alist
+;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
 
 (after! magit
   ;; List magit branches by date.
