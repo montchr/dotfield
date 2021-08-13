@@ -20,7 +20,10 @@ in
     # script, for example.
     my.user.packages = with config.services; [ skhd.package ];
 
-    my.hm.configFile."skhd/skhdrc".source = "${configDir}/skhdrc";
+    my.hm.configFile."skhd/skhdrc" = {
+      source = "${configDir}/skhdrc";
+      onChange = "${config.services.skhd.package}/bin/skhd -r";
+    };
 
     launchd.user.agents.skhd = {
       serviceConfig = {
