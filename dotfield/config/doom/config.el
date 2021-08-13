@@ -35,6 +35,8 @@
                           (eq buffer-file-coding-system 'utf-8)))))
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
+(setq! tab-width 2)
+
 (use-package! evil
   :config
   (setq! evil-shift-width 2
