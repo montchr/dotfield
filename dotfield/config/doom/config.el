@@ -35,8 +35,10 @@
                           (eq buffer-file-coding-system 'utf-8)))))
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
-;; Default indent by 2 spaces
-(setq! evil-shift-width 2)
+(use-package! evil
+  :config
+  (setq! evil-shift-width 2
+         evil-vsplit-window-right t))
 
 ;; TODO: color theme inherits values from shell which can cause, for example, pointer to be the same color as background
 (defun +cdom/load-os-theme ()
@@ -126,8 +128,6 @@
 ;; TODO: may be causing crashes when performing other actions simultaneously?
 ;; not just limited to actions in org files fwiw.
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
-
-(setq! evil-vsplit-window-right t)
 
 ;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
 (use-package! scroll-on-jump
