@@ -83,10 +83,11 @@
           ];
       };
 
-      # TODO: come back to this fancy stuff later (maybe?)
-      # https://github.com/hlissner/dotfiles/blob/master/flake.nix
-      # lib = nixpkgs.lib.extend
-      #   (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+      sharedDarwinModules = [
+        inputs.home-manager.darwinModules.home-manager
+        ./dotfield/modules
+        sharedHostsConfig
+      ];
 
     in {
       overlays = (final: prev: {
@@ -97,22 +98,12 @@
       darwinConfigurations = {
         HodgePodge = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = [
-            inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules
-            sharedHostsConfig
-            ./dotfield/hosts/hodgepodge.nix
-          ];
+          modules = sharedDarwinModules ++ [ ./dotfield/hosts/hodgepodge.nix ];
         };
 
         alleymon = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = [
-            inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules
-            sharedHostsConfig
-            ./dotfield/hosts/alleymon.nix
-          ];
+          modules = sharedDarwinModules ++ [ ./dotfield/hosts/alleymon.nix ];
         };
       };
 
