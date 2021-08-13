@@ -9,6 +9,10 @@
 *.so
 *.zwc
 
+# Package managers
+node_modules
+.yarn
+
 # Logs and databases
 *.log
 *.sql
