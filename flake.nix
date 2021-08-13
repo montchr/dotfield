@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nur.url = "github:nix-community/NUR";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,7 +25,8 @@
     };
   };
 
-  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, ... }@inputs:
+  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, nixpkgs, nur, ...
+    }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
@@ -68,22 +70,27 @@
             (import ./dotfield/overlays/yabai.nix)
             emacs.overlay
             emacs-overlay.overlay
+            nur.overlay
             self.overlays
           ];
         };
 
         time.timeZone = config.my.timezone;
 
-        environment.systemPackages = with pkgs;
-          [
-            (writeScriptBin "dotfield"
-              (builtins.readFile ./dotfield/bin/dotfield))
-            commitizen
-            yarn
-          ];
+        environment.systemPackages = with pkgs; [
+          (writeScriptBin "dotfield"
+            (builtins.readFile ./dotfield/bin/dotfield))
+          commitizen
+          yarn
+        ];
       };
 
-      sharedDarwinModules = [
+      sharedDarwinModules = let
+        nur-no-pkgs = import nur {
+          nurpkgs =
+            import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
+        };
+      in [
         inputs.home-manager.darwinModules.home-manager
         ./dotfield/modules
         sharedHostsConfig
