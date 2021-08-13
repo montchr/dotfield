@@ -1,0 +1,24 @@
+{
+  "name": "dotfield",
+  "version": "0.2.0",
+  "main": "flake.nix",
+  "repository": "https://github.com/montchr/dotfield",
+  "author": "Chris Montgomery <chris@cdom.io> (https://github.com/montchr/)",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "^7.0.1",
+    "pinst": "^2.1.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
+  }
+}

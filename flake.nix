@@ -78,6 +78,7 @@
           [
             (writeScriptBin "dotfield"
               (builtins.readFile ./dotfield/bin/dotfield))
+            commitizen
             yarn
           ];
       };
