@@ -415,6 +415,20 @@ function guard::root {
 
 
 #========================================
+# Guard for whether Nix package manager is available.
+#
+# Usage:
+#   guard::nixified && { ... }
+# Uses:
+#   shell::has
+#========================================
+function guard::nixified() {
+  shell::has nix nix-build nix-channel nix-env nix-shell
+  return
+}
+
+
+#========================================
 # Delete the bootstrap lockfile.
 #
 # Globals:
@@ -753,91 +767,15 @@ guard::macos && {
 
 
 guard::install && {
-
-  (shell::has nix nix-build nix-channel nix-env nix-shell) || {
-
-    msg::domain "Nix" "Install Nix package manager"
-
-    if guard::macos; then
-      # Use the new installer from cachix until it becomes available in Nix 2.4
-      # This fixes many difficulties with the installer for Nix on Darwin, and
-      # finally allows for an encrypted Nix store.
-      #
-      # TODO: Alternatively, use the installer from Nix master branch.
-      #
-      # https://github.com/NixOS/nix/pull/4289
-      sh <(curl https://abathur-nix-install-tests.cachix.org/serve/yihf8zbs0jwph2rs9qfh80dnilijxdi2/install) \
-        --tarball-url-prefix https://abathur-nix-install-tests.cachix.org/serve
-    else
-      sh <(curl -L https://nixos.org/nix/install) --daemon
-    fi
-
-    msg::subdomain "Sourcing /etc/bashrc for Nix additions"
-    . /etc/bashrc
-
-    msg::subdomain "Testing nix-shell"
-    nix-shell -p nix-info --run "nix-info -m"
-
-  }
-
-  msg::domain "Nix" "Enable experimental Nix Flakes" && {
-    nix-env -iA nixpkgs.nixFlakes
-    nix_flakes_feature_flag="experimental-features = nix-command flakes"
-    if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
-      msg::subdomain "Adding nix flakes feature flag to /etc/nix/nix.conf"
-      echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
-    fi
-  }
+  if guard::root; then
+    msg::warning "Nix package manager must not be installed by root! Skipping."
+  else
+    . ./provision/_nix.sh
+  fi
 }
 
-
-guard::install && guard::macos && ! (shell::has darwin-help) && {
-  msg::domain "Nix" "Install nix-darwin"
-  [[ -d ./result ]] && {
-    msg::subdomain "Found existing ./result directory. Removing..."
-    rm -rf ./result
-  }
-
-  # Although nix-darwin supports flakes, at the time of writing, the installer
-  # does not. In order to install nix-darwin properly, it needs to be
-  # installed for the first time via the installer.
-  # See: https://github.com/LnL7/nix-darwin#flakes-experimental
-  msg::subdomain "Building nix-darwin installer"
-  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
-
-    msg::error "Encountered an error installing nix-darwin"
-    cert_file="/etc/ssl/certs/ca-certificates.crt"
-
-    msg::stream::info \
-<<END
-
-If you received a message like this:
-
-> Problem with the SSL CA cert (path? access rights?) (77)
-
-...then '${cert_file}' might be a dead symlink.
-
-Try removing and re-linking it by running the following:
-
-$ sudo rm ${cert_file}
-$ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
-
-END
-
-      exit 1
-
-  }
-
-  msg::subdomain "Running nix-darwin installer"
-  ./result/bin/darwin-installer
-
-  msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
-  . /etc/static/bashrc
-
-}
-
-
-msg::domain "Nix" "Build" && {
+shell::has nix && {
+  msg::domain "Nix" "Build"
 
   guard::macos && {
     nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
@@ -845,10 +783,8 @@ msg::domain "Nix" "Build" && {
   }
 
   guard::linux && {
-    # FIXME: this is NixOS-specific, so won't work for other distros
-    sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+    sudo nix build switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
-
 }
 
 
