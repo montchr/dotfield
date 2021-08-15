@@ -390,7 +390,7 @@ function guard::ubuntu {
 # Guard for macOS.
 #
 # Usage:
-#   guard::ubuntu && { ... }
+#   guard::macos && { ... }
 # Globals:
 #   OS_NAME
 #========================================
