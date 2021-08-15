@@ -509,13 +509,15 @@ else
 fi
 
 
-msg::domain "System" "Verifying prerequesite dependencies"
-shell::has git \
-  || msg::error "git not found! Aborting." \
-  ; exit 1
-shell::has gpg \
-  || msg::error "gpg not found! Aborting." \
-  ; exit 1
+msg::domain "System" "Verifying prerequisite dependencies"
+shell::has git || {
+  msg::error "git not found! Aborting."
+  exit 1
+}
+shell::has gpg || {
+  msg::error "gpg not found! Aborting."
+  exit 1
+}
 
 
 msg::domain "System" "Syncing dotfield"
