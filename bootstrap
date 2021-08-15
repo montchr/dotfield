@@ -359,6 +359,20 @@ function guard::linux {
 
 
 #========================================
+# Guard for Debian.
+#
+# Usage:
+#   guard::debian && { ... }
+# Globals:
+#   OS_NAME
+#========================================
+function guard::debian {
+  [[ "$OS_NAME" == "debian" ]]
+  return
+}
+
+
+#========================================
 # Guard for Ubuntu.
 #
 # Usage:
@@ -683,10 +697,10 @@ guard::install && {
 }
 
 
-guard::ubuntu && {
-  msg::domain "OS" "Preparing Ubuntu environment"
-  # shellcheck source=./provision/ubuntu/main
-  . "${XDG_CONFIG_HOME}/provision/ubuntu/main"
+( guard::ubuntu || guard::debian ) && {
+  msg::domain "OS" "Preparing Debian/Ubuntu environment"
+  # shellcheck source=./provision/debian/main
+  . "${XDG_CONFIG_HOME}/provision/debian/main"
 }
 
 

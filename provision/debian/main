@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# OS :: Ubuntu :: Install
+# OS :: Debian :: Install
 #
 
 # shellcheck source=../../dotfield/lib/utils.sh
