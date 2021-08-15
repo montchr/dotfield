@@ -509,9 +509,13 @@ else
 fi
 
 
-# Ensure the OS is supported and above the minimum version.
-# @TODO validation function doesn't work for older versions of bash and neither do associative arrays
-# verify_os || return 1
+msg::domain "System" "Verifying prerequesite dependencies"
+shell::has git \
+  || msg::error "git not found! Aborting." \
+  ; exit 1
+shell::has gpg \
+  || msg::error "gpg not found! Aborting." \
+  ; exit 1
 
 
 msg::domain "System" "Syncing dotfield"
