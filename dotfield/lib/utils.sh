@@ -1321,6 +1321,7 @@ function user::add_ssh_pub_key() {
 #   Username
 #========================================
 function user::set_ssh_permissions() {
+  local username=$1
   user::exec "${username}" \
     "chown \"${username}\" ~/.ssh; chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys"
 }
