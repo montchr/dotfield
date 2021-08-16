@@ -1,4 +1,5 @@
 build-essential
+curl
 debian-archive-keyring
 git
-curl
+ufw
