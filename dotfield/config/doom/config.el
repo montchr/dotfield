@@ -199,7 +199,9 @@
 
 (after! magit
   ;; List magit branches by date.
-  (setq! magit-list-refs-sortby "-creatordate"))
+  (setq! magit-list-refs-sortby "-creatordate"
+         magit-process-finish-apply-ansi-colors t))
+
 ;; Enable delta diff viewer
 ;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
 
