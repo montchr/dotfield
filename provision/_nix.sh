@@ -3,8 +3,6 @@
 # Provision :: Nix Package Manager
 # 
 
-set -e
-
 #========================================
 # Install Nix package manager.
 #========================================
