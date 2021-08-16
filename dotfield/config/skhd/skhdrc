@@ -89,6 +89,7 @@ sys     < p : espanso restart ; \
               skhd -k 'escape'
 
 # Reload skhd config
+# FIXME: this might not work...
 sys     < s : skhd -r ; \
               skhd -k 'escape'
 
