@@ -2,4 +2,5 @@ build-essential
 curl
 debian-archive-keyring
 git
+rsync
 ufw
