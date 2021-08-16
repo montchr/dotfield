@@ -73,7 +73,7 @@ function __setup_time () {
   fi
 
   timezone=${timezone:-America/New_York}
-  echo "${timezone}" > /etc/timezone
+  sudo echo "${timezone}" > /etc/timezone
   sudo ln -fs \
     "/usr/share/zoneinfo/${timezone}" \
     /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
@@ -117,10 +117,10 @@ function main () {
       guard::domain "user" "Creating a new user with sudo capabilities..." && {
         __provision_user
       }
-    }
 
-    guard::domain "time" "Rolling time into sync" && {
-      __setup_time "${DOTFIELD_TIMEZONE}"
+      guard::domain "time" "Rolling time into sync" && {
+        __setup_time "${DOTFIELD_TIMEZONE}"
+      }
     }
 
   }
