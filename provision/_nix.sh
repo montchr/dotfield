@@ -107,10 +107,12 @@ function main() {
     __flakify
   }
 
-  guard::macos && ! (shell::has darwin-help) && {
+  guard::macos && ! shell::has darwin-help && {
     msg::domain "Nix" "Install nix-darwin"
     __install_nix_darwin
   }
+
+  return 0
 }
 
 main "$@"
