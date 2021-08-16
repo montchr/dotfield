@@ -1375,9 +1375,12 @@ function pkg::apt::install () {
   local EXTRA_ARGUMENTS="$3"
 
   if ! pkg::apt::exists "${PACKAGE}"; then
-    shell::execute \
-      "sudo apt-get install --allow-unauthenticated -qqy ${EXTRA_ARGUMENTS} ${PACKAGE}" \
-      "${DESCRIPTION}"
+    sudo apt-get install --allow-unauthenticated -qqy "${EXTRA_ARGUMENTS}" "${PACKAGE}"
+    if $?; then
+      msg::success "${DESCRIPTION}"
+    else
+      msg::error "${DESCRIPTION}"
+    fi
   else
     msg::success "${DESCRIPTION}"
   fi
