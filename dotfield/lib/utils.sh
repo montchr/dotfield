@@ -446,7 +446,7 @@ function shell::execute {
   local cmdsPID=""
 
   # If the current process is ended, also end all its subprocesses.
-  shell::set_trap "EXIT" "kill_all_subprocesses"
+  shell::set_trap "EXIT" "shell::kill_all_subprocesses"
 
   # Execute commands in background
   eval "$CMDS" \
