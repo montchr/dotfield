@@ -89,6 +89,7 @@ function main () {
         pkg::apt::install \
         "${PWD}/Aptfile"
 
+      # FIXME: `ufw` does not seem to install properly even after running the above.
       sudo ufw allow OpenSSH
       yes y | sudo ufw enable
     }
