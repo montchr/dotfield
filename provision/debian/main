@@ -54,7 +54,7 @@ function __provision_user {
   msg::subdomain "Require passwordless login and disable root SSH login"
   user::change_ssh_config
 
-  [[ ! -d "$( user::get_home "${USERNAME}" )/.ssh" ]] && {
+  [[ -d "$( user::get_home "${USERNAME}" )/.ssh" ]] || {
     msg::subdomain "Ensuring proper permissions on SSH directory for ${USERNAME}"
     user::set_ssh_permissions "${USERNAME}"
   }
