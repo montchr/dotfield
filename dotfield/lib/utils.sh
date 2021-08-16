@@ -1376,7 +1376,7 @@ function pkg::apt::install () {
 
   if ! pkg::apt::exists "${PACKAGE}"; then
     sudo apt-get install --allow-unauthenticated -qqy "${EXTRA_ARGUMENTS}" "${PACKAGE}"
-    if $?; then
+    if [[ $? ]]; then
       msg::success "${DESCRIPTION}"
     else
       msg::error "${DESCRIPTION}"
