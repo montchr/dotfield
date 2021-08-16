@@ -59,7 +59,7 @@ function __provision_user {
     user::set_ssh_permissions "${USERNAME}"
   }
 
-  print_result $? "Configure SSH"
+  msg::result $? "Configure SSH"
 }
 
 
