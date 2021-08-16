@@ -100,7 +100,7 @@ function __flakify() {
 # Main entry.
 #========================================
 function main() {
-  ! guard::nixified || {
+  ! guard::nixified && {
     msg::domain "Nix" "Install Nix package manager"
     __install
   }
