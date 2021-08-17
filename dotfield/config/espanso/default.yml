@@ -23,6 +23,8 @@ matches:
   - trigger: ":s.aad"
     replace: "↓"
 
-  # Misc.
+  # Math
+  - trigger: ":s.mult"
+    replace: "×"
   - trigger: ":s.null"
     replace: "∅"
