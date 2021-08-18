@@ -251,7 +251,7 @@
   :commands (doct))
 
 (after! js2-mode
-  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+  (set-company-backend! 'company-tide 'js2-mode))
 
 (after! sh-script
   (set-company-backend! 'sh-mode
