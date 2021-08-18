@@ -214,77 +214,213 @@ function str::is_supported_version {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-# Prompt the user for input.
-# Parameters:
-#   Prompt message
+#========================================
+# Prompt for text input.
+#
+# Usage:
+#   msg::ask <prompt>
+#   msg::ask "What is your name?"
+#========================================
 function msg::ask {
   msg::question "$1"
   read -r
 }
 
-# Prompt the user for input without echoing response.
-# Parameters:
-#   Prompt message
+#========================================
+# Prompt for input without outputting response feedback.
+#
+# Usage:
+#   msg::ask_silently <prompt>
+#   msg::ask_silently "Password: "
+# Outputs:
+#   STDOUT - Carriage return
+#========================================
 function msg::ask_silently {
   msg::question "$1"
   read -s -r
   printf "\n"
 }
 
+#========================================
+# Ask for confirmation and continue immediately upon read.
+#
+# Usage:
+#   msg::ask_for_confirmation <prompt>
+#   msg::ask_for_confirmation "Are you sure?"
+# Parameters:
+#   Message string
+# Outputs:
+#   STDOUT - Confirmation prompt followed by newline
+#========================================
 function msg::ask_for_confirmation {
   msg::question "$1 (y/n) "
   read -r -n 1
   printf "\n"
 }
 
-# Get the user's answer to the previous prompt.
+#========================================
+# Print the user's answer to the most recent prompt.
+#
+# TODO: Should this use `msg::info`?
+#
+# Usage:
+#   msg::get_answer
+# Globals:
+#   REPLY
+# Outputs:
+#   STDOUT - User response text
+#========================================
 function msg::get_answer {
   printf "%s" "$REPLY"
 }
 
-# Whether the user responded affirmatively to the previous prompt.
+#========================================
+# Whether the user responded affirmatively to the most recent prompt.
+# 
+# Usage:
+#   msg::is_confirmed
 # Globals:
 #   REPLY
+# Returns:
+#   0 - Affirmative
+#   1 - Negative
+#========================================
 function msg::is_confirmed {
   [[ "$REPLY" =~ ^[Yy]$ ]] &&
     return 0 ||
       return 1
 }
 
-function msg::subdomain {
-  msg::in_green "\n${MSG__INDENT}${1}\n"
-}
 
+#========================================
+# Print a header with a short message preceded with its associated domain.
+#
+# - The line will be preceded with a double-arrow
+# - No additional indentation
+# - A separator will be output between the domain and message
+# - Output will be colorized
+# - Line ends with carriage return
+#
+# Usage:
+#   msg::domain <domain> <message>
+# Parameters:
+#   Domain name
+#   Message string
+# Outputs:
+#   STDOUT - Colorized and formatted domain + message
+#========================================
 function msg::domain {
   msg::in_green "\n => $1 :: ${*:2}\n\n"
 }
 
+#========================================
+# Print an indented subheader with a short message.
+#
+# - Message preceded by indentation
+# - Colorized output
+# - Line ends with carriage return
+#
+# Usage:
+#   msg::subdomain <message>
+# Parameters:
+#   Message string
+# Globals:
+#   MSG__INDENT
+# Outputs:
+#   STDOUT - Colorized and formatted domain + message
+#========================================
+function msg::subdomain {
+  msg::in_green "\n${MSG__INDENT}${1}\n"
+}
+
+#========================================
+# Print a de-emphasized domain + message header.
+#
+# Same features as `msg::domain` with these differences:
+# 
+# - The line will be preceded with a single-arrow
+# - Output will be colorized more subtly
+#
+# Usage:
+#   msg::domain__lesser <domain> <message>
+# Parameters:
+#   Domain name
+#   Message string
+# Outputs:
+#   STDOUT - Colorized and formatted domain + message
+#========================================
 function msg::domain__lesser {
   msg::in_purple "\n -> $1 :: ${*:2}\n"
 }
 
+#========================================
+# Print an "inactive" domain + message header.
+#
+# Same features as `msg::domain` with these differences:
+# 
+# - The line will be preceded with a left-facing single-arrow
+# - Output will not be colorized
+#
+# Usage:
+#   msg::domain__lesser <domain> <message>
+# Parameters:
+#   Domain name
+#   Message string
+# Outputs:
+#   STDOUT - Formatted domain + message
+#========================================
 function msg::domain__inactive {
   msg::print "\n <- $1 :: ${*:2}\n"
 }
 
-# Print a basic informational message.
+#========================================
+# Print a basic indented informational message.
+#
+# Usage:
+#   msg::success <message>
 # Parameters:
-#   Message
+#   Message string
+# Globals:
+#   MSG__INDENT
+# Outputs:
+#   STDOUT
+#========================================
 function msg::info {
   msg::print "${MSG__INDENT}${*}"
 }
 
-# Prompt the user for a response to a question.
+#========================================
+# Prompt for a response to a question.
+#
+# Usage:
+#   msg::question <question>
 # Parameters:
-#   Message
+#   Question string
+# Globals:
+#   MSG__INDENT
+# Outputs:
+#   Formatted question prompt to STDOUT
+#========================================
 function msg::question {
   msg::in_yellow "${MSG__INDENT}[?] $1"
 }
 
-# Print a message along with an indication of the result of the previous command.
+#========================================
+# Print a message formatted based on a supplied exit code.
+#
+# Usage:
+#   msg::result <exit-code> <message>
+#   msg::result 0 "Success!"
+#   msg::result 1 "Error!"
+#   msg::result $? "some result"
 # Parameters:
-#   Result code
-#   Message
+#   Exit code
+#   Message string
+# Returns:
+#   Exit code provided as argument.
+# Outputs:
+#   STDOUT
+#========================================
 function msg::result {
   if [ "$1" -eq 0 ]; then
     msg::success "$2"
@@ -294,50 +430,120 @@ function msg::result {
   return "$1"
 }
 
-# Print a message indicating success.
+#========================================
+# Print a green success message to STDOUT.
+#
+# Usage:
+#   msg::success <message>
 # Parameters:
-#   Message
+#   Message string
+# Globals:
+#   MSG__INDENT
+# Outputs:
+#   STDOUT
+#========================================
 function msg::success {
   msg::in_green "${MSG__INDENT}[✔] $1\n"
 }
 
-# Print a message indicating a warning.
+#========================================
+# Print a yellow warning message to STDOUT.
+#
+# Usage:
+#   msg::warning <message>
 # Parameters:
-#   Message
+#   Message string
+# Globals:
+#   MSG__INDENT
+# Outputs:
+#   STDOUT
+#========================================
 function msg::warning() {
   msg::in_yellow "${MSG__INDENT}[!] $1\n"
 }
 
-# Print a message to standard error.
+#========================================
+# Print a red error message to STDERR.
 #
 # TODO: Should only output ANSI color sequences if output to a terminal.
 #
+# Usage:
+#   msg::error <message>
 # Parameters:
-#   Message
+#   Message string
+# Globals:
+#   MSG__INDENT
 # Outputs:
 #   STDERR
+#========================================
 function msg::error {
   msg::in_red "${MSG__INDENT}[✖] $1\n" >&2
 }
 
+#========================================
+# Print a stream of messages from input.
+#
+# Usage:
+#   echo "<string>" | msg::stream::info
+#   msg::stream::info <HEREDOC>
+# Parameters:
+#   STDIN
+# Outputs:
+#   Streams formatted info messages to STDOUT.
+#========================================
 function msg::stream::info {
   while read -r line; do
     msg::info "${line}"
   done
 }
 
+#========================================
+# Print a stream of warnings from input.
+#
+# Usage:
+#   echo "<string>" | msg::stream::warnings
+#   msg::stream::warnings <HEREDOC>
+# Parameters:
+#   STDIN
+# Outputs:
+#   Streams formatted warning messages to STDOUT.
+#========================================
 function msg::stream::warnings {
   while read -r line; do
     msg::warning "${line}"
   done
 }
 
+#========================================
+# Print a stream of errors from input.
+#
+# Usage:
+#   echo "<string>" | msg::stream::errors
+#   msg::stream::errors <HEREDOC>
+# Parameters:
+#   STDIN
+# Outputs:
+#   Streams formatted error message to STDERR.
+#========================================
 function msg::stream::errors {
   while read -r line; do
     msg::error "$line"
   done
 }
 
+#========================================
+# Print a stream of messages formatted as a story.
+#
+# Each message line begins with a distinguishing mark.
+#
+# Usage:
+#   echo "<string>" | msg::stream::story
+#   msg::stream::story <HEREDOC>
+# Parameters:
+#   STDIN
+# Outputs:
+#   Streams formatted story messages to STDOUT.
+#========================================
 function msg::stream::story {
   msg::info ""
   msg::info "|"
@@ -348,22 +554,74 @@ function msg::stream::story {
   msg::info ""
 }
 
+#========================================
+# Print a message in green-colored text.
+#
+# Usage:
+#   msg::in_green <message>
+# Parameters:
+#   Message string
+# Outputs:
+#   Green text to STDOUT.
+#========================================
 function msg::in_green {
   msg::in_color "$1" 2
 }
 
+#========================================
+# Print a message in purple-colored text.
+#
+# Usage:
+#   msg::in_purple <message>
+# Parameters:
+#   Message string
+# Outputs:
+#   Purple text to STDOUT.
+#========================================
 function msg::in_purple {
   msg::in_color "$1" 5
 }
 
+#========================================
+# Print a message in red-colored text.
+#
+# Usage:
+#   msg::in_red <message>
+# Parameters:
+#   Message string
+# Outputs:
+#   Red text to STDOUT.
+#========================================
 function msg::in_red {
   msg::in_color "$1" 1
 }
 
+#========================================
+# Print a message in yellow-colored text.
+#
+# Usage:
+#   msg::in_yellow <message>
+# Parameters:
+#   Message string
+# Outputs:
+#   Yellow text to STDOUT.
+#========================================
 function msg::in_yellow {
   msg::in_color "$1" 3
 }
 
+#========================================
+# Print a message in colorized text.
+#
+# Usage:
+#   msg::in_color <message> <color>
+#   msg::in_color "foo bar" 3
+# Parameters:
+#   Message string
+#   Foreground ANSI color code
+# Outputs:
+#   Colorized text to STDOUT.
+#========================================
 function msg::in_color {
   printf "%b" \
     "$(tput setaf "$2" 2>/dev/null)" \
@@ -371,10 +629,35 @@ function msg::in_color {
     "$(tput sgr0 2>/dev/null)"
 }
 
+#========================================
+# Print a message ending with a carriage return.
+#
+# Usage:
+#   msg::print <message>
+# Parameters:
+#   Message string
+# Outputs:
+#   Single line of text to STDOUT.
+#========================================
 function msg::print {
   printf "%b" "$*\n"
 }
 
+#========================================
+# Print a line of strings, each separated by a fixed amount of whitespace.
+#
+# In other words, print a "row" of "cells" separated by a "gutter".
+#
+# Each line ends with a carriage return.
+#
+# Usage:
+#   msg::tabular_row <string>...
+#   msg::tabular_row "foo" "bar" "baz"
+# Parameters:
+#   Multiple short strings
+# Outputs:
+#   Single line of whitespace-separated strings to STDOUT.
+#========================================
 function msg::tabular_row {
   for cell in "$@"; do
     printf "%b" "${cell}${MSG__COL__GAP}"
@@ -382,6 +665,14 @@ function msg::tabular_row {
   printf "\n"
 }
 
+#========================================
+# Print a message accompanied by a spinner.
+#
+# TODO: improved documentation
+#
+# Usage:
+#   msg::spinner <pid> <cmds> <msg>
+#========================================
 function msg::spinner {
   local -r PID="$1"
   local -r CMDS="$2"
