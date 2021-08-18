@@ -37,9 +37,13 @@ in {
       # This populates a dummy package to satisfy the requirement
       package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-      # FIXME: only the addons available in the nur repo will work!
+      # FIXME: only the addons available in the nur repo will work! others are
+      # commented out for now, but they should be added and generated.
       extensions = with addons; [
+        # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/default.nix#L31
         # 1password-x-password-manager
+        # a11ycss
+        # add-custom-search-engine
         # copy-selection-as-markdown
         darkreader
         # display-_anchors
@@ -50,15 +54,20 @@ in {
         old-reddit-redirect
         # org-capture
         # pinboard
-        privacy-redirect
+        # TODO: not sure what this one is
+        # privacy-redirect
         react-devtools
         reddit-enhancement-suite
         reduxdevtools
         refined-github
-        sidebery
+        # search-engines-helper
+        # TODO: not sure what this one is
+        # sidebery
+        # TODO: pick this or the other
         # tridactyl
         ublock-origin
-        vimium
+        # TODO: pick this or the other
+        # vimium
       ];
 
       profiles = let
@@ -117,6 +126,7 @@ in {
         home = {
           id = 0;
           settings = defaultSettings;
+          # TODO: use CSS custom properties instead of nix substitution
           userChrome = (builtins.readFile (pkgs.substituteAll {
             name = "homeUserChrome";
             src = "${configDir}/userChrome.css";
@@ -132,6 +142,7 @@ in {
             "browser.startup.homepage" = "about:blank";
             "browser.urlbar.placeholderName" = "Google";
           };
+          # TODO: use CSS custom properties instead of nix substitution
           userChrome = (builtins.readFile (pkgs.substituteAll {
             name = "workUserChrome";
             src = "${configDir}/userChrome.css";
