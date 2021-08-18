@@ -16,8 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
-
     emacs.url = "github:cmacrae/emacs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
@@ -70,7 +68,6 @@
           config = { allowUnfree = true; };
           overlays = with inputs; [
             (import ./dotfield/overlays/yabai.nix)
-            nur.overlay
             emacs.overlay
             emacs-overlay.overlay
             nur.overlay
