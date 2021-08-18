@@ -422,12 +422,14 @@ function msg::question {
 #   STDOUT
 #========================================
 function msg::result {
-  if [ "$1" -eq 0 ]; then
-    msg::success "$2"
+  local code="$1"
+  local message="$2"
+  if [[ "${code}" -eq 0 ]]; then
+    msg::success "${message}"
   else
-    msg::error "$2"
+    msg::error "${message}"
   fi
-  return "$1"
+  return "${code}"
 }
 
 #========================================
