@@ -1,0 +1,17 @@
+{
+  "name": "dotfield",
+  "version": "0.2.0",
+  "main": "flake.nix",
+  "repository": "https://github.com/montchr/dotfield",
+  "author": "Chris Montgomery <chris@cdom.io> (https://github.com/montchr/)",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "^7.0.1"
+  },
+  "scripts": {
+    "postinstall": "husky install"
+  }
+}

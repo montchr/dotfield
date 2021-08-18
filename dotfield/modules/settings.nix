@@ -30,23 +30,25 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      # TODO: or is there a way to just use the flake dir?
-      configDir = mkOpt t (toString ../../.);
-      dir = mkOpt t (findFirst pathExists (toString ../.) [
-        "${config.my.user.home}/.config/dotfield"
-        "/etc/dotfiles"
-      ]);
-      binDir = mkOpt t "${config.dotfield.dir}/bin";
-      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+      # TODO: point this to the flake config directory in https://github.com/montchr/dotfield/issues/21
+      configDir = mkOpt t "${config.dotfield.dir}";
+      dir = mkOpt t (toString ../../.);
+      path = mkOpt t "${config.my.user.home}/.config";
+      binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
+      libDir = mkOpt t "${config.dotfield.dir}/dotfield/lib";
+      modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
+      # TODO: replace usages of this with `configDir` in https://github.com/montchr/dotfield/issues/21
+      flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
     };
 
     my = {
       name = mkOptStr "Chris Montgomery";
       timezone = mkOptStr "America/New_York";
       username = mkOptStr "montchr";
-      website = mkOptStr "https://cdom.io";
+      website = mkOptStr "https://github.com/montchr";
       github_username = mkOptStr "montchr";
       email = mkOptStr "chris@cdom.io";
+      key = mkOptStr "0x135EEDD0F71934F3";
       terminal = mkOptStr "kitty";
       nix_managed = mkOptStr
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
@@ -56,6 +58,8 @@ in {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
         configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
+        lib = mkOpt' attrs config.home-manager.users.${config.my.username}.lib
+          "home-manager lib alias";
         programs = mkOpt' attrs { } "home-manager programs config";
       };
 
@@ -103,51 +107,31 @@ in {
         description = "Primary user account";
       };
 
-      env = { GITHUB_USER = config.my.github_username; };
-
-      hm.programs = {
-        # Let Home Manager install and manage itself.
-        home-manager.enable = true;
+      env = {
+        GITHUB_USER = config.my.github_username;
+        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
+        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
-
-      # TODO: conflicts with yabai. find a way to merge multiple source dir contents into a single target.
-      # hm = {
-      #   file = {
-      #     ".local/bin" = {
-      #       recursive = true;
-      #       source = ../bin;
-      #     };
-      #   };
-      # };
     };
 
     environment = {
       variables = with config.my; {
+        # `$DOTFIELD` must point to its absolute path on the system -- not to
+        # its location in the Nix store. ZSH may cache a path to an old
+        # derivation.
+        DOTFIELD = config.dotfield.path;
+
+        # FIXME: `$DOTFIELD_DIR` should be preferred going forward, as it's
+        # easier to grep. for the time being, it also provides a direct path to
+        # the nix configuration within the repo, but that should change once
+        # we're ready to move the configuration to the top level.
+        DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
+
         XDG_BIN_HOME = "${xdg.bin}";
         XDG_CACHE_HOME = "${xdg.cache}";
         XDG_CONFIG_HOME = "${xdg.config}";
         XDG_DATA_HOME = "${xdg.data}";
         XDG_LIB_HOME = "${xdg.lib}";
-
-        # Conform more programs to XDG conventions. The rest are handled by their
-        # respective modules.
-        #
-        # TODO: move a lot of the stuff in ~/.config/shell/profile into here or
-        # specific modules.
-        #
-        # TODO: setup aspell ASPELL_CONF = '' per-conf
-        # $XDG_CONFIG_HOME/aspell/aspell.conf; personal
-        # $XDG_CONFIG_HOME/aspell/en_US.pws; repl
-        # $XDG_CONFIG_HOME/aspell/en.prepl;
-        # '';
-
-        # HISTFILE = "$XDG_DATA_HOME/bash/history";
-        # INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-
-        DOTFIELD = config.dotfield.dir;
-        DOTFIELD_BIN = config.dotfield.binDir;
       };
     };
 

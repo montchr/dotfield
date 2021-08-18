@@ -18,12 +18,14 @@ in {
 
         hm.configFile = {
           "direnv/direnvrc".text = ''
+            # ${config.my.nix_managed}
             # Bootstrap nix-direnv
             source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
           '';
         };
       };
 
+      # https://github.com/nix-community/nix-direnv#via-configurationnix-in-nixos
       environment.pathsToLink = [ "/share/nix-direnv" ];
     };
 }

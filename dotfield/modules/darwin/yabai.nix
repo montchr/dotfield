@@ -1,41 +1,100 @@
 { config, lib, options, pkgs, ... }:
+with builtins;
 let
-  configDir = "${config.dotfield.configDir}/yabai";
+  inherit (pkgs) writeScriptBin writeShellScriptBin;
 
-  scripts = with pkgs; {
-    # TODO: DRY this up
-    border = (writeScriptBin "yabai-border"
-      (builtins.readFile "${configDir}/bin/yabai-border"));
+  configDir = "${config.dotfield.flkConfigDir}/yabai";
 
-    closeWindow = (writeScriptBin "yabai-close-window"
-      (builtins.readFile "${configDir}/bin/yabai-close-window"));
+  scriptsFromFiles = (map (cmd:
+    let file = "${configDir}/bin/${cmd}";
+    in (writeScriptBin "yabai-${cmd}" (readFile file))) [
+      "set-border"
+      "close-window"
+      "focus-direction"
+    ]);
 
-    focusDirection = (writeScriptBin "yabai-focus-direction"
-      (builtins.readFile "${configDir}/bin/yabai-focus-direction"));
+  scripts = with builtins;
+    (listToAttrs (map (drv: {
+      name = drv.name;
+      value = drv;
+    }) scriptsFromFiles)) // {
+      kickstart-sa =
+        let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
+        in (writeShellScriptBin "yabai-sa-kickstart" ''
+          # ${config.my.nix_managed}
+          #
+          # yabai-sa-kickstart
+          #
+          # Kickstart the scripting addition in case it fails to load.
+          #
+          # TODO: Logging.
+          #
 
-    kludge = (writeScriptBin "yabai-kludge"
-      (builtins.readFile "${configDir}/bin/yabai-kludge"));
+          set -x
 
-    setPadding = (writeScriptBin "yabai-set-padding"
-      (builtins.readFile "${configDir}/bin/yabai-set-padding"));
+          # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head
+          [[ $(sudo launchctl list | grep yabai-sa) ]] && {
+            sudo launchctl unload ${daemonPath}
+          }
+          sudo yabai --uninstall-sa
+          sudo yabai --install-sa
+          sudo launchctl load ${daemonPath}
 
-    # For when things... get real bad...
-    kickstartSA =
-      let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
-      in (writeShellScriptBin "yabai-sa-kickstart" ''
-        set -x
+          set +x
+        '');
 
-        # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head
-        [[ $(sudo launchctl list | grep yabai-sa) ]] && {
-          sudo launchctl unload ${daemonPath}
-        }
-        sudo yabai --uninstall-sa
-        sudo yabai --install-sa
-        sudo launchctl load ${daemonPath}
+      # Set padding and window gaps.
+      set-padding = (writeShellScriptBin "yabai-set-padding" ''
+        # ${config.my.nix_managed}
+        #
+        # yabai-set-padding
+        #
+        # TODO: Logging.
+        #
 
-        set +x
+        PADDING=$1
+        [[ -z $PADDING ]] && PADDING=12
+        yabai -m config top_padding "$PADDING"
+        yabai -m config bottom_padding "$PADDING"
+        yabai -m config left_padding "$PADDING"
+        yabai -m config right_padding "$PADDING"
+        yabai -m config window_gap "$PADDING"
       '');
-  };
+
+      kludge = (writeShellScriptBin "yabai-kludge" ''
+        # ${config.my.nix_managed}
+        #
+        # yabai-kludge
+        #
+        # For when things... get real bad.
+        #
+        # A useful implement when you load an outdated version of the yabai scripting
+        # addition and need to restore Dock.app to its original state.
+        #
+        # WARNING: This will erase any Dock settings, including icons, position, hide
+        # status, etc.
+        #
+        # TODO: Logging.
+        #
+        # Source:
+        #   https://forums.macrumors.com/threads/missing-dock-and-background-flashing-on-mavericks-gm.1650020/post-18213002
+
+        # Remove potentially-corrupted files.
+        ${toString (map (f: "rm $HOME/Library/Preferences/${f};") [
+          "com.apple.spaces.plist"
+          "com.apple.desktop.plist"
+          "com.apple.dock.plist"
+          "com.apple.dock.db"
+        ])}
+
+        # Restart the dock.
+        killall Dock
+      '');
+    };
+
+  # Get the store path to a yabai script by shortname.
+  getScript = n: "${getAttr n scripts}/bin/yabai-${n}";
+
 in {
   options = with lib; {
     my.modules.yabai = {
@@ -46,10 +105,8 @@ in {
   };
 
   config = {
-    my.user = {
-      packages = with builtins;
-        (map (key: getAttr key scripts) (attrNames scripts));
-    };
+    my.user.packages = with builtins;
+      (map (key: getAttr key scripts) (attrNames scripts));
 
     launchd.user.agents.yabai.serviceConfig = {
       StandardOutPath = "${config.my.xdgPaths.cache}/yabai.out.log";
@@ -90,11 +147,12 @@ in {
 
         # Window borders
         window_border = "on";
+        # FIXME: set this based on an existing theme color variable
         normal_window_border_color = "0x00505050";
       };
 
       extraConfig = ''
-        ${scripts.setPadding}/bin/yabai-set-padding 12
+        ${getScript "set-padding"} 12
 
         yabai -m space 1 --label 'task'
         yabai -m space 2 --label 'inspect'
@@ -139,19 +197,8 @@ in {
         yabai -m rule --add app=Stickies manage=off
         yabai -m rule --add app='^System Preferences$' manage=off
 
-        yabai -m rule --add app=Browserosaurus manage=off sticky=on
         yabai -m rule --add app=Harvest \
           manage=off
-
-        # Float unnamed windows.
-        #
-        # @TODO enabling this, for some reason, prevents phpstorm windows from being
-        # managed by yabai
-        #
-        # yabai -m rule --add title="^$" manage=off
-
-        # caused yabai to crash?
-        # yabai -m rule --add app=PhpStorm title='^$' manage=off
       '';
     };
   };

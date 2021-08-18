@@ -4,50 +4,55 @@
 #
 # Usage:
 #   dotfield <subcommand> [<args>...]
-#   dotfield build [<flake-name>]
-#   dotfield repl [<flake-name>]
+#   dotfield build [<flake-output>]
+#   dotfield repl [<flake-output>]
 
 set -e
 
-DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
+# FIXME: change this to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
+DOTFIELD="$(git rev-parse --show-toplevel)"
+DOTFIELD_DIR="${DOTFIELD}/dotfield"
 
-# shellcheck disable=SC1091
-. "${DOTFIELD_DIR}/utils.sh"
+# shellcheck source=../lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 #========================================
-# Build the flake.
+# Build the flake and switch to the new derivation.
 #
-# Global:
-#   DOTFIELD_DIR
 # Arguments:
-#   Flake output name.
+#   Flake output URI.
 #========================================
 function __nix::build() {
   local output="$1"
 
-  nix build -v "${DOTFIELD_DIR}/\#${output}"
+  msg::subdomain "Rebuilding...\n"
+  nix build -v "${output}"
 
-  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" \
-    switch -v --flake "${DOTFIELD_DIR}/\#${output}"
+  msg::subdomain "Switching to new generation...\n"
+  local rebuild="${DOTFIELD}/result/sw/bin/darwin-rebuild"
+
+  [[ -e "${rebuild}" ]] && {
+    "${rebuild}" switch -v --flake "${output}"
+  }
 }
 
 #========================================
-# Open a new nix repl shell for this machine's host.
+# Open a new Nix REPL shell for a flake output.
 #
-# Global:
-#   DOTFIELD_DIR
 # Arguments:
-#   Flake output name.
+#   Flake output name. Defaults to the current hostname.
 #========================================
 function __nix::repl() {
   local output="$1"
   local conf
   conf="$(mktemp)"
 
-  msg::subdomain "Loading flake from ${DOTFIELD_DIR}.${output}..."
+  msg::subdomain "Loading flake from ${output}..."
+
+  output="darwinConfigurations.${output}"
 
   cat > "${conf}" << EOF
-(builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
+(builtins.getFlake (toString ${DOTFIELD})).${output}
 EOF
 
   nix repl "${conf}"
@@ -57,22 +62,24 @@ EOF
 # Entry point.
 #========================================
 function main() {
-  local SUBCOMMAND="$1"
-  shift
 
-  local host_name
-  host_name=${1:-${HOSTNAME:-${HOST:-$(hostname)}}}
-  shift
+  local SUBCOMMAND="$1"
+  local FLAKE_OUTPUT
+
+  FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
+
+  local flake_path="${DOTFIELD}/#${FLAKE_OUTPUT}"
 
   case $SUBCOMMAND in
     build)
-      msg::domain "Nix" "Building flake ${host_name}"
-      __nix::build "${host_name}"
+      msg::domain "Evolution" "Rebuilding '${FLAKE_OUTPUT}'"
+      __nix::build "${flake_path}"
       ;;
 
     repl)
-      msg::domain "Nix" "Launching REPL shell for ${host_name}"
-      __nix::repl "darwinConfigurations.${host_name}"
+      msg::domain "Introspection" "Launching REPL shell for ${FLAKE_OUTPUT}"
+      # TODO: Add support for NixOS
+      __nix::repl "${FLAKE_OUTPUT}"
       ;;
 
     *)

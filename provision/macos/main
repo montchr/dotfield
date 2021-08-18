@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Provision :: macOS :: Install
+#
+
+
+# Set computer name (as done via System Preferences → Sharing)
+function __set_hostname {
+  local hostname="${1:-${HOSTNAME:-CDOM}}"
+  sudo scutil --set ComputerName "${hostname}"
+  sudo scutil --set HostName "${hostname}"
+  sudo scutil --set LocalHostName "${hostname}"
+  sudo defaults write \
+    /Library/Preferences/SystemConfiguration/com.apple.smb.server \
+    NetBIOSName \
+    -string "${hostname}"
+}
+
+
+# - - - - - - - - - - - - - - - - - - - -
+# Main
+# - - - - - - - - - - - - - - - - - - - -
+
+function main () {
+  local previous_directory
+  previous_directory="$PWD"
+
+  cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+
+  guard::install && {
+    guard::domain "packages" "Install baseline dependencies" && {
+      cd "$XDG_CONFIG_HOME" && {
+        export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
+        brew bundle
+      }
+    }
+
+    guard::domain "hostname" "Set system hostname to '${HOSTNAME}'" && {
+      __set_hostname "${HOSTNAME}"
+    }
+  }
+
+
+  guard::upgrade && {
+    guard::domain "packages" "Upgrade packages" && {
+      brew update
+      brew upgrade
+    }
+  }
+
+  cd "${previous_directory}" || return
+}
+
+main "$@"

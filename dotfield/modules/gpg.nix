@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.gpg;
+let
+  cfg = config.my.modules.gpg;
+  gnupgHome = "$XDG_DATA_HOME/gnupg";
 in {
   options = with lib;
     with types; {
@@ -13,13 +15,10 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      programs = {
-        gnupg = {
-          agent = {
-            enable = true;
-            enableSSHSupport = true;
-          };
-        };
+      # TODO: this is darwin-specific! home-manager uses `programs.gpg`
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
       };
 
       environment.systemPackages = with pkgs; [
@@ -29,15 +28,30 @@ in {
         pinentry_mac
         # TODO: this isn't specific to GPG and should move somewhere else
         transcrypt
+        (writeShellScriptBin "gpg-agent-restart" ''
+          pkill gpg-agent ; pkill ssh-agent ; pkill pinentry ; eval $(gpg-agent --daemon --enable-ssh-support)
+        '')
       ];
 
+      # Ensure the correct permissions on darwin
+      system.activationScripts.postUserActivation.text = ''
+        sudo chown -R ${config.my.username} ${gnupgHome}
+        find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
+        find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
+      '';
+
       my = {
-        env = { GNUPGHOME = "$XDG_DATA_HOME/gnupg"; };
+        env = {
+          DOTFIELD_PGP_KEY = config.my.key;
+          GNUPGHOME = gnupgHome;
+        };
 
         hm.dataFile = {
           "gnupg/gpg-agent.conf" = {
             text = ''
               # ${config.my.nix_managed}
+
+              # TODO: Linux support
               pinentry-program ${config.my.user.home}/${pkgs.pinentry_mac.binaryPath}
             '';
           };
@@ -99,10 +113,10 @@ in {
               # Disable recipient key ID in messages
               throw-keyids
               # Default/trusted key ID to use (helpful with throw-keyids)
-              default-key 0x135EEDD0F71934F3
-              trusted-key 0x135EEDD0F71934F3
+              default-key ${config.my.key}
+              trusted-key ${config.my.key}
               # Group recipient keys (preferred ID last)
-              group keygroup = 0xFF00000000000001 0xFF00000000000002 0x135EEDD0F71934F3
+              group keygroup = 0xFF00000000000001 0xFF00000000000002 ${config.my.key}
               # Keyserver URL
               keyserver hkps://keys.openpgp.org
               #keyserver hkps://keyserver.ubuntu.com:443

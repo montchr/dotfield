@@ -22,16 +22,26 @@ in {
 
         user = {
           packages = with pkgs; [
-            nodejs # LTS
+            # FIXME: nodejs-16_x recently updated to 16.6.0 and fails to build on HodgePodge
+            # https://github.com/NixOS/nixpkgs/commit/f5de4158dd462c51741ec48be2e47a3f8015930d
+            # nodejs-16_x
+            nodejs
+            nodePackages.eslint
             nodePackages.node2nix
-            nodePackages.npm
+            nodePackages.prettier
+            nodePackages.stylelint
             nodePackages.svgo
-            (yarn.override { inherit nodejs; })
           ];
         };
 
-        hm.file = {
-          ".npmrc" = with config.my; {
+        hm.configFile = {
+          "npm/npmrc" = with config.my; {
+            # npmrc requires environment variables to be encosed in `${...}`
+            # braces, but Nix will interpret this as antiquotation within its
+            # own language. For that reason, we need to escape the `$` character
+            # by preceding it with double single-quotes.
+            # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
+            # https://nixos.org/manual/nix/stable/#idm140737322046656
             text = ''
               # ${nix_managed}
               # vim:ft=conf
@@ -41,6 +51,35 @@ in {
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
+              prefix=''${XDG_DATA_HOME}/npm
+              cache=''${XDG_CACHE_HOME}/npm
+              tmp=''${XDG_RUNTIME_DIR}/npm
+              init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
+            '';
+          };
+
+          "prettier/prettierrc.template" = {
+            text = ''
+              arrowParens: 'always'
+              bracketSpacing: true
+              jsxBracketSameLine: false
+              jsxSingleQuote: false
+              printWidth: 80
+              proseWrap: 'never'
+              quoteProps: 'as-needed'
+              semi: true
+              singleQuote: true
+              tabWidth: 2
+              trailingComma: 'all'
+              useTabs: false
+              overrides:
+                - files: '*.php'
+                  options:
+                    braceStyle: '1tbs'
+                    phpVersion: '7.4'
+                    tabWidth: 4
+                    trailingCommaPHP: true
+                    useTabs: true
             '';
           };
         };

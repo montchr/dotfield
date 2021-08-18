@@ -1,4 +1,0 @@
-build-essential
-debian-archive-keyring
-git
-curl

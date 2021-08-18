@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nur.url = "github:nix-community/NUR";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +12,7 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -26,7 +27,8 @@
     };
   };
 
-  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, ... }@inputs:
+  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, nixpkgs, nur, ...
+    }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
@@ -40,7 +42,6 @@
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
             "emacs.cachix.org-1:b1SMJNLY/mZF6GxQE+eDBeps7WnkT0Po55TAyzwOxTY="
           ];
-          # Auto upgrade nix package and the daemon service.
           maxJobs = "auto";
           buildCores = 4;
           gc = {
@@ -72,42 +73,47 @@
             nur.overlay
             emacs.overlay
             emacs-overlay.overlay
+            nur.overlay
             self.overlays
           ];
         };
 
         time.timeZone = config.my.timezone;
+
+        environment.systemPackages = with pkgs; [
+          (writeScriptBin "dotfield"
+            (builtins.readFile ./dotfield/bin/dotfield))
+          commitizen
+          yarn
+        ];
       };
 
-      # TODO: come back to this fancy stuff later (maybe?)
-      # https://github.com/hlissner/dotfiles/blob/master/flake.nix
-      # lib = nixpkgs.lib.extend
-      #   (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+      sharedDarwinModules = let
+        nur-no-pkgs = import nur {
+          nurpkgs =
+            import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
+        };
+      in [
+        inputs.home-manager.darwinModules.home-manager
+        ./dotfield/modules
+        sharedHostsConfig
+      ];
 
     in {
       overlays = (final: prev: {
+        nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
         pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
       });
 
       darwinConfigurations = {
-        "hodgepodge" = inputs.darwin.lib.darwinSystem {
+        HodgePodge = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = [
-            inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules
-            sharedHostsConfig
-            ./dotfield/hosts/hodgepodge.nix
-          ];
+          modules = sharedDarwinModules ++ [ ./dotfield/hosts/hodgepodge.nix ];
         };
 
-        "alleymon" = inputs.darwin.lib.darwinSystem {
+        alleymon = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = [
-            inputs.home-manager.darwinModules.home-manager
-            ./dotfield/modules
-            sharedHostsConfig
-            ./dotfield/hosts/alleymon.nix
-          ];
+          modules = sharedDarwinModules ++ [ ./dotfield/hosts/alleymon.nix ];
         };
       };
 
@@ -116,7 +122,7 @@
       # vs
       # nix build './#HodgePodge'
       # Move them to `outputs.packages.<system>.name`
-      HodgePodge = self.darwinConfigurations.hodgepodge.system;
+      HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 
     };

@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+#
+# Brewfile for essential Darwin packages
+#
+
+# Official taps
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/services"
+
+cask_args appdir: "/Applications", require_sha: true
+
+# Load coreutils first.
+brew "coreutils"
+
+brew "curl"
+brew "git"
+
+# Shell
+brew "bash"
+brew "bash-completion"
+brew "wget"
+brew "zsh"
+
+# Security
+brew "gnupg"
+brew "pinentry-mac"
+brew "transcrypt"
+brew "pass"
+
+# macOS only
+# TODO: don't rely on an external library!
+brew "dark-mode"
+
+# Help me...
+brew "tldr"

@@ -14,13 +14,7 @@
 #   - https://github.com/jasonheecs/ubuntu-server-setup
 #
 
-# shellcheck disable=2153
-[[ -n "$ZSH_VERSION" ]] \
-  && emulate -L bash
-
-
 set -e
-
 
 : "${DOTFIELD_HOSTNAME:=}"
 : "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
@@ -34,25 +28,29 @@ set -e
 : "${USE_HTTPS:-true}"
 : "${HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 
-DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-feature/reshape}}}"
+DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
 readonly DOTFIELD_BRANCH
 
 # TODO
 # readonly QUERENT="${GITHUB_ACTOR:-montchr}"
 readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
-readonly REPO_ID="montchr/dots"
+readonly REPO_ID="montchr/dotfield"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
-readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/utils.sh"
+# FIXME: https://github.com/montchr/dotfield/issues/21
+readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/dotfield/lib/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
 [[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
   && DOTFIELD_NIX_HOSTNAME="$(hostname)"
 
+# FIXME: allow specifying a different installation path
+# FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
 : "${DOTFIELD:=${GITHUB_WORKSPACE:-${HOME}/.config}}"
+: "${DOTFIELD_DIR:=${DOTFIELD}/dotfield}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
-XDG_CONFIG_HOME="${DOTFIELD}"
+XDG_CONFIG_HOME="${HOME}/.config"
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
@@ -361,6 +359,20 @@ function guard::linux {
 
 
 #========================================
+# Guard for Debian.
+#
+# Usage:
+#   guard::debian && { ... }
+# Globals:
+#   OS_NAME
+#========================================
+function guard::debian {
+  [[ "$OS_NAME" == "debian" ]]
+  return
+}
+
+
+#========================================
 # Guard for Ubuntu.
 #
 # Usage:
@@ -375,24 +387,10 @@ function guard::ubuntu {
 
 
 #========================================
-# Guard for Arch Linux.
-#
-# Usage:
-#   guard::arch && { ... }
-# Globals:
-#   OS_NAME
-#========================================
-function guard::arch {
-  [[ "$OS_NAME" == "arch" ]]
-  return
-}
-
-
-#========================================
 # Guard for macOS.
 #
 # Usage:
-#   guard::ubuntu && { ... }
+#   guard::macos && { ... }
 # Globals:
 #   OS_NAME
 #========================================
@@ -412,6 +410,20 @@ function guard::macos {
 #========================================
 function guard::root {
   [[ "${USER}" == "root" ]]
+  return
+}
+
+
+#========================================
+# Guard for whether Nix package manager is available.
+#
+# Usage:
+#   guard::nixified && { ... }
+# Uses:
+#   shell::has
+#========================================
+function guard::nixified() {
+  shell::has nix nix-build nix-channel nix-env nix-shell
   return
 }
 
@@ -484,11 +496,11 @@ function traceback() {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 
-if [[ -f "${XDG_CONFIG_HOME}/utils.sh" ]]
+if [[ -f "${DOTFIELD_DIR}/lib/utils.sh" ]]
 then
 
-# shellcheck source=./utils.sh
-. "${XDG_CONFIG_HOME}/utils.sh"
+# shellcheck source=./dotfield/lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
 
 msg::stream::story <<END
 We arrive at a well-travelled outcropping,
@@ -500,8 +512,9 @@ END
 else
 
 printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
-utils_path="$(fetch_ephemeral "${DOTFIELD_RAW_BASE_URL}/utils.sh")"
-# shellcheck source=./utils.sh
+utils_path="$(fetch_ephemeral "${DOTFIELD_UTILS_URL}")"
+# FIXME: update source path in https://github.com/montchr/dotfield/issues/21
+# shellcheck source=./dotfield/lib/utils.sh
 . "${utils_path}"
 
 msg::stream::story <<END
@@ -524,9 +537,15 @@ else
 fi
 
 
-# Ensure the OS is supported and above the minimum version.
-# @TODO validation function doesn't work for older versions of bash and neither do associative arrays
-# verify_os || return 1
+msg::domain "System" "Verifying prerequisite dependencies"
+shell::has git || {
+  msg::error "git not found! Aborting."
+  exit 1
+}
+shell::has gpg || {
+  msg::error "gpg not found! Aborting."
+  exit 1
+}
 
 
 msg::domain "System" "Syncing dotfield"
@@ -640,34 +659,30 @@ msg::domain "Guardian" "Ensure directories exist" && {
 }
 
 
-guard::domain "Repo" "Sync repos from Repofiles" && {
-  fs::map_lines repo::sync "${XDG_CONFIG_HOME}/Repofile" || true
-}
+# guard::domain "Link" "Link all files as defined in Linkfiles" && {
+#   fs::linkfile "${DOTFIELD}/Linkfile"
 
+#   for f in "${DOTFIELD}"/**/Linkfile; do
+#     fs::linkfile "$f"
+#   done
 
-guard::domain "Link" "Link all files as defined in Linkfiles" && {
-  fs::linkfile "${DOTFIELD}/Linkfile"
-
-  for f in "${DOTFIELD}"/**/Linkfile; do
-    fs::linkfile "$f"
-  done
-
-  for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
-    fs::linkfile "$fk"
-  done
-}
+#   for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
+#     fs::linkfile "$fk"
+#   done
+# }
 
 
 guard::macos && {
   if ! shell::is_modern; then
     msg::domain "Packages" "Install Homebrew and modern Bash"
-    # shellcheck source=./os/macos/_pre_install.sh
-    . "${XDG_CONFIG_HOME}/os/macos/_pre_install.sh"
+    # shellcheck source=./provision/macos/_pre_install.sh
+    . "${XDG_CONFIG_HOME}/provision/macos/_pre_install.sh"
   fi
 }
 
 
 guard::install && {
+  # TODO: handle with nix
   msg::domain "Hostname" "Set the system hostname" && {
     if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
       HOSTNAME="${DOTFIELD_HOSTNAME}"
@@ -678,27 +693,40 @@ guard::install && {
     fi
   }
 
-  guard::domain "Identity" "Fetching PGP key" && {
+  guard::domain "Identity" "Ensuring PGP key" && {
     gpg --recv-key "${DOTFIELD_PGP_KEY}"
+  }
+
+  guard::domain "Identity" "Ensuring SSH key" && {
+    SSH_KEY_PATH="$HOME/.ssh/id_ed25519_yubikey.pub"
+    [[ -f "${SSH_KEY_PATH}" ]] || {
+      # Note that this will fail if the agent is aware of multiple cards.
+      #
+      # TODO: How are cards registered on the system prior to bootstrapping? This
+      # seems like a catch-22...
+      ssh-add -L | grep "cardno" > "${SSH_KEY_PATH}"
+      chmod 600 "${SSH_KEY_PATH}"
+    }
   }
 }
 
 
-guard::ubuntu && {
-  msg::domain "OS" "Preparing Ubuntu environment"
-  # shellcheck source=./os/ubuntu/main
-  . "${XDG_CONFIG_HOME}/os/ubuntu/main"
+( guard::ubuntu || guard::debian ) && {
+  msg::domain "OS" "Preparing Debian/Ubuntu environment"
+  # shellcheck source=./provision/debian/main
+  . "${XDG_CONFIG_HOME}/provision/debian/main"
 }
 
 
 guard::macos && {
   msg::domain "OS" "Preparing macOS environment"
 
-  # shellcheck source=./os/macos/main
-  . "${XDG_CONFIG_HOME}/os/macos/main"
+  # shellcheck source=./provision/macos/main
+  . "${XDG_CONFIG_HOME}/provision/macos/main"
 
+  # TODO: re-enable this because nix-darwin doesn't handle every available preference
   # msg::domain "OS" "Configuring macOS preferences"
-  # "${XDG_CONFIG_HOME}/os/macos/configure"
+  # "${XDG_CONFIG_HOME}/provision/macos/configure"
 
   guard::domain "yabai" "Check SIP status" && {
     case $(csrutil status) in
@@ -721,6 +749,7 @@ guard::macos && {
 
 
 # TODO: handle with nix?
+# TODO: why was this disabled?
 # guard::install && {
 #   msg::domain "Guardian" "Decrypting Dotfield secrets"
 #   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
@@ -738,88 +767,15 @@ guard::macos && {
 
 
 guard::install && {
-
-  (shell::has nix nix-build nix-channel nix-env nix-shell) || {
-
-    msg::domain "Nix" "Install Nix package manager"
-
-    if guard::macos; then
-      # Use the new installer from cachix until it becomes available in Nix 2.4
-      # This fixes many difficulties with the installer for Nix on Darwin, and
-      # finally allows for an encrypted Nix store.
-      # https://github.com/NixOS/nix/pull/4289
-      sh <(curl https://abathur-nix-install-tests.cachix.org/serve/yihf8zbs0jwph2rs9qfh80dnilijxdi2/install) \
-        --tarball-url-prefix https://abathur-nix-install-tests.cachix.org/serve
-    else
-      sh <(curl -L https://nixos.org/nix/install) --daemon
-    fi
-
-    msg::subdomain "Sourcing /etc/bashrc for Nix additions"
-    . /etc/bashrc
-
-    msg::subdomain "Testing nix-shell"
-    nix-shell -p nix-info --run "nix-info -m"
-
-  }
-
-  msg::domain "Nix" "Install experimental Nix Flakes" && {
-    nix-env -iA nixpkgs.nixFlakes
-    nix_flakes_feature_flag="experimental-features = nix-command flakes"
-    if ! grep --quiet --fixed-strings "${nix_flakes_feature_flag}" /etc/nix/nix.conf; then
-      msg::subdomain "Adding nix flakes feature flag to /etc/nix/nix.conf"
-      echo "${nix_flakes_feature_flag}" | sudo tee -a /etc/nix/nix.conf
-    fi
-  }
+  if guard::root; then
+    msg::warning "Nix package manager must not be installed by root! Skipping."
+  else
+    . ./provision/_nix.sh
+  fi
 }
 
-
-guard::install && guard::macos && {
-  msg::domain "Nix" "Install nix-darwin"
-  [[ -d ./result ]] && {
-    msg::subdomain "Found existing ./result directory. Removing..."
-    rm -rf ./result
-  }
-
-  # Although nix-darwin supports flakes, at the time of writing, the installer
-  # does not. In order to install nix-darwin properly, it needs to be
-  # installed for the first time via the installer.
-  # See: https://github.com/LnL7/nix-darwin#flakes-experimental
-  msg::subdomain "Building nix-darwin installer"
-  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer || {
-
-    msg::error "Encountered an error installing nix-darwin"
-    cert_file="/etc/ssl/certs/ca-certificates.crt"
-
-    msg::stream::info \
-<<END
-
-If you received a message like this:
-
-> Problem with the SSL CA cert (path? access rights?) (77)
-
-...then '${cert_file}' might be a dead symlink.
-
-Try removing and re-linking it by running the following:
-
-$ sudo rm ${cert_file}
-$ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt ${cert_file}
-
-END
-
-      exit 1
-
-  }
-
-  msg::subdomain "Running nix-darwin installer"
-  ./result/bin/darwin-installer
-
-  msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
-  . /etc/static/bashrc
-
-}
-
-
-msg::domain "Nix" "Build" && {
+shell::has nix && {
+  msg::domain "Nix" "Build"
 
   guard::macos && {
     nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
@@ -827,10 +783,8 @@ msg::domain "Nix" "Build" && {
   }
 
   guard::linux && {
-    # TODO: does this work anywhere besides NixOS? (probably not)
-    sudo nixos-rebuild switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+    sudo nix build switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
   }
-
 }
 
 

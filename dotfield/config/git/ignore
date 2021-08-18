@@ -1,0 +1,63 @@
+# -*- mode: gitignore -*-
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.zwc
+
+# Package managers
+node_modules
+.yarn
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS or Editor files
+._*
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+.tern-project
+.tags*
+.vscode
+.idea
+.projectile
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Always-ignore extensions
+*~
+*.diff
+*.err
+*.orig
+*.pyc
+*.rej
+*.sw?
+*.vi
+*.bak
+
+# Credentials and Sensitive Info
+sftp-config.json
+.env
+TODO
+.direnv
+.envrc
+.autoenv.zsh
+.scratch
+*localrc
+
+# Other stuff
+upgrade
+.php_cs.cache
+
+local-silence-other-rest-route-warnings.php
+karabiner/automatic_backups

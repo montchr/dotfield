@@ -1,33 +1,35 @@
 { config, pkgs, ... }:
 
 {
-  # Roughly in order of precedence.
   imports = [
-    ./settings.nix
-    ./zsh.nix
     ./bash.nix
-    ./direnv.nix
-    ./lorri.nix
-    ./gpg.nix
-    ./ssh.nix
-    ./git.nix
-    ./kitty.nix
-    ./tealdeer.nix
     ./bat.nix
-    ./ripgrep.nix
-    ./node.nix
+    ./direnv.nix
+    ./git.nix
+    ./gpg.nix
     ./gui.nix
+    ./lorri.nix
+    ./node.nix
+    ./php.nix
     ./python.nix
+    ./ripgrep.nix
+    ./settings.nix
+    ./ssh.nix
+    ./tealdeer.nix
+    ./zsh.nix
 
     ./editors/emacs
+    ./editors/vim
     ./espanso
     ./firefox
+    ./kitty
   ];
 
   my.modules = {
     bat.enable = true;
     bash.enable = true;
     direnv.enable = true;
+    espanso.enable = true;
     firefox.enable = true;
     git.enable = true;
     gui.enable = true;
@@ -41,10 +43,9 @@
     zsh.enable = true;
 
     editors = {
-      emacs = {
-        enable = true;
-        doom.enable = true;
-      };
+      emacs.enable = true;
+      emacs.doom.enable = true;
+      vim.enable = true;
     };
   };
 

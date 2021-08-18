@@ -1,8 +1,11 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.my.modules.macos;
+let
+  cfg = config.my.modules.macos;
+  configDir = config.dotfield.flkConfigDir;
 in {
   imports = [
+    ./hammerspoon.nix
     # ./security/pam.nix
     ./skhd.nix
     ./yabai.nix
@@ -11,7 +14,7 @@ in {
   options = with lib; {
     my.modules.macos = {
       enable = mkEnableOption ''
-        Whether to enable macos module
+        Whether to enable macOS module
       '';
     };
   };
@@ -22,15 +25,32 @@ in {
         systemPackages = with pkgs; [ mas ];
         variables = {
           LANG = "en_US.UTF-8";
-          # TODO: double-check this -- en_GB doesn't seem right
-          LC_TIME = "en_GB.UTF-8";
         };
       };
 
       my.modules = {
+        hammerspoon.enable = true;
         skhd.enable = true;
         yabai.enable = true;
       };
+
+      my.hm.configFile = {
+        "drafts" = {
+          source = "${configDir}/drafts";
+          recursive = true;
+        };
+
+        "karabiner/karabiner.json" = with config.my.hm.lib.file; {
+          source = mkOutOfStoreSymlink
+            "${config.dotfield.path}/dotfield/config/karabiner/karabiner.json";
+        };
+      };
+
+      my.user.packages = with pkgs;
+        [
+          (writeScriptBin "toggle-dark-mode"
+            (builtins.readFile "${configDir}/darwin/bin/toggle-dark-mode"))
+        ];
 
       # https://github.com/LnL7/nix-darwin/pull/228
       # TODO: errors on activation!
@@ -38,6 +58,7 @@ in {
 
       system = {
         defaults = {
+          # TODO: why disabled? caused an error?
           # ".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
           smb = {

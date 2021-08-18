@@ -1,21 +1,6 @@
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
 	url = https://github.com/gpakosz/.tmux.git
-[submodule "tmuxp"]
-	path = tmuxp/.tmuxp
-	url = git@github.com:montchr/tmuxp-config.git
-[submodule "notmuch"]
-	path = notmuch
-	url = git@github.com:montchr/notmuch-config.git
-[submodule "kitty-themes"]
-	path = kitty/kitty-themes
-	url = https://github.com/dexpota/kitty-themes.git
-[submodule "intellimacs"]
-	path = intellij/intellimacs
-	url = https://github.com/MarcoIeni/intellimacs.git
-[submodule "stackline"]
-	path = hammerspoon/stackline
-	url = https://github.com/AdamWagner/stackline.git
 [submodule "base16-kitty"]
 	path = kitty/base16-kitty
 	url = https://github.com/kdrag0n/base16-kitty.git
@@ -43,3 +28,6 @@
 [submodule "pfetch"]
 	path = vendor/pfetch
 	url = https://github.com/montchr/pfetch.git
+[submodule "stackline"]
+	path = hammerspoon/stackline
+	url = https://github.com/AdamWagner/stackline.git

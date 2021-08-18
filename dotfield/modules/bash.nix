@@ -2,9 +2,10 @@
 
 with lib;
 let
-  configDir = config.dotfield.configDir;
   home = config.my.user.home;
   cfg = config.my.modules.bash;
+  bash = pkgs.bashInteractive_5;
+  profileInit = "${config.dotfield.libDir}/profile.sh";
 in {
   options = with lib; {
     my.modules.bash = {
@@ -24,25 +25,26 @@ in {
     my = {
       env = { BASH_COMPLETION_USER_FILE = "$XDG_DATA_HOME/bash/completion"; };
 
+      user.packages = [ bash ];
+
       hm = {
         configFile = {
-
           "bash/bashrc".text = ''
             # ${config.my.nix_managed}
 
-            ${builtins.readFile "${configDir}/shell/profile"}
+            ${builtins.readFile profileInit}
           '';
 
         };
       };
     };
 
-    # List packages installed in system profile. To search by name, run:
-    # $ nix-env -qaP | grep wget
     environment = {
-      shells = with pkgs; [ bashInteractive_5 ];
-
-      systemPackages = with pkgs; [ bashInteractive_5 ];
+      shells = [ bash ];
+      systemPackages = [ bash ];
+      variables = {
+        BASH_ENV = profileInit;
+      };
     };
   };
 }

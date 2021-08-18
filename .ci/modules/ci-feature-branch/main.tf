@@ -10,7 +10,7 @@ locals {
   safe_label = replace(
     lower(
       format(
-        "ci-dots-%s-%s",
+        "ci-dotfield-%s-%s",
         var.branch,
         replace(var.image_id, "/(linode)\\W/", "")
       ),

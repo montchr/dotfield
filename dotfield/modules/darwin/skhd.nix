@@ -1,5 +1,8 @@
 { config, lib, options, pkgs, ... }:
 
+let
+  configDir = "${config.dotfield.flkConfigDir}/skhd";
+in
 {
   options = with lib; {
     my.modules.skhd = {
@@ -11,7 +14,16 @@
 
   config = {
     services.skhd = { enable = true; };
+
+    # The =skhd= program must be available to shells for keypress simulation
+    # functionality, which is essential for exiting out of modes after running a
+    # script, for example.
     my.user.packages = with config.services; [ skhd.package ];
+
+    my.hm.configFile."skhd/skhdrc" = {
+      source = "${configDir}/skhdrc";
+      onChange = "${config.services.skhd.package}/bin/skhd -r";
+    };
 
     launchd.user.agents.skhd = {
       serviceConfig = {

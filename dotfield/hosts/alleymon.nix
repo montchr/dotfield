@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ ../modules/darwin ../modules/php.nix ];
+  imports = [ ../modules/darwin ];
 
   my = {
     username = "montchr";
@@ -19,6 +19,16 @@
   };
 
   environment.systemPackages = with pkgs; [ dnsmasq ];
+
+  homebrew = {
+    casks = [ "figma" "sketch" ];
+    masApps = {
+      "Harvest" = 506189836;
+      "Jira" = 1475897096;
+      "xScope" = 889428659;
+      "Xcode" = 497799835;
+    };
+  };
 
   services.dnsmasq = {
     enable = false;
