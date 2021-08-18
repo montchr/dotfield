@@ -625,9 +625,11 @@ function msg::in_yellow {
 #   Colorized text to STDOUT.
 #========================================
 function msg::in_color {
+  local message="$1"
+  local color="$2"
   printf "%b" \
-    "$(tput setaf "$2" 2>/dev/null)" \
-    "$1" \
+    "$(tput setaf "${color}" 2>/dev/null)" \
+    "${message}" \
     "$(tput sgr0 2>/dev/null)"
 }
 
