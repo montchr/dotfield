@@ -17,8 +17,7 @@ in {
   config = mkIf cfg.enable {
     my.hm.file = {
       # Provide extensions with a JavaScript binding for GPG.
-      # TODO: enable conditionally with gpg module
-      gpgmejson = {
+      gpgmejson = optionalAttrs config.my.modules.gpg.enable {
         target =
           "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
         source = (builtins.toJSON {
