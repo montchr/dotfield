@@ -5,21 +5,31 @@ let
   cfg = config.my.modules.editors.emacs;
   configDir = "${config.dotfield.flkConfigDir}/emacs";
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
+
+  ediffTool = (pkgs.writeScriptBin "ediff-tool"
+    (builtins.readFile "${configDir}/bin/ediff-tool"));
+
 in {
   options = with lib; {
     my.modules.editors.emacs = {
       enable = mkEnableOption false;
       doom.enable = mkEnableOption true;
+      ediffTool.package =
+        mkOption {
+          default = ediffTool;
+        };
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ emacs ];
 
-    my.hm.configFile."doom" = with config.my.hm.lib.file; {
-      source =
-        mkOutOfStoreSymlink "${config.dotfield.path}/dotfield/config/doom";
-      onChange = "doom sync";
+    my.hm.configFile = {
+      "doom" = with config.my.hm.lib.file; {
+        source =
+          mkOutOfStoreSymlink "${config.dotfield.path}/dotfield/config/doom";
+        onChange = "doom sync";
+      };
     };
 
     my.modules.zsh.rcFiles = [ "${configDir}/aliases.zsh" ];
@@ -33,6 +43,8 @@ in {
 
       user.packages = with pkgs; [
         emacs
+
+        ediffTool
 
         ## Doom dependencies
         (ripgrep.override { withPCRE2 = true; })
