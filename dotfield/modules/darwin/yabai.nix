@@ -136,7 +136,7 @@ in {
         # Display floating windows on top.
         window_topmost = "off";
         split_ratio = 0.5;
-        auto_balance = "off";
+        auto_balance = "on";
 
         # Window opacity
         window_opacity = "off";
