@@ -37,7 +37,7 @@ in {
     my = {
       env = {
         DOOMDIR = "$DOTFIELD_DIR/config/doom";
-        EDITOR = "emacsclient -n";
+        EDITOR = "emacsclient";
         EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
 
