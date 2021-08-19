@@ -1,43 +1,58 @@
-# -*- mode: sh -*-
+#!/usr/bin/env bash
+#
+# ediff
 #
 # Wrapper for ediff for use as a git mergetool or difftool.
 #
-# Credit goes to https://raw.githubusercontent.com/paulotome/emacstool/master/ediff.sh
+# Sources:
+#   - https://raw.githubusercontent.com/paulotome/emacstool/master/ediff.sh
 #
 
-if [ ! ${#} -ge 2 ]; then
-    echo 1>&2 "Usage: ${0} LOCAL REMOTE [MERGED BASE]"
-    echo 1>&2 "       (LOCAL, REMOTE, MERGED, BASE can be provided by \`git mergetool'.)"
-    exit 1
+if [[ ! -f "${DOTFIELD_DIR}/lib/utils.sh" ]]; then
+  echo "Dotfield utils not found! Aborting." >&2
+  exit 1
 fi
 
-local LOCAL=${1}
-local REMOTE=${2}
-local MERGED=${${3}:-${REMOTE}}
-local BASE
-local EVAL
-local MERGEDSAVE
+# shellcheck source=../../../lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
+
+if [ ! ${#} -ge 2 ]
+then
+
+msg::stream::errors <<END
+Usage: ${0} <local> <remote> [<merged>] [<base>]
+       (Parameters can be provided by \`git mergetool'.)
+END
+exit 1
+
+fi
+
+LOCAL="$1"
+REMOTE="$2"
+MERGED="${3:-${REMOTE}}"
+BASE
+EVAL
+MERGEDSAVE
 
 [[ ${4} ]] && [[ -r ${4} ]] && BASE=${4}
 
-if [[ $BASE ]] ; then
-    EVAL="ediff-merge-files-with-ancestor \"${LOCAL}\" \"${REMOTE}\" \"${BASE}\" nil \"${MERGED}\""
-elif [[ ${REMOTE} == ${MERGED} ]]; then
-    EVAL="ediff \"${LOCAL}\" \"${REMOTE}\""
-else
-    EVAL="ediff-merge-files \"${LOCAL}\" \"${REMOTE}\" nil \"${MERGED}\""
+EVAL="ediff-merge-files \"${LOCAL}\" \"${REMOTE}\" nil \"${MERGED}\""
+if [[ "${BASE}" ]] ; then
+  EVAL="ediff-merge-files-with-ancestor \"${LOCAL}\" \"${REMOTE}\" \"${BASE}\" nil \"${MERGED}\""
+elif [[ "${REMOTE}" == "${MERGED}" ]]; then
+  EVAL="ediff \"${LOCAL}\" \"${REMOTE}\""
 fi
 
 # Run emacsclient.
-e -a "" -e "(${EVAL})" 2>&1
+emacsclient -a "" -e "(${EVAL})" 2>&1
 
-# Check modified file.
-[[ ! "$(grep -Ec '^(<<<<<<<|=======|>>>>>>>|####### Ancestor)' "${MERGED}")" = 0 ]] && () {
-  local MERGEDSAVE=$(mktemp --tmpdir "$(basename ${MERGED}).merged")
-  cp ${MERGED} ${MERGEDSAVE}
-  echo 1>&2 "Conflict markers detected in ${MERGED}!"
-  echo 1>&2 "Saved your changes to ${MERGEDSAVE}"
-  echo 1>&2 "Exiting with code 1."
-} && exit 1
+# Check modified file for merge conflict markers.
+[[ ! "$(grep -Ec '^(<<<<<<<|=======|>>>>>>>|####### Ancestor)' "${MERGED}")" = 0 ]] && {
+  MERGEDSAVE=$(mktemp --tmpdir "$(basename ${MERGED}).merged")
+  cp "${MERGED}" "${MERGEDSAVE}"
+  msg::error "Conflict markers detected in ${MERGED}!"
+  msg::error "Saved your changes to ${MERGEDSAVE}"
+  exit 1
+}
 
 exit 0
