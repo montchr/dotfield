@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# ediff
+# ediff-tool
 #
 # Wrapper for ediff for use as a git mergetool or difftool.
 #
