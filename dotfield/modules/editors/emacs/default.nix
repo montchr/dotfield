@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.editors.emacs;
-  configDir = config.dotfield.flkConfigDir;
+  configDir = "${config.dotfield.flkConfigDir}/emacs";
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 in {
   options = with lib; {
@@ -21,6 +21,8 @@ in {
         mkOutOfStoreSymlink "${config.dotfield.path}/dotfield/config/doom";
       onChange = "doom sync";
     };
+
+    my.modules.zsh.rcFiles = [ "${configDir}/aliases.zsh" ];
 
     my = {
       env = {

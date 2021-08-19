@@ -143,7 +143,7 @@ typeset -aU path;
 # export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"
 
 ## nix-generated
-source $ZDOTDIR/extra.zshrc
+source "${ZDOTDIR}/extra.zshrc"
 
 [[ -f "${ZDOTDIR}/config.local" ]] \
   && source "${ZDOTDIR}/config.local"

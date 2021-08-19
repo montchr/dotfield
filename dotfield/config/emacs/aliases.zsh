@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # https://github.com/hlissner/dotfiles/blob/master/config/emacs/aliases.zsh
 
 e()     { pgrep emacs && emacsclient -n "$@" || emacs -nw "$@" }
