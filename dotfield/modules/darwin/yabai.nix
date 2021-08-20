@@ -136,7 +136,7 @@ in {
         # Display floating windows on top.
         window_topmost = "off";
         split_ratio = 0.5;
-        auto_balance = "off";
+        auto_balance = "on";
 
         # Window opacity
         window_opacity = "off";
@@ -163,14 +163,21 @@ in {
         # Default to all Emacs windows unmanaged.
         # This will prevent childframes from becoming managed automatically,
         # which needs to happen quickly.
+        # yabai -m rule --add app='Emacs' \
+        #   manage=off \
+        #   mouse_follows_focus=off
+
+        # Float Emacs minibuffer
+        # https://github.com/cmacrae/config/blob/303274bb5a97a6f1612d406d8d384482d3fa35f5/modules/macintosh.nix#L163
         yabai -m rule --add app='Emacs' \
+          title='.*Minibuf.*' \
           manage=off \
-          mouse_follows_focus=off
+          border=off
 
         # Manage normal windows. Does not seem to affect childframes.
-        yabai -m rule --add app='Emacs' \
-          title=" ▲ doom(\s+(-|–|—){1}\s+\(\d+.+\d+\))?$" \
-          manage=on
+        # yabai -m rule --add app='Emacs' \
+        #   title=" ▲ doom(\s+(-|–|—){1}\s+\(\d+.+\d+\))?$" \
+        #   manage=on
 
         # Float and center the doom capture window
         yabai -m rule --add app='Emacs' title="doom-capture" \

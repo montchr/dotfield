@@ -182,8 +182,9 @@ export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
 # - - - - - - - - - - - - - - - - - - - -
 
 # System editor settings.
+# TODO: this is also set in nix emacs module -- pick one or the other
 export \
-  EDITOR="emacsclient -cn" \
+  EDITOR="emacsclient" \
   GIT_EDITOR="$EDITOR" \
   SYSTEMD_EDITOR="$EDITOR"
 

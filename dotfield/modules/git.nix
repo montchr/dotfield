@@ -37,9 +37,14 @@ in {
           ];
       };
 
-      my.hm = {
-        configFile = {
-          "git/config".text = with config.my; ''
+      my.hm.configFile = {
+
+        "git/config" = let
+          ediffTool =
+            "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
+        in with config.my; {
+
+          text = ''
             ; ${nix_managed}
 
             ${builtins.readFile "${configDir}/config"}
@@ -64,6 +69,25 @@ in {
             [diff "exif"]
               textconv = ${pkgs.exiftool}/bin/exiftool
 
+            # Diff/Merge Tools
+            [difftool]
+              prompt = false
+            [mergetool]
+              prompt = false
+            [mergetool "ediff"]
+              cmd = ${ediffTool} $LOCAL $REMOTE $MERGED
+            [mergetool "vscode"]
+                cmd = code --wait $MERGED
+            [difftool "vscode"]
+                cmd = code --wait --diff $LOCAL $REMOTE
+            [difftool "ediff"]
+                cmd = ${ediffTool} $LOCAL $REMOTE
+            [diff]
+                colorMoved = default
+                tool = ediff
+            [merge]
+                tool = ediff
+
             ${optionalString (pkgs.stdenv.isDarwin) ''
               [diff "plist"]
                 textconv = plutil -convert xml1 -o -
@@ -71,13 +95,13 @@ in {
                 helper = "osxkeychain"
             ''}
           '';
+        };
 
-          "git/ignore".source = "${configDir}/ignore";
+        "git/ignore".source = "${configDir}/ignore";
 
-          "git/templates" = {
-            source = "${configDir}/templates";
-            recursive = true;
-          };
+        "git/templates" = {
+          source = "${configDir}/templates";
+          recursive = true;
         };
       };
     };
