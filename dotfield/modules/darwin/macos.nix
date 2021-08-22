@@ -198,7 +198,7 @@ in {
             # For force touch: 0 for light clicking, 1 for medium, 2 for firm. The default is 1.
             SecondClickThreshold = 1;
             TrackpadRightClick = true;
-            TrackpadThreeFingerDrag = false;
+            TrackpadThreeFingerDrag = true;
           };
         };
 
