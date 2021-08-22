@@ -14,7 +14,7 @@
 #   - https://github.com/jasonheecs/ubuntu-server-setup
 #
 
-set -e
+set -euo pipefail
 
 : "${DOTFIELD_HOSTNAME:=}"
 : "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
