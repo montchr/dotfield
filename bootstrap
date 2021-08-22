@@ -14,7 +14,7 @@
 #   - https://github.com/jasonheecs/ubuntu-server-setup
 #
 
-set -euo pipefail
+set -eo pipefail
 
 : "${DOTFIELD_HOSTNAME:=}"
 : "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
@@ -495,8 +495,6 @@ function traceback() {
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-set +u
-
 if [[ -f "${DOTFIELD_DIR}/lib/utils.sh" ]]
 then
 
@@ -517,8 +515,6 @@ utils_path="$(fetch_ephemeral "${DOTFIELD_UTILS_URL}")"
 # FIXME: update source path in https://github.com/montchr/dotfield/issues/21
 # shellcheck source=./dotfield/lib/utils.sh
 . "${utils_path}"
-
-set -u
 
 msg::stream::story <<END
 This world is beautiful, but dark.
