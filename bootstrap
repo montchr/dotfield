@@ -46,7 +46,7 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
 
 # FIXME: allow specifying a different installation path
 # FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
-: "${DOTFIELD:=${GITHUB_WORKSPACE:-${HOME}/.config}}"
+: "${DOTFIELD:=${HOME}/dotfield}"
 : "${DOTFIELD_DIR:=${DOTFIELD}/dotfield}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
