@@ -25,7 +25,7 @@ set -eo pipefail
 : "${DOTFIELD_PGP_KEY:=0x135EEDD0F71934F3}"
 : "${DOTFIELD_TIMEZONE:=America/New_York}"
 
-: "${USE_HTTPS:-true}"
+: "${USE_HTTPS:=true}"
 : "${HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 
 DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
