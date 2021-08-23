@@ -2,7 +2,7 @@ name: Bootstrap OS
 
 env:
   CDOM_INIT_INTERACTIVE: 'false'
-  DOTFIELD: "$GITHUB_WORKSPACE"
+  DOTFIELD: "$HOME/dotfield"
   DOTFIELD_USERNAME: 'cdom'
   DOTFIELD_USER_PASSWORD: ${{ secrets.IDPASSWORD }}
   DOTFIELD_SSH_PUBLIC_KEY: ${{ secrets.IDPUBKEY }}
