@@ -2,7 +2,6 @@ name: Bootstrap OS
 
 env:
   CDOM_INIT_INTERACTIVE: 'false'
-  DOTFIELD: "./dotfield"
   DOTFIELD_USERNAME: 'cdom'
   DOTFIELD_USER_PASSWORD: ${{ secrets.IDPASSWORD }}
   DOTFIELD_SSH_PUBLIC_KEY: ${{ secrets.IDPUBKEY }}
@@ -73,4 +72,6 @@ jobs:
           chmod +x ./bootstrap
 
       - name: Run bootstrap script
-        run: ./bootstrap || exit 1
+        run: |
+          export DOTFIELD=$HOME/dotfield
+          ./bootstrap || exit 1
