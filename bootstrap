@@ -44,9 +44,9 @@ readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield
 [[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
   && DOTFIELD_NIX_HOSTNAME="$(hostname)"
 
-# FIXME: allow specifying a different installation path
 # FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
-: "${DOTFIELD:=${HOME}/dotfield}"
+# FIXME: change default to some other location
+: "${DOTFIELD:=${HOME}/.config}"
 : "${DOTFIELD_DIR:=${DOTFIELD}/dotfield}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
@@ -108,6 +108,7 @@ export \
   DOTFIELD \
   DOTFIELD_BOOTSTRAP \
   DOTFIELD_BRANCH \
+  DOTFIELD_DIR \
   DOTFIELD_HOSTNAME \
   DOTFIELD_ID_EMAIL \
   DOTFIELD_NIX_HOSTNAME \
@@ -551,11 +552,11 @@ msg::domain "System" "Syncing dotfield"
 msg::stream::story <<END
 One cannot simply lift oneself up by one's own bootstraps...
 END
-repo::sync "${XDG_CONFIG_HOME}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
+repo::sync "${DOTFIELD}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
 
 
-msg::domain "Travelling" "-> ${XDG_CONFIG_HOME}"
-cd "${XDG_CONFIG_HOME}" || {
+msg::domain "Travelling" "-> ${DOTFIELD}"
+cd "${DOTFIELD}" || {
 msg::stream::errors <<END
 We seem to be lost in '$(pwd)'.
 Something went wrong!
@@ -675,7 +676,7 @@ guard::macos && {
   if ! shell::is_modern; then
     msg::domain "Packages" "Install Homebrew and modern Bash"
     # shellcheck source=./provision/macos/_pre_install.sh
-    . "${XDG_CONFIG_HOME}/provision/macos/_pre_install.sh"
+    . "${DOTFIELD}/provision/macos/_pre_install.sh"
   fi
 }
 
@@ -713,7 +714,7 @@ guard::install && {
 ( guard::ubuntu || guard::debian ) && {
   msg::domain "OS" "Preparing Debian/Ubuntu environment"
   # shellcheck source=./provision/debian/main
-  . "${XDG_CONFIG_HOME}/provision/debian/main"
+  . "${DOTFIELD}/provision/debian/main"
 }
 
 
@@ -721,11 +722,11 @@ guard::macos && {
   msg::domain "OS" "Preparing macOS environment"
 
   # shellcheck source=./provision/macos/main
-  . "${XDG_CONFIG_HOME}/provision/macos/main"
+  . "${DOTFIELD}/provision/macos/main"
 
   # TODO: re-enable this because nix-darwin doesn't handle every available preference
   # msg::domain "OS" "Configuring macOS preferences"
-  # "${XDG_CONFIG_HOME}/provision/macos/configure"
+  # "${DOTFIELD}/provision/macos/configure"
 
   guard::domain "yabai" "Check SIP status" && {
     case $(csrutil status) in
@@ -755,7 +756,7 @@ guard::macos && {
 #     # Force transcrypt to run even if it thinks the working tree is dirty.
 #     # This seems to be a false positive. Regardless, we've already checked for
 #     # a dirty working tree so nothing should be lost at this point.
-#     transcrypt --yes --force --import-gpg="${XDG_CONFIG_HOME}/.transcrypt" || {
+#     transcrypt --yes --force --import-gpg="${DOTFIELD}/.transcrypt" || {
 #       msg::warning "Decryption failed. Have we been her before?"
 #     }
 #   else
