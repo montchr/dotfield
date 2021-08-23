@@ -1354,7 +1354,7 @@ function repo::sync {
   if [[ -d "${wd}/.git" ]]; then
     msg::info "${wd} already exists"
   else
-    git clone "${url}" "${wd}" -b "${branch}" --recursive
+    git clone "${url}" "${wd}" -b "${branch}" --recursive --depth 1
   fi
 
   cd "${wd}" && {
