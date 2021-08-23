@@ -15,25 +15,18 @@ env:
 
 on:
   push:
-      
   pull_request:
     branches:
       - main
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-    
-    
 jobs:
-  
   linode_ephemera:
     runs-on: ubuntu-latest
-    
     defaults:
       run:
         working-directory: ./.ci
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -56,9 +49,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
-        
-          
-          
+
       # - name: executing remote ssh commands using ssh key
       #   uses: appleboy/ssh-action@master
       #   with:
@@ -73,7 +64,6 @@ jobs:
       
   macos:
     runs-on: macos-latest
-    
     steps:
       - name: Download bootstrap script
         run: |
