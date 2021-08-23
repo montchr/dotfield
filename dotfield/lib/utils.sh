@@ -1327,12 +1327,20 @@ function repo::pluck {
   download::fetch "${target}" "${repo_url}"
 }
 
-# Synchronize a repository.
+
+#========================================
+# Synchronize a repository
+#
+# Usage:
+#   repo::sync <target> <forge-id> <repo-id> [<branch>]
+#   repo::sync ~/dotfield gh montchr/dotfield
+#   repo::sync ~/dotfield gh montchr/dotfield hotfix/foo
 # Parameters:
 #   Target directory
-#   Forge name (e.g. github or gh)
-#   Repo identifier (e.g. montchr/dotfield)
-#   Branch name. Defaults to `main`.
+#   Forge ID -- e.g. gh or github
+#   Repo ID -- e.g. montchr/dotfield
+#   Branch name -- defaults to `main`
+#========================================
 function repo::sync {
   local dir=$1
   local forge=$2
