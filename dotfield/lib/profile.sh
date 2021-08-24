@@ -115,8 +115,10 @@ export \
 # NodeJS
 export \
   NODE_REPL_HISTORY="${XDG_DATA_HOME}/node/repl_history" \
-  NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc" \
   NVM_DIR="${XDG_DATA_HOME}/node/nvm"
+
+# TODO: remove? commented out to avoid issues with npm PATH
+# export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 
 # Pass
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
