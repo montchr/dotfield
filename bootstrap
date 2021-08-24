@@ -17,7 +17,6 @@
 set -eo pipefail
 
 : "${DOTFIELD_HOSTNAME:=}"
-: "${DOTFIELD_NIX_HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 : "${DOTFIELD_USERNAME:=}"
 : "${DOTFIELD_ID_EMAIL:=}"
 : "${DOTFIELD_USER_PASSWORD:=}"
@@ -26,7 +25,6 @@ set -eo pipefail
 : "${DOTFIELD_TIMEZONE:=America/New_York}"
 
 : "${USE_HTTPS:=true}"
-: "${HOSTNAME:=${DOTFIELD_HOSTNAME}}"
 
 DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
@@ -40,9 +38,6 @@ readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${D
 # FIXME: https://github.com/montchr/dotfield/issues/21
 readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/dotfield/lib/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
-
-[[ -z "${DOTFIELD_NIX_HOSTNAME}" ]] \
-  && DOTFIELD_NIX_HOSTNAME="$(hostname)"
 
 # FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
 # FIXME: change default to some other location
@@ -111,13 +106,11 @@ export \
   DOTFIELD_DIR \
   DOTFIELD_HOSTNAME \
   DOTFIELD_ID_EMAIL \
-  DOTFIELD_NIX_HOSTNAME \
   DOTFIELD_PGP_KEY \
   DOTFIELD_SSH_PUBLIC_KEY \
   DOTFIELD_TIMEZONE \
   DOTFIELD_USERNAME \
   DOTFIELD_USER_PASSWORD \
-  HOSTNAME \
   KERNEL_NAME \
   KERNEL_RELEASE \
   OS_NAME \
@@ -683,16 +676,11 @@ guard::macos && {
 
 
 guard::install && {
-  # TODO: handle with nix
-  msg::domain "Hostname" "Set the system hostname" && {
-    if [[ -n "${DOTFIELD_HOSTNAME}" ]]; then
-      HOSTNAME="${DOTFIELD_HOSTNAME}"
-    else
-      msg::ask "Enter a name: "
-      HOSTNAME="$(msg::get_answer)"
-      DOTFIELD_NIX_HOSTNAME="${HOSTNAME}"
-    fi
-  }
+  if [[ -z "${DOTFIELD_HOSTNAME}" ]] || [[ ! "${DOTFIELD_HOSTNAME}" == "${HOSTNAME}" ]]; then
+    msg::domain "Hostname" "Set the system hostname"
+    msg::ask "Enter a name: "
+    DOTFIELD_HOSTNAME="$(msg::get_answer)"
+  fi
 
   guard::domain "Identity" "Ensuring PGP key" && {
     if [[ -n "${DOTFIELD_PGP_KEY}" ]]; then
@@ -784,12 +772,12 @@ shell::has nix && {
   msg::domain "Nix" "Build"
 
   guard::macos && {
-    nix build "./#${DOTFIELD_NIX_HOSTNAME}" \
-      && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+    nix build "./#${DOTFIELD_HOSTNAME}" \
+      && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
   }
 
   guard::linux && {
-    sudo nix build switch --flake "./#${DOTFIELD_NIX_HOSTNAME}"
+    sudo nix build switch --flake "./#${DOTFIELD_HOSTNAME}"
   }
 }
 
