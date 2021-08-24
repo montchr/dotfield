@@ -632,7 +632,7 @@ msg::domain "Supporting" "Engaging lock"
 mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
 touch "${DOTFIELD_LOCK_FILE}"
 
-# trap lock__disengage INT TERM EXIT
+trap lock__disengage INT TERM EXIT
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
