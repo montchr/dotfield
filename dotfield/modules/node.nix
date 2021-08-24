@@ -13,13 +13,6 @@ in {
   config = with lib;
     mkIf cfg.enable {
       my = {
-        env = {
-          # ############## Direnv & n
-          # # N_PREFIX = "$XDG_DATA_HOME";
-          # NODE_VERSIONS = "$XDG_DATA_HOME/n/versions/node";
-          NODE_VERSION_PREFIX = "";
-        };
-
         user = {
           packages = with pkgs; [
             # FIXME: nodejs-16_x recently updated to 16.6.0 and fails to build on HodgePodge
@@ -51,10 +44,8 @@ in {
               ${lib.optionalString (name != "") "init-author-name=${name}"}
               ${lib.optionalString (website != "") "init-author-url=${website}"}
               init-version=0.0.1
-              prefix=''${XDG_DATA_HOME}/npm
               cache=''${XDG_CACHE_HOME}/npm
               tmp=''${XDG_RUNTIME_DIR}/npm
-              init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
             '';
           };
 
