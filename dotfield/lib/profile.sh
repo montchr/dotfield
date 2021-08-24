@@ -48,23 +48,32 @@ export \
 
 # Define XDG base directories before all others.
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-export \
-  XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache} \
-  XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config} \
-  XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share} \
-  XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp}
+: "${XDG_CACHE_HOME:=${HOME}/.cache}"
+: "${XDG_CONFIG_HOME:=${HOME}/.config}"
+: "${XDG_DATA_HOME:=${HOME}/.local/share}"
+: "${XDG_RUNTIME_DIR:=/tmp}"
 
 # Non-standard XDG-inspired locations
-export \
-  XDG_BIN_HOME=${XDG_BIN_HOME:-${HOME}/.local/bin} \
-  XDG_LIB_HOME=${XDG_LIB_HOME:-${HOME}/.local/lib}
+: "${XDG_BIN_HOME:=${HOME}/.local/bin}"
+: "${XDG_LIB_HOME:=${HOME}/.local/lib}"
+
+: "${TMPDIR:=${XDG_RUNTIME_DIR}}"
+CACHEDIR="${XDG_CACHE_HOME}"
 
 export \
-  CACHEDIR="${XDG_CACHE_HOME}" \
-  TMPDIR=${TMPDIR:-${XDG_RUNTIME_DIR}}
+  XDG_CACHE_HOME \
+  XDG_CONFIG_HOME \
+  XDG_DATA_HOME \
+  XDG_RUNTIME_DIR \
+  XDG_BIN_HOME \
+  XDG_LIB_HOME \
+  CACHEDIR \
+  TMPDIR
 
-export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/brew/Brewfile.${KERNEL_NAME}.bundle"
+# Homebrew settings
+export HOMEBREW_BUNDLE_FILE="${DOTFIELD}/brew/Brewfile.${KERNEL_NAME}.bundle"
 export HOMEBREW_BUNDLE_NO_LOCK=true
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # Local Configuration + Identity
