@@ -82,7 +82,6 @@
         environment.systemPackages = with pkgs; [
           (writeScriptBin "dotfield"
             (builtins.readFile ./dotfield/bin/dotfield))
-          commitizen
           yarn
         ];
       };
