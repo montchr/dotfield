@@ -78,3 +78,6 @@ jobs:
         run: |
           export DOTFIELD=$HOME/dotfield
           ./bootstrap || exit 1
+
+      - name: Re-run bootstrap for Nix
+        run: ./bootstrap
