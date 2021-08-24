@@ -20,7 +20,8 @@ function main () {
     brew bundle
   }
 
-  guard::install && {
+  # FIXME: ensure this works in CI
+  guard::install && ! shell::is_ci && {
     # FIXME: allow zsh
     msg::subdomain "Allow Homebrew's Bash as login shell"
     local brew_bash_path
