@@ -21,9 +21,6 @@ function __install() {
     sh <(curl -L https://nixos.org/nix/install) --daemon
   fi
 
-  msg::subdomain "Sourcing /etc/bashrc for Nix additions"
-  . /etc/bashrc
-
 }
 
 
