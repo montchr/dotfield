@@ -16,10 +16,8 @@ function main () {
   }
 
   guard::domain "packages" "Install baseline dependencies" && {
-    cd "$XDG_CONFIG_HOME" && {
-      export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
-      brew bundle
-    }
+    export HOMEBREW_BUNDLE_FILE="${DOTFIELD}/provision/macos/Brewfile.${KERNEL_NAME}.bundle"
+    brew bundle
   }
 
   guard::install && {
