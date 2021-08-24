@@ -24,8 +24,6 @@ function __install() {
   msg::subdomain "Sourcing /etc/bashrc for Nix additions"
   . /etc/bashrc
 
-  msg::subdomain "Testing nix-shell"
-  nix-shell -p nix-info --run "nix-info -m"
 }
 
 
@@ -101,7 +99,13 @@ function main() {
   ! guard::nixified && {
     msg::domain "Nix" "Install Nix package manager"
     __install
+
+    msg::warning "Nix was installed, but you need to run the provisioning script again in a new session before continuing! Skipping this time around..."
+    return 0
   }
+
+  msg::subdomain "Testing nix-shell"
+  nix-shell -p nix-info --run "nix-info -m"
 
   msg::domain "Nix" "Enable experimental Nix Flakes" && {
     __flakify

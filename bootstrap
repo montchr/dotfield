@@ -735,15 +735,18 @@ guard::macos && {
 # }
 
 
-guard::install && guard::domain "Nix" "Install" && {
-  if guard::root; then
-    msg::warning "Nix package manager must not be installed by root! Skipping."
-  else
-    . ./provision/_nix.sh
-  fi
+guard::install && {
+  guard::domain "Nix" "Install" && ! guard::nixified && {
+    if guard::root; then
+      msg::warning "Nix package manager must not be installed by root! Skipping."
+    else
+      . ./provision/_nix.sh
+    fi
+  }
 }
 
-guard::domain "Nix" "Build" && shell::has nix && {
+
+guard::domain "Nix" "Build" && guard::nixified && {
   guard::macos && {
     nix build "./#${DOTFIELD_HOSTNAME}" \
       && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
