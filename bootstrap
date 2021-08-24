@@ -675,7 +675,7 @@ guard::macos && {
 }
 
 
-guard::install && {
+( guard::install && ! shell::is_ci ) && {
   if [[ -z "${DOTFIELD_HOSTNAME}" ]] || [[ ! "${DOTFIELD_HOSTNAME}" == "${HOSTNAME}" ]]; then
     msg::domain "Hostname" "Set the system hostname"
     msg::ask "Enter a name: "
