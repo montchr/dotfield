@@ -736,7 +736,7 @@ guard::macos && {
 
 
 guard::install && {
-  guard::domain "Nix" "Install" && ! guard::nixified && {
+  guard::domain "Nix" "Install" && {
     if guard::root; then
       msg::warning "Nix package manager must not be installed by root! Skipping."
     else
