@@ -695,7 +695,12 @@ guard::install && {
   }
 
   guard::domain "Identity" "Ensuring PGP key" && {
-    gpg --recv-key "${DOTFIELD_PGP_KEY}"
+    if [[ -n "${DOTFIELD_PGP_KEY}" ]]; then
+      msg::subdomain "Querying keyserver for key '${DOTFIELD_PGP_KEY}'"
+      gpg --recv-key "${DOTFIELD_PGP_KEY}"
+    else
+      msg::warning "Key variable is not set. Skipping..."
+    fi
   }
 
   guard::domain "Identity" "Ensuring SSH key" && {
