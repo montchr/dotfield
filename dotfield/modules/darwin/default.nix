@@ -12,13 +12,6 @@
     editors.emacs.enable = true;
   };
 
-  my.hm.configFile = {
-    "brew" = {
-      source = "${config.dotfield.flkConfigDir}/brew";
-      recursive = true;
-    };
-  };
-
   homebrew = {
     enable = true;
     autoUpdate = true;
