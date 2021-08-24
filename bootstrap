@@ -780,4 +780,6 @@ guard::install && {
 
 }
 
+lock__disengage
+
 exit
