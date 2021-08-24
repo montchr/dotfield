@@ -99,7 +99,9 @@ function main () {
   
   guard::install && {
   
-    guard::domain "packages" "Upgrading existing dependencies" && {
+    guard::domain "packages" "Upgrading existing dependencies" \
+      && ! shell::is_ci \
+      && {
       pkg::apt::upgrade_all
     }
     
