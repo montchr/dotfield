@@ -1,0 +1,553 @@
+#+title: Doom Emacs Configuration
+#+author: montchr
+#+property: header-args:emacs-lisp :tangle yes :comments link
+#+property: header-args:elisp :exports code
+#+property: header-args:shell :tangle "setup.sh"
+#+property: header-args :tangle no :results silent :eval no-export
+
+* Rudimentary Configuration
+
+#+begin_src emacs-lisp :comments no
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+** Emacs Server
+
+Start the emacs server.
+
+Open a new frame with `emacsclient -cn'.
+
+#+begin_src emacs-lisp :tangle yes
+(server-start)
+#+end_src
+
+** Personal Information
+
+#+begin_src emacs-lisp :tangle yes
+(setq! user-full-name "Chris Montgomery"
+       user-mail-address "chris@cdom.io")
+#+end_src
+
+** Simple Settings
+
+* Interface
+
+** Theme
+
+*** System UI Appearance
+
+Load a theme based on the system's current UI appearance (light or dark).
+
+#+begin_src emacs-lisp :tangle yes
+(defun +cdom/load-os-theme ()
+  "Load the theme corresponding to the system's dark mode status."
+  (interactive)
+  (let ((status (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
+    (if (equal "light" status)
+        (modus-themes-load-operandi)
+      (modus-themes-load-vivendi))))
+#+end_src
+
+*** Modus Themes
+
+#+begin_src emacs-lisp :tangle yes
+(use-package! modus-themes
+  :init
+  (require 'modus-themes)
+  (setq! modus-themes-bold-constructs nil
+         modus-themes-fringes 'subtle
+         modus-themes-slanted-constructs t
+         modus-themes-syntax '(faint yellow-comments green-string)
+         modus-themes-no-mixed-fonts t
+         modus-themes-mode-line 'borderless
+         modus-themes-completions 'opinionated
+         ;; modus-themes-intense-hl-line t
+         modus-themes-paren-match 'subtle-bold
+         modus-themes-headings '((1 . (background overline))
+                                 (2 . (rainbow))
+                                 (t . (no-bold))))
+  (modus-themes-load-themes)
+  :config
+  ;; Load theme based on macOS dark mode status.
+  (+cdom/load-os-theme))
+#+end_src
+
+** Typography
+
+#+begin_src emacs-lisp :tangle yes
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
+       doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
+       doom-unicode-font (font-spec :family "PragmataPro Liga")
+       doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
+
+;; Reduce the size of text in Zen Mode.
+;; (setq! +zen-text-scale 1)
+#+end_src
+
+*** PragmataPro
+
+I like to use PragmataPro. This package provides extensive ligature support.
+
+#+begin_src emacs-lisp :tangle yes
+(use-package! pragmatapro-lig
+  :init
+  (require 'pragmatapro-lig)
+  (pragmatapro-lig-global-mode)
+  :commands (pragmatapro-lig-global-mode pragmatapro-lig-mode))
+#+end_src
+
+** Modeline
+
+Reduce the height of the modeline and its font.
+
+#+begin_src emacs-lisp :tangle yes
+(after! doom-modeline
+  (when IS-MAC
+    (setq! doom-modeline-height 1)
+    (custom-set-faces!
+      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
+#+end_src
+
+*** TODO File Encoding
+
+=LF UTF-8= is the default file encoding, so there's no need to display it in the modeline.
+
+Unfortunately this doesn't appear to be working. It might need to be set with =(after! doom-modeline)=.
+
+
+#+begin_src emacs-lisp :tangle yes
+(defun doom-modeline-conditional-buffer-encoding ()
+  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
+  (setq-local doom-modeline-buffer-encoding
+              (unless (or (eq buffer-file-coding-system 'utf-8-unix)
+                          (eq buffer-file-coding-system 'utf-8)))))
+(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
+#+end_src
+
+** Buffers + Frames + Windows
+
+Open new windows to the right side.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! evil-vsplit-window-right t)
+#+end_src
+
+Change the default buffer and frame names.
+
+See https://tecosaur.github.io/emacs-config/config.html#window-title
+
+#+begin_src emacs-lisp :tangle yes
+(setq! doom-fallback-buffer-name "► Doom"
+       +doom-dashboard-name "► Doom"
+       frame-title-format
+       '(""
+         (:eval
+          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+              (replace-regexp-in-string
+               ".*/[0-9]*-?" "☰ "
+               (subst-char-in-string ?_ ?  buffer-file-name))
+            "%b"))
+         (:eval " ▲ doom")
+         (:eval
+          (when (frame-parent) " ◂ [child]"))))
+#+end_src
+
+** Keyboard
+
+Allow the default macOS =alt/option= behavior for special keyboard characters. But only for the right side -- leave left =option= as the meta key.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! ns-right-alternate-modifier 'none)
+#+end_src
+
+** Navigation
+
+*** =scroll-on-jump=
+
+https://gitlab.com/ideasman42/emacs-scroll-on-jump
+
+#+begin_src emacs-lisp :tangle yes
+(use-package! scroll-on-jump
+  :after (evil)
+  :config
+  (setq! scroll-on-jump-duration 0.2
+         scroll-on-jump-smooth t
+         scroll-on-jump-use-curve nil)
+  (scroll-on-jump-advice-add evil-undo)
+  (scroll-on-jump-advice-add evil-redo)
+  (scroll-on-jump-advice-add evil-jump-item)
+  (scroll-on-jump-advice-add evil-jump-forward)
+  (scroll-on-jump-advice-add evil-jump-backward)
+  (scroll-on-jump-advice-add evil-ex-search-next)
+  (scroll-on-jump-advice-add evil-ex-search-previous)
+  (scroll-on-jump-advice-add evil-forward-paragraph)
+  (scroll-on-jump-advice-add evil-backward-paragraph)
+  ;; Actions that themselves scroll.
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
+#+end_src
+
+** Miscellaneous UI
+
+Display the fill-column indicator so we can identify sensible column width boundaries.
+
+#+begin_src emacs-lisp :tangle yes
+(global-display-fill-column-indicator-mode +1)
+#+end_src
+
+When truncating a string, use a nice ellipsis character.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! truncate-string-ellipsis "…")
+#+end_src
+
+Display relative line numbers. This makes relative line navigation way easy.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! display-line-numbers-type 'relative)
+#+end_src
+
+
+
+* TODO Shell Environment
+
+Store the value of the shell environment's =SSH_*= variables when generating
+the env file. But why?
+
+#+begin_src emacs-lisp :tangle yes
+(when noninteractive
+  (add-to-list 'doom-env-whitelist "^SSH_"))
+#+end_src
+
+* Editor
+
+** Simple Settings
+
+#+begin_src emacs-lisp :tangle yes
+(setq! undo-limit 80000000)
+#+end_src
+
+** Autosave
+
+#+begin_src emacs-lisp :tangle yes
+(setq! auto-save-default t
+       auto-save-no-message t)
+;; TODO: This still throws a message because it's called on the hook, unaffected
+;; by ~auto-save-no-message~
+;;
+;; TODO: may be causing crashes when performing other actions simultaneously?
+;; not just limited to actions in org files fwiw.
+;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
+#+end_src
+
+** Formatting
+
+Set the default tab-width to two spaces because that's the standard (or at least my preference) for most of the languages I work with.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! tab-width 2
+   evil-shift-width 2)
+#+end_src
+
+** Completions
+
+https://tecosaur.github.io/emacs-config/config.html#company
+
+#+begin_src emacs-lisp :tangle yes
+(after! company
+  ;; (setq! company-idle-delay 0.5
+  ;;        company-show-numbers t)
+  ;; Make aborting less annoying.
+  (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+(use-package! company-box
+  :config
+  ;; Disable the documentation childframe because it causes emacs to crash!
+  ;;
+  ;; FIXME Allow doc childframe flyout without crashing
+  ;;
+  ;; Note that Emacs doesn't crash when running Doom+modules without my config...
+  (setq! company-box-doc-enable nil))
+#+end_src
+
+** Languages
+
+Tell Emacs it's okay to eval =sh-set-shell= so that we can load the appropriate syntax for shell scripts that don't have a shebang or expected file extension.
+
+#+begin_src emacs-lisp :tangle yes
+(appendq! safe-local-eval-forms '((sh-set-shell "sh")
+                                  (sh-set-shell "bash")
+                                  (sh-set-shell "zsh")))
+#+end_src
+
+* Organization Mode
+
+This is the mode where I get organized.
+
+** Setup
+
+Provide some initial variables for commonly used directories.
+
+#+begin_src emacs-lisp :tangle yes
+(defvar +cdom/org-agenda-directory "~/org/gtd/")
+(defvar +cdom/org-notes-directory "~/org/notes/")
+(defvar +cdom/org-mind-directory "~/org/mind/")
+#+end_src
+
+Tell org-mode and its friends about these directories.
+
+#+begin_src emacs-lisp :tangle yes
+(setq! org-directory "~/org"
+       +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
+       org-roam-directory +cdom/org-mind-directory
+       deft-directory org-directory
+       deft-recursive t)
+#+end_src
+
+
+* TODO Remaining
+
+
+
+
+;; Extend prescient history lifespan.
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+;; (use-package! which-key
+;;   :init
+;;   (setq! which-key-sort-order
+;;          ;; default
+;;          ;; 'which-key-key-order
+;;          ;; sort based on the key description ignoring case
+;;          ;; 'which-key-description-order
+;;          ;; same as default, except single characters are sorted alphabetically
+;;          ;; 'which-key-key-order-alpha
+;;          ;; same as default, except all prefix keys are grouped together at the end
+;;          ;; 'which-key-prefix-then-key-order
+;;          ;; same as default, except all keys from local maps shown first
+;;          'which-key-local-then-key-order))
+
+;; (setq! which-key-allow-multiple-replacements t)
+;; (after! which-key
+;;   ;; Remove ~evil-~ prefix from keybinding labels
+;;   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+;;   (pushnew!
+;;    which-key-replacement-alist
+;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
+
+(after! magit
+  ;; List magit branches by date.
+  (setq! magit-list-refs-sortby "-creatordate"
+         magit-process-finish-apply-ansi-colors t))
+
+;; Enable delta diff viewer
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+
+;; Prevent evil-lion from removing extra spaces.
+;; Add any desired extra space prior to invoking evil-lion.
+;; (setq! evil-lion-squeeze-spaces nil)
+
+;; Prevent vterm from loading emacs from within itself
+(use-package! with-editor
+  :after (vterm)
+  :general
+  ([remap async-shell-command] 'with-editor-async-shell-command)
+  ([remap shell-command] 'with-editor-shell-command)
+  :hook
+  (shell-mode . with-editor-export-editor)
+  (term-exec  . with-editor-export-editor)
+  (eshell-mode . with-editor-export-editor)
+  (vterm-mode . with-editor-export-editor))
+
+;; https://tecosaur.github.io/emacs-config/config.html#tweaking-defaults
+(use-package! org
+  :config
+  (setq! org-image-actual-width 300
+         org-startup-folded t
+         org-startup-with-inline-images t
+         org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
+         org-cycle-separator-lines -1
+         org-use-property-inheritance t              ; it's convenient to have properties inherited
+         org-log-done 'time                          ; log the time an item was completed
+         org-log-refile 'time
+         org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+         ;; org-export-in-background t                  ; run export processes in external emacs process
+         org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
+         org-export-copy-to-kill-ring 'if-interactive)
+  (defun +cdom/org-archive-done-tasks ()
+    "Archive all completed tasks in a file to an archive sibling."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE|KILL" 'file))
+  (require 'find-lisp)
+  (setq! org-agenda-files (find-lisp-find-files
+                           +cdom/org-agenda-directory
+                           "\.org$")
+         org-archive-default-command 'org-archive-to-archive-sibling))
+
+(use-package! doct
+  :after (org-capture)
+  :commands (doct))
+
+(after! js2-mode
+  (set-company-backend! 'company-tide 'js2-mode))
+
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
+
+(use-package! org-board
+  :defer t)
+
+(use-package! devdocs-browser
+  :defer t)
+
+;; Add a CREATED property to org-mode headings.
+;; (use-package! org-expiry
+;;   :after (org)
+;;   :config
+;;   (setq! org-expiry-inactive-timestamps t)
+;;   (org-expiry-insinuate))
+
+;; (use-package! org-protocol-capture-html
+;;   :after (org))
+
+(use-package! org-web-tools
+  :after (org))
+
+(after! org-capture
+  (defun set-org-capture-templates ()
+    (setq! org-capture-templates
+           (doct `(("Personal todo"
+                    :keys "t"
+                    :icon ("checklist" :set "octicon" :color "green")
+                    :file +org-capture-todo-file
+                    :prepend t
+                    :headline "Inbox"
+                    :type entry
+                    :template ("* TODO %?"
+                               "%i %a"))))))
+  (set-org-capture-templates))
+
+;; Configure org-journal for compatability with org-roam-dailies
+(use-package! org-journal
+  :defer-incrementally t
+  :init
+  (setq! org-journal-file-type 'monthly
+         org-journal-file-format "%Y-%m.org"
+         org-journal-dir +cdom/org-agenda-directory
+         org-journal-date-format "%A, %d %B %Y"
+         org-journal-enable-agenda-integration t))
+
+(use-package! ox-gfm
+  :after org)
+
+(use-package! ox-jira
+  :after org)
+
+(after! markdown
+  (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
+
+(use-package! vimrc-mode
+  :defer-incrementally t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
+
+(use-package! web-mode
+  :config
+  ;; Prevent web-mode from loading for all PHP files in WordPress themes.
+  ;; Overrides doom behavior.
+  (add-to-list 'auto-mode-alist '("wp-content/themes/.+\\.php\\'" . php-mode))
+  ;; Template partials should still load web-mode.
+  (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
+
+(use-package! projectile
+  :config
+  (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
+
+(use-package! treemacs
+  :config
+  (setq! treemacs-persist-file (concat doom-private-dir "treemacs.org")))
+
+(use-package! lsp
+  :config
+  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
+         lsp-vetur-use-workspace-dependencies t))
+
+;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
+;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
+(defun +cdom--lsp-flycheck-enable-shellcheck ()
+  "Enable Shellcheck for shell buffers under LSP."
+  (when (derived-mode-p 'sh-mode)
+    (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
+(add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck)
+
+;; Add multi-root workspace folders on demand.
+;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
+(advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
+
+(use-package! literate-calc-mode
+  :defer-incrementally t)
+
+(set-ligatures! 'org-mode
+  :todo "TODO")
+
+(plist-put! +ligatures-extra-symbols
+            ;; org
+            :name          "»"
+            :src_block     "»"
+            :src_block_end "«"
+            :quote         "“"
+            :quote_end     "”"
+
+            ;; Functional
+            :lambda        "λ"
+            :def           "ƒ"
+            :composition   "∘"
+            :map           "↦"
+
+            ;; Types
+            :null          "∅"
+            :true          "𝕋"
+            :false         "𝔽"
+            :int           "ℤ"
+            :float         "ℝ"
+            :str           "𝕊"
+            :bool          "𝔹"
+            :list          "𝕃"
+
+            ;; Flow
+            :not           "!"
+            :in            "∈"
+            :not-in        "∉"
+            :and           "∧"
+            :or            "∨"
+            :for           "∀"
+            :some          "∃"
+            :return        "⟼"
+            :yield         "⟻"
+
+            ;; Other
+            :union         "⋃"
+            :intersect     "∩"
+            :diff          "∖"
+            :tuple         "⨂"
+            :pipe          " "
+            :dot           "•"
+            :todo          "	")
+
+(setq! +doom-quit-messages
+       '("(setq nothing t everything 'permitted)"
+         "Hey! Hey, M-x listen!"
+         "How fast can you take your time, kid?"
+         "Sous les pavés, la plage!"
+         "You know how everyone's into weirdness right now?"
+         "We have such sights to show you..."
+         "Take a break."
+         "Is Control controlled by its need to control?"
+         "Nothing here now but the recordings..."
+         "Eat protein!"))
