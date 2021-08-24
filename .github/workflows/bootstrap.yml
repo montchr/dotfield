@@ -81,6 +81,7 @@ jobs:
 
       - name: Re-run bootstrap for Nix
         run: |
-          rm $HOME/.cache/dotfield/dotfield.lock
+          [[ -f $HOME/.cache/dotfield/dotfield.lock ]] \
+            && rm $HOME/.cache/dotfield/dotfield.lock
           export DOTFIELD=$HOME/dotfield
           ./bootstrap
