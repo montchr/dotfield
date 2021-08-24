@@ -62,7 +62,9 @@ jobs:
       #   run: wget -qO - "https://raw.github.com/montchr/dotfield/${GITHUB_REF}/bootstrap"
       
   macos:
-    runs-on: macos-latest
+    runs-on:
+      - macos-11
+      - ubuntu-latest
     steps:
       - name: Download bootstrap script
         run: |
