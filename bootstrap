@@ -653,25 +653,9 @@ msg::domain "Guardian" "Ensure directories exist" && {
 }
 
 
-# guard::domain "Link" "Link all files as defined in Linkfiles" && {
-#   fs::linkfile "${DOTFIELD}/Linkfile"
-
-#   for f in "${DOTFIELD}"/**/Linkfile; do
-#     fs::linkfile "$f"
-#   done
-
-#   for fk in "${DOTFIELD}"/**/"Linkfile.${KERNEL_NAME}"; do
-#     fs::linkfile "$fk"
-#   done
-# }
-
-
 guard::macos && {
-  if ! shell::is_modern; then
-    msg::domain "Packages" "Install Homebrew and modern Bash"
-    # shellcheck source=./provision/macos/_pre_install.sh
-    . "${DOTFIELD}/provision/macos/_pre_install.sh"
-  fi
+  # shellcheck source=./provision/macos/main
+  . "${DOTFIELD}/provision/macos/main"
 }
 
 
@@ -713,15 +697,6 @@ guard::macos && {
 
 
 guard::macos && {
-  msg::domain "OS" "Preparing macOS environment"
-
-  # shellcheck source=./provision/macos/main
-  . "${DOTFIELD}/provision/macos/main"
-
-  # TODO: re-enable this because nix-darwin doesn't handle every available preference
-  # msg::domain "OS" "Configuring macOS preferences"
-  # "${DOTFIELD}/provision/macos/configure"
-
   guard::domain "yabai" "Check SIP status" && {
     case $(csrutil status) in
       *enabled*)

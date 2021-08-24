@@ -4,34 +4,42 @@
 #
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Main
-# - - - - - - - - - - - - - - - - - - - -
-
 function main () {
-  local previous_directory
-  previous_directory="$PWD"
-
-  cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
-
   guard::install && {
-    guard::domain "packages" "Install baseline dependencies" && {
-      cd "$XDG_CONFIG_HOME" && {
-        export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
-        brew bundle
+    msg::domain "Packages" "Ensure Homebrew exists" && {
+      shell::has brew || {
+        msg::info "Installing brew"
+        /bin/bash -c "printf \"\n\" | $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew update
       }
     }
   }
 
-
-  guard::upgrade && {
-    guard::domain "packages" "Upgrade packages" && {
-      brew update
-      brew upgrade
+  guard::domain "packages" "Install baseline dependencies" && {
+    cd "$XDG_CONFIG_HOME" && {
+      export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
+      brew bundle
     }
   }
 
-  cd "${previous_directory}" || return
+  guard::install && {
+    # FIXME: allow zsh
+    msg::subdomain "Allow Homebrew's Bash as login shell"
+    local brew_bash_path
+    brew_bash_path="$(brew --prefix)/bin/bash"
+
+    # Add the path of the Bash version installed through Homebrew to the list
+    # of allowed login shells in the `/etc/shells` file.
+    if ! grep "${brew_bash_path}" < /etc/shells &> /dev/null; then
+      printf '%s\n' "${brew_bash_path}" | sudo tee -a /etc/shells
+    fi
+  }
+
+  guard::upgrade && {
+    guard::domain "packages" "Upgrade packages" && {
+      brew upgrade
+    }
+  }
 }
 
 main "$@"
