@@ -127,6 +127,11 @@ in {
         # we're ready to move the configuration to the top level.
         DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
 
+        # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
+        # system has been successfully provisioned with Nix. Otherwise,
+        # `$DOTFIELD_HOSTNAME` should remain an empty string.
+        DOTFIELD_HOSTNAME = config.networking.hostName;
+
         XDG_BIN_HOME = "${xdg.bin}";
         XDG_CACHE_HOME = "${xdg.cache}";
         XDG_CONFIG_HOME = "${xdg.config}";
