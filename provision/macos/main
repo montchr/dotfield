@@ -39,6 +39,8 @@ function main () {
       brew upgrade
     }
   }
+
+  return 0
 }
 
 main "$@"
