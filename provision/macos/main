@@ -4,19 +4,6 @@
 #
 
 
-# Set computer name (as done via System Preferences → Sharing)
-function __set_hostname {
-  local hostname="${1:-${HOSTNAME:-CDOM}}"
-  sudo scutil --set ComputerName "${hostname}"
-  sudo scutil --set HostName "${hostname}"
-  sudo scutil --set LocalHostName "${hostname}"
-  sudo defaults write \
-    /Library/Preferences/SystemConfiguration/com.apple.smb.server \
-    NetBIOSName \
-    -string "${hostname}"
-}
-
-
 # - - - - - - - - - - - - - - - - - - - -
 # Main
 # - - - - - - - - - - - - - - - - - - - -
@@ -33,10 +20,6 @@ function main () {
         export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME}/Brewfile.${KERNEL_NAME}.bundle"
         brew bundle
       }
-    }
-
-    guard::domain "hostname" "Set system hostname to '${HOSTNAME}'" && {
-      __set_hostname "${HOSTNAME}"
     }
   }
 
