@@ -80,4 +80,6 @@ jobs:
           ./bootstrap || exit 1
 
       - name: Re-run bootstrap for Nix
-        run: ./bootstrap
+        run: |
+          export DOTFIELD=$HOME/dotfield
+          ./bootstrap
