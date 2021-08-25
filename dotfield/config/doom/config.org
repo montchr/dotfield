@@ -30,6 +30,13 @@ Open a new frame with `emacsclient -cn'.
 
 ** Simple Settings
 
+Extend the lifespan of history.
+
+#+begin_src emacs-lisp :tangle yes
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+#+end_src
+
 * Interface
 
 ** Theme
@@ -96,6 +103,57 @@ I like to use PragmataPro. This package provides extensive ligature support.
   :commands (pragmatapro-lig-global-mode pragmatapro-lig-mode))
 #+end_src
 
+*** Ligatures
+
+#+begin_src emacs-lisp :tangle yes
+(set-ligatures! 'org-mode
+  :todo "TODO")
+
+(plist-put! +ligatures-extra-symbols
+            ;; org
+            :name          "»"
+            :src_block     "»"
+            :src_block_end "«"
+            :quote         "“"
+            :quote_end     "”"
+
+            ;; Functional
+            :lambda        "λ"
+            :def           "ƒ"
+            :composition   "∘"
+            :map           "↦"
+
+            ;; Types
+            :null          "∅"
+            :true          "𝕋"
+            :false         "𝔽"
+            :int           "ℤ"
+            :float         "ℝ"
+            :str           "𝕊"
+            :bool          "𝔹"
+            :list          "𝕃"
+
+            ;; Flow
+            :not           "!"
+            :in            "∈"
+            :not-in        "∉"
+            :and           "∧"
+            :or            "∨"
+            :for           "∀"
+            :some          "∃"
+            :return        "⟼"
+            :yield         "⟻"
+
+            ;; Other
+            :union         "⋃"
+            :intersect     "∩"
+            :diff          "∖"
+            :tuple         "⨂"
+            :pipe          " "
+            :dot           "•"
+            :todo          "	")
+            #+end_src
+
 ** Modeline
 
 Reduce the height of the modeline and its font.
@@ -158,6 +216,37 @@ Allow the default macOS =alt/option= behavior for special keyboard characters. B
 
 #+begin_src emacs-lisp :tangle yes
 (setq! ns-right-alternate-modifier 'none)
+#+end_src
+
+*** =which-key=
+
+Change the sorting of mappings.
+
+#+begin_src emacs-lisp :tangle yes
+;; (use-package! which-key
+;;   :init
+;;   (setq! which-key-sort-order
+;;          ;; default
+;;          ;; 'which-key-key-order
+;;          ;; sort based on the key description ignoring case
+;;          ;; 'which-key-description-order
+;;          ;; same as default, except single characters are sorted alphabetically
+;;          ;; 'which-key-key-order-alpha
+;;          ;; same as default, except all prefix keys are grouped together at the end
+;;          ;; 'which-key-prefix-then-key-order
+;;          ;; same as default, except all keys from local maps shown first
+;;          'which-key-local-then-key-order))
+
+Remove the =evil-= prefix from labels, as it takes up space and provides little value.
+
+;; (setq! which-key-allow-multiple-replacements t)
+;; (after! which-key
+;;   ;; Remove ~evil-~ prefix from keybinding labels
+;;   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
+;;   (pushnew!
+;;    which-key-replacement-alist
+;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
+;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
 #+end_src
 
 ** Navigation
@@ -252,6 +341,14 @@ Set the default tab-width to two spaces because that's the standard (or at least
    evil-shift-width 2)
 #+end_src
 
+*** =evil-lion=
+
+#+begin_src emacs-lisp :tangle yes
+;; Prevent evil-lion from removing extra spaces.
+;; Add any desired extra space prior to invoking evil-lion.
+;; (setq! evil-lion-squeeze-spaces nil)
+#+end_src
+
 ** Completions
 
 https://tecosaur.github.io/emacs-config/config.html#company
@@ -283,11 +380,41 @@ Tell Emacs it's okay to eval =sh-set-shell= so that we can load the appropriate 
                                   (sh-set-shell "zsh")))
 #+end_src
 
+* Tools
+
+** =magit=
+
+#+begin_src emacs-lisp :tangle yes
+(after! magit
+  ;; List magit branches by date.
+  (setq! magit-list-refs-sortby "-creatordate"
+         magit-process-finish-apply-ansi-colors t))
+
+;; Enable delta diff viewer
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+#+end_src
+
+** Terminal
+
+#+begin_src emacs-lisp :tangle yes
+;; Prevent vterm from loading emacs from within itself
+(use-package! with-editor
+  :after (vterm)
+  :general
+  ([remap async-shell-command] 'with-editor-async-shell-command)
+  ([remap shell-command] 'with-editor-shell-command)
+  :hook
+  (shell-mode . with-editor-export-editor)
+  (term-exec  . with-editor-export-editor)
+  (eshell-mode . with-editor-export-editor)
+  (vterm-mode . with-editor-export-editor))
+#+end_src
+
 * Organization Mode
 
 This is the mode where I get organized.
 
-** Setup
+** Directories
 
 Provide some initial variables for commonly used directories.
 
@@ -307,62 +434,12 @@ Tell org-mode and its friends about these directories.
        deft-recursive t)
 #+end_src
 
+** Basic Settings
 
 * TODO Remaining
 
 
 
-
-;; Extend prescient history lifespan.
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
-
-;; (use-package! which-key
-;;   :init
-;;   (setq! which-key-sort-order
-;;          ;; default
-;;          ;; 'which-key-key-order
-;;          ;; sort based on the key description ignoring case
-;;          ;; 'which-key-description-order
-;;          ;; same as default, except single characters are sorted alphabetically
-;;          ;; 'which-key-key-order-alpha
-;;          ;; same as default, except all prefix keys are grouped together at the end
-;;          ;; 'which-key-prefix-then-key-order
-;;          ;; same as default, except all keys from local maps shown first
-;;          'which-key-local-then-key-order))
-
-;; (setq! which-key-allow-multiple-replacements t)
-;; (after! which-key
-;;   ;; Remove ~evil-~ prefix from keybinding labels
-;;   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
-;;   (pushnew!
-;;    which-key-replacement-alist
-;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
-
-(after! magit
-  ;; List magit branches by date.
-  (setq! magit-list-refs-sortby "-creatordate"
-         magit-process-finish-apply-ansi-colors t))
-
-;; Enable delta diff viewer
-;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
-
-;; Prevent evil-lion from removing extra spaces.
-;; Add any desired extra space prior to invoking evil-lion.
-;; (setq! evil-lion-squeeze-spaces nil)
-
-;; Prevent vterm from loading emacs from within itself
-(use-package! with-editor
-  :after (vterm)
-  :general
-  ([remap async-shell-command] 'with-editor-async-shell-command)
-  ([remap shell-command] 'with-editor-shell-command)
-  :hook
-  (shell-mode . with-editor-export-editor)
-  (term-exec  . with-editor-export-editor)
-  (eshell-mode . with-editor-export-editor)
-  (vterm-mode . with-editor-export-editor))
 
 ;; https://tecosaur.github.io/emacs-config/config.html#tweaking-defaults
 (use-package! org
@@ -493,52 +570,6 @@ Tell org-mode and its friends about these directories.
 (use-package! literate-calc-mode
   :defer-incrementally t)
 
-(set-ligatures! 'org-mode
-  :todo "TODO")
-
-(plist-put! +ligatures-extra-symbols
-            ;; org
-            :name          "»"
-            :src_block     "»"
-            :src_block_end "«"
-            :quote         "“"
-            :quote_end     "”"
-
-            ;; Functional
-            :lambda        "λ"
-            :def           "ƒ"
-            :composition   "∘"
-            :map           "↦"
-
-            ;; Types
-            :null          "∅"
-            :true          "𝕋"
-            :false         "𝔽"
-            :int           "ℤ"
-            :float         "ℝ"
-            :str           "𝕊"
-            :bool          "𝔹"
-            :list          "𝕃"
-
-            ;; Flow
-            :not           "!"
-            :in            "∈"
-            :not-in        "∉"
-            :and           "∧"
-            :or            "∨"
-            :for           "∀"
-            :some          "∃"
-            :return        "⟼"
-            :yield         "⟻"
-
-            ;; Other
-            :union         "⋃"
-            :intersect     "∩"
-            :diff          "∖"
-            :tuple         "⨂"
-            :pipe          " "
-            :dot           "•"
-            :todo          "	")
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"
