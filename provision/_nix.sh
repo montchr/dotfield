@@ -20,7 +20,10 @@ function __install() {
   else
     sh <(curl -L https://nixos.org/nix/install) --daemon
   fi
-
+  
+  msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
+  . /etc/static/bashrc
+  
 }
 
 
@@ -66,9 +69,6 @@ END
 
   msg::subdomain "Running nix-darwin installer"
   ./result/bin/darwin-installer
-
-  msg::subdomain "Sourcing '/etc/static/bashrc' for nix-darwin additions"
-  . /etc/static/bashrc
 
 }
 
