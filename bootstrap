@@ -754,7 +754,7 @@ guard::install && {
 }
 
 
-guard::domain "Nix" "Build" && guard::nixified && {
+( guard::domain "Nix" "Build" && guard::nixified ) && {
   guard::macos && {
     nix build "./#${DOTFIELD_HOSTNAME}" \
       && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
