@@ -754,14 +754,16 @@ guard::install && {
 }
 
 
-( guard::domain "Nix" "Build" && shell::has nix ) && {
-  guard::macos && {
-    nix build "./#${DOTFIELD_HOSTNAME}" \
-      && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
-  }
-
-  guard::linux && {
-    sudo nix build switch --flake "./#${DOTFIELD_HOSTNAME}"
+guard::domain "Nix" "Build" && {
+  shell::has nix && {
+    guard::macos && {
+      nix build "./#${DOTFIELD_HOSTNAME}" \
+        && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
+    }
+  
+    guard::linux && {
+      sudo nix build switch --flake "./#${DOTFIELD_HOSTNAME}"
+    }
   }
 }
 
