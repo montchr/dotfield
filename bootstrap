@@ -144,10 +144,14 @@ export \
 #
 # Arguments:
 #   Commands...
+# Returns:
+#   0 - When all commands are available
+#   1 - When any command is not available
 #========================================
 function shell::has {
   for cmd in "$@"; do
-    command -v "${cmd}" >/dev/null 2>&1
+    command -v "${cmd}" >/dev/null 2>&1 \
+      || return 1
   done
 }
 
