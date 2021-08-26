@@ -93,13 +93,22 @@ function __flakify() {
 # Main entry.
 #========================================
 function main() {
-  [[ ! -d /nix ]] && {
-    msg::domain "Nix" "Install Nix package manager"
-    __install
-
-    msg::warning "Nix was installed, but you need to run the provisioning script again in a new session before continuing! Skipping this time around..."
-    return 0
-  }
+  if ! shell::has nix; then
+    if [[ -d /nix ]]; then
+      msg::warning "Found existing Nix store but no nix commands! Attempting to source shell profile…"
+      . /etc/bashrc
+      if ! shell::has nix; then
+        msg::error "Could not find nix commands! Aborting."
+        return 1
+      fi
+    else
+      msg::subdomain "Install Nix package manager"
+      __install
+  
+      msg::warning "Nix was installed, but you need to run the provisioning script again in a new session before continuing! Skipping this time around..."
+      return 0
+    fi
+  fi
 
   msg::subdomain "Testing nix-shell"
   nix-shell -p nix-info --run "nix-info -m"
