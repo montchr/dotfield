@@ -104,12 +104,11 @@ function main() {
   msg::subdomain "Testing nix-shell"
   nix-shell -p nix-info --run "nix-info -m"
 
-  msg::domain "Nix" "Enable experimental Nix Flakes" && {
-    __flakify
-  }
+  msg::subdomain "Enable experimental Nix Flakes"
+  __flakify
 
-  guard::macos && ! shell::has darwin-help && {
-    msg::domain "Nix" "Install nix-darwin"
+  ( guard::macos && ! shell::has darwin-help ) && {
+    msg::subdomain "Install nix-darwin"
     __install_nix_darwin
   }
 
