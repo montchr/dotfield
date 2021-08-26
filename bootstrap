@@ -88,6 +88,9 @@ if [[ -z "${OS_NAME}" || -z "${OS_VERSION}" ]]; then
 fi
 
 PATH="$HOME/.local/bin:$PATH"
+PATH=/nix/var/nix/profiles/default/bin:$PATH
+PATH=/run/current-system/sw/bin:$PATH
+PATH=$HOME/.nix-profile/bin:$PATH
 
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"
@@ -115,6 +118,7 @@ export \
   KERNEL_RELEASE \
   OS_NAME \
   OS_VERSION \
+  PATH \
   QUERENT \
   REPO_ID \
   XDG_BIN_HOME \
