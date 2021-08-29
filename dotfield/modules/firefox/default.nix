@@ -128,13 +128,13 @@ in {
           id = 0;
           settings = defaultSettings;
           # TODO: use CSS custom properties instead of nix substitution
-          userChrome = (builtins.readFile (pkgs.substituteAll {
-            name = "homeUserChrome";
-            src = "${configDir}/userChrome.css";
-            # TODO: handle profile color differentiation
-            # tabLineColour = "#5e81ac";
-          }));
-          userContent = userContentCSS;
+          # userChrome = (builtins.readFile (pkgs.substituteAll {
+          #   name = "homeUserChrome";
+          #   src = "${configDir}/userChrome.css";
+          #   # TODO: handle profile color differentiation
+          #   # tabLineColour = "#5e81ac";
+          # }));
+          # userContent = userContentCSS;
         };
 
         work = {
@@ -144,13 +144,13 @@ in {
             "browser.urlbar.placeholderName" = "Google";
           };
           # TODO: use CSS custom properties instead of nix substitution
-          userChrome = (builtins.readFile (pkgs.substituteAll {
-            name = "workUserChrome";
-            src = "${configDir}/userChrome.css";
-            # TODO: handle profile color differentiation
-            # tabLineColour = "#d08770";
-          }));
-          userContent = userContentCSS;
+          # userChrome = (builtins.readFile (pkgs.substituteAll {
+          #   name = "workUserChrome";
+          #   src = "${configDir}/userChrome.css";
+          #   # TODO: handle profile color differentiation
+          #   # tabLineColour = "#d08770";
+          # }));
+          # userContent = userContentCSS;
         };
       };
     };
