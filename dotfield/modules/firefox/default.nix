@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 # References:
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
@@ -8,7 +8,9 @@ let
   cfg = config.my.modules.firefox;
   configDir = "${config.dotfield.flkConfigDir}/firefox";
 
-  addons = pkgs.nur.repos.rycee.firefox-addons;
+  # addons = pkgs.nur.repos.rycee.firefox-addons;
+  # TODO: handle multiple architectures!
+  addons = inputs.firefox-addons.packages.x86_64-darwin;
 in {
   options = with lib; {
     my.modules.firefox = { enable = mkEnableOption false; };
@@ -17,18 +19,18 @@ in {
   config = mkIf cfg.enable {
     my.hm.file = {
       # Provide extensions with a JavaScript binding for GPG.
-      gpgmejson = optionalAttrs config.my.modules.gpg.enable {
-        target =
-          "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
-        source = (builtins.toJSON {
-          name = "gpgmejson";
-          description = "JavaScript binding for GnuPG";
-          # FIXME: error: attribute 'bin' missing
-          path = "${pkgs.gpgme.bin}/gpg-json";
-          type = "stdio";
-          allowed_extensions = "jid1-AQqSMBYb0a8ADg@jetpack";
-        });
-      };
+      # gpgmejson = optionalAttrs config.my.modules.gpg.enable {
+      #   target =
+      #     "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
+      #   source = (builtins.toJSON {
+      #     name = "gpgmejson";
+      #     description = "JavaScript binding for GnuPG";
+      #     # FIXME: error: attribute 'bin' missing
+      #     path = "${pkgs.gpgme.bin}/gpg-json";
+      #     type = "stdio";
+      #     allowed_extensions = "jid1-AQqSMBYb0a8ADg@jetpack";
+      #   });
+      # };
     };
 
     my.hm.programs.firefox = {
@@ -43,10 +45,10 @@ in {
         # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/default.nix#L31
         # 1password-x-password-manager
         # a11ycss
-        # add-custom-search-engine
-        # copy-selection-as-markdown
+        add-custom-search-engine
+        copy-selection-as-markdown
         darkreader
-        # display-_anchors
+        display-_anchors
         firefox-color
         mailvelope
         multi-account-containers
@@ -60,7 +62,7 @@ in {
         reddit-enhancement-suite
         reduxdevtools
         refined-github
-        # search-engines-helper
+        search-engines-helper
         # TODO: not sure what this one is
         # sidebery
         # TODO: pick this or the other
