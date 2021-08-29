@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
-    firefox-addons.url = "gitlab:montchr/nur-expressions/develop?dir=pkgs/firefox-addons";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -14,6 +13,11 @@
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    firefox-addons = {
+      url = "gitlab:montchr/nur-expressions/develop?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
