@@ -72,7 +72,7 @@
         };
 
         nixpkgs = {
-          config = { allowUnfree = true; };
+          config.allowUnfree = true;
           overlays = with inputs; [
             (import ./dotfield/overlays/yabai.nix)
             emacs.overlay

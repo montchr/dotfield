@@ -97,21 +97,19 @@ in {
   config = {
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
 
-    my = {
-      user = {
-        home = if pkgs.stdenv.isDarwin then
-          "/Users/${config.my.username}"
-        else
-          "/home/${config.my.username}";
+    my.user = {
+      home = if pkgs.stdenv.isDarwin then
+        "/Users/${config.my.username}"
+      else
+        "/home/${config.my.username}";
 
-        description = "Primary user account";
-      };
+      description = "Primary user account";
+    };
 
-      env = {
-        GITHUB_USER = config.my.github_username;
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-      };
+    my.env = {
+      GITHUB_USER = config.my.github_username;
+      LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
+      WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     };
 
     environment = {
