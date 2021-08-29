@@ -42,9 +42,8 @@ in {
       # FIXME: only the addons available in the nur repo will work! others are
       # commented out for now, but they should be added and generated.
       extensions = with addons; [
-        # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/default.nix#L31
-        # 1password-x-password-manager
-        # a11ycss
+        1password-x-password-manager
+        a11ycss
         add-custom-search-engine
         copy-selection-as-markdown
         darkreader
@@ -54,8 +53,8 @@ in {
         multi-account-containers
         octolinker
         old-reddit-redirect
-        # org-capture
-        # pinboard
+        org-capture
+        pinboard
         # TODO: not sure what this one is
         # privacy-redirect
         react-devtools
