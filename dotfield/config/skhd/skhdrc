@@ -61,10 +61,13 @@ app     < e : open -a ~/Applications/Emacs.app; \
 app     < shift - e : emacsclient -cn; \
               skhd -k 'escape'
 
-# _f_irefox -- new window
-# FIXME: focus the new window
-app     < f : "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
-              --new-window ; \
+# _f_irefox -- new window in home profile
+app     < f : open -n -a "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
+              --args -P home ; \
+              skhd -k 'escape'
+# _F_irefox -- new window in work profile
+app     < shift - f : open -n -a "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
+              --args -P work ; \
               skhd -k 'escape'
 
 # _t_erminal (Kitty) -- new os-window
