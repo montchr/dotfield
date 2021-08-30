@@ -10,6 +10,7 @@ let
 
   # addons = pkgs.nur.repos.rycee.firefox-addons;
   # TODO: handle multiple architectures!
+  # FIXME: `allowUnfree` is hardcoded in my fork
   addons = inputs.firefox-addons.packages.x86_64-darwin;
 in {
   options = with lib; {
@@ -39,8 +40,6 @@ in {
       # This populates a dummy package to satisfy the requirement
       package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
 
-      # FIXME: only the addons available in the nur repo will work! others are
-      # commented out for now, but they should be added and generated.
       extensions = with addons; [
         onepassword-password-manager
         a11ycss
@@ -64,8 +63,7 @@ in {
         search-engines-helper
         # TODO: not sure what this one is
         # sidebery
-        # TODO: pick this or the other
-        # tridactyl
+        tridactyl
         ublock-origin
         # TODO: pick this or the other
         # vimium
