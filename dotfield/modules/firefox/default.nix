@@ -42,7 +42,7 @@ in {
       # FIXME: only the addons available in the nur repo will work! others are
       # commented out for now, but they should be added and generated.
       extensions = with addons; [
-        1password-x-password-manager
+        onepassword-password-manager
         a11ycss
         add-custom-search-engine
         copy-selection-as-markdown
