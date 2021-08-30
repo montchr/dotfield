@@ -60,6 +60,7 @@ in {
         dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
         lib = mkOpt' attrs config.home-manager.users.${config.my.username}.lib
           "home-manager lib alias";
+        programs = mkOpt' attrs { } "home-manager programs config";
       };
 
       xdg = let t = either str path;
@@ -96,21 +97,19 @@ in {
   config = {
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
 
-    my = {
-      user = {
-        home = if pkgs.stdenv.isDarwin then
-          "/Users/${config.my.username}"
-        else
-          "/home/${config.my.username}";
+    my.user = {
+      home = if pkgs.stdenv.isDarwin then
+        "/Users/${config.my.username}"
+      else
+        "/home/${config.my.username}";
 
-        description = "Primary user account";
-      };
+      description = "Primary user account";
+    };
 
-      env = {
-        GITHUB_USER = config.my.github_username;
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-      };
+    my.env = {
+      GITHUB_USER = config.my.github_username;
+      LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
+      WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     };
 
     environment = {
@@ -161,10 +160,7 @@ in {
           dataFile = mkAliasDefinitions options.my.hm.dataFile;
         };
 
-        programs = {
-          # Let Home Manager install and manage itself.
-          home-manager.enable = true;
-        };
+        programs = mkAliasDefinitions options.my.hm.programs;
       };
     };
 

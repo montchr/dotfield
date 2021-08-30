@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    firefox-addons = {
+      url = "gitlab:montchr/nur-expressions/develop?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     emacs.url = "github:cmacrae/emacs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
@@ -67,8 +72,8 @@
         };
 
         nixpkgs = {
-          config = { allowUnfree = true; };
-          overlays = [
+          config.allowUnfree = true;
+          overlays = with inputs; [
             (import ./dotfield/overlays/yabai.nix)
             emacs.overlay
             emacs-overlay.overlay

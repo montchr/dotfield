@@ -21,6 +21,7 @@
     ./editors/emacs
     ./editors/vim
     ./espanso
+    ./firefox
     ./kitty
   ];
 
@@ -29,6 +30,7 @@
     bash.enable = true;
     direnv.enable = true;
     espanso.enable = true;
+    firefox.enable = true;
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;
