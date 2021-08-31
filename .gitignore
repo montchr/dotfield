@@ -19,6 +19,7 @@ result
 /git
 /karabiner
 /kitty
+!/kitty/base16-kitty
 /nix
 /npm
 /prettier
