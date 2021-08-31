@@ -131,6 +131,9 @@ if [[ $TERM != dumb ]]; then
   enable-fzf-tab
 fi
 
+# Hook direnv into shell
+eval "$(direnv hook zsh)"
+
 # Dedupe PATH.
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path;
