@@ -48,25 +48,23 @@ in {
         darkreader
         display-_anchors
         firefox-color
+        floccus
         mailvelope
         multi-account-containers
         octolinker
         old-reddit-redirect
         org-capture
         pinboard
-        # TODO: not sure what this one is
-        # privacy-redirect
+        privacy-badger
+        privacy-redirect
         react-devtools
         reddit-enhancement-suite
         reduxdevtools
         refined-github
         search-engines-helper
-        # TODO: not sure what this one is
-        # sidebery
+        tabliss
         tridactyl
         ublock-origin
-        # TODO: pick this or the other
-        # vimium
       ];
 
       profiles = let
