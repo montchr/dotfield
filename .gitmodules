@@ -29,7 +29,7 @@
 	path = vendor/pfetch
 	url = https://github.com/montchr/pfetch.git
 [submodule "stackline"]
-	path = hammerspoon/stackline
+	path = vendor/stackline
 	url = https://github.com/AdamWagner/stackline.git
 [submodule "lepton"]
 	path = vendor/lepton
