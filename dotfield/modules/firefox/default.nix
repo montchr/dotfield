@@ -18,20 +18,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    my.hm.file = {
-      # Provide extensions with a JavaScript binding for GPG.
-      # gpgmejson = optionalAttrs config.my.modules.gpg.enable {
-      #   target =
-      #     "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json";
-      #   source = (builtins.toJSON {
-      #     name = "gpgmejson";
-      #     description = "JavaScript binding for GnuPG";
-      #     # FIXME: error: attribute 'bin' missing
-      #     path = "${pkgs.gpgme.bin}/gpg-json";
-      #     type = "stdio";
-      #     allowed_extensions = "jid1-AQqSMBYb0a8ADg@jetpack";
-      #   });
-      # };
+    my.hm.configFile = {
+      "tridactyl".source = "${configDir}/tridactyl";
     };
 
     my.hm.programs.firefox = {
