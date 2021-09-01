@@ -128,6 +128,11 @@ in {
           settings = defaultSettings // {
             "browser.startup.homepage" = "about:blank";
             "browser.urlbar.placeholderName" = "Google";
+            "privacy.donottrackheader.enabled" = false;
+            "privacy.donottrackheader.value" = 0;
+            "privacy.trackingprotection.enabled" = false;
+            "privacy.trackingprotection.socialtracking.annotate.enabled" = false;
+            "privacy.trackingprotection.socialtracking.enabled" = false;
           };
           # TODO: use CSS custom properties instead of nix substitution
           # userChrome = (builtins.readFile (pkgs.substituteAll {
