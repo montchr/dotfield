@@ -21,7 +21,7 @@
   environment.systemPackages = with pkgs; [ dnsmasq ];
 
   homebrew = {
-    casks = [ "figma" "sketch" ];
+    casks = [ "figma" "microsoft-teams" "sketch" ];
     masApps = {
       "Harvest" = 506189836;
       "Jira" = 1475897096;
