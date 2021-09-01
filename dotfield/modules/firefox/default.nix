@@ -73,7 +73,7 @@ in {
           "browser.urlbar.placeholderName" = "…";
           "browser.urlbar.showSearchSuggestionsFirst" = false;
           "browser.urlbar.suggest.calculator" = true;
-          "browser.urlbar.suggest.history" = false;
+          "browser.urlbar.suggest.history" = true;
           # TODO: set devtools theme
           # https://rycee.gitlab.io/nur-expressions/hm-options.html
           # "devtools.theme" = "${config.theme.base16.kind}";
