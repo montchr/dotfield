@@ -18,9 +18,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    my.hm.configFile = {
-      "tridactyl".source = "${configDir}/tridactyl";
-    };
+    my.hm.configFile = { "tridactyl".source = "${configDir}/tridactyl"; };
 
     my.hm.programs.firefox = {
       enable = true;
@@ -78,6 +76,10 @@ in {
           # https://rycee.gitlab.io/nur-expressions/hm-options.html
           # "devtools.theme" = "${config.theme.base16.kind}";
           "extensions.pocket.enabled" = false;
+          # Allow extensions to run on Mozilla domains.
+          # Required for Tridactyl and Dark Reader support on those pages.
+          # See https://github.com/tridactyl/tridactyl/issues/1800
+          "extensions.webextensions.restrictedDomains" = "";
           "font.default.x-western" = "sans-serif";
           "font.name.monospace.x-western" = "PragmataPro Liga";
           "font.name.sans-serif.x-western" = "Inter";
@@ -87,6 +89,9 @@ in {
           "network.dns.disablePrefetch" = true;
           "privacy.donottrackheader.enabled" = true;
           "privacy.donottrackheader.value" = 1;
+          # Disable fingerprinting on AMO for Tridactyl.
+          # See https://github.com/tridactyl/tridactyl/issues/1800
+          "privacy.resistFingerprinting.block_mozAddonManager" = true;
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
