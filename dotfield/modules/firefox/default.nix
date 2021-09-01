@@ -60,6 +60,7 @@ in {
           "app.update.auto" = false;
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.ctrlTab.recentlyUsedOrder" = false;
+          "browser.proton.enabled" = true;
           "browser.newtabpage.enabled" = false;
           "browser.search.hiddenOneOffs" =
             "Google,Yahoo,Bing,Amazon.com,Twitter";
