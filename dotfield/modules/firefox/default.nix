@@ -65,7 +65,7 @@ in {
           "browser.search.hiddenOneOffs" =
             "Google,Yahoo,Bing,Amazon.com,Twitter";
           "browser.search.region" = "US";
-          "browser.search.suggest.enabled" = false;
+          "browser.search.suggest.enabled" = true;
           "browser.send_pings" = false;
           "browser.startup.homepage" = "https://lobste.rs";
           # 0 = Normal; 1 = Compact; 2 = Touch
