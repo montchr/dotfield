@@ -89,6 +89,8 @@ in {
           "font.size.monospace.x-western" = 16;
           "identity.fxaccounts.account.device.name" =
             config.networking.hostName;
+          # CSS blur filter in v88+
+          "layout.css.backdrop-filter.enabled" = true;
           "network.dns.disablePrefetch" = true;
           "privacy.donottrackheader.enabled" = true;
           "privacy.donottrackheader.value" = 1;
@@ -105,6 +107,9 @@ in {
           "services.sync.engineStatusChanged.addons" = true;
           "services.sync.engineStatusChanged.prefs" = true;
           "signon.rememberSignons" = false;
+          # https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-context-properties
+          "svg.context-properties.content.enabled" = true;
+          # Enable custom stylesheets.
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
 
