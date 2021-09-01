@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    firefox-lepton = {
+      url = "github:black7375/Firefox-UI-Fix";
+      flake = false;
+    };
+
     emacs.url = "github:cmacrae/emacs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 

@@ -28,6 +28,3 @@
 [submodule "stackline"]
 	path = vendor/stackline
 	url = https://github.com/AdamWagner/stackline.git
-[submodule "lepton"]
-	path = vendor/lepton
-	url = git@github.com:black7375/Firefox-UI-Fix.git
