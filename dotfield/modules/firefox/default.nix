@@ -59,7 +59,10 @@ in {
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.ctrlTab.recentlyUsedOrder" = false;
           "browser.proton.enabled" = true;
-          "browser.newtabpage.enabled" = false;
+          "browser.newtabpage.enabled" = true;
+          # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
+          "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" =
+            false;
           "browser.search.hiddenOneOffs" =
             "Google,Yahoo,Bing,Amazon.com,Twitter";
           "browser.search.region" = "US";
