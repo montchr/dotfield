@@ -7,6 +7,7 @@ with lib;
 let
   cfg = config.my.modules.firefox;
   configDir = "${config.dotfield.flkConfigDir}/firefox";
+  leptonDir = inputs.firefox-lepton.outPath;
 
   # addons = pkgs.nur.repos.rycee.firefox-addons;
   # TODO: handle multiple architectures!
@@ -122,18 +123,44 @@ in {
             --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
           }
         '';
+
+        imports = {
+          lepton = {
+            userChrome = ''
+              /* Load Lepton userChrome.css */
+              /* @import url("file://${leptonDir}/userChrome.css"); */
+              @import url("${leptonDir}/userChrome.css");
+            '';
+            userContent = ''
+              /* Load Lepton userContent.css */
+              /* @import url("file://${leptonDir}/userContent.css"); */
+              @import url("file://${leptonDir}/userContent.css");
+            '';
+          };
+        };
       in {
         home = {
           id = 0;
           settings = defaultSettings;
-          # TODO: use CSS custom properties instead of nix substitution
-          # userChrome = (builtins.readFile (pkgs.substituteAll {
-          #   name = "homeUserChrome";
-          #   src = "${configDir}/userChrome.css";
-          #   # TODO: handle profile color differentiation
-          #   # tabLineColour = "#5e81ac";
-          # }));
-          # userContent = userContentCSS;
+          userChrome = ''
+            ${imports.lepton.userChrome}
+
+            :root {
+              --dotfield-tab-line-color: #5e81ac;
+            }
+
+            ${(builtins.readFile (pkgs.substituteAll {
+              name = "homeUserChrome";
+              src = "${configDir}/userChrome.css";
+              # TODO: handle profile color differentiation
+              # tabLineColour = "#5e81ac";
+            }))}
+          '';
+
+          userContent = ''
+            ${imports.lepton.userContent}
+            ${userContentCSS}
+          '';
         };
 
         work = {
@@ -144,17 +171,31 @@ in {
             "privacy.donottrackheader.enabled" = false;
             "privacy.donottrackheader.value" = 0;
             "privacy.trackingprotection.enabled" = false;
-            "privacy.trackingprotection.socialtracking.annotate.enabled" = false;
+            "privacy.trackingprotection.socialtracking.annotate.enabled" =
+              false;
             "privacy.trackingprotection.socialtracking.enabled" = false;
           };
-          # TODO: use CSS custom properties instead of nix substitution
-          # userChrome = (builtins.readFile (pkgs.substituteAll {
-          #   name = "workUserChrome";
-          #   src = "${configDir}/userChrome.css";
-          #   # TODO: handle profile color differentiation
-          #   # tabLineColour = "#d08770";
-          # }));
-          # userContent = userContentCSS;
+
+          userChrome = ''
+            ${imports.lepton.userChrome}
+
+            :root {
+              --dotfield-color-alley-red: #a22e29;
+              --dotfield-tab-line-color: var(--dotfield-color-alley-red);
+            }
+
+            ${(builtins.readFile (pkgs.substituteAll {
+              name = "workUserChrome";
+              src = "${configDir}/userChrome.css";
+              # TODO: handle profile color differentiation
+              # tabLineColour = "#5e81ac";
+            }))}
+          '';
+
+          userContent = ''
+            ${imports.lepton.userContent}
+            ${userContentCSS}
+          '';
         };
       };
     };
