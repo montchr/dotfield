@@ -8,11 +8,7 @@ let
   cfg = config.my.modules.firefox;
   configDir = "${config.dotfield.flkConfigDir}/firefox";
   leptonDir = inputs.firefox-lepton.outPath;
-
-  # addons = pkgs.nur.repos.rycee.firefox-addons;
-  # TODO: handle multiple architectures!
-  # FIXME: `allowUnfree` is hardcoded in my fork
-  addons = inputs.firefox-addons.packages.x86_64-darwin;
+  addons = pkgs.nur.repos.rycee.firefox-addons;
 in {
   options = with lib; {
     my.modules.firefox = { enable = mkEnableOption false; };
