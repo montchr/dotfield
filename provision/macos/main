@@ -16,7 +16,7 @@ function main () {
   }
 
   guard::domain "packages" "Install baseline dependencies" && {
-    export HOMEBREW_BUNDLE_FILE="${DOTFIELD}/provision/macos/Brewfile.${KERNEL_NAME}.bundle"
+    export HOMEBREW_BUNDLE_FILE="${DOTFIELD_DIR}/provision/macos/Brewfile.${KERNEL_NAME}.bundle"
     brew bundle
   }
 

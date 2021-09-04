@@ -30,19 +30,13 @@ DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
 DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
 readonly DOTFIELD_BRANCH
 
-# TODO
-# readonly QUERENT="${GITHUB_ACTOR:-montchr}"
 readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
 readonly REPO_ID="montchr/dotfield"
 readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
-# FIXME: https://github.com/montchr/dotfield/issues/21
-readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/dotfield/lib/utils.sh"
+readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
 readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
 
-# FIXME: rename to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
-# FIXME: change default to some other location
-: "${DOTFIELD:=${HOME}/.config}"
-: "${DOTFIELD_DIR:=${DOTFIELD}/dotfield}"
+: "${DOTFIELD_DIR:=${HOME}/dotfield}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
 XDG_CONFIG_HOME="${HOME}/.config"
@@ -103,7 +97,6 @@ fi
 
 export \
   DEVELOPER \
-  DOTFIELD \
   DOTFIELD_BOOTSTRAP \
   DOTFIELD_BRANCH \
   DOTFIELD_DIR \
@@ -501,7 +494,7 @@ function traceback() {
 if [[ -f "${DOTFIELD_DIR}/lib/utils.sh" ]]
 then
 
-# shellcheck source=./dotfield/lib/utils.sh
+# shellcheck source=./lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 msg::stream::story <<END
@@ -515,8 +508,7 @@ else
 
 printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
 utils_path="$(fetch_ephemeral "${DOTFIELD_UTILS_URL}")"
-# FIXME: update source path in https://github.com/montchr/dotfield/issues/21
-# shellcheck source=./dotfield/lib/utils.sh
+# shellcheck source=./lib/utils.sh
 . "${utils_path}"
 
 msg::stream::story <<END
@@ -554,11 +546,11 @@ msg::domain "System" "Syncing dotfield"
 msg::stream::story <<END
 One cannot simply lift oneself up by one's own bootstraps...
 END
-repo::sync "${DOTFIELD}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
+repo::sync "${DOTFIELD_DIR}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
 
 
-msg::domain "Travelling" "-> ${DOTFIELD}"
-cd "${DOTFIELD}" || {
+msg::domain "Travelling" "-> ${DOTFIELD_DIR}"
+cd "${DOTFIELD_DIR}" || {
 msg::stream::errors <<END
 We seem to be lost in '$(pwd)'.
 Something went wrong!
@@ -733,7 +725,7 @@ guard::macos && {
 #     # Force transcrypt to run even if it thinks the working tree is dirty.
 #     # This seems to be a false positive. Regardless, we've already checked for
 #     # a dirty working tree so nothing should be lost at this point.
-#     transcrypt --yes --force --import-gpg="${DOTFIELD}/.transcrypt" || {
+#     transcrypt --yes --force --import-gpg="${DOTFIELD_DIR}/.transcrypt" || {
 #       msg::warning "Decryption failed. Have we been her before?"
 #     }
 #   else
@@ -758,7 +750,7 @@ guard::domain "Nix" "Build" && {
   shell::has nix && [[ $(nix --version) ]] && {
     guard::macos && {
       nix build "./#${DOTFIELD_HOSTNAME}" \
-        && "${DOTFIELD}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
+        && "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
     }
   
     guard::linux && {

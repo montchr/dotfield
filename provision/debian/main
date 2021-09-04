@@ -3,7 +3,7 @@
 # OS :: Debian :: Install
 #
 
-# shellcheck source=../../dotfield/lib/utils.sh
+# shellcheck source=../../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 function __provision_user {

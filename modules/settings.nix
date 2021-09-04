@@ -33,12 +33,13 @@ in {
       # TODO: point this to the flake config directory in https://github.com/montchr/dotfield/issues/21
       configDir = mkOpt t "${config.dotfield.dir}";
       dir = mkOpt t (toString ../../.);
+      # TODO: replace this with something else... no longer xdg-config-specific
       path = mkOpt t "${config.my.user.home}/.config";
-      binDir = mkOpt t "${config.dotfield.dir}/dotfield/bin";
-      libDir = mkOpt t "${config.dotfield.dir}/dotfield/lib";
-      modulesDir = mkOpt t "${config.dotfield.dir}/dotfield/modules";
+      binDir = mkOpt t "${config.dotfield.dir}/bin";
+      libDir = mkOpt t "${config.dotfield.dir}/lib";
+      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
       # TODO: replace usages of this with `configDir` in https://github.com/montchr/dotfield/issues/21
-      flkConfigDir = mkOpt t "${config.dotfield.dir}/dotfield/config";
+      flkConfigDir = mkOpt t "${config.dotfield.dir}/config";
     };
 
     my = {
@@ -117,13 +118,14 @@ in {
         # `$DOTFIELD` must point to its absolute path on the system -- not to
         # its location in the Nix store. ZSH may cache a path to an old
         # derivation.
+        # FIXME: replace with DOTFIELD_DIR
         DOTFIELD = config.dotfield.path;
 
         # FIXME: `$DOTFIELD_DIR` should be preferred going forward, as it's
         # easier to grep. for the time being, it also provides a direct path to
         # the nix configuration within the repo, but that should change once
         # we're ready to move the configuration to the top level.
-        DOTFIELD_DIR = "${config.dotfield.path}/dotfield";
+        DOTFIELD_DIR = config.dotfield.path;
 
         # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
         # system has been successfully provisioned with Nix. Otherwise,

@@ -9,9 +9,7 @@
 
 set -e
 
-# FIXME: change this to `$DOTFIELD_DIR` in https://github.com/montchr/dotfield/issues/21
-DOTFIELD="$(git rev-parse --show-toplevel)"
-DOTFIELD_DIR="${DOTFIELD}/dotfield"
+DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 
 # shellcheck source=../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
