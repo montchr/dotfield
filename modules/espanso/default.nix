@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.espanso;
-  configDirPath = "${config.dotfield.path}/dotfield/config/espanso";
+  configDirPath = "${config.dotfield.flkConfigDir}/espanso";
   snippetsDir = "$XDG_CONFIG_HOME/espanso/user";
   plugins = [ "greek-letters-alt" ];
   secrets =

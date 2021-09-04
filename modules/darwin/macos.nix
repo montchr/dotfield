@@ -42,7 +42,7 @@ in {
 
         "karabiner/karabiner.json" = with config.my.hm.lib.file; {
           source = mkOutOfStoreSymlink
-            "${config.dotfield.path}/dotfield/config/karabiner/karabiner.json";
+            "${config.dotfield.path}/config/karabiner/karabiner.json";
         };
       };
 

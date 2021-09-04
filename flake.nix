@@ -79,7 +79,7 @@
         nixpkgs = {
           config.allowUnfree = true;
           overlays = with inputs; [
-            (import ./dotfield/overlays/yabai.nix)
+            (import ./overlays/yabai.nix)
             emacs.overlay
             emacs-overlay.overlay
             nur.overlay
@@ -91,7 +91,7 @@
 
         environment.systemPackages = with pkgs; [
           (writeScriptBin "dotfield"
-            (builtins.readFile ./dotfield/bin/dotfield))
+            (builtins.readFile ./bin/dotfield))
           yarn
         ];
       };
@@ -103,25 +103,25 @@
         };
       in [
         inputs.home-manager.darwinModules.home-manager
-        ./dotfield/modules
+        ./modules
         sharedHostsConfig
       ];
 
     in {
       overlays = (final: prev: {
         nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-        pragmatapro = (prev.callPackage ./dotfield/pkgs/pragmatapro.nix { });
+        pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
       });
 
       darwinConfigurations = {
         HodgePodge = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./dotfield/hosts/hodgepodge.nix ];
+          modules = sharedDarwinModules ++ [ ./hosts/hodgepodge.nix ];
         };
 
         alleymon = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./dotfield/hosts/alleymon.nix ];
+          modules = sharedDarwinModules ++ [ ./hosts/alleymon.nix ];
         };
       };
 
