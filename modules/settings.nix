@@ -31,7 +31,7 @@ in {
     dotfield = let t = either str path;
     in rec {
       configDir = mkOpt t "${config.dotfield.dir}/config";
-      dir = mkOpt t (toString ../../.);
+      dir = mkOpt t (toString ../.);
       # FIXME: this points to an arbitrary location which will vary per system
       path = mkOpt t "${config.my.user.home}/Developer/dotfield";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
