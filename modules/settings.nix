@@ -112,16 +112,9 @@ in {
 
     environment = {
       variables = with config.my; {
-        # `$DOTFIELD` must point to its absolute path on the system -- not to
-        # its location in the Nix store. ZSH may cache a path to an old
+        # `$DOTFIELD_DIR` must point to its absolute path on the system -- not
+        # to its location in the Nix store. ZSH may cache a path to an old
         # derivation.
-        # FIXME: replace with DOTFIELD_DIR
-        DOTFIELD = config.dotfield.path;
-
-        # FIXME: `$DOTFIELD_DIR` should be preferred going forward, as it's
-        # easier to grep. for the time being, it also provides a direct path to
-        # the nix configuration within the repo, but that should change once
-        # we're ready to move the configuration to the top level.
         DOTFIELD_DIR = config.dotfield.path;
 
         # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
