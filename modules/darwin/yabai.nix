@@ -3,7 +3,7 @@ with builtins;
 let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
-  configDir = "${config.dotfield.flkConfigDir}/yabai";
+  configDir = "${config.dotfield.configDir}/yabai";
 
   scriptsFromFiles = (map (cmd:
     let file = "${configDir}/bin/${cmd}";

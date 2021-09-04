@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.zsh;
-  configDir = "${config.dotfield.flkConfigDir}/zsh";
+  configDir = "${config.dotfield.configDir}/zsh";
   envInit = "${config.dotfield.libDir}/profile.sh";
 
   # TODO: copied from settings.nix because they're not available here! get them from the same place.

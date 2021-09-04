@@ -6,7 +6,7 @@
 with lib;
 let
   cfg = config.my.modules.firefox;
-  configDir = "${config.dotfield.flkConfigDir}/firefox";
+  configDir = "${config.dotfield.configDir}/firefox";
   leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;
 in {

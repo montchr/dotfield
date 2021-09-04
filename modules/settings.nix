@@ -30,16 +30,13 @@ in {
   options = with types; {
     dotfield = let t = either str path;
     in rec {
-      # TODO: point this to the flake config directory in https://github.com/montchr/dotfield/issues/21
-      configDir = mkOpt t "${config.dotfield.dir}";
+      configDir = mkOpt t "${config.dotfield.dir}/config";
       dir = mkOpt t (toString ../../.);
       # TODO: replace this with something else... no longer xdg-config-specific
       path = mkOpt t "${config.my.user.home}/.config";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       libDir = mkOpt t "${config.dotfield.dir}/lib";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-      # TODO: replace usages of this with `configDir` in https://github.com/montchr/dotfield/issues/21
-      flkConfigDir = mkOpt t "${config.dotfield.dir}/config";
     };
 
     my = {

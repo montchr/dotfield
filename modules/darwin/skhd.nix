@@ -1,7 +1,7 @@
 { config, lib, options, pkgs, ... }:
 
 let
-  configDir = "${config.dotfield.flkConfigDir}/skhd";
+  configDir = "${config.dotfield.configDir}/skhd";
 in
 {
   options = with lib; {

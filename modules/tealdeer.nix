@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.tealdeer;
-  configDir = "${config.dotfield.flkConfigDir}/tealdeer";
+  configDir = "${config.dotfield.configDir}/tealdeer";
 in {
   options = with lib; {
     my.modules.tealdeer = {
