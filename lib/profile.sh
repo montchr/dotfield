@@ -70,10 +70,6 @@ export \
   CACHEDIR \
   TMPDIR
 
-# Homebrew settings
-export HOMEBREW_BUNDLE_FILE="${DOTFIELD}/brew/Brewfile.${KERNEL_NAME}.bundle"
-export HOMEBREW_BUNDLE_NO_LOCK=true
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # Local Configuration + Identity
