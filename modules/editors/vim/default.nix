@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.editors.vim;
-  configDir = config.dotfield.flkConfigDir;
+  configDir = config.dotfield.configDir;
 in {
   options = { my.modules.editors.vim.enable = mkEnableOption true; };
 

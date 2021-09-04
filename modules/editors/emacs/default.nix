@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.my.modules.editors.emacs;
-  configDir = "${config.dotfield.flkConfigDir}/emacs";
+  configDir = "${config.dotfield.configDir}/emacs";
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 
   ediffTool = (pkgs.writeScriptBin "ediff-tool"

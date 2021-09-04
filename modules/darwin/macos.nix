@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.macos;
-  configDir = config.dotfield.flkConfigDir;
+  configDir = config.dotfield.configDir;
 in {
   imports = [
     ./hammerspoon.nix

@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.modules.git;
-  configDir = "${config.dotfield.flkConfigDir}/git";
+  configDir = "${config.dotfield.configDir}/git";
 
   scripts = with pkgs; {
     submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
