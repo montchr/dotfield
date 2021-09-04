@@ -32,8 +32,8 @@ in {
     in rec {
       configDir = mkOpt t "${config.dotfield.dir}/config";
       dir = mkOpt t (toString ../../.);
-      # TODO: replace this with something else... no longer xdg-config-specific
-      path = mkOpt t "${config.my.user.home}/.config";
+      # FIXME: this points to an arbitrary location which will vary per system
+      path = mkOpt t "${config.my.user.home}/Developer/dotfield";
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       libDir = mkOpt t "${config.dotfield.dir}/lib";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
