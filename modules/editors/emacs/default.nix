@@ -26,8 +26,8 @@ in {
 
     my.hm.configFile = {
       "doom" = with config.my.hm.lib.file; {
-        source =
-          mkOutOfStoreSymlink "${config.dotfield.path}/config/doom";
+        source = configDir;
+        recursive = true;
         onChange = "doom sync";
       };
     };
