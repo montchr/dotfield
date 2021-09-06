@@ -27,7 +27,7 @@ function __nix::build() {
   nix build -v "${output}"
 
   msg::subdomain "Switching to new generation...\n"
-  local rebuild="${DOTFIELD}/result/sw/bin/darwin-rebuild"
+  local rebuild="${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild"
 
   [[ -e "${rebuild}" ]] && {
     "${rebuild}" switch -v --flake "${output}"
@@ -50,7 +50,7 @@ function __nix::repl() {
   output="darwinConfigurations.${output}"
 
   cat > "${conf}" << EOF
-(builtins.getFlake (toString ${DOTFIELD})).${output}
+(builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
 EOF
 
   nix repl "${conf}"
@@ -66,7 +66,7 @@ function main() {
 
   FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
 
-  local flake_path="${DOTFIELD}/#${FLAKE_OUTPUT}"
+  local flake_path="${DOTFIELD_DIR}/#${FLAKE_OUTPUT}"
 
   case $SUBCOMMAND in
     build)
