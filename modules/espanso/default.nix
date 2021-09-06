@@ -6,8 +6,8 @@ let
   configDirPath = "${config.dotfield.configDir}/espanso";
   snippetsDir = "$XDG_CONFIG_HOME/espanso/user";
   plugins = [ "greek-letters-alt" ];
-  secrets =
-    (map (s: "${configDirPath}/user/${s}") [ "personal.yml" "work.yml" ]);
+  # secrets = (map (s: "${configDirPath}/user/${s}") [ "personal.yml" "work.yml" ]);
+  secrets = [ ];
 in {
   options = with lib; {
     my.modules.espanso = { enable = mkEnableOption false; };
