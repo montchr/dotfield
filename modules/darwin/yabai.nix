@@ -146,9 +146,9 @@ in {
         # normal_window_opacity = 1.0;
 
         # Window borders
-        window_border = "on";
+        window_border = "off";
         # FIXME: set this based on an existing theme color variable
-        normal_window_border_color = "0x00505050";
+        # normal_window_border_color = "0x00505050";
       };
 
       extraConfig = ''

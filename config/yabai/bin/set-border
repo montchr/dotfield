@@ -3,9 +3,10 @@
 # yabai-set-border
 #
 # Usage:
-#   yabai-set-border <color-hex> [<width>] [<alpha-hex>]
+#   yabai-set-border [<color-hex>] [<width>] [<alpha-hex>]
 #   yabai-set-border ffffff      # white
 #   yabai-set-border ffffff 4 ff # white, 4px wide, 1.0 opacity
+#   yabai-set-border             # disable border
 #
 
 RGB="${1}"
@@ -13,12 +14,11 @@ WIDTH="${2:-4}"
 ALPHA="${3:-ff}"
 
 if [[ -z $RGB ]]; then
-  if [[ "dark" == "${CDOM_OS_APPEARANCE}" ]]; then
-    RGB="${YABAI_BORDER_LIGHT}"
-  else
-    RGB="${YABAI_BORDER_DARK}"
-  fi
+  yabai -m config window_border off
+  return 0
 fi
+
+yabai -m config window_border on
 
 COLOR="${ALPHA}${RGB}"
 
