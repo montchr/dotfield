@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.my.modules.editors.emacs;
   configDir = "${config.dotfield.configDir}/emacs";
+  doomDir = "${config.my.xdgPaths.config}/doom";
   # emacsclient     = "${pkgs.emacs}/bin/emacsclient -s ${emacs-server}";
 
   ediffTool = (pkgs.writeScriptBin "ediff-tool"
@@ -32,11 +33,11 @@ in {
       };
     };
 
-    my.modules.zsh.rcFiles = [ "$DOOMDIR/aliases.zsh" ];
+    my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];
 
     my = {
       env = {
-        DOOMDIR = "$DOTFIELD_DIR/config/doom";
+        DOOMDIR = doomDir;
         EDITOR = "emacsclient";
         EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
