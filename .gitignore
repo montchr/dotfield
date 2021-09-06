@@ -2,36 +2,6 @@
 cachix/cachix.dhall
 result
 
-# Auto-generated junk from npm.
-/configstore
-
-# Managed by Nix
-/bash
-/bat
-/brew
-/composer
-/direnv
-/doom
-/drafts
-/emacs
-/espanso
-/firefox
-/git
-/karabiner
-/kitty
-!/kitty/base16-kitty
-/nix
-/npm
-/prettier
-/ripgrep
-/shell
-/skhd
-/tealdeer
-/tridactyl
-/vim
-/yabai
-/zsh
-
 # Emacs
 treemacs.org
 org-roam.db
@@ -40,7 +10,6 @@ flycheck_config.el
 
 # Local files
 *.local
-/asciinema/install-id
 
 # CI
 /.ci/.terraform/
