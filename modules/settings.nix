@@ -41,6 +41,7 @@ in {
       binDir = mkOpt t "${config.dotfield.dir}/bin";
       libDir = mkOpt t "${config.dotfield.dir}/lib";
       modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+      vendorDir = mkOpt t "${config.dotfield.dir}/vendor";
     };
 
     my = {

@@ -1,5 +1,5 @@
 [submodule "base16-kitty"]
-	path = kitty/base16-kitty
+	path = vendor/base16-kitty
 	url = https://github.com/kdrag0n/base16-kitty.git
 [submodule "firefox-i3wm-theme"]
 	path = firefox/chrome/firefox-i3wm-theme

@@ -93,6 +93,9 @@ in {
       };
 
       my.hm.configFile = {
+        "kitty/base16-kitty".source =
+          "${config.dotfield.vendorDir}/base16-kitty";
+
         "kitty/kitty.conf".text = ''
           # ${config.my.nix_managed}
           # See https://sw.kovidgoyal.net/kitty/conf.html
