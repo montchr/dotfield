@@ -32,7 +32,7 @@ in {
       };
     };
 
-    my.modules.zsh.rcFiles = [ "${configDir}/aliases.zsh" ];
+    my.modules.zsh.rcFiles = [ "$DOOMDIR/aliases.zsh" ];
 
     my = {
       env = {
