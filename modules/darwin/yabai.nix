@@ -108,6 +108,12 @@ in {
     my.user.packages = with builtins;
       (map (key: getAttr key scripts) (attrNames scripts));
 
+    environment.variables = {
+      YABAI_BORDER_DARK = "000000";
+      YABAI_BORDER_LIGHT = "ffffff";
+      YABAI_BORDER_WIDTH = "4";
+    };
+
     launchd.user.agents.yabai.serviceConfig = {
       StandardOutPath = "${config.my.xdgPaths.cache}/yabai.out.log";
       StandardErrorPath = "${config.my.xdgPaths.cache}/yabai.err.log";

@@ -196,10 +196,7 @@ export \
   SYSTEMD_EDITOR="$EDITOR"
 
 export BASE16_THEME_DARK='black-metal-khold' \
-  BASE16_THEME_LIGHT='grayscale-light' \
-  YABAI_BORDER_DARK="000000" \
-  YABAI_BORDER_LIGHT="ffffff" \
-  YABAI_BORDER_WIDTH="4"
+  BASE16_THEME_LIGHT='grayscale-light'
 
 # Emacs-specific configuration.
 export \
