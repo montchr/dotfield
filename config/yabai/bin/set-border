@@ -6,19 +6,18 @@
 #   yabai-set-border [<color-hex>] [<width>] [<alpha-hex>]
 #   yabai-set-border ffffff      # white
 #   yabai-set-border ffffff 4 ff # white, 4px wide, 1.0 opacity
-#   yabai-set-border             # disable border
+#   yabai-set-border             # transparent border
 #
 
 RGB="${1}"
 WIDTH="${2:-4}"
 ALPHA="${3:-ff}"
 
+# Default to a transparent border.
 if [[ -z $RGB ]]; then
-  yabai -m config window_border off
-  return 0
+  RGB="ffffff"
+  ALPHA="00"
 fi
-
-yabai -m config window_border on
 
 COLOR="${ALPHA}${RGB}"
 
