@@ -130,6 +130,7 @@ in {
           bottom # fancy version of `top` with ASCII graphs
           cacert
           cachix
+          circleci-cli
           du-dust
           exa
           fd
