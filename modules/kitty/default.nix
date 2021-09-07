@@ -1,9 +1,10 @@
-{ pkgs, lib, config, options, ... }:
+{ pkgs, lib, config, options, inputs, ... }:
 with lib;
 let
+  inherit (inputs) base16-kitty;
+
   cfg = config.my.modules.kitty;
   themesCfg = config.my.modules.themes;
-
   configDir = "${config.dotfield.configDir}/kitty";
   socket = "unix:/tmp/kitty-socket";
 
@@ -93,8 +94,7 @@ in {
       };
 
       my.hm.configFile = {
-        "kitty/base16-kitty".source =
-          "${config.dotfield.vendorDir}/base16-kitty";
+        "kitty/base16-kitty".source = base16-kitty.outPath;
 
         "kitty/kitty.conf".text = ''
           # ${config.my.nix_managed}

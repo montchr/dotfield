@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "base16-kitty": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589263869,
+        "narHash": "sha256-+pdXnjuYl7E++QvKOrdSokBc32mkYf3e4Gmnn0xS2iQ=",
+        "owner": "kdrag0n",
+        "repo": "base16-kitty",
+        "rev": "fe5862cec41bfd0b46a1ac3d7565a50680051226",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kdrag0n",
+        "repo": "base16-kitty",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -281,6 +297,7 @@
     },
     "root": {
       "inputs": {
+        "base16-kitty": "base16-kitty",
         "darwin": "darwin",
         "emacs": "emacs",
         "emacs-overlay": "emacs-overlay",

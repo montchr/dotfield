@@ -25,6 +25,3 @@
 [submodule "stackline"]
 	path = vendor/stackline
 	url = https://github.com/AdamWagner/stackline.git
-[submodule "base16-kitty"]
-	path = vendor/base16-kitty
-	url = https://github.com/kdrag0n/base16-kitty.git

@@ -26,6 +26,11 @@
       flake = false;
     };
 
+    base16-kitty = {
+      url = "github:kdrag0n/base16-kitty";
+      flake = false;
+    };
+
     emacs.url = "github:cmacrae/emacs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
