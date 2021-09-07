@@ -145,11 +145,10 @@ in {
         auto_balance = "on";
 
         # Window opacity
-        window_opacity = "off";
+        window_opacity = "on";
         window_shadow = "on";
         active_window_opacity = 1.0;
-        normal_window_opacity = 0.9;
-        # normal_window_opacity = 1.0;
+        normal_window_opacity = 0.95;
 
         # Enable window borders, but default to transparent.
         window_border = "on";
