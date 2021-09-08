@@ -198,6 +198,9 @@ in {
           grid=3:3:1:1:1:1
 
         ${rules.unmanagedApps}
+
+        yabai -m rule --add app="zoom.us" opacity="1.0"
+
       '';
     };
   };
