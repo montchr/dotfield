@@ -36,7 +36,8 @@
     kitty.enable = true;
     lorri.enable = true;
     node.enable = true;
-    python.enable = true;
+    # FIXME: disabled due to build failures -- i haven't actually taken the time to configure this module
+    python.enable = false;
     ripgrep.enable = true;
     ssh.enable = true;
     tealdeer.enable = true;
