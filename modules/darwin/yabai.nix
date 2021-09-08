@@ -155,7 +155,28 @@ in {
         normal_window_border_color = "0x00ffffff";
       };
 
-      extraConfig = ''
+      extraConfig = let
+        signals = {
+          logFocusedWindow = app: ''
+            yabai -m signal --add \
+              event=window_focused \
+              action='yabai -m query --windows --window' \
+              app='${app}'
+          '';
+        };
+
+        rules = {
+          unmanagedApps = (toString
+            (map (app: ''yabai -m rule --add app="${app}" manage=off'') [
+              "1Password"
+              "Affinity"
+              "Fantastical Helper"
+              "Harvest"
+              "Stickies"
+              "^System Preferences$"
+            ]));
+        };
+      in ''
         ${getScript "set-padding"} 12
 
         yabai -m space 1 --label 'task'
@@ -164,13 +185,6 @@ in {
         yabai -m space 4 --label 'comm'
         yabai -m space 5 --label 'term'
 
-        # Default to all Emacs windows unmanaged.
-        # This will prevent childframes from becoming managed automatically,
-        # which needs to happen quickly.
-        # yabai -m rule --add app='Emacs' \
-        #   manage=off \
-        #   mouse_follows_focus=off
-
         # Float Emacs minibuffer
         # https://github.com/cmacrae/config/blob/303274bb5a97a6f1612d406d8d384482d3fa35f5/modules/macintosh.nix#L163
         yabai -m rule --add app='Emacs' \
@@ -178,38 +192,12 @@ in {
           manage=off \
           border=off
 
-        # Manage normal windows. Does not seem to affect childframes.
-        # yabai -m rule --add app='Emacs' \
-        #   title=" ▲ doom(\s+(-|–|—){1}\s+\(\d+.+\d+\))?$" \
-        #   manage=on
-
         # Float and center the doom capture window
         yabai -m rule --add app='Emacs' title="doom-capture" \
           manage=off \
           grid=3:3:1:1:1:1
 
-        # Float Emacs childframes.
-        # FIXME: doesn't work
-        # yabai -m rule --add app='Emacs' \
-        #   title='(Emacs\.app\s.\sdoom)\s{0,2}(-|–|—){1}\s+\(\d+.+\)$' \
-        #   manage=off \
-        #   mouse_follows_focus=off
-
-        # Log info about each Emacs window for some more insight.
-        # TODO: Remove once we know more.
-        # yabai -m signal --add \
-        #   event=window_focused \
-        #   action='yabai -m query --windows --window' \
-        #   app='Emacs'
-
-        yabai -m rule --add app=1Password manage=off
-        yabai -m rule --add app="Affinity" manage=off
-        yabai -m rule --add app="Fantastical Helper" manage=off
-        yabai -m rule --add app=Stickies manage=off
-        yabai -m rule --add app='^System Preferences$' manage=off
-
-        yabai -m rule --add app=Harvest \
-          manage=off
+        ${rules.unmanagedApps}
       '';
     };
   };
