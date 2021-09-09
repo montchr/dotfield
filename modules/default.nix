@@ -10,7 +10,6 @@
     ./gui.nix
     ./lorri.nix
     ./node.nix
-    ./php.nix
     ./python.nix
     ./ripgrep.nix
     ./settings.nix
@@ -23,6 +22,7 @@
     ./espanso
     ./firefox
     ./kitty
+    ./php
   ];
 
   my.modules = {

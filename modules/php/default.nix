@@ -7,7 +7,11 @@ in {
   config = mkIf cfg.enable {
     my.user.packages = with pkgs; [
       php
-      php74Packages.composer
+      php80Packages.composer
+      php80Packages.phpcs
+      php80Packages.php-cs-fixer
+      php80Packages.psalm
+      wp-cli
 
       # Get the current `php` executable's version number.
       (writeShellScriptBin "php-version" "php -v | awk '/^PHP/{print $2}'")
