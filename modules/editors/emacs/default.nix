@@ -86,7 +86,7 @@ in {
         # ledger
 
         # :lang nix
-        nixfmt
+        nixpkgs-fmt
         rnix-lsp
 
         # :lang org

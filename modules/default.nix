@@ -50,6 +50,4 @@
     };
   };
 
-  my.user.packages = with pkgs; [ nixpkgs-fmt rnix-lsp ];
-
 }
