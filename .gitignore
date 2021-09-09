@@ -15,6 +15,3 @@ flycheck_config.el
 /.ci/.terraform/
 /.ci/*.tfvars
 /.ci/*.tfstate*
-
-# Composer
-/vendor/
