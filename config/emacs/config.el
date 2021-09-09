@@ -333,7 +333,13 @@
 (use-package! lsp
   :config
   (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
-         lsp-vetur-use-workspace-dependencies t))
+         lsp-vetur-use-workspace-dependencies t)
+  ;; Register rnix-lsp as a client
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix)))
 
 ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
 ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
