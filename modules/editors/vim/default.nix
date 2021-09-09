@@ -8,7 +8,7 @@ in {
   options = { my.modules.editors.vim.enable = mkEnableOption true; };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ neovim vim ];
+    environment.systemPackages = with pkgs; [ vim ];
 
     my.hm.configFile."vim" = {
       source = configDir;
