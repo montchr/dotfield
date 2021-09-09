@@ -91,6 +91,13 @@ in {
           "zsh" = {
             source = configDir;
             recursive = true;
+            onChange = ''
+              # Remove compiled files.
+              fd -uu \
+                --extension zwc \
+                --exec \
+                  rm '{}'
+            '';
           };
 
           "zsh/extra.zshrc".text = let
