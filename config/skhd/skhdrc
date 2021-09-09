@@ -46,6 +46,9 @@ default < hyper - x     : org-capture
 # YABAI / HYPER-SPACE mode
 default < hyper - space ; focus
 
+# Close the currently-focused window.
+default < meh - d       : yabai-close-window
+
 
 # - - - - - - - - - - - - - - - - - - - -
 # APP LAUNCHER mode
