@@ -75,8 +75,8 @@ zgenom saved || {
   zgenom load unixorn/git-extra-commands
   zgenom load skx/sysadmin-util
 
-  # Jump around, faster.
-  zgenom load skywind3000/z.lua
+  # A smarter cd command
+  zgenom load ajeetdsouza/zoxide
 
   # Because I haven't mastered the art of switching Node versions with Nix yet.
   zgenom load lukechilds/zsh-nvm
