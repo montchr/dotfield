@@ -2,11 +2,9 @@
   "name": "montchr/dotfield",
   "require": {
     "phpactor/phpactor": "^0.17.2",
-    "stephank/composer-plugin-nixify": "dev-main",
     "squizlabs/php_codesniffer": "4.0.x-dev",
-    "wp-cli/wp-cli-bundle": "2.5.x-dev"
+    "svanderburg/composer2nix": "dev-master"
   },
-  "require-dev": {},
   "minimum-stability": "dev",
   "license": "GPL-3.0-or-later",
   "authors": [

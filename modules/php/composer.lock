@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df13191931d715fbdcef0ff7e02323b8",
+    "content-hash": "022eb20e3a58c726325b32983d7af176",
     "packages": [
         {
             "name": "amphp/amp",
@@ -7178,43 +7178,96 @@
             "time": "2021-09-02T23:18:56+00:00"
         },
         {
-            "name": "stephank/composer-plugin-nixify",
-            "version": "dev-main",
+            "name": "svanderburg/composer2nix",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stephank/composer-plugin-nixify.git",
-                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2"
+                "url": "https://github.com/svanderburg/composer2nix.git",
+                "reference": "9983c6fafb277f6b305edf232c2690d6d28ec092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stephank/composer-plugin-nixify/zipball/d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
-                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
+                "url": "https://api.github.com/repos/svanderburg/composer2nix/zipball/9983c6fafb277f6b305edf232c2690d6d28ec092",
+                "reference": "9983c6fafb277f6b305edf232c2690d6d28ec092",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.1 || ^2.0"
+                "svanderburg/pndp": "0.0.2"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.9.x"
             },
             "default-branch": true,
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Nixify\\Plugin"
-            },
+            "bin": [
+                "bin/composer2nix"
+            ],
+            "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Nixify\\": "./src/"
+                    "Composer2Nix\\": "src/Composer2Nix"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "MIT"
             ],
-            "description": "Composer plugin to help with Nix packaging",
-            "homepage": "https://github.com/stephank/composer-plugin-nixify",
+            "authors": [
+                {
+                    "name": "Sander van der Burg",
+                    "email": "svanderburg@gmail.com",
+                    "homepage": "http://sandervanderburg.nl"
+                }
+            ],
+            "description": "Generate Nix expressions to build PHP composer packages",
             "support": {
-                "issues": "https://github.com/stephank/composer-plugin-nixify/issues",
-                "source": "https://github.com/stephank/composer-plugin-nixify/tree/v1.1.0"
+                "issues": "https://github.com/svanderburg/composer2nix/issues",
+                "source": "https://github.com/svanderburg/composer2nix/tree/v0.0.5"
             },
-            "time": "2021-09-05T14:46:45+00:00"
+            "time": "2021-02-27T12:58:49+00:00"
+        },
+        {
+            "name": "svanderburg/pndp",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/svanderburg/pndp.git",
+                "reference": "4bfe9c4120c23354ab8dc295957dc3009a39bff0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/svanderburg/pndp/zipball/4bfe9c4120c23354ab8dc295957dc3009a39bff0",
+                "reference": "4bfe9c4120c23354ab8dc295957dc3009a39bff0",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.9.x"
+            },
+            "bin": [
+                "bin/pndp-build"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PNDP\\": "src/PNDP"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sander van der Burg",
+                    "email": "svanderburg@gmail.com",
+                    "homepage": "http://sandervanderburg.nl"
+                }
+            ],
+            "description": "PNDP: An internal DSL for Nix in PHP",
+            "support": {
+                "issues": "https://github.com/svanderburg/pndp/issues",
+                "source": "https://github.com/svanderburg/pndp/tree/v0.0.2"
+            },
+            "time": "2017-10-22T12:43:22+00:00"
         },
         {
             "name": "symfony/console",
@@ -8146,20 +8199,20 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "dev-main",
+            "version": "2.5.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "8c29a2aeea95d18ce58bd2ee60725089cec39ebc"
+                "reference": "56b990c18120c91eaf0d38a93fabfa2a1f7fa413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/8c29a2aeea95d18ce58bd2ee60725089cec39ebc",
-                "reference": "8c29a2aeea95d18ce58bd2ee60725089cec39ebc",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/56b990c18120c91eaf0d38a93fabfa2a1f7fa413",
+                "reference": "56b990c18120c91eaf0d38a93fabfa2a1f7fa413",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=7.2.5",
                 "psr/container": "^1.1"
             },
             "conflict": {
@@ -8168,7 +8221,6 @@
             "suggest": {
                 "symfony/service-implementation": ""
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -8209,7 +8261,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/main"
+                "source": "https://github.com/symfony/service-contracts/tree/2.5"
             },
             "funding": [
                 {
@@ -8225,37 +8277,35 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-13T09:36:22+00:00"
+            "time": "2021-07-13T09:35:11+00:00"
         },
         {
             "name": "symfony/string",
-            "version": "6.0.x-dev",
+            "version": "5.4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "f1e8ad774bb7eab498ef4252e59302a624f55478"
+                "reference": "fa2c5cc3f7dac23d87429652fe0daf28d65cbd5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/f1e8ad774bb7eab498ef4252e59302a624f55478",
-                "reference": "f1e8ad774bb7eab498ef4252e59302a624f55478",
+                "url": "https://api.github.com/repos/symfony/string/zipball/fa2c5cc3f7dac23d87429652fe0daf28d65cbd5b",
+                "reference": "fa2c5cc3f7dac23d87429652fe0daf28d65cbd5b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=7.2.5",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-intl-grapheme": "~1.0",
                 "symfony/polyfill-intl-normalizer": "~1.0",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "conflict": {
-                "symfony/translation-contracts": "<2.0"
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "~1.15"
             },
             "require-dev": {
-                "symfony/error-handler": "^5.4|^6.0",
-                "symfony/http-client": "^5.4|^6.0",
-                "symfony/translation-contracts": "^2.0|^3.0",
-                "symfony/var-exporter": "^5.4|^6.0"
+                "symfony/error-handler": "^4.4|^5.0|^6.0",
+                "symfony/http-client": "^4.4|^5.0|^6.0",
+                "symfony/translation-contracts": "^1.1|^2",
+                "symfony/var-exporter": "^4.4|^5.0|^6.0"
             },
             "type": "library",
             "autoload": {
@@ -8294,7 +8344,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/6.0"
+                "source": "https://github.com/symfony/string/tree/5.4"
             },
             "funding": [
                 {
@@ -8310,7 +8360,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-09T06:54:05+00:00"
+            "time": "2021-08-26T08:23:47+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -8767,26 +8817,27 @@
         },
         {
             "name": "webmozart/path-util",
-            "version": "2.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/path-util.git",
-                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725"
+                "reference": "95a8f7ad150c2a3773ff3c3d04f557a24c99cfd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/path-util/zipball/d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
-                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
+                "url": "https://api.github.com/repos/webmozart/path-util/zipball/95a8f7ad150c2a3773ff3c3d04f557a24c99cfd2",
+                "reference": "95a8f7ad150c2a3773ff3c3d04f557a24c99cfd2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": "^5.3.3|^7.0",
                 "webmozart/assert": "~1.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6",
                 "sebastian/version": "^1.0.1"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -8811,9 +8862,9 @@
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
             "support": {
                 "issues": "https://github.com/webmozart/path-util/issues",
-                "source": "https://github.com/webmozart/path-util/tree/2.3.0"
+                "source": "https://github.com/webmozart/path-util/tree/master"
             },
-            "time": "2015-12-17T08:42:14+00:00"
+            "time": "2016-08-15T15:31:42+00:00"
         },
         {
             "name": "wp-cli/cache-command",
@@ -10940,9 +10991,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stephank/composer-plugin-nixify": 20,
         "squizlabs/php_codesniffer": 20,
-        "wp-cli/wp-cli-bundle": 20
+        "wp-cli/wp-cli-bundle": 20,
+        "svanderburg/composer2nix": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
