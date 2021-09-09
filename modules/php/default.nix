@@ -13,6 +13,8 @@ in {
       php80Packages.psalm
       wp-cli
 
+      (callPackage ../../pkgs/phpactor.nix { })
+
       # Get the current `php` executable's version number.
       (writeShellScriptBin "php-version" "php -v | awk '/^PHP/{print $2}'")
     ];
