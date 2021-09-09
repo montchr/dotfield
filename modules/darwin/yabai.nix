@@ -129,7 +129,7 @@ in {
         layout = "bsp";
 
         # Mouse behavior
-        mouse_follows_focus = "off";
+        mouse_follows_focus = "on";
 
         # `autoraise` will override the effect of `window_topmost`
         focus_follows_mouse = "off";
