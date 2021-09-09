@@ -154,10 +154,6 @@ export \
 # https://github.com/mfaerevaag/wd
 export WD_CONFIG="${XDG_CONFIG_HOME}/wd/warprc"
 
-# z.lua
-# https://github.com/skywind3000/z.lua
-export _ZL_DATA="${XDG_DATA_HOME}/zlua"
-
 
 # - - - - - - - - - - - - - - - - - - - -
 # PATH Modifications

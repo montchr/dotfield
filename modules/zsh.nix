@@ -59,6 +59,9 @@ in {
         # zgenom paths
         ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
         ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
+
+        # zoxide
+        _ZO_DATA_DIR = "$XDG_DATA_HOME/zoxide";
       };
 
       # List packages installed in system profile. To search by name, run:
@@ -169,6 +172,7 @@ in {
           vim-vint
           wget
           yq
+          zoxide
           zsh
         ];
       };
