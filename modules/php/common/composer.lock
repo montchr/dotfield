@@ -1,0 +1,170 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "51c8610499bcedf0e5ad44d3f35fe750",
+    "packages": [
+        {
+            "name": "squizlabs/php_codesniffer",
+            "version": "4.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "74ab905e9debf6ad05ea8eca6e456a3aa913d448"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/74ab905e9debf6ad05ea8eca6e456a3aa913d448",
+                "reference": "74ab905e9debf6ad05ea8eca6e456a3aa913d448",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
+            "time": "2021-09-02T23:18:56+00:00"
+        },
+        {
+            "name": "svanderburg/composer2nix",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/svanderburg/composer2nix.git",
+                "reference": "9983c6fafb277f6b305edf232c2690d6d28ec092"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/svanderburg/composer2nix/zipball/9983c6fafb277f6b305edf232c2690d6d28ec092",
+                "reference": "9983c6fafb277f6b305edf232c2690d6d28ec092",
+                "shasum": ""
+            },
+            "require": {
+                "svanderburg/pndp": "0.0.2"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.9.x"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/composer2nix"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Composer2Nix\\": "src/Composer2Nix"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sander van der Burg",
+                    "email": "svanderburg@gmail.com",
+                    "homepage": "http://sandervanderburg.nl"
+                }
+            ],
+            "description": "Generate Nix expressions to build PHP composer packages",
+            "support": {
+                "issues": "https://github.com/svanderburg/composer2nix/issues",
+                "source": "https://github.com/svanderburg/composer2nix/tree/v0.0.5"
+            },
+            "time": "2021-02-27T12:58:49+00:00"
+        },
+        {
+            "name": "svanderburg/pndp",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/svanderburg/pndp.git",
+                "reference": "4bfe9c4120c23354ab8dc295957dc3009a39bff0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/svanderburg/pndp/zipball/4bfe9c4120c23354ab8dc295957dc3009a39bff0",
+                "reference": "4bfe9c4120c23354ab8dc295957dc3009a39bff0",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.9.x"
+            },
+            "bin": [
+                "bin/pndp-build"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PNDP\\": "src/PNDP"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sander van der Burg",
+                    "email": "svanderburg@gmail.com",
+                    "homepage": "http://sandervanderburg.nl"
+                }
+            ],
+            "description": "PNDP: An internal DSL for Nix in PHP",
+            "support": {
+                "issues": "https://github.com/svanderburg/pndp/issues",
+                "source": "https://github.com/svanderburg/pndp/tree/v0.0.2"
+            },
+            "time": "2017-10-22T12:43:22+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "squizlabs/php_codesniffer": 20,
+        "svanderburg/composer2nix": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
+}

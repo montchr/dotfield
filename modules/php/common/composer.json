@@ -1,0 +1,15 @@
+{
+  "name": "montchr/dotfield-common",
+  "require": {
+    "squizlabs/php_codesniffer": "4.0.x-dev",
+    "svanderburg/composer2nix": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Chris Montgomery",
+      "email": "chris@cdom.io"
+    }
+  ]
+}
