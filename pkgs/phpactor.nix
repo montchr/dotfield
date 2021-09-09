@@ -23,7 +23,6 @@ mkDerivation {
   ];
 
   installPhase = ''
-    composer install
     cp -r $src $out
   '';
 
