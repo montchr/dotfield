@@ -370,8 +370,8 @@
        (unless (string-match-p (concat "^Cannot find shared library\\|"
                                        "^No language registered\\|"
                                        "cannot open shared object file")
-                            (error-message-string e))
-            (signal (car e) (cadr e)))))))
+                               (error-message-string e))
+         (signal (car e) (cadr e)))))))
 
 (use-package! literate-calc-mode
   :defer-incrementally t)
