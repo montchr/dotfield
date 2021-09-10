@@ -332,8 +332,7 @@
 
 (use-package! lsp
   :config
-  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
-         lsp-vetur-use-workspace-dependencies t)
+  (setq! lsp-vetur-use-workspace-dependencies t)
   ;; Register rnix-lsp as a client
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
