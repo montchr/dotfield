@@ -156,8 +156,7 @@
 
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 (after! company
-  ;; (setq! company-idle-delay 0.5
-  ;;        company-show-numbers t)
+  (setq! company-idle-delay nil)
   ;; Make aborting less annoying.
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
