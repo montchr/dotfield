@@ -329,6 +329,8 @@
   :config
   (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
          lsp-vetur-use-workspace-dependencies t)
+  ;; Sync LSP workspace folders and treemacs projects.
+  (lsp-treemacs-sync-mode 1)
   ;; Register rnix-lsp as a client
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
