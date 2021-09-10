@@ -26,9 +26,7 @@ in {
     environment.systemPackages = with pkgs; [ emacs ];
 
     my.hm.configFile = {
-      inherit (config.my.hm.lib.file) mkOutOfStoreSymlink;
-
-      "doom" = {
+      "doom" = with config.my.hm.lib.file; {
         source = mkOutOfStoreSymlink configDir;
       };
     };
