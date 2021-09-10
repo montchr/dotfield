@@ -28,7 +28,7 @@ in
 
     my.hm.configFile = {
       "doom" = with config.my.hm.lib.file; {
-        source = mkOutOfStoreSymlink configDir;
+        source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
       };
     };
 
