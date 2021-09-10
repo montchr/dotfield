@@ -2,7 +2,11 @@
   "name": "montchr/dotfield-common",
   "require": {
     "squizlabs/php_codesniffer": "4.0.x-dev",
-    "svanderburg/composer2nix": "dev-master"
+    "svanderburg/composer2nix": "dev-master",
+    "d11wtq/boris": "dev-master",
+    "phpunit/phpunit": "9.5.x-dev",
+    "techlivezheng/phpctags": "dev-master",
+    "friendsofphp/php-cs-fixer": "dev-master"
   },
   "minimum-stability": "dev",
   "license": "GPL-3.0-or-later",
