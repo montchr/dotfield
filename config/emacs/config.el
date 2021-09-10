@@ -156,8 +156,7 @@
 
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 (after! company
-  ;; (setq! company-idle-delay 0.5
-  ;;        company-show-numbers t)
+  (setq! company-idle-delay nil)
   ;; Make aborting less annoying.
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
@@ -326,13 +325,11 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
-(use-package! treemacs
-  :config
-  (setq! treemacs-persist-file (concat doom-private-dir "treemacs.org")))
-
 (use-package! lsp
   :config
   (setq! lsp-vetur-use-workspace-dependencies t)
+  ;; Sync LSP workspace folders and treemacs projects.
+  (lsp-treemacs-sync-mode 1)
   ;; Register rnix-lsp as a client
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
@@ -355,7 +352,7 @@
 ;; tree-sitter
 ;; via https://github.com/hlissner/doom-emacs-private/blob/master/modules/ui/tree-sitter/config.el
 (use-package! tree-sitter
-  ;; :when (bound-and-true-p module-file-suffix)
+  :when (bound-and-true-p module-file-suffix)
   :hook (prog-mode . tree-sitter-mode)
   :hook (tree-sitter-after-on . tree-sitter-hl-mode)
   :config

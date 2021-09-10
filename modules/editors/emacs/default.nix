@@ -26,10 +26,10 @@ in {
     environment.systemPackages = with pkgs; [ emacs ];
 
     my.hm.configFile = {
-      "doom" = with config.my.hm.lib.file; {
-        source = configDir;
-        recursive = true;
-        onChange = "doom sync";
+      inherit (config.my.hm.lib.file) mkOutOfStoreSymlink;
+
+      "doom" = {
+        source = mkOutOfStoreSymlink configDir;
       };
     };
 
