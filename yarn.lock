@@ -376,29 +376,29 @@ __metadata:
   linkType: hard
 
 "conventional-changelog-angular@npm:^5.0.11":
-  version: 5.0.12
-  resolution: "conventional-changelog-angular@npm:5.0.12"
+  version: 5.0.13
+  resolution: "conventional-changelog-angular@npm:5.0.13"
   dependencies:
     compare-func: ^2.0.0
     q: ^1.5.1
-  checksum: 552db8762d210a5172b1ad8cd95312e2e2a0483ba43f8d30b075a56ccf05231fdca1d4d5843028d43bec6bc7f903f480005efc5386587321a15a1fc4d2b73016
+  checksum: 6ed4972fce25a50f9f038c749cc9db501363131b0fb2efc1fccecba14e4b1c80651d0d758d4c350a609f32010c66fa343eefd49c02e79e911884be28f53f3f90
   languageName: node
   linkType: hard
 
 "conventional-changelog-conventionalcommits@npm:^4.3.1":
-  version: 4.6.0
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.0"
+  version: 4.6.1
+  resolution: "conventional-changelog-conventionalcommits@npm:4.6.1"
   dependencies:
     compare-func: ^2.0.0
     lodash: ^4.17.15
     q: ^1.5.1
-  checksum: b7dccba3e91ee9122f5b5e214e891f9dc516cd7432894fef8e3bf60d76bd8618bb252621c23fe628ec0eda2032ba2e253e0177317aa133452ef62b9703b84778
+  checksum: f866616c8f6f21cea005b42792451bfbd16bd4d82872867d1218f67a7993a53c5d87e26d6b483d9252e8022f2e4570e6cf9fa2a409aae5a3d73eea92ccf78b13
   languageName: node
   linkType: hard
 
 "conventional-commits-parser@npm:^3.0.0":
-  version: 3.2.1
-  resolution: "conventional-commits-parser@npm:3.2.1"
+  version: 3.2.2
+  resolution: "conventional-commits-parser@npm:3.2.2"
   dependencies:
     JSONStream: ^1.0.4
     is-text-path: ^1.0.1
@@ -406,23 +406,22 @@ __metadata:
     meow: ^8.0.0
     split2: ^3.0.0
     through2: ^4.0.0
-    trim-off-newlines: ^1.0.0
   bin:
     conventional-commits-parser: cli.js
-  checksum: 01b83c625ac3d8f9dca0510a5e21385c9bb410b80bcb60dcfdef20e1fa7fe7fad5a280aa5e1dff8ac32ea0aea5966fa973696557d38f831f8630d4fcf31756d5
+  checksum: e7138cfeebc77affe790fa06b6c2f8ecaf74837c886c234bb268b6c4b84d123aba81851c8e3ef7169ee2d044d2d8c7a2a60a29d06b8bc3f1b5d7c2c984d5bb4f
   languageName: node
   linkType: hard
 
 "cosmiconfig@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "cosmiconfig@npm:7.0.0"
+  version: 7.0.1
+  resolution: "cosmiconfig@npm:7.0.1"
   dependencies:
     "@types/parse-json": ^4.0.0
     import-fresh: ^3.2.1
     parse-json: ^5.0.0
     path-type: ^4.0.0
     yaml: ^1.10.0
-  checksum: 6801feaa0249e9b9fdde5b3d70dc33b4f9c69095bec94d67e3fe08b66eac24dc7e2099f053597cfbc94b743de269aa5d2cfa7da3fde765433423b06bd122941a
+  checksum: 4be63e7117955fd88333d7460e4c466a90f556df6ef34efd59034d2463484e339666c41f02b523d574a797ec61f4a91918c5b89a316db2ea2f834e0d2d09465b
   languageName: node
   linkType: hard
 
@@ -664,11 +663,11 @@ __metadata:
   linkType: hard
 
 "husky@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "husky@npm:7.0.1"
+  version: 7.0.2
+  resolution: "husky@npm:7.0.2"
   bin:
     husky: lib/bin.js
-  checksum: b2ea1460f1126ed7161779b1b89f7ec8ae66fb6723e0e9fd47c522f454f4a2ea7e31a21d6ce2eb5d32e9837d232fb0245783425c109df0adab53668f8c8d8fc8
+  checksum: 2ccfe6ddc51dc05ae8ea1e2fbb893344e93a813e00c595d6b5f5e704b7b998d6b0e2adda7c57f99b5e46a60dc07c7d860269a2ea91661c6bacef0eca8e0b8e96
   languageName: node
   linkType: hard
 
@@ -710,12 +709,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.2.0":
-  version: 2.5.0
-  resolution: "is-core-module@npm:2.5.0"
+"is-core-module@npm:^2.2.0, is-core-module@npm:^2.5.0":
+  version: 2.6.0
+  resolution: "is-core-module@npm:2.6.0"
   dependencies:
     has: ^1.0.3
-  checksum: e007de6ca5c391f8a669b9335192967d8815f9119f97d81fc4cde07febe09143263bc0146e86e813120223ea9a034cf0608d15b53b0269e19b4dc0a220ce0b4f
+  checksum: 183b3b96fed19822b13959876b0317e61fc2cb5ebcbc21639904c81f7ae328af57f8e18cc4750a9c4abebd686130c70d34a89521e57dbe002edfa4614507ce18
   languageName: node
   linkType: hard
 
@@ -923,14 +922,14 @@ __metadata:
   linkType: hard
 
 "normalize-package-data@npm:^3.0.0":
-  version: 3.0.2
-  resolution: "normalize-package-data@npm:3.0.2"
+  version: 3.0.3
+  resolution: "normalize-package-data@npm:3.0.3"
   dependencies:
     hosted-git-info: ^4.0.1
-    resolve: ^1.20.0
+    is-core-module: ^2.5.0
     semver: ^7.3.4
     validate-npm-package-license: ^3.0.1
-  checksum: b50e26f2c81c51ddf6b5a04f731ddc2fc409ef114d44b5e2e4a7cfaa2d45cb86f76fea0c3a57a41e106f71c777124f93b4a75fe1c4b3aa4844971a30a30d94c9
+  checksum: bbcee00339e7c26fdbc760f9b66d429258e2ceca41a5df41f5df06cc7652de8d82e8679ff188ca095cad8eff2b6118d7d866af2b68400f74602fbcbce39c160a
   languageName: node
   linkType: hard
 
@@ -1132,7 +1131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@^1.10.0, resolve@^1.20.0":
+resolve@^1.10.0:
   version: 1.20.0
   resolution: "resolve@npm:1.20.0"
   dependencies:
@@ -1142,7 +1141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>":
   version: 1.20.0
   resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=00b1ff"
   dependencies:
@@ -1338,13 +1337,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"trim-off-newlines@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "trim-off-newlines@npm:1.0.1"
-  checksum: ca644908cace3d91b4c5b0fee0224640fed34a4503583e542db3f2dbec95246f2dc0f1bdfc5169e95f244f2613c0256ccc0c594ebe678fd9afdd9c5cf424562f
-  languageName: node
-  linkType: hard
-
 "type-fest@npm:^0.18.0":
   version: 0.18.1
   resolution: "type-fest@npm:0.18.1"
@@ -1441,8 +1433,8 @@ __metadata:
   linkType: hard
 
 "yargs@npm:^17.0.0":
-  version: 17.1.0
-  resolution: "yargs@npm:17.1.0"
+  version: 17.1.1
+  resolution: "yargs@npm:17.1.1"
   dependencies:
     cliui: ^7.0.2
     escalade: ^3.1.1
@@ -1451,7 +1443,7 @@ __metadata:
     string-width: ^4.2.0
     y18n: ^5.0.5
     yargs-parser: ^20.2.2
-  checksum: 259d496db8fd499debfb0e8676c1d4c0a8259c730ca31a4ca1047841c407aa4099f5f008c16b1adcf04b6015a4aa6c758a59d583aab9df89a288c75ce8a621e1
+  checksum: b05a9467937172e01a4af7a7ad4361a22ee510cd12d1d5a3ad3b4c2e57eb8c35ca94ee22e4bdfbb40fe693fbf8000771e41824f77f6b224f1496c57f20f192b6
   languageName: node
   linkType: hard
 
