@@ -12,5 +12,11 @@
   },
   "scripts": {
     "postinstall": "husky install"
+  },
+  "dependencies": {
+    "eslint": "^7.32.0",
+    "prettier": "^2.4.0",
+    "stylelint": "^13.13.1",
+    "svgo": "^2.5.0"
   }
 }

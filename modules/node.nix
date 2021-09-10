@@ -19,11 +19,6 @@ in {
             # https://github.com/NixOS/nixpkgs/commit/f5de4158dd462c51741ec48be2e47a3f8015930d
             # nodejs-16_x
             nodejs
-            nodePackages.eslint
-            nodePackages.node2nix
-            nodePackages.prettier
-            nodePackages.stylelint
-            nodePackages.svgo
           ];
         };
 
