@@ -357,7 +357,7 @@
 ;; tree-sitter
 ;; via https://github.com/hlissner/doom-emacs-private/blob/master/modules/ui/tree-sitter/config.el
 (use-package! tree-sitter
-  ;; :when (bound-and-true-p module-file-suffix)
+  :when (bound-and-true-p module-file-suffix)
   :hook (prog-mode . tree-sitter-mode)
   :hook (tree-sitter-after-on . tree-sitter-hl-mode)
   :config
