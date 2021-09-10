@@ -65,7 +65,9 @@
          modus-themes-paren-match 'subtle-bold
          modus-themes-headings '((1 . (background overline))
                                  (2 . (rainbow))
-                                 (t . (no-bold))))
+                                 (4 . (no-bold))
+                                 (5 . (no-bold))
+                                 (6 . (no-bold))))
   (modus-themes-load-themes)
   :config
   ;; Load theme based on macOS dark mode status.
