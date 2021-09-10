@@ -329,10 +329,6 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
-(use-package! treemacs
-  :config
-  (setq! treemacs-persist-file (concat doom-private-dir "treemacs.org")))
-
 (use-package! lsp
   :config
   (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
