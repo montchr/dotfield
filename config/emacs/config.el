@@ -327,7 +327,7 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
-(use-package! lsp
+(use-package! lsp-mode
   :config
   (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
          lsp-vetur-use-workspace-dependencies t)
