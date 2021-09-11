@@ -322,6 +322,10 @@
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
+(use-package! nixpkgs-fmt
+  :config
+  (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode))
+
 (use-package! projectile
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
