@@ -83,7 +83,7 @@
 
 (setq! org-directory "~/org"
        +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
-       org-roam-directory +cdom/org-mind-directory
+       org-roam-directory +cdom/org-notes-directory
        deft-directory org-directory
        deft-recursive t)
 
