@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.macos;
   configDir = config.dotfield.configDir;
-in {
+in
+{
   imports = [
     ./hammerspoon.nix
     # ./security/pam.nix

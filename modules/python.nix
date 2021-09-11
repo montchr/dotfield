@@ -5,7 +5,8 @@ let
   cfg = config.my.modules.python;
   # dotfield = config.dotfield;
 
-in {
+in
+{
   options = with lib; {
     my.modules.python = {
       enable = mkEnableOption ''

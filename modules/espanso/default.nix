@@ -7,7 +7,8 @@ let
   snippetsDir = "$XDG_CONFIG_HOME/espanso/user";
   plugins = [ "greek-letters-alt" ];
   secrets = (map (s: "${configDirPath}/user/${s}") [ ]);
-in {
+in
+{
   options = with lib; {
     my.modules.espanso = { enable = mkEnableOption false; };
   };
@@ -15,7 +16,8 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (if (builtins.hasAttr "homebrew" options) then
       let cmd = "${config.homebrew.brewPrefix}/espanso";
-      in {
+      in
+      {
         homebrew = {
           taps = [ "federico-terzi/espanso" ];
           brews = [ "espanso" ];

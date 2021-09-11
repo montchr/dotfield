@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.ssh;
   identityFile = "~/.ssh/id_ed25519_yubikey.pub";
-in {
+in
+{
   options = with lib; {
     my.modules.ssh = {
       enable = mkEnableOption ''

@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.tealdeer;
   configDir = "${config.dotfield.configDir}/tealdeer";
-in {
+in
+{
   options = with lib; {
     my.modules.tealdeer = {
       enable = mkEnableOption ''

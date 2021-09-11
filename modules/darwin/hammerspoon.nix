@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.hammerspoon;
   configDir = "${config.dotfield.configDir}/hammerspoon";
-in {
+in
+{
   options = with lib; {
     my.modules.hammerspoon = {
       enable = mkEnableOption ''

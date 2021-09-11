@@ -40,7 +40,15 @@
     };
   };
 
-  outputs = { self, darwin, emacs, emacs-overlay, flake-utils, nixpkgs, nur, ...
+  outputs =
+    { self
+    , darwin
+    , emacs
+    , emacs-overlay
+    , flake-utils
+    , nixpkgs
+    , nur
+    , ...
     }@inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
@@ -101,18 +109,21 @@
         ];
       };
 
-      sharedDarwinModules = let
-        nur-no-pkgs = import nur {
-          nurpkgs =
-            import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
-        };
-      in [
-        inputs.home-manager.darwinModules.home-manager
-        ./modules
-        sharedHostsConfig
-      ];
+      sharedDarwinModules =
+        let
+          nur-no-pkgs = import nur {
+            nurpkgs =
+              import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
+          };
+        in
+        [
+          inputs.home-manager.darwinModules.home-manager
+          ./modules
+          sharedHostsConfig
+        ];
 
-    in {
+    in
+    {
       overlays = (final: prev: {
         nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
         pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });

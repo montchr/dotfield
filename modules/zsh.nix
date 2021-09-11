@@ -14,7 +14,8 @@ let
 
   # TODO: necessary? coreutils should certainly exist already
   darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
-in {
+in
+{
   options = with lib; {
     my.modules.zsh = with types; {
       enable = mkEnableOption ''
@@ -103,18 +104,20 @@ in {
             '';
           };
 
-          "zsh/extra.zshrc".text = let
-            aliasLines =
-              mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
-          in ''
-            # ${config.my.nix_managed}
+          "zsh/extra.zshrc".text =
+            let
+              aliasLines =
+                mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
+            in
+            ''
+              # ${config.my.nix_managed}
 
-            ${concatStringsSep "\n" aliasLines}
+              ${concatStringsSep "\n" aliasLines}
 
-            ${concatMapStrings (path: "source '${path}'") cfg.rcFiles}
+              ${concatMapStrings (path: "source '${path}'") cfg.rcFiles}
 
-            ${cfg.rcInit}
-          '';
+              ${cfg.rcInit}
+            '';
 
           "zsh/profile.zshenv".source = envInit;
 

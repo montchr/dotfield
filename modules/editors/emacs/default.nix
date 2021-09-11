@@ -10,7 +10,8 @@ let
   ediffTool = (pkgs.writeScriptBin "ediff-tool"
     (builtins.readFile "${configDir}/bin/ediff-tool"));
 
-in {
+in
+{
   options = with lib; {
     my.modules.editors.emacs = {
       enable = mkEnableOption false;

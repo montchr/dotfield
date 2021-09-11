@@ -3,7 +3,8 @@
 let
   cfg = config.my.modules.gpg;
   gnupgHome = "$XDG_DATA_HOME/gnupg";
-in {
+in
+{
   options = with lib;
     with types; {
       my.modules.gpg = {

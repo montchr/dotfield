@@ -1,6 +1,7 @@
 { pkgs, lib, config, inputs, ... }:
 let cfg = config.my.modules.lorri;
-in {
+in
+{
   options = with lib; {
     my.modules.lorri = {
       enable = mkEnableOption ''

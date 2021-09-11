@@ -2,7 +2,8 @@
 let
   cfg = config.my.modules.direnv;
   configDir = config.dotfield.configDir;
-in {
+in
+{
   options = with lib; {
     my.modules.direnv = {
       enable = mkEnableOption ''

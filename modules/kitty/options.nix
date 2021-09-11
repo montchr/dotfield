@@ -1,7 +1,8 @@
 { config, lib, ... }:
 with lib;
 let eitherStrBoolInt = with types; either str (either bool int);
-in {
+in
+{
   settings = mkOption {
     type = types.attrsOf eitherStrBoolInt;
     default = { };
