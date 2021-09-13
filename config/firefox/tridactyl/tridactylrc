@@ -20,9 +20,6 @@ bind D tabclose
 " make t open the selection with tabopen
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 
-" I like wikiwand but I don't like the way it changes URLs
-bindurl wikiwand.com yy composite js document.location.href.replace("wikiwand.com/en","wikipedia.org/wiki") | clipboard yank
-
 " Make gu take you back to subreddit from comments
 bindurl reddit.com gu urlparent 4
 
@@ -56,9 +53,6 @@ command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts
 "
 " Misc settings
 "
-
-" set editorcmd to suckless terminal, or use the defaults on other platforms
-js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "st vim" : "auto"; tri.config.set("editorcmd", editorcmd)})
 
 " Hinting mode
 set hintfiltermode vimperator-reflow
