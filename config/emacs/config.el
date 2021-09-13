@@ -3,7 +3,7 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 15)
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
        doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
