@@ -75,3 +75,12 @@ autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www",
 
 " Load my preferred color scheme.
 colors base16-grayscale-dark
+
+
+"
+" Search
+"
+
+set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
+set searchurls.nixopts https://search.nixos.org/options?query=
+set searchurls.nixpkgs https://search.nixos.org/packages?query=
