@@ -85,7 +85,7 @@
 
 (setq! org-directory "~/org"
        +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
-       org-roam-directory +cdom/org-mind-directory
+       org-roam-directory +cdom/org-notes-directory
        deft-directory org-directory
        deft-recursive t)
 
@@ -322,6 +322,10 @@
   (add-to-list 'auto-mode-alist '("wp-content/themes/.+\\.php\\'" . php-mode))
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
+
+(use-package! nixpkgs-fmt
+  :config
+  (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode))
 
 (use-package! projectile
   :config

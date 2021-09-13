@@ -69,6 +69,7 @@
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! literate-calc-mode)        ; like soulver, but in emacs
+(package! nixpkgs-fmt)               ; nixpkgs-ready nix formatter
 (package! neon-mode
   :recipe (:host github :repo "montchr/neon-mode"))
 (package! vimrc-mode)                ; vimrc syntax

@@ -26,23 +26,26 @@ let
       example = true;
     };
 
-in {
+in
+{
   options = with types; {
-    dotfield = let t = either str path;
-    in rec {
-      configDir = mkOpt t "${config.dotfield.dir}/config";
-      dir = mkOpt t (toString ../.);
-      # FIXME: This points to an arbitrary location which may vary per system.
-      # Instead, it should be determined programmatically based on the flake's
-      # actual location. Note, however, that its currently only useful for
-      # out-of-store symlinks, which are generally discouraged as they do not
-      # adhere to the Nix principle of immutable configuration.
-      path = mkOpt t "${config.my.user.home}/.config/dotfield";
-      binDir = mkOpt t "${config.dotfield.dir}/bin";
-      libDir = mkOpt t "${config.dotfield.dir}/lib";
-      modulesDir = mkOpt t "${config.dotfield.dir}/modules";
-      vendorDir = mkOpt t "${config.dotfield.dir}/vendor";
-    };
+    dotfield =
+      let t = either str path;
+      in
+      rec {
+        configDir = mkOpt t "${config.dotfield.dir}/config";
+        dir = mkOpt t (toString ../.);
+        # FIXME: This points to an arbitrary location which may vary per system.
+        # Instead, it should be determined programmatically based on the flake's
+        # actual location. Note, however, that its currently only useful for
+        # out-of-store symlinks, which are generally discouraged as they do not
+        # adhere to the Nix principle of immutable configuration.
+        path = mkOpt t "${config.my.user.home}/.config/dotfield";
+        binDir = mkOpt t "${config.dotfield.dir}/bin";
+        libDir = mkOpt t "${config.dotfield.dir}/lib";
+        modulesDir = mkOpt t "${config.dotfield.dir}/modules";
+        vendorDir = mkOpt t "${config.dotfield.dir}/vendor";
+      };
 
     my = {
       name = mkOptStr "Chris Montgomery";
@@ -66,23 +69,27 @@ in {
         programs = mkOpt' attrs { } "home-manager programs config";
       };
 
-      xdg = let t = either str path;
-      in {
-        bin = mkOpt t "$HOME/.local/bin";
-        cache = mkOpt t "$HOME/.cache";
-        config = mkOpt t "$HOME/.config";
-        data = mkOpt t "$HOME/.local/share";
-        lib = mkOpt t "$HOME/.local/lib";
-      };
+      xdg =
+        let t = either str path;
+        in
+        {
+          bin = mkOpt t "$HOME/.local/bin";
+          cache = mkOpt t "$HOME/.cache";
+          config = mkOpt t "$HOME/.config";
+          data = mkOpt t "$HOME/.local/share";
+          lib = mkOpt t "$HOME/.local/lib";
+        };
 
-      xdgPaths = let home = config.my.user.home;
-      in {
-        bin = mkOpt str "${home}/.local/bin";
-        cache = mkOpt str "${home}/.cache";
-        config = mkOpt str "${home}/.config";
-        data = mkOpt str "${home}/.local/share";
-        lib = mkOpt str "${home}/.local/lib";
-      };
+      xdgPaths =
+        let home = config.my.user.home;
+        in
+        {
+          bin = mkOpt str "${home}/.local/bin";
+          cache = mkOpt str "${home}/.cache";
+          config = mkOpt str "${home}/.config";
+          data = mkOpt str "${home}/.local/share";
+          lib = mkOpt str "${home}/.local/lib";
+        };
 
       env = mkOption {
         type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
@@ -101,10 +108,11 @@ in {
     users.users.${config.my.username} = mkAliasDefinitions options.my.user;
 
     my.user = {
-      home = if pkgs.stdenv.isDarwin then
-        "/Users/${config.my.username}"
-      else
-        "/home/${config.my.username}";
+      home =
+        if pkgs.stdenv.isDarwin then
+          "/Users/${config.my.username}"
+        else
+          "/home/${config.my.username}";
 
       description = "Primary user account";
     };
@@ -143,10 +151,11 @@ in {
         home = {
           # Necessary for home-manager to work with flakes, otherwise it will
           # look for a nixpkgs channel.
-          stateVersion = if pkgs.stdenv.isDarwin then
-            "21.11"
-          else
-            config.system.stateVersion;
+          stateVersion =
+            if pkgs.stdenv.isDarwin then
+              "21.11"
+            else
+              config.system.stateVersion;
           username = config.my.username;
           file = mkAliasDefinitions options.my.hm.file;
         };

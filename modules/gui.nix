@@ -1,7 +1,8 @@
 { pkgs, lib, config, options, ... }:
 
 let cfg = config.my.modules.gui;
-in {
+in
+{
   options = with lib; {
     my.modules.gui = {
       enable = mkEnableOption ''

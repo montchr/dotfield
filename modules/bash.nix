@@ -6,7 +6,8 @@ let
   cfg = config.my.modules.bash;
   bash = pkgs.bashInteractive_5;
   profileInit = "${config.dotfield.libDir}/profile.sh";
-in {
+in
+{
   options = with lib; {
     my.modules.bash = {
       enable = mkEnableOption ''

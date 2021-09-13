@@ -1,7 +1,8 @@
 { pkgs, lib, config, inputs, ... }:
 
 let cfg = config.my.modules.node;
-in {
+in
+{
   options = with lib; {
     my.modules.node = {
       enable = mkEnableOption ''

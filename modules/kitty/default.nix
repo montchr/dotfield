@@ -13,11 +13,13 @@ let
   toKittyConfig = generators.toKeyValue {
     mkKeyValue = key: value:
       let
-        value' = if isBool value then
-          (if value then "yes" else "no")
-        else
-          toString value;
-      in "${key} ${value'}";
+        value' =
+          if isBool value then
+            (if value then "yes" else "no")
+          else
+            toString value;
+      in
+      "${key} ${value'}";
   };
 
   # Create kitty keybindings from a set.
@@ -60,7 +62,8 @@ let
         | ${pkgs.jq}/bin/jq -r --argjson id "$1" \
           '.[] | select(.platform_window_id==$id)'
     '');
-in {
+in
+{
   options = with lib; {
     my.modules.kitty = {
       enable = mkEnableOption ''

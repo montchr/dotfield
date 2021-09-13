@@ -5,22 +5,26 @@ let
 
   configDir = "${config.dotfield.configDir}/yabai";
 
-  scriptsFromFiles = (map (cmd:
-    let file = "${configDir}/bin/${cmd}";
-    in (writeScriptBin "yabai-${cmd}" (readFile file))) [
-      "set-border"
-      "close-window"
-      "focus-direction"
-    ]);
+  scriptsFromFiles = (map
+    (cmd:
+      let file = "${configDir}/bin/${cmd}";
+      in (writeScriptBin "yabai-${cmd}" (readFile file))) [
+    "set-border"
+    "close-window"
+    "focus-direction"
+  ]);
 
   scripts = with builtins;
-    (listToAttrs (map (drv: {
-      name = drv.name;
-      value = drv;
-    }) scriptsFromFiles)) // {
+    (listToAttrs (map
+      (drv: {
+        name = drv.name;
+        value = drv;
+      })
+      scriptsFromFiles)) // {
       kickstart-sa =
         let daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
-        in (writeShellScriptBin "yabai-sa-kickstart" ''
+        in
+        (writeShellScriptBin "yabai-sa-kickstart" ''
           # ${config.my.nix_managed}
           #
           # yabai-sa-kickstart
@@ -95,7 +99,8 @@ let
   # Get the store path to a yabai script by shortname.
   getScript = n: "${getAttr n scripts}/bin/yabai-${n}";
 
-in {
+in
+{
   options = with lib; {
     my.modules.yabai = {
       enable = mkEnableOption ''
@@ -155,53 +160,55 @@ in {
         normal_window_border_color = "0x00ffffff";
       };
 
-      extraConfig = let
-        signals = {
-          logFocusedWindow = app: ''
-            yabai -m signal --add \
-              event=window_focused \
-              action='yabai -m query --windows --window' \
-              app='${app}'
-          '';
-        };
+      extraConfig =
+        let
+          signals = {
+            logFocusedWindow = app: ''
+              yabai -m signal --add \
+                event=window_focused \
+                action='yabai -m query --windows --window' \
+                app='${app}'
+            '';
+          };
 
-        rules = {
-          unmanagedApps = (toString
-            (map (app: ''yabai -m rule --add app="${app}" manage=off'') [
-              "1Password"
-              "Affinity"
-              "Fantastical Helper"
-              "Harvest"
-              "Stickies"
-              "^System Preferences$"
-            ]));
-        };
-      in ''
-        ${getScript "set-padding"} 12
+          rules = {
+            unmanagedApps = (toString
+              (map (app: ''yabai -m rule --add app="${app}" manage=off'') [
+                "1Password"
+                "Affinity"
+                "Fantastical Helper"
+                "Harvest"
+                "Stickies"
+                "^System Preferences$"
+              ]));
+          };
+        in
+        ''
+          ${getScript "set-padding"} 12
 
-        yabai -m space 1 --label 'task'
-        yabai -m space 2 --label 'inspect'
-        yabai -m space 3 --label 'code'
-        yabai -m space 4 --label 'comm'
-        yabai -m space 5 --label 'term'
+          yabai -m space 1 --label 'task'
+          yabai -m space 2 --label 'inspect'
+          yabai -m space 3 --label 'code'
+          yabai -m space 4 --label 'comm'
+          yabai -m space 5 --label 'term'
 
-        # Float Emacs minibuffer
-        # https://github.com/cmacrae/config/blob/303274bb5a97a6f1612d406d8d384482d3fa35f5/modules/macintosh.nix#L163
-        yabai -m rule --add app='Emacs' \
-          title='.*Minibuf.*' \
-          manage=off \
-          border=off
+          # Float Emacs minibuffer
+          # https://github.com/cmacrae/config/blob/303274bb5a97a6f1612d406d8d384482d3fa35f5/modules/macintosh.nix#L163
+          yabai -m rule --add app='Emacs' \
+            title='.*Minibuf.*' \
+            manage=off \
+            border=off
 
-        # Float and center the doom capture window
-        yabai -m rule --add app='Emacs' title="doom-capture" \
-          manage=off \
-          grid=3:3:1:1:1:1
+          # Float and center the doom capture window
+          yabai -m rule --add app='Emacs' title="doom-capture" \
+            manage=off \
+            grid=3:3:1:1:1:1
 
-        ${rules.unmanagedApps}
+          ${rules.unmanagedApps}
 
-        yabai -m rule --add app="zoom.us" opacity="1.0"
+          yabai -m rule --add app="zoom.us" opacity="1.0"
 
-      '';
+        '';
     };
   };
 

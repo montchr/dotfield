@@ -4,7 +4,8 @@ with lib;
 let
   cfg = config.my.modules.editors.vim;
   configDir = config.dotfield.configDir;
-in {
+in
+{
   options = { my.modules.editors.vim.enable = mkEnableOption true; };
 
   config = mkIf cfg.enable {
