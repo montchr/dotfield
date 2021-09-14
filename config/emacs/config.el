@@ -333,7 +333,9 @@
 
 (use-package! lsp-mode
   :config
-  (setq! lsp-vetur-use-workspace-dependencies t)
+  (setq! lsp-vetur-use-workspace-dependencies t
+         lsp-enable-indentation t)
+
   ;; Sync LSP workspace folders and treemacs projects.
   (lsp-treemacs-sync-mode 1)
 
