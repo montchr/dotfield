@@ -334,6 +334,11 @@
 (after! projectile
   (setq! doom-projectile-cache-purge-non-projects t))
 
+(use-package! treemacs
+  :config
+  (setq! +treemacs-git-mode 'deferred
+         treemacs-tag-follow-mode t))
+
 (use-package! lsp-mode
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
