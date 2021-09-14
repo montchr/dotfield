@@ -44,10 +44,21 @@ in
 
         "git/config" =
           let
+            inherit (config.my)
+              name
+              email
+              github_username
+              keys
+              nix_managed
+              xdgPaths
+              ;
+
+            signingKey = keys.pgp;
+
             ediffTool =
               "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
           in
-          with config.my; {
+          {
 
             text = ''
               ; ${nix_managed}
@@ -58,7 +69,9 @@ in
                 name = ${name}
                 email = ${email}
                 useconfigonly = true
-                ${optionalString (key != "") "signingkey = ${key}"}
+                ${optionalString (signingKey != "") ''
+                  signingkey = ${signingKey}
+                ''}
 
               ${optionalString (github_username != "") ''
                 [github]

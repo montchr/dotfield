@@ -54,11 +54,15 @@ in
       website = mkOptStr "https://github.com/montchr";
       github_username = mkOptStr "montchr";
       email = mkOptStr "chris@cdom.io";
-      key = mkOptStr "0x135EEDD0F71934F3";
       terminal = mkOptStr "kitty";
       nix_managed = mkOptStr
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
       user = mkOption { type = options.users.users.type.functor.wrapped; };
+
+      keys = {
+        pgp = mkOptStr "0x135EEDD0F71934F3";
+        ssh = mkOpt (listOf string) [ ];
+      };
 
       hm = {
         file = mkOpt' attrs { } "Files to place directly in $HOME";
