@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631325864,
+        "narHash": "sha256-bBvrjUS0qfgC4LPFthGJ5E8Fl0f5UvlrCB3o5Bnn9ys=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "5c5bc282565f03f9c5b3d6e72b7cb985706148a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "base16-kitty": {
       "flake": false,
       "locked": {
@@ -285,6 +305,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "base16-kitty": "base16-kitty",
         "darwin": "darwin",
         "emacs": "emacs",

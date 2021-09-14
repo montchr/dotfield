@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   imports = [
     ./bash.nix
@@ -23,6 +21,7 @@
     ./espanso
     ./firefox
     ./kitty
+    ./secrets
   ];
 
   my.modules = {
@@ -39,6 +38,7 @@
     # FIXME: disabled due to build failures -- i haven't actually taken the time to configure this module
     python.enable = false;
     ripgrep.enable = true;
+    secrets.enable = true;
     ssh.enable = true;
     tealdeer.enable = true;
     zsh.enable = true;
@@ -49,5 +49,4 @@
       vim.enable = true;
     };
   };
-
 }

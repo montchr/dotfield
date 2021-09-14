@@ -6,6 +6,9 @@
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,8 +51,9 @@
     , flake-utils
     , nixpkgs
     , nur
+    , agenix
     , ...
-    }@inputs:
+    } @ inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
@@ -120,6 +124,7 @@
           inputs.home-manager.darwinModules.home-manager
           ./modules
           sharedHostsConfig
+          inputs.agenix.nixosModules.age
         ];
 
     in
