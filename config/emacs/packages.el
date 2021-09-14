@@ -84,6 +84,7 @@
 ;; Apps
 (package! hledger-mode)
 (package! org-board)                 ; Pinboard-ish for org-mode
+(package! org-jira)                  ; Can Jira be saved by Emacs?
 (package! reaper)                    ; Harvest time tracking mode
 
 ;; Tools

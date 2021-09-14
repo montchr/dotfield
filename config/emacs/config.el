@@ -310,6 +310,12 @@
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
 
+(use-package! org-jira
+  :init
+  (setq! jiralib-url "https://alleyinteractive.atlassian.net"
+         org-jira-working-dir (concat (getenv "XDG_DATA_HOME") "/emacs/org-jira"))
+  (make-directory org-jira-working-dir 'parents))
+
 (use-package! vimrc-mode
   :defer-incrementally t
   :init
