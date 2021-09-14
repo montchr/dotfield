@@ -108,10 +108,14 @@ export \
   KITTY_CONFIG_DIRECTORY="${XDG_CONFIG_HOME}/kitty" \
   KITTY_SOCKET="unix:${XDG_RUNTIME_DIR}/kitty-socket"
 
-# NodeJS
+# Node + npm + nvm
 export \
   NODE_REPL_HISTORY="${XDG_DATA_HOME}/node/repl_history" \
-  NVM_DIR="${XDG_DATA_HOME}/node/nvm"
+  NVM_DIR="${XDG_DATA_HOME}/node/nvm" \
+  NVM_AUTO_USE=true \
+  NVM_BIN="${XDG_BIN_HOME}" \
+  NVM_COMPLETION=true \
+  NVM_LAZY_LOAD=true
 
 # TODO: remove? commented out to avoid issues with npm PATH
 # export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"

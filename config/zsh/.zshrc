@@ -23,15 +23,6 @@ export ZSH_RECENT_DIRS_FILE="${ZSH_CACHE}/chpwd-recent-dirs"
 
 export GENCOMPL_FPATH="${ZDOTDIR}/completions"
 
-# nvm configuration -- must be set prior to load
-# https://github.com/lukechilds/zsh-nvm
-export \
-  NVM_AUTO_USE=true \
-  NVM_BIN="${XDG_BIN_HOME}" \
-  NVM_COMPLETION=true \
-  NVM_DIR="${XDG_CACHE_HOME}/nvm" \
-  NVM_LAZY_LOAD=true
-
 umask 022
 
 

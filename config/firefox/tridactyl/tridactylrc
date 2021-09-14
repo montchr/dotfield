@@ -20,18 +20,8 @@ bind D tabclose
 " make t open the selection with tabopen
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 
-" I like wikiwand but I don't like the way it changes URLs
-bindurl wikiwand.com yy composite js document.location.href.replace("wikiwand.com/en","wikipedia.org/wiki") | clipboard yank
-
 " Make gu take you back to subreddit from comments
 bindurl reddit.com gu urlparent 4
-
-" Only hint search results on Google and DDG
-bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
-bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
-" DDG binds are broken as of May 2021
-" bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
-" bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
 
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
@@ -57,9 +47,6 @@ command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts
 " Misc settings
 "
 
-" set editorcmd to suckless terminal, or use the defaults on other platforms
-js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "st vim" : "auto"; tri.config.set("editorcmd", editorcmd)})
-
 " Hinting mode
 set hintfiltermode vimperator-reflow
 set hintnames short
@@ -78,10 +65,9 @@ set hintdelay 100
 "
 
 " New reddit is bad
-" TODO: is this made obsolete by the Privacy Redirect addon?
-" autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 " Mosquito nets won't make themselves
-autocmd DocStart ^http(s?)://www.amazon.co.uk js tri.excmds.urlmodify("-t", "www", "smile")
+autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www", "smile")
 
 " Isolate Facebook in its own container
 " set auconcreatecontainer true
@@ -89,3 +75,12 @@ autocmd DocStart ^http(s?)://www.amazon.co.uk js tri.excmds.urlmodify("-t", "www
 
 " Load my preferred color scheme.
 colors base16-grayscale-dark
+
+
+"
+" Search
+"
+
+set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
+set searchurls.nixopts https://search.nixos.org/options?query=
+set searchurls.nixpkgs https://search.nixos.org/packages?query=

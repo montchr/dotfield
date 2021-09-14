@@ -133,8 +133,14 @@ in
         external_bar = "off";
         layout = "bsp";
 
-        # Mouse behavior
-        mouse_follows_focus = "on";
+        # FIXME: Default to `on` and write rules for disallowed applications
+        # that this setting conflicts with.
+        #
+        # I tend to switch this on every so often because it seems like a good
+        # idea. But I always end up disabling it because it causes lots of
+        # frustrating issues when using GUIs with flyout menus activated on
+        # hover (like iStat, for example).
+        mouse_follows_focus = "off";
 
         # `autoraise` will override the effect of `window_topmost`
         focus_follows_mouse = "off";
@@ -173,7 +179,7 @@ in
 
           rules = {
             unmanagedApps = (toString
-              (map (app: ''yabai -m rule --add app="${app}" manage=off'') [
+              (map (app: ''yabai -m rule --add app="${app}" manage=off; '') [
                 "1Password"
                 "Affinity"
                 "Fantastical Helper"
