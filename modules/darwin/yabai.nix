@@ -179,7 +179,7 @@ in
 
           rules = {
             unmanagedApps = (toString
-              (map (app: ''yabai -m rule --add app="${app}" manage=off'') [
+              (map (app: ''yabai -m rule --add app="${app}" manage=off; '') [
                 "1Password"
                 "Affinity"
                 "Fantastical Helper"
