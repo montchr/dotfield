@@ -338,11 +338,11 @@
   (lsp-treemacs-sync-mode 1)
 
   ;; Register rnix-lsp as a client
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix))
+  ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+  ;;                   :major-modes '(nix-mode)
+  ;;                   :server-id 'nix))
 
   ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
   ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
