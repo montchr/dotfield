@@ -331,6 +331,9 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
+(after! projectile
+  (setq! doom-projectile-cache-purge-non-projects t))
+
 (use-package! lsp-mode
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
