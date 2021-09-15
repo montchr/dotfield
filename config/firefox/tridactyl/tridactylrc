@@ -82,5 +82,6 @@ colors base16-grayscale-dark
 "
 
 set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
+set searchurls.aij https://alleyinteractive.atlassian.net/browse/%s
 set searchurls.nixopts https://search.nixos.org/options?query=
 set searchurls.nixpkgs https://search.nixos.org/packages?query=

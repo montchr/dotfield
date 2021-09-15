@@ -3,6 +3,7 @@
 let
   cfg = config.my.modules.gpg;
   gnupgHome = "$XDG_DATA_HOME/gnupg";
+  key = config.my.keys.pgp;
 in
 {
   options = with lib;
@@ -43,7 +44,7 @@ in
 
       my = {
         env = {
-          DOTFIELD_PGP_KEY = config.my.key;
+          DOTFIELD_PGP_KEY = key;
           GNUPGHOME = gnupgHome;
         };
 
@@ -114,10 +115,10 @@ in
               # Disable recipient key ID in messages
               throw-keyids
               # Default/trusted key ID to use (helpful with throw-keyids)
-              default-key ${config.my.key}
-              trusted-key ${config.my.key}
+              default-key ${key}
+              trusted-key ${key}
               # Group recipient keys (preferred ID last)
-              group keygroup = 0xFF00000000000001 0xFF00000000000002 ${config.my.key}
+              group keygroup = 0xFF00000000000001 0xFF00000000000002 ${key}
               # Keyserver URL
               keyserver hkps://keys.openpgp.org
               #keyserver hkps://keyserver.ubuntu.com:443

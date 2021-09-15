@@ -6,7 +6,9 @@
     email = "chris@alley.co";
     website = "https://alley.co/";
 
-    modules = { php.enable = true; };
+    modules = {
+      php.enable = true;
+    };
 
     env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
   };
