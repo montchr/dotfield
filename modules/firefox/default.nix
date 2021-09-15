@@ -40,7 +40,6 @@ in
         org-capture
         pinboard
         privacy-badger
-        privacy-redirect
         react-devtools
         reddit-enhancement-suite
         reduxdevtools
