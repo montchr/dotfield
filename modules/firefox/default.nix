@@ -53,7 +53,7 @@ in
       profiles =
         let
           defaultSettings = {
-            "app.update.auto" = false;
+            "app.update.auto" = true;
             "browser.bookmarks.showMobileBookmarks" = true;
             "browser.ctrlTab.recentlyUsedOrder" = false;
             "browser.proton.enabled" = true;
