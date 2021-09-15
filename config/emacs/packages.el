@@ -62,6 +62,13 @@
 (package! scroll-on-jump
   :recipe (:host gitlab
            :repo "ideasman42/emacs-scroll-on-jump"))
+
+;; FIXME: tree-sitter cannot be upgraded! sync works though
+;;
+;; > In repository "elisp-tree-sitter", failed to get status:
+;;
+;; Failed to get unambiguous name for "release"
+;; fatal: Needed a single revision
 (package! tree-sitter)
 (package! tree-sitter-langs)
 
