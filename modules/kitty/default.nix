@@ -75,17 +75,22 @@ in
 
   config = with lib;
     mkIf cfg.enable (mkMerge [{
-      my.user.packages = [ kitty-get-window-by-platform-id ];
-      # [ kitty-get-window-by-platform-id term-colors term-light term-dark ];
-
-      environment.systemPackages = with pkgs; [ kitty ];
+      my.user.packages = [
+        pkgs.kitty
+        kitty-get-window-by-platform-id
+        # term-colors
+        # term-light
+        # term-dark
+      ];
 
       environment.variables = {
         TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
       };
 
       my.modules.kitty = {
-        settings = (import ./settings.nix { inherit config lib; });
+        settings = (import ./settings.nix {
+          inherit config lib;
+        });
         extraConfig = ''
           font_features PragmataProMonoLiga-Regular +calt
           font_features PragmataProMonoLiga-Italic +calt
