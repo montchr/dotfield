@@ -88,6 +88,10 @@ in
         # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
 
         LANG = "en_US.UTF-8";
+
+        # TODO: saw this message when running a composer script. does it matter?
+        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
         LC_ALL = "en_US.UTF-8";
       };
 
