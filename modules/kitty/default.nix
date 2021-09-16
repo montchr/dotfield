@@ -78,10 +78,11 @@ in
       my.user.packages = [ kitty-get-window-by-platform-id ];
       # [ kitty-get-window-by-platform-id term-colors term-light term-dark ];
 
-      environment.systemPackages = with pkgs; [ kitty ];
+      # environment.systemPackages = with pkgs; [ kitty ];
 
       environment.variables = {
-        TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+	# FIXME causes build failure due to beautifulsoup unit test failure
+        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
       };
 
       my.modules.kitty = {
