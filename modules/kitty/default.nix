@@ -76,7 +76,7 @@ in
   config = with lib;
     mkIf cfg.enable (mkMerge [{
       my.user.packages = [
-        pkgs.kitty
+        # pkgs.kitty
         kitty-get-window-by-platform-id
         # term-colors
         # term-light
@@ -84,7 +84,11 @@ in
       ];
 
       environment.variables = {
-        TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+        # FIXME causes build failure due to beautifulsoup unit test failure
+        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+
+        LANG = "en_US.UTF-8";
+        LC_ALL = "en_US.UTF-8";
       };
 
       my.modules.kitty = {
