@@ -83,6 +83,7 @@ in
             grc
             lua
             manix # nix documentation search
+            nix-tree # Interactively browse dependency graphs of Nix derivations.
             rsync
             wget
             z-lua

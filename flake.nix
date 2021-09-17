@@ -138,11 +138,13 @@
         HodgePodge = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
           modules = sharedDarwinModules ++ [ ./hosts/hodgepodge.nix ];
+          system = "x86_64-darwin";
         };
 
         alleymon = inputs.darwin.lib.darwinSystem {
           inputs = inputs;
           modules = sharedDarwinModules ++ [ ./hosts/alleymon.nix ];
+          system = "x86_64-darwin";
         };
       };
 

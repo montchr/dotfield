@@ -1,4 +1,4 @@
 { config }:
 {
-  "testSecret.age".publicKeys = [ config.my.keys.ssh ];
+  "testSecret.txt".publicKeys = config.my.keys.ssh;
 }

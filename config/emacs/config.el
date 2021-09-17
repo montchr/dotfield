@@ -310,6 +310,12 @@
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
 
+(use-package! org-jira
+  :init
+  (setq! jiralib-url "https://alleyinteractive.atlassian.net"
+         org-jira-working-dir (concat (getenv "XDG_DATA_HOME") "/emacs/org-jira"))
+  (make-directory org-jira-working-dir 'parents))
+
 (use-package! vimrc-mode
   :defer-incrementally t
   :init
@@ -331,19 +337,28 @@
   :config
   (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
 
+(after! projectile
+  (setq! doom-projectile-cache-purge-non-projects t))
+
+(use-package! treemacs
+  :config
+  (setq! +treemacs-git-mode 'deferred
+         treemacs-tag-follow-mode t))
+
 (use-package! lsp-mode
   :config
-  (setq! lsp-phpactor-path (concat (getenv "COMPOSER_HOME") "/vendor/bin/phpactor")
-         lsp-vetur-use-workspace-dependencies t)
+  (setq! lsp-vetur-use-workspace-dependencies t
+         lsp-enable-indentation t)
+
   ;; Sync LSP workspace folders and treemacs projects.
   (lsp-treemacs-sync-mode 1)
 
   ;; Register rnix-lsp as a client
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix))
+  ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+  ;;                   :major-modes '(nix-mode)
+  ;;                   :server-id 'nix))
 
   ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
   ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
@@ -355,27 +370,8 @@
 
   ;; Add multi-root workspace folders on demand.
   ;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
-  (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht))))))
-
-;; tree-sitter
-;; via https://github.com/hlissner/doom-emacs-private/blob/master/modules/ui/tree-sitter/config.el
-(use-package! tree-sitter
-  :when (bound-and-true-p module-file-suffix)
-  :hook (prog-mode . tree-sitter-mode)
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode)
-  :config
-  (require 'tree-sitter-langs)
-  (defadvice! doom-tree-sitter-fail-gracefully-a (orig-fn &rest args)
-    "Don't break with errors when current major mode lacks tree-sitter support."
-    :around #'tree-sitter-mode
-    (condition-case e
-        (apply orig-fn args)
-      (error
-       (unless (string-match-p (concat "^Cannot find shared library\\|"
-                                       "^No language registered\\|"
-                                       "cannot open shared object file")
-                               (error-message-string e))
-         (signal (car e) (cadr e)))))))
+  ;; (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht))))))
+  )
 
 (use-package! literate-calc-mode
   :defer-incrementally t)

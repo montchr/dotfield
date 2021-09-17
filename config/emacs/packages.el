@@ -62,8 +62,6 @@
 (package! scroll-on-jump
   :recipe (:host gitlab
            :repo "ideasman42/emacs-scroll-on-jump"))
-(package! tree-sitter)
-(package! tree-sitter-langs)
 
 ;; Languages
 (package! bats-mode)                 ; mode for editing and running BATS tests
@@ -84,6 +82,7 @@
 ;; Apps
 (package! hledger-mode)
 (package! org-board)                 ; Pinboard-ish for org-mode
+(package! org-jira)                  ; Can Jira be saved by Emacs?
 (package! reaper)                    ; Harvest time tracking mode
 
 ;; Tools

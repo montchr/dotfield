@@ -75,17 +75,30 @@ in
 
   config = with lib;
     mkIf cfg.enable (mkMerge [{
-      my.user.packages = [ kitty-get-window-by-platform-id ];
-      # [ kitty-get-window-by-platform-id term-colors term-light term-dark ];
-
-      environment.systemPackages = with pkgs; [ kitty ];
+      my.user.packages = [
+        # pkgs.kitty
+        kitty-get-window-by-platform-id
+        # term-colors
+        # term-light
+        # term-dark
+      ];
 
       environment.variables = {
-        TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+        # FIXME causes build failure due to beautifulsoup unit test failure
+        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+
+        LANG = "en_US.UTF-8";
+
+        # TODO: saw this message when running a composer script. does it matter?
+        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+        LC_ALL = "en_US.UTF-8";
       };
 
       my.modules.kitty = {
-        settings = (import ./settings.nix { inherit config lib; });
+        settings = (import ./settings.nix {
+          inherit config lib;
+        });
         extraConfig = ''
           font_features PragmataProMonoLiga-Regular +calt
           font_features PragmataProMonoLiga-Italic +calt
