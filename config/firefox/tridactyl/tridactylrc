@@ -81,7 +81,11 @@ colors base16-grayscale-dark
 " Search
 "
 
+set searchurls.aigh https://github.com/search?q=org%3Aalleyinteractive+
 set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
-set searchurls.aij https://alleyinteractive.atlassian.net/browse/%s
+set searchurls.gh https://github.com/search?q=
+set searchurls.j https://alleyinteractive.atlassian.net/browse/%s
 set searchurls.nixopts https://search.nixos.org/options?query=
 set searchurls.nixpkgs https://search.nixos.org/packages?query=
+set searchurls.nixwiki https://nixos.wiki/index.php?search=
+set searchurls.npm https://www.npmjs.com/search?q=
