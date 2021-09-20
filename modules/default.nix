@@ -8,7 +8,6 @@
     ./git.nix
     ./gpg.nix
     ./gui.nix
-    ./lorri.nix
     ./node.nix
     ./python.nix
     ./ripgrep.nix
@@ -34,10 +33,8 @@
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;
-    lorri.enable = true;
     node.enable = true;
-    # FIXME: disabled due to build failures -- i haven't actually taken the time to configure this module
-    python.enable = false;
+    python.enable = true;
     ripgrep.enable = true;
     ssh.enable = true;
     tealdeer.enable = true;
