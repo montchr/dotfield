@@ -28,8 +28,6 @@ in
         gpgme
         # TODO: handle linux!
         pinentry_mac
-        # TODO: this isn't specific to GPG and should move somewhere else
-        transcrypt
         (writeShellScriptBin "gpg-agent-restart" ''
           pkill gpg-agent ; pkill ssh-agent ; pkill pinentry ; eval $(gpg-agent --daemon --enable-ssh-support)
         '')
