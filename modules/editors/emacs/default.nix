@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 with lib;
 let
@@ -23,25 +23,36 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ emacs ];
+  config = mkIf cfg.enable (mkMerge [
 
-    my.hm.configFile = {
-      "doom" = with config.my.hm.lib.file; {
-        source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
+    (if (builtins.hasAttr "homebrew" options) then
+      {
+        homebrew.brews = [
+          # :lang org (macOS only)
+          # TODO: Unavailable in nixpkgs, maybe add it someday (but apparently it's buggy)
+          "pngpaste"
+        ];
+      }
+    else { })
+
+    {
+      environment.systemPackages = with pkgs; [ emacs ];
+
+      my.hm.configFile = {
+        "doom" = with config.my.hm.lib.file; {
+          source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
+        };
       };
-    };
 
-    my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];
+      my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];
 
-    my = {
-      env = {
+      my.env = {
         DOOMDIR = doomDir;
         EDITOR = "emacsclient";
         EMACSDIR = "$XDG_CONFIG_HOME/emacs";
       };
 
-      user.packages = with pkgs; [
+      my.user.packages = with pkgs; [
         emacs
 
         ediffTool
@@ -90,8 +101,6 @@ in
 
         # :lang org
         graphviz
-        # TODO: not found in nixpkgs -- so where?
-        # pngpaste
 
         # :lang sh
         nodePackages.bash-language-server
@@ -100,16 +109,16 @@ in
         nodePackages.stylelint
         nodePackages.js-beautify
       ];
-    };
 
-    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+      fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
-    system.activationScripts.postUserActivation.text = with config.my;
-      mkIf cfg.doom.enable ''
-        # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
-        if [[ ! -d "${xdg.config}/emacs" ]]; then
-          git clone https://github.com/hlissner/doom-emacs "${xdg.config}/emacs"
-        fi
-      '';
-  };
+      system.activationScripts.postUserActivation.text = with config.my;
+        mkIf cfg.doom.enable ''
+          # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
+          if [[ ! -d "${xdg.config}/emacs" ]]; then
+            git clone https://github.com/hlissner/doom-emacs "${xdg.config}/emacs"
+          fi
+        '';
+    }
+  ]);
 }
