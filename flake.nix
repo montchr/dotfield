@@ -112,7 +112,7 @@
 
           imports = [ (digga.lib.importHosts ./hosts) ];
           hosts = {
-            /* set host specific properties here */
+            seadoom = { };
             NixOS = { };
           };
           importables = rec {
@@ -121,6 +121,7 @@
             };
             suites = with profiles; rec {
               base = [ core users.nixos users.root ];
+              linode = base ++ [ linode ];
             };
           };
         };
