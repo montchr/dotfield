@@ -182,6 +182,7 @@ in
               (map (app: ''yabai -m rule --add app="${app}" manage=off; '') [
                 "1Password"
                 "Affinity"
+                "Alfred Preferences"
                 "Fantastical Helper"
                 "Harvest"
                 "Stickies"
