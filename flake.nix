@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
+    emacs.url = "github:cmacrae/emacs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -31,9 +32,6 @@
       flake = false;
     };
 
-    emacs.url = "github:cmacrae/emacs";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +42,6 @@
     { self
     , darwin
     , emacs
-    , emacs-overlay
     , flake-utils
     , nixpkgs
     , nur
@@ -94,7 +91,6 @@
           overlays = with inputs; [
             (import ./overlays/yabai.nix)
             emacs.overlay
-            emacs-overlay.overlay
             nur.overlay
             self.overlays
           ];
