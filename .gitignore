@@ -1,6 +1,14 @@
 # Nix
-cachix/cachix.dhall
 result
+.direnv
+doc/index.html
+
+# Result of bud commands
+vm
+iso
+doi
+
+pkgs/_sources/.shake*
 
 # Emacs
 treemacs.org
