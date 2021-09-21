@@ -16,9 +16,6 @@ in
       my = {
         user.packages = with pkgs; [
           nodejs-16_x
-          (writeShellScriptBin "bash-language-server" ''
-            ${config.dotfield.dir}/node_modules/.bin/bash-language-server "$@"
-          '')
         ];
 
         hm.configFile = {

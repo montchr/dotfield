@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@prettier/plugin-php": "^0.17.4",
-    "bash-language-server": "^2.0.0",
     "eslint": "^7.32.0",
     "npm-check-updates": "^11.8.5",
     "prettier": "^2.4.0",

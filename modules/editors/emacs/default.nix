@@ -93,6 +93,9 @@ in
         # TODO: not found in nixpkgs -- so where?
         # pngpaste
 
+        # :lang sh
+        nodePackages.bash-language-server
+
         # :lang web
         nodePackages.stylelint
         nodePackages.js-beautify
