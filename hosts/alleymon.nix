@@ -1,0 +1,48 @@
+{ config, pkgs, ... }: {
+  imports = [ ../modules/darwin ];
+
+  my =
+    let
+      emailUser = "chris";
+      workDomain = "alley.co";
+    in
+    {
+      username = "montchr";
+      email = "${emailUser}@${workDomain}";
+      website = "https://${workDomain}/";
+
+      modules = {
+        php.enable = true;
+      };
+
+      env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
+    };
+
+  networking = {
+    hostName = "alleymon";
+
+    # $ networksetup -listallnetworkservices
+    knownNetworkServices = [ "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+  };
+
+  environment.systemPackages = with pkgs; [ dnsmasq ];
+
+  homebrew = {
+    casks = [ "figma" "microsoft-teams" "sketch" ];
+    masApps = {
+      "Harvest" = 506189836;
+      "Jira" = 1475897096;
+      "xScope" = 889428659;
+      "Xcode" = 497799835;
+    };
+  };
+
+  services.dnsmasq = {
+    enable = false;
+    addresses = {
+      # Vagrant boxes.
+      http = "192.168.50.4";
+      test = "192.168.50.4";
+    };
+  };
+}

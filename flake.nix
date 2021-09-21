@@ -112,6 +112,8 @@
 
           imports = [ (digga.lib.importHosts ./hosts) ];
           hosts = {
+            alleymon = { };
+            HodgePodge = { };
             seadoom = { };
             NixOS = { };
           };
@@ -121,6 +123,7 @@
             };
             suites = with profiles; rec {
               base = [ core users.nixos users.root ];
+              work = [ core darwin ];
               linode = base ++ [ linode ];
             };
           };
