@@ -174,13 +174,6 @@ export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
 # - System Appearance
 # - - - - - - - - - - - - - - - - - - - -
 
-# System editor settings.
-# TODO: this is also set in nix emacs module -- pick one or the other
-export \
-  EDITOR="emacsclient" \
-  GIT_EDITOR="$EDITOR" \
-  SYSTEMD_EDITOR="$EDITOR"
-
 export BASE16_THEME_DARK='black-metal-khold' \
   BASE16_THEME_LIGHT='grayscale-light'
 

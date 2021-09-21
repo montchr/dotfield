@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
+  inherit (lib) getAttr attrNames;
+
   cfg = config.my.modules.git;
   configDir = "${config.dotfield.configDir}/git";
 
@@ -8,6 +10,11 @@ let
     submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
       (builtins.readFile "${configDir}/bin/git-submodule-rewrite"));
   };
+
+  userScripts = (builtins.map
+    (key: getAttr key scripts)
+    (attrNames scripts));
+
 in
 {
   options = with lib; {
@@ -22,23 +29,17 @@ in
     mkIf cfg.enable {
       environment.systemPackages = with pkgs; [ git ];
 
-      my.user =
-        let
-          userScripts =
-            (builtins.map (key: getAttr key scripts) (attrNames scripts));
-        in
-        {
-          packages = with pkgs;
-            userScripts ++ [
-              gitAndTools.transcrypt
-              gitAndTools.delta
-              gitAndTools.hub
-              gitAndTools.gh
-              gitAndTools.tig
-              universal-ctags
-              exiftool
-            ];
-        };
+      my.env = { GIT_EDITOR = "$EDITOR"; };
+
+      my.user.packages = with pkgs; [
+        gitAndTools.transcrypt
+        gitAndTools.delta
+        gitAndTools.hub
+        gitAndTools.gh
+        gitAndTools.tig
+        universal-ctags
+        exiftool
+      ] ++ userScripts;
 
       my.hm.configFile = {
 
