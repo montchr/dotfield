@@ -74,6 +74,7 @@
 
   outputs =
     { self
+    , agenix
     , bud
     , deploy
     , digga
