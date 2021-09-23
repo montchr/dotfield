@@ -5,6 +5,8 @@
 # Usage:
 #   dotfield <subcommand> [<args>...]
 #   dotfield build [<flake-output>]
+#   dotfield switch [<flake-output>]
+#   dotfield evolve [<flake-output>]
 #   dotfield repl [<flake-output>]
 
 set -e
@@ -15,27 +17,38 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 #========================================
-# Build the flake and switch to the new derivation.
+# Get a path to a flake output
+#
+# TODO: ensure absolute path
 #
 # Arguments:
-#   Flake output URI.
+#   Flake directory.
+#   Flake output name.
 #========================================
-function __build() {
-  local output="$1"
+function __flake_path() {
+  printf "%s/#%s" "$1" "$2"
+}
 
-  msg::subdomain "Rebuilding...\n"
-  nix build -v "${output}"
-
-  msg::subdomain "Switching to new generation...\n"
-  local rebuild="${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild"
-
+#========================================
+# Switch to a new generation.
+#
+# Arguments:
+#   Flake directory.
+#   Flake output name.
+#========================================
+function __switch() {
+  local dir="$1"
+  local output="$2"
+  local rebuild="${dir}/result/sw/bin/darwin-rebuild"
   [[ -e "${rebuild}" ]] && {
-    "${rebuild}" switch -v --flake "${output}"
+    "${rebuild}" switch -v --flake "$(__flake_path "${dir}" "${output}")"
   }
 }
 
 #========================================
 # Open a new Nix REPL shell for a flake output.
+#
+# FIXME: assumes darwin
 #
 # Arguments:
 #   Flake output name.
@@ -62,22 +75,36 @@ EOF
 function main() {
 
   local SUBCOMMAND="$1"
-  local FLAKE_OUTPUT
+  local output
+  local dir
+  local flake_path
 
-  FLAKE_OUTPUT="${2:-${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}}"
-
-  local flake_path="${DOTFIELD_DIR}/#${FLAKE_OUTPUT}"
+  output="${2:-${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}}"
+  dir="${3:-${DOTFIELD_DIR}}"
+  flake_path="$(__flake_path "${dir}" "${output}")"
 
   case $SUBCOMMAND in
     build)
-      msg::domain "Evolution" "Rebuilding '${FLAKE_OUTPUT}'"
-      __build "${flake_path}"
+      msg::domain "Evolution" "Building '${output}'"
+      nix build -v "${flake_path}"
+      ;;
+
+    switch)
+      msg::domain "Evolution" "Switching to new generation"
+      __switch "${dir}" "${output}"
+      ;;
+
+    evolve)
+      msg::domain "Evolution" "Building '${output}'"
+      nix build -v "${flake_path}"
+
+      msg::domain "Evolution" "Switching to new generation"
+      __switch "${dir}" "${output}"
       ;;
 
     repl)
-      msg::domain "Introspection" "Launching REPL shell for ${FLAKE_OUTPUT}"
-      # TODO: Add support for NixOS
-      __repl "${FLAKE_OUTPUT}"
+      msg::domain "Introspection" "Launching REPL shell for ${output}"
+      __repl "${output}"
       ;;
 
     *)
