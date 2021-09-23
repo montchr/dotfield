@@ -20,7 +20,7 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 # Arguments:
 #   Flake output URI.
 #========================================
-function __nix::build() {
+function __build() {
   local output="$1"
 
   msg::subdomain "Rebuilding...\n"
@@ -38,9 +38,9 @@ function __nix::build() {
 # Open a new Nix REPL shell for a flake output.
 #
 # Arguments:
-#   Flake output name. Defaults to the current hostname.
+#   Flake output name.
 #========================================
-function __nix::repl() {
+function __repl() {
   local output="$1"
   local conf
   conf="$(mktemp)"
@@ -71,13 +71,13 @@ function main() {
   case $SUBCOMMAND in
     build)
       msg::domain "Evolution" "Rebuilding '${FLAKE_OUTPUT}'"
-      __nix::build "${flake_path}"
+      __build "${flake_path}"
       ;;
 
     repl)
       msg::domain "Introspection" "Launching REPL shell for ${FLAKE_OUTPUT}"
       # TODO: Add support for NixOS
-      __nix::repl "${FLAKE_OUTPUT}"
+      __repl "${FLAKE_OUTPUT}"
       ;;
 
     *)
