@@ -2,6 +2,8 @@
 #
 # dotfield
 #
+# Nix flake shortcuts.
+#
 # Usage:
 #   dotfield <subcommand> [<args>...]
 #   dotfield build [<flake-output>]
