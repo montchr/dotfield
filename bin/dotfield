@@ -64,7 +64,7 @@ function main() {
   local SUBCOMMAND="$1"
   local FLAKE_OUTPUT
 
-  FLAKE_OUTPUT="${2:-${HOSTNAME:-${HOST:-$(hostname)}}}"
+  FLAKE_OUTPUT="${2:-${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}}"
 
   local flake_path="${DOTFIELD_DIR}/#${FLAKE_OUTPUT}"
 
