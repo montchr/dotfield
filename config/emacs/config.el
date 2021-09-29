@@ -420,8 +420,7 @@
             :diff          "∖"
             :tuple         "⨂"
             :pipe          " "
-            :dot           "•"
-            :todo          "	")
+            :dot           "•")
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"
