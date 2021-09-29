@@ -84,8 +84,12 @@ in
       ];
 
       environment.variables = {
-        # FIXME causes build failure due to beautifulsoup unit test failure
-        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+        TERMINFO_DIRS =
+          if pkgs.stdenv.isDarwin then
+            "/Applications/kitty.app/Contents/Resources/kitty/terminfo"
+          else
+          # FIXME causes build failure on darwin due to beautifulsoup unit test failure (but it should not fail)
+            "${pkgs.kitty.terminfo.outPath}/share/terminfo";
 
         LANG = "en_US.UTF-8";
 
