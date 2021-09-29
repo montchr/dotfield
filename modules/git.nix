@@ -41,87 +41,107 @@ in
         exiftool
       ] ++ userScripts;
 
-      my.hm.configFile = {
+      my.hm.configFile =
+        let
+          inherit (config.my)
+            name
+            email
+            githubUsername
+            keys
+            nix_managed
+            xdgPaths
+            ;
 
-        "git/config" =
-          let
-            inherit (config.my)
-              name
-              email
-              githubUsername
-              keys
-              nix_managed
-              xdgPaths
-              ;
+          signingKey = keys.pgp;
 
-            signingKey = keys.pgp;
+          ediffTool =
+            "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
+        in
+        {
 
-            ediffTool =
-              "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
-          in
-          {
+          "git/config".text = ''
+            [user]
+              name = ${name}
+              email = ${email}
+              useconfigonly = true
+              signingkey = ${signingKey}
 
-            text = ''
-              ; ${nix_managed}
+            [github]
+              user = ${githubUsername}
 
-              ${builtins.readFile "${configDir}/config"}
+            [gpg]
+              program = ${pkgs.gnupg}/bin/gpg
 
-              [user]
-                name = ${name}
-                email = ${email}
-                useconfigonly = true
-                ${optionalString (signingKey != "") ''
-                  signingkey = ${signingKey}
-                ''}
+            [init]
+              templateDir = ${xdgPaths.config}/git/templates
+              defaultBranch = main
 
-              ${optionalString (githubUsername != "") ''
-                [github]
-                  user = ${githubUsername}
-              ''}
+            [core]
+                pager = delta
 
-              [gpg]
-                program = ${pkgs.gnupg}/bin/gpg
+            [help]
+                autocorrect = 0
+            [pretty]
+                # tut: http://gitimmersion.com/lab_10.html
+                # ref: http://linux.die.net/man/1/git-log
+                # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+                nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
+            [commit]
+                gpgsign = true
+            [fetch]
+                recurseSubmodules = true
+            [pull]
+                rebase = true
+            [push]
+                # See `git help config` (search for push.default)
+                # for more information on different options of the below setting.
+                default = current
+            [rerere]
+                enabled = true
+            [apply]
+                whitespace = nowarn
 
-              [init]
-                templateDir = ${xdgPaths.config}/git/templates
 
-              [diff "exif"]
-                textconv = ${pkgs.exiftool}/bin/exiftool
+            # Diff/Merge Tools
+            [delta]
+                line-numbers = true
+                navigate = true
+            [merge]
+              conflictstyle = diff3
+            [interactive]
+                diffFilter = delta --color-only
+            [diff "exif"]
+              textconv = ${pkgs.exiftool}/bin/exiftool
+            [difftool]
+              prompt = false
+            [mergetool]
+              prompt = false
+            [mergetool "ediff"]
+              cmd = ${ediffTool} $LOCAL $REMOTE $MERGED
+            [mergetool "vscode"]
+                cmd = code --wait $MERGED
+            [difftool "vscode"]
+                cmd = code --wait --diff $LOCAL $REMOTE
+            [difftool "ediff"]
+                cmd = ${ediffTool} $LOCAL $REMOTE
+            [diff]
+                colorMoved = default
+                tool = ediff
+            [merge]
+                tool = ediff
 
-              # Diff/Merge Tools
-              [difftool]
-                prompt = false
-              [mergetool]
-                prompt = false
-              [mergetool "ediff"]
-                cmd = ${ediffTool} $LOCAL $REMOTE $MERGED
-              [mergetool "vscode"]
-                  cmd = code --wait $MERGED
-              [difftool "vscode"]
-                  cmd = code --wait --diff $LOCAL $REMOTE
-              [difftool "ediff"]
-                  cmd = ${ediffTool} $LOCAL $REMOTE
-              [diff]
-                  colorMoved = default
-                  tool = ediff
-              [merge]
-                  tool = ediff
+            [diff "plist"]
+              textconv = plutil -convert xml1 -o -
+            [credential]
+              helper = "osxkeychain"
+          '';
 
-              ${optionalString (pkgs.stdenv.isDarwin) ''
-                [diff "plist"]
-                  textconv = plutil -convert xml1 -o -
-                [credential]
-                  helper = "osxkeychain"
-              ''}
-            '';
+          "git/ignore".source = "${configDir}/ignore";
+
+          "git/templates" = {
+            source = "${configDir}/templates";
+            recursive = true;
           };
-
-        "git/ignore".source = "${configDir}/ignore";
-
-        "git/templates" = {
-          source = "${configDir}/templates";
-          recursive = true;
         };
-      };
     };
 }
