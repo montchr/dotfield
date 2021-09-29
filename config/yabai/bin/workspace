@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# yabai-workspace
+#
+#
+
+set -eo pipefail
+
+# shellcheck source=../../../lib/utils.sh
+. "${DOTFIELD_DIR}/lib/utils.sh"
+
+# TODO: declare spaces
+# TODO: remove workspace rules prior to workspace change
+# TODO: add signals for monitor combos
+
+function __generate_rule() {
+  local app="$1"
+  local space="$2"
+  local workspace="$3"
+  local label="${workspace}--${app}"
+
+  printf "--label='%s' --app='%s' --space='%s'" \
+    "${label}" "${app}" "${space}"
+}
+
+function main() {
+  local name="$1"
+  local rules
+  case "${name}" in
+    standup)
+      ;;
+
+    *)
+      # msg::error "'${name}' is not a defined workspace!"
+      # return 1
+      ;;
+  esac
+}
+
+main "$@"
