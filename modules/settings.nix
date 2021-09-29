@@ -52,7 +52,7 @@ in
       timezone = mkOptStr "America/New_York";
       username = mkOptStr "montchr";
       website = mkOptStr "https://github.com/montchr";
-      github_username = mkOptStr "montchr";
+      githubUsername = mkOptStr "montchr";
       email = mkOptStr "chris@cdom.io";
       terminal = mkOptStr "kitty";
       nix_managed = mkOptStr
@@ -124,7 +124,7 @@ in
     };
 
     my.env = {
-      GITHUB_USER = config.my.github_username;
+      GITHUB_USER = config.my.githubUsername;
       LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     };

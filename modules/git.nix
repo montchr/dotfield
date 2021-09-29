@@ -48,7 +48,7 @@ in
             inherit (config.my)
               name
               email
-              github_username
+              githubUsername
               keys
               nix_managed
               xdgPaths
@@ -74,9 +74,9 @@ in
                   signingkey = ${signingKey}
                 ''}
 
-              ${optionalString (github_username != "") ''
+              ${optionalString (githubUsername != "") ''
                 [github]
-                  username = ${github_username}
+                  username = ${githubUsername}
               ''}
 
               [gpg]
