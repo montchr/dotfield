@@ -43,7 +43,9 @@ function __switch() {
   local output="$2"
   local rebuild="${dir}/result/sw/bin/darwin-rebuild"
   [[ -e "${rebuild}" ]] && {
-    "${rebuild}" switch -v --flake "$(__flake_path "${dir}" "${output}")"
+    "${rebuild}" switch -v --flake "$(__flake_path "${dir}" "${output}")" || {
+      msg::error "Failed to switch to the new generation!"
+    }
   }
 }
 
