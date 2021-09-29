@@ -76,7 +76,7 @@ in
 
               ${optionalString (githubUsername != "") ''
                 [github]
-                  username = ${githubUsername}
+                  user = ${githubUsername}
               ''}
 
               [gpg]
