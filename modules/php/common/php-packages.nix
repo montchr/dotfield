@@ -673,7 +673,48 @@ let
       };
     };
   };
-  devPackages = {};
+  devPackages = {
+    "php-stubs/wordpress-stubs" = {
+      targetDir = "";
+      src = composerEnv.buildZipPackage {
+        name = "php-stubs-wordpress-stubs-794e6eedfd5f2a334d581214c007fc398be588fe";
+        src = fetchurl {
+          url = "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/794e6eedfd5f2a334d581214c007fc398be588fe";
+          sha256 = "0r39can03ymq7yq0hb0j3dsmxgly1h5x362ffkxdad53znk5qdj1";
+        };
+      };
+    };
+    "phpstan/extension-installer" = {
+      targetDir = "";
+      src = composerEnv.buildZipPackage {
+        name = "phpstan-extension-installer-40625ee73d271132899ba96a5bb038f582f649c6";
+        src = fetchurl {
+          url = "https://api.github.com/repos/phpstan/extension-installer/zipball/40625ee73d271132899ba96a5bb038f582f649c6";
+          sha256 = "1qahnrkmfjzryyfiv9bpxjf4gcyq2d980d458274mqiksr0zbzri";
+        };
+      };
+    };
+    "phpstan/phpstan" = {
+      targetDir = "";
+      src = composerEnv.buildZipPackage {
+        name = "phpstan-phpstan-b4d40f1d759942f523be267a1bab6884f46ca3f7";
+        src = fetchurl {
+          url = "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7";
+          sha256 = "0sbvbfcjyx6j4yaajy6iqsarf9iqa6pmz34p439kr8j5jcykadm2";
+        };
+      };
+    };
+    "szepeviktor/phpstan-wordpress" = {
+      targetDir = "";
+      src = composerEnv.buildZipPackage {
+        name = "szepeviktor-phpstan-wordpress-bdbea69b2ba4a69998c3b6fe2b7106d78a23bd72";
+        src = fetchurl {
+          url = "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/bdbea69b2ba4a69998c3b6fe2b7106d78a23bd72";
+          sha256 = "0501yaarjyfnblpg5c2skgrrgr0d0alrwq35jphjzpiz6f17nrci";
+        };
+      };
+    };
+  };
 in
 composerEnv.buildPackage {
   inherit packages devPackages noDev;
