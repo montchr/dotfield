@@ -65,12 +65,6 @@ has exa && {
   alias tree='exa --tree'
 }
 
-# TODO: update for nix?
-# alias ls=\"${BREW_PREFIX}/bin/gls\"
-
-# Go to the top level of the current git repo.
-alias cdg='cd `git rev-parse --show-toplevel`'
-
 
 # -------------------------------------
 #  GIT
