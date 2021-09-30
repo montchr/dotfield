@@ -26,10 +26,10 @@ in
     my.user.packages = [
       php74
       # FIXME: collides with composer bin from phpactor!
-      # composer
+      composer
 
       # TODO: disabled for no reason in particular, just trying to keep moving
-      # common
+      common
 
       # FIXME: disabled because one of its composer dependencies adds a
       # `jsonlint` executable into the environment, which breaks
