@@ -16,6 +16,7 @@ in
       my = {
         user.packages = with pkgs; [
           nodejs-16_x
+          (yarn.override { nodejs = nodejs-16_x; })
         ];
 
         hm.configFile = {
