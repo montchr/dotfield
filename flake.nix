@@ -31,7 +31,7 @@
       flake = false;
     };
 
-    emacs.url = "github:cmacrae/emacs";
+    emacs.url = "github:cmacrae/emacs?rev=8bbbdae607d3f03a8e6c488b310d9443f6ff11bf";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     rnix-lsp = {
@@ -94,7 +94,7 @@
           overlays = with inputs; [
             (import ./overlays/yabai.nix)
             emacs.overlay
-            emacs-overlay.overlay
+            # emacs-overlay.overlay
             nur.overlay
             self.overlays
           ];
