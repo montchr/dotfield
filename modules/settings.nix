@@ -120,7 +120,6 @@ in
         XDG_CACHE_HOME = "${xdg.cache}";
         XDG_CONFIG_HOME = "${xdg.config}";
         XDG_DATA_HOME = "${xdg.data}";
-        XDG_LIB_HOME = "${xdg.lib}";
       };
     };
 

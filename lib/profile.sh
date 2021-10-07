@@ -52,10 +52,8 @@ export \
 : "${XDG_CONFIG_HOME:=${HOME}/.config}"
 : "${XDG_DATA_HOME:=${HOME}/.local/share}"
 : "${XDG_RUNTIME_DIR:=/tmp}"
-
-# Non-standard XDG-inspired locations
+# Non-standard, but common.
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
-: "${XDG_LIB_HOME:=${HOME}/.local/lib}"
 
 : "${TMPDIR:=${XDG_RUNTIME_DIR}}"
 CACHEDIR="${XDG_CACHE_HOME}"
@@ -66,7 +64,6 @@ export \
   XDG_DATA_HOME \
   XDG_RUNTIME_DIR \
   XDG_BIN_HOME \
-  XDG_LIB_HOME \
   CACHEDIR \
   TMPDIR
 
