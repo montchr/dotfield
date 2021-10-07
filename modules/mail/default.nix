@@ -2,8 +2,8 @@
 let
   mailDir = "${config.my.xdg.data}/mail";
   gmailAccount =
-    { domain
-    , accountName ? null
+    { name
+    , domain
     , realName ? config.my.name
     , username ? "chris"
     , ...
@@ -15,11 +15,34 @@ let
       flavor = "gmail.com";
       passwordCommand = "${pkgs.pass}/bin/pass Email/${domain}/${username}";
 
+      mu.enable = true;
+
       mbsync = {
         enable = true;
-        # create = "both";
-        # expunge = "both";
+        create = "both";
+        expunge = "both";
         patterns = [ "*" "[Gmail]*" ];
+        groups.${name} = {
+          channels = {
+            inbox.patterns = "INBOX";
+            trash = {
+              farPattern = "[Gmail]/Bin";
+              nearPattern = "[Gmail].Bin";
+            };
+            sent = {
+              farPattern = "[Gmail]/Sent Mail";
+              nearPattern = "[Gmail].Sent Mail";
+            };
+            all = {
+              farPattern = "[Gmail]/All Mail";
+              nearPattern = "[Gmail].All Mail";
+            };
+            starred = {
+              farPattern = "[Gmail]/Starred";
+              nearPattern = "[Gmail].Starred";
+            };
+          };
+        };
       };
 
       # https://tecosaur.github.io/emacs-config/config.html#fetching
@@ -41,8 +64,14 @@ in
   my.hm.accounts.email = {
     maildirBasePath = mailDir;
     accounts = {
-      personal = gmailAccount { domain = "cdom.io"; };
-      work = gmailAccount { domain = "alley.co"; };
+      personal = gmailAccount {
+        name = "personal";
+        domain = "cdom.io";
+      };
+      work = gmailAccount {
+        name = "work";
+        domain = "alley.co";
+      };
     };
   };
 }
