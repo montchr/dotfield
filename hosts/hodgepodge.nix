@@ -5,6 +5,7 @@
     username = "cdom";
     email = "chris@cdom.io";
     website = "https://github.com/montchr/";
+    hm.accounts.email.accounts.personal.primary = true;
   };
 
   networking = {

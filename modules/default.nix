@@ -21,6 +21,7 @@
     ./espanso
     ./firefox
     ./kitty
+    ./mail
     ./php
   ];
 
@@ -33,6 +34,7 @@
     git.enable = true;
     gui.enable = true;
     kitty.enable = true;
+    mail.enable = true;
     node.enable = true;
     python.enable = true;
     ripgrep.enable = true;
