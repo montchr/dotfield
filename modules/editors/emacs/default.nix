@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.my.modules.editors.emacs;
   configDir = "${config.dotfield.configDir}/emacs";
-  doomDir = "${config.my.xdgPaths.config}/doom";
+  doomDir = "${config.my.xdg.config}/doom";
 
   ediffTool = (pkgs.writeScriptBin "ediff-tool"
     (builtins.readFile "${configDir}/bin/ediff-tool"));

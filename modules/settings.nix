@@ -65,26 +65,13 @@ in
 
       hm = mkOption { type = options.home-manager.users.type.functor.wrapped; };
 
-      xdg =
-        let t = either str path;
-        in
+      xdg = let inherit (config.my.user) home; in
         {
-          bin = mkOpt t "$HOME/.local/bin";
-          cache = mkOpt t "$HOME/.cache";
-          config = mkOpt t "$HOME/.config";
-          data = mkOpt t "$HOME/.local/share";
-          lib = mkOpt t "$HOME/.local/lib";
-        };
-
-      xdgPaths =
-        let home = config.my.user.home;
-        in
-        {
-          bin = mkOpt str "${home}/.local/bin";
-          cache = mkOpt str "${home}/.cache";
-          config = mkOpt str "${home}/.config";
-          data = mkOpt str "${home}/.local/share";
-          lib = mkOpt str "${home}/.local/lib";
+          bin = mkOpt path "${home}/.local/bin";
+          cache = mkOpt path "${home}/.cache";
+          config = mkOpt path "${home}/.config";
+          data = mkOpt path "${home}/.local/share";
+          lib = mkOpt path "${home}/.local/lib";
         };
 
       env = mkOption {

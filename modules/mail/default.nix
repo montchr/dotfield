@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  mailDir = "${config.my.hm.xdg.dataHome}/mail";
+  mailDir = "${config.my.xdg.data}/mail";
   gmailAccount =
     { domain
     , accountName ? null
@@ -40,11 +40,10 @@ in
   my.user.packages = with pkgs; [ mu isync ];
   my.hm.accounts.email = {
     maildirBasePath = mailDir;
-    accounts =
-      {
-        personal = gmailAccount { domain = "cdom.io"; };
-        work = gmailAccount { domain = "alley.co"; };
-      };
+    accounts = {
+      personal = gmailAccount { domain = "cdom.io"; };
+      work = gmailAccount { domain = "alley.co"; };
+    };
   };
 }
 

@@ -28,8 +28,8 @@ in
           serviceConfig = {
             ProgramArguments = [ cmd "daemon" ];
             RunAtLoad = true;
-            StandardOutPath = "${config.my.xdgPaths.cache}/espanso.out.log";
-            StandardErrorPath = "${config.my.xdgPaths.cache}/espanso.err.log";
+            StandardOutPath = "${config.my.xdg.cache}/espanso.out.log";
+            StandardErrorPath = "${config.my.xdg.cache}/espanso.err.log";
           };
         };
 

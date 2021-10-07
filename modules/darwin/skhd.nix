@@ -27,8 +27,8 @@ in
 
     launchd.user.agents.skhd = {
       serviceConfig = {
-        StandardOutPath = "${config.my.xdgPaths.cache}/skhd.out.log";
-        StandardErrorPath = "${config.my.xdgPaths.cache}/skhd.err.log";
+        StandardOutPath = "${config.my.xdg.cache}/skhd.out.log";
+        StandardErrorPath = "${config.my.xdg.cache}/skhd.err.log";
       };
     };
   };
