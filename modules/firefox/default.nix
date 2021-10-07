@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.hm.configFile = { "tridactyl".source = "${configDir}/tridactyl"; };
+    my.hm.xdg.configFile = { "tridactyl".source = "${configDir}/tridactyl"; };
 
     my.hm.programs.firefox = {
       enable = true;

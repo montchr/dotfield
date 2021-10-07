@@ -91,45 +91,43 @@ in
           ];
       };
 
-      my.hm = {
-        configFile = {
-          "zsh" = {
-            source = configDir;
-            recursive = true;
-            onChange = ''
-              # Remove compiled files.
-              fd -uu \
-                --extension zwc \
-                --exec \
-                  rm '{}'
-            '';
-          };
-
-          "zsh/extra.zshrc".text =
-            let
-              aliasLines =
-                mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
-            in
-            ''
-              # ${config.my.nix_managed}
-
-              ${concatStringsSep "\n" aliasLines}
-
-              ${concatMapStrings (path: "source '${path}'") cfg.rcFiles}
-
-              ${cfg.rcInit}
-            '';
-
-          "zsh/profile.zshenv".source = envInit;
-
-          "zsh/extra.zshenv".text = ''
-            # ${config.my.nix_managed}
-
-            ${concatMapStrings (path: "source '${path}'") cfg.envFiles}
-
-            ${cfg.envInit}
+      my.hm.xdg.configFile = {
+        "zsh" = {
+          source = configDir;
+          recursive = true;
+          onChange = ''
+            # Remove compiled files.
+            fd -uu \
+              --extension zwc \
+              --exec \
+                rm '{}'
           '';
         };
+
+        "zsh/extra.zshrc".text =
+          let
+            aliasLines =
+              mapAttrsToList (n: v: ''alias ${n}="${v}"'') cfg.aliases;
+          in
+          ''
+            # ${config.my.nix_managed}
+
+            ${concatStringsSep "\n" aliasLines}
+
+            ${concatMapStrings (path: "source '${path}'") cfg.rcFiles}
+
+            ${cfg.rcInit}
+          '';
+
+        "zsh/profile.zshenv".source = envInit;
+
+        "zsh/extra.zshenv".text = ''
+          # ${config.my.nix_managed}
+
+          ${concatMapStrings (path: "source '${path}'") cfg.envFiles}
+
+          ${cfg.envInit}
+        '';
       };
 
       my.user = {

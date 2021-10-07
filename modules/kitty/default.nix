@@ -113,7 +113,7 @@ in
         '';
       };
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "kitty/base16-kitty".source = base16-kitty.outPath;
 
         "kitty/kitty.conf".text = ''

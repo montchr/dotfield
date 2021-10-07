@@ -37,7 +37,7 @@ in
     {
       environment.systemPackages = with pkgs; [ emacs ];
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "doom" = with config.my.hm.lib.file; {
           source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
         };

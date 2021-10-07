@@ -20,7 +20,7 @@ in
         chmod 600 ${identityFile}
       '';
 
-      my.hm.file = {
+      my.hm.home.file = {
         ".ssh/config" = {
           text = ''
             # https://github.com/drduh/config/blob/master/ssh_config

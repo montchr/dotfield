@@ -36,7 +36,7 @@ in
         yabai.enable = true;
       };
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "drafts" = {
           source = "${configDir}/drafts";
           recursive = true;

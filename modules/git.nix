@@ -41,7 +41,7 @@ in
         exiftool
       ] ++ userScripts;
 
-      my.hm.configFile =
+      my.hm.xdg.configFile =
         let
           inherit (config.my)
             name

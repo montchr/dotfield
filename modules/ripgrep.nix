@@ -13,12 +13,8 @@ in
 
   config = with lib;
     mkIf cfg.enable {
-      my = {
-        env = { RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/config"; };
-
-        user = { packages = with pkgs; [ ripgrep ]; };
-
-        hm.configFile = { "ripgrep/config".text = ""; };
-      };
+      my.env = { RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/config"; };
+      my.user.packages = with pkgs; [ ripgrep ];
+      my.hm.xdg.configFile = { "ripgrep/config".text = ""; };
     };
 }

@@ -25,13 +25,10 @@ let
       type = types.bool;
       example = true;
     };
-
 in
 {
   options = with types; {
-    dotfield =
-      let t = either str path;
-      in
+    dotfield = let t = either str path; in
       rec {
         configDir = mkOpt t "${config.dotfield.dir}/config";
         dir = mkOpt t (toString ../.);
@@ -66,14 +63,7 @@ in
         ];
       };
 
-      hm = {
-        file = mkOpt' attrs { } "Files to place directly in $HOME";
-        configFile = mkOpt' attrs { } "Files to place in $XDG_CONFIG_HOME";
-        dataFile = mkOpt' attrs { } "Files to place in $XDG_DATA_HOME";
-        lib = mkOpt' attrs config.home-manager.users.${config.my.username}.lib
-          "home-manager lib alias";
-        programs = mkOpt' attrs { } "home-manager programs config";
-      };
+      hm = mkOption { type = options.home-manager.users.type.functor.wrapped; };
 
       xdg =
         let t = either str path;
@@ -119,8 +109,6 @@ in
           "/Users/${config.my.username}"
         else
           "/home/${config.my.username}";
-
-      description = "Primary user account";
     };
 
     my.env = {
@@ -149,31 +137,23 @@ in
       };
     };
 
+    my.hm.home = {
+      # Necessary for home-manager to work with flakes, otherwise it will
+      # look for a nixpkgs channel.
+      stateVersion =
+        if pkgs.stdenv.isDarwin then
+          "21.11"
+        else
+          config.system.stateVersion;
+      username = config.my.username;
+    };
+
+    my.hm.xdg.enable = true;
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-
-      users.${config.my.username} = {
-        home = {
-          # Necessary for home-manager to work with flakes, otherwise it will
-          # look for a nixpkgs channel.
-          stateVersion =
-            if pkgs.stdenv.isDarwin then
-              "21.11"
-            else
-              config.system.stateVersion;
-          username = config.my.username;
-          file = mkAliasDefinitions options.my.hm.file;
-        };
-
-        xdg = {
-          enable = true;
-          configFile = mkAliasDefinitions options.my.hm.configFile;
-          dataFile = mkAliasDefinitions options.my.hm.dataFile;
-        };
-
-        programs = mkAliasDefinitions options.my.hm.programs;
-      };
+      users.${config.my.username} = mkAliasDefinitions options.my.hm;
     };
 
     environment.extraInit = concatStringsSep "\n"

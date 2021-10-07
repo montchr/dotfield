@@ -23,21 +23,14 @@ in
       interactiveShellInit = "source $HOME/.config/bash/bashrc";
     };
 
-    my = {
-      env = { BASH_COMPLETION_USER_FILE = "$XDG_DATA_HOME/bash/completion"; };
+    my.env = { BASH_COMPLETION_USER_FILE = "$XDG_DATA_HOME/bash/completion"; };
+    my.user.packages = [ bash ];
+    my.hm.xdg.configFile = {
+      "bash/bashrc".text = ''
+        # ${config.my.nix_managed}
 
-      user.packages = [ bash ];
-
-      hm = {
-        configFile = {
-          "bash/bashrc".text = ''
-            # ${config.my.nix_managed}
-
-            ${builtins.readFile profileInit}
-          '';
-
-        };
-      };
+        ${builtins.readFile profileInit}
+      '';
     };
 
     environment = {

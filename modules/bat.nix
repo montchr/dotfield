@@ -23,7 +23,7 @@ in
 
       my.user = { packages = with pkgs; [ bat ]; };
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "bat/batrc" = {
           text = ''
             --style="plain,changes"
