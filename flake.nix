@@ -2,24 +2,24 @@
   description = "Dotfield";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/release-21.05";
+    latest.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.follows = "latest";
+
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     nur.url = "github:nix-community/NUR";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "latest";
 
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "latest";
 
-    firefox-addons = {
-      url = "gitlab:montchr/nur-expressions/develop?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    emacs.url = "github:cmacrae/emacs?rev=8bbbdae607d3f03a8e6c488b310d9443f6ff11bf";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
@@ -30,14 +30,6 @@
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
-
-    emacs.url = "github:cmacrae/emacs?rev=8bbbdae607d3f03a8e6c488b310d9443f6ff11bf";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -46,7 +38,7 @@
     , emacs
     , emacs-overlay
     , utils
-    , nixpkgs
+    , latest
     , nur
     , ...
     } @ inputs:
@@ -114,7 +106,7 @@
         let
           nur-no-pkgs = import nur {
             nurpkgs =
-              import nixpkgs { system = utils.lib.defaultSystems; };
+              import latest { system = utils.lib.defaultSystems; };
           };
         in
         [

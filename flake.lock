@@ -19,7 +19,7 @@
     "darwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "latest"
         ]
       },
       "locked": {
@@ -105,30 +105,6 @@
         "type": "github"
       }
     },
-    "firefox-addons": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1630291947,
-        "narHash": "sha256-S7xUi/LXXNXX8mIhXKoXrQKGKr9e9x/efPy2qRGHGFs=",
-        "owner": "montchr",
-        "repo": "nur-expressions",
-        "rev": "94c9984e0843e813824c368b007453b8a693bce7",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "montchr",
-        "ref": "develop",
-        "repo": "nur-expressions",
-        "type": "gitlab"
-      }
-    },
     "firefox-lepton": {
       "flake": false,
       "locked": {
@@ -147,21 +123,6 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1629284811,
-        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "locked": {
         "lastModified": 1629481132,
         "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
         "owner": "numtide",
@@ -178,7 +139,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "latest"
         ]
       },
       "locked": {
@@ -192,6 +153,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "latest": {
+      "locked": {
+        "lastModified": 1633329294,
+        "narHash": "sha256-0LpQLS4KMgxslMgmDHmxG/5twFlXDBW9z4Or1iOrCvU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ee084c02040e864eeeb4cf4f8538d92f7c675671",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -223,22 +200,6 @@
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "a3a23d9599b0a82e333ad91db2cdc479313ce154",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1633329294,
-        "narHash": "sha256-0LpQLS4KMgxslMgmDHmxG/5twFlXDBW9z4Or1iOrCvU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ee084c02040e864eeeb4cf4f8538d92f7c675671",
         "type": "github"
       },
       "original": {
@@ -291,13 +252,32 @@
         "darwin": "darwin",
         "emacs": "emacs",
         "emacs-overlay": "emacs-overlay",
-        "firefox-addons": "firefox-addons",
         "firefox-lepton": "firefox-lepton",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2",
+        "latest": "latest",
+        "nixpkgs": [
+          "latest"
+        ],
         "nur": "nur",
         "rnix-lsp": "rnix-lsp",
+        "stable": "stable",
         "utils": "utils_2"
+      }
+    },
+    "stable": {
+      "locked": {
+        "lastModified": 1633805475,
+        "narHash": "sha256-RdUqGVxwC7DJ6CCjOU1dwVSfWBoGQRiwB2CEgtiwbiQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a40f18db37b7baf3b3e3b231a143bff754dbfbc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-21.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "utils": {
@@ -317,7 +297,7 @@
     },
     "utils_2": {
       "inputs": {
-        "flake-utils": "flake-utils_2"
+        "flake-utils": "flake-utils"
       },
       "locked": {
         "lastModified": 1632420560,
