@@ -37,110 +37,58 @@
     , darwin
     , emacs
     , emacs-overlay
+    , home-manager
     , utils
     , latest
     , nur
     , ...
     } @ inputs:
-    let
-      sharedHostsConfig = { config, pkgs, lib, options, ... }: {
-        nix = {
-          package = pkgs.nixFlakes;
-          extraOptions = "experimental-features = nix-command flakes";
-          binaryCaches = [
-            "https://cachix.org/api/v1/cache/dotfield"
-            "https://cachix.org/api/v1/cache/emacs"
-            "https://cachix.org/api/v1/cache/nix-community"
-          ];
-          binaryCachePublicKeys = [
-            "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
-            "emacs.cachix.org-1:b1SMJNLY/mZF6GxQE+eDBeps7WnkT0Po55TAyzwOxTY="
-            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          ];
-          maxJobs = "auto";
-          buildCores = 4;
-          gc = {
-            automatic = true;
-            options = "--delete-older-than 3d";
-          };
-        };
+    utils.lib.mkFlake {
+      inherit self inputs;
 
-        # networking = {
-        #  # Use Cloudflare DNS
-        #  # https://developers.cloudflare.com/1.1.1.1/
-        #  dns = [
-        #    "1.1.1.1"
-        #    "1.0.0.1"
-        #    "2606:4700:4700::1111"
-        #    "2606:4700:4700::1001"
-        #  ];
-        # };
-
-        fonts = {
-          enableFontDir = true;
-          fonts = with pkgs; [ ibm-plex inter pragmatapro public-sans ];
-        };
-
-        nixpkgs = {
-          config.allowUnfree = true;
-          overlays = with inputs; [
-            (import ./overlays/yabai.nix)
-            emacs.overlay
-            # emacs-overlay.overlay
-            nur.overlay
-            self.overlays
-          ];
-        };
-
-        time.timeZone = config.my.timezone;
-
-        environment.variables = { HOSTNAME = config.networking.hostName; };
-
-        environment.systemPackages = with pkgs; [
-          (writeScriptBin "dotfield"
-            (builtins.readFile ./bin/dotfield))
-        ];
+      channelsConfig = {
+        allowUnfree = true;
       };
 
-      sharedDarwinModules =
+      sharedOverlays = [
+        (import ./overlays/yabai.nix)
+        emacs.overlay
+        # emacs-overlay.overlay
+        nur.overlay
+        (final: prev: {
+          nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
+          pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
+        })
+      ];
+
+      hostDefaults = {
+        channelName = "latest";
+        extraArgs = { inherit utils inputs; };
+      };
+
+      hosts =
         let
-          nur-no-pkgs = import nur {
-            nurpkgs =
-              import latest { system = utils.lib.defaultSystems; };
+          darwinHostDefaults = {
+            system = "x86_64-darwin";
+            output = "darwinConfigurations";
+            builder = darwin.lib.darwinSystem;
+            modules = [
+              home-manager.darwinModules.home-manager
+              ./modules
+              ./profiles/core
+            ];
           };
         in
-        [
-          inputs.home-manager.darwinModules.home-manager
-          ./modules
-          sharedHostsConfig
-        ];
-
-    in
-    {
-      overlays = (final: prev: {
-        nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-        pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
-      });
-
-      darwinConfigurations = {
-        HodgePodge = inputs.darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./hosts/hodgepodge.nix ];
-          system = "x86_64-darwin";
+        {
+          HodgePodge = utils.lib.mergeAny darwinHostDefaults {
+            modules = [ ./hosts/hodgepodge.nix ];
+          };
+          alleymon = utils.lib.mergeAny darwinHostDefaults {
+            modules = [ ./hosts/alleymon.nix ];
+          };
         };
 
-        alleymon = inputs.darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./hosts/alleymon.nix ];
-          system = "x86_64-darwin";
-        };
-      };
-
-      # for convenience
-      # nix build './#darwinConfigurations.hodgepodge.system'
-      # vs
-      # nix build './#HodgePodge'
-      # Move them to `outputs.packages.<system>.name`
+      # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 
