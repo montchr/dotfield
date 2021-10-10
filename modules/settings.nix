@@ -63,7 +63,11 @@ in
         ];
       };
 
-      hm = mkOption { type = options.home-manager.users.type.functor.wrapped; };
+      hm = mkOption {
+        description = "Primary user's home-manager configuration";
+        type = types.attrs;
+        default = { };
+      };
 
       xdg = let inherit (config.my.user) home; in
         {
