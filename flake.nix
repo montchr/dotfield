@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     nur.url = "github:nix-community/NUR";
 
     home-manager = {
@@ -45,11 +45,11 @@
     , darwin
     , emacs
     , emacs-overlay
-    , flake-utils
+    , utils
     , nixpkgs
     , nur
     , ...
-    }@inputs:
+    } @ inputs:
     let
       sharedHostsConfig = { config, pkgs, lib, options, ... }: {
         nix = {
@@ -114,7 +114,7 @@
         let
           nur-no-pkgs = import nur {
             nurpkgs =
-              import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
+              import nixpkgs { system = utils.lib.defaultSystems; };
           };
         in
         [
