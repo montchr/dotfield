@@ -73,12 +73,6 @@
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
 
-(use-package! pragmatapro-lig
-  :init
-  (require 'pragmatapro-lig)
-  (pragmatapro-lig-global-mode)
-  :commands (pragmatapro-lig-global-mode pragmatapro-lig-mode))
-
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")
 (defvar +cdom/org-mind-directory "~/org/mind/")

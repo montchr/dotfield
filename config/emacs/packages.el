@@ -53,11 +53,6 @@
 (package! base16-theme)
 (package! modus-themes)
 
-;; Typography
-(package! pragmatapro-lig
-  :recipe (:host github
-           :repo "lumiknit/emacs-pragmatapro-ligatures"))
-
 ;; UI
 (package! scroll-on-jump
   :recipe (:host gitlab
