@@ -76,6 +76,7 @@
               home-manager.darwinModules.home-manager
               ./modules
               ./profiles/core
+              ./suites/personal
             ];
           };
         in
