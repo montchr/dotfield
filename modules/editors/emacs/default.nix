@@ -38,9 +38,7 @@ in
       environment.systemPackages = with pkgs; [ emacs ];
 
       my.hm.xdg.configFile = {
-        "doom" = with config.my.hm.lib.file; {
-          source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
-        };
+        "doom".source = "${config.dotfield.dir}/config/emacs";
       };
 
       my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];

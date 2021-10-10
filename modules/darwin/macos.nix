@@ -42,9 +42,8 @@ in
           recursive = true;
         };
 
-        "karabiner/karabiner.json" = with config.my.hm.lib.file; {
-          source = mkOutOfStoreSymlink
-            "${config.dotfield.path}/config/karabiner/karabiner.json";
+        "karabiner/karabiner.json" = {
+          source = "${configDir}/karabiner/karabiner.json";
         };
       };
 
