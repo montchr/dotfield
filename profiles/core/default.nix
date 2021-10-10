@@ -4,9 +4,9 @@
   imports = [ ../cachix ];
 
   nix = {
-    autoOptimiseStore = true;
+    # autoOptimiseStore = true;
     gc.automatic = true;
-    optimise.automatic = true;
+    # optimise.automatic = true;
     useSandbox = true;
     allowedUsers = [ "@wheel" ];
     trustedUsers = [ "root" "@wheel" ];
