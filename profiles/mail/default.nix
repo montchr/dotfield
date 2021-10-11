@@ -54,8 +54,6 @@ let
     };
 in
 {
-  imports = [ ./options.nix ];
-
   my.env = {
     MAILDIR = mailDir;
   };
