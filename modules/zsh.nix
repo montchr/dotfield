@@ -162,7 +162,6 @@ in
           # FIXME: Doesn't exist!
           # nomino #  Batch rename utility for developers
           pandoc
-          pass
           ripgrep
           rsync
           shellcheck
