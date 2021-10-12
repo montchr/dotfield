@@ -24,7 +24,7 @@ let
         patterns = [ "*" "[Gmail]*" ];
         groups.${name} = {
           channels = {
-            inbox.patterns = "INBOX";
+            inbox.patterns = [ "INBOX" ];
             trash = {
               farPattern = "[Gmail]/Bin";
               nearPattern = "[Gmail].Bin";
