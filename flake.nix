@@ -77,6 +77,7 @@
               ./modules
               ./profiles/core
               ./suites/personal
+              ./users
             ];
           };
         in

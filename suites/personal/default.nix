@@ -2,6 +2,5 @@
 {
   imports = [
     ../../profiles/keyboard
-    ../../profiles/mail
   ];
 }
