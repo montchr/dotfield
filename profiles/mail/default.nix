@@ -59,16 +59,22 @@ in
   };
 
   my.user.packages = with pkgs; [ mu isync ];
-  my.hm.accounts.email = {
-    maildirBasePath = mailDir;
-    accounts = {
-      personal = gmailAccount {
-        name = "personal";
-        domain = "cdom.io";
-      };
-      work = gmailAccount {
-        name = "work";
-        domain = "alley.co";
+
+  my.hm = {
+    programs.mbsync.enable = true;
+    programs.mu.enable = true;
+
+    accounts.email = {
+      maildirBasePath = mailDir;
+      accounts = {
+        personal = gmailAccount {
+          name = "personal";
+          domain = "cdom.io";
+        };
+        work = gmailAccount {
+          name = "work";
+          domain = "alley.co";
+        };
       };
     };
   };
