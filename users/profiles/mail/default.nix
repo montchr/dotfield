@@ -26,8 +26,8 @@ let
           channels = {
             inbox.patterns = [ "INBOX" ];
             trash = {
-              farPattern = "[Gmail]/Bin";
-              nearPattern = "[Gmail].Bin";
+              farPattern = "[Gmail]/Trash";
+              nearPattern = "[Gmail].Trash";
             };
             sent = {
               farPattern = "[Gmail]/Sent Mail";
