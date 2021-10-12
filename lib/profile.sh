@@ -209,6 +209,12 @@ cdom_base16_theme () {
   export CDOM_OS_APPEARANCE
 }
 
+# https://github.com/cantino/mcfly#light-mode
+[ "light" = "${CDOM_OS_APPEARANCE}" ] && {
+  MCFLY_LIGHT=true
+  export MCFLY_LIGHT
+}
+
 # Set the base16 theme based on OS appearance.
 BASE16_THEME="$(cdom_base16_theme "${CDOM_OS_APPEARANCE}")"
 export BASE16_THEME

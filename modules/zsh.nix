@@ -158,6 +158,7 @@ in
           jq
           less
           lnav # System Log file navigator
+          mcfly
           # FIXME: Doesn't exist!
           # nomino #  Batch rename utility for developers
           pandoc
