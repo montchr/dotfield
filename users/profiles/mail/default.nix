@@ -13,7 +13,7 @@ let
       inherit address realName;
 
       flavor = "gmail.com";
-      passwordCommand = "${pkgs.pass}/bin/pass Email/${domain}/${username}";
+      passwordCommand = "${pkgs.pass}/bin/pass Email/${domain}/${username}--mbsync";
 
       mu.enable = true;
 
