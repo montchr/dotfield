@@ -213,6 +213,7 @@ in
 
           ${rules.unmanagedApps}
 
+          yabai -m rule --add app="Microsoft Teams" opacity="1.0"
           yabai -m rule --add app="zoom.us" opacity="1.0"
 
         '';
