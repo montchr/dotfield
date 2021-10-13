@@ -27,19 +27,19 @@ let
             inbox.patterns = [ "INBOX" ];
             trash = {
               farPattern = "[Gmail]/Trash";
-              nearPattern = "[Gmail].Trash";
+              nearPattern = "trash";
             };
             sent = {
               farPattern = "[Gmail]/Sent Mail";
-              nearPattern = "[Gmail].Sent Mail";
+              nearPattern = "sent";
             };
             all = {
               farPattern = "[Gmail]/All Mail";
-              nearPattern = "[Gmail].All Mail";
+              nearPattern = "all";
             };
             starred = {
               farPattern = "[Gmail]/Starred";
-              nearPattern = "[Gmail].Starred";
+              nearPattern = "starred";
             };
           };
         };
