@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  mailDir = "${config.my.xdg.data}/mail/";
+  mailDir = "${config.my.xdg.data}/mail";
   gmailAccount =
     { name
     , domain
@@ -54,10 +54,6 @@ let
     };
 in
 {
-  my.env = {
-    MAILDIR = mailDir;
-  };
-
   my.user.packages = with pkgs; [ mu isync ];
 
   my.hm = {
