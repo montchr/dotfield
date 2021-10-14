@@ -35,9 +35,8 @@
                           (eq buffer-file-coding-system 'utf-8)))))
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
-(setq!
-  tab-width 2
-  global-so-long-mode nil)
+(setq! tab-width 2
+       global-so-long-mode nil)
 
 (use-package! evil
   :config
@@ -300,11 +299,11 @@
       (deft-base-filename file))))
 (advice-add 'deft-parse-title :override #'cdom/deft-parse-title)
 (setq! deft-strip-summary-regexp
-      (concat "\\("
-              "[\n\t]" ;; blank
-              "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
-              "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
-              "\\)"))
+       (concat "\\("
+               "[\n\t]" ;; blank
+               "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
+               "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
+               "\\)"))
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
@@ -393,6 +392,35 @@
 
 (set-ligatures! 'org-mode
   :todo "TODO")
+
+(after! mu4e
+  (setq! sendmail-program (executable-find "msmtp")
+         send-mail-function #'smtpmail-send-it
+         message-sendmail-f-is-evil t
+         message-sendmail-extra-arguments '("--read-envelope-from")
+         message-send-mail-function #'message-send-mail-with-sendmail))
+
+(setq! mu4e-context-policy 'ask-if-none
+       mu4e-compose-context-policy 'always-ask
+       +mu4e-gmail-accounts '(("chris@cdom.io" . "personal")
+                              ("chris@alley.co" . "work")))
+
+(set-email-account! "personal"
+                    '((mu4e-sent-folder       . "/personal/sent")
+                      (mu4e-drafts-folder     . "/personal/drafts")
+                      (mu4e-trash-folder      . "/personal/trash")
+                      (mu4e-refile-folder     . "/personal/archive")
+                      (smtpmail-smtp-user     . "chris@cdom.io")
+                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
+                    t)
+(set-email-account! "work"
+                    '((mu4e-sent-folder       . "/work/sent")
+                      (mu4e-drafts-folder     . "/work/drafts")
+                      (mu4e-trash-folder      . "/work/trash")
+                      (mu4e-refile-folder     . "/work/archive")
+                      (smtpmail-smtp-user     . "chris@alley.co")
+                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
+                    t)
 
 (plist-put! +ligatures-extra-symbols
             ;; org
