@@ -162,6 +162,7 @@ in
           # FIXME: Doesn't exist!
           # nomino #  Batch rename utility for developers
           pandoc
+          podman
           ripgrep
           rsync
           shellcheck
