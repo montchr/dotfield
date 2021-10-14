@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  mailDir = "${config.my.xdg.data}/mail";
+  mailDir = "${config.my.user.home}/Mail";
   gmailAccount =
     { name
     , domain
