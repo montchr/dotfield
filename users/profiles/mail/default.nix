@@ -12,37 +12,57 @@ let
     {
       inherit address realName;
 
+      userName = address;
       flavor = "gmail.com";
       passwordCommand = "${pkgs.pass}/bin/pass Email/${domain}/${username}--mbsync";
+      maildir.path = name;
 
       mu.enable = true;
 
       mbsync = {
         enable = true;
-        create = "both";
+        create = "maildir";
+        remove = "none";
         expunge = "both";
-        patterns = [ "*" "[Gmail]*" ];
-        groups.${name} = {
-          channels = {
-            inbox.patterns = [ "INBOX" ];
+        groups.${name}.channels = lib.mapAttrs
+          (_: v: v // {
+            extraConfig = {
+              Create = "Near";
+              MaxMessages = 1000000;
+              MaxSize = "10m";
+              Sync = "All";
+              SyncState = "*";
+            };
+          })
+          {
+            inbox = {
+              farPattern = "";
+              nearPattern = "";
+              extraConfig.Expunge = "Both";
+            };
             trash = {
               farPattern = "[Gmail]/Trash";
-              nearPattern = "trash";
+              nearPattern = "Trash";
             };
             sent = {
               farPattern = "[Gmail]/Sent Mail";
-              nearPattern = "sent";
+              nearPattern = "Sent";
+              extraConfig.Expunge = "Both";
             };
-            all = {
+            archive = {
               farPattern = "[Gmail]/All Mail";
-              nearPattern = "all";
+              nearPattern = "archive";
             };
             starred = {
               farPattern = "[Gmail]/Starred";
-              nearPattern = "starred";
+              nearPattern = "Starred";
+            };
+            drafts = {
+              farPattern = "[Gmail]/Drafts";
+              nearPattern = "Drafts";
+              extraConfig.Expunge = "Both";
             };
           };
-        };
       };
 
       # https://tecosaur.github.io/emacs-config/config.html#fetching
@@ -63,9 +83,12 @@ in
     accounts.email = {
       maildirBasePath = mailDir;
       accounts = {
-        personal = gmailAccount {
-          name = "personal";
-          domain = "cdom.io";
+        personal = gmailAccount
+          {
+            name = "personal";
+            domain = "cdom.io";
+          } // {
+          msmtp.enable = true;
         };
         work = gmailAccount {
           name = "work";
@@ -78,3 +101,4 @@ in
 
 ## References:
 # https://github.com/Emiller88/dotfiles/blob/5eaabedf1b141c80a8d32e1b496055231476f65e/modules/shell/mail.nix
+# https://github.com/berbiche/dotfiles/blob/cf8bc65bb775b69727a660a75ef2b981b0a31e54/profiles/email/accounts.nix
