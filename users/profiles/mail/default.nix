@@ -28,6 +28,7 @@ let
           (_: v: v // {
             extraConfig = {
               Create = "Near";
+              CopyArrivalDate = "yes";
               MaxMessages = 1000000;
               MaxSize = "10m";
               Sync = "All";
