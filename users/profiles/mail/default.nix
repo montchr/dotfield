@@ -37,16 +37,16 @@ let
           {
             inbox = {
               farPattern = "";
-              nearPattern = "";
+              nearPattern = "inbox";
               extraConfig.Expunge = "Both";
             };
             trash = {
               farPattern = "[Gmail]/Trash";
-              nearPattern = "Trash";
+              nearPattern = "trash";
             };
             sent = {
               farPattern = "[Gmail]/Sent Mail";
-              nearPattern = "Sent";
+              nearPattern = "sent";
               extraConfig.Expunge = "Both";
             };
             archive = {
@@ -55,11 +55,11 @@ let
             };
             starred = {
               farPattern = "[Gmail]/Starred";
-              nearPattern = "Starred";
+              nearPattern = "starred";
             };
             drafts = {
               farPattern = "[Gmail]/Drafts";
-              nearPattern = "Drafts";
+              nearPattern = "drafts";
               extraConfig.Expunge = "Both";
             };
           };
