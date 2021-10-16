@@ -64,6 +64,9 @@
       hostDefaults = {
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
+        system = "x86_64-darwin";
+        output = "darwinConfigurations";
+        builder = darwin.lib.darwinSystem;
         modules = [
           ./modules
           ./profiles/core
@@ -75,9 +78,6 @@
       hosts =
         let
           darwinHostDefaults = {
-            system = "x86_64-darwin";
-            output = "darwinConfigurations";
-            builder = darwin.lib.darwinSystem;
             modules = [
               home-manager.darwinModules.home-manager
             ];
