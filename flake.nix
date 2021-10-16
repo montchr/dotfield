@@ -84,10 +84,10 @@
           };
         in
         {
-          HodgePodge = darwinHostDefaults // {
+          HodgePodge = utils.lib.mergeAny darwinHostDefaults {
             modules = [ ./hosts/hodgepodge.nix ];
           };
-          alleymon = darwinHostDefaults // {
+          alleymon = utils.lib.mergeAny darwinHostDefaults {
             modules = [ ./hosts/alleymon.nix ];
           };
         };
