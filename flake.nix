@@ -64,6 +64,12 @@
       hostDefaults = {
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
+        modules = [
+          ./modules
+          ./profiles/core
+          ./suites/personal
+          ./users
+        ];
       };
 
       hosts =
@@ -74,10 +80,6 @@
             builder = darwin.lib.darwinSystem;
             modules = [
               home-manager.darwinModules.home-manager
-              ./modules
-              ./profiles/core
-              ./suites/personal
-              ./users
             ];
           };
         in
