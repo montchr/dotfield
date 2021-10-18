@@ -49,6 +49,7 @@
     , emacs-overlay
     , home-manager
     , utils
+    , stable
     , latest
     , nur
     , ...
@@ -58,6 +59,11 @@
 
       channelsConfig = {
         allowUnfree = true;
+      };
+
+      channels = {
+        stable = { };
+        latest = { };
       };
 
       lib = import ./lib { lib = digga.lib // latest.lib; };
