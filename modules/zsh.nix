@@ -135,6 +135,7 @@ in
         packages = with pkgs; [
           # TODO: gzip: Payload.gz: No such file or directory
           # _1password # CLI
+          act # Run GitHub Actions locally
           asciinema
           # bandwhich # display current network utilization by process
           # TODO: "not packaged for macOS yet"
