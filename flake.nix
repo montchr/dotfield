@@ -4,7 +4,11 @@
   inputs = {
     stable.url = "github:nixos/nixpkgs/release-21.05";
     latest.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.follows = "latest";
+
+    digga.url = "github:divnix/digga";
+    digga.inputs.nixpkgs.follows = "latest";
+    digga.inputs.nixlib.follows = "latest";
+    digga.inputs.home-manager.follows = "home-manager";
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     nur.url = "github:nix-community/NUR";
@@ -30,11 +34,17 @@
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
+
+    nixpkgs.follows = "latest";
+    nixlib.follows = "digga/nixlib";
+    blank.follows = "digga/blank";
+    utils.follows = "digga/flake-utils-plus";
   };
 
   outputs =
     { self
     , darwin
+    , digga
     , emacs
     , emacs-overlay
     , home-manager
@@ -50,6 +60,8 @@
         allowUnfree = true;
       };
 
+      lib = import ./lib { lib = digga.lib // latest.lib; };
+
       sharedOverlays = [
         (import ./overlays/yabai.nix)
         emacs.overlay
@@ -58,6 +70,12 @@
         (final: prev: {
           nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
           pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
+        })
+        (final: prev: {
+          __dontExport = true;
+          lib = prev.lib.extend (lfinal: lprev: {
+            our = self.lib;
+          });
         })
       ];
 
