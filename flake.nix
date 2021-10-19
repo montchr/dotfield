@@ -19,7 +19,11 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "latest";
 
-    emacs.url = "github:cmacrae/emacs?rev=8bbbdae607d3f03a8e6c488b310d9443f6ff11bf";
+    emacs-28-src.url = "github:emacs-mirror/emacs/emacs-28";
+    emacs-28-src.flake = false;
+
+    emacs.url = "github:cmacrae/emacs";
+    emacs.inputs.emacs-src.follows = "emacs-28-src";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -47,6 +51,7 @@
     , digga
     , emacs
     , emacs-overlay
+    , emacs-28-src
     , home-manager
     , utils
     , stable
@@ -71,6 +76,8 @@
       sharedOverlays = [
         (import ./overlays/yabai.nix)
         emacs.overlay
+        # TODO: does this need to come after the previous one?
+        (import ./overlays/emacs-28.nix { src = emacs-28-src; })
         # emacs-overlay.overlay
         nur.overlay
         (final: prev: {
