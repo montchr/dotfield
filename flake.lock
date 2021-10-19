@@ -129,39 +129,21 @@
     },
     "emacs": {
       "inputs": {
-        "emacs-src": [
-          "emacs-28-src"
-        ],
+        "emacs-src": "emacs-src",
         "emacs-vterm-src": "emacs-vterm-src",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1634606334,
-        "narHash": "sha256-eo5CCzHYgzSsedEdXo2qPY+cXFb9fWxd/9XBFxuonCo=",
-        "owner": "cmacrae",
+        "lastModified": 1634681018,
+        "narHash": "sha256-ZNqpq1HfCY/AGKOYC6JAGiHsbDzBN/5e43yKor58e70=",
+        "owner": "montchr",
         "repo": "emacs",
-        "rev": "a2062c9f004f9e423d872e299eee71a38294f318",
+        "rev": "20a87e24f14a47cfe7950608a192521d4b734c28",
         "type": "github"
       },
       "original": {
-        "owner": "cmacrae",
-        "repo": "emacs",
-        "type": "github"
-      }
-    },
-    "emacs-28-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1634675101,
-        "narHash": "sha256-XqaBwsr/0v7SF+wTyb0KxXgrxbAKqCTiNbT7ysCa8vE=",
-        "owner": "emacs-mirror",
-        "repo": "emacs",
-        "rev": "91d71b38a333c9b3dc411547c1ad61f0ee63d4e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "emacs-mirror",
-        "ref": "emacs-28",
+        "owner": "montchr",
+        "ref": "develop",
         "repo": "emacs",
         "type": "github"
       }
@@ -178,6 +160,23 @@
       "original": {
         "owner": "nix-community",
         "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
+    "emacs-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634675101,
+        "narHash": "sha256-XqaBwsr/0v7SF+wTyb0KxXgrxbAKqCTiNbT7ysCa8vE=",
+        "owner": "emacs-mirror",
+        "repo": "emacs",
+        "rev": "91d71b38a333c9b3dc411547c1ad61f0ee63d4e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-mirror",
+        "ref": "emacs-28",
+        "repo": "emacs",
         "type": "github"
       }
     },
@@ -465,7 +464,6 @@
         "darwin": "darwin",
         "digga": "digga",
         "emacs": "emacs",
-        "emacs-28-src": "emacs-28-src",
         "emacs-overlay": "emacs-overlay",
         "firefox-lepton": "firefox-lepton",
         "home-manager": "home-manager",
