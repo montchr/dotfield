@@ -19,7 +19,12 @@
     hostName = "alleymon";
 
     # $ networksetup -listallnetworkservices
-    # knownNetworkServices = [ "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+    knownNetworkServices = [
+      "Bluetooth PAN"
+      "Thunderbolt Bridge"
+      "USB 10/100/1000 LAN"
+      "Wi-Fi"
+    ];
   };
 
   environment.systemPackages = with pkgs; [ dnsmasq ];
