@@ -37,6 +37,8 @@ in
 
   config = with lib;
     mkIf cfg.enable {
+      my.user.shell = pkgs.zsh;
+
       programs.zsh = {
         enable = true;
         enableCompletion = false;
@@ -45,10 +47,6 @@ in
       };
 
       my.env = rec {
-        # Default is "1". But when typeset in PragmataPro that leaves no space
-        # between the icon and its filename.
-        EXA_ICON_SPACING = "2";
-
         # zsh paths
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
@@ -57,9 +55,6 @@ in
         # zgenom paths
         ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
         ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
-
-        # zoxide
-        _ZO_DATA_DIR = "$XDG_DATA_HOME/zoxide";
       };
 
       my.hm.xdg.configFile = {
@@ -101,38 +96,5 @@ in
         '';
       };
 
-      my.user = {
-        shell = if pkgs.stdenv.isDarwin then [ pkgs.zsh ] else pkgs.zsh;
-        packages = with pkgs; [
-          # TODO: gzip: Payload.gz: No such file or directory
-          # _1password # CLI
-          act # Run GitHub Actions locally
-          asciinema
-          # bandwhich # display current network utilization by process
-          # TODO: "not packaged for macOS yet"
-          # bitwarden
-          cacert
-          circleci-cli
-          du-dust
-          getopt
-          grex # Generate regexps from user-provided test cases
-          hyperfine
-          lnav # System Log file navigator
-          mcfly
-          # FIXME: Doesn't exist!
-          # nomino #  Batch rename utility for developers
-          pandoc
-          podman
-          shellcheck
-          shfmt
-          # TODO: unar is "unsupported" on darwin?
-          # unar
-          universal-ctags
-          vim-vint
-          yamllint
-          yq
-          zoxide
-        ];
-      };
     };
 }

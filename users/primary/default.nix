@@ -12,10 +12,19 @@ in
       "/home/${my.username}";
 
   my.env = {
+    # Default is "1". But when typeset in PragmataPro that leaves no space
+    # between the icon and its filename.
+    EXA_ICON_SPACING = "2";
+
     GITHUB_USER = my.githubUsername;
     LESSHISTFILE = "${my.xdg.data}/lesshst";
     WGETRC = "${my.xdg.config}/wgetrc";
+
+    # zoxide
+    _ZO_DATA_DIR = "$XDG_DATA_HOME/zoxide";
   };
+
+  my.user.packages = import ./package-list.nix { inherit pkgs; };
 
   environment = {
     variables = with my; {
