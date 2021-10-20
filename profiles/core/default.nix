@@ -7,7 +7,7 @@
     # autoOptimiseStore = true;
     gc.automatic = true;
     # optimise.automatic = true;
-    useSandbox = true;
+    useSandbox = (! pkgs.stdenv.isDarwin);
     allowedUsers = [ "@wheel" ];
     trustedUsers = [ "root" "@wheel" ];
     extraOptions = ''
