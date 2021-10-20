@@ -46,9 +46,6 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;; LSP 8.0.0
-(unpin! lsp-mode lsp-ui consult-lsp)
-
 ;; Themes
 (package! base16-theme)
 (package! modus-themes)
