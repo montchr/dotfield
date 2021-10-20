@@ -7,8 +7,8 @@
     # autoOptimiseStore = true;
     gc.automatic = true;
     # optimise.automatic = true;
-    useSandbox = (! pkgs.stdenv.isDarwin);
-    allowedUsers = [ "@wheel" ];
+    useSandbox = true;
+    allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
     extraOptions = ''
       min-free = 536870912
@@ -17,6 +17,9 @@
       fallback = true
     '';
   };
+
+  services.nix-daemon.enable = true;
+  users.nix.configureBuildUsers = true;
 
   fonts = {
     enableFontDir = true;

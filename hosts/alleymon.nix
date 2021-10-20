@@ -1,6 +1,21 @@
 { config, pkgs, ... }: {
   imports = [ ../modules/darwin ];
 
+  networking.hostName = "alleymon";
+
+  # MacBookPro16,2
+  nixpkgs.system = "x86_64-darwin";
+  # 2.3 GHz Quad-Core Intel Core i7
+  nix.maxJobs = 4;
+  nix.buildCores = 0;
+  # $ networksetup -listallnetworkservices
+  networking.knownNetworkServices = [
+    "Bluetooth PAN"
+    "Thunderbolt Bridge"
+    "USB 10/100/1000 LAN"
+    "Wi-Fi"
+  ];
+
   my = {
     username = "montchr";
     email = "chris@alley.co";
@@ -13,18 +28,6 @@
     hm.accounts.email.accounts.work.primary = true;
 
     env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
-  };
-
-  networking = {
-    hostName = "alleymon";
-
-    # $ networksetup -listallnetworkservices
-    knownNetworkServices = [
-      "Bluetooth PAN"
-      "Thunderbolt Bridge"
-      "USB 10/100/1000 LAN"
-      "Wi-Fi"
-    ];
   };
 
   environment.systemPackages = with pkgs; [ dnsmasq ];
