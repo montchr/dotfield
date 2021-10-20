@@ -11,9 +11,6 @@ let
   mkOpt = type: default: mkOption { inherit type default; };
   mkOpt' = type: default: description:
     mkOption { inherit type default description; };
-
-  # TODO: necessary? coreutils should certainly exist already
-  darwinPackages = with pkgs; [ openssl gawk gnused coreutils findutils ];
 in
 {
   options = with lib; {
@@ -65,32 +62,6 @@ in
         _ZO_DATA_DIR = "$XDG_DATA_HOME/zoxide";
       };
 
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment = {
-        shells = [ pkgs.zsh ];
-
-        systemPackages = with pkgs;
-          (if stdenv.isDarwin then darwinPackages else nixosPackages) ++ [
-            bottom
-            cachix
-            coreutils
-            curl
-            direnv
-            fzf
-            gcc
-            gnumake
-            grc
-            lua
-            manix # nix documentation search
-            nix-tree # Interactively browse dependency graphs of Nix derivations.
-            rsync
-            wget
-            z-lua
-            zsh
-          ];
-      };
-
       my.hm.xdg.configFile = {
         "zsh" = {
           source = configDir;
@@ -140,45 +111,27 @@ in
           # bandwhich # display current network utilization by process
           # TODO: "not packaged for macOS yet"
           # bitwarden
-          bottom # fancy version of `top` with ASCII graphs
           cacert
-          cachix
           circleci-cli
           du-dust
-          exa
-          fd
-          findutils
-          gawk
           getopt
-          gnupg
-          gnused
-          gnutar
           grex # Generate regexps from user-provided test cases
           hyperfine
-          lua
-          jq
-          less
           lnav # System Log file navigator
           mcfly
           # FIXME: Doesn't exist!
           # nomino #  Batch rename utility for developers
           pandoc
           podman
-          ripgrep
-          rsync
           shellcheck
           shfmt
-          tmux
           # TODO: unar is "unsupported" on darwin?
           # unar
           universal-ctags
-          vim
           vim-vint
-          wget
           yamllint
           yq
           zoxide
-          zsh
         ];
       };
     };
