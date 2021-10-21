@@ -26,8 +26,10 @@
     };
 
     hm.accounts.email.accounts.work.primary = true;
+  };
 
-    env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
+  environment.variables = {
+    PATH = [ "$HOME/broadway/bin" "$PATH" ];
   };
 
   environment.systemPackages = with pkgs; [ dnsmasq ];

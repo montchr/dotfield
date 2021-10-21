@@ -22,13 +22,7 @@ in
 
   config = with lib;
     mkIf cfg.enable {
-      environment = {
-        systemPackages = with pkgs; [ mas ];
-        variables = {
-          # FIXME: this isn't unique to macos and is duplicated in the kitty module
-          LANG = "en_US.UTF-8";
-        };
-      };
+      environment.systemPackages = with pkgs; [ mas ];
 
       my.modules = {
         hammerspoon.enable = true;

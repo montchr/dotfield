@@ -28,7 +28,25 @@
 
   time.timeZone = config.my.timezone;
 
-  environment.variables = { HOSTNAME = config.networking.hostName; };
+  environment.variables = {
+    # `$DOTFIELD_DIR` must point to its absolute path on the system -- not to
+    # its location in the Nix store. Cached shell configuration files may
+    # reference a path to an old derivation.
+    DOTFIELD_DIR = config.dotfield.path;
+
+    # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
+    # system has been successfully provisioned with Nix. Otherwise,
+    # `$DOTFIELD_HOSTNAME` should remain an empty string.
+    DOTFIELD_HOSTNAME = config.networking.hostName;
+
+    EDITOR = "vim";
+    KERNEL_NAME = if pkgs.stdenv.isDarwin then "darwin" else "linux";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    HOSTNAME = config.networking.hostName;
+    TMPDIR = "/tmp";
+  };
+
   environment.shells = with pkgs; [
     bashInteractive
     zsh
@@ -51,6 +69,7 @@
     fzf
     gawk
     gcc
+    git
     gnumake
     gnupg
     gnused

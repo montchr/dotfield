@@ -13,6 +13,14 @@ in
 
   config = with lib;
     mkIf cfg.enable {
+      environment.variables = {
+        NODE_REPL_HISTORY = "$XDG_DATA_HOME/node/repl_history";
+        NVM_DIR = "$XDG_DATA_HOME/node/nvm";
+        NVM_AUTO_USE = "true";
+        NVM_BIN = "$XDG_BIN_HOME";
+        NVM_COMPLETION = "true";
+        NVM_LAZY_LOAD = "true";
+      };
       my.user.packages = with pkgs; [
         nodejs-16_x
         (yarn.override { nodejs = nodejs-16_x; })

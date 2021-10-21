@@ -26,24 +26,71 @@ in
 
   my.user.packages = import ./package-list.nix { inherit pkgs; };
 
-  environment = {
-    variables = with my; {
-      # `$DOTFIELD_DIR` must point to its absolute path on the system -- not
-      # to its location in the Nix store. ZSH may cache a path to an old
-      # derivation.
-      DOTFIELD_DIR = config.dotfield.path;
+  environment =
+    let
+      extraVars = lib.concatStringsSep "\n"
+        (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') my.env);
+    in
+    {
+      extraInit = ''
+        # Check whether a command exists.
+        has() {
+          type "$1" >/dev/null 2>&1
+        }
 
-      # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
-      # system has been successfully provisioned with Nix. Otherwise,
-      # `$DOTFIELD_HOSTNAME` should remain an empty string.
-      DOTFIELD_HOSTNAME = config.networking.hostName;
+        ${extraVars}
 
-      XDG_BIN_HOME = "${xdg.bin}";
-      XDG_CACHE_HOME = "${xdg.cache}";
-      XDG_CONFIG_HOME = "${xdg.config}";
-      XDG_DATA_HOME = "${xdg.data}";
+        ${lib.strings.fileContents ./appearance.sh}
+      '';
+
+      variables = with my; {
+        CACHEDIR = xdg.cache;
+        XDG_BIN_HOME = xdg.bin;
+        XDG_CACHE_HOME = xdg.cache;
+        XDG_CONFIG_HOME = xdg.config;
+        XDG_DATA_HOME = xdg.data;
+        XDG_RUNTIME_DIR = "/tmp";
+
+        PATH = [ xdg.bin "$PATH" ];
+        INPUTRC = "${xdg.config}/readline/inputrc";
+
+        # Appearance
+        BASE16_THEME_DARK = "black-metal-khold";
+        BASE16_THEME_LIGHT = "grayscale-light";
+        CDOM_EMACS_THEME_DARK = "modus-vivendi";
+        CDOM_EMACS_THEME_LIGHT = "modus-operandi";
+
+        # Docker
+        DOCKER_CONFIG = "${xdg.config}/docker";
+        MACHINE_STORAGE_PATH = "${xdg.data}/docker-machine";
+
+        # Go
+        GOPATH = "${xdg.data}/go";
+
+        # Ruby
+        BUNDLE_USER_CACHE = "${xdg.cache}/bundle";
+        BUNDLE_USER_CONFIG = "${xdg.config}/bundle";
+        BUNDLE_USER_PLUGIN = "${xdg.data}/bundle";
+
+        # Rust
+        CARGO_HOME = "${xdg.data}/cargo";
+        RUSTUP_HOME = "${xdg.data}/rustup";
+
+        # GNU screen
+        SCREENRC = "${xdg.config}/screen/screenrc";
+
+        # Vagrant
+        VAGRANT_ALIAS_FILE = "${xdg.data}/vagrant/aliases";
+        VAGRANT_HOME = "${xdg.data}/vagrant";
+
+        # wd
+        # https://github.com/mfaerevaag/wd
+        WD_CONFIG = "${xdg.config}/wd/warprc";
+      };
+
     };
-  };
+
+
 
   my.hm.home = {
     # Necessary for home-manager to work with flakes, otherwise it will
@@ -63,7 +110,4 @@ in
     useUserPackages = true;
     users.${my.username} = lib.mkAliasDefinitions options.my.hm;
   };
-
-  environment.extraInit = lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') my.env);
 }

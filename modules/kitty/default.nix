@@ -84,19 +84,14 @@ in
       ];
 
       environment.variables = {
+        KITTY_CONFIG_DIRECTORY = "$XDG_CONFIG_HOME/kitty";
+        KITTY_SOCKET = "unix:$XDG_RUNTIME_DIR/kitty-socket";
         TERMINFO_DIRS =
           if pkgs.stdenv.isDarwin then
             "/Applications/kitty.app/Contents/Resources/kitty/terminfo"
           else
           # FIXME causes build failure on darwin due to beautifulsoup unit test failure (but it should not fail)
             "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-
-        LANG = "en_US.UTF-8";
-
-        # TODO: saw this message when running a composer script. does it matter?
-        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-        LC_ALL = "en_US.UTF-8";
       };
 
       my.modules.kitty = {
