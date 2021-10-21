@@ -2,9 +2,11 @@
 
 with lib;
 let
-  cfg = config.my.modules.espanso;
-  configDirPath = "${config.dotfield.configDir}/espanso";
-  snippetsDir = "$XDG_CONFIG_HOME/espanso/user";
+  inherit (config) dotfield my;
+
+  cfg = my.modules.espanso;
+  configDirPath = "${dotfield.configDir}/espanso";
+  snippetsDir = "${my.xdg.config}/espanso/user";
   plugins = [ "greek-letters-alt" ];
   secrets = (map (s: "${configDirPath}/user/${s}") [ ]);
   cmd = "espanso";

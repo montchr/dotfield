@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  passVars = { PASSWORD_STORE_DIR = "$XDG_DATA_HOME/pass"; };
+  inherit (config.my) xdg;
+
+  passVars = { PASSWORD_STORE_DIR = "${xdg.data}/pass"; };
 in
 {
   environment.variables = passVars;

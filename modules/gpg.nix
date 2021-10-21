@@ -1,9 +1,11 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.my.modules.gpg;
-  gnupgHome = "$XDG_DATA_HOME/gnupg";
-  key = config.my.keys.pgp;
+  inherit (config) my;
+
+  cfg = my.modules.gpg;
+  gnupgHome = "${my.xdg.data}/gnupg";
+  key = my.keys.pgp;
 in
 {
   options = with lib;
@@ -35,7 +37,7 @@ in
       # Ensure the correct permissions.
       # TODO: not sure if this would work with `home.activation`
       system.activationScripts.postUserActivation.text = ''
-        sudo chown -R ${config.my.username} ${gnupgHome}
+        sudo chown -R ${my.username} ${gnupgHome}
         find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
         find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
       '';
@@ -48,10 +50,10 @@ in
       my.hm.xdg.dataFile = {
         "gnupg/gpg-agent.conf" = {
           text = ''
-            # ${config.my.nix_managed}
+            # ${my.nix_managed}
 
             # TODO: Linux support
-            pinentry-program ${config.my.user.home}/${pkgs.pinentry_mac.binaryPath}
+            pinentry-program ${my.user.home}/${pkgs.pinentry_mac.binaryPath}
           '';
         };
 
@@ -65,7 +67,7 @@ in
 
         "gnupg/gpg.conf" = {
           text = ''
-            # ${config.my.nix_managed}
+            # ${my.nix_managed}
             # https://github.com/drduh/config/blob/master/gpg.conf
             # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
             # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html

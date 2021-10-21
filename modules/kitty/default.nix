@@ -2,9 +2,10 @@
 with lib;
 let
   inherit (inputs) base16-kitty;
+  inherit (config) my;
 
-  cfg = config.my.modules.kitty;
-  themesCfg = config.my.modules.themes;
+  cfg = my.modules.kitty;
+  themesCfg = my.modules.themes;
   configDir = "${config.dotfield.configDir}/kitty";
   socket = "unix:/tmp/kitty-socket";
 
@@ -84,7 +85,7 @@ in
       ];
 
       environment.variables = {
-        KITTY_CONFIG_DIRECTORY = "$XDG_CONFIG_HOME/kitty";
+        KITTY_CONFIG_DIRECTORY = "${my.xdg.config}/kitty";
         KITTY_SOCKET = socket;
         TERMINFO_DIRS =
           if pkgs.stdenv.isDarwin then
@@ -112,7 +113,7 @@ in
         "kitty/base16-kitty".source = base16-kitty.outPath;
 
         "kitty/kitty.conf".text = ''
-          # ${config.my.nix_managed}
+          # ${my.nix_managed}
           # See https://sw.kovidgoyal.net/kitty/conf.html
 
           ${toKittyConfig cfg.settings}
