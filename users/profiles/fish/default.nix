@@ -24,8 +24,6 @@ in
     fish = {
       enable = true;
       # interactiveShellInit = fileContents ./interactiveShellInit.fish;
-      # interactiveShellInit = ''
-      # '';
       # shellInit = fileContents ./shellInit.fish;
       shellAbbrs = import ./abbrs.nix { inherit config lib pkgs; };
       shellAliases = import ./aliases.nix { inherit config lib pkgs; };
@@ -35,7 +33,8 @@ in
   my.hm.xdg.configFile = lib.mkMerge [
     # FIXME: linking config results in overriding home-manager's control
     # (mkFileLink' "config")
-    (mkFileLink "fish_plugins" "fisher update")
+    # (mkFileLink "fish_plugins" "fisher update")
+    (mkFileLink "fish_plugins" "")
   ];
 
 }
