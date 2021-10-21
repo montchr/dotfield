@@ -1,8 +1,10 @@
 jorgebucaran/fisher
+lilyball/nix-env.fish
 
 IlanCosman/tide@v5
 
+franciscolourenco/done
 gazorby/fish-abbreviation-tips
 jorgebucaran/nvm.fish
 jethrokuan/z
-lilyball/nix-env.fish
+PatrickF1/fzf.fish

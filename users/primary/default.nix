@@ -86,6 +86,8 @@ in
         # wd
         # https://github.com/mfaerevaag/wd
         WD_CONFIG = "${xdg.config}/wd/warprc";
+
+        Z_OWNER = my.username;
       };
 
     };

@@ -22,7 +22,10 @@ in
 
   config = with lib;
     mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [ mas ];
+      environment.systemPackages = with pkgs; [
+        mas
+        terminal-notifier
+      ];
 
       my.modules = {
         hammerspoon.enable = true;

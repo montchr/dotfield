@@ -11,7 +11,6 @@ in
 {
   imports = [
     ./abbrs.nix
-    # ./plugins.nix
   ];
 
   environment.variables = {
