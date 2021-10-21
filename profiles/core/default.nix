@@ -49,6 +49,7 @@
 
   environment.shells = with pkgs; [
     bashInteractive
+    fish
     zsh
   ];
 
@@ -66,6 +67,7 @@
     exa
     fd
     findutils
+    fish
     fzf
     gawk
     gcc

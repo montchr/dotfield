@@ -47,7 +47,7 @@
     , digga
     , emacs
     , emacs-overlay
-    # , emacs-28-src
+      # , emacs-28-src
     , home-manager
     , utils
     , stable
@@ -97,6 +97,7 @@
         modules = [
           ./modules
           ./profiles/core
+          ./profiles/fish
           ./suites/personal
           ./users
         ];

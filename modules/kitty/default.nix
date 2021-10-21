@@ -85,7 +85,7 @@ in
 
       environment.variables = {
         KITTY_CONFIG_DIRECTORY = "$XDG_CONFIG_HOME/kitty";
-        KITTY_SOCKET = "unix:$XDG_RUNTIME_DIR/kitty-socket";
+        KITTY_SOCKET = socket;
         TERMINFO_DIRS =
           if pkgs.stdenv.isDarwin then
             "/Applications/kitty.app/Contents/Resources/kitty/terminfo"

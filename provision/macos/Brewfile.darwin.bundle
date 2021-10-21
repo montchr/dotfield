@@ -21,6 +21,7 @@ brew "git"
 # Shell
 brew "bash"
 brew "bash-completion"
+brew "fish"
 brew "wget"
 brew "zsh"
 

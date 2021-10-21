@@ -90,8 +90,6 @@ in
 
     };
 
-
-
   my.hm.home = {
     # Necessary for home-manager to work with flakes, otherwise it will
     # look for a nixpkgs channel.

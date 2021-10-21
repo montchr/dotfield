@@ -31,7 +31,6 @@ in
             --map-syntax '.gitconfig.local:Git Config'
             --map-syntax '**/mx*:Bourne Again Shell (bash)'
             --map-syntax '**/completions/_*:Bourne Again Shell (bash)'
-            --map-syntax '.zsh*:Bourne Again Shell (bash)'
             --map-syntax '.vimrc.local:VimL'
             --map-syntax 'vimrc:VimL'
           '';
