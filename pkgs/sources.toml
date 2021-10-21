@@ -1,0 +1,15 @@
+# nvfetcher.toml
+
+[fish-nix-env]
+src.git = "https://github.com/lilyball/nix-env.fish.git"
+fetch.git = "https://github.com/lilyball/nix-env.fish.git"
+
+[fish-tide]
+src.github = "IlanCosman/tide"
+fetch.github = "IlanCosman/tide"
+
+[fish-z]
+src.git = "https://github.com/jethrokuan/z.git"
+fetch.git = "https://github.com/jethrokuan/z.git"
+# src.github = "jethrokuan/z"
+# fetch.github = "jethrokuan/z"

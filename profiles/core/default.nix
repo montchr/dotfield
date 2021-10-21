@@ -82,6 +82,7 @@
     lua
     manix # nix documentation search
     nix-tree # Interactively browse dependency graphs of Nix derivations.
+    nvfetcher
     openssl
     ripgrep
     rsync

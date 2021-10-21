@@ -25,6 +25,10 @@
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
+    nvfetcher.url = "github:berberman/nvfetcher";
+    nvfetcher.inputs.nixpkgs.follows = "latest";
+    nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
@@ -53,6 +57,7 @@
     , stable
     , latest
     , nur
+    , nvfetcher
     , ...
     } @ inputs:
     utils.lib.mkFlake {
@@ -76,6 +81,8 @@
         # (import ./overlays/emacs-28.nix { src = emacs-28-src; })
         # emacs-overlay.overlay
         nur.overlay
+        nvfetcher.overlay
+        (import ./pkgs/default.nix)
         (final: prev: {
           nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
           pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
