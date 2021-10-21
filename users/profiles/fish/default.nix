@@ -4,11 +4,14 @@ let
   inherit (lib.strings) fileContents;
 
   configDir = "${config.dotfield.configDir}/fish";
+
+  mkFileLink = path: { "fish/${path}".source = "${configDir}/${path}"; };
+  mkFileLink' = path: mkFileLink "${path}.fish";
 in
 {
   imports = [
     ./abbrs.nix
-    ./plugins.nix
+    # ./plugins.nix
   ];
 
   environment.variables = {
@@ -25,15 +28,11 @@ in
       # '';
       # shellInit = fileContents ./shellInit.fish;
     };
-
-    zoxide.enable = true;
   };
 
-  my.hm.xdg.configFile = {
-    "fish" = {
-      source = configDir;
-      recursive = true;
-    };
-  };
+  my.hm.xdg.configFile = lib.mkMerge [
+    (mkFileLink' "config")
+    (mkFileLink "fish_plugins")
+  ];
 
 }
