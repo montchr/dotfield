@@ -5,7 +5,12 @@ let
 
   configDir = "${config.dotfield.configDir}/fish";
 
-  mkFileLink = path: { "fish/${path}".source = "${configDir}/${path}"; };
+  mkFileLink = path: onChange: {
+    "fish/${path}" = {
+      inherit onChange;
+      source = "${configDir}/${path}";
+    };
+  };
   mkFileLink' = path: mkFileLink "${path}.fish";
 in
 {
@@ -30,8 +35,9 @@ in
   };
 
   my.hm.xdg.configFile = lib.mkMerge [
-    (mkFileLink' "config")
-    (mkFileLink "fish_plugins")
+    # FIXME: linking config results in overriding home-manager's control
+    # (mkFileLink' "config")
+    (mkFileLink "fish_plugins" "fisher update")
   ];
 
 }
