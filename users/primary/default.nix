@@ -20,7 +20,6 @@ in
     LESSHISTFILE = "${my.xdg.data}/lesshst";
     WGETRC = "${my.xdg.config}/wgetrc";
 
-    # zoxide
     Z_DATA = "$XDG_DATA_HOME/z";
   };
 

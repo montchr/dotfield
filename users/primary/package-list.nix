@@ -2,7 +2,7 @@
 with pkgs; [
   act # Run GitHub Actions locally
   asciinema
-  # bandwhich # display current network utilization by process
+  bandwhich # display current network utilization by process
   cacert
   circleci-cli
   du-dust
@@ -19,5 +19,4 @@ with pkgs; [
   vim-vint
   yamllint
   yq
-  zoxide
 ]
