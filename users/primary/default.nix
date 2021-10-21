@@ -21,7 +21,7 @@ in
     WGETRC = "${my.xdg.config}/wgetrc";
 
     # zoxide
-    _ZO_DATA_DIR = "$XDG_DATA_HOME/zoxide";
+    Z_DATA = "$XDG_DATA_HOME/z";
   };
 
   my.user.packages = import ./package-list.nix { inherit pkgs; };
