@@ -14,10 +14,6 @@ let
   mkFileLink' = path: mkFileLink "${path}.fish";
 in
 {
-  imports = [
-    ./abbrs.nix
-  ];
-
   environment.variables = {
     SHELL = "fish";
   };
@@ -31,6 +27,8 @@ in
       # interactiveShellInit = ''
       # '';
       # shellInit = fileContents ./shellInit.fish;
+      shellAbbrs = import ./abbrs.nix { inherit config lib pkgs; };
+      shellAliases = import ./aliases.nix { inherit config lib pkgs; };
     };
   };
 
