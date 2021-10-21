@@ -6,6 +6,11 @@ let
   configDir = "${config.dotfield.configDir}/fish";
 in
 {
+  imports = [
+    ./abbrs.nix
+    ./plugins.nix
+  ];
+
   environment.variables = {
     SHELL = "fish";
   };
@@ -16,11 +21,9 @@ in
     fish = {
       enable = true;
       # interactiveShellInit = fileContents ./interactiveShellInit.fish;
-      interactiveShellInit = ''
-        set fish_greeting
-      '';
-      shellInit = fileContents ./shellInit.fish;
-      shellAbbrs = import ./abbrs.nix;
+      # interactiveShellInit = ''
+      # '';
+      # shellInit = fileContents ./shellInit.fish;
     };
 
     zoxide.enable = true;
