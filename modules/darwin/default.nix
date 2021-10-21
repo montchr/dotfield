@@ -10,8 +10,10 @@
   };
 
   homebrew = {
-    enable = true;
-    autoUpdate = true;
+    # enable = true;
+    enable = false;
+    # autoUpdate = true;
+    autoUpdate = false;
     global.noLock = true;
     # TODO
     # cleanup = "zap";
