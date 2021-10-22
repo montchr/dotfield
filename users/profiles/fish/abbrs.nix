@@ -75,4 +75,5 @@ let inherit (config) my; in
   # -------------------------------------
 
   vup = "vagrant up";
+  vre = "vagrant reload";
 }
