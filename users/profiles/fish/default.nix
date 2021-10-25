@@ -5,6 +5,13 @@ let
 
   configDir = "${config.dotfield.configDir}/fish";
 
+  mkPlugins = plugins: (map
+    (name: {
+      inherit name;
+      inherit (pkgs.sources."fish-${name}") src;
+    })
+    plugins);
+
   mkFileLink = path: onChange: {
     "fish/${path}" = {
       inherit onChange;
@@ -27,6 +34,15 @@ in
       shellInit = fileContents ./shellInit.fish;
       shellAbbrs = import ./abbrs.nix { inherit config lib pkgs; };
       shellAliases = import ./aliases.nix { inherit config lib pkgs; };
+      plugins = mkPlugins [
+        "abbr-tips"
+        "done"
+        "fzf"
+        "nix-env"
+        "nvm"
+        "z"
+      ];
+    };
     starship = {
       enable = true;
       enableFishIntegration = true;

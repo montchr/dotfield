@@ -1,2 +1,25 @@
 # nvfetcher.toml
 
+[fish-abbr-tips]
+src.github = "gazorby/fish-abbreviation-tips"
+fetch.github = "gazorby/fish-abbreviation-tips"
+
+[fish-done]
+src.github = "franciscolourenco/done"
+fetch.github = "franciscolourenco/done"
+
+[fish-fzf]
+src.github = "PatrickF1/fzf.fish"
+fetch.github = "PatrickF1/fzf.fish"
+
+[fish-nix-env]
+src.git = "https://github.com/lilyball/nix-env.fish.git"
+fetch.git = "https://github.com/lilyball/nix-env.fish.git"
+
+[fish-nvm]
+src.github = "jorgebucaran/nvm.fish"
+fetch.github = "jorgebucaran/nvm.fish"
+
+[fish-z]
+src.git = "https://github.com/jethrokuan/z.git"
+fetch.git = "https://github.com/jethrokuan/z.git"
