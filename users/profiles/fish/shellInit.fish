@@ -6,7 +6,6 @@ end
 
 set -U fish_user_paths /run/wrappers/bin $fish_user_paths
 
-
 function fish_title
   echo "$PWD | $_" | sed "s|$HOME|~|g"
 end

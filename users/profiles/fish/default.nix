@@ -23,18 +23,18 @@ in
   my.hm.programs = {
     fish = {
       enable = true;
-      # interactiveShellInit = fileContents ./interactiveShellInit.fish;
-      # shellInit = fileContents ./shellInit.fish;
+      interactiveShellInit = fileContents ./interactiveShellInit.fish;
+      shellInit = fileContents ./shellInit.fish;
       shellAbbrs = import ./abbrs.nix { inherit config lib pkgs; };
       shellAliases = import ./aliases.nix { inherit config lib pkgs; };
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
     };
   };
 
   my.hm.xdg.configFile = lib.mkMerge [
-    # FIXME: linking config results in overriding home-manager's control
-    # (mkFileLink' "config")
-    # (mkFileLink "fish_plugins" "fisher update")
-    (mkFileLink "fish_plugins" "")
+    ({ "starship".source = "${config.dotfield.configDir}/starship"; })
   ];
 
 }
