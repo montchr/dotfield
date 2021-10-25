@@ -12,6 +12,17 @@
       sha256 = "sha256-e6ooh8kKx1VTG2Qq1yXFqw7iwFiHx91ml1pIND/RufQ=";
     });
   };
+  fish-autopair = {
+    pname = "fish-autopair";
+    version = "1.0.3";
+    src = fetchFromGitHub ({
+      owner = "jorgebucaran";
+      repo = "autopair.fish";
+      rev = "1.0.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-l6WJ2kjDO/TnU9FSigjxk5xFp90xl68gDfggkE/wrlM=";
+    });
+  };
   fish-done = {
     pname = "fish-done";
     version = "1.16.5";
@@ -57,15 +68,15 @@
       sha256 = "sha256-KSL24EWsLaZhEc2Wmg9MEZaznAyIm2Rq1MbYLNntZZ8=";
     });
   };
-  fish-tide = {
-    pname = "fish-tide";
-    version = "v5.0.1";
+  fish-replay = {
+    pname = "fish-replay";
+    version = "1.2.0";
     src = fetchFromGitHub ({
-      owner = "IlanCosman";
-      repo = "tide";
-      rev = "v5.0.1";
+      owner = "jorgebucaran";
+      repo = "replay.fish";
+      rev = "1.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-EjEVyWwAtVqPFDEo9QUUAQXlAMlmEmaO0sqmjZSKI5M=";
+      sha256 = "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=";
     });
   };
   fish-z = {

@@ -36,10 +36,12 @@ in
       shellAliases = import ./aliases.nix { inherit config lib pkgs; };
       plugins = mkPlugins [
         "abbr-tips"
+        "autopair"
         "done"
         "fzf"
         "nix-env"
         "nvm"
+        "replay"
         "z"
       ];
     };
