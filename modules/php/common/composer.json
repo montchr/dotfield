@@ -15,5 +15,10 @@
       "name": "Chris Montgomery",
       "email": "chris@cdom.io"
     }
-  ]
+  ],
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.99",
+    "szepeviktor/phpstan-wordpress": "dev-master",
+    "phpstan/extension-installer": "dev-master"
+  }
 }

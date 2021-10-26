@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
+  inherit (lib) getAttr attrNames;
+
   cfg = config.my.modules.git;
   configDir = "${config.dotfield.configDir}/git";
 
@@ -8,6 +10,11 @@ let
     submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
       (builtins.readFile "${configDir}/bin/git-submodule-rewrite"));
   };
+
+  userScripts = (builtins.map
+    (key: getAttr key scripts)
+    (attrNames scripts));
+
 in
 {
   options = with lib; {
@@ -22,105 +29,119 @@ in
     mkIf cfg.enable {
       environment.systemPackages = with pkgs; [ git ];
 
-      my.user =
+      my.env = { GIT_EDITOR = "$EDITOR"; };
+
+      my.user.packages = with pkgs; [
+        gitAndTools.transcrypt
+        gitAndTools.delta
+        gitAndTools.hub
+        gitAndTools.gh
+        gitAndTools.tig
+        universal-ctags
+        exiftool
+      ] ++ userScripts;
+
+      my.hm.configFile =
         let
-          userScripts =
-            (builtins.map (key: getAttr key scripts) (attrNames scripts));
+          inherit (config.my)
+            name
+            email
+            githubUsername
+            keys
+            nix_managed
+            xdgPaths
+            ;
+
+          signingKey = keys.pgp;
+
+          ediffTool =
+            "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
         in
         {
-          packages = with pkgs;
-            userScripts ++ [
-              gitAndTools.transcrypt
-              gitAndTools.delta
-              gitAndTools.hub
-              gitAndTools.gh
-              gitAndTools.tig
-              universal-ctags
-              exiftool
-            ];
-        };
 
-      my.hm.configFile = {
+          "git/config".text = ''
+            [user]
+              name = ${name}
+              email = ${email}
+              useconfigonly = true
+              signingkey = ${signingKey}
 
-        "git/config" =
-          let
-            inherit (config.my)
-              name
-              email
-              github_username
-              keys
-              nix_managed
-              xdgPaths
-              ;
+            [github]
+              user = ${githubUsername}
 
-            signingKey = keys.pgp;
+            [gpg]
+              program = ${pkgs.gnupg}/bin/gpg
 
-            ediffTool =
-              "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
-          in
-          {
+            [init]
+              templateDir = ${xdgPaths.config}/git/templates
+              defaultBranch = main
 
-            text = ''
-              ; ${nix_managed}
+            [core]
+                pager = delta
 
-              ${builtins.readFile "${configDir}/config"}
+            [help]
+                autocorrect = 0
+            [pretty]
+                # tut: http://gitimmersion.com/lab_10.html
+                # ref: http://linux.die.net/man/1/git-log
+                # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+                nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
+            [commit]
+                gpgsign = true
+            [fetch]
+                recurseSubmodules = true
+            [pull]
+                rebase = true
+            [push]
+                # See `git help config` (search for push.default)
+                # for more information on different options of the below setting.
+                default = current
+            [rerere]
+                enabled = true
+            [apply]
+                whitespace = nowarn
 
-              [user]
-                name = ${name}
-                email = ${email}
-                useconfigonly = true
-                ${optionalString (signingKey != "") ''
-                  signingkey = ${signingKey}
-                ''}
 
-              ${optionalString (github_username != "") ''
-                [github]
-                  username = ${github_username}
-              ''}
+            # Diff/Merge Tools
+            [delta]
+                line-numbers = true
+                navigate = true
+            [merge]
+              conflictstyle = diff3
+            [interactive]
+                diffFilter = delta --color-only
+            [diff "exif"]
+              textconv = ${pkgs.exiftool}/bin/exiftool
+            [difftool]
+              prompt = false
+            [mergetool]
+              prompt = false
+            [mergetool "ediff"]
+              cmd = ${ediffTool} $LOCAL $REMOTE $MERGED
+            [mergetool "vscode"]
+                cmd = code --wait $MERGED
+            [difftool "vscode"]
+                cmd = code --wait --diff $LOCAL $REMOTE
+            [difftool "ediff"]
+                cmd = ${ediffTool} $LOCAL $REMOTE
+            [diff]
+                colorMoved = default
+                tool = ediff
+            [merge]
+                tool = ediff
 
-              [gpg]
-                program = ${pkgs.gnupg}/bin/gpg
+            [diff "plist"]
+              textconv = plutil -convert xml1 -o -
+            [credential]
+              helper = "osxkeychain"
+          '';
 
-              [init]
-                templateDir = ${xdgPaths.config}/git/templates
+          "git/ignore".source = "${configDir}/ignore";
 
-              [diff "exif"]
-                textconv = ${pkgs.exiftool}/bin/exiftool
-
-              # Diff/Merge Tools
-              [difftool]
-                prompt = false
-              [mergetool]
-                prompt = false
-              [mergetool "ediff"]
-                cmd = ${ediffTool} $LOCAL $REMOTE $MERGED
-              [mergetool "vscode"]
-                  cmd = code --wait $MERGED
-              [difftool "vscode"]
-                  cmd = code --wait --diff $LOCAL $REMOTE
-              [difftool "ediff"]
-                  cmd = ${ediffTool} $LOCAL $REMOTE
-              [diff]
-                  colorMoved = default
-                  tool = ediff
-              [merge]
-                  tool = ediff
-
-              ${optionalString (pkgs.stdenv.isDarwin) ''
-                [diff "plist"]
-                  textconv = plutil -convert xml1 -o -
-                [credential]
-                  helper = "osxkeychain"
-              ''}
-            '';
+          "git/templates" = {
+            source = "${configDir}/templates";
+            recursive = true;
           };
-
-        "git/ignore".source = "${configDir}/ignore";
-
-        "git/templates" = {
-          source = "${configDir}/templates";
-          recursive = true;
         };
-      };
     };
 }

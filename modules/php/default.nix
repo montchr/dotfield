@@ -11,7 +11,8 @@ let
   common = import ./common { pkgs = composer2nixPkgs; };
   phpactor = import ./phpactor { pkgs = composer2nixPkgs; };
 
-in {
+in
+{
   options = { my.modules.php = { enable = mkEnableOption false; }; };
 
   config = mkIf cfg.enable {
@@ -22,12 +23,18 @@ in {
       ];
     };
 
-    my.user.packages =  [
+    my.user.packages = [
       php74
       # FIXME: collides with composer bin from phpactor!
-      # composer
+      composer
+
+      # TODO: disabled for no reason in particular, just trying to keep moving
       common
-      phpactor
+
+      # FIXME: disabled because one of its composer dependencies adds a
+      # `jsonlint` executable into the environment, which breaks
+      # json-language-server in emacs
+      # phpactor
 
       # Get the current `php` executable's version number.
       (writeShellScriptBin "php-version" "php -v | awk '/^PHP/{print $2}'")

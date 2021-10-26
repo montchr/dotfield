@@ -72,6 +72,9 @@ zgenom saved || {
   # Because I haven't mastered the art of switching Node versions with Nix yet.
   zgenom load lukechilds/zsh-nvm
 
+  # Interactively build jq expressions
+  zgenom load reegnz/jq-zsh-plugin
+
   zgenom load hlissner/zsh-autopair \
     autopair.zsh
 

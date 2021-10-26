@@ -6,9 +6,6 @@ alias '$'=''
 alias q=exit
 alias clr=clear
 alias sudo='sudo '
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
 alias mkdir='mkdir -pv'
 alias wget='wget -c'
 alias path='echo -e ${PATH//:/\\n}'
@@ -67,12 +64,6 @@ has exa && {
   alias lld='exa --all --classify --git --group --group-directories-first --header --long'
   alias tree='exa --tree'
 }
-
-# TODO: update for nix?
-# alias ls=\"${BREW_PREFIX}/bin/gls\"
-
-# Go to the top level of the current git repo.
-alias cdg='cd `git rev-parse --show-toplevel`'
 
 
 # -------------------------------------

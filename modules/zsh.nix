@@ -175,6 +175,7 @@ in
           vim
           vim-vint
           wget
+          yamllint
           yq
           zoxide
           zsh

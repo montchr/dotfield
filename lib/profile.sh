@@ -117,9 +117,6 @@ export \
   NVM_COMPLETION=true \
   NVM_LAZY_LOAD=true
 
-# TODO: remove? commented out to avoid issues with npm PATH
-# export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
-
 # Pass
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
 
@@ -165,17 +162,6 @@ export WD_CONFIG="${XDG_CONFIG_HOME}/wd/warprc"
 
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
-# Required by Homebrew
-# export PATH="/usr/local/sbin:$PATH"
-# export PATH="/usr/local/bin:$PATH"
-# export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
-# Prefer GNU coreutils
-# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-# export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-# Prefer brew's sqlite3
-# export PATH="/usr/local/opt/sqlite/bin:$PATH"
-
 # Doom Emacs
 export PATH="${EMACSDIR}/bin:$PATH"
 
@@ -187,13 +173,6 @@ export PATH="$PATH:${COMPOSER_HOME}/vendor/bin"
 # - Personal Preferences
 # - System Appearance
 # - - - - - - - - - - - - - - - - - - - -
-
-# System editor settings.
-# TODO: this is also set in nix emacs module -- pick one or the other
-export \
-  EDITOR="emacsclient" \
-  GIT_EDITOR="$EDITOR" \
-  SYSTEMD_EDITOR="$EDITOR"
 
 export BASE16_THEME_DARK='black-metal-khold' \
   BASE16_THEME_LIGHT='grayscale-light'
