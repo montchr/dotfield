@@ -13,5 +13,20 @@ indent_size = 2
 indent_style = tab
 indent_size = 8
 
-[*.{xml,plist}]
+[*.{xml,plist,py}]
 indent_size = 4
+
+# Ignore diffs/patches
+[*.{diff,patch}]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_size = unset
+
+[{.*,secrets}/**]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+charset = unset
+indent_style = unset
+indent_size = unset
