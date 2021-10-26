@@ -73,12 +73,6 @@
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
 
-(use-package! pragmatapro-lig
-  :init
-  (require 'pragmatapro-lig)
-  (pragmatapro-lig-global-mode)
-  :commands (pragmatapro-lig-global-mode pragmatapro-lig-mode))
-
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")
 (defvar +cdom/org-mind-directory "~/org/mind/")
@@ -291,6 +285,25 @@
                                "%i %a"))))))
   (set-org-capture-templates))
 
+;; Make deft understand files created by org-roam
+;; https://github.com/jrblevin/deft/issues/75#issuecomment-905031872
+(defun cdom/deft-parse-title (file contents)
+  "Parse the given FILE and CONTENTS and determine the title.
+  If `deft-use-filename-as-title' is nil, the title is taken to
+  be the first non-empty line of the FILE.  Else the base name of the FILE is
+  used as title."
+  (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
+    (if begin
+        (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
+      (deft-base-filename file))))
+(advice-add 'deft-parse-title :override #'cdom/deft-parse-title)
+(setq! deft-strip-summary-regexp
+       (concat "\\("
+               "[\n\t]" ;; blank
+               "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
+               "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
+               "\\)"))
+
 ;; Configure org-journal for compatability with org-roam-dailies
 (use-package! org-journal
   :defer-incrementally t
@@ -378,6 +391,35 @@
 
 (set-ligatures! 'org-mode
   :todo "TODO")
+
+(after! mu4e
+  (setq! sendmail-program (executable-find "msmtp")
+         send-mail-function #'smtpmail-send-it
+         message-sendmail-f-is-evil t
+         message-sendmail-extra-arguments '("--read-envelope-from")
+         message-send-mail-function #'message-send-mail-with-sendmail))
+
+(setq! mu4e-context-policy 'ask-if-none
+       mu4e-compose-context-policy 'always-ask
+       +mu4e-gmail-accounts '(("chris@cdom.io" . "personal")
+                              ("chris@alley.co" . "work")))
+
+(set-email-account! "personal"
+                    '((mu4e-sent-folder       . "/personal/sent")
+                      (mu4e-drafts-folder     . "/personal/drafts")
+                      (mu4e-trash-folder      . "/personal/trash")
+                      (mu4e-refile-folder     . "/personal/archive")
+                      (smtpmail-smtp-user     . "chris@cdom.io")
+                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
+                    t)
+(set-email-account! "work"
+                    '((mu4e-sent-folder       . "/work/sent")
+                      (mu4e-drafts-folder     . "/work/drafts")
+                      (mu4e-trash-folder      . "/work/trash")
+                      (mu4e-refile-folder     . "/work/archive")
+                      (smtpmail-smtp-user     . "chris@alley.co")
+                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
+                    t)
 
 (plist-put! +ligatures-extra-symbols
             ;; org

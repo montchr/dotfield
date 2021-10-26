@@ -22,13 +22,10 @@ in
 
   config = with lib;
     mkIf cfg.enable {
-      environment = {
-        systemPackages = with pkgs; [ mas ];
-        variables = {
-          # FIXME: this isn't unique to macos and is duplicated in the kitty module
-          LANG = "en_US.UTF-8";
-        };
-      };
+      environment.systemPackages = with pkgs; [
+        mas
+        terminal-notifier
+      ];
 
       my.modules = {
         hammerspoon.enable = true;
@@ -36,15 +33,14 @@ in
         yabai.enable = true;
       };
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "drafts" = {
           source = "${configDir}/drafts";
           recursive = true;
         };
 
-        "karabiner/karabiner.json" = with config.my.hm.lib.file; {
-          source = mkOutOfStoreSymlink
-            "${config.dotfield.path}/config/karabiner/karabiner.json";
+        "karabiner/karabiner.json" = {
+          source = "${configDir}/karabiner/karabiner.json";
         };
       };
 

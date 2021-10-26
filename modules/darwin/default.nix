@@ -1,10 +1,7 @@
 { config, inputs, lib, pkgs, ... }: {
   imports = [ ./macos.nix ];
 
-  nix = { trustedUsers = [ "@admin" ]; };
-
-  services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
+  nix.trustedUsers = [ "@admin" ];
 
   my.modules = {
     macos.enable = true;
@@ -13,8 +10,10 @@
   };
 
   homebrew = {
-    enable = true;
-    autoUpdate = true;
+    # enable = true;
+    enable = false;
+    # autoUpdate = true;
+    autoUpdate = false;
     global.noLock = true;
     # TODO
     # cleanup = "zap";

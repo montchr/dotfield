@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ vim ];
 
-    my.hm.configFile."vim" = {
+    my.hm.xdg.configFile."vim" = {
       source = configDir;
       recursive = true;
     };

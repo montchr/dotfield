@@ -6,6 +6,7 @@ node_modules
 # Logs and databases
 *.sql
 *.sqlite
+.log
 
 # OS or Editor files
 ._*
@@ -34,3 +35,4 @@ Thumbs.db
 .direnv
 .scratch
 *localrc
+*.local

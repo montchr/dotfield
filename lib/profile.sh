@@ -52,10 +52,8 @@ export \
 : "${XDG_CONFIG_HOME:=${HOME}/.config}"
 : "${XDG_DATA_HOME:=${HOME}/.local/share}"
 : "${XDG_RUNTIME_DIR:=/tmp}"
-
-# Non-standard XDG-inspired locations
+# Non-standard, but common.
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
-: "${XDG_LIB_HOME:=${HOME}/.local/lib}"
 
 : "${TMPDIR:=${XDG_RUNTIME_DIR}}"
 CACHEDIR="${XDG_CACHE_HOME}"
@@ -66,7 +64,6 @@ export \
   XDG_DATA_HOME \
   XDG_RUNTIME_DIR \
   XDG_BIN_HOME \
-  XDG_LIB_HOME \
   CACHEDIR \
   TMPDIR
 
@@ -210,6 +207,12 @@ cdom_base16_theme () {
 [ -z "${CDOM_OS_APPEARANCE}" ] && {
   CDOM_OS_APPEARANCE="$(cdom_os_appearance)"
   export CDOM_OS_APPEARANCE
+}
+
+# https://github.com/cantino/mcfly#light-mode
+[ "light" = "${CDOM_OS_APPEARANCE}" ] && {
+  MCFLY_LIGHT=true
+  export MCFLY_LIGHT
 }
 
 # Set the base16 theme based on OS appearance.

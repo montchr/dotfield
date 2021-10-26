@@ -4,6 +4,8 @@ let
   inherit (pkgs) php74 php74Packages writeShellScriptBin;
   inherit (php74Packages) composer;
 
+  dotfieldPath = config.dotfield.path;
+
   cfg = config.my.modules.php;
   configDir = "${config.dotfield.configDir}/php";
 
@@ -16,11 +18,16 @@ in
   options = { my.modules.php = { enable = mkEnableOption false; }; };
 
   config = mkIf cfg.enable {
-    my.env = {
+    environment.variables = {
       PATH = [
-        "$DOTFIELD_DIR/.composer/bin"
+        "${dotfieldPath}/.composer/bin"
         "${common.outPath}/vendor/bin"
+        "$PATH"
       ];
+    };
+
+    my.env = {
+      COMPOSER_HOME = "${config.my.xdg.config}/composer";
     };
 
     my.user.packages = [

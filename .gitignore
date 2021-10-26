@@ -2,6 +2,9 @@
 cachix/cachix.dhall
 result
 
+# nvfetcher
+pkgs/_sources/.shake*
+
 # Emacs
 treemacs.org
 org-roam.db

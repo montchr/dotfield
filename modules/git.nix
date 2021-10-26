@@ -41,7 +41,7 @@ in
         exiftool
       ] ++ userScripts;
 
-      my.hm.configFile =
+      my.hm.xdg.configFile =
         let
           inherit (config.my)
             name
@@ -49,7 +49,7 @@ in
             githubUsername
             keys
             nix_managed
-            xdgPaths
+            xdg
             ;
 
           signingKey = keys.pgp;
@@ -73,7 +73,7 @@ in
               program = ${pkgs.gnupg}/bin/gpg
 
             [init]
-              templateDir = ${xdgPaths.config}/git/templates
+              templateDir = ${xdg.config}/git/templates
               defaultBranch = main
 
             [core]

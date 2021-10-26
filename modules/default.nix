@@ -38,7 +38,7 @@
     secrets.enable = true;
     ssh.enable = true;
     tealdeer.enable = true;
-    zsh.enable = true;
+    zsh.enable = false;
 
     editors = {
       emacs.enable = true;

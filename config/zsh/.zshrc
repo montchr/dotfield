@@ -72,6 +72,9 @@ zgenom saved || {
   # Because I haven't mastered the art of switching Node versions with Nix yet.
   zgenom load lukechilds/zsh-nvm
 
+  zgenom load cantino/mcfly \
+    mcfly.zsh
+
   # Interactively build jq expressions
   zgenom load reegnz/jq-zsh-plugin
 

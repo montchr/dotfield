@@ -4,7 +4,8 @@ with lib;
 let
   cfg = config.my.modules.editors.emacs;
   configDir = "${config.dotfield.configDir}/emacs";
-  doomDir = "${config.my.xdgPaths.config}/doom";
+  emacsDir = "${config.my.xdg.config}/emacs";
+  doomDir = "${config.my.xdg.config}/doom";
 
   ediffTool = (pkgs.writeScriptBin "ediff-tool"
     (builtins.readFile "${configDir}/bin/ediff-tool"));
@@ -37,18 +38,20 @@ in
     {
       environment.systemPackages = with pkgs; [ emacs ];
 
-      my.hm.configFile = {
-        "doom" = with config.my.hm.lib.file; {
-          source = mkOutOfStoreSymlink "${config.dotfield.path}/config/emacs";
-        };
+      my.hm.xdg.configFile = {
+        "doom".source = "${config.dotfield.dir}/config/emacs";
       };
 
       my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];
 
+      environment.variables = {
+        PATH = [ "${emacsDir}/bin" "$PATH" ];
+      };
+
       my.env = {
         DOOMDIR = doomDir;
         EDITOR = "emacsclient";
-        EMACSDIR = "$XDG_CONFIG_HOME/emacs";
+        EMACSDIR = emacsDir;
       };
 
       my.user.packages = with pkgs; [
@@ -112,12 +115,14 @@ in
       fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
       system.activationScripts.postUserActivation.text = with config.my;
-        mkIf cfg.doom.enable ''
-          # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
-          if [[ ! -d "${xdg.config}/emacs" ]]; then
-            git clone https://github.com/hlissner/doom-emacs "${xdg.config}/emacs"
-          fi
-        '';
+        mkIf
+          cfg.doom.enable
+          ''
+            # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
+            if [[ ! -d "${xdg.config}/emacs" ]]; then
+              git clone https://github.com/hlissner/doom-emacs "${xdg.config}/emacs"
+            fi
+          '';
     }
   ]);
 }

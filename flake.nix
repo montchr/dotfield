@@ -2,8 +2,15 @@
   description = "Dotfield";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    stable.url = "github:nixos/nixpkgs/release-21.05";
+    latest.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    digga.url = "github:divnix/digga";
+    digga.inputs.nixpkgs.follows = "latest";
+    digga.inputs.nixlib.follows = "latest";
+    digga.inputs.home-manager.follows = "home-manager";
+
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     nur.url = "github:nix-community/NUR";
 
     agenix.url = "github:ryantm/agenix";
@@ -13,16 +20,21 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "latest";
 
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "latest";
 
-    firefox-addons = {
-      url = "gitlab:montchr/nur-expressions/develop?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    emacs.url = "github:montchr/emacs/develop";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+
+    nvfetcher.url = "github:berberman/nvfetcher";
+    nvfetcher.inputs.nixpkgs.follows = "latest";
+    nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
 
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
@@ -34,127 +46,95 @@
       flake = false;
     };
 
-    emacs.url = "github:cmacrae/emacs";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.follows = "latest";
+    nixlib.follows = "digga/nixlib";
+    blank.follows = "digga/blank";
+    utils.follows = "digga/flake-utils-plus";
   };
 
   outputs =
     { self
     , darwin
+    , digga
     , emacs
     , emacs-overlay
-    , flake-utils
-    , nixpkgs
+      # , emacs-28-src
+    , home-manager
+    , utils
+    , stable
+    , latest
     , nur
-    , agenix
+    , nvfetcher
     , ...
     } @ inputs:
-    let
-      sharedHostsConfig = { config, pkgs, lib, options, ... }: {
-        nix = {
-          package = pkgs.nixFlakes;
-          extraOptions = "experimental-features = nix-command flakes";
-          binaryCaches = [
-            "https://cachix.org/api/v1/cache/dotfield"
-            "https://cachix.org/api/v1/cache/emacs"
-            "https://cachix.org/api/v1/cache/nix-community"
-          ];
-          binaryCachePublicKeys = [
-            "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
-            "emacs.cachix.org-1:b1SMJNLY/mZF6GxQE+eDBeps7WnkT0Po55TAyzwOxTY="
-            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          ];
-          maxJobs = "auto";
-          buildCores = 4;
-          gc = {
-            automatic = true;
-            options = "--delete-older-than 3d";
-          };
-        };
+    utils.lib.mkFlake {
+      inherit self inputs;
 
-        networking = {
-          # Use Cloudflare DNS
-          # https://developers.cloudflare.com/1.1.1.1/
-          dns = [
-            "1.1.1.1"
-            "1.0.0.1"
-            "2606:4700:4700::1111"
-            "2606:4700:4700::1001"
-          ];
-        };
+      channelsConfig = {
+        allowUnfree = true;
+      };
 
-        fonts = {
-          enableFontDir = true;
-          fonts = with pkgs; [ ibm-plex inter pragmatapro public-sans ];
-        };
+      channels = {
+        stable = { };
+        latest = { };
+      };
 
-        nixpkgs = {
-          config.allowUnfree = true;
-          overlays = with inputs; [
-            (import ./overlays/yabai.nix)
-            emacs.overlay
-            emacs-overlay.overlay
-            nur.overlay
-            self.overlays
-          ];
-        };
+      lib = import ./lib { lib = digga.lib // latest.lib; };
 
-        time.timeZone = config.my.timezone;
+      sharedOverlays = [
+        (import ./overlays/yabai.nix)
+        emacs.overlay
+        # TODO: does this need to come after the previous one?
+        # (import ./overlays/emacs-28.nix { src = emacs-28-src; })
+        # emacs-overlay.overlay
+        nur.overlay
+        nvfetcher.overlay
+        (import ./pkgs/default.nix)
+        (final: prev: {
+          nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
+          pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
+        })
+        (final: prev: {
+          __dontExport = true;
+          lib = prev.lib.extend (lfinal: lprev: {
+            our = self.lib;
+          });
+        })
+      ];
 
-        environment.variables = { HOSTNAME = config.networking.hostName; };
-
-        environment.systemPackages = with pkgs; [
-          (writeScriptBin "dotfield"
-            (builtins.readFile ./bin/dotfield))
-          yarn
+      hostDefaults = {
+        channelName = "latest";
+        extraArgs = { inherit utils inputs; };
+        system = "x86_64-darwin";
+        output = "darwinConfigurations";
+        builder = darwin.lib.darwinSystem;
+        modules = [
+          ./modules
+          ./profiles/core
+          ./profiles/fish
+          ./suites/personal
+          ./users
         ];
       };
 
-      sharedDarwinModules =
+      hosts =
         let
-          nur-no-pkgs = import nur {
-            nurpkgs =
-              import nixpkgs { system = inputs.flake-utils.lib.defaultSystems; };
+          darwinHostDefaults = {
+            modules = [
+              home-manager.darwinModules.home-manager
+            ];
           };
         in
-        [
-          inputs.home-manager.darwinModules.home-manager
-          ./modules
-          sharedHostsConfig
-          inputs.agenix.nixosModules.age
-        ];
-
-    in
-    {
-      overlays = (final: prev: {
-        nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-        pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
-      });
-
-      darwinConfigurations = {
-        HodgePodge = inputs.darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./hosts/hodgepodge.nix ];
-          system = "x86_64-darwin";
+        {
+          HodgePodge = utils.lib.mergeAny darwinHostDefaults {
+            modules = [ ./hosts/hodgepodge.nix ];
+          };
+          alleymon = utils.lib.mergeAny darwinHostDefaults {
+            modules = [ ./hosts/alleymon.nix ];
+          };
         };
 
-        alleymon = inputs.darwin.lib.darwinSystem {
-          inputs = inputs;
-          modules = sharedDarwinModules ++ [ ./hosts/alleymon.nix ];
-          system = "x86_64-darwin";
-        };
-      };
-
-      # for convenience
-      # nix build './#darwinConfigurations.hodgepodge.system'
-      # vs
-      # nix build './#HodgePodge'
-      # Move them to `outputs.packages.<system>.name`
+      # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
 

@@ -1,6 +1,21 @@
 { config, pkgs, ... }: {
   imports = [ ../modules/darwin ];
 
+  networking.hostName = "alleymon";
+
+  # MacBookPro16,2
+  nixpkgs.system = "x86_64-darwin";
+  # 2.3 GHz Quad-Core Intel Core i7
+  nix.maxJobs = 4;
+  nix.buildCores = 0;
+  # $ networksetup -listallnetworkservices
+  networking.knownNetworkServices = [
+    "Bluetooth PAN"
+    "Thunderbolt Bridge"
+    "USB 10/100/1000 LAN"
+    "Wi-Fi"
+  ];
+
   my = {
     username = "montchr";
     email = "chris@alley.co";
@@ -10,14 +25,11 @@
       php.enable = true;
     };
 
-    env = { PATH = [ "$HOME/broadway/bin" "$PATH" ]; };
+    hm.accounts.email.accounts.work.primary = true;
   };
 
-  networking = {
-    hostName = "alleymon";
-
-    # $ networksetup -listallnetworkservices
-    knownNetworkServices = [ "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+  environment.variables = {
+    PATH = [ "$HOME/broadway/bin" "$PATH" ];
   };
 
   environment.systemPackages = with pkgs; [ dnsmasq ];

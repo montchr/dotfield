@@ -20,15 +20,15 @@ in
     # script, for example.
     my.user.packages = with config.services; [ skhd.package ];
 
-    my.hm.configFile."skhd/skhdrc" = {
+    my.hm.xdg.configFile."skhd/skhdrc" = {
       source = "${configDir}/skhdrc";
       onChange = "${config.services.skhd.package}/bin/skhd -r";
     };
 
     launchd.user.agents.skhd = {
       serviceConfig = {
-        StandardOutPath = "${config.my.xdgPaths.cache}/skhd.out.log";
-        StandardErrorPath = "${config.my.xdgPaths.cache}/skhd.err.log";
+        StandardOutPath = "${config.my.xdg.cache}/skhd.out.log";
+        StandardErrorPath = "${config.my.xdg.cache}/skhd.err.log";
       };
     };
   };

@@ -2,9 +2,10 @@
 with lib;
 let
   inherit (inputs) base16-kitty;
+  inherit (config) my;
 
-  cfg = config.my.modules.kitty;
-  themesCfg = config.my.modules.themes;
+  cfg = my.modules.kitty;
+  themesCfg = my.modules.themes;
   configDir = "${config.dotfield.configDir}/kitty";
   socket = "unix:/tmp/kitty-socket";
 
@@ -84,19 +85,14 @@ in
       ];
 
       environment.variables = {
+        KITTY_CONFIG_DIRECTORY = "${my.xdg.config}/kitty";
+        KITTY_SOCKET = socket;
         TERMINFO_DIRS =
           if pkgs.stdenv.isDarwin then
             "/Applications/kitty.app/Contents/Resources/kitty/terminfo"
           else
           # FIXME causes build failure on darwin due to beautifulsoup unit test failure (but it should not fail)
             "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-
-        LANG = "en_US.UTF-8";
-
-        # TODO: saw this message when running a composer script. does it matter?
-        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-        # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-        LC_ALL = "en_US.UTF-8";
       };
 
       my.modules.kitty = {
@@ -113,11 +109,11 @@ in
         '';
       };
 
-      my.hm.configFile = {
+      my.hm.xdg.configFile = {
         "kitty/base16-kitty".source = base16-kitty.outPath;
 
         "kitty/kitty.conf".text = ''
-          # ${config.my.nix_managed}
+          # ${my.nix_managed}
           # See https://sw.kovidgoyal.net/kitty/conf.html
 
           ${toKittyConfig cfg.settings}

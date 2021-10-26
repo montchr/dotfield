@@ -2,8 +2,11 @@
 
 with lib;
 let
-  home = config.my.user.home;
-  cfg = config.my.modules.bash;
+  inherit (config) my;
+  inherit (my) xdg;
+
+  home = my.user.home;
+  cfg = my.modules.bash;
   bash = pkgs.bashInteractive_5;
   profileInit = "${config.dotfield.libDir}/profile.sh";
 in
@@ -20,24 +23,17 @@ in
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      interactiveShellInit = "source $HOME/.config/bash/bashrc";
+      interactiveShellInit = "source ${xdg.config}/bash/bashrc";
     };
 
-    my = {
-      env = { BASH_COMPLETION_USER_FILE = "$XDG_DATA_HOME/bash/completion"; };
+    my.env = { BASH_COMPLETION_USER_FILE = "${xdg.data}/bash/completion"; };
+    my.user.packages = [ bash ];
+    my.hm.xdg.configFile = {
+      "bash/bashrc".text = ''
+        # ${my.nix_managed}
 
-      user.packages = [ bash ];
-
-      hm = {
-        configFile = {
-          "bash/bashrc".text = ''
-            # ${config.my.nix_managed}
-
-            ${builtins.readFile profileInit}
-          '';
-
-        };
-      };
+        ${builtins.readFile profileInit}
+      '';
     };
 
     environment = {

@@ -120,8 +120,8 @@ in
     };
 
     launchd.user.agents.yabai.serviceConfig = {
-      StandardOutPath = "${config.my.xdgPaths.cache}/yabai.out.log";
-      StandardErrorPath = "${config.my.xdgPaths.cache}/yabai.err.log";
+      StandardOutPath = "${config.my.xdg.cache}/yabai.out.log";
+      StandardErrorPath = "${config.my.xdg.cache}/yabai.err.log";
     };
 
     services.yabai = {
@@ -213,6 +213,7 @@ in
 
           ${rules.unmanagedApps}
 
+          yabai -m rule --add app="Microsoft Teams" opacity="1.0"
           yabai -m rule --add app="zoom.us" opacity="1.0"
 
         '';

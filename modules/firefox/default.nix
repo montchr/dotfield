@@ -6,7 +6,8 @@
 with lib;
 let
   cfg = config.my.modules.firefox;
-  configDir = "${config.dotfield.configDir}/firefox";
+  # FIXME: a `config.dotfield.dir`-based path results in an outdated reference to the store
+  configDir = ../../config/firefox;
   leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;
 in
@@ -16,7 +17,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.hm.configFile = { "tridactyl".source = "${configDir}/tridactyl"; };
+    my.hm.xdg.configFile = { "tridactyl".source = "${configDir}/tridactyl"; };
 
     my.hm.programs.firefox = {
       enable = true;
