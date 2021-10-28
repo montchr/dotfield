@@ -5,12 +5,12 @@ has() {
   which "$@" > /dev/null 2>&1
 }
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# # Initialization code that may require console input (password prompts, [y/n]
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Set up history.
 export HISTSIZE=290000
@@ -44,10 +44,10 @@ zgenom saved || {
   ZGEN_LOADED=()
   ZGEN_COMPLETIONS=()
 
-  zgenom load romkatv/powerlevel10k \
-    powerlevel10k
+  # zgenom load romkatv/powerlevel10k \
+  #   powerlevel10k
 
-  zgenom load "${ZDOTDIR}/.p10k.zsh"
+  # zgenom load "${ZDOTDIR}/.p10k.zsh"
 
   # Tab completions with an fzf frontend.
   zgenom load Aloxaf/fzf-tab
@@ -144,6 +144,9 @@ typeset -aU path;
 
 # FIXME: move to a utility function and don't run on every session init
 # export GIT_BRANCH_NAME="$(git symbolic-ref --short -q HEAD 2>/dev/null)"
+
+# Load Starship cross-shell prompt
+eval "$(starship init zsh)"
 
 ## nix-generated
 source "${ZDOTDIR}/extra.zshrc"

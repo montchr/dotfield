@@ -5,7 +5,7 @@ lib.mkMerge [
     mkdir = "mkdir -pv";
 
     # Use Kitty terminal"s ssh helper kitten
-    sshk = "kitty +kitten ssh -o SendEnv=CDOM_OS_APPEARANCE -A";
+    sshk = "kitty +kitten ssh -o SendEnv=DOTFIELD_OS_APPEARANCE -A";
     # Display an image in kitty
     icat = "kitty +kitten icat";
 

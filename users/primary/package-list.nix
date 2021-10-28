@@ -15,6 +15,7 @@ with pkgs; [
   podman
   shellcheck
   shfmt
+  starship
   universal-ctags
   vim-vint
   yamllint

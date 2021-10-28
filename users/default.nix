@@ -2,8 +2,6 @@
 {
   imports = [
     ./primary
-    ./profiles/fish
-    ./profiles/mail
-    ./profiles/pass
+    ./modules/shell.nix
   ];
 }

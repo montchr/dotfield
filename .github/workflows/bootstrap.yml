@@ -1,7 +1,7 @@
 name: Bootstrap OS
 
 env:
-  CDOM_INIT_INTERACTIVE: 'false'
+  DOTFIELD_INIT_INTERACTIVE: 'false'
   DOTFIELD_USERNAME: 'cdom'
   DOTFIELD_USER_PASSWORD: ${{ secrets.USER_PASS }}
   DOTFIELD_SSH_PUBLIC_KEY: ${{ secrets.GHA_SSH_PUB_KEY }}

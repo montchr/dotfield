@@ -53,6 +53,13 @@
     zsh
   ];
 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+    enableBashCompletion = false;
+    promptInit = "";
+  };
+
   environment.systemPackages = with pkgs; [
     (writeScriptBin "dotfield"
       (builtins.readFile "${config.dotfield.binDir}/dotfield"))

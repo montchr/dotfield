@@ -46,7 +46,7 @@
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
-  (let ((status (string-trim-right (shell-command-to-string "cdom_os_appearance"))))
+  (let ((status (string-trim-right (shell-command-to-string "dotfield_os_appearance"))))
     (if (equal "light" status)
         (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))

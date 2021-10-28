@@ -102,6 +102,8 @@
         output = "darwinConfigurations";
         builder = darwin.lib.darwinSystem;
         modules = [
+          # FIXME: no such option in nix-darwin
+          # { lib.our = self.lib; }
           ./modules
           ./profiles/core
           ./profiles/fish

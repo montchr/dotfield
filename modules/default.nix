@@ -14,7 +14,6 @@
     ./settings.nix
     ./ssh.nix
     ./tealdeer.nix
-    ./zsh.nix
 
     ./editors/emacs
     ./editors/vim
@@ -38,7 +37,6 @@
     ripgrep.enable = true;
     ssh.enable = true;
     tealdeer.enable = true;
-    zsh.enable = false;
 
     editors = {
       emacs.enable = true;

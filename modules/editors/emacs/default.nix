@@ -38,11 +38,11 @@ in
     {
       environment.systemPackages = with pkgs; [ emacs ];
 
+      my.modules.shell.rcFiles = [ "${doomDir}/functions.sh" ];
+
       my.hm.xdg.configFile = {
         "doom".source = "${config.dotfield.dir}/config/emacs";
       };
-
-      my.modules.zsh.envFiles = [ "${doomDir}/aliases.zsh" ];
 
       environment.variables = {
         PATH = [ "${emacsDir}/bin" "$PATH" ];
