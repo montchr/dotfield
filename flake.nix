@@ -62,7 +62,7 @@
     , ...
     } @ inputs:
     let
-      hosts = digga.lib.rakeLeaves ./hosts;
+      hostConfigs = digga.lib.rakeLeaves ./hosts;
       systemProfiles = digga.lib.rakeLeaves ./profiles;
       userProfiles = digga.lib.rakeLeaves ./users/profiles;
       suites = rec {
@@ -134,7 +134,7 @@
         let
           mkDarwinHost = name: _suites: {
             modules = _suites ++ suites.darwin ++ [
-              hosts.${name}
+              hostConfigs.${name}
               home-manager.darwinModules.home-manager
             ];
           };
