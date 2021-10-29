@@ -148,6 +148,7 @@
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
+      ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
 
     };
 }
