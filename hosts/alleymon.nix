@@ -1,6 +1,4 @@
 { config, pkgs, ... }: {
-  imports = [ ../modules/darwin ];
-
   networking.hostName = "alleymon";
 
   # MacBookPro16,2

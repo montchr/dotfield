@@ -1,10 +1,18 @@
-{ config, inputs, lib, pkgs, ... }: {
-  imports = [ ./macos.nix ];
+{ config, lib, pkgs, ... }:
 
+{
+  nixpkgs.system = "x86_64-darwin";
+
+  # Administrative users on Darwin are part of this group, not the `wheel` group.
   nix.trustedUsers = [ "@admin" ];
 
+  environment.systemPackages = with pkgs; [
+    mas
+    terminal-notifier
+  ];
+
+  # TODO: temporarily here until these can be moved to profiles
   my.modules = {
-    macos.enable = true;
     gpg.enable = true;
     editors.emacs.enable = true;
   };
@@ -12,12 +20,8 @@
   homebrew = {
     # enable = true;
     enable = false;
-    # autoUpdate = true;
     autoUpdate = false;
     global.noLock = true;
-    # TODO
-    # cleanup = "zap";
-    # global.brewfile = true;
   };
 
   # Used for backwards compatibility, please read the changelog before changing.

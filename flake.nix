@@ -68,13 +68,18 @@
       suites = rec {
         base = [
           systemProfiles.core
+          systemProfiles.networking.common
           userProfiles.zsh
         ];
-        darwin = suites.base ++ [
-          # TODO: not yet available!
-          # systemProfiles.darwin
+        darwin-minimal = suites.base ++ [
+          systemProfiles.darwin.common
         ];
-        personal = suites.base ++ [
+        darwin = suites.darwin-minimal ++ [
+          systemProfiles.darwin.system-defaults
+          userProfiles.darwin.gui
+          userProfiles.darwin.keyboard
+        ];
+        personal = [
           userProfiles.mail
           userProfiles.pass
         ];
@@ -132,17 +137,22 @@
 
       hosts =
         let
-          mkDarwinHost = name: _suites: {
-            modules = _suites ++ suites.darwin ++ [
-              hostConfigs.${name}
-              home-manager.darwinModules.home-manager
-            ];
-          };
+          mkDarwinHost = name:
+            { minimal ? false
+            , extraSuites ? [ ]
+            }: {
+              modules = (if minimal then suites.darwin-minimal else suites.darwin)
+                ++ extraSuites
+                ++ [
+                hostConfigs.${name}
+                home-manager.darwinModules.home-manager
+              ];
+            };
         in
         {
-          HodgePodge = (mkDarwinHost "HodgePodge" [ ]);
-          alleymon = (mkDarwinHost "alleymon" [ ]);
-          ghaDarwin = (mkDarwinHost "ghaDarwin" [ ]);
+          HodgePodge = (mkDarwinHost "HodgePodge" { });
+          alleymon = (mkDarwinHost "alleymon" { });
+          ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
         };
 
       # Shortcuts
