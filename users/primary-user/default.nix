@@ -3,13 +3,6 @@ let
   inherit (config) my;
 in
 {
-  imports = [
-    ../profiles/fish
-    ../profiles/mail
-    ../profiles/pass
-    ../profiles/zsh
-  ];
-
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
 
   my.user.shell = pkgs.zsh;

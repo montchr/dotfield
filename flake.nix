@@ -56,10 +56,30 @@
     , utils
     , stable
     , latest
+    , nixlib
     , nur
     , nvfetcher
     , ...
     } @ inputs:
+    let
+      hosts = digga.lib.rakeLeaves ./hosts;
+      systemProfiles = digga.lib.rakeLeaves ./profiles;
+      userProfiles = digga.lib.rakeLeaves ./users/profiles;
+      suites = rec {
+        base = [
+          systemProfiles.core
+          userProfiles.zsh
+        ];
+        darwin = suites.base ++ [
+          # TODO: not yet available!
+          # systemProfiles.darwin
+        ];
+        personal = suites.base ++ [
+          userProfiles.mail
+          userProfiles.pass
+        ];
+      };
+    in
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -98,6 +118,7 @@
       hostDefaults = {
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
+        specialArgs = { inherit suites systemProfiles userProfiles; };
         system = "x86_64-darwin";
         output = "darwinConfigurations";
         builder = darwin.lib.darwinSystem;
@@ -105,31 +126,23 @@
           # FIXME: no such option in nix-darwin
           # { lib.our = self.lib; }
           ./modules
-          ./profiles/core
-          ./profiles/fish
-          ./suites/personal
-          ./users
-        ];
+          ./users/primary-user
+        ] ++ (builtins.attrValues (digga.lib.flattenTree (digga.lib.rakeLeaves ./users/modules)));
       };
 
       hosts =
         let
-          darwinHostDefaults = {
-            modules = [
+          mkDarwinHost = name: _suites: {
+            modules = _suites ++ suites.darwin ++ [
+              hosts.${name}
               home-manager.darwinModules.home-manager
             ];
           };
         in
         {
-          HodgePodge = utils.lib.mergeAny darwinHostDefaults {
-            modules = [ ./hosts/hodgepodge.nix ];
-          };
-          alleymon = utils.lib.mergeAny darwinHostDefaults {
-            modules = [ ./hosts/alleymon.nix ];
-          };
-          ghaDarwin = utils.lib.mergeAny darwinHostDefaults {
-            modules = [ ./hosts/gha-darwin.nix ];
-          };
+          HodgePodge = (mkDarwinHost "HodgePodge" [ ]);
+          alleymon = (mkDarwinHost "alleymon" [ ]);
+          ghaDarwin = (mkDarwinHost "ghaDarwin" [ ]);
         };
 
       # Shortcuts

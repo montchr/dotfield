@@ -18,6 +18,8 @@ with pkgs; [
   starship
   universal-ctags
   vim-vint
+  # https://ergodox-ez.com/pages/wally-planck
+  wally-cli
   yamllint
   yq
 ]
