@@ -129,7 +129,7 @@
           };
           ghaDarwin = utils.lib.mergeAny darwinHostDefaults {
             modules = [ ./hosts/gha-darwin.nix ];
-          }
+          };
         };
 
       # Shortcuts
