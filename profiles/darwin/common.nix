@@ -11,9 +11,7 @@
     terminal-notifier
   ];
 
-  # TODO: temporarily here until these can be moved to profiles
   my.modules = {
-    gpg.enable = true;
     editors.emacs.enable = true;
   };
 

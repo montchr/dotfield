@@ -6,7 +6,6 @@
     ./bat.nix
     ./direnv.nix
     ./git.nix
-    ./gpg.nix
     ./gui.nix
     ./node.nix
     ./python.nix

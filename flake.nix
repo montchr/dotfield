@@ -80,6 +80,7 @@
           userProfiles.darwin.keyboard
         ];
         personal = [
+          userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
         ];
@@ -150,8 +151,12 @@
             };
         in
         {
-          HodgePodge = (mkDarwinHost "HodgePodge" { });
-          alleymon = (mkDarwinHost "alleymon" { });
+          HodgePodge = (mkDarwinHost "HodgePodge" {
+            extraSuites = suites.personal;
+          });
+          alleymon = (mkDarwinHost "alleymon" {
+            extraSuites = suites.personal;
+          });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
         };
 
