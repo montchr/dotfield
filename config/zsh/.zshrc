@@ -5,13 +5,6 @@ has() {
   which "$@" > /dev/null 2>&1
 }
 
-# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# # Initialization code that may require console input (password prompts, [y/n]
-# # confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # Set up history.
 export HISTSIZE=290000
 export SAVEHIST=290000
@@ -44,11 +37,6 @@ zgenom saved || {
   ZGEN_LOADED=()
   ZGEN_COMPLETIONS=()
 
-  # zgenom load romkatv/powerlevel10k \
-  #   powerlevel10k
-
-  # zgenom load "${ZDOTDIR}/.p10k.zsh"
-
   # Tab completions with an fzf frontend.
   zgenom load Aloxaf/fzf-tab
 
@@ -80,9 +68,6 @@ zgenom saved || {
 
   zgenom load hlissner/zsh-autopair \
     autopair.zsh
-
-  # TODO: not updated for experimental cli i.e. the one supporting flakes
-  # zgenom load spwhitt/nix-zsh-completions
 
   zgenom load zsh-users/zsh-completions \
     src
