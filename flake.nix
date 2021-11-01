@@ -71,6 +71,9 @@
           systemProfiles.networking.common
           userProfiles.zsh
         ];
+        developer = suites.base ++ [
+          systemProfiles.langs.ruby
+        ];
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common
         ];
@@ -155,7 +158,7 @@
             extraSuites = suites.personal;
           });
           alleymon = (mkDarwinHost "alleymon" {
-            extraSuites = suites.personal;
+            extraSuites = suites.personal ++ suites.developer;
           });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
         };
