@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bash.nix
     ./bat.nix
     ./direnv.nix
     ./git.nix
@@ -23,7 +22,6 @@
 
   my.modules = {
     bat.enable = true;
-    bash.enable = true;
     direnv.enable = true;
     espanso.enable = true;
     firefox.enable = true;

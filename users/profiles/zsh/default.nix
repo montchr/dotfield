@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
+
 let
   shellCfg = config.my.modules.shell;
   configDir = "${config.dotfield.configDir}/zsh";
-
-  aliasLines = lib.mapAttrsToList
-    (n: v: ''alias ${n}="${v}"'')
-    (shellCfg.abbrs // shellCfg.aliases);
 in
+
 {
   imports = [
     ../shell
@@ -44,19 +42,18 @@ in
       '';
     };
 
-    "zsh/profile.zshenv".source = "${config.dotfield.libDir}/profile.sh";
+    "zsh/.zshenv".text = ''
+      # ${config.my.nix_managed}
+
+      ${shellCfg.envInit}
+
+      # Host-local configuration (oftentimes added by other tools)
+      [ -f ~/.zshenv ] && source ~/.zshenv
+    '';
 
     "zsh/extra.zshrc".text = ''
       # ${config.my.nix_managed}
-      ${lib.concatStringsSep "\n" aliasLines}
-      ${lib.concatMapStrings (path: "source '${path}'") shellCfg.rcFiles}
       ${shellCfg.rcInit}
-    '';
-
-    "zsh/extra.zshenv".text = ''
-      # ${config.my.nix_managed}
-      ${lib.concatMapStrings (path: "source '${path}'") shellCfg.envFiles}
-      ${shellCfg.envInit}
     '';
   };
 }

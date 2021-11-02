@@ -24,8 +24,6 @@ in
     }
 
     ${extraVars}
-
-    ${lib.strings.fileContents ./appearance.sh}
   '';
 
   my.env = {

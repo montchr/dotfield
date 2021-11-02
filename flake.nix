@@ -68,6 +68,7 @@
         base = [
           systemProfiles.core
           systemProfiles.networking.common
+          userProfiles.bash
           userProfiles.zsh
         ];
         developer = suites.base ++ [

@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Get the current OS appearance.
 #
 # Returns either "light" or "dark". Defaults to "dark".
@@ -13,6 +11,7 @@ dotfield_os_appearance () {
   fi
 }
 
+
 # Select a color theme based on dark mode status.
 #
 # Accepts either on/dark or off/light. Defaults to a dark theme.
@@ -24,10 +23,18 @@ dotfield_base16_theme () {
   esac
 }
 
+
 # Set the OS appearance by attempting to query the current status.
 [ -z "${DOTFIELD_OS_APPEARANCE}" ] && {
   DOTFIELD_OS_APPEARANCE="$(dotfield_os_appearance)"
   export DOTFIELD_OS_APPEARANCE
+}
+
+
+# https://github.com/cantino/mcfly#light-mode
+[ "light" = "${DOTFIELD_OS_APPEARANCE}" ] && {
+  MCFLY_LIGHT=true
+  export MCFLY_LIGHT
 }
 
 # Set the base16 theme based on OS appearance.
