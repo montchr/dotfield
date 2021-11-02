@@ -51,7 +51,6 @@
     , digga
     , emacs
     , emacs-overlay
-      # , emacs-28-src
     , home-manager
     , utils
     , stable
@@ -106,9 +105,6 @@
       sharedOverlays = [
         (import ./overlays/yabai.nix)
         emacs.overlay
-        # TODO: does this need to come after the previous one?
-        # (import ./overlays/emacs-28.nix { src = emacs-28-src; })
-        # emacs-overlay.overlay
         nur.overlay
         nvfetcher.overlay
         (import ./pkgs/default.nix)
@@ -132,11 +128,10 @@
         output = "darwinConfigurations";
         builder = darwin.lib.darwinSystem;
         modules = [
-          # FIXME: no such option in nix-darwin
-          # { lib.our = self.lib; }
           ./modules
           ./users/primary-user
-        ] ++ (builtins.attrValues (digga.lib.flattenTree (digga.lib.rakeLeaves ./users/modules)));
+        ] ++ (builtins.attrValues (digga.lib.flattenTree
+          (digga.lib.rakeLeaves ./users/modules)));
       };
 
       hosts =
