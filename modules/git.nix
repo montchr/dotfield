@@ -54,8 +54,7 @@ in
 
           signingKey = keys.pgp;
 
-          ediffTool =
-            "${config.my.modules.editors.emacs.ediffTool.package}/bin/ediff-tool";
+          ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
         in
         {
 
