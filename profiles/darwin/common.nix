@@ -11,10 +11,6 @@
     terminal-notifier
   ];
 
-  my.modules = {
-    editors.emacs.enable = true;
-  };
-
   homebrew = {
     # enable = true;
     enable = false;

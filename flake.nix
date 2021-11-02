@@ -71,7 +71,7 @@
           userProfiles.zsh
         ];
         developer = suites.base ++ [
-          systemProfiles.langs.ruby
+          userProfiles.emacs
         ];
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common
@@ -85,6 +85,9 @@
           userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
+        ];
+        vagrant = [
+          systemProfiles.langs.ruby
         ];
       };
     in
@@ -151,10 +154,10 @@
         in
         {
           HodgePodge = (mkDarwinHost "HodgePodge" {
-            extraSuites = suites.personal;
+            extraSuites = suites.personal ++ suites.developer;
           });
           alleymon = (mkDarwinHost "alleymon" {
-            extraSuites = suites.personal ++ suites.developer;
+            extraSuites = suites.personal ++ suites.developer ++ suites.vagrant;
           });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
         };

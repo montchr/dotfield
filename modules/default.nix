@@ -14,7 +14,6 @@
     ./ssh.nix
     ./tealdeer.nix
 
-    ./editors/emacs
     ./editors/vim
     ./espanso
     ./firefox
@@ -38,8 +37,6 @@
     tealdeer.enable = true;
 
     editors = {
-      emacs.enable = true;
-      emacs.doom.enable = true;
       vim.enable = true;
     };
   };
