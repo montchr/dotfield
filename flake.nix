@@ -129,6 +129,7 @@
         builder = darwin.lib.darwinSystem;
         modules = [
           ./modules
+          ./modules/dotfield.nix
           ./users/primary-user
         ] ++ (builtins.attrValues (digga.lib.flattenTree
           (digga.lib.rakeLeaves ./users/modules)));
