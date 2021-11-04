@@ -19,6 +19,7 @@ in
       aliases = mkOpt (attrsOf str) { };
 
       rcInit = mkOpt' lines ''
+        ${builtins.readFile ./rc-init.sh}
         ${lib.concatStringsSep "\n" aliasLines}
         ${lib.concatMapStrings (path: "source '${path}'") cfg.rcFiles}
       '' ''
