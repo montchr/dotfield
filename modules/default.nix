@@ -16,7 +16,6 @@
     ./editors/vim
     ./espanso
     ./firefox
-    ./kitty
     ./php
   ];
 
@@ -27,7 +26,6 @@
     firefox.enable = true;
     git.enable = true;
     gui.enable = true;
-    kitty.enable = true;
     node.enable = true;
     python.enable = true;
     ripgrep.enable = true;

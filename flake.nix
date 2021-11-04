@@ -29,6 +29,8 @@
     nvfetcher.inputs.nixpkgs.follows = "latest";
     nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
 
+    nix-colors.url = "github:montchr/nix-colors";
+
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
@@ -52,6 +54,7 @@
     , emacs
     , emacs-overlay
     , home-manager
+    , nix-colors
     , utils
     , stable
     , latest
@@ -77,10 +80,13 @@
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common
         ];
-        darwin = suites.darwin-minimal ++ [
+        darwin = suites.darwin-minimal ++ suites.gui ++ [
           systemProfiles.darwin.system-defaults
           userProfiles.darwin.gui
           userProfiles.darwin.keyboard
+        ];
+        gui = [
+          userProfiles.kitty
         ];
         personal = [
           userProfiles.gnupg
@@ -135,6 +141,7 @@
           ./modules
           ./modules/dotfield.nix
           ./users/primary-user
+          nix-colors.homeManagerModule
         ] ++ (builtins.attrValues (digga.lib.flattenTree
           (digga.lib.rakeLeaves ./users/modules)));
       };

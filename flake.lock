@@ -392,6 +392,21 @@
         "type": "github"
       }
     },
+    "nix-colors": {
+      "locked": {
+        "lastModified": 1633318162,
+        "narHash": "sha256-rr6BMT4o66KWU9yXVv9W/yB/zMCVZC+zb4OvRftc/h8=",
+        "owner": "montchr",
+        "repo": "nix-colors",
+        "rev": "182b4b8709b8ffe4e9774a4c5d6877bf6bb9a21c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "repo": "nix-colors",
+        "type": "github"
+      }
+    },
     "nixos-generators": {
       "inputs": {
         "nixlib": [
@@ -510,6 +525,7 @@
         "firefox-lepton": "firefox-lepton",
         "home-manager": "home-manager",
         "latest": "latest_2",
+        "nix-colors": "nix-colors",
         "nixlib": [
           "digga",
           "nixlib"

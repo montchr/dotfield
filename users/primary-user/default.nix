@@ -1,9 +1,12 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 let
+  inherit (inputs) nix-colors;
   inherit (config) my;
 in
 {
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
+
+  colorscheme = nix-colors.colorSchemes.black-metal-khold;
 
   my.user.shell = pkgs.zsh;
 
