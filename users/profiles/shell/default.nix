@@ -6,6 +6,10 @@ let
     (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') my.env);
 in
 {
+  imports = [
+    ./fzf.nix
+  ];
+
   my.modules.shell = {
     abbrs = import ./abbrs.nix { inherit config lib pkgs; };
     aliases = import ./aliases.nix { inherit config lib pkgs; };
