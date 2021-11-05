@@ -1,7 +1,7 @@
 { pkgs, lib, config, options, inputs, ... }:
 with lib;
 let
-  inherit (inputs) base16-kitty;
+  inherit (inputs) base16-kitty nix-colors;
   inherit (config) my colorscheme;
   inherit (colorscheme) colors;
 
@@ -16,6 +16,29 @@ let
         | ${pkgs.jq}/bin/jq -r --argjson id "$1" \
           '.[] | select(.platform_window_id==$id)'
     '');
+
+  # via home-manager kitty module
+  toKittyConfig = generators.toKeyValue {
+    mkKeyValue = key: value:
+      let
+        value' =
+          if isBool value then
+            (if value then "yes" else "no")
+          else
+            toString value;
+      in
+      "${key} ${value'}";
+  };
+
+  mkTheme = name: (import ./colors.nix {
+    inherit (nix-colors.colorSchemes.${name}) colors;
+  });
+
+  mkTheme' = name: ''
+    # ${my.nix_managed}
+
+    ${toKittyConfig (mkTheme name)}
+  '';
 in
 {
   my.user.packages = [
@@ -48,8 +71,9 @@ in
       font_features PragmataProMonoLiga-BoldItalic +calt
     '';
 
-    settings = (import ./settings.nix { inherit config lib; }) //
-      (import ./colors.nix { inherit (config.colorscheme) colors; }) //
+    settings =
+      (import ./settings.nix { inherit config lib; }) //
+      (mkTheme config.colorscheme.slug) //
       {
         allow_remote_control = "yes";
         listen_on = socket;
@@ -59,5 +83,7 @@ in
   my.hm.xdg.configFile = {
     "kitty/base16-kitty".source = base16-kitty.outPath;
     "kitty/session".text = "cd ~";
+    "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
+    "kitty/themes/light.conf".text = mkTheme' "grayscale-light";
   };
 }
