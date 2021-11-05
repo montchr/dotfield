@@ -1,33 +1,34 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (config.colorscheme) colors;
+  currentTheme = config.colorscheme.slug;
 
   fd = "${pkgs.fd}/bin/fd";
 
-  colorMap = with colors; {
-    "bg" = base00;
-    "bg+" = base01;
-    "fg" = base04;
-    "fg+" = base06;
-    "header" = base0D;
-    "hl" = base0D;
-    "hl+" = base0D;
-    "info" = base0A;
-    "marker" = base0C;
-    "pointer" = base0C;
-    "prompt" = base0A;
-    "spinner" = base0C;
-  };
+  mkTheme = name:
+    with inputs.nix-colors.colorSchemes.${name}.colors; {
+      "bg" = base00;
+      "bg+" = base01;
+      "fg" = base04;
+      "fg+" = base06;
+      "header" = base0D;
+      "hl" = base0D;
+      "hl+" = base0D;
+      "info" = base0A;
+      "marker" = base0C;
+      "pointer" = base0C;
+      "prompt" = base0A;
+      "spinner" = base0C;
+    };
 
-  colorOpts = lib.concatStringsSep ","
-    (lib.mapAttrsToList (n: v: "${n}:#${v}") colorMap);
+  mkTheme' = name: lib.concatStringsSep ","
+    (lib.mapAttrsToList (n: v: "${n}:#${v}") (mkTheme name));
 
   defaultCmd = "${fd} --type f --hidden --follow --exclude .git 2>/dev/null";
 in
 {
   my.env = {
-    FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${colorOpts}"'';
+    FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
     FZF_DEFAULT_COMMAND = defaultCmd;
 
     FZF_CTRL_T_COMMAND = defaultCmd;
