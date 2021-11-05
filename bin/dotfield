@@ -34,6 +34,19 @@ function flake::output() {
 }
 
 #========================================
+# Output the current hostname, with fallback approaches.
+#
+# Usage:
+#   host::name
+# Globals:
+#   DOTFIELD_HOSTNAME
+#   HOSTNAME
+#========================================
+function host::name() {
+  echo "${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}"
+}
+
+#========================================
 # Build a specified flake output.
 #
 # Usage:
@@ -70,7 +83,49 @@ function host::switch() {
     {
       msg::error "Failed to switch to the new generation!"
     }
-  }
+}
+
+#========================================
+# Whether a given string indicates a dark interface.
+#
+# Usage:
+#   theme::is_dark <value>
+# Arguments:
+#   String to test
+# Returns:
+#   0 - Dark
+#   1 - Light
+#   2 - Invalid test value
+#========================================
+function theme::is_dark() {
+  case "$1" in
+    on | dark) return 0 ;;
+    off | light) return 1 ;;
+    *)
+      msg::error "[theme::is_dark] Invalid option specified: ${1}"
+      return 2
+      ;;
+  esac
+}
+
+#========================================
+# Switch to a different system UI theme.
+#
+# Note: this function calls the main function recursively
+# Usage:
+#   theme::switch (light|dark|<theme-name>)
+# Arguments:
+#   Either "light", "dark", or a theme name.
+#========================================
+function theme::switch() {
+  local name=$1
+  if theme::is_dark "${name}"; then
+    DOTFIELD_THEME="black-metal-khold"
+  else
+    DOTFIELD_THEME="grayscale-light"
+  fi
+  export DOTFIELD_THEME
+  host::switch "$(host::name)" --impure
 }
 
 #========================================
@@ -110,7 +165,7 @@ function main() {
 
   shift
 
-  output="${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}"
+  output="$(host::name)"
 
   case "${subcommand}" in
     build)
@@ -135,6 +190,11 @@ function main() {
       msg::domain "Introspection" "Launching REPL shell for ${output}"
       host::repl "${output}"
       ;;
+
+    theme)
+      local theme="$1"
+      msg::domain "Visualisation" "Changing color theme to '${theme}'"
+      theme::switch "$@"
       ;;
 
     *)
