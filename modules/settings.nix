@@ -1,3 +1,5 @@
+# -*- mode: nix -*-
+
 { config, pkgs, lib, home-manager, options, ... }:
 let
   inherit (lib) types;
