@@ -33,7 +33,7 @@ in
   my.env = {
     PATH = [ "$XDG_BIN_HOME" "$PATH" ];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
-    LESSHISTFILE = "$XDG_DATA_HOME/lesshst";
+    LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     Z_DATA = "$XDG_DATA_HOME/z";
 

@@ -40,6 +40,7 @@ in
           config = mkOpt path "${home}/.config";
           data = mkOpt path "${home}/.local/share";
           lib = mkOpt path "${home}/.local/lib";
+          state = mkOpt path "${home}/.local/state";
         };
 
       env = lib.mkOption {

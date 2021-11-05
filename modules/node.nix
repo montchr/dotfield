@@ -14,7 +14,7 @@ in
   config = with lib;
     mkIf cfg.enable {
       my.env = {
-        NODE_REPL_HISTORY = "$XDG_DATA_HOME/node/repl_history";
+        NODE_REPL_HISTORY = "$XDG_STATE_HOME/node/repl_history";
         NVM_DIR = "$XDG_DATA_HOME/node/nvm";
         NVM_AUTO_USE = "true";
         NVM_BIN = "$XDG_BIN_HOME";

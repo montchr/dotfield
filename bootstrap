@@ -89,6 +89,7 @@ PATH=$HOME/.nix-profile/bin:$PATH
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_BIN_HOME="${HOME}/.local/bin"
+XDG_STATE_HOME="$HOME/.local/state"
 
 DEVELOPER="${HOME}/Developer"
 if [[ "$USER" != "$QUERENT" ]]; then
@@ -117,7 +118,8 @@ export \
   XDG_BIN_HOME \
   XDG_CACHE_HOME \
   XDG_CONFIG_HOME \
-  XDG_DATA_HOME
+  XDG_DATA_HOME \
+  XDG_STATE_HOME
 
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>

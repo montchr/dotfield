@@ -27,6 +27,7 @@ in
       XDG_CONFIG_HOME = xdg.config;
       XDG_DATA_HOME = xdg.data;
       XDG_RUNTIME_DIR = "/tmp";
+      XDG_STATE_HOME = xdg.state;
     };
 
   my.env = {
