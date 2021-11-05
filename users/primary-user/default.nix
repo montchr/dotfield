@@ -2,11 +2,14 @@
 let
   inherit (inputs) nix-colors;
   inherit (config) my;
+
+  envTheme = builtins.getEnv "DOTFIELD_THEME";
+  theme = if envTheme != "" then envTheme else "black-metal-khold";
 in
 {
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
 
-  colorscheme = nix-colors.colorSchemes.black-metal-khold;
+  colorscheme = nix-colors.colorSchemes.${theme};
 
   my.user.shell = pkgs.zsh;
 
