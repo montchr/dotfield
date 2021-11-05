@@ -19,31 +19,55 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 #========================================
-# Get a path to a flake output
+# Get an absolute path to a system flake output.
 #
-# TODO: ensure absolute path
-#
+# Usage:
+#   flake::output <name>
 # Arguments:
-#   Flake directory.
 #   Flake output name.
+# Globals:
+#   DOTFIELD_DIR
 #========================================
-function __flake_path() {
-  printf "%s/#%s" "$1" "$2"
+function flake::output() {
+  local output_name=$1
+  printf "%s/#%s" "${DOTFIELD_DIR}" "${output_name}"
+}
+
+#========================================
+# Build a specified flake output.
+#
+# Usage:
+#   host::build <name> [<args>...]
+# Arguments:
+#   Flake output name.
+#   Args to pass to the build command.
+#========================================
+function host::build() {
+  local output="$1"
+  shift
+  nix build --verbose "$(flake::output "${output}")" "$@"
 }
 
 #========================================
 # Switch to a new generation.
 #
+# Usage:
+#   host::switch <name> [<args>...]
 # Arguments:
-#   Flake directory.
 #   Flake output name.
+#   Args to pass to the switch command.
+# Globals:
+#   DOTFIELD_DIR
 #========================================
-function __switch() {
-  local dir="$1"
-  local output="$2"
-  local rebuild="${dir}/result/sw/bin/darwin-rebuild"
-  [[ -e "${rebuild}" ]] && {
-    "${rebuild}" switch -v --flake "$(__flake_path "${dir}" "${output}")" || {
+function host::switch() {
+  local output="$1"
+
+  shift
+
+  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch --verbose --flake \
+    "$(flake::output "${output}")" \
+    "$@" ||
+    {
       msg::error "Failed to switch to the new generation!"
     }
   }
@@ -54,10 +78,14 @@ function __switch() {
 #
 # FIXME: assumes darwin
 #
+# Usage:
+#   host::repl <output-name>
 # Arguments:
 #   Flake output name.
+# Globals:
+#   DOTFIELD_DIR
 #========================================
-function __repl() {
+function host::repl() {
   local output="$1"
   local conf
   conf="$(mktemp)"
@@ -66,7 +94,7 @@ function __repl() {
 
   output="darwinConfigurations.${output}"
 
-  cat > "${conf}" << EOF
+  cat >"${conf}" <<EOF
 (builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
 EOF
 
@@ -77,42 +105,40 @@ EOF
 # Entry point.
 #========================================
 function main() {
-
-  local SUBCOMMAND="$1"
+  local subcommand="$1"
   local output
-  local dir
-  local flake_path
 
-  output="${2:-${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}}"
-  dir="${3:-${DOTFIELD_DIR}}"
-  flake_path="$(__flake_path "${dir}" "${output}")"
+  shift
 
-  case $SUBCOMMAND in
+  output="${DOTFIELD_HOSTNAME:-${HOSTNAME:-$(hostname)}}"
+
+  case "${subcommand}" in
     build)
       msg::domain "Evolution" "Building '${output}'"
-      nix build -v "${flake_path}"
+      host::build "${output}" "$@"
       ;;
 
     switch)
       msg::domain "Evolution" "Switching to new generation"
-      __switch "${dir}" "${output}"
+      host::switch "${output}" "$@"
       ;;
 
     evolve)
       msg::domain "Evolution" "Building '${output}'"
-      nix build -v "${flake_path}"
+      host::build "${output}"
 
       msg::domain "Evolution" "Switching to new generation"
-      __switch "${dir}" "${output}"
+      host::switch "${output}"
       ;;
 
     repl)
       msg::domain "Introspection" "Launching REPL shell for ${output}"
-      __repl "${output}"
+      host::repl "${output}"
+      ;;
       ;;
 
     *)
-      msg::error "[Error] Invalid subcommand ${SUBCOMMAND}! Aborting."
+      msg::error "[Error] Invalid subcommand ${subcommand}! Aborting."
       return 1
       ;;
   esac
