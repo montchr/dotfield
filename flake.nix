@@ -86,6 +86,7 @@
           userProfiles.darwin.keyboard
         ];
         gui = [
+          systemProfiles.fonts
           userProfiles.kitty
         ];
         personal = [
@@ -113,14 +114,13 @@
       lib = import ./lib { lib = digga.lib // latest.lib; };
 
       sharedOverlays = [
+        (import ./pkgs/default.nix)
         (import ./overlays/yabai.nix)
         emacs.overlay
         nur.overlay
         nvfetcher.overlay
-        (import ./pkgs/default.nix)
         (final: prev: {
           nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-          pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
         })
         (final: prev: {
           __dontExport = true;
@@ -152,12 +152,12 @@
             { minimal ? false
             , extraSuites ? [ ]
             }: {
-              modules = (if minimal then suites.darwin-minimal else suites.darwin)
-                ++ extraSuites
-                ++ [
-                hostConfigs.${name}
-                home-manager.darwinModules.home-manager
-              ];
+              modules = (if minimal then suites.darwin-minimal else suites.darwin) ++
+                extraSuites ++
+                [
+                  hostConfigs.${name}
+                  home-manager.darwinModules.home-manager
+                ];
             };
         in
         {
