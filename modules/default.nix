@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bat.nix
     ./direnv.nix
     ./git.nix
     ./gui.nix
@@ -20,7 +19,6 @@
   ];
 
   my.modules = {
-    bat.enable = true;
     direnv.enable = true;
     espanso.enable = true;
     firefox.enable = true;
@@ -36,5 +34,4 @@
       vim.enable = true;
     };
   };
-
 }

@@ -72,6 +72,7 @@
           systemProfiles.core
           systemProfiles.networking.common
           userProfiles.bash
+          userProfiles.bat
           userProfiles.zsh
         ];
         developer = suites.base ++ [
