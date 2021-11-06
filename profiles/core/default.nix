@@ -70,6 +70,7 @@
     fd
     findutils
     fish
+    fup-repl
     fzf
     gawk
     gcc
