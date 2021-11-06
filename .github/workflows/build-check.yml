@@ -20,4 +20,3 @@ jobs:
         extraPullNames: dotfield,nix-community,nrdxp
     - run: nix -Lv flake check
     - run: nix -Lv build ".#ghaDarwin"
-    - run: nix -Lv develop -c echo OK
