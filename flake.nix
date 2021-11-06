@@ -170,7 +170,7 @@
           });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
           ghaUbuntu = {
-            modules = [
+            modules = suites.base ++ [
               home-manager.nixosModules.home-manager
             ];
           };
