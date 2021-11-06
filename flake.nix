@@ -134,9 +134,7 @@
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
-        system = "x86_64-darwin";
-        output = "darwinConfigurations";
-        builder = darwin.lib.darwinSystem;
+        
         modules = [
           ./modules
           ./modules/dotfield.nix
@@ -152,6 +150,9 @@
             { minimal ? false
             , extraSuites ? [ ]
             }: {
+              system = "x86_64-darwin";
+              output = "darwinConfigurations";
+              builder = darwin.lib.darwinSystem;
               modules = (if minimal then suites.darwin-minimal else suites.darwin) ++
                 extraSuites ++
                 [
@@ -168,12 +169,18 @@
             extraSuites = suites.personal ++ suites.developer ++ suites.vagrant;
           });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
+          ghaUbuntu = {
+            modules = [
+              home-manager.nixosModules.home-manager
+            ];
+          };
         };
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
       ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
+      ghaUbuntu = self.nixosConfigurations.ghaUbuntu.system;
 
     };
 }
