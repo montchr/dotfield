@@ -76,6 +76,7 @@
           userProfiles.zsh
         ];
         developer = suites.base ++ [
+          userProfiles.direnv
           userProfiles.emacs
         ];
         darwin-minimal = suites.base ++ [
@@ -120,9 +121,6 @@
         emacs.overlay
         nur.overlay
         nvfetcher.overlay
-        (final: prev: {
-          nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-        })
         (final: prev: {
           __dontExport = true;
           lib = prev.lib.extend (lfinal: lprev: {

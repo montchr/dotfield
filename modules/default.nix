@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./direnv.nix
     ./git.nix
     ./gui.nix
     ./node.nix
@@ -19,7 +18,6 @@
   ];
 
   my.modules = {
-    direnv.enable = true;
     espanso.enable = true;
     firefox.enable = true;
     git.enable = true;

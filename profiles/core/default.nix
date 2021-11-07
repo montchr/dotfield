@@ -65,7 +65,6 @@
     cachix
     coreutils
     curl
-    direnv
     exa
     fd
     findutils
