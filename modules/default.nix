@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./git.nix
     ./gui.nix
     ./node.nix
     ./python.nix
@@ -20,7 +19,6 @@
   my.modules = {
     espanso.enable = true;
     firefox.enable = true;
-    git.enable = true;
     gui.enable = true;
     node.enable = true;
     python.enable = true;
