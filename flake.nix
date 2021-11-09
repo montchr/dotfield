@@ -98,7 +98,7 @@
           userProfiles.pass
         ];
         vagrant = [
-          systemProfiles.langs.ruby
+          systemProfiles.languages.ruby
         ];
       };
     in
