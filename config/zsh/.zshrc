@@ -41,7 +41,7 @@ zgenom saved || {
   zgenom load Aloxaf/fzf-tab
 
   [[ -z "$SSH_CONNECTION" ]] && {
-    zgenom load zdharma/fast-syntax-highlighting
+    zgenom load zdharma-continuum/fast-syntax-highlighting
   }
 
   zgenom load zsh-users/zsh-history-substring-search
