@@ -77,8 +77,10 @@
           userProfiles.zsh
         ];
         developer = suites.base ++ [
+          systemProfiles.languages.nodejs
           userProfiles.direnv
           userProfiles.emacs
+          userProfiles.languages.nodejs
         ];
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common

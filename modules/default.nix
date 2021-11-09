@@ -3,7 +3,6 @@
 {
   imports = [
     ./gui.nix
-    ./node.nix
     ./python.nix
     ./ripgrep.nix
     ./settings.nix
@@ -20,7 +19,6 @@
     espanso.enable = true;
     firefox.enable = true;
     gui.enable = true;
-    node.enable = true;
     python.enable = true;
     ripgrep.enable = true;
     ssh.enable = true;
