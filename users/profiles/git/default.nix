@@ -56,7 +56,9 @@ in
       github.user = my.githubUsername;
 
       init.defaultBranch = "main";
-      init.templateDir = "$XDG_CONFIG_HOME/git/templates";
+      # Environment variables will not be expanded -- this requires a path.
+      init.templateDir = "${my.xdg.config}/git/templates";
+
       # TODO: handled by the delta hm module?
       # core.pager = "delta";
       # TODO: useful? not useful?
