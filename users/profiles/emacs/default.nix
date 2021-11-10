@@ -35,6 +35,13 @@ lib.mkMerge [
 
       ## Doom dependencies
       (ripgrep.override { withPCRE2 = true; })
+      (python3.withPackages (ps: with ps; [
+        pip
+        black
+        setuptools
+        pylint
+        grip
+      ]))
       gnutls
 
       ## Optional dependencies

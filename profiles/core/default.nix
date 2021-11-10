@@ -86,6 +86,7 @@
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nvfetcher
     openssl
+    (python3.withPackages (ps: with ps; [ pip setuptools ]))
     ripgrep
     rsync
     tmux
