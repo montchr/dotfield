@@ -92,6 +92,7 @@
         ];
         gui = [
           systemProfiles.fonts
+          userProfiles.browsers.firefox
           userProfiles.kitty
         ];
         personal = [
