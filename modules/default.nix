@@ -4,7 +4,6 @@
   imports = [
     ./gui.nix
     ./settings.nix
-    ./ssh.nix
     ./tealdeer.nix
 
     ./editors/vim
@@ -17,7 +16,6 @@
     espanso.enable = true;
     firefox.enable = true;
     gui.enable = true;
-    ssh.enable = true;
     tealdeer.enable = true;
 
     editors = {

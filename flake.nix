@@ -98,6 +98,7 @@
           userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
+          userProfiles.ssh
         ];
         vagrant = [
           systemProfiles.languages.ruby
