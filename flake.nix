@@ -101,9 +101,13 @@
           userProfiles.pass
           userProfiles.ssh
         ];
-        vagrant = [
-          systemProfiles.languages.ruby
-        ];
+        work = suites.developer ++
+          suites.darwin ++
+          suites.personal ++
+          [
+            systemProfiles.languages.php
+            systemProfiles.languages.ruby # for vagrant
+          ];
       };
     in
     utils.lib.mkFlake {
@@ -170,7 +174,7 @@
             extraSuites = suites.personal ++ suites.developer;
           });
           alleymon = (mkDarwinHost "alleymon" {
-            extraSuites = suites.personal ++ suites.developer ++ suites.vagrant;
+            extraSuites = suites.work;
           });
           ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
           ghaUbuntu = {

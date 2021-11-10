@@ -19,10 +19,6 @@
     email = "chris@alley.co";
     website = "https://alley.co/";
 
-    modules = {
-      php.enable = true;
-    };
-
     hm.accounts.email.accounts.work.primary = true;
   };
 

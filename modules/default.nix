@@ -4,8 +4,6 @@
   imports = [
     ./gui.nix
     ./settings.nix
-
-    ./php
   ];
 
   my.modules = {
