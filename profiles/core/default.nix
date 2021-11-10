@@ -90,6 +90,7 @@
     (ripgrep.override { withPCRE2 = true; })
     rsync
     tmux
+    tealdeer
     vim
     wget
     zsh
