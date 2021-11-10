@@ -3,7 +3,6 @@
 {
   imports = [
     ./gui.nix
-    ./settings.nix
   ];
 
   my.modules = {
