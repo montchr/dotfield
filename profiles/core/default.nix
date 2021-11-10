@@ -87,7 +87,7 @@
     nvfetcher
     openssl
     (python3.withPackages (ps: with ps; [ pip setuptools ]))
-    ripgrep
+    (ripgrep.override { withPCRE2 = true; })
     rsync
     tmux
     vim
