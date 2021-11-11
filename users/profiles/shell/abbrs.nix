@@ -59,7 +59,7 @@ let inherit (config) my; in
 
   # submodule
   # Magical fix for all submodule issues.
-  gsumo = "git submodule update - -init - -recursive";
+  gsumo = "git submodule update --init --recursive";
 
 
   # -------------------------------------
