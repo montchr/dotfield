@@ -26,8 +26,11 @@ in
     ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
   };
 
-  # Load starship on our own terms.
-  my.hm.programs.starship.enableZshIntegration = false;
+  my.hm.programs.starship = {
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = false;
+  };
 
   my.hm.xdg.configFile = {
     "zsh" = {
