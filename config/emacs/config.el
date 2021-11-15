@@ -361,7 +361,8 @@
 (use-package! lsp-mode
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
-         lsp-enable-indentation t)
+         lsp-enable-indentation t
+         lsp-ui-doc-delay 2)
 
   ;; Sync LSP workspace folders and treemacs projects.
   (lsp-treemacs-sync-mode 1)
