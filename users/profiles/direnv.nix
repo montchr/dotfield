@@ -6,7 +6,6 @@
     # Prevent early loading of direnv integration for a faster shell startup.
     enableZshIntegration = false;
     nix-direnv.enable = true;
-    nix-direnv.enableFlakes = true;
     stdlib = ''
       use_nvm() {
         local node_version="$1"
