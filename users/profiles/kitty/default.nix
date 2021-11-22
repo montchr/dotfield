@@ -42,6 +42,7 @@ let
 in
 {
   my.user.packages = [
+    # TODO: enable for linux
     # pkgs.kitty
     kitty-get-window-by-platform-id
   ];
@@ -53,7 +54,6 @@ in
       if pkgs.stdenv.isDarwin then
         "/Applications/kitty.app/Contents/Resources/kitty/terminfo"
       else
-      # FIXME causes build failure on darwin due to beautifulsoup unit test failure (but it should not fail)
         "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
 
