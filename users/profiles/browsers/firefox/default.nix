@@ -142,6 +142,7 @@ in
       refined-github
       search-engines-helper
       tabliss
+      temporary-containers
       tridactyl
       ublock-origin
     ];
