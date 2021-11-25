@@ -3,6 +3,7 @@
 let
   inherit (lib.strings) fileContents;
 
+  shellCfg = config.my.modules.shell;
   configDir = "${config.dotfield.configDir}/fish";
 
   mkPlugins = plugins: (map
@@ -21,19 +22,17 @@ let
   mkFileLink' = path: mkFileLink "${path}.fish";
 in
 {
-  environment.variables = {
-    SHELL = "fish";
-  };
-
-  my.user.shell = pkgs.fish;
+  imports = [
+    ../shell
+  ];
 
   my.hm.programs = {
     fish = {
       enable = true;
       interactiveShellInit = fileContents ./interactiveShellInit.fish;
       shellInit = fileContents ./shellInit.fish;
-      shellAbbrs = import ./abbrs.nix { inherit config lib pkgs; };
-      shellAliases = import ./aliases.nix { inherit config lib pkgs; };
+      shellAbbrs = shellCfg.abbrs;
+      shellAliases = shellCfg.aliases;
       plugins = mkPlugins [
         "abbr-tips"
         "autopair"
@@ -45,14 +44,6 @@ in
         "z"
       ];
     };
-    starship = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    starship.enableFishIntegration = true;
   };
-
-  my.hm.xdg.configFile = lib.mkMerge [
-    ({ "starship".source = "${config.dotfield.configDir}/starship"; })
-  ];
-
 }

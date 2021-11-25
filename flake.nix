@@ -36,6 +36,8 @@
     nvfetcher.inputs.nixpkgs.follows = "latest";
     nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
 
+    nix-colors.url = "github:montchr/nix-colors";
+
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
@@ -58,15 +60,63 @@
     , digga
     , emacs
     , emacs-overlay
-      # , emacs-28-src
     , home-manager
+    , nix-colors
     , utils
     , stable
     , latest
+    , nixlib
     , nur
     , nvfetcher
     , ...
     } @ inputs:
+    let
+      hostConfigs = digga.lib.rakeLeaves ./hosts;
+      systemProfiles = digga.lib.rakeLeaves ./profiles;
+      userProfiles = digga.lib.rakeLeaves ./users/profiles;
+      suites = rec {
+        base = [
+          systemProfiles.core
+          systemProfiles.networking.common
+          userProfiles.bash
+          userProfiles.bat
+          userProfiles.git
+          userProfiles.zsh
+        ];
+        developer = suites.base ++ [
+          systemProfiles.languages.nodejs
+          userProfiles.direnv
+          userProfiles.emacs
+          userProfiles.languages.nodejs
+        ];
+        darwin-minimal = suites.base ++ [
+          systemProfiles.darwin.common
+        ];
+        darwin = suites.darwin-minimal ++ suites.gui ++ [
+          systemProfiles.darwin.system-defaults
+          userProfiles.darwin.gui
+          userProfiles.darwin.keyboard
+        ];
+        gui = [
+          systemProfiles.fonts
+          userProfiles.browsers.firefox
+          userProfiles.kitty
+        ];
+        personal = [
+          userProfiles.gnupg
+          userProfiles.mail
+          userProfiles.pass
+          userProfiles.ssh
+        ];
+        work = suites.developer ++
+          suites.darwin ++
+          suites.personal ++
+          [
+            systemProfiles.languages.php
+            systemProfiles.languages.ruby # for vagrant
+          ];
+      };
+    in
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -82,18 +132,11 @@
       lib = import ./lib { lib = digga.lib // latest.lib; };
 
       sharedOverlays = [
+        (import ./pkgs/default.nix)
         (import ./overlays/yabai.nix)
         emacs.overlay
-        # TODO: does this need to come after the previous one?
-        # (import ./overlays/emacs-28.nix { src = emacs-28-src; })
-        # emacs-overlay.overlay
         nur.overlay
         nvfetcher.overlay
-        (import ./pkgs/default.nix)
-        (final: prev: {
-          nix-direnv = (prev.nix-direnv.override { enableFlakes = true; });
-          pragmatapro = (prev.callPackage ./pkgs/pragmatapro.nix { });
-        })
         (final: prev: {
           __dontExport = true;
           lib = prev.lib.extend (lfinal: lprev: {
@@ -105,38 +148,55 @@
       hostDefaults = {
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
-        system = "x86_64-darwin";
-        output = "darwinConfigurations";
-        builder = darwin.lib.darwinSystem;
+        specialArgs = { inherit suites systemProfiles userProfiles; };
+
         modules = [
           ./modules
-          ./profiles/core
-          ./profiles/fish
-          ./suites/personal
-          ./users
-        ];
+          ./modules/dotfield.nix
+          ./users/modules/user-settings
+          ./users/primary-user
+          nix-colors.homeManagerModule
+        ] ++ (builtins.attrValues (digga.lib.flattenTree
+          (digga.lib.rakeLeaves ./users/modules)));
       };
 
       hosts =
         let
-          darwinHostDefaults = {
-            modules = [
-              home-manager.darwinModules.home-manager
-            ];
-          };
+          mkDarwinHost = name:
+            { minimal ? false
+            , extraSuites ? [ ]
+            }: {
+              system = "x86_64-darwin";
+              output = "darwinConfigurations";
+              builder = darwin.lib.darwinSystem;
+              modules = (if minimal then suites.darwin-minimal else suites.darwin) ++
+                extraSuites ++
+                [
+                  hostConfigs.${name}
+                  home-manager.darwinModules.home-manager
+                ];
+            };
         in
         {
-          HodgePodge = utils.lib.mergeAny darwinHostDefaults {
-            modules = [ ./hosts/hodgepodge.nix ];
-          };
-          alleymon = utils.lib.mergeAny darwinHostDefaults {
-            modules = [ ./hosts/alleymon.nix ];
+          HodgePodge = (mkDarwinHost "HodgePodge" {
+            extraSuites = suites.personal ++ suites.developer;
+          });
+          alleymon = (mkDarwinHost "alleymon" {
+            extraSuites = suites.work;
+          });
+          ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
+          ghaUbuntu = {
+            modules = suites.base ++ [
+              home-manager.nixosModules.home-manager
+            ];
           };
         };
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
+      ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
+      ghaUbuntu = self.nixosConfigurations.ghaUbuntu.system;
 
     };
 }

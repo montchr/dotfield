@@ -13,8 +13,9 @@
   return 1
 }
 
-# shellcheck source=../../../lib/profile.sh
-. "${DOTFIELD_DIR}/lib/profile.sh"
+# TODO: point shellcheck to something
+# shellcheck disable=SC1091
+. "${XDG_CONFIG_HOME}/bash/env"
 
 # shellcheck source=../../../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
@@ -43,9 +44,10 @@ function main() {
     exit 1
   }
 
-  appearance="$(cdom_os_appearance)"
-  theme="$(cdom_base16_theme "${appearance}")"
+  appearance="$(dotfield_os_appearance)"
+  theme="$(dotfield_base16_theme "${appearance}")"
 
+  printf "\n=========\n"
   printf "Appearance:\t%s\n" "${appearance}"
   printf "Base16 Theme:\t%s\n" "${theme}"
   printf "\n"

@@ -21,11 +21,6 @@
   services.nix-daemon.enable = true;
   users.nix.configureBuildUsers = true;
 
-  fonts = {
-    enableFontDir = true;
-    fonts = with pkgs; [ ibm-plex inter pragmatapro public-sans ];
-  };
-
   time.timeZone = config.my.timezone;
 
   environment.variables = {
@@ -53,6 +48,13 @@
     zsh
   ];
 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+    enableBashCompletion = false;
+    promptInit = "";
+  };
+
   environment.systemPackages = with pkgs; [
     (writeScriptBin "dotfield"
       (builtins.readFile "${config.dotfield.binDir}/dotfield"))
@@ -63,11 +65,11 @@
     cachix
     coreutils
     curl
-    direnv
     exa
     fd
     findutils
     fish
+    fup-repl
     fzf
     gawk
     gcc
@@ -84,22 +86,13 @@
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nvfetcher
     openssl
-    ripgrep
+    (python3.withPackages (ps: with ps; [ pip setuptools ]))
+    (ripgrep.override { withPCRE2 = true; })
     rsync
     tmux
+    tealdeer
     vim
     wget
     zsh
   ];
-
-  networking = {
-    # Use Cloudflare DNS
-    # https://developers.cloudflare.com/1.1.1.1/
-    dns = [
-      "1.1.1.1"
-      "1.0.0.1"
-      "2606:4700:4700::1111"
-      "2606:4700:4700::1001"
-    ];
-  };
 }

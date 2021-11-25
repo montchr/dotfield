@@ -19,5 +19,5 @@ flycheck_config.el
 /.ci/*.tfvars
 /.ci/*.tfstate*
 
-/modules/php/**/vendor/
+/profiles/languages/php/**/vendor/
 /.composer/
