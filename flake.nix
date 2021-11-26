@@ -156,37 +156,33 @@
           (digga.lib.rakeLeaves ./users/modules)));
       };
 
-      hosts =
-        let
-          mkDarwinHost = name:
-            { minimal ? false
-            , extraSuites ? [ ]
-            }: {
-              system = "x86_64-darwin";
-              output = "darwinConfigurations";
-              builder = darwin.lib.darwinSystem;
-              modules = (if minimal then suites.darwin-minimal else suites.darwin) ++
-                extraSuites ++
-                [
-                  hostConfigs.${name}
-                  home-manager.darwinModules.home-manager
-                ];
-            };
-        in
-        {
-          HodgePodge = (mkDarwinHost "HodgePodge" {
-            extraSuites = suites.personal ++ suites.developer;
-          });
-          alleymon = (mkDarwinHost "alleymon" {
-            extraSuites = suites.work;
-          });
-          ghaDarwin = (mkDarwinHost "ghaDarwin" { minimal = true; });
-          ghaUbuntu = {
-            modules = suites.base ++ [
-              home-manager.nixosModules.home-manager
-            ];
-          };
+      hosts = with suites; let
+        mkNixosHost = name: extraSuites: { minimal ? true }: {
+          system = "x86_64-linux";
+          modules = suites.base ++ extraSuites ++ [
+            hostConfigs.${name}
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.age
+          ];
         };
+        mkDarwinHost = name: extraSuites: { minimal ? true }: {
+          system = "x86_64-darwin";
+          output = "darwinConfigurations";
+          builder = darwin.lib.darwinSystem;
+          modules = (if minimal then darwin-minimal else darwin) ++
+            extraSuites ++
+            [
+              hostConfigs.${name}
+              home-manager.darwinModules.home-manager
+            ];
+        };
+      in
+      {
+        HodgePodge = (mkDarwinHost "HodgePodge" (personal ++ developer) { });
+        alleymon = (mkDarwinHost "alleymon" (work) { });
+        ghaDarwin = (mkDarwinHost "ghaDarwin" [ ] { minimal = true; });
+        ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ] { minimal = true; });
+      };
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
