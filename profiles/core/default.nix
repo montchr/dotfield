@@ -85,6 +85,7 @@
     manix # nix documentation search
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nvfetcher
+    openssh
     openssl
     (python3.withPackages (ps: with ps; [ pip setuptools ]))
     (ripgrep.override { withPCRE2 = true; })
