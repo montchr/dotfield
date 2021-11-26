@@ -19,7 +19,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "latest";
 
-    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.url = "github:montchr/nix-darwin/trunk";
     darwin.inputs.nixpkgs.follows = "latest";
 
     emacs.url = "github:montchr/emacs/develop";
