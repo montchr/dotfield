@@ -1,4 +1,8 @@
-{ config }:
+let
+  alleymon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGk9fhwXG95cVD9DLsHuXrdJYs8DsUF/AmYWcO1+bPVd alleymon";
+  hostKeys = [ alleymon ];
+in
+
 {
-  "testSecret.txt".publicKeys = config.my.keys.ssh;
+  "testSecret.age".publicKeys = hostKeys;
 }

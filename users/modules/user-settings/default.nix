@@ -1,7 +1,8 @@
 { config, pkgs, lib, home-manager, options, ... }:
 
+with lib.types;
+
 let
-  inherit (lib) types;
   inherit (pkgs.lib.our) mkOpt mkOpt' mkBoolOpt;
   inherit (config.my.user) home;
 
@@ -9,7 +10,7 @@ let
 in
 
 {
-  options = with types; {
+  options = {
 
     my = {
       name = mkOpt str "Chris Montgomery";
@@ -25,9 +26,12 @@ in
 
       keys = {
         pgp = mkOpt str "0x135EEDD0F71934F3";
-        ssh = mkOpt (listOf string) (import ./ssh-keys.nix);
-        # FIXME: rename key to standard name
-        sshKeyPath = mkOpt path "${sshDir}/id_ed25519_yubikey.pub";
+        ssh = mkOpt str (import ./ssh-key-primary.nix);
+        sshHostKeyPaths = mkOpt (listOf str) [
+          "${sshDir}/id_ed25519"
+          # FIXME: filter non-existant paths
+          # "${sshDir}/id_rsa"
+        ];
       };
 
       hm = lib.mkOption {
