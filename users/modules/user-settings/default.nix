@@ -4,6 +4,8 @@ let
   inherit (lib) types;
   inherit (pkgs.lib.our) mkOpt mkOpt' mkBoolOpt;
   inherit (config.my.user) home;
+
+  sshDir = "${home}/.ssh";
 in
 
 {
@@ -24,6 +26,8 @@ in
       keys = {
         pgp = mkOpt str "0x135EEDD0F71934F3";
         ssh = mkOpt (listOf string) (import ./ssh-keys.nix);
+        # FIXME: rename key to standard name
+        sshKeyPath = mkOpt path "${sshDir}/id_ed25519_yubikey.pub";
       };
 
       hm = lib.mkOption {

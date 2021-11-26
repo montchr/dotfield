@@ -1,14 +1,15 @@
 { pkgs, lib, config, ... }:
 
 let
-  identityFile = "~/.ssh/id_ed25519_yubikey.pub";
+  inherit (config.my.keys) sshKeyPath;
+  keyPaths = [ sshKeyPath ];
 in
 
 {
   # Ensure correct permissions
-  system.activationScripts.postUserActivation.text = ''
-    chmod 600 ${identityFile}
-  '';
+  # TODO: is this an issue with home-manager or nix-darwin, or a result of my config?
+  system.activationScripts.postUserActivation.text =
+    lib.concatMapStrings (f: "chmod 600 ${f}\n") keyPaths;
 
   my.hm.programs.ssh = {
     enable = true;
@@ -36,7 +37,7 @@ in
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        identityFile = identityFile;
+        identityFile = sshKeyPath;
         serverAliveInterval = 300;
         serverAliveCountMax = 2;
 
