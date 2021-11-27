@@ -1,4 +1,5 @@
 { options, config, lib, pkgs, inputs, ... }:
+
 let
   inherit (inputs) nix-colors;
   inherit (config) my;
@@ -6,18 +7,29 @@ let
   envTheme = builtins.getEnv "DOTFIELD_THEME";
   theme = if envTheme != "" then envTheme else "black-metal-khold";
 in
+
 {
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
 
   colorscheme = nix-colors.colorSchemes.${theme};
 
-  my.user.shell = pkgs.zsh;
+  my.user =
+    let
+      user = builtins.getEnv "USER";
+      name = if builtins.elem user [ "" "root" ] then my.username else user;
+    in
+    {
+      inherit name;
 
-  my.user.home =
-    if pkgs.stdenv.isDarwin then
-      "/Users/${my.username}"
-    else
-      "/home/${my.username}";
+      shell = pkgs.zsh;
+      packages = import ./package-list.nix { inherit pkgs; };
+      home =
+        if pkgs.stdenv.isDarwin
+        then
+          "/Users/${name}"
+        else
+          "/home/${name}";
+    };
 
   environment.variables = let inherit (my) xdg; in
     {
@@ -45,7 +57,6 @@ in
     Z_OWNER = my.username;
   };
 
-  my.user.packages = import ./package-list.nix { inherit pkgs; };
 
   my.hm.home = {
     # Necessary for home-manager to work with flakes, otherwise it will
