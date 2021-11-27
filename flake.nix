@@ -52,6 +52,7 @@
 
   outputs =
     { self
+    , agenix
     , darwin
     , digga
     , emacs
@@ -98,7 +99,11 @@
           userProfiles.browsers.firefox
           userProfiles.kitty
         ];
-        personal = [
+        secrets = [
+          systemProfiles.secrets
+          userProfiles.secrets
+        ];
+        personal = suites.secrets ++ [
           userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
@@ -130,6 +135,7 @@
       sharedOverlays = [
         (import ./pkgs/default.nix)
         (import ./overlays/yabai.nix)
+        agenix.overlay
         emacs.overlay
         nur.overlay
         nvfetcher.overlay
@@ -179,7 +185,7 @@
       in
       {
         HodgePodge = (mkDarwinHost "HodgePodge" (personal ++ developer) { });
-        alleymon = (mkDarwinHost "alleymon" (work) { });
+        alleymon = (mkDarwinHost "alleymon" (work ++ secrets) { });
         ghaDarwin = (mkDarwinHost "ghaDarwin" [ ] { minimal = true; });
         ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ] { minimal = true; });
       };
