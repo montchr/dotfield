@@ -45,15 +45,6 @@ in
       '';
     };
 
-    # Without this configuration, Yubikey 5C will not work.
-    # TODO: is this true? try again?
-    "gnupg/scdaemon.conf" = {
-      text = ''
-        reader-port Yubico Yubi
-        disable-ccid
-      '';
-    };
-
     "gnupg/gpg.conf" = {
       text = ''
         # ${my.nix_managed}
@@ -63,62 +54,88 @@ in
 
         # Use AES256, 192, or 128 as cipher
         personal-cipher-preferences AES256 AES192 AES
+
         # Use SHA512, 384, or 256 as digest
         personal-digest-preferences SHA512 SHA384 SHA256
+
         # Use ZLIB, BZIP2, ZIP, or no compression
         personal-compress-preferences ZLIB BZIP2 ZIP Uncompressed
+
         # Default preferences for new keys
         default-preference-list SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed
+
         # SHA512 as digest to sign keys
         cert-digest-algo SHA512
+
         # SHA512 as digest for symmetric ops
         s2k-digest-algo SHA512
+
         # AES256 as cipher for symmetric ops
         s2k-cipher-algo AES256
+
         # UTF-8 support for compatibility
         charset utf-8
+
         # Show Unix timestamps
         fixed-list-mode
+
         # No comments in signature
         no-comments
+
         # No version in output
         no-emit-version
+
         # Disable banner
         no-greeting
+
         # Long hexidecimal key format
         keyid-format 0xlong
+
         # Display UID validity
         list-options show-uid-validity
         verify-options show-uid-validity
+
         # Display all keys and their fingerprints
         with-fingerprint
+
         # Display key origins and updates
-        #with-key-origin
+        # with-key-origin
+
         # Cross-certify subkeys are present and valid
         require-cross-certification
+
         # Disable caching of passphrase for symmetrical ops
         no-symkey-cache
+
         # Enable smartcard
+        # FIXME: enable only when necessary
         use-agent
+
         # Disable recipient key ID in messages
         throw-keyids
+
         # Default/trusted key ID to use (helpful with throw-keyids)
         default-key ${key}
         trusted-key ${key}
+
         # Group recipient keys (preferred ID last)
         group keygroup = 0xFF00000000000001 0xFF00000000000002 ${key}
+
         # Keyserver URL
         keyserver hkps://keys.openpgp.org
-        #keyserver hkps://keyserver.ubuntu.com:443
+        # keyserver hkps://keyserver.ubuntu.com:443
         # keyserver hkps://hkps.pool.sks-keyservers.net
-        #keyserver hkps://pgp.ocf.berkeley.edu
+        # keyserver hkps://pgp.ocf.berkeley.edu
+
         # Proxy to use for keyservers
-        #keyserver-options http-proxy=http://127.0.0.1:8118
-        #keyserver-options http-proxy=socks5-hostname://127.0.0.1:9050
+        # keyserver-options http-proxy=http://127.0.0.1:8118
+        # keyserver-options http-proxy=socks5-hostname://127.0.0.1:9050
+
         # Verbose output
-        #verbose
+        # verbose
+
         # Show expired subkeys
-        #list-options show-unusable-subkeys
+        # list-options show-unusable-subkeys
       '';
     };
   };

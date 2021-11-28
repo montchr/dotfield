@@ -104,9 +104,11 @@
           userProfiles.secrets
         ];
         personal = suites.secrets ++ [
+          systemProfiles.security.yubikey
           userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
+          userProfiles.security.yubikey
           userProfiles.ssh
         ];
         work = suites.developer ++
