@@ -11,6 +11,9 @@
     terminal-notifier
   ];
 
+  # Recreate /run/current-system symlink after boot
+  services.activate-system.enable = true;
+
   homebrew = {
     # enable = true;
     enable = false;
