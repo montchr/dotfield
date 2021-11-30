@@ -15,9 +15,9 @@
   services.activate-system.enable = true;
 
   homebrew = {
-    # enable = true;
-    enable = false;
-    autoUpdate = false;
+    enable = true;
+    # enable = false;
+    autoUpdate = true;
     global.noLock = true;
   };
 
