@@ -153,7 +153,6 @@
         channelName = "latest";
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
-
         modules = [
           ./modules/dotfield.nix
           ./users/modules/user-settings
@@ -195,7 +194,7 @@
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
       ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
-      # ghaUbuntu = lib.optionalAttrs (self.nixosConfigurations.ghaUbuntu ? system) self.nixosConfigurations.ghaUbuntu.system;
+      ghaUbuntu = self.nixosConfigurations.ghaUbuntu.system;
 
     };
 }
