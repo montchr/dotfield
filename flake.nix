@@ -104,6 +104,7 @@
           userProfiles.secrets
         ];
         personal = suites.secrets ++ [
+          systemProfiles.mail
           systemProfiles.security.yubikey
           userProfiles.gnupg
           userProfiles.mail

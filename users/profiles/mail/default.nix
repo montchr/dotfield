@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
+
 let
+  inherit (config.dotfield) profilesDir;
+
   mailDir = "${config.my.user.home}/Mail";
+
   gmailAccount =
     { name
     , domain
@@ -75,7 +79,8 @@ let
     };
 in
 {
-  my.user.packages = with pkgs; [ mu isync ];
+  # FIXME: infinite recursion!
+  # imports = [ "${profilesDir}/mail" ];
 
   my.hm = {
     programs.mbsync.enable = true;
