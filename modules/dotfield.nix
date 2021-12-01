@@ -8,11 +8,13 @@ in
 {
   options = {
     dotfield = with lib.types; {
-      configDir = mkOpt path "${dir}/config";
       dir = mkOpt path dir;
+
       binDir = mkOpt path "${dir}/bin";
+      configDir = mkOpt path "${dir}/config";
       libDir = mkOpt path "${dir}/lib";
       modulesDir = mkOpt path "${dir}/modules";
+      profilesDir = mkOpt path "${dir}/profiles";
       vendorDir = mkOpt path "${dir}/vendor";
 
       # FIXME: This points to an arbitrary location which may vary per system.
