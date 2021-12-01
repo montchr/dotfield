@@ -185,17 +185,17 @@
         };
       in
       {
-        HodgePodge = (mkDarwinHost "HodgePodge" (personal ++ developer) { });
-        alleymon = (mkDarwinHost "alleymon" (work ++ secrets) { });
-        ghaDarwin = (mkDarwinHost "ghaDarwin" [ ] { minimal = true; });
-        ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ] { minimal = true; });
+        HodgePodge = (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer));
+        alleymon = (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal));
+        ghaDarwin = (mkDarwinHost "ghaDarwin" (darwin-minimal));
+        # ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ]);
       };
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
       ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
-      ghaUbuntu = self.nixosConfigurations.ghaUbuntu.system;
+      # ghaUbuntu = lib.optionalAttrs (self.nixosConfigurations.ghaUbuntu ? system) self.nixosConfigurations.ghaUbuntu.system;
 
     };
 }
