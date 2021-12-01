@@ -78,19 +78,24 @@
           userProfiles.git
           userProfiles.zsh
         ];
+        darwin-minimal = [
+          systemProfiles.core
+          systemProfiles.darwin.common
+          userProfiles.bash
+          userProfiles.git
+          userProfiles.zsh
+        ];
+        darwin = suites.base ++ suites.gui ++ [
+          systemProfiles.darwin.common
+          systemProfiles.darwin.system-defaults
+          userProfiles.darwin.gui
+          userProfiles.darwin.keyboard
+        ];
         developer = suites.base ++ [
           systemProfiles.languages.nodejs
           userProfiles.direnv
           userProfiles.emacs
           userProfiles.languages.nodejs
-        ];
-        darwin-minimal = suites.base ++ [
-          systemProfiles.darwin.common
-        ];
-        darwin = suites.darwin-minimal ++ suites.gui ++ [
-          systemProfiles.darwin.system-defaults
-          userProfiles.darwin.gui
-          userProfiles.darwin.keyboard
         ];
         gui = [
           systemProfiles.fonts
