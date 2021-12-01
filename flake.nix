@@ -58,7 +58,6 @@
     , utils
     , stable
     , latest
-    , nixlib
     , nur
     , nvfetcher
     , ...
