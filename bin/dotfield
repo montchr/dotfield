@@ -19,6 +19,88 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 #========================================
+# Swap a config directory pointing to a Nix store path with its corresponding
+# directory in the flake configuration directory.
+#
+# Usage:
+#   config::hotswap <src-dirname> [<dest-basepath>=$XDG_CONFIG_HOME]
+# Parameters:
+#   Source directory (from the flake config path) to link to the destination.
+#   Destination basepath. The directory name itself will be identical to the source.
+# Globals:
+#   XDG_CONFIG_HOME
+#   DOTFIELD_DIR
+#========================================
+function config::hotswap() {
+  local swap_dir="$1"
+  local dest_basepath="${2:-${XDG_CONFIG_HOME}}"
+
+  local src="${DOTFIELD_DIR}/config/${swap_dir}"
+  local dest="${dest_basepath}/${swap_dir}"
+  local backup="${dest}.bak"
+  local lockfile="${dest}.lock"
+
+  [[ ! -d "${src}" ]] && {
+    msg::error "Could not find a source directory at '${src}'"
+  }
+
+  [[ ! -d "${dest}" ]] && {
+    msg::error "Could not find a target directory at '${dest}'"
+  }
+
+  msg::tabular_row "Source:" "${src}"
+  msg::tabular_row "Target:" "${dest}"
+  msg::tabular_row "Backup:" "${backup}"
+  msg::tabular_row "Lockfile:" "${lockfile}"
+
+  msg::ask_for_confirmation "Continue?"
+  (! msg::is_confirmed) && \
+    return 1
+
+  if [[ -f "${lockfile}" ]]; then
+    msg::warning "Restoring the original link to the Nix store..."
+    msg::ask_for_confirmation "Continue?"
+    (! msg::is_confirmed) && \
+      return 1
+
+    msg::info "Backing up the changed directory just in case..."
+    mv -v "${dest}" "${dest}.changed.bak"
+
+    msg::warning "Moving the old backup file back into place"
+    mv -v "${backup}" "${dest}"
+
+    msg::info "Disengaging swap lock"
+    rm "${lockfile}"
+
+    msg::success "Swap reverted!"
+    msg::info "The destination path's original contents are restored."
+
+  else
+    [[ -a "${backup}" ]] && {
+      msg::error "A backup file '${backup}' already exists!'"
+    }
+
+    [[ -a "${lockfile}" ]] && {
+      msg::error "A lockfile file '${lockfile}' already exists!'"
+    }
+
+    msg::info "Backing up the destination path"
+    mv -vi "${dest}" "${backup}"
+
+    msg::info "Engaging swap lock"
+    touch "${lockfile}"
+
+    msg::warning "Linking the source directory to the destination"
+    ln -s "${src}" "${dest}"
+
+    msg::success "Swap complete!"
+    msg::info "The destination path is now a symlink directly to the source path."
+  fi
+
+  msg::success "Done!"
+}
+
+#========================================
 # Get an absolute path to a system flake output.
 #
 # Usage:
@@ -189,6 +271,11 @@ function main() {
     repl)
       msg::domain "Introspection" "Launching REPL shell for ${output}"
       host::repl "${output}"
+      ;;
+
+    hotswap)
+      msg::domain "Teleportation" "Hotswapping config directory: ${swap_dir}"
+      config::hotswap "$@"
       ;;
 
     theme)
