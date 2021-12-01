@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 jobs:
   check:
     runs-on: ${{ matrix.os }}
@@ -15,7 +18,7 @@ jobs:
           #   hostname: ghaUbuntu
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: cachix/install-nix-action@v14.1
+      - uses: cachix/install-nix-action@v16
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
@@ -25,5 +28,5 @@ jobs:
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: dotfield,nix-community,nrdxp
-      - run: nix -Lv flake check
-      - run: nix -Lv build ".#${{ matrix.hostname }}"
+      - run: nix -Lv flake check --show-trace
+      - run: nix -Lv build ".#${{ matrix.hostname }}" --show-trace
