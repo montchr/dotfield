@@ -28,9 +28,19 @@ lib.mkMerge [
       EMACSDIR = emacsDir;
     };
 
-    my.user.packages = with pkgs; [
-      emacs
+    my.hm.programs.emacs = {
+      enable = true;
+      package =
+        if pkgs.stdenv.isDarwin
+        then
+          (inputs.emacs.packages.${config.nixpkgs.system}.emacs).overrideAttrs
+            (o: {
+              src = pkgs.emacsGcc28;
+            })
+        else pkgs.emacsGcc28;
+    };
 
+    my.user.packages = with pkgs; [
       dotfield.ediffTool
 
       ## Doom dependencies
@@ -72,11 +82,11 @@ lib.mkMerge [
       terraform
 
       # :lang javascript
-      nodePackages.javascript-typescript-langserver
+      nodePackages.typescript-language-server
 
       # :lang ledger
       # TODO: probably worth moving to its own module once ready
-      # ledger
+      ledger
 
       # :lang nix
       nixpkgs-fmt

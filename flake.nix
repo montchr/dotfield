@@ -55,7 +55,6 @@
     , agenix
     , darwin
     , digga
-    , emacs
     , emacs-overlay
     , home-manager
     , nix-colors
@@ -119,6 +118,7 @@
             systemProfiles.languages.ruby # for vagrant
           ];
       };
+
     in
     utils.lib.mkFlake {
       inherit self inputs;
@@ -138,7 +138,7 @@
         (import ./pkgs/default.nix)
         (import ./overlays/yabai.nix)
         agenix.overlay
-        emacs.overlay
+        emacs-overlay.overlay
         nur.overlay
         nvfetcher.overlay
         (final: prev: {
