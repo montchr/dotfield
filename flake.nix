@@ -2,37 +2,36 @@
   description = "Dotfield";
 
   inputs = {
-    stable.url = "github:nixos/nixpkgs/release-21.05";
+    stable.url = "github:nixos/nixpkgs/release-21.11";
     latest.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     digga.url = "github:divnix/digga";
-    digga.inputs.nixpkgs.follows = "latest";
-    digga.inputs.nixlib.follows = "latest";
+    digga.inputs.nixpkgs.follows = "stable";
+    digga.inputs.nixlib.follows = "stable";
     digga.inputs.home-manager.follows = "home-manager";
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     nur.url = "github:nix-community/NUR";
 
     agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "latest";
+    agenix.inputs.nixpkgs.follows = "stable";
     agenix-cli.url = "github:cole-h/agenix-cli";
     agenix-cli.inputs.nixpkgs.follows = "stable";
 
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "latest";
+    home-manager.inputs.nixpkgs.follows = "stable";
 
     darwin.url = "github:montchr/nix-darwin/trunk";
-    darwin.inputs.nixpkgs.follows = "latest";
+    darwin.inputs.nixpkgs.follows = "stable";
 
     emacs.url = "github:montchr/emacs/develop";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     rnix-lsp.url = "github:nix-community/rnix-lsp";
-    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    rnix-lsp.inputs.nixpkgs.follows = "stable";
 
     nvfetcher.url = "github:berberman/nvfetcher";
-    nvfetcher.inputs.nixpkgs.follows = "latest";
-    nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+    nvfetcher.inputs.nixpkgs.follows = "stable";
 
     nix-colors.url = "github:montchr/nix-colors";
 
@@ -46,9 +45,7 @@
       flake = false;
     };
 
-    nixpkgs.follows = "latest";
-    nixlib.follows = "digga/nixlib";
-    blank.follows = "digga/blank";
+    nixpkgs.follows = "stable";
     utils.follows = "digga/flake-utils-plus";
   };
 
@@ -64,7 +61,6 @@
     , utils
     , stable
     , latest
-    , nixlib
     , nur
     , nvfetcher
     , ...
@@ -154,7 +150,7 @@
       ];
 
       hostDefaults = {
-        channelName = "latest";
+        channelName = "stable";
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
 
