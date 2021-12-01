@@ -185,7 +185,7 @@
         HodgePodge = (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer));
         alleymon = (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal));
         ghaDarwin = (mkDarwinHost "ghaDarwin" (darwin-minimal));
-        ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ]);
+        # ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ]);
       };
 
       # Shortcuts
