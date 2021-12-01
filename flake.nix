@@ -153,7 +153,6 @@
         channelName = "stable";
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
-
         modules = [
           ./modules/dotfield.nix
           ./users/modules/user-settings
