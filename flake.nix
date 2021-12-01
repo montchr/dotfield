@@ -183,7 +183,7 @@
       {
         HodgePodge = (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer));
         alleymon = (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal));
-        ghaDarwin = (mkDarwinHost "ghaDarwin" (darwin-minimal));
+        ghaDarwin = (mkDarwinHost "ghaDarwin" (darwin-minimal ++ developer));
         # ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ]);
       };
 
