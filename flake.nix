@@ -72,20 +72,18 @@
       suites = rec {
         base = [
           systemProfiles.core
-          systemProfiles.networking.common
           userProfiles.bash
           userProfiles.bat
           userProfiles.git
           userProfiles.zsh
         ];
-        darwin-minimal = [
-          systemProfiles.core
-          systemProfiles.darwin.common
-          userProfiles.bash
-          userProfiles.git
-          userProfiles.zsh
+        networking = [
+          systemProfiles.networking.common
         ];
-        darwin = suites.base ++ suites.gui ++ [
+        darwin-minimal = suites.base ++ [
+          systemProfiles.darwin.common
+        ];
+        darwin-gui = suites.base ++ suites.gui ++ [
           systemProfiles.darwin.common
           systemProfiles.darwin.system-defaults
           userProfiles.darwin.gui
@@ -103,21 +101,17 @@
           userProfiles.espanso
           userProfiles.kitty
         ];
-        secrets = [
-          systemProfiles.secrets
-          userProfiles.secrets
-        ];
-        personal = suites.secrets ++ [
-          systemProfiles.mail
+        personal = [
           systemProfiles.security.yubikey
+          systemProfiles.secrets
           userProfiles.gnupg
           userProfiles.mail
           userProfiles.pass
           userProfiles.security.yubikey
+          userProfiles.secrets
           userProfiles.ssh
         ];
         work = suites.developer ++
-          suites.darwin ++
           suites.personal ++
           [
             systemProfiles.languages.php
@@ -168,24 +162,22 @@
       };
 
       hosts = with suites; let
-        mkNixosHost = name: extraSuites: { minimal ? true }: {
+        mkNixosHost = name: extraSuites: {
           system = "x86_64-linux";
-          modules = suites.base ++ extraSuites ++ [
+          modules = base ++ extraSuites ++ [
             hostConfigs.${name}
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
           ];
         };
-        mkDarwinHost = name: extraSuites: { minimal ? true }: {
+        mkDarwinHost = name: extraSuites: {
           system = "x86_64-darwin";
           output = "darwinConfigurations";
           builder = darwin.lib.darwinSystem;
-          modules = (if minimal then darwin-minimal else darwin) ++
-            extraSuites ++
-            [
-              hostConfigs.${name}
-              home-manager.darwinModules.home-manager
-            ];
+          modules = base ++ extraSuites ++ [
+            hostConfigs.${name}
+            home-manager.darwinModules.home-manager
+          ];
         };
       in
       {
