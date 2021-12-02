@@ -1,5 +1,0 @@
-#pattern  filter=crypt diff=crypt merge=crypt
-espanso/user/personal.yml filter=crypt diff=crypt merge=crypt
-espanso/user/work.yml filter=crypt diff=crypt merge=crypt
-config/espanso/user/personal.yml filter=crypt diff=crypt merge=crypt
-config/espanso/user/work.yml filter=crypt diff=crypt merge=crypt
