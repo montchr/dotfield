@@ -97,6 +97,7 @@
         gui = [
           systemProfiles.fonts
           userProfiles.browsers.firefox
+          userProfiles.espanso
           userProfiles.kitty
         ];
         secrets = [
