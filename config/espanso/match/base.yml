@@ -6,7 +6,7 @@ matches:
     replace: "⇧"
   - trigger: ":s.ctrl"
     replace: "⌃"
-  - trigger: ":s.shift"
+  - trigger: ":s.opt"
     replace: "⌥"
   - trigger: ":s.esc"
     replace: "⎋"
