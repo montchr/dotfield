@@ -29,15 +29,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1629751265,
-        "narHash": "sha256-DGuw2jFeXFUgVo39fsB9cTGijNzmchUGbtfs8NNBz7A=",
-        "owner": "cole-h",
+        "lastModified": 1638495880,
+        "narHash": "sha256-Gsm8k7nBGahyiXbsl+UNgkwq6B4DvTlyIdjH8z61ruo=",
+        "owner": "montchr",
         "repo": "agenix-cli",
-        "rev": "c6d8f80ef48544d569ff54a62a481b24260f43d7",
+        "rev": "83abfd42e679bd4c9af69837667516be88de687b",
         "type": "github"
       },
       "original": {
-        "owner": "cole-h",
+        "owner": "montchr",
+        "ref": "develop",
         "repo": "agenix-cli",
         "type": "github"
       }
