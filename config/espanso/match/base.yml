@@ -1,5 +1,6 @@
 matches:
-  # Common
+  # Common macOS symbols
+  # => :s.
   - trigger: ":s.cmd"
     replace: "⌘"
   - trigger: ":s.shift"
@@ -11,7 +12,8 @@ matches:
   - trigger: ":s.esc"
     replace: "⎋"
 
-  # Arrows :: :s.aa
+  # Arrows
+  # => :s.aa
   - trigger: ":s.aal"
     replace: "←"
   - trigger: ":s.aar"
@@ -22,6 +24,7 @@ matches:
     replace: "↓"
 
   # Math
+  # => :s.
   - trigger: ":s.mult"
     replace: "×"
   - trigger: ":s.null"
