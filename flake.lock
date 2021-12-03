@@ -20,6 +20,28 @@
         "type": "github"
       }
     },
+    "agenix-cli": {
+      "inputs": {
+        "crate2nix": "crate2nix",
+        "mozilla": "mozilla",
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1629751265,
+        "narHash": "sha256-DGuw2jFeXFUgVo39fsB9cTGijNzmchUGbtfs8NNBz7A=",
+        "owner": "cole-h",
+        "repo": "agenix-cli",
+        "rev": "c6d8f80ef48544d569ff54a62a481b24260f43d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cole-h",
+        "repo": "agenix-cli",
+        "type": "github"
+      }
+    },
     "base16-kitty": {
       "flake": false,
       "locked": {
@@ -48,6 +70,22 @@
       "original": {
         "owner": "divnix",
         "repo": "blank",
+        "type": "github"
+      }
+    },
+    "crate2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1614443448,
+        "narHash": "sha256-E5dg/EwJKvEhU/KYJC/Hblm+Vw88rtj++GN+p9dNPpE=",
+        "owner": "kolloch",
+        "repo": "crate2nix",
+        "rev": "5dd04e6de2fbdbeb067ab701de8ec29bc228c389",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kolloch",
+        "repo": "crate2nix",
         "type": "github"
       }
     },
@@ -369,6 +407,22 @@
         "type": "github"
       }
     },
+    "mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1603906276,
+        "narHash": "sha256-RsNPnEKd7BcogwkqhaV5kI/HuNC4flH/OQCC/4W5y/8=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "8c007b60731c07dd7a052cce508de3bb1ae849b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -534,6 +588,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "agenix-cli": "agenix-cli",
         "base16-kitty": "base16-kitty",
         "blank": [
           "digga",

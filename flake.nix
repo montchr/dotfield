@@ -15,6 +15,8 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "latest";
+    agenix-cli.url = "github:cole-h/agenix-cli";
+    agenix-cli.inputs.nixpkgs.follows = "stable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "latest";

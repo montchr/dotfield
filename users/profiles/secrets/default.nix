@@ -8,6 +8,8 @@ let
 in
 
 {
+  my.env.AGENIX_ROOT = config.dotfield.path;
+
   age.sshKeyPaths = sshHostKeyPaths;
 
   age.secrets =

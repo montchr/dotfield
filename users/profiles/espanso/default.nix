@@ -15,6 +15,7 @@ let
 in
 
 {
+
   my.hm.xdg.configFile."espanso" = {
     source = configSrc;
     recursive = true;
