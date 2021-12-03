@@ -1,6 +1,3 @@
-name: time
-parent: default
-
 global_vars:
   - name: date
     type: date

@@ -157,12 +157,7 @@ in
           --dotfield-tab-line-color: #5e81ac;
         }
 
-        ${(builtins.readFile (pkgs.substituteAll {
-          name = "homeUserChrome";
-          src = ./userChrome.css;
-          # TODO: handle profile color differentiation
-          # tabLineColour = "#5e81ac";
-        }))}
+        ${builtins.readFile ./userChrome.css}
       '';
 
       userContent = defaultUserContentStyles;
@@ -190,12 +185,7 @@ in
           --dotfield-tab-line-color: var(--dotfield-color-alley-red);
         }
 
-        ${(builtins.readFile (pkgs.substituteAll {
-          name = "workUserChrome";
-          src = ./userChrome.css;
-          # TODO: handle profile color differentiation
-          # tabLineColour = "#5e81ac";
-        }))}
+        ${builtins.readFile ./userChrome.css}
       '';
 
       userContent = defaultUserContentStyles;

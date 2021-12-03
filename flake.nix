@@ -15,6 +15,8 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "stable";
+    agenix-cli.url = "github:montchr/agenix-cli/develop";
+    agenix-cli.inputs.nixpkgs.follows = "stable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "stable";
@@ -95,6 +97,7 @@
         gui = [
           systemProfiles.fonts
           userProfiles.browsers.firefox
+          userProfiles.espanso
           userProfiles.kitty
         ];
         personal = [
