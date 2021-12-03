@@ -102,6 +102,12 @@ in
         };
       };
     };
+
+    programs.emacs = {
+      extraPackages = epkgs: [
+        pkgs.mu
+      ];
+    };
   };
 }
 
