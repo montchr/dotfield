@@ -4,6 +4,7 @@
   imports = [ ../cachix ];
 
   nix = {
+    package = pkgs.nixFlakes;
     # autoOptimiseStore = true;
     gc.automatic = true;
     # optimise.automatic = true;
