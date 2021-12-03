@@ -16,7 +16,7 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "stable";
     agenix-cli.url = "github:montchr/agenix-cli/develop";
-    agenix-cli.inputs.nixpkgs.follows = "stable";
+    # agenix-cli.inputs.nixpkgs.follows = "stable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "stable";
@@ -46,7 +46,6 @@
     };
 
     nixpkgs.follows = "stable";
-    utils.follows = "digga/flake-utils-plus";
   };
 
   outputs =
