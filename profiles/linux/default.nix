@@ -9,6 +9,8 @@
     utillinux
   ];
 
+  i18n.defaultLocale = "en_US.UTF-8";
+
   # For rage encryption, all hosts need a ssh key pair
   services.openssh = {
     enable = true;
