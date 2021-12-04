@@ -117,6 +117,9 @@
           userProfiles.secrets
           userProfiles.ssh
         ];
+        home = [
+          userProfiles.home
+        ];
         work = suites.developer ++
           suites.personal ++
           [
@@ -196,8 +199,8 @@
 
       hosts = with suites;
         mkHosts [
-          (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer))
-          (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal))
+          (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer ++ home))
+          (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal ++ home))
 
           # CI runner hosts.
           (mkDarwinHost "ci-darwin" (darwin-minimal ++ developer))
