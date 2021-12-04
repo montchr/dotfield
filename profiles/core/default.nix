@@ -5,13 +5,10 @@
 
   nix = {
     package = pkgs.nixFlakes;
-    # autoOptimiseStore = true;
     gc.automatic = true;
-    # optimise.automatic = true;
     useSandbox = true;
     allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
-    systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true
