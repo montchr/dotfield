@@ -11,6 +11,7 @@
     useSandbox = true;
     allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
+    systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true
