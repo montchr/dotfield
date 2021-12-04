@@ -61,16 +61,22 @@
     (writeScriptBin "dotfield"
       (builtins.readFile "${config.dotfield.binDir}/dotfield"))
 
+    (python3.withPackages (ps: with ps; [ pip setuptools ]))
+    (ripgrep.override { withPCRE2 = true; })
+
     bashInteractive
     bat
+    binutils
     bottom
     cachix
     coreutils
     curl
+    direnv
+    dnsutils
+    dosfstools
     exa
     fd
     findutils
-    fish
     fup-repl
     fzf
     gawk
@@ -80,22 +86,29 @@
     gnupg
     gnused
     gnutar
+    gptfdisk
     grc
+    iputils
     jq
     less
     lua
     manix # nix documentation search
+    moreutils
+    nix-index
     nix-tree # Interactively browse dependency graphs of Nix derivations.
+    nmap
     nvfetcher
     openssh
     openssl
-    (python3.withPackages (ps: with ps; [ pip setuptools ]))
-    (ripgrep.override { withPCRE2 = true; })
     rsync
-    tmux
+    skim
     tealdeer
+    tmux
+    usbutils
+    utillinux
     vim
     wget
+    whois
     zsh
   ];
 }
