@@ -15,7 +15,6 @@ in
   ];
 
   programs.bash = {
-    enable = true;
     enableCompletion = true;
     interactiveShellInit = "source ${configDir}/bashrc";
   };
