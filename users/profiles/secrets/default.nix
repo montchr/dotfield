@@ -1,9 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
+  inherit (config.dotfield) secretsDir;
   inherit (config.my.keys) sshHostKeyPaths;
 
-  secretsDir = ../../../secrets;
   secretsFile = "${secretsDir}/secrets.nix";
 in
 

@@ -15,6 +15,7 @@ in
       libDir = mkOpt path "${dir}/lib";
       modulesDir = mkOpt path "${dir}/modules";
       profilesDir = mkOpt path "${dir}/profiles";
+      secretsDir = mkOpt path "${dir}/secrets";
       vendorDir = mkOpt path "${dir}/vendor";
 
       # FIXME: This points to an arbitrary location which may vary per system.
