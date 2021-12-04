@@ -69,22 +69,18 @@
     curl
     direnv
     dnsutils
-    dosfstools
     exa
     fd
     findutils
     fup-repl
     fzf
     gawk
-    gcc
     git
     gnumake
     gnupg
     gnused
     gnutar
-    gptfdisk
     grc
-    iputils
     jq
     less
     lua
@@ -100,8 +96,6 @@
     skim
     tealdeer
     tmux
-    usbutils
-    utillinux
     vim
     wget
     whois
