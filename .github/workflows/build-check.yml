@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            flake_output: "self.darwinConfigurations.ghaDarwin.system"
+            flake_output: "darwinConfigurations.ghaDarwin.system"
           - os: ubuntu-latest
             flake_output: "nixosConfigurations.ghaUbuntu.config.system.build.toplevel"
     steps:
