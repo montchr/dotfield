@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  inherit (config.dotfield) secretsDir;
+in
+
 {
-  age.secrets.bortHole.file = "${config.dotfield.dir}/secrets/networks/bortHole.age";
+  age.secrets."wireless.env".file = "${secretsDir}/wireless.env.age";
 }

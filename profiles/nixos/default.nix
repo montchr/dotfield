@@ -11,4 +11,11 @@
     # Fix `nixos-option` for flake compatibility
     nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
   };
+
+  networking.wireless = {
+    environmentFile = "/run/secrets/wireless.env";
+    networks = {
+      bortHole.psk = "@PSK_BORTHOLE@";
+    };
+  };
 }
