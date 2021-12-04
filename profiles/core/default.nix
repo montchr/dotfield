@@ -43,7 +43,6 @@
 
   environment.shells = with pkgs; [
     bashInteractive
-    fish
     zsh
   ];
 
