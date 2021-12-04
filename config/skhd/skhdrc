@@ -39,12 +39,16 @@
 default < hyper - a     ; app
 # SYSTEM mode
 default < hyper - q     ; sys
+# YABAI / HYPER-SPACE mode
+default < hyper - space ; focus
+
 # Open emacs everywhere
 default < hyper - e     : doom everywhere
 # Open ephemeral org-capture frame
 default < hyper - x     : org-capture
-# YABAI / HYPER-SPACE mode
-default < hyper - space ; focus
+
+# [RESERVED]: espanso snippet search
+# default < hyper - s     : : ; # see espanso config/default.yml
 
 # Close the currently-focused window.
 default < meh - d       : yabai-close-window
