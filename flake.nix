@@ -124,7 +124,34 @@
             systemProfiles.languages.ruby # for vagrant
           ];
       };
+
+      mkNixosHost = name: extraSuites: {
+        ${name} = {
+          system = "x86_64-linux";
+          modules = suites.base ++ extraSuites ++ [
+            hostConfigs.${name}
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.age
+          ];
+        };
+      };
+
+      mkDarwinHost = name: extraSuites: {
+        ${name} = {
+          system = "x86_64-darwin";
+          output = "darwinConfigurations";
+          builder = darwin.lib.darwinSystem;
+          modules = suites.base ++ extraSuites ++ [
+            hostConfigs.${name}
+            home-manager.darwinModules.home-manager
+          ];
+        };
+      };
+
+      mkHosts = hosts: (builtins.foldl' (a: b: a // b) { } hosts);
+
     in
+
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -167,32 +194,15 @@
           (digga.lib.rakeLeaves ./users/modules)));
       };
 
-      hosts = with suites; let
-        mkNixosHost = name: extraSuites: {
-          system = "x86_64-linux";
-          modules = base ++ extraSuites ++ [
-            hostConfigs.${name}
-            home-manager.nixosModules.home-manager
-            agenix.nixosModules.age
-          ];
-        };
-        mkDarwinHost = name: extraSuites: {
-          system = "x86_64-darwin";
-          output = "darwinConfigurations";
-          builder = darwin.lib.darwinSystem;
-          modules = base ++ extraSuites ++ [
-            hostConfigs.${name}
-            home-manager.darwinModules.home-manager
-          ];
-        };
-      in
-      {
-        HodgePodge = (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer));
-        alleymon = (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal));
+      hosts = with suites;
+        mkHosts [
+          (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer))
+          (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal))
 
-        ci-darwin = (mkDarwinHost "ci-darwin" (darwin-minimal ++ developer));
-        ci-ubuntu = (mkNixosHost "ci-ubuntu" (linux-minimal ++ developer));
-      };
+          # CI runner hosts.
+          (mkDarwinHost "ci-darwin" (darwin-minimal ++ developer))
+          (mkNixosHost "ci-ubuntu" (linux-minimal ++ developer))
+        ];
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
