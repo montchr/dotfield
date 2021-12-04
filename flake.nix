@@ -79,6 +79,13 @@
         networking = [
           systemProfiles.networking.common
         ];
+        linux-minimal = suites.base ++ [
+          systemProfiles.linux
+        ];
+        nixos = suites.base ++ [
+          systemProfiles.linux
+          systemProfiles.nixos
+        ];
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common
         ];
