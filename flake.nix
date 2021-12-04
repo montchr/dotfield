@@ -79,6 +79,13 @@
         networking = [
           systemProfiles.networking.common
         ];
+        linux-minimal = suites.base ++ [
+          systemProfiles.linux
+        ];
+        nixos = suites.base ++ [
+          systemProfiles.linux
+          systemProfiles.nixos
+        ];
         darwin-minimal = suites.base ++ [
           systemProfiles.darwin.common
         ];
@@ -183,14 +190,14 @@
         HodgePodge = (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer));
         alleymon = (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal));
         ghaDarwin = (mkDarwinHost "ghaDarwin" (darwin-minimal ++ developer));
-        # ghaUbuntu = (mkNixosHost "ghaUbuntu" [ ]);
+        ghaUbuntu = (mkNixosHost "ghaUbuntu" (linux-minimal ++ developer));
       };
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
       ghaDarwin = self.darwinConfigurations.ghaDarwin.system;
-      # ghaUbuntu = lib.optionalAttrs (self.nixosConfigurations.ghaUbuntu ? system) self.nixosConfigurations.ghaUbuntu.system;
+      ghaUbuntu = self.nixosConfigurations.ghaUbuntu;
 
     };
 }

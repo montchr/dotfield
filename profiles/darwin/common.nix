@@ -13,6 +13,8 @@
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
+  services.nix-daemon.enable = true;
+  users.nix.configureBuildUsers = true;
 
   homebrew = {
     enable = true;

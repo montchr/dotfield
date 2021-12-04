@@ -3,7 +3,13 @@
 let
   inherit (inputs) nix-colors;
   inherit (config) my;
+  inherit (pkgs.stdenv) isDarwin isLinux;
 
+  user = builtins.getEnv "USER";
+  name = if builtins.elem user [ "" "root" ] then my.username else user;
+
+  # Note that `builtins.getEnv` will only return an empty string unless running
+  # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
   theme = if envTheme != "" then envTheme else "black-metal-khold";
 in
@@ -13,23 +19,22 @@ in
 
   colorscheme = nix-colors.colorSchemes.${theme};
 
-  my.user =
-    let
-      user = builtins.getEnv "USER";
-      name = if builtins.elem user [ "" "root" ] then my.username else user;
-    in
-    {
-      inherit name;
+  my.user = {
+    inherit name;
 
-      shell = pkgs.zsh;
-      packages = import ./package-list.nix { inherit pkgs; };
-      home =
-        if pkgs.stdenv.isDarwin
-        then
-          "/Users/${name}"
-        else
-          "/home/${name}";
-    };
+    shell = pkgs.zsh;
+    packages = import ./package-list.nix { inherit pkgs; };
+  }
+  //
+  (lib.optionalAttrs (isLinux) {
+    extraGroups = [ "wheel" ];
+    isNormalUser = true;
+    home = "/home/${name}";
+  })
+  //
+  (lib.optionalAttrs (isDarwin) {
+    home = "/Users/${name}";
+  });
 
   environment.variables = let inherit (my) xdg; in
     {
