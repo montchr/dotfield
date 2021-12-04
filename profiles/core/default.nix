@@ -17,9 +17,6 @@
     '';
   };
 
-  services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
-
   time.timeZone = config.my.timezone;
 
   environment.variables = {
