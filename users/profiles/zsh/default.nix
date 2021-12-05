@@ -11,6 +11,7 @@ in
   ];
 
   my.user.packages = with pkgs; [
+    zinit
     zsh
     zoxide
   ];
@@ -22,8 +23,8 @@ in
     ZSH_DATA = "$XDG_DATA_HOME/zsh";
 
     # zgenom paths
-    ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
-    ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
+    # ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
+    # ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
   };
 
   my.hm.programs.starship = {

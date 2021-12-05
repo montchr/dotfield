@@ -19,4 +19,5 @@ function globalias() {
    fi
    zle self-insert
 }
-zle -N globalias
+# FIXME
+# zle -N globalias

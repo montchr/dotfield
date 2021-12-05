@@ -1,0 +1,9 @@
+#=====================================
+# Create and move into a directory with `mkdir -p`.
+#
+# Usage:
+#   mkdc <path>
+# Parameters:
+#   <path>: Relative path to new directory.
+#=====================================
+mkdir -pv "$1" && cd "$1";

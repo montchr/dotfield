@@ -11,12 +11,8 @@ setopt PATH_DIRS           # Perform path search even on command names with slas
 
 unsetopt ALWAYS_TO_END     # Move cursor to the end of a completed word.
 unsetopt CASE_GLOB
-unsetopt COMPLETE_ALIASES  # Completion for aliases
+unsetopt COMPLETE_ALIASES  # Disable completion for aliases
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
-
-# Use caching to make completion for commands such as dpkg and apt usable.
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "$ZSH_CACHE/zcompcache"
 
 # Case-insensitive (all), partial-word, and then substring completion.
 zstyle ':completion:*' matcher-list '' \
@@ -46,9 +42,6 @@ zstyle ':completion:*:options' auto-description '%d'
 zstyle ':completion:*' completer _complete _list _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-# Increase the number of errors based on the length of the typed word.
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
 # Don't complete unavailable commands.
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
@@ -111,7 +104,6 @@ zstyle ':completion:*:manuals.(^1*)' insert-sections true
 # Media Players
 zstyle ':completion:*:*:mpg123:*' file-patterns '*.(mp3|MP3):mp3\ files *(-/):directories'
 zstyle ':completion:*:*:mpg321:*' file-patterns '*.(mp3|MP3):mp3\ files *(-/):directories'
-zstyle ':completion:*:*:ogg123:*' file-patterns '*.(ogg|OGG|flac):ogg\ files *(-/):directories'
 zstyle ':completion:*:*:mocp:*' file-patterns '*.(wav|WAV|mp3|MP3|ogg|OGG|flac):ogg\ files *(-/):directories'
 
 # SSH/SCP/RSYNC
@@ -123,52 +115,45 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' l
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-domain' ignored-patterns '<->.<->.<->.<->' '^[-[:alnum:]]##(.[-[:alnum:]]##)##' '*@*'
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
 
-# fzf
-has fzf && {
-
-  __git_log () {
-    # format str implies:
-    #  --abbrev-commit
-    #  --decorate
-    git log \
-      --color=always \
-      --graph \
-      --all \
-      --date=short \
-      --format="%C(bold blue)%h%C(reset) %C(green)%ad%C(reset) | %C(white)%s %C(red)[%an] %C(bold yellow)%d"
-  }
-
-  _fzf_complete_git() {
-    ARGS="$@"
-
-    # Commands commonly called on commit hashes.
-    if [[ $ARGS == 'git cp'* || \
-          $ARGS == 'git cherry-pick'* || \
-          $ARGS == 'git co'* || \
-          $ARGS == 'git checkout'* || \
-          $ARGS == 'git reset'* || \
-          $ARGS == 'git show'* || \
-          $ARGS == 'git log'* ]]; then
-      _fzf_complete "--reverse --multi" "$@" < <(__git_log)
-    else
-      eval "zle ${fzf_default_completion:-expand-or-complete}"
-    fi
-  }
-
-  _fzf_complete_git_post() {
-    sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
-  }
-
-  # pass completion suggested by @d4ndo (#362) (slightly modified)
-  _fzf_complete_pass() {
-    _fzf_complete '+m' "$@" < <(
-      local pwdir=${PASSWORD_STORE_DIR-~/.password-store/}
-      find "$pwdir" -name "*.gpg" -print |
-          sed -e "s#${pwdir}/\{0,1\}##" |
-          sed -e 's/\(.*\)\.gpg/\1/'
-    )
-  }
+__git_log () {
+  # format str implies:
+  #  --abbrev-commit
+  #  --decorate
+  git log \
+    --color=always \
+    --graph \
+    --all \
+    --date=short \
+    --format="%C(bold blue)%h%C(reset) %C(green)%ad%C(reset) | %C(white)%s %C(red)[%an] %C(bold yellow)%d"
 }
 
-# RobSis/zsh-completion-generator
-zstyle :plugin:zsh-completion-generator programs grep
+# _fzf_complete_git() {
+#   ARGS="$@"
+
+#   # Commands commonly called on commit hashes.
+#   if [[ $ARGS == 'git cp'* || \
+#         $ARGS == 'git cherry-pick'* || \
+#         $ARGS == 'git co'* || \
+#         $ARGS == 'git checkout'* || \
+#         $ARGS == 'git reset'* || \
+#         $ARGS == 'git show'* || \
+#         $ARGS == 'git log'* ]]; then
+#     _fzf_complete "--reverse --multi" "$@" < <(__git_log)
+#   else
+#     eval "zle ${fzf_default_completion:-expand-or-complete}"
+#   fi
+# }
+
+# _fzf_complete_git_post() {
+#   sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
+# }
+
+# pass completion suggested by @d4ndo (#362) (slightly modified)
+_fzf_complete_pass() {
+  _fzf_complete '+m' "$@" < <(
+    local pwdir=${PASSWORD_STORE_DIR-~/.password-store/}
+    find "$pwdir" -name "*.gpg" -print |
+        sed -e "s#${pwdir}/\{0,1\}##" |
+        sed -e 's/\(.*\)\.gpg/\1/'
+  )
+}
