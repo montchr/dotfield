@@ -2,17 +2,14 @@
 REPORTTIME=2
 TIMEFMT="%U user %S system %P cpu %*Es total"
 
-# Disable Oh-My-ZSH's internal updating.
-export DISABLE_AUTO_UPDATE=true
-
 # Stop TRAMP (in Emacs) from hanging or term/shell from echoing back commands
 # https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/config/zsh/config.zsh#L1-L7
-if [[ $TERM == dumb || -n $INSIDE_EMACS ]]; then
-  unsetopt zle prompt_cr prompt_subst
-  whence -w precmd >/dev/null && unfunction precmd
-  whence -w preexec >/dev/null && unfunction preexec
-  PS1='$ '
-fi
+# if [[ $TERM == dumb || -n $INSIDE_EMACS ]]; then
+#   unsetopt zle prompt_cr prompt_subst
+#   whence -w precmd >/dev/null && unfunction precmd
+#   whence -w preexec >/dev/null && unfunction preexec
+#   PS1='$ '
+# fi
 
 # Treat these characters as part of a word.
 WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
@@ -20,22 +17,6 @@ WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
 # ls et al.
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
-
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c100,)"
-ZSH_AUTOSUGGEST_MANUAL_REBIND=set
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_USE_ASYNC=true
-
-export \
-  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE \
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS \
-  ZSH_AUTOSUGGEST_HISTORY_IGNORE \
-  ZSH_AUTOSUGGEST_MANUAL_REBIND \
-  ZSH_AUTOSUGGEST_STRATEGY \
-  ZSH_AUTOSUGGEST_USE_ASYNC
 
 
 # -------------------------------------

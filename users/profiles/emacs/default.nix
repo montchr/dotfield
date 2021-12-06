@@ -11,13 +11,6 @@ in
 lib.mkMerge [
   {
     environment.systemPackages = with pkgs; [ emacs ];
-
-    my.modules.shell.rcFiles = [ "${doomDir}/functions.sh" ];
-
-    my.hm.xdg.configFile = {
-      "doom".source = configDir;
-    };
-
     environment.variables = {
       PATH = [ "${emacsDir}/bin" "$PATH" ];
     };
@@ -28,9 +21,19 @@ lib.mkMerge [
       EMACSDIR = emacsDir;
     };
 
-    my.user.packages = with pkgs; [
-      emacs
+    # FIXME: the module no longer exists!
+    # my.modules.shell.rcFiles = [ "${doomDir}/functions.sh" ];
 
+    my.hm.xdg.configFile = {
+      "doom".source = configDir;
+    };
+
+    my.hm.programs.emacs = {
+      enable = true;
+      package = pkgs.emacs;
+    };
+
+    my.user.packages = with pkgs; [
       dotfield.ediffTool
 
       ## Doom dependencies

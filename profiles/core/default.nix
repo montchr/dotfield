@@ -4,9 +4,8 @@
   imports = [ ../cachix ];
 
   nix = {
-    # autoOptimiseStore = true;
+    package = pkgs.nixFlakes;
     gc.automatic = true;
-    # optimise.automatic = true;
     useSandbox = true;
     allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
@@ -17,9 +16,6 @@
       fallback = true
     '';
   };
-
-  services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
 
   time.timeZone = config.my.timezone;
 
@@ -44,7 +40,6 @@
 
   environment.shells = with pkgs; [
     bashInteractive
-    fish
     zsh
   ];
 
@@ -59,20 +54,24 @@
     (writeScriptBin "dotfield"
       (builtins.readFile "${config.dotfield.binDir}/dotfield"))
 
+    (python3.withPackages (ps: with ps; [ pip setuptools ]))
+    (ripgrep.override { withPCRE2 = true; })
+
     bashInteractive
     bat
+    binutils
     bottom
     cachix
     coreutils
     curl
+    direnv
+    dnsutils
     exa
     fd
     findutils
-    fish
     fup-repl
     fzf
     gawk
-    gcc
     git
     gnumake
     gnupg
@@ -83,17 +82,20 @@
     less
     lua
     manix # nix documentation search
+    moreutils
+    nix-index
     nix-tree # Interactively browse dependency graphs of Nix derivations.
+    nmap
     nvfetcher
     openssh
     openssl
-    (python3.withPackages (ps: with ps; [ pip setuptools ]))
-    (ripgrep.override { withPCRE2 = true; })
     rsync
-    tmux
+    skim
     tealdeer
+    tmux
     vim
     wget
+    whois
     zsh
   ];
 }
