@@ -6,6 +6,15 @@ let
   leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;
 
+  privacySettings = {
+    "network.dns.disablePrefetch" = true;
+    "privacy.donottrackheader.enabled" = true;
+    "privacy.donottrackheader.value" = 1;
+    "privacy.trackingprotection.enabled" = true;
+    "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
+    "privacy.trackingprotection.socialtracking.enabled" = true;
+  };
+
   defaultSettings = {
     "app.update.auto" = true;
     "browser.bookmarks.showMobileBookmarks" = true;
@@ -53,17 +62,10 @@ let
     # CSS blur filter in v88+
     "layout.css.backdrop-filter.enabled" = true;
 
-    "network.dns.disablePrefetch" = true;
-    "privacy.donottrackheader.enabled" = true;
-    "privacy.donottrackheader.value" = 1;
-
     # Disable fingerprinting on AMO for Tridactyl.
     # See https://github.com/tridactyl/tridactyl/issues/1800
     "privacy.resistFingerprinting.block_mozAddonManager" = true;
 
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
     "security.enterprise_roots.enabled" = true;
     "services.sync.declinedEngines" = "addons,passwords,prefs";
     "services.sync.engine.addons" = false;
@@ -149,7 +151,7 @@ in
 
     profiles.home = {
       id = 0;
-      settings = defaultSettings;
+      settings = defaultSettings // privacySettings;
       userChrome = ''
         ${imports.lepton.userChrome}
 
@@ -168,13 +170,16 @@ in
 
       settings = defaultSettings // {
         "browser.startup.homepage" = "about:blank";
-        "browser.urlbar.placeholderName" = "Google";
-        "privacy.donottrackheader.enabled" = false;
-        "privacy.donottrackheader.value" = 0;
+        "browser.urlbar.placeholderName" = "Search";
+
+        # 0 = Accept all cookies by default
+        # 1 = Only accept from the originating site (block third-party cookies)
+        # 2 = Block all cookies by default
+        # 3 = Block cookies from unvisited sites
+        # 4 = New Cookie Jar policy (prevent storage access to trackers)
+        "network.cookie.cookieBehavior" = 0;
+
         "privacy.trackingprotection.enabled" = false;
-        "privacy.trackingprotection.socialtracking.annotate.enabled" =
-          false;
-        "privacy.trackingprotection.socialtracking.enabled" = false;
       };
 
       userChrome = ''
@@ -196,3 +201,4 @@ in
 
 # References:
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
+# - https://restoreprivacy.com/firefox-privacy/
