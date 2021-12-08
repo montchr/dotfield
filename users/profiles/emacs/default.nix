@@ -1,32 +1,77 @@
 { config, options, lib, pkgs, inputs, ... }:
 
 let
-  inherit (config) my;
 
-  configDir = "${config.dotfield.configDir}/emacs";
-  emacsDir = "${my.xdg.config}/emacs";
-  doomDir = "${my.xdg.config}/doom";
+  inherit (config) home-manager my;
+  inherit (home-manager.users.${my.username}.xdg) configHome dataHome stateHome;
+
+  configPath = "${config.dotfield.path}/config";
+  chemacsDir = "${configHome}/emacs";
+
+  doomProfilePath = "emacs/profiles/doom";
+  vanillaProfilePath = "emacs/profiles/vanilla";
+
+  # Note that this points to the doom config directory within the flake source.
+  # Consider changing if you run into issues.
+  doomDir = "${configPath}/${doomProfilePath}";
+  doomDataDir = "${dataHome}/${doomProfilePath}";
+  doomStateDir = "${stateHome}/${doomProfilePath}";
 
 in
 lib.mkMerge [
   {
     environment.systemPackages = with pkgs; [ emacs ];
     environment.variables = {
-      PATH = [ "${emacsDir}/bin" "$PATH" ];
+      PATH = [ "${doomDataDir}/bin" "$PATH" ];
     };
 
     my.env = {
-      DOOMDIR = doomDir;
       EDITOR = "emacsclient";
-      EMACSDIR = emacsDir;
+
+      ## chemacs :: emacs bootloader
+      EMACSDIR = chemacsDir;
+
+      ## doom-emacs
+      # user config files
+      DOOMDIR = doomDir;
+      # local state :: `$DOOMDIR/.local` by default.
+      DOOMLOCALDIR = doomStateDir;
+      # source :: custom variable -- not considered by doom itself
+      DOOMSRC = doomDataDir;
     };
 
-    # FIXME: the module no longer exists!
-    # my.modules.shell.rcFiles = [ "${doomDir}/functions.sh" ];
+    my.hm.xdg.dataFile = {
+      # doom-emacs source
+      ${doomProfilePath}.source = pkgs.sources.doom-emacs.src;
+    };
 
     my.hm.xdg.configFile = {
-      "doom".source = configDir;
+      # chemacs source :: must be installed to $EMACSDIR
+      "emacs" = {
+        source = pkgs.sources.chemacs.src;
+        recursive = true;
+      };
+
+      # chemacs config
+      "chemacs/profiles.el".text = ''
+        (("default" . ((user-emacs-directory . "${doomDataDir}")))
+         ("vanilla" . ((user-emacs-directory . "${configPath}/${vanillaProfilePath}"))))
+      '';
+
+      # chemacs default profile :: will load when no `--with-profile` is provided
+      "chemacs/profile".text = "default";
+
+      # TODO: testing out setting DOOMDIR to a path within the flake, so leaving
+      # this disabled for now.
+      #
+      # # doom-emacs config
+      # ${doomProfilePath} = {
+      #   source = "${configPath}/profiles/doom";
+      #   recursive = true;
+      # };
     };
+
+    my.modules.shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
 
     my.hm.programs.emacs = {
       enable = true;
@@ -98,12 +143,6 @@ lib.mkMerge [
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
-    system.activationScripts.postUserActivation.text = ''
-      # Clone to $XDG_CONFIG_HOME because Emacs expects this location.
-      if [[ ! -d "${my.xdg.config}/emacs" ]]; then
-        git clone https://github.com/hlissner/doom-emacs "${my.xdg.config}/emacs"
-      fi
-    '';
   }
 
   (if (builtins.hasAttr "homebrew" options) then
