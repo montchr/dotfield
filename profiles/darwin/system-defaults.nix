@@ -111,10 +111,11 @@
 
       finder = {
         AppleShowAllExtensions = true;
-        # QuitMenuItem = true;
+        # Whether to display icons on the desktop.
+        CreateDesktop = false;
         FXEnableExtensionChangeWarning = false;
         QuitMenuItem = false;
-        _FXShowPosixPathInTitle = false; # In Big Sur this is so UGLY!
+        _FXShowPosixPathInTitle = false;
       };
 
       loginwindow = {
