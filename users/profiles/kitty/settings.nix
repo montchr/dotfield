@@ -40,9 +40,7 @@
   #: }}}
 
   #: Advanced {{{
-  allow_remote_control = "yes";
-  # FIXME: why was this set to `none` in the original config? we do use
-  # the socket, so why not set it here instead of via flags?
+  allow_remote_control = "no";
   listen_on = "none";
   startup_session = "session";
   #: }}}
