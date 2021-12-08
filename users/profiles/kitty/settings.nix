@@ -1,8 +1,8 @@
 { ... }:
 {
   font_family = "PragmataPro Mono Liga";
-  font_size = "14.0";
-  adjust_line_height = "110%";
+  font_size = "16.0";
+  # adjust_line_height = "110%";
   disable_ligatures = "cursor";
   # box_drawing_scale = "0.001, 1, 1.5, 2";
 
