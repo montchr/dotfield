@@ -15,7 +15,7 @@
   #: }}}
 
   #: Scrollback {{{
-  scrollback_lines = "5000";
+  scrollback_lines = "15000";
   scrollback_pager = "bat";
   scrollback_pager_history_size = "200";
   #: }}}
