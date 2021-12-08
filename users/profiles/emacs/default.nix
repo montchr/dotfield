@@ -28,16 +28,13 @@ lib.mkMerge [
     my.env = {
       EDITOR = "emacsclient";
 
-      ## chemacs :: emacs bootloader
-      EMACSDIR = chemacsDir;
-
       ## doom-emacs
       # user config files
       DOOMDIR = doomDir;
       # local state :: `$DOOMDIR/.local` by default.
       DOOMLOCALDIR = doomStateDir;
-      # source :: custom variable -- not considered by doom itself
-      DOOMSRC = doomDataDir;
+      # source
+      EMACSDIR = doomDataDir;
     };
 
     my.hm.xdg.dataFile = {
