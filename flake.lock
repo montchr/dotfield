@@ -184,11 +184,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1634686125,
-        "narHash": "sha256-V1FesvdoQBsFNlzc00qyQIJnV972yOenr9uDP1UdnmE=",
+        "lastModified": 1638986273,
+        "narHash": "sha256-WebMtPhhC/oS4iMYaMBIqdTESSSQvBm7/p6fyexsxlE=",
         "owner": "montchr",
         "repo": "emacs",
-        "rev": "2d555665350f578ee8690fc3bc8c815b40bae627",
+        "rev": "91cfade6eced2b1b12b49be8622c33289cfe2dae",
         "type": "github"
       },
       "original": {
@@ -216,16 +216,16 @@
     "emacs-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1634675101,
-        "narHash": "sha256-XqaBwsr/0v7SF+wTyb0KxXgrxbAKqCTiNbT7ysCa8vE=",
+        "lastModified": 1638389531,
+        "narHash": "sha256-db8D5X264wFJpVxeFcNYh3U3NhSO7wvb9p+QM8Hrm0o=",
         "owner": "emacs-mirror",
         "repo": "emacs",
-        "rev": "91d71b38a333c9b3dc411547c1ad61f0ee63d4e6",
+        "rev": "f38dfa56a0cfef77c2b0d8bb2869642a4e3b2ae4",
         "type": "github"
       },
       "original": {
         "owner": "emacs-mirror",
-        "ref": "emacs-28",
+        "ref": "emacs-28.0.90",
         "repo": "emacs",
         "type": "github"
       }
@@ -557,11 +557,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1633422745,
-        "narHash": "sha256-gA6Ok64nPbkjHk3Oanq4641EeYkjcKhisDF9wBjLxEk=",
+        "lastModified": 1638910453,
+        "narHash": "sha256-fofA4tsAAdNgE+9Py0VsVbyX2ZQkgV+CVqQKGBA/dLE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8e1eab9eae4278c9bb1dcae426848a581943db5a",
+        "rev": "f225322e3bea8638304adfcf415cd11de99f2208",
         "type": "github"
       },
       "original": {
