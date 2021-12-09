@@ -118,6 +118,9 @@ lib.mkMerge [
 
       # :lang javascript
       nodePackages.javascript-typescript-langserver
+      # eslint, but as a service
+      # https://github.com/mantoni/eslint_d.js
+      nodePackages.eslint_d
 
       # :lang ledger
       # TODO: probably worth moving to its own module once ready

@@ -246,6 +246,7 @@
   :commands (doct))
 
 (after! js2-mode
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (set-company-backend! 'company-tide 'js2-mode))
 
 (after! sh-script
@@ -362,7 +363,8 @@
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
          lsp-enable-indentation t
-         lsp-ui-doc-delay 2)
+         lsp-ui-doc-delay 2
+         flycheck-javascript-eslint-executable "eslint_d")
 
   ;; Sync LSP workspace folders and treemacs projects.
   (lsp-treemacs-sync-mode 1)
