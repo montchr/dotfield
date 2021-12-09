@@ -86,6 +86,7 @@ colors base16-grayscale-dark
 
 set searchurls.aigh https://github.com/search?q=org%3Aalleyinteractive+
 set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
+set searchurls.bundle https://bundlephobia.com/package/%s
 set searchurls.gh https://github.com/search?q=
 set searchurls.j https://alleyinteractive.atlassian.net/browse/%s
 set searchurls.nixopts https://search.nixos.org/options?query=
