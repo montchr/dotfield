@@ -110,21 +110,35 @@ lib.mkMerge [
       # :tools editorconfig
       editorconfig-core-c
 
-      # :tools lookup & :lang org +roam
+      # :tools docker
+      nodePackages.dockerfile-language-server-nodejs
+
+      # :tools lookup
+      # & :lang org +roam
       sqlite
 
       # :tools terraform
       terraform
+      terraform-ls
+
+      # :lang css
+      nodePackages.vscode-css-languageserver-bin
 
       # :lang javascript
-      nodePackages.javascript-typescript-langserver
+      nodePackages.eslint
       # eslint, but as a service
       # https://github.com/mantoni/eslint_d.js
       nodePackages.eslint_d
+      nodePackages.typescript-language-server
+
+      # :lang json
+      nodePackages.vscode-json-languageserver
 
       # :lang ledger
-      # TODO: probably worth moving to its own module once ready
-      # ledger
+      ledger
+
+      # :lang markdown
+      nodePackages.unified-language-server
 
       # :lang nix
       nixpkgs-fmt
@@ -133,12 +147,36 @@ lib.mkMerge [
       # :lang org
       graphviz
 
+      # :lang php
+      nodePackages.intelephense
+
+      # :lang python
+      python39Packages.python-lsp-server
+
+      # :lang ruby
+      rubyPackages.solargraph
+
       # :lang sh
       nodePackages.bash-language-server
 
+      # :lang toml
+      taplo-lsp
+
       # :lang web
-      nodePackages.stylelint
       nodePackages.js-beautify
+      nodePackages.stylelint
+      nodePackages.vscode-html-languageserver-bin
+
+      # :lang yaml
+      nodePackages.yaml-language-server
+
+      ## Additional modes {{{
+
+      # vimrc-mode
+      nodePackages.vim-language-server
+
+      ## }}}
+
     ];
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
