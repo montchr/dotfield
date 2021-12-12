@@ -1,8 +1,8 @@
 { ... }:
 {
   font_family = "PragmataPro Mono Liga";
-  font_size = "14.0";
-  adjust_line_height = "110%";
+  font_size = "16.0";
+  # adjust_line_height = "110%";
   disable_ligatures = "cursor";
   # box_drawing_scale = "0.001, 1, 1.5, 2";
 
@@ -15,7 +15,7 @@
   #: }}}
 
   #: Scrollback {{{
-  scrollback_lines = "5000";
+  scrollback_lines = "15000";
   scrollback_pager = "bat";
   scrollback_pager_history_size = "200";
   #: }}}
@@ -40,9 +40,7 @@
   #: }}}
 
   #: Advanced {{{
-  allow_remote_control = "yes";
-  # FIXME: why was this set to `none` in the original config? we do use
-  # the socket, so why not set it here instead of via flags?
+  allow_remote_control = "no";
   listen_on = "none";
   startup_session = "session";
   #: }}}

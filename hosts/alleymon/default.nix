@@ -20,6 +20,11 @@
     website = "https://alley.co/";
 
     hm.accounts.email.accounts.work.primary = true;
+
+    hm.programs.firefox.profiles = {
+      home.isDefault = false;
+      work.isDefault = true;
+    };
   };
 
   environment.variables = {

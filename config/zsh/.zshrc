@@ -112,24 +112,28 @@ zt 0a atload'
 ## Autosuggestions
 # -------------------------------------------
 
-zt 0a for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+zinit wait lucid for \
+  silent atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
-  blockf \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  as"completion" \
     zsh-users/zsh-completions \
-  atload'
-    ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-    ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c100,)"
-    ZSH_AUTOSUGGEST_MANUAL_REBIND=set
-    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-    ZSH_AUTOSUGGEST_USE_ASYNC=true
+  atload'!
+    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=yellow,fg=white,bold"
 
-    _zsh_autosuggest_start
+    bindkey   "$terminfo[kcuu1]"  history-substring-search-up;
+    bindkey   "^[[A"              history-substring-search-up;
+    bindkey   -M vicmd "k"        history-substring-search-up;
+
+    bindkey   "$terminfo[kcud1]"  history-substring-search-down;
+    bindkey   "^[[B"              history-substring-search-down;
+    bindkey   -M vicmd "j"        history-substring-search-down;
   ' \
-    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-history-substring-search
 
+# FIXME: move this
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 ## History
 ## Navigation
@@ -145,17 +149,11 @@ zt 0a for \
   ajeetdsouza/zoxide
 
 zt 0a for \
-  atload'
-    bindkey   "$terminfo[kcuu1]"  history-substring-search-up;
-    bindkey   "^[[A"              history-substring-search-up;
-    bindkey   -M vicmd "k"        history-substring-search-up;
-
-    bindkey   "$terminfo[kcud1]"  history-substring-search-down;
-    bindkey   "^[[B"              history-substring-search-down;
-    bindkey   -M vicmd "j"        history-substring-search-down;
-  ' \
-    zsh-users/zsh-history-substring-search \
   zdharma-continuum/history-search-multi-word
+
+zinit ice \
+  wait'!' \
+zinit light zsh-users/zsh-history-substring-search
 
 
 ## zsh-vim-mode
@@ -178,7 +176,7 @@ zt 0b from'gh-r' as'program' for \
   sei40kr/zsh-fast-alias-tips
 
 
-## Completions
+## Completion Tools
 # -------------------------------------------
 
 # Automatic completion generator based on `--help` usage

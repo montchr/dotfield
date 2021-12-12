@@ -37,6 +37,15 @@ let
 
     ${toKittyConfig (mkTheme name)}
   '';
+
+  mkFontFeatures = name: features:
+    "font_features ${name} ${lib.concatStringsSep " " features}";
+
+  mkFontFeatures' = family: styles: features:
+    lib.concatMapStringsSep "\n"
+      (style: mkFontFeatures "${family}-${style}" features)
+      styles;
+
 in
 
 lib.mkMerge [
@@ -70,11 +79,20 @@ lib.mkMerge [
         "--listen-on=${socket}"
       ];
 
-      extraConfig = ''
-        font_features PragmataProMonoLiga-Regular +calt
-        font_features PragmataProMonoLiga-Italic +calt
-        font_features PragmataProMonoLiga-BoldItalic +calt
-      '';
+      extraConfig =
+        let
+          fontStyles = [ "Regular" "Italic" "BoldItalic" ];
+          # https://fsd.it/pragmatapro/Handbook.png
+          fontFeatures = [
+            "+calt" # Standard programming ligatures.
+            # "+frac" # Fraction stylization.
+            # "+ss12" # Assorted iconizations.
+            "+ss13" # Smooth graphs e.g. for git log.
+          ];
+        in
+        ''
+          ${mkFontFeatures' "PragmataProMonoLiga" fontStyles fontFeatures}
+        '';
 
       settings =
         (import ./settings.nix { inherit config lib; }) //

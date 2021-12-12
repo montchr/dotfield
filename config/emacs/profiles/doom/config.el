@@ -3,7 +3,7 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14)
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 16)
        doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
@@ -246,6 +246,7 @@
   :commands (doct))
 
 (after! js2-mode
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (set-company-backend! 'company-tide 'js2-mode))
 
 (after! sh-script
@@ -362,7 +363,8 @@
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
          lsp-enable-indentation t
-         lsp-ui-doc-delay 2)
+         lsp-ui-doc-delay 2
+         flycheck-javascript-eslint-executable "eslint_d")
 
   ;; Sync LSP workspace folders and treemacs projects.
   (lsp-treemacs-sync-mode 1)

@@ -5,6 +5,10 @@ let
   configDir = "${config.dotfield.configDir}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
+  defaults = {
+    padding = "6";
+  };
+
   scriptsFromFiles = (map
     (cmd: (writeScriptBin "yabai-${cmd}"
       (builtins.readFile "${configDir}/bin/${cmd}"))) [
@@ -48,11 +52,20 @@ let
         #
         # yabai-set-padding
         #
-        # TODO: Logging.
+        # Usage:
+        #   yabai-set-padding [<padding-value>]
+        #   yabai-set-padding 6
+        #
+        # Note that environment variables may not be available when the
+        # config is loaded for the first time, so it's best to set the desired
+        # values explicitly as an initial fallback -- a default for the default.
         #
 
-        PADDING=$1
-        [[ -z $PADDING ]] && PADDING=12
+
+        DEFAULT_PADDING="''${YABAI_PADDING_DEFAULT:-${defaults.padding}}"
+
+        PADDING="''${1:-$DEFAULT_PADDING}"
+
         yabai -m config top_padding "$PADDING"
         yabai -m config bottom_padding "$PADDING"
         yabai -m config left_padding "$PADDING"
@@ -105,6 +118,7 @@ in
     YABAI_BORDER_DARK = "000000";
     YABAI_BORDER_LIGHT = "ffffff";
     YABAI_BORDER_WIDTH = "4";
+    YABAI_PADDING_DEFAULT = defaults.padding;
   };
 
   launchd.user.agents.yabai.serviceConfig = {
@@ -180,7 +194,8 @@ in
         };
       in
       ''
-        ${getScript "set-padding"} 12
+        # Set window padding to default value.
+        ${getScript "set-padding"}
 
         yabai -m space 1 --label 'task'
         yabai -m space 2 --label 'inspect'

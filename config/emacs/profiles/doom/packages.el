@@ -57,6 +57,7 @@
 
 ;; Languages
 (package! bats-mode)                 ; mode for editing and running BATS tests
+(package! eslintd-fix)               ; auto-format js files with eslint_d
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! nixpkgs-fmt)               ; nixpkgs-ready nix formatter

@@ -1,5 +1,13 @@
 # nvfetcher.toml
 
+[chemacs]
+src.git = "https://github.com/plexus/chemacs2.git"
+fetch.git = "https://github.com/plexus/chemacs2.git"
+
+[doom-emacs]
+src.git = "https://github.com/hlissner/doom-emacs.git"
+fetch.git = "https://github.com/hlissner/doom-emacs.git"
+
 [fish-abbr-tips]
 src.github = "gazorby/fish-abbreviation-tips"
 fetch.github = "gazorby/fish-abbreviation-tips"
