@@ -173,7 +173,7 @@
         (import ./pkgs/default.nix)
         (import ./overlays/yabai.nix)
         agenix.overlay
-        emacs.overlay
+        # emacs.overlay
         nur.overlay
         nvfetcher.overlay
         (final: prev: {
@@ -185,7 +185,6 @@
       ];
 
       hostDefaults = {
-        channelName = "stable";
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
         modules = [
