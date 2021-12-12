@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   nixpkgs.system = "x86_64-darwin";
+  nixpkgs.overlays = [ inputs.emacs.overlay ];
 
   # Administrative users on Darwin are part of this group, not the `wheel` group.
   nix.trustedUsers = [ "@admin" ];
