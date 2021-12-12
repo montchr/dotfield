@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - feature/hodge-nixos
   pull_request:
     branches:
       - main
