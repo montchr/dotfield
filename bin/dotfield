@@ -43,7 +43,7 @@ function host::flakePath() {
 # Globals:
 #   KERNEL_NAME
 # Outputs:
-#   Flake output path for a host configuration.
+#   Flake output path for a host build.
 #========================================
 function host::flakeOutput() {
   local hostName="$1"
@@ -55,7 +55,7 @@ function host::flakeOutput() {
     darwin) outputBase="darwinConfigurations" ;;
     *) msg::error "Something went VERY wrong! Unable to detect kernel name." ;;
   esac
-  echo "${outputBase}.${hostName}"
+  echo "${outputBase}.${hostName}.config.system.build.toplevel"
 }
 
 #========================================
