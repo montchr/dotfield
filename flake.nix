@@ -247,30 +247,34 @@
           (mkNixosHost "ci-ubuntu" { extraSuites = (linux-minimal ++ developer); })
         ];
 
-      # Shortcuts
-      HodgePodge = self.darwinConfigurations.HodgePodge.system;
-      alleymon = self.darwinConfigurations.alleymon.system;
-
       # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
-      # checks = listToAttrs (
-      #   # darwin checks
-      #   (map (system: {
-      #     name = system;
-      #     value = {
-      #       darwin =
-      #         self.darwinConfigurations.randall-intel.config.system.build.toplevel;
-      #       darwinServer =
-      #         self.homeConfigurations.darwinServer.activationPackage;
-      #     };
-      #   }) lib.platforms.darwin) ++
-      #   # linux checks
-      #   (map (system: {
-      #     name = system;
-      #     value = {
-      #       nixos = self.nixosConfigurations.phil.config.system.build.toplevel;
-      #       server = self.homeConfigurations.server.activationPackage;
-      #     };
-      #   }) lib.platforms.linux));
+      checks = self.lib.listToAttrs (
+
+        # darwin checks
+        (map
+          (system: {
+            name = system;
+            value = {
+              darwin =
+                self.darwinConfigurations.alleymon.config.system.build.toplevel;
+              # darwinServer =
+              #   self.homeConfigurations.darwinServer.activationPackage;
+            };
+          })
+          self.lib.platforms.darwin)
+        # ++
+
+        # # linux checks
+        # (map
+        #   (system: {
+        #     name = system;
+        #     value = {
+        #       # nixos = self.nixosConfigurations.phil.config.system.build.toplevel;
+        #       # server = self.homeConfigurations.server.activationPackage;
+        #     };
+        #   })
+        #   self.lib.platforms.linux)
+      );
 
     };
 }
