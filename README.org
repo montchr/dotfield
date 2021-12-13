@@ -27,10 +27,13 @@ Set the values at the beginning of the provisioning script.
 
 * Prior Art
 
-- https://github.com/ahmedelgabri/dotfiles/
-- https://github.com/hlissner/dotfiles/
+- https://github.com/sei40kr/dotfiles
+- https://github.com/malob/nixpkgs
+- https://github.com/kclejeune/system
+- https://github.com/ahmedelgabri/dotfiles
 - https://github.com/cmacrae/config
+- https://github.com/hlissner/dotfiles
 - https://github.com/d12frosted/environment
-- https://github.com/hardselius/dotfiles/
+- https://github.com/hardselius/dotfiles
 - https://github.com/alrra/dotfiles
 - https://github.com/jasonheecs/ubuntu-server-setup

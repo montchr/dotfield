@@ -2,50 +2,48 @@
   description = "Dotfield";
 
   inputs = {
-    stable.url = "github:nixos/nixpkgs/release-21.11";
-    latest.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # Package sets
+    nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
+    nixpkgs-trunk.url = github:NixOS/nixpkgs/master;
+    nixpkgs-darwin-stable.url = github:NixOS/nixpkgs/nixpkgs-21.11-darwin;
+    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
 
-    digga.url = "github:divnix/digga";
-    digga.inputs.nixpkgs.follows = "stable";
-    digga.inputs.nixlib.follows = "stable";
+    # Environment/system management.
+    darwin.url = github:montchr/nix-darwin/trunk;
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.url = github:nix-community/home-manager;
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    # Flake utilities.
+    digga.url = github:divnix/digga;
+    digga.inputs.nixpkgs.follows = "nixos-stable";
+    digga.inputs.nixlib.follows = "nixos-stable";
     digga.inputs.home-manager.follows = "home-manager";
+    utils.url = github:gytis-ivaskevicius/flake-utils-plus;
+    flake-compat = { url = github:edolstra/flake-compat; flake = false; };
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-    nur.url = "github:nix-community/NUR";
+    # Sources management.
+    nur.url = github:nix-community/NUR;
+    nvfetcher.url = github:berberman/nvfetcher;
 
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "stable";
-    agenix-cli.url = "github:montchr/agenix-cli/develop";
-    # agenix-cli.inputs.nixpkgs.follows = "stable";
+    # Secrets management.
+    agenix.url = github:ryantm/agenix;
+    agenix.inputs.nixpkgs.follows = "nixos-stable";
+    agenix-cli.url = github:montchr/agenix-cli/develop;
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "stable";
+    # Development tools.
+    emacs.url = github:montchr/emacs/develop;
+    emacs-overlay.url = github:nix-community/emacs-overlay;
+    rnix-lsp.url = github:nix-community/rnix-lsp;
 
-    darwin.url = "github:montchr/nix-darwin/trunk";
-    darwin.inputs.nixpkgs.follows = "stable";
+    # Other sources.
+    # prefmanager.url = github:malob/prefmanager;
+    # prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    base16-kitty = { url = github:kdrag0n/base16-kitty; flake = false; };
+    firefox-lepton = { url = github:black7375/Firefox-UI-Fix; flake = false; };
+    nix-colors.url = github:montchr/nix-colors;
 
-    emacs.url = "github:montchr/emacs/develop";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
-    rnix-lsp.inputs.nixpkgs.follows = "stable";
-
-    nvfetcher.url = "github:berberman/nvfetcher";
-    nvfetcher.inputs.nixpkgs.follows = "stable";
-
-    nix-colors.url = "github:montchr/nix-colors";
-
-    firefox-lepton = {
-      url = "github:black7375/Firefox-UI-Fix";
-      flake = false;
-    };
-
-    base16-kitty = {
-      url = "github:kdrag0n/base16-kitty";
-      flake = false;
-    };
-
-    nixpkgs.follows = "stable";
+    nixpkgs.follows = "nixos-stable";
   };
 
   outputs =
@@ -57,11 +55,12 @@
     , emacs-overlay
     , home-manager
     , nix-colors
-    , utils
-    , stable
-    , latest
+    , nixos-stable
+    , nixpkgs
+    , nixpkgs-unstable
     , nur
     , nvfetcher
+    , utils
     , ...
     } @ inputs:
     let
@@ -128,60 +127,102 @@
           ];
       };
 
-      mkNixosHost = name: extraSuites: {
-        ${name} = {
-          system = "x86_64-linux";
-          modules = suites.base ++ extraSuites ++ [
-            hostConfigs.${name}
-            home-manager.nixosModules.home-manager
-            agenix.nixosModules.age
-          ];
-        };
-      };
-
-      mkDarwinHost = name: extraSuites: {
-        ${name} = {
-          system = "x86_64-darwin";
-          output = "darwinConfigurations";
-          builder = darwin.lib.darwinSystem;
-          modules = suites.base ++ extraSuites ++ [
-            hostConfigs.${name}
-            home-manager.darwinModules.home-manager
-          ];
-        };
-      };
-
       mkHosts = hosts: (builtins.foldl' (a: b: a // b) { } hosts);
+
+      mkNixosHost = name:
+        { system ? "x86_64-linux"
+        , channelName ? "nixos-stable"
+        , extraSuites ? [ ]
+        }: {
+          ${name} = {
+            inherit system channelName;
+            modules = suites.base ++ extraSuites ++ [
+              hostConfigs.${name}
+              home-manager.nixosModules.home-manager
+              agenix.nixosModules.age
+            ];
+          };
+        };
+
+      mkDarwinHost = name:
+        { system ? "x86_64-darwin"
+        , channelName ? "nixpkgs-darwin-stable"
+        , extraSuites ? [ ]
+        }: {
+          ${name} = {
+            inherit system channelName;
+            output = "darwinConfigurations";
+            builder = darwin.lib.darwinSystem;
+            modules = suites.base ++ extraSuites ++ [
+              hostConfigs.${name}
+              home-manager.darwinModules.home-manager
+            ];
+          };
+        };
+
+      # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L89-L109
+      # generate a home-manager configuration usable on any unix system
+      # with overlays and any extraModules applied
+      # mkHomeConfig =
+      #   { username
+      #   , system ? "x86_64-linux"
+      #   , nixpkgs ? inputs.nixpkgs
+      #   , stable ? inputs.nixos-stable
+      #   , lib ? (mkLib nixpkgs)
+      #   , baseModules ? [
+      #       ./modules/home-manager
+      #       {
+      #         home.sessionVariables = {
+      #           NIX_PATH =
+      #             "nixpkgs=${nixpkgs}:stable=${stable}:trunk=${inputs.trunk}\${NIX_PATH:+:}$NIX_PATH";
+      #         };
+      #       }
+      #     ]
+      #   , extraModules ? [ ]
+      #   }:
+      #   homeManagerConfiguration rec {
+      #     inherit system username;
+      #     homeDirectory = "${homePrefix system}/${username}";
+      #     extraSpecialArgs = { inherit inputs lib nixpkgs stable; };
+      #     configuration = {
+      #       imports = baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
+      #     };
+      #   };
 
     in
 
     utils.lib.mkFlake {
       inherit self inputs;
 
-      channelsConfig = {
-        allowUnfree = true;
-      };
+      channelsConfig.allowUnfree = true;
 
       channels = {
-        stable = { };
-        latest = { };
+        nixos-stable = { };
+        nixpkgs-trunk = { };
+        nixpkgs-darwin-stable = {
+          overlaysBuilder = (channels: [
+            (import ./overlays/darwin/yabai.nix)
+            emacs.overlay
+          ]);
+        };
+        nixpkgs-unstable = { };
       };
 
-      lib = import ./lib { lib = digga.lib // latest.lib; };
+      lib = import ./lib { lib = digga.lib // nixpkgs-unstable.lib; };
 
       sharedOverlays = [
-        (import ./pkgs/default.nix)
-        (import ./overlays/yabai.nix)
-        agenix.overlay
-        # emacs.overlay
-        nur.overlay
-        nvfetcher.overlay
         (final: prev: {
           __dontExport = true;
+          inherit inputs;
           lib = prev.lib.extend (lfinal: lprev: {
             our = self.lib;
           });
         })
+
+        (import ./pkgs)
+        agenix.overlay
+        nur.overlay
+        nvfetcher.overlay
       ];
 
       hostDefaults = {
@@ -198,17 +239,38 @@
 
       hosts = with suites;
         mkHosts [
-          (mkDarwinHost "HodgePodge" (darwin-gui ++ personal ++ developer ++ home))
-          (mkDarwinHost "alleymon" (darwin-gui ++ work ++ personal ++ home))
+          (mkDarwinHost "HodgePodge" { extraSuites = (darwin-gui ++ personal ++ developer ++ home); })
+          (mkDarwinHost "alleymon" { extraSuites = (darwin-gui ++ work ++ personal ++ home); })
 
           # CI runner hosts.
-          (mkDarwinHost "ci-darwin" (darwin-minimal ++ developer))
-          (mkNixosHost "ci-ubuntu" (linux-minimal ++ developer))
+          (mkDarwinHost "ci-darwin" { extraSuites = (darwin-minimal ++ developer); })
+          (mkNixosHost "ci-ubuntu" { extraSuites = (linux-minimal ++ developer); })
         ];
 
       # Shortcuts
       HodgePodge = self.darwinConfigurations.HodgePodge.system;
       alleymon = self.darwinConfigurations.alleymon.system;
+
+      # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
+      # checks = listToAttrs (
+      #   # darwin checks
+      #   (map (system: {
+      #     name = system;
+      #     value = {
+      #       darwin =
+      #         self.darwinConfigurations.randall-intel.config.system.build.toplevel;
+      #       darwinServer =
+      #         self.homeConfigurations.darwinServer.activationPackage;
+      #     };
+      #   }) lib.platforms.darwin) ++
+      #   # linux checks
+      #   (map (system: {
+      #     name = system;
+      #     value = {
+      #       nixos = self.nixosConfigurations.phil.config.system.build.toplevel;
+      #       server = self.homeConfigurations.server.activationPackage;
+      #     };
+      #   }) lib.platforms.linux));
 
     };
 }
