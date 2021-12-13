@@ -22,15 +22,40 @@ DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
 # Get an absolute path to a system flake output.
 #
 # Usage:
-#   flake::output <name>
+#   host::flakePath <host-name>
 # Arguments:
-#   Flake output name.
+#   Hostname.
 # Globals:
 #   DOTFIELD_DIR
 #========================================
-function flake::output() {
-  local output_name=$1
-  printf "%s/#%s" "${DOTFIELD_DIR}" "${output_name}"
+function host::flakePath() {
+  local hostName=$1
+  printf "%s/#%s" "${DOTFIELD_DIR}" "${hostName}"
+}
+
+#========================================
+# Get the flake output path for the specified host.
+#
+# Usage:
+#   host::flakeOutput <hostName>
+# Arguments:
+#   Host name.
+# Globals:
+#   KERNEL_NAME
+# Outputs:
+#   Flake output path for a host configuration.
+#========================================
+function host::flakeOutput() {
+  local hostName="$1"
+  [[ -z "${hostName}" ]] \
+    && msg::error "[dotfield::host::flakeOutput] Host name was not specified."
+  local outputBase
+  case "${KERNEL_NAME}" in
+    linux) outputBase="nixosConfigurations" ;;
+    darwin) outputBase="darwinConfigurations" ;;
+    *) msg::error "Something went VERY wrong! Unable to detect kernel name." ;;
+  esac
+  echo "${outputBase}.${hostName}"
 }
 
 #========================================
@@ -50,39 +75,50 @@ function host::name() {
 # Build a specified flake output.
 #
 # Usage:
-#   host::build <name> [<args>...]
+#   host::build <hostname> [<args>...]
 # Arguments:
-#   Flake output name.
-#   Args to pass to the build command.
+#   Hostname.
+#   Additional args.
 #========================================
 function host::build() {
-  local output="$1"
+  local name="$1"
   shift
-  nix build --verbose "$(flake::output "${output}")" "$@"
+
+  local outputPath
+  outputPath="$(host::flakeOutput "${name}")"
+  flakePath="$(host::flakePath "${outputPath}")"
+
+  nix build --verbose \
+    "${flakePath}" \
+    "$@"
 }
 
 #========================================
-# Switch to a new generation.
+# Switch to a new generation of the system flake.
 #
 # Usage:
 #   host::switch <name> [<args>...]
 # Arguments:
-#   Flake output name.
+#   Hostname.
 #   Args to pass to the switch command.
 # Globals:
 #   DOTFIELD_DIR
 #========================================
 function host::switch() {
-  local output="$1"
-
+  local name="$1"
   shift
 
-  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch --verbose --flake \
-    "$(flake::output "${output}")" \
+  local outputPath
+  outputPath="$(host::flakeOutput "${name}")"
+  flakePath="$(host::flakePath "${outputPath}")"
+
+  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch \
+    --verbose --flake \
+    "${flakePath}" \
     "$@" ||
-    {
-      msg::error "Failed to switch to the new generation!"
-    }
+      {
+        msg::error "Failed to switch to the new generation!"
+      }
 }
 
 #========================================
@@ -112,8 +148,9 @@ function theme::is_dark() {
 # Switch to a different system UI theme.
 #
 # Note: this function calls the main function recursively
+#
 # Usage:
-#   theme::switch (light|dark|<theme-name>)
+#   theme::switch ( light | dark | <theme-name> )
 # Arguments:
 #   Either "light", "dark", or a theme name.
 #========================================
@@ -128,67 +165,41 @@ function theme::switch() {
   host::switch "$(host::name)" --impure
 }
 
-#========================================
-# Open a new Nix REPL shell for a flake output.
-#
-# FIXME: assumes darwin
-#
-# Usage:
-#   host::repl <output-name>
-# Arguments:
-#   Flake output name.
-# Globals:
-#   DOTFIELD_DIR
-#========================================
-function host::repl() {
-  local output="$1"
-  local conf
-  conf="$(mktemp)"
-
-  msg::subdomain "Loading flake from ${output}..."
-
-  output="darwinConfigurations.${output}"
-
-  cat >"${conf}" <<EOF
-(builtins.getFlake (toString ${DOTFIELD_DIR})).${output}
-EOF
-
-  nix repl "${conf}"
-}
 
 #========================================
 # Entry point.
 #========================================
 function main() {
   local subcommand="$1"
-  local output
+  local hostName
 
   shift
 
-  output="$(host::name)"
+  hostName="$(host::name)"
 
   case "${subcommand}" in
     build)
-      msg::domain "Evolution" "Building '${output}'"
-      host::build "${output}" "$@"
+      msg::domain "Evolution" "Building '${hostName}'"
+      host::build "${hostName}" "$@"
       ;;
 
     switch)
       msg::domain "Evolution" "Switching to new generation"
-      host::switch "${output}" "$@"
+      host::switch "${hostName}" "$@"
       ;;
 
     evolve)
-      msg::domain "Evolution" "Building '${output}'"
-      host::build "${output}"
+      msg::domain "Evolution" "Building '${hostName}'"
+      host::build "${hostName}"
 
       msg::domain "Evolution" "Switching to new generation"
-      host::switch "${output}"
+      host::switch "${hostName}"
       ;;
 
     repl)
-      msg::domain "Introspection" "Launching REPL shell for ${output}"
-      host::repl "${output}"
+      msg::domain "Introspection" "Launching REPL"
+      # Use flake-utils-plus REPL shell
+      repl "${DOTFIELD_DIR}"
       ;;
 
     theme)
