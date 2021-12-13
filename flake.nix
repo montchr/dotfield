@@ -64,6 +64,9 @@
     , ...
     } @ inputs:
     let
+
+      nixlib = nixpkgs-unstable.lib;
+
       hostConfigs = digga.lib.rakeLeaves ./hosts;
       systemProfiles = digga.lib.rakeLeaves ./profiles;
       userProfiles = digga.lib.rakeLeaves ./users/profiles;
@@ -248,7 +251,7 @@
         ];
 
       # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
-      checks = self.lib.listToAttrs (
+      checks = nixlib.listToAttrs (
 
         # darwin checks
         (map
@@ -261,7 +264,7 @@
               #   self.homeConfigurations.darwinServer.activationPackage;
             };
           })
-          self.lib.platforms.darwin)
+          nixlib.platforms.darwin)
         # ++
 
         # # linux checks
