@@ -85,6 +85,7 @@ function host::build() {
   shift
 
   local outputPath
+  local flakePath
   outputPath="$(host::flakeOutput "${name}")"
   flakePath="$(host::flakePath "${outputPath}")"
 
