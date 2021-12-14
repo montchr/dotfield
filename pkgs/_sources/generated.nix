@@ -15,14 +15,14 @@
   };
   doom-emacs = {
     pname = "doom-emacs";
-    version = "f458f9776049fd7e9523318582feed682e7d575c";
+    version = "23f6f90515d711a22be20a82fabfba6b0f364456";
     src = fetchgit {
       url = "https://github.com/hlissner/doom-emacs.git";
-      rev = "f458f9776049fd7e9523318582feed682e7d575c";
+      rev = "23f6f90515d711a22be20a82fabfba6b0f364456";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-R1Vw2kntEPxIdOT9xmWVcTxSt2h0S8vnpPr/x2e2zuE=";
+      sha256 = "sha256-9d+WZn//fIS9Z46zA7Ys7bw90x4OUf7GrMErMAhzhxs=";
     };
   };
   fish-abbr-tips = {
