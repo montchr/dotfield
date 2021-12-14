@@ -1,6 +1,18 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  nix.nixPath = [
+    # FIXME: This entry should be added automatically via FUP's `nix.linkInputs`
+    # and `nix.generateNixPathFromInputs` options, but currently that doesn't
+    # work because nix-darwin doesn't export packages, which FUP expects.
+    #
+    # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
+    "darwin=/etc/nix/inputs/darwin"
+  ];
+
+  environment.darwinConfig = "$DOTFIELD_DIR/lib/compat/darwin";
+
+  # TODO: maybe unnecessary
   nixpkgs.system = "x86_64-darwin";
   nixpkgs.overlays = [ inputs.emacs.overlay ];
 

@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.nixPath = [ "nixos-config=${../../lib/compat/nixos}" ];
+
   environment.systemPackages = with pkgs; [
     dosfstools
     gptfdisk
