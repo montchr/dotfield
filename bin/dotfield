@@ -110,16 +110,28 @@ function host::switch() {
   shift
 
   local outputPath
-  outputPath="$(host::flakeOutput "${name}")"
-  flakePath="$(host::flakePath "${outputPath}")"
+  local flakePath
 
-  "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch \
-    --verbose --flake \
-    "${flakePath}" \
-    "$@" ||
-      {
-        msg::error "Failed to switch to the new generation!"
-      }
+  case "${KERNEL_NAME}" in
+    linux)
+      outputPath="$(host::flakeOutput "${name}")"
+      flakePath="$(host::flakePath "${outputPath}")"
+      sudo nixos-rebuild switch "${flakePath}"
+      ;;
+    darwin)
+      flakePath="$(host::flakePath "${name}")"
+      "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch \
+        --verbose --flake \
+        "${flakePath}" \
+        "$@"
+      ;;
+    *) msg::error "[dotfield::host::switch] Unable to detect kernel name." ;;
+  esac
+
+  [[ $? ]] || {
+    msg::error "[dotfield::host::switch] Failed to switch to the new generation!"
+  }
+
 }
 
 #========================================
