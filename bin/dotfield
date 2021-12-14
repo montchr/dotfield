@@ -203,10 +203,10 @@ function main() {
 
     evolve)
       msg::domain "Evolution" "Building '${hostName}'"
-      host::build "${hostName}"
+      host::build "${hostName}" "$@"
 
       msg::domain "Evolution" "Switching to new generation"
-      host::switch "${hostName}"
+      host::switch "${hostName}" "$@"
       ;;
 
     repl)
