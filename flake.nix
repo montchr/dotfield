@@ -232,11 +232,11 @@
         extraArgs = { inherit utils inputs; };
         specialArgs = { inherit suites systemProfiles userProfiles; };
         modules = [
-          ./modules/dotfield.nix
-          ./users/modules/user-settings
           ./users/primary-user
           nix-colors.homeManagerModule
         ] ++ (builtins.attrValues (digga.lib.flattenTree
+          (digga.lib.rakeLeaves ./modules)))
+        ++ (builtins.attrValues (digga.lib.flattenTree
           (digga.lib.rakeLeaves ./users/modules)));
       };
 
