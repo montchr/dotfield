@@ -10,7 +10,7 @@ in
     ./fzf.nix
   ];
 
-  my.modules.shell = {
+  shell = {
     abbrs = import ./abbrs.nix { inherit config lib pkgs; };
     aliases = import ./aliases.nix { inherit config lib pkgs; };
   };

@@ -68,7 +68,7 @@ lib.mkMerge [
       # };
     };
 
-    my.modules.shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
+    shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
 
     my.hm.programs.emacs = {
       enable = true;

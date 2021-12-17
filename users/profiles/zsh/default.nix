@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  shellCfg = config.my.modules.shell;
+  shellCfg = config.shell;
   configDir = "${config.dotfield.configDir}/zsh";
 in
 

@@ -6,7 +6,7 @@ let
 
   configDir = "${xdg.config}/bash";
 
-  shellCfg = my.modules.shell;
+  shellCfg = config.shell;
   bash = pkgs.bashInteractive_5;
 in
 {

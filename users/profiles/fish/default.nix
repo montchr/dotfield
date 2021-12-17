@@ -3,7 +3,7 @@
 let
   inherit (lib.strings) fileContents;
 
-  shellCfg = config.my.modules.shell;
+  shellCfg = config.shell;
   configDir = "${config.dotfield.configDir}/fish";
 
   mkPlugins = plugins: (map

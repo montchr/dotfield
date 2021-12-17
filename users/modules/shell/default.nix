@@ -1,15 +1,18 @@
 { lib, config, options, pkgs, ... }:
+
 let
   inherit (pkgs.lib.our) mkOpt mkOpt';
 
-  cfg = config.my.modules.shell;
+  cfg = config.shell;
+
   aliasLines = lib.mapAttrsToList
     (n: v: ''alias ${n}="${v}"'')
     (cfg.abbrs // cfg.aliases);
 in
+
 {
   options = {
-    my.modules.shell = with lib.types; {
+    shell = with lib.types; {
 
       abbrs = mkOpt' (attrsOf str) { } ''
         Similar to aliases, but intended for inline expansion. For example, fish
