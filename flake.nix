@@ -204,8 +204,13 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
-            (final: prev: { inherit (channels.nixpkgs-unstable) direnv nix-direnv; })
-            (import ./overlays/darwin/yabai.nix)
+            (final: prev: {
+              inherit (channels.nixpkgs-unstable)
+                direnv
+                nix-direnv
+                yabai
+                ;
+            })
             emacs.overlay
           ]);
         };
