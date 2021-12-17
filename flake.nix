@@ -204,17 +204,22 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
+            (import ./pkgs/darwin)
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
                 direnv
                 nix-direnv
-                yabai
+                # yabai
                 ;
             })
             emacs.overlay
           ]);
         };
-        nixpkgs-unstable = { };
+        nixpkgs-unstable = {
+          overlaysBuilder = (channels: [
+            (import ./overlays/darwin/yabai.nix)
+          ]);
+        };
       };
 
       lib = import ./lib { lib = digga.lib // nixpkgs-unstable.lib; };

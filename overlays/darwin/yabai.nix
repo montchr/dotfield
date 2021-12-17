@@ -1,14 +1,44 @@
 final: prev: {
-  # https://github.com/NixOS/nixpkgs/pull/108861#issuecomment-832087889
   yabai = prev.yabai.overrideAttrs (o: rec {
-    version = "3.3.10";
-    src = builtins.fetchTarball {
-      url =
-        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "1z95njalhvyfs2xx6d91p9b013pc4ad846drhw0k5gipvl03pp92";
+    version = "4.0.0-pre";
+
+    src = final.fetchFromGitHub {
+      owner = "koekeishiya";
+      repo = "yabai";
+      # rev = "v${version}";
+      rev = "f403e609e32b4100494c5afb089d0010e7e4ef91";
+      sha256 = "sha256-Lzim9h9aZopS7BjLzGghZQpgHx183psTLHCM9ndJCXo=";
     };
 
-    installPhase = ''
+    # XCODE_APP = final.darwin.xcode;
+
+    buildInputs = with final.darwin.apple_sdk.frameworks; [
+      Carbon
+      Cocoa
+      CoreServices
+      ScriptingBridge
+      SkyLight
+    ];
+
+    stdenv = final.clangStdenv;
+
+    nativeBuildInputs = with final; [
+      # clang_13
+      xcbuild
+      darwin.xcode
+      xxd
+    ];
+
+    # dontBuild = true;
+    buildPhase = "";
+
+    preInstall = ''
+      make clean
+    '';
+
+    installPhase = "make install";
+
+    postInstall = ''
       mkdir -p $out/bin
       mkdir -p $out/share/man/man1/
       cp ./bin/yabai $out/bin/yabai
