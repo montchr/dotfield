@@ -132,6 +132,18 @@
 
       mkHosts = hosts: (builtins.foldl' (a: b: a // b) { } hosts);
 
+      systemImportables = rec {
+        profiles = (digga.lib.rakeLeaves ./profiles) // {
+          users = (digga.lib.rakeLeaves ./users);
+        };
+        suites = with profiles; { };
+      };
+
+      userImportables = rec {
+        profiles = (digga.lib.rakeLeaves ./users/profiles);
+        suites = with profiles; rec { };
+      };
+
       mkNixosHost = name:
         { system ? "x86_64-linux"
         , channelName ? "nixos-stable"
@@ -139,6 +151,7 @@
         }: {
           ${name} = {
             inherit system channelName;
+            specialArgs = { inherit (systemImportables) profiles suites; };
             modules = suites.base ++ extraSuites ++ [
               hostConfigs.${name}
               home-manager.nixosModules.home-manager
@@ -156,6 +169,7 @@
             inherit system channelName;
             output = "darwinConfigurations";
             builder = darwin.lib.darwinSystem;
+            specialArgs = { inherit (systemImportables) profiles suites; };
             modules = suites.base ++ extraSuites ++ [
               hostConfigs.${name}
               home-manager.darwinModules.home-manager
@@ -166,38 +180,70 @@
       # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L89-L109
       # generate a home-manager configuration usable on any unix system
       # with overlays and any extraModules applied
-      # mkHomeConfig =
-      #   { username
-      #   , system ? "x86_64-linux"
-      #   , nixpkgs ? inputs.nixpkgs
-      #   , stable ? inputs.nixos-stable
-      #   , lib ? (mkLib nixpkgs)
-      #   , baseModules ? [
-      #       ./modules/home-manager
-      #       {
-      #         home.sessionVariables = {
-      #           NIX_PATH =
-      #             "nixpkgs=${nixpkgs}:stable=${stable}:trunk=${inputs.trunk}\${NIX_PATH:+:}$NIX_PATH";
-      #         };
-      #       }
-      #     ]
-      #   , extraModules ? [ ]
-      #   }:
-      #   homeManagerConfiguration rec {
-      #     inherit system username;
-      #     homeDirectory = "${homePrefix system}/${username}";
-      #     extraSpecialArgs = { inherit inputs lib nixpkgs stable; };
-      #     configuration = {
-      #       imports = baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
-      #     };
-      #   };
+      mkPortableHomeConfiguration =
+        { username
+        , system
+        , extraExtraModules ? [ ]
+        }:
+        home-manager.lib.homeManagerConfiguration rec {
+          inherit system username;
+          inherit (hmCommonConfig) extraSpecialArgs;
+
+          homeDirectory = self.lib.mkHomePath username;
+          extraModules = hmCommonConfig.extraModules // extraExtraModules;
+
+          configuration = {
+            imports = [ configuration ];
+          } // (self.lib.optionalAttrs (self.lib.our.isGenericLinux system)
+            { targets.genericLinux.enable = true; });
+        };
+
+      homeConfigurationsPortable = { pkgs, system }:
+        builtins.mapAttrs
+          (n: v: mkPortableHomeConfiguration {
+            inherit pkgs system;
+            username = n;
+            configuration = v;
+          })
+          hmUsers;
+
+      hmUsers = {
+        montchr = { suites, ... }: { imports = [ suites.base ]; };
+      };
+
+      hmCommonConfig = {
+        extraModules = [ self.hmModules ];
+        # extraModules = [ (digga.lib.importExportableModules ./users/modules) ];
+        extraSpecialArgs = userImportables // {
+          inherit self inputs;
+          # inherit (self) lib;
+        };
+      };
+
+      hmDefaults = { ... }: {
+        home-manager = {
+          # Always use the system nixpkgs from the host's channel
+          useGlobalPkgs = true;
+          # And use the possible future default (see manual)
+          useUserPackages = self.lib.mkDefault true;
+
+          extraSpecialArgs = userImportables // { inherit self inputs; };
+          sharedModules = hmCommonConfig.extraModules;
+        };
+      };
 
     in
 
     utils.lib.mkFlake {
       inherit self inputs;
+      inherit homeConfigurationsPortable;
+
+      hmModules = (digga.lib.importExportableModules ./users/modules);
+      # homeModules = utils.lib.exportModules config.home.exportedModules;
 
       channelsConfig.allowUnfree = true;
+
+      lib = import ./lib { lib = digga.lib // nixpkgs-unstable.lib; };
 
       channels = {
         nixos-stable = { };
@@ -211,8 +257,6 @@
         };
         nixpkgs-unstable = { };
       };
-
-      lib = import ./lib { lib = digga.lib // nixpkgs-unstable.lib; };
 
       sharedOverlays = [
         (final: prev: {
@@ -235,10 +279,14 @@
         modules = [
           ./users/primary-user
           nix-colors.homeManagerModule
+          hmDefaults
+          ({ ... }: {
+            _module.args = {
+              inherit hmUsers;
+            };
+          })
         ] ++ (builtins.attrValues (digga.lib.flattenTree
-          (digga.lib.rakeLeaves ./modules)))
-        ++ (builtins.attrValues (digga.lib.flattenTree
-          (digga.lib.rakeLeaves ./users/modules)));
+          (digga.lib.rakeLeaves ./modules)));
       };
 
       hosts = with suites;
@@ -250,6 +298,8 @@
           (mkDarwinHost "ci-darwin" { extraSuites = (darwin-minimal ++ developer); })
           (mkNixosHost "ci-ubuntu" { extraSuites = (linux-minimal ++ developer); })
         ];
+
+      homeConfigurations = digga.lib.mkHomeConfigurations (self.nixosConfigurations // self.darwinConfigurations);
 
       # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
       # checks = nixlib.listToAttrs (
