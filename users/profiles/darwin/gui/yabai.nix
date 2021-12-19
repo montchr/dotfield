@@ -2,6 +2,7 @@
 let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
+  cfg = config.services.yabai;
   configDir = "${config.dotfield.configDir}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
@@ -9,10 +10,10 @@ let
     padding = "6";
   };
 
-  scriptsFromFiles = (map
-    (cmd: (writeScriptBin "yabai-${cmd}"
-      (builtins.readFile "${configDir}/bin/${cmd}"))) [
-    "set-border"
+  mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
+    (builtins.readFile "${configDir}/bin/${name}"));
+
+  scriptsFromFiles = (map (n: mkScriptFromFile n) [
     "close-window"
     "focus-direction"
   ]);
@@ -24,6 +25,13 @@ let
         value = drv;
       })
       scriptsFromFiles)) // {
+
+      set-border =
+        if cfg.border.enable
+        then
+          mkScriptFromFile "set-border"
+        else
+          (writeShellScriptBin "yabai-set-border" "return 0");
 
       kickstart-sa = (writeShellScriptBin "yabai-sa-kickstart" ''
         # ${config.my.nix_managed}
@@ -128,9 +136,12 @@ in
 
   services.yabai = {
     enable = true;
-    # Use our overlay.
     package = pkgs.yabai;
     enableScriptingAddition = true;
+
+    # As of 2021-12-19, border functionality is unstable in v4.0.0
+    # https://github.com/koekeishiya/yabai/issues/1054#issue-1058384717
+    border.enable = (! (pkgs.yabai.version == "4.0.0-pre"));
 
     config = {
       external_bar = "off";
@@ -146,6 +157,7 @@ in
       mouse_follows_focus = "off";
 
       # `autoraise` will override the effect of `window_topmost`
+      # TODO: `autoraise` behavior was substatially improved in v4.0.0 -- check it out again
       focus_follows_mouse = "off";
       mouse_modifier = "fn";
       mouse_action1 = "move";
@@ -165,7 +177,7 @@ in
       normal_window_opacity = 0.95;
 
       # Enable window borders, but default to transparent.
-      window_border = "on";
+      window_border = if cfg.border.enable then "on" else "off";
       normal_window_border_color = "0x00ffffff";
     };
 
