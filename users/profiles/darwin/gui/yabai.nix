@@ -29,7 +29,7 @@ let
       set-border =
         if cfg.border.enable
         then
-          mkScriptFromFile "set-border"
+          (mkScriptFromFile "set-border")
         else
           (writeShellScriptBin "yabai-set-border" "return 0");
 
