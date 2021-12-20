@@ -31,7 +31,7 @@ let
         then
           (mkScriptFromFile "set-border")
         else
-          (writeShellScriptBin "yabai-set-border" "return 0");
+          (writeShellScriptBin "yabai-set-border" "exit 0");
 
       kickstart-sa = (writeShellScriptBin "yabai-sa-kickstart" ''
         # ${config.my.nix_managed}
