@@ -127,6 +127,7 @@
           [
             systemProfiles.languages.php
             systemProfiles.languages.ruby # for vagrant
+            systemProfiles.virtualbox
           ];
       };
 
