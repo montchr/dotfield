@@ -6,7 +6,6 @@
 ;; Respect visual line mode
 (setq! evil-respect-visual-line-mode t)
 
-
 (doom! :input
   ;;chinese
   ;;japanese
@@ -20,11 +19,11 @@
   (vertico +icons)               ; the search engine of the future
 
   :ui
-  deft                      ; notational velocity for Emacs
+  deft                         ; notational velocity for Emacs
   doom                         ; what makes DOOM look the way it does
   doom-dashboard               ; a nifty splash screen for Emacs
   doom-quit                    ; DOOM quit-message prompts when you quit Emacs
-  (emoji +unicode)     ; 🙂
+  (emoji +unicode)             ; 🙂
   ;; fill-column               ; a `fill-column' indicator
   hl-todo                      ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
   hydra
@@ -36,11 +35,11 @@
   ;; neotree                   ; a project drawer, like NERDTree for vim
   ophints                      ; highlight the region an operation acts on
   (popup +defaults)            ; tame sudden yet inevitable temporary windows
-  ;; tabs                      ; an tab bar for Emacs
+  tabs                         ; an tab bar for Emacs
   (treemacs +lsp)              ; a project drawer, like neotree but cooler
-  unicode                   ; extended unicode support for various languages
+  unicode                      ; extended unicode support for various languages
   vc-gutter                    ; vcs diff in the fringe
-  ;; vi-tilde-fringe              ; fringe tildes to mark beyond EOB
+  ;; vi-tilde-fringe           ; fringe tildes to mark beyond EOB
   ;; window-select             ; visually switch windows
   workspaces                   ; tab emulation, persistence & separate workspaces
   zen                          ; distraction-free coding or writing
@@ -63,7 +62,7 @@
   (dired +ranger +icons) ; making dired pretty [functional]
   electric               ; smarter, keyword-based electric-indent
   (ibuffer +icons)       ; interactive buffer management
-  (undo +tree)           ; persistent, smarter undo for your inevitable mistakes
+  (undo)           ; persistent, smarter undo for your inevitable mistakes
   vc                     ; version-control and Emacs, sitting in a tree
 
   :term
@@ -79,6 +78,7 @@
 
   :tools
   ansible
+  ;;biblio           ; Writes a PhD for you (citation needed)
   (debugger +lsp)    ; FIXME stepping through code, to help you add bugs
   direnv
   (docker +lsp)
@@ -89,7 +89,7 @@
   (lookup            ; navigate your code and its documentation
     +dictionary
     +offline)
-  (lsp +peek)
+  (lsp +peek)        ; M-x vscode
   (magit +forge)     ; a git porcelain for Emacs
   ;;make             ; run make tasks from Emacs
   (pass +auth)       ; password manager for nerds
@@ -117,6 +117,7 @@
   ;;csharp             ; unity, .NET, and mono shenanigans
   data                 ; config/data formats
   ;;(dart +flutter)    ; paint ui and not much else
+  ;;dhall
   ;;elixir             ; erlang done right
   ;;elm                ; care for a cup of TEA?
   emacs-lisp           ; drown in parentheses
@@ -124,11 +125,12 @@
   ;;ess                ; emacs speaks statistics
   ;;factor
   ;;faust              ; dsp, but you get to keep your soul
+  ;;fortran            ; in FORTRAN, GOD is REAL (unless declared INTEGER)
   ;;fsharp             ; ML stands for Microsoft's Language
   ;;fstar              ; (dependent) types and (monadic) effects and Z3
   ;;gdscript           ; the language you waited for
   ;;(go +lsp)          ; the hipster dialect
-  ;;(haskell +dante)   ; a language that's lazier than I am
+  ;;(haskell +lsp)     ; a language that's lazier than I am
   ;;hy                 ; readability of scheme w/ speed of python
   ;;idris              ;
   (json +lsp)          ; At least it ain't XML
@@ -174,8 +176,8 @@
   ;;zig                 ; C, but simpler
 
   :email
-  (mu4e +gmail)
-  ;; notmuch
+  (mu4e +gmail +org)
+  ;;notmuch
   ;;(wanderlust +gmail)
 
   :app
