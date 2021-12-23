@@ -31,8 +31,6 @@
     PATH = [ "$HOME/broadway/bin" "$PATH" ];
   };
 
-  environment.systemPackages = with pkgs; [ dnsmasq ];
-
   homebrew = {
     casks = [ "figma" "microsoft-teams" "sketch" ];
     masApps = {
@@ -40,15 +38,6 @@
       "Jira" = 1475897096;
       "xScope" = 889428659;
       "Xcode" = 497799835;
-    };
-  };
-
-  services.dnsmasq = {
-    enable = false;
-    addresses = {
-      # Vagrant boxes.
-      http = "192.168.50.4";
-      test = "192.168.50.4";
     };
   };
 }

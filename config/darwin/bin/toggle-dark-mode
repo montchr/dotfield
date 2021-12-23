@@ -54,7 +54,7 @@ function main() {
 
   echo "${theme}" > "${XDG_CACHE_HOME}/shell-color-theme.lock"
 
-  yabai-border
+  yabai-set-border
 
   kitty::theme_change "${theme}"
 

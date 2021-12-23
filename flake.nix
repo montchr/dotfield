@@ -127,6 +127,7 @@
           [
             systemProfiles.languages.php
             systemProfiles.languages.ruby # for vagrant
+            systemProfiles.virtualbox
           ];
       };
 
@@ -250,12 +251,22 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
-            (final: prev: { inherit (channels.nixpkgs-unstable) direnv nix-direnv; })
-            (import ./overlays/darwin/yabai.nix)
+            (import ./pkgs/darwin)
+            (final: prev: {
+              inherit (channels.nixpkgs-unstable)
+                direnv
+                nix-direnv
+                # yabai
+                ;
+            })
             emacs.overlay
           ]);
         };
-        nixpkgs-unstable = { };
+        nixpkgs-unstable = {
+          overlaysBuilder = (channels: [
+            (import ./overlays/darwin/yabai.nix)
+          ]);
+        };
       };
 
       sharedOverlays = [

@@ -143,6 +143,7 @@ in
       reduxdevtools
       refined-github
       search-engines-helper
+      tab-session-manager
       tabliss
       temporary-containers
       tridactyl
