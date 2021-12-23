@@ -3,7 +3,7 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 16)
+(setq doom-font (font-spec :family "PragmataPro Liga" :size 16)
        doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
@@ -21,7 +21,7 @@
 ;; Adjust the size of the modeline.
 (after! doom-modeline
   (when IS-MAC
-    (setq! doom-modeline-height 1)
+    (setq doom-modeline-height 1)
     (custom-set-faces!
       '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
@@ -47,30 +47,33 @@
   (interactive)
   (let ((status (string-trim-right (shell-command-to-string "dotfield_os_appearance"))))
     (if (equal "light" status)
-        (modus-themes-load-operandi)
-      (modus-themes-load-vivendi))))
+        (load-theme 'doom-one-light)
+      (load-theme 'doom-nebula))))
 
-(use-package! modus-themes
-  :init
-  (require 'modus-themes)
-  (setq! modus-themes-bold-constructs nil
-         modus-themes-fringes 'subtle
-         modus-themes-slanted-constructs t
-         modus-themes-syntax '(faint yellow-comments green-string)
-         modus-themes-no-mixed-fonts t
-         modus-themes-mode-line 'borderless
-         modus-themes-completions 'opinionated
-         ;; modus-themes-intense-hl-line t
-         modus-themes-paren-match 'subtle-bold
-         modus-themes-headings '((1 . (background overline))
-                                 (2 . (rainbow))
-                                 (4 . (no-bold))
-                                 (5 . (no-bold))
-                                 (6 . (no-bold))))
-  (modus-themes-load-themes)
-  :config
-  ;; Load theme based on macOS dark mode status.
-  (+cdom/load-os-theme))
+(setq doom-theme 'doom-nebula)
+;; (+cdom/load-os-theme)
+
+;; (use-package! modus-themes
+;;   :init
+;;   (require 'modus-themes)
+;;   (setq! modus-themes-bold-constructs nil
+;;          modus-themes-fringes 'subtle
+;;          modus-themes-slanted-constructs t
+;;          modus-themes-syntax '(faint yellow-comments green-string)
+;;          modus-themes-no-mixed-fonts t
+;;          modus-themes-mode-line 'borderless
+;;          modus-themes-completions 'opinionated
+;;          ;; modus-themes-intense-hl-line t
+;;          modus-themes-paren-match 'subtle-bold
+;;          modus-themes-headings '((1 . (background overline))
+;;                                  (2 . (rainbow))
+;;                                  (4 . (no-bold))
+;;                                  (5 . (no-bold))
+;;                                  (6 . (no-bold))))
+;;   (modus-themes-load-themes)
+;;   :config
+;;   ;; Load theme based on macOS dark mode status.
+;;   (+cdom/load-os-theme))
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
 (defvar +cdom/org-notes-directory "~/org/notes/")

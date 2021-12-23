@@ -51,8 +51,8 @@ in
     # Appearance
     BASE16_THEME_DARK = "black-metal-khold";
     BASE16_THEME_LIGHT = "grayscale-light";
-    DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
-    DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
+    DOTFIELD_EMACS_THEME_DARK = "doom-nebula";
+    DOTFIELD_EMACS_THEME_LIGHT = "doom-one-light";
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.

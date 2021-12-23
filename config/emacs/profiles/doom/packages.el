@@ -48,7 +48,7 @@
 
 ;; Themes
 (package! base16-theme)
-(package! modus-themes)
+;; (package! modus-themes)
 
 ;; UI
 ;; (package! scroll-on-jump
