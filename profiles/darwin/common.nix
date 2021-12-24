@@ -20,6 +20,9 @@
   nix.trustedUsers = [ "@admin" ];
 
   environment.systemPackages = with pkgs; [
+    #  Swiss Army Knife for macOS
+    # => https://github.com/rgcr/m-cli
+    m-cli
     mas
     terminal-notifier
   ];
