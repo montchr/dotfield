@@ -53,21 +53,36 @@
 (use-package! modus-themes
   :init
   (require 'modus-themes)
-  (setq! modus-themes-bold-constructs nil
-         modus-themes-fringes 'subtle
-         modus-themes-slanted-constructs t
-         modus-themes-syntax '(faint yellow-comments green-string)
-         modus-themes-no-mixed-fonts t
-         modus-themes-mode-line 'borderless
-         modus-themes-completions 'opinionated
-         ;; modus-themes-intense-hl-line t
-         modus-themes-paren-match 'subtle-bold
-         modus-themes-headings '((1 . (background overline))
-                                 (2 . (rainbow))
-                                 (4 . (no-bold))
-                                 (5 . (no-bold))
-                                 (6 . (no-bold))))
+
+  (setq
+   ;; meta
+   modus-themes-inhibit-reload nil
+
+   ;; type
+   modus-themes-bold-constructs nil
+   modus-themes-italic-constructs t
+   modus-themes-mixed-fonts t
+
+   ;; ui
+   modus-themes-completions nil
+   modus-themes-fringes nil
+   modus-themes-hl-line '(accented)
+   modus-themes-links '(neutral-underline)
+   modus-themes-mode-line 'borderless
+   modus-themes-tabs-accented nil
+
+   ;; syntax
+   modus-themes-paren-match 'bold
+   modus-themes-syntax '(alt-syntax)
+   modus-themes-headings '((1 . (background bold overline))
+                           (2 . (bold rainbow))
+                           (3 . (bold))
+                           (4 . (no-bold))
+                           (5 . (no-bold))
+                           (6 . (no-bold))))
+  ;; Required upon initial load
   (modus-themes-load-themes)
+
   :config
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
