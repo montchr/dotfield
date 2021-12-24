@@ -18,21 +18,30 @@
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
 
-;; Adjust the size of the modeline.
-(after! doom-modeline
-  (when IS-MAC
-    (setq! doom-modeline-height 1)
-    (custom-set-faces!
-      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
-;; Hide 'UTF-8' encoding from the modeline, since it's the default.
-;; https://tecosaur.github.io/emacs-config/config.html
-(defun doom-modeline-conditional-buffer-encoding ()
-  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
-  (setq-local doom-modeline-buffer-encoding
-              (unless (or (eq buffer-file-coding-system 'utf-8-unix)
-                          (eq buffer-file-coding-system 'utf-8)))))
-(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
+;; === modeline =====================
+
+(use-package! moody
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (moody-replace-eldoc-minibuffer-message-function)
+  (custom-set-faces!
+    '((mode-line mode-line-inactive)
+      :family "PragmataPro Mono"
+      :size 10)))
+
+(use-package! minions
+  :config (minions-mode 1))
+
+
+;; Adjust the size of the modeline.
+;; (after! doom-modeline
+;;   (when IS-MAC
+;;     (setq! doom-modeline-height 1)
+;;     (custom-set-faces!
+;;       '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
 (setq! tab-width 2)
 
@@ -41,7 +50,6 @@
   (setq! evil-shift-width 2
          evil-vsplit-window-right t))
 
-;; TODO: color theme inherits values from shell which can cause, for example, pointer to be the same color as background
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
@@ -68,7 +76,7 @@
    modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(neutral-underline)
-   modus-themes-mode-line 'borderless
+   modus-themes-mode-line '(moody borderless)
    modus-themes-tabs-accented nil
 
    ;; syntax

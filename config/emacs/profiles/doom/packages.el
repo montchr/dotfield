@@ -46,16 +46,15 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;; Themes
+;; themes
 (package! base16-theme)
 (package! modus-themes)
 
-;; UI
-;; (package! scroll-on-jump
-;;   :recipe (:host gitlab
-;;            :repo "ideasman42/emacs-scroll-on-jump"))
+;; modeline
+(package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
+(package! minions)    ;                     :: https://github.com/tarsius/minions
 
-;; Languages
+;; languages
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! eslintd-fix)               ; auto-format js files with eslint_d
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
@@ -65,20 +64,20 @@
   :recipe (:host github :repo "montchr/neon-mode"))
 (package! vimrc-mode)                ; vimrc syntax
 
-;; Import/Export
+;; importers/exporters
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
 (package! ox-gfm)                    ; Export to GFM syntax
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
 
-;; Apps
+;; apps
 (package! hledger-mode)
 (package! org-board)                 ; Pinboard-ish for org-mode
 (package! org-jira)                  ; Can Jira be saved by Emacs?
 (package! reaper)                    ; Harvest time tracking mode
 
-;; Tools
+;; tools
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
 (package! firestarter)               ; Do things upon save.
 (package! magit-delta)               ; Use delta in magit diffs.
