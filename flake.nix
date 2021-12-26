@@ -205,7 +205,7 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
-            (import ./pkgs/darwin)
+            (import ./pkgs/darwin { inherit self inputs; })
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
                 direnv
