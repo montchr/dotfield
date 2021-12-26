@@ -37,8 +37,8 @@
     rnix-lsp.url = github:nix-community/rnix-lsp;
 
     # Other sources.
-    # prefmanager.url = github:malob/prefmanager;
-    # prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    prefmanager.url = github:malob/prefmanager;
+    prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     base16-kitty = { url = github:kdrag0n/base16-kitty; flake = false; };
     firefox-lepton = { url = github:black7375/Firefox-UI-Fix; flake = false; };
     nix-colors.url = github:montchr/nix-colors;
@@ -210,17 +210,12 @@
               inherit (channels.nixpkgs-unstable)
                 direnv
                 nix-direnv
-                # yabai
                 ;
             })
             emacs.overlay
           ]);
         };
-        nixpkgs-unstable = {
-          overlaysBuilder = (channels: [
-            (import ./overlays/darwin/yabai.nix)
-          ]);
-        };
+        nixpkgs-unstable = { };
       };
 
       lib = import ./lib { lib = digga.lib // nixpkgs-unstable.lib; };

@@ -6,7 +6,7 @@
   nix = {
     package = pkgs.nixFlakes;
     gc.automatic = true;
-    useSandbox = true;
+    useSandbox = lib.mkDefault true;
     allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
     extraOptions = ''
