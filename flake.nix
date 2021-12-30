@@ -201,7 +201,13 @@
       channelsConfig.allowUnfree = true;
 
       channels = {
-        nixos-stable = { };
+        nixos-stable = {
+          overlaysBuilder = (channels: [
+            (final: prev: {
+              inherit (channels.nixpkgs-unstable) nix nix_2_5;
+            })
+          ]);
+        };
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
@@ -209,6 +215,8 @@
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
                 direnv
+                nix
+                nix_2_5
                 nix-direnv
                 ;
             })
