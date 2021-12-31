@@ -18,22 +18,30 @@
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
 
-;; Adjust the size of the modeline.
-(after! doom-modeline
-  (when IS-MAC
-    (setq! doom-modeline-height 1)
-    (custom-set-faces!
-      '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
-;; Hide 'UTF-8' encoding from the modeline, since it's the default.
-;; @TODO doesn't appear to be working. perhaps needs to be after doom-modeline?
-;; https://tecosaur.github.io/emacs-config/config.html
-(defun doom-modeline-conditional-buffer-encoding ()
-  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
-  (setq-local doom-modeline-buffer-encoding
-              (unless (or (eq buffer-file-coding-system 'utf-8-unix)
-                          (eq buffer-file-coding-system 'utf-8)))))
-(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
+;; === modeline =====================
+
+(use-package! moody
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (moody-replace-eldoc-minibuffer-message-function)
+  (custom-set-faces!
+    '((mode-line mode-line-inactive)
+      :family "PragmataPro Mono"
+      :size 10)))
+
+(use-package! minions
+  :config (minions-mode 1))
+
+
+;; Adjust the size of the modeline.
+;; (after! doom-modeline
+;;   (when IS-MAC
+;;     (setq! doom-modeline-height 1)
+;;     (custom-set-faces!
+;;       '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
 
 (setq! tab-width 2)
 
@@ -42,7 +50,6 @@
   (setq! evil-shift-width 2
          evil-vsplit-window-right t))
 
-;; TODO: color theme inherits values from shell which can cause, for example, pointer to be the same color as background
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
@@ -54,21 +61,36 @@
 (use-package! modus-themes
   :init
   (require 'modus-themes)
-  (setq! modus-themes-bold-constructs nil
-         modus-themes-fringes 'subtle
-         modus-themes-slanted-constructs t
-         modus-themes-syntax '(faint yellow-comments green-string)
-         modus-themes-no-mixed-fonts t
-         modus-themes-mode-line 'borderless
-         modus-themes-completions 'opinionated
-         ;; modus-themes-intense-hl-line t
-         modus-themes-paren-match 'subtle-bold
-         modus-themes-headings '((1 . (background overline))
-                                 (2 . (rainbow))
-                                 (4 . (no-bold))
-                                 (5 . (no-bold))
-                                 (6 . (no-bold))))
+
+  (setq
+   ;; meta
+   modus-themes-inhibit-reload nil
+
+   ;; type
+   modus-themes-bold-constructs nil
+   modus-themes-italic-constructs t
+   modus-themes-mixed-fonts t
+
+   ;; ui
+   modus-themes-completions nil
+   modus-themes-fringes nil
+   modus-themes-hl-line '(accented)
+   modus-themes-links '(neutral-underline)
+   modus-themes-mode-line '(moody borderless)
+   modus-themes-tabs-accented nil
+
+   ;; syntax
+   modus-themes-paren-match 'bold
+   modus-themes-syntax '(alt-syntax)
+   modus-themes-headings '((1 . (background bold overline))
+                           (2 . (bold rainbow))
+                           (3 . (bold))
+                           (4 . (no-bold))
+                           (5 . (no-bold))
+                           (6 . (no-bold))))
+  ;; Required upon initial load
   (modus-themes-load-themes)
+
   :config
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
@@ -128,33 +150,33 @@
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
-(use-package! scroll-on-jump
-  :after (evil)
-  :config
-  (setq! scroll-on-jump-duration 0.2
-         scroll-on-jump-smooth t
-         scroll-on-jump-use-curve nil)
-  (scroll-on-jump-advice-add evil-undo)
-  (scroll-on-jump-advice-add evil-redo)
-  (scroll-on-jump-advice-add evil-jump-item)
-  (scroll-on-jump-advice-add evil-jump-forward)
-  (scroll-on-jump-advice-add evil-jump-backward)
-  (scroll-on-jump-advice-add evil-ex-search-next)
-  (scroll-on-jump-advice-add evil-ex-search-previous)
-  (scroll-on-jump-advice-add evil-forward-paragraph)
-  (scroll-on-jump-advice-add evil-backward-paragraph)
-  ;; Actions that themselves scroll.
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
+;; (use-package! scroll-on-jump
+;;   :after (evil)
+;;   :config
+;;   (setq! scroll-on-jump-duration 0.2
+;;          scroll-on-jump-smooth t
+;;          scroll-on-jump-use-curve nil)
+;;   (scroll-on-jump-advice-add evil-undo)
+;;   (scroll-on-jump-advice-add evil-redo)
+;;   (scroll-on-jump-advice-add evil-jump-item)
+;;   (scroll-on-jump-advice-add evil-jump-forward)
+;;   (scroll-on-jump-advice-add evil-jump-backward)
+;;   (scroll-on-jump-advice-add evil-ex-search-next)
+;;   (scroll-on-jump-advice-add evil-ex-search-previous)
+;;   (scroll-on-jump-advice-add evil-forward-paragraph)
+;;   (scroll-on-jump-advice-add evil-backward-paragraph)
+;;   ;; Actions that themselves scroll.
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
 
 ;; https://tecosaur.github.io/emacs-config/config.html#company
-(after! company
-  (setq! company-idle-delay nil)
-  ;; Make aborting less annoying.
-  (add-hook 'evil-normal-state-entry-hook #'company-abort))
+;; (after! company
+;;   (setq! company-idle-delay nil)
+;;   ;; Make aborting less annoying.
+;;   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
 (use-package! company-box
   :config
@@ -220,15 +242,15 @@
 (use-package! org
   :config
   (setq! org-image-actual-width 300
-         org-startup-folded t
+         ;; org-startup-folded t
          org-startup-with-inline-images t
          org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
          org-cycle-separator-lines -1
+         ;; TODO: could this cause an issue with org-roam IDs?
          org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
          org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-         ;; org-export-in-background t                  ; run export processes in external emacs process
          org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
          org-export-copy-to-kill-ring 'if-interactive)
   (defun +cdom/org-archive-done-tasks ()
@@ -246,6 +268,7 @@
   :commands (doct))
 
 (after! js2-mode
+  ;; Use eslintd for faster ESLint-based formatting on save.
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (set-company-backend! 'company-tide 'js2-mode))
 
@@ -345,6 +368,7 @@
 
 (use-package! nixpkgs-fmt
   :config
+  ;; Use nixpkgs-fmt instead of nixfmt
   (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode))
 
 (use-package! projectile
@@ -363,6 +387,7 @@
   :config
   (setq! lsp-vetur-use-workspace-dependencies t
          lsp-enable-indentation t
+         ;; TODO: might need to load after
          lsp-ui-doc-delay 2
          flycheck-javascript-eslint-executable "eslint_d")
 
@@ -476,4 +501,8 @@
          "Take a break."
          "Is Control controlled by its need to control?"
          "Nothing here now but the recordings..."
+         "A silver light pops in your eyes..."
+         "I have nothing to say, and I am saying it."
+         "Who walkies the walkmen?"
+         "I'm making my lunch!"
          "Eat protein!"))

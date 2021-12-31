@@ -31,4 +31,16 @@
 
     masApps = { "Paprika Recipe Manager 3" = 1303222628; };
   };
+
+  # Explicitly disable special trackpad corner click behavior for HodgePodge due
+  # to failing trackpad.
+  #
+  # On HodgePodge, the lower right corner is actually the *only* place where a
+  # physical click will work (tapping will work anywhere, but it's not always
+  # available). So if this default ever changes, we still want HodgePodge to
+  # keep the setting disabled.
+  system.defaults.NSGlobalDomain."com.apple.trackpad.trackpadCornerClickBehavior" = null;
+
+  # Because of the machine's failing trackpad, tap-to-click is essential.
+  system.defaults.NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
 }

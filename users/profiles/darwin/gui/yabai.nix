@@ -10,6 +10,44 @@ let
     padding = "6";
   };
 
+  mkArgString = lib.generators.toKeyValue {
+    mkKeyValue = key: value:
+      let
+        value' =
+          if lib.isBool value then
+            (if value then "on" else "off")
+          else
+            builtins.toString value;
+      in
+      "${key}='${value'}' \\";
+  };
+
+  mkRule = { app, ... } @ args:
+    let
+      args' = (lib.filterAttrs
+        (n: _: ! builtins.elem n [ "app" ])
+        args);
+    in
+    ''
+      yabai -m rule --add app='${app}' ${mkArgString args'}
+    '';
+
+  mkSignal = { event, action, ... } @ args:
+    let
+      args' = (lib.filterAttrs
+        (n: _: ! builtins.elem n [ "event" "action" ])
+        args);
+    in
+    ''
+      yabai -m signal --add \
+        event='${event}' \
+        action='${action}' \
+        ${mkArgString args'}
+    '';
+
+  mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
+  mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
+
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
@@ -183,27 +221,58 @@ in
 
     extraConfig =
       let
-        signals = {
-          logFocusedWindow = app: ''
-            yabai -m signal --add \
-              event=window_focused \
-              action='yabai -m query --windows --window' \
-              app='${app}'
-          '';
+        commonRules = {
+          managed = false;
+          sticky = true;
         };
 
-        rules = {
-          unmanagedApps = (toString
-            (map (app: ''yabai -m rule --add app="${app}" manage=off; '') [
-              "1Password"
-              "Affinity"
-              "Alfred Preferences"
-              "Fantastical Helper"
-              "Harvest"
-              "Stickies"
-              "^System Preferences$"
-            ]));
-        };
+        rules = mkRules [
+          (commonRules // { app = "1Password"; })
+          (commonRules // { app = "Alfred Preferences"; })
+          (commonRules // { app = "Fanatastical Helper"; })
+          (commonRules // { app = "Harvest"; })
+          (commonRules // { app = "Stickies"; })
+          (commonRules // { app = "^System Preferences$"; })
+
+          {
+            app = "Affinity";
+            managed = false;
+          }
+          {
+            app = "Microsoft Teams";
+            opacity = "1.0";
+          }
+          {
+            app = "zoom.us";
+            opacity = "1.0";
+          }
+
+          ## Emacs
+
+          {
+            app = "Emacs";
+            title = "doom-capture";
+            manage = false;
+            grid = "3:3:1:1:1:1";
+            label = "[Emacs]: Float and center the doom capture window";
+          }
+          {
+            app = "Emacs";
+            title = ".*Minibuf.*";
+            manage = false;
+            border = false;
+            label = "[Emacs]: Float minibuffer";
+          }
+
+        ];
+
+        signals = mkSignals [
+          {
+            event = "window_focused";
+            action = "yabai -m query --windows --window";
+            label = "log each focused window";
+          }
+        ];
       in
       ''
         # Set window padding to default value.
@@ -215,23 +284,8 @@ in
         yabai -m space 4 --label 'comm'
         yabai -m space 5 --label 'term'
 
-        # Float Emacs minibuffer
-        # https://github.com/cmacrae/config/blob/303274bb5a97a6f1612d406d8d384482d3fa35f5/modules/macintosh.nix#L163
-        yabai -m rule --add app='Emacs' \
-          title='.*Minibuf.*' \
-          manage=off \
-          border=off
-
-        # Float and center the doom capture window
-        yabai -m rule --add app='Emacs' title="doom-capture" \
-          manage=off \
-          grid=3:3:1:1:1:1
-
-        ${rules.unmanagedApps}
-
-        yabai -m rule --add app="Microsoft Teams" opacity="1.0"
-        yabai -m rule --add app="zoom.us" opacity="1.0"
-
+        ${rules}
+        ${signals}
       '';
   };
 }

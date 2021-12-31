@@ -14,6 +14,7 @@ let
   # Note that this points to the doom config directory within the flake source.
   # Consider changing if you run into issues.
   doomDir = "${configPath}/${doomProfilePath}";
+
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
 

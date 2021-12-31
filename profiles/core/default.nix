@@ -4,9 +4,9 @@
   imports = [ ../cachix ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nix_2_5;
     gc.automatic = true;
-    useSandbox = true;
+    useSandbox = lib.mkDefault true;
     allowedUsers = [ "*" ];
     trustedUsers = [ "root" "@wheel" ];
     extraOptions = ''
