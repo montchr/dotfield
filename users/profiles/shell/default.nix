@@ -35,7 +35,6 @@ in
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
-    RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/config";
     WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     Z_DATA = "$XDG_DATA_HOME/z";
 
