@@ -55,8 +55,8 @@
     NSWindowResizeTime = "0.001";
     PMPrintingExpandedStateForPrint = true;
     PMPrintingExpandedStateForPrint2 = true;
-    # Keep the menu bar visible. The default is false.
-    _HIHideMenuBar = false;
+    # Whether to hide the menu bar.
+    _HIHideMenuBar = true;
     # Use F1, F2, etc. keys as standard function keys.
     "com.apple.keyboard.fnState" = false;
     # Configures the trackpad tap behavior. Mode 1 enables tap to click.
