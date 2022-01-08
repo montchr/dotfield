@@ -89,7 +89,8 @@
   (lookup            ; navigate your code and its documentation
     +dictionary
     +offline)
-  (lsp +peek)        ; M-x vscode
+  ;; (lsp +peek)        ; M-x vscode
+  (lsp +eglot)        ; M-x vscode
   (magit +forge)     ; a git porcelain for Emacs
   ;;make             ; run make tasks from Emacs
   (pass +auth)       ; password manager for nerds
