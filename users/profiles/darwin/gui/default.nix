@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./hammerspoon.nix
+    ./sketchybar.nix
     ./yabai.nix
   ];
 
@@ -13,7 +14,11 @@ in
       (builtins.readFile "${configDir}/bin/toggle-dark-mode"))
   ];
 
-  homebrew.taps = [ "homebrew/cask" "homebrew/cask-versions" ];
+  homebrew.taps = [
+    "FelixKratz/formulae"
+    "homebrew/cask"
+    "homebrew/cask-versions"
+  ];
 
   homebrew.casks = [
     "1password"

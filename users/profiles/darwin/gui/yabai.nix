@@ -3,6 +3,8 @@ let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
   cfg = config.services.yabai;
+  # barCfg = config.services.sketchybar;
+
   configDir = "${config.dotfield.configDir}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
@@ -182,7 +184,20 @@ in
     border.enable = (! (pkgs.yabai.version == "4.0.0-pre"));
 
     config = {
-      external_bar = "off";
+      external_bar = "main:32:0";
+      # if barCfg.enable
+      # then
+      #   let
+      #     position = barCfg.config.position;
+      #     height = barCfg.config.height;
+      #   in
+      #   (lib.concatStringsSep ":" [
+      #     (barCfg.config.display)
+      #     (if "top" == position then (toString height) else "0")
+      #     (if "bottom" == position then (toString height) else "0")
+      #   ])
+      # else "off";
+
       layout = "bsp";
 
       # FIXME: Default to `on` and write rules for disallowed applications
