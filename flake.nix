@@ -4,44 +4,44 @@
   inputs = {
     # Package sets
     nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
-    nixpkgs-trunk.url = github:NixOS/nixpkgs/master;
-    nixpkgs-darwin-stable.url = github:NixOS/nixpkgs/nixpkgs-21.11-darwin;
-    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = github:montchr/nix-darwin/trunk;
+    darwin.url = "github:montchr/nix-darwin/trunk";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = github:nix-community/home-manager;
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Flake utilities.
-    digga.url = github:divnix/digga;
+    digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixos-stable";
     digga.inputs.nixlib.follows = "nixos-stable";
     digga.inputs.home-manager.follows = "home-manager";
-    utils.url = github:gytis-ivaskevicius/flake-utils-plus;
-    flake-compat = { url = github:edolstra/flake-compat; flake = false; };
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
 
     # Sources management.
-    nur.url = github:nix-community/NUR;
-    nvfetcher.url = github:berberman/nvfetcher;
+    nur.url = "github:nix-community/NUR";
+    nvfetcher.url = "github:berberman/nvfetcher";
 
     # Secrets management.
-    agenix.url = github:ryantm/agenix;
+    agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixos-stable";
-    agenix-cli.url = github:montchr/agenix-cli/develop;
+    agenix-cli.url = "github:montchr/agenix-cli/develop";
 
     # Development tools.
-    emacs.url = github:montchr/emacs/develop;
-    emacs-overlay.url = github:nix-community/emacs-overlay;
-    rnix-lsp.url = github:nix-community/rnix-lsp;
+    emacs.url = "github:montchr/emacs/develop";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # Other sources.
-    prefmanager.url = github:malob/prefmanager;
+    prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    base16-kitty = { url = github:kdrag0n/base16-kitty; flake = false; };
-    firefox-lepton = { url = github:black7375/Firefox-UI-Fix; flake = false; };
-    nix-colors.url = github:montchr/nix-colors;
+    base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
+    firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };
+    nix-colors.url = "github:montchr/nix-colors";
 
     nixpkgs.follows = "nixos-stable";
   };
