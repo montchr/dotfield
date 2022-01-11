@@ -67,100 +67,107 @@
 
       nixlib = nixpkgs-unstable.lib;
 
-      hostConfigs = digga.lib.rakeLeaves ./hosts;
-      systemProfiles = digga.lib.rakeLeaves ./profiles;
-      userProfiles = digga.lib.rakeLeaves ./users/profiles;
-      suites = rec {
-        base = [
-          systemProfiles.core
-          userProfiles.bash
-          userProfiles.bat
-          userProfiles.git
-          userProfiles.zsh
-        ];
-        networking = [
-          systemProfiles.networking.common
-        ];
-        linux-minimal = suites.base ++ [
-          systemProfiles.linux
-        ];
-        nixos = suites.base ++ [
-          systemProfiles.linux
-          systemProfiles.nixos
-        ];
-        darwin-minimal = suites.base ++ [
-          systemProfiles.darwin.common
-        ];
-        darwin-gui = suites.base ++ suites.gui ++ [
-          systemProfiles.darwin.common
-          systemProfiles.darwin.system-defaults
-          userProfiles.darwin.gui
-          userProfiles.darwin.keyboard
-        ];
-        developer = suites.base ++ [
-          systemProfiles.languages.nodejs
-          userProfiles.direnv
-          userProfiles.emacs
-          userProfiles.languages.nodejs
-        ];
-        gui = [
-          systemProfiles.fonts
-          userProfiles.browsers.firefox
-          userProfiles.espanso
-          userProfiles.kitty
-        ];
-        personal = [
-          systemProfiles.security.yubikey
-          systemProfiles.secrets
-          userProfiles.gnupg
-          userProfiles.mail
-          userProfiles.pass
-          userProfiles.security.yubikey
-          userProfiles.secrets
-          userProfiles.ssh
-        ];
-        home = [
-          userProfiles.home
-        ];
-        work = suites.developer ++
-          suites.personal ++
-          [
-            systemProfiles.languages.php
-            systemProfiles.languages.ruby # for vagrant
-            systemProfiles.virtualbox
+      importables = rec {
+        profiles = {
+          system = digga.lib.rakeLeaves ./profiles // {
+            # users = {
+            #   montchr = import ./users/primary-user {};
+            # };
+          };
+          home = digga.lib.rakeLeaves ./users/profiles;
+        };
+
+        suites = with profiles; rec {
+          base = [
+            system.core
+            home.bash
+            home.bat
+            home.git
+            home.zsh
           ];
+          networking = [
+            system.networking.common
+          ];
+          linux-minimal = suites.base ++ [
+            system.linux
+          ];
+          nixos = suites.base ++ [
+            system.linux
+            system.nixos
+          ];
+          darwin-minimal = suites.base ++ [
+            system.darwin.common
+          ];
+          darwin-gui = suites.base ++ suites.gui ++ [
+            system.darwin.common
+            system.darwin.system-defaults
+            home.darwin.gui
+            home.darwin.keyboard
+          ];
+          developer = suites.base ++ [
+            system.languages.nodejs
+            home.direnv
+            home.emacs
+            home.languages.nodejs
+          ];
+          gui = [
+            system.fonts
+            home.browsers.firefox
+            home.espanso
+            home.kitty
+          ];
+          personal = [
+            system.security.yubikey
+            system.secrets
+            home.gnupg
+            home.mail
+            home.pass
+            home.security.yubikey
+            home.secrets
+            home.ssh
+          ];
+          work = [
+            system.languages.php
+            system.languages.ruby # for vagrant
+            system.virtualbox
+          ];
+        };
       };
+
+      hostConfigs = digga.lib.rakeLeaves ./hosts;
 
       mkHosts = hosts: (builtins.foldl' (a: b: a // b) { } hosts);
 
       mkNixosHost = name:
         { system ? "x86_64-linux"
         , channelName ? "nixos-stable"
-        , extraSuites ? [ ]
         }: {
           ${name} = {
             inherit system channelName;
-            modules = suites.base ++ extraSuites ++ [
-              hostConfigs.${name}
-              home-manager.nixosModules.home-manager
-              agenix.nixosModules.age
-            ];
+            modules = with importables;
+              suites.base
+              ++ [
+                hostConfigs.${name}
+                home-manager.nixosModules.home-manager
+                agenix.nixosModules.age
+              ];
           };
         };
 
       mkDarwinHost = name:
         { system ? "x86_64-darwin"
         , channelName ? "nixpkgs-darwin-stable"
-        , extraSuites ? [ ]
         }: {
           ${name} = {
             inherit system channelName;
             output = "darwinConfigurations";
             builder = darwin.lib.darwinSystem;
-            modules = suites.base ++ extraSuites ++ [
-              hostConfigs.${name}
-              home-manager.darwinModules.home-manager
-            ];
+            modules = with importables;
+              suites.base
+              ++ [
+                hostConfigs.${name}
+                home-manager.darwinModules.home-manager
+              ];
           };
         };
 
@@ -245,7 +252,7 @@
 
       hostDefaults = {
         extraArgs = { inherit utils inputs; };
-        specialArgs = { inherit suites systemProfiles userProfiles; };
+        specialArgs = with importables; { inherit profiles suites; };
         modules = [
           ./users/primary-user
           nix-colors.homeManagerModule
