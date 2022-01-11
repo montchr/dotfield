@@ -1,11 +1,18 @@
-{ config, inputs, ... }: {
+{ config, inputs, suites, ... }:
+
+{
+  imports = with suites;
+    darwin-gui
+    ++ personal
+    ++ developer;
+
+  networking.hostName = "HodgePodge";
 
   nixpkgs.system = "x86_64-darwin";
   # TODO: verify number of cores
   # nix.maxJobs = 4;
   nix.buildCores = 0;
 
-  networking.hostName = "HodgePodge";
   networking.knownNetworkServices = [
     "Wi-Fi"
     "Bluetooth PAN"

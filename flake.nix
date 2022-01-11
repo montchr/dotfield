@@ -255,15 +255,14 @@
           (digga.lib.rakeLeaves ./users/modules)));
       };
 
-      hosts = with suites;
-        mkHosts [
-          (mkDarwinHost "HodgePodge" { extraSuites = (darwin-gui ++ personal ++ developer ++ home); })
-          (mkDarwinHost "alleymon" { extraSuites = (darwin-gui ++ work ++ personal ++ home); })
+      hosts = mkHosts [
+        (mkDarwinHost "HodgePodge" { })
+        (mkDarwinHost "alleymon" { })
 
-          # CI runner hosts.
-          (mkDarwinHost "ci-darwin" { extraSuites = (darwin-minimal ++ developer); })
-          (mkNixosHost "ci-ubuntu" { extraSuites = (linux-minimal ++ developer); })
-        ];
+        # CI runner hosts.
+        (mkDarwinHost "ci-darwin" { })
+        (mkNixosHost "ci-ubuntu" { })
+      ];
 
       # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
       # checks = nixlib.listToAttrs (

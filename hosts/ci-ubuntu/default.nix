@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, suites, ... }:
 
 {
+  imports = with suites; (
+    linux-minimal
+    ++ developer
+  );
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

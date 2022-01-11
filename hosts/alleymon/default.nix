@@ -1,4 +1,12 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, suites, ... }:
+
+{
+  imports = with suites;
+    darwin-gui
+    ++ personal
+    ++ developer
+    ++ work;
+
   networking.hostName = "alleymon";
 
   # MacBookPro16,2
