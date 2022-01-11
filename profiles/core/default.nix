@@ -90,6 +90,7 @@
     lua
     manix # nix documentation search
     moreutils
+    nix-diff # Explain why two Nix derivations differ
     nix-index
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nmap
