@@ -47,8 +47,6 @@ in
     };
 
     "zsh/.zshenv".text = ''
-      # ${config.my.nix_managed}
-
       ${shellCfg.envInit}
 
       # Host-local configuration (oftentimes added by other tools)
@@ -56,7 +54,6 @@ in
     '';
 
     "zsh/extra.zshrc".text = ''
-      # ${config.my.nix_managed}
       ${shellCfg.rcInit}
     '';
   };

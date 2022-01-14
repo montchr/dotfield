@@ -1,3 +1,8 @@
+# Check whether a command exists.
+has() {
+  type "$1" >/dev/null 2>&1
+}
+
 # Get the current OS appearance.
 #
 # Returns either "light" or "dark". Defaults to "dark".

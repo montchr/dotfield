@@ -21,12 +21,8 @@ in
     ({ "starship".source = "${dotfield.configDir}/starship"; })
   ];
 
+  # This will be loaded early for all shells.
   environment.extraInit = ''
-    # Check whether a command exists.
-    has() {
-      type "$1" >/dev/null 2>&1
-    }
-
     ${extraVars}
   '';
 

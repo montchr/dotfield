@@ -4,11 +4,6 @@
 #   INITIALIZE
 # ------------------------------------------------------------------------------
 
-# Check if a command exists
-has() {
-  which "$@" > /dev/null 2>&1
-}
-
 ## Set up history.
 export HISTSIZE=290000
 export SAVEHIST=290000
