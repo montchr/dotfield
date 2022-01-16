@@ -293,11 +293,55 @@ in
         # Set window padding to default value.
         ${getScript "set-padding"}
 
-        yabai -m space 1 --label 'task'
-        yabai -m space 2 --label 'inspect'
-        yabai -m space 3 --label 'code'
-        yabai -m space 4 --label 'comm'
-        yabai -m space 5 --label 'term'
+        ###: NOTEBOOK WORKSPACES {{{
+
+          #: 'connect' :: slack, zoom, any others related to a current meeting
+          yabai -m space 1 --label 'connect'
+
+          #: 'browse' :: firefox for the machine's primary profile
+          yabai -m space 2 --label 'browse'
+
+          #: 'test' :: additional browser, other utils for testing current task
+          yabai -m space 3 --label 'test'
+
+          #: 'code' :: emacs, sometimes kitty
+          yabai -m space 4 --label 'code'
+
+          #: 'term' :: kitty
+          yabai -m space 5 --label 'term'
+
+          #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
+          yabai -m space 6 --label 'media'
+
+          #: 'browse-alt' :: additional firefox instance for secondary profile
+          yabai -m space 7 --label 'browse-alt'
+
+        ### }}}
+
+
+        ###: DESKTOP WORKSPACES {{{
+
+          ##: CENTER DISPLAY {{
+
+            yabai -m space 1 --label 'connect'
+            yabai -m space 2 --label 'browse'
+            yabai -m space 3 --label 'code'
+
+          ## }}
+
+          ##: RIGHT DISPLAY {{
+
+            yabai -m space 1 --label 'term'
+
+            #: 'chat' :: slack, irc, signal, etc.
+            yabai -m space 2 --label 'chat'
+
+            yabai -m space 3 --label 'media'
+            yabai -m space 4 --label 'browse-alt'
+
+          ## }}
+
+        ### }}}
 
         ${rules}
         ${signals}
