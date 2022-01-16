@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (config) my;
+  inherit (config.home-manager.users.${my.username}.lib.file) mkOutOfStoreSymlink;
+
   shellCfg = config.shell;
-  configDir = "${config.dotfield.configDir}/zsh";
+  configDirPath = "${config.dotfield.path}/config/zsh";
 in
 
 {
@@ -24,7 +27,7 @@ in
 
   my.hm.xdg.configFile = {
     "zsh" = {
-      source = configDir;
+      source = mkOutOfStoreSymlink configDirPath;
       recursive = true;
       onChange = ''
         # Remove compiled files.
