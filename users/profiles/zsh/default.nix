@@ -11,7 +11,6 @@ in
   ];
 
   my.user.packages = with pkgs; [
-    zinit
     zsh
     zoxide
   ];
