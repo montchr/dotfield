@@ -20,16 +20,6 @@ in
     ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
     ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
     ZSH_DATA = "$XDG_DATA_HOME/zsh";
-
-    # zgenom paths
-    # ZGEN_DIR = "$XDG_DATA_HOME/zsh/sources";
-    # ZGEN_SRC_DIR = "$XDG_DATA_HOME/zsh/zgenom";
-  };
-
-  my.hm.programs.starship = {
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableZshIntegration = false;
   };
 
   my.hm.xdg.configFile = {
