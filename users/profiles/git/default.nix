@@ -107,9 +107,11 @@ in
   my.hm.xdg.configFile = {
     "git/ignore".source = "${configDir}/ignore";
 
-    "git/templates" = {
-      source = "${configDir}/templates";
-      recursive = true;
-    };
+    # TODO: disabled but not forgotten...
+    # FIXME: next time we enable a global hook template, consider linking only the file on a host-by-host basis
+    # "git/templates" = {
+    #   source = "${configDir}/templates";
+    #   recursive = true;
+    # };
   };
 }
