@@ -216,6 +216,8 @@
           ]);
         };
         nixpkgs-trunk = { };
+        # FIXME: cannot update without updating emacs overlay
+        # https://github.com/montchr/dotfield/issues/27
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
             (import ./pkgs/darwin { inherit self inputs; })

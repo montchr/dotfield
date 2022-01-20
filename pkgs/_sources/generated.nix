@@ -15,14 +15,14 @@
   };
   doom-emacs = {
     pname = "doom-emacs";
-    version = "29536a22f0aca8721082bd992a720f15f10ea91b";
+    version = "c7753adbb301dcb647dc96d182c28b228551890e";
     src = fetchgit {
       url = "https://github.com/hlissner/doom-emacs.git";
-      rev = "29536a22f0aca8721082bd992a720f15f10ea91b";
+      rev = "c7753adbb301dcb647dc96d182c28b228551890e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-2ewdbqr/mNEIn7+r7OSKk8a9t/rwz5JZHZoviD4n6d4=";
+      sha256 = "sha256-RAxbJ1cYI0VUD8XJutTHYKFFE2e0OMGSj6d6DL+MSOM=";
     };
   };
   fish-abbr-tips = {
@@ -60,13 +60,13 @@
   };
   fish-fzf = {
     pname = "fish-fzf";
-    version = "v7.4";
+    version = "v7.5";
     src = fetchFromGitHub ({
       owner = "PatrickF1";
       repo = "fzf.fish";
-      rev = "v7.4";
+      rev = "v7.5";
       fetchSubmodules = false;
-      sha256 = "sha256-dngAKzyD+lmqmxsCSOMViyCgA/+Ve35gLtPS+Lgs8Pc=";
+      sha256 = "sha256-r+EFDCU+mcfCJ41FzScib4gLhphigwQX+7t3HqlLD00=";
     });
   };
   fish-nix-env = {
