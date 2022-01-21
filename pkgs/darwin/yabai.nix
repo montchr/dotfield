@@ -5,13 +5,10 @@ stdenv.mkDerivation {
   version = "4.0.0-pre";
 
   src = fetchzip {
-    url = "https://github.com/koekeishiya/yabai/files/7726893/yabai-v4.0.0.tar.gz";
-    hash = "sha256-Gm0WH6saD29bOoMyTDbYVi7e2IP9eBAvib0hWDkJXVQ=";
+    url = "https://github.com/koekeishiya/yabai/files/7915231/yabai-v4.0.0.tar.gz";
+    hash = "sha256-qJE2zG7YIwYMJ9gWsguWIuFMPbvkD4lspRZKFiFkCYo=";
   };
 
-  # phases = [ "unpackPhase" "installPhase" ];
-  # pathsToLink = [ "/share/fonts/opentype/" ];
-  # sourceRoot = ".";
   installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/man/man1/

@@ -179,7 +179,7 @@ in
     package = pkgs.yabai;
     enableScriptingAddition = true;
 
-    # As of 2021-12-19, border functionality is unstable in v4.0.0
+    # As of 2022-01-21, border functionality is unusable on macOS 12
     # https://github.com/koekeishiya/yabai/issues/1054#issue-1058384717
     border.enable = (! (pkgs.yabai.version == "4.0.0-pre"));
 
@@ -242,6 +242,7 @@ in
         };
 
         rules = mkRules [
+          # FIXME: these are not working!
           (commonRules // { app = "1Password"; })
           (commonRules // { app = "Alfred Preferences"; })
           (commonRules // { app = "Fanatastical Helper"; })
