@@ -390,7 +390,7 @@
   (setq!
     ;; lsp-vetur-use-workspace-dependencies t
          ;; lsp-enable-indentation t
-         ;; lsp-file-watch-threshold 2000
+         lsp-file-watch-threshold 666
          lsp-ui-doc-delay 2
          flycheck-javascript-eslint-executable "eslint_d")
 
