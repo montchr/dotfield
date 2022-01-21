@@ -387,8 +387,7 @@
   :init
   (setq! lsp-use-plists t)
   :config
-  (setq!
-    ;; lsp-vetur-use-workspace-dependencies t
+  (setq! lsp-vetur-use-workspace-dependencies t
          lsp-enable-indentation nil
          lsp-file-watch-threshold 666
          lsp-ui-doc-delay 2
