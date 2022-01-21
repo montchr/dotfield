@@ -8,6 +8,9 @@
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
 
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/#adjust-gc-cons-threshold
+(setq gc-cons-threshold 100000000)
+
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
