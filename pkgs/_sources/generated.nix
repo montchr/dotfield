@@ -13,18 +13,6 @@
       sha256 = "sha256-uAEAu7RJdxRKMn51eTytGO4KPMy5IolOS5Ow3oxS5L0=";
     };
   };
-  doom-emacs = {
-    pname = "doom-emacs";
-    version = "c7753adbb301dcb647dc96d182c28b228551890e";
-    src = fetchgit {
-      url = "https://github.com/hlissner/doom-emacs.git";
-      rev = "c7753adbb301dcb647dc96d182c28b228551890e";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-RAxbJ1cYI0VUD8XJutTHYKFFE2e0OMGSj6d6DL+MSOM=";
-    };
-  };
   fish-abbr-tips = {
     pname = "fish-abbr-tips";
     version = "0.5.1";

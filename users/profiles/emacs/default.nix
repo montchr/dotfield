@@ -36,11 +36,7 @@ lib.mkMerge [
       DOOMLOCALDIR = doomStateDir;
       # source
       EMACSDIR = doomDataDir;
-    };
 
-    my.hm.xdg.dataFile = {
-      # doom-emacs source
-      ${doomProfilePath}.source = pkgs.sources.doom-emacs.src;
     };
 
     my.hm.xdg.configFile = {
@@ -58,15 +54,6 @@ lib.mkMerge [
 
       # chemacs default profile :: will load when no `--with-profile` is provided
       "chemacs/profile".text = "default";
-
-      # TODO: testing out setting DOOMDIR to a path within the flake, so leaving
-      # this disabled for now.
-      #
-      # # doom-emacs config
-      # ${doomProfilePath} = {
-      #   source = "${configPath}/profiles/doom";
-      #   recursive = true;
-      # };
     };
 
     shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
