@@ -37,6 +37,9 @@ lib.mkMerge [
       # source
       EMACSDIR = doomDataDir;
 
+      # lsp: use plists instead of hashtables for performance improvement
+      # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
+      LSP_USE_PLISTS = "true";
     };
 
     my.hm.xdg.configFile = {

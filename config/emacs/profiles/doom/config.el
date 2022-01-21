@@ -384,6 +384,8 @@
          treemacs-tag-follow-mode t))
 
 (use-package! lsp-mode
+  :init
+  (setq! lsp-use-plists t)
   :config
   (setq!
     ;; lsp-vetur-use-workspace-dependencies t
