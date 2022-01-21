@@ -391,7 +391,6 @@
     ;; lsp-vetur-use-workspace-dependencies t
          ;; lsp-enable-indentation t
          ;; lsp-file-watch-threshold 2000
-         ;; TODO: might need to load after
          lsp-ui-doc-delay 2
          flycheck-javascript-eslint-executable "eslint_d")
 
