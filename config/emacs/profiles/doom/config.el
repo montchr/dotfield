@@ -381,11 +381,6 @@
 (after! projectile
   (setq! doom-projectile-cache-purge-non-projects t))
 
-(use-package! treemacs
-  :config
-  (setq! +treemacs-git-mode 'deferred
-         treemacs-tag-follow-mode t))
-
 (use-package! lsp-mode
   :init
   (setq! lsp-use-plists t)
@@ -396,19 +391,12 @@
          lsp-ui-doc-delay 2
          flycheck-javascript-eslint-executable "eslint_d")
 
-  ;; Sync LSP workspace folders and treemacs projects.
-  (lsp-treemacs-sync-mode 1)
-
   ;; Register rnix-lsp as a client
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
                     :server-id 'nix))
-
-  ;; Add multi-root workspace folders on demand.
-  ;; https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root
-  (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
 
   ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
   ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
