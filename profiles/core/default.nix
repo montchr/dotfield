@@ -4,7 +4,7 @@
   imports = [ ../cachix ];
 
   nix = {
-    package = pkgs.nix_2_5;
+    package = pkgs.nixUnstable;
     gc.automatic = true;
     useSandbox = lib.mkDefault true;
     allowedUsers = [ "*" ];

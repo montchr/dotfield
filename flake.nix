@@ -211,7 +211,7 @@
         nixos-stable = {
           overlaysBuilder = (channels: [
             (final: prev: {
-              inherit (channels.nixpkgs-unstable) nix nix_2_5;
+              inherit (channels.nixpkgs-unstable) nix nix_2_5 nixUnstable;
             })
           ]);
         };
@@ -224,6 +224,7 @@
                 direnv
                 nix
                 nix_2_5
+                nixUnstable
                 nix-direnv
                 ;
             })
