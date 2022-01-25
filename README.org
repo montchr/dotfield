@@ -8,6 +8,8 @@ configurations as well.
 
 ** Bootstrap Script
 
+Note that I rarely use this so I can't vouch for its current usefulness in relation to the rest of the configuration, which is mostly handled by Nix.
+
 On macOS, run the following as the administrative user:
 
 #+begin_src bash
