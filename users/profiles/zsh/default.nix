@@ -27,7 +27,9 @@ in
 
   my.hm.xdg.configFile = {
     "zsh" = {
-      source = mkOutOfStoreSymlink configDirPath;
+      source = configDirPath;
+      # FIXME: conflicts with in-store symlinks in same target directory causing CI workflows to fail
+      # source = mkOutOfStoreSymlink configDirPath;
       recursive = true;
       onChange = ''
         # Remove compiled files.
