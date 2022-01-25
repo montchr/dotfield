@@ -5,6 +5,7 @@ let
   inherit (config.home-manager.users.${my.username}.lib.file) mkOutOfStoreSymlink;
 
   shellCfg = config.shell;
+  configDir = "${config.dotfield.configDir}/zsh";
   configDirPath = "${config.dotfield.path}/config/zsh";
 in
 
@@ -27,7 +28,7 @@ in
 
   my.hm.xdg.configFile = {
     "zsh" = {
-      source = configDirPath;
+      source = configDir;
       # FIXME: conflicts with in-store symlinks in same target directory causing CI workflows to fail
       # source = mkOutOfStoreSymlink configDirPath;
       recursive = true;
