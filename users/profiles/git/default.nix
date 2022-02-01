@@ -63,9 +63,12 @@ in
       ## Remotes {{
 
       fetch.recurseSubmodules = true;
-      pull.rebase = true;
       push.default = "current";
       apply.whitespace = "nowarn";
+
+      # Only enable this on a per-repo basis.
+      pull.rebase = false;
+
       ## }}
 
       ## Diff/Merge Tools {{
