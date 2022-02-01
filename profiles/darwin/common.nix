@@ -6,6 +6,7 @@
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't
     # work because nix-darwin doesn't export packages, which FUP expects.
     #
+    # https://github.com/LnL7/nix-darwin/issues/277
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
     "darwin=/etc/nix/inputs/darwin"
   ];
