@@ -18,11 +18,16 @@ in
       username = mkOpt str "montchr";
       website = mkOpt str "https://github.com/montchr";
       githubUsername = mkOpt str "montchr";
-      email = mkOpt str "chris@cdom.io";
+      email = mkOpt str config.my.emails.personal;
       terminal = mkOpt str "kitty";
       nix_managed = mkOpt str
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
       user = lib.mkOption { type = options.users.users.type.functor.wrapped; };
+
+      emails = {
+        personal = mkOpt str "chris@cdom.io";
+        work = mkOpt str "chris@alley.co";
+      };
 
       keys = {
         pgp = mkOpt str "0x135EEDD0F71934F3";

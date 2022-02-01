@@ -24,7 +24,7 @@
 
   my = {
     username = "montchr";
-    email = "chris@alley.co";
+    email = config.my.emails.work;
     website = "https://alley.co/";
 
     hm.accounts.email.accounts.work.primary = true;
