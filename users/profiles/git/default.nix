@@ -15,7 +15,6 @@ let
     (key: getAttr key scripts)
     (attrNames scripts));
 
-
   ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 
 in
@@ -26,8 +25,6 @@ in
     gitAndTools.hub
     gitAndTools.gh
     gitAndTools.tig
-    # TODO: this probably doesn't belong in this profile
-    universal-ctags
     # For EXIF diff handling
     exiftool
   ] ++ userScripts;
@@ -56,18 +53,15 @@ in
       github.user = my.githubUsername;
 
       init.defaultBranch = "main";
+
       # Environment variables will not be expanded -- this requires a path.
       init.templateDir = "${my.xdg.config}/git/templates";
-
-      # TODO: handled by the delta hm module?
-      # core.pager = "delta";
-      # TODO: useful? not useful?
-      # help.autocorrect = false;
 
       # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
       pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
       ## Remotes {{
+
       fetch.recurseSubmodules = true;
       pull.rebase = true;
       push.default = "current";
@@ -75,10 +69,11 @@ in
       ## }}
 
       ## Diff/Merge Tools {{
+
       rerere.enabled = true;
       merge.conflictstyle = "diff3";
-      # TODO: does the delta hm module handle this?
-      # interactive.diffFilter = "delta --color-only";
+      merge.tool = "ediff";
+
       diff = {
         exif.textconv = "${pkgs.exiftool}/bin/exiftool";
         # colorMoved = "default";
@@ -86,17 +81,19 @@ in
         # `plutil` is a darwin utility
         plist.textconv = "plutil -convert xml1 -o -";
       };
-      merge.tool = "ediff";
+
       difftool = {
         prompt = false;
         ediff.cmd = "${ediffTool} $LOCAL $REMOTE";
         vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
       };
+
       mergetool = {
         prompt = false;
         ediff.cmd = "${ediffTool} $LOCAL $REMOTE $MERGED";
         vscode.cmd = "code --wait $MERGED";
       };
+
       ## }}
 
     } // (if pkgs.stdenv.isDarwin then {
