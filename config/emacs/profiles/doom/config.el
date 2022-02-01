@@ -70,7 +70,6 @@
    modus-themes-inhibit-reload nil
 
    ;; type
-   modus-themes-bold-constructs nil
    modus-themes-italic-constructs t
    modus-themes-mixed-fonts t
 
@@ -83,14 +82,8 @@
    modus-themes-tabs-accented nil
 
    ;; syntax
-   modus-themes-paren-match 'bold
-   modus-themes-syntax '(alt-syntax)
-   modus-themes-headings '((1 . (background bold overline))
-                           (2 . (bold rainbow))
-                           (3 . (bold))
-                           (4 . (no-bold))
-                           (5 . (no-bold))
-                           (6 . (no-bold))))
+   modus-themes-syntax '(alt-syntax))
+
   ;; Required upon initial load
   (modus-themes-load-themes)
 
