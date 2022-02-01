@@ -78,6 +78,7 @@ in
       merge.tool = "ediff";
 
       diff = {
+        algorithm = "minimal";
         exif.textconv = "${pkgs.exiftool}/bin/exiftool";
         # colorMoved = "default";
         tool = "ediff";
