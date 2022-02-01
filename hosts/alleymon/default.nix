@@ -1,5 +1,9 @@
 { config, pkgs, suites, ... }:
 
+let
+  inherit (config) my;
+in
+
 {
   imports = with suites;
     darwin-gui
@@ -24,10 +28,18 @@
 
   my = {
     username = "montchr";
-    email = config.my.emails.work;
     website = "https://alley.co/";
 
     hm.accounts.email.accounts.work.primary = true;
+
+    hm.programs.git.includes = [
+      {
+        condition = "gitdir:~/broadway/";
+        contents = {
+          user.email = my.emails.work;
+        };
+      }
+    ];
 
     hm.programs.firefox.profiles = {
       home.isDefault = false;
