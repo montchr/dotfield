@@ -16,19 +16,20 @@
   # Administrative users on Darwin are part of this group, not the `wheel` group.
   nix.trustedUsers = [ "@admin" ];
 
-  # FIXME: `prefmanager` build fails with sandbox mode enabled
-  # https://github.com/malob/prefmanager/issues/2
-  nix.useSandbox = false;
+  nix.useSandbox = true;
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
     # => https://github.com/rgcr/m-cli
     m-cli
     mas
+    terminal-notifier
+
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
-    prefmanager
-    terminal-notifier
+    # FIXME: `prefmanager` build fails with sandbox mode enabled
+    # https://github.com/malob/prefmanager/issues/2
+    # prefmanager
   ];
 
   # Recreate /run/current-system symlink after boot
