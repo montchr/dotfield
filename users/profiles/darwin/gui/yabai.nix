@@ -229,7 +229,7 @@ in
       window_opacity = "on";
       window_shadow = "on";
       active_window_opacity = 1.0;
-      normal_window_opacity = 0.95;
+      normal_window_opacity = 0.98;
 
       # Enable window borders, but default to transparent.
       window_border = if cfg.border.enable then "on" else "off";
