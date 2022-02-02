@@ -10,6 +10,7 @@ let
 
   doomProfilePath = "emacs/profiles/doom";
   vanillaProfilePath = "emacs/profiles/vanilla";
+  xtallosProfilePath = "emacs/profiles/xtallos";
 
   # Note that this points to the doom config directory within the flake source.
   # Consider changing if you run into issues.
@@ -52,7 +53,8 @@ lib.mkMerge [
       # chemacs config
       "chemacs/profiles.el".text = ''
         (("default" . ((user-emacs-directory . "${doomDataDir}")))
-         ("vanilla" . ((user-emacs-directory . "${configPath}/${vanillaProfilePath}"))))
+         ("vanilla" . ((user-emacs-directory . "${configPath}/${vanillaProfilePath}")))
+         ("xtallos" . ((user-emacs-directory . "${configPath}/${xtallosProfilePath}"))))
       '';
 
       # chemacs default profile :: will load when no `--with-profile` is provided
