@@ -32,7 +32,7 @@
     agenix-cli.url = "github:montchr/agenix-cli/develop";
 
     # Development tools.
-    emacs.url = "github:montchr/emacs/develop";
+    emacs.url = "github:montchr/emacs/trunk";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
