@@ -184,7 +184,9 @@ in
     border.enable = (! (pkgs.yabai.version == "4.0.0-pre"));
 
     config = {
-      external_bar = "main:32:0";
+      external_bar = false;
+
+      # TODO: set based on external bar config
       # if barCfg.enable
       # then
       #   let

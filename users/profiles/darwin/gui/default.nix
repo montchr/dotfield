@@ -5,7 +5,7 @@ in
 {
   imports = [
     ./hammerspoon.nix
-    ./sketchybar.nix
+    # ./sketchybar.nix
     ./yabai.nix
   ];
 
