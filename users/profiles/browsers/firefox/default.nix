@@ -130,7 +130,26 @@ in
       darkreader
       display-_anchors
       firefox-color
+
+      # Flagfox by Dave G
+      #
+      # Displays a country flag depicting the location of the current website's
+      # server and provides a multitude of tools such as site safety checks,
+      # whois, translation, similar sites, validation, URL shortening, and
+      # more...
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
+      flagfox
+
       floccus
+
+      # Light/Dark theme switcher for Firefox by Remy Sharp
+      #
+      # https://github.com/remy/light-dark-switcher
+      #
+      # FIXME: appears to be removed from firefox addons repo?
+      # light-dark-switcher
+
       mailvelope
       multi-account-containers
       octolinker
@@ -142,12 +161,42 @@ in
       reddit-enhancement-suite
       reduxdevtools
       refined-github
+
+      # Return Youtube Dislike by Dmitry Selivanov
+      #
+      # Returns ability to see dislike statistics on youtube
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
       search-engines-helper
+
+      # SingleFile by gildas
+      #
+      # Save an entire web page—including images and styling—as a single HTML file.
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/single-file/
+      single-file
+
       tab-session-manager
       tabliss
       temporary-containers
       tridactyl
       ublock-origin
+
+      ## Themes {{
+
+      # Arctic Nord Theme by christos
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
+      #
+      # TODO: add this to upstream repo
+      # arctic-nord-theme
+
+      # Nord Polar Night Theme by christos
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
+      theme-nord-polar-night
+
+      ## }}
     ];
 
     profiles.home = {
