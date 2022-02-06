@@ -40,7 +40,8 @@
 
 (setq user-emacs-directory (file-name-directory (or (buffer-file-name) load-file-name)))
 
-(setq custom-file (concat "custom-settings.el" user-emacs-directory))
+(setq custom-file (expand-file-name "custom-settings.el" user-emacs-directory))
+(load custom-file t)
 
 ;; Add Lisp directory to `load-path'.
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
