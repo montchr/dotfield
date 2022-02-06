@@ -38,14 +38,6 @@
 
 (require 'config-path)
 
-(unless (assoc-default "melpa" package-archives)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
-(unless (assoc-default "nongnu" package-archives)
-  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t))
-
-;; TODO: why?
-;; (defvar elpa-bootstrap-p nil)
-
 (setq package-user-dir
       (expand-file-name
        "elpa/"
@@ -55,17 +47,22 @@
 
 (setq-default
  straight-repository-branch "develop"
+
  ;; We aren't modifying package source code, so don't bother checking.
  straight-check-for-modifications nil
+ 
  ;; Make `use-package' invoke `straight.el' to install packages.
+ ;; This eliminates the need to specify =:straight t= with each
+ ;; invocation of `use-package'.
  straight-use-package-by-default t
+
  ;; Keep `straight.el' files and package repos out of the user directory.
  straight-base-dir path-packages-dir)
 
 ;; https://github.com/raxod502/straight.el#getting-started
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" path-packages-dir))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
@@ -78,4 +75,33 @@
 
 ;; }}
 
+
+;; Initialize `use-package' {{
+
+(straight-use-package 'use-package)
+
+(use-package el-patch
+  :straight t)
+
+;; }}
+
+
+;; Common packages {{
+
+(use-package s)
+(use-package dash)
+(use-package async)
+(use-package request)
+
+;; }}
+
+
+;; Miscellaneous core packages {{
+
+
+
+;; }}
+
+
 (provide 'init-elpa)
+;;; init-elpa.el ends here

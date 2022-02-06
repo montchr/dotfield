@@ -35,13 +35,7 @@
 ;;
 ;;; Code:
 
-(defconst IS-MAC     (eq system-type 'darwin))
-(defconst IS-LINUX   (eq system-type 'gnu/linux))
-
 (setq user-emacs-directory (file-name-directory (or (buffer-file-name) load-file-name)))
-
-(setq custom-file (expand-file-name "custom-settings.el" user-emacs-directory))
-(load custom-file t)
 
 ;; Add Lisp directory to `load-path'.
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -78,12 +72,50 @@
           file-name-handler-alist))))
 
 
-;;; Bootstrap {{{
+;;; Bootstrap {{
 
 (require 'config-path)
 (require 'init-elpa)
 
-;;; }}}
+;; Configure and load the customize file
+;; Because sometimes we just need Emacs to write code for us
+(setq custom-file (expand-file-name "custom-settings.el" user-emacs-directory))
+(load custom-file t)
+
+;;; }}
+
+
+;;; Core {{
+
+;; Environmental
+(defconst xtallos/env--graphic-p (display-graphic-p))
+(defconst xtallos/env--rootp (string-equal "root" (getenv "USER")))
+(defconst xtallos/env-sys-mac-p (eq system-type 'darwin))
+(defconst xtallos/env-sys-linux-p (eq system-type 'gnu/linux))
+(defconst xtallos/env-sys-name (system-name))
+
+;; Keys
+
+(use-package general
+  :commands (general-define-key))
+
+(use-package which-key
+  :diminish which-key-mode
+  :hook (after-init . which-key-mode))
+
+;;; }}
+
+
+;;; Editor {{
+
+(setq-default
+ indent-tabs-mode nil
+ tab-width 2
+ require-final-newline t
+ tab-always-indent t)
+
+;;; }}
+
 
 (setq inhibit-startup-message t) ; Don't show the splash screen
 (setq visible-bell nil)          ; No flashing visual bells
@@ -96,13 +128,9 @@
 
 (load-theme 'modus-vivendi t)
 
-;; C-M-i :: symbol completion
-;; C-h o :: describe-symbol
-
-;; FIXME: doesn't work
-;; (setq indent-tabs-mode nil)
-
+(use-package minions
+  :init
+  (minions-mode 1))
 
 (provide 'init)
-
 ;;; init.el ends here
