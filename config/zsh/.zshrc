@@ -202,7 +202,8 @@ zt 2b for \
 ## Custom Plugins
 ## -------------------------------------------
 
-. "${ZDOTDIR}/notify.zsh"
+# FIXME: always says "5 seconds" and triggers notifications too frequently, even upon C-c
+# . "${ZDOTDIR}/notify.zsh"
 
 # ------------------------------------------------------------------------------
 #  CONFIGURATION
