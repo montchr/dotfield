@@ -38,12 +38,17 @@
 
 (require 'config-path)
 
+;; TODO: what is this?
+(defvar elpa-bootstrap-p nil)
+
 (setq package-user-dir
       (expand-file-name
        "elpa/"
        path-packages-dir))
 
-;; Initialize `straight.el' {{
+
+;;
+;;; Initialize `straight.el'
 
 (setq-default
  straight-repository-branch "develop"
@@ -57,7 +62,10 @@
  straight-use-package-by-default t
 
  ;; Keep `straight.el' files and package repos out of the user directory.
- straight-base-dir path-packages-dir)
+ straight-base-dir path-packages-dir
+
+ ;; Avoid cloning the entire git history of packages.
+ straight-vc-git-default-clone-depth '(1 single-branch))
 
 ;; https://github.com/raxod502/straight.el#getting-started
 (defvar bootstrap-version)
@@ -73,34 +81,37 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;; }}
 
+;;
+;;; Initialize `use-package'
 
-;; Initialize `use-package' {{
 
 (straight-use-package 'use-package)
+
+;; Disable `:ensure'.
+(setq use-package-ensure-function
+      (lambda (name &rest _)
+        (message "Ignoring ':ensure t' in '%s' config" name)))
 
 (use-package el-patch
   :straight t)
 
-;; }}
 
+;;
+;;; Common packages
 
-;; Common packages {{
 
 (use-package s)
 (use-package dash)
 (use-package async)
 (use-package request)
 
-;; }}
+
+;;
+;;; Miscellaneous core packages
 
 
-;; Miscellaneous core packages {{
 
-
-
-;; }}
 
 
 (provide 'init-elpa)

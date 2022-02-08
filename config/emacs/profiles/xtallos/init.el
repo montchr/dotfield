@@ -35,6 +35,10 @@
 ;;
 ;;; Code:
 
+
+;;
+;;; Bootstrap
+
 (setq user-emacs-directory (file-name-directory (or (buffer-file-name) load-file-name)))
 
 ;; Add Lisp directory to `load-path'.
@@ -71,9 +75,6 @@
           file-name-handler-alist-backup
           file-name-handler-alist))))
 
-
-;;; Bootstrap {{
-
 (require 'config-path)
 (require 'init-elpa)
 
@@ -82,55 +83,78 @@
 (setq custom-file (expand-file-name "custom-settings.el" user-emacs-directory))
 (load custom-file t)
 
-;;; }}
+(setq default-directory (concat (getenv "DOTFIELD_DIR") "/config/emacs/profiles/xtallos/"))
 
 
-;;; Core {{
+;;
+;;; Environment
 
-;; Environmental
 (defconst xtallos/env--graphic-p (display-graphic-p))
 (defconst xtallos/env--rootp (string-equal "root" (getenv "USER")))
 (defconst xtallos/env-sys-mac-p (eq system-type 'darwin))
 (defconst xtallos/env-sys-linux-p (eq system-type 'gnu/linux))
 (defconst xtallos/env-sys-name (system-name))
+(defconst xtallos/is-darwin xtallos/env-sys-mac-p)
+(defconst xtallos/is-linux xtallos/env-sys-linux-p)
 
-;; Keys
+(require 'init-exec-path)
 
-(use-package general
-  :commands (general-define-key))
+;;
+;;; Performance
 
-(use-package which-key
-  :diminish which-key-mode
-  :hook (after-init . which-key-mode))
+;; Disable an unnecessary second pass over `auto-mode-alist'.
+(setq auto-mode-case-fold nil)
 
-;;; }}
+;; Disable bidirectional text scanning.
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+
+;; Disable rendering of cursors or regions in windows other than the
+;; window which is currently focused.
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+(setq fast-but-imprecise-scrolling t)
+
+;; Avoid pinging random domain names.
+(setq ffap-machine-p-known 'reject)
+
+;; Disable frame resizing when changing font.
+(setq frame-inhibit-implied-resize t)
+
+;; Increase chunk size when reading from process output.
+(setq read-process-output-max (* 64 1024))  ; 64kb
+
+;; Remove unnecessary OS-specific command-line options while running
+;; Emacs in a different OS.
+(unless xtallos/is-darwin    (setq command-line-ns-option-alist nil))
+(unless xtallos/is-linux     (setq command-line-x-option-alist nil))
 
 
-;;; Editor {{
+;;
+;;; Core
 
-(setq-default
- indent-tabs-mode nil
- tab-width 2
- require-final-newline t
- tab-always-indent t)
+(require 'init-keys)
+(require 'init-editor)
+(require 'init-ui)
+(require 'init-window)
 
-;;; }}
+;;
+;;; Utilities
 
+(require 'init-vcs)
 
-(setq inhibit-startup-message t) ; Don't show the splash screen
-(setq visible-bell nil)          ; No flashing visual bells
+;;
+;;; `dired'
 
-;; Display line numbers in every buffer
-(global-display-line-numbers-mode 1)
+(setq delete-by-moving-to-trash t)
 
-(hl-line-mode 1)
-(blink-cursor-mode 1)
+;; Delete intermediate buffers while navigating.
+(eval-after-load "dired"
+  #'(lambda ()
+      (put 'dired-find-alternate-file 'disabled nil)
+      (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)))
 
-(load-theme 'modus-vivendi t)
-
-(use-package minions
-  :init
-  (minions-mode 1))
 
 (provide 'init)
 ;;; init.el ends here
