@@ -36,16 +36,10 @@ autoload -Uz _zinit
 ## Color
 . "${DOTFIELD_DIR}/lib/color.sh"
 
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
-
 ## Prompt
 zinit ice depth=1
 zinit light \
   romkatv/powerlevel10k
-
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
-
-# zinit atload='source $ZDOTDIR/.p10k.zsh' light \
 
 ## Base Config
 source "${ZDOTDIR}/config.zsh"
@@ -197,6 +191,8 @@ zt 2a for \
 zt 2b for \
   OMZ::plugins/extract \
   agkozak/zhooks
+
+eval "$(direnv hook zsh)"
 
 
 ## Custom Plugins
