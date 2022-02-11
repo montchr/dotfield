@@ -657,7 +657,7 @@ msg::domain "Guardian" "Ensure directories exist" && {
 
 guard::macos && {
   # shellcheck source=./provision/macos/main
-  . "${DOTFIELD}/provision/macos/main"
+  . "${DOTFIELD_DIR}/provision/macos/main"
 }
 
 
@@ -694,7 +694,7 @@ guard::macos && {
 ( guard::ubuntu || guard::debian ) && {
   msg::domain "OS" "Preparing Debian/Ubuntu environment"
   # shellcheck source=./provision/debian/main
-  . "${DOTFIELD}/provision/debian/main"
+  . "${DOTFIELD_DIR}/provision/debian/main"
 }
 
 
