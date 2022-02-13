@@ -377,13 +377,8 @@
 (use-package! lsp-mode
   :init
   (setq! lsp-use-plists t)
-  :config
-  (setq! lsp-vetur-use-workspace-dependencies t
-         lsp-enable-indentation nil
-         lsp-file-watch-threshold 666
-         lsp-ui-doc-delay 2
-         flycheck-javascript-eslint-executable "eslint_d")
 
+  :config
   ;; Register rnix-lsp as a client
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
@@ -398,6 +393,13 @@
     (when (derived-mode-p 'sh-mode)
       (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
   (add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck))
+
+(after! lsp-mode
+  (setq! lsp-vetur-use-workspace-dependencies t
+         lsp-enable-indentation nil
+         lsp-file-watch-threshold 666
+         lsp-ui-doc-delay 2
+         flycheck-javascript-eslint-executable "eslint_d"))
 
 (use-package! literate-calc-mode
   :defer-incrementally t)
