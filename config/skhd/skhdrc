@@ -115,6 +115,7 @@ sys     < y : launchctl kickstart -k "gui/$UID/org.nixos.yabai" ; \
 # Entry to HYPER-SPACE modals is always to FOCUS mode. Getting out of any mode
 # can also be done with ESCAPE.
 focus, grid, swap, warp, warpnf, resize, stack < hyper - space     ; default
+focus, grid, swap, warp, warpnf, resize, stack < ctrl - g          ; default
 grid, swap, warp, warpnf, resize, stack < escape                   ; focus
 focus < escape                                                     ; default
 
