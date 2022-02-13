@@ -34,9 +34,6 @@
 ;;
 ;;; Code:
 
-;; Prevent runtime package and site files compilation.
-(setq native-comp-deferred-compilation nil)
-
 ;; Less clutter
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(vertical-scroll-bars))
