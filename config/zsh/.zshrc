@@ -111,7 +111,6 @@ zinit ice \
   wait'!' \
 zinit light zsh-users/zsh-history-substring-search
 
-zinit light "lukechilds/zsh-nvm"
 
 
 ## zsh-vim-mode
