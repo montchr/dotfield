@@ -27,6 +27,7 @@ in
     gitAndTools.tig
     # For EXIF diff handling
     exiftool
+    git-cliff
   ] ++ userScripts;
 
   my.hm.programs.git = {
