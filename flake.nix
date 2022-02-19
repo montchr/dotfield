@@ -122,6 +122,7 @@
             home.gnupg
             home.mail
             home.pass
+            home.rclone
             home.security.yubikey
             home.secrets
             home.ssh
