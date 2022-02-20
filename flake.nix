@@ -106,6 +106,7 @@
           ];
           developer = suites.base ++ [
             system.languages.nodejs
+            home.aws
             home.direnv
             home.emacs
             home.languages.nodejs
