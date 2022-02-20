@@ -1,9 +1,5 @@
-# =============================================================================
-#    =%  FUNCTIONS  %=
-# =============================================================================
 
 # ls on cd
-chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook chpwd chpwd_ls
 
 # Start new sessions from most recent working directory.
@@ -21,7 +17,9 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
 } 2>/dev/null
 
 
-##: FILESYSTEM
+# =============================================================================
+#    =%  FILESYSTEM  %=
+# =============================================================================
 
 # FIXME
 # zicompdef rcp=rsync
@@ -29,7 +27,9 @@ dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]
 # zicompdef take=mkdir
 
 
-##: COLOR
+# =============================================================================
+#    =%  COLOR  %=
+# =============================================================================
 
 #=====================================
 # Print the current shell's color palette.
