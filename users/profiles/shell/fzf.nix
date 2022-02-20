@@ -28,7 +28,10 @@ let
 in
 {
   my.env = {
-    FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
+    # FIXME: this restricts the loaded color theme until changed by a
+    # nixos/darwin rebuild, which isn't really usable right now.
+    # FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
+
     FZF_DEFAULT_COMMAND = defaultCmd;
 
     FZF_CTRL_T_COMMAND = defaultCmd;
