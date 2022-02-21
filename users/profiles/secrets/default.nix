@@ -2,15 +2,15 @@
 
 let
   inherit (config.dotfield) secretsDir;
-  inherit (config.my.keys) sshHostKeyPaths;
 
+  sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
   secretsFile = "${secretsDir}/secrets.nix";
 in
 
 {
   my.env.AGENIX_ROOT = config.dotfield.path;
 
-  age.sshKeyPaths = sshHostKeyPaths;
+  age.identityPaths = sshHostKeyPaths;
 
   age.secrets =
     if lib.pathExists secretsFile

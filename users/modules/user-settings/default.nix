@@ -31,12 +31,19 @@ in
 
       keys = {
         pgp = mkOpt str "0x135EEDD0F71934F3";
-        ssh = mkOpt str (import ./ssh-key-primary.nix);
-        sshHostKeyPaths = mkOpt (listOf str) [
-          "${sshDir}/id_ed25519"
-          # FIXME: filter non-existant paths
-          # "${sshDir}/id_rsa"
-        ];
+        ssh = lib.mkOption {
+          type = types.submodule {
+            options = {
+              primary = mkOpt str "";
+              identities = mkOpt (listOf str) [ ];
+              hostKeyPaths = mkOpt (listOf str) [
+                "${sshDir}/id_ed25519"
+                # FIXME: filter non-existant paths
+                # "${sshDir}/id_rsa"
+              ];
+            };
+          };
+        };
       };
 
       hm = lib.mkOption {

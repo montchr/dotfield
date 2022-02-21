@@ -24,11 +24,14 @@ let
   mkTheme' = name: lib.concatStringsSep ","
     (lib.mapAttrsToList (n: v: "${n}:#${v}") (mkTheme name));
 
-  defaultCmd = "${fd} --type f --hidden --follow --exclude .git 2>/dev/null";
+  defaultCmd = "${fd} --hidden --follow --exclude .git 2>/dev/null";
 in
 {
   my.env = {
-    FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
+    # FIXME: this restricts the loaded color theme until changed by a
+    # nixos/darwin rebuild, which isn't really usable right now.
+    # FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
+
     FZF_DEFAULT_COMMAND = defaultCmd;
 
     FZF_CTRL_T_COMMAND = defaultCmd;

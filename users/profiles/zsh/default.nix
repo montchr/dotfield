@@ -19,34 +19,26 @@ in
     zoxide
   ];
 
-  my.env = rec {
-    # zsh paths
-    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
-    ZSH_CACHE = "$XDG_CACHE_HOME/zsh";
-    ZSH_DATA = "$XDG_DATA_HOME/zsh";
-  };
+  # These essential environment variables must be set in a place zsh will always
+  # look due to the bootstrap problem.
+  # https://wiki.archlinux.org/title/XDG_Base_Directory
+  my.hm.home.file.".zshenv".text = ''
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+    export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
+    export ZSH_DATA="$XDG_DATA_HOME/zsh"
+    export HISTFILE="$XDG_STATE_HOME/zsh/history"
+  '';
 
   my.hm.xdg.configFile = {
-    "zsh" = {
-      source = configDir;
-      # FIXME: conflicts with in-store symlinks in same target directory causing CI workflows to fail
-      # source = mkOutOfStoreSymlink configDirPath;
-      recursive = true;
-      onChange = ''
-        # Remove compiled files.
-        fd -uu \
-          --extension zwc \
-          --exec \
-            rm '{}'
-      '';
-    };
-
     "zsh/.zshenv".text = ''
+      ${builtins.readFile ./z4h-env.zsh}
       ${shellCfg.envInit}
-
-      # Host-local configuration (oftentimes added by other tools)
-      [ -f ~/.zshenv ] && source ~/.zshenv
     '';
+
+    "zsh/.zshrc".source = mkOutOfStoreSymlink "${configDirPath}/main.zsh";
+
+    "zsh/config.zsh".source = mkOutOfStoreSymlink "${configDirPath}/config.zsh";
+    "zsh/functions.zsh".source = mkOutOfStoreSymlink "${configDirPath}/functions.zsh";
 
     "zsh/extra.zshrc".text = ''
       ${shellCfg.rcInit}

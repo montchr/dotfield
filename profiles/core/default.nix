@@ -43,6 +43,8 @@
     LC_ALL = "en_US.UTF-8";
     HOSTNAME = config.networking.hostName;
     TMPDIR = "/tmp";
+
+    ZDOTDIR = "$HOME/.config/zsh";
   };
 
   environment.shells = with pkgs; [

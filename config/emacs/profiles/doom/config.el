@@ -341,7 +341,7 @@
   :after org)
 
 (after! markdown
-  (add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode)))
+  (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
 (use-package! org-jira
   :init

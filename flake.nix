@@ -2,14 +2,14 @@
   description = "Dotfield";
 
   inputs = {
-    # Package sets
+    # Channels
     nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = "github:montchr/nix-darwin/trunk";
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -27,9 +27,9 @@
     nvfetcher.url = "github:berberman/nvfetcher";
 
     # Secrets management.
-    agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:montchr/agenix/trunk";
     agenix.inputs.nixpkgs.follows = "nixos-stable";
-    agenix-cli.url = "github:montchr/agenix-cli/develop";
+    agenix-cli.url = "github:cole-h/agenix-cli";
 
     # Development tools.
     emacs.url = "github:montchr/emacs/trunk";
@@ -106,6 +106,7 @@
           ];
           developer = suites.base ++ [
             system.languages.nodejs
+            home.aws
             home.direnv
             home.emacs
             home.languages.nodejs
@@ -122,6 +123,7 @@
             home.gnupg
             home.mail
             home.pass
+            home.rclone
             home.security.yubikey
             home.secrets
             home.ssh
@@ -167,6 +169,8 @@
               ++ [
                 hostConfigs.${name}
                 home-manager.darwinModules.home-manager
+                # `nixosModules` is correct, even for darwin
+                agenix.nixosModules.age
               ];
           };
         };
@@ -232,6 +236,10 @@
                 nix_2_6
                 nixUnstable
                 nix-direnv
+                ;
+              inherit (channels.nixpkgs-trunk)
+                # TODO: inherit from unstable when v0.6.0 is available there
+                git-cliff
                 ;
             })
             emacs.overlay
