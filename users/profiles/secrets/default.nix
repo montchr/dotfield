@@ -10,7 +10,7 @@ in
 {
   my.env.AGENIX_ROOT = config.dotfield.path;
 
-  age.sshKeyPaths = sshHostKeyPaths;
+  age.identityPaths = sshHostKeyPaths;
 
   age.secrets =
     if lib.pathExists secretsFile

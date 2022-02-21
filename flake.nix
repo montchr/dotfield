@@ -2,14 +2,14 @@
   description = "Dotfield";
 
   inputs = {
-    # Package sets
+    # Channels
     nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = "github:montchr/nix-darwin/trunk";
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -27,9 +27,9 @@
     nvfetcher.url = "github:berberman/nvfetcher";
 
     # Secrets management.
-    agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:montchr/agenix/trunk";
     agenix.inputs.nixpkgs.follows = "nixos-stable";
-    agenix-cli.url = "github:montchr/agenix-cli/develop";
+    agenix-cli.url = "github:cole-h/agenix-cli";
 
     # Development tools.
     emacs.url = "github:montchr/emacs/trunk";
@@ -169,6 +169,8 @@
               ++ [
                 hostConfigs.${name}
                 home-manager.darwinModules.home-manager
+                # `nixosModules` is correct, even for darwin
+                agenix.nixosModules.age
               ];
           };
         };
