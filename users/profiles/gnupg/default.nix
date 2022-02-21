@@ -24,11 +24,11 @@ in
   ];
 
   # Ensure the correct permissions.
-  system.activationScripts.postUserActivation.text = ''
-    sudo chown -R ${my.username} ${gnupgHome}
-    find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
-    find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
-  '';
+  #system.activationScripts.postUserActivation.text = ''
+    #sudo chown -R ${my.username} ${gnupgHome}
+    #find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
+    #find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
+  #'';
 
   my.env = {
     DOTFIELD_PGP_KEY = key;

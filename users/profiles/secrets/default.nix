@@ -22,7 +22,7 @@ in
         })
         (import secretsFile)
     else {
-      "wireless.env".file = "${secretsDir}/wireless.env.age";
+#      "wireless.env".file = "${secretsDir}/wireless.env.age";
     };
 }
 

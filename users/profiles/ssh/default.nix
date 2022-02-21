@@ -2,15 +2,14 @@
 
 let
   inherit (config.my.keys) sshHostKeyPaths;
-  sshPrimaryKeyPath = "${config.my.user.home}/.ssh/id_ed25519_yubikey.pub";
 in
 
 {
   # Ensure correct permissions
   # TODO: is this an issue with home-manager or nix-darwin, or a result of my config?
-  system.activationScripts.postUserActivation.text =
-    lib.concatMapStrings (f: "chmod 600 ${f}\n")
-      ([ sshPrimaryKeyPath ] ++ sshHostKeyPaths);
+#  system.activationScripts.postUserActivation.text =
+#    lib.concatMapStrings (f: "chmod 600 ${f}\n")
+#      (sshHostKeyPaths);
 
   my.hm.programs.ssh = {
     enable = true;
@@ -38,7 +37,7 @@ in
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        identityFile = sshPrimaryKeyPath;
+        identityFile = "${config.my.user.home}/.ssh/id_ed25519";
         serverAliveInterval = 300;
         serverAliveCountMax = 2;
 
