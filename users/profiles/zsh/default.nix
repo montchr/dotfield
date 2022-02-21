@@ -22,26 +22,24 @@ in
   # These essential environment variables must be set in a place zsh will always
   # look due to the bootstrap problem.
   # https://wiki.archlinux.org/title/XDG_Base_Directory
-  my.hm.home.file.".zshenv".text = ''
+  my.hm.home.file.".zshenv".text = (if pkgs.stdenv.isDarwin then ''
     export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
     export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
     export ZSH_DATA="$XDG_DATA_HOME/zsh"
     export HISTFILE="$XDG_STATE_HOME/zsh/history"
-  '';
 
-  my.hm.xdg.configFile = {
-    "zsh/.zshenv".text = ''
-      ${builtins.readFile ./z4h-env.zsh}
-      ${shellCfg.envInit}
-    '';
+    ${builtins.readFile ./z4h-env.hodge.zsh}
+    ${shellCfg.envInit}
+  '' else "");
 
-    "zsh/.zshrc".source = mkOutOfStoreSymlink "${configDirPath}/main.zsh";
-
-    "zsh/config.zsh".source = mkOutOfStoreSymlink "${configDirPath}/config.zsh";
-    "zsh/functions.zsh".source = mkOutOfStoreSymlink "${configDirPath}/functions.zsh";
-
-    "zsh/extra.zshrc".text = ''
-      ${shellCfg.rcInit}
-    '';
-  };
+  my.hm.xdg.configFile = lib.mkMerge [
+    {
+      "zsh/.zshrc".source = "${configDir}/main.hodge.zsh";
+      "zsh/config.zsh".source = "${configDir}/config.zsh";
+      "zsh/functions.zsh".source = "${configDir}/functions.zsh";
+      "zsh/extra.zshrc".text = ''
+        ${shellCfg.rcInit}
+      '';
+    }
+  ];
 }
