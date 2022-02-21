@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  inherit (config.my.keys) sshHostKeyPaths;
+  sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
   sshPrimaryKeyPath = "${config.my.user.home}/.ssh/id_ed25519_yubikey.pub";
 in
 

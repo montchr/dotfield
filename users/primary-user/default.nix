@@ -36,6 +36,11 @@ in
     home = "/Users/${name}";
   });
 
+  my.keys.ssh = {
+    primary = (import ./ssh-primary-key.nix);
+    identities = (import ./ssh-identities.nix);
+  };
+
   environment.variables = let inherit (my) xdg; in
     {
       CACHEDIR = xdg.cache;

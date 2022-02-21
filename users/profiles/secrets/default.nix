@@ -2,8 +2,8 @@
 
 let
   inherit (config.dotfield) secretsDir;
-  inherit (config.my.keys) sshHostKeyPaths;
 
+  sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
   secretsFile = "${secretsDir}/secrets.nix";
 in
 
