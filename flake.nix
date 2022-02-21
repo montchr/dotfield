@@ -278,6 +278,8 @@
       };
 
       hosts = mkHosts [
+        (mkNixosHost "hodge" { })
+
         (mkDarwinHost "HodgePodge" { })
         (mkDarwinHost "alleymon" { })
 
