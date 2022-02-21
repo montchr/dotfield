@@ -88,7 +88,7 @@
     };
     desktopManager.plasma5.enable = true;
     libinput.enable = true;
-    videoDrivers = [ "nvidia" ];
+    # videoDrivers = [ "nvidia" ];
 
 #    synaptics.additionalOptions = ''
 #      Option "VertScrollDelta" "-100"
