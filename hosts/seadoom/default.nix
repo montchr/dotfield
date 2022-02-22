@@ -5,7 +5,7 @@
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    profiles.linode
+    profiles.system.linode
   ] ++ suites.base;
 
   # TODO: remove or something
