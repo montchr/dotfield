@@ -6,7 +6,7 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     profiles.system.linode
-  ] ++ suites.base;
+  ] ++ suites.nixos;
 
   # TODO: remove or something
   # bud.enable = true;
