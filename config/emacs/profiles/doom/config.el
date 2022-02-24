@@ -38,14 +38,6 @@
 (use-package! minions
   :config (minions-mode 1))
 
-
-;; Adjust the size of the modeline.
-;; (after! doom-modeline
-;;   (when IS-MAC
-;;     (setq! doom-modeline-height 1)
-;;     (custom-set-faces!
-;;       '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
-
 (setq! tab-width 2)
 
 (use-package! evil
@@ -92,8 +84,6 @@
   (+cdom/load-os-theme))
 
 (defvar +cdom/org-agenda-directory "~/org/gtd/")
-(defvar +cdom/org-notes-directory "~/org/notes/")
-(defvar +cdom/org-mind-directory "~/org/mind/")
 
 (setq! org-directory "~/org"
        +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
@@ -145,29 +135,6 @@
 ;; not just limited to actions in org files fwiw.
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
-;; (use-package! scroll-on-jump
-;;   :after (evil)
-;;   :config
-;;   (setq! scroll-on-jump-duration 0.2
-;;          scroll-on-jump-smooth t
-;;          scroll-on-jump-use-curve nil)
-;;   (scroll-on-jump-advice-add evil-undo)
-;;   (scroll-on-jump-advice-add evil-redo)
-;;   (scroll-on-jump-advice-add evil-jump-item)
-;;   (scroll-on-jump-advice-add evil-jump-forward)
-;;   (scroll-on-jump-advice-add evil-jump-backward)
-;;   (scroll-on-jump-advice-add evil-ex-search-next)
-;;   (scroll-on-jump-advice-add evil-ex-search-previous)
-;;   (scroll-on-jump-advice-add evil-forward-paragraph)
-;;   (scroll-on-jump-advice-add evil-backward-paragraph)
-;;   ;; Actions that themselves scroll.
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
-
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 ;; (after! company
 ;;   (setq! company-idle-delay nil)
@@ -215,13 +182,6 @@
   (setq! magit-list-refs-sortby "-creatordate"
          magit-process-finish-apply-ansi-colors t))
 
-;; Enable delta diff viewer
-;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
-
-;; Prevent evil-lion from removing extra spaces.
-;; Add any desired extra space prior to invoking evil-lion.
-;; (setq! evil-lion-squeeze-spaces nil)
-
 ;; Prevent vterm from loading emacs from within itself
 (use-package! with-editor
   :after (vterm)
@@ -238,12 +198,9 @@
 (use-package! org
   :config
   (setq! org-image-actual-width 300
-         ;; org-startup-folded t
          org-startup-with-inline-images t
          org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
          org-cycle-separator-lines -1
-         ;; TODO: could this cause an issue with org-roam IDs?
-         org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
          org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
