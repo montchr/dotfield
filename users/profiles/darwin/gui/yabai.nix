@@ -177,7 +177,7 @@ in
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = true;
+    enableScriptingAddition = false;
 
     # As of 2022-01-21, border functionality is unusable on macOS 12
     # https://github.com/koekeishiya/yabai/issues/1054#issue-1058384717
