@@ -19,10 +19,36 @@ let
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
 
+  emacsPlus = pkgs.fetchFromGitHub {
+    owner = "d12frosted";
+    repo = "homebrew-emacs-plus";
+    rev = "b7809dd815e7753e20851c81603c82a573d7d1cc";
+    sha256 = "sha256-UoMieQKaWB9vSQ75866Kpjb0OKbO1OOj9IwKdAFQit4=";
+  };
+
+  emacs29Darwin = ((pkgs.emacsPackagesFor pkgs.emacsPgtkGcc).emacsWithPackages (epkgs: [
+    epkgs.vterm
+  ]));
+
+  emacsGccDarwin = (pkgs.emacsGcc.overrideAttrs (o: {
+    # TODO: add no-titlebar patch! oops.
+    patches = o.patches ++ [
+      "${emacsPlus}/patches/emacs-28/fix-window-role.patch"
+      "${emacsPlus}/patches/emacs-28/no-frame-refocus-cocoa.patch"
+      "${emacsPlus}/patches/emacs-28/system-appearance.patch"
+    ];
+    # TODO: give this a try on next rebuild
+    # postPatch = ''
+    #   ${postPatch}
+    #   cp -f ${emacsPlus}/icons/nobu417-big-sur.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
+    # '';
+  }));
+
 in
 lib.mkMerge [
   {
-    environment.systemPackages = with pkgs; [ emacs ];
+    environment.systemPackages = [ emacsGccDarwin ];
+
     environment.variables = {
       PATH = [ "${doomDataDir}/bin" "$PATH" ];
     };
@@ -65,7 +91,8 @@ lib.mkMerge [
 
     my.hm.programs.emacs = {
       enable = true;
-      package = pkgs.emacs;
+      package = emacsGccDarwin;
+      # package = emacs29Darwin;
     };
 
     my.user.packages = with pkgs; [

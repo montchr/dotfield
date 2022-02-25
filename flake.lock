@@ -179,16 +179,13 @@
       "locked": {
         "lastModified": 1645668284,
         "narHash": "sha256-TqLlLTHx7lokAsH6v5gYzgD/AqxncPctNn6R+j87S8Y=",
-        "owner": "montchr",
-        "repo": "emacs",
+        "path": "/nix/store/4pfv3drqpj4gpkgmhrliylxdbd000iqq-source",
         "rev": "162921bbf3d5e7a741fc34b8597edaa0cfd579f5",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "montchr",
-        "ref": "trunk",
-        "repo": "emacs",
-        "type": "github"
+        "id": "emacs",
+        "type": "indirect"
       }
     },
     "emacs-overlay": {

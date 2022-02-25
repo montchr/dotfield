@@ -30,7 +30,6 @@
     agenix-cli.url = "github:cole-h/agenix-cli";
 
     # Development tools.
-    emacs.url = "github:montchr/emacs/trunk";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
@@ -226,6 +225,7 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
+            emacs-overlay.overlay
             (import ./pkgs/darwin { inherit self inputs; })
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
@@ -241,7 +241,6 @@
                 git-cliff
                 ;
             })
-            emacs.overlay
           ]);
         };
         nixpkgs-unstable = { };
