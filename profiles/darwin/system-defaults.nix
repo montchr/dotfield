@@ -13,12 +13,11 @@
   # TODO: why disabled? caused an error?
   # system.defaults.".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
-  # pending: https://github.com/LnL7/nix-darwin/pull/414
-  system.defaults.universalaccess = {
-    reduceTransparency = true;
-    closeViewScrollWheelToggle = true;
-    closeViewZoomFollowsFocus = true;
-  };
+  # system.defaults.universalaccess = {
+  #   reduceTransparency = true;
+  #   closeViewScrollWheelToggle = true;
+  #   closeViewZoomFollowsFocus = true;
+  # };
 
   system.defaults.smb = {
     NetBIOSName = config.networking.hostName;
