@@ -9,15 +9,13 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    darwin.url = "github:LnL7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Flake utilities.
     digga.url = "github:divnix/digga";
-    digga.inputs.nixpkgs.follows = "nixos-stable";
-    digga.inputs.nixlib.follows = "nixos-stable";
     digga.inputs.home-manager.follows = "home-manager";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
