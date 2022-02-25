@@ -108,6 +108,7 @@
             home.direnv
             home.emacs
             home.languages.nodejs
+            home.vim
           ];
           gui = [
             system.fonts
@@ -214,6 +215,8 @@
           overlaysBuilder = (channels: [
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
+                neovim
+                neovim-unwrapped
                 nix
                 nix_2_5
                 nix_2_6
@@ -230,6 +233,8 @@
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
                 direnv
+                neovim
+                neovim-unwrapped
                 nix
                 nix_2_5
                 nix_2_6
