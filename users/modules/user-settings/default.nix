@@ -22,11 +22,12 @@ in
       usernames = lib.mkOption {
         type = types.submodule {
           options = {
-            github = mkOpt str config.my.username;
-            gitlab = mkOpt str config.my.username;
-            sourcehut = mkOpt str config.my.username;
+            github = mkOpt' str "" "GitHub username";
+            gitlab = mkOpt' str "" "GitLab username";
+            sourcehut = mkOpt' str "" "Sourcehut username";
           };
         };
+        default = { };
       };
 
       terminal = mkOpt str "kitty";

@@ -36,6 +36,12 @@ in
     home = "/Users/${name}";
   });
 
+  my.usernames = {
+    github = "montchr";
+    gitlab = "montchr";
+    sourcehut = "montchr";
+  };
+
   my.keys.ssh = {
     primary = (import ./ssh-primary-key.nix);
     identities = (import ./ssh-identities.nix);
@@ -63,7 +69,7 @@ in
     # between the icon and its filename.
     EXA_ICON_SPACING = "2";
 
-    GITHUB_USER = my.githubUsername;
+    GITHUB_USER = my.usernames.github;
     Z_OWNER = my.username;
   };
 
