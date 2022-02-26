@@ -228,7 +228,6 @@
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
           overlaysBuilder = (channels: [
-            emacs-overlay.overlay
             (import ./pkgs/darwin { inherit self inputs; })
             (final: prev: {
               inherit (channels.nixpkgs-unstable)
@@ -264,6 +263,7 @@
 
         (import ./pkgs)
         agenix.overlay
+        emacs-overlay.overlay
         nur.overlay
         nvfetcher.overlay
       ];
@@ -282,7 +282,7 @@
 
       hosts = mkHosts [
         (mkNixosHost "hodge" { })
-        (mkNixosHost "seadoom" { }) 
+        (mkNixosHost "seadoom" { })
 
         (mkDarwinHost "HodgePodge" { })
         (mkDarwinHost "alleymon" { })
