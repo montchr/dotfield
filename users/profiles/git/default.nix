@@ -51,7 +51,7 @@ in
     };
 
     extraConfig = {
-      github.user = my.githubUsername;
+      github.user = my.usernames.github;
 
       init.defaultBranch = "main";
 

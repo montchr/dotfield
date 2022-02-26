@@ -17,8 +17,16 @@ in
       timezone = mkOpt str "America/New_York";
       username = mkOpt str "montchr";
       website = mkOpt str "https://github.com/montchr";
-      githubUsername = mkOpt str "montchr";
       email = mkOpt str config.my.emails.personal;
+
+      usernames = lib.mkOption {
+        type = types.submodule {
+          options = {
+            github = mkOpt str config.my.username;
+          };
+        };
+      };
+
       terminal = mkOpt str "kitty";
       nix_managed = mkOpt str
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
