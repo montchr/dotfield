@@ -23,6 +23,8 @@ in
         type = types.submodule {
           options = {
             github = mkOpt str config.my.username;
+            gitlab = mkOpt str config.my.username;
+            sourcehut = mkOpt str config.my.username;
           };
         };
       };

@@ -52,6 +52,8 @@ in
 
     extraConfig = {
       github.user = my.usernames.github;
+      gitlab.user = my.usernames.gitlab;
+      sourcehut.user = my.usernames.sourcehut;
 
       init.defaultBranch = "main";
 
