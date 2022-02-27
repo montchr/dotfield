@@ -1,10 +1,14 @@
 { config, lib, pkgs, utils, ... }:
+
 let
   inherit (config) dotfield my;
+
+  shellCfg = config.shell;
 
   extraVars = lib.concatStringsSep "\n"
     (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') my.env);
 in
+
 {
   imports = [
     ./fzf.nix
@@ -25,6 +29,25 @@ in
   environment.extraInit = ''
     ${extraVars}
   '';
+
+  my.hm.programs.bash = {
+    enable = true;
+    bashrcExtra = ''
+      ${shellCfg.envInit}
+      ${extraVars}
+    '';
+    profileExtra = "";
+    shellAliases =
+      (import ./abbrs.nix { inherit config lib pkgs; })
+      // (import ./aliases.nix { inherit config lib pkgs; });
+  };
+
+  my.hm.home.sessionVariables = {
+    BASH_COMPLETION_USER_FILE = ''
+      ''${XDG_DATA_HOME:-$HOME/.local/share}/bash/completion
+    '';
+    TEST_VAR = "hello";
+  };
 
   my.env = {
     PATH = [ "$XDG_BIN_HOME" "$PATH" ];

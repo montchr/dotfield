@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-#  imports = [ ../cachix ];
+  #  imports = [ ../cachix ];
 
   nix = {
     package = pkgs.nix_2_5;
@@ -51,6 +51,11 @@
     bashInteractive
     zsh
   ];
+
+  # programs.bash = {
+  #   enable = true;
+  #   enableCompletion = true;
+  # };
 
   programs.zsh = {
     enable = true;

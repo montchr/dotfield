@@ -15,7 +15,7 @@
 
 # TODO: point shellcheck to something
 # shellcheck disable=SC1091
-. "${XDG_CONFIG_HOME}/bash/env"
+# . "${XDG_CONFIG_HOME}/bash/env"
 
 # shellcheck source=../../../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"

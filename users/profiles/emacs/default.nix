@@ -65,7 +65,7 @@ lib.mkMerge [
       "chemacs/profile".text = "default";
     };
 
-    shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
+    # shell.rcFiles = [ "${configPath}/emacs/functions.sh" ];
 
     my.hm.programs.emacs = {
       enable = true;
