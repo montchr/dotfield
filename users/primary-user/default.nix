@@ -81,6 +81,8 @@ in
     username = my.username;
   };
 
+  my.hm.programs.home-manager.enable = true;
+
   my.hm.xdg.enable = true;
 
   home-manager = {
