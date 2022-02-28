@@ -87,6 +87,8 @@
           ];
           linux-minimal = suites.base ++ [
             system.linux
+            system.users.nixos
+            system.users.root
           ];
           nixos = suites.base ++ [
             system.linux
