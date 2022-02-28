@@ -49,7 +49,6 @@
     , agenix
     , darwin
     , digga
-    , emacs
     , emacs-overlay
     , home-manager
     , nix-colors
