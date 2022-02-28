@@ -1,5 +1,3 @@
-{ self, inputs }:
-
 final: prev:
 
 let

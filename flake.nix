@@ -9,13 +9,14 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = "github:LnL7/nix-darwin/master";
+    darwin.url = "github:montchr/nix-darwin/add-toplevel-option-lib";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Flake utilities.
-    digga.url = "github:divnix/digga";
+    digga.url = "github:divnix/digga/darwin-support";
+    digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -67,9 +68,7 @@
       importables = rec {
         profiles = {
           system = digga.lib.rakeLeaves ./profiles // {
-            # users = {
-            #   montchr = import ./users/primary-user {};
-            # };
+            users = digga.lib.rakeLeaves ./users;
           };
           home = digga.lib.rakeLeaves ./users/profiles;
         };
@@ -119,6 +118,7 @@
           personal = [
             system.security.yubikey
             system.secrets
+            system.users.primary-user
             home.gnupg
             home.mail
             home.pass
@@ -135,117 +135,23 @@
         };
       };
 
-      hostConfigs = digga.lib.rakeLeaves ./hosts;
-
-      mkHosts = hosts: (builtins.foldl' (a: b: a // b) { } hosts);
-
-      mkNixosHost = name:
-        { system ? "x86_64-linux"
-        , channelName ? "nixos-stable"
-        }: {
-          ${name} = {
-            inherit system channelName;
-            modules = with importables;
-              suites.base
-              ++ [
-                hostConfigs.${name}
-                home-manager.nixosModules.home-manager
-                agenix.nixosModules.age
-              ];
-          };
-        };
-
-      mkDarwinHost = name:
-        { system ? "x86_64-darwin"
-        , channelName ? "nixpkgs-darwin-stable"
-        }: {
-          ${name} = {
-            inherit system channelName;
-            output = "darwinConfigurations";
-            builder = darwin.lib.darwinSystem;
-            modules = with importables;
-              suites.base
-              ++ [
-                hostConfigs.${name}
-                home-manager.darwinModules.home-manager
-                # `nixosModules` is correct, even for darwin
-                agenix.nixosModules.age
-              ];
-          };
-        };
-
-      # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L89-L109
-      # generate a home-manager configuration usable on any unix system
-      # with overlays and any extraModules applied
-      # mkHomeConfig =
-      #   { username
-      #   , system ? "x86_64-linux"
-      #   , nixpkgs ? inputs.nixpkgs
-      #   , stable ? inputs.nixos-stable
-      #   , lib ? (mkLib nixpkgs)
-      #   , baseModules ? [
-      #       ./modules/home-manager
-      #       {
-      #         home.sessionVariables = {
-      #           NIX_PATH =
-      #             "nixpkgs=${nixpkgs}:stable=${stable}:trunk=${inputs.trunk}\${NIX_PATH:+:}$NIX_PATH";
-      #         };
-      #       }
-      #     ]
-      #   , extraModules ? [ ]
-      #   }:
-      #   homeManagerConfiguration rec {
-      #     inherit system username;
-      #     homeDirectory = "${homePrefix system}/${username}";
-      #     extraSpecialArgs = { inherit inputs lib nixpkgs stable; };
-      #     configuration = {
-      #       imports = baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
-      #     };
-      #   };
-
     in
 
-    utils.lib.mkFlake {
+    digga.lib.mkFlake {
       inherit self inputs;
 
       channelsConfig.allowUnfree = true;
 
       channels = {
         nixos-stable = {
-          overlaysBuilder = (channels: [
-            (final: prev: {
-              inherit (channels.nixpkgs-unstable)
-                neovim
-                neovim-unwrapped
-                nix
-                nix_2_5
-                nix_2_6
-                nixUnstable
-                ;
-            })
-          ]);
+          imports = [ (digga.lib.importOverlays ./overlays/nixos-stable) ];
         };
         nixpkgs-trunk = { };
         nixpkgs-darwin-stable = {
-          overlaysBuilder = (channels: [
-            (import ./pkgs/darwin { inherit self inputs; })
-            (final: prev: {
-              inherit (channels.nixpkgs-unstable)
-                direnv
-                neovim
-                neovim-unwrapped
-                nix
-                nix_2_5
-                nix_2_6
-                nixUnstable
-                nix-direnv
-                ;
-              inherit (channels.nixpkgs-trunk)
-                # TODO: inherit from unstable when v0.6.0 is available there
-                git-cliff
-                ;
-            })
-          ]);
+          imports = [ (digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable) ];
+          overlays = [
+            ./pkgs/darwin
+          ];
         };
         nixpkgs-unstable = { };
       };
@@ -268,58 +174,77 @@
         nvfetcher.overlay
       ];
 
-      hostDefaults = {
-        extraArgs = { inherit utils inputs; };
-        specialArgs = with importables; { inherit profiles suites; };
-        modules = [
-          ./users/primary-user
-          nix-colors.homeManagerModule
-        ] ++ (builtins.attrValues (digga.lib.flattenTree
-          (digga.lib.rakeLeaves ./modules)))
-        ++ (builtins.attrValues (digga.lib.flattenTree
-          (digga.lib.rakeLeaves ./users/modules)));
+      nixos = {
+        inherit importables;
+
+        hostDefaults = {
+          system = "x86_64-linux";
+          channelName = "nixos-stable";
+          imports = [
+            (digga.lib.importExportableModules ./modules)
+            (digga.lib.importExportableModules ./users/modules)
+          ];
+          modules = with importables; [
+            { lib.our = self.lib; }
+            suites.base
+
+            digga.nixosModules.bootstrapIso
+            digga.nixosModules.nixConfig
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.age
+            nix-colors.homeManagerModule
+          ];
+        };
+
+        imports = [ (digga.lib.importHosts ./hosts/nixos) ];
+        hosts = {
+          hodge = { };
+          seadoom = { };
+          ci-ubuntu = { };
+        };
       };
 
-      hosts = mkHosts [
-        (mkNixosHost "hodge" { })
-        (mkNixosHost "seadoom" { })
+      darwin = {
+        inherit importables;
 
-        (mkDarwinHost "HodgePodge" { })
-        (mkDarwinHost "alleymon" { })
+        hostDefaults = {
+          channelName = "nixpkgs-darwin-stable";
+          imports = [
+            (digga.lib.importExportableModules ./modules)
+            (digga.lib.importExportableModules ./users/modules)
+          ];
+          modules = with importables; [
+            { lib.our = self.lib; }
+            suites.base
 
-        # CI runner hosts.
-        (mkDarwinHost "ci-darwin" { })
-        (mkNixosHost "ci-ubuntu" { })
-      ];
+            home-manager.darwinModules.home-manager
+            # `nixosModules` is correct, even for darwin
+            agenix.nixosModules.age
+            nix-colors.homeManagerModule
+          ];
+        };
 
-      # https://github.com/kclejeune/system/blob/71c65173e7eba8765a3962df5b52c2f2c25a8fac/flake.nix#L111-L129
-      # checks = nixlib.listToAttrs (
+        imports = [ (digga.lib.importHosts ./hosts/darwin) ];
+        hosts = {
+          HodgePodge = { };
+          alleymon = { };
+          ci-darwin = { };
+        };
+      };
 
-      #   # darwin checks
-      #   (map
-      #     (system: {
-      #       name = system;
-      #       value = {
-      #         darwin =
-      #           self.darwinConfigurations.alleymon.config.system.build.toplevel;
-      #         # darwinServer =
-      #         #   self.homeConfigurations.darwinServer.activationPackage;
-      #       };
-      #     })
-      #     nixlib.platforms.darwin)
-      #   # ++
-
-      #   # # linux checks
-      #   # (map
-      #   #   (system: {
-      #   #     name = system;
-      #   #     value = {
-      #   #       # nixos = self.nixosConfigurations.phil.config.system.build.toplevel;
-      #   #       # server = self.homeConfigurations.server.activationPackage;
-      #   #     };
-      #   #   })
-      #   #   self.lib.platforms.linux)
-      # );
-
+      # TODO: reshape user profiles
+      # home = {
+      #   imports = [ (digga.lib.importExportableModules ./users/modules) ];
+      #   modules = [ ];
+      #   importables = rec {
+      #     profiles = digga.lib.rakeLeaves ./users/profiles;
+      #     suites = with profiles; rec {
+      #       base = [ direnv git ];
+      #     };
+      #   };
+      #   users = {
+      #     nixos = { suites, ... }: { imports = suites.base; };
+      #   }; # digga.lib.importers.rakeLeaves ./users/hm;
+      # };
     };
 }
