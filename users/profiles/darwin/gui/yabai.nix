@@ -167,7 +167,7 @@ in
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = false;
+    enableScriptingAddition = true;
 
     config = {
       external_bar = false;
