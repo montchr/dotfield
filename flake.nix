@@ -234,19 +234,18 @@
         };
       };
 
-      # TODO: reshape user profiles
-      # home = {
-      #   imports = [ (digga.lib.importExportableModules ./users/modules) ];
-      #   modules = [ ];
-      #   importables = rec {
-      #     profiles = digga.lib.rakeLeaves ./users/profiles;
-      #     suites = with profiles; rec {
-      #       base = [ direnv git ];
-      #     };
-      #   };
-      #   users = {
-      #     nixos = { suites, ... }: { imports = suites.base; };
-      #   }; # digga.lib.importers.rakeLeaves ./users/hm;
-      # };
+      home = {
+        imports = [ (digga.lib.importExportableModules ./users/modules) ];
+        modules = [ ];
+        importables = rec {
+          profiles = digga.lib.rakeLeaves ./users/profiles;
+          suites = with profiles; rec {
+            base = [ ];
+          };
+        };
+        users = {
+          nixos = { suites, ... }: { imports = suites.base; };
+        }; # digga.lib.importers.rakeLeaves ./users/hm;
+      };
     };
 }
