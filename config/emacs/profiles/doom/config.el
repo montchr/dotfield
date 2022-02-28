@@ -215,9 +215,6 @@
   (setq! magit-list-refs-sortby "-creatordate"
          magit-process-finish-apply-ansi-colors t))
 
-;; Enable delta diff viewer
-;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
-
 ;; Prevent evil-lion from removing extra spaces.
 ;; Add any desired extra space prior to invoking evil-lion.
 ;; (setq! evil-lion-squeeze-spaces nil)

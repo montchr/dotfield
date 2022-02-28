@@ -47,7 +47,6 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 ;; themes
-(package! base16-theme)
 (package! modus-themes)
 
 ;; modeline
@@ -78,5 +77,3 @@
 
 ;; tools
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
-(package! magit-delta)               ; Use delta in magit diffs.
-(package! with-editor)               ; pass $EDITOR to embedded terminal processes
