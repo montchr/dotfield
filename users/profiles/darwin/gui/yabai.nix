@@ -66,13 +66,6 @@ let
       })
       scriptsFromFiles)) // {
 
-      set-border =
-        if cfg.border.enable
-        then
-          (mkScriptFromFile "set-border")
-        else
-          (writeShellScriptBin "yabai-set-border" "exit 0");
-
       kickstart-sa = (writeShellScriptBin "yabai-sa-kickstart" ''
         # ${config.my.nix_managed}
         #
@@ -163,9 +156,6 @@ in
     (builtins.attrNames scripts));
 
   environment.variables = {
-    YABAI_BORDER_DARK = "000000";
-    YABAI_BORDER_LIGHT = "ffffff";
-    YABAI_BORDER_WIDTH = "4";
     YABAI_PADDING_DEFAULT = defaults.padding;
   };
 
@@ -178,10 +168,6 @@ in
     enable = true;
     package = pkgs.yabai;
     enableScriptingAddition = false;
-
-    # As of 2022-01-21, border functionality is unusable on macOS 12
-    # https://github.com/koekeishiya/yabai/issues/1054#issue-1058384717
-    border.enable = (! (pkgs.yabai.version == "4.0.0-pre"));
 
     config = {
       external_bar = false;
@@ -230,10 +216,6 @@ in
       window_shadow = "on";
       active_window_opacity = 1.0;
       normal_window_opacity = 0.98;
-
-      # Enable window borders, but default to transparent.
-      window_border = if cfg.border.enable then "on" else "off";
-      normal_window_border_color = "0x00ffffff";
     };
 
     extraConfig =

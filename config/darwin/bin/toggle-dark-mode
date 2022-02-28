@@ -54,8 +54,6 @@ function main() {
 
   echo "${theme}" > "${XDG_CACHE_HOME}/shell-color-theme.lock"
 
-  yabai-set-border
-
   kitty::theme_change "${theme}"
 
   # FIXME: sourcing has no effect, because this is a function
