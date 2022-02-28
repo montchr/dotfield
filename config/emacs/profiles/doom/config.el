@@ -222,18 +222,6 @@
 ;; Add any desired extra space prior to invoking evil-lion.
 ;; (setq! evil-lion-squeeze-spaces nil)
 
-;; Prevent vterm from loading emacs from within itself
-(use-package! with-editor
-  :after (vterm)
-  :general
-  ([remap async-shell-command] 'with-editor-async-shell-command)
-  ([remap shell-command] 'with-editor-shell-command)
-  :hook
-  (shell-mode . with-editor-export-editor)
-  (term-exec  . with-editor-export-editor)
-  (eshell-mode . with-editor-export-editor)
-  (vterm-mode . with-editor-export-editor))
-
 ;; https://tecosaur.github.io/emacs-config/config.html#tweaking-defaults
 (use-package! org
   :config
