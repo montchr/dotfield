@@ -212,10 +212,9 @@ in
       auto_balance = "on";
 
       # Window opacity
-      window_opacity = "on";
-      window_shadow = "on";
-      active_window_opacity = 1.0;
-      normal_window_opacity = 0.98;
+      # Disabled due to possible issues with external displays
+      window_opacity = "off";
+      window_shadow = "off";
     };
 
     extraConfig =
@@ -260,7 +259,6 @@ in
             app = "Emacs";
             title = ".*Minibuf.*";
             manage = false;
-            border = false;
             label = "[Emacs]: Float minibuffer";
           }
 
