@@ -236,6 +236,9 @@
   (require 'find-lisp)
   (setq! org-archive-default-command 'org-archive-to-archive-sibling))
 
+(use-package! vulpea
+  :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
+
 (use-package! doct
   :after (org-capture)
   :commands (doct))

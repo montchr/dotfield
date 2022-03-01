@@ -53,10 +53,13 @@
 (package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
 (package! minions)    ;                     :: https://github.com/tarsius/minions
 
+;; org
+(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
+(package! vulpea)
+
 ;; languages
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! eslintd-fix)               ; auto-format js files with eslint_d
-(package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! nixpkgs-fmt)               ; nixpkgs-ready nix formatter
 (package! neon-mode
