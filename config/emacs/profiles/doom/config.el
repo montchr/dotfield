@@ -91,15 +91,10 @@
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
 
-(defvar +cdom/org-agenda-directory "~/org/gtd/")
-(defvar +cdom/org-notes-directory "~/org/notes/")
-(defvar +cdom/org-mind-directory "~/org/mind/")
-
-(setq! org-directory "~/org"
-       +org-capture-todo-file (concat +cdom/org-agenda-directory "inbox.org")
+(setq! org-directory "~/Dropbox/org"
+       +org-capture-todo-file (concat org-directory "inbox.org")
        org-roam-directory org-directory
-       deft-directory org-directory
-       deft-recursive t)
+       deft-directory org-directory)
 
 ;; Store the value of the shell environment's =SSH_*= variables when generating
 ;; the env file.
@@ -239,10 +234,7 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE|KILL" 'file))
   (require 'find-lisp)
-  (setq! org-agenda-files (find-lisp-find-files
-                           +cdom/org-agenda-directory
-                           "\.org$")
-         org-archive-default-command 'org-archive-to-archive-sibling))
+  (setq! org-archive-default-command 'org-archive-to-archive-sibling))
 
 (use-package! doct
   :after (org-capture)
@@ -310,12 +302,10 @@
                "\\)"))
 
 ;; Configure org-journal for compatability with org-roam-dailies
-(use-package! org-journal
-  :defer-incrementally t
-  :init
-  (setq! org-journal-file-type 'monthly
-         org-journal-file-format "%Y-%m.org"
-         org-journal-dir +cdom/org-agenda-directory
+(after! org-journal
+  (setq! org-journal-file-type 'daily
+         org-journal-file-format "%Y-%m-%d.org"
+         org-journal-dir org-directory
          org-journal-date-format "%A, %d %B %Y"
          org-journal-enable-agenda-integration t))
 
