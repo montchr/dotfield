@@ -25,9 +25,9 @@ in
 
   # Ensure the correct permissions.
   #system.activationScripts.postUserActivation.text = ''
-    #sudo chown -R ${my.username} ${gnupgHome}
-    #find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
-    #find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
+  #sudo chown -R ${my.username} ${gnupgHome}
+  #find ${gnupgHome} -type f -exec sudo chmod 600 {} \;
+  #find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
   #'';
 
   my.env = {
@@ -38,8 +38,6 @@ in
   my.hm.xdg.dataFile = {
     "gnupg/gpg-agent.conf" = {
       text = ''
-        # ${my.nix_managed}
-
         # TODO: Linux support
         pinentry-program ${my.user.home}/${pkgs.pinentry_mac.binaryPath}
       '';
@@ -47,7 +45,6 @@ in
 
     "gnupg/gpg.conf" = {
       text = ''
-        # ${my.nix_managed}
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
