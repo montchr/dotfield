@@ -58,8 +58,6 @@ z4h init || return
 ###: ENVIRONMENT VARIABLES :====================================================
 
 
-export GPG_TTY=$TTY
-
 ###: LOAD SOURCES :=============================================================
 
 z4h source $DOTFIELD_DIR/lib/color.sh
