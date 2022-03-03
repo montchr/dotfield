@@ -58,6 +58,7 @@ in
     "sublime-text"
     "ubersicht"
     "vagrant"
+    "vimr"
     # Disabled because updates to VirtualBox are disruptive
     # "virtualbox"
     "visual-studio-code"
