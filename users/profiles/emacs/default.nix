@@ -19,6 +19,10 @@ let
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
 
+  emacsPackage = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
+    epkgs.vterm
+  ]));
+
 in
 
 lib.mkMerge [
@@ -65,7 +69,7 @@ lib.mkMerge [
 
     my.hm.programs.emacs = {
       enable = true;
-      package = pkgs.emacsGcc;
+      package = emacsPackage;
     };
 
     my.user.packages = with pkgs; [
@@ -181,7 +185,7 @@ lib.mkMerge [
       environment.systemPackages = with pkgs; [
         # On darwin, this must be added to `systemPackages`. I think that's
         # because otherwise it won't be available as an application bundle.
-        emacsGcc
+        emacsPackage
       ];
 
       # Unavailable in nixpkgs.
