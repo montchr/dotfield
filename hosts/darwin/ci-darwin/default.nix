@@ -5,4 +5,6 @@
     darwin-minimal
     ++ developer
   );
+
+  my.username = "runner";
 }
