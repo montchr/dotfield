@@ -18,16 +18,28 @@ in
   ]));
 
   emacsGcc = (prev.emacsGcc.overrideAttrs (o: {
-    # TODO: add no-titlebar patch! oops.
-    patches = o.patches ++ [
+    # https://github.com/cmacrae/emacs/blob/03b4223e56e10a6d88faa151c5804d30b8680cca/flake.nix#L75
+    buildInputs = o.buildInputs ++ [ prev.darwin.apple_sdk.frameworks.WebKit ];
+
+    # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L16-L17
+    configureFlags = o.configureFlags
+      ++ [ "--with-cairo" "--with-harfbuzz" ];
+
+    patches = [
+      "${emacsPlus}/patches/emacs-28/no-titlebar.patch"
       "${emacsPlus}/patches/emacs-28/fix-window-role.patch"
-      "${emacsPlus}/patches/emacs-28/no-frame-refocus-cocoa.patch"
-      "${emacsPlus}/patches/emacs-28/system-appearance.patch"
     ];
-    # TODO: give this a try on next rebuild
-    # postPatch = ''
-    #   ${postPatch}
-    #   cp -f ${emacsPlus}/icons/nobu417-big-sur.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
-    # '';
+
+    # https://github.com/d12frosted/homebrew-emacs-plus#icons
+    postPatch = ''
+      ${o.postPatch}
+      cp -f ${emacsPlus}/icons/nobu417-big-sur.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
+    '';
+
+    # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L27-L29
+    postInstall = o.postInstall + ''
+      ln -snf $out/lib/emacs/28.0.50/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
+    '';
+
   }));
 }
