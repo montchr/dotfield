@@ -16,7 +16,7 @@ machines = [
 ]
 
 [[paths]]
-glob = "secrets/**/*.age"
+glob = "secrets/*.age"
 groups = [ "all" ]
 
 [[paths]]

@@ -21,9 +21,7 @@ in
           owner = lib.mkDefault config.my.user.name;
         })
         (import secretsFile)
-    else {
-#      "wireless.env".file = "${secretsDir}/wireless.env.age";
-    };
+    else { };
 }
 
 # via:
