@@ -2,16 +2,10 @@
 
 let
   sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
-  sshPrimaryKeyPath = "${config.my.user.home}/.ssh/id_ed25519_yubikey.pub";
+  sshPrimaryKeyPath = "~/.ssh/id_ed25519_yubikey.pub";
 in
 
 {
-  # Ensure correct permissions
-  # TODO: is this an issue with home-manager or nix-darwin, or a result of my config?
-#  system.activationScripts.postUserActivation.text =
-#    lib.concatMapStrings (f: "chmod 600 ${f}\n")
-#      (sshHostKeyPaths);
-
   my.hm.programs.ssh = {
     enable = true;
     hashKnownHosts = true;
@@ -19,7 +13,7 @@ in
     serverAliveInterval = 300;
     serverAliveCountMax = 2;
 
-    includes = [ "${config.my.user.home}/.config/ssh/config.local" ];
+    includes = [ "~/.config/ssh/config.local" ];
 
     matchBlocks = {
 
@@ -38,7 +32,11 @@ in
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        identityFile = "${config.my.user.home}/.ssh/id_ed25519";
+        identityFile = [
+          sshPrimaryKeyPath
+          "~/.ssh/id_ed25519"
+          "~/.ssh/id_rsa"
+        ];
         serverAliveInterval = 300;
         serverAliveCountMax = 2;
 
