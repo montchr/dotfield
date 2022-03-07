@@ -1,9 +1,13 @@
 { config, lib, pkgs, ... }:
-let
-  inherit (config.my) xdg;
 
-  passVars = { PASSWORD_STORE_DIR = "${xdg.data}/pass"; };
+let
+  hmConfig = config.home-manager.users.${config.my.username};
+  passVars = {
+    PASSWORD_STORE_DIR = "${hmConfig.xdg.dataHome}/pass";
+    PASSWORD_STORE_KEY = "${config.my.keys.pgp} 0xF0B8FB42A7498482";
+  };
 in
+
 {
   environment.variables = passVars;
   my.hm.programs.password-store = {
