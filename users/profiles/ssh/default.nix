@@ -34,6 +34,7 @@ in
         forwardX11Trusted = false;
         identityFile = [
           sshPrimaryKeyPath
+          config.age.secrets."aws-cdom-default.pem".path
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];
