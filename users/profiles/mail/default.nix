@@ -33,8 +33,8 @@ let
             extraConfig = {
               Create = "Near";
               CopyArrivalDate = "yes";
-              MaxMessages = 1000000;
-              MaxSize = "10m";
+              # MaxMessages = 1000000;
+              # MaxSize = "10m";
               Sync = "All";
               SyncState = "*";
             };
@@ -94,7 +94,7 @@ in
             name = "personal";
             domain = "cdom.io";
           } // {
-          msmtp.enable = true;
+          # msmtp.enable = true;
         };
         work = gmailAccount {
           name = "work";
