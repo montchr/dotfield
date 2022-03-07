@@ -1,15 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
+  hmConfig = config.home-manager.users.${config.my.username};
+
   configSrc = "${config.dotfield.configDir}/espanso";
   matchesSrc = "${configSrc}/match";
-  matchesDest = "${config.my.xdg.config}/espanso/match";
+  matchesDest = "${hmConfig.xdg.configHome}/espanso/match";
 
   mkMatchesSecret = name: {
-    "espanso-${name}" = {
+    "espanso-${name}.yml" = {
       file = "${matchesSrc}/${name}.yml.age";
       path = "${matchesDest}/${name}.yml";
-      owner = config.my.user.name;
+      owner = hmConfig.home.username;
     };
   };
 in
