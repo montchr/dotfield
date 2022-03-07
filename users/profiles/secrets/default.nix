@@ -4,7 +4,18 @@ let
   inherit (config.dotfield) secretsDir;
 
   sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
-  secretsFile = "${secretsDir}/secrets.nix";
+  secretsManifestFile = "${secretsDir}/secrets.nix";
+
+  secretFiles = [
+    "aws-cdom-default.pem"
+  ];
+
+  mkSecret = name: {
+    "${name}" = {
+      file = "${secretsDir}/${name}.age";
+      owner = lib.mkDefault config.my.user.name;
+    };
+  };
 in
 
 {
@@ -13,15 +24,16 @@ in
   age.identityPaths = sshHostKeyPaths;
 
   age.secrets =
-    if lib.pathExists secretsFile
+    if lib.pathExists secretsManifestFile
     then
       lib.mapAttrs'
         (n: _: lib.nameValuePair (lib.removeSuffix ".age" n) {
           file = "${secretsDir}/${n}";
           owner = lib.mkDefault config.my.user.name;
         })
-        (import secretsFile)
-    else { };
+        (import secretsManifestFile)
+    else
+      lib.mkMerge (builtins.map mkSecret secretFiles);
 }
 
 # via:
