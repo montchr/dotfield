@@ -1,14 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -16,57 +11,89 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
 
+  # Required for broadcom driver support.
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
   hardware.enableAllFirmware = true;
 
-  networking.hostName = "HodgePodge"; # Define your hostname.
-  networking.wireless = {
+  # Thunderbolt support.
+  # TODO: don't enable this until you know exactly what it does
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   linux = pkgs.linuxPackages.override {
+  #     extraConfig = ''
+  #       THUNDERBOLT m
+  #     '';
+  #   };
+  # };
+
+  nix = {
+    #  package = pkgs.nixUnstable;
+    useSandbox = true;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
+  networking = {
+    hostName = "HodgePodge";
+
+    interfaces.enp0s20u1.useDHCP = true; # Ethernet
+    interfaces.wlp3s0.useDHCP = true; # WiFi
+
+    # TODO: these are probably invalid
+    interfaces.ens9.useDHCP = true; # Ethernet
+    interfaces.ens0.useDHCP = true; # Ethernet
+
+    wireless = {
       enable = true;
       interfaces = [ "wlp3s0" ];
       userControlled.enable = true;
-      networks.bortHole.psk = "veryconfusing";
     };
-  # Set your time zone.
+  };
+
   time.timeZone = "America/New_York";
 
   boot.cleanTmpDir = true;
   # videoDrivers = [ "nvidia" ];
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s20u1.useDHCP = true;
-  networking.interfaces.ens9.useDHCP = true;
-  networking.interfaces.ens0.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true; # WiFi
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   console = {
-    font = "Lat2-Terminus16";
+    # Large font size for use on HiDPI screen
+    font = "ter-i32b";
+    packages = with pkgs; [ terminus_font ];
     keyMap = "us";
+    #    useXkbConfig = true;
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  # See https://en.wikipedia.org/wiki/Retina_display
-  services.xserver.dpi = 221;
   hardware.video.hidpi.enable = true;
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    # See https://en.wikipedia.org/wiki/Retina_display
+    dpi = 221;
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+    desktopManager.plasma5.enable = true;
+    displayManager.sddm.enable = true;
+
+    # xkbVariant = "mac";
+    # xkbOptions = "terminate:ctrl_alt_bksp, ctrl:nocaps";
+  };
+
+  fonts.fontDir.enable = true;
+  fonts.enableGhostscriptFonts = true;
+  fonts.fonts = with pkgs; [
+    corefonts
+    inconsolata
+    liberation_ttf
+    dejavu_fonts
+    bakoma_ttf
+    gentium
+    ubuntu_font_family
+    terminus_font
+  ];
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -81,9 +108,21 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xtallos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-        hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
+    hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
+    extraGroups = [ "wheel" "network-manager" ]; # Enable ‘sudo’ for the user.
   };
+
+  home-manager.users.xtallos = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      ddate
+      _1password
+      kitty
+    ];
+    programs.fish.enable = true;
+  };
+
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
 
   users.users.root.hashedPassword = "$6$OZwXf5o.yZUoehTw$29dItBi5.fjd2GZToR6sP2F.xEUn/5TBKZlZ6CHNazEAWz6roIevLATX82QV9rCxlZ21sL9zsW..LmTFhC/dx.";
 
@@ -92,13 +131,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    git
-    tldr
+    bat
     fd
-    ripgrep
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
     firefox
+    fzf
+    git
+    glxinfo
+    kate
+    konsole
+    linuxPackages.broadcom_sta
+    ripgrep
+    tldr
+    vim
+    wget
+    xsel
+    # wirelesstools
+    # networkmanagerapplet
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -109,10 +157,15 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # hostKeys = [
+    #   {
+    #     path = "/etc/ssh/id_ed25519";
+    #     type = "ed25519";
+    #   }
+    # ];
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

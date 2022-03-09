@@ -200,8 +200,6 @@
         imports = [ (digga.lib.importHosts ./hosts/nixos) ];
         hosts = {
           HodgePodge = { };
-          # TODO: remove hodge, it has joined with the podge
-          hodge = { };
           seadoom = { };
           ci-ubuntu = { };
         };
@@ -229,8 +227,6 @@
 
         imports = [ (digga.lib.importHosts ./hosts/darwin) ];
         hosts = {
-          # TODO: HodgePodge is no longer a darwin host
-          # HodgePodge = { };
           alleymon = { };
           ci-darwin = { };
         };
