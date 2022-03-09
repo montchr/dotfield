@@ -76,7 +76,6 @@
 ;; apps
 (package! hledger-mode)
 ;; (package! org-board)                 ; Pinboard-ish for org-mode
-(package! org-jira)                  ; Can Jira be saved by Emacs?
 
 ;; tools
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW

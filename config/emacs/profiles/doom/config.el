@@ -368,12 +368,6 @@
 (use-package! ox-jira
   :after org)
 
-(use-package! org-jira
-  :init
-  (setq! jiralib-url "https://alleyinteractive.atlassian.net"
-         org-jira-working-dir (concat (getenv "XDG_DATA_HOME") "/emacs/org-jira"))
-  (make-directory org-jira-working-dir 'parents))
-
 (use-package! literate-calc-mode
   :defer-incrementally t)
 
