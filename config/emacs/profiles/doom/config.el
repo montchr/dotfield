@@ -38,14 +38,6 @@
 (use-package! minions
   :config (minions-mode 1))
 
-
-;; Adjust the size of the modeline.
-;; (after! doom-modeline
-;;   (when IS-MAC
-;;     (setq! doom-modeline-height 1)
-;;     (custom-set-faces!
-;;       '((mode-line mode-line-inactive) :family "PragmataPro Mono" :size 12))))
-
 (setq! tab-width 2)
 
 (use-package! evil
@@ -140,29 +132,6 @@
 ;; not just limited to actions in org files fwiw.
 ;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
-;; https://gitlab.com/ideasman42/emacs-scroll-on-jump
-;; (use-package! scroll-on-jump
-;;   :after (evil)
-;;   :config
-;;   (setq! scroll-on-jump-duration 0.2
-;;          scroll-on-jump-smooth t
-;;          scroll-on-jump-use-curve nil)
-;;   (scroll-on-jump-advice-add evil-undo)
-;;   (scroll-on-jump-advice-add evil-redo)
-;;   (scroll-on-jump-advice-add evil-jump-item)
-;;   (scroll-on-jump-advice-add evil-jump-forward)
-;;   (scroll-on-jump-advice-add evil-jump-backward)
-;;   (scroll-on-jump-advice-add evil-ex-search-next)
-;;   (scroll-on-jump-advice-add evil-ex-search-previous)
-;;   (scroll-on-jump-advice-add evil-forward-paragraph)
-;;   (scroll-on-jump-advice-add evil-backward-paragraph)
-;;   ;; Actions that themselves scroll.
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
-
 ;; https://tecosaur.github.io/emacs-config/config.html#company
 ;; (after! company
 ;;   (setq! company-idle-delay nil)
@@ -195,15 +164,6 @@
 ;;          ;; 'which-key-prefix-then-key-order
 ;;          ;; same as default, except all keys from local maps shown first
 ;;          'which-key-local-then-key-order))
-
-;; (setq! which-key-allow-multiple-replacements t)
-;; (after! which-key
-;;   ;; Remove ~evil-~ prefix from keybinding labels
-;;   ;; https://tecosaur.github.io/emacs-config/config.html#which-key
-;;   (pushnew!
-;;    which-key-replacement-alist
-;;    '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "◂\\1"))
-;;    '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "◃\\1"))))
 
 (after! magit
   ;; List magit branches by date.
