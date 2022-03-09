@@ -1,5 +1,8 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+
+;; === basic ===================================================================
+
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
@@ -18,11 +21,69 @@
 ;; Display the fill-column indicator.
 (global-display-fill-column-indicator-mode +1)
 
-;; Reduce the size of text in Zen Mode.
-;; (setq! +zen-text-scale 1)
+;; Simple settings.
+;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
+(setq! undo-limit 80000000
+       truncate-string-ellipsis "…"
+       display-line-numbers-type 'relative)
+
+(setq! tab-width 2)
+
+(use-package! evil
+  :config
+  (setq! evil-shift-width 2
+         evil-vsplit-window-right t))
+
+;; Allow the default macOS ~alt~ behavior for special keyboard chars.
+(setq! ns-right-alternate-modifier 'none)
+
+;; Extend prescient history lifespan.
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+;; Prevent evil-lion from removing extra spaces.
+;; Add any desired extra space prior to invoking evil-lion.
+;; (setq! evil-lion-squeeze-spaces nil)
 
 
-;; === modeline =====================
+;; === buffers =================================================================
+
+;; Change default buffer and frame names.
+;; https://tecosaur.github.io/emacs-config/config.html#window-title
+(setq! doom-fallback-buffer-name "► Doom"
+       +doom-dashboard-name "► Doom"
+       frame-title-format
+       '(""
+         (:eval
+          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+              (replace-regexp-in-string
+               ".*/[0-9]*-?" "☰ "
+               (subst-char-in-string ?_ ?  buffer-file-name))
+            "%b"))
+         (:eval " ▲ doom")
+         (:eval
+          (when (frame-parent) " ◂ [child]"))))
+
+;; Autosave
+(setq! auto-save-default t
+       auto-save-no-message t)
+;; TODO: This still throws a message because it's called on the hook, unaffected
+;; by ~auto-save-no-message~
+;;
+;; TODO: may be causing crashes when performing other actions simultaneously?
+;; not just limited to actions in org files fwiw.
+;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
+
+
+;; === env =====================================================================
+
+;; Store the value of the shell environment's =SSH_*= variables when generating
+;; the env file.
+(when noninteractive
+  (add-to-list 'doom-env-whitelist "^SSH_"))
+
+
+;; === modeline ================================================================
 
 (use-package! moody
   :config
@@ -38,12 +99,8 @@
 (use-package! minions
   :config (minions-mode 1))
 
-(setq! tab-width 2)
 
-(use-package! evil
-  :config
-  (setq! evil-shift-width 2
-         evil-vsplit-window-right t))
+;; === appearance ==============================================================
 
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
@@ -83,96 +140,40 @@
   ;; Load theme based on macOS dark mode status.
   (+cdom/load-os-theme))
 
+;; Reduce the size of text in Zen Mode.
+;; (setq! +zen-text-scale 1)
+
+
+;; === agenda ==================================================================
+
 (setq! org-directory "~/Dropbox/org"
        +org-capture-todo-file (concat org-directory "inbox.org")
        org-roam-directory org-directory
        deft-directory org-directory)
 
-;; Store the value of the shell environment's =SSH_*= variables when generating
-;; the env file.
-(when noninteractive
-  (add-to-list 'doom-env-whitelist "^SSH_"))
+(after! org-capture
+  (setq!
+   org-capture-templates
+   (doct `(
+           ("Personal todo"
+            :keys "t"
+            :icon ("checklist" :set "octicon" :color "green")
+            :file +org-capture-todo-file
+            :prepend t
+            :headline "Inbox"
+            :type entry
+            :template ("* TODO %?"
+                       "%i %a"))
+           ))))
 
-(appendq! safe-local-eval-forms '((sh-set-shell "sh")
-                                  (sh-set-shell "bash")
-                                  (sh-set-shell "zsh")))
-
-;; Simple settings.
-;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
-(setq! undo-limit 80000000
-       truncate-string-ellipsis "…"
-       display-line-numbers-type 'relative)
-
-;; Change default buffer and frame names.
-;; https://tecosaur.github.io/emacs-config/config.html#window-title
-(setq! doom-fallback-buffer-name "► Doom"
-       +doom-dashboard-name "► Doom"
-       frame-title-format
-       '(""
-         (:eval
-          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-              (replace-regexp-in-string
-               ".*/[0-9]*-?" "☰ "
-               (subst-char-in-string ?_ ?  buffer-file-name))
-            "%b"))
-         (:eval " ▲ doom")
-         (:eval
-          (when (frame-parent) " ◂ [child]"))))
-
-;; Allow the default macOS ~alt~ behavior for special keyboard chars.
-(setq! ns-right-alternate-modifier 'none)
-
-;; Autosave
-(setq! auto-save-default t
-       auto-save-no-message t)
-;; TODO: This still throws a message because it's called on the hook, unaffected
-;; by ~auto-save-no-message~
-;;
-;; TODO: may be causing crashes when performing other actions simultaneously?
-;; not just limited to actions in org files fwiw.
-;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
-
-;; https://tecosaur.github.io/emacs-config/config.html#company
-;; (after! company
-;;   (setq! company-idle-delay nil)
-;;   ;; Make aborting less annoying.
-;;   (add-hook 'evil-normal-state-entry-hook #'company-abort))
-
-(use-package! company-box
-  :config
-  ;; Disable the documentation childframe because it causes emacs to crash!
-  ;;
-  ;; FIXME Allow doc childframe flyout without crashing
-  ;;
-  ;; Note that Emacs doesn't crash when running Doom+modules without my config...
-  (setq! company-box-doc-enable nil))
-
-;; Extend prescient history lifespan.
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
-
-;; (use-package! which-key
-;;   :init
-;;   (setq! which-key-sort-order
-;;          ;; default
-;;          ;; 'which-key-key-order
-;;          ;; sort based on the key description ignoring case
-;;          ;; 'which-key-description-order
-;;          ;; same as default, except single characters are sorted alphabetically
-;;          ;; 'which-key-key-order-alpha
-;;          ;; same as default, except all prefix keys are grouped together at the end
-;;          ;; 'which-key-prefix-then-key-order
-;;          ;; same as default, except all keys from local maps shown first
-;;          'which-key-local-then-key-order))
-
-(after! magit
-  ;; List magit branches by date.
-  (setq! magit-list-refs-sortby "-creatordate"
-         magit-process-finish-apply-ansi-colors t))
-
-;; Prevent evil-lion from removing extra spaces.
-;; Add any desired extra space prior to invoking evil-lion.
-;; (setq! evil-lion-squeeze-spaces nil)
+(after! org-agenda
+  ;; Hide all tags from agenda.
+  (setq! org-agenda-hide-tags-regexp "."
+         org-agenda-prefix-format
+         '((agenda . " %i %-12:c%?-12t% s")
+           (todo   . " ")
+           (tags   . " %i %-12:c")
+           (search . " %i %-12:c"))))
 
 ;; https://tecosaur.github.io/emacs-config/config.html#tweaking-defaults
 (use-package! org
@@ -203,56 +204,12 @@
   :after (org-capture)
   :commands (doct))
 
-(after! js2-mode
-  ;; Use eslintd for faster ESLint-based formatting on save.
-  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
-  (set-company-backend! 'company-tide 'js2-mode))
-
-(after! sh-script
-  (set-company-backend! 'sh-mode
-    '(company-shell :with company-yasnippet)))
-
-(use-package! org-board
-  :defer t)
-
-(use-package! devdocs-browser
-  :defer t)
-
 ;; Add a CREATED property to org-mode headings.
 ;; (use-package! org-expiry
 ;;   :after (org)
 ;;   :config
 ;;   (setq! org-expiry-inactive-timestamps t)
 ;;   (org-expiry-insinuate))
-
-;; (use-package! org-protocol-capture-html
-;;   :after (org))
-
-(use-package! org-web-tools
-  :after (org))
-
-(after! org-capture
-  (defun set-org-capture-templates ()
-    (setq! org-capture-templates
-           (doct `(("Personal todo"
-                    :keys "t"
-                    :icon ("checklist" :set "octicon" :color "green")
-                    :file +org-capture-todo-file
-                    :prepend t
-                    :headline "Inbox"
-                    :type entry
-                    :template ("* TODO %?"
-                               "%i %a"))))))
-  (set-org-capture-templates))
-
-(after! org-agenda
-  ;; Hide all tags from agenda.
-  (setq! org-agenda-hide-tags-regexp "."
-         org-agenda-prefix-format
-         '((agenda . " %i %-12:c%?-12t% s")
-           (todo   . " ")
-           (tags   . " %i %-12:c")
-           (search . " %i %-12:c"))))
 
 ;; Make deft understand files created by org-roam
 ;; https://github.com/jrblevin/deft/issues/75#issuecomment-905031872
@@ -281,20 +238,69 @@
          org-journal-date-format "%A, %d %B %Y"
          org-journal-enable-agenda-integration t))
 
-(use-package! ox-gfm
-  :after org)
+;; === company =================================================================
 
-(use-package! ox-jira
-  :after org)
+;; https://tecosaur.github.io/emacs-config/config.html#company
+;; (after! company
+;;   (setq! company-idle-delay nil)
+;;   ;; Make aborting less annoying.
+;;   (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+(use-package! company-box
+  :config
+  ;; Disable the documentation childframe because it causes emacs to crash!
+  ;;
+  ;; FIXME Allow doc childframe flyout without crashing
+  ;;
+  ;; Note that Emacs doesn't crash when running Doom+modules without my config...
+  (setq! company-box-doc-enable nil))
+
+;; (use-package! which-key
+;;   :init
+;;   (setq! which-key-sort-order
+;;          ;; default
+;;          ;; 'which-key-key-order
+;;          ;; sort based on the key description ignoring case
+;;          ;; 'which-key-description-order
+;;          ;; same as default, except single characters are sorted alphabetically
+;;          ;; 'which-key-key-order-alpha
+;;          ;; same as default, except all prefix keys are grouped together at the end
+;;          ;; 'which-key-prefix-then-key-order
+;;          ;; same as default, except all keys from local maps shown first
+;;          'which-key-local-then-key-order))
+
+
+;; === projects ================================================================
+
+(after! magit
+  ;; List magit branches by date.
+  (setq! magit-list-refs-sortby "-creatordate"
+         magit-process-finish-apply-ansi-colors t))
+
+(use-package! projectile
+  :config
+  (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
+
+(after! projectile
+  (setq! doom-projectile-cache-purge-non-projects t))
+
+;; === languages ===============================================================
+
+(after! js2-mode
+  ;; Use eslintd for faster ESLint-based formatting on save.
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  (set-company-backend! 'company-tide 'js2-mode))
+
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
-(use-package! org-jira
-  :init
-  (setq! jiralib-url "https://alleyinteractive.atlassian.net"
-         org-jira-working-dir (concat (getenv "XDG_DATA_HOME") "/emacs/org-jira"))
-  (make-directory org-jira-working-dir 'parents))
+(appendq! safe-local-eval-forms '((sh-set-shell "sh")
+                                  (sh-set-shell "bash")
+                                  (sh-set-shell "zsh")))
 
 (use-package! vimrc-mode
   :defer-incrementally t
@@ -313,13 +319,6 @@
   :config
   ;; Use nixpkgs-fmt instead of nixfmt
   (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode))
-
-(use-package! projectile
-  :config
-  (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
-
-(after! projectile
-  (setq! doom-projectile-cache-purge-non-projects t))
 
 (use-package! lsp-mode
   :init
@@ -348,11 +347,37 @@
          lsp-ui-doc-delay 2
          flycheck-javascript-eslint-executable "eslint_d"))
 
+
+;; === tools ===================================================================
+
+(use-package! org-board
+  :defer t)
+
+(use-package! devdocs-browser
+  :defer t)
+
+;; (use-package! org-protocol-capture-html
+;;   :after (org))
+
+(use-package! org-web-tools
+  :after (org))
+
+(use-package! ox-gfm
+  :after org)
+
+(use-package! ox-jira
+  :after org)
+
+(use-package! org-jira
+  :init
+  (setq! jiralib-url "https://alleyinteractive.atlassian.net"
+         org-jira-working-dir (concat (getenv "XDG_DATA_HOME") "/emacs/org-jira"))
+  (make-directory org-jira-working-dir 'parents))
+
 (use-package! literate-calc-mode
   :defer-incrementally t)
 
-(set-ligatures! 'org-mode
-  :todo "TODO")
+;; === mail ====================================================================
 
 (after! mu4e
   (setq! sendmail-program (executable-find "msmtp")
@@ -382,6 +407,12 @@
                       (smtpmail-smtp-user     . "chris@alley.co")
                       (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
                     t)
+
+
+;; === misc. ===================================================================
+
+(set-ligatures! 'org-mode
+  :todo "TODO")
 
 (plist-put! +ligatures-extra-symbols
             ;; org
