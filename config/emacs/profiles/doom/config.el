@@ -245,6 +245,15 @@
                                "%i %a"))))))
   (set-org-capture-templates))
 
+(after! org-agenda
+  ;; Hide all tags from agenda.
+  (setq! org-agenda-hide-tags-regexp "."
+         org-agenda-prefix-format
+         '((agenda . " %i %-12:c%?-12t% s")
+           (todo   . " ")
+           (tags   . " %i %-12:c")
+           (search . " %i %-12:c"))))
+
 ;; Make deft understand files created by org-roam
 ;; https://github.com/jrblevin/deft/issues/75#issuecomment-905031872
 (defun cdom/deft-parse-title (file contents)
