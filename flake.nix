@@ -11,7 +11,7 @@
     # Environment/system management.
     darwin.url = "github:montchr/nix-darwin/add-toplevel-option-lib";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:montchr/home-manager/trunk";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Flake utilities.
