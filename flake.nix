@@ -75,11 +75,11 @@
         suites = with profiles; rec {
           base = [
             system.core
-            home.bash
             home.bat
             home.git
             home.ranger
             home.zsh
+            home.shell
           ];
           networking = [
             system.networking.common

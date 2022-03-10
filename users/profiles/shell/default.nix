@@ -1,4 +1,4 @@
-{ config, lib, pkgs, utils, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (config) dotfield my;
@@ -21,14 +21,9 @@ in
 
   my.hm.programs.starship.enable = true;
 
-  my.hm.xdg.configFile = lib.mkMerge [
-    ({ "starship".source = "${dotfield.configDir}/starship"; })
-  ];
-
-  # This will be loaded early for all shells.
-  environment.extraInit = ''
-    ${extraVars}
-  '';
+  my.hm.xdg.configFile = {
+    "starship".source = "${dotfield.configDir}/starship";
+  };
 
   my.hm.programs.bash = {
     enable = true;
@@ -42,14 +37,11 @@ in
       // (import ./aliases.nix { inherit config lib pkgs; });
   };
 
-  my.hm.home.sessionVariables = {
+  my.hm.home.sessionVariables = inputs.digga.lib.mergeAny config.my.env {
     BASH_COMPLETION_USER_FILE = ''
       ''${XDG_DATA_HOME:-$HOME/.local/share}/bash/completion
     '';
-    TEST_VAR = "hello";
-  };
 
-  my.env = {
     PATH = [ "$XDG_BIN_HOME" "$PATH" ];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";
@@ -85,5 +77,4 @@ in
     # https://github.com/mfaerevaag/wd
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
-
 }

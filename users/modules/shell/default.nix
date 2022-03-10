@@ -32,6 +32,7 @@ in
       rcFiles = mkOpt (listOf (either str path)) [ ];
 
       envInit = mkOpt' lines ''
+        source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
         ${builtins.readFile ./env-init.sh}
         ${lib.concatMapStrings (path: "source '${path}'") cfg.envFiles}
       '' ''

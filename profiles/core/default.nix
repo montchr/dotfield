@@ -52,11 +52,6 @@
     zsh
   ];
 
-  # programs.bash = {
-  #   enable = true;
-  #   enableCompletion = true;
-  # };
-
   programs.zsh = {
     enable = true;
     enableCompletion = false;
