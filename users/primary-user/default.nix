@@ -77,7 +77,7 @@ in
   my.hm.home = {
     # Necessary for home-manager to work with flakes, otherwise it will
     # look for a nixpkgs channel.
-    stateVersion = "22.05";
+    stateVersion = "21.11";
     username = my.username;
   };
 
