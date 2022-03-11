@@ -13,8 +13,8 @@ zstyle ':z4h:' auto-update      'ask'
 zstyle ':z4h:' auto-update-days '7'
 
 # Keyboard type: 'mac' or 'pc'.
-# FIXME: change based on OS
-zstyle ':z4h:bindkey' keyboard  'mac'
+# FIXME: change based on OS .. perhaps move to extraInit?
+zstyle ':z4h:bindkey' keyboard 'mac'
 
 # Mark up shell's output with semantic information.
 zstyle ':z4h:' term-shell-integration 'yes'
@@ -56,23 +56,22 @@ z4h install ajeetdsouza/zoxide || return
 z4h init || return
 
 ###: ENVIRONMENT VARIABLES :====================================================
-
+#==: in general, these should be configured by nix
 
 ###: LOAD SOURCES :=============================================================
 
+##: init
 z4h source $DOTFIELD_DIR/lib/color.sh
 
+##: local config files
 z4h source $ZDOTDIR/config.local
 z4h source $ZDOTDIR/extra.zshrc
 
 
 ###: LOAD PLUGINS :=============================================================
-
 # Use additional Git repositories pulled in with `z4h install`.
-#
-# This is just an example that you should delete. It does nothing useful.
-# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-z4h load ajeetdsouza/zoxide  # load a plugin
+
+z4h load ajeetdsouza/zoxide
 
 
 ###: KEYBINDINGS :==============================================================
