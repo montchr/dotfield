@@ -116,6 +116,7 @@
             home.kitty
           ];
           personal = [
+            system.security.gnupg
             system.security.yubikey
             system.secrets
             system.users.primary-user
