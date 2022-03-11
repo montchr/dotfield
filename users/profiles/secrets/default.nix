@@ -19,7 +19,7 @@ let
 in
 
 {
-  my.env.AGENIX_ROOT = config.dotfield.path;
+  my.hm.home.sessionVariables.AGENIX_ROOT = config.dotfield.path;
 
   # TODO: merge all of these together to share the same value as ssh identity files
   age.identityPaths = sshHostKeyPaths;

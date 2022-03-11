@@ -30,7 +30,7 @@ in
   #find ${gnupgHome} -type d -exec sudo chmod 700 {} \;
   #'';
 
-  my.env = {
+  my.hm.home.sessionVariables = {
     DOTFIELD_PGP_KEY = key;
     GNUPGHOME = gnupgHome;
   };

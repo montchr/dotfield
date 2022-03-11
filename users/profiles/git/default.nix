@@ -19,7 +19,7 @@ let
 
 in
 {
-  my.env = { GIT_EDITOR = "$EDITOR"; };
+  my.hm.home.sessionVariables = { GIT_EDITOR = "$EDITOR"; };
 
   my.user.packages = with pkgs; [
     gitAndTools.hub

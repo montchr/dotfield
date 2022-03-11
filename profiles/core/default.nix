@@ -52,6 +52,8 @@
     zsh
   ];
 
+  programs.bash.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = false;

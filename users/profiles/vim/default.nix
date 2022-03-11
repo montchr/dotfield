@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  my.env = {
+  my.hm.home.sessionVariables = {
     LUNARVIM_RUNTIME_DIR = "$XDG_DATA_HOME/lunarvim";
     LUNARVIM_CONFIG_DIR = "$XDG_CONFIG_HOME/lvim";
     LUNARVIM_CACHE_DIR = "$XDG_CACHE_HOME/nvim";

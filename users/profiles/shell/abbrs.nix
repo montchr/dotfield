@@ -1,5 +1,3 @@
-{ config, ... }:
-let inherit (config) my; in
 {
   t = "tail -f";
 

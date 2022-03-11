@@ -78,7 +78,6 @@
             home.bat
             home.git
             home.ranger
-            home.zsh
             home.shell
           ];
           networking = [

@@ -5,7 +5,7 @@ let
 in
 
 {
-  my.env = {
+  my.hm.home.sessionVariables = {
     TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer";
     TEALDEER_CACHE_DIR = "$XDG_CACHE_HOME/tealdeer";
   };

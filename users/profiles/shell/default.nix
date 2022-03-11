@@ -3,10 +3,10 @@
 let
   inherit (config) dotfield my;
 
-  shellCfg = config.shell;
-
-  extraVars = lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') my.env);
+  hmConfig = config.home-manager.users.${config.my.username};
+  shellAliases =
+    (import ./abbrs.nix)
+    // (import ./aliases.nix);
 in
 
 {
@@ -14,34 +14,64 @@ in
     ./fzf.nix
   ];
 
-  shell = {
-    abbrs = import ./abbrs.nix { inherit config lib pkgs; };
-    aliases = import ./aliases.nix { inherit config lib pkgs; };
-  };
-
   my.hm.programs.starship.enable = true;
+  my.hm.programs.starship.enableZshIntegration = false;
+
+  my.hm.home.packages = with pkgs; [
+    zsh
+    zoxide
+  ];
 
   my.hm.xdg.configFile = {
     "starship".source = "${dotfield.configDir}/starship";
   };
 
   my.hm.programs.bash = {
+    inherit shellAliases;
+
     enable = true;
     bashrcExtra = ''
-      ${shellCfg.envInit}
-      ${extraVars}
+      ${builtins.readFile ./env-init.sh}
     '';
     profileExtra = "";
-    shellAliases =
-      (import ./abbrs.nix { inherit config lib pkgs; })
-      // (import ./aliases.nix { inherit config lib pkgs; });
+
+    sessionVariables = {
+      BASH_COMPLETION_USER_FILE = "${hmConfig.xdg.dataHome}/bash/completion";
+    };
   };
 
-  my.hm.home.sessionVariables = inputs.digga.lib.mergeAny config.my.env {
-    BASH_COMPLETION_USER_FILE = ''
-      ''${XDG_DATA_HOME:-$HOME/.local/share}/bash/completion
+  my.hm.programs.zsh = {
+    inherit shellAliases;
+
+    enable = true;
+    dotDir = ".config/zsh";
+    history.path = "${hmConfig.xdg.dataHome}/zsh/history";
+    history.extended = true;
+    history.ignoreDups = true;
+
+    # These are handled by z4h.
+    enableCompletion = false;
+    enableSyntaxHighlighting = false;
+
+    envExtraFirst = ''
+      ${builtins.readFile ./env-z4h.zsh}
+    '';
+    envExtra = ''
+      ${builtins.readFile ./env-init.sh}
     '';
 
+    initExtraFirst = ''
+      # Load our custom z4h config directly
+      source $DOTFIELD_DIR/config/zsh/main.zsh
+    '';
+
+    sessionVariables = {
+      ZSH_CACHE = "${hmConfig.xdg.cacheHome}/zsh";
+      ZSH_DATA = "${hmConfig.xdg.dataHome}/zsh";
+    };
+  };
+
+  my.hm.home.sessionVariables = {
     PATH = [ "$XDG_BIN_HOME" "$PATH" ];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";

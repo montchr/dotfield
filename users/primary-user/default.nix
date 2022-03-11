@@ -58,7 +58,7 @@ in
       XDG_STATE_HOME = xdg.state;
     };
 
-  my.env = {
+  my.hm.home.sessionVariables = {
     # Appearance
     BASE16_THEME_DARK = "black-metal-khold";
     BASE16_THEME_LIGHT = "grayscale-light";

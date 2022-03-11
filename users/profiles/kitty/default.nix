@@ -61,7 +61,7 @@ lib.mkMerge [
       kitty-get-window-by-platform-id
     ];
 
-    my.env = {
+    my.hm.home.sessionVariables = {
       KITTY_CONFIG_DIRECTORY = "${my.xdg.config}/kitty";
       KITTY_SOCKET = socket;
       TERMINFO_DIRS =

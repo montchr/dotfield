@@ -31,7 +31,7 @@ lib.mkMerge [
       PATH = [ "${doomDataDir}/bin" "$PATH" ];
     };
 
-    my.env = {
+    my.hm.home.sessionVariables = {
       EDITOR = "emacsclient";
 
       ## doom-emacs
