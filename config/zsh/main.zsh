@@ -170,12 +170,12 @@ TIMEFMT="%U user %S system %P cpu %*Es total"
 
 # Stop TRAMP (in Emacs) from hanging or term/shell from echoing back commands
 # https://github.com/hlissner/dotfiles/blob/1173284b76561d41edcb17062badccda012f7f2e/config/zsh/config.zsh#L1-L7
-# if [[ $TERM == dumb || -n $INSIDE_EMACS ]]; then
-#   unsetopt zle prompt_cr prompt_subst
-#   whence -w precmd >/dev/null && unfunction precmd
-#   whence -w preexec >/dev/null && unfunction preexec
-#   PS1='$ '
-# fi
+if [[ $TERM == dumb || -n $INSIDE_EMACS ]]; then
+  unsetopt zle prompt_cr prompt_subst
+  whence -w precmd >/dev/null && unfunction precmd
+  whence -w preexec >/dev/null && unfunction preexec
+  PS1='$ '
+fi
 
 # Treat these characters as part of a word.
 WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
