@@ -101,8 +101,9 @@ chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook chpwd chpwd_ls
 
 # Start new sessions from most recent working directory.
-autoload -Uz chpwd_recent_dirs
-add-zsh-hook chpwd chpwd_recent_dirs
+# FIXME: this hasn't been working since moving to z4h
+# autoload -Uz chpwd_recent_dirs
+# add-zsh-hook chpwd chpwd_recent_dirs
 
 # Populate dirstack with chpwd history.
 zstyle ':chpwd:*' recent-dirs-file "${ZSH_RECENT_DIRS_FILE}"
@@ -183,28 +184,21 @@ WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
 AUTO_LS_COMMANDS="exa --oneline"
 AUTO_LS_NEWLINE=false
 
-# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
-setopt glob_dots     # no special treatment for file names with a leading dot
-setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
 
 ##: INTERACTION/FEEDBACK {{
 
 # setopt HASH_LIST_ALL
 # setopt IGNOREEOF
 
-setopt GLOBDOTS                 # Glob dotfiles as well.
-setopt COMBINING_CHARS          # Combine zero-length punc chars (accents) with base char
-setopt EXTENDED_GLOB            # Enable more powerful glob features
+# setopt GLOBDOTS                 # Glob dotfiles as well.
+# setopt COMBINING_CHARS          # Combine zero-length punc chars (accents) with base char
+# setopt EXTENDED_GLOB            # Enable more powerful glob features
 setopt INTERACTIVE_COMMENTS     # Enable comments in interactive shell.
 setopt RC_QUOTES                # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'
 
-unsetopt BEEP             # No BEEP!
-unsetopt BRACE_CCL        # Allow brace character class list expansion.
-unsetopt CASE_GLOB        # Use case-insensitve globbing.
-unsetopt CORRECT_ALL      # Turn off the infernal correctall for filenames.
-unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
-unsetopt NOMATCH
+# unsetopt BEEP             # No BEEP!
+# unsetopt BRACE_CCL        # Allow brace character class list expansion.
+# unsetopt CASE_GLOB        # Use case-insensitve globbing.
 
 ##: }}
 
@@ -215,7 +209,6 @@ setopt AUTO_CD              # Auto changes to a directory without typing cd.
 setopt AUTO_PUSHD           # Make cd push the old directory onto the directory stack
 setopt PUSHD_IGNORE_DUPS    # Don't push multiple copies of the same directory onto the directory stack.
 # setopt CDABLE_VARS          # Change directory to a path stored in a variable.
-# setopt MULTIOS              # Perform implicit tees or cats when multiple redirections are attempted.
 # setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 # setopt PUSHD_TO_HOME        # Push to home directory when no argument is given.
 # setopt PUSHDMINUS           # Swap the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean.
@@ -230,9 +223,9 @@ setopt PUSHD_IGNORE_DUPS    # Don't push multiple copies of the same directory o
 setopt AUTO_RESUME        # Attempt to resume existing job before creating a new process.
 setopt LONG_LIST_JOBS     # List jobs in the long format by default.
 setopt NOTIFY             # Report status of background jobs immediately.
-unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
-unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
-unsetopt HUP              # Don't kill jobs on shell exit.
+# unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
+# unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
+# unsetopt HUP              # Don't kill jobs on shell exit.
 
 ##: }}
 
