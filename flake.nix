@@ -78,7 +78,6 @@
             home.bat
             home.git
             home.ranger
-            home.shell
           ];
           networking = [
             system.networking.common
@@ -236,15 +235,22 @@
         imports = [ (digga.lib.importExportableModules ./users/modules) ];
         modules = [ ];
         importables = rec {
-          profiles = digga.lib.rakeLeaves ./users/profiles;
+          profiles = digga.lib.rakeLeaves ./users/profiles/hm;
           suites = with profiles; rec {
-            base = [ ];
+            base = [ shell ];
           };
         };
         users = {
           nixos = { suites, ... }: { imports = suites.base; };
           xtallos = { suites, ... }: { imports = suites.base; };
+          montchr = { suites, ... }: { imports = suites.base; };
         }; # digga.lib.importers.rakeLeaves ./users/hm;
       };
+
+      # FIXME: this will result in a conflict if a nixos host and a darwin host
+      # have the same name. that's a bug that should be fixed within digga.
+      homeConfigurations =
+        (digga.lib.mkHomeConfigurations self.nixosConfigurations)
+        // (digga.lib.mkHomeConfigurations self.darwinConfigurations);
     };
 }

@@ -1,32 +1,34 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, osConfig, ... }:
 
 let
-  inherit (config) dotfield my;
+  inherit (osConfig) dotfield;
 
-  hmConfig = config.home-manager.users.${config.my.username};
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
+
+  fdBin = "${pkgs.fd}/bin/fd";
+  fzfDefaultCmd = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
 in
 
 {
   imports = [
-    ./fzf.nix
+    # ./fzf.nix
   ];
 
-  my.hm.programs.starship.enable = true;
-  my.hm.programs.starship.enableZshIntegration = false;
+  programs.starship.enable = true;
+  programs.starship.enableZshIntegration = false;
 
-  my.hm.home.packages = with pkgs; [
+  home.packages = with pkgs; [
     zsh
     zoxide
   ];
 
-  my.hm.xdg.configFile = {
+  xdg.configFile = {
     "starship".source = "${dotfield.configDir}/starship";
   };
 
-  my.hm.programs.bash = {
+  programs.bash = {
     inherit shellAliases;
 
     enable = true;
@@ -36,16 +38,16 @@ in
     profileExtra = "";
 
     sessionVariables = {
-      BASH_COMPLETION_USER_FILE = "${hmConfig.xdg.dataHome}/bash/completion";
+      BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
     };
   };
 
-  my.hm.programs.zsh = {
+  programs.zsh = {
     inherit shellAliases;
 
     enable = true;
     dotDir = ".config/zsh";
-    history.path = "${hmConfig.xdg.dataHome}/zsh/history";
+    history.path = "${config.xdg.dataHome}/zsh/history";
     history.extended = true;
     history.ignoreDups = true;
 
@@ -66,18 +68,22 @@ in
     '';
 
     sessionVariables = {
-      ZSH_CACHE = "${hmConfig.xdg.cacheHome}/zsh";
-      ZSH_DATA = "${hmConfig.xdg.dataHome}/zsh";
+      ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
+      ZSH_DATA = "${config.xdg.dataHome}/zsh";
     };
   };
 
-  my.hm.home.sessionVariables = {
+  home.sessionVariables = {
     PATH = [ "$XDG_BIN_HOME" "$PATH" ];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     Z_DATA = "$XDG_DATA_HOME/z";
+
+    FZF_DEFAULT_COMMAND = fzfDefaultCmd;
+    FZF_CTRL_T_COMMAND = fzfDefaultCmd;
+    FZF_ALT_C_COMMAND = "${fdBin} --type d . $HOME";
 
     # Docker
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";

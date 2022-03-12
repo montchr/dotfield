@@ -1,4 +1,4 @@
-{ config, pkgs, suites, ... }:
+{ config, pkgs, suites, profiles, ... }:
 
 let
   inherit (config) my;
@@ -9,7 +9,8 @@ in
     darwin-gui
     ++ personal
     ++ developer
-    ++ work;
+    ++ work
+    ++ (with profiles; [ system.users.montchr ]);
 
   networking.hostName = "alleymon";
 

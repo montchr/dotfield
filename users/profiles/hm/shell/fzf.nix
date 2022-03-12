@@ -1,7 +1,8 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, osConfig, inputs, ... }:
 
 let
-  currentTheme = config.colorscheme.slug;
+  # FIXME: use hm module
+  currentTheme = osConfig.colorscheme.slug;
 
   fd = "${pkgs.fd}/bin/fd";
 
@@ -27,7 +28,7 @@ let
   defaultCmd = "${fd} --hidden --follow --exclude .git 2>/dev/null";
 in
 {
-  my.hm.home.sessionVariables = {
+  home.sessionVariables = {
     # FIXME: this restricts the loaded color theme until changed by a
     # nixos/darwin rebuild, which isn't really usable right now.
     # FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
