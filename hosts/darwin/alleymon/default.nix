@@ -10,7 +10,10 @@ in
     ++ personal
     ++ developer
     ++ work
-    ++ (with profiles; [ system.users.montchr ]);
+    ++ (with profiles; [
+      system.os-specific.darwin.emacs
+      system.users.montchr
+    ]);
 
   networking.hostName = "alleymon";
 

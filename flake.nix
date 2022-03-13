@@ -104,7 +104,6 @@
             system.languages.nodejs
             home.aws
             home.direnv
-            home.emacs
             home.languages.nodejs
             home.vim
           ];
@@ -238,12 +237,13 @@
           profiles = digga.lib.rakeLeaves ./users/profiles/hm;
           suites = with profiles; rec {
             base = [ shell ];
+            dev = [ emacs ];
           };
         };
         users = {
           nixos = { suites, ... }: { imports = suites.base; };
           xtallos = { suites, ... }: { imports = suites.base; };
-          montchr = { suites, ... }: { imports = suites.base; };
+          montchr = { suites, ... }: { imports = suites.base ++ suites.dev; };
         }; # digga.lib.importers.rakeLeaves ./users/hm;
       };
 

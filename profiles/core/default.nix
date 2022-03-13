@@ -47,6 +47,8 @@
     ZDOTDIR = "$HOME/.config/zsh";
   };
 
+  fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+
   environment.shells = with pkgs; [
     bashInteractive
     zsh
