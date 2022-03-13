@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  my.hm.home.sessionVariables = {
-    LUNARVIM_RUNTIME_DIR = "$XDG_DATA_HOME/lunarvim";
-    LUNARVIM_CONFIG_DIR = "$XDG_CONFIG_HOME/lvim";
-    LUNARVIM_CACHE_DIR = "$XDG_CACHE_HOME/nvim";
+  home.sessionVariables = {
+    LUNARVIM_RUNTIME_DIR = "${config.xdg.dataHome}/lunarvim";
+    LUNARVIM_CONFIG_DIR = "${config.xdg.configHome}/lvim";
+    LUNARVIM_CACHE_DIR = "${config.xdg.cacheHome}/nvim";
   };
 
-  my.user.packages = with pkgs; [
+  home.packages = with pkgs; [
     neovim-unwrapped
 
     ##: LunarVim dependencies {{
