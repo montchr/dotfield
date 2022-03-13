@@ -10,10 +10,6 @@ let
 in
 
 {
-  imports = [
-    ../prettier.nix
-  ];
-
   my.hm.home.sessionVariables = {
     NODE_REPL_HISTORY = "$XDG_STATE_HOME/node/repl_history";
     NVM_DIR = "$XDG_DATA_HOME/node/nvm";
