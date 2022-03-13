@@ -1,7 +1,0 @@
-#=====================================
-# Jump to the documentation for a zsh builtin.
-#
-# Usage:
-#   zman <symbol-name>
-#=====================================
-PAGER="less -g -I -s '+/^       "$1"'" man zshall;

@@ -1,2 +1,0 @@
-emulate -L zsh
-exa --group-directories-first

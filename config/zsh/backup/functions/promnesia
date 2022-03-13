@@ -1,5 +1,0 @@
-emulate -L zsh
-# TODO: update this! no longer using asdf
-"${ASDF_USER_SHIMS}/promnesia" \
-  "$@" \
-  --config="${XDG_CONFIG_HOME}/promnesia/config.py"
