@@ -231,7 +231,7 @@
       };
 
       home = {
-        imports = [ (digga.lib.importExportableModules ./users/modules) ];
+        imports = [ (digga.lib.importExportableModules ./users/hm/modules) ];
         modules = [ ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/hm/profiles;
