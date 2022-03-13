@@ -233,7 +233,7 @@
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/hm/profiles;
           suites = with profiles; rec {
-            base = [ shell ];
+            base = [ shell tealdeer ];
             dev = [ aws emacs vim ];
             darwin = [ os-specific.darwin.keyboard ];
           };
