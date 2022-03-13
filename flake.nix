@@ -234,7 +234,7 @@
         imports = [ (digga.lib.importExportableModules ./users/modules) ];
         modules = [ ];
         importables = rec {
-          profiles = digga.lib.rakeLeaves ./users/profiles/hm;
+          profiles = digga.lib.rakeLeaves ./users/hm/profiles;
           suites = with profiles; rec {
             base = [ shell ];
             dev = [ emacs ];
