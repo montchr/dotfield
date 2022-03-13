@@ -185,7 +185,6 @@
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
-            nix-colors.homeManagerModule
           ];
         };
 
@@ -226,7 +225,9 @@
 
       home = {
         imports = [ (digga.lib.importExportableModules ./users/hm/modules) ];
-        modules = [ ];
+        modules = [
+          nix-colors.homeManagerModule
+        ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/hm/profiles;
           suites = with profiles; rec {
@@ -241,6 +242,7 @@
               vim
             ];
             gui = [
+              graphical.colors
               kitty
             ];
             darwin = [

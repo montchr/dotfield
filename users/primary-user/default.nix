@@ -1,23 +1,15 @@
-{ options, config, lib, pkgs, inputs, ... }:
+{ options, config, lib, pkgs, ... }:
 
 let
-  inherit (inputs) nix-colors;
   inherit (config) my;
   inherit (pkgs.stdenv) isDarwin isLinux;
 
   user = builtins.getEnv "USER";
   name = if builtins.elem user [ "" "root" ] then my.username else user;
-
-  # Note that `builtins.getEnv` will only return an empty string unless running
-  # an impure build. For that reason, a fallback value is necessary.
-  envTheme = builtins.getEnv "DOTFIELD_THEME";
-  theme = if envTheme != "" then envTheme else "black-metal-khold";
 in
 
 {
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
-
-  colorscheme = nix-colors.colorSchemes.${theme};
 
   my.user = {
     inherit name;
@@ -59,12 +51,6 @@ in
     };
 
   my.hm.home.sessionVariables = {
-    # Appearance
-    BASE16_THEME_DARK = "black-metal-khold";
-    BASE16_THEME_LIGHT = "grayscale-light";
-    DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
-    DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
-
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
     EXA_ICON_SPACING = "2";
