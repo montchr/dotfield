@@ -14,6 +14,10 @@ in
       (builtins.readFile "${configDir}/bin/toggle-dark-mode"))
   ];
 
+  environment.variables = {
+    TERMINFO_DIRS = "/Applications/kitty.app/Contents/Resources/kitty/terminfo";
+  };
+
   homebrew.taps = [
     "FelixKratz/formulae"
     "homebrew/cask"
@@ -40,7 +44,7 @@ in
     "kap"
     "karabiner-elements"
     "keyboard-maestro"
-    # "kitty"
+    "kitty"
     # "libreoffice"
     "marked"
     "pdf-expert"
@@ -56,7 +60,6 @@ in
     "spotify"
     "steermouse"
     "sublime-text"
-    "ubersicht"
     "vagrant"
     "vimr"
     # Disabled because updates to VirtualBox are disruptive
@@ -64,8 +67,6 @@ in
     "visual-studio-code"
     "vlc"
     "webpquicklook"
-    # TODO: Why is xquartz necessary?
-    # "xquartz"
     # "zoom"
   ];
 

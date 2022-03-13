@@ -106,7 +106,6 @@
             system.fonts
             home.browsers.firefox
             home.espanso
-            home.kitty
           ];
           personal = [
             system.security.gnupg
@@ -241,11 +240,19 @@
               languages.nodejs
               vim
             ];
+            gui = [
+              kitty
+            ];
             darwin = [
               os-specific.darwin.keyboard
             ];
           };
         };
+
+        # FIXME: change imports based on host -- hm configuration should be
+        # changeable based on context! e.g. while the same username may be
+        # used on a server and a laptop, the user on the server should not
+        # import profiles for graphical environments like a laptop.
         users = {
           nixos = { suites, ... }: {
             imports = suites.base;
@@ -254,10 +261,7 @@
             imports = suites.base ++ suites.dev;
           };
           montchr = { suites, ... }: {
-            # TODO: while it works currently because i only use this username on
-            # darwin machines, i might eventually need a way to exclude or
-            # nullify the darwin suite for this user on nixos systems.
-            imports = suites.base ++ suites.dev ++ suites.darwin;
+            imports = suites.base ++ suites.dev ++ suites.darwin ++ suites.gui;
           };
         };
       };

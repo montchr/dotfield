@@ -1,9 +1,9 @@
 { config, lib, options, pkgs, inputs, ... }:
 
 let
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+
   inherit (inputs) base16-kitty nix-colors;
-  inherit (config) my colorscheme;
-  inherit (colorscheme) colors;
 
   configDir = "${config.dotfield.configDir}/kitty";
   socket = "unix:/tmp/kitty-socket";
@@ -28,15 +28,8 @@ let
       "${key} ${value'}";
   };
 
-  mkTheme = name: (import ./colors.nix {
-    inherit (nix-colors.colorSchemes.${name}) colors;
-  });
-
-  mkTheme' = name: ''
-    # ${my.nix_managed}
-
-    ${toKittyConfig (mkTheme name)}
-  '';
+  mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
+  mkTheme' = name: toKittyConfig (mkTheme name);
 
   mkFontFeatures = name: features:
     "font_features ${name} ${lib.concatStringsSep " " features}";
@@ -50,28 +43,22 @@ in
 
 lib.mkMerge [
 
-  (lib.optionalAttrs (builtins.hasAttr "homebrew" options) {
-    homebrew.casks = [ "kitty" ];
+  (lib.mkIf isLinux {
+    home.packages = [ pkgs.kitty ];
   })
 
   {
-    my.user.packages = [
-      # TODO: enable for linux
-      # pkgs.kitty
+    home.packages = [
       kitty-get-window-by-platform-id
     ];
 
-    my.hm.home.sessionVariables = {
-      KITTY_CONFIG_DIRECTORY = "${my.xdg.config}/kitty";
+    home.sessionVariables = {
+      KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
       KITTY_SOCKET = socket;
-      TERMINFO_DIRS =
-        if pkgs.stdenv.isDarwin then
-          "/Applications/kitty.app/Contents/Resources/kitty/terminfo"
-        else
-          "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+      TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
     };
 
-    my.hm.programs.kitty = {
+    programs.kitty = {
       enable = true;
 
       darwinLaunchOptions = [
@@ -96,14 +83,14 @@ lib.mkMerge [
 
       settings =
         (import ./settings.nix { inherit config lib; }) //
-        (mkTheme config.colorscheme.slug) //
+        (import ./colors.nix config.colorscheme) //
         {
           allow_remote_control = "yes";
           listen_on = socket;
         };
     };
 
-    my.hm.xdg.configFile = {
+    xdg.configFile = {
       "kitty/base16-kitty".source = base16-kitty.outPath;
       "kitty/session".text = "cd ~";
       "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
