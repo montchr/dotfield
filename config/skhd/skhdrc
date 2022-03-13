@@ -60,10 +60,10 @@ default < meh - d       : yabai-close-window
 app     < hyper - a ; default
 app     < escape    ; default
 
-# _e_macs -- open a new gui instance of emacs
-app     < e : open -a ~/Applications/Emacs.app; \
+# _e_macs -- open a new instance of emacs
+app     < e : emacs --with-profile default; \
               skhd -k 'escape'
-#         -- create a new frame
+#         -- open a new frame for the existing emacs instance
 app     < shift - e : emacsclient -cn; \
               skhd -k 'escape'
 
