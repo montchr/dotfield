@@ -101,7 +101,6 @@
           ];
           developer = suites.base ++ [
             system.languages.nodejs
-            home.aws
             home.direnv
             home.languages.nodejs
             home.vim
@@ -236,7 +235,7 @@
           profiles = digga.lib.rakeLeaves ./users/hm/profiles;
           suites = with profiles; rec {
             base = [ shell ];
-            dev = [ emacs ];
+            dev = [ aws emacs ];
             darwin = [ os-specific.darwin.keyboard ];
           };
         };
