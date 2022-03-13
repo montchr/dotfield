@@ -243,7 +243,7 @@
             imports = suites.base;
           };
           xtallos = { suites, ... }: {
-            imports = suites.base;
+            imports = suites.base ++ suites.dev;
           };
           montchr = { suites, ... }: {
             # TODO: while it works currently because i only use this username on
