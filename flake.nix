@@ -98,7 +98,6 @@
             system.darwin.common
             system.darwin.system-defaults
             home.darwin.gui
-            home.darwin.keyboard
           ];
           developer = suites.base ++ [
             system.languages.nodejs
@@ -238,13 +237,23 @@
           suites = with profiles; rec {
             base = [ shell ];
             dev = [ emacs ];
+            darwin = [ os-specific.darwin.keyboard ];
           };
         };
         users = {
-          nixos = { suites, ... }: { imports = suites.base; };
-          xtallos = { suites, ... }: { imports = suites.base; };
-          montchr = { suites, ... }: { imports = suites.base ++ suites.dev; };
-        }; # digga.lib.importers.rakeLeaves ./users/hm;
+          nixos = { suites, ... }: {
+            imports = suites.base;
+          };
+          xtallos = { suites, ... }: {
+            imports = suites.base;
+          };
+          montchr = { suites, ... }: {
+            # TODO: while it works currently because i only use this username on
+            # darwin machines, i might eventually need a way to exclude or
+            # nullify the darwin suite for this user on nixos systems.
+            imports = suites.base ++ suites.dev ++ suites.darwin;
+          };
+        };
       };
 
       # FIXME: this will result in a conflict if a nixos host and a darwin host
