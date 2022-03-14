@@ -76,7 +76,6 @@
           base = [
             system.core
             home.git
-            home.ranger
           ];
           networking = [
             system.networking.common
@@ -232,6 +231,7 @@
           suites = with profiles; rec {
             base = [
               bat
+              ranger
               shell
               tealdeer
             ];
