@@ -80,21 +80,21 @@
             system.networking.common
           ];
           linux-minimal = suites.base ++ [
-            system.linux
+            system.os-specific.linux
             system.users.nixos
             system.users.root
           ];
           nixos = suites.base ++ [
-            system.linux
-            system.nixos
+            system.os-specific.linux
+            system.os-specific.nixos
           ];
           darwin-minimal = suites.base ++ [
-            system.darwin.common
+            system.os-specific.darwin.common
           ];
           darwin-gui = suites.base ++ suites.gui ++ [
-            system.darwin.common
-            system.darwin.gui
-            system.darwin.system-defaults
+            system.os-specific.darwin.common
+            system.os-specific.darwin.gui
+            system.os-specific.darwin.system-defaults
           ];
           developer = suites.base ++ [ ];
           gui = [
