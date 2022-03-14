@@ -16,4 +16,8 @@ in
     DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
     DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
   };
+
+  home.packages = with pkgs; [
+    (writeScriptBin "toggle-dark-mode" (builtins.readFile ./toggle-dark-mode))
+  ];
 }
