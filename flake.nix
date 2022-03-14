@@ -9,7 +9,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
-    darwin.url = "github:montchr/nix-darwin/add-toplevel-option-lib";
+    darwin.url = "github:montchr/nix-darwin/trunk";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     home-manager.url = "github:montchr/home-manager/trunk";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
