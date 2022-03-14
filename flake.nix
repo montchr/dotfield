@@ -96,9 +96,7 @@
             system.darwin.gui
             system.darwin.system-defaults
           ];
-          developer = suites.base ++ [
-            home.direnv
-          ];
+          developer = suites.base ++ [ ];
           gui = [
             system.fonts
             home.browsers.firefox
@@ -230,6 +228,7 @@
           suites = with profiles; rec {
             base = [
               bat
+              direnv
               git
               ranger
               shell

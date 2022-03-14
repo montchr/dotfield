@@ -23,6 +23,19 @@ in
     NVM_LAZY_LOAD = "true";
   };
 
+  # direnv + nvm
+  programs.direnv.stdlib = ''
+    use_nvm() {
+      local node_version="$1"
+
+      nvm_sh="$NVM_DIR/nvm.sh"
+      if [[ -e "$nvm_sh" ]]; then
+        source "$nvm_sh"
+        nvm use "$node_version"
+      fi
+    }
+  '';
+
   # npmrc *requires* that environment variables are encosed in `${...}`
   # braces, but Nix will interpret this as antiquotation within its
   # own language. For that reason, we need to escape the `$` character
