@@ -93,8 +93,8 @@
           ];
           darwin-gui = suites.base ++ suites.gui ++ [
             system.darwin.common
+            system.darwin.gui
             system.darwin.system-defaults
-            home.darwin.gui
           ];
           developer = suites.base ++ [
             home.direnv
