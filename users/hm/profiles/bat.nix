@@ -1,11 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let
-  inherit (config) my;
-in
-
 {
-  my.hm.programs.bat = {
+  programs.bat = {
     enable = true;
     config = {
       theme = "base16-256";

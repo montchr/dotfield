@@ -75,7 +75,6 @@
         suites = with profiles; rec {
           base = [
             system.core
-            home.bat
             home.git
             home.ranger
           ];
@@ -232,6 +231,7 @@
           profiles = digga.lib.rakeLeaves ./users/hm/profiles;
           suites = with profiles; rec {
             base = [
+              bat
               shell
               tealdeer
             ];
