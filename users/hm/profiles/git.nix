@@ -1,13 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, osConfig, lib, pkgs, ... }:
 
 let
-  inherit (config) my;
+  inherit (osConfig) my;
   inherit (lib) getAttr attrNames;
+  inherit (pkgs.stdenv.targetPlatform) isDarwin;
 
-  configDir = "${config.dotfield.configDir}/git";
+  configDir = "${osConfig.dotfield.configDir}/git";
 
-  scripts = with pkgs; {
-    submoduleRewrite = (writeScriptBin "git-submodule-rewrite"
+  scripts = {
+    submoduleRewrite = (pkgs.writeScriptBin "git-submodule-rewrite"
       (builtins.readFile "${configDir}/bin/git-submodule-rewrite"));
   };
 
@@ -18,10 +19,9 @@ let
   ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 
 in
-{
-  my.hm.home.sessionVariables = { GIT_EDITOR = "$EDITOR"; };
 
-  my.user.packages = with pkgs; [
+{
+  home.packages = with pkgs; [
     gitAndTools.hub
     gitAndTools.gh
     gitAndTools.tig
@@ -30,7 +30,7 @@ in
     git-cliff
   ] ++ userScripts;
 
-  my.hm.programs.git = {
+  programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
@@ -58,24 +58,20 @@ in
       init.defaultBranch = "main";
 
       # Environment variables will not be expanded -- this requires a path.
-      init.templateDir = "${my.xdg.config}/git/templates";
+      init.templateDir = "${config.xdg.configHome}/git/templates";
 
       # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
       pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
-      ## Remotes {{
-
+      ##: Remotes {{
       fetch.recurseSubmodules = true;
       push.default = "current";
       apply.whitespace = "nowarn";
-
       # Only enable this on a per-repo basis.
       pull.rebase = false;
+      ##: }}
 
-      ## }}
-
-      ## Diff/Merge Tools {{
-
+      ##: Diff/Merge Tools {{
       rerere.enabled = true;
       merge.conflictstyle = "diff3";
       merge.tool = "ediff";
@@ -100,22 +96,19 @@ in
         ediff.cmd = "${ediffTool} $LOCAL $REMOTE $MERGED";
         vscode.cmd = "code --wait $MERGED";
       };
+      ##: }}
 
-      ## }}
+    }
 
-    } // (if pkgs.stdenv.isDarwin then {
+    //
+
+    (lib.optionals isDarwin {
       credential.helper = "osxkeychain";
-    } else { });
+    });
   };
 
-  my.hm.xdg.configFile = {
+  xdg.configFile = {
     "git/ignore".source = "${configDir}/ignore";
-
-    # TODO: disabled but not forgotten...
-    # FIXME: next time we enable a global hook template, consider linking only the file on a host-by-host basis
-    # "git/templates" = {
-    #   source = "${configDir}/templates";
-    #   recursive = true;
-    # };
+    "git/templates".source = "${configDir}/templates";
   };
 }
