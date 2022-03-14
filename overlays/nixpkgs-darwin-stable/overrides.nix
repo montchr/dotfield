@@ -4,9 +4,6 @@ channels: final: prev: {
     neovim
     neovim-unwrapped
     nix
-    nix_2_5
-    nix_2_6
-    nixUnstable
     nix-direnv
     ;
   inherit (channels.nixpkgs-trunk)
