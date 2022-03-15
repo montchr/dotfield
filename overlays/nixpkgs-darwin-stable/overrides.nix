@@ -1,5 +1,7 @@
 channels: final: prev: {
-  inherit (channels.nixpkgs-unstable)
+  inherit
+    (channels.nixpkgs-unstable)
+    alejandra
     direnv
     git-cliff
     neovim

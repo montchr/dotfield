@@ -315,10 +315,9 @@
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
-(use-package! nixpkgs-fmt
-  :config
-  ;; Use nixpkgs-fmt instead of nixfmt
-  (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode))
+;; Nix formatting with Alejandra
+(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
+(setq-hook! 'nix-mode-hook +format-with 'alejandra)
 
 (use-package! lsp-mode
   :init

@@ -68,6 +68,7 @@
     (python3.withPackages (ps: with ps; [ pip setuptools ]))
     (ripgrep.override { withPCRE2 = true; })
 
+    alejandra # The Uncompromising Nix Code Formatter
     bashInteractive
     bat
     binutils
