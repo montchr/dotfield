@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (pkgs.lib.our) mkOpt;
-  dir = (toString ../.);
-in
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (pkgs.lib.our) mkOpt;
+  dir = toString ../.;
+in {
   options = {
     dotfield = with lib.types; {
       dir = mkOpt path dir;

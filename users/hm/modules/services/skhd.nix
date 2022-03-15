@@ -1,12 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-  cfg = config.services.skhd;
-in
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.skhd;
+in {
   options = {
     services.skhd.enable = mkOption {
       type = types.bool;
@@ -31,7 +31,7 @@ in
   config = mkIf cfg.enable {
     # skhd must be available to shells for keypress simulation functionality,
     # e.g. exiting out of modes after running a script.
-    home.packages = [ cfg.package ];
+    home.packages = [cfg.package];
 
     xdg.configFile."skhd/skhdrc" = {
       text = cfg.config;
@@ -42,8 +42,9 @@ in
       enable = lib.mkDefault true;
       # path = [ config.environment.systemPath ];
       config = {
-        ProgramArguments = [ "${cfg.package}/bin/skhd" ]
-          ++ optionals (cfg.config != "") [ "-c" "${config.xdg.configHome}/skhd/skhdrc" ];
+        ProgramArguments =
+          ["${cfg.package}/bin/skhd"]
+          ++ optionals (cfg.config != "") ["-c" "${config.xdg.configHome}/skhd/skhdrc"];
         KeepAlive = true;
         ProcessType = "Interactive";
 
@@ -52,6 +53,5 @@ in
         StandardErrorPath = "${config.xdg.cacheHome}/skhd.err.log";
       };
     };
-
   };
 }

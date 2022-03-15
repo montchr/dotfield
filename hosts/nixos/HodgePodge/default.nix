@@ -1,12 +1,16 @@
-{ config, inputs, suites, profiles, ... }:
-
 {
+  config,
+  inputs,
+  suites,
+  profiles,
+  ...
+}: {
   imports = with suites;
     personal
     ++ nixos
     ++ developer
     # ++ profiles.emacs
-    ++ [ ./configuration.nix ];
+    ++ [./configuration.nix];
 
   networking.hostName = "HodgePodge";
   dotfield.path = "/home/xtallos/dotfield";

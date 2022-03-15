@@ -1,14 +1,18 @@
-{ config, osConfig, options, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  osConfig,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.age;
 
   # we need at least rage 0.5.0 to support ssh keys
   rage =
     if lib.versionOlder pkgs.rage.version "0.5.0"
-    then pkgs.callPackage ../pkgs/rage.nix { }
+    then pkgs.callPackage ../pkgs/rage.nix {}
     else pkgs.rage;
   ageBin = "${rage}/bin/rage";
 
@@ -27,9 +31,9 @@ let
     $DRY_RUN_CMD mv $VERBOSE_ARG -f "$TMP_FILE" "${secretType.path}"
   '';
 
-  installSecrets = builtins.concatStringsSep "\n" ([ "echo '[agenix] decrypting user secrets...'" ] ++ (map installSecret (attrValues cfg.secrets)));
+  installSecrets = builtins.concatStringsSep "\n" (["echo '[agenix] decrypting user secrets...'"] ++ (map installSecret (attrValues cfg.secrets)));
 
-  secretType = types.submodule ({ config, ... }: {
+  secretType = types.submodule ({config, ...}: {
     options = {
       name = mkOption {
         type = types.str;
@@ -74,36 +78,36 @@ let
       };
     };
   });
-in
-{
+in {
   options.age = {
     secrets = mkOption {
       type = types.attrsOf secretType;
-      default = { };
+      default = {};
       description = ''
         Attrset of secrets.
       '';
     };
     identityPaths = mkOption {
       type = types.listOf types.path;
-      default = osConfig.age.identityPaths or [ ];
+      default = osConfig.age.identityPaths or [];
       description = ''
         Path to SSH keys to be used as identities in age decryption.
       '';
     };
   };
-  config = mkIf (cfg.secrets != { }) (mkMerge [
-
+  config = mkIf (cfg.secrets != {}) (mkMerge [
     {
-      assertions = [{
-        assertion = cfg.identityPaths != [ ];
-        message = "age.identityPaths must be set.";
-      }];
+      assertions = [
+        {
+          assertion = cfg.identityPaths != [];
+          message = "age.identityPaths must be set.";
+        }
+      ];
 
-      home.activation.agenix = hm.dag.entryAfter [ "writeBoundary" ] installSecrets;
+      home.activation.agenix = hm.dag.entryAfter ["writeBoundary"] installSecrets;
     }
   ]);
 }
-
 ##: source:
 # https://github.com/ryantm/agenix/blob/1c11ad7b11a5b09c28b7892fbbe984274e7031ed/modules/hm-age.nix
+

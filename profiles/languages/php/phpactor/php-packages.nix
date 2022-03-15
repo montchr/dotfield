@@ -1,6 +1,11 @@
-{composerEnv, fetchurl, fetchgit ? null, fetchhg ? null, fetchsvn ? null, noDev ? false}:
-
-let
+{
+  composerEnv,
+  fetchurl,
+  fetchgit ? null,
+  fetchhg ? null,
+  fetchsvn ? null,
+  noDev ? false,
+}: let
   packages = {
     "amphp/amp" = {
       targetDir = "";
@@ -985,11 +990,11 @@ let
   };
   devPackages = {};
 in
-composerEnv.buildPackage {
-  inherit packages devPackages noDev;
-  name = "phpactor-phpactor";
-  src = ./.;
-  executable = true;
-  symlinkDependencies = false;
-  meta = {};
-}
+  composerEnv.buildPackage {
+    inherit packages devPackages noDev;
+    name = "phpactor-phpactor";
+    src = ./.;
+    executable = true;
+    symlinkDependencies = false;
+    meta = {};
+  }

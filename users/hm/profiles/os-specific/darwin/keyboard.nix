@@ -1,10 +1,12 @@
-{ config, osConfig, lib, pkgs, ... }:
-
-let
-  inherit (osConfig.dotfield) configDir;
-in
-
 {
+  config,
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (osConfig.dotfield) configDir;
+in {
   services.skhd.enable = true;
   services.skhd.config = builtins.readFile "${configDir}/skhd/skhdrc";
 

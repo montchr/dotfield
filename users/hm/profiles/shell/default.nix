@@ -1,6 +1,11 @@
-{ config, lib, pkgs, inputs, osConfig, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  osConfig,
+  ...
+}: let
   inherit (osConfig) dotfield;
 
   shellAliases =
@@ -9,9 +14,7 @@ let
 
   fdBin = "${pkgs.fd}/bin/fd";
   fzfDefaultCmd = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
-in
-
-{
+in {
   imports = [
     # ./fzf.nix
   ];
@@ -74,7 +77,7 @@ in
   };
 
   home.sessionVariables = {
-    PATH = [ "$XDG_BIN_HOME" "$PATH" ];
+    PATH = ["$XDG_BIN_HOME" "$PATH"];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";

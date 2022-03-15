@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
   cfg = config.services.yabai;
@@ -13,39 +17,43 @@ let
   };
 
   mkArgString = lib.generators.toKeyValue {
-    mkKeyValue = key: value:
-      let
-        value' =
-          if lib.isBool value then
-            (if value then "on" else "off")
-          else
-            builtins.toString value;
-      in
-      "${key}='${value'}' \\";
+    mkKeyValue = key: value: let
+      value' =
+        if lib.isBool value
+        then
+          (
+            if value
+            then "on"
+            else "off"
+          )
+        else builtins.toString value;
+    in "${key}='${value'}' \\";
   };
 
-  mkRule = { app, ... } @ args:
-    let
-      args' = (lib.filterAttrs
-        (n: _: ! builtins.elem n [ "app" ])
-        args);
-    in
-    ''
-      yabai -m rule --add app='${app}' ${mkArgString args'}
-    '';
+  mkRule = {app, ...} @ args: let
+    args' =
+      lib.filterAttrs
+      (n: _: ! builtins.elem n ["app"])
+      args;
+  in ''
+    yabai -m rule --add app='${app}' ${mkArgString args'}
+  '';
 
-  mkSignal = { event, action, ... } @ args:
-    let
-      args' = (lib.filterAttrs
-        (n: _: ! builtins.elem n [ "event" "action" ])
-        args);
-    in
-    ''
-      yabai -m signal --add \
-        event='${event}' \
-        action='${action}' \
-        ${mkArgString args'}
-    '';
+  mkSignal = {
+    event,
+    action,
+    ...
+  } @ args: let
+    args' =
+      lib.filterAttrs
+      (n: _: ! builtins.elem n ["event" "action"])
+      args;
+  in ''
+    yabai -m signal --add \
+      event='${event}' \
+      action='${action}' \
+      ${mkArgString args'}
+  '';
 
   mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
   mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
@@ -53,10 +61,10 @@ let
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
-  scriptsFromFiles = (map (n: mkScriptFromFile n) [
+  scriptsFromFiles = map (n: mkScriptFromFile n) [
     "close-window"
     "focus-direction"
-  ]);
+  ];
 
   scripts =
     (builtins.listToAttrs (map
@@ -64,9 +72,9 @@ let
         name = drv.name;
         value = drv;
       })
-      scriptsFromFiles)) // {
-
-      kickstart-sa = (writeShellScriptBin "yabai-sa-kickstart" ''
+      scriptsFromFiles))
+    // {
+      kickstart-sa = writeShellScriptBin "yabai-sa-kickstart" ''
         # ${config.my.nix_managed}
         #
         # yabai-sa-kickstart
@@ -85,10 +93,10 @@ let
         sudo launchctl load ${daemonPath}
 
         set +x
-      '');
+      '';
 
       # Set padding and window gaps.
-      set-padding = (writeShellScriptBin "yabai-set-padding" ''
+      set-padding = writeShellScriptBin "yabai-set-padding" ''
         # ${config.my.nix_managed}
         #
         # yabai-set-padding
@@ -112,9 +120,9 @@ let
         yabai -m config left_padding "$PADDING"
         yabai -m config right_padding "$PADDING"
         yabai -m config window_gap "$PADDING"
-      '');
+      '';
 
-      kludge = (writeShellScriptBin "yabai-kludge" ''
+      kludge = writeShellScriptBin "yabai-kludge" ''
         # ${config.my.nix_managed}
         #
         # yabai-kludge
@@ -142,18 +150,16 @@ let
 
         # Restart the dock.
         killall Dock
-      '');
+      '';
     };
 
   # Get the store path to a yabai script by shortname.
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
-
-in
-{
-
-  my.user.packages = (map
+in {
+  my.user.packages =
+    map
     (key: builtins.getAttr key scripts)
-    (builtins.attrNames scripts));
+    (builtins.attrNames scripts);
 
   environment.variables = {
     YABAI_PADDING_DEFAULT = defaults.padding;
@@ -217,117 +223,114 @@ in
       window_shadow = "off";
     };
 
-    extraConfig =
-      let
-        commonRules = {
+    extraConfig = let
+      commonRules = {
+        managed = false;
+        sticky = true;
+      };
+
+      rules = mkRules [
+        # FIXME: these are not working!
+        (commonRules // {app = "1Password";})
+        (commonRules // {app = "Alfred Preferences";})
+        (commonRules // {app = "Fanatastical Helper";})
+        (commonRules // {app = "Harvest";})
+        (commonRules // {app = "Stickies";})
+        (commonRules // {app = "^System Preferences$";})
+
+        {
+          app = "Affinity";
           managed = false;
-          sticky = true;
-        };
+        }
+        {
+          app = "Microsoft Teams";
+          opacity = "1.0";
+        }
+        {
+          app = "zoom.us";
+          opacity = "1.0";
+        }
 
-        rules = mkRules [
-          # FIXME: these are not working!
-          (commonRules // { app = "1Password"; })
-          (commonRules // { app = "Alfred Preferences"; })
-          (commonRules // { app = "Fanatastical Helper"; })
-          (commonRules // { app = "Harvest"; })
-          (commonRules // { app = "Stickies"; })
-          (commonRules // { app = "^System Preferences$"; })
+        ## Emacs
 
-          {
-            app = "Affinity";
-            managed = false;
-          }
-          {
-            app = "Microsoft Teams";
-            opacity = "1.0";
-          }
-          {
-            app = "zoom.us";
-            opacity = "1.0";
-          }
+        {
+          app = "Emacs";
+          title = "doom-capture";
+          manage = false;
+          grid = "3:3:1:1:1:1";
+          label = "[Emacs]: Float and center the doom capture window";
+        }
+        {
+          app = "Emacs";
+          title = ".*Minibuf.*";
+          manage = false;
+          label = "[Emacs]: Float minibuffer";
+        }
+      ];
 
-          ## Emacs
+      signals = mkSignals [
+        {
+          event = "window_focused";
+          action = "yabai -m query --windows --window";
+          label = "log each focused window";
+        }
+      ];
+    in ''
+      # Set window padding to default value.
+      ${getScript "set-padding"}
 
-          {
-            app = "Emacs";
-            title = "doom-capture";
-            manage = false;
-            grid = "3:3:1:1:1:1";
-            label = "[Emacs]: Float and center the doom capture window";
-          }
-          {
-            app = "Emacs";
-            title = ".*Minibuf.*";
-            manage = false;
-            label = "[Emacs]: Float minibuffer";
-          }
+      ###: NOTEBOOK WORKSPACES {{{
 
-        ];
+        #: 'connect' :: slack, zoom, any others related to a current meeting
+        yabai -m space 1 --label 'connect'
 
-        signals = mkSignals [
-          {
-            event = "window_focused";
-            action = "yabai -m query --windows --window";
-            label = "log each focused window";
-          }
-        ];
-      in
-      ''
-        # Set window padding to default value.
-        ${getScript "set-padding"}
+        #: 'browse' :: firefox for the machine's primary profile
+        yabai -m space 2 --label 'browse'
 
-        ###: NOTEBOOK WORKSPACES {{{
+        #: 'test' :: additional browser, other utils for testing current task
+        yabai -m space 3 --label 'test'
 
-          #: 'connect' :: slack, zoom, any others related to a current meeting
+        #: 'code' :: emacs, sometimes kitty
+        yabai -m space 4 --label 'code'
+
+        #: 'term' :: kitty
+        yabai -m space 5 --label 'term'
+
+        #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
+        yabai -m space 6 --label 'media'
+
+        #: 'browse-alt' :: additional firefox instance for secondary profile
+        yabai -m space 7 --label 'browse-alt'
+
+      ### }}}
+
+
+      ###: DESKTOP WORKSPACES {{{
+
+        ##: CENTER DISPLAY {{
+
           yabai -m space 1 --label 'connect'
-
-          #: 'browse' :: firefox for the machine's primary profile
           yabai -m space 2 --label 'browse'
+          yabai -m space 3 --label 'code'
 
-          #: 'test' :: additional browser, other utils for testing current task
-          yabai -m space 3 --label 'test'
+        ## }}
 
-          #: 'code' :: emacs, sometimes kitty
-          yabai -m space 4 --label 'code'
+        ##: RIGHT DISPLAY {{
 
-          #: 'term' :: kitty
-          yabai -m space 5 --label 'term'
+          yabai -m space 1 --label 'term'
 
-          #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
-          yabai -m space 6 --label 'media'
+          #: 'chat' :: slack, irc, signal, etc.
+          yabai -m space 2 --label 'chat'
 
-          #: 'browse-alt' :: additional firefox instance for secondary profile
-          yabai -m space 7 --label 'browse-alt'
+          yabai -m space 3 --label 'media'
+          yabai -m space 4 --label 'browse-alt'
 
-        ### }}}
+        ## }}
 
+      ### }}}
 
-        ###: DESKTOP WORKSPACES {{{
-
-          ##: CENTER DISPLAY {{
-
-            yabai -m space 1 --label 'connect'
-            yabai -m space 2 --label 'browse'
-            yabai -m space 3 --label 'code'
-
-          ## }}
-
-          ##: RIGHT DISPLAY {{
-
-            yabai -m space 1 --label 'term'
-
-            #: 'chat' :: slack, irc, signal, etc.
-            yabai -m space 2 --label 'chat'
-
-            yabai -m space 3 --label 'media'
-            yabai -m space 4 --label 'browse-alt'
-
-          ## }}
-
-        ### }}}
-
-        ${rules}
-        ${signals}
-      '';
+      ${rules}
+      ${signals}
+    '';
   };
 }

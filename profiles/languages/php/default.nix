@@ -1,21 +1,29 @@
-{ config, pkgs, lib, ... }:
-
-let
-  inherit (pkgs)
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit
+    (pkgs)
     php74
     php74Packages
-    writeShellScriptBin;
+    writeShellScriptBin
+    ;
   inherit (php74Packages) composer;
 
   dotfieldPath = config.dotfield.path;
   configDir = "${config.dotfield.configDir}/php";
 
-  composer2nixPkgs = pkgs // { php = php74; phpPackages = php74Packages; };
-  common = import ./common { pkgs = composer2nixPkgs; };
-  phpactor = import ./phpactor { pkgs = composer2nixPkgs; };
-in
-
-{
+  composer2nixPkgs =
+    pkgs
+    // {
+      php = php74;
+      phpPackages = php74Packages;
+    };
+  common = import ./common {pkgs = composer2nixPkgs;};
+  phpactor = import ./phpactor {pkgs = composer2nixPkgs;};
+in {
   environment.systemPackages = [
     php74
     common

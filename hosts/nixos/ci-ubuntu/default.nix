@@ -1,6 +1,10 @@
-{ config, lib, pkgs, suites, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  suites,
+  ...
+}: {
   imports = with suites; (
     linux-minimal
     ++ developer
@@ -13,5 +17,5 @@
 
   networking.networkmanager.enable = true;
 
-  fileSystems."/" = { device = "/dev/disk/by-label/nixos"; };
+  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 }

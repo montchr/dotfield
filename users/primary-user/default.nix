@@ -1,32 +1,36 @@
-{ options, config, lib, pkgs, ... }:
-
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (config) my;
   inherit (pkgs.stdenv) isDarwin isLinux;
 
   user = builtins.getEnv "USER";
-  name = if builtins.elem user [ "" "root" ] then my.username else user;
-in
-
-{
+  name =
+    if builtins.elem user ["" "root"]
+    then my.username
+    else user;
+in {
   users.users.${my.username} = lib.mkAliasDefinitions options.my.user;
 
-  my.user = {
-    inherit name;
+  my.user =
+    {
+      inherit name;
 
-    shell = pkgs.zsh;
-    packages = import ./package-list.nix { inherit pkgs; };
-  }
-  //
-  (lib.optionalAttrs (isLinux) {
-    extraGroups = [ "wheel" ];
-    isNormalUser = true;
-    home = "/home/${name}";
-  })
-  //
-  (lib.optionalAttrs (isDarwin) {
-    home = "/Users/${name}";
-  });
+      shell = pkgs.zsh;
+      packages = import ./package-list.nix {inherit pkgs;};
+    }
+    // (lib.optionalAttrs isLinux {
+      extraGroups = ["wheel"];
+      isNormalUser = true;
+      home = "/home/${name}";
+    })
+    // (lib.optionalAttrs isDarwin {
+      home = "/Users/${name}";
+    });
 
   my.usernames = {
     github = "montchr";
@@ -35,20 +39,21 @@ in
   };
 
   my.keys.ssh = {
-    primary = (import ./ssh-primary-key.nix);
-    identities = (import ./ssh-identities.nix);
+    primary = import ./ssh-primary-key.nix;
+    identities = import ./ssh-identities.nix;
   };
 
-  environment.variables = let inherit (my) xdg; in
-    {
-      CACHEDIR = xdg.cache;
-      XDG_BIN_HOME = xdg.bin;
-      XDG_CACHE_HOME = xdg.cache;
-      XDG_CONFIG_HOME = xdg.config;
-      XDG_DATA_HOME = xdg.data;
-      XDG_RUNTIME_DIR = "/tmp";
-      XDG_STATE_HOME = xdg.state;
-    };
+  environment.variables = let
+    inherit (my) xdg;
+  in {
+    CACHEDIR = xdg.cache;
+    XDG_BIN_HOME = xdg.bin;
+    XDG_CACHE_HOME = xdg.cache;
+    XDG_CONFIG_HOME = xdg.config;
+    XDG_DATA_HOME = xdg.data;
+    XDG_RUNTIME_DIR = "/tmp";
+    XDG_STATE_HOME = xdg.state;
+  };
 
   my.hm.home.sessionVariables = {
     # Default is "1". But when typeset in PragmataPro that leaves no space
@@ -58,7 +63,6 @@ in
     GITHUB_USER = my.usernames.github;
     Z_OWNER = my.username;
   };
-
 
   my.hm.home = {
     # Necessary for home-manager to work with flakes, otherwise it will

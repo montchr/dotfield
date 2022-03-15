@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 with pkgs; [
   act # Run GitHub Actions locally
   asciinema

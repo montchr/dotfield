@@ -1,7 +1,10 @@
-{ config, osConfig, lib, pkgs, ... }:
-
-let
-
+{
+  config,
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}: let
   configPath = "${osConfig.dotfield.path}/config";
   chemacsDir = "${config.xdg.configHome}/emacs";
 
@@ -19,11 +22,8 @@ let
   emacsPackage = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
     epkgs.vterm
   ]));
-
-in
-
-{
-  home.sessionPath = [ "${doomDataDir}/bin" "$PATH" ];
+in {
+  home.sessionPath = ["${doomDataDir}/bin" "$PATH"];
 
   home.sessionVariables = {
     EDITOR = "emacsclient";
@@ -68,14 +68,15 @@ in
     dotfield.ediffTool
 
     ## Doom dependencies
-    (ripgrep.override { withPCRE2 = true; })
-    (python3.withPackages (ps: with ps; [
-      pip
-      black
-      setuptools
-      pylint
-      grip
-    ]))
+    (ripgrep.override {withPCRE2 = true;})
+    (python3.withPackages (ps:
+      with ps; [
+        pip
+        black
+        setuptools
+        pylint
+        grip
+      ]))
     gnutls
 
     ## Optional dependencies
@@ -86,7 +87,7 @@ in
 
     ## Module dependencies
     # :checkers spell
-    (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
+    (aspellWithDicts (ds: with ds; [en en-computers en-science]))
 
     # :checkers grammar
     languagetool
@@ -165,7 +166,5 @@ in
     nodePackages.vim-language-server
 
     ## }}}
-
   ];
-
 }

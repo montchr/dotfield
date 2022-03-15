@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib.strings) fileContents;
 
   shellCfg = config.shell;
@@ -20,8 +23,7 @@ let
     };
   };
   mkFileLink' = path: mkFileLink "${path}.fish";
-in
-{
+in {
   imports = [
     ../shell
   ];

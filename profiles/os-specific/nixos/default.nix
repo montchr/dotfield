@@ -1,12 +1,16 @@
-{ self, config, lib, pkgs, ... }:
-
 {
+  self,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   dotfield.path = lib.mkDefault "/etc/nixos";
 
   nix = {
     autoOptimiseStore = true;
     optimise.automatic = true;
-    systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
   };
 
   #shellAliases = {

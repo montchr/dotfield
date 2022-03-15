@@ -1,10 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-let
-  configDir = "${config.dotfield.configDir}/darwin";
-in
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  configDir = "${config.dotfield.configDir}/darwin";
+in {
   imports = [
     ./hammerspoon.nix
     ./yabai.nix
@@ -79,5 +80,4 @@ in
     "New File Menu" = 1064959555;
     "Reeder 5." = 1529448980;
   };
-
 }

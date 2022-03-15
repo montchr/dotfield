@@ -1,6 +1,10 @@
-{ config, osConfig, lib, pkgs, ... }:
-
-let
+{
+  config,
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}: let
   configSrc = "${osConfig.dotfield.configDir}/espanso";
   matchesSrc = "${configSrc}/match";
   matchesDest = "${config.xdg.configHome}/espanso/match";
@@ -12,9 +16,7 @@ let
       owner = config.home.username;
     };
   };
-in
-
-{
+in {
   xdg.configFile."espanso" = {
     source = configSrc;
     recursive = true;

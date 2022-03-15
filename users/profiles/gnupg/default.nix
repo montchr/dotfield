@@ -1,12 +1,14 @@
-{ pkgs, lib, config, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   inherit (config) my;
 
   gnupgHome = "${my.xdg.data}/gnupg";
   key = my.keys.pgp;
-in
-{
+in {
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -16,7 +18,11 @@ in
     gnupg
     gpgme
 
-    (if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry)
+    (
+      if pkgs.stdenv.isDarwin
+      then pkgs.pinentry_mac
+      else pkgs.pinentry
+    )
 
     (writeShellScriptBin "gpg-agent-restart" ''
       pkill gpg-agent ; pkill ssh-agent ; pkill pinentry ; eval $(gpg-agent --daemon --enable-ssh-support)

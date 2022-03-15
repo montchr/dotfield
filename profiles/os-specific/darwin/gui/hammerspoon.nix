@@ -1,11 +1,12 @@
-{ pkgs, lib, config, ... }:
-
-let
-  configDir = "${config.dotfield.configDir}/hammerspoon";
-in
-
 {
-  homebrew.casks = [ "hammerspoon" ];
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  configDir = "${config.dotfield.configDir}/hammerspoon";
+in {
+  homebrew.casks = ["hammerspoon"];
 
   # Point Hammerspoon to its init file.
   # https://github.com/Hammerspoon/hammerspoon/pull/582
