@@ -99,7 +99,6 @@
           developer = suites.base ++ [ ];
           gui = [
             system.fonts
-            home.espanso
           ];
           personal = [
             system.security.gnupg
@@ -240,6 +239,7 @@
               vim
             ];
             gui = [
+              espanso
               firefox
               graphical.colors
               kitty
