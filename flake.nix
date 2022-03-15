@@ -123,7 +123,6 @@
           system.security.yubikey
           system.secrets
           system.users.primary-user
-          home.gnupg
           home.mail
           home.pass
           home.rclone
@@ -264,6 +263,7 @@
             darwin = [
               os-specific.darwin.keyboard
             ];
+            personal = [gnupg];
           };
         };
 
@@ -276,10 +276,17 @@
             imports = suites.base;
           };
           xtallos = {suites, ...}: {
-            imports = suites.base ++ suites.dev;
+            imports =
+              suites.base
+              ++ suites.dev;
           };
           montchr = {suites, ...}: {
-            imports = suites.base ++ suites.dev ++ suites.darwin ++ suites.gui;
+            imports =
+              suites.base
+              ++ suites.dev
+              ++ suites.darwin
+              ++ suites.gui
+              ++ suites.personal;
           };
         };
       };
