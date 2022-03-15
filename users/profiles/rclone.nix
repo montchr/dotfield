@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
-
 {
-  my.user.packages = with pkgs; [ rclone ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  my.user.packages = with pkgs; [rclone];
 }

@@ -1,5 +1,8 @@
-{ stdenv, fetchzip, lib }:
-
+{
+  stdenv,
+  fetchzip,
+  lib,
+}:
 stdenv.mkDerivation {
   pname = "yabai";
   version = "4.0.0-pre";

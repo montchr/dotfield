@@ -1,13 +1,18 @@
-{ config, lib, pkgs, inputs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
-  theme = if envTheme != "" then envTheme else "black-metal-khold";
-in
-
-{
+  theme =
+    if envTheme != ""
+    then envTheme
+    else "black-metal-khold";
+in {
   colorscheme = inputs.nix-colors.colorSchemes.${theme};
 
   home.sessionVariables = {

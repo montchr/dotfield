@@ -1,3 +1,3 @@
 final: prev: {
-  pragmatapro = (prev.callPackage ../../pkgs/pragmatapro.nix { });
+  pragmatapro = prev.callPackage ../../pkgs/pragmatapro.nix {};
 }

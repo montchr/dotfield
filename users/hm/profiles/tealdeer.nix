@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.sessionVariables = {
     TEALDEER_CONFIG_DIR = "${config.xdg.configHome}/tealdeer";
     TEALDEER_CACHE_DIR = "${config.xdg.cacheHome}/tealdeer";
@@ -17,7 +20,7 @@
     auto_update_interval_hours = 168 # 1 week
   '';
 
-  home.activation.ensureTealdeerCacheDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureTealdeerCacheDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
     $DRY_RUN_CMD mkdir -p $VERBOSE_ARG "${config.home.sessionVariables.TEALDEER_CACHE_DIR}"
   '';
 }

@@ -1,6 +1,5 @@
 colorscheme:
-with colorscheme.colors;
-{
+with colorscheme.colors; {
   foreground = "#${base05}";
   background = "#${base00}";
   selection_background = "#${base05}";

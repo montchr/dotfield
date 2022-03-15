@@ -1,17 +1,18 @@
-{ config, pkgs, lib, home-manager, options, ... }:
-
-with lib.types;
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  options,
+  ...
+}:
+with lib.types; let
   inherit (pkgs.lib.our) mkOpt mkOpt' mkBoolOpt;
   inherit (config.my.user) home;
 
   sshDir = "${home}/.ssh";
-in
-
-{
+in {
   options = {
-
     my = {
       name = mkOpt str "Chris Montgomery";
       timezone = mkOpt str "America/New_York";
@@ -27,13 +28,14 @@ in
             sourcehut = mkOpt' str "" "Sourcehut username";
           };
         };
-        default = { };
+        default = {};
       };
 
       terminal = mkOpt str "kitty";
-      nix_managed = mkOpt str
+      nix_managed =
+        mkOpt str
         "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
-      user = lib.mkOption { type = options.users.users.type.functor.wrapped; };
+      user = lib.mkOption {type = options.users.users.type.functor.wrapped;};
 
       emails = {
         personal = mkOpt str "chris@cdom.io";
@@ -46,7 +48,7 @@ in
           type = types.submodule {
             options = {
               primary = mkOpt str "";
-              identities = mkOpt (listOf str) [ ];
+              identities = mkOpt (listOf str) [];
               hostKeyPaths = mkOpt (listOf str) [
                 "${sshDir}/id_ed25519"
                 # FIXME: filter non-existant paths
@@ -60,7 +62,7 @@ in
       hm = lib.mkOption {
         description = "Primary user's home-manager configuration";
         type = types.attrs;
-        default = { };
+        default = {};
       };
 
       xdg = {
@@ -74,13 +76,12 @@ in
 
       env = lib.mkOption {
         description = "Environment variables.";
-        type = attrsOf (oneOf [ str path (listOf (either str path)) ]);
+        type = attrsOf (oneOf [str path (listOf (either str path))]);
         apply = lib.mapAttrs (n: v:
-          if lib.isList v then
-            lib.concatMapStringsSep ":" (x: toString x) v
-          else
-            (toString v));
-        default = { };
+          if lib.isList v
+          then lib.concatMapStringsSep ":" (x: toString x) v
+          else (toString v));
+        default = {};
       };
     };
   };

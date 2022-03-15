@@ -1,6 +1,11 @@
-{ config, osConfig, lib, pkgs, inputs, ... }:
-
-let
+{
+  config,
+  osConfig,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   leptonDir = inputs.firefox-lepton.outPath;
@@ -26,8 +31,7 @@ let
     "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" =
       false;
 
-    "browser.search.hiddenOneOffs" =
-      "Google,Yahoo,Bing,Amazon.com,Twitter";
+    "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
     "browser.search.region" = "US";
     "browser.search.suggest.enabled" = true;
     "browser.send_pings" = false;
@@ -110,149 +114,149 @@ let
     ${userContentCSS}
   '';
 in
+  lib.mkMerge [
+    {
+      xdg.configFile."tridactyl".source = ./tridactyl;
 
-lib.mkMerge [
-  {
-    xdg.configFile."tridactyl".source = ./tridactyl;
+      programs.firefox = {
+        enable = true;
 
-    programs.firefox = {
-      enable = true;
+        extensions = with addons; [
+          onepassword-password-manager
+          a11ycss
+          add-custom-search-engine
+          copy-selection-as-markdown
+          darkreader
+          display-_anchors
+          firefox-color
 
-      extensions = with addons; [
-        onepassword-password-manager
-        a11ycss
-        add-custom-search-engine
-        copy-selection-as-markdown
-        darkreader
-        display-_anchors
-        firefox-color
+          # Flagfox by Dave G
+          #
+          # Displays a country flag depicting the location of the current website's
+          # server and provides a multitude of tools such as site safety checks,
+          # whois, translation, similar sites, validation, URL shortening, and
+          # more...
+          #
+          # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
+          flagfox
 
-        # Flagfox by Dave G
-        #
-        # Displays a country flag depicting the location of the current website's
-        # server and provides a multitude of tools such as site safety checks,
-        # whois, translation, similar sites, validation, URL shortening, and
-        # more...
-        #
-        # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
-        flagfox
+          floccus
 
-        floccus
+          # Light/Dark theme switcher for Firefox by Remy Sharp
+          #
+          # https://github.com/remy/light-dark-switcher
+          #
+          # FIXME: appears to be removed from firefox addons repo?
+          # light-dark-switcher
 
-        # Light/Dark theme switcher for Firefox by Remy Sharp
-        #
-        # https://github.com/remy/light-dark-switcher
-        #
-        # FIXME: appears to be removed from firefox addons repo?
-        # light-dark-switcher
+          mailvelope
+          multi-account-containers
+          octolinker
+          old-reddit-redirect
+          org-capture
+          pinboard
+          privacy-badger
+          react-devtools
+          reddit-enhancement-suite
+          reduxdevtools
+          refined-github
 
-        mailvelope
-        multi-account-containers
-        octolinker
-        old-reddit-redirect
-        org-capture
-        pinboard
-        privacy-badger
-        react-devtools
-        reddit-enhancement-suite
-        reduxdevtools
-        refined-github
+          # Return Youtube Dislike by Dmitry Selivanov
+          #
+          # Returns ability to see dislike statistics on youtube
+          #
+          # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
+          search-engines-helper
 
-        # Return Youtube Dislike by Dmitry Selivanov
-        #
-        # Returns ability to see dislike statistics on youtube
-        #
-        # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
-        search-engines-helper
+          # SingleFile by gildas
+          #
+          # Save an entire web page—including images and styling—as a single HTML file.
+          #
+          # https://addons.mozilla.org/en-US/firefox/addon/single-file/
+          single-file
 
-        # SingleFile by gildas
-        #
-        # Save an entire web page—including images and styling—as a single HTML file.
-        #
-        # https://addons.mozilla.org/en-US/firefox/addon/single-file/
-        single-file
+          tab-session-manager
+          tabliss
+          temporary-containers
+          tridactyl
+          ublock-origin
 
-        tab-session-manager
-        tabliss
-        temporary-containers
-        tridactyl
-        ublock-origin
+          ##: Themes {{
 
-        ##: Themes {{
+          # Arctic Nord Theme by christos
+          #
+          # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
+          #
+          # TODO: add this to upstream repo
+          # arctic-nord-theme
 
-        # Arctic Nord Theme by christos
-        #
-        # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
-        #
-        # TODO: add this to upstream repo
-        # arctic-nord-theme
+          # Nord Polar Night Theme by christos
+          #
+          # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
+          theme-nord-polar-night
 
-        # Nord Polar Night Theme by christos
-        #
-        # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
-        theme-nord-polar-night
+          ##: }}
+        ];
 
-        ##: }}
-      ];
+        profiles.home = {
+          id = 0;
+          settings = defaultSettings // privacySettings;
+          userChrome = ''
+            ${imports.lepton.userChrome}
 
-      profiles.home = {
-        id = 0;
-        settings = defaultSettings // privacySettings;
-        userChrome = ''
-          ${imports.lepton.userChrome}
+            :root {
+              --dotfield-tab-line-color: #5e81ac;
+            }
 
-          :root {
-            --dotfield-tab-line-color: #5e81ac;
-          }
+            ${builtins.readFile ./userChrome.css}
+          '';
 
-          ${builtins.readFile ./userChrome.css}
-        '';
-
-        userContent = defaultUserContentStyles;
-      };
-
-      profiles.work = {
-        id = 1;
-
-        settings = defaultSettings // {
-          "browser.startup.homepage" = "about:blank";
-          "browser.urlbar.placeholderName" = "Search";
-
-          # 0 = Accept all cookies by default
-          # 1 = Only accept from the originating site (block third-party cookies)
-          # 2 = Block all cookies by default
-          # 3 = Block cookies from unvisited sites
-          # 4 = New Cookie Jar policy (prevent storage access to trackers)
-          "network.cookie.cookieBehavior" = 0;
-
-          "privacy.trackingprotection.enabled" = false;
+          userContent = defaultUserContentStyles;
         };
 
-        userChrome = ''
-          ${imports.lepton.userChrome}
+        profiles.work = {
+          id = 1;
 
-          :root {
-            --dotfield-color-alley-red: #a22e29;
-            --dotfield-tab-line-color: var(--dotfield-color-alley-red);
-          }
+          settings =
+            defaultSettings
+            // {
+              "browser.startup.homepage" = "about:blank";
+              "browser.urlbar.placeholderName" = "Search";
 
-          ${builtins.readFile ./userChrome.css}
-        '';
+              # 0 = Accept all cookies by default
+              # 1 = Only accept from the originating site (block third-party cookies)
+              # 2 = Block all cookies by default
+              # 3 = Block cookies from unvisited sites
+              # 4 = New Cookie Jar policy (prevent storage access to trackers)
+              "network.cookie.cookieBehavior" = 0;
 
-        userContent = defaultUserContentStyles;
+              "privacy.trackingprotection.enabled" = false;
+            };
+
+          userChrome = ''
+            ${imports.lepton.userChrome}
+
+            :root {
+              --dotfield-color-alley-red: #a22e29;
+              --dotfield-tab-line-color: var(--dotfield-color-alley-red);
+            }
+
+            ${builtins.readFile ./userChrome.css}
+          '';
+
+          userContent = defaultUserContentStyles;
+        };
       };
+    }
 
-    };
-  }
-
-  (lib.mkIf isDarwin {
-    # Handled by the Homebrew module
-    # This populates a dummy package to satisfy the requirement
-    programs.firefox.package = pkgs.runCommand "firefox-0.0.0" { } "mkdir $out";
-  })
-]
-
+    (lib.mkIf isDarwin {
+      # Handled by the Homebrew module
+      # This populates a dummy package to satisfy the requirement
+      programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
+    })
+  ]
 ##: References :
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
+

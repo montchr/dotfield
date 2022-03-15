@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Allow VirtualBox to manage host networks.
   environment.etc."vbox/networks.conf".text = "* 0.0.0.0/0 ::/0";
 
-  environment.systemPackages = with pkgs; [ dnsmasq ];
+  environment.systemPackages = with pkgs; [dnsmasq];
   services.dnsmasq = {
     enable = false;
     addresses = {

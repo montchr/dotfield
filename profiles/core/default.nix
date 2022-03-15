@@ -1,14 +1,17 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   #  imports = [ ../cachix ];
 
   nix = {
     package = pkgs.nix;
     gc.automatic = true;
     useSandbox = lib.mkDefault true;
-    allowedUsers = [ "*" ];
-    trustedUsers = [ "root" "@wheel" ];
+    allowedUsers = ["*"];
+    trustedUsers = ["root" "@wheel"];
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true
@@ -38,7 +41,10 @@
     DOTFIELD_HOSTNAME = config.networking.hostName;
 
     EDITOR = "vim";
-    KERNEL_NAME = if pkgs.stdenv.isDarwin then "darwin" else "linux";
+    KERNEL_NAME =
+      if pkgs.stdenv.isDarwin
+      then "darwin"
+      else "linux";
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     HOSTNAME = config.networking.hostName;
@@ -47,14 +53,12 @@
     ZDOTDIR = "$HOME/.config/zsh";
   };
 
-  fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+  fonts.fonts = [pkgs.emacs-all-the-icons-fonts];
 
   environment.shells = with pkgs; [
     bashInteractive
     zsh
   ];
-
-  programs.bash.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -67,9 +71,10 @@
     (writeScriptBin "dotfield"
       (builtins.readFile "${config.dotfield.binDir}/dotfield"))
 
-    (python3.withPackages (ps: with ps; [ pip setuptools ]))
-    (ripgrep.override { withPCRE2 = true; })
+    (python3.withPackages (ps: with ps; [pip setuptools]))
+    (ripgrep.override {withPCRE2 = true;})
 
+    alejandra # The Uncompromising Nix Code Formatter
     bashInteractive
     bat
     binutils

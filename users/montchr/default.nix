@@ -1,5 +1,9 @@
-{ config, lib, pkgs, hmUsers, ... }:
-
 {
-  home-manager.users = { inherit (hmUsers) montchr; };
+  config,
+  lib,
+  pkgs,
+  hmUsers,
+  ...
+}: {
+  home-manager.users = {inherit (hmUsers) montchr;};
 }

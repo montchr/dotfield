@@ -1,5 +1,4 @@
-{ ... }:
-let
+{...}: let
   inherit (default.inputs.nixpkgs-darwin-stable) lib;
 
   host = configs.${hostname};
@@ -8,4 +7,4 @@ let
   # FIXME: /etc/hostname doesn't exist on Darwin!
   hostname = lib.fileContents /etc/hostname;
 in
-host
+  host

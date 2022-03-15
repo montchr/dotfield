@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -9,7 +11,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.supportedFilesystems = [ "btrfs" ];
+  boot.supportedFilesystems = ["btrfs"];
 
   # Required for broadcom driver support.
   nixpkgs.config.allowUnfree = true;
@@ -46,7 +48,7 @@
 
     wireless = {
       enable = true;
-      interfaces = [ "wlp3s0" ];
+      interfaces = ["wlp3s0"];
       userControlled.enable = true;
     };
   };
@@ -62,7 +64,7 @@
   console = {
     # Large font size for use on HiDPI screen
     font = "ter-i32b";
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
     keyMap = "us";
     #    useXkbConfig = true;
   };
@@ -109,10 +111,10 @@
   users.users.xtallos = {
     isNormalUser = true;
     hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
-    extraGroups = [ "wheel" "network-manager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "network-manager"]; # Enable ‘sudo’ for the user.
   };
 
-  home-manager.users.xtallos = { pkgs, ... }: {
+  home-manager.users.xtallos = {pkgs, ...}: {
     home.packages = with pkgs; [
       ddate
       _1password
@@ -180,6 +182,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
-

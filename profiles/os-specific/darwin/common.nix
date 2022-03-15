@@ -1,6 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   nix.nixPath = [
     # FIXME: This entry should be added automatically via FUP's `nix.linkInputs`
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't
@@ -14,7 +18,7 @@
   environment.darwinConfig = "$DOTFIELD_DIR/lib/compat/darwin";
 
   # Administrative users on Darwin are part of this group, not the `wheel` group.
-  nix.trustedUsers = [ "@admin" ];
+  nix.trustedUsers = ["@admin"];
 
   nix.useSandbox = true;
 

@@ -1,7 +1,10 @@
-{ config, lib, pkgs, ... }:
-
 {
-  nix.nixPath = [ "nixos-config=${../../lib/compat/nixos}" ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  nix.nixPath = ["nixos-config=${../../lib/compat/nixos}"];
 
   environment.systemPackages = with pkgs; [
     dosfstools

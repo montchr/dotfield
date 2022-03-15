@@ -1,12 +1,17 @@
 # FIXME: importables not available yet
 # FIXME: is modulesPath available?
-
-{ profiles, suites, modulesPath, ... }:
 {
-  imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-    profiles.system.linode
-  ] ++ suites.nixos;
+  profiles,
+  suites,
+  modulesPath,
+  ...
+}: {
+  imports =
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
+      profiles.system.linode
+    ]
+    ++ suites.nixos;
 
   # TODO: remove or something
   # bud.enable = true;
@@ -15,10 +20,10 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
 
-  boot.initrd.availableKernelModules = [ "virtio_pci" "virtio_scsi" "ahci" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = ["virtio_pci" "virtio_scsi" "ahci" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = [];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/sda";
@@ -26,7 +31,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/sdb"; }
+    {device = "/dev/sdb";}
   ];
 
   time.timeZone = "America/New_York";
@@ -34,9 +39,9 @@
   users.users.xtallos = {
     isNormalUser = true;
     hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
-    extraGroups = [ "wheel" "network-manager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "network-manager"]; # Enable ‘sudo’ for the user.
   };
-  home-manager.users.xtallos = { pkgs, ... }: {
+  home-manager.users.xtallos = {pkgs, ...}: {
     home.packages = with pkgs; [
       ddate
     ];

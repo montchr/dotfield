@@ -1,10 +1,12 @@
-{ config, pkgs, suites, profiles, ... }:
-
-let
-  inherit (config) my;
-in
-
 {
+  config,
+  pkgs,
+  suites,
+  profiles,
+  ...
+}: let
+  inherit (config) my;
+in {
   imports = with suites;
     darwin-gui
     ++ personal
@@ -52,11 +54,11 @@ in
   };
 
   environment.variables = {
-    PATH = [ "$HOME/broadway/bin" "$PATH" ];
+    PATH = ["$HOME/broadway/bin" "$PATH"];
   };
 
   homebrew = {
-    casks = [ "figma" "microsoft-teams" "sketch" ];
+    casks = ["figma" "microsoft-teams" "sketch"];
     masApps = {
       "Harvest" = 506189836;
       "Jira" = 1475897096;

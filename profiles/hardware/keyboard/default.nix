@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   hardware.keyboard.zsa.enable = true;
 }

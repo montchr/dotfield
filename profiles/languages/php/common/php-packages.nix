@@ -1,6 +1,11 @@
-{composerEnv, fetchurl, fetchgit ? null, fetchhg ? null, fetchsvn ? null, noDev ? false}:
-
-let
+{
+  composerEnv,
+  fetchurl,
+  fetchgit ? null,
+  fetchhg ? null,
+  fetchsvn ? null,
+  noDev ? false,
+}: let
   packages = {
     "composer/semver" = {
       targetDir = "";
@@ -706,13 +711,13 @@ let
     };
   };
 in
-composerEnv.buildPackage {
-  inherit packages devPackages noDev;
-  name = "montchr-dotfield-common";
-  src = ./.;
-  executable = false;
-  symlinkDependencies = false;
-  meta = {
-    license = "GPL-3.0-or-later";
-  };
-}
+  composerEnv.buildPackage {
+    inherit packages devPackages noDev;
+    name = "montchr-dotfield-common";
+    src = ./.;
+    executable = false;
+    symlinkDependencies = false;
+    meta = {
+      license = "GPL-3.0-or-later";
+    };
+  }

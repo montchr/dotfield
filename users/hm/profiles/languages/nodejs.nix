@@ -1,17 +1,20 @@
-{ config, osConfig, lib, pkgs, ... }:
-
-let
-  inherit (osConfig.my)
+{
+  config,
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (osConfig.my)
     email
     name
     website
     ;
-in
-
-{
+in {
   home.packages = with pkgs; [
     nodejs-16_x
-    (yarn.override { nodejs = nodejs-16_x; })
+    (yarn.override {nodejs = nodejs-16_x;})
   ];
 
   home.sessionVariables = {

@@ -1,11 +1,12 @@
-{ pkgs, lib, config, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
   sshPrimaryKeyPath = "~/.ssh/id_ed25519_yubikey.pub";
-in
-
-{
+in {
   my.hm.programs.ssh = {
     enable = true;
     hashKnownHosts = true;
@@ -13,10 +14,9 @@ in
     serverAliveInterval = 300;
     serverAliveCountMax = 2;
 
-    includes = [ "~/.config/ssh/config.local" ];
+    includes = ["~/.config/ssh/config.local"];
 
     matchBlocks = {
-
       "github.com" = {
         user = "git";
         identitiesOnly = true;
@@ -55,12 +55,10 @@ in
           MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
         };
       };
-
     };
   };
 }
-
-
 ## References:
 # https://github.com/drduh/config/blob/master/ssh_config
 # https://linux.die.net/man/5/ssh_config
+
