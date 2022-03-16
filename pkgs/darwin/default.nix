@@ -37,7 +37,7 @@ in {
     postInstall =
       o.postInstall
       + ''
-        ln -snf $out/lib/emacs/28.0.50/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
+        ln -snf $out/lib/emacs/${o.version}/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
       '';
   });
 }
