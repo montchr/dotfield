@@ -286,21 +286,22 @@
 
 ;; === languages ===============================================================
 
-(after! js2-mode
-  ;; Use eslintd for faster ESLint-based formatting on save.
-  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
-  (set-company-backend! 'company-tide 'js2-mode))
+;; (after! js2-mode
+;;   (set-company-backend! 'company-tide 'js2-mode))
 
-(after! sh-script
-  (set-company-backend! 'sh-mode
-    '(company-shell :with company-yasnippet)))
+  ;; Use eslintd for faster ESLint-based formatting on save.
+(set-formatter! 'eslintd 'eslintd-fix :modes '(js2-mode))
+
+;; (after! sh-script
+;;   (set-company-backend! 'sh-mode
+;;     '(company-shell :with company-yasnippet)))
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
-(appendq! safe-local-eval-forms '((sh-set-shell "sh")
-                                  (sh-set-shell "bash")
-                                  (sh-set-shell "zsh")))
+;; (appendq! safe-local-eval-forms '((sh-set-shell "sh")
+;;                                   (sh-set-shell "bash")
+;;                                   (sh-set-shell "zsh")))
 
 (use-package! vimrc-mode
   :defer-incrementally t
@@ -329,15 +330,7 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
-                    :server-id 'nix))
-
-  ;; `lsp-mode' integration with Flycheck `sh-shellcheck' checker
-  ;; https://old.reddit.com/r/emacs/comments/hqxm5v/weekly_tipstricketc_thread/fy4pvr8/?context=3
-  (defun +cdom--lsp-flycheck-enable-shellcheck ()
-    "Enable Shellcheck for shell buffers under LSP."
-    (when (derived-mode-p 'sh-mode)
-      (flycheck-add-next-checker 'lsp 'sh-shellcheck)))
-  (add-hook 'lsp-after-open-hook #'+cdom--lsp-flycheck-enable-shellcheck))
+                    :server-id 'nix)))
 
 (after! lsp-mode
   (setq! lsp-vetur-use-workspace-dependencies t
