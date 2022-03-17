@@ -3,13 +3,13 @@
   fetchzip,
   lib,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "4.0.0-pre";
+  version = "4.0.0";
 
   src = fetchzip {
-    url = "https://github.com/koekeishiya/yabai/files/7915231/yabai-v4.0.0.tar.gz";
-    hash = "sha256-qJE2zG7YIwYMJ9gWsguWIuFMPbvkD4lspRZKFiFkCYo=";
+    url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/${pname}-v${version}.tar.gz";
+    hash = "sha256-CBoRyxrleCKzgwZQamhwh3zkotxZCHrL3tslfktxluc=";
   };
 
   installPhase = ''
