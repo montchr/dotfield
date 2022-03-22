@@ -19,11 +19,6 @@ in {
       secretsDir = mkOpt path "${dir}/secrets";
       vendorDir = mkOpt path "${dir}/vendor";
 
-      # FIXME: This points to an arbitrary location which may vary per system.
-      # Instead, it should be determined programmatically based on the flake's
-      # actual location. Note, however, that its currently only useful for
-      # out-of-store symlinks, which are generally discouraged as they do not
-      # adhere to the Nix principle of immutable configuration.
       path = mkOpt path "${config.my.user.home}/.config/dotfield";
     };
   };
