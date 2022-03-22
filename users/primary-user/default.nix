@@ -43,18 +43,6 @@ in {
     identities = import ./ssh-identities.nix;
   };
 
-  environment.variables = let
-    inherit (my) xdg;
-  in {
-    CACHEDIR = xdg.cache;
-    XDG_BIN_HOME = xdg.bin;
-    XDG_CACHE_HOME = xdg.cache;
-    XDG_CONFIG_HOME = xdg.config;
-    XDG_DATA_HOME = xdg.data;
-    XDG_RUNTIME_DIR = "/tmp";
-    XDG_STATE_HOME = xdg.state;
-  };
-
   my.hm.home.sessionVariables = {
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
