@@ -3,11 +3,8 @@
   lib,
   pkgs,
   inputs,
-  osConfig,
   ...
 }: let
-  inherit (osConfig) dotfield;
-
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
@@ -17,19 +14,13 @@
 in {
   imports = [
     # ./fzf.nix
+    ./starship.nix
   ];
-
-  programs.starship.enable = true;
-  programs.starship.enableZshIntegration = false;
 
   home.packages = with pkgs; [
     zsh
     zoxide
   ];
-
-  xdg.configFile = {
-    "starship".source = "${dotfield.configDir}/starship";
-  };
 
   programs.bash = {
     inherit shellAliases;
