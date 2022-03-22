@@ -1,9 +1,8 @@
-# FIXME: importables not available yet
-# FIXME: is modulesPath available?
 {
   profiles,
   suites,
   modulesPath,
+  hmUsers,
   ...
 }: {
   imports =
@@ -12,10 +11,6 @@
       profiles.system.linode
     ]
     ++ suites.nixos;
-
-  # TODO: remove or something
-  # bud.enable = true;
-  # bud.localFlakeClone = "/etc/nixos";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -41,12 +36,15 @@
     hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
     extraGroups = ["wheel" "network-manager"]; # Enable ‘sudo’ for the user.
   };
+
   home-manager.users.xtallos = {pkgs, ...}: {
+    imports = [ hmUsers.xtallos ];
     home.packages = with pkgs; [
       ddate
     ];
     programs.fish.enable = true;
   };
+
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
 

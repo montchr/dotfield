@@ -1,8 +1,10 @@
 {
   config,
   pkgs,
+  lib,
   suites,
   profiles,
+  hmUsers,
   ...
 }: let
   inherit (config) my;
@@ -16,6 +18,26 @@ in {
       system.os-specific.darwin.emacs
       system.users.montchr
     ]);
+
+  home-manager.users.montchr = { config, ... }: {
+    imports = [ hmUsers.montchr ];
+
+    accounts.email.accounts.work.primary = true;
+
+    programs.firefox.profiles = {
+      home.isDefault = false;
+      work.isDefault = true;
+    };
+
+    programs.git.includes = [
+      {
+        condition = "gitdir:~/broadway/";
+        contents = {
+          user.email = pkgs.lib.our.whoami.emails.work;
+        };
+      }
+    ];
+  };
 
   networking.hostName = "alleymon";
 
@@ -35,22 +57,6 @@ in {
   my = {
     username = "montchr";
     website = "https://alley.co/";
-
-    hm.accounts.email.accounts.work.primary = true;
-
-    hm.programs.git.includes = [
-      {
-        condition = "gitdir:~/broadway/";
-        contents = {
-          user.email = my.emails.work;
-        };
-      }
-    ];
-
-    hm.programs.firefox.profiles = {
-      home.isDefault = false;
-      work.isDefault = true;
-    };
   };
 
   environment.variables = {

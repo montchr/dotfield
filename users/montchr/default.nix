@@ -5,5 +5,5 @@
   hmUsers,
   ...
 }: {
-  home-manager.users = {inherit (hmUsers) montchr;};
+  # home-manager.users = {inherit (hmUsers) montchr;};
 }

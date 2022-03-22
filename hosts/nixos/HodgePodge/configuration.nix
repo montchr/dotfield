@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  hmUsers,
   ...
 }: {
   imports = [
@@ -115,6 +116,7 @@
   };
 
   home-manager.users.xtallos = {pkgs, ...}: {
+    imports = [ hmUsers.xtallos ];
     home.packages = with pkgs; [
       ddate
       _1password
