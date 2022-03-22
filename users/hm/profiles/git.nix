@@ -53,7 +53,46 @@ in {
       };
     };
 
-    extraConfig =
+    ignores = [
+      ".yarn"
+      "node_modules"
+
+      # Logs and databases
+      "*.sql"
+      "*.sqlite"
+      ".log"
+
+      # OS or Editor files
+      "._*"
+      ".DS_Store"
+      ".DS_Store?"
+      "ehthumbs.db"
+      "Thumbs.db"
+      ".tern-project"
+
+      # Files that might appear on external disks
+      ".Spotlight-V100"
+      ".Trashes"
+
+      # Always-ignore extensions
+      "*~"
+      "*.err"
+      "*.orig"
+      "*.pyc"
+      "*.rej"
+      "*.sw?"
+      "*.vi"
+      "*.bak"
+
+      # Credentials and Sensitive Info
+      ".env"
+      ".direnv"
+      ".scratch"
+      "*localrc"
+      "*.local"
+    ];
+
+    extraConfig = lib.mkMerge [
       {
         github.user = whoami.usernames.github;
         gitlab.user = whoami.usernames.gitlab;
@@ -102,13 +141,12 @@ in {
         };
         ##: }}
       }
-      // (lib.optionals isDarwin {
+
+      (lib.mkIf isDarwin {
         credential.helper = "osxkeychain";
-      });
+      })
+    ];
   };
 
-  xdg.configFile = {
-    "git/ignore".source = "${configDir}/ignore";
-  };
   xdg.configFile."git/templates".source = gitignoreSource ../../../config/git/templates;
 }
