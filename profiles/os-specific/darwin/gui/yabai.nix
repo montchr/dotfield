@@ -77,7 +77,6 @@
       scriptsFromFiles))
     // {
       kickstart-sa = writeShellScriptBin "yabai-sa-kickstart" ''
-        # ${config.my.nix_managed}
         #
         # yabai-sa-kickstart
         #
@@ -99,7 +98,6 @@
 
       # Set padding and window gaps.
       set-padding = writeShellScriptBin "yabai-set-padding" ''
-        # ${config.my.nix_managed}
         #
         # yabai-set-padding
         #
@@ -125,7 +123,6 @@
       '';
 
       kludge = writeShellScriptBin "yabai-kludge" ''
-        # ${config.my.nix_managed}
         #
         # yabai-kludge
         #

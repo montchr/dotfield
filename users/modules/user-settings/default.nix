@@ -32,9 +32,6 @@ in {
       };
 
       terminal = mkOpt str "kitty";
-      nix_managed =
-        mkOpt str
-        "DO NOT EDIT! - managed by Nix - see source inside ${config.dotfield.dir}";
       user = lib.mkOption {type = options.users.users.type.functor.wrapped;};
 
       emails = {
