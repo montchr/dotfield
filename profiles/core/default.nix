@@ -27,7 +27,7 @@
     # }}
   };
 
-  time.timeZone = config.my.timezone;
+  time.timeZone = pkgs.lib.our.whoami.timezone;
 
   environment.variables = {
     # `$DOTFIELD_DIR` must point to its absolute path on the system -- not to

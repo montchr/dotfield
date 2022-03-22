@@ -1,15 +1,14 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
   ...
 }: let
-  inherit (osConfig) my;
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
 
   configDir = "${osConfig.dotfield.configDir}/git";
+  inherit (lib.our) whoami;
 
   scripts = {
     submoduleRewrite =
@@ -39,11 +38,11 @@ in {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
-    userEmail = my.email;
-    userName = my.name;
+    userEmail = whoami.email;
+    userName = whoami.name;
 
     signing = {
-      key = my.keys.pgp;
+      key = whoami.keys.pgp;
       signByDefault = true;
     };
 
@@ -57,9 +56,9 @@ in {
 
     extraConfig =
       {
-        github.user = my.usernames.github;
-        gitlab.user = my.usernames.gitlab;
-        sourcehut.user = my.usernames.sourcehut;
+        github.user = whoami.usernames.github;
+        gitlab.user = whoami.usernames.gitlab;
+        sourcehut.user = whoami.usernames.sourcehut;
 
         init.defaultBranch = "main";
 

@@ -1,6 +1,9 @@
 {lib}:
 lib.makeExtensible (self: {
+  whoami = import ./whoami;
+
   isDarwin = system: (builtins.elem system lib.platforms.darwin);
+
   homePrefix = system:
     if self.isDarwin system
     then "/Users"

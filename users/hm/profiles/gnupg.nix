@@ -1,11 +1,10 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
   ...
 }: let
-  key = osConfig.my.keys.pgp;
+  key = pkgs.lib.our.whoami.keys.pgp;
 in {
   home.sessionVariables = {
     DOTFIELD_PGP_KEY = key;
