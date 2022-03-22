@@ -23,8 +23,9 @@ in {
     recursive = true;
   };
 
-  age.secrets = lib.mkMerge (builtins.map mkMatchesSecret [
-    "personal"
-    "work"
-  ]);
+  # FIXME: use hm age module, needs identityPaths
+  # age.secrets = lib.mkMerge (builtins.map mkMatchesSecret [
+  #   "personal"
+  #   "work"
+  # ]);
 }

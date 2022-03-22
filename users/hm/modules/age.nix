@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   options,
   lib,
   pkgs,
@@ -89,7 +88,7 @@ in {
     };
     identityPaths = mkOption {
       type = types.listOf types.path;
-      default = osConfig.age.identityPaths or [];
+      default = [];
       description = ''
         Path to SSH keys to be used as identities in age decryption.
       '';
