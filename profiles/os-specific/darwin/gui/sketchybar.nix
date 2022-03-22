@@ -5,10 +5,9 @@
   inputs,
   ...
 }: let
-  inherit (config) my;
-  inherit (config.home-manager.users.${my.username}.lib.file) mkOutOfStoreSymlink;
+  inherit (inputs.gitignore.lib) gitignoreSource;
 
-  configDir = "${config.dotfield.path}/config/sketchybar";
+  configDir = "${config.dotfield.configDir}/sketchybar";
 in {
   homebrew.brews = ["sketchybar"];
 
@@ -17,5 +16,5 @@ in {
   # The system menu bar must be hidden when using a custom bar.
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
-  my.hm.xdg.configFile."sketchybar".source = mkOutOfStoreSymlink configDir;
+  my.hm.xdg.configFile."sketchybar".source = gitignoreSource configDir;
 }

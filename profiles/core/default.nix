@@ -2,10 +2,11 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
-}: {
-  #  imports = [ ../cachix ];
-
+}: let
+  inherit (inputs.gitignore.lib) gitignoreSource;
+in {
   nix = {
     package = pkgs.nix;
     gc.automatic = true;
@@ -69,7 +70,7 @@
 
   environment.systemPackages = with pkgs; [
     (writeScriptBin "dotfield"
-      (builtins.readFile "${config.dotfield.binDir}/dotfield"))
+      (gitignoreSource "${config.dotfield.binDir}/dotfield"))
 
     (python3.withPackages (ps: with ps; [pip setuptools]))
     (ripgrep.override {withPCRE2 = true;})

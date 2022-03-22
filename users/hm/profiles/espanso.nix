@@ -1,11 +1,12 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
-  configSrc = "${osConfig.dotfield.configDir}/espanso";
+  inherit (inputs.gitignore.lib) gitignoreSource;
+  configSrc = ../../../config/espanso;
   matchesSrc = "${configSrc}/match";
   matchesDest = "${config.xdg.configHome}/espanso/match";
 
@@ -18,7 +19,7 @@
   };
 in {
   xdg.configFile."espanso" = {
-    source = configSrc;
+    source = gitignoreSource configSrc;
     recursive = true;
   };
 

@@ -1,11 +1,12 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
-  inherit (osConfig.dotfield) configDir;
+  inherit (inputs.gitignore.lib) gitignoreSource;
+  configDir = ../../../../../config;
 in {
   services.skhd.enable = true;
   services.skhd.config = builtins.readFile "${configDir}/skhd/skhdrc";

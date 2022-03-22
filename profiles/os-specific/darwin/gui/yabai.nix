@@ -2,9 +2,11 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
+  inherit (inputs.gitignore.lib) gitignoreSource;
 
   cfg = config.services.yabai;
   # barCfg = config.services.sketchybar;
@@ -59,7 +61,7 @@
   mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
 
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
-    (builtins.readFile "${configDir}/bin/${name}"));
+    (gitignoreSource "${configDir}/bin/${name}"));
 
   scriptsFromFiles = map (n: mkScriptFromFile n) [
     "close-window"

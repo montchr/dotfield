@@ -27,6 +27,8 @@
     # Sources management.
     nur.url = "github:nix-community/NUR";
     nvfetcher.url = "github:berberman/nvfetcher";
+    gitignore.url = "github:hercules-ci/gitignore.nix";
+    gitignore.inputs.nixpkgs.follows = "nixpkgs";
 
     # Secrets management.
     agenix.url = "github:montchr/agenix/trunk";

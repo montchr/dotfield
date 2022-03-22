@@ -2,24 +2,23 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
+  inherit (inputs.gitignore.lib) gitignoreSource;
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
-
-  configDir = "${osConfig.dotfield.configDir}/git";
   inherit (lib.our) whoami;
 
   scripts = {
-    submoduleRewrite =
-      pkgs.writeScriptBin "git-submodule-rewrite"
-      (builtins.readFile "${configDir}/bin/git-submodule-rewrite");
+    submoduleRewrite = pkgs.writeScriptBin "git-submodule-rewrite"
+      (gitignoreSource ../../../vendor/.bin/git-submodule-rewrite);
   };
 
   userScripts =
     builtins.map
-    (key: getAttr key scripts)
-    (attrNames scripts);
+      (key: getAttr key scripts)
+      (attrNames scripts);
 
   ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 in {
@@ -110,6 +109,6 @@ in {
 
   xdg.configFile = {
     "git/ignore".source = "${configDir}/ignore";
-    "git/templates".source = "${configDir}/templates";
   };
+  xdg.configFile."git/templates".source = gitignoreSource ../../../config/git/templates;
 }
