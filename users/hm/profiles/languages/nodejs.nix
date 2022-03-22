@@ -1,6 +1,5 @@
-{
+moduleArgs@{
   config,
-  osConfig,
   lib,
   pkgs,
   ...
@@ -17,7 +16,7 @@ in {
     NODE_REPL_HISTORY = "${config.xdg.dataHome}/node/repl_history";
     NVM_DIR = "${config.xdg.dataHome}/node/nvm";
     NVM_AUTO_USE = "true";
-    NVM_BIN = "${osConfig.environment.variables.XDG_BIN_HOME}";
+    NVM_BIN = moduleArgs.osConfig.environment.variables.XDG_BIN_HOME or "~/.local/bin";
     NVM_COMPLETION = "true";
     NVM_LAZY_LOAD = "true";
   };

@@ -1,12 +1,13 @@
-{
+moduleArgs@{
   config,
-  osConfig,
   lib,
   pkgs,
   inputs,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
+  hostName = (moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME"));
 
   leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;
@@ -58,8 +59,7 @@
     "font.name.monospace.x-western" = "PragmataPro Liga";
     "font.name.sans-serif.x-western" = "Inter";
     "font.size.monospace.x-western" = 16;
-    "identity.fxaccounts.account.device.name" =
-      osConfig.networking.hostName;
+    "identity.fxaccounts.account.device.name" = hostName;
 
     # CSS blur filter in v88+
     "layout.css.backdrop-filter.enabled" = true;
