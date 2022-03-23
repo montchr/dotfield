@@ -6,7 +6,7 @@
   inputs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   inherit (inputs) base16-kitty nix-colors;
 
@@ -49,6 +49,13 @@ in
       home.packages = [pkgs.kitty];
     })
 
+    (lib.mkIf isDarwin {
+      darwinLaunchOptions = [
+        "--single-instance"
+        "--listen-on=${socket}"
+      ];  
+    })
+    
     {
       home.packages = [
         kitty-get-window-by-platform-id
@@ -61,12 +68,7 @@ in
       };
 
       programs.kitty = {
-        enable = true;
-
-        darwinLaunchOptions = [
-          "--single-instance"
-          "--listen-on=${socket}"
-        ];
+        enable = true;   
 
         extraConfig = let
           fontStyles = ["Regular" "Italic" "BoldItalic"];
