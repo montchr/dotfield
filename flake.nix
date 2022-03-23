@@ -269,10 +269,6 @@
           };
         };
 
-        # FIXME: change imports based on host -- hm configuration should be
-        # changeable based on context! e.g. while the same username may be
-        # used on a server and a laptop, the user on the server should not
-        # import profiles for graphical environments like a laptop.
         users = {
           nixos = {suites, ...}: {
             imports = suites.base;
