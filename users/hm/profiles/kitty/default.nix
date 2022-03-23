@@ -50,7 +50,7 @@ in
     })
 
     (lib.mkIf isDarwin {
-      darwinLaunchOptions = [
+      programs.kitty.darwinLaunchOptions = [
         "--single-instance"
         "--listen-on=${socket}"
       ];  
