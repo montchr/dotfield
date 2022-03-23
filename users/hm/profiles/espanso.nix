@@ -5,7 +5,6 @@
   inputs,
   ...
 }: let
-  inherit (inputs.gitignore.lib) gitignoreSource;
   configSrc = ../../../config/espanso;
   matchesSrc = "${configSrc}/match";
   matchesDest = "${config.xdg.configHome}/espanso/match";
@@ -19,7 +18,7 @@
   };
 in {
   xdg.configFile."espanso" = {
-    source = gitignoreSource configSrc;
+    source = configSrc;
     recursive = true;
   };
 

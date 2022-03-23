@@ -5,7 +5,6 @@
   inputs,
   ...
 }: let
-  inherit (inputs.gitignore.lib) gitignoreSource;
 in {
   nix = {
     package = pkgs.nix;
@@ -76,7 +75,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     (writeScriptBin "dotfield"
-      (gitignoreSource "${config.dotfield.binDir}/dotfield"))
+      (builtins.readFile "${config.dotfield.binDir}/dotfield"))
 
     (python3.withPackages (ps: with ps; [pip setuptools]))
     (ripgrep.override {withPCRE2 = true;})

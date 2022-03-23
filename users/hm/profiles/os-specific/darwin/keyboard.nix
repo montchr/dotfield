@@ -5,7 +5,6 @@
   inputs,
   ...
 }: let
-  inherit (inputs.gitignore.lib) gitignoreSource;
   configDir = ../../../../../config;
 in {
   services.skhd.enable = true;

@@ -5,14 +5,13 @@
   inputs,
   ...
 }: let
-  inherit (inputs.gitignore.lib) gitignoreSource;
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (lib.our) whoami;
 
   scripts = {
     submoduleRewrite = pkgs.writeScriptBin "git-submodule-rewrite"
-      (gitignoreSource ../../../vendor/.bin/git-submodule-rewrite);
+      (builtins.readFile ../../../vendor/.bin/git-submodule-rewrite);
   };
 
   userScripts =
@@ -148,5 +147,5 @@ in {
     ];
   };
 
-  xdg.configFile."git/templates".source = gitignoreSource ../../../config/git/templates;
+  xdg.configFile."git/templates".source = ../../../config/git/templates;
 }
