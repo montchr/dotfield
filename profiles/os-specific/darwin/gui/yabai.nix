@@ -224,7 +224,7 @@ in {
 
     extraConfig = let
       commonRules = {
-        managed = false;
+        manage = false;
         sticky = true;
       };
 
@@ -239,7 +239,7 @@ in {
 
         {
           app = "Affinity";
-          managed = false;
+          manage = false;
         }
         {
           app = "Microsoft Teams";
