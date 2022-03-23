@@ -4,9 +4,8 @@
   pkgs,
   ...
 }: let
-  hmConfig = config.home-manager.users.${config.my.username};
   passVars = {
-    PASSWORD_STORE_DIR = "${hmConfig.xdg.dataHome}/pass";
+    PASSWORD_STORE_DIR = "${config.my.xdg.data}/pass";
     PASSWORD_STORE_KEY = "${config.my.keys.pgp} 0xF0B8FB42A7498482";
   };
 in {

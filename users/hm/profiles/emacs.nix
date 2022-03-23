@@ -1,12 +1,13 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
   ...
 }: let
-  configPath = "${osConfig.dotfield.path}/config";
-  chemacsDir = "${config.xdg.configHome}/emacs";
+  inherit (config.xdg) configHome dataHome stateHome;
+
+  configPath = "${configHome}/dotfield/config";
+  chemacsDir = "${configHome}/emacs";
 
   doomProfilePath = "emacs/profiles/doom";
   vanillaProfilePath = "emacs/profiles/vanilla";
@@ -16,8 +17,8 @@
   # Consider changing if you run into issues.
   doomDir = "${configPath}/${doomProfilePath}";
 
-  doomDataDir = "${config.xdg.dataHome}/${doomProfilePath}";
-  doomStateDir = "${config.xdg.stateHome}/${doomProfilePath}";
+  doomDataDir = "${dataHome}/${doomProfilePath}";
+  doomStateDir = "${stateHome}/${doomProfilePath}";
 
   emacsPackage = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
     epkgs.vterm
