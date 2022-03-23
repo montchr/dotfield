@@ -337,7 +337,7 @@
 
 ;; Nix formatting with Alejandra
 (set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
-(setq-hook! 'nix-mode-hook +format-with 'alejandra)
+;; (setq-hook! 'nix-mode-hook +format-with 'alejandra)
 
 (use-package! lsp-mode
   :init
