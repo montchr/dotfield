@@ -20,9 +20,6 @@
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
 
-  emacsPackage = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
-    epkgs.vterm
-  ]));
 in {
   home.sessionPath = ["${doomDataDir}/bin" "$PATH"];
 
@@ -62,7 +59,9 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = emacsPackage;
+    package = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
+      epkgs.vterm
+    ]));
   };
 
   home.packages = with pkgs; [
