@@ -28,30 +28,41 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    # skhd must be available to shells for keypress simulation functionality,
-    # e.g. exiting out of modes after running a script.
-    home.packages = [cfg.package];
+  config = mkMerge [
+    {
+      assertions = [
+        {
+          assertion = pkgs.stdenv.isDarwin;
+          message = "skhd is only supported on darwin";
+        }
+      ];
+    }
 
-    xdg.configFile."skhd/skhdrc" = {
-      text = cfg.config;
-      onChange = "${cfg.package}/bin/skhd -r";
-    };
+    (mkIf cfg.enable {
+      # skhd must be available to shells for keypress simulation functionality,
+      # e.g. exiting out of modes after running a script.
+      home.packages = [cfg.package];
 
-    launchd.agents.skhd = {
-      enable = lib.mkDefault true;
-      # path = [ config.environment.systemPath ];
-      config = {
-        ProgramArguments =
-          ["${cfg.package}/bin/skhd"]
-          ++ optionals (cfg.config != "") ["-c" "${config.xdg.configHome}/skhd/skhdrc"];
-        KeepAlive = true;
-        ProcessType = "Interactive";
-
-        # TODO: make these paths configurable
-        StandardOutPath = "${config.xdg.cacheHome}/skhd.out.log";
-        StandardErrorPath = "${config.xdg.cacheHome}/skhd.err.log";
+      xdg.configFile."skhd/skhdrc" = {
+        text = cfg.config;
+        onChange = "${cfg.package}/bin/skhd -r";
       };
-    };
-  };
+
+      launchd.agents.skhd = {
+        enable = lib.mkDefault true;
+        # path = [ config.environment.systemPath ];
+        config = {
+          ProgramArguments =
+            ["${cfg.package}/bin/skhd"]
+            ++ optionals (cfg.config != "") ["-c" "${config.xdg.configHome}/skhd/skhdrc"];
+          KeepAlive = true;
+          ProcessType = "Interactive";
+
+          # TODO: make these paths configurable
+          StandardOutPath = "${config.xdg.cacheHome}/skhd.out.log";
+          StandardErrorPath = "${config.xdg.cacheHome}/skhd.err.log";
+        };
+      };
+    })
+  ];
 }
