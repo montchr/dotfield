@@ -36,7 +36,7 @@
     agenix-cli.url = "github:cole-h/agenix-cli";
 
     # Development tools.
-    emacs-overlay.url = "github:montchr/emacs-overlay/trunk";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # Other sources.
