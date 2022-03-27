@@ -282,8 +282,6 @@
             imports =
               suites.base
               ++ suites.dev
-              ++ suites.darwin
-              ++ suites.gui
               ++ suites.personal;
           };
         };
