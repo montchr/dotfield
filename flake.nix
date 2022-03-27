@@ -265,9 +265,10 @@
             darwin = [
               os-specific.darwin.keyboard
             ];
-            personal = suites.base
-                       ++ suites.dev
-                       ++ [gnupg];
+            personal =
+              suites.base
+              ++ suites.dev
+              ++ [gnupg];
           };
         };
 

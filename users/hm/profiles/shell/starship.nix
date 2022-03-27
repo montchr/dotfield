@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.starship = {
     enable = true;
     enableZshIntegration = false;
@@ -34,13 +37,11 @@
         symbol = " ";
       };
 
-
       character = {
         success_symbol = "❯";
         error_symbol = "[❱](bold red)";
         vicmd_symbol = "[❮](bold purple)";
       };
-
 
       battery = {
         full_symbol = "";
@@ -48,24 +49,20 @@
         discharging_symbol = "";
       };
 
-
       conda = {
         symbol = " ";
       };
-
 
       directory = {
         style = "cyan";
         read_only = " ";
       };
 
-
       git_branch = {
         format = "[$symbol$branch]($style) ";
         symbol = " ";
         style = "bold dimmed white";
       };
-
 
       git_status = {
         format = "([$all_status$ahead_behind]($style) )";
@@ -109,27 +106,21 @@
         version_format = "$major.$minor";
       };
 
-
       python = {
         symbol = " ";
       };
-
 
       ruby = {
         symbol = " ";
       };
 
-
       rust = {
         symbol = " ";
       };
 
-
       status = {
         disabled = false;
       };
-
-
     };
   };
 }

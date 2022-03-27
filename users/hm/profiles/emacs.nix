@@ -19,7 +19,6 @@
 
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
-
 in {
   home.sessionPath = ["${doomDataDir}/bin" "$PATH"];
 

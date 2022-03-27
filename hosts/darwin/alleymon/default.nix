@@ -19,7 +19,11 @@ in {
       system.os-specific.darwin.emacs
     ]);
 
-  home-manager.users.montchr = { config, suites, ... }: {
+  home-manager.users.montchr = {
+    config,
+    suites,
+    ...
+  }: {
     imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
 
     accounts.email.accounts.work.primary = true;

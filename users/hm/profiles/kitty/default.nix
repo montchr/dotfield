@@ -53,9 +53,9 @@ in
       programs.kitty.darwinLaunchOptions = [
         "--single-instance"
         "--listen-on=${socket}"
-      ];  
+      ];
     })
-    
+
     {
       home.packages = [
         kitty-get-window-by-platform-id
@@ -68,7 +68,7 @@ in
       };
 
       programs.kitty = {
-        enable = true;   
+        enable = true;
 
         extraConfig = let
           fontStyles = ["Regular" "Italic" "BoldItalic"];

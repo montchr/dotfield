@@ -1,4 +1,4 @@
-moduleArgs@{
+moduleArgs @ {
   config,
   lib,
   pkgs,
@@ -7,7 +7,7 @@ moduleArgs@{
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-  hostName = (moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME"));
+  hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
 
   leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;

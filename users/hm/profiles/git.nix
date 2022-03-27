@@ -10,14 +10,15 @@
   inherit (lib.our) whoami;
 
   scripts = {
-    submoduleRewrite = pkgs.writeScriptBin "git-submodule-rewrite"
+    submoduleRewrite =
+      pkgs.writeScriptBin "git-submodule-rewrite"
       (builtins.readFile ../../../vendor/.bin/git-submodule-rewrite);
   };
 
   userScripts =
     builtins.map
-      (key: getAttr key scripts)
-      (attrNames scripts);
+    (key: getAttr key scripts)
+    (attrNames scripts);
 
   ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 in {
