@@ -59,9 +59,7 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = with pkgs; ((emacsPackagesFor emacsGcc).emacsWithPackages (epkgs: [
-      epkgs.vterm
-    ]));
+    package = pkgs.emacsGcc;
   };
 
   home.packages = with pkgs; [
