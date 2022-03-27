@@ -17,11 +17,10 @@ in {
     ++ work
     ++ (with profiles; [
       system.os-specific.darwin.emacs
-      system.users.montchr
     ]);
 
   home-manager.users.montchr = { config, suites, ... }: {
-    imports = with suites; [hmUsers.montchr] ++ darwin ++ gui;
+    imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
 
     accounts.email.accounts.work.primary = true;
 

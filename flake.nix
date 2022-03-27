@@ -265,7 +265,9 @@
             darwin = [
               os-specific.darwin.keyboard
             ];
-            personal = [gnupg];
+            personal = suites.base
+                       ++ suites.dev
+                       ++ [gnupg];
           };
         };
 
@@ -274,15 +276,7 @@
             imports = suites.base;
           };
           xtallos = {suites, ...}: {
-            imports =
-              suites.base
-              ++ suites.dev;
-          };
-          montchr = {suites, ...}: {
-            imports =
-              suites.base
-              ++ suites.dev
-              ++ suites.personal;
+            imports = suites.personal;
           };
         };
       };
