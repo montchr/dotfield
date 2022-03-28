@@ -1,11 +1,4 @@
-final: prev: let
-  emacsPlus = final.fetchFromGitHub {
-    owner = "d12frosted";
-    repo = "homebrew-emacs-plus";
-    rev = "b7809dd815e7753e20851c81603c82a573d7d1cc";
-    sha256 = "sha256-UoMieQKaWB9vSQ75866Kpjb0OKbO1OOj9IwKdAFQit4=";
-  };
-in {
+final: prev: {
   # prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
   yabai = final.callPackage (import ./yabai.nix) {};
 
@@ -13,7 +6,14 @@ in {
     epkgs.vterm
   ]);
 
-  emacsGcc = prev.emacsGcc.overrideAttrs (o: {
+  emacsGcc = prev.emacsGcc.overrideAttrs (o: let
+    emacsPlus = final.fetchFromGitHub {
+      owner = "d12frosted";
+      repo = "homebrew-emacs-plus";
+      rev = "b7809dd815e7753e20851c81603c82a573d7d1cc";
+      sha256 = "sha256-UoMieQKaWB9vSQ75866Kpjb0OKbO1OOj9IwKdAFQit4=";
+    };
+  in {
     # https://github.com/cmacrae/emacs/blob/03b4223e56e10a6d88faa151c5804d30b8680cca/flake.nix#L75
     buildInputs = o.buildInputs ++ [prev.darwin.apple_sdk.frameworks.WebKit];
 
