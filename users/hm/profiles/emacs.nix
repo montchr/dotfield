@@ -71,8 +71,8 @@ in {
     ## Optional dependencies
     fd # faster projectile indexing
     imagemagick # for image-dired
-    pinentry_emacs
     zstd # for undo-fu-session/undo-tree compression
+    pinentry_emacs
 
     ## Module dependencies
     # :checkers spell

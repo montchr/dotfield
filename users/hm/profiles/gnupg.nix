@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   key = pkgs.lib.our.whoami.keys.pgp;
 in {
   home.sessionVariables = {
@@ -14,13 +15,9 @@ in {
     gnupg
     gpgme
 
-    (
-      if pkgs.stdenv.isDarwin
-      then pkgs.pinentry_mac
-      else pkgs.pinentry
-    )
+    (lib.mkIf isDarwin pinentry_mac)
 
-    (pkgs.writeShellScriptBin "gpg-agent-restart" ''
+    (writeShellScriptBin "gpg-agent-restart" ''
       pkill gpg-agent ; pkill ssh-agent ; pkill pinentry ; eval $(gpg-agent --daemon --enable-ssh-support)
     '')
   ];
