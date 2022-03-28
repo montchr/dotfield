@@ -66,14 +66,6 @@ in {
 
     ## Doom dependencies
     (ripgrep.override {withPCRE2 = true;})
-    (python3.withPackages (ps:
-      with ps; [
-        pip
-        black
-        setuptools
-        pylint
-        grip
-      ]))
     gnutls
 
     ## Optional dependencies
@@ -138,7 +130,16 @@ in {
     nodePackages.intelephense
 
     # :lang python
-    python39Packages.python-lsp-server
+    (python3.withPackages (ps:
+      with ps; [
+        black
+        grip
+        pip
+        pylint
+        # FIXME: this package is "broken" on some systems?
+        # python-lsp-server
+        setuptools
+      ]))
 
     # :lang ruby
     rubyPackages.solargraph
