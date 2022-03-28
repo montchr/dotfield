@@ -37,7 +37,7 @@ in {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
-    userEmail = whoami.email;
+    userEmail = whoami.emails.personal;
     userName = whoami.name;
 
     signing = {

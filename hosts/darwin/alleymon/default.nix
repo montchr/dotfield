@@ -35,7 +35,7 @@ in {
 
     programs.git.includes = [
       {
-        condition = "gitdir:~/broadway/";
+        condition = "gitdir:~/broadway/**";
         contents = {
           user.email = pkgs.lib.our.whoami.emails.work;
         };
