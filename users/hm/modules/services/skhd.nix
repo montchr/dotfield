@@ -5,6 +5,7 @@
   ...
 }:
 with lib; let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   cfg = config.services.skhd;
 in {
   options = {
@@ -32,7 +33,7 @@ in {
     {
       assertions = [
         {
-          assertion = pkgs.stdenv.isDarwin;
+          assertion = cfg.enable -> isDarwin;
           message = "skhd is only supported on darwin";
         }
       ];
