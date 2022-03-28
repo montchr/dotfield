@@ -282,10 +282,12 @@
         };
       };
 
-      # FIXME: this will result in a conflict if a nixos host and a darwin host
-      # have the same name. that's a bug that should be fixed within digga.
-      homeConfigurations =
-        (digga.lib.mkHomeConfigurations self.nixosConfigurations)
-        // (digga.lib.mkHomeConfigurations self.darwinConfigurations);
+      # FIXME: this may be causing the evaluation of host configurations on the
+      # wrong platforms. darwinConfigurations cannot(?) be used on nixos, and
+      # vice versa.
+      #
+      # homeConfigurations =
+      #   (digga.lib.mkHomeConfigurations self.nixosConfigurations)
+      #   // (digga.lib.mkHomeConfigurations self.darwinConfigurations);
     };
 }
