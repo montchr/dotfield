@@ -28,6 +28,8 @@ in {
 
     accounts.email.accounts.work.primary = true;
 
+    home.packages = with pkgs; [ ngrok ];
+
     programs.firefox.profiles = {
       home.isDefault = false;
       work.isDefault = true;
