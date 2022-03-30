@@ -31,7 +31,7 @@ function kitty::theme_change() {
 }
 
 function emacs::theme_change () {
-  emacsclient --no-wait --eval "(stimmung-themes-toggle)"
+  emacsclient --no-wait --eval "(modus-themes-toggle)"
 }
 
 function main() {

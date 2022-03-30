@@ -18,8 +18,8 @@ in {
   home.sessionVariables = {
     BASE16_THEME_DARK = "black-metal-khold";
     BASE16_THEME_LIGHT = "grayscale-light";
-    DOTFIELD_EMACS_THEME_DARK = "stimmung-themes-dark";
-    DOTFIELD_EMACS_THEME_LIGHT = "stimmung-themes-light";
+    DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
+    DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
   };
 
   home.packages = with pkgs; [

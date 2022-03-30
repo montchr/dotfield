@@ -46,28 +46,19 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;;; Themes ;;;
-
-;; stimmung-themes
-;; Emacs tuned to inner harmonies
-;; https://github.com/motform/stimmung-themes
-(package! stimmung-themes)
-
+;; themes
 (package! modus-themes)
 (package! svg-tag-mode)
 
-;;; Modeline ;;;
-
+;; modeline
 (package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
 (package! minions)    ;                     :: https://github.com/tarsius/minions
 
-;;; Memex ;;;
-
+;; org
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! vulpea)
 
-;;; Languages ;;;
-
+;; languages
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! eslintd-fix)               ; auto-format js files with eslint_d
 (package! literate-calc-mode)        ; like soulver, but in emacs
@@ -75,19 +66,16 @@
   :recipe (:host github :repo "montchr/neon-mode"))
 (package! vimrc-mode)                ; vimrc syntax
 
-;;; Importers/Exporters ;;;
-
+;; importers/exporters
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
 (package! ox-gfm)                    ; Export to GFM syntax
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
 
-;;; Apps ;;;
-
+;; apps
 (package! hledger-mode)
 ;; (package! org-board)                 ; Pinboard-ish for org-mode
 
-;;; Tools ;;;
-
+;; tools
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW

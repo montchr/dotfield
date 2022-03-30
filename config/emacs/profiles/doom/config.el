@@ -107,11 +107,38 @@
   (interactive)
   (let ((status (string-trim-right (shell-command-to-string "dotfield_os_appearance"))))
     (if (equal "light" status)
-        (stimmung-themes-load-light)
-      (stimmung-themes-load-dark))))
+        (modus-themes-load-operandi)
+      (modus-themes-load-vivendi))))
 
-(use-package! stimmung-themes
-  :config (+cdom/load-os-theme))
+(use-package! modus-themes
+  :init
+  (require 'modus-themes)
+
+  (setq
+   ;; meta
+   modus-themes-inhibit-reload nil
+
+   ;; type
+   modus-themes-italic-constructs t
+   modus-themes-mixed-fonts t
+
+   ;; ui
+   modus-themes-completions nil
+   modus-themes-fringes nil
+   modus-themes-hl-line '(accented)
+   modus-themes-links '(neutral-underline)
+   modus-themes-mode-line '(moody borderless)
+   modus-themes-tabs-accented nil
+
+   ;; syntax
+   modus-themes-syntax '(alt-syntax))
+
+  ;; Required upon initial load
+  (modus-themes-load-themes)
+
+  :config
+  ;; Load theme based on macOS dark mode status.
+  (+cdom/load-os-theme))
 
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
