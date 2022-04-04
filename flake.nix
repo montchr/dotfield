@@ -40,6 +40,7 @@
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # Other sources.
+    nix-colors.url = "github:Misterio77/nix-colors";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     base16-kitty = {
@@ -50,7 +51,6 @@
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
     };
-    nix-colors.url = "github:montchr/nix-colors";
 
     nixpkgs.follows = "nixos-stable";
   };
