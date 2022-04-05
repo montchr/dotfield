@@ -121,10 +121,8 @@
         ];
         personal = [
           system.security.gnupg
-          system.security.yubikey
           system.secrets
           system.users.primary-user
-          home.security.yubikey
           home.secrets
           home.ssh
         ];

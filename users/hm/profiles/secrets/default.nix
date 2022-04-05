@@ -11,6 +11,16 @@
     PASSWORD_STORE_KEY = "${keys.pgp} 0xF0B8FB42A7498482";
   };
 in {
+  home.packages = with pkgs; [
+    yubikey-manager
+    yubikey-personalization
+  ];
+
+  xdg.dataFile."gnupg/scdaemon.conf".text = ''
+    reader-port Yubico Yubi
+    disable-ccid
+  '';
+
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (exts:
