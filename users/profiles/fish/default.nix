@@ -4,10 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (lib.strings) fileContents;
 
   shellCfg = config.shell;
-  configDir = "${config.dotfield.configDir}/fish";
 
   mkPlugins = plugins: (map
     (name: {
@@ -15,14 +13,6 @@
       inherit (pkgs.sources."fish-${name}") src;
     })
     plugins);
-
-  mkFileLink = path: onChange: {
-    "fish/${path}" = {
-      inherit onChange;
-      source = "${configDir}/${path}";
-    };
-  };
-  mkFileLink' = path: mkFileLink "${path}.fish";
 in {
   imports = [
     ../shell
@@ -31,8 +21,22 @@ in {
   my.hm.programs = {
     fish = {
       enable = true;
-      interactiveShellInit = fileContents ./interactiveShellInit.fish;
-      shellInit = fileContents ./shellInit.fish;
+      interactiveShellInit = ''
+        set -g fish_greeting
+      '';
+      shellInit = ''
+        for p in /run/current-system/sw/bin
+          if not contains $p $fish_user_paths
+            set -U fish_user_paths $p $fish_user_paths
+          end
+        end
+
+        set -U fish_user_paths /run/wrappers/bin $fish_user_paths
+
+        function fish_title
+          echo "$PWD | $_" | sed "s|$HOME|~|g"
+        end
+      '';
       shellAbbrs = shellCfg.abbrs;
       shellAliases = shellCfg.aliases;
       plugins = mkPlugins [
