@@ -4,13 +4,14 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.lib.our.whoami) keys;
+
   passVars = {
-    PASSWORD_STORE_DIR = "${config.my.xdg.data}/pass";
-    PASSWORD_STORE_KEY = "${config.my.keys.pgp} 0xF0B8FB42A7498482";
+    PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
+    PASSWORD_STORE_KEY = "${keys.pgp} 0xF0B8FB42A7498482";
   };
 in {
-  environment.variables = passVars;
-  my.hm.programs.password-store = {
+  programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (exts:
       with exts; [
