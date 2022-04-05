@@ -16,6 +16,7 @@
 
     # Flake utilities.
     digga.url = "github:divnix/digga/darwin-support";
+    digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
