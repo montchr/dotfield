@@ -111,7 +111,8 @@ in {
     nix-index
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nmap
-    nvfetcher
+    # TODO: broken as of 2022-04-04
+    # nvfetcher
     openssh
     openssl
     rsync

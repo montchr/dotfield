@@ -27,7 +27,6 @@
 
     # Sources management.
     nur.url = "github:nix-community/NUR";
-    nvfetcher.url = "github:berberman/nvfetcher";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -68,7 +67,6 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
-    nvfetcher,
     utils,
     ...
   } @ inputs: let
@@ -175,7 +173,6 @@
         agenix.overlay
         emacs-overlay.overlay
         nur.overlay
-        nvfetcher.overlay
       ];
 
       nixos = {
