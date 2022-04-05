@@ -124,7 +124,6 @@
           system.security.yubikey
           system.secrets
           system.users.primary-user
-          home.mail
           home.pass
           home.rclone
           home.security.yubikey
@@ -266,7 +265,7 @@
             personal =
               suites.base
               ++ suites.dev
-              ++ [gnupg];
+              ++ [gnupg mail];
           };
         };
 

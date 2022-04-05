@@ -4,14 +4,15 @@
   pkgs,
   ...
 }: let
-  inherit (config.dotfield) profilesDir;
 
-  mailDir = "${config.my.user.home}/Mail";
+  inherit (pkgs.lib.our) whoami;
+
+  mailDir = "${config.home.homeDirectory}/Mail";
 
   gmailAccount = {
     name,
     domain,
-    realName ? config.my.name,
+    realName ? whoami.name,
     username ? "chris",
     ...
   }: let
@@ -84,37 +85,32 @@
     # };
   };
 in {
-  # FIXME: infinite recursion!
-  # imports = [ "${profilesDir}/mail" ];
+  programs.mbsync.enable = true;
+  programs.mu.enable = true;
 
-  my.hm = {
-    programs.mbsync.enable = true;
-    programs.mu.enable = true;
-
-    accounts.email = {
-      maildirBasePath = mailDir;
-      accounts = {
-        personal =
-          gmailAccount
-          {
-            name = "personal";
-            domain = "cdom.io";
-          }
-          // {
-            # msmtp.enable = true;
-          };
-        work = gmailAccount {
-          name = "work";
-          domain = "alley.co";
+  accounts.email = {
+    maildirBasePath = mailDir;
+    accounts = {
+      personal =
+        gmailAccount
+        {
+          name = "personal";
+          domain = "cdom.io";
+        }
+        // {
+          # msmtp.enable = true;
         };
+      work = gmailAccount {
+        name = "work";
+        domain = "alley.co";
       };
     };
+  };
 
-    programs.emacs = {
-      extraPackages = epkgs: [
-        pkgs.mu
-      ];
-    };
+  programs.emacs = {
+    extraPackages = epkgs: [
+      pkgs.mu
+    ];
   };
 }
 ## References:
