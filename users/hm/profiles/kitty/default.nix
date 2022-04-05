@@ -7,10 +7,8 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-
   inherit (inputs) base16-kitty nix-colors;
 
-  configDir = "${config.dotfield.configDir}/kitty";
   socket = "unix:/tmp/kitty-socket";
 
   kitty-get-window-by-platform-id = pkgs.writeShellScriptBin "kitty-get-window-by-platform-id" ''

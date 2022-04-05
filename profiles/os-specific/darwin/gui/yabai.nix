@@ -59,6 +59,7 @@
   mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
   mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
 
+  # FIXME: avoid IFD -- add to a package derivation
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
