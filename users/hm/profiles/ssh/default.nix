@@ -4,10 +4,8 @@
   config,
   ...
 }: let
-  sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
-  sshPrimaryKeyPath = "~/.ssh/id_ed25519_yubikey.pub";
 in {
-  my.hm.programs.ssh = {
+  programs.ssh = {
     enable = true;
     hashKnownHosts = true;
     forwardAgent = false;
@@ -33,8 +31,8 @@ in {
         forwardX11 = false;
         forwardX11Trusted = false;
         identityFile = [
-          sshPrimaryKeyPath
-          config.age.secrets."aws-cdom-default.pem".path
+          "~/.ssh/id_ed25519_yubikey.pub"
+          # config.age.secrets."aws-cdom-default.pem".path
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];

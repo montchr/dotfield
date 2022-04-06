@@ -124,8 +124,6 @@
           system.security.gnupg
           system.secrets
           system.users.primary-user
-          home.secrets
-          home.ssh
         ];
         work = [
           system.languages.php
@@ -264,7 +262,9 @@
             personal =
               suites.base
               ++ suites.dev
-              ++ [gnupg mail secrets];
+              ++ [gnupg mail secrets]
+              # FIXME: ssh profile is only here because it current depends on secrets
+              ++ [ssh];
           };
         };
 
