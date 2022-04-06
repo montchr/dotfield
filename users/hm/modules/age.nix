@@ -88,7 +88,12 @@ in {
     };
     identityPaths = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [
+        "${config.home.homeDirectory}/.ssh/id_ed25519_yubikey"
+        "${config.home.homeDirectory}/.ssh/id_ed25519"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_rsa_key"
+      ];
       description = ''
         Path to SSH keys to be used as identities in age decryption.
       '';
