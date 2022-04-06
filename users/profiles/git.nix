@@ -12,7 +12,8 @@
   scripts = {
     submoduleRewrite =
       pkgs.writeScriptBin "git-submodule-rewrite"
-      (builtins.readFile ../../../vendor/.bin/git-submodule-rewrite);
+        # FIXME: avoid IFD
+      (builtins.readFile "${pkgs.dotfield-vendor}/.bin/git-submodule-rewrite");
   };
 
   userScripts =
@@ -148,5 +149,5 @@ in {
     ];
   };
 
-  xdg.configFile."git/templates".source = ../../../config/git/templates;
+  xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
 }

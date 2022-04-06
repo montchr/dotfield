@@ -12,4 +12,12 @@ final: prev: {
       cp -R * $out/
     '';
   };
+  dotfield-vendor = prev.stdenv.mkDerivation {
+    name = "dotfield-vendor";
+    src = final.gitignoreSource ../vendor;
+    installPhase = ''
+      mkdir -p $out
+      cp -R .bin $out/.bin
+    '';
+  };
 }

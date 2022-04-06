@@ -20,7 +20,7 @@ glob = "secrets/*.age"
 groups = [ "all" ]
 
 [[paths]]
-glob = "users/hm/profiles/aws/*.age"
+glob = "users/profiles/aws/*.age"
 groups = [ "all" ]
 
 [[paths]]
