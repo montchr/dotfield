@@ -61,6 +61,7 @@
     darwin,
     digga,
     emacs-overlay,
+    gitignore,
     home-manager,
     nix-colors,
     nixos-stable,
@@ -164,10 +165,12 @@
           });
         })
 
-        (import ./pkgs)
         agenix.overlay
         emacs-overlay.overlay
+        gitignore.overlay
         nur.overlay
+
+        (import ./pkgs)
       ];
 
       nixos = {

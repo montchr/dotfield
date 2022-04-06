@@ -4,4 +4,12 @@ final: prev: {
   # then, call packages with `final.callPackage`
 
   dotfield = prev.callPackage (import ./dotfield.nix) {};
+  dotfield-config = prev.stdenv.mkDerivation {
+    name = "dotfield-config";
+    src = final.gitignoreSource ../config;
+    installPhase = ''
+      mkdir -p $out
+      cp -R * $out/
+    '';
+  };
 }
