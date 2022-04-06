@@ -27,6 +27,7 @@ in {
     imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
 
     accounts.email.accounts.work.primary = true;
+    accounts.email.accounts.personal.primary = false;
 
     home.packages = with pkgs; [ngrok];
 

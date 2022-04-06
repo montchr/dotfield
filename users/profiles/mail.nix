@@ -84,6 +84,11 @@
     # };
   };
 in {
+  home.packages = with pkgs; [
+    isync
+    mu
+  ];
+
   programs.mbsync.enable = true;
   programs.mu.enable = true;
 
@@ -97,6 +102,7 @@ in {
           domain = "cdom.io";
         }
         // {
+          primary = lib.mkDefault true;
           # msmtp.enable = true;
         };
       work = gmailAccount {
