@@ -121,7 +121,6 @@
           system.fonts
         ];
         personal = [
-          system.security.gnupg
           system.secrets
           system.users.primary-user
         ];

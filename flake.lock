@@ -402,11 +402,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1649112899,
-        "narHash": "sha256-rAb90eTzxkc8Bf8mhNSzXidMeNoBHh/Lkx3//KLFRwY=",
+        "lastModified": 1649254342,
+        "narHash": "sha256-bF4qUPIZLj+Htqd+p26H2utCHBomFbycY8hTV6SZqH0=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "a1af2dced58090aa5ad37b883e8b70e6e9ff0e10",
+        "rev": "6d96ce8581cc113fb8d6689d1a2921ff6113b874",
         "type": "github"
       },
       "original": {
