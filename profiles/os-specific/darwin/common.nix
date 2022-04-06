@@ -4,8 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-let
+}: let
   inherit (pkgs.lib.our) dotfieldPath;
 in {
   nix.nixPath = [

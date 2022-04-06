@@ -1,6 +1,5 @@
 {lib}:
 lib.makeExtensible (self: {
-
   dotfieldPath = toString ../.;
 
   whoami = import ./whoami;

@@ -1,14 +1,11 @@
 # FIXME: known to be broken, but not tough to fix
-
 {
   config,
   lib,
   pkgs,
   ...
 }: let
-
   # shellCfg = config.shell;
-
   # mkPlugins = plugins: (map
   #   (name: {
   #     inherit name;

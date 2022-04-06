@@ -12,7 +12,7 @@
   scripts = {
     submoduleRewrite =
       pkgs.writeScriptBin "git-submodule-rewrite"
-        # FIXME: avoid IFD
+      # FIXME: avoid IFD
       (builtins.readFile "${pkgs.dotfield-vendor}/.bin/git-submodule-rewrite");
   };
 
