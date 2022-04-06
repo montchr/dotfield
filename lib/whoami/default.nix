@@ -24,11 +24,6 @@ rec {
     ssh = {
       primary = import ./ssh-primary-key.nix;
       identities = import ./ssh-identities.nix;
-      hostKeyPaths = [
-        "~/.ssh/id_ed25519"
-        # TODO: filter non-existant paths
-        # "~/.ssh/id_rsa"
-      ];
     };
   };
 }
