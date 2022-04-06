@@ -4,9 +4,10 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.lib.our) dotfieldPath;
   inherit (config.xdg) configHome dataHome stateHome;
 
-  configPath = "${configHome}/dotfield/config";
+  configPath = "${dotfieldPath}/config";
   chemacsDir = "${configHome}/emacs";
 
   doomProfilePath = "emacs/profiles/doom";

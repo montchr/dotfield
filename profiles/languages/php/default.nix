@@ -10,10 +10,8 @@
     php74Packages
     writeShellScriptBin
     ;
+  inherit (pkgs.lib.our) dotfieldPath;
   inherit (php74Packages) composer;
-
-  dotfieldPath = config.dotfield.path;
-  configDir = "${config.dotfield.configDir}/php";
 
   composer2nixPkgs =
     pkgs

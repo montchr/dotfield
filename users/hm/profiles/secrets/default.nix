@@ -4,11 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our.whoami) keys;
+  inherit (pkgs.lib.our) dotfieldPath whoami;
 
   passVars = {
     PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
-    PASSWORD_STORE_KEY = "${keys.pgp} 0xF0B8FB42A7498482";
+    PASSWORD_STORE_KEY = "${whoami.keys.pgp} 0xF0B8FB42A7498482";
   };
 in {
   home.packages = with pkgs; [
@@ -16,10 +16,7 @@ in {
     yubikey-personalization
   ];
 
-  xdg.dataFile."gnupg/scdaemon.conf".text = ''
-    reader-port Yubico Yubi
-    disable-ccid
-  '';
+  home.sessionVariables.AGENIX_ROOT = dotfieldPath;
 
   programs.password-store = {
     enable = true;

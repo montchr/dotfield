@@ -5,6 +5,7 @@
   inputs,
   ...
 }: let
+  inherit (pkgs.lib.our) dotfieldPath;
 in {
   nix = {
     package = pkgs.nix;
@@ -33,7 +34,7 @@ in {
     # `$DOTFIELD_DIR` must point to its absolute path on the system -- not to
     # its location in the Nix store. Cached shell configuration files may
     # reference a path to an old derivation.
-    DOTFIELD_DIR = config.dotfield.path;
+    DOTFIELD_DIR = pkgs.lib.our.dotfieldPath;
 
     # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
     # system has been successfully provisioned with Nix. Otherwise,
@@ -74,8 +75,9 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    # TODO: add this via gitignore.nix or something to avoid IFD
     (writeScriptBin "dotfield"
-      (builtins.readFile "${config.dotfield.binDir}/dotfield"))
+      (builtins.readFile "${dotfieldPath}/bin/dotfield"))
 
     (python3.withPackages (ps: with ps; [pip setuptools]))
     (ripgrep.override {withPCRE2 = true;})

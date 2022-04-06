@@ -13,7 +13,6 @@
     ++ [./configuration.nix];
 
   networking.hostName = "HodgePodge";
-  dotfield.path = "/home/xtallos/dotfield";
 
   nix.maxJobs = 4;
   nix.buildCores = 4;

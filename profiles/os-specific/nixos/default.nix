@@ -5,8 +5,6 @@
   pkgs,
   ...
 }: {
-  dotfield.path = lib.mkDefault "/etc/nixos";
-
   nix = {
     autoOptimiseStore = true;
     optimise.automatic = true;
