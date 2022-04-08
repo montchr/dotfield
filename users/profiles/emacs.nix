@@ -7,7 +7,7 @@
   inherit (pkgs.lib.our) dotfieldPath;
   inherit (config.xdg) configHome dataHome stateHome;
 
-  configPath = "${dotfieldPath}/config";
+  configPath = "${configHome}/dotfield/config";
   chemacsDir = "${configHome}/emacs";
 
   doomProfilePath = "emacs/profiles/doom";
