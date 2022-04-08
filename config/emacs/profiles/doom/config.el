@@ -11,9 +11,6 @@
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
 
-;; https://emacs-lsp.github.io/lsp-mode/page/performance/#adjust-gc-cons-threshold
-;; (setq gc-cons-threshold 100000000)
-
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
@@ -23,9 +20,7 @@
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
-(setq! undo-limit 80000000
-       truncate-string-ellipsis "…"
-       display-line-numbers-type 'relative)
+(setq! display-line-numbers-type 'relative)
 
 (setq! tab-width 2)
 
@@ -36,10 +31,6 @@
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
-
-;; Extend prescient history lifespan.
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
 
 ;; Prevent evil-lion from removing extra spaces.
 ;; Add any desired extra space prior to invoking evil-lion.
@@ -206,7 +197,7 @@
          ;; TODO: could this cause an issue with org-roam IDs?
          org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
-         org-log-refile 'time
+         ;; org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
          org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
          org-export-copy-to-kill-ring 'if-interactive)
