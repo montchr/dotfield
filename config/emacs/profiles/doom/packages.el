@@ -51,8 +51,8 @@
 (package! svg-tag-mode)
 
 ;; modeline
-(package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
-(package! minions)    ;                     :: https://github.com/tarsius/minions
+;; (package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
+;; (package! minions)    ;                     :: https://github.com/tarsius/minions
 
 ;; org
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates

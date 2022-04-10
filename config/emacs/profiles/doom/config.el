@@ -76,20 +76,11 @@
 
 ;; === modeline ================================================================
 
-(use-package! moody
-  :config
-  (setq x-underline-at-descent-line t)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode)
-  (moody-replace-eldoc-minibuffer-message-function)
+(after! doom-modeline
   (custom-set-faces!
     '((mode-line mode-line-inactive)
       :family "PragmataPro Mono"
       :size 10)))
-
-(use-package! minions
-  :config (minions-mode 1))
-
 
 ;; === appearance ==============================================================
 
@@ -118,7 +109,7 @@
    modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(neutral-underline)
-   modus-themes-mode-line '(moody borderless)
+   modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
 
    ;; syntax
