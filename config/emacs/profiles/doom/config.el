@@ -213,25 +213,6 @@
 ;;   (setq! org-expiry-inactive-timestamps t)
 ;;   (org-expiry-insinuate))
 
-;; Make deft understand files created by org-roam
-;; https://github.com/jrblevin/deft/issues/75#issuecomment-905031872
-(defun cdom/deft-parse-title (file contents)
-  "Parse the given FILE and CONTENTS and determine the title.
-  If `deft-use-filename-as-title' is nil, the title is taken to
-  be the first non-empty line of the FILE.  Else the base name of the FILE is
-  used as title."
-  (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
-    (if begin
-        (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
-      (deft-base-filename file))))
-(advice-add 'deft-parse-title :override #'cdom/deft-parse-title)
-(setq! deft-strip-summary-regexp
-       (concat "\\("
-               "[\n\t]" ;; blank
-               "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
-               "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
-               "\\)"))
-
 ;; Configure org-journal for compatability with org-roam-dailies
 (after! org-journal
   (setq! org-journal-file-type 'daily
