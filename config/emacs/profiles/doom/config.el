@@ -320,7 +320,17 @@
          lsp-enable-indentation nil
          lsp-file-watch-threshold 666
          lsp-ui-doc-delay 2
-         flycheck-javascript-eslint-executable "eslint_d"))
+         flycheck-javascript-eslint-executable "eslint_d"
+         lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
+   "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
+   "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
+   "intl" "json" "ldap" "libxml" "mbstring" "mcrypt" "meta" "mssql" "mysqli"
+   "oci8" "odbc" "openssl" "pcntl" "pcre" "PDO" "pdo_ibm" "pdo_mysql"
+   "pdo_pgsql" "pdo_sqlite" "pgsql" "Phar" "posix" "pspell" "readline" "recode"
+   "Reflection" "regex" "session" "shmop" "SimpleXML" "snmp" "soap" "sockets"
+   "sodium" "SPL" "sqlite3" "standard" "superglobals" "sybase" "sysvmsg"
+   "sysvsem" "sysvshm" "tidy" "tokenizer" "wddx" "wordpress" "xml" "xmlreader" "xmlrpc"
+   "xmlwriter" "Zend OPcache" "zip" "zlib"]))
 
 
 ;; === tools ===================================================================
