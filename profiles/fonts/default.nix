@@ -11,6 +11,7 @@
       inter
       pragmatapro
       public-sans
+      sf-pro
     ];
   };
 }
