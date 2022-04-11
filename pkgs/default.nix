@@ -3,7 +3,10 @@ final: prev: {
   sources = prev.callPackage (import ./_sources/generated.nix) {};
   # then, call packages with `final.callPackage`
 
+  ## dotfield internals ========================================================
+
   dotfield = prev.callPackage (import ./dotfield.nix) {};
+
   dotfield-config = prev.stdenv.mkDerivation {
     name = "dotfield-config";
     src = final.gitignoreSource ../config;
@@ -12,6 +15,7 @@ final: prev: {
       cp -R * $out/
     '';
   };
+
   dotfield-vendor = prev.stdenv.mkDerivation {
     name = "dotfield-vendor";
     src = final.gitignoreSource ../vendor;
@@ -20,4 +24,9 @@ final: prev: {
       cp -R .bin $out/.bin
     '';
   };
+
+
+  ## fonts =====================================================================
+
+  pragmatapro = final.callPackage ./fonts/pragmatapro.nix {};
 }
