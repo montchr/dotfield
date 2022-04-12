@@ -127,8 +127,7 @@
           system.users.primary-user
         ];
         work = [
-          system.languages.ruby # for vagrant
-          system.virtualbox
+          system.virtualisation.virtualbox
         ];
       };
     };
@@ -271,6 +270,7 @@
               ++ [gnupg mail secrets]
               # FIXME: ssh profile is only here because it current depends on secrets
               ++ [ssh];
+            virtualisation = [vagrant];
           };
         };
 
