@@ -37,6 +37,9 @@
     # Development tools.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
+    phps.url = "github:fossar/nix-phps";
+    phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
+    phps.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -67,6 +70,7 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
+    phps,
     ...
   } @ inputs: let
     nixlib = nixpkgs-unstable.lib;
@@ -123,7 +127,6 @@
           system.users.primary-user
         ];
         work = [
-          system.languages.php
           system.languages.ruby # for vagrant
           system.virtualbox
         ];
@@ -158,6 +161,11 @@
           lib = prev.lib.extend (lfinal: lprev: {
             our = self.lib;
           });
+        })
+
+        (final: prev: {
+          inherit (inputs.phps.packages.${final.system}) php81;
+          php = final.php81;
         })
 
         agenix.overlay
@@ -245,6 +253,7 @@
               aws
               emacs
               languages.nodejs
+              languages.php
               vim
             ];
             gui = [

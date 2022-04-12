@@ -269,6 +269,22 @@
     "flake-compat_4": {
       "flake": false,
       "locked": {
+        "lastModified": 1648199409,
+        "narHash": "sha256-JwPKdC2PoVBkG6E+eWw3j6BMR6sL3COpYWfif7RVb8Y=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "64a525ee38886ab9028e6f61790de0832aa3ef03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_5": {
+      "flake": false,
+      "locked": {
         "lastModified": 1627913399,
         "narHash": "sha256-hY8g6H2KFL8ownSiFeMOjwPC8P0ueXpCVEbxgda3pko=",
         "owner": "edolstra",
@@ -595,6 +611,32 @@
         "type": "github"
       }
     },
+    "phps": {
+      "inputs": {
+        "flake-compat": "flake-compat_4",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "utils": [
+          "digga",
+          "flake-utils-plus",
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1648365683,
+        "narHash": "sha256-I57FZQSrhnGdLKJHqeJZ22Fq0AhTTedKV7oApFkJKGw=",
+        "owner": "fossar",
+        "repo": "nix-phps",
+        "rev": "574e1c24e9814b351e1e90b269796d0e9afa28be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fossar",
+        "repo": "nix-phps",
+        "type": "github"
+      }
+    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -615,7 +657,7 @@
     "prefmanager": {
       "inputs": {
         "devshell": "devshell_2",
-        "flake-compat": "flake-compat_4",
+        "flake-compat": "flake-compat_5",
         "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs-unstable"
@@ -677,6 +719,7 @@
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-unstable": "nixpkgs-unstable_2",
         "nur": "nur",
+        "phps": "phps",
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp"
       }

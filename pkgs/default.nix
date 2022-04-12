@@ -16,6 +16,15 @@ final: prev: {
     '';
   };
 
+  # dotfield-php = prev.stdenv.mkDerivation {
+  #   name = "dotfield-php";
+  #   src = ./dotfield-php/vendor/bin;
+  #   installPhase = ''
+  #     mkdir -p $out
+  #     cp -L * $out/bin
+  #   '';
+  # };
+
   dotfield-vendor = prev.stdenv.mkDerivation {
     name = "dotfield-vendor";
     src = final.gitignoreSource ../vendor;

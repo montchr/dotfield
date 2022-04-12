@@ -1,0 +1,20 @@
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
+  inherit (pkgs) system writeShellScriptBin;
+  inherit (inputs.phps.packages.${system}) php81;
+  inherit (pkgs.lib.our) dotfieldPath;
+in {
+  home.packages = with pkgs; [
+    php81
+    php81.packages.composer
+  ];
+  home.sessionPath = [
+    # TODO: prepend not append
+    "$HOME/.config/dotfield/.composer/bin"
+  ];
+}
