@@ -5,12 +5,12 @@
   hmUsers,
   ...
 }: {
-  imports =
-    [
+  imports = with suites;
+    minimal
+    ++ [
+      profiles.linode
       (modulesPath + "/profiles/qemu-guest.nix")
-      profiles.system.linode
-    ]
-    ++ suites.nixos;
+    ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

@@ -7,8 +7,7 @@
 }: {
   imports = with suites;
     personal
-    ++ nixos
-    ++ developer
+    ++ gui
     # ++ profiles.emacs
     ++ [./configuration.nix];
 

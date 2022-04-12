@@ -9,15 +9,11 @@
 }: let
   inherit (config) my;
 in {
-  # Note that these are system-level suites, not hm suites.
   imports = with suites;
-    darwin-gui
+    gui
     ++ personal
-    ++ developer
     ++ work
-    ++ (with profiles; [
-      system.os-specific.darwin.emacs
-    ]);
+    ;
 
   home-manager.users.montchr = {
     config,

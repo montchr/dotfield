@@ -75,62 +75,6 @@
   } @ inputs: let
     nixlib = nixpkgs-unstable.lib;
 
-    importables = rec {
-      profiles = {
-        system =
-          digga.lib.rakeLeaves ./profiles
-          // {
-            users = digga.lib.rakeLeaves ./users;
-          };
-        home = digga.lib.rakeLeaves ./users/profiles;
-      };
-
-      suites = with profiles; rec {
-        base = [
-          system.core
-        ];
-        networking = [
-          system.networking.common
-        ];
-        linux-minimal =
-          suites.base
-          ++ [
-            system.os-specific.linux
-            system.users.nixos
-            system.users.root
-          ];
-        nixos =
-          suites.base
-          ++ [
-            system.os-specific.linux
-            system.os-specific.nixos
-          ];
-        darwin-minimal =
-          suites.base
-          ++ [
-            system.os-specific.darwin.common
-          ];
-        darwin-gui =
-          suites.base
-          ++ suites.gui
-          ++ [
-            system.os-specific.darwin.common
-            system.os-specific.darwin.gui
-            system.os-specific.darwin.system-defaults
-          ];
-        developer = suites.base ++ [];
-        gui = [
-          system.fonts
-        ];
-        personal = [
-          system.secrets
-          system.users.primary-user
-        ];
-        work = [
-          system.virtualisation.virtualbox
-        ];
-      };
-    };
   in
     digga.lib.mkFlake {
       inherit self inputs;
@@ -176,7 +120,26 @@
       ];
 
       nixos = {
-        inherit importables;
+        importables = rec {
+          profiles = digga.lib.rakeLeaves ./profiles // {
+            users = digga.lib.rakeLeaves ./users;
+          };
+
+          suites = with profiles; rec {
+            base = [
+              core
+              networking.common
+              os-specific.linux
+              os-specific.nixos
+            ];
+            minimal = base ++ [
+              users.nixos
+              users.root
+            ];
+            gui = [fonts];
+            personal = [secrets users.primary-user];
+          };
+        };
 
         hostDefaults = {
           system = "x86_64-linux";
@@ -185,11 +148,9 @@
             (digga.lib.importExportableModules ./modules)
             (digga.lib.importExportableModules ./users/modules)
           ];
-          modules = with importables; [
+          modules = [
             {lib.our = self.lib;}
-
-            suites.base
-
+            ({suites, ...}: {imports = suites.base;})
             digga.nixosModules.bootstrapIso
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
@@ -206,7 +167,27 @@
       };
 
       darwin = {
-        inherit importables;
+        importables = rec {
+          profiles = digga.lib.rakeLeaves ./profiles // {
+            users = digga.lib.rakeLeaves ./users;
+          };
+
+          suites = with profiles; rec {
+            base = [core networking.common];
+            minimal = base ++ [os-specific.darwin.common];
+            gui = base ++ [
+              fonts
+              os-specific.darwin.common
+              os-specific.darwin.gui
+              os-specific.darwin.system-defaults
+            ];
+            personal = [secrets users.primary-user];
+            work = base ++ gui ++ [
+              os-specific.darwin.emacs
+              virtualisation.virtualbox
+            ];
+          };
+        };
 
         hostDefaults = {
           channelName = "nixpkgs-darwin-stable";
@@ -214,10 +195,9 @@
             (digga.lib.importExportableModules ./modules)
             (digga.lib.importExportableModules ./users/modules)
           ];
-          modules = with importables; [
+          modules = [
             {lib.our = self.lib;}
-            suites.base
-
+            ({suites, ...}: {imports = suites.base;})
             home-manager.darwinModules.home-manager
             # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
