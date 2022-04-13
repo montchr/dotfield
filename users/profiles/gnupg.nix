@@ -21,7 +21,7 @@ in {
   services.gpg-agent = {
     enable = true;
     # Note that this depends on our fork of the gpg-agent hm module.
-    pinentryPackage = pkgs.pinentry_mac;
+    pinentryPackage = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry;
     enableScDaemon = true;
     enableSshSupport = true;
   };
