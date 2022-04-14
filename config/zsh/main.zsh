@@ -72,6 +72,8 @@ z4h source $ZDOTDIR/extra.zshrc
 ###: LOAD PLUGINS :=============================================================
 # Use additional Git repositories pulled in with `z4h install`.
 
+z4h source $ZDOTDIR/bookmarks.zsh
+
 z4h load ajeetdsouza/zoxide
 z4h source nvm-sh/nvm/nvm.sh
 
