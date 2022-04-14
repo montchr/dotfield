@@ -36,6 +36,5 @@ final: prev: {
 
   ## fonts =====================================================================
 
-  pragmatapro = final.callPackage ./fonts/pragmatapro.nix {};
   sf-pro = final.callPackage ./fonts/sf-pro.nix {};
 }

@@ -139,8 +139,14 @@
                 users.nixos
                 users.root
               ];
-            gui = [fonts];
-            personal = [secrets users.primary-user];
+            gui = [
+              fonts.common
+              fonts.pragmatapro
+            ];
+            personal = [
+              secrets
+              users.primary-user
+            ];
           };
         };
 
@@ -184,12 +190,16 @@
             gui =
               base
               ++ [
-                fonts
+                fonts.common
+                fonts.pragmatapro
                 os-specific.darwin.common
                 os-specific.darwin.gui
                 os-specific.darwin.system-defaults
               ];
-            personal = [secrets users.primary-user];
+            personal = [
+              secrets
+              users.primary-user
+            ];
             work =
               base
               ++ gui
@@ -277,12 +287,7 @@
         };
       };
 
-      # FIXME: this may be causing the evaluation of host configurations on the
-      # wrong platforms. darwinConfigurations cannot(?) be used on nixos, and
-      # vice versa.
-      #
-      # homeConfigurations =
-      #   (digga.lib.mkHomeConfigurations self.nixosConfigurations)
-      #   // (digga.lib.mkHomeConfigurations self.darwinConfigurations);
+      # homeConfigurations = digga.lib.mkHomeConfigurations
+      #   (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
     };
 }

@@ -13,7 +13,6 @@
       ibm-plex
       inter
       jost
-      pragmatapro
       public-sans
       recursive
       sf-pro
