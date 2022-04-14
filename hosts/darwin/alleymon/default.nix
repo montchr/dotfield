@@ -12,8 +12,7 @@ in {
   imports = with suites;
     gui
     ++ personal
-    ++ work
-    ;
+    ++ work;
 
   home-manager.users.montchr = {
     config,

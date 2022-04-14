@@ -4,8 +4,7 @@
   suites,
   ...
 }: {
-  imports = with suites;
-    minimal;
+  imports = with suites; minimal;
 
   my.username = "runner";
 }

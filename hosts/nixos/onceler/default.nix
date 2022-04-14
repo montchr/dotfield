@@ -23,7 +23,6 @@ in {
     ...
   }: {
     imports = with suites; [hmUsers.xtallos] ++ gui;
-
   };
 
   nix.buildCores = 0;

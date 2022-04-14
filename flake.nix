@@ -74,7 +74,6 @@
     ...
   } @ inputs: let
     nixlib = nixpkgs-unstable.lib;
-
   in
     digga.lib.mkFlake {
       inherit self inputs;
@@ -121,9 +120,11 @@
 
       nixos = {
         importables = rec {
-          profiles = digga.lib.rakeLeaves ./profiles // {
-            users = digga.lib.rakeLeaves ./users;
-          };
+          profiles =
+            digga.lib.rakeLeaves ./profiles
+            // {
+              users = digga.lib.rakeLeaves ./users;
+            };
 
           suites = with profiles; rec {
             base = [
@@ -132,10 +133,12 @@
               os-specific.linux
               os-specific.nixos
             ];
-            minimal = base ++ [
-              users.nixos
-              users.root
-            ];
+            minimal =
+              base
+              ++ [
+                users.nixos
+                users.root
+              ];
             gui = [fonts];
             personal = [secrets users.primary-user];
           };
@@ -169,24 +172,31 @@
 
       darwin = {
         importables = rec {
-          profiles = digga.lib.rakeLeaves ./profiles // {
-            users = digga.lib.rakeLeaves ./users;
-          };
+          profiles =
+            digga.lib.rakeLeaves ./profiles
+            // {
+              users = digga.lib.rakeLeaves ./users;
+            };
 
           suites = with profiles; rec {
             base = [core networking.common];
             minimal = base ++ [os-specific.darwin.common];
-            gui = base ++ [
-              fonts
-              os-specific.darwin.common
-              os-specific.darwin.gui
-              os-specific.darwin.system-defaults
-            ];
+            gui =
+              base
+              ++ [
+                fonts
+                os-specific.darwin.common
+                os-specific.darwin.gui
+                os-specific.darwin.system-defaults
+              ];
             personal = [secrets users.primary-user];
-            work = base ++ gui ++ [
-              os-specific.darwin.emacs
-              virtualisation.virtualbox
-            ];
+            work =
+              base
+              ++ gui
+              ++ [
+                os-specific.darwin.emacs
+                virtualisation.virtualbox
+              ];
           };
         };
 
