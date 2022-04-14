@@ -13,10 +13,7 @@ in {
   imports = with suites;
     gui
     ++ personal
-    ++ developer
-    ++ (with profiles; [
-      system.os-specific.nixos
-    ]);
+    ++ (with profiles; []);
 
   my.username = "xtallos";
 
