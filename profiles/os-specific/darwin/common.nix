@@ -4,7 +4,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  inherit (pkgs.lib.our) dotfieldPath;
+in {
   nix.nixPath = [
     # FIXME: This entry should be added automatically via FUP's `nix.linkInputs`
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't
@@ -15,7 +17,7 @@
     "darwin=/etc/nix/inputs/darwin"
   ];
 
-  environment.darwinConfig = "$DOTFIELD_DIR/lib/compat/darwin";
+  environment.darwinConfig = "${dotfieldPath}/lib/compat/darwin";
 
   # Administrative users on Darwin are part of this group, not the `wheel` group.
   nix.trustedUsers = ["@admin"];

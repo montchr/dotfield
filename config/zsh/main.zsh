@@ -48,6 +48,7 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # up-to-date. Cloned files can be used after `z4h init`.
 z4h install ohmyzsh/ohmyzsh || return
 z4h install ajeetdsouza/zoxide || return
+z4h install nvm-sh/nvm || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -72,6 +73,7 @@ z4h source $ZDOTDIR/extra.zshrc
 # Use additional Git repositories pulled in with `z4h install`.
 
 z4h load ajeetdsouza/zoxide
+z4h source nvm-sh/nvm/nvm.sh
 
 
 ###: KEYBINDINGS :==============================================================

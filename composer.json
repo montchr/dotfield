@@ -1,9 +1,12 @@
 {
   "name": "montchr/dotfield",
   "type": "project",
-  "require": {},
   "require-dev": {
-    "svanderburg/composer2nix": "dev-master"
+    "friendsofphp/php-cs-fixer": "dev-master",
+    "php-stubs/wordpress-stubs": "^5.0",
+    "szepeviktor/phpstan-wordpress": "dev-master",
+    "phpstan/phpstan": "1.6.x-dev",
+    "phpstan/extension-installer": "1.2.x-dev"
   },
   "license": "GPL-3.0-or-later",
   "authors": [
@@ -15,6 +18,9 @@
   "minimum-stability": "dev",
   "config": {
     "vendor-dir": ".composer",
-    "bin-dir": ".composer/bin"
+    "bin-dir": ".composer/bin",
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   }
 }

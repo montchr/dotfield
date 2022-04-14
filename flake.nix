@@ -16,9 +16,9 @@
 
     # Flake utilities.
     digga.url = "github:divnix/digga/darwin-support";
+    digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -26,7 +26,6 @@
 
     # Sources management.
     nur.url = "github:nix-community/NUR";
-    nvfetcher.url = "github:berberman/nvfetcher";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -38,8 +37,12 @@
     # Development tools.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
+    phps.url = "github:fossar/nix-phps";
+    phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
+    phps.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources.
+    nix-colors.url = "github:Misterio77/nix-colors";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     base16-kitty = {
@@ -50,7 +53,6 @@
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
     };
-    nix-colors.url = "github:montchr/nix-colors";
 
     nixpkgs.follows = "nixos-stable";
   };
@@ -61,84 +63,18 @@
     darwin,
     digga,
     emacs-overlay,
+    gitignore,
     home-manager,
     nix-colors,
     nixos-stable,
     nixpkgs,
     nixpkgs-unstable,
     nur,
-    nvfetcher,
-    utils,
+    phps,
     ...
   } @ inputs: let
     nixlib = nixpkgs-unstable.lib;
 
-    importables = rec {
-      profiles = {
-        system =
-          digga.lib.rakeLeaves ./profiles
-          // {
-            users = digga.lib.rakeLeaves ./users;
-          };
-        home = digga.lib.rakeLeaves ./users/profiles;
-      };
-
-      suites = with profiles; rec {
-        base = [
-          system.core
-        ];
-        networking = [
-          system.networking.common
-        ];
-        linux-minimal =
-          suites.base
-          ++ [
-            system.os-specific.linux
-            system.users.nixos
-            system.users.root
-          ];
-        nixos =
-          suites.base
-          ++ [
-            system.os-specific.linux
-            system.os-specific.nixos
-          ];
-        darwin-minimal =
-          suites.base
-          ++ [
-            system.os-specific.darwin.common
-          ];
-        darwin-gui =
-          suites.base
-          ++ suites.gui
-          ++ [
-            system.os-specific.darwin.common
-            system.os-specific.darwin.gui
-            system.os-specific.darwin.system-defaults
-          ];
-        developer = suites.base ++ [];
-        gui = [
-          system.fonts
-        ];
-        personal = [
-          system.security.gnupg
-          system.security.yubikey
-          system.secrets
-          system.users.primary-user
-          home.mail
-          home.pass
-          home.rclone
-          home.security.yubikey
-          home.secrets
-          home.ssh
-        ];
-        work = [
-          system.languages.php
-          system.languages.ruby # for vagrant
-          system.virtualbox
-        ];
-      };
-    };
   in
     digga.lib.mkFlake {
       inherit self inputs;
@@ -170,15 +106,40 @@
           });
         })
 
-        (import ./pkgs)
+        (final: prev: {
+          inherit (inputs.phps.packages.${final.system}) php81;
+          php = final.php81;
+        })
+
         agenix.overlay
         emacs-overlay.overlay
+        gitignore.overlay
         nur.overlay
-        nvfetcher.overlay
+
+        (import ./pkgs)
       ];
 
       nixos = {
-        inherit importables;
+        importables = rec {
+          profiles = digga.lib.rakeLeaves ./profiles // {
+            users = digga.lib.rakeLeaves ./users;
+          };
+
+          suites = with profiles; rec {
+            base = [
+              core
+              networking.common
+              os-specific.linux
+              os-specific.nixos
+            ];
+            minimal = base ++ [
+              users.nixos
+              users.root
+            ];
+            gui = [fonts];
+            personal = [secrets users.primary-user];
+          };
+        };
 
         hostDefaults = {
           system = "x86_64-linux";
@@ -187,11 +148,9 @@
             (digga.lib.importExportableModules ./modules)
             (digga.lib.importExportableModules ./users/modules)
           ];
-          modules = with importables; [
+          modules = [
             {lib.our = self.lib;}
-
-            suites.base
-
+            ({suites, ...}: {imports = suites.base;})
             digga.nixosModules.bootstrapIso
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
@@ -209,18 +168,38 @@
       };
 
       darwin = {
-        inherit importables;
+        importables = rec {
+          profiles = digga.lib.rakeLeaves ./profiles // {
+            users = digga.lib.rakeLeaves ./users;
+          };
+
+          suites = with profiles; rec {
+            base = [core networking.common];
+            minimal = base ++ [os-specific.darwin.common];
+            gui = base ++ [
+              fonts
+              os-specific.darwin.common
+              os-specific.darwin.gui
+              os-specific.darwin.system-defaults
+            ];
+            personal = [secrets users.primary-user];
+            work = base ++ gui ++ [
+              os-specific.darwin.emacs
+              virtualisation.virtualbox
+            ];
+          };
+        };
 
         hostDefaults = {
+          system = "x86_64-darwin";
           channelName = "nixpkgs-darwin-stable";
           imports = [
             (digga.lib.importExportableModules ./modules)
             (digga.lib.importExportableModules ./users/modules)
           ];
-          modules = with importables; [
+          modules = [
             {lib.our = self.lib;}
-            suites.base
-
+            ({suites, ...}: {imports = suites.base;})
             home-manager.darwinModules.home-manager
             # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
@@ -241,7 +220,7 @@
           nix-colors.homeManagerModule
         ];
         importables = rec {
-          profiles = digga.lib.rakeLeaves ./users/hm/profiles;
+          profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
             base = [
               bat
@@ -255,6 +234,7 @@
               aws
               emacs
               languages.nodejs
+              languages.php
               vim
             ];
             gui = [
@@ -269,7 +249,10 @@
             personal =
               suites.base
               ++ suites.dev
-              ++ [gnupg];
+              ++ [gnupg mail secrets]
+              # FIXME: ssh profile is only here because it current depends on secrets
+              ++ [ssh];
+            virtualisation = [vagrant];
           };
         };
 

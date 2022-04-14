@@ -11,9 +11,6 @@
        doom-unicode-font (font-spec :family "PragmataPro Liga")
        doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
 
-;; https://emacs-lsp.github.io/lsp-mode/page/performance/#adjust-gc-cons-threshold
-;; (setq gc-cons-threshold 100000000)
-
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
 (server-start)
@@ -23,9 +20,7 @@
 
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
-(setq! undo-limit 80000000
-       truncate-string-ellipsis "…"
-       display-line-numbers-type 'relative)
+(setq! display-line-numbers-type 'relative)
 
 (setq! tab-width 2)
 
@@ -36,10 +31,6 @@
 
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
-
-;; Extend prescient history lifespan.
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
 
 ;; Prevent evil-lion from removing extra spaces.
 ;; Add any desired extra space prior to invoking evil-lion.
@@ -85,20 +76,11 @@
 
 ;; === modeline ================================================================
 
-(use-package! moody
-  :config
-  (setq x-underline-at-descent-line t)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode)
-  (moody-replace-eldoc-minibuffer-message-function)
+(after! doom-modeline
   (custom-set-faces!
     '((mode-line mode-line-inactive)
       :family "PragmataPro Mono"
       :size 10)))
-
-(use-package! minions
-  :config (minions-mode 1))
-
 
 ;; === appearance ==============================================================
 
@@ -127,7 +109,7 @@
    modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(neutral-underline)
-   modus-themes-mode-line '(moody borderless)
+   modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
 
    ;; syntax
@@ -206,7 +188,7 @@
          ;; TODO: could this cause an issue with org-roam IDs?
          org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
-         org-log-refile 'time
+         ;; org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
          org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
          org-export-copy-to-kill-ring 'if-interactive)
@@ -230,25 +212,6 @@
 ;;   :config
 ;;   (setq! org-expiry-inactive-timestamps t)
 ;;   (org-expiry-insinuate))
-
-;; Make deft understand files created by org-roam
-;; https://github.com/jrblevin/deft/issues/75#issuecomment-905031872
-(defun cdom/deft-parse-title (file contents)
-  "Parse the given FILE and CONTENTS and determine the title.
-  If `deft-use-filename-as-title' is nil, the title is taken to
-  be the first non-empty line of the FILE.  Else the base name of the FILE is
-  used as title."
-  (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
-    (if begin
-        (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
-      (deft-base-filename file))))
-(advice-add 'deft-parse-title :override #'cdom/deft-parse-title)
-(setq! deft-strip-summary-regexp
-       (concat "\\("
-               "[\n\t]" ;; blank
-               "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
-               "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
-               "\\)"))
 
 ;; Configure org-journal for compatability with org-roam-dailies
 (after! org-journal
@@ -357,7 +320,17 @@
          lsp-enable-indentation nil
          lsp-file-watch-threshold 666
          lsp-ui-doc-delay 2
-         flycheck-javascript-eslint-executable "eslint_d"))
+         flycheck-javascript-eslint-executable "eslint_d"
+         lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
+   "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
+   "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
+   "intl" "json" "ldap" "libxml" "mbstring" "mcrypt" "meta" "mssql" "mysqli"
+   "oci8" "odbc" "openssl" "pcntl" "pcre" "PDO" "pdo_ibm" "pdo_mysql"
+   "pdo_pgsql" "pdo_sqlite" "pgsql" "Phar" "posix" "pspell" "readline" "recode"
+   "Reflection" "regex" "session" "shmop" "SimpleXML" "snmp" "soap" "sockets"
+   "sodium" "SPL" "sqlite3" "standard" "superglobals" "sybase" "sysvmsg"
+   "sysvsem" "sysvshm" "tidy" "tokenizer" "wddx" "wordpress" "xml" "xmlreader" "xmlrpc"
+   "xmlwriter" "Zend OPcache" "zip" "zlib"]))
 
 
 ;; === tools ===================================================================

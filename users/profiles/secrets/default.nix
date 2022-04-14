@@ -2,42 +2,30 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
-  inherit (config.dotfield) secretsDir;
+  inherit (pkgs.lib.our) dotfieldPath whoami;
 
-  sshHostKeyPaths = config.my.keys.ssh.hostKeyPaths;
-  secretsManifestFile = "${secretsDir}/secrets.nix";
-
-  secretFiles = [
-    "aws-cdom-default.pem"
-  ];
-
-  mkSecret = name: {
-    "${name}" = {
-      file = "${secretsDir}/${name}.age";
-      owner = lib.mkDefault config.my.user.name;
-    };
+  passVars = {
+    PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
+    PASSWORD_STORE_KEY = "${whoami.keys.pgp} 0xF0B8FB42A7498482";
   };
 in {
-  my.hm.home.sessionVariables.AGENIX_ROOT = config.dotfield.path;
+  home.packages = with pkgs; [
+    yubikey-manager
+    yubikey-personalization
+  ];
 
-  # TODO: merge all of these together to share the same value as ssh identity files
-  age.identityPaths = sshHostKeyPaths;
+  home.sessionVariables.AGENIX_ROOT = dotfieldPath;
 
-  age.secrets =
-    if lib.pathExists secretsManifestFile
-    then
-      lib.mapAttrs'
-      (n: _:
-        lib.nameValuePair (lib.removeSuffix ".age" n) {
-          file = "${secretsDir}/${n}";
-          owner = lib.mkDefault config.my.user.name;
-        })
-      (import secretsManifestFile)
-    else lib.mkMerge (builtins.map mkSecret secretFiles);
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass.withExtensions (exts:
+      with exts; [
+        pass-import # https://github.com/roddhjav/pass-import
+        pass-otp # https://github.com/tadfisher/pass-otp
+        pass-update # https://github.com/roddhjav/pass-update
+      ]);
+    settings = passVars;
+  };
 }
-# via:
-# https://github.com/sei40kr/dotfiles/blob/94ebb6211545949e6967a2834426eee65b7546a0/nixos-modules/agenix.nix
-

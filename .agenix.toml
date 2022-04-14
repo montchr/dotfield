@@ -20,5 +20,9 @@ glob = "secrets/*.age"
 groups = [ "all" ]
 
 [[paths]]
+glob = "users/profiles/aws/*.age"
+groups = [ "all" ]
+
+[[paths]]
 glob = "config/espanso/match/*.age"
 groups = [ "all" ]

@@ -4,10 +4,8 @@
   suites,
   ...
 }: {
-  imports = with suites; (
-    darwin-minimal
-    ++ developer
-  );
+  imports = with suites;
+    minimal;
 
   my.username = "runner";
 }

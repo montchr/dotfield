@@ -1,5 +1,7 @@
 {lib}:
 lib.makeExtensible (self: {
+  dotfieldPath = toString ../.;
+
   whoami = import ./whoami;
 
   isDarwin = system: (builtins.elem system lib.platforms.darwin);

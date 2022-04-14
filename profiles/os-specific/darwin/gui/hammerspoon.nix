@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  configDir = "${config.dotfield.configDir}/hammerspoon";
+  configDir = "${pkgs.dotfield-config}/hammerspoon";
 in {
   homebrew.casks = ["hammerspoon"];
 

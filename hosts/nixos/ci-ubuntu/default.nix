@@ -5,10 +5,7 @@
   suites,
   ...
 }: {
-  imports = with suites; (
-    linux-minimal
-    ++ developer
-  );
+  imports = with suites; minimal;
 
   my.username = "runner";
 

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  configDir = "${config.dotfield.configDir}/darwin";
-in {
+}: {
   imports = [
     ./hammerspoon.nix
     ./yabai.nix

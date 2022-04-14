@@ -9,15 +9,11 @@
 }: let
   inherit (config) my;
 in {
-  # Note that these are system-level suites, not hm suites.
   imports = with suites;
-    darwin-gui
+    gui
     ++ personal
-    ++ developer
     ++ work
-    ++ (with profiles; [
-      system.os-specific.darwin.emacs
-    ]);
+    ;
 
   home-manager.users.montchr = {
     config,
@@ -27,8 +23,9 @@ in {
     imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
 
     accounts.email.accounts.work.primary = true;
+    accounts.email.accounts.personal.primary = false;
 
-    home.packages = with pkgs; [ ngrok ];
+    home.packages = with pkgs; [ngrok];
 
     programs.firefox.profiles = {
       home.isDefault = false;
