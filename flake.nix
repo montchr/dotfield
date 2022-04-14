@@ -202,6 +202,7 @@
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
           HodgePodge = {};
+          onceler = {};
           seadoom = {};
           ci-ubuntu = {};
         };
