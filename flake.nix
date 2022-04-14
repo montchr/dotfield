@@ -218,6 +218,7 @@
         imports = [(digga.lib.importExportableModules ./users/hm/modules)];
         modules = [
           nix-colors.homeManagerModule
+          ({suites, ...}: {imports = suites.base;})
         ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
