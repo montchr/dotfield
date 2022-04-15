@@ -117,6 +117,11 @@ in {
     # nvfetcher
     openssh
     openssl
+
+    # A modern replacement for ps written in Rust
+    # https://github.com/dalance/procs
+    procs
+
     rsync
     skim
     tealdeer
