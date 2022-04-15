@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2019 Jeremy Sears and contributors
+# SPDX-License-Identifier: MIT
 #
 # git-submodule-rewrite
 #

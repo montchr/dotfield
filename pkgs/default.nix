@@ -25,6 +25,15 @@ final: prev: {
   #   '';
   # };
 
+  git-submodule-rewrite = final.stdenv.mkDerivation rec {
+    name = "git-submodule-rewrite";
+    src = final.gitignoreSource ../vendor/git-submodule-rewrite;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp bin/${name} $out/bin/${name}
+    '';
+  };
+
   dotfield-vendor = prev.stdenv.mkDerivation {
     name = "dotfield-vendor";
     src = final.gitignoreSource ../vendor;

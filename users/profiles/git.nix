@@ -9,18 +9,6 @@
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (lib.our) whoami;
 
-  scripts = {
-    submoduleRewrite =
-      pkgs.writeScriptBin "git-submodule-rewrite"
-      # FIXME: avoid IFD
-      (builtins.readFile "${pkgs.dotfield-vendor}/.bin/git-submodule-rewrite");
-  };
-
-  userScripts =
-    builtins.map
-    (key: getAttr key scripts)
-    (attrNames scripts);
-
   ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 in {
   home.packages = with pkgs;
@@ -31,8 +19,8 @@ in {
       # For EXIF diff handling
       exiftool
       git-cliff
-    ]
-    ++ userScripts;
+      git-submodule-rewrite
+    ];
 
   programs.git = {
     enable = true;
