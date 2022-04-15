@@ -8,18 +8,16 @@
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (lib.our) whoami;
-
-  ediffTool = "${pkgs.dotfield.ediffTool}/bin/ediff-tool";
 in {
   home.packages = with pkgs;
     [
+      ediff-tool
+      exiftool # EXIF diff handler
+      git-cliff
+      git-submodule-rewrite
       gitAndTools.hub
       gitAndTools.gh
       gitAndTools.tig
-      # For EXIF diff handling
-      exiftool
-      git-cliff
-      git-submodule-rewrite
     ];
 
   programs.git = {
@@ -119,13 +117,13 @@ in {
 
         difftool = {
           prompt = false;
-          ediff.cmd = "${ediffTool} $LOCAL $REMOTE";
+          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
           vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
         };
 
         mergetool = {
           prompt = false;
-          ediff.cmd = "${ediffTool} $LOCAL $REMOTE $MERGED";
+          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
           vscode.cmd = "code --wait $MERGED";
         };
         ##: }}

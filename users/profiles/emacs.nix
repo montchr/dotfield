@@ -63,7 +63,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    dotfield.ediffTool
+    ediff-tool
 
     ## Doom dependencies
     (ripgrep.override {withPCRE2 = true;})

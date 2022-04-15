@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: Ulf Stegemann <ulf@zeitform.de>
+# SPDX-FileCopyrightText: 2020 Paulo Tomé <paulo.jorge.tome@gmail.com>
+# SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # ediff-tool
 #
 # Wrapper for ediff for use as a git mergetool or difftool.
 #
-# Sources:
-#   - https://raw.githubusercontent.com/paulotome/emacstool/master/ediff.sh
+# https://github.com/paulotome/emacstool/blob/b3833e1a4eda767cf0ed28e12b1311ccf0f41cfe/ediff.sh
 #
 
 if [[ ! -f "${DOTFIELD_DIR}/lib/utils.sh" ]]; then

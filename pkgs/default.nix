@@ -5,8 +5,6 @@ final: prev: {
 
   ## dotfield internals ========================================================
 
-  dotfield = prev.callPackage (import ./dotfield.nix) {};
-
   dotfield-config = prev.stdenv.mkDerivation {
     name = "dotfield-config";
     src = final.gitignoreSource ../config;
@@ -25,6 +23,18 @@ final: prev: {
   #   '';
   # };
 
+
+  ## third-party scripts =======================================================
+
+  ediff-tool = final.stdenv.mkDerivation rec {
+    name = "ediff-tool";
+    src = final.gitignoreSource ../vendor/ediff-tool;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ${name} $out/bin/${name}
+    '';
+  };
+
   git-submodule-rewrite = final.stdenv.mkDerivation rec {
     name = "git-submodule-rewrite";
     src = final.gitignoreSource ../vendor/git-submodule-rewrite;
@@ -34,14 +44,6 @@ final: prev: {
     '';
   };
 
-  dotfield-vendor = prev.stdenv.mkDerivation {
-    name = "dotfield-vendor";
-    src = final.gitignoreSource ../vendor;
-    installPhase = ''
-      mkdir -p $out
-      cp -R .bin $out/.bin
-    '';
-  };
 
   ## fonts =====================================================================
 
