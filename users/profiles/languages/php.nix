@@ -17,4 +17,7 @@ in {
     # TODO: prepend not append
     "$HOME/.config/dotfield/.composer/bin"
   ];
+  home.sessionVariables = {
+    COMPOSER_HOME = "$XDG_STATE_HOME/composer";
+  };
 }
