@@ -73,7 +73,7 @@ in {
     fd # faster projectile indexing
     imagemagick # for image-dired
     zstd # for undo-fu-session/undo-tree compression
-    pinentry_emacs
+    (lib.optionals config.services.gpg-agent.enable pinentry_emacs)
 
     ## Module dependencies
     # :checkers spell

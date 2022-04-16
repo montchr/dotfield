@@ -6,7 +6,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   key = pkgs.lib.our.whoami.keys.pgp;
-in {
+in lib.mkIf ("" != key) {
   home.sessionVariables.DOTFIELD_PGP_KEY = key;
 
   home.packages = with pkgs; [

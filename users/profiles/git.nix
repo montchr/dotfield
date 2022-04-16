@@ -8,6 +8,11 @@
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (lib.our) whoami;
+  
+  enableSigning =
+    config.programs.gpg.enable
+    && config.services.gpg-agent.enable
+    && "" != whoami.keys.pgp;
 
   scripts = {
     submoduleRewrite =
@@ -41,7 +46,7 @@ in {
     userEmail = whoami.emails.personal;
     userName = whoami.name;
 
-    signing = {
+    signing = lib.mkIf enableSigning {
       key = whoami.keys.pgp;
       signByDefault = true;
     };
