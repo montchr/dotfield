@@ -8,6 +8,11 @@
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (lib.our) whoami;
+
+  enableSigning =
+    config.programs.gpg.enable
+    && config.services.gpg-agent.enable
+    && "" != whoami.keys.pgp;
 in {
   home.packages = with pkgs;
     [
@@ -24,10 +29,10 @@ in {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
-    userEmail = whoami.emails.personal;
-    userName = whoami.name;
+    userEmail = config.accounts.email.accounts.personal.userName;
+    userName = config.;
 
-    signing = {
+    signing = lib.mkIf enableSigning {
       key = whoami.keys.pgp;
       signByDefault = true;
     };
@@ -81,9 +86,9 @@ in {
 
     extraConfig = lib.mkMerge [
       {
-        github.user = whoami.usernames.github;
-        gitlab.user = whoami.usernames.gitlab;
-        sourcehut.user = whoami.usernames.sourcehut;
+        github.user = "montchr";
+        gitlab.user = "montchr";
+        sourcehut.user = "montchr";
 
         init.defaultBranch = "main";
 

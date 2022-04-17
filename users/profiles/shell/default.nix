@@ -70,7 +70,7 @@ in {
   home.sessionVariables = {
     PATH = ["$XDG_BIN_HOME" "$PATH"];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
-    COMPOSER_HOME = "$XDG_STATE_HOME/composer";
+
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     Z_DATA = "$XDG_DATA_HOME/z";

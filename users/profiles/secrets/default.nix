@@ -18,7 +18,7 @@ in {
 
   home.sessionVariables.AGENIX_ROOT = dotfieldPath;
 
-  programs.password-store = {
+  programs.password-store = lib.mkIf config.programs.gpg.enable {
     enable = true;
     package = pkgs.pass.withExtensions (exts:
       with exts; [

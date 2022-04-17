@@ -11,7 +11,7 @@
   gmailAccount = {
     name,
     domain,
-    realName ? whoami.name,
+    realName ? "chris montgomery",
     username ? "chris",
     ...
   }: let
