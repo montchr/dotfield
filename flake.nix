@@ -287,7 +287,7 @@
         };
       };
 
-      # homeConfigurations = digga.lib.mkHomeConfigurations
-      #   (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      homeConfigurations = digga.lib.mkHomeConfigurations
+        (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
     };
 }
