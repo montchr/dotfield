@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
 in lib.mkIf ("" != pgpPublicKey) {
   home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
@@ -22,7 +21,7 @@ in lib.mkIf ("" != pgpPublicKey) {
     enable = true;
     # Note that this depends on our fork of the gpg-agent hm module.
     pinentryPackage =
-      if isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then pkgs.pinentry_mac
       else pkgs.pinentry;
     enableScDaemon = true;

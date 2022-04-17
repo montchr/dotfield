@@ -6,7 +6,6 @@
   ...
 }: let
   inherit (lib) getAttr attrNames;
-  inherit (pkgs.stdenv.targetPlatform) isDarwin;
   inherit (config.lib.dotfield.whoami) fullName pgpPublicKey;
 
   enableSigning =
@@ -134,7 +133,7 @@ in {
         ##: }}
       }
 
-      (lib.mkIf isDarwin {
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
         # TODO: still necessary?
         credential.helper = "osxkeychain";
       })
