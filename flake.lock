@@ -173,11 +173,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1649821489,
-        "narHash": "sha256-iGNRf1VRivFqs62h6bnZgLG9YPYI3F2gS+XxTGGZ144=",
+        "lastModified": 1650204028,
+        "narHash": "sha256-Qid4ocR6iNiJJCaj7fekWKPf0b02/1nLA6Em15/1cqM=",
         "owner": "divnix",
         "repo": "digga",
-        "rev": "7fc4ac873c3ce941f75e581f1f5dc4665385b820",
+        "rev": "cc975534e9fd9c2f80aa8697dc6ce04020e2b5e7",
         "type": "github"
       },
       "original": {
@@ -403,11 +403,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1649994599,
-        "narHash": "sha256-6D7uFPvOdm1f8FrmT46t4OWo6yXV9XGuGLyfgkY86bw=",
+        "lastModified": 1650203515,
+        "narHash": "sha256-byAm6Jk9iVzdDCLGcnDzQBe6TU3YQaw5Zwg9LzhyaKU=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "9aa788a85731a6ff7f382e6af62710eb3db667bf",
+        "rev": "5ebf6de96f27bcd05ffae24e63597c0fa68fec11",
         "type": "github"
       },
       "original": {
