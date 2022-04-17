@@ -3,10 +3,7 @@ moduleArgs @ {
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) optionals;
-  inherit (pkgs.lib.our.whoami) name email website;
-in {
+}: {
   home.packages = with pkgs; [
     nodejs-16_x
     (yarn.override {nodejs = nodejs-16_x;})
@@ -42,11 +39,8 @@ in {
   # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
   # https://nixos.org/manual/nix/stable/#idm140737322046656
   xdg.configFile."npm/npmrc".text = ''
-    ${optionals (email != "") "email=${email}"}
-    init-license=MIT
-    ${optionals (email != "") "init-author-email=${email}"}
-    ${optionals (name != "") "init-author-name=${name}"}
-    ${optionals (website != "") "init-author-url=${website}"}
+    email=chris@cdom.io
+    init-author-name="Chris Montgomery"
     init-version=0.0.1
     cache=''${XDG_CACHE_HOME}/npm
     tmp=''${XDG_RUNTIME_DIR}/npm

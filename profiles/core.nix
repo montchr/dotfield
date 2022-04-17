@@ -28,7 +28,7 @@ in {
     # }}
   };
 
-  time.timeZone = pkgs.lib.our.whoami.timezone;
+  time.timeZone = "America/New_York";
 
   environment.variables = {
     # `$DOTFIELD_DIR` must point to its absolute path on the system -- not to

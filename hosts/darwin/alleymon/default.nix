@@ -15,11 +15,11 @@ in {
     ++ work;
 
   home-manager.users.montchr = {
-    config,
-    suites,
+    hmConfig,
+    hmSuites,
     ...
   }: {
-    imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
+    imports = with hmSuites; [hmUsers.xtallos] ++ darwin ++ gui;
 
     accounts.email.accounts.work.primary = true;
     accounts.email.accounts.personal.primary = false;
@@ -35,7 +35,7 @@ in {
       {
         condition = "gitdir:~/broadway/**";
         contents = {
-          user.email = pkgs.lib.our.whoami.emails.work;
+          user.email = hmConfig.accounts.email.accounts.work.userName;
         };
       }
     ];
