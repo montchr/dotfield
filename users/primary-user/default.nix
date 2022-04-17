@@ -38,11 +38,6 @@ in {
     sourcehut = "montchr";
   };
 
-  my.keys.ssh = {
-    primary = import ./ssh-primary-key.nix;
-    identities = import ./ssh-identities.nix;
-  };
-
   my.hm.home.sessionVariables = {
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.

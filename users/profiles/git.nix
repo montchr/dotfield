@@ -7,12 +7,12 @@
 }: let
   inherit (lib) getAttr attrNames;
   inherit (pkgs.stdenv.targetPlatform) isDarwin;
-  inherit (lib.our) whoami;
+  inherit (config.lib.dotfield.whoami) fullName pgpPublicKey;
 
   enableSigning =
     config.programs.gpg.enable
     && config.services.gpg-agent.enable
-    && "" != whoami.keys.pgp;
+    && "" != pgpPublicKey;
 in {
   home.packages = with pkgs;
     [
@@ -30,10 +30,10 @@ in {
     package = pkgs.gitAndTools.gitFull;
 
     userEmail = config.accounts.email.accounts.personal.userName;
-    userName = config.;
+    userName = fullName;
 
     signing = lib.mkIf enableSigning {
-      key = whoami.keys.pgp;
+      key = pgpPublicKey;
       signByDefault = true;
     };
 
@@ -135,6 +135,7 @@ in {
       }
 
       (lib.mkIf isDarwin {
+        # TODO: still necessary?
         credential.helper = "osxkeychain";
       })
     ];

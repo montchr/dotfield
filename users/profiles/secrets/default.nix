@@ -4,12 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our) dotfieldPath whoami;
-
-  passVars = {
-    PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
-    PASSWORD_STORE_KEY = "${whoami.keys.pgp} 0xF0B8FB42A7498482";
-  };
+  inherit (pkgs.lib.our) dotfieldPath;
+  inherit (config.lib.dotfield.whoami) pgpPublicKey;
 in {
   home.packages = with pkgs; [
     yubikey-manager
@@ -26,6 +22,9 @@ in {
         pass-otp # https://github.com/tadfisher/pass-otp
         pass-update # https://github.com/roddhjav/pass-update
       ]);
-    settings = passVars;
+    settings = {
+      PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
+      PASSWORD_STORE_KEY = "${pgpPublicKey} 0xF0B8FB42A7498482";
+    };
   };
 }

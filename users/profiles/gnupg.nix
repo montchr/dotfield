@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  key = pkgs.lib.our.whoami.keys.pgp;
-in lib.mkIf ("" != key) {
-  home.sessionVariables.DOTFIELD_PGP_KEY = key;
+  inherit (config.lib.dotfield.whoami) pgpPublicKey;
+in lib.mkIf ("" != pgpPublicKey) {
+  home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
 
   home.packages = with pkgs; [
     gnupg

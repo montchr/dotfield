@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our) whoami;
-
   mailDir = "${config.home.homeDirectory}/Mail";
 
   gmailAccount = {
