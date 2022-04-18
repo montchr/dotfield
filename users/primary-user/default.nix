@@ -24,6 +24,7 @@ in {
       packages = import ./package-list.nix {inherit pkgs;};
     }
     // (lib.optionalAttrs isLinux {
+      # TODO: this SHOULD exist in nix-darwin! why doesn't it?
       extraGroups = ["wheel"];
       isNormalUser = true;
       home = "/home/${name}";

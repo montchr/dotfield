@@ -230,6 +230,7 @@
         imports = [(digga.lib.importHosts ./hosts/darwin)];
         hosts = {
           alleymon = {};
+          macOS = {};
           ci-darwin = {};
         };
       };
