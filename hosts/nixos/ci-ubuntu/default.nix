@@ -5,9 +5,7 @@
   suites,
   ...
 }: {
-  imports = with suites; minimal;
-
-  my.username = "runner";
+  imports = suites.minimal;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -5,6 +5,8 @@
   inputs,
   ...
 }: let
+  inherit (lib.dotfield.whoami) githubUserName;
+
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
@@ -70,6 +72,12 @@ in {
   home.sessionVariables = {
     PATH = ["$XDG_BIN_HOME" "$PATH"];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
+
+    # Default is "1". But when typeset in PragmataPro that leaves no space
+    # between the icon and its filename.
+    EXA_ICON_SPACING = "2";
+
+    Z_OWNER = config.home.username;
 
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     WGETRC = "$XDG_CONFIG_HOME/wgetrc";

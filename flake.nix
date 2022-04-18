@@ -145,7 +145,6 @@
             ];
             personal = [
               secrets
-              users.primary-user
             ];
           };
         };
@@ -198,7 +197,6 @@
               ];
             personal = [
               secrets
-              users.primary-user
             ];
             work =
               base
@@ -248,6 +246,7 @@
               bat
               direnv
               git
+              misc
               ranger
               shell
               tealdeer

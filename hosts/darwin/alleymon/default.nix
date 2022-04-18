@@ -6,20 +6,24 @@
   profiles,
   hmUsers,
   ...
-}: let
-  inherit (config) my;
-in {
+}: {
   imports = with suites;
     gui
     ++ personal
-    ++ work;
+    ++ work
+    ++ (with profiles; [
+      users.montchr
+    ]);
 
   home-manager.users.montchr = {
     config,
     suites,
     ...
   }: {
-    imports = with suites; [hmUsers.xtallos] ++ darwin ++ gui;
+    imports = with suites;
+      [hmUsers.xtallos]
+      ++ darwin
+      ++ gui;
 
     accounts.email.accounts.work.primary = true;
     accounts.email.accounts.personal.primary = false;
@@ -55,11 +59,6 @@ in {
     "USB 10/100/1000 LAN"
     "Wi-Fi"
   ];
-
-  my = {
-    username = "montchr";
-    website = "https://alley.co/";
-  };
 
   environment.variables = {
     PATH = ["$HOME/broadway/bin" "$PATH"];

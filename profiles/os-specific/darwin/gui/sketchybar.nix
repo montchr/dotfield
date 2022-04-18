@@ -13,5 +13,5 @@ in {
   # The system menu bar must be hidden when using a custom bar.
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
-  my.hm.xdg.configFile."sketchybar".source = "${pkgs.dotfield-config}/sketchybar";
+  # my.hm.xdg.configFile."sketchybar".source = "${pkgs.dotfield-config}/sketchybar";
 }

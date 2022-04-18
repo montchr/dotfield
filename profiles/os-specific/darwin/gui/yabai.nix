@@ -155,7 +155,7 @@
   # Get the store path to a yabai script by shortname.
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
 in {
-  my.user.packages =
+  environment.systemPackages =
     map
     (key: builtins.getAttr key scripts)
     (builtins.attrNames scripts);
@@ -164,10 +164,11 @@ in {
     YABAI_PADDING_DEFAULT = defaults.padding;
   };
 
-  launchd.user.agents.yabai.serviceConfig = {
-    StandardOutPath = "${config.my.xdg.cache}/yabai.out.log";
-    StandardErrorPath = "${config.my.xdg.cache}/yabai.err.log";
-  };
+  # FIXME: scoping these to a user path isn't possible without assumptions about the username
+  # launchd.user.agents.yabai.serviceConfig = {
+  #   StandardOutPath = "${config.my.xdg.cache}/yabai.out.log";
+  #   StandardErrorPath = "${config.my.xdg.cache}/yabai.err.log";
+  # };
 
   services.yabai = {
     enable = true;

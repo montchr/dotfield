@@ -6,24 +6,16 @@
   profiles,
   hmUsers,
   ...
-}: let
-  inherit (config) my;
-in {
+}: {
   # Note that these are system-level suites, not hm suites.
   imports = with suites;
     gui
     ++ personal
-    ++ (with profiles; []);
+    ++ (with profiles; [
+      users.xtallos
+    ]);
 
-  my.username = "xtallos";
-
-  home-manager.users.xtallos = {
-    config,
-    suites,
-    ...
-  }: {
-    imports = with suites; [hmUsers.xtallos] ++ gui;
+  home-manager.users.xtallos = {suites, ...}: {
+    imports = [hmUsers.xtallos] ++ suites.gui;
   };
-
-  nix.buildCores = 0;
 }

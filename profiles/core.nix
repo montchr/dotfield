@@ -74,6 +74,11 @@ in {
     promptInit = "";
   };
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # TODO: add this via gitignore.nix or something to avoid IFD
     (writeScriptBin "dotfield"
