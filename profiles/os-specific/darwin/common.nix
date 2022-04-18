@@ -21,8 +21,8 @@ in {
 
   environment.darwinConfig = "${dotfieldPath}/lib/compat/darwin";
 
-  # Administrative users on Darwin are part of this group, not the `wheel` group.
-  nix.trustedUsers = ["@admin"];
+  # Administrative users on Darwin systems are part of the admin group by default.
+  nix.trustedUsers = ["@admin" "@wheel"];
 
   nix.useSandbox = true;
 
