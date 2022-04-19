@@ -234,7 +234,10 @@
       };
 
       home = {
-        imports = [(digga.lib.importExportableModules ./users/hm/modules)];
+        imports = [
+          (digga.lib.importExportableModules ./users/modules)
+          (digga.lib.importExportableModules ./users/hm/modules)
+        ];
         modules = [
           nix-colors.homeManagerModule
           ({suites, ...}: {imports = suites.base;})
