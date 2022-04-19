@@ -94,6 +94,7 @@
         nixos-unstable = {};
       };
 
+      # TODO: use `nixlib`?
       lib = import ./lib {lib = digga.lib // nixos-unstable.lib;};
 
       sharedOverlays = [
@@ -119,6 +120,31 @@
       ];
 
       nixos = {
+        hostDefaults = {
+          system = "x86_64-linux";
+          channelName = "nixos-stable";
+          imports = [
+            (digga.lib.importExportableModules ./modules)
+            (digga.lib.importExportableModules ./users/modules)
+          ];
+          modules = [
+            {lib.our = self.lib;}
+            ({suites, ...}: {imports = suites.base;})
+            digga.nixosModules.bootstrapIso
+            digga.nixosModules.nixConfig
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.age
+          ];
+        };
+
+        imports = [(digga.lib.importHosts ./hosts/nixos)];
+        hosts = {
+          HodgePodge = {};
+          onceler = {};
+          seadoom = {};
+          ci-ubuntu = {};
+        };
+
         importables = rec {
           profiles =
             digga.lib.rakeLeaves ./profiles
@@ -148,10 +174,12 @@
             ];
           };
         };
+      };
 
+      darwin = {
         hostDefaults = {
-          system = "x86_64-linux";
-          channelName = "nixos-stable";
+          system = "x86_64-darwin";
+          channelName = "nixpkgs-darwin-stable";
           imports = [
             (digga.lib.importExportableModules ./modules)
             (digga.lib.importExportableModules ./users/modules)
@@ -159,23 +187,20 @@
           modules = [
             {lib.our = self.lib;}
             ({suites, ...}: {imports = suites.base;})
-            digga.nixosModules.bootstrapIso
-            digga.nixosModules.nixConfig
-            home-manager.nixosModules.home-manager
+            home-manager.darwinModules.home-manager
+            # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
+            nix-colors.homeManagerModule
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/nixos)];
+        imports = [(digga.lib.importHosts ./hosts/darwin)];
         hosts = {
-          HodgePodge = {};
-          onceler = {};
-          seadoom = {};
-          ci-ubuntu = {};
+          alleymon = {};
+          macOS = {};
+          ci-darwin = {};
         };
-      };
 
-      darwin = {
         importables = rec {
           profiles =
             digga.lib.rakeLeaves ./profiles
@@ -206,30 +231,6 @@
                 virtualisation.virtualbox
               ];
           };
-        };
-
-        hostDefaults = {
-          system = "x86_64-darwin";
-          channelName = "nixpkgs-darwin-stable";
-          imports = [
-            (digga.lib.importExportableModules ./modules)
-            (digga.lib.importExportableModules ./users/modules)
-          ];
-          modules = [
-            {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.base;})
-            home-manager.darwinModules.home-manager
-            # `nixosModules` is correct, even for darwin
-            agenix.nixosModules.age
-            nix-colors.homeManagerModule
-          ];
-        };
-
-        imports = [(digga.lib.importHosts ./hosts/darwin)];
-        hosts = {
-          alleymon = {};
-          macOS = {};
-          ci-darwin = {};
         };
       };
 
@@ -292,7 +293,10 @@
 
       devshell = ./shell;
 
-      homeConfigurations = digga.lib.mkHomeConfigurations
+      homeConfigurations =
+        digga.lib.mkHomeConfigurations
         (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+
+      # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
     };
 }

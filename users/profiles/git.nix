@@ -13,16 +13,15 @@
     && config.services.gpg-agent.enable
     && "" != pgpPublicKey;
 in {
-  home.packages = with pkgs;
-    [
-      ediff-tool
-      exiftool # EXIF diff handler
-      git-cliff
-      git-submodule-rewrite
-      gitAndTools.hub
-      gitAndTools.gh
-      gitAndTools.tig
-    ];
+  home.packages = with pkgs; [
+    ediff-tool
+    exiftool # EXIF diff handler
+    git-cliff
+    git-submodule-rewrite
+    gitAndTools.hub
+    gitAndTools.gh
+    gitAndTools.tig
+  ];
 
   programs.git = {
     enable = true;

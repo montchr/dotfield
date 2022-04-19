@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   lib.dotfield.whoami = rec {
     firstName = "Chris";
     lastName = "Montgomery";

@@ -23,7 +23,6 @@ final: prev: {
   #   '';
   # };
 
-
   ## third-party scripts =======================================================
 
   ediff-tool = final.stdenv.mkDerivation rec {
@@ -43,7 +42,6 @@ final: prev: {
       cp bin/${name} $out/bin/${name}
     '';
   };
-
 
   ## fonts =====================================================================
 

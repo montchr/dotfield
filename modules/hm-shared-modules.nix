@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   home-manager.sharedModules = [
     {
       # TODO: is this the right place to define this?

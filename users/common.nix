@@ -1,8 +1,9 @@
-username:
-
-{config, lib, pkgs, ...}:
-
-let
+username: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   sessionUser = builtins.getEnv "USER";
@@ -10,13 +11,14 @@ let
     if builtins.elem sessionUser ["" "root"]
     then username
     else sessionUser;
-in
-
-{
+in {
   users.users.${name} = lib.mkMerge [
     {
       shell = pkgs.zsh;
-      home = if isDarwin then "/Users/${name}" else "/home/${name}";
+      home =
+        if isDarwin
+        then "/Users/${name}"
+        else "/home/${name}";
       # TODO: this SHOULD exist in nix-darwin, but it doesn't yet
       # extraGroups = ["wheel"];
     }
