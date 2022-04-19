@@ -18,6 +18,11 @@
     du-dust
     getopt
     grex # Generate regexps from user-provided test cases
+
+    # Modern, user-friendly command-line HTTP client for the API era.
+    # https://httpie.io/docs/cli
+    httpie
+
     hyperfine
     lnav # System Log file navigator
     mcfly
