@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) getAttr attrNames;
-  inherit (config.lib.dotfield.whoami) fullName pgpPublicKey;
+  inherit (config.lib.dotfield.whoami) email fullName pgpPublicKey;
 
   enableSigning =
     config.programs.gpg.enable
@@ -28,7 +28,7 @@ in {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
-    userEmail = config.accounts.email.accounts.personal.userName;
+    userEmail = email;
     userName = fullName;
 
     signing = lib.mkIf enableSigning {
