@@ -2,11 +2,7 @@ final: prev: {
   # prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
   yabai = final.callPackage (import ./yabai.nix) {};
 
-  emacs29Darwin = (prev.emacsPackagesFor prev.emacsPgtkGcc).emacsWithPackages (epkgs: [
-    epkgs.vterm
-  ]);
-
-  emacsGcc = prev.emacsGcc.overrideAttrs (o: let
+  emacsNativeComp = prev.emacsNativeComp.overrideAttrs (o: let
     emacsPlus = final.fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
