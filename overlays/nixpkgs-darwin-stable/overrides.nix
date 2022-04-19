@@ -1,6 +1,6 @@
 channels: final: prev: {
   inherit
-    (channels.nixpkgs-unstable)
+    (channels.nixos-unstable)
     alejandra
     awscli2
     direnv

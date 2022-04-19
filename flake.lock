@@ -399,7 +399,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixos-unstable"
         ]
       },
       "locked": {
@@ -500,6 +500,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable": {
+      "locked": {
+        "lastModified": 1650161686,
+        "narHash": "sha256-70ZWAlOQ9nAZ08OU6WY7n4Ij2kOO199dLfNlvO/+pf8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1ffba9f2f683063c2b14c9f4d12c55ad5f4ed887",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1640418986,
@@ -564,22 +580,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable_2": {
-      "locked": {
-        "lastModified": 1650194139,
-        "narHash": "sha256-kurZsqeOw5fpqA/Ig+8tHvbjwzs5P9AE6WUKOX1m6qM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "bd4dffcdb7c577d74745bd1eff6230172bd176d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1642190797,
@@ -615,7 +615,7 @@
       "inputs": {
         "flake-compat": "flake-compat_4",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixos-unstable"
         ],
         "utils": [
           "digga",
@@ -660,7 +660,7 @@
         "flake-compat": "flake-compat_5",
         "flake-utils": "flake-utils_4",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixos-unstable"
         ],
         "plist-source": "plist-source"
       },
@@ -712,12 +712,12 @@
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
         "nixos-stable": "nixos-stable",
+        "nixos-unstable": "nixos-unstable",
         "nixpkgs": [
           "nixos-stable"
         ],
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
         "nixpkgs-trunk": "nixpkgs-trunk",
-        "nixpkgs-unstable": "nixpkgs-unstable_2",
         "nur": "nur",
         "phps": "phps",
         "prefmanager": "prefmanager",

@@ -4,15 +4,15 @@
   inputs = {
     # Channels
     nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management.
     darwin.url = "github:montchr/nix-darwin/trunk";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     home-manager.url = "github:montchr/home-manager/trunk";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Flake utilities.
     digga.url = "github:divnix/digga/darwin-support";
@@ -39,12 +39,12 @@
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     phps.url = "github:fossar/nix-phps";
     phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
-    phps.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    phps.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
     prefmanager.url = "github:malob/prefmanager";
-    prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    prefmanager.inputs.nixpkgs.follows = "nixos-unstable";
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
@@ -68,12 +68,12 @@
     nix-colors,
     nixos-stable,
     nixpkgs,
-    nixpkgs-unstable,
+    nixos-unstable,
     nur,
     phps,
     ...
   } @ inputs: let
-    nixlib = nixpkgs-unstable.lib;
+    nixlib = nixos-unstable.lib;
   in
     digga.lib.mkFlake {
       inherit self inputs;
@@ -91,10 +91,10 @@
             ./pkgs/darwin
           ];
         };
-        nixpkgs-unstable = {};
+        nixos-unstable = {};
       };
 
-      lib = import ./lib {lib = digga.lib // nixpkgs-unstable.lib;};
+      lib = import ./lib {lib = digga.lib // nixos-unstable.lib;};
 
       sharedOverlays = [
         (final: prev: {
