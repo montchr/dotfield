@@ -5,7 +5,7 @@
   ...
 }: {
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     fonts = with pkgs; [
       b612
       barlow
