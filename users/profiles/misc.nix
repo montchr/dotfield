@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  lib.dotfield.whoami = rec {
+    firstName = "Chris";
+    lastName = "Montgomery";
+    fullName = "${firstName} ${lastName}";
+    email = "chris@cdom.io";
+    githubUserName = "montchr";
+    pgpPublicKey = "0x135EEDD0F71934F3";
+  };
+
   home.packages = with pkgs; [
     act # Run GitHub Actions locally
     asciinema

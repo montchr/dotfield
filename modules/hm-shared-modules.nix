@@ -1,15 +1,5 @@
-{config, ...}: {
+{ config, ... }: {
   home-manager.sharedModules = [
-    {
-      lib.dotfield.whoami = rec {
-        firstName = "Chris";
-        lastName = "Montgomery";
-        fullName = "${firstName} ${lastName}";
-        email = "chris@cdom.io";
-        githubUserName = "montchr";
-        pgpPublicKey = "0x135EEDD0F71934F3";
-      };
-    }
     {
       # TODO: is this the right place to define this?
       programs.home-manager.enable = true;
