@@ -8,12 +8,6 @@
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
 
-    # Environment/system management.
-    darwin.url = "github:montchr/nix-darwin/trunk";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-    home-manager.url = "github:montchr/home-manager/trunk";
-    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
-
     # Flake utilities.
     digga.url = "github:divnix/digga/darwin-support";
     digga.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +18,16 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+
+    # System management.
+    darwin.url = "github:montchr/nix-darwin/trunk";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
+    prefmanager.url = "github:malob/prefmanager";
+    prefmanager.inputs.nixpkgs.follows = "nixos-unstable";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixlib.follows = "nixlib";
+    nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
 
     # Sources management.
     nur.url = "github:nix-community/NUR";
@@ -42,10 +46,12 @@
     phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
     phps.inputs.nixpkgs.follows = "nixos-unstable";
 
+    # User environments.
+    home-manager.url = "github:montchr/home-manager/trunk";
+    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
+
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
-    prefmanager.url = "github:malob/prefmanager";
-    prefmanager.inputs.nixpkgs.follows = "nixos-unstable";
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
@@ -68,6 +74,8 @@
     home-manager,
     nixlib,
     nix-colors,
+    nixos-generators,
+    nixos-hardware,
     nixos-stable,
     nixpkgs,
     nixos-unstable,
