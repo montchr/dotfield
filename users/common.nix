@@ -25,6 +25,9 @@ in {
     (lib.optionalAttrs isLinux {
       extraGroups = ["wheel"];
       isNormalUser = true;
+      # FIXME: use different passwords! but be careful -- hashed passwords can fail (it's happened to me)
+      # https://github.com/NixOS/nixpkgs/issues/136104
+      hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
     })
   ];
 }
