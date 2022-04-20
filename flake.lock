@@ -484,6 +484,21 @@
         "type": "github"
       }
     },
+    "nixlib_2": {
+      "locked": {
+        "lastModified": 1650156377,
+        "narHash": "sha256-a5YlF/WX8psCigVPNXWwyq5poZdJfUSwzLM4qEvaGMg=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "26c5f0827224e4a01422d5c37c8021c2e5765611",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixos-stable": {
       "locked": {
         "lastModified": 1650359992,
@@ -711,6 +726,7 @@
         "gitignore": "gitignore",
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
+        "nixlib": "nixlib_2",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": [

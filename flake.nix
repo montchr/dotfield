@@ -19,6 +19,7 @@
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
+    nixlib.url = "github:nix-community/nixpkgs.lib";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -65,6 +66,7 @@
     emacs-overlay,
     gitignore,
     home-manager,
+    nixlib,
     nix-colors,
     nixos-stable,
     nixpkgs,
@@ -72,9 +74,7 @@
     nur,
     phps,
     ...
-  } @ inputs: let
-    nixlib = nixos-unstable.lib;
-  in
+  } @ inputs:
     digga.lib.mkFlake {
       inherit self inputs;
 
