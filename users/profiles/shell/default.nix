@@ -80,7 +80,6 @@ in {
     Z_OWNER = config.home.username;
 
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
-    WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     Z_DATA = "$XDG_DATA_HOME/z";
 
     FZF_DEFAULT_COMMAND = fzfDefaultCmd;
