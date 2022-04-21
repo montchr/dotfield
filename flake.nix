@@ -259,6 +259,7 @@
               direnv
               git
               misc
+              navi
               ranger
               shell
               tealdeer
