@@ -102,7 +102,6 @@
         nixos-unstable = {};
       };
 
-      # TODO: use `nixlib`?
       lib = import ./lib {lib = digga.lib // nixos-unstable.lib;};
 
       sharedOverlays = [
@@ -131,10 +130,7 @@
         hostDefaults = {
           system = "x86_64-linux";
           channelName = "nixos-stable";
-          imports = [
-            (digga.lib.importExportableModules ./modules)
-            (digga.lib.importExportableModules ./users/modules)
-          ];
+          imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             {lib.our = self.lib;}
             ({suites, ...}: {imports = suites.base;})
@@ -188,10 +184,7 @@
         hostDefaults = {
           system = "x86_64-darwin";
           channelName = "nixpkgs-darwin-stable";
-          imports = [
-            (digga.lib.importExportableModules ./modules)
-            (digga.lib.importExportableModules ./users/modules)
-          ];
+          imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             {lib.our = self.lib;}
             ({suites, ...}: {imports = suites.base;})
@@ -245,6 +238,7 @@
       home = {
         imports = [
           (digga.lib.importExportableModules ./users/modules)
+          # FIXME: move all modules out of this directory
           (digga.lib.importExportableModules ./users/hm/modules)
         ];
         modules = [
