@@ -1,10 +1,9 @@
-{
-  pkgs,
-  lib,
+moduleArgs @ {
   config,
+  lib,
+  pkgs,
   ...
-}: let
-in {
+}: {
   programs.ssh = {
     enable = true;
     hashKnownHosts = true;
@@ -32,7 +31,8 @@ in {
         forwardX11Trusted = false;
         identityFile = [
           "~/.ssh/id_ed25519_yubikey.pub"
-          # config.age.secrets."aws-cdom-default.pem".path
+          # TODO: only use this identity file for aws hosts
+          (moduleArgs.osConfig.age.secrets."aws-cdom-default.pem".path or "")
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];

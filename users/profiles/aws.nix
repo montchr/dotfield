@@ -15,9 +15,4 @@
     AWS_SHARED_CREDENTIALS_FILE = "${config.xdg.dataHome}/aws/shared-credentials";
     AWS_WEB_IDENTITY_TOKEN_FILE = "${config.xdg.dataHome}/aws/token";
   };
-
-  # age.secrets."aws-cdom-default.pem" = {
-  #   file = ./aws-cdom-default.pem.age;
-  #   owner = config.home.username;
-  # };
 }

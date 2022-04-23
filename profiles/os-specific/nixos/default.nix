@@ -17,9 +17,10 @@
   #};
 
   networking.wireless = {
-    # environmentFile = "/run/secrets/wireless.env";
+    # Defines environment variables for wireless network passkeys.
+    environmentFile = config.age.secrets."wireless.env".path;
     networks = {
-      # bortHole.psk = "@PSK_BORTHOLE@";
+      bortHole.psk = "@PSK_BORTHOLE@";
     };
   };
 }

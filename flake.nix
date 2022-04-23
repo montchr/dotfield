@@ -35,7 +35,7 @@
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
 
     # Secrets management.
-    agenix.url = "github:montchr/agenix/trunk";
+    agenix.url = "github:montchr/agenix/darwin-support";
     agenix.inputs.nixpkgs.follows = "nixos-stable";
     agenix-cli.url = "github:cole-h/agenix-cli";
 
