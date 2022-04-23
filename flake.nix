@@ -20,7 +20,7 @@
     };
 
     # System management.
-    darwin.url = "github:montchr/nix-darwin/trunk";
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixos-unstable";
