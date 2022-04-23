@@ -9,7 +9,6 @@
 # one idea for a workaround: a proxy config file could be written to the config
 # directory, containing only an import directive. but all that said, there's
 # probably a much simpler way.
-
 {
   config,
   lib,

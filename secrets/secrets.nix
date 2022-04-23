@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   machines = rec {
     # [WARNING] It appears that these Darwin keypairs have a tendency to change without warning...
     alleymonEd = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJsVn0I6Q0rL94W2V89efhUiffAeJfDtHYcW6czXcPkh";
     alleymonRsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDg+L0ma2MoSDA9c+ydaOn+is1UWaMvTJJSdEbTsJ0qn75JyNaVB3c2nIqbu3kTS18z6WDeGkAuMHVwJLZWiL+JKqQuAgvLm3pSH7Wmtfako5T3+3xcw6DKgteVFQC0819Xh4CaOCirDSHBdUk/dqZEi5HuYHxmLmd39crVqAV60csS1LXFNgmPF4QvLj0NUcXJyHEkfSgRHKWwZ2JywN5pURc6/7Vl7b/j+r2nvsWcP4yqtAYjSgnxO+H7QZWZ040eMFNqgcqP+LclI3l0jEMW/SC8ZlqvS9hiICXJ6YLQCZmbRfnFxO1IxZwu97892pV/9ZsdFEiLq/fT2f8rTVZLYe4xLIfSw7BNlV7K9VDyD6PLQ9blKlioser2UjTxB/FH1NdoD7YBDhcMiYg9CfVBM34Q98mB21OwysHHLF7ukZ4Mk5H64y2cuCWRG+ze4CPLu7gK0zTb32eZh9AmUqljZgPs3FL28BJAWwZii4jzV1Hd7KTZ25Pshrk1bCpfAI8=";
-    alleymon = [ alleymonEd alleymonRsa ];
+    alleymon = [alleymonEd alleymonRsa];
 
     hodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8uGFMeCGkqrGiJZU3oVP7h0Xq9jEdACINpjRHqi96r";
   };
@@ -15,17 +19,14 @@ let
   };
 
   allMachines = with machines;
-    alleymon ++ [ hodge ];
+    alleymon ++ [hodge];
   allTangibleMachines = with machines;
-    alleymon ++ [ hodge ];
+    alleymon ++ [hodge];
 
-  allUsers = with users;
-    [ cdom xtallos ];
-in
-
-{
+  allUsers = with users; [cdom xtallos];
+in {
   "aws-cdom-default.pem.age".publicKeys = allUsers;
   "espanso-personal.yml".publicKeys = allUsers;
-  "espanso-work.yml".publicKeys = machines.alleymon ++ [ users.cdom ];
+  "espanso-work.yml".publicKeys = machines.alleymon ++ [users.cdom];
   "wireless.env.age".publicKeys = allTangibleMachines;
 }

@@ -15,7 +15,8 @@
   # that's not a problem since we're only using darwin systems as a single
   # admin user. although the username may vary across systems, each "primary
   # user" will still be in the `admin` group.
-  dotfieldGroup = if isLinux
+  dotfieldGroup =
+    if isLinux
     then pkgs.lib.our.dotfield.group
     else "admin";
 
@@ -44,5 +45,4 @@ in {
     (mkEspansoMatchesSecret "personal")
     (mkEspansoMatchesSecret "work")
   ];
-
 }
