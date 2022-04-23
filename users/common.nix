@@ -19,11 +19,17 @@ in {
         if isDarwin
         then "/Users/${name}"
         else "/home/${name}";
-      # TODO: this SHOULD exist in nix-darwin, but it doesn't yet
-      # extraGroups = ["wheel"];
+      # FIXME: this option SHOULD exist in nix-darwin, but it doesn't yet
+      # extraGroups = [
+      #   pkgs.lib.our.dotfield.group
+      #   # "wheel"
+      # ];
     }
     (lib.optionalAttrs isLinux {
-      extraGroups = ["wheel"];
+      extraGroups = [
+        pkgs.lib.our.dotfield.group
+        "wheel"
+      ];
       isNormalUser = true;
       # FIXME: use different passwords! but be careful -- hashed passwords can fail (it's happened to me)
       # https://github.com/NixOS/nixpkgs/issues/136104
