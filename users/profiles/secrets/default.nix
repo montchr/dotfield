@@ -4,8 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our) dotfieldPath;
+  # inherit (pkgs.lib.our) dotfieldPath;
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
+
+  dotfieldPath = "${config.xdg.configHome}/dotfield";
 in {
   home.packages = with pkgs; [
     yubikey-manager
