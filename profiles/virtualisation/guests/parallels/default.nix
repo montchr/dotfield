@@ -14,7 +14,7 @@
 
   hardware.parallels = {
     enable = true;
-    package = (config.boot.kernelPackages.callPackage ../../pkgs/os-specific/linux/prl-tools/default.nix { });
+    package = (config.boot.kernelPackages.callPackage ./prl-tools.nix { });
   };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
