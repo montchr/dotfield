@@ -256,6 +256,7 @@
               navi
               ranger
               shell
+              ssh
               tealdeer
             ];
             dev = [
@@ -278,8 +279,7 @@
               suites.base
               ++ suites.dev
               ++ [gnupg mail secrets]
-              # FIXME: ssh profile is only here because it current depends on secrets
-              ++ [ssh];
+              ;
             virtualisation = [vagrant];
           };
         };
