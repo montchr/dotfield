@@ -26,9 +26,7 @@ let
 in {
   "wireless.env.age".publicKeys = allMachines ++ trustedUsers;
 
-  # FIXME: agenix runs with sudo privileges, not as any of these users! cannot decrypt with user keys only
-  # "aws/aws-cdom-default.pem.age".publicKeys = trustedUsers;
-  "aws/aws-cdom-default.pem.age".publicKeys = allMachines ++ trustedUsers;
+  "aws/aws-cdom-default.pem.age".publicKeys = trustedUsers;
 
   "espanso/personal.yml.age".publicKeys = allMachines ++ trustedUsers;
   "espanso/work.yml.age".publicKeys = [machines.alleymon] ++ trustedUsers;

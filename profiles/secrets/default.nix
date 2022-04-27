@@ -34,11 +34,6 @@ in {
 
   age.secrets = lib.mkMerge [
     {
-      "aws/aws-cdom-default.pem" = {
-        file = "${secretsDir}/aws/aws-cdom-default.pem.age";
-        group = dotfieldGroup;
-      };
-
       "wireless.env".file = "${secretsDir}/wireless.env.age";
     }
     (mkEspansoMatchesSecret "personal")

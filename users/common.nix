@@ -6,6 +6,8 @@ username: {
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
+  secretsDir = ../secrets;
+
   sessionUser = builtins.getEnv "USER";
   name =
     if builtins.elem sessionUser ["" "root"]
@@ -43,4 +45,10 @@ in {
   age.identityPaths = lib.mkBefore [
     "${sshHome}/id_ed25519"
   ];
+
+  age.secrets."aws/aws-cdom-default.pem" = {
+    file = "${secretsDir}/aws/aws-cdom-default.pem.age";
+    path = "${sshHome}/.ssh/aws-cdom-default.pem";
+    owner = name;
+  };
 }
