@@ -11,6 +11,9 @@ username: {
     if builtins.elem sessionUser ["" "root"]
     then username
     else sessionUser;
+
+  userCfg = config.users.users.${name};
+  sshHome = "${userCfg.home}/.ssh";
 in {
   users.users.${name} = lib.mkMerge [
     {
@@ -35,5 +38,9 @@ in {
       # https://github.com/NixOS/nixpkgs/issues/136104
       hashedPassword = "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1";
     })
+  ];
+
+  age.identityPaths = lib.mkBefore [
+    "${sshHome}/id_ed25519"
   ];
 }
