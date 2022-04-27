@@ -7,9 +7,7 @@
        user-mail-address "chris@cdom.io")
 
 (setq! doom-font (font-spec :family "PragmataPro Liga" :size 16)
-       doom-big-font (font-spec :family "PragmataPro Liga" :size 28)
-       doom-unicode-font (font-spec :family "PragmataPro Liga")
-       doom-variable-pitch-font (font-spec :family "PragmataPro Liga"))
+       doom-variable-pitch-font (font-spec :family "Barlow" :size 18))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
