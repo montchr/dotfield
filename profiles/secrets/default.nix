@@ -7,7 +7,6 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux system;
 
-  agenix-cli = inputs.agenix-cli.packages.${system}.agenix-cli;
   cfg = config.age;
   secretsDir = ../../secrets;
 
@@ -21,7 +20,7 @@
     else "admin";
 
   mkEspansoMatchesSecret = name: {
-    "espanso-${name}.yml" = {
+    "espanso/${name}.yml" = {
       file = "${secretsDir}/espanso/${name}.yml.age";
       group = dotfieldGroup;
       path = "${cfg.secretsDir}/espanso/${name}.yml";
@@ -29,13 +28,13 @@
   };
 in {
   environment.systemPackages = with pkgs; [
-    agenix-cli
+    agenix
     rage
   ];
 
   age.secrets = lib.mkMerge [
     {
-      "aws-cdom-default.pem" = {
+      "aws/aws-cdom-default.pem" = {
         file = "${secretsDir}/aws/aws-cdom-default.pem.age";
         group = dotfieldGroup;
       };

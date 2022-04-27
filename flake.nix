@@ -36,8 +36,7 @@
 
     # Secrets management.
     agenix.url = "github:montchr/agenix/darwin-support";
-    agenix.inputs.nixpkgs.follows = "nixos-stable";
-    agenix-cli.url = "github:cole-h/agenix-cli";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Development tools.
     emacs-overlay.url = "github:nix-community/emacs-overlay";

@@ -10,5 +10,6 @@ channels: final: prev: {
     neovim-unwrapped
     nix
     nix-direnv
+    rage
     ;
 }

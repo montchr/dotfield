@@ -32,7 +32,7 @@ moduleArgs @ {
         identityFile = [
           "~/.ssh/id_ed25519_yubikey.pub"
           # TODO: only use this identity file for aws hosts
-          (moduleArgs.osConfig.age.secrets."aws-cdom-default.pem".path or "")
+          # moduleArgs.osConfig.age.secrets."aws/aws-cdom-default.pem".path
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];
