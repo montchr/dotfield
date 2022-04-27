@@ -24,8 +24,6 @@ in {
   # Administrative users on Darwin systems are part of the admin group by default.
   nix.trustedUsers = ["@admin" "@wheel"];
 
-  nix.useSandbox = true;
-
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
     # => https://github.com/rgcr/m-cli
