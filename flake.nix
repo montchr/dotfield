@@ -262,10 +262,10 @@
               vim
             ];
             gui = [
+              colors
               espanso
               firefox
-              graphical.colors
-              hardware.keyboard
+              keyboard
               kitty
             ];
             personal =

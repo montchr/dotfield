@@ -9,6 +9,6 @@
     services.skhd.enable = true;
     services.skhd.configPath = ./skhdrc;
 
-    xdg.configFile."karabiner/karabiner.json".source = "${pkgs.dotfield-config}/karabiner/karabiner.json";
+    xdg.configFile."karabiner/karabiner.json".source = ./karabiner.json;
   })
 ]
