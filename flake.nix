@@ -265,10 +265,8 @@
               espanso
               firefox
               graphical.colors
+              hardware.keyboard
               kitty
-            ];
-            darwin = [
-              os-specific.darwin.keyboard
             ];
             personal =
               suites.base

@@ -22,7 +22,6 @@
   }: {
     imports = with suites;
       [hmUsers.xtallos]
-      ++ darwin
       ++ gui;
 
     accounts.email.accounts.work.primary = true;

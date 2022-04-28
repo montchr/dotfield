@@ -21,11 +21,29 @@ in {
       description = "Package providing skhd.";
     };
 
-    services.skhd.config = mkOption {
+    services.skhd.configPath = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+        path to a skhd configuration file. This is written to
+        <filename>$XDG_CONFIG_HOME/skhd/skhdrc</filename>. If defined, this
+        will override <option>services.skhd.keybindings</option>.
+      '';
+    };
+
+    services.skhd.keybindings = mkOption {
       type = types.lines;
       default = "";
-      example = "alt + shift - r   :   yabai quit";
-      description = "Contents of <filename>skhdrc</filename>.";
+      example = ''
+        alt + shift - r   :   yabai quit
+      '';
+      description = ''
+        skhd keybindings configuration to be written
+        to <filename>$XDG_CONFIG_HOME/skhd/skhdrc</filename>.
+
+        If <option>services.skhd.configPath</option> is defined and non-null,
+        that will take precedence over this option.
+      '';
     };
   };
 
@@ -40,12 +58,12 @@ in {
     }
 
     (mkIf cfg.enable {
-      # skhd must be available to shells for keypress simulation functionality,
-      # e.g. exiting out of modes after running a script.
+      # the skhd binary should be available to shells for keypress simulation
+      # functionality, e.g. exiting out of modes after running a script.
       home.packages = [cfg.package];
 
       xdg.configFile."skhd/skhdrc" = {
-        text = cfg.config;
+        source = if cfg.configPath != null then cfg.configPath else cfg.keybindings;
         onChange = "${cfg.package}/bin/skhd -r";
       };
 
@@ -53,9 +71,11 @@ in {
         enable = lib.mkDefault true;
         # path = [ config.environment.systemPath ];
         config = {
-          ProgramArguments =
-            ["${cfg.package}/bin/skhd"]
-            ++ optionals (cfg.config != "") ["-c" "${config.xdg.configHome}/skhd/skhdrc"];
+          ProgramArguments = [
+            "${cfg.package}/bin/skhd"
+            "-c"
+            "${config.xdg.configHome}/skhd/skhdrc"
+          ];
           KeepAlive = true;
           ProcessType = "Interactive";
 
