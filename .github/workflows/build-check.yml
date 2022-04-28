@@ -25,6 +25,6 @@ jobs:
           name: dotfield
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          extraPullNames: dotfield,nix-community,nrdxp,emacs
+          extraPullNames: dotfield,nix-community,nrdxp
       - run: nix -Lv flake check --show-trace
       - run: nix -Lv build ".#${{ matrix.type }}Configurations.${{ matrix.hostname }}.config.system.build.toplevel" --show-trace
