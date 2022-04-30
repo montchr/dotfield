@@ -5,13 +5,13 @@
   pkgs,
   ...
 }: let
-  # shellCfg = config.shell;
-  # mkPlugins = plugins: (map
-  #   (name: {
-  #     inherit name;
-  #     inherit (pkgs.sources."fish-${name}") src;
-  #   })
-  #   plugins);
+  shellCfg = config.shell;
+  mkPlugins = plugins: (map
+    (name: {
+      inherit name;
+      inherit (pkgs.sources."fish-${name}") src;
+    })
+    plugins);
 in {
   # imports = [
   #   ../shell

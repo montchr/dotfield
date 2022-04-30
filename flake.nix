@@ -250,7 +250,7 @@
               misc
               navi
               ranger
-              shell
+              shells.zsh
               ssh
               tealdeer
             ];

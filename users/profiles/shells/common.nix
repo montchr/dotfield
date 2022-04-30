@@ -20,7 +20,6 @@ in {
   ];
 
   home.packages = with pkgs; [
-    zsh
     zoxide
   ];
 
@@ -35,37 +34,6 @@ in {
 
     sessionVariables = {
       BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
-    };
-  };
-
-  programs.zsh = {
-    inherit shellAliases;
-
-    enable = true;
-    dotDir = ".config/zsh";
-    history.path = "${config.xdg.dataHome}/zsh/history";
-    history.extended = true;
-    history.ignoreDups = true;
-
-    # These are handled by z4h.
-    enableCompletion = false;
-    enableSyntaxHighlighting = false;
-
-    envExtraFirst = ''
-      ${builtins.readFile ./env-z4h.zsh}
-    '';
-    envExtra = ''
-      ${builtins.readFile ./env-init.sh}
-    '';
-
-    initExtraFirst = ''
-      # Load our custom z4h config directly
-      source $DOTFIELD_DIR/config/zsh/main.zsh
-    '';
-
-    sessionVariables = {
-      ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
-      ZSH_DATA = "${config.xdg.dataHome}/zsh";
     };
   };
 
