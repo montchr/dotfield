@@ -121,8 +121,11 @@ in {
     nix-index
     nix-tree # Interactively browse dependency graphs of Nix derivations.
     nmap
-    # TODO: broken as of 2022-04-04
-    # nvfetcher
+
+    # Generate nix sources expression for the latest version of packages
+    # https://github.com/berberman/nvfetcher
+    nvfetcher-bin
+
     openssh
     openssl
 
