@@ -22,7 +22,6 @@ let
     hodge
     parrothelles
   ];
-
 in {
   "wireless.env.age".publicKeys = allMachines ++ trustedUsers;
 

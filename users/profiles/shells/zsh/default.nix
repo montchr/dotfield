@@ -1,10 +1,13 @@
-{config, lib, pkgs, ...}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   shellAliases =
     (import ../abbrs.nix)
     // (import ../aliases.nix);
-in
-{
+in {
   imports = [../common.nix];
 
   home.packages = with pkgs; [

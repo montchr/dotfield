@@ -63,7 +63,10 @@ in {
       home.packages = [cfg.package];
 
       xdg.configFile."skhd/skhdrc" = {
-        source = if cfg.configPath != null then cfg.configPath else cfg.keybindings;
+        source =
+          if cfg.configPath != null
+          then cfg.configPath
+          else cfg.keybindings;
         onChange = "${cfg.package}/bin/skhd -r";
       };
 

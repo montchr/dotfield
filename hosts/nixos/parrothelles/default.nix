@@ -1,13 +1,17 @@
-{ config, lib, pkgs, suites, profiles, hmUsers, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  suites,
+  profiles,
+  hmUsers,
+  ...
+}: let
   extraProfiles = with profiles; [
     users.xtallos
     virtualisation.guests.parallels
   ];
-in
-
-{
+in {
   imports = with suites;
     base
     ++ extraProfiles

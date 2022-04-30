@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: lib.mkMerge [
+}:
+lib.mkMerge [
   (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     services.skhd.enable = true;
     services.skhd.configPath = ./skhdrc;

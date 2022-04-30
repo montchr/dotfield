@@ -272,8 +272,7 @@
             personal =
               suites.base
               ++ suites.dev
-              ++ [gnupg mail secrets]
-              ;
+              ++ [gnupg mail secrets];
             virtualisation = [vagrant];
           };
         };
