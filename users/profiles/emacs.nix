@@ -48,13 +48,14 @@ in {
 
     # chemacs config
     "chemacs/profiles.el".text = ''
-      (("default" . ((user-emacs-directory . "${doomDataDir}")))
+      (("doom" . ((user-emacs-directory . "${doomDataDir}")
+                  (env . (("DOOMDIR" . "${doomDir}")))))
        ("vanilla" . ((user-emacs-directory . "${configPath}/${vanillaProfilePath}")))
        ("xtallos" . ((user-emacs-directory . "${configPath}/${xtallosProfilePath}"))))
     '';
 
     # chemacs default profile :: will load when no `--with-profile` is provided
-    "chemacs/profile".text = "default";
+    "chemacs/profile".text = "doom";
   };
 
   programs.emacs = {
