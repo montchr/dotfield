@@ -75,6 +75,8 @@ in {
     promptInit = "";
   };
 
+  programs.fish.enable = true;
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
