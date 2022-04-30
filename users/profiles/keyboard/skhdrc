@@ -60,23 +60,28 @@ default < meh - d       : yabai-close-window
 app     < hyper - a ; default
 app     < escape    ; default
 
-# _e_macs -- open a new instance of emacs
-app     < e : emacs --with-profile default; \
+## _e_macs
+#           -- open a new instance of emacs in background
+#              TODO: tell yabai about this window specifically
+#              FIXME: use default profile, whichever that is based on config
+app     < e : emacs --with-profile doom &; \
               skhd -k 'escape'
-#         -- open a new frame for the existing emacs instance
+#           -- open a new frame for the existing emacs instance
 app     < shift - e : emacsclient -cn; \
               skhd -k 'escape'
 
-# _f_irefox -- new window in home profile
+## _f_irefox
+#             -- new window in home profile
 app     < f : open -n -a "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
               --args -P home ; \
               skhd -k 'escape'
-# _F_irefox -- new window in work profile
+#             -- new window in work profile
 app     < shift - f : open -n -a "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" \
               --args -P work ; \
               skhd -k 'escape'
 
-# _t_erminal (Kitty) -- new os-window
+## _t_erminal
+#             -- new os window
 app     < t : kitty @ --to unix:/tmp/kitty-socket \
                       new-window --window-type os ; \
               skhd -k 'escape'

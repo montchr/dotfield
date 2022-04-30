@@ -1,29 +1,33 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.lib.our) dotfieldPath;
-  inherit (config.xdg) configHome dataHome stateHome;
+  inherit (config.xdg)
+    configHome
+    dataHome
+    stateHome
+    ;
 
-  configPath = "${configHome}/dotfield/config";
+  dotfieldConfigPath = "${configHome}/dotfield/config";
   chemacsDir = "${configHome}/emacs";
+  chemacsProfile = "doom";
 
   doomProfilePath = "emacs/profiles/doom";
   vanillaProfilePath = "emacs/profiles/vanilla";
   xtallosProfilePath = "emacs/profiles/xtallos";
 
-  # Note that this points to the doom config directory within the flake source.
-  # Consider changing if you run into issues.
-  doomDir = "${configPath}/${doomProfilePath}";
-
+  doomDir = "${dotfieldConfigPath}/${doomProfilePath}";
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
-in {
-  home.sessionPath = ["${doomDataDir}/bin" "$PATH"];
+in
+{
+  home.sessionPath = [ "${doomDataDir}/bin" "$PATH" ];
 
   home.sessionVariables = {
+    CHEMACS_PROFILE = chemacsProfile;
     EDITOR = "emacsclient";
 
     ## doom-emacs
@@ -40,22 +44,36 @@ in {
   };
 
   xdg.configFile = {
-    # chemacs source :: must be installed to $EMACSDIR
+    ## chemacs loader
+    #
+    # must be installed in one of the locations emacs looks for its
+    # configuration directory (i.e. either ~/.config/emacs or ~/.emacs.d).
     "emacs" = {
       source = pkgs.sources.chemacs.src;
       recursive = true;
     };
 
-    # chemacs config
+    ## chemacs config
+    #
+    # N.B. doom must know about its environment variables before launching, so
+    # we specify them in the chemacs profiles config file.
+    #
+    # see https://github.com/plexus/chemacs2#doom-emacs
     "chemacs/profiles.el".text = ''
       (("doom" . ((user-emacs-directory . "${doomDataDir}")
-                  (env . (("DOOMDIR" . "${doomDir}")))))
-       ("vanilla" . ((user-emacs-directory . "${configPath}/${vanillaProfilePath}")))
-       ("xtallos" . ((user-emacs-directory . "${configPath}/${xtallosProfilePath}"))))
+                  (env . (("DOOMDIR" . "${doomDir}")
+                          ("DOOMLOCALDIR" . "${doomStateDir}")
+                          ("EMACSDIR" . "${doomDataDir}")))
+                  (server-name . "doom")))
+       ("vanilla" . ((user-emacs-directory . "${dotfieldConfigPath}/${vanillaProfilePath}")))
+       ("xtallos" . ((user-emacs-directory . "${dotfieldConfigPath}/${xtallosProfilePath}"))))
     '';
 
-    # chemacs default profile :: will load when no `--with-profile` is provided
-    "chemacs/profile".text = "doom";
+    ## chemacs default profile
+    #
+    # as a fallback in case the `CHEMACS_PROFILE` environment variable is not
+    # set and the `--with-profile` flag is not passed to emacs.
+    "chemacs/profile".text = chemacsProfile;
   };
 
   programs.emacs = {
