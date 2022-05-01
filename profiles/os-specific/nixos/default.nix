@@ -12,16 +12,16 @@
     systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
   };
 
-  shellAliases = {
-   # Fix `nixos-option` for flake compatibility
-   nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
-  };
-
   # FIXME: only for tangible machines
   networking.wireless = {
     # Defines environment variables for wireless network passkeys.
     environmentFile = config.age.secrets."wireless.env".path;
     networks.bortHole.psk = "@PSK_BORTHOLE@";
+  };
+
+  environment.shellAliases = {
+   # Fix `nixos-option` for flake compatibility
+   nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
   };
 
   environment.systemPackages = with pkgs; [
