@@ -44,6 +44,8 @@ in {
 
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
+  programs.less.enable = true;
+
   programs.zoxide.enable = true;
 
   home.sessionVariables = {
