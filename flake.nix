@@ -29,6 +29,10 @@
     nixos-generators.inputs.nixlib.follows = "nixlib";
     nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
 
+    # Deployments.
+    deploy.url = "github:serokell/deploy-rs";
+    deploy.inputs.nixpkgs.follows = "nixpkgs";
+
     # Sources management.
     nur.url = "github:nix-community/NUR";
     nvfetcher.url = "github:berberman/nvfetcher";
@@ -69,6 +73,7 @@
     self,
     agenix,
     darwin,
+    deploy,
     digga,
     emacs-overlay,
     gitignore,
@@ -297,6 +302,6 @@
         digga.lib.mkHomeConfigurations
         (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
 
-      # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
+      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {};
     };
 }
