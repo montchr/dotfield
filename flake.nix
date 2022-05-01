@@ -168,7 +168,6 @@
             base = [
               core
               networking.common
-              os-specific.linux
               os-specific.nixos
             ];
             minimal =
