@@ -1,11 +1,12 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.lib.our) dotfieldPath;
-  inherit (config.xdg)
+  inherit
+    (config.xdg)
     configHome
     dataHome
     stateHome
@@ -22,9 +23,8 @@ let
   doomDir = "${dotfieldConfigPath}/${doomProfilePath}";
   doomDataDir = "${dataHome}/${doomProfilePath}";
   doomStateDir = "${stateHome}/${doomProfilePath}";
-in
-{
-  home.sessionPath = [ "${doomDataDir}/bin" "$PATH" ];
+in {
+  home.sessionPath = ["${doomDataDir}/bin" "$PATH"];
 
   home.sessionVariables = {
     CHEMACS_PROFILE = chemacsProfile;

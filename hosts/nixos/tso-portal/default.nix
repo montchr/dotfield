@@ -1,15 +1,19 @@
-{ config, pkgs, lib, hmUsers, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  lib,
+  hmUsers,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader.grub.devices = ["/dev/sda"];
 
   services.openssh.enable = true;
   services.openssh.permitRootLogin = false;
@@ -39,7 +43,7 @@
   users.users.seadoom = {
     shell = pkgs.fish;
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     hashedPassword = "$6$j9n2NQ.HRZ3VGIZh$NT3YkL3cDUy/ZQ5Oi6mDIEdfxQ2opgUVD7HIZTqRDcqsJqQiukmkZNIcxSVGQ.fgP38utHDBGcl4V20iodB9M.";
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPIGPzLVIvcbIzyrYEcx7NmAZjYm9cfQzLsDdnRBGJqw0mm0qtSUACor/d6jN1mreefpnzK+aXJ7ib6BPtFw7Xigi0c9qfXj2fmjx6XZHuYF+WhbyCgkUpqTWgVwdqEC89imiCImNXkDLotZDGSEV5sQVYOA2Y/E3H/Cur2ztQN40TJpf+nyHkmHmoA6PFDJ88wlabMzSFtl3p4w1hvtatlZ8HlAJl5J1H4gjDa52FkZelx+QkhRGthxqg8MXmWCUZBggq2n+f/F8nSSyh0JGnbc8fKZTpQ2Xv0X021b0RLjBOTFH4QkYgshvBrpTUCI1nN2iamxvHSVka8VheTzm0cU3rJuU0UITuBr1KjgyVaS8Jce8dDB2B70ZK34fFCcrO6Kz+fSB0HTU1JkT0RT9pLdgQxKis68vGTaVvw2/ZnXOwsWvqb0rrQTUHNyfhYoXcdjTdu/OYe6LKkQxNjA8N82SaS0C6CabeAfs7U+RV6qArHPjRPgwYlJApDHh6bYpios5+ieOUBoxVgmxT24V0+x0KTBmWKNEVcJkFnZx9i+2Dv2brhZdmnBsF/C6M9RXW849pIPpU/MX3tmDA3BK5UxjExeEfNYy1lt3rHdLF1dKLthZAptdFPaifxi+gltHGfY0T4A2yy+b0ZObvIVOGKdl51ijOmCumG1dI4GRqxw== ShellFish.tso@aerattum"
