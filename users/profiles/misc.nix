@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  lib.dotfield.userPath = "${config.xdg.configHome}/dotfield";
   lib.dotfield.whoami = rec {
     firstName = "Chris";
     lastName = "Montgomery";
@@ -11,6 +12,10 @@
     email = "chris@cdom.io";
     githubUserName = "montchr";
     pgpPublicKey = "0x135EEDD0F71934F3";
+  };
+
+  home.sessionVariables = {
+    DOTFIELD_DIR = config.lib.dotfield.userPath;
   };
 
   home.packages = with pkgs; [

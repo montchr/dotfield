@@ -31,10 +31,6 @@ in {
   time.timeZone = "America/New_York";
 
   environment.variables = {
-    # `$DOTFIELD_DIR` must point to its absolute path on the system -- not to
-    # its location in the Nix store. Cached shell configuration files may
-    # reference a path to an old derivation.
-    DOTFIELD_DIR = pkgs.lib.our.dotfieldPath;
 
     # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
     # system has been successfully provisioned with Nix. Otherwise,
