@@ -13,7 +13,10 @@
 
 set -e
 
-DOTFIELD_DIR="$(git rev-parse --show-toplevel)"
+if [[ -z $DOTFIELD_DIR ]]; then
+  echo '$DOTFIELD_DIR not defined! Exiting.'
+  exit 1
+fi
 
 # shellcheck source=../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
