@@ -252,7 +252,6 @@
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
             base = [
-              bat
               core
               direnv
               git
