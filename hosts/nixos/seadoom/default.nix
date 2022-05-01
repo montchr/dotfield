@@ -39,9 +39,6 @@
 
   home-manager.users.xtallos = {pkgs, ...}: {
     imports = [hmUsers.xtallos];
-    home.packages = with pkgs; [
-      ddate
-    ];
     programs.fish.enable = true;
   };
 

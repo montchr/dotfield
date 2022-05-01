@@ -253,6 +253,7 @@
           suites = with profiles; rec {
             base = [
               bat
+              core
               direnv
               git
               misc

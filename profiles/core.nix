@@ -84,24 +84,17 @@ in {
     (writeScriptBin "dotfield"
       (builtins.readFile "${dotfieldPath}/bin/dotfield"))
 
-    (python3.withPackages (ps: with ps; [pip setuptools]))
-    (ripgrep.override {withPCRE2 = true;})
+    ## === Essentials ===
 
-    alejandra # The Uncompromising Nix Code Formatter
     bashInteractive
-    bat
     binutils
-    bottom
-    cachix
+    cacert
     coreutils
     curl
-    direnv
     dnsutils
     exa
     fd
     findutils
-    fup-repl
-    fzf
     gawk
     git
     gnumake
@@ -111,32 +104,26 @@ in {
     grc
     jq
     less
-    lua
-    manix # nix documentation search
     moreutils
-    nix-diff # Explain why two Nix derivations differ
-    nix-index
-    nix-tree # Interactively browse dependency graphs of Nix derivations.
     nmap
-
-    # Generate nix sources expression for the latest version of packages
-    # https://github.com/berberman/nvfetcher
-    nvfetcher-bin
-
     openssh
     openssl
-
-    # A modern replacement for ps written in Rust
-    # https://github.com/dalance/procs
-    procs
-
+    (ripgrep.override {withPCRE2 = true;})
     rsync
-    skim
-    tealdeer
     tmux
     vim
     wget
     whois
-    zsh
+
+    ## === Nix Helpers ===
+
+    alejandra # The Uncompromising Nix Code Formatter
+    cachix
+    fup-repl
+    manix     # nix documentation search
+    nix-diff  # Explain why two Nix derivations differ
+    nix-tree  # Interactively browse dependency graphs of Nix derivations.
+    nvfetcher-bin # Generate nix sources expression for the latest version of packages
+
   ];
 }

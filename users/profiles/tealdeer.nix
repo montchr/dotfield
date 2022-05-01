@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  home.packages = [pkgs.tealdeer];
   home.sessionVariables = {
     TEALDEER_CONFIG_DIR = "${config.xdg.configHome}/tealdeer";
     TEALDEER_CACHE_DIR = "${config.xdg.cacheHome}/tealdeer";

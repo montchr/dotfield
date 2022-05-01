@@ -58,7 +58,7 @@
     fd
     fish
     ripgrep
-    tldr
+    tealdeer
     vim
     wget
   ];
