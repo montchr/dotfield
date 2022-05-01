@@ -21,22 +21,12 @@
       "spinner" = base0C;
     });
 
-  fd = "${pkgs.fd}/bin/fd";
-
-  defaultCmd = "${fd} --hidden --follow --exclude .git 2>/dev/null";
+  fdBin = "${pkgs.fd}/bin/fd";
 in {
-  home.sessionVariables = {
-    # FIXME: this restricts the loaded color theme until changed by an *impure*
-    # nixos/darwin rebuild, but a rebuild isn't quite fast enough to be usable
-    # right now, and it requires sudo auth.
-    #
-    # perhaps the home-manager cli tool will allow for fast switching?
-    #
-    # FZF_DEFAULT_OPTS = ''"$FZF_DEFAULT_OPTS" --color="${mkTheme' currentTheme}"'';
-
-    FZF_DEFAULT_COMMAND = defaultCmd;
-
-    FZF_CTRL_T_COMMAND = defaultCmd;
-    FZF_ALT_C_COMMAND = "${fd} --type d . $HOME";
+  programs.fzf = {
+    enable = true;
+    defaultCommand = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
+    changeDirWidgetCommand = "${fdBin} --type d . $HOME";
+    fileWidgetCommand = "${fdBin} --type f --hidden";
   };
 }

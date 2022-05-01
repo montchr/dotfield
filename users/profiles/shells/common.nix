@@ -12,10 +12,9 @@
     // (import ./aliases.nix);
 
   fdBin = "${pkgs.fd}/bin/fd";
-  fzfDefaultCmd = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
 in {
   imports = [
-    # ./fzf.nix
+    ./fzf.nix
     ./starship.nix
   ];
 
@@ -49,10 +48,6 @@ in {
 
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
-
-    FZF_DEFAULT_COMMAND = fzfDefaultCmd;
-    FZF_CTRL_T_COMMAND = fzfDefaultCmd;
-    FZF_ALT_C_COMMAND = "${fdBin} --type d . $HOME";
 
     # Docker
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
