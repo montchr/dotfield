@@ -47,7 +47,6 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`.
 z4h install ohmyzsh/ohmyzsh || return
-z4h install ajeetdsouza/zoxide || return
 z4h install nvm-sh/nvm || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
@@ -74,7 +73,6 @@ z4h source $ZDOTDIR/extra.zshrc
 
 z4h source $ZDOTDIR/bookmarks.zsh
 
-z4h load ajeetdsouza/zoxide
 z4h source nvm-sh/nvm/nvm.sh
 
 

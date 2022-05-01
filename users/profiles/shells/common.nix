@@ -19,10 +19,6 @@ in {
     ./starship.nix
   ];
 
-  home.packages = with pkgs; [
-    zoxide
-  ];
-
   programs.bash = {
     inherit shellAliases;
 
@@ -36,6 +32,8 @@ in {
       BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
     };
   };
+
+  programs.zoxide.enable = true;
 
   home.sessionVariables = {
     PATH = ["$XDG_BIN_HOME" "$PATH"];
