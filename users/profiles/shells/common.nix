@@ -46,6 +46,11 @@ in {
   programs.exa.enableAliases = true;
   programs.less.enable = true;
 
+  programs.man.enable = true;
+  # N.B. This can slow down builds, but enables more manpage integrations
+  # across various tools. See the home-manager manual for more info.
+  programs.man.generateCaches = lib.mkDefault true;
+
   programs.zoxide.enable = true;
 
   home.sessionVariables = {
