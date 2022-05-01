@@ -16,7 +16,7 @@
   boot.loader.grub.devices = ["/dev/sda"];
 
   services.openssh.enable = true;
-  services.openssh.permitRootLogin = false;
+  services.openssh.permitRootLogin = "no";
   security.sudo.wheelNeedsPassword = false;
 
   users.users.root.hashedPassword = "$6$4SlbVdLk7nOBSUSM$jfNjHJG7rKBhdv8KbOLD0bMiXfZ2Tsh8yXQYY0MYMBAU4vejixQWBL5gEq/A219uUIKbYgSpxAFyySqnfdwaw1";
