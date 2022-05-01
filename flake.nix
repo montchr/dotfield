@@ -183,6 +183,7 @@
             personal = [
               secrets
             ];
+            tangibles = [networking.wifi];
           };
         };
       };

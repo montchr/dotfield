@@ -8,6 +8,7 @@
   imports = with suites;
     personal
     ++ gui
+    ++ tangibles
     ++ (with profiles; [
       users.xtallos
     ])
