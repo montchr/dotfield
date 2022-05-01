@@ -18,13 +18,6 @@
   "....." = "cd ../../../..";
   "......" = "cd ../../../../..";
 
-  l = "exa";
-  ll = "exa --classify --group --icons --oneline";
-  # `--all --all` is intentional -- it includes the `.` and `..` directories.
-  la = "exa --all --all --classify --extended --header --long";
-  ld = "exa --oneline --only-dirs";
-  lld = "exa --all --classify --git --group --group-directories-first --header --long";
-  exa = "exa --color always --group-directories-first --git";
   tree = "exa --tree";
 
   # IP addresses

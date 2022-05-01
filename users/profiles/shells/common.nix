@@ -33,6 +33,8 @@ in {
     };
   };
 
+  programs.exa.enable = true;
+  programs.exa.enableAliases = true;
   programs.zoxide.enable = true;
 
   home.sessionVariables = {
