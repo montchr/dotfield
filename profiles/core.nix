@@ -31,6 +31,7 @@ in {
   time.timeZone = "America/New_York";
 
   environment.variables = {
+    DOTFIELD_DIR = lib.mkDefault "/etc/dotfield";
 
     # If `$DOTFIELD_HOSTNAME` matches `$HOSTNAME`, then we can assume the
     # system has been successfully provisioned with Nix. Otherwise,
