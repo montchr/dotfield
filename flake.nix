@@ -97,16 +97,22 @@
 
       channels = {
         nixos-stable = {
-          imports = [(digga.lib.importOverlays ./overlays/nixos-stable)];
+          imports = [
+            (digga.lib.importOverlays ./overlays/common)
+            (digga.lib.importOverlays ./overlays/nixos-stable)
+          ];
         };
-        nixpkgs-trunk = {};
         nixpkgs-darwin-stable = {
-          imports = [(digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable)];
+          imports = [
+            (digga.lib.importOverlays ./overlays/common)
+            (digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable)
+          ];
           overlays = [
             ./pkgs/darwin
           ];
         };
         nixos-unstable = {};
+        nixpkgs-trunk = {};
       };
 
       lib = import ./lib {lib = digga.lib // nixos-unstable.lib;};
