@@ -17,6 +17,8 @@
 # emulation mode for consistency.
 #
 # Thanks:
+#
+# - https://github.com/d12frosted/environment
 # - https://github.com/dylanaraps/pure-bash-bible
 #
 #
