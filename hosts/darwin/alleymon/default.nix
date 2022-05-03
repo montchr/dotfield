@@ -18,11 +18,15 @@
   home-manager.users.montchr = {
     config,
     suites,
+    profiles,
     ...
   }: {
     imports = with suites;
       [hmUsers.xtallos]
-      ++ gui;
+      ++ gui
+      ++ (with profiles; [
+        languages.ruby
+      ]);
 
     accounts.email.accounts.work.primary = true;
     accounts.email.accounts.personal.primary = false;
