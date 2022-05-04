@@ -5,6 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli
     pandoc
 
     ## === Local Development ===
