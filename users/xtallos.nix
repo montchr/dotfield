@@ -1,1 +1,1 @@
-(import ./common.nix { username = "xtallos"; })
+(import ./primary.nix {username = "xtallos";})

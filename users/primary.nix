@@ -1,8 +1,7 @@
 {
   username,
-  hashedPassword ? "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1"
-}:
-{
+  hashedPassword ? "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1",
+}: {
   config,
   lib,
   pkgs,
@@ -28,18 +27,13 @@ in {
         if isDarwin
         then "/Users/${name}"
         else "/home/${name}";
-      # FIXME: this option SHOULD exist in nix-darwin, but it doesn't yet
-      # extraGroups = [
-      #   pkgs.lib.our.dotfield.group
-      #   # "wheel"
-      # ];
     }
-    (lib.optionalAttrs isLinux {     
-      inherit hashedPassword;
+    (lib.optionalAttrs isLinux {
       extraGroups = [
         pkgs.lib.our.dotfield.group
         "wheel"
       ];
+      hashedPassword = lib.mkDefault hashedPassword;
       isNormalUser = true;
     })
   ];
