@@ -5,7 +5,8 @@
   ...
 }: {
   home.packages = with pkgs; [
-    nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli
+    # TODO: fails to build on darwin as of 2022-05-04
+    # nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli
     pandoc
 
     ## === Local Development ===
