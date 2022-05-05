@@ -44,7 +44,7 @@ in {
 
   age.secrets."aws/aws-cdom-default.pem" = {
     file = "${secretsDir}/aws/aws-cdom-default.pem.age";
-    path = "${sshHome}/.ssh/aws-cdom-default.pem";
+    path = "${sshHome}/aws-cdom-default.pem";
     owner = name;
   };
 }
