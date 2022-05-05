@@ -1,4 +1,9 @@
-{config,lib,pkgs,...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
   networking.wireless = {
     # Defines environment variables for wireless network passkeys.

@@ -1,11 +1,14 @@
-{config,lib,pkgs,...}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   rubyHome = "${config.xdg.dataHome}/ruby";
   mkRuby = rubyPkg: {
     "ruby/versions/${rubyPkg.version.majMinTiny}".source = toString rubyPkg;
   };
-in
-{
+in {
   home.packages = with pkgs; [
     ruby
     rbenv

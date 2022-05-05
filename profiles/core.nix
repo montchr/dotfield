@@ -120,10 +120,9 @@ in {
     alejandra # The Uncompromising Nix Code Formatter
     cachix
     fup-repl
-    manix     # nix documentation search
-    nix-diff  # Explain why two Nix derivations differ
-    nix-tree  # Interactively browse dependency graphs of Nix derivations.
+    manix # nix documentation search
+    nix-diff # Explain why two Nix derivations differ
+    nix-tree # Interactively browse dependency graphs of Nix derivations.
     nvfetcher-bin # Generate nix sources expression for the latest version of packages
-
   ];
 }

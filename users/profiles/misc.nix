@@ -22,7 +22,6 @@
     shfmt
     shellcheck
     yamllint
-
   ];
 
   # TODO: check these out

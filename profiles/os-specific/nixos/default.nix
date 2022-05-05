@@ -13,8 +13,8 @@
   };
 
   environment.shellAliases = {
-   # Fix `nixos-option` for flake compatibility
-   nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
+    # Fix `nixos-option` for flake compatibility
+    nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
   };
 
   environment.systemPackages = with pkgs; [
