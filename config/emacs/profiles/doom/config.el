@@ -267,22 +267,15 @@
 
 ;; === languages ===============================================================
 
-;; (after! js2-mode
-;;   (set-company-backend! 'company-tide 'js2-mode))
+(use-package! apheleia
+  :config
+  (apheleia-global-mode +1))
 
-  ;; Use eslintd for faster ESLint-based formatting on save.
-(set-formatter! 'eslintd 'eslintd-fix :modes '(js2-mode))
-
-;; (after! sh-script
-;;   (set-company-backend! 'sh-mode
-;;     '(company-shell :with company-yasnippet)))
+;; Use eslintd for faster ESLint-based formatting on save.
+;; (set-formatter! 'eslintd 'eslintd-fix :modes '(js2-mode))
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
-
-;; (appendq! safe-local-eval-forms '((sh-set-shell "sh")
-;;                                   (sh-set-shell "bash")
-;;                                   (sh-set-shell "zsh")))
 
 (use-package! vimrc-mode
   :defer-incrementally t
