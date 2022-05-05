@@ -16,16 +16,25 @@ jobs:
             hostname: ci-ubuntu
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2.3.1
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
       - uses: cachix/install-nix-action@v17
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+
       - uses: cachix/cachix-action@v10
         with:
           name: dotfield
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: dotfield,nix-community,nrdxp
+
       - run: nix -Lv flake show --show-trace
       - run: nix -Lv flake check --show-trace
       # TODO: revise this so it's more useful and less prone to unexpected failures missed by checks
