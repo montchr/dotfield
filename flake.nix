@@ -235,16 +235,10 @@
                 os-specific.darwin.gui
                 os-specific.darwin.system-defaults
               ];
-            personal = [
+            standard = base ++ gui ++ [
+              os-specific.darwin.emacs
               secrets
             ];
-            work =
-              base
-              ++ gui
-              ++ [
-                os-specific.darwin.emacs
-                virtualisation.virtualbox
-              ];
           };
         };
       };
@@ -271,10 +265,8 @@
               tealdeer
             ];
             dev = [
-              aws
               emacs
               languages.nodejs
-              languages.php
               vim
             ];
             gui = [
@@ -284,20 +276,20 @@
               keyboard
               kitty
             ];
-            personal =
-              suites.base
-              ++ suites.dev
-              ++ [gnupg mail secrets];
-            virtualisation = [vagrant];
+            personal = [
+              gnupg
+              mail
+              secrets
+            ];
           };
         };
 
         users = {
           nixos = {suites, ...}: {
-            imports = suites.base;
+            imports = with suites; base;
           };
           xtallos = {suites, ...}: {
-            imports = suites.personal;
+            imports = with suites; base ++ dev ++ personal;
           };
         };
       };

@@ -7,12 +7,10 @@
   hmUsers,
   ...
 }: {
-  imports = with suites;
-    gui
-    ++ personal
-    ++ work
+  imports = suites.standard
     ++ (with profiles; [
       users.montchr
+      virtualisation.virtualbox
     ]);
 
   home-manager.users.montchr = {
@@ -25,7 +23,10 @@
       [hmUsers.xtallos]
       ++ gui
       ++ (with profiles; [
+        aws
+        languages.php
         languages.ruby
+        virtualisation.vagrant
       ]);
 
     accounts.email.accounts.work.primary = true;
