@@ -7,7 +7,8 @@
   hmUsers,
   ...
 }: {
-  imports = suites.standard
+  imports =
+    (with suites; typical)
     ++ (with profiles; [
       users.montchr
       virtualisation.virtualbox
@@ -19,9 +20,9 @@
     profiles,
     ...
   }: {
-    imports = with suites;
+    imports =
       [hmUsers.xtallos]
-      ++ gui
+      ++ (with suites; graphical)
       ++ (with profiles; [
         aws
         languages.php

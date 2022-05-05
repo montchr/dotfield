@@ -5,13 +5,13 @@
   profiles,
   ...
 }: {
-  imports = with suites;
-    personal
-    ++ gui
-    ++ tangibles
+  imports =
+    (with suites;
+      personal
+      ++ graphical
+      ++ tangible)
     ++ (with profiles; [
       users.xtallos
     ])
-    # ++ profiles.emacs
     ++ [./configuration.nix];
 }

@@ -147,7 +147,7 @@
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.base;})
+            ({suites, ...}: {imports = suites.basic;})
             digga.nixosModules.bootstrapIso
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
@@ -165,30 +165,34 @@
         importables = rec {
           profiles =
             digga.lib.rakeLeaves ./profiles
-            // {
-              users = digga.lib.rakeLeaves ./users;
-            };
+            // {users = digga.lib.rakeLeaves ./users;};
 
           suites = with profiles; rec {
-            base = [
+            basic = [
               core
               networking.common
               os-specific.nixos
             ];
             minimal =
-              base
+              basic
               ++ [
                 users.nixos
                 users.root
               ];
-            gui = [
-              fonts.common
-              fonts.pragmatapro
-            ];
+            graphical =
+              basic
+              ++ [
+                desktops.plasma
+                fonts.common
+                fonts.pragmatapro
+              ];
             personal = [
               secrets
             ];
-            tangibles = [networking.wifi];
+            tangible = [
+              audio
+              networking.wifi
+            ];
           };
         };
       };
@@ -200,7 +204,7 @@
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.base;})
+            ({suites, ...}: {imports = suites.basic;})
             home-manager.darwinModules.home-manager
             # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
@@ -218,26 +222,28 @@
         importables = rec {
           profiles =
             digga.lib.rakeLeaves ./profiles
-            // {
-              users = digga.lib.rakeLeaves ./users;
-            };
+            // {users = digga.lib.rakeLeaves ./users;};
 
           suites = with profiles; rec {
-            base = [core networking.common];
-            minimal = base ++ [os-specific.darwin.common];
-            gui =
-              base
+            basic = [
+              core
+              os-specific.darwin.common
+              networking.common
+            ];
+            graphical =
+              basic
               ++ [
                 fonts.common
                 fonts.pragmatapro
-                os-specific.darwin.common
                 os-specific.darwin.gui
                 os-specific.darwin.system-defaults
               ];
-            standard = base ++ gui ++ [
-              os-specific.darwin.emacs
-              secrets
-            ];
+            typical =
+              graphical
+              ++ [
+                os-specific.darwin.emacs
+                secrets
+              ];
           };
         };
       };
@@ -246,12 +252,12 @@
         imports = [(digga.lib.importExportableModules ./users/modules)];
         modules = [
           nix-colors.homeManagerModule
-          ({suites, ...}: {imports = suites.base;})
+          ({suites, ...}: {imports = suites.basic;})
         ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
-            base = [
+            basic = [
               core
               direnv
               git
@@ -268,7 +274,7 @@
               languages.nodejs
               vim
             ];
-            gui = [
+            graphical = [
               colors
               espanso
               firefox
@@ -285,10 +291,11 @@
 
         users = {
           nixos = {suites, ...}: {
-            imports = with suites; base;
+            imports = with suites; basic;
           };
           xtallos = {suites, ...}: {
-            imports = with suites; base ++ dev ++ personal;
+            imports = with suites;
+              basic ++ dev ++ personal;
           };
         };
       };

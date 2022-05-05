@@ -8,8 +8,9 @@
   ...
 }: {
   imports = with suites;
-    gui
+    graphical
     ++ personal
+    ++ tangible
     ++ (with profiles; [
       users.xtallos
     ]);
@@ -22,6 +23,8 @@
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 
   home-manager.users.xtallos = {suites, ...}: {
-    imports = [hmUsers.xtallos] ++ suites.gui;
+    imports =
+      [hmUsers.xtallos]
+      ++ (with suites; graphical);
   };
 }
