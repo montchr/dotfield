@@ -159,7 +159,6 @@
         hosts = {
           HodgePodge = {};
           onceler = {};
-          seadoom = {};
           ci-ubuntu = {};
         };
 
