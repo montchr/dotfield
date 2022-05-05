@@ -3,6 +3,7 @@ let
     alleymon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJsVn0I6Q0rL94W2V89efhUiffAeJfDtHYcW6czXcPkh";
     hodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8uGFMeCGkqrGiJZU3oVP7h0Xq9jEdACINpjRHqi96r";
     parrothelles = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINBvBCsqtgEdC4J+d1xzrwPIircRYSKbFHR0FulaNV5z";
+    tso-portal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUnCW5QopDKLISa/kRcH+28n9QUV/nFuYadXqUp/ZVq";
   };
 
   trustedUsers = [
@@ -21,11 +22,12 @@ let
     alleymon
     hodge
     parrothelles
+    tso-portal
   ];
 in {
   "wireless.env.age".publicKeys = allMachines ++ trustedUsers;
 
-  "aws/aws-cdom-default.pem.age".publicKeys = trustedUsers;
+  "aws/aws-cdom-default.pem.age".publicKeys = allMachines ++ trustedUsers;
 
   "espanso/personal.yml.age".publicKeys = allMachines ++ trustedUsers;
   "espanso/work.yml.age".publicKeys = [machines.alleymon] ++ trustedUsers;
