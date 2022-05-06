@@ -267,9 +267,7 @@
 
 ;; === languages ===============================================================
 
-(use-package! apheleia
-  :config
-  (apheleia-global-mode +1))
+(use-package! apheleia)
 
 ;; Use eslintd for faster ESLint-based formatting on save.
 ;; (set-formatter! 'eslintd 'eslintd-fix :modes '(js2-mode))
