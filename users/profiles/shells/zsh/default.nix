@@ -20,22 +20,29 @@ in {
 
     enable = true;
     dotDir = ".config/zsh";
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+    enableAutosuggestions = true;
+    autocd = true;
+
     history.path = "${config.xdg.dataHome}/zsh/history";
+    history.expireDuplicatesFirst = true;
     history.extended = true;
     history.ignoreDups = true;
 
-    # These are handled by z4h.
-    enableCompletion = false;
-    enableSyntaxHighlighting = false;
+    prezto.enable = true;
+    prezto.editor = {
+      # Handled manually in aliases.
+      dotExpansion = false;
+    };
+    prezto.terminal.autoTitle = true;
+    # TODO: enable tmux
+    # prezto.tmux.autoStartRemote = true;
 
-    envExtraFirst = ''
-      ${builtins.readFile ./env-z4h.zsh}
-    '';
-
-    initExtraFirst = ''
-      # Load our custom z4h config directly
-      source $DOTFIELD_DIR/config/zsh/main.zsh
-    '';
+    # initExtraFirst = ''
+    #   # Load our custom z4h config directly
+    #   source $DOTFIELD_DIR/config/zsh/main.zsh
+    # '';
 
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";

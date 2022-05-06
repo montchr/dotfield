@@ -13,5 +13,6 @@ channels: final: prev: {
     nix
     nix-direnv
     rage
+    zsh-prezto
     ;
 }
