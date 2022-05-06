@@ -5,9 +5,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    # TODO: fails to build on darwin as of 2022-05-04
-    # nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli
-    pandoc
 
     ## === Local Development ===
 
@@ -16,7 +13,17 @@
     circleci-cli
     hyperfine
     universal-ctags
+
+    ## === Data and Documents ===
+
+    pandoc
+    tidy-viewer # Pretty-print CSV files
+    visidata # A terminal spreadsheet multitool for discovering and arranging data
+    xsv # A fast CSV command line toolkit
     yq
+
+    # TODO: fails to build on darwin as of 2022-05-04
+    # nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli
 
     ## === Linters + Formatters ===
 

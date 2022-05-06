@@ -13,6 +13,8 @@ channels: final: prev: {
     nix
     nix-direnv
     rage
+    tidy-viewer
+    visidata
     zsh-prezto
     ;
 }
