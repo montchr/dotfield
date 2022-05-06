@@ -5,7 +5,6 @@
   # "$" = "";
 
   q = "exit";
-  sudo = "sudo ";
   wget = "wget -c";
 
   rcpd = "rcp --delete --delete-after";
