@@ -26,7 +26,13 @@
   # TODO: should this be locked down further?
   services.openssh.openFirewall = true;
   services.openssh.permitRootLogin = "no";
+
+  security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
+
+  security.doas.enable = true;
+  security.doas.wheelNeedsPassword = false;
+
   users.users.root.hashedPassword = "$6$4SlbVdLk7nOBSUSM$jfNjHJG7rKBhdv8KbOLD0bMiXfZ2Tsh8yXQYY0MYMBAU4vejixQWBL5gEq/A219uUIKbYgSpxAFyySqnfdwaw1";
 
   users.mutableUsers = false;
