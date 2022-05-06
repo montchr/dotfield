@@ -11,3 +11,7 @@ fetch.github = "jorgebucaran/nvm.fish"
 [fish-replay]
 src.github = "jorgebucaran/replay.fish"
 fetch.github = "jorgebucaran/replay.fish"
+
+[fzf-scripts]
+src.git = "https://github.com/DanielFGray/fzf-scripts"
+fetch.git = "https://github.com/DanielFGray/fzf-scripts"

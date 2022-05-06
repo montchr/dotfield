@@ -54,5 +54,23 @@
             "rev": "868388321169eddf6dcb99f9b0d3ce734897b3de"
         },
         "extract": null
+    },
+    "fzf-scripts": {
+        "cargoLocks": null,
+        "pinned": false,
+        "name": "fzf-scripts",
+        "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f",
+        "passthru": null,
+        "src": {
+            "deepClone": false,
+            "url": "https://github.com/DanielFGray/fzf-scripts",
+            "leaveDotGit": false,
+            "fetchSubmodules": false,
+            "name": null,
+            "type": "git",
+            "sha256": "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=",
+            "rev": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
+        },
+        "extract": null
     }
 }

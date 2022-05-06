@@ -35,4 +35,16 @@
       sha256 = "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=";
     });
   };
+  fzf-scripts = {
+    pname = "fzf-scripts";
+    version = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+    src = fetchgit {
+      url = "https://github.com/DanielFGray/fzf-scripts";
+      rev = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=";
+    };
+  };
 }

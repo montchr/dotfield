@@ -29,4 +29,16 @@ in {
     changeDirWidgetCommand = "${fdBin} --type d . $HOME";
     fileWidgetCommand = "${fdBin} --type f --hidden";
   };
+
+  home.packages = with pkgs; [
+    # Use ripgrep interactively
+    # https://github.com/DanielFGray/fzf-scripts/blob/7cf2925b0194f0ad116b84e8f45d8f01a87c774f/igr
+    (writeShellApplication {
+      name = "igr";
+      runtimeInputs = [bat fzf ripgrep];
+      text = ''
+        ${sources.fzf-scripts.src}/igr "$@"
+      '';
+    })
+  ];
 }
