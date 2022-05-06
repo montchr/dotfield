@@ -7,6 +7,8 @@
 }: let
   inherit (lib.dotfield.whoami) githubUserName;
 
+  envInit = (import ./env-init.sh.nix);
+
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
@@ -22,9 +24,7 @@ in {
     inherit shellAliases;
 
     enable = true;
-    bashrcExtra = ''
-      ${builtins.readFile ./env-init.sh}
-    '';
+    bashrcExtra = envInit;
     profileExtra = "";
 
     sessionVariables = {

@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  envExtra = (import ../env-init.sh.nix);
   shellAliases =
     (import ../abbrs.nix)
     // (import ../aliases.nix);
@@ -15,7 +16,7 @@ in {
   ];
 
   programs.zsh = {
-    inherit shellAliases;
+    inherit envExtra shellAliases;
 
     enable = true;
     dotDir = ".config/zsh";
@@ -29,9 +30,6 @@ in {
 
     envExtraFirst = ''
       ${builtins.readFile ./env-z4h.zsh}
-    '';
-    envExtra = ''
-      ${builtins.readFile ../env-init.sh}
     '';
 
     initExtraFirst = ''
