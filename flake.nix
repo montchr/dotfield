@@ -283,7 +283,6 @@
             ];
             personal = [
               gnupg
-              mail
               secrets
             ];
           };
