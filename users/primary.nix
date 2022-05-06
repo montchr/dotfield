@@ -4,6 +4,7 @@
 }: {
   config,
   lib,
+  options,
   pkgs,
   ...
 }: let
@@ -38,9 +39,9 @@ in {
     })
   ];
 
-  age.identityPaths = lib.mkBefore [
-    "${sshHome}/id_ed25519"
-  ];
+  age.identityPaths =
+    ["${sshHome}/id_ed25519"]
+    ++ options.age.identityPaths.default;
 
   age.secrets."aws/aws-cdom-default.pem" = {
     file = "${secretsDir}/aws/aws-cdom-default.pem.age";
