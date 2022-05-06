@@ -23,6 +23,8 @@
   environment.variables.DOTFIELD_DIR = "/home/seadoom/.config/dotfield";
 
   services.openssh.enable = true;
+  # TODO: should this be locked down further?
+  services.openssh.openFirewall = true;
   services.openssh.permitRootLogin = "no";
   security.sudo.wheelNeedsPassword = false;
   users.users.root.hashedPassword = "$6$4SlbVdLk7nOBSUSM$jfNjHJG7rKBhdv8KbOLD0bMiXfZ2Tsh8yXQYY0MYMBAU4vejixQWBL5gEq/A219uUIKbYgSpxAFyySqnfdwaw1";
