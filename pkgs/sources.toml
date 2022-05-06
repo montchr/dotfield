@@ -4,26 +4,6 @@
 src.git = "https://github.com/plexus/chemacs2.git"
 fetch.git = "https://github.com/plexus/chemacs2.git"
 
-[fish-abbr-tips]
-src.github = "gazorby/fish-abbreviation-tips"
-fetch.github = "gazorby/fish-abbreviation-tips"
-
-[fish-autopair]
-src.github = "jorgebucaran/autopair.fish"
-fetch.github = "jorgebucaran/autopair.fish"
-
-[fish-done]
-src.github = "franciscolourenco/done"
-fetch.github = "franciscolourenco/done"
-
-[fish-fzf]
-src.github = "PatrickF1/fzf.fish"
-fetch.github = "PatrickF1/fzf.fish"
-
-[fish-nix-env]
-src.git = "https://github.com/lilyball/nix-env.fish.git"
-fetch.git = "https://github.com/lilyball/nix-env.fish.git"
-
 [fish-nvm]
 src.github = "jorgebucaran/nvm.fish"
 fetch.github = "jorgebucaran/nvm.fish"
@@ -31,7 +11,3 @@ fetch.github = "jorgebucaran/nvm.fish"
 [fish-replay]
 src.github = "jorgebucaran/replay.fish"
 fetch.github = "jorgebucaran/replay.fish"
-
-[fish-z]
-src.git = "https://github.com/jethrokuan/z.git"
-fetch.git = "https://github.com/jethrokuan/z.git"
