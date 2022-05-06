@@ -293,6 +293,10 @@
           nixos = {suites, ...}: {
             imports = with suites; basic;
           };
+          seadoom = {suites, ...}: {
+            imports = with suites;
+              basic ++ dev ++ personal;
+          };
           xtallos = {suites, ...}: {
             imports = with suites;
               basic ++ dev ++ personal;
