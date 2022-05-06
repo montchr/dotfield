@@ -20,6 +20,8 @@
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
 
+  environment.variables.DOTFIELD_DIR = "/home/seadoom/.config/dotfield";
+
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "no";
   security.sudo.wheelNeedsPassword = false;
