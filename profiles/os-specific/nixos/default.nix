@@ -30,6 +30,7 @@
   # For rage encryption, all hosts need a ssh key pair
   services.openssh = {
     enable = true;
+    # TODO: is this a sensible default?
     openFirewall = lib.mkDefault false;
   };
 

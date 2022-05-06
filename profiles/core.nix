@@ -38,6 +38,7 @@ in {
     # `$DOTFIELD_HOSTNAME` should remain an empty string.
     DOTFIELD_HOSTNAME = config.networking.hostName;
 
+    # TODO: should this really be a system environment variable?
     CACHEDIR = "$HOME/.cache";
     EDITOR = "vim";
     HOSTNAME = config.networking.hostName;
@@ -52,6 +53,7 @@ in {
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
+    # TODO: is this correct for linux?
     XDG_RUNTIME_DIR = "/tmp";
     XDG_STATE_HOME = "$HOME/.local/state";
     ZDOTDIR = "$HOME/.config/zsh";
