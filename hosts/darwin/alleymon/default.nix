@@ -27,6 +27,7 @@
         aws
         languages.php
         languages.ruby
+        mail
         virtualisation.vagrant
       ]);
 

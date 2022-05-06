@@ -28,8 +28,12 @@
     extraGroups = ["network-manager"];
   };
 
-  home-manager.users.xtallos = {pkgs, ...}: {
-    imports = [hmUsers.xtallos];
+  home-manager.users.xtallos = {pkgs, profiles, suites, ...}: {
+    imports =
+      [hmUsers.xtallos]
+      ++ (with suites; graphical)
+      ++ (with profiles; [mail]);
+
     home.packages = with pkgs; [
       ddate
       _1password

@@ -18,10 +18,11 @@
     ++ [./hardware-configuration.nix];
 
   users.users.xtallos.password = "xtallos";
-  home-manager.users.xtallos = {suites, ...}: {
+  home-manager.users.xtallos = {profiles, suites, ...}: {
     imports =
       [hmUsers.xtallos]
-      ++ (with suites; graphical);
+      ++ (with suites; graphical)
+      ++ (with profiles; [mail]);
   };
 
   boot.loader.grub.enable = true;
