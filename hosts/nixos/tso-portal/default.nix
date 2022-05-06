@@ -20,7 +20,7 @@
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
 
-  environment.variables.DOTFIELD_DIR = "/home/seadoom/.config/dotfield";
+  environment.variables.DOTFIELD_DIR = "/etc/nixos";
 
   services.openssh.enable = true;
   # TODO: should this be locked down further?
