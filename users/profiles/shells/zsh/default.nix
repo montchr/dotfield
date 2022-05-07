@@ -54,9 +54,17 @@ in {
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
+    '';
 
-      # # Load our custom z4h config directly
-      # source $DOTFIELD_DIR/config/zsh/main.zsh
+    initExtraBeforeCompInit = ''
+      function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+      compdef _directories md
+    '';
+
+    initExtra = ''
+      source $DOTFIELD_DIR/lib/color.sh
+      source $DOTFIELD_DIR/config/zsh/functions.zsh
+      source $DOTFIELD_DIR/config/zsh/options.zsh
     '';
 
     sessionVariables = {

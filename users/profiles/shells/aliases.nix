@@ -1,4 +1,6 @@
 {
+  "$" = ":";
+
   mkdir = "mkdir -pv";
 
   # Use Kitty terminal"s ssh helper kitten
@@ -19,6 +21,8 @@
   "......" = "cd ../../../../..";
 
   tree = "exa --tree";
+  # TODO: merge or remove:
+  # alias tree='tree -a -I .git'
 
   # IP addresses
   ip = "dig +short myip.opendns.com @resolver1.opendns.com";
