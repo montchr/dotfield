@@ -25,10 +25,10 @@ in
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
+  networking.firewall.enable = true;
 
   environment.variables.DOTFIELD_DIR = "/etc/nixos";
 
-  services.firewall.enable = true;
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
   services.openssh.permitRootLogin = "no";
