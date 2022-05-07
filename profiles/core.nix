@@ -10,7 +10,8 @@ in {
   nix = {
     package = pkgs.nix;
     gc.automatic = true;
-    useSandbox = lib.mkDefault true;
+    # useSandbox = lib.mkDefault true;
+    useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel"];
     extraOptions = ''
