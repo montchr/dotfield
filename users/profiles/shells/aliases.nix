@@ -1,6 +1,4 @@
 {
-  "$" = ":";
-
   mkdir = "mkdir -pv";
 
   # Use Kitty terminal"s ssh helper kitten
