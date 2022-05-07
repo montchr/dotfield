@@ -5,9 +5,8 @@
   ...
 }: let
   envExtra = (import ../env-init.sh.nix);
-  shellAliases =
-    (import ../abbrs.nix)
-    // (import ../aliases.nix);
+  shellAliases = (import ../aliases.nix);
+  shellGlobalAliases = (import ../abbrs.nix);
 in {
   imports = [../common.nix];
 
@@ -18,7 +17,10 @@ in {
   programs.starship.enableZshIntegration = false;
 
   programs.zsh = {
-    inherit envExtra shellAliases;
+    inherit
+      envExtra
+      shellAliases
+      shellGlobalAliases;
 
     enable = true;
     dotDir = ".config/zsh";
