@@ -15,6 +15,8 @@ in {
     zsh
   ];
 
+  programs.starship.enableZshIntegration = false;
+
   programs.zsh = {
     inherit envExtra shellAliases;
 
@@ -30,19 +32,32 @@ in {
     history.extended = true;
     history.ignoreDups = true;
 
-    prezto.enable = true;
-    prezto.editor = {
-      # Handled manually in aliases.
-      dotExpansion = false;
-    };
-    prezto.terminal.autoTitle = true;
-    # TODO: enable tmux
-    # prezto.tmux.autoStartRemote = true;
+    plugins = with pkgs; [
+      # {
+      #   name = "nix-zsh-complete.zsh";
+      #   src = zsh-complete;
+      #   file = "_nix";
+      # }
+      {
+        name = "powerlevel10k";
+        src = zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
 
-    # initExtraFirst = ''
-    #   # Load our custom z4h config directly
-    #   source $DOTFIELD_DIR/config/zsh/main.zsh
-    # '';
+    initExtraFirst= ''
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+
+      # # Load our custom z4h config directly
+      # source $DOTFIELD_DIR/config/zsh/main.zsh
+    '';
 
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";

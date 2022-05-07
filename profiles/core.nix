@@ -71,9 +71,9 @@ in {
 
   programs.zsh = {
     enable = true;
-    enableCompletion = false;
-    enableBashCompletion = false;
-    promptInit = "";
+    enableCompletion = true;
+    # enableBashCompletion = false;
+    # promptInit = "";
   };
 
   programs.fish.enable = true;
