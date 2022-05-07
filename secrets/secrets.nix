@@ -1,6 +1,7 @@
 let
   machines = {
     alleymon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJsVn0I6Q0rL94W2V89efhUiffAeJfDtHYcW6czXcPkh";
+    hierophant = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF14I8s1ywGVCmInco+wfCG5C9kJB0Y9HCOA12ZX9cHe";
     hodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8uGFMeCGkqrGiJZU3oVP7h0Xq9jEdACINpjRHqi96r";
     parrothelles = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINBvBCsqtgEdC4J+d1xzrwPIircRYSKbFHR0FulaNV5z";
     tso-portal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUnCW5QopDKLISa/kRcH+28n9QUV/nFuYadXqUp/ZVq";
