@@ -37,14 +37,12 @@ Adapted from the script provided by https://github.com/nix-community/nixos-insta
 ## Vertebrae
 
 * https://github.com/divnix/digga :: a good friend
-* https://github.com/romkatv/zsh4humans :: because i don't have time to fuck
-  around with exotic shells or manual shell configuration maintenance. fish
-  shell, despite its apparent simplicity, always stinks after three days.
 
 ## Grafts
 
 Generally in order of recency.
 
+* https://github.com/Xe/nixos-configs
 * https://github.com/sei40kr/dotfiles
 * https://github.com/malob/nixpkgs
 * https://github.com/kclejeune/system
