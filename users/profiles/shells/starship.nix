@@ -6,8 +6,9 @@
 }: {
   programs.starship = {
     enable = true;
-    enableZshIntegration = false;
     settings = {
+      add_newline = true;
+
       format = lib.concatStrings [
         "$username"
         "$hostname"
@@ -39,7 +40,7 @@
 
       character = {
         success_symbol = "❯";
-        error_symbol = "[❱](bold red)";
+        error_symbol = "[](bold red)";
         vicmd_symbol = "[❮](bold purple)";
       };
 
@@ -67,8 +68,8 @@
       git_status = {
         format = "([$all_status$ahead_behind]($style) )";
         conflicted = " ";
-        ahead = "$count ";
-        behind = "$count ";
+        ahead = " $count ";
+        behind = " $count ";
         diverged = " ";
         untracked = " ";
         stashed = " ";
@@ -86,8 +87,8 @@
       nix_shell = {
         format = "[$symbol$state]($style) ";
         symbol = " ";
-        pure_msg = "λ";
-        impure_msg = "⎔";
+        pure_msg = "λ ";
+        impure_msg = "⎔ ";
       };
 
       nodejs = {
@@ -111,7 +112,7 @@
       };
 
       ruby = {
-        symbol = " ";
+        symbol = " ";
       };
 
       rust = {
