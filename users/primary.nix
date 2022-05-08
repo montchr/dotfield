@@ -39,13 +39,13 @@ in {
     })
   ];
 
-  age.identityPaths =
-    ["${sshHome}/id_ed25519"]
-    ++ options.age.identityPaths.default;
-
-  age.secrets."aws/aws-cdom-default.pem" = {
-    file = "${secretsDir}/aws/aws-cdom-default.pem.age";
-    path = "${sshHome}/aws-cdom-default.pem";
-    owner = name;
-  };
+#  age.identityPaths =
+#    ["${sshHome}/id_ed25519"]
+#    ++ options.age.identityPaths.default;
+#
+#  age.secrets."aws/aws-cdom-default.pem" = {
+#    file = "${secretsDir}/aws/aws-cdom-default.pem.age";
+#    path = "${sshHome}/aws-cdom-default.pem";
+#    owner = name;
+#  };
 }

@@ -25,13 +25,20 @@ in
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
-  networking.firewall.enable = true;
+
+  # FIXME!
+  networking.firewall.enable = false;
+
+  # services.tailscale.enable = true;
+  # networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   environment.variables.DOTFIELD_DIR = "/etc/dotfield";
+  programs.mtr.enable = true; 
+  programs.gnupg.agent.enable = true;
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
-  services.openssh.permitRootLogin = "no";
+  # services.openssh.permitRootLogin = "no";
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;

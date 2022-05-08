@@ -31,7 +31,7 @@
   services.openssh = {
     enable = true;
     # TODO: is this a sensible default?
-    openFirewall = lib.mkDefault false;
+    openFirewall = lib.mkDefault true;
   };
 
   # Automatically kill processes when running low on available memory.
