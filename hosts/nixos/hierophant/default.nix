@@ -27,7 +27,7 @@ in
   networking.interfaces.enp1s0.useDHCP = true;
   networking.firewall.enable = true;
 
-  environment.variables.DOTFIELD_DIR = "/etc/nixos";
+  environment.variables.DOTFIELD_DIR = "/etc/dotfield";
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
@@ -52,6 +52,8 @@ in
     ...
   }: {
     imports = [hmUsers.seadoom];
+
+    lib.dotfield.userPath = "/etc/dotfield";
   };
 
   system.stateVersion = "21.11";
