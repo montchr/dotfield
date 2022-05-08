@@ -3,6 +3,7 @@
   pkgs,
   lib,
   hmUsers,
+  modulesPath,
   suites,
   profiles,
   ...
@@ -16,7 +17,9 @@ in
   imports =
     (with suites; basic)
     ++ (with profiles; [users.seadoom])
-    ++ [./hardware-configuration.nix];
+    ++ [
+      (modulesPath + "/profiles/qemu-guest.nix")
+    ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -25,6 +28,31 @@ in
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
+
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
+
+  fileSystems."/" = {
+    # N.B. While nixos-generate-config will set this to a UUID by default, the
+    # UUID of a disk on Hetzner Cloud appears to change if the server is
+    # rebuilt. We know the root filesystem should always point to this
+    # partition, so it's safer to point directly there.
+    device = "/dev/sda1";
+    fsType = "ext4";
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-id/scsi-0HC_Volume_19315958";
+    fsType = "ext4";
+    neededForBoot = true;
+    options = [ "noatime" ];
+  };
+
+  swapDevices = [ ];
+
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # FIXME!
   networking.firewall.enable = false;
@@ -38,13 +66,10 @@ in
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
-  # services.openssh.permitRootLogin = "no";
+  services.openssh.permitRootLogin = "prohibit-password";
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
-
-  security.doas.enable = true;
-  security.doas.wheelNeedsPassword = false;
 
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = (import "${secretsDir}/authorized-keys.nix");
