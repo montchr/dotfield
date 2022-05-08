@@ -54,7 +54,6 @@ in {
   programs.zoxide.enable = true;
 
   home.sessionVariables = {
-    PATH = ["$XDG_BIN_HOME" "$PATH"];
     INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
