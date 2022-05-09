@@ -15,7 +15,6 @@
         inter
         jost
         public-sans
-        recursive
       ]
       ++ (lib.optionals stdenv.hostPlatform.isLinux [
         corefonts
