@@ -16,7 +16,10 @@ in
 {
   imports =
     (with suites; basic)
-    ++ (with profiles; [users.seadoom])
+    ++ (with profiles; [
+      networking.tailscale
+      users.seadoom
+    ])
     ++ [
       (modulesPath + "/profiles/qemu-guest.nix")
     ];
@@ -28,6 +31,8 @@ in
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
+  networking.firewall.enable = false;
+  networking.firewall.trustedInterfaces = [ "enp1s0" ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -53,12 +58,6 @@ in
   swapDevices = [ ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # FIXME!
-  networking.firewall.enable = false;
-
-  # services.tailscale.enable = true;
-  # networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   environment.variables.DOTFIELD_DIR = "/etc/dotfield";
   programs.mtr.enable = true; 
