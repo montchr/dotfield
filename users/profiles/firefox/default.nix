@@ -56,9 +56,9 @@ moduleArgs @ {
     "extensions.webextensions.restrictedDomains" = "";
 
     "font.default.x-western" = "sans-serif";
-    "font.name.monospace.x-western" = "PragmataPro Liga";
-    "font.name.sans-serif.x-western" = "Inter";
-    "font.size.monospace.x-western" = 16;
+    "font.name.monospace.x-western" = "PragmataPro";
+    "font.name.sans-serif.x-western" = "Public Sans";
+    "font.size.monospace.x-western" = 18;
     "identity.fxaccounts.account.device.name" = hostName;
 
     # CSS blur filter in v88+

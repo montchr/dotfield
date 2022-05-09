@@ -38,13 +38,13 @@ tt,
 .upload-files .filename,
 .url-field,
 .wiki-wrapper .wiki-history .commit-meta code {
-	font-family: 'PragmataPro Liga', monospace !important;
+	font-family: 'PragmataPro', monospace !important;
 	font-size: 1.05em !important;
 }
 
-body,
-.tooltipped:after,
-.markdown-body,
-.hx_text-body {
-	font-family: sans-serif !important;
-}
+/* body, */
+/* .tooltipped:after, */
+/* .markdown-body, */
+/* .hx_text-body { */
+/* 	font-family: sans-serif !important; */
+/* } */
