@@ -34,8 +34,8 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     dir                     # current directory
-    vcs                     # git status
     context                 # user@hostname
+    vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -87,19 +87,19 @@
     # nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
-    xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
+    # xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
     vim_shell               # vim shell indicator (:sh)
     # midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
-    vpn_ip                # virtual private network indicator
-    load                  # CPU load
-    disk_usage            # disk usage
-    ram                   # free RAM
+    # vpn_ip                # virtual private network indicator
+    # load                  # CPU load
+    # disk_usage            # disk usage
+    # ram                   # free RAM
     # swap                  # used swap
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
-    time                    # current time
+    # time                    # current time
     # =========================[ Line #2 ]=========================
     newline                 # \n
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -114,7 +114,7 @@
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
-  typeset -g POWERLEVEL9K_ICON_PADDING=moderate
+  typeset -g POWERLEVEL9K_ICON_PADDING=none
 
   # Basic style options that define the overall look of your prompt. You probably don't want to
   # change them.
@@ -245,8 +245,6 @@
     package.json
     stack.yaml
     flake.nix
-    shell.nix
-    devShell.nix
   )
   typeset -g POWERLEVEL9K_SHORTEN_FOLDER_MARKER="(${(j:|:)anchor_files})"
   # If set to "first" ("last"), remove everything before the first (last) subdirectory that contains
@@ -343,8 +341,14 @@
   #
   # typeset -g POWERLEVEL9K_DIR_CLASSES=()
 
+  typeset -g POWERLEVEL9K_DIR_CLASSES=(
+    '~/.config/dotfield(|/*)'  DOTFIELD     '')
+
+  typeset -g POWERLEVEL9K_DIR_DOTFIELD_VISUAL_IDENTIFIER_EXPANSION=' '
+
+
   # Custom prefix.
-  # typeset -g POWERLEVEL9K_DIR_PREFIX='%fin '
+  typeset -g POWERLEVEL9K_DIR_PREFIX='%fin '
 
   #####################################[ vcs: git status ]######################################
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
@@ -871,7 +875,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
-  # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%fwith '
+  typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%fwith '
 
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
   # Python virtual environment color.
@@ -975,7 +979,7 @@
   # Nvm color.
   typeset -g POWERLEVEL9K_NVM_FOREGROUND=2
   # Custom icon.
-  # typeset -g POWERLEVEL9K_NVM_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_NVM_VISUAL_IDENTIFIER_EXPANSION=''
 
   ############[ nodeenv: node.js environment (https://github.com/ekalinin/nodeenv) ]############
   # Nodeenv color.
@@ -985,7 +989,7 @@
   # Separate environment name from Node version only with a space.
   typeset -g POWERLEVEL9K_NODEENV_{LEFT,RIGHT}_DELIMITER=
   # Custom icon.
-  # typeset -g POWERLEVEL9K_NODEENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_NODEENV_VISUAL_IDENTIFIER_EXPANSION=''
 
   ##############################[ node_version: node.js version ]###############################
   # Node version color.
@@ -993,7 +997,7 @@
   # Show node version only when in a directory tree containing package.json.
   typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=true
   # Custom icon.
-  # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=''
 
   #######################[ go_version: go version (https://golang.org) ]########################
   # Go version color.
