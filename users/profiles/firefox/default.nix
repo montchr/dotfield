@@ -69,7 +69,7 @@ moduleArgs @ {
     "privacy.resistFingerprinting.block_mozAddonManager" = true;
 
     "security.enterprise_roots.enabled" = true;
-    "services.sync.declinedEngines" = "addons,passwords,prefs";
+    "services.sync.declinedEngines" = "addons,prefs,creditcards,addresses,tabs,passwords";
     "services.sync.engine.addons" = false;
     "services.sync.engine.passwords" = false;
     "services.sync.engine.prefs" = false;
