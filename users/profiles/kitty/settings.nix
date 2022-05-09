@@ -28,6 +28,7 @@
   single_window_margin_width = "-1";
   draw_minimal_borders = "yes";
   hide_window_decorations = "yes";
+  confirm_os_window_close = "0";
   #: }}}
 
   #: Tab bar {{{
