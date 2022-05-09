@@ -14,9 +14,9 @@
   #: }}}
 
   #: Scrollback {{{
-  scrollback_lines = "15000";
-  scrollback_pager = "bat";
-  scrollback_pager_history_size = "200";
+  scrollback_lines = "4000";
+  # scrollback_pager = "bat";
+  scrollback_pager_history_size = "666";
   #: }}}
 
   #: Window layout {{{
