@@ -233,6 +233,7 @@ in {
         (commonRules // {app = "1Password";})
         (commonRules // {app = "Affinity";})
         (commonRules // {app = "Alfred Preferences";})
+        (commonRules // {app = "AppCleaner";})
         (commonRules // {app = "Fanatastical Helper";})
         (commonRules // {app = "Harvest";})
         (commonRules // {app = "^LibreOffice";})
