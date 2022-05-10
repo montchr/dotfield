@@ -240,6 +240,12 @@ in {
         (commonRules // {app = "Stickies";})
         (commonRules // {app = "^System Preferences$";})
 
+        # Prevent tiny file copy dialogs from claiming a space partition.
+        (commonRules // {
+          app = "^Finder$";
+          title = "Copy";
+        })
+
         {
           app = "Microsoft Teams";
           opacity = "1.0";
