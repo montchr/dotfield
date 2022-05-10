@@ -226,22 +226,18 @@ in {
     extraConfig = let
       commonRules = {
         manage = false;
-        sticky = true;
+        sticky = false;
       };
 
       rules = mkRules [
-        # FIXME: these are not working!
         (commonRules // {app = "1Password";})
+        (commonRules // {app = "Affinity";})
         (commonRules // {app = "Alfred Preferences";})
         (commonRules // {app = "Fanatastical Helper";})
         (commonRules // {app = "Harvest";})
         (commonRules // {app = "Stickies";})
         (commonRules // {app = "^System Preferences$";})
 
-        {
-          app = "Affinity";
-          manage = false;
-        }
         {
           app = "Microsoft Teams";
           opacity = "1.0";
