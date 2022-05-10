@@ -14,6 +14,12 @@ moduleArgs @ {
     includes = ["~/.config/ssh/config.local"];
 
     matchBlocks = {
+      "hierophant" = {
+        host = "100.68.129.15";
+        identitiesOnly = true;
+        identityFile = "~/.ssh/id_ed25519_yubikey.pub";
+      };
+
       "github.com" = {
         user = "git";
         identitiesOnly = true;
