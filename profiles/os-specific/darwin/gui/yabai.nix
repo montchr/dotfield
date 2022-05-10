@@ -235,6 +235,7 @@ in {
         (commonRules // {app = "Alfred Preferences";})
         (commonRules // {app = "Fanatastical Helper";})
         (commonRules // {app = "Harvest";})
+        (commonRules // {app = "^LibreOffice";})
         (commonRules // {app = "Stickies";})
         (commonRules // {app = "^System Preferences$";})
 
