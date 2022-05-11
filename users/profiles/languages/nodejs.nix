@@ -24,13 +24,26 @@ moduleArgs @ {
 
   programs.direnv.stdlib = ''
     use_nvm() {
-      local node_version="$1"
+      watch_file .nvmrc
 
-      nvm_sh="$NVM_DIR/nvm.sh"
-      if [[ -e "$nvm_sh" ]]; then
-        source "$nvm_sh"
-        nvm use "$node_version"
+      export NVM_DIR="$PWD/.nvm"
+      local nvm_path="$NVM_DIR/nvm.sh"
+
+      if ! [ -f "$nvm_path" ]; then
+        echo "Installing NVM" >&2
+        mkdir -p "$NVM_DIR"
+
+        # Run the NVM installer but prevent it from attempting to install its
+        # hooks into the user's global shell configuration files.
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh \
+          | PROFILE="/dev/null" bash
       fi
+
+      . "$nvm_path"
+
+      nvm install
+      layout node
+    }
 
     # https://github.com/direnv/direnv/wiki/Node#use-volta-with-node
     use_volta() {
