@@ -18,7 +18,7 @@
 
     pandoc
     tidy-viewer # Pretty-print CSV files
-    # visidata # A terminal spreadsheet multitool for discovering and arranging data
+    visidata # A terminal spreadsheet multitool for discovering and arranging data
     xsv # A fast CSV command line toolkit
     yq
 
