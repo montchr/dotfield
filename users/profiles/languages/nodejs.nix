@@ -26,7 +26,7 @@ moduleArgs @ {
     use_nvm() {
       watch_file .nvmrc
 
-      export NVM_DIR="$PWD/.nvm"
+      export NVM_DIR="$PWD/.direnv/nvm"
       local nvm_path="$NVM_DIR/nvm.sh"
 
       if ! [ -f "$nvm_path" ]; then
@@ -47,7 +47,7 @@ moduleArgs @ {
 
     # https://github.com/direnv/direnv/wiki/Node#use-volta-with-node
     use_volta() {
-      export VOLTA_HOME="$PWD/.volta"
+      export VOLTA_HOME="$PWD/.direnv/volta"
       PATH_add "$VOLTA_HOME/bin"
 
       if ! [ -f "$VOLTA_HOME/bin/volta" ]; then
