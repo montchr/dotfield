@@ -10,7 +10,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    (lib.optionals isLinux font-manager)
+    (lib.mkIf isLinux font-manager)
   ];
 
   fonts = {
