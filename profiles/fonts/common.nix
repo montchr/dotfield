@@ -3,7 +3,16 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+
+let
+  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+in
+{
+  environment.systemPackages = with pkgs; [
+    (lib.optionals isLinux font-manager)
+  ];
+
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs;
@@ -16,7 +25,7 @@
         jost
         public-sans
       ]
-      ++ (lib.optionals stdenv.hostPlatform.isLinux [
+      ++ (lib.optionals isLinux [
         corefonts
         inconsolata
         liberation_ttf
@@ -26,7 +35,7 @@
         ubuntu_font_family
         terminus_font
       ])
-      ++ (lib.optionals stdenv.hostPlatform.isMacOS [
+      ++ (lib.optionals isMacOS [
         sf-pro
       ]);
   };
