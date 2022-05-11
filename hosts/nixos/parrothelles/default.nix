@@ -18,21 +18,21 @@ in
     ++ personal
     ++ (with profiles; [
       audio
-      users.xtallos
+      users.seadoom
       virtualisation.guests.parallels
     ])
     ++ [./hardware-configuration.nix];
 
-  users.users.xtallos = {
-    password = "xtallos";
+  users.users.seadoom = {
+    password = "seadoom";
     openssh.authorizedKeys.keys = (import "${secretsDir}/authorized-keys.nix");
   };
 
   home-manager.users.xtallos = {profiles, suites, ...}: {
     imports =
-      [hmUsers.xtallos]
+      [hmUsers.seadoom]
       ++ (with suites; graphical)
-      ++ (with profiles; [mail]);
+      ++ (with profiles; []);
   };
 
   boot.loader.grub.enable = true;
@@ -42,38 +42,13 @@ in
 
   networking.useDHCP = false;
   networking.interfaces.enp0s5.useDHCP = true;
+  networking.firewall.enable = false;
 
-  services.openssh.enable = true;
-  # TODO: should this be locked down further?
-  services.openssh.openFirewall = true;
-
-  security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
-
-  security.doas.enable = true;
-  security.doas.wheelNeedsPassword = false;
 
   environment.variables.DOTFIELD_DIR = "/etc/nixos";
 
   users.mutableUsers = false;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    _1password-gui
-    coreutils
-    fd
-    firefox
-    git
-    httpie
-    kitty
-    ripgrep
-    vim
-    vscodium
-    wget
-  ];
-
-  networking.firewall.enable = false;
 
   system.stateVersion = "21.11";
 }
