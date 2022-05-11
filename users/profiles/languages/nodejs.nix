@@ -16,9 +16,12 @@ moduleArgs @ {
     NVM_BIN = moduleArgs.osConfig.environment.variables.XDG_BIN_HOME or "~/.local/bin";
     NVM_COMPLETION = "true";
     NVM_LAZY_LOAD = "true";
+
+    # volta: the hassle-free javascript tool manager
+    # https://volta.sh/
+    VOLTA_HOME = "${config.xdg.dataHome}/volta";
   };
 
-  # direnv + nvm
   programs.direnv.stdlib = ''
     use_nvm() {
       local node_version="$1"
@@ -28,6 +31,17 @@ moduleArgs @ {
         source "$nvm_sh"
         nvm use "$node_version"
       fi
+
+    # https://github.com/direnv/direnv/wiki/Node#use-volta-with-node
+    use_volta() {
+      export VOLTA_HOME="$PWD/.volta"
+      PATH_add "$VOLTA_HOME/bin"
+
+      if ! [ -f "$VOLTA_HOME/bin/volta" ]; then
+        curl https://get.volta.sh/ | bash
+      fi
+
+      layout node
     }
   '';
 
