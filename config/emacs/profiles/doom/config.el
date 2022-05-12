@@ -82,6 +82,8 @@
 
 ;; === appearance ==============================================================
 
+(setq! doom-theme 'modus-vivendi)
+
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
@@ -92,9 +94,7 @@
 
 (use-package! modus-themes
   :init
-  (require 'modus-themes)
-
-  (setq
+  (setq!
    ;; meta
    modus-themes-inhibit-reload nil
 
@@ -103,22 +103,15 @@
    modus-themes-mixed-fonts t
 
    ;; ui
-   modus-themes-completions nil
-   modus-themes-fringes nil
+   ;; modus-themes-completions nil
+   ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(neutral-underline)
    modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
 
    ;; syntax
-   modus-themes-syntax '(alt-syntax))
-
-  ;; Required upon initial load
-  (modus-themes-load-themes)
-
-  :config
-  ;; Load theme based on macOS dark mode status.
-  (+cdom/load-os-theme))
+   modus-themes-syntax '(alt-syntax)))
 
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
