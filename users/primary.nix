@@ -46,6 +46,7 @@ lib.mkMerge [
       extraGroups = [
         pkgs.lib.our.dotfield.group
         "wheel"
+        "networkmanager"
       ];
       hashedPassword = lib.mkDefault hashedPassword;
       isNormalUser = lib.mkForce true;
