@@ -269,9 +269,6 @@
 
 (use-package! apheleia)
 
-;; Use eslintd for faster ESLint-based formatting on save.
-;; (set-formatter! 'eslintd 'eslintd-fix :modes '(js2-mode))
-
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
@@ -309,7 +306,6 @@
          lsp-enable-indentation nil
          lsp-file-watch-threshold 666
          lsp-ui-doc-delay 2
-         flycheck-javascript-eslint-executable "eslint_d"
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
    "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
    "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"

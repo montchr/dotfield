@@ -61,7 +61,6 @@
 ;; languages
 (package! apheleia)
 (package! bats-mode)                 ; mode for editing and running BATS tests
-(package! eslintd-fix)               ; auto-format js files with eslint_d
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! neon-mode
   :recipe (:host github :repo "montchr/neon-mode"))
