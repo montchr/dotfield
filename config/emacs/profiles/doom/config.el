@@ -227,15 +227,6 @@
 ;;   ;; Make aborting less annoying.
 ;;   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
-(use-package! company-box
-  :config
-  ;; Disable the documentation childframe because it causes emacs to crash!
-  ;;
-  ;; FIXME Allow doc childframe flyout without crashing
-  ;;
-  ;; Note that Emacs doesn't crash when running Doom+modules without my config...
-  (setq! company-box-doc-enable nil))
-
 ;; (use-package! which-key
 ;;   :init
 ;;   (setq! which-key-sort-order
