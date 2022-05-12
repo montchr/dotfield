@@ -179,6 +179,7 @@
 
           suites = with profiles; rec {
             basic = [
+              boot
               core
               networking.common
               os-specific.nixos
