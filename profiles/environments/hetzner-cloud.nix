@@ -3,9 +3,13 @@
   lib,
   modulesPath,
   pkgs,
+  profiles,
   ...
 }: {
-  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
+  imports = [
+    profiles.environments.server
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
