@@ -78,6 +78,8 @@ in {
 
   programs.emacs = {
     enable = true;
+    # TODO: consider wrapping the emacs package so it has access to dependencies
+    # without cluttering home packages
     package = pkgs.emacsNativeComp;
   };
 
@@ -149,14 +151,16 @@ in {
     nodePackages.intelephense
 
     # :lang python
+    pipenv
     (python3.withPackages (ps:
       with ps; [
         black
         grip
+        nose
         pip
+        poetry
         pylint
-        # FIXME: this package is "broken" on some systems?
-        # python-lsp-server
+        pytest
         setuptools
       ]))
 
