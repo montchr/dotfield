@@ -3,8 +3,11 @@
   config,
   lib,
   pkgs,
+  profiles,
   ...
 }: {
+  imports = with profiles; [networking.tailscale];
+
   nix = {
     autoOptimiseStore = true;
     nixPath = ["nixos-config=${../../../lib/compat/nixos}"];
