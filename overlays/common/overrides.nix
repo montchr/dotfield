@@ -4,6 +4,7 @@ channels: final: prev: {
   inherit
     (channels.nixos-unstable)
     alejandra
+    atuin
     awscli2
     direnv
     git-cliff

@@ -37,8 +37,7 @@ in {
   programs.atuin.settings = {
     auto_sync = true;
     sync_frequency = "30m";
-    # TODO: error when fuzzy
-    # search_mode = "fuzzy";  # 'prefix' | 'fuzzy'
+    search_mode = "fuzzy";  # 'prefix' | 'fulltext' | 'fuzzy'
     filter_mode = "global"; # 'global' | 'host' | 'session' | 'directory'
   };
 
