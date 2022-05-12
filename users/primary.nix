@@ -49,6 +49,7 @@ lib.mkMerge [
       ];
       hashedPassword = lib.mkDefault hashedPassword;
       isNormalUser = lib.mkForce true;
+      uid = 1000;
     };
   })
 ]
