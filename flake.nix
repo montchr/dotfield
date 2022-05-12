@@ -181,8 +181,8 @@
             basic = [
               boot
               core
+              nixos-core
               networking.common
-              os-specific.nixos
             ];
             minimal =
               basic
@@ -238,21 +238,21 @@
           suites = with profiles; rec {
             basic = [
               core
-              os-specific.darwin.common
+              darwin.common
               networking.common
             ];
             graphical =
               basic
               ++ [
+                darwin.gui
+                darwin.system-defaults
                 fonts.common
                 fonts.pragmatapro
-                os-specific.darwin.gui
-                os-specific.darwin.system-defaults
               ];
             typical =
               graphical
               ++ [
-                os-specific.darwin.emacs
+                darwin.emacs
                 secrets
               ];
           };
