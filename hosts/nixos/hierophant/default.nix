@@ -45,9 +45,11 @@ in {
   home-manager.users.seadoom = {
     config,
     suites,
+    profiles,
     ...
   }: {
-    imports = [hmUsers.seadoom];
+    imports = [hmUsers.seadoom]
+      ++ (with profiles; [tmux]);
 
     lib.dotfield.userPath = "/etc/dotfield";
   };
