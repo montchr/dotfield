@@ -77,16 +77,15 @@
 
   :checkers
   syntax   ; tasing you for every semicolon you forget
-  (spell
-    +aspell)    ; tasing you for misspelling mispelling
+  ;; (spell +aspell)    ; tasing you for misspelling mispelling
   ;; grammar  ; tasing grammar mistake every you make
 
   :tools
-  ansible
+  ;; ansible
   ;;biblio           ; Writes a PhD for you (citation needed)
   (debugger +lsp)    ; FIXME stepping through code, to help you add bugs
   direnv
-  (docker +lsp)
+  (docker)
   editorconfig       ; let someone else argue about tabs vs spaces
   ;;ein              ; tame Jupyter notebooks with emacs
   (eval +overlay)    ; run code, run (also, repls)
@@ -100,7 +99,7 @@
   (pass +auth)       ; password manager for nerds
   pdf                ; pdf enhancements
   ;;prodigy          ; FIXME managing external services & code builders
-  rgb                ; creating color strings
+  ;; rgb                ; creating color strings
   ;; taskrunner      ; taskrunner for all your projects
   terraform          ; infrastructure as code
   tmux               ; an API for interacting with tmux
@@ -171,7 +170,7 @@
   ;;rust                ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
   ;;scala               ; java, but good
   (scheme +guile)       ; a fully conniving family of lisps
-  (sh +lsp +fish)       ; she sells {ba,z,fi}sh shells on the C xor
+  (sh +lsp)       ; she sells {ba,z,fi}sh shells on the C xor
   ;;sml
   ;;solidity            ; do you need a blockchain? No.
   ;;swift               ; who asked for emoji variables?
