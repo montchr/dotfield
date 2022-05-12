@@ -27,11 +27,13 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # For rage encryption, all hosts need a ssh key pair
   services.openssh = {
-    enable = true;
-    # TODO: is this a sensible default?
-    openFirewall = lib.mkDefault true;
+    # For rage encryption, all hosts need a ssh key pair
+    enable = lib.mkForce true;
+
+    openFirewall = true;
+    passwordAuthentication = false;
+    permitRootLogin = "prohibit-password";
   };
 
   # Automatically kill processes when running low on available memory.
