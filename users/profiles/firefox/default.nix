@@ -146,6 +146,8 @@ in
           display-_anchors
           firefox-color
 
+          (lib.mkIf config.programs.browserpass.enable browserpass)
+
           # Flagfox by Dave G
           #
           # Displays a country flag depicting the location of the current website's
