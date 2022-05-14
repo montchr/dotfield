@@ -11,6 +11,13 @@ in
   lib.mkMerge [
     {
       home.packages = with pkgs; [
+        _1password
+        (lib.mkIf config.dotfield.suites.graphical _1password-gui)
+
+        # "The slightly more awesome standard unix password manager for teams"
+        # https://www.gopass.pw/
+        gopass
+
         yubikey-manager
         yubikey-personalization
       ];
@@ -30,10 +37,10 @@ in
           PASSWORD_STORE_KEY = "${pgpPublicKey} 0xF0B8FB42A7498482";
         };
       };
+
+      programs.browserpass.enable = (config.dotfield.suites.graphical && config.programs.password-store.enable);
+      programs.browserpass.browsers = [
+        (lib.mkIf config.programs.firefox.enable "firefox")
+      ];
     }
-    # FIXME: no effect?
-    (lib.mkIf (config.programs.password-store.enable && config.programs.firefox.enable) {
-      programs.browserpass.enable = true;
-      programs.browserpass.browsers = ["firefox"];
-    })
   ]
