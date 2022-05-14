@@ -5,9 +5,6 @@
 This is Dotfield, my worlds and systems, a nutrient-rich typo terraforming
 the hungry heads of a talking planet.
 
-Primarily for macOS right now, but gradually introducing NixOS
-configurations as well.
-
 ## Identities
 
 ### SSH @ <https://meta.sr.ht/~montchr.keys>
@@ -40,29 +37,29 @@ Adapted from the script provided by https://github.com/nix-community/nixos-insta
 
 ## Grafts
 
-Generally in order of recency.
-
-- https://github.com/Xe/nixos-configs
-- https://github.com/sei40kr/dotfiles
-- https://github.com/malob/nixpkgs
-- https://github.com/kclejeune/system
-- https://github.com/ahmedelgabri/dotfiles
-- https://github.com/cmacrae/config
-- https://github.com/hlissner/dotfiles
-- https://github.com/d12frosted/environment
-- https://github.com/hardselius/dotfiles
-- https://github.com/alrra/dotfiles
-- https://github.com/jasonheecs/ubuntu-server-setup
+* https://code.balsoft.ru/balsoft/nixos-config
+* https://github.com/tudurom/dotfiles
+* https://github.com/Icy-Thought/Snowflake
+* https://github.com/Xe/nixos-configs
+* https://github.com/malob/nixpkgs
+* https://github.com/hlissner/dotfiles
+* https://github.com/d12frosted/environment
+* https://github.com/srid/nixos-config
+* https://github.com/sei40kr/dotfiles
+* https://github.com/kclejeune/system
+* https://github.com/ahmedelgabri/dotfiles
+* https://github.com/cmacrae/config
 
 ## Errata
 
 ### kitty terminal custom icons
 
-kitty's FAQ page shows a small collection of high-quality alternative icons designed by some kitty fans.
+kitty's FAQ page shows a small collection of high-quality alternative icons
+designed by some kitty fans.
 
 <https://sw.kovidgoyal.net/kitty/faq/#i-do-not-like-the-kitty-icon>
 
-While I personally don't _dislike_ the kitty icon, these alternatives are great.
+While I don't _dislike_ the kitty icon, these alternatives are great.
 
 - **Currently: <https://github.com/DinkDonk/kitty-icon>**
 - <https://github.com/k0nserv/kitty-icon>
@@ -70,7 +67,9 @@ While I personally don't _dislike_ the kitty icon, these alternatives are great.
 
 #### macOS
 
-Of course, there's a couple hoops to jump through in order to specify a custom application icon. Most tutorials out there repeat the same general instructions. Quoting from [one of the icon repos](https://github.com/DinkDonk/kitty-icon):
+Of course, there's a couple hoops to jump through in order to specify a custom
+application icon. Most tutorials out there repeat the same general instructions.
+Quoting from [one of the icon repos](https://github.com/DinkDonk/kitty-icon):
 
 > 1. Find `kitty.app` in the `Applications` folder, select it and press `⌘ + i`.
 > 2. Drag `kitty-dark.icns` or `kitty-light.icns` onto the application icon in the kitty info pane.
@@ -82,9 +81,12 @@ Of course, there's a couple hoops to jump through in order to specify a custom a
 
 Unfortunately, any customisations will be reverted whenever the app updates.
 
-For that reason, I'm taking the manual route for now. But in the future, I'd consider creating a =nix-darwin= module for customizing icons declaratively. But that ranks pretty low on my "nice to have" list.
+For that reason, I'm taking the manual route for now. But in the future, I'd
+consider creating a =nix-darwin= module for customizing icons declaratively. But
+that ranks pretty low on my "nice to have" list.
 
-[This blog post](https://www.sethvargo.com/replace-icons-osx/) outlines a simple alternative. In summary (though the path might not actually be correct):
+[This blog post](https://www.sethvargo.com/replace-icons-osx/) outlines a simple
+alternative:
 
 ```sh
 cp ~/path/to/kitty.icns /Applications/kitty.app/Contents/Resources/kitty.icns
