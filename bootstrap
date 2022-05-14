@@ -655,113 +655,6 @@ msg::domain "Guardian" "Ensure directories exist" && {
 }
 
 
-guard::macos && {
-  # shellcheck source=./provision/macos/main
-  . "${DOTFIELD_DIR}/provision/macos/main"
-}
-
-
-( guard::install && ! shell::is_ci ) && {
-  if [[ -z "${DOTFIELD_HOSTNAME}" ]] || [[ ! "${DOTFIELD_HOSTNAME}" == "${HOSTNAME}" ]]; then
-    msg::domain "Hostname" "Set the system hostname"
-    msg::ask "Enter a name: "
-    DOTFIELD_HOSTNAME="$(msg::get_answer)"
-  fi
-
-  guard::domain "Identity" "Ensuring PGP key" && {
-    if [[ -n "${DOTFIELD_PGP_KEY}" ]]; then
-      msg::subdomain "Querying keyserver for key '${DOTFIELD_PGP_KEY}'"
-      gpg --recv-key "${DOTFIELD_PGP_KEY}"
-    else
-      msg::warning "Key variable is not set. Skipping..."
-    fi
-  }
-
-  guard::domain "Identity" "Ensuring SSH key" && {
-    SSH_KEY_PATH="$HOME/.ssh/id_ed25519_yubikey.pub"
-    [[ -f "${SSH_KEY_PATH}" ]] || {
-      # Note that this will fail if the agent is aware of multiple cards.
-      #
-      # TODO: How are cards registered on the system prior to bootstrapping? This
-      # seems like a catch-22...
-      ssh-add -L | grep "cardno" > "${SSH_KEY_PATH}"
-      chmod 600 "${SSH_KEY_PATH}"
-    }
-  }
-}
-
-
-( guard::ubuntu || guard::debian ) && {
-  msg::domain "OS" "Preparing Debian/Ubuntu environment"
-  # shellcheck source=./provision/debian/main
-  . "${DOTFIELD_DIR}/provision/debian/main"
-}
-
-
-guard::macos && {
-  guard::domain "yabai" "Check SIP status" && {
-    case $(csrutil status) in
-      *enabled*)
-        msg::error "System integrity protection is enabled! yabai cannot function properly. Skipping."
-        msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
-        ;;
-      *disabled*)
-        if shell::has yabai; then
-          msg::error "System integrity protection is disabled! Your system is at risk!"
-          msg::warning "Now that the yabai scripting addition has been installed, you should re-enable SIP."
-          msg::info "https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
-        else
-          msg::warning "System integrity protection is disabled -- yabai scripting addition can be injected."
-        fi
-        ;;
-    esac
-  }
-}
-
-
-# TODO: handle with nix?
-# TODO: why was this disabled?
-# guard::install && {
-#   msg::domain "Guardian" "Decrypting Dotfield secrets"
-#   if [[ $(gpg --list-secret-keys "${DOTFIELD_ID_EMAIL}" 2>/dev/null) ]]; then
-#     # Force transcrypt to run even if it thinks the working tree is dirty.
-#     # This seems to be a false positive. Regardless, we've already checked for
-#     # a dirty working tree so nothing should be lost at this point.
-#     transcrypt --yes --force --import-gpg="${DOTFIELD_DIR}/.transcrypt" || {
-#       msg::warning "Decryption failed. Have we been her before?"
-#     }
-#   else
-#     msg::error "The requisite GPG key was not found! Cannot decrypt the secrets of Dotfield..."
-#     shell::is_interactive && exit 1
-#   fi
-# }
-
-
-guard::install && {
-  guard::domain "Nix" "Install" && {
-    if guard::root; then
-      msg::warning "Nix package manager must not be installed by root! Skipping."
-    else
-      . ./provision/_nix.sh
-    fi
-  }
-}
-
-
-guard::domain "Nix" "Build" && {
-  shell::has nix && [[ $(nix --version) ]] && {
-    guard::macos && {
-      nix build "./#${DOTFIELD_HOSTNAME}" \
-        && "${DOTFIELD_DIR}/result/sw/bin/darwin-rebuild" switch --flake "./#${DOTFIELD_HOSTNAME}"
-    }
-  
-    guard::linux && {
-      sudo nix build switch --flake "./#${DOTFIELD_HOSTNAME}"
-    }
-  }
-}
-
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>   REALIZATION
@@ -770,19 +663,6 @@ guard::domain "Nix" "Build" && {
 
 
 msg::success "Bootstrapping complete!"
-
-guard::install && {
-
-  if ! shell::is_ci; then
-    msg::warning "Restart!"
-    msg::ask_for_confirmation "Restart?"
-
-    if msg::is_confirmed; then
-      sudo shutdown -r now &> /dev/null
-    fi
-  fi
-
-}
 
 lock__disengage
 
