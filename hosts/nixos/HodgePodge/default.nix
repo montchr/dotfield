@@ -79,17 +79,6 @@
   };
   networking.firewall.enable = false;
 
-  console = {
-    # Large font size for use on HiDPI screen
-    font = "ter-i32b";
-    packages = with pkgs; [terminus_font];
-    keyMap = "us";
-  };
-
-  # videoDrivers = [ "nvidia" ];
-
-  hardware.video.hidpi.enable = true;
-
   # See https://en.wikipedia.org/wiki/Retina_display
   services.xserver.dpi = 221;
 }
