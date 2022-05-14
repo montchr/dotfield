@@ -103,11 +103,6 @@ in {
     # :checkers grammar
     languagetool
 
-    # :term vterm
-    # "Couldn't find cmake command. Vterm module won't compile"
-    # -- Probably unnecessary, but okay.
-    cmake
-
     # :tools editorconfig
     editorconfig-core-c
 
@@ -127,9 +122,6 @@ in {
 
     # :lang javascript
     nodePackages.eslint
-    # eslint, but as a service
-    # https://github.com/mantoni/eslint_d.js
-    nodePackages.eslint_d
     nodePackages.typescript-language-server
 
     # :lang json
@@ -142,7 +134,6 @@ in {
     nodePackages.unified-language-server
 
     # :lang nix
-    nixpkgs-fmt
     rnix-lsp
 
     # :lang org
