@@ -1,13 +1,10 @@
 # Nix
-cachix/cachix.dhall
 result
 
 # nvfetcher
 pkgs/_sources/.shake*
 
 # Emacs
-treemacs.org
-org-roam.db
 custom.el
 flycheck_config.el
 
@@ -15,9 +12,8 @@ flycheck_config.el
 *.local
 
 # CI
-/.ci/.terraform/
-/.ci/*.tfvars
-/.ci/*.tfstate*
+.terraform/
+*.tfvars
+*.tfstate*
 
-/profiles/languages/php/**/vendor/
 /.composer/
