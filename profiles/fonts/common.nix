@@ -17,9 +17,14 @@ in {
         b612
         barlow
         fira
+        fira-code
+        fira-code-symbols
         ibm-plex
         inter
         jost
+        material-design-icons
+        material-icons
+        nerdfonts
         public-sans
       ]
       ++ (lib.optionals isLinux [
