@@ -202,6 +202,8 @@
               secrets
             ];
             tangible = [
+              desktops.bluetooth
+              desktops.power-management
               desktops.sound
               networking.wifi
             ];

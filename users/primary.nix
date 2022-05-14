@@ -47,6 +47,7 @@ lib.mkMerge [
         pkgs.lib.our.dotfield.group
         "wheel"
         "networkmanager"
+        (lib.optionalString config.programs.light.enable "video")
       ];
       hashedPassword = lib.mkDefault hashedPassword;
       isNormalUser = lib.mkForce true;
