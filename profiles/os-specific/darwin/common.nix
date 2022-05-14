@@ -44,8 +44,8 @@ in {
   users.nix.configureBuildUsers = true;
 
   homebrew = {
-    # enable = true;
-    enable = false;
+    enable = true;
+    # enable = false;
     autoUpdate = true;
     global.noLock = true;
   };

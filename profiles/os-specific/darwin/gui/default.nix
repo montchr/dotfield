@@ -20,18 +20,23 @@
   ];
 
   homebrew.casks = [
-    "1password"
     "1password-cli"
+    "adobe-acrobat-reader"
     "alfred"
     "appcleaner"
     "bartender"
+    "bitwarden"
+    "brave-browser"
     "basictex"
+    "calibre"
     "caprine"
     "corelocationcli"
     "docker"
     "dropbox"
+    "eloston-chromium"
     "fantastical"
     "firefox-developer-edition"
+    "flameshot"
     "google-chrome"
     "google-drive"
     "imageoptim"
@@ -42,6 +47,8 @@
     "kitty"
     # "libreoffice"
     "marked"
+    "mpv"
+    "nextcloud"
     "pdf-expert"
     "plexamp"
     "qlcolorcode"
@@ -52,15 +59,16 @@
     "quicklookase"
     "signal"
     "slack"
+    "soundsource"
     "spotify"
     "steermouse"
     "sublime-text"
+    "transmit"
     "vagrant"
     "vimr"
     # Disabled because updates to VirtualBox are disruptive
     # "virtualbox"
     "visual-studio-code"
-    "vlc"
     "webpquicklook"
     # "zoom"
   ];
@@ -76,6 +84,7 @@
     "Keka" = 470158793;
     "NepTunes" = 1006739057;
     "New File Menu" = 1064959555;
-    "Reeder 5." = 1529448980;
+    "Reeder" = 1529448980;
+    "Tailscale" = 1475387142;
   };
 }

@@ -3,10 +3,15 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+
+let
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
-  lib.mkIf ("" != pgpPublicKey) {
+
+lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
+  {
     home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
 
     home.packages = with pkgs; [
@@ -22,7 +27,7 @@ in
       enable = true;
       # Note that this depends on our fork of the gpg-agent hm module.
       pinentryPackage =
-        if pkgs.stdenv.hostPlatform.isDarwin
+        if isDarwin
         then pkgs.pinentry_mac
         else pkgs.pinentry;
       enableScDaemon = true;
@@ -50,3 +55,5 @@ in
       };
     };
   }
+  (lib.mkIf isDarwin {homebrew.brews = ["pinentry-mac"];})
+])
