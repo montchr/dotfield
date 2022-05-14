@@ -196,6 +196,7 @@
                 desktops.plasma
                 fonts.common
                 fonts.pragmatapro
+                graphics
               ];
             personal = [
               secrets
