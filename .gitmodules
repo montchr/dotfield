@@ -4,9 +4,6 @@
 [submodule "bats-core"]
 	path = vendor/bats-core
 	url = https://github.com/bats-core/bats-core.git
-[submodule "semver-tool"]
-	path = vendor/semver-tool
-	url = https://github.com/fsaintjacques/semver-tool.git
 [submodule "bats-support"]
 	path = vendor/bats-support
 	url = https://github.com/bats-core/bats-support.git
@@ -16,12 +13,6 @@
 [submodule "bats-file"]
 	path = vendor/bats-file
 	url = https://github.com/bats-core/bats-file.git
-[submodule "bash-oo-framework"]
-	path = vendor/bash-oo-framework
-	url = https://github.com/niieani/bash-oo-framework.git
 [submodule "pfetch"]
 	path = vendor/pfetch
 	url = https://github.com/montchr/pfetch.git
-[submodule "stackline"]
-	path = vendor/stackline
-	url = https://github.com/AdamWagner/stackline.git
