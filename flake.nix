@@ -285,8 +285,8 @@
               vim
             ];
             graphical = [
+              clippy
               colors
-              espanso
               firefox
               keyboard
               kitty
