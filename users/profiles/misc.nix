@@ -30,6 +30,11 @@
     shfmt
     shellcheck
     yamllint
+
+    ## === Media Tools ===
+
+    mpv
+    youtube-dl
   ];
 
   # TODO: check these out
