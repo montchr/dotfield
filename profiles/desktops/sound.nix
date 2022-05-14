@@ -16,6 +16,8 @@
   hardware.pulseaudio.enable = false;
 
   environment.systemPackages = with pkgs; [
+    cmus
     pavucontrol
+    playerctl
   ];
 }
