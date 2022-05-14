@@ -17,4 +17,7 @@ channels: final: prev: {
     tidy-viewer
     zsh-prezto
     ;
+
+  ripgrep = prev.ripgrep.override {withPCRE2 = true;};
+
 }

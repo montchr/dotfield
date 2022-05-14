@@ -111,7 +111,7 @@ in {
     nmap
     openssh
     openssl
-    (ripgrep.override {withPCRE2 = true;})
+    ripgrep
     rsync
     tmux
     vim
