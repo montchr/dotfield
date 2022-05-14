@@ -290,6 +290,7 @@
               firefox
               keyboard
               kitty
+              video
             ];
             personal = [
               gnupg
