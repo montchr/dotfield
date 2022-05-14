@@ -193,6 +193,7 @@
             graphical =
               basic
               ++ [
+                desktops.common
                 desktops.plasma
                 fonts.common
                 fonts.pragmatapro

@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }: {
   programs.light.enable = true;
 
+  services.xserver.libinput.touchpad.tapping = true;
+
   # TODO: move some of this to keyboard profile?
   # services.actkbd = {
   #   enable = true;
