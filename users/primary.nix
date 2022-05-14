@@ -48,6 +48,8 @@ lib.mkMerge [
         "wheel"
         "networkmanager"
         (lib.optionalString config.programs.light.enable "video")
+        (lib.optionalString config.hardware.sane.enable "scanner")
+        (lib.optionalString config.services.printing.enable "lp")
       ];
       hashedPassword = lib.mkDefault hashedPassword;
       isNormalUser = lib.mkForce true;
