@@ -13,6 +13,7 @@
       ++ suites.graphical
       ++ suites.tangible
     ++ (with profiles; [
+      environments.laptop
       users.xtallos
     ])
     ++ [
