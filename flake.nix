@@ -201,7 +201,7 @@
               secrets
             ];
             tangible = [
-              audio
+              desktops.sound
               networking.wifi
             ];
           };
