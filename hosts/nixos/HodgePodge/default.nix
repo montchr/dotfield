@@ -14,6 +14,7 @@
       ++ suites.tangible
     ++ (with profiles; [
       environments.laptop
+      hardware.nvidia
       users.xtallos
     ])
     ++ [
