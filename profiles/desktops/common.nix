@@ -11,7 +11,16 @@
     qbittorrent
     simplescreenrecorder
     zip
+
+    ## xorg / xdg
+    xdg-utils
   ];
+
+  xdg.portal.enable = true;
+  services.flatpak.enable = true;
+  programs.dconf.enable = true;
+
+  systemd.user.services.dbus.wantedBy = [ "default.target" ];
 
   networking.networkmanager.enable = true;
   # TODO: [[id:5525264c-a043-4a88-8f26-244f5440e926][READ: simple linux networking with iwd]]

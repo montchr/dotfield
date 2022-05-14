@@ -194,7 +194,7 @@
               basic
               ++ [
                 desktops.common
-                desktops.plasma
+                desktops.gnome
                 fonts.common
                 fonts.pragmatapro
                 graphics
@@ -295,6 +295,10 @@
               keyboard
               kitty
               video
+              workspace.displays
+              workspace.gnome
+              workspace.notifications
+              workspace.xdg
             ];
             personal = [
               gnupg

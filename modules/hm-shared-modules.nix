@@ -1,7 +1,6 @@
 {config, ...}: {
   home-manager.sharedModules = [
     {
-      # TODO: is this the right place to define this?
       programs.home-manager.enable = true;
 
       # Necessary for home-manager to work with flakes, otherwise it will
