@@ -11,12 +11,12 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    (with suites; basic)
-    ++ (with profiles; [
-      environments.hetzner-cloud
-      networking.tailscale
-      users.seadoom
-    ]);
+    suites.basic
+    ++ [
+      profiles.environments.hetzner-cloud
+      profiles.networking.tailscale
+      profiles.users.seadoom
+    ];
 
   networking.firewall.enable = false;
   networking.firewall.trustedInterfaces = ["enp1s0"];

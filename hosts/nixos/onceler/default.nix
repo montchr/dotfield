@@ -22,14 +22,10 @@
 
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 
-  home-manager.users.xtallos = {
-    profiles,
-    suites,
-    ...
-  }: {
+  home-manager.users.xtallos = hmArgs@{...}: {
     imports =
       [hmUsers.xtallos]
-      ++ (with suites; graphical)
-      ++ (with profiles; [mail]);
+      ++ (with hmArgs.suites; graphical)
+      ++ (with hmArgs.profiles; [mail]);
   };
 }

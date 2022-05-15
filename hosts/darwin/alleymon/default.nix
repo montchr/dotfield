@@ -8,22 +8,17 @@
   ...
 }: {
   imports =
-    (with suites; typical)
-    ++ (with profiles; [
-      users.montchr
-      virtualisation.virtualbox
-    ]);
+    suites.typical
+    ++ [
+      profiles.users.montchr
+      profiles.virtualisation.virtualbox
+    ];
 
-  home-manager.users.montchr = {
-    config,
-    suites,
-    profiles,
-    ...
-  }: {
+  home-manager.users.montchr = hmArgs: {
     imports =
       [hmUsers.xtallos]
-      ++ (with suites; graphical)
-      ++ (with profiles; [
+      ++ hmArgs.suites.graphical
+      ++ (with hmArgs.profiles; [
         aws
         languages.php
         languages.ruby

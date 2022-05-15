@@ -9,9 +9,9 @@
 }: let
   secretsDir = ../../../secrets;
 in {
-  imports = with suites;
-    graphical
-    ++ personal
+  imports =
+    suites.graphical
+    ++ suites.personal
     ++ (with profiles; [
       audio
       users.seadoom
@@ -24,15 +24,10 @@ in {
     openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
 
-  home-manager.users.xtallos = {
-    profiles,
-    suites,
-    ...
-  }: {
+  home-manager.users.xtallos = hmArgs@{...}: {
     imports =
       [hmUsers.seadoom]
-      ++ (with suites; graphical)
-      ++ (with profiles; []);
+      ++ hmArgs.suites.graphical;
   };
 
   boot.loader.grub.enable = true;

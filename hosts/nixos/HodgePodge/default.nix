@@ -9,10 +9,9 @@
   ...
 }: {
   imports =
-    (with suites;
-      personal
-      ++ graphical
-      ++ tangible)
+      suites.personal
+      ++ suites.graphical
+      ++ suites.tangible
     ++ (with profiles; [
       users.xtallos
     ])
@@ -28,16 +27,14 @@
     extraGroups = ["network-manager"];
   };
 
-  home-manager.users.xtallos = {
+  home-manager.users.xtallos = hmArgs@{
     pkgs,
-    profiles,
-    suites,
     ...
   }: {
     imports =
       [hmUsers.xtallos]
-      ++ (with suites; graphical)
-      ++ (with profiles; [mail]);
+      ++ hmArgs.suites.graphical
+      ++ (with hmArgs.profiles; [mail]);
 
     home.packages = with pkgs; [
       ddate
