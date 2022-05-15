@@ -20,25 +20,17 @@
 
   userCfg = config.users.users.${name};
   sshHome = "${userCfg.home}/.ssh";
-in {
-  users.users.${name} = lib.mkMerge [
+in
+lib.mkMerge [
+{
+  users.users.${name} =
     {
       shell = pkgs.zsh;
       home =
         if isDarwin
         then "/Users/${name}"
         else "/home/${name}";
-    }
-    (lib.optionalAttrs isLinux {
-      extraGroups = [
-        pkgs.lib.our.dotfield.group
-        "wheel"
-      ];
-      hashedPassword = lib.mkDefault hashedPassword;
-      isNormalUser = true;
-    })
-  ];
-
+    };
   #  age.identityPaths =
   #    ["${sshHome}/id_ed25519"]
   #    ++ options.age.identityPaths.default;
@@ -49,3 +41,14 @@ in {
   #    owner = name;
   #  };
 }
+  (lib.mkIf (!isDarwin) {
+    users.users.${name} = {
+      extraGroups = [
+        pkgs.lib.our.dotfield.group
+        "wheel"
+      ];
+      hashedPassword = lib.mkDefault hashedPassword;
+      isNormalUser = lib.mkForce true;
+    };
+  })
+]
