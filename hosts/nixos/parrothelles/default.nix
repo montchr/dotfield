@@ -24,7 +24,7 @@ in {
     openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
 
-  home-manager.users.xtallos = hmArgs@{...}: {
+  home-manager.users.seadoom = hmArgs@{...}: {
     imports =
       [hmUsers.seadoom]
       ++ hmArgs.suites.graphical;
