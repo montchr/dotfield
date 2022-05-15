@@ -1,6 +1,6 @@
 {
   nix.binaryCaches = [
-    "https://cachix.org/api/v1/cache/dotfield"
+    "https://dotfield.cachix.org"
     "https://cachix.org/api/v1/cache/emacs"
     "https://nrdxp.cachix.org"
     "https://cachix.org/api/v1/cache/nix-community"

@@ -7,6 +7,8 @@
 }: let
   inherit (pkgs.lib.our) dotfieldPath;
 in {
+  imports = [./cachix.nix];
+
   nix = {
     package = pkgs.nix;
     gc.automatic = true;
