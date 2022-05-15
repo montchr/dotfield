@@ -241,10 +241,11 @@ in {
         (commonRules // {app = "^System Preferences$";})
 
         # Prevent tiny file copy dialogs from claiming a space partition.
-        (commonRules // {
-          app = "^Finder$";
-          title = "Copy";
-        })
+        (commonRules
+          // {
+            app = "^Finder$";
+            title = "Copy";
+          })
 
         {
           app = "Microsoft Teams";

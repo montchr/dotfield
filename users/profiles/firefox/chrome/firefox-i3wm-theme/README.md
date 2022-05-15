@@ -31,7 +31,6 @@ cd chrome
 
 5. Copy the `userChrome.css` file from this repository to that folder
 
-
 For best results, install the [Jetbrains Mono](https://www.jetbrains.com/lp/mono/) font
 
 ---

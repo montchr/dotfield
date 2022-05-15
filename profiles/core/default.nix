@@ -70,7 +70,7 @@ in {
     zsh
   ];
 
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = ["/share/zsh"];
 
   programs.zsh = {
     enable = true;

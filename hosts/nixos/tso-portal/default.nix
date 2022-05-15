@@ -6,13 +6,9 @@
   suites,
   profiles,
   ...
-}:
-
-let
+}: let
   secretsDir = ../../../secrets;
-in
-
-{
+in {
   imports =
     (with suites; basic)
     ++ (with profiles; [users.seadoom])
@@ -44,7 +40,7 @@ in
   users.mutableUsers = false;
   users.users.seadoom = {
     hashedPassword = "$6$j9n2NQ.HRZ3VGIZh$NT3YkL3cDUy/ZQ5Oi6mDIEdfxQ2opgUVD7HIZTqRDcqsJqQiukmkZNIcxSVGQ.fgP38utHDBGcl4V20iodB9M.";
-    openssh.authorizedKeys.keys = (import "${secretsDir}/authorized-keys.nix");
+    openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
   home-manager.users.seadoom = {
     config,

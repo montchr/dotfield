@@ -21,7 +21,7 @@
 const { content, tags } = draft;
 
 if (tags && tags.length !== 0) {
-  const spacelessTags = tags.map(tag => tag.replace(' ', ''));
+  const spacelessTags = tags.map((tag) => tag.replace(' ', ''));
   let newTags = spacelessTags;
 
   const re = /#[\w\d]+/g;
@@ -29,13 +29,13 @@ if (tags && tags.length !== 0) {
 
   // Get the draft tags that don't already have hashtag equivalents in the content
   if (hashtags) {
-    const hashlessHashtags = hashtags.map(tag => tag.replace('#', ''));
-    newTags = spacelessTags.filter(tag => !hashlessHashtags.includes(tag));
+    const hashlessHashtags = hashtags.map((tag) => tag.replace('#', ''));
+    newTags = spacelessTags.filter((tag) => !hashlessHashtags.includes(tag));
   }
 
   // Append the new tags to the content
   if (newTags.length > 0) {
-    const newHashtags = newTags.map(tag => `#${tag}`);
+    const newHashtags = newTags.map((tag) => `#${tag}`);
     draft.content += `\n\n${newHashtags.join(' ')}`;
   }
 }

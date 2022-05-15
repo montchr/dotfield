@@ -18,7 +18,7 @@ Copy entries as needed from [`secrets/authorized-keys.nix`](./secrets/secrets.ni
 
 From https://github.com/drduh/YubiKey-Guide#using-keys:
 
-``` sh
+```sh
 export KEYID="0x135EEDD0F71934F3"
 gpg --recv $KEYID
 gpg --edit-key $KEYID
@@ -28,7 +28,7 @@ gpg --edit-key $KEYID
 
 ### Hetzner Cloud
 
-``` sh
+```sh
 curl -L https://raw.githubusercontent.com/montchr/dotfield/main/provision/bin/nixos-install-hetzner-cloud.sh | sudo bash
 ```
 
@@ -36,23 +36,23 @@ Adapted from the script provided by https://github.com/nix-community/nixos-insta
 
 ## Vertebrae
 
-* https://github.com/divnix/digga :: a good friend
+- https://github.com/divnix/digga :: a good friend
 
 ## Grafts
 
 Generally in order of recency.
 
-* https://github.com/Xe/nixos-configs
-* https://github.com/sei40kr/dotfiles
-* https://github.com/malob/nixpkgs
-* https://github.com/kclejeune/system
-* https://github.com/ahmedelgabri/dotfiles
-* https://github.com/cmacrae/config
-* https://github.com/hlissner/dotfiles
-* https://github.com/d12frosted/environment
-* https://github.com/hardselius/dotfiles
-* https://github.com/alrra/dotfiles
-* https://github.com/jasonheecs/ubuntu-server-setup
+- https://github.com/Xe/nixos-configs
+- https://github.com/sei40kr/dotfiles
+- https://github.com/malob/nixpkgs
+- https://github.com/kclejeune/system
+- https://github.com/ahmedelgabri/dotfiles
+- https://github.com/cmacrae/config
+- https://github.com/hlissner/dotfiles
+- https://github.com/d12frosted/environment
+- https://github.com/hardselius/dotfiles
+- https://github.com/alrra/dotfiles
+- https://github.com/jasonheecs/ubuntu-server-setup
 
 ## Errata
 
@@ -68,16 +68,15 @@ While I personally don't _dislike_ the kitty icon, these alternatives are great.
 - <https://github.com/k0nserv/kitty-icon>
 - <https://github.com/hristost/kitty-alternative-icon>
 
-
 #### macOS
 
-Of course, there's a couple hoops to jump through in order to specify a custom application icon. Most tutorials out there repeat the same general instructions. Quoting from  [one of the icon repos](https://github.com/DinkDonk/kitty-icon):
+Of course, there's a couple hoops to jump through in order to specify a custom application icon. Most tutorials out there repeat the same general instructions. Quoting from [one of the icon repos](https://github.com/DinkDonk/kitty-icon):
 
 > 1. Find `kitty.app` in the `Applications` folder, select it and press `⌘ + i`.
 > 2. Drag `kitty-dark.icns` or `kitty-light.icns` onto the application icon in the kitty info pane.
 > 3. Delete the icon cache and restart `Dock`:
 >
-> ``` sh
+> ```sh
 > $ rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock
 > ```
 

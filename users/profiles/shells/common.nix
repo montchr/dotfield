@@ -7,7 +7,7 @@
 }: let
   inherit (lib.dotfield.whoami) githubUserName;
 
-  envInit = (import ./env-init.sh.nix);
+  envInit = import ./env-init.sh.nix;
 
   shellAliases =
     (import ./abbrs.nix)
@@ -37,7 +37,7 @@ in {
   programs.atuin.settings = {
     auto_sync = true;
     sync_frequency = "30m";
-    search_mode = "fuzzy";  # 'prefix' | 'fulltext' | 'fuzzy'
+    search_mode = "fuzzy"; # 'prefix' | 'fulltext' | 'fuzzy'
     filter_mode = "global"; # 'global' | 'host' | 'session' | 'directory'
   };
 

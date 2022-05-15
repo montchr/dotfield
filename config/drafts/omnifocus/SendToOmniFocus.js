@@ -30,7 +30,7 @@ function SendToOmniFocus(content, options = {}) {
 
   // If the default success message hasn't been overridden,
   // replace its template tag with the project name.
-  if (project && ! options.successMessage) {
+  if (project && !options.successMessage) {
     successMessage = successMessage.replace('{{project}}', project);
   }
 
@@ -40,7 +40,7 @@ function SendToOmniFocus(content, options = {}) {
       cb.baseURL = 'omnifocus:///add';
       cb.addParameter('name', task);
       cb.addParameter('project', project);
-      tags.forEach(tag => cb.addParameter('tag', tag));
+      tags.forEach((tag) => cb.addParameter('tag', tag));
       doCallback(cb, successMessage);
     });
   } else {

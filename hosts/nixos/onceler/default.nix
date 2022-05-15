@@ -22,7 +22,11 @@
 
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 
-  home-manager.users.xtallos = {profiles, suites, ...}: {
+  home-manager.users.xtallos = {
+    profiles,
+    suites,
+    ...
+  }: {
     imports =
       [hmUsers.xtallos]
       ++ (with suites; graphical)

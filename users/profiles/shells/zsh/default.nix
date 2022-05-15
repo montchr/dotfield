@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  envExtra = (import ../env-init.sh.nix);
-  shellAliases = (import ../aliases.nix);
-  shellGlobalAliases = (import ../abbrs.nix);
+  envExtra = import ../env-init.sh.nix;
+  shellAliases = import ../aliases.nix;
+  shellGlobalAliases = import ../abbrs.nix;
 in {
   imports = [../common.nix];
 
@@ -20,7 +20,8 @@ in {
     inherit
       envExtra
       shellAliases
-      shellGlobalAliases;
+      shellGlobalAliases
+      ;
 
     enable = true;
     dotDir = ".config/zsh";
@@ -52,7 +53,7 @@ in {
       }
     ];
 
-    initExtraFirst= ''
+    initExtraFirst = ''
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi

@@ -1,76 +1,76 @@
 {
-    "fish-nvm": {
-        "cargoLocks": null,
-        "pinned": false,
-        "name": "fish-nvm",
-        "version": "2.2.7",
-        "passthru": null,
-        "src": {
-            "deepClone": false,
-            "leaveDotGit": false,
-            "owner": "jorgebucaran",
-            "fetchSubmodules": false,
-            "name": null,
-            "repo": "nvm.fish",
-            "type": "github",
-            "sha256": "sha256-VOai2SITr4d6y8jGc27FqQ8HBG8H70ctWmg8pF4EFeQ=",
-            "rev": "2.2.7"
-        },
-        "extract": null
+  "fish-nvm": {
+    "cargoLocks": null,
+    "pinned": false,
+    "name": "fish-nvm",
+    "version": "2.2.7",
+    "passthru": null,
+    "src": {
+      "deepClone": false,
+      "leaveDotGit": false,
+      "owner": "jorgebucaran",
+      "fetchSubmodules": false,
+      "name": null,
+      "repo": "nvm.fish",
+      "type": "github",
+      "sha256": "sha256-VOai2SITr4d6y8jGc27FqQ8HBG8H70ctWmg8pF4EFeQ=",
+      "rev": "2.2.7"
     },
-    "fish-replay": {
-        "cargoLocks": null,
-        "pinned": false,
-        "name": "fish-replay",
-        "version": "1.2.0",
-        "passthru": null,
-        "src": {
-            "deepClone": false,
-            "leaveDotGit": false,
-            "owner": "jorgebucaran",
-            "fetchSubmodules": false,
-            "name": null,
-            "repo": "replay.fish",
-            "type": "github",
-            "sha256": "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=",
-            "rev": "1.2.0"
-        },
-        "extract": null
+    "extract": null
+  },
+  "fish-replay": {
+    "cargoLocks": null,
+    "pinned": false,
+    "name": "fish-replay",
+    "version": "1.2.0",
+    "passthru": null,
+    "src": {
+      "deepClone": false,
+      "leaveDotGit": false,
+      "owner": "jorgebucaran",
+      "fetchSubmodules": false,
+      "name": null,
+      "repo": "replay.fish",
+      "type": "github",
+      "sha256": "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=",
+      "rev": "1.2.0"
     },
-    "chemacs": {
-        "cargoLocks": null,
-        "pinned": false,
-        "name": "chemacs",
-        "version": "868388321169eddf6dcb99f9b0d3ce734897b3de",
-        "passthru": null,
-        "src": {
-            "deepClone": false,
-            "url": "https://github.com/plexus/chemacs2.git",
-            "leaveDotGit": false,
-            "fetchSubmodules": false,
-            "name": null,
-            "type": "git",
-            "sha256": "sha256-XsJ2hHoQGoDbM7J+VvO1u0+f+jJCQqcUqQjzvTlnnG0=",
-            "rev": "868388321169eddf6dcb99f9b0d3ce734897b3de"
-        },
-        "extract": null
+    "extract": null
+  },
+  "chemacs": {
+    "cargoLocks": null,
+    "pinned": false,
+    "name": "chemacs",
+    "version": "868388321169eddf6dcb99f9b0d3ce734897b3de",
+    "passthru": null,
+    "src": {
+      "deepClone": false,
+      "url": "https://github.com/plexus/chemacs2.git",
+      "leaveDotGit": false,
+      "fetchSubmodules": false,
+      "name": null,
+      "type": "git",
+      "sha256": "sha256-XsJ2hHoQGoDbM7J+VvO1u0+f+jJCQqcUqQjzvTlnnG0=",
+      "rev": "868388321169eddf6dcb99f9b0d3ce734897b3de"
     },
-    "fzf-scripts": {
-        "cargoLocks": null,
-        "pinned": false,
-        "name": "fzf-scripts",
-        "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f",
-        "passthru": null,
-        "src": {
-            "deepClone": false,
-            "url": "https://github.com/DanielFGray/fzf-scripts",
-            "leaveDotGit": false,
-            "fetchSubmodules": false,
-            "name": null,
-            "type": "git",
-            "sha256": "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=",
-            "rev": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
-        },
-        "extract": null
-    }
+    "extract": null
+  },
+  "fzf-scripts": {
+    "cargoLocks": null,
+    "pinned": false,
+    "name": "fzf-scripts",
+    "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f",
+    "passthru": null,
+    "src": {
+      "deepClone": false,
+      "url": "https://github.com/DanielFGray/fzf-scripts",
+      "leaveDotGit": false,
+      "fetchSubmodules": false,
+      "name": null,
+      "type": "git",
+      "sha256": "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=",
+      "rev": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
+    },
+    "extract": null
+  }
 }

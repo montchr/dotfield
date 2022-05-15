@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-in
-{
+in {
   environment.systemPackages = with pkgs; [
     (lib.mkIf isLinux font-manager)
   ];

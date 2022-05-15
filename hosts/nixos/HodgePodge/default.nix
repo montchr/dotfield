@@ -28,7 +28,12 @@
     extraGroups = ["network-manager"];
   };
 
-  home-manager.users.xtallos = {pkgs, profiles, suites, ...}: {
+  home-manager.users.xtallos = {
+    pkgs,
+    profiles,
+    suites,
+    ...
+  }: {
     imports =
       [hmUsers.xtallos]
       ++ (with suites; graphical)

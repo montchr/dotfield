@@ -6,13 +6,9 @@
   profiles,
   hmUsers,
   ...
-}:
-
-let
+}: let
   secretsDir = ../../../secrets;
-in
-
-{
+in {
   imports = with suites;
     graphical
     ++ personal
@@ -25,10 +21,14 @@ in
 
   users.users.seadoom = {
     password = "seadoom";
-    openssh.authorizedKeys.keys = (import "${secretsDir}/authorized-keys.nix");
+    openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
 
-  home-manager.users.xtallos = {profiles, suites, ...}: {
+  home-manager.users.xtallos = {
+    profiles,
+    suites,
+    ...
+  }: {
     imports =
       [hmUsers.seadoom]
       ++ (with suites; graphical)

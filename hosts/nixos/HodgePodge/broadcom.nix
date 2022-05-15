@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Required for broadcom driver support.
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;

@@ -46,29 +46,24 @@
 #                                              #
 #==============================================#
 
-
 # shellcheck disable=2153
-[[ -n "${ZSH_VERSION}" ]] \
-  && emulate -L bash
-
+[[ -n ${ZSH_VERSION} ]] &&
+  emulate -L bash
 
 # Gracefully return if sourcing multiple times.
-[[ -n "${UTILS_LOADED}" ]] \
-  && return 0
+[[ -n ${UTILS_LOADED} ]] &&
+  return 0
 readonly UTILS_LOADED="true"
 
-
 # Settings
-readonly MSG__INDENT="    "  # 4 spaces
-readonly MSG__COL__GAP="  "  # 2 spaces
-
+readonly MSG__INDENT="    " # 4 spaces
+readonly MSG__COL__GAP="  " # 2 spaces
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>   STRING MANIPULATION   [[ str ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 #========================================
 # Convert a string to lowercase.
@@ -120,7 +115,6 @@ function str::upper {
   fi
 }
 
-
 #========================================
 # Strip pattern from start of string.
 #
@@ -138,7 +132,6 @@ function str::lstrip {
   printf '%s\n' "${1##$2}"
 }
 
-
 #========================================
 # Strip pattern from end of string.
 #
@@ -153,10 +146,9 @@ function str::lstrip {
 #   Modified string.
 #========================================
 function str::rstrip {
-    # Usage: rstrip "string" "pattern"
-    printf '%s\n' "${1%%$2}"
+  # Usage: rstrip "string" "pattern"
+  printf '%s\n' "${1%%$2}"
 }
-
 
 # Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
 # underscores.
@@ -172,7 +164,7 @@ function str::sanitize {
   local clean="$*"
   clean="${clean//[[:space:]]/\-}"
   clean="${clean//"/"/_}"
-  clean="${clean//[^[:word:].-]}"
+  clean="${clean//[^[:word:].-]/}"
   str::lower "${clean}"
 }
 
@@ -207,14 +199,11 @@ function str::is_supported_version {
   done
 }
 
-
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>   MESSAGES + PROMPTS    [[ msg ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 #========================================
 # Prompt for text input.
@@ -278,7 +267,7 @@ function msg::get_answer {
 
 #========================================
 # Whether the user responded affirmatively to the most recent prompt.
-# 
+#
 # Usage:
 #   msg::is_confirmed
 # Globals:
@@ -288,11 +277,10 @@ function msg::get_answer {
 #   1 - Negative
 #========================================
 function msg::is_confirmed {
-  [[ "$REPLY" =~ ^[Yy]$ ]] &&
+  [[ $REPLY =~ ^[Yy]$ ]] &&
     return 0 ||
-      return 1
+    return 1
 }
-
 
 #========================================
 # Print a header with a short message preceded with its associated domain.
@@ -339,7 +327,7 @@ function msg::subdomain {
 # Print a de-emphasized domain + message header.
 #
 # Same features as `msg::domain` with these differences:
-# 
+#
 # - The line will be preceded with a single-arrow
 # - Output will be colorized more subtly
 #
@@ -359,7 +347,7 @@ function msg::domain__lesser {
 # Print an "inactive" domain + message header.
 #
 # Same features as `msg::domain` with these differences:
-# 
+#
 # - The line will be preceded with a left-facing single-arrow
 # - Output will not be colorized
 #
@@ -426,7 +414,7 @@ function msg::question {
 function msg::result {
   local code="$1"
   local message="$2"
-  if [[ "${code}" -eq 0 ]]; then
+  if [[ ${code} -eq 0 ]]; then
     msg::success "${message}"
   else
     msg::error "${message}"
@@ -719,13 +707,11 @@ function msg::spinner {
   done
 }
 
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>  SHELL  [[ shell ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 function shell::kill_all_subprocesses {
   local i=""
@@ -786,29 +772,28 @@ function shell::ask_for_sudo {
   done &>/dev/null &
 }
 
-
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
 function shell::is_interactive {
   [[ $- =~ 'i' ]] && return
-  [[ -n "${INTERACTIVE+t}" ]] && return
-  [[ -n "${PS1+t}" ]] && return
+  [[ -n ${INTERACTIVE+t} ]] && return
+  [[ -n ${PS1+t} ]] && return
   return 1
 }
 
 # Whether the current shell is run within CI.
 function shell::is_ci {
-  [[ -n "${CI+t}" ]] && return
-  [[ -n "${TRAVIS+t}" ]] && return
-  [[ -n "${GITHUB_WORKSPACE+t}" ]] && return
+  [[ -n ${CI+t} ]] && return
+  [[ -n ${TRAVIS+t} ]] && return
+  [[ -n ${GITHUB_WORKSPACE+t} ]] && return
   return 1
 }
 
 # Whether the current shell is a recent version.
 function shell::is_modern {
   case "${BASH_VERSION}" in
-    4*|5*) return 0 ;;
-    *)     return 1 ;;
+  4* | 5*) return 0 ;;
+  *) return 1 ;;
   esac
 }
 
@@ -816,7 +801,6 @@ function shell::set_trap {
   trap -p "$1" | grep "$2" &>/dev/null ||
     trap '$2' "$1"
 }
-
 
 #======================================
 # Check for the existence of a command in the current shell environment.
@@ -833,13 +817,11 @@ function shell::has {
   done
 }
 
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>  FILESYSTEM  [[ fs ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 #======================================
 # Get the basename of a file path.
@@ -868,10 +850,9 @@ function fs::basename {
   local tmp
   tmp=${1%"${1##*[!/]}"}
   tmp=${tmp##*/}
-  tmp=${tmp%"${2/"$tmp"}"}
+  tmp=${tmp%"${2/"$tmp"/}"}
   printf '%s\n' "${tmp:-/}"
 }
-
 
 #========================================
 # Get the directory name of a file path.
@@ -917,7 +898,6 @@ function fs::dirname {
   printf '%s\n' "${tmp:-/}"
 }
 
-
 #========================================
 # Ensure directories exist.
 #
@@ -928,7 +908,7 @@ function fs::dirname {
 #========================================
 function fs::ensure_dirs() {
   for dir in "$@"; do
-    if [[ -d "$dir" ]]; then
+    if [[ -d $dir ]]; then
       msg::success "$dir"
     else
       msg::info "create: $dir"
@@ -937,7 +917,6 @@ function fs::ensure_dirs() {
     fi
   done
 }
-
 
 #======================================
 # Print the name of the owner user of the given file.
@@ -961,7 +940,7 @@ function fs::ensure_dirs() {
 #========================================
 function fs::get_owner_name {
   local t="$1"
-  [[ ! -e "$t" ]] && return 1
+  [[ ! -e $t ]] && return 1
   if guard::macos; then
     if shell::has gstat; then
       gstat -c '%U' "$t"
@@ -972,7 +951,6 @@ function fs::get_owner_name {
     stat -c '%U' "$t"
   fi
 }
-
 
 #======================================
 # Link files from a manifest.
@@ -989,12 +967,12 @@ function fs::linkfile {
 
   msg::subdomain "linkfile: ${file}"
 
-  if [[ -e "${file}" ]]; then
-    cd "$(dirname "${file}")" \
-      || return 1
+  if [[ -e ${file} ]]; then
+    cd "$(dirname "${file}")" ||
+      return 1
     fs::map_lines \
       fs::link \
-        "${file}"
+      "${file}"
   fi
 }
 
@@ -1003,10 +981,10 @@ function fs::link_all {
   local src_dir="$1"
   local target_dir="$2"
 
-  if ! [[ -d "${src_dir}" ]]; then
+  if ! [[ -d ${src_dir} ]]; then
     msg::error "Source '${src_dir}' is not a directory! Aborting."
     return 1
-  elif ! [[ -d "${target_dir}" ]]; then
+  elif ! [[ -d ${target_dir} ]]; then
     msg::error "Target '${target_dir}' is not a directory! Aborting."
     return 1
   fi
@@ -1016,7 +994,6 @@ function fs::link_all {
     fs::link "$f" "${target_dir}/$(basename "$f")"
   done
 }
-
 
 #========================================
 # Link files or directories safely.
@@ -1046,9 +1023,9 @@ function fs::link {
   src_abs_path="$(pwd)/${src_rel_path}"
   target_dir=$(dirname "${target_path}")
 
-  if [[ -d "${target_dir}" ]]; then
+  if [[ -d ${target_dir} ]]; then
     owner="$(fs::get_owner_name "${target_dir}")"
-    if [[ "${owner}" != "root" && "${owner}" != "${USER}" ]]; then
+    if [[ ${owner} != "root" && ${owner} != "${USER}" ]]; then
       msg::error "can not link '${src_abs_path}' to '${target_path}'"
       msg::error "owner of '${target_dir}' is ${owner}"
       msg::error "allowed owners: root or ${USER}"
@@ -1056,43 +1033,39 @@ function fs::link {
     fi
   fi
 
-  if [[ ! -f "${src_abs_path}" && ! -d "${src_abs_path}" ]]; then
+  if [[ ! -f ${src_abs_path} && ! -d ${src_abs_path} ]]; then
     msg::error "can not link '${src_abs_path}' as it does not exist"
     exit 1
   fi
 
-  if [[ ! -d "${target_dir}" ]]; then
+  if [[ ! -d ${target_dir} ]]; then
     msg::info "create: ${target_dir}"
     mkdir -p "${target_dir}"
   fi
 
-  if [[ -L "${target_path}" ]]
-  then
+  if [[ -L ${target_path} ]]; then
 
-msg::stream::info <<END
+    msg::stream::info <<END
 ┌╴relink: ${src_abs_path}
 └───────────╴${target_path}
 END
 
-    if [[ "${owner}" = "root" ]]
-    then
+    if [[ ${owner} == "root" ]]; then
       sudo rm "${target_path}"
     else
       rm "${target_path}"
     fi
 
-  elif [[ -e "${target_path}" ]]
-  then
+  elif [[ -e ${target_path} ]]; then
     msg::warning "Target path '${target_path}' already exists!"
     msg::info "Moving existing path to '${target_path}.bak'..."
 
-    if [[ -e "${target_path}.bak" ]]
-    then
+    if [[ -e "${target_path}.bak" ]]; then
       msg::error "Existing path '${target_path}' found, but also found a backup! Aborting."
       return 1
     fi
 
-msg::stream::warnings <<END
+    msg::stream::warnings <<END
 ┌╴backup: ${target_path}
 └───────────╴${target_path}.bak
 END
@@ -1101,20 +1074,19 @@ END
 
   else
 
-msg::stream::info <<END
+    msg::stream::info <<END
 ┌╴link: ${src_abs_path}
 └─────────╴${target_path}
 END
 
   fi
 
-  if [[ "${owner}" = "root" ]]; then
+  if [[ ${owner} == "root" ]]; then
     sudo ln -s "${src_abs_path}" "${target_path}"
   else
     ln -s "${src_abs_path}" "${target_path}"
   fi
 }
-
 
 #========================================
 # Concatenate multiple files.
@@ -1130,12 +1102,11 @@ function fs::combine {
   local output
   output=$(mktemp)
   for f in "$@"; do
-    [[ -f $f ]] \
-      && cat "$f" >> "${output}"
+    [[ -f $f ]] &&
+      cat "$f" >>"${output}"
   done
   echo "${output}"
 }
-
 
 #========================================
 # Invoke a command using every line in a file as arguments.
@@ -1155,26 +1126,24 @@ function fs::map_lines {
   local args="$*"
   local line
 
-  [[ ! -f "${file}" ]] && return 1
+  [[ ! -f ${file} ]] && return 1
 
-  while IFS='' read -r line || [[ -n "${line}" ]]; do
+  while IFS='' read -r line || [[ -n ${line} ]]; do
     # Ignore comment lines
-    [[ "${line}" == "#"* ]] && continue
+    [[ ${line} == "#"* ]] && continue
     # Pass the entire line as-is -- words will be split for separate args.
     # Strings containing spaces must be quoted.
     # Additional args will be appended.
     # shellcheck disable=2086
     ${callback} ${line} "${args}"
-  done < "${file}"
+  done <"${file}"
 }
-
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>   FETCH/DOWNLOAD  [[ fetch ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 #========================================
 # Download a remote file to the current user's bin directory.
@@ -1194,7 +1163,6 @@ function fetch::to_bin {
   local target="${XDG_BIN_HOME:-${HOME}/.local/bin}/${name}"
   fetch::file "${target}" "${url}"
 }
-
 
 #========================================
 # Download a remote file and make it executable.
@@ -1219,13 +1187,11 @@ function fetch::file {
   hash -r
 }
 
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>  REPOSITORIES     [[ repo ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
-
 
 function repo::is_repo {
   git rev-parse &>/dev/null
@@ -1239,42 +1205,42 @@ function repo::qualify_url {
   local identifier=$1
   local forge=${2:-}
 
-  if [[ "${identifier}" = "https://"* || "${identifier}" = "git@"* ]]; then
+  if [[ ${identifier} == "https://"* || ${identifier} == "git@"* ]]; then
     echo "${identifier}"
     return
   fi
 
   case $forge in
-    gh|github)
-      if [[ "$USE_HTTPS" = "true" ]]; then
-        echo "https://github.com/${identifier}.git"
-      else
-        echo "git@github.com:${identifier}.git"
-      fi
-      ;;
-    gl|gitlab)
-      if [[ "$USE_HTTPS" = "true" ]]; then
-        echo  "https://gitlab.com/${identifier}.git"
-      else
-        echo "git@gitlab.com:${identifier}.git"
-      fi
-      ;;
-    srht|sourcehut)
-      if [[ "$USE_HTTPS" = "true" ]]; then
-        echo  "https://git.sr.ht/~${identifier}"
-      else
-        echo "git@git.sr.ht:${identifier}"
-      fi
-      ;;
+  gh | github)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://github.com/${identifier}.git"
+    else
+      echo "git@github.com:${identifier}.git"
+    fi
+    ;;
+  gl | gitlab)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://gitlab.com/${identifier}.git"
+    else
+      echo "git@gitlab.com:${identifier}.git"
+    fi
+    ;;
+  srht | sourcehut)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://git.sr.ht/~${identifier}"
+    else
+      echo "git@git.sr.ht:${identifier}"
+    fi
+    ;;
   esac
 }
 
 function repo::log {
   git --no-pager \
-      log \
-      --graph \
-      --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-      "$*"
+    log \
+    --graph \
+    --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+    "$*"
 }
 
 # Get the canonical forge ID.
@@ -1283,12 +1249,11 @@ function repo::log {
 function repo::get_forge_id {
   local forge=$1
   case $forge in
-    gh|github) echo "gh" ;;
-    gl|gitlab) echo "gl" ;;
-    srht|sourcehut) echo "srht" ;;
+  gh | github) echo "gh" ;;
+  gl | gitlab) echo "gl" ;;
+  srht | sourcehut) echo "srht" ;;
   esac
 }
-
 
 #========================================
 # Get a qualified raw URL for a file in a remote repo.
@@ -1308,14 +1273,13 @@ function repo::qualify_raw_url {
   local path="$4"
 
   case $forge in
-    gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
-    gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
-    srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
+  gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
+  gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
+  srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
   esac
 
   printf "%s" "$_"
 }
-
 
 function repo::pluck {
   local forge="$1"
@@ -1328,7 +1292,6 @@ function repo::pluck {
   repo_url="$(repo::qualify_raw_url "${forge}" "${repo_id}" "${branch}" "${remote_path}")"
   download::fetch "${target}" "${repo_url}"
 }
-
 
 #========================================
 # Synchronize a repository
@@ -1380,7 +1343,7 @@ function repo::sync {
     }
 
     current_branch=$(git symbolic-ref --short HEAD)
-    if [[ "${branch}" != "${current_branch}" ]]; then
+    if [[ ${branch} != "${current_branch}" ]]; then
       msg::info "Switching from ${current_branch} to ${branch}"
       git checkout "${branch}"
     fi
@@ -1388,7 +1351,7 @@ function repo::sync {
     # Note that the remote will be named after the forge, not 'origin'.
     if [[ -d ".git/refs/remotes/${forge}" ]]; then
       current_url=$(git remote get-url "${forge}")
-      if [[ "${current_url}" != "${url}" ]]; then
+      if [[ ${current_url} != "${url}" ]]; then
         msg::warning "Remote '${forge}' has wrong url, so updating it"
         msg::warning "  ${current_url} -> ${url}"
         git remote set-url "${forge}" "$url"
@@ -1417,7 +1380,7 @@ function repo::sync {
     msg::info "update and reinit submodules"
     git submodule update --init --recursive
 
-    if [[ "${url}" = *"${QUERENT}"* ]]; then
+    if [[ ${url} == *"${QUERENT}"* ]]; then
       if [ "$(git rev-list "${remote_branch}..HEAD" --count)" != 0 ]; then
         msg::info "Changes to push:"
         repo::log "${remote_branch}..HEAD"
@@ -1430,19 +1393,17 @@ function repo::sync {
   }
 }
 
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>  USER MANAGEMENT   [[ user ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-
 # Execute a command as a certain user
 # Arguments:
 #   Account Username
 #   Command to be executed
-function user::exec () {
+function user::exec() {
   local username=${1}
   local exec_command=${2}
   sudo -u "${username}" -H bash -c "${exec_command}"
@@ -1452,14 +1413,13 @@ function user::exec () {
 # Arguments:
 #   Account Username
 #   Account Password
-function user::create_account () {
+function user::create_account() {
   local username=${1}
   local password=${2}
   sudo adduser --disabled-password --gecos '' "${username}"
   echo "${username}:${password}" | sudo chpasswd
   sudo usermod -aG sudo "${username}"
 }
-
 
 #========================================
 # Whether a user exists.
@@ -1473,11 +1433,10 @@ function user::create_account () {
 #   1 - User does not exist.
 #========================================
 function user::exists() {
-  id "$1" >/dev/null 2>&1 \
-    && return 0
+  id "$1" >/dev/null 2>&1 &&
+    return 0
   return 1
 }
-
 
 # Set a global $PASSWORD variable by generation or by prompt.
 #
@@ -1489,7 +1448,8 @@ function user::set_password_global {
     if shell::has bw; then
       PASSWORD=$(bw generate --words 3 --separator '.' -p)
       msg::success "Generated new password:"
-      msg::info    "${MSG__INDENT}${PASSWORD}" ; printf "\n"
+      msg::info "${MSG__INDENT}${PASSWORD}"
+      printf "\n"
     else
       msg::error "[Error]" "Couldn't find a password generator!"
     fi
@@ -1505,14 +1465,14 @@ function user::set_password_global {
 function user::prompt_for_password {
   local passwords_match=0
   local confirmation
-  while [[ "${passwords_match}" -eq "0" ]]; do
+  while [[ ${passwords_match} -eq "0" ]]; do
     msg::ask_silently "Enter new password:"
     PASSWORD=$(msg::get_answer)
 
     msg::ask_silently "Confirm password:"
     confirmation=$(msg::get_answer)
 
-    if [[ "${PASSWORD}" != "${confirmation}" ]]; then
+    if [[ ${PASSWORD} != "${confirmation}" ]]; then
       msg::error "Passwords do not match! Please try again."
     else
       passwords_match=1
@@ -1520,11 +1480,10 @@ function user::prompt_for_password {
   done
 }
 
-
 # Allow passwordless sudo for a user
 # Parameters:
 #   Username
-function user::allow_passwordless_sudo () {
+function user::allow_passwordless_sudo() {
   local username=$1
   sudo cp -v /etc/sudoers /etc/sudoers.bak
   sudo bash -c "echo '${username} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
@@ -1546,17 +1505,16 @@ function user::allow_passwordless_sudo () {
 function user::get_home() {
   local username="${1:-${USER}}"
   case $KERNEL_NAME in
-    linux)
-      case $username in
-        root) echo "/root" ;;
-        *) echo "/home/${username}" ;;
-      esac
-      return
-      ;;
-    darwin) echo "/Users/${username}" && return ;;
+  linux)
+    case $username in
+    root) echo "/root" ;;
+    *) echo "/home/${username}" ;;
+    esac
+    return
+    ;;
+  darwin) echo "/Users/${username}" && return ;;
   esac
 }
-
 
 #========================================
 # Clone a user's SSH configuration.
@@ -1576,7 +1534,7 @@ function user::clone_ssh() {
   source_dir="$(user::get_home "${source_user}")/.ssh"
   target_dir="$(user::get_home "${target_user}")/.ssh"
 
-  [[ ! -d "$source_dir" ]] && {
+  [[ ! -d $source_dir ]] && {
     msg::error "[ERROR] Could not locate the SSH directory for '${source_user}'!"
     return 1
   }
@@ -1584,10 +1542,10 @@ function user::clone_ssh() {
   [[ -d $target_dir ]] && {
     msg::warning "The target user already has a '~/.ssh' directory!"
     shell::is_ci || {
-        msg::ask_for_confirmation "Are you sure you want to continue?"
-        ! msg::is_confirmed && {
-          return 1
-        }
+      msg::ask_for_confirmation "Are you sure you want to continue?"
+      ! msg::is_confirmed && {
+        return 1
+      }
     }
   }
 
@@ -1610,7 +1568,7 @@ function user::add_ssh_pub_key() {
   user::exec "${username}" \
     "mkdir -p ~/.ssh; touch ~/.ssh/authorized_keys"
 
-  [[ -n "${pubkey}" ]] && {
+  [[ -n ${pubkey} ]] && {
     user::exec "${username}" \
       "echo \"${pubkey}\" | sudo tee -a ~/.ssh/authorized_keys"
   }
@@ -1632,7 +1590,7 @@ function user::set_ssh_permissions() {
 }
 
 # Modify the sshd_config file.
-function user::change_ssh_config () {
+function user::change_ssh_config() {
   # shellcheck disable=2116
   sudo sed -re \
     's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' \
@@ -1643,20 +1601,18 @@ function user::change_ssh_config () {
     -i /etc/ssh/sshd_config
 }
 
-
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #:
 #:    ==>   PACKAGE MANAGEMENT    [[ pkg ]]
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-
 #
 # : Debian/Ubuntu :: [[ apt ]]
 # - - - - - - - - - - - - - - - - - - -
 
 # Resynchronize the package index files from their sources.
-function pkg::apt::update_repos () {
+function pkg::apt::update_repos() {
   shell::execute \
     "sudo apt-get update -qqy" \
     "APT (update)"
@@ -1675,7 +1631,7 @@ function pkg::apt::upgrade_all() {
 #   Package description
 #   Package name
 #   Extra arguments to apt-get
-function pkg::apt::install () {
+function pkg::apt::install() {
   local DESCRIPTION="$1"
   local PACKAGE="$2"
   local EXTRA_ARGUMENTS="$3"
@@ -1695,6 +1651,6 @@ function pkg::apt::install () {
 # Whether a package is installed.
 # Parameters:
 #   Package name
-function pkg::apt::exists () {
-  dpkg -s "$1" &> /dev/null
+function pkg::apt::exists() {
+  dpkg -s "$1" &>/dev/null
 }

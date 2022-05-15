@@ -5,7 +5,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-
     ## === Local Development ===
 
     act # Run GitHub Actions locally
