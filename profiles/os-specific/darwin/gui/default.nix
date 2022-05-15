@@ -19,6 +19,11 @@
     "homebrew/cask-versions"
   ];
 
+  homebrew.brews = [
+    # This provides a GUI, despite it not being a cask.
+    "pinentry-mac"
+  ];
+
   homebrew.casks = [
     "1password-cli"
     "adobe-acrobat-reader"

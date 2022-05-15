@@ -55,5 +55,4 @@ lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
       };
     };
   }
-  (lib.mkIf isDarwin {homebrew.brews = ["pinentry-mac"];})
 ])
