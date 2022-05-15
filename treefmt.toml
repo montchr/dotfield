@@ -1,0 +1,49 @@
+# https://github.com/numtide/treefmt/wiki
+
+[formatter.nix]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.prettier]
+command = "prettier"
+options = ["--write"]
+includes = [
+    "*.css",
+    "*.html",
+    "*.js",
+    "*.json",
+    "*.jsx",
+    "*.md",
+    "*.mdx",
+    "*.scss",
+    "*.ts",
+    "*.tsx",
+]
+
+[formatter.shell]
+command = "sh"
+options = [
+    "-eucx",
+    """
+if [[ $# -le 0 ]]; then exit 0; fi
+shellcheck "$@"
+shfmt -i 2 -s -w "$@"
+    """
+]
+includes = ["*.sh"]
+excludes = []
+
+[formatter.terraform]
+# Terraform fmt only takes one file at the time so we create a wrapper.
+# See https://github.com/numtide/treefmt/issues/97
+command = "/bin/sh"
+options = [
+    "-euc",
+    """
+for f in "$@"; do
+  terraform fmt "$f"
+done
+    """,
+    "--",
+]
+includes = ["*.tf"]

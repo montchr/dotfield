@@ -8,13 +8,18 @@
   inherit
     (pkgs)
     agenix
+    alejandra
     cachix
     editorconfig-checker
     nixUnstable
-    nixpkgs-fmt
-    # nvfetcher-bin
-    
+    nvfetcher-bin
+    shellcheck
+    shfmt
+    terraform
+    treefmt
     ;
+
+  inherit (pkgs.nodePackages) prettier;
 
   hooks = import ./hooks;
 
@@ -22,7 +27,8 @@
   pkgWithCategory = category: package: {inherit package category;};
 
   dotfield = pkgWithCategory "dotfield";
-  linter = pkgWithCategory "linter";
+  linter = pkgWithCategory "linters";
+  formatter = pkgWithCategory "formatters";
   utils = withCategory "utils";
 in {
   _file = toString ./.;
@@ -32,13 +38,15 @@ in {
       (dotfield nixUnstable)
       (dotfield agenix)
       # (dotfield inputs.deploy.packages.${pkgs.system}.deploy-rs)
+      (dotfield terraform)
+      (dotfield treefmt)
 
-      # {
-      #   category = "dotfield";
-      #   name = nvfetcher-bin.pname;
-      #   help = nvfetcher-bin.meta.description;
-      #   command = "cd $PRJ_ROOT/pkgs; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
-      # }
+      {
+        category = "dotfield";
+        name = nvfetcher-bin.pname;
+        help = nvfetcher-bin.meta.description;
+        command = "cd $PRJ_ROOT/pkgs; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
+      }
 
       (utils {
         name = "evalnix";
@@ -46,8 +54,12 @@ in {
         command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
 
-      (linter nixpkgs-fmt)
+      (formatter alejandra)
+      (formatter prettier)
+      (formatter shfmt)
+
       (linter editorconfig-checker)
+      (linter shellcheck)
     ]
     ++ lib.optional (!pkgs.stdenv.buildPlatform.isi686)
     (dotfield cachix)
