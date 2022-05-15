@@ -1,6 +1,16 @@
 {
   description = "Dotfield";
 
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = "
+    https://dotfield.cachix.org
+    https://cachix.org/api/v1/cache/nix-community
+  ";
+  nixConfig.extra-trusted-public-keys = "
+    dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk=
+    nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+  ";
+
   inputs = {
     # Channels
     nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
