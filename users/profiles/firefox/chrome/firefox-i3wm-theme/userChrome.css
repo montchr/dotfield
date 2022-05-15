@@ -1,4 +1,4 @@
-@namespace "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+@namespace 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
 
 /* Hide close button on tabs */
 #tabbrowser-tabs .tabbrowser-tab .tab-close-button {
@@ -26,7 +26,7 @@
 
 /* Change color of normal tabs */
 
-tab:not([selected="true"]) {
+tab:not([selected='true']) {
   background-color: #222222 !important;
   color: #888888 !important;
   border: none;
@@ -34,7 +34,7 @@ tab:not([selected="true"]) {
 
 /* tab font */
 tab {
-  font-family: "Jetbrains Mono", monospace;
+  font-family: 'Jetbrains Mono', monospace;
   border: none;
 }
 
@@ -58,12 +58,12 @@ tab {
   > .tabbrowser-arrowscrollbox
   > .tabbrowser-tab
   > .tab-stack
-  > .tab-background[multiselected="true"]:-moz-lwtheme,
+  > .tab-background[multiselected='true']:-moz-lwtheme,
 #tabbrowser-tabs:not([movingtab])
   > .tabbrowser-arrowscrollbox
   > .tabbrowser-tab
   > .tab-stack
-  > .tab-background[selected="true"]:-moz-lwtheme,
+  > .tab-background[selected='true']:-moz-lwtheme,
 * {
   /* --tab-line-color: var(--color1); */
   /* --tab-min-width: 76px; */
@@ -73,8 +73,8 @@ tab {
   border: none !important;
 }
 
-#urlbar:not(.megabar):not([focused="true"]):-moz-lwtheme,
-#urlbar.megabar:not([focused="true"]):-moz-lwtheme > #urlbar-background,
+#urlbar:not(.megabar):not([focused='true']):-moz-lwtheme,
+#urlbar.megabar:not([focused='true']):-moz-lwtheme > #urlbar-background,
 #navigator-toolbox #searchbar:not(:focus-within):-moz-lwtheme,
 #navigator-toolbox {
   border: none !important;
@@ -211,7 +211,7 @@ toolbox:focus-within > #nav-bar {
   margin-right: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  font-family: "Jetbrains Mono", monospace;
+  font-family: 'Jetbrains Mono', monospace;
   font-size: 11px;
 }
 

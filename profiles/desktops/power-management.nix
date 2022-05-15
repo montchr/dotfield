@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [acpi];
   services.acpid.enable = true;
   services.upower.enable = true;

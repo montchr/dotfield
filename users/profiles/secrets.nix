@@ -38,7 +38,7 @@ in
         };
       };
 
-      programs.browserpass.enable = (config.dotfield.suites.graphical && config.programs.password-store.enable);
+      programs.browserpass.enable = config.dotfield.suites.graphical && config.programs.password-store.enable;
       programs.browserpass.browsers = [
         (lib.mkIf config.programs.firefox.enable "firefox")
       ];

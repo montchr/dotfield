@@ -1,9 +1,9 @@
 :root {
-  --tridactyl-font-family: "PragmataPro Liga" !important;
-  --tridactyl-cmdl-font-family: "PragmataPro Mono Liga" !important;
-  --tridactyl-status-font-family: "PragmataPro Mono" !important;
-  --tridactyl-cmplt-font-family: "PragmataPro Mono" !important;
-  --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
+  --tridactyl-font-family: 'PragmataPro Liga' !important;
+  --tridactyl-cmdl-font-family: 'PragmataPro Mono Liga' !important;
+  --tridactyl-status-font-family: 'PragmataPro Mono' !important;
+  --tridactyl-cmplt-font-family: 'PragmataPro Mono' !important;
+  --tridactyl-hintspan-font-family: 'PragmataPro Mono' !important;
 }
 
 /* alternate monospace font stack, sorted by least popular so you're most likely to get the font you want */
@@ -38,7 +38,7 @@ tt,
 .upload-files .filename,
 .url-field,
 .wiki-wrapper .wiki-history .commit-meta code {
-  font-family: "PragmataPro", monospace !important;
+  font-family: 'PragmataPro', monospace !important;
   font-size: 1.05em !important;
 }
 

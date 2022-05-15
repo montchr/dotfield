@@ -37,18 +37,18 @@ Adapted from the script provided by https://github.com/nix-community/nixos-insta
 
 ## Grafts
 
-* https://code.balsoft.ru/balsoft/nixos-config
-* https://github.com/tudurom/dotfiles
-* https://github.com/Icy-Thought/Snowflake
-* https://github.com/Xe/nixos-configs
-* https://github.com/malob/nixpkgs
-* https://github.com/hlissner/dotfiles
-* https://github.com/d12frosted/environment
-* https://github.com/srid/nixos-config
-* https://github.com/sei40kr/dotfiles
-* https://github.com/kclejeune/system
-* https://github.com/ahmedelgabri/dotfiles
-* https://github.com/cmacrae/config
+- https://code.balsoft.ru/balsoft/nixos-config
+- https://github.com/tudurom/dotfiles
+- https://github.com/Icy-Thought/Snowflake
+- https://github.com/Xe/nixos-configs
+- https://github.com/malob/nixpkgs
+- https://github.com/hlissner/dotfiles
+- https://github.com/d12frosted/environment
+- https://github.com/srid/nixos-config
+- https://github.com/sei40kr/dotfiles
+- https://github.com/kclejeune/system
+- https://github.com/ahmedelgabri/dotfiles
+- https://github.com/cmacrae/config
 
 ## Errata
 

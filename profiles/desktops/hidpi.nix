@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   hardware.video.hidpi.enable = true;
   services.xserver.dpi = 170;
 
@@ -19,6 +23,6 @@
     keyMap = "us";
   };
 }
-
 # === sources ===
 # https://github.com/srid/nixos-config/blob/master/nixos/desktopish/hidpi.nix
+

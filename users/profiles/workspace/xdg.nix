@@ -1,10 +1,11 @@
-{config, lib, pkgs, ...}:
-
-let
-  inherit (config.home) homeDirectory;
-in
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (config.home) homeDirectory;
+in {
   xdg.enable = true;
   xdg.userDirs.enable = true;
   systemd.user.tmpfiles.rules = [
@@ -25,6 +26,6 @@ in
     # xdg_utils
   ];
 }
-
 ## sources:
 # https://github.com/tudurom/dotfiles/blob/3506530a3e06fa78bdfc84c76d8c912f3fbd18c7/modules/desktop/dirs.nix
+

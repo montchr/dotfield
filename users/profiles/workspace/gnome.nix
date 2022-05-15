@@ -1,21 +1,21 @@
-moduleArgs@{config, lib, pkgs, ...}:
-
-let
+moduleArgs @ {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   isGnomeDesktop = moduleArgs.nixosConfig.services.xserver.desktopManager.gnome.enable or false;
-in
+in {
+  home.packages = with pkgs; (lib.optionals isGnomeDesktop [
+    dconf2nix
+    gnome.dconf-editor
+    gnome.polari
+    gnome.gnome-disk-utility
+    gnome.gnome-tweak-tool
 
-{
-  home.packages = with pkgs;
-    (lib.optionals isGnomeDesktop [
-      dconf2nix
-      gnome.dconf-editor
-      gnome.polari
-      gnome.gnome-disk-utility
-      gnome.gnome-tweak-tool
-
-      # Extras:
-      # gnomeExtensions.pop-os-shell
-      gnomeExtensions.gsconnect
-      gnomeExtensions.user-themes
-    ]);
+    # Extras:
+    # gnomeExtensions.pop-os-shell
+    gnomeExtensions.gsconnect
+    gnomeExtensions.user-themes
+  ]);
 }

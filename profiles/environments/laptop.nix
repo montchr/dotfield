@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.light.enable = true;
 
   services.xserver.libinput.touchpad.tapping = true;

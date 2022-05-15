@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
@@ -14,11 +18,11 @@
 
   services.dbus = {
     enable = true;
-    packages = with pkgs; [ gnome.dconf ];
+    packages = with pkgs; [gnome.dconf];
   };
 
   services.udev = {
-    packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    packages = with pkgs; [gnome.gnome-settings-daemon];
     # TODO: wut https://github.com/Icy-Thought/Snowflake/blob/ff12f668d4ec66019e388a66c0efba8ff8a34e01/modules/desktop/gnome.nix#L33-L40
     # extraRules = ''
     #   ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="none"
@@ -31,11 +35,11 @@
     gsconnect
   ];
 
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk];
   xdg.portal.gtkUsePortal = true;
 
   qt5.platformTheme = lib.mkForce "gnome";
 }
-
 ## === sources ===
 # https://github.com/Icy-Thought/Snowflake/blob/ff12f668d4ec66019e388a66c0efba8ff8a34e01/modules/desktop/gnome.nix
+

@@ -4,11 +4,11 @@
   pkgs,
   ...
 }: {
-  home.packages = (lib.optionals config.programs.xwayland.enable
-    (with pkgs; [clipman wl-clipboard]));
+  home.packages =
+    lib.optionals config.programs.xwayland.enable
+    (with pkgs; [clipman wl-clipboard]);
 
-  wayland.windowManager.sway.config.startup =
-    [{ command = "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store"; }];
+  wayland.windowManager.sway.config.startup = [{command = "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store";}];
 
   programs.zathura.enable = true;
 
@@ -30,7 +30,7 @@
     recursive = true;
   };
 }
-
 ## sources
 #
 # https://github.com/balsoft/nixos-config/tree/b5ed51152f96225c0bb14482bdb3022b9c979679/profiles/workspace/clipman.nix
+

@@ -48,7 +48,8 @@ in {
     profiles,
     ...
   }: {
-    imports = [hmUsers.seadoom]
+    imports =
+      [hmUsers.seadoom]
       ++ (with profiles; [tmux]);
   };
 
