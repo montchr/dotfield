@@ -40,7 +40,7 @@
       {
         condition = "gitdir:~/broadway/**";
         contents = {
-          user.email = config.accounts.email.accounts.work.userName;
+          user.email = hmArgs.config.accounts.email.accounts.work.userName;
         };
       }
     ];
