@@ -12,7 +12,6 @@ in {
   nix = {
     package = pkgs.nix;
     gc.automatic = true;
-    # useSandbox = lib.mkDefault true;
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel"];
@@ -77,7 +76,7 @@ in {
     enableCompletion = true;
   };
 
-  programs.fish.enable = true;
+  programs.fish.enable = lib.mkDefault false;
 
   home-manager = {
     useGlobalPkgs = true;
