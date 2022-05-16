@@ -177,21 +177,21 @@
             digga.lib.rakeLeaves ./profiles
             // {users = digga.lib.rakeLeaves ./users;};
 
-          suites = with profiles; rec {
+          suites = with profiles; {
             basic = [
               boot
-              core
-              nixos-core
+              core.common
+              core.nixos
               networking.common
             ];
             minimal =
-              basic
+              suites.basic
               ++ [
                 users.nixos
                 users.root
               ];
             graphical =
-              basic
+              suites.basic
               ++ [
                 desktops.common
                 desktops.gnome
@@ -239,14 +239,14 @@
             digga.lib.rakeLeaves ./profiles
             // {users = digga.lib.rakeLeaves ./users;};
 
-          suites = with profiles; rec {
+          suites = with profiles; {
             basic = [
-              core
-              darwin.common
+              core.common
+              core.darwin
               networking.common
             ];
             graphical =
-              basic
+              suites.basic
               ++ [
                 darwin.gui
                 darwin.system-defaults
@@ -254,7 +254,7 @@
                 fonts.pragmatapro
               ];
             typical =
-              graphical
+              suites.graphical
               ++ [
                 darwin.emacs
                 secrets
