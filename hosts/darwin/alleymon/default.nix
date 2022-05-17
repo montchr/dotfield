@@ -29,7 +29,11 @@
     accounts.email.accounts.work.primary = true;
     accounts.email.accounts.personal.primary = false;
 
-    home.packages = with pkgs; [ngrok];
+    home.packages = with pkgs; [
+      ngrok
+      # TODO: move this to a common profile when pandas dep is fixed upstream
+      # visidata # A terminal spreadsheet multitool for discovering and arranging data
+    ];
 
     programs.firefox.profiles = {
       home.isDefault = false;
