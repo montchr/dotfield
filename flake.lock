@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1648328916,
-        "narHash": "sha256-SOoHTSBwNp4StXYED+cP7k47ESYBQ0om+ErT8OWYL5s=",
+        "lastModified": 1652747504,
+        "narHash": "sha256-0FnoUBia9EYeDlg/XcPf043Tl/5RneSUaZ6IMsBYreY=",
         "owner": "montchr",
         "repo": "agenix",
-        "rev": "c445c926c1083add0876f838622d6e24ef8b1549",
+        "rev": "36d70a4a1d0f1aaab60bd70c88c9010d9cc7abe8",
         "type": "github"
       },
       "original": {
@@ -449,11 +449,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1651878976,
-        "narHash": "sha256-+xP872y8vuY7qab/kj+IypMamR+zu7K7ecny4m1itiM=",
+        "lastModified": 1652749030,
+        "narHash": "sha256-GsZ9BHyewz4Cjaj8m8XCs4zfGyMym56USq+gMGJkNKA=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "a74e854622e8eecfbae48f26fca7e77e4b637d68",
+        "rev": "73ff9e0b31e0baba2216fd315befccb2234fde18",
         "type": "github"
       },
       "original": {
