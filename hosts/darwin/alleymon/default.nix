@@ -32,7 +32,7 @@
     home.packages = with pkgs; [
       ngrok
       # TODO: move this to a common profile when pandas dep is fixed upstream
-      # visidata # A terminal spreadsheet multitool for discovering and arranging data
+      visidata # A terminal spreadsheet multitool for discovering and arranging data
     ];
 
     programs.firefox.profiles = {
