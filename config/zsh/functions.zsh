@@ -9,6 +9,10 @@ compdef _directories md
 chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
+# start new sessions from most recent dir
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
 
 ###: COLOR =====================================================================
 
