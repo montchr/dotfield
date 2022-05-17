@@ -67,11 +67,14 @@
 
   homebrew = {
     casks = ["figma" "microsoft-teams" "sketch"];
-    masApps = {
-      "Harvest" = 506189836;
-      "Jira" = 1475897096;
-      "xScope" = 889428659;
-      "Xcode" = 497799835;
-    };
+    # Disabled because these greatly slow down installation time.
+    # masApps = {
+    #   "Harvest" = 506189836;
+    #   "Jira" = 1475897096;
+    #   "xScope" = 889428659;
+    #   # Xcode should be installed manually since any update will take a very
+    #   # long time to download and install.
+    #   # "Xcode" = 497799835;
+    # };
   };
 }
