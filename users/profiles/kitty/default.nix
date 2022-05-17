@@ -97,7 +97,6 @@ in
 
       xdg.configFile = {
         "kitty/base16-kitty".source = base16-kitty.outPath;
-        "kitty/session".text = "cd ~";
         "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
         "kitty/themes/light.conf".text = mkTheme' "grayscale-light";
       };
