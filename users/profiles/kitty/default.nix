@@ -48,6 +48,10 @@ in
     })
 
     (lib.mkIf isDarwin {
+      # Handled by the Homebrew module
+      # This populates a dummy package to satisfy the requirement
+      programs.kitty.package = pkgs.runCommand "kitty-0.0.0" {} "mkdir $out";
+
       programs.kitty.darwinLaunchOptions = [
         "--single-instance"
         "--listen-on=${socket}"
@@ -62,7 +66,8 @@ in
       home.sessionVariables = {
         KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
         KITTY_SOCKET = socket;
-        TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+        # TODO: still necessary? avoid depending on kitty pkg for darwin
+        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
       };
 
       programs.kitty = {
