@@ -9,6 +9,10 @@
     ./yabai.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    gtk-mac-integration
+  ];
+
   environment.variables = {
     TERMINFO_DIRS = "/Applications/kitty.app/Contents/Resources/kitty/terminfo";
   };
