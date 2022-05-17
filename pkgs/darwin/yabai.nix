@@ -5,11 +5,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "4.0.0";
+  version = "4.0.1";
 
   src = fetchzip {
     url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/${pname}-v${version}.tar.gz";
-    hash = "sha256-CBoRyxrleCKzgwZQamhwh3zkotxZCHrL3tslfktxluc=";
+    hash = "sha256-dQZw7Df69aSbcU9ot6f73H3VzZEgo2qpgUM6IJRxk60=";
   };
 
   installPhase = ''
