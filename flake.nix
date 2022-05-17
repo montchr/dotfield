@@ -274,7 +274,6 @@
               misc
               navi
               ranger
-              shells.fish
               shells.zsh
               ssh
               tealdeer
