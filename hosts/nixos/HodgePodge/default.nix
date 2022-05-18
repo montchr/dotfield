@@ -9,9 +9,9 @@
   ...
 }: {
   imports =
-      suites.personal
-      ++ suites.graphical
-      ++ suites.tangible
+    suites.personal
+    ++ suites.graphical
+    ++ suites.tangible
     ++ (with profiles; [
       environments.laptop
       hardware.nvidia
@@ -29,10 +29,7 @@
     extraGroups = ["network-manager"];
   };
 
-  home-manager.users.xtallos = hmArgs@{
-    pkgs,
-    ...
-  }: {
+  home-manager.users.xtallos = hmArgs @ {pkgs, ...}: {
     imports =
       [hmUsers.xtallos]
       ++ hmArgs.suites.graphical

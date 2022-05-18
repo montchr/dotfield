@@ -21,39 +21,38 @@
   userCfg = config.users.users.${name};
   sshHome = "${userCfg.home}/.ssh";
 in
-lib.mkMerge [
-{
-  users.users.${name} =
+  lib.mkMerge [
     {
-      shell = pkgs.zsh;
-      home =
-        if isDarwin
-        then "/Users/${name}"
-        else "/home/${name}";
-    };
-  #  age.identityPaths =
-  #    ["${sshHome}/id_ed25519"]
-  #    ++ options.age.identityPaths.default;
-  #
-  #  age.secrets."aws/aws-cdom-default.pem" = {
-  #    file = "${secretsDir}/aws/aws-cdom-default.pem.age";
-  #    path = "${sshHome}/aws-cdom-default.pem";
-  #    owner = name;
-  #  };
-}
-  (lib.mkIf (!isDarwin) {
-    users.users.${name} = {
-      extraGroups = [
-        pkgs.lib.our.dotfield.group
-        "wheel"
-        "networkmanager"
-        (lib.optionalString config.programs.light.enable "video")
-        (lib.optionalString config.hardware.sane.enable "scanner")
-        (lib.optionalString config.services.printing.enable "lp")
-      ];
-      hashedPassword = lib.mkDefault hashedPassword;
-      isNormalUser = lib.mkForce true;
-      uid = 1000;
-    };
-  })
-]
+      users.users.${name} = {
+        shell = pkgs.zsh;
+        home =
+          if isDarwin
+          then "/Users/${name}"
+          else "/home/${name}";
+      };
+      #  age.identityPaths =
+      #    ["${sshHome}/id_ed25519"]
+      #    ++ options.age.identityPaths.default;
+      #
+      #  age.secrets."aws/aws-cdom-default.pem" = {
+      #    file = "${secretsDir}/aws/aws-cdom-default.pem.age";
+      #    path = "${sshHome}/aws-cdom-default.pem";
+      #    owner = name;
+      #  };
+    }
+    (lib.mkIf (!isDarwin) {
+      users.users.${name} = {
+        extraGroups = [
+          pkgs.lib.our.dotfield.group
+          "wheel"
+          "networkmanager"
+          (lib.optionalString config.programs.light.enable "video")
+          (lib.optionalString config.hardware.sane.enable "scanner")
+          (lib.optionalString config.services.printing.enable "lp")
+        ];
+        hashedPassword = lib.mkDefault hashedPassword;
+        isNormalUser = lib.mkForce true;
+        uid = 1000;
+      };
+    })
+  ]

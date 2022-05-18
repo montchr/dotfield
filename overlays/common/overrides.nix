@@ -18,10 +18,12 @@ channels: final: prev: {
     treefmt
     zsh-prezto
     ;
-    
+
   # TODO: remove once available on another channel
-  inherit (channels.nixpkgs-trunk)
-    visidata;
+  inherit
+    (channels.nixpkgs-trunk)
+    visidata
+    ;
 
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
 }
