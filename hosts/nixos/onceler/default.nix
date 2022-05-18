@@ -7,13 +7,13 @@
   hmUsers,
   ...
 }: {
-  imports = with suites;
-    graphical
-    ++ personal
-    ++ tangible
-    ++ (with profiles; [
-      users.xtallos
-    ]);
+  imports =
+    suites.personal
+    ++ suites.tangible
+    ++ suites.workstation
+    ++ [
+      profiles.users.xtallos
+    ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

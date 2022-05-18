@@ -10,13 +10,12 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    suites.graphical
-    ++ suites.personal
-    ++ (with profiles; [
-      audio
-      users.seadoom
-      virtualisation.guests.parallels
-    ])
+    suites.workstation
+    ++ [
+      profiles.audio
+      profiles.users.seadoom
+      profiles.virtualisation.guests.parallels
+    ]
     ++ [./hardware-configuration.nix];
 
   users.users.seadoom = {

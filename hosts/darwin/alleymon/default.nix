@@ -8,7 +8,7 @@
   ...
 }: {
   imports =
-    suites.typical
+    suites.workstation
     ++ [
       profiles.users.montchr
       profiles.virtualisation.virtualbox
@@ -17,6 +17,7 @@
   home-manager.users.montchr = hmArgs: {
     imports =
       [hmUsers.xtallos]
+      ++ hmArgs.suites.personal
       ++ hmArgs.suites.graphical
       ++ (with hmArgs.profiles; [
         aws

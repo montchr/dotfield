@@ -11,8 +11,7 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    suites.basic
-    ++ [
+    [
       profiles.environments.hetzner-cloud
       profiles.networking.tailscale
       profiles.users.seadoom

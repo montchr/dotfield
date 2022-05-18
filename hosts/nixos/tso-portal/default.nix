@@ -10,8 +10,7 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    (with suites; basic)
-    ++ (with profiles; [users.seadoom])
+    [profiles.users.seadoom]
     ++ [./hardware-configuration.nix];
 
   # Use the GRUB 2 boot loader.

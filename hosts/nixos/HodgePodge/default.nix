@@ -9,14 +9,13 @@
   ...
 }: {
   imports =
-    suites.personal
-    ++ suites.graphical
+    suites.workstation
     ++ suites.tangible
-    ++ (with profiles; [
-      environments.laptop
-      hardware.nvidia
-      users.xtallos
-    ])
+    ++ [
+      profiles.environments.laptop
+      profiles.hardware.nvidia
+      profiles.users.xtallos
+    ]
     ++ [
       ./broadcom.nix
       ./hardware-configuration.nix

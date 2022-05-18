@@ -100,6 +100,11 @@
     phps,
     ...
   } @ inputs:
+    let
+      systemProfiles = (digga.lib.rakeLeaves ./profiles)
+        // {users = digga.lib.rakeLeaves ./users;};
+      hmProfiles = digga.lib.rakeLeaves ./users/profiles;
+    in
     digga.lib.mkFlake {
       inherit self inputs;
 
@@ -172,41 +177,28 @@
           ci-ubuntu = {};
         };
 
-        importables = rec {
-          profiles =
-            digga.lib.rakeLeaves ./profiles
-            // {users = digga.lib.rakeLeaves ./users;};
-
-          suites = with profiles; {
+        importables = {
+          profiles = systemProfiles;
+          suites = with systemProfiles; {
             basic = [
               boot
               core.common
-              core.nixos
+              core.core-nixos
               networking.common
-            ];
-            minimal =
-              suites.basic
-              ++ [
-                users.nixos
-                users.root
-              ];
-            graphical =
-              suites.basic
-              ++ [
-                desktops.common
-                desktops.gnome
-                fonts.common
-                fonts.pragmatapro
-                graphics
-              ];
-            personal = [
-              secrets
             ];
             tangible = [
               desktops.bluetooth
               desktops.power-management
               desktops.sound
               networking.wifi
+            ];
+            workstation = [
+              desktops.common
+              desktops.gnome
+              fonts.common
+              fonts.pragmatapro
+              graphics
+              secrets
             ];
           };
         };
@@ -234,31 +226,22 @@
           ci-darwin = {};
         };
 
-        importables = rec {
-          profiles =
-            digga.lib.rakeLeaves ./profiles
-            // {users = digga.lib.rakeLeaves ./users;};
-
-          suites = with profiles; {
+        importables = {
+          profiles = systemProfiles;
+          suites = with systemProfiles; {
             basic = [
               core.common
-              core.darwin
+              core.core-darwin
               networking.common
             ];
-            graphical =
-              suites.basic
-              ++ [
-                darwin.gui
-                darwin.system-defaults
-                fonts.common
-                fonts.pragmatapro
-              ];
-            typical =
-              suites.graphical
-              ++ [
-                darwin.emacs
-                secrets
-              ];
+            workstation = [
+              # darwin.emacs
+              # darwin.gui
+              # darwin.system-defaults
+              fonts.common
+              fonts.pragmatapro
+              secrets
+            ];
           };
         };
       };
@@ -269,9 +252,9 @@
           nix-colors.homeManagerModule
           ({suites, ...}: {imports = suites.basic;})
         ];
-        importables = rec {
-          profiles = digga.lib.rakeLeaves ./users/profiles;
-          suites = with profiles; rec {
+        importables = {
+          profiles = hmProfiles;
+          suites = with hmProfiles; {
             basic = [
               core
               direnv
@@ -309,15 +292,15 @@
 
         users = {
           nixos = {suites, ...}: {
-            imports = with suites; basic;
+            imports = [];
           };
           seadoom = {suites, ...}: {
             imports = with suites;
-              basic ++ dev ++ personal;
+              dev ++ personal;
           };
           xtallos = {suites, ...}: {
             imports = with suites;
-              basic ++ dev ++ personal;
+              dev ++ personal;
           };
         };
       };

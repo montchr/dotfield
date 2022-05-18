@@ -2,10 +2,13 @@
   config,
   lib,
   pkgs,
-  suites,
+  profiles,
   ...
 }: {
-  imports = suites.minimal;
+  imports = [
+    profiles.users.nixos
+    profiles.users.root
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
