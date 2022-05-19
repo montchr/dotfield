@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  imports = [../languages/ruby.nix];
+  imports = [../ruby.nix];
 
   home.sessionVariables = {
     VAGRANT_ALIAS_FILE = "$XDG_DATA_HOME/vagrant/aliases";

@@ -280,18 +280,18 @@
             ];
             dev = [
               emacs
-              languages.nodejs
+              nodejs
               vim
             ];
             graphical = [
-              colors
               espanso
               firefox
               keyboard
               kitty
+              themes
             ];
             personal = [
-              gnupg
+              gpg
               secrets
             ];
           };

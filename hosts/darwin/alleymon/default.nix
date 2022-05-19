@@ -20,8 +20,8 @@
       ++ hmArgs.suites.graphical
       ++ (with hmArgs.profiles; [
         aws
-        languages.php
-        languages.ruby
+        php
+        ruby
         mail
         virtualisation.vagrant
       ]);
