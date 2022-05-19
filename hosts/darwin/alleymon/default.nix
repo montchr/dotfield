@@ -8,21 +8,21 @@
   ...
 }: {
   imports =
-    suites.typical
-    ++ [
+    (with suites; workstation)
+    ++ (with profiles; [
       profiles.users.montchr
       profiles.virtualisation.virtualbox
-    ];
+    ]);
 
   home-manager.users.montchr = hmArgs: {
     imports =
       [hmUsers.xtallos]
-      ++ hmArgs.suites.graphical
+      ++ (with hmArgs.suites; workstation)
       ++ (with hmArgs.profiles; [
         aws
+        mail
         php
         ruby
-        mail
         virtualisation.vagrant
       ]);
 

@@ -10,8 +10,7 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    (with suites; basic)
-    ++ (with profiles; [users.seadoom])
+    (with profiles; [users.seadoom])
     ++ [./hardware-configuration.nix];
 
   # Use the GRUB 2 boot loader.
@@ -42,7 +41,7 @@ in {
     hashedPassword = "$6$j9n2NQ.HRZ3VGIZh$NT3YkL3cDUy/ZQ5Oi6mDIEdfxQ2opgUVD7HIZTqRDcqsJqQiukmkZNIcxSVGQ.fgP38utHDBGcl4V20iodB9M.";
     openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
-  home-manager.users.seadoom = {...}: {
+  home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];
   };
 

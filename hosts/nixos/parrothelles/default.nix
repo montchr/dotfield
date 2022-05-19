@@ -10,8 +10,7 @@
   secretsDir = ../../../secrets;
 in {
   imports =
-    suites.graphical
-    ++ suites.personal
+    (with suites; workstation)
     ++ (with profiles; [
       audio
       users.seadoom
@@ -24,10 +23,10 @@ in {
     openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
 
-  home-manager.users.seadoom = hmArgs@{...}: {
+  home-manager.users.seadoom = hmArgs: {
     imports =
       [hmUsers.seadoom]
-      ++ hmArgs.suites.graphical;
+      ++ (with hmArgs.suites; workstation);
   };
 
   boot.loader.grub.enable = true;

@@ -183,25 +183,15 @@
               networking.common
               os-specific.nixos
             ];
-            minimal =
-              basic
-              ++ [
-                users.nixos
-                users.root
-              ];
-            graphical =
-              basic
-              ++ [
-                desktops.plasma
-                fonts.common
-                fonts.pragmatapro
-              ];
-            personal = [
-              secrets
-            ];
             tangible = [
               audio
               networking.wifi
+            ];
+            workstation = [
+              desktops.plasma
+              fonts.common
+              fonts.pragmatapro
+              secrets
             ];
           };
         };
@@ -240,20 +230,14 @@
               os-specific.darwin.common
               networking.common
             ];
-            graphical =
-              basic
-              ++ [
-                fonts.common
-                fonts.pragmatapro
-                os-specific.darwin.gui
-                os-specific.darwin.system-defaults
-              ];
-            typical =
-              graphical
-              ++ [
-                os-specific.darwin.emacs
-                secrets
-              ];
+            workstation = [
+              fonts.common
+              fonts.pragmatapro
+              os-specific.darwin.emacs
+              os-specific.darwin.gui
+              os-specific.darwin.system-defaults
+              secrets
+            ];
           };
         };
       };
@@ -277,37 +261,32 @@
               shells.zsh
               ssh
               tealdeer
-            ];
-            dev = [
-              emacs
-              nodejs
               vim
             ];
-            graphical = [
+            workstation = [
+              emacs
               espanso
               firefox
+              gpg
+              secrets
               keyboard
               kitty
               themes
-            ];
-            personal = [
-              gpg
-              secrets
             ];
           };
         };
 
         users = {
           nixos = {suites, ...}: {
-            imports = with suites; basic;
+            imports = [];
           };
           seadoom = {suites, ...}: {
             imports = with suites;
-              basic ++ dev ++ personal;
+              workstation;
           };
           xtallos = {suites, ...}: {
             imports = with suites;
-              basic ++ dev ++ personal;
+              workstation;
           };
         };
       };

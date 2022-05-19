@@ -7,10 +7,8 @@
   hmUsers,
   ...
 }: {
-  imports = with suites;
-    graphical
-    ++ personal
-    ++ tangible
+  imports =
+    (with suites; tangible ++ workstation)
     ++ (with profiles; [
       users.xtallos
     ]);
@@ -22,10 +20,12 @@
 
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 
-  home-manager.users.xtallos = hmArgs@{...}: {
+  home-manager.users.xtallos = hmArgs: {
     imports =
       [hmUsers.xtallos]
-      ++ (with hmArgs.suites; graphical)
-      ++ (with hmArgs.profiles; [mail]);
+      ++ (with hmArgs.suites; workstation)
+      ++ (with hmArgs.profiles; [
+        mail
+      ]);
   };
 }

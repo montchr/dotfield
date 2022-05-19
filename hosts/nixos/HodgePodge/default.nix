@@ -9,9 +9,7 @@
   ...
 }: {
   imports =
-      suites.personal
-      ++ suites.graphical
-      ++ suites.tangible
+    (with suites; tangible ++ workstation)
     ++ (with profiles; [
       users.xtallos
     ])
@@ -33,7 +31,7 @@
   }: {
     imports =
       [hmUsers.xtallos]
-      ++ hmArgs.suites.graphical
+      ++ (with hmArgs.suites; workstation)
       ++ (with hmArgs.profiles; [mail]);
 
     home.packages = with pkgs; [

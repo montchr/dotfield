@@ -10,13 +10,11 @@
 }: let
   secretsDir = ../../../secrets;
 in {
-  imports =
-    suites.basic
-    ++ [
-      profiles.environments.hetzner-cloud
-      profiles.networking.tailscale
-      profiles.users.seadoom
-    ];
+  imports = with profiles; [
+    environments.hetzner-cloud
+    networking.tailscale
+    users.seadoom
+  ];
 
   networking.firewall.enable = false;
   networking.firewall.trustedInterfaces = ["enp1s0"];
@@ -42,11 +40,7 @@ in {
     hashedPassword = "$6$OlgpB7UeQh/f7hi7$5Kq/fDAEXS01Qv1XynDaBr/SPjNicBPDBhXIsiWsdj76QdehPp3oJA5w8uueOz63UXajdCMw6tQFMvFn6d19Z1";
     openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
   };
-  home-manager.users.seadoom = {
-    config,
-    suites,
-    ...
-  }: {
+  home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];
 
     lib.dotfield.userPath = "/etc/dotfield";
