@@ -48,12 +48,17 @@ in {
       else "linux";
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
-    XDG_BIN_HOME = "$HOME/.local/bin";
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
     ZDOTDIR = "$HOME/.config/zsh";
+
+    # Although it points to a commonly-used path for user-owned executables,
+    # $XDG_BIN_HOME is a non-standard environment variable. It is not part of
+    # the XDG Base Directory Specification.
+    # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+    XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
   fonts.fonts = [pkgs.emacs-all-the-icons-fonts];
