@@ -5,8 +5,9 @@
   ...
 }: let
   envExtra = import ../env-init.sh.nix;
-  shellAliases = import ../aliases.nix;
-  shellGlobalAliases = import ../abbrs.nix;
+  shellAliases =
+    (import ../abbrs.nix)
+    // (import ../aliases.nix);
 in {
   imports = [../common.nix];
 
@@ -20,7 +21,6 @@ in {
     inherit
       envExtra
       shellAliases
-      shellGlobalAliases
       ;
 
     enable = true;
