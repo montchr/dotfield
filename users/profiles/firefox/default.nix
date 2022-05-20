@@ -102,17 +102,22 @@ moduleArgs @ {
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     };
 
-  userContentCSS = ''
-    :root {
-      --tridactyl-font-family: "PragmataPro Liga" !important;
-      --tridactyl-cmdl-font-family: "PragmataPro Mono Liga" !important;
-      --tridactyl-status-font-family: "PragmataPro Mono" !important;
-      --tridactyl-cmplt-font-family: "PragmataPro Mono" !important;
-      --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
-    }
-  '';
-
-  imports = {
+  styles = {
+    dotfield = {
+      userChrome = ''
+        /* Load Dotfield customisations. */
+        @import url("${toString ./userChrome.css}");
+      '';
+      userContent = ''
+        :root {
+          --tridactyl-font-family: "PragmataPro Liga" !important;
+          --tridactyl-cmdl-font-family: "PragmataPro Mono Liga" !important;
+          --tridactyl-status-font-family: "PragmataPro Mono" !important;
+          --tridactyl-cmplt-font-family: "PragmataPro Mono" !important;
+          --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
+        }
+      '';
+    };
     lepton = {
       userChrome = ''
         /* Load Lepton userChrome.css */
@@ -125,9 +130,9 @@ moduleArgs @ {
     };
   };
 
-  defaultUserContentStyles = ''
-    ${imports.lepton.userContent}
-    ${userContentCSS}
+  userContent = ''
+    ${styles.lepton.userContent}
+    ${styles.dotfield.userContent}
   '';
 in
   lib.mkMerge [
@@ -217,22 +222,24 @@ in
         ];
 
         profiles.home = {
+          inherit userContent;
+
           id = 0;
           settings = defaultSettings // privacySettings;
           userChrome = ''
-            ${imports.lepton.userChrome}
+            ${styles.lepton.userChrome}
 
             :root {
               --dotfield-tab-line-color: #5e81ac;
             }
 
-            ${builtins.readFile ./userChrome.css}
+            ${styles.dotfield.userChrome}
           '';
-
-          userContent = defaultUserContentStyles;
         };
 
         profiles.work = {
+          inherit userContent;
+
           id = 1;
 
           settings =
@@ -252,17 +259,15 @@ in
             };
 
           userChrome = ''
-            ${imports.lepton.userChrome}
+            ${styles.lepton.userChrome}
 
             :root {
               --dotfield-color-alley-red: #a22e29;
               --dotfield-tab-line-color: var(--dotfield-color-alley-red);
             }
 
-            ${builtins.readFile ./userChrome.css}
+            ${styles.dotfield.userChrome}
           '';
-
-          userContent = defaultUserContentStyles;
         };
       };
     }
@@ -273,7 +278,8 @@ in
       programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
     })
   ]
-##: References :
+
+##: References
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
