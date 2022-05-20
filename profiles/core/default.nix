@@ -43,7 +43,7 @@ in {
     EDITOR = "vim";
     HOSTNAME = config.networking.hostName;
     KERNEL_NAME =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then "darwin"
       else "linux";
     LANG = "en_US.UTF-8";
