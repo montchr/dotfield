@@ -116,13 +116,11 @@ moduleArgs @ {
     lepton = {
       userChrome = ''
         /* Load Lepton userChrome.css */
-        /* @import url("file://${leptonDir}/userChrome.css"); */
         @import url("${leptonDir}/userChrome.css");
       '';
       userContent = ''
         /* Load Lepton userContent.css */
-        /* @import url("file://${leptonDir}/userContent.css"); */
-        @import url("file://${leptonDir}/userContent.css");
+        @import url("${leptonDir}/userContent.css");
       '';
     };
   };
