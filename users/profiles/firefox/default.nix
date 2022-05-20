@@ -8,9 +8,8 @@ moduleArgs @ {
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-
-  leptonDir = inputs.firefox-lepton.outPath;
   addons = pkgs.nur.repos.rycee.firefox-addons;
+  lepton = (import ./lepton.nix inputs.firefox-lepton);
 
   disableTelemetry = {
     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
@@ -106,33 +105,32 @@ moduleArgs @ {
     dotfield = {
       userChrome = ''
         /* Load Dotfield customisations. */
-        @import url("${toString ./userChrome.css}");
+        /* Note: the entire content of this file is copied below, so the file itself isn't imported. */
+        /* @import url("${toString ./userChrome.css}"); */
+
+        * {
+          font-family: "PragmataPro Mono Liga", monospace !important;
+          /* font-size: 13px; */
+        }
       '';
       userContent = ''
-        :root {
-          --tridactyl-font-family: "PragmataPro Liga" !important;
-          --tridactyl-cmdl-font-family: "PragmataPro Mono Liga" !important;
-          --tridactyl-status-font-family: "PragmataPro Mono" !important;
-          --tridactyl-cmplt-font-family: "PragmataPro Mono" !important;
-          --tridactyl-hintspan-font-family: "PragmataPro Mono" !important;
-        }
+        /* Load Dotfield customisations. */
+        @import url("${toString ./userContent.css}");
       '';
     };
     lepton = {
       userChrome = ''
         /* Load Lepton userChrome.css */
-        @import url("${leptonDir}/userChrome.css");
+        @import url("${lepton.path}/userChrome.css");
       '';
       userContent = ''
         /* Load Lepton userContent.css */
-        @import url("${leptonDir}/userContent.css");
+        @import url("${lepton.path}/userContent.css");
       '';
     };
   };
 
   userContent = ''
-    ${styles.lepton.userContent}
-    ${styles.dotfield.userContent}
   '';
 in
   lib.mkMerge [
@@ -164,13 +162,6 @@ in
           flagfox
 
           floccus
-
-          # Light/Dark theme switcher for Firefox by Remy Sharp
-          #
-          # https://github.com/remy/light-dark-switcher
-          #
-          # FIXME: appears to be removed from firefox addons repo?
-          # light-dark-switcher
 
           mailvelope
           multi-account-containers
@@ -222,10 +213,17 @@ in
         ];
 
         profiles.home = {
-          inherit userContent;
-
           id = 0;
-          settings = defaultSettings // privacySettings;
+
+          settings =
+            defaultSettings
+            // privacySettings
+            // lepton.settings.required
+            // lepton.settings.theme.lepton
+            // lepton.settings.recommended
+            // lepton.settings.optional
+          ;
+
           userChrome = ''
             ${styles.lepton.userChrome}
 
@@ -235,15 +233,20 @@ in
 
             ${styles.dotfield.userChrome}
           '';
+
+          userContent = ''
+            ${styles.lepton.userContent}
+            ${styles.dotfield.userContent}
+          '';
         };
 
         profiles.work = {
-          inherit userContent;
-
           id = 1;
 
           settings =
             defaultSettings
+            // lepton.settings.required
+            // lepton.settings.theme.lepton
             // {
               "browser.startup.homepage" = "about:blank";
               "browser.urlbar.placeholderName" = "Search";
@@ -267,6 +270,10 @@ in
             }
 
             ${styles.dotfield.userChrome}
+          '';
+
+          userContent = ''
+            ${styles.dotfield.userContent}
           '';
         };
       };
