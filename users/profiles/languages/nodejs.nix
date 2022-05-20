@@ -12,10 +12,6 @@ moduleArgs @ {
   home.sessionVariables = {
     NODE_REPL_HISTORY = "${config.xdg.dataHome}/node/repl_history";
     NVM_DIR = "${config.xdg.dataHome}/node/nvm";
-    NVM_AUTO_USE = "true";
-    NVM_BIN = moduleArgs.osConfig.environment.variables.XDG_BIN_HOME or "~/.local/bin";
-    NVM_COMPLETION = "true";
-    NVM_LAZY_LOAD = "true";
 
     # volta: the hassle-free javascript tool manager
     # https://volta.sh/
@@ -35,14 +31,12 @@ moduleArgs @ {
 
         # Run the NVM installer but prevent it from attempting to install its
         # hooks into the user's global shell configuration files.
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh \
-          | PROFILE="/dev/null" bash
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | PROFILE="/dev/null" bash
       fi
 
-      . "$nvm_path"
+      [ -s "$nvm_path" ] && . "$nvm_path"
 
       nvm install
-      layout node
     }
 
     # https://github.com/direnv/direnv/wiki/Node#use-volta-with-node
@@ -70,6 +64,5 @@ moduleArgs @ {
     init-author-name="Chris Montgomery"
     init-version=0.0.1
     cache=''${XDG_CACHE_HOME}/npm
-    tmp=''${XDG_RUNTIME_DIR}/npm
   '';
 }
