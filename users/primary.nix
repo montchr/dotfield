@@ -1,7 +1,6 @@
+name:
+hashedPassword:
 {
-  username,
-  hashedPassword ? "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1",
-}: {
   config,
   lib,
   options,
@@ -11,13 +10,6 @@
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   secretsDir = ../secrets;
-
-  sessionUser = builtins.getEnv "USER";
-  name =
-    if builtins.elem sessionUser ["" "root"]
-    then username
-    else sessionUser;
-
   userCfg = config.users.users.${name};
   sshHome = "${userCfg.home}/.ssh";
 in

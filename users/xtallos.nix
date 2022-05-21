@@ -1,1 +1,1 @@
-(import ./primary.nix {username = "xtallos";})
+(import ./primary.nix "xtallos" "$6$yq7jJybfGyx19QqK$mr1dfKu1fChKkYDUZvQnlcKCmAYywIvWZXw3uT9EjQ/Xi85SGqkPDcsrrQ.7WEYM6InqDPqGZrTGfvoFpuONi1")
