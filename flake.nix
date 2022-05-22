@@ -168,8 +168,9 @@
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
           HodgePodge = {};
-          onceler = {};
-          ci-ubuntu = {};
+          hierophant = {};
+          tso-portal = {};
+          parrothelles = {};
         };
 
         importables = rec {
@@ -215,8 +216,6 @@
         imports = [(digga.lib.importHosts ./hosts/darwin)];
         hosts = {
           alleymon = {};
-          macOS = {};
-          ci-darwin = {};
         };
 
         importables = rec {
