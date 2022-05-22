@@ -7,7 +7,7 @@
 }: {
   nix = {
     autoOptimiseStore = true;
-    nixPath = ["nixos-config=${../../../lib/compat/nixos}"];
+    nixPath = ["nixos-config=${../../lib/compat/nixos}"];
     optimise.automatic = true;
     systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
   };

@@ -184,9 +184,9 @@
 
           suites = with profiles; rec {
             basic = [
-              core
+              core.common
+              core.nixos
               networking.common
-              os-specific.nixos
             ];
             tangible = [
               audio
@@ -229,8 +229,8 @@
 
           suites = with profiles; rec {
             basic = [
-              core
-              os-specific.darwin.common
+              core.common
+              core.darwin
               networking.common
             ];
             workstation = [
