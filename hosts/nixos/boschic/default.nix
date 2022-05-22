@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, profiles, ... }:
 
 {
-  imports = [
-      ./hardware-configuration.nix
-    ];
+  imports =
+    (with profiles; [
+      fonts.common
+      fonts.pragmatapro
+    ])
+    ++ [./hardware-configuration.nix];
 
   networking.hostName = "boschic";
 
