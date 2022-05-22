@@ -167,6 +167,7 @@
 
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
+          boschic = {};
           HodgePodge = {};
           hierophant = {};
           tso-portal = {};
