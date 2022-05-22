@@ -193,6 +193,7 @@
               networking.wifi
             ];
             workstation = [
+              # boot
               desktops.plasma
               fonts.common
               fonts.pragmatapro
