@@ -1,4 +1,6 @@
+{config, lib, pkgs, ...}:
 {
+  services.cachix-agent.enable = true;
   nix.binaryCaches = [
     "https://dotfield.cachix.org"
     "https://nix-community.cachix.org"
