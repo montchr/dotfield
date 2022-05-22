@@ -5,6 +5,7 @@
   suites,
   profiles,
   hmUsers,
+  primaryUser,
   ...
 }: let
   secretsDir = ../../../secrets;
@@ -13,16 +14,16 @@ in {
     (with suites; workstation)
     ++ (with profiles; [
       audio
-      users.seadoom
       virtualisation.guests.parallels
     ])
     ++ [./hardware-configuration.nix];
 
   users.users.seadoom = {
+    extraGroups = ["wheel"];
     password = "seadoom";
-    openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
-
   home-manager.users.seadoom = hmArgs: {
     imports =
       [hmUsers.seadoom]

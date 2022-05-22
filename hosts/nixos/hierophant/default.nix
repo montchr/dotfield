@@ -6,6 +6,7 @@
   modulesPath,
   suites,
   profiles,
+  primaryUser,
   ...
 }: let
   secretsDir = ../../../secrets;
@@ -13,7 +14,6 @@ in {
   imports = with profiles; [
     environments.hetzner-cloud
     networking.tailscale
-    users.seadoom
   ];
 
   networking.firewall.enable = false;
@@ -34,11 +34,13 @@ in {
   security.sudo.wheelNeedsPassword = false;
 
   users.mutableUsers = false;
-  users.users.root.openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
+  users.users.root.openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   users.users.root.initialHashedPassword = "$6$HimRTytkPSPaFqxi$jqOi8wZhhDunVpHlAtBvOol6J.Gk3l0PeEdiLVkI.f3JoDwT4OixyOcetfz.X87.0m3PqJjU9OgllBTY919bx1";
   users.users.seadoom = {
+    extraGroups = ["wheel"];
     hashedPassword = "$6$OlgpB7UeQh/f7hi7$5Kq/fDAEXS01Qv1XynDaBr/SPjNicBPDBhXIsiWsdj76QdehPp3oJA5w8uueOz63UXajdCMw6tQFMvFn6d19Z1";
-    openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
   home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];

@@ -14,15 +14,15 @@
   # that's not a problem since we're only using darwin systems as a single
   # admin user. although the username may vary across systems, each "primary
   # user" will still be in the `admin` group.
-  dotfieldGroup =
+  secretsGroup =
     if isLinux
-    then pkgs.lib.our.dotfield.group
+    then "secrets"
     else "admin";
 
   mkEspansoMatchesSecret = name: {
     "espanso/${name}.yml" = {
       file = "${secretsDir}/espanso/${name}.yml.age";
-      group = dotfieldGroup;
+      group = secretsGroup;
       path = "${cfg.secretsDir}/espanso/${name}.yml";
     };
   };

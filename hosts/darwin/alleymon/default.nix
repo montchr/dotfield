@@ -10,9 +10,13 @@
   imports =
     (with suites; workstation)
     ++ (with profiles; [
-      profiles.users.montchr
       profiles.virtualisation.virtualbox
     ]);
+
+  # N.B. All of these have unusable defaults and must be set manually.
+  users.users.montchr.home = "/Users/montchr";
+  users.users.montchr.isHidden = false;
+  users.users.montchr.shell = pkgs.zsh;
 
   home-manager.users.montchr = hmArgs: {
     imports =

@@ -174,6 +174,10 @@
         };
 
         importables = rec {
+          primaryUser = {
+            authorizedKeys = import ./secrets/authorized-keys.nix;
+          };
+
           profiles =
             digga.lib.rakeLeaves ./profiles
             // {users = digga.lib.rakeLeaves ./users;};

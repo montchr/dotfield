@@ -1,8 +1,5 @@
 {lib}:
 lib.makeExtensible (self: {
-  # This user group provides a hook for all of our primary users.
-  dotfield.group = "gardeners";
-
   dotfieldPath = toString ../.;
 
   mkOpt = type: default: lib.mkOption {inherit type default;};

@@ -5,13 +5,10 @@
   hmUsers,
   suites,
   profiles,
+  primaryUser,
   ...
-}: let
-  secretsDir = ../../../secrets;
-in {
-  imports =
-    (with profiles; [users.seadoom])
-    ++ [./hardware-configuration.nix];
+}: {
+  imports = [./hardware-configuration.nix];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -34,13 +31,15 @@ in {
   security.doas.enable = true;
   security.doas.wheelNeedsPassword = false;
 
-  users.users.root.hashedPassword = "$6$4SlbVdLk7nOBSUSM$jfNjHJG7rKBhdv8KbOLD0bMiXfZ2Tsh8yXQYY0MYMBAU4vejixQWBL5gEq/A219uUIKbYgSpxAFyySqnfdwaw1";
-
   users.mutableUsers = false;
+  users.users.root.hashedPassword = "$6$4SlbVdLk7nOBSUSM$jfNjHJG7rKBhdv8KbOLD0bMiXfZ2Tsh8yXQYY0MYMBAU4vejixQWBL5gEq/A219uUIKbYgSpxAFyySqnfdwaw1";
   users.users.seadoom = {
+    extraGroups = ["wheel"];
     hashedPassword = "$6$j9n2NQ.HRZ3VGIZh$NT3YkL3cDUy/ZQ5Oi6mDIEdfxQ2opgUVD7HIZTqRDcqsJqQiukmkZNIcxSVGQ.fgP38utHDBGcl4V20iodB9M.";
-    openssh.authorizedKeys.keys = import "${secretsDir}/authorized-keys.nix";
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
+
   home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];
   };
