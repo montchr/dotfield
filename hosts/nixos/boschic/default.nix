@@ -64,8 +64,7 @@
   services.xserver.xkbOptions = "caps:ctrl_modifier";
 
   # Enable CUPS to print documents.
-  # TODO: enable printing
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
