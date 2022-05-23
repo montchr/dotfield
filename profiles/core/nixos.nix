@@ -31,6 +31,8 @@
     keyMap = "us";
   };
 
+  users.groups.secrets.members = ["root" "seadoom" "xtallos"];
+
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
     enable = lib.mkForce true;
