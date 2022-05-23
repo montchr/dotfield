@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profiles, ... }:
+{ config, hmUsers, lib, pkgs, profiles, ... }:
 
 {
   imports =
@@ -96,6 +96,11 @@
     initialHashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
     hashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
     extraGroups = [ "wheel" "video" "network-manager" "seadome" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
+  };
+
+  home-manager.users.seadoom = hmArgs: {
+    imports = [hmUsers.seadoom];
   };
 
   # List packages installed in system profile. To search, run:
@@ -133,13 +138,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  nix = {
-    package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    trustedUsers = [ "root" "@wheel" "@seadome" ];
-  };
+  nix.trustedUsers = [ "root" "@wheel" "@seadome" ];
 
 
   # This value determines the NixOS release from which the default
