@@ -14,7 +14,7 @@ in {
     gc.automatic = true;
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
-    trustedUsers = ["root" "@wheel"];
+    trustedUsers = ["root" "@wheel" "@seadome"];
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true
@@ -91,6 +91,7 @@ in {
     ## === Essentials ===
 
     bashInteractive
+    bat
     binutils
     cacert
     coreutils

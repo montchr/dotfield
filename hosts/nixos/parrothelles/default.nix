@@ -13,7 +13,6 @@ in {
   imports =
     (with suites; workstation)
     ++ (with profiles; [
-      audio
       virtualisation.guests.parallels
     ])
     ++ [./hardware-configuration.nix];

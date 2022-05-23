@@ -11,6 +11,10 @@
 }: {
   imports =
     (with suites; tangible ++ workstation)
+    ++ (with profiles; [
+      hidpi
+      nvidia
+    ])
     ++ [
       ./broadcom.nix
       ./hardware-configuration.nix
@@ -26,38 +30,11 @@
   };
 
   home-manager.users.seadoom = hmArgs: {
-    imports =
-      [hmUsers.xtallos]
-      ++ (with hmArgs.suites; workstation)
+    imports = [hmUsers.seadoom]
       ++ (with hmArgs.profiles; [mail]);
-
-    home.packages = with pkgs; [
-      ddate
-      _1password
-      kitty
-    ];
   };
 
-  environment.systemPackages = with pkgs; [
-    firefox
-    glxinfo
-    kate
-    konsole
-    ripgrep
-    tldr
-    vim
-    wget
-    xsel
-    # wirelesstools
-    # networkmanagerapplet
-  ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = ["btrfs"];
-
   boot.cleanTmpDir = true;
 
   networking.interfaces = {
@@ -67,24 +44,6 @@
     ens9.useDHCP = true;
     ens0.useDHCP = true;
   };
-  networking.wireless = {
-    enable = true;
-    interfaces = ["wlp3s0"];
-    userControlled.enable = true;
-  };
+
   networking.firewall.enable = false;
-
-  console = {
-    # Large font size for use on HiDPI screen
-    font = "ter-i32b";
-    packages = with pkgs; [terminus_font];
-    keyMap = "us";
-  };
-
-  # videoDrivers = [ "nvidia" ];
-
-  hardware.video.hidpi.enable = true;
-
-  # See https://en.wikipedia.org/wiki/Retina_display
-  services.xserver.dpi = 221;
 }

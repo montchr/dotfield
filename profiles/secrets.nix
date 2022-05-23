@@ -37,6 +37,6 @@ in {
       "wireless.env".file = "${secretsDir}/wireless.env.age";
     }
     (mkEspansoMatchesSecret "personal")
-    (mkEspansoMatchesSecret "work")
+    # (mkEspansoMatchesSecret "work")
   ];
 }
