@@ -6,12 +6,12 @@
   ...
 }: let
   inherit (pkgs) system writeShellScriptBin;
-  inherit (inputs.phps.packages.${system}) php81;
+  inherit (inputs.phps.packages.${system}) php80;
   inherit (pkgs.lib.our) dotfieldPath;
 in {
   home.packages = with pkgs; [
-    php81
-    php81.packages.composer
+    php80
+    php80.packages.composer
   ];
   home.sessionPath = [
     # TODO: prepend not append

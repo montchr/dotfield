@@ -137,8 +137,8 @@
         })
 
         (final: prev: {
-          inherit (inputs.phps.packages.${final.system}) php81;
-          php = final.php81;
+          inherit (inputs.phps.packages.${final.system}) php80;
+          php = final.php80;
         })
 
         agenix.overlay
