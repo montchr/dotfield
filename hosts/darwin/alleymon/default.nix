@@ -25,6 +25,7 @@
       ++ (with hmArgs.profiles; [
         aws
         mail
+        nodejs
         php
         ruby
         virtualisation.vagrant
