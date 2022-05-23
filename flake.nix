@@ -191,14 +191,22 @@
             ];
             tangible = [
               audio
-              networking.wifi
+              bluetooth
+              printers-scanners
+
+              # TODO: not necessary with current gnome configuration
+              # networking.wifi
             ];
             workstation = [
-              # boot
-              desktops.plasma
               fonts.common
               fonts.pragmatapro
+              gnome-desktop
               secrets
+              video
+              workstations.common
+
+              # FIXME: review options set within this profile. untested.
+              # boot
             ];
           };
         };
