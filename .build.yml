@@ -1,0 +1,12 @@
+image: "nixos/unstable"
+arch: "x86_64"
+packages:
+  - "nixos.nixFlakes"
+tasks:
+  - setup: |
+      mkdir -p ~/.config/nix
+      echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+  - check: |
+      cd dotfield
+      nix flake show -Lv --show-trace
+      nix flake check -Lv --show-trace
