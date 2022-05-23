@@ -78,11 +78,10 @@
   services.xserver.libinput.enable = true;
 
   xdg.portal.enable = true;
-  #xdg.portal.extraPortals = with pkgs; [
-  #  xdg-desktop-portal-wlr
-  #  xdg-desktop-portal-gtk
-  #];
-  #xdg.portal.gtkUsePortal = true;
+  xdg.portal.gtkUsePortal = true;
+
+  # programs._1password-gui.enable = true;
+  # programs._1password.enable = true;
 
 
   ### === users ================================================================
