@@ -1,8 +1,4 @@
-pkg:
-
 {
-  path = pkg.outPath;
-
   settings = {
     required = {
       "browser.compactmode.show" = true;

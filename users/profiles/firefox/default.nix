@@ -9,7 +9,7 @@ moduleArgs @ {
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
   addons = pkgs.nur.repos.rycee.firefox-addons;
-  lepton = (import ./lepton.nix inputs.firefox-lepton);
+  lepton = import ./lepton.nix;
 
   disableTelemetry = {
     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
@@ -121,11 +121,11 @@ moduleArgs @ {
     lepton = {
       userChrome = ''
         /* Load Lepton userChrome.css */
-        @import url("${lepton.path}/userChrome.css");
+        @import url("${inputs.firefox-lepton.outPath}/userChrome.css");
       '';
       userContent = ''
         /* Load Lepton userContent.css */
-        @import url("${lepton.path}/userContent.css");
+        @import url("${inputs.firefox-lepton.outPath}/userContent.css");
       '';
     };
   };
