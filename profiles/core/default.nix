@@ -95,6 +95,7 @@ in {
     cacert
     coreutils
     curl
+    dua
     dnsutils
     exa
     fd
