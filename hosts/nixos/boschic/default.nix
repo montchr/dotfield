@@ -43,4 +43,7 @@
   home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];
   };
+
+  programs.htop.enable = true;
+  programs.steam.enable = true;
 }
