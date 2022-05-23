@@ -28,5 +28,6 @@
     _1password
     _1password-gui
     firefox-wayland
+    wl-clipboard
   ];
 }
