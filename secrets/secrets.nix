@@ -19,7 +19,6 @@ let
   workstations = with machines; [
     alleymon
     boschic
-    hodge
     HodgePodge
     parrothelles
   ];
