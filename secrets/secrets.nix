@@ -3,7 +3,7 @@ let
     alleymon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJsVn0I6Q0rL94W2V89efhUiffAeJfDtHYcW6czXcPkh";
     boschic = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJxqOfaPK3FQnBsp7ey3yUEuFnYzAJSF1PdyJLqpKAfK";
     hierophant = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF14I8s1ywGVCmInco+wfCG5C9kJB0Y9HCOA12ZX9cHe";
-    hodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ8uGFMeCGkqrGiJZU3oVP7h0Xq9jEdACINpjRHqi96r";
+    HodgePodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS";
     parrothelles = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINBvBCsqtgEdC4J+d1xzrwPIircRYSKbFHR0FulaNV5z";
     tso-portal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUnCW5QopDKLISa/kRcH+28n9QUV/nFuYadXqUp/ZVq";
   };
@@ -20,6 +20,7 @@ let
     alleymon
     boschic
     hodge
+    HodgePodge
     parrothelles
   ];
   allMachines = servers ++ workstations;
