@@ -10,11 +10,6 @@
 in
   lib.mkMerge [
     {
-      home.packages = with pkgs; [
-        yubikey-manager
-        yubikey-personalization
-      ];
-
       home.sessionVariables.AGENIX_ROOT = dotfieldPath;
 
       programs.password-store = lib.mkIf config.programs.gpg.enable {
@@ -31,7 +26,6 @@ in
         };
       };
     }
-    # FIXME: no effect?
     (lib.mkIf (config.programs.password-store.enable && config.programs.firefox.enable) {
       programs.browserpass.enable = true;
       programs.browserpass.browsers = ["firefox"];

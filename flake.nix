@@ -204,6 +204,7 @@
               secrets
               video
               workstations.common
+              yubikey
 
               # FIXME: review options set within this profile. untested.
               # boot
@@ -285,6 +286,7 @@
               keyboard
               kitty
               themes
+              yubikey
             ];
           };
         };

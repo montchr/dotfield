@@ -21,7 +21,6 @@ From https://github.com/drduh/YubiKey-Guide#using-keys:
 ```sh
 export KEYID="0x135EEDD0F71934F3"
 gpg --recv $KEYID
-gpg --edit-key $KEYID
 ```
 
 ## Hydration

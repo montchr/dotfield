@@ -22,18 +22,11 @@ in
 
       services.gpg-agent = {
         enable = true;
-        enableScDaemon = true;
         enableSshSupport = true;
       };
 
       programs.gpg = {
         enable = true;
-
-        scdaemonSettings = {
-          disable-ccid = true;
-          # TODO: is this still necessary? only mention in DrDuh guide is for Windows
-          reader-port = "Yubico Yubi";
-        };
 
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
