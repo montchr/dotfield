@@ -1,6 +1,6 @@
-{...}: {
+{config, lib, pkgs}: {
   font_family = "PragmataPro Mono Liga";
-  font_size = "16.0";
+  font_size = "14.0";
   # adjust_line_height = "110%";
   disable_ligatures = "cursor";
   # box_drawing_scale = "0.001, 1, 1.5, 2";
@@ -20,14 +20,15 @@
   #: }}}
 
   #: Window layout {{{
-  remember_window_size = "yes";
+  remember_window_size = "no";
   initial_window_width = "640";
-  initial_window_height = "400";
+  initial_window_height = "800";
   window_padding_width = "10";
   window_margin_width = "0";
   single_window_margin_width = "-1";
   draw_minimal_borders = "yes";
-  hide_window_decorations = "yes";
+  # TODO: hide decorations when sway is active, otherwise leave them
+  hide_window_decorations = "${if pkgs.stdenv.hostPlatform.isDarwin then "yes" else "no"}";
   confirm_os_window_close = "0";
   #: }}}
 

@@ -87,7 +87,7 @@ in
         '';
 
         settings =
-          (import ./settings.nix {inherit config lib;})
+          (import ./settings.nix {inherit config lib pkgs;})
           // (import ./colors.nix config.colorscheme)
           // {
             allow_remote_control = "yes";
