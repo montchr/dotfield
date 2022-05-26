@@ -14,6 +14,7 @@
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
       hidpi
+      office
       # nvidia
     ])
     ++ [ 
