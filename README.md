@@ -1,12 +1,85 @@
-# montchr/dotfield
+# Dotfield
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-This is Dotfield, my worlds and systems, a nutrient-rich typo terraforming
-the hungry heads of a talking planet.
+My worlds and systems, a nutrient-rich typo terraforming the hungry heads of a
+talking planet.
 
-Primarily for macOS right now, but gradually introducing NixOS
-configurations as well.
+## Systems
+
+### `HodgePodge` aka the "Sacred Chao"
+
+An early-2014 15-inch MacBook Pro who has seen quite the life. Mostly unused for
+the past several years due to the availability of more portable work laptops.
+
+Its excessive clunkiness is excacerbated by the sharp edges exposed on its sturdy
+sticker-laden plastic case over the years. The situation is more manageable now
+thanks to the globs of Sugru preventing any further bodily harm.
+
+Now it's even more manageable thanks to NixOS!
+
+
+### `alleymon`
+
+Work computer.
+
+
+### `boschic`
+
+Corner-dwelling beast. Desparately wants to be given purpose. Currently its
+purpose is streaming reality TV and ~sharing my Steam library with a
+roommate~ Elden Ring Machine.
+
+Dual-booting Windows 10 and NixOS.
+
+- Ryzen 5 something something
+- NVIDIA RTX something something 3080 Ti
+- A dirt-cheap fan which I installed backwards…
+
+Self-built in 2015, recently revamped for ~computing power~ ~Valve Index~ ~Elden
+Ring~ fun.
+
+### `parrothelles`
+
+…is a Parallels VM. For testing experimental changes to workstations.
+
+
+### Incubation
+
+#### `hierophant` [waiting]
+
+[undetermined]
+
+#### `tso-portal` [planned]
+
+Planned media server and web-app hosting.
+
+- Recipe manager
+- Jellyfin?
+- Plex (but mainly for Plexamp)
+
+#### [plannet unnamed archival storage]
+
+Likely a Hetzner dedicated server.
+For backup-related tasks and mass storage.
+
+- ArchiveBox
+- BorgBackup archive storage from other hosts
+- Some sort of fast "cloud" storage for everyday use (notes and document sync, recent photos, etc.)
+
+#### `sommoch` [damaged+misplaced]
+
+Dead but dreaming.
+
+Laid to indefinite rest when one of the cats, seeking human attention, chewed
+through the LCD screen. We did not speak for a week.
+
+Still works, but unusable without external display.
+
+Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
+
+Currently lost somewhere in the meat ether.
+
 
 ## Identities
 
