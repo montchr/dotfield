@@ -15,3 +15,7 @@ fetch.github = "jorgebucaran/replay.fish"
 [fzf-scripts]
 src.git = "https://github.com/DanielFGray/fzf-scripts"
 fetch.git = "https://github.com/DanielFGray/fzf-scripts"
+
+[kitty-bortflower-icons]
+src.git = "https://github.com/DinkDonk/kitty-icon.git"
+fetch.git = "https://github.com/DinkDonk/kitty-icon.git"

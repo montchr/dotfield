@@ -67,24 +67,20 @@ While I personally don't _dislike_ the kitty icon, these alternatives are great.
 - <https://github.com/k0nserv/kitty-icon>
 - <https://github.com/hristost/kitty-alternative-icon>
 
+#### NixOS
+
+TKTKTK
+
 #### macOS
 
-Of course, there's a couple hoops to jump through in order to specify a custom application icon. Most tutorials out there repeat the same general instructions. Quoting from [one of the icon repos](https://github.com/DinkDonk/kitty-icon):
+There's a couple hoops to jump through in order to specify a custom application icon.
 
-> 1. Find `kitty.app` in the `Applications` folder, select it and press `⌘ + i`.
-> 2. Drag `kitty-dark.icns` or `kitty-light.icns` onto the application icon in the kitty info pane.
-> 3. Delete the icon cache and restart `Dock`:
->
-> ```sh
-> $ rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock
-> ```
+And, unfortunately, because I currently install `kitty.app` with Homebrew due to
+frequent build failures with `nixpkgs#kitty`, any customisations will be
+reverted whenever the app updates.
 
-Unfortunately, any customisations will be reverted whenever the app updates.
+I've added a script called `kitty-set-app-icon` to re-copy the desired icon back
+to `kitty.app` post-update. This script is available via the
+`kitty-helpers.setAppIcon` package.
 
-For that reason, I'm taking the manual route for now. But in the future, I'd consider creating a =nix-darwin= module for customizing icons declaratively. But that ranks pretty low on my "nice to have" list.
-
-[This blog post](https://www.sethvargo.com/replace-icons-osx/) outlines a simple alternative. In summary (though the path might not actually be correct):
-
-```sh
-cp ~/path/to/kitty.icns /Applications/kitty.app/Contents/Resources/kitty.icns
-```
+Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/) for outlining a simple alternative to the usual drag-and-drop approach.
