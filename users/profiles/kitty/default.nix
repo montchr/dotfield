@@ -11,12 +11,6 @@
 
   socket = "unix:/tmp/kitty-socket";
 
-  kitty-get-window-by-platform-id = pkgs.writeShellScriptBin "kitty-get-window-by-platform-id" ''
-    kitty @ --to $KITTY_SOCKET ls \
-      | ${pkgs.jq}/bin/jq -r --argjson id "$1" \
-        '.[] | select(.platform_window_id==$id)'
-  '';
-
   # via home-manager kitty module
   toKittyConfig = lib.generators.toKeyValue {
     mkKeyValue = key: value: let
@@ -59,8 +53,8 @@ in
     })
 
     {
-      home.packages = [
-        kitty-get-window-by-platform-id
+      home.packages = with pkgs; [
+        kitty-helpers.getWindowByPlatformId
       ];
 
       home.sessionVariables = {

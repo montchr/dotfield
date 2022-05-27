@@ -3,6 +3,8 @@ final: prev: {
   sources = prev.callPackage (import ./_sources/generated.nix) {};
   # then, call packages with `final.callPackage`
 
+  kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix {});
+
   ## dotfield internals ========================================================
 
   dotfield-config = prev.stdenv.mkDerivation {
