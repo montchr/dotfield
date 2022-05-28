@@ -1,4 +1,4 @@
-{
+moduleArgs @ {
   config,
   lib,
   pkgs,
@@ -6,6 +6,7 @@
 }: let
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  isImmutable = moduleArgs.nixosConfig.users.mutableUsers or false;
 in
   lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
     {
@@ -23,10 +24,22 @@ in
       services.gpg-agent = {
         enable = true;
         enableSshSupport = true;
+        sshKeys = [pgpPublicKey];
       };
 
       programs.gpg = {
         enable = true;
+
+        mutableKeys = isImmutable;
+        mutableTrust = isImmutable;
+
+        # TODO: add the other one
+        publicKeys = [
+          {
+            source = ../../identity + "/gpg-${pgpPublicKey}.txt";
+            trust = "ultimate";
+          }
+        ];
 
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
