@@ -10,6 +10,7 @@
 in
   lib.mkMerge [
     {
+      home.packages = [pkgs._1password];
       home.sessionVariables.AGENIX_ROOT = dotfieldPath;
 
       programs.password-store = lib.mkIf config.programs.gpg.enable {
@@ -29,5 +30,8 @@ in
     (lib.mkIf (config.programs.password-store.enable && config.programs.firefox.enable) {
       programs.browserpass.enable = true;
       programs.browserpass.browsers = ["firefox"];
+    })
+    (lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+      home.packages = [pkgs._1password-gui];
     })
   ]
