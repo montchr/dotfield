@@ -133,6 +133,9 @@ in
     {
       xdg.configFile."tridactyl".source = ./tridactyl;
 
+      programs.buku.enable = true;
+      programs.buku.enableBrowserIntegration = true;
+
       programs.firefox = {
         enable = true;
 
@@ -145,6 +148,8 @@ in
             enableGnomeExtensions = moduleArgs.nixosConfig.services.xserver.desktopManager.gnome.enable or false;
             # Tridactyl native connector
             enableTridactylNative = true;
+            # Buku bookmarking tool native connector
+            enableBukubrow = (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration);
           };
         });
         # else if isDarwin then
@@ -156,6 +161,9 @@ in
           onepassword-password-manager
           a11ycss
           add-custom-search-engine
+          (lib.mkIf
+            (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration)
+            bukubrow)
           copy-selection-as-markdown
           darkreader
           display-_anchors
