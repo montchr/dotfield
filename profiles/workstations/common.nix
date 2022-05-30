@@ -7,6 +7,7 @@
   # Configure keymap in X11
   services.xserver.layout = "us";
   # TODO: might be flaky or need a kick?
+  # FIXME: propagate to GNOME settings
   services.xserver.xkbOptions = "caps:ctrl_modifier";
 
   programs.mtr.enable = true;
