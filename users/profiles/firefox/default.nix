@@ -6,9 +6,9 @@ moduleArgs @ {
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-  addons = pkgs.nur.repos.rycee.firefox-addons;
   lepton = import ./lepton.nix;
 
   disableTelemetry = {
@@ -130,18 +130,29 @@ moduleArgs @ {
     };
   };
 in
-  lib.mkMerge [
-    (lib.mkIf (!isDarwin) {
-      programs.firefox.enableGnomeExtensions = moduleArgs.nixosConfig.services.gnome.chrome-gnome-shell or false;
-    })
-
     {
       xdg.configFile."tridactyl".source = ./tridactyl;
 
       programs.firefox = {
         enable = true;
 
-        extensions = with addons; [
+        # TODO: make sure this still works for darwin. it probably doesn't
+        # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
+        package = (pkgs.firefox.override {
+          cfg = {
+            forceWayland = moduleArgs.nixosConfig.services.xserver.displayManager.gdm.wayland or false;
+            # Gnome shell native connector
+            enableGnomeExtensions = moduleArgs.nixosConfig.services.xserver.desktopManager.gnome.enable or false;
+            # Tridactyl native connector
+            enableTridactylNative = true;
+          };
+        });
+        # else if isDarwin then
+        #   # Handled by the Homebrew module
+        #   # This populates a dummy package to satisfy the requirement
+        #   (pkgs.runCommand "firefox-0.0.0" {} "mkdir $out")
+
+        extensions = with firefox-addons; [
           onepassword-password-manager
           a11ycss
           add-custom-search-engine
@@ -149,7 +160,6 @@ in
           darkreader
           display-_anchors
           firefox-color
-
           (lib.mkIf config.programs.browserpass.enable browserpass)
 
           # Flagfox by Dave G
@@ -279,13 +289,6 @@ in
         };
       };
     }
-
-    (lib.mkIf isDarwin {
-      # Handled by the Homebrew module
-      # This populates a dummy package to satisfy the requirement
-      programs.firefox.package = pkgs.runCommand "firefox-0.0.0" {} "mkdir $out";
-    })
-  ]
 
 ##: References
 #

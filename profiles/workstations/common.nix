@@ -20,15 +20,12 @@
   # programs._1password-gui.enable = true;
   # programs._1password.enable = true;
 
-  environment.variables = {
-    # TODO: still necessary with firefox-wayland package?
-    MOZ_ENABLE_WAYLAND = "1";
-  };
-
   environment.systemPackages = with pkgs; [
     _1password
     _1password-gui
-    firefox-wayland
+    # Avoid conflicts with our wrapped version from home-manager
+    # TODO: define the wrapped version in an overlay
+    # firefox-wayland
     wl-clipboard
   ];
 }
