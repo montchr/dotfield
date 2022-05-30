@@ -6,6 +6,7 @@ channels: final: prev: {
     alejandra
     atuin
     awscli2
+    dconf2nix
     direnv
     git-cliff
     navi

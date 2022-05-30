@@ -129,11 +129,12 @@ moduleArgs @ {
       '';
     };
   };
-
-  userContent = ''
-  '';
 in
   lib.mkMerge [
+    (lib.mkIf (!isDarwin) {
+      programs.firefox.enableGnomeExtensions = moduleArgs.nixosConfig.services.gnome.chrome-gnome-shell or false;
+    })
+
     {
       xdg.configFile."tridactyl".source = ./tridactyl;
 

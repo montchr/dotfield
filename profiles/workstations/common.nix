@@ -10,6 +10,7 @@
   services.xserver.xkbOptions = "caps:ctrl_modifier";
 
   programs.mtr.enable = true;
+  # TODO: does this conflict with the gpg hm-agent module?
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = lib.mkDefault true;
