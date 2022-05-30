@@ -280,6 +280,7 @@
             workstation = [
               emacs
               espanso
+              desktop.gnome
               firefox
               gpg
               secrets
