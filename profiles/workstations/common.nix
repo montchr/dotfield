@@ -21,12 +21,20 @@
   # programs._1password-gui.enable = true;
   # programs._1password.enable = true;
 
+  environment.variables = {
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+
   environment.systemPackages = with pkgs; [
     _1password
     _1password-gui
     # Avoid conflicts with our wrapped version from home-manager
-    # TODO: define the wrapped version in an overlay
-    # firefox-wayland
+    #
+    # FIXME: on first startup per session, firefox loads incorrectly (black
+    # screen). closing and re-opening fixes it. perhaps this package is needed
+    # after all?
+    #
+    firefox-dotfield
     wl-clipboard
   ];
 }

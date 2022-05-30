@@ -140,18 +140,7 @@ in
         enable = true;
 
         # TODO: make sure this still works for darwin. it probably doesn't
-        # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
-        package = (pkgs.firefox.override {
-          cfg = {
-            forceWayland = moduleArgs.nixosConfig.services.xserver.displayManager.gdm.wayland or false;
-            # Gnome shell native connector
-            enableGnomeExtensions = moduleArgs.nixosConfig.services.xserver.desktopManager.gnome.enable or false;
-            # Tridactyl native connector
-            enableTridactylNative = true;
-            # Buku bookmarking tool native connector
-            enableBukubrow = (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration);
-          };
-        });
+        package = pkgs.firefox-dotfield;
         # else if isDarwin then
         #   # Handled by the Homebrew module
         #   # This populates a dummy package to satisfy the requirement
