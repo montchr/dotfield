@@ -1,14 +1,12 @@
 # Adjusted manually from generated output of dconf2nix
 # https://github.com/gvolpe/dconf2nix
-#
-# - Avoid moving lines around
-# - Comment out values which may change (e.g. calculator settings, window positions)
-{ lib, ... }:
+
+{ lib, pkgs, ... }:
 
 with lib.hm.gvariant;
 
 {
-  dconf.settings = {
+  dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     # "org/gnome/Disks" = {
     #   image-dir-uri = "file:///home/seadoom/Documents";
     # };

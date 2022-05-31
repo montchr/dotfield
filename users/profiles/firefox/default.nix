@@ -138,14 +138,7 @@ in
 
       programs.firefox = {
         enable = true;
-
-        # TODO: make sure this still works for darwin. it probably doesn't
         package = pkgs.firefox-dotfield;
-        # else if isDarwin then
-        #   # Handled by the Homebrew module
-        #   # This populates a dummy package to satisfy the requirement
-        #   (pkgs.runCommand "firefox-0.0.0" {} "mkdir $out")
-
         extensions = with firefox-addons; [
           onepassword-password-manager
           a11ycss
