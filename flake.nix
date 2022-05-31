@@ -13,10 +13,10 @@
 
   inputs = {
     # Channels
-    nixos-stable.url = "github:NixOS/nixpkgs/release-21.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
     digga.url = "github:divnix/digga/hotfix-exported-overlays";
