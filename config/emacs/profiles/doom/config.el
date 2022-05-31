@@ -6,8 +6,9 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14.0)
-       doom-variable-pitch-font (font-spec :family "Barlow" :size 16.0))
+;; FIXME: these `IS-MAC' conditions should target scaling factors, not OS
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size (if IS-MAC 16.0 14.0))
+       doom-variable-pitch-font (font-spec :family "Barlow" :size (if IS-MAC 18.0 16.0)))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
