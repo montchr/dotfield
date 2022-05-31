@@ -5,12 +5,15 @@
   ...
 }: let
   inherit (pkgs.lib.our) dotfieldPath;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit
     (config.xdg)
     configHome
     dataHome
     stateHome
     ;
+
+  corePackage = if isDarwin then pkgs.emacsNativeComp else pkgs.emacsPgtkNativeComp;
 
   dotfieldConfigPath = "${configHome}/dotfield/config";
   chemacsDir = "${configHome}/emacs";
@@ -80,7 +83,9 @@ in {
     enable = true;
     # TODO: consider wrapping the emacs package so it has access to dependencies
     # without cluttering home packages
-    package = pkgs.emacsNativeComp;
+    package = ((pkgs.emacsPackagesFor corePackage).emacsWithPackages (epkgs: [
+      epkgs.vterm
+    ]));
   };
 
   home.packages = with pkgs; [
