@@ -128,7 +128,8 @@ in {
     nodePackages.vscode-json-languageserver
 
     # :lang ledger
-    ledger
+    # FIXME: marked as broken upstream
+    # ledger
 
     # :lang markdown
     nodePackages.unified-language-server
