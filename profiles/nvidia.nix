@@ -10,6 +10,5 @@
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   hardware.nvidia.modesetting.enable = true;
-  services.xserver.displayManager.gdm.nvidiaWayland = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 }
