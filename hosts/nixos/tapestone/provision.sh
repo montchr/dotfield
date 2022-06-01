@@ -159,9 +159,9 @@ zpool create \
   -R /mnt \
   -o ashift=12 \
   -o autotrim=on \
-  -o canmount=off \
   -O acltype=posixacl \
   -O atime=off \
+  -O canmount=off \
   -O dnodesize=auto \
   -O mountpoint=none \
   -O normalization=formD \
@@ -201,13 +201,13 @@ zfs create -p \
   # -O encryption=aes-256-gcm \
   # -O keyformat=passphrase \
   # -O keylocation=prompt \
-zpool create -p \
+zpool create \
   -R /mnt/silo \
   -o ashift=12 \
   -o autotrim=on \
-  -o canmount=off \
   -O acltype=posixacl \
   -O atime=off \
+  -O canmount=off \
   -O dnodesize=auto \
   -O mountpoint=none \
   -O normalization=formD \
@@ -336,12 +336,10 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
       ./hardware-configuration.nix
     ];
 
-  # Use GRUB2 as the boot loader.
-  # We don't use systemd-boot because Hetzner uses BIOS legacy boot.
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {
     enable = true;
-    efiSupport = false;
+    efiSupport = true;
     devices = ["$NVME1" "$NVME2"];
     copyKernels = true;
   };
