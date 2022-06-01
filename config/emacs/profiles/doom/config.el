@@ -107,12 +107,16 @@
    ;; modus-themes-completions nil
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
-   modus-themes-links '(neutral-underline)
+   modus-themes-links '(background neutral-underline)
    modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
+   modus-themes-box-buttons '(accented variable-pitch)
 
    ;; syntax
-   modus-themes-syntax '(alt-syntax)))
+   ;; modus-themes-syntax '(alt-syntax)
+   modus-themes-markup '(background)
+   modus-themes-org-blocks '(gray-background)
+   modus-themes-paren-match '(bold)))
 
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
