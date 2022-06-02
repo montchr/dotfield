@@ -45,12 +45,26 @@
     ];
     shell = pkgs.zsh;
   };
+  users.users.zortflower = {
+    uid = 1001;
+    isNormalUser = true;
+    hashedPassword = "$6$vKXBAWMIBgK2lqZM$px7zUItEknMtXUriGTHwS6S2zmmyvZTVfk6vD4mcLIQNS4nBalfLkT4spjeoEI1ock.0Dk9.qKR8Wlze3GDJ40";
+    extraGroups = [
+      "video"
+      "networkmanager"
+    ];
+  };
 
   home-manager.users = {
     seadoom = hmArgs: {
       imports =
         (with hmArgs.suites; workstation)
         ++ [hmUsers.seadoom];
+    };
+    zortflower = hmArgs: {
+      imports =
+        (with hmArgs.suites; graphical)
+        ++ [hmUsers.nixos];
     };
   };
 
