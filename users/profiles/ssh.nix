@@ -35,13 +35,7 @@ moduleArgs @ {
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        identityFile = [
-          "~/.ssh/id_ed25519_yubikey.pub"
-          # TODO: only use this identity file for aws hosts
-          # moduleArgs.osConfig.age.secrets."aws/aws-cdom-default.pem".path
-          "~/.ssh/id_ed25519"
-          "~/.ssh/id_rsa"
-        ];
+        identityFile = "~/.ssh/id_ed25519_yubikey.pub";
         serverAliveInterval = 300;
         serverAliveCountMax = 2;
 
