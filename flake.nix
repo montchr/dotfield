@@ -265,30 +265,45 @@
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
-            basic = [
-              core
-              direnv
-              git
-              misc
-              navi
-              ranger
-              shells.zsh
-              ssh
-              tealdeer
-              vim
-            ];
-            workstation = [
-              emacs
-              espanso
-              desktop.gnome
-              firefox
-              gpg
-              secrets
-              keyboard
-              kitty
-              themes
-              yubikey
-            ];
+            #: basic: just your average anybody
+            basic =
+              [
+                core
+                misc
+                navi
+                ranger
+                tealdeer
+                vim
+              ];
+            #: developer: those who go
+            developer =
+              [
+                direnv
+                emacs
+                git
+                gpg
+                secrets
+                shells.zsh
+                ssh
+              ];
+            #: graphical:  familiar personal computing interfaces
+            graphical =
+              [
+                desktop.gnome
+                firefox
+                keyboard
+                kitty
+                themes
+              ];
+            #: workstation: level++
+            workstation =
+              graphical
+              ++ developer
+              ++ [
+                espanso
+                mail
+                yubikey
+              ];
           };
         };
 
@@ -298,11 +313,11 @@
           };
           seadoom = {suites, ...}: {
             imports = with suites;
-              workstation;
+              basic ++ developer;
           };
           xtallos = {suites, ...}: {
             imports = with suites;
-              workstation;
+              basic ++ developer;
           };
         };
       };

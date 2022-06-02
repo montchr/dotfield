@@ -26,7 +26,7 @@ in {
   home-manager.users.seadoom = hmArgs: {
     imports =
       [hmUsers.seadoom]
-      ++ (with hmArgs.suites; workstation);
+      ++ (with hmArgs.suites; desktop);
   };
 
   boot.loader.grub.enable = true;

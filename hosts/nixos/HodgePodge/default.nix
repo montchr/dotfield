@@ -52,7 +52,7 @@
 
   home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom]
-      ++ (with hmArgs.profiles; [mail]);
+      ++ (with hmArgs.suites; workstation);
   };
 
   programs.htop.enable = true;

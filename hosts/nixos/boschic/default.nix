@@ -46,8 +46,12 @@
     shell = pkgs.zsh;
   };
 
-  home-manager.users.seadoom = hmArgs: {
-    imports = [hmUsers.seadoom];
+  home-manager.users = {
+    seadoom = hmArgs: {
+      imports =
+        (with hmArgs.suites; workstation)
+        ++ [hmUsers.seadoom];
+    };
   };
 
   programs.htop.enable = true;

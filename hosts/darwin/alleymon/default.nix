@@ -24,7 +24,6 @@
       ++ (with hmArgs.suites; workstation)
       ++ (with hmArgs.profiles; [
         aws
-        mail
         nodejs
         php
         ruby
