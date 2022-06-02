@@ -19,6 +19,7 @@
 
   environment.systemPackages = with pkgs; [
     dosfstools
+    efibootmgr
     gptfdisk
     iputils
     usbutils

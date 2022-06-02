@@ -4,6 +4,7 @@
   imports =
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
+      boot.refind
       hidpi
       nvidia
     ])

@@ -6,17 +6,15 @@
 }: {
   boot = {
     loader = {
-      timeout = lib.mkForce 4;
-      # TODO: enable grub?
-      grub.enable = false;
-      systemd-boot.enable = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
+      # grub.enable = false;
+      # systemd-boot.enable = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
     };
-    kernelParams =
-      ["modeset" "nofb"]
-      ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
-        "pti=off"
-        "spectre_v2=off"
-      ];
+    # kernelParams =
+    #   ["modeset" "nofb"]
+    #   ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+    #     "pti=off"
+    #     "spectre_v2=off"
+    #   ];
 
     kernelPackages = pkgs.linuxPackages_latest;
 
