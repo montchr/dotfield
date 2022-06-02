@@ -466,11 +466,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1654007103,
-        "narHash": "sha256-BRVkeLmsRQwneZ3Dh+Y/hfDdAE2z07EsKjZXNHnZxf4=",
+        "lastModified": 1654127661,
+        "narHash": "sha256-jt37hjjUzFG0eh5hA5r88z4LxcM/dLa2ikP4fqEf5Z8=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "31fffe7ff8a6f7e4ea414506c330c6aa63827edb",
+        "rev": "817f732f188fae60f78fe4869ce1d92733f8b779",
         "type": "github"
       },
       "original": {

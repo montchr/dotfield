@@ -23,7 +23,7 @@ in
           ]);
         settings = {
           PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
-          PASSWORD_STORE_KEY = "${pgpPublicKey} 0xF0B8FB42A7498482";
+          PASSWORD_STORE_KEY = pgpPublicKey;
         };
       };
     }

@@ -138,7 +138,7 @@ in
 
       programs.firefox = {
         enable = true;
-        package = pkgs.firefox-dotfield;
+        package = if isDarwin then pkgs.firefox-darwin else pkgs.firefox-wayland;
         extensions = with firefox-addons; [
           onepassword-password-manager
           a11ycss

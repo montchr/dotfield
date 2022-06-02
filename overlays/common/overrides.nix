@@ -25,7 +25,7 @@ channels: final: prev: {
     visidata;
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
-  firefox-dotfield = (prev.firefox-wayland.override {
+  firefox-wayland = (prev.firefox-wayland.override {
     cfg = {
       # forceWayland = true;
       # Gnome shell native connector

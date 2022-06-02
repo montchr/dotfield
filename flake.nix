@@ -302,6 +302,7 @@
               ++ [
                 espanso
                 mail
+                syncthing
                 yubikey
               ];
           };

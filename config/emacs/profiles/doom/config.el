@@ -6,8 +6,9 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14.0)
-       doom-variable-pitch-font (font-spec :family "Barlow" :size 16.0))
+;; FIXME: these `IS-MAC' conditions should target scaling factors, not OS
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size (if IS-MAC 16.0 14.0))
+       doom-variable-pitch-font (font-spec :family "Barlow" :size (if IS-MAC 18.0 16.0)))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -106,12 +107,16 @@
    ;; modus-themes-completions nil
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
-   modus-themes-links '(neutral-underline)
+   modus-themes-links '(background neutral-underline)
    modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
+   modus-themes-box-buttons '(accented variable-pitch)
 
    ;; syntax
-   modus-themes-syntax '(alt-syntax)))
+   ;; modus-themes-syntax '(alt-syntax)
+   modus-themes-markup '(background)
+   modus-themes-org-blocks '(gray-background)
+   modus-themes-paren-match '(bold)))
 
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
@@ -414,9 +419,14 @@
          "We have such sights to show you..."
          "Take a break."
          "Is Control controlled by its need to control?"
+         "Wise words from the departed: Eat your greens. Especially broccoli."
+         "Remember to say 'thank you' for the things you never had."
          "Nothing here now but the recordings..."
-         "A silver light pops in your eyes..."
          "I have nothing to say, and I am saying it."
          "Who walkies the walkmen?"
+         "The Empire never ended."
+         "Chaos never died."
+         "There is no done."
+         "Thesis -> Antithesis -> Synthesis"
          "I'm making my lunch!"
          "Eat protein!"))
