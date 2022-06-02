@@ -6,16 +6,10 @@
 
   # Configure keymap in X11
   services.xserver.layout = "us";
-  # TODO: might be flaky or need a kick?
   # FIXME: propagate to GNOME settings
   services.xserver.xkbOptions = "caps:ctrl_modifier";
 
   programs.mtr.enable = true;
-  # TODO: does this conflict with the gpg hm-agent module?
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = lib.mkDefault true;
-  };
 
   # TODO: might only be available on master?
   # programs._1password-gui.enable = true;
