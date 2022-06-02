@@ -10,8 +10,9 @@
     ++ [./hardware-configuration.nix];
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "auto";
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true;
+  boot.loader.timeout = 15;
 
   system.stateVersion = "21.11";
 
