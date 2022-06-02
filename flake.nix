@@ -286,6 +286,7 @@
               secrets
               keyboard
               kitty
+              syncthing
               themes
               yubikey
             ];
