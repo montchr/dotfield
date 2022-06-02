@@ -50,22 +50,37 @@ ls /dev/disk/by-id
 
 export NVME1="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701851"
 export NVME2="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701889"
-
-export HDD1="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04SFVNG"
-export HDD2="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A058FVNG"
-export HDD3="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04YFVNG"
-export HDD4="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04NFVNG"
-export HDD5="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04DFVNG"
-export HDD6="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A053FVNG"
-export HDD7="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04TFVNG"
-export HDD8="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
-export HDD9="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
+export HDD01="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04SFVNG"
+export HDD02="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A058FVNG"
+export HDD03="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04YFVNG"
+export HDD04="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04NFVNG"
+export HDD05="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04DFVNG"
+export HDD06="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A053FVNG"
+export HDD07="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04TFVNG"
+# HDD08 N.B.
+#
+# Repeatedly encountered the following warning whilst zeroing superblock in loop:
+#
+# > mdadm: Couldn't open /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG-part1 for write - not zeroing
+#
+# Note that the serial number for this drive differs in format from the others. While the others have SN beginning with `X1J`, this drive SN begins with `X1W`. I am not sure what the difference is.
+#
+# Running the mdadm zero superblock command manually appears to work.
+export HDD08="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
+export HDD09="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
 export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
 
-# choose whatever you want, it doesn't matter
 export MY_HOSTNAME=tapestone
-# this has to be a number in this format exactly. You can replace the numbers though
-export MY_HOSTID=80252696
+
+# Generate this with:
+# > head -c 8 /etc/machine-id
+# Must be unique across all machines.
+#
+# Contrary to many explanations out there, according to OpenZFS, this does not need to be entirely
+# numeric.
+export MY_HOSTID=9cd372da
+
+export NIXOS_INSTALL_USER=nixos-installist
 
 # Undo existing setups to allow running the script multiple times to iterate on it.
 # We allow these operations to fail for the case the script runs the first time.
@@ -87,13 +102,29 @@ mdadm --stop --scan
 echo 'AUTO -all
 ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 
-# Create wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
+# Wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
 # the kernel of partitions changing (we use partprobe for that).
-echo -e "#! /usr/bin/env bash\nset -e\n" 'parted $@ 2> parted-stderr.txt || grep "unable to inform the kernel of the change" parted-stderr.txt && echo "This is expected, continuing" || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"' > parted-ignoring-partprobe-error.sh && chmod +x parted-ignoring-partprobe-error.sh
+parted_nice() {
+  parted "$@" 2> parted-stderr.txt || {
+    grep "unable to inform the kernel of the change" parted-stderr.txt \
+      || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"
+  }
+}
 
 # Create partition tables (--script to not ask)
-./parted-ignoring-partprobe-error.sh --script $NVME1 mklabel gpt
-./parted-ignoring-partprobe-error.sh --script $NVME2 mklabel gpt
+parted_nice --script $NVME1 mklabel gpt
+parted_nice --script $NVME2 mklabel gpt
+parted_nice --script $HDD01 mklabel gpt
+parted_nice --script $HDD02 mklabel gpt
+parted_nice --script $HDD03 mklabel gpt
+parted_nice --script $HDD04 mklabel gpt
+parted_nice --script $HDD05 mklabel gpt
+parted_nice --script $HDD06 mklabel gpt
+parted_nice --script $HDD07 mklabel gpt
+parted_nice --script $HDD08 mklabel gpt
+parted_nice --script $HDD09 mklabel gpt
+parted_nice --script $HDD10 mklabel gpt
+
 
 # Create partitions (--script to not ask)
 #
@@ -112,10 +143,11 @@ echo -e "#! /usr/bin/env bash\nset -e\n" 'parted $@ 2> parted-stderr.txt || grep
 # GPT partition names are limited to 36 UTF-16 chars, see https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_entries_(LBA_2-33).
 
 for nvme in $NVME1 $NVME2; do
-  ./parted-ignoring-partprobe-error.sh --script --align optimal $nvme -- mklabel gpt \
-    mkpart 'BIOS-boot-partition' 1MB 2MB set 1 bios_grub on \
-    mkpart 'EFI-system-partition' 2MB 512MB set 2 esp on \
-    mkpart 'root-pool' 512MB '100%'
+  parted_nice --script --align optimal $nvme -- \
+    mklabel gpt \
+    mkpart 'BIOS' 1MB 2MB set 1 bios_grub on \
+    mkpart 'EFI' 2MB 512MB set 2 esp on \
+    mkpart 'nixos' 512MB '100%'
 
   partprobe
 
@@ -130,9 +162,10 @@ for nvme in $NVME1 $NVME2; do
   mdadm --zero-superblock --force $nvme-part3 || true
 done
 
-for disk in $HDD1 $HDD2 $HDD3 $HDD4 $HDD5 $HDD6 $HDD7 $HDD8 $HDD9 $HDD10; do
-  ./parted-ignoring-partprobe-error.sh --script --align optimal $disk -- mklabel gpt \
-    mkpart 'silo-pool' 1MB '100%'
+for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
+  parted_nice --script --align optimal $disk -- \
+    mklabel gpt \
+    mkpart 'silo' 1MB '100%'
 
   partprobe
 
@@ -149,6 +182,20 @@ done
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
+zmount() {
+  local pool=$1
+  local mountpoint=$2
+  mkdir -p "$mountpoint"
+  mount -t zfs "$pool" "$mountpoint"
+}
+
+zup() {
+  local pool=$1
+  local mountpoint=$2
+  shift 2
+  zfs create -p -o canmount=on -o mountpoint=legacy "$@" "$pool"
+  zmount "$pool" "$mountpoint"
+}
 
 ###: INITIALIZE 'ROOT' POOL ====================================================
 
@@ -156,7 +203,6 @@ udevadm trigger
   # -O keyformat=passphrase \
   # -O keylocation=prompt \
 zpool create \
-  -R /mnt \
   -o ashift=12 \
   -o autotrim=on \
   -O acltype=posixacl \
@@ -175,26 +221,21 @@ zpool create \
 # Reserve 1GB of space for ZFS operations -- even delete requires free space
 zfs create -o refreservation=1G -o mountpoint=none rpool/reserved
 
-zfs create -p -o canmount=off -o mountpoint=/ rpool/local
-zfs create -p -o canmount=off -o mountpoint=/ rpool/safe
-
-zfs create -p -o canmount=on -o mountpoint=/ rpool/local/root
+zmount rpool/local/root /mnt
 
 # Take an initial snapshot with the root dataset before mounting anything else.
 zfs snapshot rpool/local/root@blank
 
-zfs create -p -o canmount=on rpool/local/nix
-zfs create -p -o canmount=on rpool/safe/home
-zfs create -p -o canmount=on rpool/safe/persist
+zmount rpool/local/nix /mnt/nix
+zmount rpool/safe/home /mnt/home
+zmount rpool/safe/persist /mnt/persist
 
 # Create a special volume optimized for databases
 # https://wiki.archlinux.org/index.php/ZFS#Databases
-zfs create -p \
-  -o mountpoint=/var/lib/postgres \
+zmount rpool/safe/postgres /mnt/var/lib/postgres \
   -o recordsize=8K \
   -o primarycache=metadata \
-  -o logbias=throughput \
-  rpool/safe/postgres
+  -o logbias=throughput
 
 ###: INITIALIZE 'SILO' POOL ====================================================
 
@@ -202,7 +243,6 @@ zfs create -p \
   # -O keyformat=passphrase \
   # -O keylocation=prompt \
 zpool create \
-  -R /mnt/silo \
   -o ashift=12 \
   -o autotrim=on \
   -O acltype=posixacl \
@@ -215,10 +255,10 @@ zpool create \
   -O xattr=sa \
   -f \
   spool raidz \
-  $HDD1-part1 $HDD2-part1 $HDD3-part1 $HDD4-part1 $HDD5-part1 $HDD6-part1 $HDD7-part1 $HDD8-part1 $HDD9-part1 $HDD10-part1
+  $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
 
-zfs create -p -o canmount=on spool/backup
-zfs create -p -o canmount=on spool/data
+zmount spool/backup /mnt/silo/backup
+zmount spool/data /mnt/silo/data
 
 # Allow auto-snapshots for persistent data
 zfs set com.sun:auto-snapshot=true rpool/safe
@@ -268,87 +308,117 @@ mount /dev/md127 /mnt/boot/efi
 
 ###: INSTALL NIX ===============================================================
 
-# Allow installing nix as root, see
-#   https://github.com/NixOS/nix/issues/936#issuecomment-475795730
+useradd --create-home --groups sudo --shell /bin/bash \
+  "$NIXOS_INSTALL_USER"
+passwd "$NIXOS_INSTALL_USER"
+
 mkdir -p /etc/nix
 echo "build-users-group =" > /etc/nix/nix.conf
+echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 
-# TODO
-# warning: installing Nix as root is not supported by this script!
-curl -L https://nixos.org/nix/install | sh
-set +u +x # sourcing this may refer to unset variables that we have no control over
-. $HOME/.nix-profile/etc/profile.d/nix.sh
-set -u -x
+su - "$NIXOS_INSTALL_USER"
 
-# Keep in sync with `system.stateVersion` set below!
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+exit
+echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+
+su -w NIXOS_INSTALL_USER "$NIXOS_INSTALL_USER"
+
 nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
 nix-channel --update
 
 
+###: PREPARE NIXOS KEXEC ===============================================
+
+nix profile install github:nix-community/nixos-generators
+
+# Create a initial config, just to kexec into
+cat <<EOF > "/home/${NIXOS_INSTALL_USER}/config.nix"
+{
+  services.openssh.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGk9fhwXG95cVD9DLsHuXrdJYs8DsUF/AmYWcO1+bPVd montchr@alleymon"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPdEosvv8H1UpHC725ZTBRY0L6ufn8MU2UEmI1JN1VL xtallos@parrothelles"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rvq4vlUFFXH hierophant@loop.garden"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2CtLx2fSUVaU1gJXqXHpGbfhkj0XV8NotIuXF76DWj seadoom@boschic.loop.garden"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@HodgePodge.loop.garden"
+
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2HrKDL60obU2mEkV1pM1xHQeTHc+czioQDTqu0gP37 blink@aerattum"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrU4ZPmxcBNnMeLLyBkFcjlG2MwaIUp5deSycmXSb7gIC4MZKH0lvoCXsXBYTocGhwna2mg1SfpolLZzxzWAYpx52RoHeyY6ml/Z1dSJbpMgV5KZ2kqKo1hHar2i9wsc/EZQKv3rlngOSECiwg2LxHOIGGTz/779yEJnfnWnta+5Tnpk4zdgp8j8g+QbY7NFHcZg2mjcy++Nf2psqJsDZVE1JmzNsA30jEGaGDRAaAv9ZHcQf6E3GEpRvr3iqO9YTzOcgdzzl8CvAtZUa1G4piQK6CYkC6HgAvm73+kSm+JxssSfFi3xgK0+RLAUTGa25MH3PAqR9V8lrcuLI891sLEQTtQIIALfzTw04e740DqXRifzasCVo8lMmZBX8Mu+FC0KSFL0254OfHuTHDCWE7fc/3069pcpgAaJGIDj2rE3v631WqoPZpkmvefuu4+n5nvKe4ypwA/OH6h52s3CL7DlcREe6lnBraEzbuXxVL+0JP66yEzK4vFGtZWeTsbo9jyQkoJIw4IkuqHvRxElysOHaQqG08GkjiCBONiGIqk0GQ3pmeyjptfnrVyi2pFGTvVVQ06ZC7If3wywkWXCJzJ2nrD9B+gyRvKv557m24Goj2+LCi6IVZsFIh6r4+vOdaMnX39eol/kWMl1n93D8YG3bBS5JH0fEQsMZEpsUd7Q== WorkingCopy@aerattum"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3tWcOwvNOfHXX3YvtLmJRigxATUh++bWRCAM07uy3mbNvEteT5bF/7nixO44gep0Hv24jaqLeGjCaTxFXrmt1NGgvmAXcsoS4I3+N2xfiFZPIKoiF0EONDsInjm4h5eNoPPE4Rd9xLju4S4tXaXDcL37PunQZJ+aR6CRVf/geM+H4y70cvYHV6uakMAfuv/0+AEMLwlSIN7OpDN8B+JGI4rQhBsekRkkkcZlPYO4vT63aTvLCYFxJ/fR45oMKW57lvZUrbRMHbKRkOfyhBF3qbYR/9aMEUd7gjYBfLJ1hQaHlp2aV49m53WFBjmjqjFcxDPxS/HMk/Hazowkw0G6iNzSNHnO5wI/BxIEahavYvd4VOQXpaWs/G58t8kdQol8WFufLjAReP0j16TqcWEHwy1ktMcrpYfDlLSlNcuaUeXJNIyvD3WmfRDXBnxlBenFIqe9lnK8RUVCcxM+lEEJbMWs1ZuWmgXjbt3UkFhSKSv2Adlm2/OfBBCyO46hVmhLfkwzB69aXYqUjPthlvtCDuLxrmT+DZeWsucUKPp2L9PXS6LpbpnIWCqmnGIPLjHBX2X3EOKwrtLAGN5wv7zLv88qHOD0MET2KVZkfTLg04FkcNowNwAlQ8xBBjpt6xEWNFMH532ZRO1CT0VTUNB7nEW2JET1SULsRT/bTUbKQHQ== yk5cNfc"
+  ];
+}
+EOF
+
+nixos-generate -o "/home/${NIXOS_INSTALL_USER}/result" \
+  -f kexec-bundle \
+  -c "/home/${NIXOS_INSTALL_USER}/config.nix"
+
+exit
+
+# At this point the shell should stop responding. Kill the shell and ssh back
+# into the machine. The server public key will have changed.
+# FIXME: continue the rest of the process in another script?
+"/home/${NIXOS_INSTALL_USER}/result"
+
+
 ###: PREPARE NIXOS CONFIGURATION ===============================================
 
-# Getting NixOS installation tools
-nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
+# nixos-generate-config --root /mnt
 
-# TODO
-# perl: warning: Please check that your locale settings:
-#         LANGUAGE = (unset),
-#         LC_ALL = "en_US.UTF-8",
-#         LANG = "en_US.UTF-8"
-#     are supported and installed on your system.
-nixos-generate-config --root /mnt
+# # Find the name of the network interface that connects us to the Internet.
+# # Inspired by https://unix.stackexchange.com/questions/14961/how-to-find-out-which-interface-am-i-using-for-connecting-to-the-internet/302613#302613
+# export RESCUE_INTERFACE=$(ip route get 8.8.8.8 | grep -Po '(?<=dev )(\S+)')
 
-# Find the name of the network interface that connects us to the Internet.
-# Inspired by https://unix.stackexchange.com/questions/14961/how-to-find-out-which-interface-am-i-using-for-connecting-to-the-internet/302613#302613
-export RESCUE_INTERFACE=$(ip route get 8.8.8.8 | grep -Po '(?<=dev )(\S+)')
+# # Find what its name will be under NixOS, which uses stable interface names.
+# # See https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/#comment-545626
+# # NICs for most Hetzner servers are not onboard, which is why we use
+# # `ID_NET_NAME_PATH`otherwise it would be `ID_NET_NAME_ONBOARD`.
+# export INTERFACE_DEVICE_PATH=$(udevadm info -e | grep -Po "(?<=^P: )(.*${RESCUE_INTERFACE})")
+# export UDEVADM_PROPERTIES_FOR_INTERFACE=$(udevadm info --query=property "--path=$INTERFACE_DEVICE_PATH")
+# export NIXOS_INTERFACE=$(echo "$UDEVADM_PROPERTIES_FOR_INTERFACE" | grep -o -E 'ID_NET_NAME_PATH=\w+' | cut -d= -f2)
+# echo "Determined NIXOS_INTERFACE as '$NIXOS_INTERFACE'"
 
-# Find what its name will be under NixOS, which uses stable interface names.
-# See https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/#comment-545626
-# NICs for most Hetzner servers are not onboard, which is why we use
-# `ID_NET_NAME_PATH`otherwise it would be `ID_NET_NAME_ONBOARD`.
-export INTERFACE_DEVICE_PATH=$(udevadm info -e | grep -Po "(?<=^P: )(.*${RESCUE_INTERFACE})")
-export UDEVADM_PROPERTIES_FOR_INTERFACE=$(udevadm info --query=property "--path=$INTERFACE_DEVICE_PATH")
-export NIXOS_INTERFACE=$(echo "$UDEVADM_PROPERTIES_FOR_INTERFACE" | grep -o -E 'ID_NET_NAME_PATH=\w+' | cut -d= -f2)
-echo "Determined NIXOS_INTERFACE as '$NIXOS_INTERFACE'"
+# export IP_V4=$(ip route get 8.8.8.8 | grep -Po '(?<=src )(\S+)')
+# echo "Determined IP_V4 as $IP_V4"
 
-export IP_V4=$(ip route get 8.8.8.8 | grep -Po '(?<=src )(\S+)')
-echo "Determined IP_V4 as $IP_V4"
+# # Determine Internet IPv6 by checking route, and using ::1
+# # (because Hetzner rescue mode uses ::2 by default).
+# # The `ip -6 route get` output on Hetzner looks like:
+# #   # ip -6 route get 2001:4860:4860:0:0:0:0:8888
+# #   2001:4860:4860::8888 via fe80::1 dev eth0 src 2a01:4f8:151:62aa::2 metric 1024  pref medium
+# export IP_V6="$(ip route get 2001:4860:4860::8888 | head -1 | cut -d' ' -f7 | cut -d: -f1-4)::1"
+# echo "Determined IP_V6 as $IP_V6"
 
-# Determine Internet IPv6 by checking route, and using ::1
-# (because Hetzner rescue mode uses ::2 by default).
-# The `ip -6 route get` output on Hetzner looks like:
-#   # ip -6 route get 2001:4860:4860:0:0:0:0:8888
-#   2001:4860:4860::8888 via fe80::1 dev eth0 src 2a01:4f8:151:62aa::2 metric 1024  pref medium
-export IP_V6="$(ip route get 2001:4860:4860::8888 | head -1 | cut -d' ' -f7 | cut -d: -f1-4)::1"
-echo "Determined IP_V6 as $IP_V6"
+# # From https://stackoverflow.com/questions/1204629/how-do-i-get-the-default-gateway-in-linux-given-the-destination/15973156#15973156
+# read _ _ DEFAULT_GATEWAY _ < <(ip route list match 0/0); echo "$DEFAULT_GATEWAY"
+# echo "Determined DEFAULT_GATEWAY as $DEFAULT_GATEWAY"
 
-# From https://stackoverflow.com/questions/1204629/how-do-i-get-the-default-gateway-in-linux-given-the-destination/15973156#15973156
-read _ _ DEFAULT_GATEWAY _ < <(ip route list match 0/0); echo "$DEFAULT_GATEWAY"
-echo "Determined DEFAULT_GATEWAY as $DEFAULT_GATEWAY"
+# # Generate `configuration.nix`. Note that we splice in shell variables.
+# # cat > /mnt/etc/nixos/configuration.nix <<EOF
+# # { config, pkgs, ... }:
 
-# Generate `configuration.nix`. Note that we splice in shell variables.
-cat > /mnt/etc/nixos/configuration.nix <<EOF
-{ config, pkgs, ... }:
+# # {
+# #   imports =
+# #     [ # Include the results of the hardware scan.
+# #       ./hardware-configuration.nix
+# #     ];
 
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+# #   boot.loader.systemd-boot.enable = false;
+# #   boot.loader.grub = {
+# #     enable = true;
+# #     efiSupport = true;
+# #     devices = ["$NVME1" "$NVME2"];
+# #     copyKernels = true;
+# #   };
+# #   boot.supportedFilesystems = [ "zfs" ];
 
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    devices = ["$NVME1" "$NVME2"];
-    copyKernels = true;
-  };
-  boot.supportedFilesystems = [ "zfs" ];
+# #   networking.hostName = "$MY_HOSTNAME";
+   networking.hostId = "$MY_HOSTID";
 
-  networking.hostName = "$MY_HOSTNAME";
-  networking.hostId = "$MY_HOSTID";
-
-  # enable flakes by default
+# #   # enable flakes by default
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -356,49 +426,49 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
     '';
   };
 
-  # Set your time zone.
-  time.timeZone = "America/New_York";
+# #   # Set your time zone.
+# #   time.timeZone = "America/New_York";
 
-  environment = {
-    enableDebugInfo = true;
-    # just a couple of packages to make our lives easier
-    systemPackages = with pkgs; [ vim ];
-  };
+# #   environment = {
+# #     enableDebugInfo = true;
+# #     # just a couple of packages to make our lives easier
+# #     systemPackages = with pkgs; [ vim ];
+# #   };
 
-  # ZFS maintenance settings.
-  services.zfs.trim.enable = true;
-  services.zfs.autoScrub.enable = true;
-  services.zfs.autoScrub.pools = [ "rpool" ];
-  services.zfs.autoSnapshot.enable = true;
+# #   # ZFS maintenance settings.
+# #   services.zfs.trim.enable = true;
+# #   services.zfs.autoScrub.enable = true;
+# #   services.zfs.autoScrub.pools = [ "rpool" ];
+# #   services.zfs.autoSnapshot.enable = true;
 
-  # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
-  networking.useDHCP = false;
-  networking.interfaces."$NIXOS_INTERFACE".ipv4.addresses = [
-    {
-      address = "$IP_V4";
-      prefixLength = 24;
-    }
-  ];
-  networking.interfaces."$NIXOS_INTERFACE".ipv6.addresses = [
-    {
-      address = "$IP_V6";
-      prefixLength = 64;
-    }
-  ];
-  networking.defaultGateway = "$DEFAULT_GATEWAY";
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "$NIXOS_INTERFACE"; };
-  networking.nameservers = [
-    # cloudflare
-    "1.1.1.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-    # google
-    "8.8.8.8"
-    "2001:4860:4860::8888"
-    "2001:4860:4860::8844"
-  ];
+# #   # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
+# #   networking.useDHCP = false;
+# #   networking.interfaces."$NIXOS_INTERFACE".ipv4.addresses = [
+# #     {
+# #       address = "$IP_V4";
+# #       prefixLength = 24;
+# #     }
+# #   ];
+# #   networking.interfaces."$NIXOS_INTERFACE".ipv6.addresses = [
+# #     {
+# #       address = "$IP_V6";
+# #       prefixLength = 64;
+# #     }
+# #   ];
+# #   networking.defaultGateway = "$DEFAULT_GATEWAY";
+# #   networking.defaultGateway6 = { address = "fe80::1"; interface = "$NIXOS_INTERFACE"; };
+# #   networking.nameservers = [
+# #     # cloudflare
+# #     "1.1.1.1"
+# #     "2606:4700:4700::1111"
+# #     "2606:4700:4700::1001"
+# #     # google
+# #     "8.8.8.8"
+# #     "2001:4860:4860::8888"
+# #     "2001:4860:4860::8844"
+# #   ];
 
-  # Initial empty root password for easy login:
+# #   # Initial empty root password for easy login:
   users.users.root.initialHashedPassword = "";
   services.openssh.permitRootLogin = "prohibit-password";
 
@@ -415,24 +485,24 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3tWcOwvNOfHXX3YvtLmJRigxATUh++bWRCAM07uy3mbNvEteT5bF/7nixO44gep0Hv24jaqLeGjCaTxFXrmt1NGgvmAXcsoS4I3+N2xfiFZPIKoiF0EONDsInjm4h5eNoPPE4Rd9xLju4S4tXaXDcL37PunQZJ+aR6CRVf/geM+H4y70cvYHV6uakMAfuv/0+AEMLwlSIN7OpDN8B+JGI4rQhBsekRkkkcZlPYO4vT63aTvLCYFxJ/fR45oMKW57lvZUrbRMHbKRkOfyhBF3qbYR/9aMEUd7gjYBfLJ1hQaHlp2aV49m53WFBjmjqjFcxDPxS/HMk/Hazowkw0G6iNzSNHnO5wI/BxIEahavYvd4VOQXpaWs/G58t8kdQol8WFufLjAReP0j16TqcWEHwy1ktMcrpYfDlLSlNcuaUeXJNIyvD3WmfRDXBnxlBenFIqe9lnK8RUVCcxM+lEEJbMWs1ZuWmgXjbt3UkFhSKSv2Adlm2/OfBBCyO46hVmhLfkwzB69aXYqUjPthlvtCDuLxrmT+DZeWsucUKPp2L9PXS6LpbpnIWCqmnGIPLjHBX2X3EOKwrtLAGN5wv7zLv88qHOD0MET2KVZkfTLg04FkcNowNwAlQ8xBBjpt6xEWNFMH532ZRO1CT0VTUNB7nEW2JET1SULsRT/bTUbKQHQ== yk5cNfc"
   ];
 
-  services.openssh.enable = true;
+# #   services.openssh.enable = true;
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "22.05"; # Did you read the comment?
+# #   # This value determines the NixOS release with which your system is to be
+# #   # compatible, in order to avoid breaking some software such as database
+# #   # servers. You should change this only after NixOS release notes say you
+# #   # should.
+# #   system.stateVersion = "22.05"; # Did you read the comment?
 
-}
-EOF
+# # }
+# # EOF
 
-# Install NixOS
-PATH="$PATH" $(which nixos-install) \
-  --no-root-passwd --root /mnt --max-jobs 40
+# # Install NixOS
+# PATH="$PATH" $(which nixos-install) \
+#   --no-root-passwd --root /mnt --max-jobs 40
 
-umount /mnt
+# umount /mnt
 
-reboot
+# reboot
 
 # if you need to debug something
 # - connect to the rescue system
