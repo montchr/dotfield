@@ -6,7 +6,7 @@ moduleArgs @ {
 }: let
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  isImmutable = moduleArgs.nixosConfig.users.mutableUsers or false;
+  isImmutable = moduleArgs.osConfig.users.mutableUsers or false;
 in
   lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
     {
@@ -33,7 +33,6 @@ in
         mutableKeys = isImmutable;
         mutableTrust = isImmutable;
 
-        # TODO: add the other one
         publicKeys = [
           {
             source = ../../identity + "/gpg-${pgpPublicKey}.txt";
