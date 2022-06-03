@@ -3,10 +3,13 @@ moduleArgs @ {
   lib,
   pkgs,
   ...
-}: {
+}:
+let
+  identityFile = "~/.ssh/id_rsa_yk.pub";
+in
+{
   programs.ssh = {
     enable = true;
-    hashKnownHosts = true;
     forwardAgent = false;
     serverAliveInterval = 300;
     serverAliveCountMax = 2;
@@ -15,14 +18,12 @@ moduleArgs @ {
 
     matchBlocks = {
       "hierophant" = {
+        inherit identityFile;
         host = "100.68.129.15";
-        identitiesOnly = true;
-        identityFile = "~/.ssh/id_ed25519_yubikey.pub";
       };
 
       "github.com" = {
         user = "git";
-        identitiesOnly = true;
         extraOptions = {
           "MACs" = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
         };
@@ -32,10 +33,11 @@ moduleArgs @ {
       };
 
       "*" = {
+        inherit identityFile;
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        identityFile = "~/.ssh/id_ed25519_yubikey.pub";
+        identitiesOnly = true;
         serverAliveInterval = 300;
         serverAliveCountMax = 2;
 
