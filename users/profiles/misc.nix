@@ -33,6 +33,10 @@
 
     mpv
     youtube-dl
+
+    ## === Data Sync ===
+
+    rclone
   ];
 
   # TODO: check these out
