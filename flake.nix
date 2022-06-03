@@ -188,6 +188,7 @@
               core.common
               core.nixos
               networking.common
+              networking.tailscale
             ];
             tangible = [
               audio
@@ -205,9 +206,6 @@
               video
               workstations.common
               yubikey
-
-              # FIXME: review options set within this profile. untested.
-              # boot
             ];
           };
         };
