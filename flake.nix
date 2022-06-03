@@ -198,7 +198,7 @@
               # TODO: not necessary with current gnome configuration
               # networking.wifi
             ];
-            workstation = [
+            workstation = tangible ++ [
               fonts.common
               fonts.pragmatapro
               gnome-desktop
