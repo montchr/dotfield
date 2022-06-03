@@ -193,10 +193,8 @@
             tangible = [
               audio
               bluetooth
+              networking.wifi
               printers-scanners
-
-              # TODO: not necessary with current gnome configuration
-              # networking.wifi
             ];
             workstation = tangible ++ [
               fonts.common
