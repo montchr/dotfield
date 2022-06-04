@@ -285,6 +285,7 @@
             #: graphical:  familiar personal computing interfaces
             graphical =
               [
+                desktop.common
                 desktop.gnome
                 firefox
                 keyboard
