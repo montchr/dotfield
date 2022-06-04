@@ -12,6 +12,8 @@
     systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
   };
 
+  boot.loader.systemd-boot.consoleMode = "auto";
+
   environment.shellAliases = {
     # Fix `nixos-option` for flake compatibility
     nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
