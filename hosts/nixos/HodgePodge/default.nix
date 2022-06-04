@@ -26,9 +26,7 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s20u1.useDHCP = true;
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
+  services.printing.enable = true;
   hardware.facetimehd.enable = true;
 
   users.mutableUsers = false;
