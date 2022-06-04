@@ -32,7 +32,7 @@
 
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
-    enable = lib.mkForce true;
+    enable = true;
 
     openFirewall = true;
     passwordAuthentication = false;
