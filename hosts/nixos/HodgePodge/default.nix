@@ -29,8 +29,6 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  services.xserver.libinput.enable = true;
-
   hardware.facetimehd.enable = true;
 
   users.mutableUsers = false;
