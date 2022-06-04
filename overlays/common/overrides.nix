@@ -4,6 +4,7 @@ channels: final: prev: {
   inherit
     (channels.nixos-unstable)
     awscli2
+    xplr
     ;
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
