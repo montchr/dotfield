@@ -1,6 +1,12 @@
-{ config, hmUsers, lib, pkgs, profiles, suites, ... }:
-
 {
+  config,
+  hmUsers,
+  lib,
+  pkgs,
+  profiles,
+  suites,
+  ...
+}: {
   imports =
     (with suites; tangible ++ workstation)
     ++ (with profiles; [

@@ -1,9 +1,12 @@
-{config, inputs, pkgs, ...}:
-let
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) system;
   homeManagerPackage = inputs.home-manager.packages.${system}.default;
-in
-{
+in {
   environment.systemPackages = [homeManagerPackage];
   home-manager.sharedModules = [
     {

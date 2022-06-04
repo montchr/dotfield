@@ -3,11 +3,9 @@ moduleArgs @ {
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   identityFile = "~/.ssh/id_rsa_yk.pub";
-in
-{
+in {
   programs.ssh = {
     enable = true;
     forwardAgent = false;

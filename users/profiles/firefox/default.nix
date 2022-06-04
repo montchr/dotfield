@@ -129,157 +129,157 @@ moduleArgs @ {
       '';
     };
   };
-in
-    {
-      xdg.configFile."tridactyl".source = ./tridactyl;
+in {
+  xdg.configFile."tridactyl".source = ./tridactyl;
 
-      programs.buku.enable = true;
-      programs.buku.enableBrowserIntegration = true;
+  programs.buku.enable = true;
+  programs.buku.enableBrowserIntegration = true;
 
-      programs.firefox = {
-        enable = true;
-        package = if isDarwin then pkgs.firefox-darwin else pkgs.firefox-wayland;
-        extensions = with firefox-addons; [
-          onepassword-password-manager
-          a11ycss
-          add-custom-search-engine
-          (lib.mkIf
-            (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration)
-            bukubrow)
-          copy-selection-as-markdown
-          darkreader
-          display-_anchors
-          firefox-color
-          (lib.mkIf config.programs.browserpass.enable browserpass)
+  programs.firefox = {
+    enable = true;
+    package =
+      if isDarwin
+      then pkgs.firefox-darwin
+      else pkgs.firefox-wayland;
+    extensions = with firefox-addons; [
+      onepassword-password-manager
+      a11ycss
+      add-custom-search-engine
+      (lib.mkIf
+        (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration)
+        bukubrow)
+      copy-selection-as-markdown
+      darkreader
+      display-_anchors
+      firefox-color
+      (lib.mkIf config.programs.browserpass.enable browserpass)
 
-          # Flagfox by Dave G
-          #
-          # Displays a country flag depicting the location of the current website's
-          # server and provides a multitude of tools such as site safety checks,
-          # whois, translation, similar sites, validation, URL shortening, and
-          # more...
-          #
-          # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
-          flagfox
+      # Flagfox by Dave G
+      #
+      # Displays a country flag depicting the location of the current website's
+      # server and provides a multitude of tools such as site safety checks,
+      # whois, translation, similar sites, validation, URL shortening, and
+      # more...
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
+      flagfox
 
-          floccus
+      floccus
 
-          mailvelope
-          multi-account-containers
-          octolinker
-          old-reddit-redirect
-          org-capture
-          pinboard
-          privacy-badger
-          react-devtools
-          reddit-enhancement-suite
-          reduxdevtools
-          refined-github
+      mailvelope
+      multi-account-containers
+      octolinker
+      old-reddit-redirect
+      org-capture
+      pinboard
+      privacy-badger
+      react-devtools
+      reddit-enhancement-suite
+      reduxdevtools
+      refined-github
 
-          # Return Youtube Dislike by Dmitry Selivanov
-          #
-          # Returns ability to see dislike statistics on youtube
-          #
-          # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
-          search-engines-helper
+      # Return Youtube Dislike by Dmitry Selivanov
+      #
+      # Returns ability to see dislike statistics on youtube
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
+      search-engines-helper
 
-          # SingleFile by gildas
-          #
-          # Save an entire web page—including images and styling—as a single HTML file.
-          #
-          # https://addons.mozilla.org/en-US/firefox/addon/single-file/
-          single-file
+      # SingleFile by gildas
+      #
+      # Save an entire web page—including images and styling—as a single HTML file.
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/single-file/
+      single-file
 
-          tab-session-manager
-          tabliss
-          temporary-containers
-          tridactyl
-          ublock-origin
+      tab-session-manager
+      tabliss
+      temporary-containers
+      tridactyl
+      ublock-origin
 
-          ##: Themes {{
+      ##: Themes {{
 
-          # Arctic Nord Theme by christos
-          #
-          # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
-          #
-          # TODO: add this to upstream repo
-          # arctic-nord-theme
+      # Arctic Nord Theme by christos
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
+      #
+      # TODO: add this to upstream repo
+      # arctic-nord-theme
 
-          # Nord Polar Night Theme by christos
-          #
-          # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
-          theme-nord-polar-night
+      # Nord Polar Night Theme by christos
+      #
+      # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
+      theme-nord-polar-night
 
-          ##: }}
-        ];
+      ##: }}
+    ];
 
-        profiles.home = {
-          id = 0;
+    profiles.home = {
+      id = 0;
 
-          settings =
-            defaultSettings
-            // privacySettings
-            // lepton.settings.required
-            // lepton.settings.theme.lepton
-            // lepton.settings.recommended
-            // lepton.settings.optional
-          ;
+      settings =
+        defaultSettings
+        // privacySettings
+        // lepton.settings.required
+        // lepton.settings.theme.lepton
+        // lepton.settings.recommended
+        // lepton.settings.optional;
 
-          userChrome = ''
-            ${styles.lepton.userChrome}
+      userChrome = ''
+        ${styles.lepton.userChrome}
 
-            :root {
-              --dotfield-tab-line-color: #5e81ac;
-            }
+        :root {
+          --dotfield-tab-line-color: #5e81ac;
+        }
 
-            ${styles.dotfield.userChrome}
-          '';
+        ${styles.dotfield.userChrome}
+      '';
 
-          userContent = ''
-            ${styles.lepton.userContent}
-            ${styles.dotfield.userContent}
-          '';
+      userContent = ''
+        ${styles.lepton.userContent}
+        ${styles.dotfield.userContent}
+      '';
+    };
+
+    profiles.work = {
+      id = 1;
+
+      settings =
+        defaultSettings
+        // lepton.settings.required
+        // lepton.settings.theme.lepton
+        // {
+          "browser.startup.homepage" = "about:blank";
+          "browser.urlbar.placeholderName" = "Search";
+
+          # 0 = Accept all cookies by default
+          # 1 = Only accept from the originating site (block third-party cookies)
+          # 2 = Block all cookies by default
+          # 3 = Block cookies from unvisited sites
+          # 4 = New Cookie Jar policy (prevent storage access to trackers)
+          "network.cookie.cookieBehavior" = 0;
+
+          "privacy.trackingprotection.enabled" = false;
         };
 
-        profiles.work = {
-          id = 1;
+      userChrome = ''
+        ${styles.lepton.userChrome}
 
-          settings =
-            defaultSettings
-            // lepton.settings.required
-            // lepton.settings.theme.lepton
-            // {
-              "browser.startup.homepage" = "about:blank";
-              "browser.urlbar.placeholderName" = "Search";
+        :root {
+          --dotfield-color-alley-red: #a22e29;
+          --dotfield-tab-line-color: var(--dotfield-color-alley-red);
+        }
 
-              # 0 = Accept all cookies by default
-              # 1 = Only accept from the originating site (block third-party cookies)
-              # 2 = Block all cookies by default
-              # 3 = Block cookies from unvisited sites
-              # 4 = New Cookie Jar policy (prevent storage access to trackers)
-              "network.cookie.cookieBehavior" = 0;
+        ${styles.dotfield.userChrome}
+      '';
 
-              "privacy.trackingprotection.enabled" = false;
-            };
-
-          userChrome = ''
-            ${styles.lepton.userChrome}
-
-            :root {
-              --dotfield-color-alley-red: #a22e29;
-              --dotfield-tab-line-color: var(--dotfield-color-alley-red);
-            }
-
-            ${styles.dotfield.userChrome}
-          '';
-
-          userContent = ''
-            ${styles.dotfield.userContent}
-          '';
-        };
-      };
-    }
-
+      userContent = ''
+        ${styles.dotfield.userContent}
+      '';
+    };
+  };
+}
 ##: References
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407

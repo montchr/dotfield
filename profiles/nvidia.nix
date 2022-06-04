@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   nixpkgs.config.allowUnfree = true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
@@ -10,5 +13,5 @@
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   hardware.nvidia.modesetting.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 }

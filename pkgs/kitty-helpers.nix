@@ -1,5 +1,9 @@
-{ lib, jq, sources, writeShellScriptBin }:
-
+{
+  lib,
+  jq,
+  sources,
+  writeShellScriptBin,
+}:
 lib.makeExtensible (self: {
   # FIXME: provide a better indication that there can be multiple kitty windows in
   # a single platform window. perhaps 'tab' is better suited?
@@ -10,7 +14,7 @@ lib.makeExtensible (self: {
     kitty @ --to $KITTY_SOCKET ls \
       | ${jq}/bin/jq -r --argjson id "$1" \
         '.[] | select(.platform_window_id==$id)'
-  '' ;
+  '';
 
   # FIXME: this should depend on the yabai-sa-kickstart script because killing
   # Dock will unload the scripting addition...

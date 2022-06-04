@@ -7,9 +7,7 @@
   profiles,
   suites,
   ...
-}:
-
-{
+}: {
   imports =
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
@@ -17,7 +15,7 @@
       office
       # nvidia
     ])
-    ++ [ 
+    ++ [
       # ./broadcom.nix
       ./hardware-configuration.nix
     ];
@@ -34,24 +32,30 @@
 
   services.xserver.libinput.enable = true;
 
-  # FIXME: camera turns on but gnome 'cheese' app crashes immediately
   hardware.facetimehd.enable = true;
 
   users.mutableUsers = false;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # FIXME: disable root user
   users.users.root.hashedPassword = "$6$tRQHA4LYyZovD3iR$TvjLW14e.Ez0OI3cXGVL.m/LMp0lgMZLQKEpC5NNifP8Zg0lHlXY1UHmeuu.chgVjwxIBunQrwmZCop0j3n.3.";
   users.users.seadoom = {
     isNormalUser = true;
     uid = 1000;
     initialHashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
     hashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
-    extraGroups = [ "wheel" "seadome" "secrets" "video" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "seadome"
+      "secrets"
+      "video"
+      "networkmanager"
+    ];
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     shell = pkgs.zsh;
   };
 
   home-manager.users.seadoom = hmArgs: {
-    imports = [hmUsers.seadoom]
+    imports =
+      [hmUsers.seadoom]
       ++ (with hmArgs.suites; workstation);
   };
 
@@ -70,4 +74,3 @@
 
   nixpkgs.config.allowUnfree = true;
 }
-

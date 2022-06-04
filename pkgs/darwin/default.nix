@@ -1,8 +1,7 @@
 final: prev: {
-
   # Handled by the Homebrew module
   # This populates a dummy package to satisfy the requirement
-  firefox-darwin = (final.runCommand "firefox-0.0.0" {} "mkdir $out");
+  firefox-darwin = final.runCommand "firefox-0.0.0" {} "mkdir $out";
 
   # prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
 

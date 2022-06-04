@@ -1,11 +1,11 @@
 # Adjusted manually from generated output of dconf2nix
 # https://github.com/gvolpe/dconf2nix
-
-{ lib, pkgs, ... }:
-
-with lib.hm.gvariant;
-
 {
+  lib,
+  pkgs,
+  ...
+}:
+with lib.hm.gvariant; {
   dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     # "org/gnome/Disks" = {
     #   image-dir-uri = "file:///home/seadoom/Documents";
@@ -46,8 +46,8 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/input-sources" = {
       per-window = false;
-      sources = [ (mkTuple [ "xkb" "us" ]) ];
-      xkb-options = [ "terminate:ctrl_alt_bksp" "caps:ctrl_modifier" ];
+      sources = [(mkTuple ["xkb" "us"])];
+      xkb-options = ["terminate:ctrl_alt_bksp" "caps:ctrl_modifier"];
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
@@ -66,7 +66,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      workspace-names = [ "sys" "talk" "web" "edit" "run" ];
+      workspace-names = ["sys" "talk" "web" "edit" "run"];
     };
 
     "org/gnome/mutter" = {
@@ -145,6 +145,5 @@ with lib.hm.gvariant;
       # window-position = mkTuple [ 26 23 ];
       # window-size = mkTuple [ 1203 821 ];
     };
-
   };
 }

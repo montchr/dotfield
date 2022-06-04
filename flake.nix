@@ -196,15 +196,17 @@
               networking.wifi
               printers-scanners
             ];
-            workstation = tangible ++ [
-              fonts.common
-              fonts.pragmatapro
-              gnome-desktop
-              secrets
-              video
-              workstations.common
-              yubikey
-            ];
+            workstation =
+              tangible
+              ++ [
+                fonts.common
+                fonts.pragmatapro
+                gnome-desktop
+                secrets
+                video
+                workstations.common
+                yubikey
+              ];
           };
         };
       };
@@ -262,36 +264,33 @@
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
             #: basic: just your average anybody
-            basic =
-              [
-                core
-                misc
-                navi
-                ranger
-                tealdeer
-                vim
-              ];
+            basic = [
+              core
+              misc
+              navi
+              ranger
+              tealdeer
+              vim
+            ];
             #: developer: those who go
-            developer =
-              [
-                direnv
-                emacs
-                git
-                gpg
-                secrets
-                shells.zsh
-                ssh
-              ];
+            developer = [
+              direnv
+              emacs
+              git
+              gpg
+              secrets
+              shells.zsh
+              ssh
+            ];
             #: graphical:  familiar personal computing interfaces
-            graphical =
-              [
-                desktop.common
-                desktop.gnome
-                firefox
-                keyboard
-                kitty
-                themes
-              ];
+            graphical = [
+              desktop.common
+              desktop.gnome
+              firefox
+              keyboard
+              kitty
+              themes
+            ];
             #: workstation: level++
             workstation =
               graphical

@@ -18,11 +18,9 @@ thanks to the globs of Sugru preventing any further bodily harm.
 
 Now it's even more manageable thanks to NixOS!
 
-
 ### `alleymon`
 
 Work computer.
-
 
 ### `boschic`
 
@@ -42,7 +40,6 @@ Ring~ fun.
 ### `parrothelles`
 
 …is a Parallels VM. For testing experimental changes to workstations.
-
 
 ### Incubation
 
@@ -79,7 +76,6 @@ Still works, but unusable without external display.
 Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
 
 Currently lost somewhere in the meat ether.
-
 
 ## Identities
 

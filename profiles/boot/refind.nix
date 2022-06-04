@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   assertions = [
     {
       assertion = config.boot.loader.grub.efiSupport -> config.boot.systemd-boot.enable;

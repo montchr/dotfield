@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.

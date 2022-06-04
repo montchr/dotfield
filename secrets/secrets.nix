@@ -23,7 +23,6 @@ let
     parrothelles
   ];
   allMachines = servers ++ workstations;
-
 in {
   "wireless.env.age".publicKeys = allMachines ++ trustedUsers;
 
