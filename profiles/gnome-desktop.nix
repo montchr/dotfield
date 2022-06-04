@@ -13,9 +13,6 @@
   # Required for Firefox integration in home-manager
   services.gnome.chrome-gnome-shell.enable = true;
 
-  # TODO: necessary? consider disabling until needed
-  programs.xwayland.enable = true;
-
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
 }
