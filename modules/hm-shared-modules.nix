@@ -1,7 +1,12 @@
-{config, ...}: {
+{config, inputs, pkgs, ...}:
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+  homeManagerPackage = inputs.home-manager.packages.${system}.default;
+in
+{
+  environment.systemPackages = [homeManagerPackage];
   home-manager.sharedModules = [
     {
-      # TODO: is this the right place to define this?
       programs.home-manager.enable = true;
 
       # Necessary for home-manager to work with flakes, otherwise it will
