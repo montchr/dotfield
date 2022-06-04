@@ -16,7 +16,6 @@
       # nvidia
     ])
     ++ [
-      # ./broadcom.nix
       ./hardware-configuration.nix
     ];
 
