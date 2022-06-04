@@ -34,8 +34,6 @@
   hardware.facetimehd.enable = true;
 
   users.mutableUsers = false;
-  # FIXME: disable root user
-  users.users.root.hashedPassword = "$6$tRQHA4LYyZovD3iR$TvjLW14e.Ez0OI3cXGVL.m/LMp0lgMZLQKEpC5NNifP8Zg0lHlXY1UHmeuu.chgVjwxIBunQrwmZCop0j3n.3.";
   users.users.seadoom = {
     isNormalUser = true;
     uid = 1000;
