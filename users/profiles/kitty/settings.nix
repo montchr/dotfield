@@ -6,20 +6,20 @@
   font_family = "PragmataPro Mono Liga";
   font_size = "14.0";
   adjust_line_height = "110%";
-  disable_ligatures = "cursor";
-  # box_drawing_scale = "0.001, 1, 1.5, 2";
+  # TODO: why?
+  box_drawing_scale = "0.001, 1, 1.5, 2";
 
   #: Cursor customization {{{
   cursor_shape = "beam";
   cursor_beam_thickness = "1.5";
   cursor_underline_thickness = "2.0";
-  cursor_blink_interval = "-1";
-  cursor_stop_blinking_after = "15.0";
+  # cursor_blink_interval = "-1";
+  # cursor_stop_blinking_after = "15.0";
   #: }}}
 
   #: Scrollback {{{
   scrollback_lines = "4000";
-  # scrollback_pager = "bat";
+  scrollback_pager = "less";
   scrollback_pager_history_size = "666";
   #: }}}
 
@@ -31,12 +31,7 @@
   window_margin_width = "0";
   single_window_margin_width = "-1";
   draw_minimal_borders = "yes";
-  # TODO: hide decorations when sway is active, otherwise leave them
-  hide_window_decorations = "${
-    if pkgs.stdenv.hostPlatform.isDarwin
-    then "yes"
-    else "no"
-  }";
+  hide_window_decorations = lib.hm.booleans.yesNo config.wayland.windowManager.sway.enable;
   confirm_os_window_close = "0";
   #: }}}
 
@@ -49,17 +44,13 @@
   #: }}}
 
   #: Advanced {{{
-  allow_remote_control = "no";
-  listen_on = "none";
-  startup_session = "session";
-  #: }}}
-
-  #: OS specific tweaks {{{
-  macos_quit_when_last_window_closed = "no";
-  macos_custom_beam_cursor = "yes";
+  # allow_remote_control = "no";
+  # listen_on = "none";
+  # startup_session = "session";
   #: }}}
 
   #: Keyboard shortcuts {{{
-  kitty_mod = "ctrl+shift";
+  # This is the default value.
+  # kitty_mod = "ctrl+shift";
   #: }}}
 }
