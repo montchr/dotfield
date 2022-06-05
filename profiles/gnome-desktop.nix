@@ -19,4 +19,6 @@
 
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
+
+  programs.gnupg.agent.pinentryFlavor = "gnome3";
 }
