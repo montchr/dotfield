@@ -301,6 +301,7 @@
               ++ [
                 espanso
                 mail
+                obs-studio
                 secrets.password-store
                 sync
                 yubikey
