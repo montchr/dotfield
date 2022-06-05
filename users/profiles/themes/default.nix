@@ -25,4 +25,7 @@ in {
   home.packages = with pkgs; [
     (writeScriptBin "toggle-dark-mode" (builtins.readFile ./toggle-dark-mode))
   ];
+
+  # https://github.com/nix-community/home-manager/blob/master/modules/misc/specialization.nix#blob-path
+  # specialization = [];
 }
