@@ -25,7 +25,7 @@ in {
 
     enable = true;
     bashrcExtra = envInit;
-    profileExtra = "";
+    # profileExtra = "";
 
     sessionVariables = {
       BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";

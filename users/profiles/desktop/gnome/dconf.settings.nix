@@ -7,15 +7,6 @@
 }:
 with lib.hm.gvariant; {
   dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
-    # "org/gnome/Disks" = {
-    #   image-dir-uri = "file:///home/seadoom/Documents";
-    # };
-
-    # "org/gnome/baobab/ui" = {
-    #   window-size = mkTuple [ 960 600 ];
-    #   window-state = 87168;
-    # };
-
     "org/gnome/calculator" = {
       accuracy = 9;
       angle-units = "degrees";
@@ -54,15 +45,6 @@ with lib.hm.gvariant; {
       natural-scroll = false;
       tap-to-click = true;
       two-finger-scrolling-enabled = true;
-    };
-
-    "org/gnome/desktop/privacy" = {
-      # FIXME: per-host opt-in
-      # disable-microphone = false;
-    };
-
-    "org/gnome/desktop/search-providers" = {
-      # sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -137,13 +119,10 @@ with lib.hm.gvariant; {
       show-hidden = true;
       show-size-column = true;
       show-type-column = true;
-      # sidebar-width = 157;
       sort-column = "name";
       sort-directories-first = true;
       sort-order = "ascending";
       type-format = "category";
-      # window-position = mkTuple [ 26 23 ];
-      # window-size = mkTuple [ 1203 821 ];
     };
   };
 }
