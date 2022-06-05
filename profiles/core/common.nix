@@ -15,12 +15,12 @@ in {
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel" "@seadome"];
-    extraOptions = ''
-      min-free = 536870912
-      keep-outputs = true
-      keep-derivations = true
-      fallback = true
-    '';
+    # extraOptions = ''
+    #   min-free = 536870912
+    #   keep-outputs = true
+    #   keep-derivations = true
+    #   fallback = true
+    # '';
 
     # FUP Options {{
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix
