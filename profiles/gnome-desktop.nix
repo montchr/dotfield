@@ -25,4 +25,8 @@
   xdg.portal.gtkUsePortal = true;
 
   programs.gnupg.agent.pinentryFlavor = "gnome3";
+
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-tweaks
+  ];
 }
