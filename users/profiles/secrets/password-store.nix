@@ -5,14 +5,9 @@
   ...
 }: let
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
-
-  dotfieldPath = "${config.xdg.configHome}/dotfield";
 in
   lib.mkMerge [
     {
-      home.packages = [pkgs._1password];
-      home.sessionVariables.AGENIX_ROOT = dotfieldPath;
-
       programs.password-store = lib.mkIf config.programs.gpg.enable {
         enable = true;
         package = pkgs.pass.withExtensions (exts:
@@ -27,11 +22,8 @@ in
         };
       };
     }
-    (lib.mkIf (config.programs.password-store.enable && config.programs.firefox.enable) {
+    (lib.mkIf config.programs.firefox.enable {
       programs.browserpass.enable = true;
       programs.browserpass.browsers = ["firefox"];
-    })
-    (lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
-      home.packages = [pkgs._1password-gui];
     })
   ]

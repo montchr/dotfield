@@ -271,6 +271,7 @@
               misc
               navi
               ranger
+              secrets.common
               tealdeer
               vim
             ];
@@ -280,7 +281,6 @@
               emacs
               git
               gpg
-              secrets
               shells.zsh
               ssh
             ];
@@ -291,6 +291,7 @@
               firefox
               keyboard
               kitty
+              secrets.one-password
               themes
             ];
             #: workstation: level++
@@ -300,6 +301,7 @@
               ++ [
                 espanso
                 mail
+                secrets.password-store
                 syncthing
                 yubikey
               ];
