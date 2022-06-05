@@ -25,21 +25,11 @@ with lib.hm.gvariant; {
       word-size = 64;
     };
 
-    # FIXME: only for HodgePodge
-    # "org/gnome/cheese" = {
-    #   burst-delay = 1000;
-    #   camera = "Apple Facetime HD";
-    #   photo-x-resolution = 1280;
-    #   photo-y-resolution = 720;
-    #   video-x-resolution = 1280;
-    #   video-y-resolution = 720;
+    # "org/gnome/desktop/input-sources" = {
+    #   per-window = false;
+    #   sources = [(mkTuple ["xkb" "us"])];
+    #   xkb-options = ["terminate:ctrl_alt_bksp" "caps:ctrl_modifier"];
     # };
-
-    "org/gnome/desktop/input-sources" = {
-      per-window = false;
-      sources = [(mkTuple ["xkb" "us"])];
-      xkb-options = ["terminate:ctrl_alt_bksp" "caps:ctrl_modifier"];
-    };
 
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;
@@ -52,12 +42,8 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/mutter" = {
-      attach-modal-dialogs = true;
-      dynamic-workspaces = true;
       edge-tiling = true;
-      focus-change-on-pointer-rest = true;
-      # FIXME: probably not desirable
-      workspaces-only-on-primary = true;
+      workspaces-only-on-primary = false;
     };
 
     "org/gnome/shell" = {
@@ -65,16 +51,16 @@ with lib.hm.gvariant; {
         "window-list@gnome-shell-extensions.gcampax.github.com"
         "native-window-placement@gnome-shell-extensions.gcampax.github.com"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
       ];
       enabled-extensions = [
-        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
       ];
       favorite-apps = [
         "firefox.desktop"
         "kitty.desktop"
-        "emacsclient.desktop"
+        "emacs.desktop"
         "org.gnome.Nautilus.desktop"
       ];
       remember-mount-password = false;
@@ -92,6 +78,7 @@ with lib.hm.gvariant; {
         "firefox.desktop:3"
 
         ##: 04: 'edit'
+        "emacs.desktop:4"
         "emacsclient.desktop:4"
 
         ##: 05: 'run'
@@ -99,10 +86,10 @@ with lib.hm.gvariant; {
       ];
     };
 
-    "org/gnome/shell/extensions/user-theme" = {
-      # FIXME
-      name = "";
-    };
+    # "org/gnome/shell/extensions/user-theme" = {
+    #   # FIXME
+    #   name = "";
+    # };
 
     # "org/gnome/shell/world-clocks" = {
     #   locations = "@av []";
