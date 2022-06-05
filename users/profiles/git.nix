@@ -140,5 +140,8 @@ in {
     ];
   };
 
+  programs.gh.enable = true;
+  programs.gh.settings.git_protocol = "ssh";
+
   xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
 }
