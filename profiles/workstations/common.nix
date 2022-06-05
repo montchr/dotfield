@@ -18,6 +18,12 @@
   # programs._1password-gui.enable = true;
   # programs._1password.enable = true;
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    enableBrowserSocket = true;
+  };
+
   environment.variables = {
     MOZ_ENABLE_WAYLAND = "1";
   };

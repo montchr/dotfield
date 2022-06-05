@@ -6,7 +6,6 @@ moduleArgs @ {
 }: let
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  isImmutable = moduleArgs.osConfig.users.mutableUsers or false;
 in
   lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
     {
@@ -30,8 +29,8 @@ in
       programs.gpg = {
         enable = true;
 
-        mutableKeys = isImmutable;
-        mutableTrust = isImmutable;
+        mutableKeys = false;
+        mutableTrust = false;
 
         publicKeys = [
           {

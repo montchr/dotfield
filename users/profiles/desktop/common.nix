@@ -8,6 +8,6 @@
 in
   lib.mkMerge [
     (lib.mkIf isLinux {
-      xsession.enable = true;
+      # xsession.enable = true;
     })
   ]

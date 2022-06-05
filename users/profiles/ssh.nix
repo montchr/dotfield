@@ -4,8 +4,11 @@ moduleArgs @ {
   pkgs,
   ...
 }: let
-  identityFile = "~/.ssh/id_rsa_yk.pub";
+  identityFileName = "id_rsa_yk.pub";
+  identityFile = "~/.ssh/${identityFileName}";
 in {
+  home.file.".ssh/${identityFileName}".source = ../../identity/ssh-yubikey.pub;
+
   programs.ssh = {
     enable = true;
     forwardAgent = false;
@@ -16,7 +19,6 @@ in {
 
     matchBlocks = {
       "hierophant" = {
-        inherit identityFile;
         host = "100.68.129.15";
       };
 
@@ -32,6 +34,7 @@ in {
 
       "*" = {
         inherit identityFile;
+
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;

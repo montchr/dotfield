@@ -36,6 +36,10 @@
     treefmt # One CLI to format the code tree
   ];
 
+  programs.bash.enable = true;
+  programs.fish.enable = true;
+  programs.zsh.enable = true;
+
   programs.bat = {
     enable = true;
     config = {

@@ -39,6 +39,11 @@
     nixos-generators.inputs.nixlib.follows = "nixlib";
     nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
 
+    # User environments.
+    home-manager.url = "github:montchr/home-manager/trunk";
+    # home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
+
     # Deployments.
     deploy.url = "github:serokell/deploy-rs";
     deploy.inputs.nixpkgs.follows = "nixpkgs";
@@ -61,9 +66,6 @@
     phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
     phps.inputs.nixpkgs.follows = "nixos-unstable";
 
-    # User environments.
-    home-manager.url = "github:montchr/home-manager/trunk";
-    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
