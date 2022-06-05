@@ -3,11 +3,14 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in
-  lib.mkMerge [
-    (lib.mkIf isLinux {
-      # xsession.enable = true;
-    })
-  ]
+}:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  xsession.enable = true;
+  qt.enable = true;
+  xdg.userDirs.enable = true;
+
+  # TODO
+  # xdg.desktopEntries = ...
+  # xdg.mime = ...
+  # xdg.mimeApps = ...
+}
