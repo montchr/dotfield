@@ -302,7 +302,7 @@
                 espanso
                 mail
                 secrets.password-store
-                syncthing
+                sync
                 yubikey
               ];
           };
