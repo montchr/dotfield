@@ -5,6 +5,7 @@
   ...
 }:
 lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  programs.zathura.enable = true;
   xsession.enable = true;
   qt.enable = true;
   xdg.userDirs.enable = true;
