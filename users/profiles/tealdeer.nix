@@ -6,7 +6,9 @@
 }: {
   home.packages = [pkgs.tealdeer];
   home.sessionVariables = {
+    # FIXME: open PR on upstream hm to remove hard-coded config path on darwin
     TEALDEER_CONFIG_DIR = "${config.xdg.configHome}/tealdeer";
+    # FIXME: open PR on upstream hm to add option to set this value (and ensure the directory exists)
     TEALDEER_CACHE_DIR = "${config.xdg.cacheHome}/tealdeer";
   };
 
