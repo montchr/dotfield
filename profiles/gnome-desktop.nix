@@ -17,6 +17,10 @@
   # Required for Firefox integration in home-manager
   services.gnome.chrome-gnome-shell.enable = true;
 
+  # A file previewer for the GNOME desktop environment.
+  # https://gitlab.gnome.org/GNOME/sushi
+  services.gnome.sushi.enable = true;
+
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
 
