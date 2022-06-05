@@ -301,6 +301,7 @@
               ++ [
                 espanso
                 mail
+                newsboat
                 obs-studio
                 secrets.password-store
                 sync
