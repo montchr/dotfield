@@ -41,8 +41,9 @@
 
   # TODO: check these out
   # services.etebase = {};
+  # services.etebase.sync = {};
   # services.flameshot = {};
-  # services.git-sync = {};
+  # services.hound = ...
   # services.password-store-sync = {};
   # programs.ncspot = {}; # spotify thingy
 }
