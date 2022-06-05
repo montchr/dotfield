@@ -61,8 +61,6 @@ in
       home.sessionVariables = {
         KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
         KITTY_SOCKET = socket;
-        # TODO: still necessary? avoid depending on kitty pkg for darwin
-        # TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
       };
 
       programs.kitty = {
