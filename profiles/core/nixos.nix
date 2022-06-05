@@ -38,8 +38,4 @@
     passwordAuthentication = false;
     permitRootLogin = "prohibit-password";
   };
-
-  # Automatically kill processes when running low on available memory.
-  # https://github.com/rfjakob/earlyoom
-  services.earlyoom.enable = true;
 }
