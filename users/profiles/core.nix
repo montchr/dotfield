@@ -68,7 +68,7 @@
   programs.tealdeer.enable = true;
   programs.zoxide.enable = true;
 
-  home.extraOutputsToInstall = ["/share" "/share/zsh"];
+  home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
     DOTFIELD_DIR = config.lib.dotfield.userPath;

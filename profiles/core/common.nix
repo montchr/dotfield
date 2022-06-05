@@ -69,7 +69,8 @@ in {
     zsh
   ];
 
-  environment.pathsToLink = ["/share" "/share/zsh"];
+  # Enable completions for system packages.
+  environment.pathsToLink = ["/share/zsh"];
 
   programs.zsh = {
     enable = true;
