@@ -56,4 +56,6 @@
   };
   programs.bottom.enable = true;
   # programs.nix-index.enable = true;
+  home.extraOutputsToInstall = ["/share" "/share/zsh"];
+
 }
