@@ -91,6 +91,13 @@ in {
     ]);
   };
 
+  services.emacs = {
+    enable = true;
+    defaultEditor = lib.mkForce true;
+    socketActivation.enable = true;
+    # client.enable = true;
+  };
+
   home.packages = with pkgs; [
     ediff-tool
 
