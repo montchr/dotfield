@@ -8,6 +8,8 @@ moduleArgs @ {
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
+  isBukuEnabled = (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration);
+
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
   lepton = import ./lepton.nix;
 
@@ -140,14 +142,22 @@ in {
     package =
       if isDarwin
       then pkgs.firefox-darwin
-      else pkgs.firefox-wayland;
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
+      else pkgs.firefox-wayland.override {
+      cfg = {
+        # Gnome shell native connector
+        enableGnomeExtensions = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable;
+        # Tridactyl native connector
+        enableTridactylNative = true;
+        # Buku bookmarking tool native connector
+        enableBukubrow = isBukuEnabled;
+      };
+    };
     extensions = with firefox-addons; [
       onepassword-password-manager
       a11ycss
       add-custom-search-engine
-      (lib.mkIf
-        (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration)
-        bukubrow)
+      (lib.mkIf isBukuEnabled bukubrow)
       copy-selection-as-markdown
       darkreader
       display-_anchors
