@@ -55,7 +55,6 @@
     phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
     phps.inputs.nixpkgs.follows = "nixos-unstable";
 
-
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
     base16-kitty = {
