@@ -4,6 +4,7 @@ channels: final: prev: {
   inherit
     (channels.nixos-unstable)
     awscli2
+    kitty
     xplr
     ;
 
