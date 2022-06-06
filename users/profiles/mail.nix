@@ -103,10 +103,6 @@ in {
           primary = lib.mkDefault true;
           # msmtp.enable = true;
         };
-      work = gmailAccount {
-        name = "work";
-        domain = "alley.co";
-      };
     };
   };
 
