@@ -15,7 +15,6 @@
 
     ## === Data and Documents ===
 
-    pandoc
     tidy-viewer # Pretty-print CSV files
     xsv # A fast CSV command line toolkit
     yq
@@ -31,6 +30,7 @@
 
     ## === Media Tools ===
 
+    # TODO: use hm module
     mpv
     youtube-dl
 
@@ -44,6 +44,5 @@
   # services.etebase.sync = {};
   # services.flameshot = {};
   # services.hound = ...
-  # services.password-store-sync = {};
   # programs.ncspot = {}; # spotify thingy
 }
