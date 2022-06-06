@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: let
-  mailDir = "${config.home.homeDirectory}/Mail";
-
   gmailAccount = {
     name,
     domain,
@@ -91,7 +89,7 @@ in {
   programs.mu.enable = true;
 
   accounts.email = {
-    maildirBasePath = mailDir;
+    maildirBasePath = "$HOME/Mail";
     accounts = {
       personal =
         gmailAccount
