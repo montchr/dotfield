@@ -96,7 +96,7 @@ in {
   };
 
   accounts.email = {
-    maildirBasePath = "$HOME/Mail";
+    maildirBasePath = "Mail";
     accounts = {
       personal =
         gmailAccount
