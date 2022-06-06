@@ -87,6 +87,7 @@ in {
 
   programs.mbsync.enable = true;
   programs.mu.enable = true;
+  programs.msmtp.enable = true;
   services.mbsync = {
     enable = true;
     frequency = "*:0/5";
@@ -105,7 +106,7 @@ in {
         }
         // {
           primary = lib.mkDefault true;
-          # msmtp.enable = true;
+          msmtp.enable = true;
         };
     };
   };
