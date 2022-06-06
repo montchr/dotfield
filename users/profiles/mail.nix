@@ -73,11 +73,11 @@
     };
 
     # https://tecosaur.github.io/emacs-config/config.html#fetching
-    # TODO: for faster sync. needs configuration.
-    # imapnotify = {
-    #   enable = false;
-    #   boxes = [ "Inbox" ];
-    # };
+    # FIXME: needs configuration
+    imapnotify = {
+      enable = false;
+      boxes = [ "Inbox" ];
+    };
   };
 in {
   home.packages = with pkgs; [
