@@ -23,7 +23,11 @@
     dosfstools
     efibootmgr
     gptfdisk
+    inetutils
     iputils
+    mtr
+    pciutils
+    sysstat
     usbutils
     utillinux
   ];

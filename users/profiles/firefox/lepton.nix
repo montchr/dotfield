@@ -26,7 +26,7 @@
       "userChrome.tab.connect_to_window" = true; # Original, Photon
       "userChrome.tab.color_like_toolbar" = true; # Original, Photon
       "userChrome.tab.lepton_like_padding" = true; # Original
-      # TODO: typo?
+      # FIXME: typo?
       "userChrome.tab.dynamic_separtor" = true; # Original, Proton
       "userChrome.tab.newtab_button_like_tab" = true; # Original
       "userChrome.icon.panel_full" = true; # Original, Proton
@@ -155,9 +155,9 @@
 
       "userChrome.padding.menu_compact" = true;
       "userChrome.padding.bookmark_menu.compact" = true;
-      # "userChrome.padding.urlView_expanding" = true;
-      # "userChrome.padding.urlView_result" = true;
-      # "userChrome.padding.panel_header" = true;
+      "userChrome.padding.urlView_expanding" = true;
+      "userChrome.padding.urlView_result" = true;
+      "userChrome.padding.panel_header" = true;
 
       # "userChrome.urlView.move_icon_to_left" = true;
       # "userChrome.urlView.go_button_when_typing" = true;
@@ -186,7 +186,7 @@
       # "userContent.player.ui.twoline" = true;
 
       # "userContent.page.proton_color.dark_blue_accent" = true;
-      # "userContent.page.proton_color.system_accent" = true;
+      "userContent.page.proton_color.system_accent" = true;
     };
   };
 }

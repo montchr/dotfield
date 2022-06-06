@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: let
-  mailDir = "${config.home.homeDirectory}/Mail";
-
   gmailAccount = {
     name,
     domain,
@@ -37,8 +35,8 @@
             extraConfig = {
               Create = "Near";
               CopyArrivalDate = "yes";
-              # MaxMessages = 1000000;
-              # MaxSize = "10m";
+              MaxMessages = 100000;
+              MaxSize = "10m";
               Sync = "All";
               SyncState = "*";
             };
@@ -75,11 +73,11 @@
     };
 
     # https://tecosaur.github.io/emacs-config/config.html#fetching
-    # TODO: for faster sync. needs configuration.
-    # imapnotify = {
-    #   enable = false;
-    #   boxes = [ "Inbox" ];
-    # };
+    # FIXME: needs configuration
+    imapnotify = {
+      enable = false;
+      boxes = [ "Inbox" ];
+    };
   };
 in {
   home.packages = with pkgs; [
@@ -89,9 +87,16 @@ in {
 
   programs.mbsync.enable = true;
   programs.mu.enable = true;
+  programs.msmtp.enable = true;
+  services.mbsync = {
+    enable = true;
+    frequency = "*:0/5";
+    # TODO: might need to be told about password store dir
+    postExec = "${pkgs.mu}/bin/mu index";
+  };
 
   accounts.email = {
-    maildirBasePath = mailDir;
+    maildirBasePath = "$HOME/Mail";
     accounts = {
       personal =
         gmailAccount
@@ -101,12 +106,8 @@ in {
         }
         // {
           primary = lib.mkDefault true;
-          # msmtp.enable = true;
+          msmtp.enable = true;
         };
-      work = gmailAccount {
-        name = "work";
-        domain = "alley.co";
-      };
     };
   };
 

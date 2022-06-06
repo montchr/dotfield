@@ -8,6 +8,8 @@ moduleArgs @ {
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
+  isBukuEnabled = (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration);
+
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
   lepton = import ./lepton.nix;
 
@@ -72,10 +74,13 @@ moduleArgs @ {
       # See https://github.com/tridactyl/tridactyl/issues/1800
       "extensions.webextensions.restrictedDomains" = "";
 
+      # FIXME: use global font defaults
       "font.default.x-western" = "sans-serif";
       "font.name.monospace.x-western" = "PragmataPro";
-      "font.name.sans-serif.x-western" = "Public Sans";
+      "font.name.sans-serif.x-western" = "IBM Plex Sans";
+      "font.name.serif.x-western" = "IBM Plex Serif";
       "font.size.monospace.x-western" = 18;
+
       "identity.fxaccounts.account.device.name" = hostName;
 
       # CSS blur filter in v88+
@@ -140,32 +145,28 @@ in {
     package =
       if isDarwin
       then pkgs.firefox-darwin
-      else pkgs.firefox-wayland;
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
+      else pkgs.firefox-wayland.override {
+      cfg = {
+        # Gnome shell native connector
+        enableGnomeExtensions = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable;
+        # Tridactyl native connector
+        enableTridactylNative = true;
+        # Buku bookmarking tool native connector
+        enableBukubrow = isBukuEnabled;
+      };
+    };
     extensions = with firefox-addons; [
       onepassword-password-manager
       a11ycss
       add-custom-search-engine
-      (lib.mkIf
-        (config.programs.buku.enable && config.programs.buku.enableBrowserIntegration)
-        bukubrow)
+      (lib.mkIf isBukuEnabled bukubrow)
       copy-selection-as-markdown
       darkreader
       display-_anchors
       firefox-color
       (lib.mkIf config.programs.browserpass.enable browserpass)
-
-      # Flagfox by Dave G
-      #
-      # Displays a country flag depicting the location of the current website's
-      # server and provides a multitude of tools such as site safety checks,
-      # whois, translation, similar sites, validation, URL shortening, and
-      # more...
-      #
-      # https://addons.mozilla.org/en-US/firefox/addon/flagfox/
       flagfox
-
-      floccus
-
       mailvelope
       multi-account-containers
       octolinker
@@ -177,21 +178,7 @@ in {
       reddit-enhancement-suite
       reduxdevtools
       refined-github
-
-      # Return Youtube Dislike by Dmitry Selivanov
-      #
-      # Returns ability to see dislike statistics on youtube
-      #
-      # https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/
-      search-engines-helper
-
-      # SingleFile by gildas
-      #
-      # Save an entire web page—including images and styling—as a single HTML file.
-      #
-      # https://addons.mozilla.org/en-US/firefox/addon/single-file/
       single-file
-
       tab-session-manager
       tabliss
       temporary-containers
@@ -200,16 +187,9 @@ in {
 
       ##: Themes {{
 
-      # Arctic Nord Theme by christos
-      #
-      # https://addons.mozilla.org/en-US/firefox/addon/arctic-nord-theme/
-      #
       # TODO: add this to upstream repo
       # arctic-nord-theme
 
-      # Nord Polar Night Theme by christos
-      #
-      # https://addons.mozilla.org/en-US/firefox/addon/nord-polar-night-theme/
       theme-nord-polar-night
 
       ##: }}
