@@ -74,10 +74,13 @@ moduleArgs @ {
       # See https://github.com/tridactyl/tridactyl/issues/1800
       "extensions.webextensions.restrictedDomains" = "";
 
+      # FIXME: use global font defaults
       "font.default.x-western" = "sans-serif";
       "font.name.monospace.x-western" = "PragmataPro";
-      "font.name.sans-serif.x-western" = "Public Sans";
+      "font.name.sans-serif.x-western" = "IBM Plex Sans";
+      "font.name.serif.x-western" = "IBM Plex Serif";
       "font.size.monospace.x-western" = 18;
+
       "identity.fxaccounts.account.device.name" = hostName;
 
       # CSS blur filter in v88+
