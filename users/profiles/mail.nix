@@ -87,6 +87,12 @@ in {
 
   programs.mbsync.enable = true;
   programs.mu.enable = true;
+  services.mbsync = {
+    enable = true;
+    frequency = "*:0/5";
+    # TODO: might need to be told about password store dir
+    postExec = "${pkgs.mu}/bin/mu index";
+  };
 
   accounts.email = {
     maildirBasePath = "$HOME/Mail";
