@@ -30,11 +30,6 @@
   networking.interfaces.wlp6s0.useDHCP = true;
   networking.firewall.enable = false;
 
-  ## --- desktop ---
-
-  # FIXME: if needed, be careful, as this may need extra config for nvidia
-  # hardware.opengl.enable = true;
-
   ### === users ================================================================
 
   users.mutableUsers = false;
