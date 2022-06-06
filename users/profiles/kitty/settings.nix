@@ -13,14 +13,14 @@
   cursor_shape = "beam";
   cursor_beam_thickness = "1.5";
   cursor_underline_thickness = "2.0";
-  # cursor_blink_interval = "-1";
+  cursor_blink_interval = "-1";
   # cursor_stop_blinking_after = "15.0";
   #: }}}
 
   #: Scrollback {{{
   scrollback_lines = "4000";
   scrollback_pager = "less";
-  scrollback_pager_history_size = "666";
+  scrollback_pager_history_size = "666"; # in MB
   #: }}}
 
   #: Window layout {{{
