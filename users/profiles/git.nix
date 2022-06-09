@@ -85,10 +85,6 @@ in {
 
     extraConfig = lib.mkMerge [
       {
-        github.user = "montchr";
-        gitlab.user = "montchr";
-        sourcehut.user = "montchr";
-
         init.defaultBranch = "main";
 
         # Environment variables will not be expanded -- this requires a path.
