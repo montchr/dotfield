@@ -388,6 +388,11 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
 }
 EOF
 
+# Pre-flight check to prevent issues with missing files during install.
+# https://discourse.nixos.org/t/nixos-21-05-installation-failed-installing-from-an-existing-distro/13627/3
+# https://github.com/NixOS/nixpkgs/issues/126141#issuecomment-861720372
+nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
+
 # Install NixOS
 nixos-install \
   --no-root-passwd \
