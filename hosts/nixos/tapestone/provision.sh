@@ -152,8 +152,7 @@ parted_nice --script $HDD10 mklabel gpt
 for nvme in $NVME1 $NVME2; do
   parted_nice --script --align optimal $nvme -- \
     mklabel gpt \
-    mkpart 'BIOS' 1MB 2MB set 1 bios_grub on \
-    mkpart 'EFI' 2MB 512MB set 2 esp on \
+    mkpart 'ESP' 2MB 512MB set 1 esp on \
     mkpart 'nixos' 512MB '100%'
 done
 
@@ -169,12 +168,12 @@ for nvme in $NVME1 $NVME2; do
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists=$nvme-part1
   udevadm settle --timeout=5 --exit-if-exists=$nvme-part2
-  udevadm settle --timeout=5 --exit-if-exists=$nvme-part3
 
   # Wipe any previous RAID signatures
   mdadm --zero-superblock --force $nvme-part1 || true
-  mdadm --zero-superblock --force $nvme-part2 || true
-  mdadm --zero-superblock --force $nvme-part3 || true
+
+  # Filesystems (-F to not ask on preexisting FS)
+  mkfs.vfat -F 32 -n EFI $nvme-part1
 done
 
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
@@ -190,6 +189,11 @@ done
 # `nixos-generate-config` depends on those being up-to-date.
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
+
+mkdir -p /mnt/boot
+mkdir -p /mnt/boot-fallback
+mount $NVME1-part1 /mnt/boot
+mount $NVME2-part1 /mnt/boot-fallback
 
 zup() {
   local pool=$1
@@ -219,7 +223,7 @@ zpool create \
   -f \
   rpool \
   mirror \
-  $NVME1-part3 $NVME2-part3
+  $NVME1-part2 $NVME2-part2
 
 # Reserve 1GB of space for ZFS operations -- even delete requires free space
 zfs create -o refreservation=1G -o mountpoint=none rpool/reserved
@@ -266,47 +270,6 @@ zup spool/data /mnt/silo/data
 # Allow auto-snapshots for persistent data
 zfs set com.sun:auto-snapshot=true rpool/safe
 zfs set com.sun:auto-snapshot=true spool/data
-
-
-###: PREPARE EFI BOOT ==========================================================
-
-# Create a raid mirror for the efi boot
-# see https://docs.hetzner.com/robot/dedicated-server/operating-systems/efi-system-partition/
-# TODO check this though the following article says it doesn't work properly
-# https://outflux.net/blog/archives/2018/04/19/uefi-booting-and-raid1/
-mdadm --create --run --verbose /dev/md127 \
-  --level 1 \
-  --raid-disks 2 \
-  --metadata 1.0 \
-  --homehost=$MY_HOSTNAME \
-  --name=boot_efi \
-  $NVME1-part2 $NVME2-part2
-
-# Assembling the RAID can result in auto-activation of previously-existing LVM
-# groups, preventing the RAID block device wiping below with
-# `Device or resource busy`. So disable all VGs first.
-vgchange -an
-
-# Wipe filesystem signatures that might be on the RAID from some
-# possibly existing older use of the disks (RAID creation does not do that).
-# See https://serverfault.com/questions/911370/why-does-mdadm-zero-superblock-preserve-file-system-information
-wipefs -a /dev/md127
-
-# Disable RAID recovery. We don't want this to slow down machine provisioning
-# in the rescue mode. It can run in normal operation after reboot.
-echo 0 > /proc/sys/dev/raid/speed_limit_max
-
-# Filesystems (-F to not ask on preexisting FS)
-mkfs.vfat -F 32 /dev/md127
-
-# Creating file systems changes their UUIDs.
-# Trigger udev so that the entries in /dev/disk/by-uuid get refreshed.
-# `nixos-generate-config` depends on those being up-to-date.
-# See https://github.com/NixOS/nixpkgs/issues/62444
-udevadm trigger
-
-mkdir -p /mnt/boot/efi
-mount /dev/md127 /mnt/boot/efi
 
 
 ###: INSTALL NIX ===============================================================
@@ -373,8 +336,13 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
   boot.loader.grub = {
     enable = true;
     efiSupport = true;
-    devices = ["$NVME1" "$NVME2"];
-    copyKernels = true;
+    device = "nodev";
+    mirroredBoots = [
+      {
+        devices = ["$NVME2"];
+        path = "/boot-fallback";
+      }
+    ];
   };
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostName = "$MY_HOSTNAME";
