@@ -87,7 +87,12 @@ export NS_V6="2606:4700:4700::1111"
 # Undo existing setups to allow running the script multiple times to iterate on it.
 # We allow these operations to fail for the case the script runs the first time.
 umount /mnt || true
+umount /mnt/boot/efi || true
 umount /mnt/silo || true
+umount /mnt/nix || true
+umount /mnt/home || true
+umount /mnt/persist || true
+
 vgchange -an || true
 
 # Stop all mdadm arrays that the boot may have activated.
@@ -150,9 +155,17 @@ for nvme in $NVME1 $NVME2; do
     mkpart 'BIOS' 1MB 2MB set 1 bios_grub on \
     mkpart 'EFI' 2MB 512MB set 2 esp on \
     mkpart 'nixos' 512MB '100%'
+done
 
-  partprobe
+for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
+  parted_nice --script --align optimal $disk -- \
+    mklabel gpt \
+    mkpart 'silo' 1MB '100%'
+done
 
+partprobe
+
+for nvme in $NVME1 $NVME2; do
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists=$nvme-part1
   udevadm settle --timeout=5 --exit-if-exists=$nvme-part2
@@ -165,12 +178,6 @@ for nvme in $NVME1 $NVME2; do
 done
 
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
-  parted_nice --script --align optimal $disk -- \
-    mklabel gpt \
-    mkpart 'silo' 1MB '100%'
-
-  partprobe
-
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists=$disk-part1
 
@@ -184,19 +191,13 @@ done
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
-zmount() {
-  local pool=$1
-  local mountpoint=$2
-  mkdir -p "$mountpoint"
-  mount -t zfs "$pool" "$mountpoint"
-}
-
 zup() {
   local pool=$1
   local mountpoint=$2
   shift 2
   zfs create -p -o canmount=on -o mountpoint=legacy "$@" "$pool"
-  zmount "$pool" "$mountpoint"
+  mkdir -p "$mountpoint"
+  mount -t zfs "$pool" "$mountpoint"
 }
 
 ###: INITIALIZE 'ROOT' POOL ====================================================
@@ -223,18 +224,18 @@ zpool create \
 # Reserve 1GB of space for ZFS operations -- even delete requires free space
 zfs create -o refreservation=1G -o mountpoint=none rpool/reserved
 
-zmount rpool/local/root /mnt
+zup rpool/local/root /mnt
 
 # Take an initial snapshot with the root dataset before mounting anything else.
 zfs snapshot rpool/local/root@blank
 
-zmount rpool/local/nix /mnt/nix
-zmount rpool/safe/home /mnt/home
-zmount rpool/safe/persist /mnt/persist
+zup rpool/local/nix /mnt/nix
+zup rpool/safe/home /mnt/home
+zup rpool/safe/persist /mnt/persist
 
 # Create a special volume optimized for databases
 # https://wiki.archlinux.org/index.php/ZFS#Databases
-zmount rpool/safe/postgres /mnt/var/lib/postgres \
+zup rpool/safe/postgres /mnt/var/lib/postgres \
   -o recordsize=8K \
   -o primarycache=metadata \
   -o logbias=throughput
@@ -259,8 +260,8 @@ zpool create \
   spool raidz \
   $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
 
-zmount spool/backup /mnt/silo/backup
-zmount spool/data /mnt/silo/data
+zup spool/backup /mnt/silo/backup
+zup spool/data /mnt/silo/data
 
 # Allow auto-snapshots for persistent data
 zfs set com.sun:auto-snapshot=true rpool/safe
@@ -314,7 +315,9 @@ mkdir -p /etc/nix
 echo "build-users-group =" > /etc/nix/nix.conf
 
 curl -L https://nixos.org/nix/install | sh
-. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+set +u +x # sourcing this may refer to unset variables that we have no control over
+. $HOME/.nix-profile/etc/profile.d/nix.sh
+set -u -x
 
 echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 
@@ -369,8 +372,8 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {
     enable = true;
-    efiSupport = false;
-    devices = ["$DISK1" "$DISK2"];
+    efiSupport = true;
+    devices = ["$NVME1" "$NVME2"];
     copyKernels = true;
   };
   boot.supportedFilesystems = [ "zfs" ];
@@ -404,7 +407,6 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2CtLx2fSUVaU1gJXqXHpGbfhkj0XV8NotIuXF76DWj seadoom@boschic.loop.garden"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@HodgePodge.loop.garden"
-
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2HrKDL60obU2mEkV1pM1xHQeTHc+czioQDTqu0gP37 blink@aerattum"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrU4ZPmxcBNnMeLLyBkFcjlG2MwaIUp5deSycmXSb7gIC4MZKH0lvoCXsXBYTocGhwna2mg1SfpolLZzxzWAYpx52RoHeyY6ml/Z1dSJbpMgV5KZ2kqKo1hHar2i9wsc/EZQKv3rlngOSECiwg2LxHOIGGTz/779yEJnfnWnta+5Tnpk4zdgp8j8g+QbY7NFHcZg2mjcy++Nf2psqJsDZVE1JmzNsA30jEGaGDRAaAv9ZHcQf6E3GEpRvr3iqO9YTzOcgdzzl8CvAtZUa1G4piQK6CYkC6HgAvm73+kSm+JxssSfFi3xgK0+RLAUTGa25MH3PAqR9V8lrcuLI891sLEQTtQIIALfzTw04e740DqXRifzasCVo8lMmZBX8Mu+FC0KSFL0254OfHuTHDCWE7fc/3069pcpgAaJGIDj2rE3v631WqoPZpkmvefuu4+n5nvKe4ypwA/OH6h52s3CL7DlcREe6lnBraEzbuXxVL+0JP66yEzK4vFGtZWeTsbo9jyQkoJIw4IkuqHvRxElysOHaQqG08GkjiCBONiGIqk0GQ3pmeyjptfnrVyi2pFGTvVVQ06ZC7If3wywkWXCJzJ2nrD9B+gyRvKv557m24Goj2+LCi6IVZsFIh6r4+vOdaMnX39eol/kWMl1n93D8YG3bBS5JH0fEQsMZEpsUd7Q== WorkingCopy@aerattum"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3tWcOwvNOfHXX3YvtLmJRigxATUh++bWRCAM07uy3mbNvEteT5bF/7nixO44gep0Hv24jaqLeGjCaTxFXrmt1NGgvmAXcsoS4I3+N2xfiFZPIKoiF0EONDsInjm4h5eNoPPE4Rd9xLju4S4tXaXDcL37PunQZJ+aR6CRVf/geM+H4y70cvYHV6uakMAfuv/0+AEMLwlSIN7OpDN8B+JGI4rQhBsekRkkkcZlPYO4vT63aTvLCYFxJ/fR45oMKW57lvZUrbRMHbKRkOfyhBF3qbYR/9aMEUd7gjYBfLJ1hQaHlp2aV49m53WFBjmjqjFcxDPxS/HMk/Hazowkw0G6iNzSNHnO5wI/BxIEahavYvd4VOQXpaWs/G58t8kdQol8WFufLjAReP0j16TqcWEHwy1ktMcrpYfDlLSlNcuaUeXJNIyvD3WmfRDXBnxlBenFIqe9lnK8RUVCcxM+lEEJbMWs1ZuWmgXjbt3UkFhSKSv2Adlm2/OfBBCyO46hVmhLfkwzB69aXYqUjPthlvtCDuLxrmT+DZeWsucUKPp2L9PXS6LpbpnIWCqmnGIPLjHBX2X3EOKwrtLAGN5wv7zLv88qHOD0MET2KVZkfTLg04FkcNowNwAlQ8xBBjpt6xEWNFMH532ZRO1CT0VTUNB7nEW2JET1SULsRT/bTUbKQHQ== yk5cNfc"
@@ -419,8 +421,10 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
 EOF
 
 # Install NixOS
-PATH="$PATH" NIX_PATH="$NIX_PATH" $(which nixos-install) \
-  --no-root-passwd --root /mnt --max-jobs 40
+nixos-install \
+  --no-root-passwd \
+  --root /mnt \
+  --max-jobs 40
 
 # if you need to debug something
 # - connect to the rescue system
