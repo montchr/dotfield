@@ -81,6 +81,9 @@ export MY_HOSTID
 # Throwaway user to install Nix initially.
 export NIXOS_INSTALL_USER=nixos-installist
 
+export NS_V4="1.1.1.1"
+export NS_V6="2606:4700:4700::1111"
+
 # Undo existing setups to allow running the script multiple times to iterate on it.
 # We allow these operations to fail for the case the script runs the first time.
 umount /mnt || true
@@ -327,7 +330,7 @@ nixos-generate-config --root /mnt
 
 # Find the name of the network interface that connects us to the Internet.
 # Inspired by https://unix.stackexchange.com/questions/14961/how-to-find-out-which-interface-am-i-using-for-connecting-to-the-internet/302613#302613
-RESCUE_INTERFACE=$(ip route get 8.8.8.8 | grep -Po '(?<=dev )(\S+)')
+RESCUE_INTERFACE=$(ip route get "$NS_V4" | grep -Po '(?<=dev )(\S+)')
 
 # Find what its name will be under NixOS, which uses stable interface names.
 # See https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/#comment-545626
@@ -338,15 +341,15 @@ UDEVADM_PROPERTIES_FOR_INTERFACE=$(udevadm info --query=property "--path=$INTERF
 NIXOS_INTERFACE=$(echo "$UDEVADM_PROPERTIES_FOR_INTERFACE" | grep -o -E 'ID_NET_NAME_PATH=\w+' | cut -d= -f2)
 echo "Determined NIXOS_INTERFACE as '$NIXOS_INTERFACE'"
 
-IP_V4=$(ip route get 8.8.8.8 | grep -Po '(?<=src )(\S+)')
+IP_V4=$(ip route get "$NS_V4" | grep -Po '(?<=src )(\S+)')
 echo "Determined IP_V4 as $IP_V4"
 
 # Determine Internet IPv6 by checking route, and using ::1
 # (because Hetzner rescue mode uses ::2 by default).
 # The `ip -6 route get` output on Hetzner looks like:
-#   # ip -6 route get 2001:4860:4860:0:0:0:0:8888
+#   # ip -6 route get 2606:4700:4700::1111
 #   2001:4860:4860::8888 via fe80::1 dev eth0 src 2a01:4f8:151:62aa::2 metric 1024  pref medium
-IP_V6="$(ip route get 2001:4860:4860:0:0:0:0:8888 | head -1 | cut -d' ' -f7 | cut -d: -f1-4)::1"
+IP_V6="$(ip route get "$NS_V6" | head -1 | cut -d' ' -f7 | cut -d: -f1-4)::1"
 echo "Determined IP_V6 as $IP_V6"
 
 # From https://stackoverflow.com/questions/1204629/how-do-i-get-the-default-gateway-in-linux-given-the-destination/15973156#15973156
@@ -390,7 +393,7 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
   ];
   networking.defaultGateway = "$DEFAULT_GATEWAY";
   networking.defaultGateway6 = { address = "fe80::1"; interface = "$NIXOS_INTERFACE"; };
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
   # Initial empty root password for easy login:
   users.users.root.initialHashedPassword = "";
   services.openssh.permitRootLogin = "prohibit-password";
