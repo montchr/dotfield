@@ -173,7 +173,7 @@ for nvme in $NVME1 $NVME2; do
   mdadm --zero-superblock --force $nvme-part1 || true
 
   # Filesystems (-F to not ask on preexisting FS)
-  mkfs.vfat -F 32 -n EFI $nvme-part1
+  mkfs.fat -F 32 -n EFI $nvme-part1
 done
 
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
