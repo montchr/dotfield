@@ -365,8 +365,8 @@ in
   networking.interfaces."$NIXOS_INTERFACE".ipv4.addresses = [
     {
       address = "$IP_V4";
-      # FIXME: double check this prefix length
-      prefixLength = 24;
+      # Confirmed correct for this system's netmask 255.255.255.192
+      prefixLength = 26;
     }
   ];
   networking.interfaces."$NIXOS_INTERFACE".ipv6.addresses = [
