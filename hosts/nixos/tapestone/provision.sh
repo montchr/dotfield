@@ -159,7 +159,7 @@ done
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
   parted_nice --script --align optimal $disk -- \
     mklabel gpt \
-    mkpart 'silo' 1MB '100%'
+    mkpart 'silo' 513MiB '100%'
 done
 
 partprobe
