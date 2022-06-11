@@ -353,6 +353,11 @@ in
     ];
   };
   boot.supportedFilesystems = [ "zfs" ];
+  # TODO: configure mail sending
+  nixpkgs.config.packageOverrides = pkgs: {
+    zfsStable = pkgs.zfsStable.override { enableMail = true; };
+  };
+
   networking.hostName = "$MY_HOSTNAME";
   networking.hostId = "$MY_HOSTID";
   # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
