@@ -78,9 +78,6 @@ export MY_HOSTNAME=tapestone
 MY_HOSTID="$(head -c 8 /etc/machine-id)"
 export MY_HOSTID
 
-# Throwaway user to install Nix initially.
-export NIXOS_INSTALL_USER=nixos-installist
-
 export NS_V4="1.1.1.1"
 export NS_V6="2606:4700:4700::1111"
 
@@ -179,9 +176,6 @@ done
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists=$disk-part1
-
-  # Wipe any previous RAID signatures
-  mdadm --zero-superblock --force $disk-part1 || true
 done
 
 # Creating file systems changes their UUIDs.
