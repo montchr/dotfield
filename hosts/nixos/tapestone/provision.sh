@@ -380,6 +380,13 @@ in
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
   services.openssh.enable = true;
+
+  # ZFS maintenance settings.
+  services.zfs.trim.enable = true;
+  services.zfs.autoSnapshot.enable = true;
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub.pools = [ "rpool" "spool" ];
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
