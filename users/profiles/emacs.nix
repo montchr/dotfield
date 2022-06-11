@@ -91,7 +91,7 @@ in {
     ]);
   };
 
-  services.emacs = {
+  services.emacs = lib.mkIf (!isDarwin) {
     enable = true;
     defaultEditor = lib.mkForce true;
     socketActivation.enable = true;

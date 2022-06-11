@@ -5,7 +5,7 @@
 
 ;; GNU Emacs 29+ only: Disable titlebar on frames.
 ;; https://github.com/d12frosted/homebrew-emacs-plus/issues/433#issuecomment-1025547880
-;; (add-to-list 'default-frame-alist '(undecorated . t))
+(when EMACS29+ (add-to-list 'default-frame-alist '(undecorated . t)))
 
 ;; Respect visual line mode
 (setq! evil-respect-visual-line-mode t)

@@ -1,8 +1,5 @@
+{ lib, hasTwm, socket }:
 {
-  config,
-  lib,
-  pkgs,
-}: {
   font_family = "PragmataPro Mono Liga";
   font_size = "14.0";
   adjust_line_height = "110%";
@@ -31,7 +28,7 @@
   window_margin_width = "0";
   single_window_margin_width = "-1";
   draw_minimal_borders = "yes";
-  hide_window_decorations = lib.hm.booleans.yesNo config.wayland.windowManager.sway.enable;
+  hide_window_decorations = lib.hm.booleans.yesNo hasTwm;
   confirm_os_window_close = "0";
   #: }}}
 
@@ -44,8 +41,9 @@
   #: }}}
 
   #: Advanced {{{
-  # allow_remote_control = "no";
-  # listen_on = "none";
+  allow_remote_control = "yes";
+  listen_on = socket;
+  # FIXME: why not?
   # startup_session = "session";
   #: }}}
 

@@ -30,9 +30,6 @@
         virtualisation.vagrant
       ]);
 
-    accounts.email.accounts.work.primary = true;
-    accounts.email.accounts.personal.primary = false;
-
     home.packages = with pkgs; [
       ngrok
       # TODO: move this to a common profile when pandas dep is fixed upstream
@@ -48,7 +45,7 @@
       {
         condition = "gitdir:~/broadway/**";
         contents = {
-          user.email = hmArgs.config.accounts.email.accounts.work.userName;
+          user.email = "chris@alley.co";
         };
       }
     ];

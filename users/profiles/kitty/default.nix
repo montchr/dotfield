@@ -1,4 +1,4 @@
-{
+moduleArgs @ {
   config,
   lib,
   options,
@@ -6,9 +6,10 @@
   inputs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (inputs) base16-kitty nix-colors;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
+  hasTwm = (moduleArgs.osConfig.services.yabai.enable or config.wayland.windowManager.sway.enable);
   socket = "unix:/tmp/kitty-socket";
 
   # via home-manager kitty module
@@ -60,6 +61,7 @@ in
 
       home.sessionVariables = {
         KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
+        # FIXME: necessary?
         KITTY_SOCKET = socket;
       };
 
@@ -80,12 +82,8 @@ in
         '';
 
         settings =
-          (import ./settings.nix {inherit config lib pkgs;})
-          // (import ./colors.nix config.colorscheme)
-          // {
-            allow_remote_control = "yes";
-            listen_on = socket;
-          };
+          (import ./settings.nix {inherit lib hasTwm socket;})
+          // (import ./colors.nix config.colorscheme);
       };
 
       xdg.configFile = {

@@ -4,6 +4,8 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
   gmailAccount = {
     name,
     domain,
@@ -88,7 +90,7 @@ in {
   programs.mbsync.enable = true;
   programs.mu.enable = true;
   programs.msmtp.enable = true;
-  services.mbsync = {
+  services.mbsync = lib.mkIf (!isDarwin) {
     enable = true;
     frequency = "*:0/5";
     # TODO: might need to be told about password store dir
