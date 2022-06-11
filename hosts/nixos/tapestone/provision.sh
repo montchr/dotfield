@@ -200,9 +200,6 @@ zup() {
 
 ###: INITIALIZE 'ROOT' POOL ====================================================
 
-  # -O encryption=aes-256-gcm \
-  # -O keyformat=passphrase \
-  # -O keylocation=prompt \
 zpool create \
   -o ashift=12 \
   -o autotrim=on \
@@ -214,6 +211,9 @@ zpool create \
   -O normalization=formD \
   -O relatime=on \
   -O xattr=sa \
+  -O encryption=aes-256-gcm \
+  -O keyformat=passphrase \
+  -O keylocation=prompt \
   -f \
   rpool \
   mirror \
@@ -240,9 +240,6 @@ zup rpool/safe/postgres /mnt/var/lib/postgres \
 
 ###: INITIALIZE 'SILO' POOL ====================================================
 
-  # -O encryption=aes-256-gcm \
-  # -O keyformat=passphrase \
-  # -O keylocation=prompt \
 zpool create \
   -o ashift=12 \
   -o autotrim=on \
@@ -254,6 +251,9 @@ zpool create \
   -O normalization=formD \
   -O relatime=on \
   -O xattr=sa \
+  -O encryption=aes-256-gcm \
+  -O keyformat=passphrase \
+  -O keylocation=prompt \
   -f \
   spool raidz \
   $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
@@ -264,6 +264,14 @@ zup spool/data /mnt/silo/data
 # Allow auto-snapshots for persistent data
 zfs set com.sun:auto-snapshot=true rpool/safe
 zfs set com.sun:auto-snapshot=true spool/data
+
+
+###: PREPARE SSH IN INITRD
+
+mkdir -p /mnt/etc/secrets/initrd
+ssh-keygen -t ed25519 -N '' -f /mnt/boot/ssh_host_ed25519_key
+cp /mnt/boot/ssh_host_ed25519_key* /mnt/boot-fallback/
+cp /mnt/boot/ssh_host_ed25519_key* /mnt/etc/secrets/initrd/
 
 
 ###: INSTALL NIX ===============================================================
@@ -353,6 +361,27 @@ in
     ];
   };
   boot.supportedFilesystems = [ "zfs" ];
+
+  boot.initrd.network.enable = true;
+  boot.initrd.network.ssh = {
+    inherit authorizedKeys;
+    enable = true;
+    port = 22;
+    hostKeys = [
+      /etc/secrets/initrd/ssh_host_ed25519_key
+      /boot/ssh_host_ed25519_key
+      /boot-fallback/ssh_host_ed25519_key
+    ];
+    # this will automatically load the zfs password prompt on login
+    # and kill the other prompt so boot can continue
+  };
+  boot.initrd.network.postCommands = ''
+    zpool import spool
+    echo "zfs load-key -a; killall zfs" >> /root/.profile
+  '';
+  # Intel gigabit network adapter.
+  boot.initrd.availableKernelModules = [ "igb" ];
+
   # TODO: configure mail sending
   nixpkgs.config.packageOverrides = pkgs: {
     zfsStable = pkgs.zfsStable.override { enableMail = true; };
