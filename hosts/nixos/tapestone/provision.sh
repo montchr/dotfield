@@ -1,33 +1,101 @@
 #!/usr/bin/env bash
 
-# Installs NixOS on a Hetzner server, wiping the server.
+# Installs NixOS on a SX134 Hetzner server, wiping the server.
 #
 # This is for a specific server configuration; adjust where needed.
 #
-#
 # Usage:
-#     ssh root@YOUR_SERVERS_IP bash -s < hetzner-dedicated-wipe-and-install-nixos.sh
+#     ssh root@YOUR_SERVERS_IP bash -s < provision.sh
 #
 # When the script is done, make sure to boot the server from HD, not rescue mode again.
 
-# Explanations:
-#
-# * Following largely https://nixos.org/nixos/manual/index.html#sec-installing-from-other-distro.
-# * and https://nixos.wiki/wiki/NixOS_on_ZFS
-# * **Important:** First you need to boot in legacy-BIOS mode. Then ask for
-# hetzner support to enable UEFI for you.
-# * We set a custom `configuration.nix` so that we can connect to the machine afterwards,
-#   inspired by https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online
-# * This server has 2 SSDs.
-#   We put everything on mirror (RAID1 equivalent).
 # * A root user with empty password is created, so that you can just login
 #   as root and press enter when using the Hetzner spider KVM.
 #   Of course that empty-password login isn't exposed to the Internet.
 #   Change the password afterwards to avoid anyone with physical access
 #   being able to login without any authentication.
-# * The script reboots at the end.
-# * exports of env vars are added throughout the script in case you want to run it manually
+
 export LC_ALL=C
+
+###: CONFIGURATION =======================================================
+
+export MY_HOSTNAME=tapestone
+
+
+##: --- Networking ---
+
+export IPV4_ADDR="94.130.220.154"
+export IPV4_CIDR="26"
+export IPV4_GATEWAY="94.130.220.129"
+
+export IPV6_ADDR="2a01:4f8:13b:17ac::1"
+export IPV6_SUBNET="2a01:4f8:13b:17ac::/64"
+export IPV6_CIDR="64"
+export IPV6_GATEWAY="fe80::1"
+
+# Cloudflare nameservers.
+export NSV4="1.1.1.1" # also 1.0.0.1
+export NSV6="2606:4700:4700::1111"
+
+
+##: --- Devices ---
+
+# boot/root
+export NVME1="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701851"
+export NVME2="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701889"
+
+# silo
+export HDD01="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04SFVNG"
+export HDD02="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A058FVNG"
+export HDD03="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04YFVNG"
+export HDD04="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04NFVNG"
+export HDD05="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04DFVNG"
+export HDD06="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A053FVNG"
+export HDD07="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04TFVNG"
+export HDD08="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
+export HDD09="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
+export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
+
+
+##: --- ZFS Host ID ---
+#
+# Required for OpenZFS. Must be unique across all machines.
+#
+# Contrary to many explanations out there, according to OpenZFS, this does not
+# need to be entirely numeric.
+
+# Generates a random host ID for uniqueness across each run.
+MY_HOSTID="$(head -c4 /dev/urandom | od -A none -t x4)"
+
+# For a consistent host ID, use this alternative.
+# MY_HOSTID="$(head -c 8 /etc/machine-id)"
+
+export MY_HOSTID
+
+
+##: --- Helper Functions ---
+
+# Wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
+# the kernel of partitions changing (we use partprobe for that).
+parted_nice() {
+  parted "$@" 2> parted-stderr.txt || {
+    grep "unable to inform the kernel of the change" parted-stderr.txt \
+      || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"
+  }
+}
+
+# Create and mount a new ZFS pool.
+zup() {
+  local pool=$1
+  local mountpoint=$2
+  shift 2
+  zfs create -p -o canmount=on -o mountpoint=legacy "$@" "$pool"
+  mkdir -p "$mountpoint"
+  mount -t zfs "$pool" "$mountpoint"
+}
+
+
+###: PREPARE ENVIRONMENT =======================================================
 
 cat > /etc/apt/preferences.d/90_zfs <<EOF
 Package: libnvpair1linux libnvpair3linux libuutil1linux libuutil3linux libzfs2linux libzfs4linux libzpool2linux libzpool4linux spl-dkms zfs-dkms zfs-test zfsutils-linux zfsutils-linux-dev zfs-zed
@@ -47,39 +115,6 @@ rm /usr/local/sbin/zpool || true
 # Inspect existing disks
 lsblk
 ls /dev/disk/by-id
-
-export NVME1="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701851"
-export NVME2="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701889"
-export HDD01="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04SFVNG"
-export HDD02="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A058FVNG"
-export HDD03="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04YFVNG"
-export HDD04="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04NFVNG"
-export HDD05="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04DFVNG"
-export HDD06="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A053FVNG"
-export HDD07="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04TFVNG"
-# HDD08 N.B.
-#
-# Repeatedly encountered the following warning whilst zeroing superblock in loop:
-#
-# > mdadm: Couldn't open /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG-part1 for write - not zeroing
-#
-# Note that the serial number for this drive differs in format from the others. While the others have SN beginning with `X1J`, this drive SN begins with `X1W`. I am not sure what the difference is.
-#
-# Running the mdadm zero superblock command manually appears to work.
-export HDD08="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
-export HDD09="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
-export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
-
-export MY_HOSTNAME=tapestone
-
-# Required for OpenZFS. Must be unique across all machines.
-# Contrary to many explanations out there, according to OpenZFS, this does not need to be entirely
-# numeric.
-MY_HOSTID="$(head -c 8 /etc/machine-id)"
-export MY_HOSTID
-
-export NS_V4="1.1.1.1"
-export NS_V6="2606:4700:4700::1111"
 
 # Undo existing setups to allow running the script multiple times to iterate on it.
 # We allow these operations to fail for the case the script runs the first time.
@@ -106,14 +141,6 @@ mdadm --stop --scan
 echo 'AUTO -all
 ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 
-# Wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
-# the kernel of partitions changing (we use partprobe for that).
-parted_nice() {
-  parted "$@" 2> parted-stderr.txt || {
-    grep "unable to inform the kernel of the change" parted-stderr.txt \
-      || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"
-  }
-}
 
 # Create partition tables (--script to not ask)
 parted_nice --script $NVME1 mklabel gpt
@@ -189,14 +216,6 @@ mkdir -p /mnt/boot-fallback
 mount $NVME1-part1 /mnt/boot
 mount $NVME2-part1 /mnt/boot-fallback
 
-zup() {
-  local pool=$1
-  local mountpoint=$2
-  shift 2
-  zfs create -p -o canmount=on -o mountpoint=legacy "$@" "$pool"
-  mkdir -p "$mountpoint"
-  mount -t zfs "$pool" "$mountpoint"
-}
 
 ###: INITIALIZE 'ROOT' POOL ====================================================
 
@@ -266,7 +285,7 @@ zfs set com.sun:auto-snapshot=true rpool/safe
 zfs set com.sun:auto-snapshot=true spool/data
 
 
-###: PREPARE SSH IN INITRD
+###: PREPARE SSH IN INITRD =====================================================
 
 mkdir -p /mnt/etc/secrets/initrd
 ssh-keygen -t ed25519 -N '' -f /mnt/boot/ssh_host_ed25519_key
@@ -298,7 +317,7 @@ nixos-generate-config --root /mnt
 
 # Find the name of the network interface that connects us to the Internet.
 # Inspired by https://unix.stackexchange.com/questions/14961/how-to-find-out-which-interface-am-i-using-for-connecting-to-the-internet/302613#302613
-RESCUE_INTERFACE=$(ip route get "$NS_V4" | grep -Po '(?<=dev )(\S+)')
+RESCUE_INTERFACE=$(ip route get "$NSV4" | grep -Po '(?<=dev )(\S+)')
 
 # Find what its name will be under NixOS, which uses stable interface names.
 # See https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/#comment-545626
@@ -309,25 +328,20 @@ UDEVADM_PROPERTIES_FOR_INTERFACE=$(udevadm info --query=property "--path=$INTERF
 NIXOS_INTERFACE=$(echo "$UDEVADM_PROPERTIES_FOR_INTERFACE" | grep -o -E 'ID_NET_NAME_PATH=\w+' | cut -d= -f2)
 echo "Determined NIXOS_INTERFACE as '$NIXOS_INTERFACE'"
 
-IP_V4=$(ip route get "$NS_V4" | grep -Po '(?<=src )(\S+)')
-echo "Determined IP_V4 as $IP_V4"
-
-# Determine Internet IPv6 by checking route, and using ::1
-# (because Hetzner rescue mode uses ::2 by default).
-# The `ip -6 route get` output on Hetzner looks like:
-#   # ip -6 route get 2606:4700:4700::1111
-#   2001:4860:4860::8888 via fe80::1 dev eth0 src 2a01:4f8:151:62aa::2 metric 1024  pref medium
-IP_V6="$(ip route get "$NS_V6" | head -1 | cut -d' ' -f7 | cut -d: -f1-4)::1"
-echo "Determined IP_V6 as $IP_V6"
-
-# From https://stackoverflow.com/questions/1204629/how-do-i-get-the-default-gateway-in-linux-given-the-destination/15973156#15973156
-read _ _ DEFAULT_GATEWAY _ < <(ip route list match 0/0); echo "$DEFAULT_GATEWAY"
-echo "Determined DEFAULT_GATEWAY as $DEFAULT_GATEWAY"
-
 # Generate `configuration.nix`. Note that we splice in shell variables.
 cat > /mnt/etc/nixos/configuration.nix <<EOF
 { config, pkgs, ... }:
 let
+  ipv4 = {
+    address = "$IPV4_ADDR";
+    gateway = "$IPV4_GATEWAY";
+    prefixLength = "$IPV4_CIDR";
+  };
+  ipv6 = {
+    address = "$IPV6_ADDR";
+    gateway = "$IPV6_GATEWAY";
+    prefixLength = "$IPV6_CIDR";
+  };
   authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGk9fhwXG95cVD9DLsHuXrdJYs8DsUF/AmYWcO1+bPVd montchr@alleymon"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPdEosvv8H1UpHC725ZTBRY0L6ufn8MU2UEmI1JN1VL xtallos@parrothelles"
@@ -389,26 +403,19 @@ in
 
   networking.hostName = "$MY_HOSTNAME";
   networking.hostId = "$MY_HOSTID";
-  # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
+
+  # Hetzner uses static IP assignments.
   networking.useDHCP = false;
-  networking.interfaces."$NIXOS_INTERFACE".ipv4.addresses = [
-    {
-      address = "$IP_V4";
-      # Confirmed correct for this system's netmask 255.255.255.192
-      prefixLength = 26;
-    }
-  ];
-  networking.interfaces."$NIXOS_INTERFACE".ipv6.addresses = [
-    {
-      address = "$IP_V6";
-      prefixLength = 64;
-    }
-  ];
-  networking.defaultGateway = "$DEFAULT_GATEWAY";
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "$NIXOS_INTERFACE"; };
+  networking.usePredictableInterfaceNames = false;
+  networking.interfaces."eth0".ipv4.addresses = [{inherit (ipv4) address prefixLength;}];
+  networking.interfaces."eth0".ipv6.addresses = [{inherit (ipv6) address prefixLength;}];
+  networking.defaultGateway = ipv4.gateway;
+  networking.defaultGateway6 = {
+    address = ipv6.gateway;
+    interface = "eth0";
+  };
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
-  # Initial empty root password for easy login:
   users.users.root.initialHashedPassword = "";
   services.openssh.permitRootLogin = "prohibit-password";
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
