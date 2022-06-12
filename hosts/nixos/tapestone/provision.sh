@@ -149,14 +149,14 @@ parted_nice --script $HDD10 mklabel gpt
 for nvme in $NVME1 $NVME2; do
   parted_nice --script --align optimal $nvme -- \
     mklabel gpt \
-    mkpart ESP 1MiB 512MiB set 1 boot on \
-    mkpart primary 512MiB '100%'
+    mkpart ESP 1MB 512MB set 1 boot on \
+    mkpart primary 512MB '100%'
 done
 
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
   parted_nice --script --align optimal $disk -- \
     mklabel gpt \
-    mkpart 'silo' 513MiB '100%'
+    mkpart 'silo' 513MB '100%'
 done
 
 partprobe
