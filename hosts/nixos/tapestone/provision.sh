@@ -7,8 +7,10 @@
 # Usage:
 #     ssh root@YOUR_SERVERS_IP bash -s < provision.sh
 #
-# When the script is done, make sure to boot the server from HD, not rescue mode again.
-
+# * FIXME: encrypted zfs pools must be created manually so the user can input a
+#   passphrase. the script will fail if this happens automatically because
+#   there's no input.
+#
 # * A root user with empty password is created, so that you can just login
 #   as root and press enter when using the Hetzner spider KVM.
 #   Of course that empty-password login isn't exposed to the Internet.
@@ -212,8 +214,7 @@ done
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
-mkdir -p /mnt/boot
-mkdir -p /mnt/boot-fallback
+mkdir -p /mnt/boot{-fallback,}
 mount $NVME1-part1 /mnt/boot
 mount $NVME2-part1 /mnt/boot-fallback
 
@@ -289,14 +290,19 @@ zfs set com.sun:auto-snapshot=true spool/data
 ###: PREPARE SSH IN INITRD =====================================================
 
 mkdir -p /mnt/etc/secrets/initrd
-ssh-keygen -t ed25519 -N '' -f /mnt/boot/ssh_host_ed25519_key
-cp /mnt/boot/ssh_host_ed25519_key* /mnt/boot-fallback/
-cp /mnt/boot/ssh_host_ed25519_key* /mnt/etc/secrets/initrd/
+mkdir -p /mnt/var/lib
+
+ssh-keygen -t ed25519 -N '' -f /mnt/var/lib/initrd-ssh-key
+
+cp /mnt/var/lib/initrd-ssh-key* /mnt/boot/
+cp /mnt/var/lib/initrd-ssh-key* /mnt/boot-fallback/
+cp /mnt/var/lib/initrd-ssh-key* /mnt/etc/secrets/initrd/
 
 
 ###: INSTALL NIX ===============================================================
 
 mkdir -p /etc/nix
+# Let root run nix
 echo "build-users-group =" > /etc/nix/nix.conf
 
 curl -L https://nixos.org/nix/install | sh
@@ -304,7 +310,8 @@ set +u +x # sourcing this may refer to unset variables that we have no control o
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 set -u -x
 
-echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+# FIXME: could this have a negative effect on initial installation root detection? probably not, but i'm superstitious.
+# echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 
 nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
 nix-channel --update
@@ -315,19 +322,6 @@ nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config
 ###: PREPARE NIXOS CONFIGURATION ===============================================
 
 nixos-generate-config --root /mnt
-
-# Find the name of the network interface that connects us to the Internet.
-# Inspired by https://unix.stackexchange.com/questions/14961/how-to-find-out-which-interface-am-i-using-for-connecting-to-the-internet/302613#302613
-RESCUE_INTERFACE=$(ip route get "$NSV4" | grep -Po '(?<=dev )(\S+)')
-
-# Find what its name will be under NixOS, which uses stable interface names.
-# See https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/#comment-545626
-# NICs for most Hetzner servers are not onboard, which is why we use
-# `ID_NET_NAME_PATH`otherwise it would be `ID_NET_NAME_ONBOARD`.
-INTERFACE_DEVICE_PATH=$(udevadm info -e | grep -Po "(?<=^P: )(.*${RESCUE_INTERFACE})")
-UDEVADM_PROPERTIES_FOR_INTERFACE=$(udevadm info --query=property "--path=$INTERFACE_DEVICE_PATH")
-NIXOS_INTERFACE=$(echo "$UDEVADM_PROPERTIES_FOR_INTERFACE" | grep -o -E 'ID_NET_NAME_PATH=\w+' | cut -d= -f2)
-echo "Determined NIXOS_INTERFACE as '$NIXOS_INTERFACE'"
 
 # Generate `configuration.nix`. Note that we splice in shell variables.
 cat > /mnt/etc/nixos/configuration.nix <<EOF
