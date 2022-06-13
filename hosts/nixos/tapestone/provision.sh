@@ -97,6 +97,10 @@ zup() {
 
 ###: PREPARE ENVIRONMENT =======================================================
 
+# Hetzner has some weird symlinks to make you install zfs with their script
+rm /usr/local/sbin/zfs || true
+rm /usr/local/sbin/zpool || true
+
 cat > /etc/apt/preferences.d/90_zfs <<EOF
 Package: libnvpair1linux libnvpair3linux libuutil1linux libuutil3linux libzfs2linux libzfs4linux libzpool2linux libzpool4linux spl-dkms zfs-dkms zfs-test zfsutils-linux zfsutils-linux-dev zfs-zed
 Pin: release n=bullseye-backports
@@ -108,10 +112,6 @@ apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parte
 
 set -euox pipefail
 
-# hetzner has some weird symlinks to make you install zfs with their script
-rm /usr/local/sbin/zfs || true
-rm /usr/local/sbin/zpool || true
-
 # Inspect existing disks
 lsblk
 ls /dev/disk/by-id
@@ -119,6 +119,7 @@ ls /dev/disk/by-id
 # Undo existing setups to allow running the script multiple times to iterate on it.
 # We allow these operations to fail for the case the script runs the first time.
 umount /mnt || true
+umount /mnt/boot || true
 umount /mnt/boot/efi || true
 umount /mnt/silo || true
 umount /mnt/nix || true
@@ -355,16 +356,15 @@ let
   ];
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-  # Use GRUB2 as the boot loader.
-  # We don't use systemd-boot because Hetzner uses BIOS legacy boot.
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.grub = {
     enable = true;
+    version = 2;
     efiSupport = true;
     device = "nodev";
     mirroredBoots = [
@@ -376,24 +376,32 @@ in
   };
   boot.supportedFilesystems = [ "zfs" ];
 
+  boot.zfs.enableUnstable = true;
+  boot.zfs.requestEncryptionCredentials = true;
+
+  # Continue booting regardless of the availability of the mirrored boot
+  # partitions. We don't need both.
+  fileSystems."/boot".options = ["nofail"];
+  fileSystems."/boot-fallback".options = ["nofail"];
+
+  # Configure stage-1 networking so we can decrypt the drives prior to boot.
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     inherit authorizedKeys;
     enable = true;
-    port = 22;
+    port = 2222;
     hostKeys = [
-      /etc/secrets/initrd/ssh_host_ed25519_key
-      /boot/ssh_host_ed25519_key
-      /boot-fallback/ssh_host_ed25519_key
+      "/var/lib/initrd-ssh-key"
+      "/etc/secrets/initrd/ssh_host_ed25519_key"
+      "/boot/ssh_host_ed25519_key"
+      "/boot-fallback/ssh_host_ed25519_key"
     ];
-    # this will automatically load the zfs password prompt on login
-    # and kill the other prompt so boot can continue
   };
   boot.initrd.network.postCommands = ''
-    zpool import spool
-    echo "zfs load-key -a; killall zfs" >> /root/.profile
+    echo "zpool import spool && zfs load-key -a && killall zfs" >> /root/.profile
   '';
-  # Intel gigabit network adapter.
+
+  # Ensure the network adapter is usable during stage 1.
   boot.initrd.availableKernelModules = [ "igb" ];
 
   # TODO: configure mail sending
