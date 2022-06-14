@@ -463,6 +463,9 @@ EOF
 # https://github.com/NixOS/nixpkgs/issues/126141#issuecomment-861720372
 nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
 
+# Installation fails without this.
+mkdir -p /mnt/tmp
+
 # Install NixOS
 PATH="$PATH" NIX_PATH="$NIX_PATH" "$(command -v nixos-install)" \
   --no-root-passwd \
