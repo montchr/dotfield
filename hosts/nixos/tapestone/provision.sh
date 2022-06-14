@@ -263,6 +263,7 @@ zfs create \
   -o encryption=aes-256-gcm \
   -o keyformat=passphrase \
   -o mountpoint=none \
+  -o "com.sun:auto-snapshot=true" \
   rpool/safe
 
 zup rpool/local/root /mnt
@@ -302,11 +303,9 @@ zpool create \
   $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
 
 zup spool/backup /mnt/silo/backup
-zup spool/data /mnt/silo/data
 
-# Allow auto-snapshots for persistent data
-zfs set com.sun:auto-snapshot=true rpool/safe
-zfs set com.sun:auto-snapshot=true spool/data
+zup spool/data /mnt/silo/data \
+  -o "com.sun:auto-snapshot=true"
 
 
 ###: PREPARE SSH IN INITRD =====================================================
