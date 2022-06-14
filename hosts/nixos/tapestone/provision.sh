@@ -68,7 +68,7 @@ export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
 
 # Generates a random host ID for uniqueness across each run.
 # FIXME: strip spaces! results in bad id
-MY_HOSTID="$(head -c4 /dev/urandom | od -A none -t x4)"
+MY_HOSTID="$(tr -dc 0-9a-f < /dev/urandom | head -c 8)"
 
 # For a consistent host ID, use this alternative.
 # MY_HOSTID="$(head -c 8 /etc/machine-id)"
