@@ -59,7 +59,7 @@ export HDD09="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
 export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
 
 
-##: --- ZFS Host ID ---
+##: --- ZFS Configuration ---
 #
 # Required for OpenZFS. Must be unique across all machines.
 #
@@ -74,6 +74,8 @@ MY_HOSTID="$(head -c4 /dev/urandom | od -A none -t x4)"
 # MY_HOSTID="$(head -c 8 /etc/machine-id)"
 
 export MY_HOSTID
+
+export ZFS_ENC_OPTS="-o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt"
 
 
 ##: --- Helper Functions ---
@@ -224,6 +226,7 @@ done
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
+# FIXME: for some reason, these aren't available initially, and these commands need to be run a second time...
 mkdir -p /mnt/boot{-fallback,}
 mount $NVME1-part1 /mnt/boot
 mount $NVME2-part1 /mnt/boot-fallback
@@ -254,14 +257,12 @@ zfs create \
   rpool/reserved
 
 zfs create \
-  -o encryption=aes-256-gcm \
-  -o keyformat=passphrase \
+  "$ZFS_ENC_OPTS" \
   -o mountpoint=none \
   rpool/local
 
 zfs create \
-  -o encryption=aes-256-gcm \
-  -o keyformat=passphrase \
+  "$ZFS_ENC_OPTS" \
   -o mountpoint=none \
   -o "com.sun:auto-snapshot=true" \
   rpool/safe
@@ -272,6 +273,7 @@ zup rpool/local/root /mnt
 zfs snapshot rpool/local/root@blank
 
 zup rpool/local/nix /mnt/nix
+
 zup rpool/safe/home /mnt/home
 zup rpool/safe/persist /mnt/persist
 
@@ -281,6 +283,7 @@ zup rpool/safe/postgres /mnt/var/lib/postgres \
   -o recordsize=8K \
   -o primarycache=metadata \
   -o logbias=throughput
+
 
 ###: INITIALIZE 'SILO' POOL ====================================================
 
@@ -295,16 +298,15 @@ zpool create \
   -O normalization=formD \
   -O relatime=on \
   -O xattr=sa \
-  -O encryption=aes-256-gcm \
-  -O keyformat=passphrase \
-  -O keylocation=prompt \
   -f \
   spool raidz \
   $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
 
-zup spool/backup /mnt/silo/backup
+zup spool/backup /mnt/silo/backup \
+  "$ZFS_ENC_OPTS"
 
 zup spool/data /mnt/silo/data \
+  "$ZFS_ENC_OPTS" \
   -o "com.sun:auto-snapshot=true"
 
 
