@@ -232,16 +232,28 @@ zpool create \
   -O normalization=formD \
   -O relatime=on \
   -O xattr=sa \
-  -O encryption=aes-256-gcm \
-  -O keyformat=passphrase \
-  -O keylocation=prompt \
   -f \
   rpool \
   mirror \
   $NVME1-part2 $NVME2-part2
 
 # Reserve 1GB of space for ZFS operations -- even delete requires free space
-zfs create -o refreservation=1G -o mountpoint=none rpool/reserved
+zfs create \
+  -o refreservation=1G \
+  -o mountpoint=none \
+  rpool/reserved
+
+zfs create \
+  -o encryption=aes-256-gcm \
+  -o keyformat=passphrase \
+  -o mountpoint=none \
+  rpool/local
+
+zfs create \
+  -o encryption=aes-256-gcm \
+  -o keyformat=passphrase \
+  -o mountpoint=none \
+  rpool/safe
 
 zup rpool/local/root /mnt
 
