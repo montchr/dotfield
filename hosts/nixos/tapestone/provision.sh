@@ -67,6 +67,7 @@ export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
 # need to be entirely numeric.
 
 # Generates a random host ID for uniqueness across each run.
+# FIXME: strip spaces! results in bad id
 MY_HOSTID="$(head -c4 /dev/urandom | od -A none -t x4)"
 
 # For a consistent host ID, use this alternative.
@@ -306,9 +307,9 @@ mkdir -p /mnt/var/lib
 
 ssh-keygen -t ed25519 -N '' -f /mnt/var/lib/initrd-ssh-key
 
-cp /mnt/var/lib/initrd-ssh-key* /mnt/boot/
-cp /mnt/var/lib/initrd-ssh-key* /mnt/boot-fallback/
-cp /mnt/var/lib/initrd-ssh-key* /mnt/etc/secrets/initrd/
+cp -v /mnt/var/lib/initrd-ssh-key* /mnt/boot/
+cp -v /mnt/var/lib/initrd-ssh-key* /mnt/boot-fallback/
+cp -v /mnt/var/lib/initrd-ssh-key* /mnt/etc/secrets/initrd/
 
 
 ###: INSTALL NIX ===============================================================
@@ -342,12 +343,12 @@ let
   ipv4 = {
     address = "$IPV4_ADDR";
     gateway = "$IPV4_GATEWAY";
-    prefixLength = "$IPV4_CIDR";
+    prefixLength = $IPV4_CIDR;
   };
   ipv6 = {
     address = "$IPV6_ADDR";
     gateway = "$IPV6_GATEWAY";
-    prefixLength = "$IPV6_CIDR";
+    prefixLength = $IPV6_CIDR;
   };
   authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGk9fhwXG95cVD9DLsHuXrdJYs8DsUF/AmYWcO1+bPVd montchr@alleymon"
@@ -381,7 +382,6 @@ in
     ];
   };
   boot.supportedFilesystems = [ "zfs" ];
-
   boot.zfs.enableUnstable = true;
   boot.zfs.requestEncryptionCredentials = true;
 
@@ -462,10 +462,10 @@ EOF
 nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
 
 # Install NixOS
-nixos-install \
+PATH="$PATH" NIX_PATH="$NIX_PATH" "$(command -v nixos-install)" \
   --no-root-passwd \
   --root /mnt \
-  --max-jobs 40
+  --max-jobs "$(nproc)"
 
 # if you need to debug something
 # - connect to the rescue system
