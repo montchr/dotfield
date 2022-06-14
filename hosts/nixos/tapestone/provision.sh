@@ -407,10 +407,10 @@ in
     enable = true;
     port = 2222;
     hostKeys = [
-      "/var/lib/initrd-ssh-key"
-      "/etc/secrets/initrd/ssh_host_ed25519_key"
-      "/boot/ssh_host_ed25519_key"
-      "/boot-fallback/ssh_host_ed25519_key"
+      /var/lib/initrd-ssh-key
+      /etc/secrets/initrd/ssh_host_ed25519_key
+      /boot/ssh_host_ed25519_key
+      /boot-fallback/ssh_host_ed25519_key
     ];
   };
   boot.initrd.network.postCommands = ''
