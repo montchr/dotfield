@@ -310,16 +310,10 @@ zup spool/data /mnt/silo/data \
   -o "com.sun:auto-snapshot=true"
 
 
-###: PREPARE SSH IN INITRD =====================================================
+###: CREATE INITRD SSH KEY =====================================================
 
-mkdir -p /mnt/etc/secrets/initrd
-mkdir -p /mnt/var/lib
-
-ssh-keygen -t ed25519 -N '' -f /mnt/var/lib/initrd-ssh-key
-
-cp -v /mnt/var/lib/initrd-ssh-key* /mnt/boot/
-cp -v /mnt/var/lib/initrd-ssh-key* /mnt/boot-fallback/
-cp -v /mnt/var/lib/initrd-ssh-key* /mnt/etc/secrets/initrd/
+ssh-keygen -t ed25519 -N '' -f /mnt/boot/initrd-ssh-key
+cp -v /mnt/boot/initrd-ssh-key* /mnt/boot-fallback/
 
 
 ###: INSTALL NIX ===============================================================
@@ -407,10 +401,8 @@ in
     enable = true;
     port = 2222;
     hostKeys = [
-      /var/lib/initrd-ssh-key
-      /etc/secrets/initrd/ssh_host_ed25519_key
-      /boot/ssh_host_ed25519_key
-      /boot-fallback/ssh_host_ed25519_key
+      /boot/initrd-ssh-key
+      /boot-fallback/initrd-ssh-key
     ];
   };
   boot.initrd.network.postCommands = ''
