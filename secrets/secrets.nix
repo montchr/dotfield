@@ -6,6 +6,7 @@ let
     HodgePodge = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS";
     parrothelles = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINBvBCsqtgEdC4J+d1xzrwPIircRYSKbFHR0FulaNV5z";
     tso-portal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUnCW5QopDKLISa/kRcH+28n9QUV/nFuYadXqUp/ZVq";
+    tapestone = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICdk0EzvFodiLIxxheOWQTAav92uZwfMVR1k/0TS7yal";
   };
 
   trustedUsers = import ./authorized-keys.nix;
@@ -14,6 +15,7 @@ let
 
   servers = with machines; [
     hierophant
+    tapestone
     tso-portal
   ];
   workstations = with machines; [
