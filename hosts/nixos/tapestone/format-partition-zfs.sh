@@ -225,12 +225,12 @@ zfs create \
   rpool/reserved
 
 zfs create \
-  "$ZFS_ENC_OPTS" \
+  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
   -o mountpoint=none \
   rpool/local
 
 zfs create \
-  "$ZFS_ENC_OPTS" \
+  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
   -o mountpoint=none \
   -o "com.sun:auto-snapshot=true" \
   rpool/safe
@@ -271,8 +271,8 @@ zpool create \
   $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
 
 zup spool/backup /mnt/silo/backup \
-  "$ZFS_ENC_OPTS"
+  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt
 
 zup spool/data /mnt/silo/data \
-  "$ZFS_ENC_OPTS" \
+  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
   -o "com.sun:auto-snapshot=true"
