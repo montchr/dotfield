@@ -14,6 +14,7 @@ in {
     php80.packages.composer
 
     (writeShellScriptBin "wp-debug-display" ''
+      REPO_ROOT="$(git rev-parse --show-toplevel)"
       case "$1" in
         on|true)
           CURRENT_STATE="false"
@@ -24,7 +25,9 @@ in {
           NEW_STATE="false"
           ;;
       esac
-      sed -i "/WP_DEBUG_DISPLAY/s/''${CURRENT_STATE}/''${NEW_STATE}/" ../wp-config.php
+      "${pkgs.gnused}/bin/sed" \
+        -i "/WP_DEBUG_DISPLAY/s/''${CURRENT_STATE}/''${NEW_STATE}/" \
+        "''${REPO_ROOT}/../wp-config.php"
     '')
 
   ];
