@@ -13,6 +13,7 @@
       boot.refind
       hidpi
       nvidia
+      workstations.flatpak
     ])
     ++ [./hardware-configuration.nix];
 
