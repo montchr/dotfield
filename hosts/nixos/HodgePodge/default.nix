@@ -50,6 +50,8 @@
     imports =
       [hmUsers.seadoom]
       ++ (with hmArgs.suites; workstation);
+
+    programs.kitty.settings."font_size" = "12.0";
   };
 
   programs.htop.enable = true;
