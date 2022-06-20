@@ -11,7 +11,7 @@
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
-(server-start)
+;; (server-start)
 
 ;; Display the fill-column indicator.
 (global-display-fill-column-indicator-mode +1)
