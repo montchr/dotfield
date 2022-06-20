@@ -91,10 +91,8 @@ in {
   programs.mu.enable = true;
   programs.msmtp.enable = true;
   services.mbsync = lib.mkIf (!isDarwin) {
-    enable = true;
-    # FIXME: prevent this from displaying a disruptive prompt whenever it needs
-    # access from the password store. maybe age-encryption is the way to go?
-    frequency = "*:0/30";
+    enable = false;
+    frequency = "*:0/5";
     # TODO: might need to be told about password store dir
     postExec = "${pkgs.mu}/bin/mu index";
   };
