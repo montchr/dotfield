@@ -56,7 +56,7 @@
     phps.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Other sources.
-    nix-colors.url = "github:Misterio77/nix-colors";
+    nix-colors.url = "github:Misterio77/nix-colors/fix-regex-empty-match";
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;

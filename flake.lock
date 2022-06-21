@@ -538,15 +538,16 @@
         "base16-schemes": "base16-schemes"
       },
       "locked": {
-        "lastModified": 1655076867,
-        "narHash": "sha256-s2rnx5ZMCcJC+ge2ep8FWZz1dVNF00ZvxKb6fOtDuwg=",
+        "lastModified": 1655259510,
+        "narHash": "sha256-YZDvM1heN44rVOhRubJqOELD1gkSSh6Bm3iPks5IYOU=",
         "owner": "Misterio77",
         "repo": "nix-colors",
-        "rev": "2c2e107765b7b2e54b10d3fc2ffe5ed2ca2c7731",
+        "rev": "957021ec7eb0f2ba2dde29b86f4ffd6a31b568f0",
         "type": "github"
       },
       "original": {
         "owner": "Misterio77",
+        "ref": "fix-regex-empty-match",
         "repo": "nix-colors",
         "type": "github"
       }
