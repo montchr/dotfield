@@ -50,13 +50,14 @@
 
     # Development tools.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     phps.url = "github:fossar/nix-phps";
     phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
     phps.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Other sources.
-    nix-colors.url = "github:Misterio77/nix-colors/fix-regex-empty-match";
+    nix-colors.url = "github:Misterio77/nix-colors";
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
