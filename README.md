@@ -18,9 +18,6 @@ thanks to the globs of Sugru preventing any further bodily harm.
 
 Now it's even more manageable thanks to NixOS!
 
-### `alleymon`
-
-Work computer.
 
 ### `boschic`
 
