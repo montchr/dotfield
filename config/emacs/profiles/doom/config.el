@@ -339,25 +339,14 @@
          message-send-mail-function #'message-send-mail-with-sendmail))
 
 (setq! mu4e-context-policy 'ask-if-none
-       mu4e-compose-context-policy 'always-ask
-       +mu4e-gmail-accounts '(("chris@cdom.io" . "personal")
-                              ("chris@alley.co" . "work")))
+       mu4e-compose-context-policy 'always-ask)
 
 (set-email-account! "personal"
                     '((mu4e-sent-folder       . "/personal/sent")
                       (mu4e-drafts-folder     . "/personal/drafts")
                       (mu4e-trash-folder      . "/personal/trash")
                       (mu4e-refile-folder     . "/personal/archive")
-                      (smtpmail-smtp-user     . "chris@cdom.io")
-                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
-                    t)
-(set-email-account! "work"
-                    '((mu4e-sent-folder       . "/work/sent")
-                      (mu4e-drafts-folder     . "/work/drafts")
-                      (mu4e-trash-folder      . "/work/trash")
-                      (mu4e-refile-folder     . "/work/archive")
-                      (smtpmail-smtp-user     . "chris@alley.co")
-                      (mu4e-compose-signature . "---\nChris Montgomery\nSenior Software Developer\nAlley"))
+                      (smtpmail-smtp-user     . "chris@cdom.io"))
                     t)
 
 

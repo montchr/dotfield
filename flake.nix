@@ -209,9 +209,7 @@
         };
 
         imports = [(digga.lib.importHosts ./hosts/darwin)];
-        hosts = {
-          alleymon = {};
-        };
+        hosts = {};
 
         importables = rec {
           profiles =

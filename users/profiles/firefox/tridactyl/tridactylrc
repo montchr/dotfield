@@ -92,7 +92,3 @@ set searchurls.nixopts https://search.nixos.org/options?query=
 set searchurls.nixpkgs https://search.nixos.org/packages?query=
 set searchurls.nixwiki https://nixos.wiki/index.php?search=
 set searchurls.npm https://www.npmjs.com/search?q=
-
-" Work-specific searches
-set searchurls.ghai https://github.com/search?q=org%3Aalleyinteractive+
-set searchurls.j https://alleyinteractive.atlassian.net/browse/%s

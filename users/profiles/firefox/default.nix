@@ -245,12 +245,6 @@ in {
 
       userChrome = ''
         ${styles.lepton.userChrome}
-
-        :root {
-          --dotfield-color-alley-red: #a22e29;
-          --dotfield-tab-line-color: var(--dotfield-color-alley-red);
-        }
-
         ${styles.dotfield.userChrome}
       '';
 

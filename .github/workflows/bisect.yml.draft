@@ -44,7 +44,7 @@ jobs:
     strategy:
       matrix:
         configuration:
-          - darwinConfigurations.alleymon.config.system.build.toplevel
+          - darwinConfigurations.tktktktktktktk.config.system.build.toplevel
     steps:
     - uses: actions/checkout@v2.4.0
       with:
