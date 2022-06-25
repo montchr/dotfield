@@ -6,12 +6,11 @@
   ...
 }: let
   inherit (pkgs) system writeShellScriptBin;
-  inherit (inputs.phps.packages.${system}) php80;
   inherit (pkgs.lib.our) dotfieldPath;
 in {
   home.packages = with pkgs; [
     php80
-    php80.packages.composer
+    php80Packages.composer
 
     (writeShellScriptBin "wp-debug-display" ''
       REPO_ROOT="$(git rev-parse --show-toplevel)"
