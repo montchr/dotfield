@@ -5,6 +5,7 @@
   pkgs,
   profiles,
   suites,
+  inputs,
   ...
 }: {
   imports =
@@ -13,6 +14,7 @@
       boot.refind
       hidpi
       nvidia
+      remote-builder
       workstations.flatpak
     ])
     ++ [./hardware-configuration.nix];
@@ -41,6 +43,7 @@
     isNormalUser = true;
     initialHashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
     hashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
+    openssh.authorizedKeys.keys = import ../../../secrets/authorized-keys.nix;
     extraGroups = [
       "wheel"
       "video"
