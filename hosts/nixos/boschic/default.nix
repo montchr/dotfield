@@ -19,6 +19,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "auto";
+  # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;
 
