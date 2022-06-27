@@ -17,12 +17,7 @@ moduleArgs @ {
     mkKeyValue = key: value: let
       value' =
         if lib.isBool value
-        then
-          (
-            if value
-            then "yes"
-            else "no"
-          )
+        then (lib.hm.booleans.yesNo value)
         else builtins.toString value;
     in "${key} ${value'}";
   };

@@ -21,14 +21,14 @@
   #: }}}
 
   #: Window layout {{{
-  remember_window_size = "no";
+  remember_window_size = false;
   initial_window_width = "640";
   initial_window_height = "800";
   window_padding_width = "10";
   window_margin_width = "0";
   single_window_margin_width = "-1";
-  draw_minimal_borders = "yes";
-  hide_window_decorations = lib.hm.booleans.yesNo hasTwm;
+  draw_minimal_borders = true;
+  hide_window_decorations = hasTwm;
   confirm_os_window_close = "0";
   #: }}}
 
@@ -41,7 +41,7 @@
   #: }}}
 
   #: Advanced {{{
-  allow_remote_control = "yes";
+  allow_remote_control = true;
   listen_on = socket;
   # FIXME: why not?
   # startup_session = "session";

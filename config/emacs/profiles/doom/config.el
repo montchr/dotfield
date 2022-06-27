@@ -143,7 +143,7 @@
 
 ;; === agenda ==================================================================
 
-(setq! org-directory "~/Dropbox/org"
+(setq! org-directory "~/Documents/notes"
        +org-capture-todo-file (concat org-directory "inbox.org")
        org-roam-directory org-directory
        deft-directory org-directory)
@@ -195,6 +195,7 @@
   (setq! org-archive-default-command 'org-archive-to-archive-sibling))
 
 (use-package! vulpea
+  ;; FIXME: malformed function?
   :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
 
 (use-package! doct

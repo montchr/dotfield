@@ -122,6 +122,12 @@ in {
     wget
     whois
 
+    ## === File Helpers ===
+    file
+    glow # markdown cli renderer (by charmbracelet)
+    mediainfo
+    unzip
+
     ## === Nix Helpers ===
 
     alejandra # The Uncompromising Nix Code Formatter
