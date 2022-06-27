@@ -248,6 +248,7 @@
               core
               misc
               navi
+              nnn
               ranger
               secrets.common
               tealdeer
