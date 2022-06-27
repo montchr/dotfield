@@ -1,3 +1,5 @@
+## === TAPESTONE ===
+
 [hosts.tapestone]
 network = "tso"
 keys = [
@@ -15,3 +17,25 @@ addresses = []
 subnet = "2a01:4f8:13b:17ac::/64"
 cidr = "64"
 gateway = "fe80::1"
+
+
+## === BOSCHIC ===
+
+[hosts.boschic]
+network = "looper"
+tailscale = "100.112.94.38"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJxqOfaPK3FQnBsp7ey3yUEuFnYzAJSF1PdyJLqpKAfK",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtDubtyQ0yY5kYMJR65ZUO3ntLk53sHI2e2jz+rEqZEj/34auiknGowQrplcEiu+Q6A3JHo1lXpodIUiLFqVGKdP+1okZVCbjjQxsWBYqoz+a6mWPxyp6K1RkNss1QcFQVe/ad0GMXlteiNfqLwKpoDfwh95OLgiuXwK1Hrbn46RXD8iE8DxQMys1xQSEGLM3ifl2kAJQoFm0U5X7ZCP0fGHHuq5M1O9nJpqPZTAuCgre4nrTTJeOrqQdUYlWMLsksH9+SJUaRJDqSO8b/5Zhq6g16isWXuwKN6XvXNv/8azMn+tiKrttcOUGz2ppBoeJcnxWJxZayICshosnXBdh1aa1dNZpnX+fFw9KC6l8sTPDdT406paXlNLfbJBCLGVk8/JXTYUuzADjbtS9qGDAojiSh0b7PaePXL0iXiR3T+T+yPTAoObAP02GWJeBsuJy4jmZMu9bEWW+zbKdRusFLuWR3m7Pw4vhTXKkrhcbaLw34aEuRR6mYh93o7cuzL1g6qGLv/GaTiVrEVNdVzFV7L1/9LBvJIznT2AgAnN5YivsX++PSEd/dEEk/fjP51XRfwOx5Cwg40E/jOYjBEmBT/xEw5DSco4KYKBvsuraXoni1WNglYhjSBBd402IwbuGt5rn0wGuujpIiJEocBZs/izl/FNXLObBeTMwItIaESQ== root@boschic",
+]
+
+
+## === HODGEPODGE ===
+
+[hosts.hodgepodge]
+network = "looper"
+tailscale = "100.71.240.35"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS",
+  # TODO: add rsa key
+]
