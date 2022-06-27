@@ -52,9 +52,6 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
-    phps.url = "github:fossar/nix-phps";
-    phps.inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
-    phps.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -88,7 +85,6 @@
     nixos-unstable,
     nur,
     nvfetcher,
-    phps,
     ...
   } @ inputs:
     digga.lib.mkFlake {
@@ -125,11 +121,6 @@
           lib = prev.lib.extend (lfinal: lprev: {
             our = self.lib;
           });
-        })
-
-        (final: prev: {
-          inherit (inputs.phps.packages.${final.system}) php80;
-          php = final.php80;
         })
 
         agenix.overlay
@@ -218,9 +209,7 @@
         };
 
         imports = [(digga.lib.importHosts ./hosts/darwin)];
-        hosts = {
-          alleymon = {};
-        };
+        hosts = {};
 
         importables = rec {
           profiles =

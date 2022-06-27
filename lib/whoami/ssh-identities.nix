@@ -10,8 +10,6 @@
 
   ## users (ed25519)
 
-  # montchr@alleymon
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuL/1ft1dC+x/P2mQZVGTDs3Dy/HHi2MbvCNjLmX0Vk"
   # xtallos@hodge
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHd/G1FMmwKBH4vDjT5q8TiFdeLM/PY/FJlbvc2OwF+S"
   # chris@cdom.io

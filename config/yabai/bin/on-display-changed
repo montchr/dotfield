@@ -12,8 +12,6 @@ function main() {
 
   # TODO: get display uuid with jq
   case $uuid in
-    # alleymon internal display
-    "AF3BFAC1-B0AA-2DD5-4B8B-8396DC7AD656") : ;;
     *) return 1 ;;
   esac
 

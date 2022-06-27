@@ -18,9 +18,6 @@ thanks to the globs of Sugru preventing any further bodily harm.
 
 Now it's even more manageable thanks to NixOS!
 
-### `alleymon`
-
-Work computer.
 
 ### `boschic`
 
@@ -30,39 +27,41 @@ roommate~ Elden Ring Machine.
 
 Dual-booting Windows 10 and NixOS.
 
-- Ryzen 5 something something
-- NVIDIA RTX something something 3080 Ti
-- A dirt-cheap fan which I installed backwards…
+| **CPU**              | AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor                             |
+| **CPU Cooler**       | Noctua NH-D15 82.5 CFM CPU Cooler                                      |
+| **Motherboard**      | Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard                    |
+| **Memory**           | Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory          |
+| **Storage**          | Seagate BarraCuda 1 TB 3.5" 7200RPM Internal Hard Drive                |
+| **Storage**          | Crucial MX100 256 GB 2.5" Solid State Drive                            |
+| **Storage**          | Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive              |
+| **GPU**              | NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card           |
+| **Case**             | Phanteks Enthoo Pro ATX Full Tower Case                                |
+| **PSU**              | Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply |
+| **Wireless Adapter** | TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter              |
 
-Self-built in 2015, recently revamped for ~computing power~ ~Valve Index~ ~Elden
-Ring~ fun.
+Originally built in 2015, recently revamped for ~computing power~ ~playing Myst in VR~
+~Elden Ring~ fun.
 
-### `parrothelles`
-
-…is a Parallels VM. For testing experimental changes to workstations.
 
 ### Incubation
+
+#### "`tapestone`" (working title)
+
+Hetzner SX134.
+
+For backups, remote builds, mass storage, pretty much everything that needs to
+be accessible remotely.
+
+##### Planned
+
+- ArchiveBox
+- BorgBackup archive storage from other hosts
+- Some sort of fast "cloud" storage for everyday use (notes and document sync, recent photos, etc.)
 
 #### `hierophant` [waiting]
 
 [undetermined]
 
-#### `tso-portal` [planned]
-
-Planned media server and web-app hosting.
-
-- Recipe manager
-- Jellyfin?
-- Plex (but mainly for Plexamp)
-
-#### [plannet unnamed archival storage]
-
-Likely a Hetzner dedicated server.
-For backup-related tasks and mass storage.
-
-- ArchiveBox
-- BorgBackup archive storage from other hosts
-- Some sort of fast "cloud" storage for everyday use (notes and document sync, recent photos, etc.)
 
 #### `sommoch` [damaged+misplaced]
 
@@ -92,15 +91,6 @@ export KEYID="0x135EEDD0F71934F3"
 gpg --recv $KEYID
 ```
 
-## Hydration
-
-### Hetzner Cloud
-
-```sh
-curl -L https://raw.githubusercontent.com/montchr/dotfield/main/provision/bin/nixos-install-hetzner-cloud.sh | sudo bash
-```
-
-Adapted from the script provided by https://github.com/nix-community/nixos-install-scripts.
 
 ## Vertebrae
 
