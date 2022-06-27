@@ -108,7 +108,11 @@
             ./pkgs/darwin
           ];
         };
-        nixos-unstable = {};
+        nixos-unstable = {
+          imports = [
+            (digga.lib.importOverlays ./overlays/nixos-unstable)
+          ];
+        };
         nixpkgs-trunk = {};
       };
 
@@ -150,7 +154,9 @@
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
           boschic = {};
-          HodgePodge = {};
+          HodgePodge = {
+            channelName = "nixos-unstable";
+          };
           hierophant = {};
           tso-portal = {};
           parrothelles = {};
