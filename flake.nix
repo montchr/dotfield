@@ -314,8 +314,8 @@
       devshell = ./shell;
 
       homeConfigurations =
-        digga.lib.mkHomeConfigurations
-        (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+        digga.lib.mkHomeConfigurations self.nixosConfigurations;
+        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {};
     };
