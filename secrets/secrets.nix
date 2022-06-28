@@ -1,7 +1,8 @@
 let
-  hosts = (builtins.fromTOML (builtins.readFile ../hosts/hosts.toml)).hosts;
+  inherit (builtins) fromTOML readFile;
+  hosts = (fromTOML (readFile ../hosts.toml)).hosts;
   hostKeys = builtins.mapAttrs (n: v: v.keys) hosts;
-  trustedUsers = import ./authorized-keys.nix;
+  trustedUsers = import ../identity/authorized-keys.nix;
 
   servers = with hostKeys;
     hierophant

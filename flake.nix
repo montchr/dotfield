@@ -166,7 +166,7 @@
 
         importables = rec {
           primaryUser = {
-            authorizedKeys = import ./secrets/authorized-keys.nix;
+            authorizedKeys = import ./identity/authorized-keys.nix;
           };
 
           profiles =

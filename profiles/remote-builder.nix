@@ -2,7 +2,7 @@
 
 {
   services.openssh.permitRootLogin = lib.mkForce "prohibit-password";
-  users.users.root.openssh.authorizedKeys.keys = import ../secrets/authorized-keys.nix;
+  users.users.root.openssh.authorizedKeys.keys = import ../identity/authorized-keys.nix;
 
   services.openssh.enable = true;
   services.openssh.hostKeys = [

@@ -13,10 +13,28 @@ cidr = "26"
 gateway = "94.130.220.129"
 
 [hosts.tapestone.ipv6]
-addresses = []
+addresses = [
+  "2a01:4f8:13b:17ac::1",
+]
 subnet = "2a01:4f8:13b:17ac::/64"
 cidr = "64"
 gateway = "fe80::1"
+
+[hosts.tapestone.users.seadoom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFau0PvNPVhUbdMOTh+p1FUaHPZ3mfpSF2OKTh71W1x9 seadoom@tapestone.cube.garden"]
+
+
+## === HIEROPHANT ===
+[hosts.hierophant]
+network = "seadome"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden",
+  # FIXME: add rsa key
+]
+
+[hosts.hierophant.users.hierophant]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rvq4vlUFFXH hierophant@loop.garden"]
+
 
 
 ## === BOSCHIC ===
@@ -29,6 +47,9 @@ keys = [
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtDubtyQ0yY5kYMJR65ZUO3ntLk53sHI2e2jz+rEqZEj/34auiknGowQrplcEiu+Q6A3JHo1lXpodIUiLFqVGKdP+1okZVCbjjQxsWBYqoz+a6mWPxyp6K1RkNss1QcFQVe/ad0GMXlteiNfqLwKpoDfwh95OLgiuXwK1Hrbn46RXD8iE8DxQMys1xQSEGLM3ifl2kAJQoFm0U5X7ZCP0fGHHuq5M1O9nJpqPZTAuCgre4nrTTJeOrqQdUYlWMLsksH9+SJUaRJDqSO8b/5Zhq6g16isWXuwKN6XvXNv/8azMn+tiKrttcOUGz2ppBoeJcnxWJxZayICshosnXBdh1aa1dNZpnX+fFw9KC6l8sTPDdT406paXlNLfbJBCLGVk8/JXTYUuzADjbtS9qGDAojiSh0b7PaePXL0iXiR3T+T+yPTAoObAP02GWJeBsuJy4jmZMu9bEWW+zbKdRusFLuWR3m7Pw4vhTXKkrhcbaLw34aEuRR6mYh93o7cuzL1g6qGLv/GaTiVrEVNdVzFV7L1/9LBvJIznT2AgAnN5YivsX++PSEd/dEEk/fjP51XRfwOx5Cwg40E/jOYjBEmBT/xEw5DSco4KYKBvsuraXoni1WNglYhjSBBd402IwbuGt5rn0wGuujpIiJEocBZs/izl/FNXLObBeTMwItIaESQ== root@boschic",
 ]
 
+[hosts.boschic.users.seadoom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"]
+
 
 ## === HODGEPODGE ===
 
@@ -39,3 +60,17 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS",
   # TODO: add rsa key
 ]
+
+[hosts.hodgepodge.users.seadoom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@HodgePodge.loop.garden"]
+
+
+## === AERATTUM ===
+
+# note: on aerattum, an iphone, "users" are "apps"
+
+[hosts.aerattum.users.blink]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2HrKDL60obU2mEkV1pM1xHQeTHc+czioQDTqu0gP37 blink@aerattum"]
+
+[hosts.aerattum.users.workingcopy]
+keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrU4ZPmxcBNnMeLLyBkFcjlG2MwaIUp5deSycmXSb7gIC4MZKH0lvoCXsXBYTocGhwna2mg1SfpolLZzxzWAYpx52RoHeyY6ml/Z1dSJbpMgV5KZ2kqKo1hHar2i9wsc/EZQKv3rlngOSECiwg2LxHOIGGTz/779yEJnfnWnta+5Tnpk4zdgp8j8g+QbY7NFHcZg2mjcy++Nf2psqJsDZVE1JmzNsA30jEGaGDRAaAv9ZHcQf6E3GEpRvr3iqO9YTzOcgdzzl8CvAtZUa1G4piQK6CYkC6HgAvm73+kSm+JxssSfFi3xgK0+RLAUTGa25MH3PAqR9V8lrcuLI891sLEQTtQIIALfzTw04e740DqXRifzasCVo8lMmZBX8Mu+FC0KSFL0254OfHuTHDCWE7fc/3069pcpgAaJGIDj2rE3v631WqoPZpkmvefuu4+n5nvKe4ypwA/OH6h52s3CL7DlcREe6lnBraEzbuXxVL+0JP66yEzK4vFGtZWeTsbo9jyQkoJIw4IkuqHvRxElysOHaQqG08GkjiCBONiGIqk0GQ3pmeyjptfnrVyi2pFGTvVVQ06ZC7If3wywkWXCJzJ2nrD9B+gyRvKv557m24Goj2+LCi6IVZsFIh6r4+vOdaMnX39eol/kWMl1n93D8YG3bBS5JH0fEQsMZEpsUd7Q== WorkingCopy@aerattum"]

@@ -78,12 +78,6 @@ Currently lost somewhere in the meat ether.
 
 ## Identities
 
-### SSH @ <https://meta.sr.ht/~montchr.keys>
-
-Copy entries as needed from [`secrets/authorized-keys.nix`](./secrets/secrets.nix)
-
-### GPG/PGP @ <https://meta.sr.ht/~montchr.pgp>
-
 From https://github.com/drduh/YubiKey-Guide#using-keys:
 
 ```sh
