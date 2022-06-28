@@ -32,7 +32,8 @@
     utillinux
   ];
 
-  users.groups.secrets.members = ["root" "seadoom" "xtallos"];
+  users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
+
 
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
