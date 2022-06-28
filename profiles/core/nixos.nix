@@ -34,6 +34,7 @@
 
   users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
 
+  security.sudo.wheelNeedsPassword = false;
 
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
