@@ -153,12 +153,8 @@
 
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
-          boschic = {
-            channelName = "nixos-unstable";
-          };
-          HodgePodge = {
-            channelName = "nixos-unstable";
-          };
+          boschic = {};
+          HodgePodge = {};
           hierophant = {};
         };
 
