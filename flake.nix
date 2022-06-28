@@ -160,8 +160,6 @@
             channelName = "nixos-unstable";
           };
           hierophant = {};
-          tso-portal = {};
-          parrothelles = {};
         };
 
         importables = rec {
