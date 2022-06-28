@@ -29,6 +29,7 @@
     _1password
     _1password-gui
     firefox-wayland
+    signal-desktop
     wl-clipboard
 
     # Grab images from a Wayland compositor
