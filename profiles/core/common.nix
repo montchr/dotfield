@@ -109,6 +109,7 @@ in {
     openssl
     ripgrep
     rsync
+    screen
     tmux
     vim
     wget
@@ -121,6 +122,8 @@ in {
     unzip
 
     ## === Nix Helpers ===
+
+    # FIXME: most of these should be removed for servers / non-dev machines
 
     alejandra # The Uncompromising Nix Code Formatter
     cachix
