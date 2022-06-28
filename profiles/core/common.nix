@@ -55,8 +55,6 @@ in {
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
-  fonts.fonts = [pkgs.emacs-all-the-icons-fonts];
-
   environment.shells = with pkgs; [
     bashInteractive
     fish
