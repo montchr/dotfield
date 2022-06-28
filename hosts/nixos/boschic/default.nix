@@ -25,6 +25,8 @@
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;
+  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" ];
+  boot.supportedFilesystems = [ "ext4" "btrfs" ];
 
   system.stateVersion = "21.11";
 
