@@ -180,6 +180,9 @@
               networking.common
               networking.tailscale
             ];
+            server = basic ++ [
+              ssh-host
+            ];
             tangible = [
               audio
               bluetooth
