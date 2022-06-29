@@ -2,9 +2,21 @@
   config,
   lib,
   pkgs,
+  peers,
   ...
-}: {
+}:
+let
+  inherit (config.networking) hostName;
+  inherit (netMeta) domain;
+
+  hostMeta = peers.hosts.${hostName};
+  hostNet = hostMeta.network;
+  netMeta = peers.networks.${hostNet};
+in
+{
    networking = {
+     inherit domain;
+
      # Use Cloudflare DNS
      # https://developers.cloudflare.com/1.1.1.1/
      nameservers = [
