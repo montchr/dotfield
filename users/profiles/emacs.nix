@@ -93,8 +93,6 @@ in {
   services.emacs = lib.mkIf (!isDarwin) {
     enable = true;
     defaultEditor = lib.mkForce true;
-    socketActivation.enable = true;
-    # client.enable = true;
   };
 
   home.packages = with pkgs; [
