@@ -34,7 +34,6 @@ in {
 
   home.sessionVariables = {
     CHEMACS_PROFILE = chemacsProfile;
-    EDITOR = "emacsclient";
 
     ## doom-emacs
     # user config files
