@@ -24,4 +24,6 @@
   home-manager.users.nixos = hmArgs: {
     imports = (with hmArgs.suites; basic ++ graphical);
   };
+
+  system.stateVersion = "22.05";
 }
