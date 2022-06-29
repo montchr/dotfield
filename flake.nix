@@ -159,7 +159,7 @@
         };
 
         importables = rec {
-          peers = builtins.fromTOML (builtins.readFile ../hosts.toml);
+          peers = builtins.fromTOML (builtins.readFile ./hosts.toml);
 
           primaryUser = {
             authorizedKeys = import ./identity/authorized-keys.nix;
