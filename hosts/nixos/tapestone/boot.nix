@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
-
+let
+  authorizedKeys = import ../../../identity/authorized-keys.nix;
+in
 {
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
