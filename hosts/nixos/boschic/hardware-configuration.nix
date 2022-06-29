@@ -14,33 +14,31 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/0445cde8-1979-4775-ac2e-202e22c0f0d5";
+    { device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
       fsType = "btrfs";
       options = [ "subvol=root" "compress=zstd" "noatime"];
     };
 
-  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/6ff14a11-6803-4b78-83fe-f6cb0d42de01";
-
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/0445cde8-1979-4775-ac2e-202e22c0f0d5";
+    { device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
       fsType = "btrfs";
       options = [ "subvol=home" "compress=zstd" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/0445cde8-1979-4775-ac2e-202e22c0f0d5";
+    { device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
       fsType = "btrfs";
       options = [ "subvol=nix" "compress=zstd" "noatime"];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/0445cde8-1979-4775-ac2e-202e22c0f0d5";
+    { device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress=zstd" "noatime"];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/0445cde8-1979-4775-ac2e-202e22c0f0d5";
+    { device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
       fsType = "btrfs";
       options = [ "subvol=log" "compress=zstd" "noatime"];
       neededForBoot = true;
@@ -52,7 +50,10 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/4ffe4cf7-ad2d-4218-9f7c-b4393306636a"; }
+    [
+# FIXME: apparently systemd will load this automatically? that explains why it won't work when i add it here
+# https://github.com/NixOS/nixpkgs/pull/5202#issuecomment-65257876
+# { device = "/dev/disk/by-uuid/4ffe4cf7-ad2d-4218-9f7c-b4393306636a"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
