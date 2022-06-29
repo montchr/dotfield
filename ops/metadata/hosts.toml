@@ -9,7 +9,7 @@ keys = [
 
 [tapestone.ipv4]
 address = "94.130.220.154"
-prefixLength = "26"
+prefixLength = 26
 gateway = "94.130.220.129"
 
 [tapestone.ipv6]
@@ -18,7 +18,7 @@ addresses = [
 ]
 # subnet = "2a01:4f8:13b:17ac::/64"
 subnet = "2a01:4f8:13b:17ac"
-prefixLength = "64"
+prefixLength = 64
 gateway = "fe80::1"
 
 [tapestone.users.seadoom]
