@@ -15,6 +15,7 @@ in {
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel" "@seadome"];
+
     # extraOptions = ''
     #   min-free = 536870912
     #   keep-outputs = true
@@ -35,7 +36,6 @@ in {
   environment.variables = {
     DOTFIELD_DIR = lib.mkDefault "/etc/dotfield";
     EDITOR = "vim";
-    HOSTNAME = config.networking.hostName;
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin
       then "darwin"
