@@ -87,6 +87,9 @@
     nvfetcher,
     ...
   } @ inputs:
+    let
+      peers = import ./ops/metadata/peers.nix;
+    in
     digga.lib.mkFlake {
       inherit self inputs;
 
@@ -159,7 +162,7 @@
         };
 
         importables = rec {
-          peers = builtins.fromTOML (builtins.readFile ./hosts.toml);
+          inherit peers;
 
           primaryUser = {
             authorizedKeys = import ./identity/authorized-keys.nix;
@@ -219,6 +222,8 @@
         hosts = {};
 
         importables = rec {
+          inherit peers;
+
           profiles =
             digga.lib.rakeLeaves ./profiles
             // {users = digga.lib.rakeLeaves ./users;};
@@ -248,6 +253,7 @@
           ({suites, ...}: {imports = suites.basic;})
         ];
         importables = rec {
+          inherit peers;
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
             #: basic: just your average anybody

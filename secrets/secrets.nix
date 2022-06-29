@@ -1,6 +1,6 @@
 let
-  inherit (builtins) fromTOML readFile;
-  hosts = (fromTOML (readFile ../hosts.toml)).hosts;
+  inherit (peers) hosts;
+  peers = import ../ops/metadata/peers.nix;
   hostKeys = builtins.mapAttrs (n: v: v.keys) hosts;
   trustedUsers = import ../identity/authorized-keys.nix;
 
