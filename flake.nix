@@ -157,7 +157,7 @@
         imports = [(digga.lib.importHosts ./hosts/nixos)];
         hosts = {
           boschic = {};
-          HodgePodge = {};
+          hodgepodge = {};
           hierophant = {};
         };
 
