@@ -1,7 +1,7 @@
 # FIXME: CANNOT BOOT WITHOUT KVM CONSOLE!
 # no shell access to zfs decryption prompt in initrd...
 
-{ config, pkgs, peers, ... }:
+{ config, pkgs, peers, lib, ... }:
 let
   inherit (peers.hosts.tapestone) ipv4 ipv6;
   interface = "eth0";
@@ -16,7 +16,7 @@ in
   ];
 
   networking.hostName = "tapestone";
-  # networking.domain = "cube.garden";
+  networking.domain = lib.mkForce "cube.garden";
   networking.hostId = "93e48b92";
 
   # Hetzner uses static IP assignments.
