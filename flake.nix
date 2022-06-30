@@ -159,6 +159,7 @@
           boschic = {};
           hodgepodge = {};
           hierophant = {};
+          tapestone = {};
         };
 
         importables = rec {
