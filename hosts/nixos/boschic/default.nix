@@ -17,6 +17,7 @@
       nvidia
       remote-builder
       workstations.flatpak
+      virtualisation.libvirtd
     ])
     ++ [./hardware-configuration.nix];
 
@@ -53,6 +54,7 @@
       "networkmanager"
       "seadome"
       "secrets"
+      (lib.mkIf config.virtualisation.libvirtd.enable "libvirtd")
     ];
     shell = pkgs.zsh;
   };
