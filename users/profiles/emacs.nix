@@ -13,11 +13,6 @@
     stateHome
     ;
 
-  corePackage =
-    if isDarwin
-    then pkgs.emacsNativeComp
-    else pkgs.emacsPgtkNativeComp;
-
   dotfieldConfigPath = "${configHome}/dotfield/config";
   chemacsDir = "${configHome}/emacs";
   chemacsProfile = "doom";
@@ -83,11 +78,11 @@ in {
 
   programs.emacs = {
     enable = true;
-    # TODO: consider wrapping the emacs package so it has access to dependencies
-    # without cluttering home packages
-    package = (pkgs.emacsPackagesFor corePackage).emacsWithPackages (epkgs: [
-      epkgs.vterm
-    ]);
+    package =
+      if isDarwin
+      then pkgs.emacsNativeComp
+      else pkgs.emacsPgtkNativeComp;
+    extraPackages = epkgs: with epkgs; [ vterm ];
   };
 
   services.emacs = lib.mkIf (!isDarwin) {
