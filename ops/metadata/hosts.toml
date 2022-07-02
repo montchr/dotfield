@@ -10,6 +10,7 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICdk0EzvFodiLIxxheOWQTAav92uZwfMVR1k/0TS7yal root@tapestone",
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDfO/9X2TwY26GTRrc2OT1GemedLzdagzxfAX+6ZIZAjOCiY0g3znU3uPictDVZy+Gz8vEpK52h/g8b/ZMu89SlqRgw5cVffHY+snit7rziTzX0tITZvvooZN2nmmwlVjhZn0pl2oiLLuBfWPrDj40bmVoBZE4xKfYSbM9T+ZLT0oP0gYlZ8yVGsQdclELUp7z7dDZ0y5aUwyOw3IXnt3lLsW8notRR5n18Nm1gyARCmVWa0cuHwbfEGv9NmIKY8/ydtC+poISTbGj+GGIqimPDfIS00rafCeoLSNnodjtDIxklxyhgmnQKKEddbdPk3c7nDtImSgnbvxhYe3P3QWp6XEdFlajer6WzDcaCe8V0loF4XDueRGut7Q9JkVZwvIX3s9DwJjL3W/EpkbrYu1I76dvsExTcZIRqrxA3B376oJsmLpn9/Y/lak6awqmbpW3w5M8Nxfyw/CxcVJ/M1J4dsxwyHEL1bRcYlOxsOmSqqcnGDyNIdOsNcwDxWEyeN1OCnDjgIv7vKU/BXk1ZO+/bL8OAz/yBZErM3BvMP4VYGq7y0sNNQ7DKOy4EH7pncD/2JecrQ4j0m0idCp4Gx2IlWn4nKlLJer09Hi0BOlMU50efqk9PRc1KP3Po54HFaLsYSd1rGyPZE3JQ0CxNh/MUDmU3++gOkcQKLge/i1W5sQ== root@tapestone",
 ]
+age = "age1yq6ccts5x73zfupehxu289yvqec6aez5yswcx5zje6gnj340qs7spurdzq"
 
 [tapestone.ipv4]
 address = "94.130.220.154"
@@ -36,9 +37,11 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden",
   # FIXME: add rsa key
 ]
+age = "age1nl8de4w4vlke0nls38jykhlygf3aenr6prkvu6ap5m9a6pd80q8sr9sk00"
 
 [hierophant.users.hierophant]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rvq4vlUFFXH hierophant@loop.garden"]
+age = "age18ngk35h7qycc9kzjc4fy788nvnvlce8gvjahkvkkjxlahd5r54vqhmq9y2"
 
 
 ## === BOSCHIC ===
@@ -50,12 +53,14 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILieF9RIyF4rnqOyse7+3RMYQGH8IrBkTOuMb3O4oDXU root@boschic",
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC55brzXJiHpeY6ivYPshjG664jx87m7qLLv6ur8r5i9eWjQK9MIW4OB4Bfc4LKjNNSgeZ9Exs9L2V5ci3hFsBUUiANUuKNWrplO8CjHmAYndo1fQ+NlOqwTug+NOIjAjc4tZ2QxO1QLxBrRieF7UTBm52C4v3fIingi38UYGQje9JedFdxhuUWQW4a+VBpjYX7r6QjSd3+yO29u97fi9HxK54aVCW41ylsAOp75ty6HYoOi4cuqsZipFm+u4lTxj9XtEyernVX0dqIJLuKSB1WnZNeTe3U41+VeZG8H5eEiChJGbfWaAXRjYLiU15Akz/PVDXmkD19F7oqeqsU0VkaUi2y3vpADlMEi4jXaLsaX0xNkGvUyTLGr1TKBBlEDspr4ptN5EyvAzUFOwSAyEnsfjL9QaLs4kNgiJjzMYXr8w7CHfXgI7tw3ERryOS9FpfCo92KqHMkkQ8psqI/DOvxREY+uCeU4VPuiXLH2Q9w0TJuN3MC6V6cr3qiaMTZwaM6dLRb9FGHTk2XycP+EgJywM3zsc2MPijb4B9PXWlUIi20mnEQTVsGhiN738QwVTAWIlAPk4GnWcJLtrdRaOXUyEe/HAWks6vXeMAduKM1vF8MzgHKz4QJVsbcaPrOxAnS9i70UeA0qNjn3n9d2C9cATJEVS9OD2GoTbkMWWQ5uw== root@boschic",
 ]
+age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl"
 
 [boschic.ipv4]
 address = "192.168.1.214"
 
 [boschic.users.seadoom]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"]
+age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
 
 ## === HODGEPODGE ===
@@ -67,6 +72,7 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS",
   # TODO: add rsa key
 ]
+age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
 
 [hodgepodge.ipv4]
 address = "192.168.1.174"
