@@ -47,6 +47,8 @@
     # Secrets management.
     agenix.url = "github:montchr/agenix/darwin-support";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixos-stable";
 
     # Development tools.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -85,6 +87,7 @@
     nixos-unstable,
     nur,
     nvfetcher,
+    sops-nix,
     ...
   } @ inputs: let
     peers = import ./ops/metadata/peers.nix;
@@ -151,6 +154,7 @@
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
+            sops-nix.nixosModules.sops
           ];
         };
 
