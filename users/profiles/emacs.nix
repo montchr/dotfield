@@ -82,7 +82,7 @@ in {
       if isDarwin
       then pkgs.emacsNativeComp
       else pkgs.emacsPgtkNativeComp;
-    extraPackages = epkgs: with epkgs; [ vterm ];
+    extraPackages = epkgs: with epkgs; [ sqlite vterm ];
   };
 
   services.emacs = lib.mkIf (!isDarwin) {
