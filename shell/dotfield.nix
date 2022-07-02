@@ -37,7 +37,7 @@ in {
     [
       (dotfield nixUnstable)
       (dotfield agenix)
-      # (dotfield inputs.deploy.packages.${pkgs.system}.deploy-rs)
+      (dotfield inputs.deploy.packages.${pkgs.system}.deploy-rs)
       (dotfield terraform)
       (dotfield treefmt)
 
