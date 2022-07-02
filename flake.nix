@@ -160,6 +160,7 @@
           hodgepodge = {};
           hierophant = {};
           tapestone = {};
+          bootstrap-graphical = {};
         };
 
         importables = rec {
