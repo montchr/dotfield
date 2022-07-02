@@ -27,10 +27,15 @@
     };
   };
 in {
+  environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
+
   environment.systemPackages = with pkgs; [
     agenix
     rage
+    sops
   ];
+
+  users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
 
   age.secrets = lib.mkMerge [
     {
@@ -39,4 +44,8 @@ in {
     (mkEspansoMatchesSecret "personal")
     # (mkEspansoMatchesSecret "work")
   ];
+
+  sops.defaultSopsFile = ../secrets/global.secrets.yaml;
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  sops.age.keyFile = "/var/lib/sops-nix/key";
 }
