@@ -82,7 +82,7 @@ in {
       if isDarwin
       then pkgs.emacsNativeComp
       else pkgs.emacsPgtkNativeComp;
-    extraPackages = epkgs: with epkgs; [ sqlite vterm ];
+    extraPackages = epkgs: with epkgs; [vterm];
   };
 
   services.emacs = lib.mkIf (!isDarwin) {
@@ -118,6 +118,11 @@ in {
 
     # :tools lookup
     # & :lang org +roam
+    #
+    # FIXME: sqlite binary unusable in org-roam and forge even after supplying
+    # them... so we let these packages compile the binary... something is
+    # wrong...
+    gcc
     sqlite
 
     # :tools terraform
