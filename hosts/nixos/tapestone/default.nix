@@ -12,27 +12,13 @@ in
     ./boot.nix
     ./filesystems.nix
     ./hardware-configuration.nix
+    ./hetzner.nix
     ./zfs.nix
   ];
 
   networking.hostName = "tapestone";
   networking.domain = lib.mkForce "cube.garden";
   networking.hostId = "93e48b92";
-
-  # Hetzner uses static IP assignments.
-  networking.useDHCP = false;
-  networking.usePredictableInterfaceNames = false;
-
-  networking.defaultGateway = { inherit interface; address = ipv4.gateway; };
-  networking.defaultGateway6 = {inherit interface; address = ipv6.gateway;};
-
-  networking.interfaces.${interface} = {
-    ipv4.addresses = [{inherit (ipv4) address prefixLength;}];
-    ipv6.addresses = [{
-      inherit (ipv6) prefixLength;
-      address = "${ipv6.subnet}::1";
-    }];
-  };
 
   # FIXME: re-enable?
   # networking.firewall.allowedTCPPorts = [ 22 2222 ];
@@ -49,12 +35,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    vim
-    tealdeer
-    fish
-    git
     tor
-    screen
     borgbackup
   ];
 
