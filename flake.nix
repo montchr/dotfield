@@ -178,15 +178,18 @@
             basic = [
               core.common
               core.nixos
+            ];
+            virtual = basic ++ [];
+            server = basic ++ [
               networking.common
               networking.tailscale
-            ];
-            server = basic ++ [
               ssh-host
             ];
-            tangible = [
+            tangible = basic ++ [
               audio
               bluetooth
+              networking.common
+              networking.tailscale
               networking.wifi
               printers-scanners
             ];
