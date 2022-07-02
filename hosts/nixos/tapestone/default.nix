@@ -17,7 +17,6 @@ in
   ];
 
   networking.hostName = "tapestone";
-  networking.domain = lib.mkForce "cube.garden";
   networking.hostId = "93e48b92";
 
   # FIXME: re-enable?
