@@ -45,4 +45,6 @@
     passwordAuthentication = false;
     permitRootLogin = "prohibit-password";
   };
+
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 }
