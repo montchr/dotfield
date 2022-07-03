@@ -72,6 +72,13 @@ parted_nice() {
   }
 }
 
+zmnt() {
+  local pool=$1
+  local mountpoint=$2
+  mkdir -p "$mountpoint"
+  mount -t zfs "$pool" "$mountpoint"
+}
+
 # Create and mount a new ZFS pool.
 zup() {
   local pool=$1
