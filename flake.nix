@@ -276,6 +276,11 @@
               tealdeer
               vim
             ];
+            #: server: travellers across the ether
+            server = [
+              shells.fish
+              ssh
+            ];
             #: developer: those who go
             developer = [
               direnv
