@@ -31,8 +31,7 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/D94C-E69E";
     fsType = "vfat";
-
-    options = ["nofail"];
+    options = ["nofail" "X-mount.mkdir"];
   };
 
   fileSystems."/boot-fallback" = {
@@ -40,7 +39,7 @@
     fsType = "vfat";
     # Continue booting regardless of the availability of the mirrored boot
     # partitions. We don't need both.
-    options = ["nofail"];
+    options = ["nofail" "X-mount.mkdir"];
   };
 
   fileSystems."/" = {
