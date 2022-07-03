@@ -4,6 +4,9 @@
   pkgs,
   ...
 }: {
+  # Required for ZFS.
+  networking.hostId = "93e48b92";
+
   # FIXME: configure mail sending
   nixpkgs.config.packageOverrides = pkgs: {
     zfsStable = pkgs.zfsStable.override {enableMail = true;};
