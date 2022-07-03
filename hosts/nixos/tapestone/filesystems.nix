@@ -15,6 +15,11 @@
 
   boot.zfs.enableUnstable = true;
   boot.zfs.devNodes = "/dev/disk/by-id";
+  boot.zfs.requestEncryptionCredentials = true;
+  # TODO: the manual recommends setting this to false for improved zfs
+  # safeguards, but it's enabled by default for compatibility
+  # zfs.forceImportRoot = false;
+
   boot.supportedFilesystems = ["zfs"];
 
   # ZFS maintenance settings.

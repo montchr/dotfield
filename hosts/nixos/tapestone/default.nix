@@ -1,5 +1,3 @@
-# FIXME: CANNOT BOOT WITHOUT KVM CONSOLE!
-# no shell access to zfs decryption prompt in initrd...
 {
   config,
   pkgs,
