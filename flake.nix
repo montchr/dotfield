@@ -267,6 +267,7 @@
             #: basic: just your average anybody
             basic = [
               core
+              direnv
               misc
               navi
               nnn
