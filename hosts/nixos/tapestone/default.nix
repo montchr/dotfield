@@ -16,7 +16,6 @@ in {
     ./filesystems.nix
     ./hardware-configuration.nix
     ./hetzner.nix
-    ./zfs.nix
   ];
 
   networking.hostName = "tapestone";
