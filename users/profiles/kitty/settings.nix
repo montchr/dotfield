@@ -55,5 +55,8 @@
   # kitty_mod = "ctrl+shift";
   #: }}}
 
+  # Prevent input latency.
+  sync_to_monitor = false;
+
   enable_audio_bell = false;
 }
