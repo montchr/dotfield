@@ -25,7 +25,6 @@
     kernel.sysctl."kernel/sysrq" = 1;
   };
 }
-
 ## sources:
 # https://github.com/balsoft/nixos-config/tree/b5ed51152f96225c0bb14482bdb3022b9c979679/profiles/boot.nix
 

@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [./ssh-host.nix];
 
   services.openssh.permitRootLogin = lib.mkForce "prohibit-password";

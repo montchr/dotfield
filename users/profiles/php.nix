@@ -28,7 +28,6 @@ in {
         -i "/WP_DEBUG_DISPLAY/s/''${CURRENT_STATE}/''${NEW_STATE}/" \
         "''${REPO_ROOT}/../wp-config.php"
     '')
-
   ];
   home.sessionPath = [
     # TODO: prepend not append

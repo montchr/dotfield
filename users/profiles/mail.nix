@@ -78,7 +78,7 @@
     # FIXME: needs configuration
     imapnotify = {
       enable = false;
-      boxes = [ "Inbox" ];
+      boxes = ["Inbox"];
     };
   };
 in {

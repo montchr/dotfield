@@ -1,13 +1,16 @@
 # FIXME: CANNOT BOOT WITHOUT KVM CONSOLE!
 # no shell access to zfs decryption prompt in initrd...
-
-{ config, pkgs, peers, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  peers,
+  lib,
+  ...
+}: let
   inherit (peers.hosts.tapestone) ipv4 ipv6;
   interface = "eth0";
   authorizedKeys = import ../../../identity/authorized-keys.nix;
-in
-{
+in {
   imports = [
     ./boot.nix
     ./filesystems.nix

@@ -86,10 +86,9 @@
     nur,
     nvfetcher,
     ...
-  } @ inputs:
-    let
-      peers = import ./ops/metadata/peers.nix;
-    in
+  } @ inputs: let
+    peers = import ./ops/metadata/peers.nix;
+  in
     digga.lib.mkFlake {
       inherit self inputs;
 
@@ -180,19 +179,23 @@
               core.nixos
             ];
             virtual = basic ++ [];
-            server = basic ++ [
-              networking.common
-              networking.tailscale
-              ssh-host
-            ];
-            tangible = basic ++ [
-              audio
-              bluetooth
-              networking.common
-              networking.tailscale
-              networking.wifi
-              printers-scanners
-            ];
+            server =
+              basic
+              ++ [
+                networking.common
+                networking.tailscale
+                ssh-host
+              ];
+            tangible =
+              basic
+              ++ [
+                audio
+                bluetooth
+                networking.common
+                networking.tailscale
+                networking.wifi
+                printers-scanners
+              ];
             workstation =
               tangible
               ++ [
@@ -326,7 +329,7 @@
 
       # homeConfigurations =
       #   digga.lib.mkHomeConfigurations self.nixosConfigurations;
-        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
         tapestone = {

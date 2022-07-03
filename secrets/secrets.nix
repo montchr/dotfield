@@ -6,13 +6,11 @@ let
 
   servers = with hostKeys;
     hierophant
-    ++ tapestone
-    ;
+    ++ tapestone;
 
   workstations = with hostKeys;
     boschic
-    ++ hodgepodge
-    ;
+    ++ hodgepodge;
 
   allMachines = servers ++ workstations;
 in {

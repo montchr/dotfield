@@ -9,7 +9,7 @@ moduleArgs @ {
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
-  hasTwm = (moduleArgs.osConfig.services.yabai.enable or config.wayland.windowManager.sway.enable);
+  hasTwm = moduleArgs.osConfig.services.yabai.enable or config.wayland.windowManager.sway.enable;
   socket = "unix:/tmp/kitty-socket";
 
   # via home-manager kitty module
