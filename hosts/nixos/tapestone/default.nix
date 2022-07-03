@@ -6,6 +6,7 @@
   peers,
   lib,
   profiles,
+  hmUsers,
   ...
 }: let
   inherit (peers.hosts.tapestone) ipv4 ipv6;
@@ -30,6 +31,11 @@ in {
     initialHashedPassword = "$6$vKTiMLXS2fS8EfAf$cttVu8Gvy5E0sM.qlU.VwrZcnPyjN/DNVY0Mjv5ePMcy.NSrXaWqYU6LvqSIsHmlDgDjrxChUafd5Wn0Y2Unh0";
     isNormalUser = true;
     openssh.authorizedKeys.keys = authorizedKeys;
+  };
+  home-manager.users.seadoom = hmArgs: {
+    imports =
+      (with hmArgs.suites; server)
+      ++ [hmUsers.seadoom];
   };
 
   environment.systemPackages = with pkgs; [
