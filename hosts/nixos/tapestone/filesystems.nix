@@ -45,40 +45,42 @@
   fileSystems."/" = {
     device = "rpool/local/root";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/nix" = {
     device = "rpool/local/nix";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/home" = {
     device = "rpool/safe/home";
     fsType = "zfs";
-    options = ["nofail"];
+    options = ["nofail" "zfsutil"];
   };
 
   fileSystems."/persist" = {
     device = "rpool/safe/persist";
     fsType = "zfs";
-    options = ["nofail"];
+    options = ["nofail" "zfsutil"];
   };
 
   fileSystems."/var/lib/postgres" = {
     device = "rpool/safe/postgres";
     fsType = "zfs";
-    options = ["nofail"];
+    options = ["nofail" "zfsutil"];
   };
 
   fileSystems."/silo/backup" = {
     device = "spool/backup";
     fsType = "zfs";
-    options = ["nofail"];
+    options = ["nofail" "zfsutil"];
   };
 
   fileSystems."/silo/data" = {
     device = "spool/data";
     fsType = "zfs";
-    options = ["nofail"];
+    options = ["nofail" "zfsutil"];
   };
 }
