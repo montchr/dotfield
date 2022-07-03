@@ -13,6 +13,7 @@
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
       boot.refind
+      hardware.amd
       hidpi
       nvidia
       remote-builder
