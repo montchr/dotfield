@@ -51,4 +51,6 @@
   # This is the default value.
   # kitty_mod = "ctrl+shift";
   #: }}}
+
+  enable_audio_bell = false;
 }
