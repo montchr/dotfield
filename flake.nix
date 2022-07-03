@@ -295,6 +295,7 @@
               desktop.common
               desktop.gnome
               firefox
+              foot
               keyboard
               kitty
               secrets.one-password
