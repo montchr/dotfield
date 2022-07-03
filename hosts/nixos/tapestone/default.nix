@@ -5,24 +5,21 @@
   pkgs,
   peers,
   lib,
+  profiles,
   ...
 }: let
   inherit (peers.hosts.tapestone) ipv4 ipv6;
   interface = "eth0";
   authorizedKeys = import ../../../identity/authorized-keys.nix;
 in {
-  imports = [
-    ./boot.nix
-    ./filesystems.nix
-    ./hardware-configuration.nix
-    ./hetzner.nix
-  ];
-
-  networking.hostName = "tapestone";
-  networking.hostId = "93e48b92";
-
-  # FIXME: re-enable?
-  # networking.firewall.allowedTCPPorts = [ 22 2222 ];
+  imports =
+    (with profiles; [hardware.amd])
+    ++ [
+      ./boot.nix
+      ./filesystems.nix
+      ./hardware-configuration.nix
+      ./network.nix
+    ];
 
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
