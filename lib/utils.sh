@@ -1,4 +1,3 @@
-# -*- eval: (sh-set-shell "bash") -*-
 # shellcheck shell=bash
 #
 #
