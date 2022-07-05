@@ -50,7 +50,6 @@ command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts
 " Hinting mode
 set hintfiltermode vimperator-reflow
 set hintnames short
-" set hintnames numeric
 
 " Defaults to 300ms
 set hintdelay 100
@@ -61,6 +60,7 @@ set hintdelay 100
 
 " Add some URLs to the disallow list
 blacklistadd https://mail.google.com/mail
+blacklistadd https://configure.zsa.io
 
 
 "
@@ -84,11 +84,10 @@ colors base16-grayscale-dark
 " Search
 "
 
-set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
-set searchurls.bundle https://bundlephobia.com/package/%s
+set searchurls.alt2 https://alternativeto.net/browse/search/?q=
 set searchurls.caniuse https://caniuse.com/?search=
 set searchurls.gh https://github.com/search?q=
 set searchurls.nixopts https://search.nixos.org/options?query=
 set searchurls.nixpkgs https://search.nixos.org/packages?query=
 set searchurls.nixwiki https://nixos.wiki/index.php?search=
-set searchurls.npm https://www.npmjs.com/search?q=
+set searchurls.npm https://bundlephobia.com/package/%s
