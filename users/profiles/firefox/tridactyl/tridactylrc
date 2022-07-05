@@ -87,6 +87,7 @@ colors base16-grayscale-dark
 set searchurls.alt2 https://alternativeto.net/browse/search/?q=
 set searchurls.caniuse https://caniuse.com/?search=
 set searchurls.gh https://github.com/search?q=
+set searchurls.ghnix https://cs.github.com/?scopeName=All+repos&scope=&q=language%3Anix+
 set searchurls.nixopts https://search.nixos.org/options?query=
 set searchurls.nixpkgs https://search.nixos.org/packages?query=
 set searchurls.nixwiki https://nixos.wiki/index.php?search=
