@@ -6,8 +6,8 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 11.0)
-       doom-variable-pitch-font (font-spec :family "Barlow" :size 10.0))
+(setq! doom-font (font-spec :family "Iosevka Seadome" :size 13.0 :spacing 90)
+       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15.0 :spacing 0))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -77,8 +77,9 @@
 (after! doom-modeline
   (custom-set-faces!
     '((mode-line mode-line-inactive)
-      :family "PragmataPro Mono"
-      :size 8.0)))
+      :family "Iosevka Fixed"
+      :size 10.0
+      :spacing 100)))
 
 ;; === appearance ==============================================================
 
@@ -352,52 +353,6 @@
 
 
 ;; === misc. ===================================================================
-
-(set-ligatures! 'org-mode
-  :todo "TODO")
-
-(plist-put! +ligatures-extra-symbols
-            ;; org
-            :name          "»"
-            :src_block     "»"
-            :src_block_end "«"
-            :quote         "“"
-            :quote_end     "”"
-
-            ;; Functional
-            :lambda        "λ"
-            :def           "ƒ"
-            :composition   "∘"
-            :map           "↦"
-
-            ;; Types
-            :null          "∅"
-            :true          "𝕋"
-            :false         "𝔽"
-            :int           "ℤ"
-            :float         "ℝ"
-            :str           "𝕊"
-            :bool          "𝔹"
-            :list          "𝕃"
-
-            ;; Flow
-            :not           "!"
-            :in            "∈"
-            :not-in        "∉"
-            :and           "∧"
-            :or            "∨"
-            :for           "∀"
-            :some          "∃"
-            :return        "⟼"
-            :yield         "⟻"
-
-            ;; Other
-            :union         "⋃"
-            :intersect     "∩"
-            :diff          "∖"
-            :tuple         "⨂"
-            :pipe          " "
-            :dot           "•")
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"

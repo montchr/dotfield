@@ -31,6 +31,19 @@ moduleArgs @ {
     lib.concatMapStringsSep "\n"
     (style: mkFontFeatures "${family}-${style}" features)
     styles;
+
+  pragmataProExtras = let
+    fontStyles = ["Regular" "Italic" "BoldItalic"];
+    # https://fsd.it/pragmatapro/Handbook.png
+    fontFeatures = [
+      "+calt" # Standard programming ligatures.
+      # "+frac" # Fraction stylization.
+      # "+ss12" # Assorted iconizations.
+      # "+ss13" # Smooth graphs e.g. for git log.
+    ];
+  in ''
+    ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
+  '';
 in
   lib.mkMerge [
     (lib.mkIf isLinux {
@@ -63,17 +76,8 @@ in
       programs.kitty = {
         enable = true;
 
-        extraConfig = let
-          fontStyles = ["Regular" "Italic" "BoldItalic"];
-          # https://fsd.it/pragmatapro/Handbook.png
-          fontFeatures = [
-            "+calt" # Standard programming ligatures.
-            # "+frac" # Fraction stylization.
-            # "+ss12" # Assorted iconizations.
-            "+ss13" # Smooth graphs e.g. for git log.
-          ];
-        in ''
-          ${mkFontFeatures' "PragmataProMonoLiga" fontStyles fontFeatures}
+        extraConfig = ''
+          ${lib.optionalString (lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family) pragmataProExtras}
         '';
 
         settings =

@@ -15,6 +15,25 @@
 in {
   colorscheme = inputs.nix-colors.colorSchemes.${theme};
 
+  theme.font = {
+    mono = {
+      family = "Iosevka Seadome";
+      size = 13;
+    };
+    sans = {
+      family = "Iosevka Comfy Duo";
+      size = 13;
+    };
+    serif = {
+      family = "Iosevka Curly Slab";
+      size = 13;
+    };
+    # sym = {
+    #   family = "Iosevka Nerd Font Complete";
+    #   size = lib.mkDefault config.theme.font.mono.size;
+    # };
+  };
+
   home.sessionVariables = {
     BASE16_THEME_DARK = "black-metal-khold";
     BASE16_THEME_LIGHT = "grayscale-light";

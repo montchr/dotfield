@@ -3,7 +3,8 @@
   hasTwm,
   socket,
 }: {
-  font_family = "PragmataPro Mono Liga";
+  # FIXME: include nerdfont for icons!
+  font_family = "Iosevka Term";
   font_size = lib.mkDefault "14.0";
   adjust_line_height = "110%";
   # TODO: why?

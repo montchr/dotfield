@@ -139,7 +139,7 @@
         nvfetcher.overlay
 
         (import ./pkgs)
-        (import ./pkgs/fonts/iosevka)
+        (import ./pkgs/fonts/iosevka.nix)
       ];
 
       nixos = {

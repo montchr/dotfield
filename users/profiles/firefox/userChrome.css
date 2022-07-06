@@ -1,4 +1,5 @@
 * {
-  font-family: 'PragmataPro Mono Liga', monospace !important;
+  /* FIXME: iosevka */
+  font-family: 'Iosevka Seadome', monospace !important;
   /* font-size: 13px; */
 }

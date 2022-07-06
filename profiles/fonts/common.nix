@@ -1,11 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     (lib.mkIf isLinux font-manager)
   ];
@@ -24,23 +25,29 @@ in {
         public-sans
 
         iosevka-seadome
-        # iosevka-fixed
-        # iosevka-term
+        iosevka-nf
+        iosevka-fixed
+        iosevka-term
 
-        # iosevka-slab
-        # iosevka-fixed-slab
-        # iosevka-term-slab
+        iosevka-slab
+        iosevka-fixed-slab
+        iosevka-term-slab
 
-        # iosevka-curly
-        # iosevka-fixed-curly
-        # iosevka-term-curly
+        iosevka-curly
+        iosevka-fixed-curly
+        iosevka-term-curly
 
-        # iosevka-curly-slab
-        # iosevka-fixed-curly-slab
-        # iosevka-term-curly-slab
+        iosevka-curly-slab
+        iosevka-fixed-curly-slab
+        iosevka-term-curly-slab
 
-        # iosevka-aile
-        # iosevka-etoile
+        iosevka-aile
+        iosevka-etoile
+
+        iosevka-comfy.comfy
+        iosevka-comfy.comfy-duo
+        iosevka-comfy.comfy-wide
+        iosevka-comfy.comfy-wide-fixed
 
       ]
       ++ (lib.optionals isLinux [
