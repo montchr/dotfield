@@ -6,8 +6,8 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "PragmataPro Liga" :size 14.0)
-       doom-variable-pitch-font (font-spec :family "Barlow" :size 16.0))
+(setq! doom-font (font-spec :family "PragmataPro Liga" :size 11.0)
+       doom-variable-pitch-font (font-spec :family "Barlow" :size 10.0))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -78,7 +78,7 @@
   (custom-set-faces!
     '((mode-line mode-line-inactive)
       :family "PragmataPro Mono"
-      :size 10.0)))
+      :size 8.0)))
 
 ;; === appearance ==============================================================
 
