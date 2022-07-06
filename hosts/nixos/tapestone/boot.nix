@@ -8,13 +8,13 @@
 }: let
   port = 22;
   authorizedKeys = import ../../../identity/authorized-keys.nix;
-  torRc = (pkgs.writeText "tor.rc" ''
+  torRc = pkgs.writeText "tor.rc" ''
     DataDirectory /etc/tor
     SOCKSPort 127.0.0.1:9050 IsolateDestAddr
     SOCKSPort 127.0.0.1:9063
     HiddenServiceDir /etc/tor/onion/bootup
     HiddenServicePort ${port} 127.0.0.1:${port}
-  '');
+  '';
 in {
   boot.initrd = {
     availableKernelModules = [
@@ -44,7 +44,7 @@ in {
         inherit
           authorizedKeys
           port
-        ;
+          ;
         enable = true;
         hostKeys = [
           /etc/secrets/initrd/ssh_host_rsa_key
