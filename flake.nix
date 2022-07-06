@@ -136,6 +136,7 @@
         nvfetcher.overlay
 
         (import ./pkgs)
+        (import ./pkgs/fonts/iosevka)
       ];
 
       nixos = {

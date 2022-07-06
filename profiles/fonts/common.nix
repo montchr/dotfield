@@ -22,6 +22,26 @@ in {
         inter
         jost
         public-sans
+
+        iosevka-seadome
+        # iosevka-fixed
+        # iosevka-term
+
+        # iosevka-slab
+        # iosevka-fixed-slab
+        # iosevka-term-slab
+
+        # iosevka-curly
+        # iosevka-fixed-curly
+        # iosevka-term-curly
+
+        # iosevka-curly-slab
+        # iosevka-fixed-curly-slab
+        # iosevka-term-curly-slab
+
+        # iosevka-aile
+        # iosevka-etoile
+
       ]
       ++ (lib.optionals isLinux [
         corefonts
