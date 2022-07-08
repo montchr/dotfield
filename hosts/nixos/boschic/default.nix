@@ -6,9 +6,16 @@
   profiles,
   suites,
   inputs,
+  peers,
   primaryUser,
   ...
-}: {
+}: let
+  inherit (config.networking) hostName;
+
+  host = peers.hosts.${hostName};
+  net = peers.networks.${host.network};
+  interface = "eth0";
+in {
   imports =
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
@@ -35,9 +42,23 @@
   ## --- networking ---
 
   networking.useDHCP = false;
-  networking.interfaces.enp8s0.useDHCP = true;
+  networking.usePredictableInterfaceNames = false;
   networking.interfaces.wlp6s0.useDHCP = true;
   networking.firewall.enable = false;
+
+  networking.defaultGateway = {
+    inherit interface;
+    inherit (net.ipv4) address;
+  };
+
+  networking.interfaces.${interface} = {
+    ipv4.addresses = [
+      {
+        inherit (host.ipv4) address;
+        inherit (net.ipv4) prefixLength;
+      }
+    ];
+  };
 
   ### === users ================================================================
 
