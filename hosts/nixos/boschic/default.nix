@@ -43,7 +43,7 @@ in {
 
   networking.useDHCP = false;
   networking.usePredictableInterfaceNames = false;
-  networking.interfaces.wlp6s0.useDHCP = true;
+  # networking.interfaces.wlp6s0.useDHCP = true;
   networking.firewall.enable = false;
 
   networking.defaultGateway = {
