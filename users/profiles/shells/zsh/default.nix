@@ -15,7 +15,7 @@ in {
     zsh
   ];
 
-  programs.starship.enableZshIntegration = false;
+  programs.starship.enableZshIntegration = true;
 
   programs.zsh = {
     inherit
@@ -35,28 +35,12 @@ in {
     history.extended = true;
     history.ignoreDups = true;
 
-    plugins = with pkgs; [
-      # {
-      #   name = "nix-zsh-complete.zsh";
-      #   src = zsh-complete;
-      #   file = "_nix";
-      # }
-      {
-        name = "powerlevel10k";
-        src = zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = lib.cleanSource ./p10k-config;
-        file = "p10k.zsh";
-      }
-    ];
+    # plugins = with pkgs; [];
 
     initExtraFirst = ''
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
+      # if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+      #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      # fi
     '';
 
     initExtraBeforeCompInit = ''
