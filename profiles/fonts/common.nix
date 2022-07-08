@@ -1,12 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+in {
   environment.systemPackages = with pkgs; [
     (lib.mkIf isLinux font-manager)
   ];
@@ -48,7 +47,6 @@ in
         iosevka-comfy.comfy-duo
         iosevka-comfy.comfy-wide
         iosevka-comfy.comfy-wide-fixed
-
       ]
       ++ (lib.optionals isLinux [
         corefonts

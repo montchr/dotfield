@@ -10,7 +10,7 @@ channels: final: prev: {
     nerdfonts
     kitty
     xplr
-  ;
+    ;
 
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
 }
