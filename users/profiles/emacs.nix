@@ -89,7 +89,6 @@ in {
     enable = true;
     defaultEditor = lib.mkForce true;
     socketActivation.enable = true;
-    startWithUserSession = true;
   };
 
   home.packages = with pkgs; [
