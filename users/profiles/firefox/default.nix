@@ -8,6 +8,8 @@ moduleArgs @ {
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
+  themeFonts = config.theme.font;
+
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
@@ -76,10 +78,10 @@ moduleArgs @ {
 
       # FIXME: use global font defaults
       "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = "PragmataPro";
-      "font.name.sans-serif.x-western" = "IBM Plex Sans";
-      "font.name.serif.x-western" = "IBM Plex Serif";
-      "font.size.monospace.x-western" = 18;
+      "font.name.monospace.x-western" = themeFonts.mono.family;
+      "font.name.sans-serif.x-western" = themeFonts.sans.family;
+      "font.name.serif.x-western" = themeFonts.serif.family;
+      "font.size.monospace.x-western" = themeFonts.mono.size;
 
       "identity.fxaccounts.account.device.name" = hostName;
 
@@ -114,8 +116,8 @@ moduleArgs @ {
         /* @import url("${toString ./userChrome.css}"); */
 
         * {
-          font-family: "PragmataPro Mono Liga", monospace !important;
-          /* font-size: 13px; */
+          font-family: ${themeFonts.mono.family}, monospace !important;
+          /* font-size: ${builtins.toString themeFonts.mono.size}px; */
         }
       '';
       userContent = ''

@@ -33,8 +33,6 @@
     utillinux
   ];
 
-  users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
-
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh = {

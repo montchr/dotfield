@@ -74,7 +74,7 @@
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
-    EXA_ICON_SPACING = "2";
+    # EXA_ICON_SPACING = "2";
 
     Z_DATA = "$XDG_DATA_HOME/z";
     Z_OWNER = config.home.username;
