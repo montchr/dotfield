@@ -301,6 +301,8 @@
               secrets.one-password
               themes
             ];
+            #: listen: hey!
+            listen = [apple-music spotify];
             #: workstation: level++
             workstation =
               graphical
