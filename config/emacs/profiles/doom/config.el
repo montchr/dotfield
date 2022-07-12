@@ -6,8 +6,13 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "Iosevka Seadome" :size 13.0 :spacing 90)
+(setq! doom-font (font-spec :family "Iosevka Seadome" :size 14.0 :spacing 90)
        doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15.0 :spacing 0))
+(custom-set-faces!
+    '((mode-line mode-line-inactive)
+      :family "Iosevka Fixed"
+      :size 10.0
+      :spacing 100))
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
@@ -74,12 +79,6 @@
 
 ;; === modeline ================================================================
 
-(after! doom-modeline
-  (custom-set-faces!
-    '((mode-line mode-line-inactive)
-      :family "Iosevka Fixed"
-      :size 10.0
-      :spacing 100)))
 
 ;; === appearance ==============================================================
 
