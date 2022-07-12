@@ -49,7 +49,7 @@
   home-manager.users.seadoom = hmArgs: {
     imports =
       [hmUsers.seadoom]
-      ++ (with hmArgs.suites; workstation);
+      ++ (with hmArgs.suites; (listen ++ workstation));
 
     programs.kitty.settings."font_size" = "11.0";
   };
