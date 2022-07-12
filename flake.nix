@@ -8,7 +8,7 @@
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
-    digga.url = "github:divnix/digga/hotfix-exported-overlays";
+    digga.url = "github:divnix/digga/home-manager-22.11";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
