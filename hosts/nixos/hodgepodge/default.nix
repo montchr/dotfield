@@ -51,6 +51,10 @@
       [hmUsers.seadoom]
       ++ (with hmArgs.suites; (listen ++ workstation));
 
+    home.packages = with pkgs; [
+      teams
+    ];
+
     programs.kitty.settings."font_size" = "11.0";
   };
 
