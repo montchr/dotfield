@@ -8,7 +8,7 @@
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
-    digga.url = "github:divnix/digga/hotfix-exported-overlays";
+    digga.url = "github:divnix/digga/home-manager-22.11";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
@@ -75,7 +75,6 @@
     darwin,
     deploy,
     digga,
-    emacs-overlay,
     gitignore,
     home-manager,
     nixlib,
@@ -89,7 +88,13 @@
     nvfetcher,
     sops-nix,
     ...
-  } @ inputs: let
+  } @ inputs': let
+    inputs = inputs' // {
+      # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
+      emacs-overlay = inputs'.emacs-overlay // {
+        overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
+      };
+    };
     peers = import ./ops/metadata/peers.nix;
   in
     digga.lib.mkFlake {
@@ -103,6 +108,9 @@
             (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/nixos-stable)
           ];
+          overlays = [
+            inputs.emacs-overlay.overlay
+          ];
         };
         nixpkgs-darwin-stable = {
           imports = [
@@ -111,6 +119,7 @@
           ];
           overlays = [
             ./pkgs/darwin
+            inputs.emacs-overlay.overlay
           ];
         };
         nixos-unstable = {
@@ -133,7 +142,6 @@
         })
 
         agenix.overlay
-        emacs-overlay.overlay
         gitignore.overlay
         nur.overlay
         nvfetcher.overlay
