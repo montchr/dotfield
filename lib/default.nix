@@ -13,4 +13,7 @@ lib.makeExtensible (self: {
       type = lib.types.bool;
       example = true;
     };
+
+  # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
+  overlayNullProtector = import ./overlay-null-protector.nix;
 })
