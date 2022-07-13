@@ -99,4 +99,6 @@
     # https://github.com/mfaerevaag/wd
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
+
+  home.stateVersion = lib.mkForce "22.05";
 }
