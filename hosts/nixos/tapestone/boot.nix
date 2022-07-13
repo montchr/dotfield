@@ -6,6 +6,7 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) toString;
   port = 22;
   authorizedKeys = import ../../../identity/authorized-keys.nix;
   torRc = pkgs.writeText "tor.rc" ''
@@ -13,7 +14,7 @@
     SOCKSPort 127.0.0.1:9050 IsolateDestAddr
     SOCKSPort 127.0.0.1:9063
     HiddenServiceDir /etc/tor/onion/bootup
-    HiddenServicePort ${port} 127.0.0.1:${port}
+    HiddenServicePort ${toString port} 127.0.0.1:${toString port}
   '';
 in {
   boot.initrd = {
