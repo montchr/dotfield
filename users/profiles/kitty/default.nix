@@ -46,10 +46,6 @@ moduleArgs @ {
   '';
 in
   lib.mkMerge [
-    (lib.mkIf isLinux {
-      home.packages = [pkgs.kitty];
-    })
-
     (lib.mkIf isDarwin {
       # Handled by the Homebrew module
       # This populates a dummy package to satisfy the requirement
