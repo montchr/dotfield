@@ -251,8 +251,10 @@
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/darwin)];
-        hosts = {};
+        imports = [(digga.lib.importHosts ./darwin/machines)];
+        hosts = {
+          tmpln = {};
+        };
 
         importables = rec {
           inherit peers;
@@ -266,6 +268,7 @@
               core.common
               core.darwin
               networking.common
+              networking.tailscale
             ];
             workstation = [
               fonts.common
@@ -274,6 +277,7 @@
               os-specific.darwin.gui
               os-specific.darwin.system-defaults
               secrets
+              ssh-host
             ];
           };
         };
@@ -344,26 +348,22 @@
           };
         };
 
-        users = {
+        users = rec {
           nixos = {suites, ...}: {
             imports = [];
           };
-          seadoom = {suites, ...}: {
+          cdom = {suites, ...}: {
             imports = with suites;
               basic ++ developer;
           };
-          xtallos = {suites, ...}: {
-            imports = with suites;
-              basic ++ developer;
-          };
+          seadoom = cdom;
         };
       };
 
       devshell = ./shell;
 
       homeConfigurations = digga.lib.mkHomeConfigurations
-        self.nixosConfigurations;
-        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+        (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
         # {
         #   inherit
         #     (self.nixosConfigurations)
