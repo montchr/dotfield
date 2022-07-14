@@ -6,8 +6,11 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq! doom-font (font-spec :family "Iosevka Seadome" :size 14.0)
-       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15.0))
+(setq doom-font (font-spec :family "Iosevka Seadome" :height 120)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :height 120))
+
+;; FIXME: varies per system! this is for the LG 27GL850-B 27" @ 2560x1440
+(setq! display-pixels-per-inch 108.79)
 
 ;; Start the emacs server.
 ;; Open a new frame with `emacsclient -cn'.
