@@ -5,11 +5,12 @@
   lib,
   profiles,
   hmUsers,
+  primaryUser,
   ...
 }: let
   inherit (peers.hosts.tapestone) ipv4 ipv6;
+  inherit (primaryUser) authorizedKeys;
   interface = "eth0";
-  authorizedKeys = import ../../../identity/authorized-keys.nix;
 in {
   imports =
     (with profiles; [hardware.amd])
