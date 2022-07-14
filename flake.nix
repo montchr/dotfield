@@ -361,9 +361,17 @@
 
       devshell = ./shell;
 
-      # homeConfigurations =
-      #   digga.lib.mkHomeConfigurations self.nixosConfigurations;
-      # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      homeConfigurations = digga.lib.mkHomeConfigurations
+        self.nixosConfigurations;
+        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+        # {
+        #   inherit
+        #     (self.nixosConfigurations)
+        #     boschic
+        #     hodgepodge
+        #     tapestone
+        #     ;
+        # };
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
         tapestone = {
