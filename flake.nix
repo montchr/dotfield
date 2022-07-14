@@ -208,7 +208,8 @@
               basic
               ++ [
                 networking.common
-                networking.tailscale
+                # FIXME: this can cause a lock-out!
+                # networking.tailscale
                 ssh-host
               ];
             tangible =
