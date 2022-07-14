@@ -158,7 +158,7 @@ in {
 
     # :lang python
     pipenv
-    (python3.withPackages (ps:
+    (python310.withPackages (ps:
       with ps; [
         black
         grip
