@@ -44,6 +44,22 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rv
 age = "age18ngk35h7qycc9kzjc4fy788nvnvlce8gvjahkvkkjxlahd5r54vqhmq9y2"
 
 
+## === CDOTMPLN ===
+
+[cdotmpln]
+network = "home"
+tailscale = ""
+keys = []
+age = ""
+
+[cdotmpln.networks.home.ipv4]
+address = "192.168.1.215"
+
+[cdotmpln.users.chris]
+keys = []
+age = ""
+
+
 ## === BOSCHIC ===
 
 [boschic]

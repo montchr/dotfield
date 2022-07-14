@@ -7,26 +7,15 @@
   hmUsers,
   ...
 }: {
-  users.users.chrismont = {
-    home = "/Users/montchr";
+  users.users.chris = {
     isHidden = false;
     shell = pkgs.zsh;
   };
 
-  home-manager.users.montchr = hmArgs: {
-    imports =
-      [hmUsers.xtallos]
-      ++ (with hmArgs.suites; workstation)
-      ++ (with hmArgs.profiles; [
-        aws
-        nodejs
-        php
-        ruby
-        virtualisation.vagrant
-      ]);
+  home-manager.users.chris = hmArgs: {
+    imports = [hmUsers.chrismont];
 
     home.packages = with pkgs; [
-      ngrok
       # TODO: move this to a common profile when pandas dep is fixed upstream
       visidata # A terminal spreadsheet multitool for discovering and arranging data
     ];
@@ -38,9 +27,10 @@
 
     programs.git.includes = [
       {
-        condition = "gitdir:~/broadway/**";
+        condition = "gitdir:~/workspaces/kleinweb**";
         contents = {
-          user.email = "chris@alley.co";
+          # TODO: configure mail
+          user.email = "chrismont@temple.edu";
         };
       }
     ];

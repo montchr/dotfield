@@ -253,7 +253,7 @@
 
         imports = [(digga.lib.importHosts ./darwin/machines)];
         hosts = {
-          tmpln = {};
+          cdotmpln = {};
         };
 
         importables = rec {
@@ -357,6 +357,15 @@
               basic ++ developer;
           };
           seadoom = cdom;
+          chrismont = {profiles, suites, ...}: {
+            imports =
+              (with suites; workstation)
+              ++ (with profiles; [
+                aws
+                nodejs
+                php
+              ]);
+          };
         };
       };
 
