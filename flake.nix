@@ -101,6 +101,17 @@
     digga.lib.mkFlake {
       inherit self inputs;
 
+      supportedSystems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+
+        # FIXME: many python packages will not build on this system due to
+        # broken pyopenssl dependency
+        # https://github.com/NixOS/nixpkgs/issues/175875
+        # https://github.com/pyca/pyopenssl/issues/873
+        # "aarch64-darwin"
+      ];
+
       channelsConfig.allowUnfree = true;
 
       channels = {
