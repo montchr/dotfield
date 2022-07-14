@@ -12,6 +12,7 @@
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
+    digga.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixlib.url = "github:nix-community/nixpkgs.lib";
     flake-compat = {
       url = "github:edolstra/flake-compat";
