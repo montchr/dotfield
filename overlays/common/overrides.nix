@@ -14,6 +14,5 @@ channels: final: prev: {
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
 
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
-  awscli2 = final.python310Packages.awscli2;
   httpie = final.python310Packages.httpie;
 }
