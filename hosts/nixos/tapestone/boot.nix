@@ -1,5 +1,3 @@
-# FIXME: CANNOT BOOT WITHOUT KVM CONSOLE!
-# no shell access to zfs decryption prompt in initrd...
 {
   config,
   lib,
@@ -9,8 +7,6 @@
 }: let
   inherit (builtins) toString;
   inherit (primaryUser) authorizedKeys;
-
-  port = 22;
 in {
   boot.initrd = {
     availableKernelModules = [
@@ -32,6 +28,13 @@ in {
     version = 2;
     efiSupport = true;
     device = "nodev";
+    copyKernels = true;
+    mirroredBoots = [
+      {
+        devices = [config.fileSystems."/boot-fallback".device];
+        path = "/boot-fallback";
+      }
+    ];
   };
 
   boot.extraModulePackages = [];

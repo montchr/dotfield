@@ -5,7 +5,7 @@
   ...
 }: {
   # Required for ZFS.
-  networking.hostId = "93e48b92";
+  networking.hostId = "e2e496d7";
 
   # FIXME: configure mail sending
   nixpkgs.config.packageOverrides = pkgs: {
@@ -37,13 +37,13 @@
   swapDevices = [];
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D94C-E69E";
+    device = "/dev/disk/by-uuid/FE8C-F3AE";
     fsType = "vfat";
     options = ["nofail" "X-mount.mkdir"];
   };
 
   fileSystems."/boot-fallback" = {
-    device = "/dev/disk/by-uuid/D94D-4F3B";
+    device = "/dev/disk/by-uuid/FF5D-559E";
     fsType = "vfat";
     # Continue booting regardless of the availability of the mirrored boot
     # partitions. We don't need both.
