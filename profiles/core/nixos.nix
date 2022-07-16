@@ -33,6 +33,14 @@
     utillinux
   ];
 
+  programs.git.enable = true;
+  programs.git.config = {
+    safe.directory = [
+      "/etc/nixos"
+      "/etc/dotfield"
+    ];
+  };
+
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh = {
