@@ -13,3 +13,4 @@ in
     ++ tapestone.users.seadoom.keys
     ++ aerattum.users.blink.keys
     ++ aerattum.users.workingcopy.keys
+    ++ brakhage.users.blink.keys
