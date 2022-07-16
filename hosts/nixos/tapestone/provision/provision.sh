@@ -107,6 +107,20 @@ zup() {
   mount -t zfs "$pool" "$mountpoint"
 }
 
+btrmnt() {
+  local subvol=$1
+  local mountpoint=$2
+  shift 2
+
+  local extraOptions=$*
+  local point="/mnt${mountpoint}"
+
+  mkdir -p "${point}"
+  mount -o "compress=zstd,subvol=${subvol},${extraOptions}" \
+    /dev/disk/by-label/nixos \
+    "${point}"
+}
+
 
 ###: PREPARE ENVIRONMENT =======================================================
 
@@ -160,16 +174,16 @@ ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 # Create partition tables (--script to not ask)
 parted_nice --script $NVME1 mklabel gpt
 parted_nice --script $NVME2 mklabel gpt
-parted_nice --script $HDD01 mklabel gpt
-parted_nice --script $HDD02 mklabel gpt
-parted_nice --script $HDD03 mklabel gpt
-parted_nice --script $HDD04 mklabel gpt
-parted_nice --script $HDD05 mklabel gpt
-parted_nice --script $HDD06 mklabel gpt
-parted_nice --script $HDD07 mklabel gpt
-parted_nice --script $HDD08 mklabel gpt
-parted_nice --script $HDD09 mklabel gpt
-parted_nice --script $HDD10 mklabel gpt
+# parted_nice --script $HDD01 mklabel gpt
+# parted_nice --script $HDD02 mklabel gpt
+# parted_nice --script $HDD03 mklabel gpt
+# parted_nice --script $HDD04 mklabel gpt
+# parted_nice --script $HDD05 mklabel gpt
+# parted_nice --script $HDD06 mklabel gpt
+# parted_nice --script $HDD07 mklabel gpt
+# parted_nice --script $HDD08 mklabel gpt
+# parted_nice --script $HDD09 mklabel gpt
+# parted_nice --script $HDD10 mklabel gpt
 
 
 # Create partitions with GNU `parted`.
@@ -235,63 +249,41 @@ done
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
-# FIXME: for some reason, these aren't available initially, and these commands need to be run a second time...
 mkdir -p /mnt/boot{-fallback,}
-mount $NVME1-part1 /mnt/boot
-mount $NVME2-part1 /mnt/boot-fallback
+mount "${NVME1}-part2" /mnt/boot
+mount "${NVME2}-part2" /mnt/boot-fallback
 
+mkfs.btrfs -f -L nixos -d single \
+  "${NVME1}-part4" \
+  "${NVME2}-part4"
 
-###: INITIALIZE 'ROOT' POOL ====================================================
+btrfs device scan
 
-zpool create \
-  -o ashift=12 \
-  -o autotrim=on \
-  -O acltype=posixacl \
-  -O atime=off \
-  -O canmount=off \
-  -O dnodesize=auto \
-  -O mountpoint=none \
-  -O normalization=formD \
-  -O relatime=on \
-  -O xattr=sa \
-  -f \
-  rpool \
-  mirror \
-  $NVME1-part2 $NVME2-part2
+mkdir -p /mnt/btrfs
 
-# Reserve 1GB of space for ZFS operations -- even delete requires free space
-zfs create \
-  -o refreservation=1G \
-  -o mountpoint=none \
-  rpool/reserved
+mount -t btrfs /dev/disk/by-label/nixos /mnt/btrfs
 
-zfs create \
-  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
-  -o mountpoint=none \
-  rpool/local
+btrfs subvolume create /mnt/btrfs/local
+btrfs subvolume create /mnt/btrfs/local/root
+btrfs subvolume create /mnt/btrfs/local/nix
+btrfs subvolume create /mnt/btrfs/local/log
 
-zfs create \
-  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
-  -o mountpoint=none \
-  -o "com.sun:auto-snapshot=true" \
-  rpool/safe
+btrfs subvolume create /mnt/btrfs/safe
+btrfs subvolume create /mnt/btrfs/safe/home
+btrfs subvolume create /mnt/btrfs/safe/persist
+btrfs subvolume create /mnt/btrfs/safe/postgres
 
-zup rpool/local/root /mnt
+btrfs subvolume list -a /mnt/btrfs
+umount /mnt
 
-# Take an initial snapshot with the root dataset before mounting anything else.
-zfs snapshot rpool/local/root@blank
-
-zup rpool/local/nix /mnt/nix
-
-zup rpool/safe/home /mnt/home
-zup rpool/safe/persist /mnt/persist
-
-# Create a special volume optimized for databases
-# https://wiki.archlinux.org/index.php/ZFS#Databases
-zup rpool/safe/postgres /mnt/var/lib/postgres \
-  -o recordsize=8K \
-  -o primarycache=metadata \
-  -o logbias=throughput
+# Mount directly at /mnt
+btrmnt local/root /
+btrmnt local/nix /nix noatime
+btrmnt local/log /var/log
+btrmnt safe/home /home
+btrmnt safe/persist /persist
+# FIXME: add proper options
+btrmnt safe/postgres /var/lib/postgres
 
 
 ###: INITIALIZE 'SILO' POOL ====================================================
@@ -336,8 +328,7 @@ set +u +x # sourcing this may refer to unset variables that we have no control o
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 set -u -x
 
-# FIXME: could this have a negative effect on initial installation root detection? probably not, but i'm superstitious.
-# echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 
 nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
 nix-channel --update
@@ -477,7 +468,7 @@ nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt
 mkdir -p /mnt/tmp
 
 # Install NixOS
-PATH="$PATH" NIX_PATH="$NIX_PATH" "$(command -v nixos-install)" \
+PATH="$PATH" "$(command -v nixos-install)" \
   --no-root-passwd \
   --root /mnt \
   --max-jobs "$(nproc)"
