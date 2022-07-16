@@ -372,8 +372,8 @@
 
       devshell = ./shell;
 
-      homeConfigurations = digga.lib.mkHomeConfigurations
-        (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
         # {
         #   inherit
         #     (self.nixosConfigurations)
@@ -386,7 +386,7 @@
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
         tapestone = {
           hostname = peers.hosts.tapestone.ipv4.address;
-          sshUser = "seadoom";
+          sshUser = "root";
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
