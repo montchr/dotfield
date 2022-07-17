@@ -6,17 +6,6 @@
 }: {
   boot.supportedFilesystems = ["btrfs"];
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/d84100d6-9750-4577-9a6e-c2894cbe11da";
-      randomEncryption.enable = true;
-    }
-    {
-      device = "/dev/disk/by-uuid/bc9eca8b-a87f-4ffb-b21c-4b88b0ab9771";
-      randomEncryption.enable = true;
-    }
-  ];
-
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
@@ -51,6 +40,18 @@
     { device = "/dev/disk-by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=safe/postgres" "nofail" ];
+    };
+
+  fileSystems."/silo/backup" =
+    { device = "/dev/disk/by-label/silo";
+      fsType = "btrfs";
+      options = [ "nofail" "subvol=backup" ];
+    };
+
+  fileSystems."/silo/data" =
+    { device = "/dev/disk/by-label/silo";
+      fsType = "btrfs";
+      options = [ "nofail" "subvol=data/media" ];
     };
 
   fileSystems."/boot" =
@@ -100,15 +101,19 @@
   #   options = ["nofail" "X-mount.mkdir"];
   # };
 
-  fileSystems."/silo/backup" =
-    { device = "/dev/disk/by-label/silo";
-      fsType = "btrfs";
-      options = [ "nofail" "subvol=backup" ];
-    };
+  # Note that `/dev/disk/by-uuid` is not compatible with `randomEncryption`
+  # because the UUID will change on every boot.
+  # https://github.com/NixOS/nixpkgs/blob/c06d5fa9c605d143b15cafdbbb61c7c95388d76e/nixos/modules/config/swap.nix#L24-L26
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partuuid/f163bf8c-3760-476d-b490-7cd42d4452ac";
+      randomEncryption.enable = true;
+    }
+    {
+      device = "/dev/disk/by-partuuid/6ecad196-ac69-48de-8353-21afd33d2e89";
+      randomEncryption.enable = true;
+    }
+  ];
 
-  fileSystems."/silo/data" =
-    { device = "/dev/disk/by-label/silo";
-      fsType = "btrfs";
-      options = [ "nofail" "subvol=data/media" ];
-    };
+
 }
