@@ -29,12 +29,12 @@ in {
     efiSupport = true;
     device = "nodev";
     copyKernels = true;
-    mirroredBoots = [
-      {
-        devices = [config.fileSystems."/boot-fallback".device];
-        path = "/boot-fallback";
-      }
-    ];
+    # mirroredBoots = [
+    #   {
+    #     devices = [config.fileSystems."/boot-fallback".device];
+    #     path = "/boot-fallback";
+    #   }
+    # ];
   };
 
   boot.extraModulePackages = [];
