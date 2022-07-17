@@ -17,7 +17,7 @@ in {
     ++ [
       ./boot.nix
       ./filesystems.nix
-      ./network.nix
+      # ./network.nix
     ];
 
   users.mutableUsers = false;
@@ -35,6 +35,9 @@ in {
       (with hmArgs.suites; server)
       ++ [hmUsers.cdom];
   };
+
+  networking.useDHCP = true;
+  networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
     tor
