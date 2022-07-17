@@ -174,16 +174,17 @@ ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 # Create partition tables (--script to not ask)
 parted_nice --script $NVME1 mklabel gpt
 parted_nice --script $NVME2 mklabel gpt
-# parted_nice --script $HDD01 mklabel gpt
-# parted_nice --script $HDD02 mklabel gpt
-# parted_nice --script $HDD03 mklabel gpt
-# parted_nice --script $HDD04 mklabel gpt
-# parted_nice --script $HDD05 mklabel gpt
-# parted_nice --script $HDD06 mklabel gpt
-# parted_nice --script $HDD07 mklabel gpt
-# parted_nice --script $HDD08 mklabel gpt
-# parted_nice --script $HDD09 mklabel gpt
-# parted_nice --script $HDD10 mklabel gpt
+
+parted_nice --script $HDD01 mklabel gpt
+parted_nice --script $HDD02 mklabel gpt
+parted_nice --script $HDD03 mklabel gpt
+parted_nice --script $HDD04 mklabel gpt
+parted_nice --script $HDD05 mklabel gpt
+parted_nice --script $HDD06 mklabel gpt
+parted_nice --script $HDD07 mklabel gpt
+parted_nice --script $HDD08 mklabel gpt
+parted_nice --script $HDD09 mklabel gpt
+parted_nice --script $HDD10 mklabel gpt
 
 
 # Create partitions with GNU `parted`.
@@ -212,16 +213,17 @@ parted_nice --script $NVME2 mklabel gpt
 #
 
 for nvme in $NVME1 $NVME2; do
-  parted_nice --script --align optimal $nvme -- \
-    mklabel gpt \
-    mkpart NIXOS_BOOT 1MB 1025MB set 1 boot on \
-    mkpart nixos 1026MB '100%'
+  # N.B. untested/aspirational!
+  sgdisk --zap-all $nvme
+  sgdisk -n1:0:+4M  -t1:EF02 $nvme  # bios
+  sgdisk -n2:0:+2G  -t2:EF00 $nvme  # esp
+  sgdisk -n3:0:+11G -t3:8200 $nvme  # swap
+  sgdisk -n4:0:0    -t4:8300 $nvme  # root
 done
 
 for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
-  parted_nice --script --align optimal $disk -- \
-    mklabel gpt \
-    mkpart 'silo' 1MB '100%'
+  sgdisk --zap-all $disk
+  sgdisk -n1:0:0    -t1:8300 $disk
 done
 
 partprobe
@@ -235,12 +237,18 @@ for nvme in $NVME1 $NVME2; do
   mdadm --zero-superblock --force $nvme-part1 || true
 
   # Filesystems (-F to not ask on preexisting FS)
-  mkfs.fat -F 32 -n EFI $nvme-part1
+  mkfs.fat -F 32 -n EFI $nvme-part2
 done
 
-for disk in $HDD01 $HDD02 $HDD03 $HDD04 $HDD05 $HDD06 $HDD07 $HDD08 $HDD09 $HDD10; do
+for i in {01..10}; do
+  diskVar="HDD${i}"
+  disk="${!diskVar}"
+
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists=$disk-part1
+
+  cryptsetup luksFormat -h sha512 -s 512 -c aes-xts-plain64 $disk-part1
+  cryptsetup open --type luks $disk-part1 "enc${i}"
 done
 
 # Creating file systems changes their UUIDs.
@@ -285,30 +293,23 @@ btrmnt safe/persist /persist
 # FIXME: add proper options
 btrmnt safe/postgres /var/lib/postgres
 
+##: 'SILO'
 
-###: INITIALIZE 'SILO' POOL ====================================================
+mkfs.btrfs -d raid10 -m raid10 -L silo /dev/mapper/enc*
 
-zpool create \
-  -o ashift=12 \
-  -o autotrim=on \
-  -O acltype=posixacl \
-  -O atime=off \
-  -O canmount=off \
-  -O dnodesize=auto \
-  -O mountpoint=none \
-  -O normalization=formD \
-  -O relatime=on \
-  -O xattr=sa \
-  -f \
-  spool raidz \
-  $HDD01-part1 $HDD02-part1 $HDD03-part1 $HDD04-part1 $HDD05-part1 $HDD06-part1 $HDD07-part1 $HDD08-part1 $HDD09-part1 $HDD10-part1
+mkdir -p /mnt/silo/btrfs
+mount -t btrfs /dev/disk/by-label/silo /mnt/silo/btrfs
+btrfs subvolume create /mnt/silo/btrfs/backup
+btrfs subvolume create /mnt/silo/btrfs/data
+btrfs subvolume create /mnt/silo/btrfs/data/media
+umount /mnt/silo/btrfs
 
-zup spool/backup /mnt/silo/backup \
-  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt
-
-zup spool/data /mnt/silo/data \
-  -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt \
-  -o "com.sun:auto-snapshot=true"
+mount -o compress=zstd,subvol=backup \
+  /dev/disk/by-label/silo \
+  /mnt/silo/backup
+mount -o compress=zstd,subvol=data/media \
+  /dev/disk/by-label/silo \
+  /mnt/silo/data/media
 
 
 ###: CREATE INITRD SSH KEY =====================================================
