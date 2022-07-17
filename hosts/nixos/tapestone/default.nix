@@ -35,7 +35,8 @@ in {
   };
 
   networking.useDHCP = true;
-  networking.firewall.enable = false;
+  # FIXME
+  # networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
     tor
