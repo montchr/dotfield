@@ -15,43 +15,75 @@
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=local/nix" "noatime" ];
+      options = [
+        "subvol=local/nix"
+        "compress=zstd"
+        "noatime"
+      ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=local/log" "nofail"];
+      options = [
+        "subvol=local/log"
+        "noatime"
+        "compress=zstd"
+      ];
+      neededForBoot = true;
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=safe/home" ];
+      options = [
+        "subvol=safe/home"
+        "noatime"
+        "compress=zstd"
+      ];
     };
 
   fileSystems."/persist" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=safe/persist" ];
+      options = [
+        "subvol=safe/persist"
+        "noatime"
+        "compress=zstd"
+      ];
+      neededForBoot = true;
     };
 
   fileSystems."/var/lib/postgres" =
     { device = "/dev/disk-by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=safe/postgres" "nofail" ];
+      options = [
+        "subvol=safe/postgres"
+        "compress=zstd"
+        "noatime"
+        "nofail"
+      ];
     };
 
   fileSystems."/silo/backup" =
     { device = "/dev/disk/by-label/silo";
       fsType = "btrfs";
-      options = [ "nofail" "subvol=backup" ];
+      options = [
+        "subvol=backup"
+        "compress=zstd"
+        "noatime"
+        "nofail"
+      ];
     };
 
   fileSystems."/silo/data" =
     { device = "/dev/disk/by-label/silo";
       fsType = "btrfs";
-      options = [ "nofail" "subvol=data/media" ];
+      options = [
+        "subvol=data/media"
+        "compress=zstd"
+        "nofail"
+      ];
     };
 
   fileSystems."/boot" =

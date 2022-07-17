@@ -67,7 +67,7 @@ in {
     };
 
     secrets = {
-      "/etc/tor/onion/bootup" = /persist/tor/onion;
+      "/etc/tor/onion/bootup" = /persist/etc/tor/onion/bootup;
     };
   };
 
