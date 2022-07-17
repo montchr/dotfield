@@ -23,17 +23,17 @@ in {
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
   users.users.root.initialHashedPassword = "$6$.CAfJuUGGl2hZKVT$Dz4JuY4RFcuEIgDaXy9Ru7b9XPwdsA1NmgNY3CQ8R89ozatksh0TH6x3DkGJ9lz7jfP/Y6grvjqSDQuqmxwwH.";
-  users.users.seadoom = {
+  users.users.cdom = {
     uid = 1000;
     extraGroups = ["wheel"];
     initialHashedPassword = "$6$vKTiMLXS2fS8EfAf$cttVu8Gvy5E0sM.qlU.VwrZcnPyjN/DNVY0Mjv5ePMcy.NSrXaWqYU6LvqSIsHmlDgDjrxChUafd5Wn0Y2Unh0";
     isNormalUser = true;
     openssh.authorizedKeys.keys = authorizedKeys;
   };
-  home-manager.users.seadoom = hmArgs: {
+  home-manager.users.cdom = hmArgs: {
     imports =
       (with hmArgs.suites; server)
-      ++ [hmUsers.seadoom];
+      ++ [hmUsers.cdom];
   };
 
   environment.systemPackages = with pkgs; [

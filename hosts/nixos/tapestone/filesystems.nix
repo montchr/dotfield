@@ -14,71 +14,63 @@
   };
 
   boot.zfs.enableUnstable = true;
-  boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.requestEncryptionCredentials = true;
   # TODO: the manual recommends setting this to false for improved zfs
   # safeguards, but it's enabled by default for compatibility
   # zfs.forceImportRoot = false;
 
-  boot.supportedFilesystems = ["zfs"];
-
-  # ZFS maintenance settings.
-  services.zfs.trim.enable = true;
-  services.zfs.autoSnapshot.enable = true;
-  services.zfs.autoScrub.enable = true;
-  services.zfs.autoScrub.pools = ["rpool" "spool"];
-
-  # ZFS already has its own scheduler.
-  # https://nixos.wiki/wiki/ZFS#How_to_use_it
-  services.udev.extraRules = ''
-    ACTION=="add|change", KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
-  '';
+  boot.supportedFilesystems = ["btrfs" "zfs"];
 
   swapDevices = [];
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/FE8C-F3AE";
-    fsType = "vfat";
-    options = ["nofail" "X-mount.mkdir"];
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=local/root" ];
+    };
 
-  fileSystems."/boot-fallback" = {
-    device = "/dev/disk/by-uuid/FF5D-559E";
-    fsType = "vfat";
-    # Continue booting regardless of the availability of the mirrored boot
-    # partitions. We don't need both.
-    options = ["nofail" "X-mount.mkdir"];
-  };
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=local/nix" "noatime" ];
+    };
 
-  fileSystems."/" = {
-    device = "rpool/local/root";
-    fsType = "zfs";
-    options = ["zfsutil"];
-  };
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=local/log" "nofail"];
+    };
 
-  fileSystems."/nix" = {
-    device = "rpool/local/nix";
-    fsType = "zfs";
-    options = ["zfsutil"];
-  };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=safe/home" ];
+    };
 
-  fileSystems."/home" = {
-    device = "rpool/safe/home";
-    fsType = "zfs";
-    options = ["nofail" "zfsutil"];
-  };
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=safe/persist" ];
+    };
 
-  fileSystems."/persist" = {
-    device = "rpool/safe/persist";
-    fsType = "zfs";
-    options = ["nofail" "zfsutil"];
-  };
+  fileSystems."/var/lib/postgres" =
+    { device = "/dev/disk-by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=safe/postgres" "nofail" ];
+    };
 
-  fileSystems."/var/lib/postgres" = {
-    device = "rpool/safe/postgres";
-    fsType = "zfs";
-    options = ["nofail" "zfsutil"];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/CA0D-4891";
+      fsType = "vfat";
+      # options = ["nofail" "X-mount.mkdir"];
+    };
+
+  # fileSystems."/boot-fallback" = {
+  #   device = "/dev/disk/by-uuid/FF5D-559E";
+  #   fsType = "vfat";
+  #   # Continue booting regardless of the availability of the mirrored boot
+  #   # partitions. We don't need both.
+  #   options = ["nofail" "X-mount.mkdir"];
+  # };
 
   fileSystems."/silo/backup" = {
     device = "spool/backup";
