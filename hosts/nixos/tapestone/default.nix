@@ -3,6 +3,7 @@
   pkgs,
   peers,
   lib,
+  suites,
   profiles,
   hmUsers,
   primaryUser,
@@ -12,11 +13,14 @@
   inherit (primaryUser) authorizedKeys;
   interface = "eth0";
 in {
-  imports = [
-    ./boot.nix
-    ./filesystems.nix
-    # ./network.nix
-  ];
+  imports =
+    (with suites; server)
+    ++ (with profiles; [hardware.amd])
+    ++ [
+      ./boot.nix
+      ./filesystems.nix
+      # ./network.nix
+    ];
 
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
