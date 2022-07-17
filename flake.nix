@@ -183,7 +183,12 @@
           boschic = {};
           hodgepodge = {};
           hierophant = {};
-          tapestone = {};
+          tapestone = {suites, profiles, ...}: {
+            imports =
+              (with suites; server)
+              ++ (with profiles; [hardware.amd])
+              ;
+          };
           bootstrap-graphical = {};
         };
 

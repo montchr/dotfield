@@ -12,13 +12,11 @@
   inherit (primaryUser) authorizedKeys;
   interface = "eth0";
 in {
-  imports =
-    (with profiles; [hardware.amd])
-    ++ [
-      ./boot.nix
-      ./filesystems.nix
-      # ./network.nix
-    ];
+  imports = [
+    ./boot.nix
+    ./filesystems.nix
+    # ./network.nix
+  ];
 
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
