@@ -2,7 +2,7 @@
 #!nix-shell -i bash
 #!nix-shell -p pass tor
 
-ONION_ID="$(pass show hosts/tapestone/initrd-onion-id)"
+ONION_ID="$(pass show hosts/tsone/initrd-onion-id)"
 PORT=22
 
 torify ssh "root@$ONION_ID.onion" -p $PORT

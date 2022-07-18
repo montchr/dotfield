@@ -21,7 +21,7 @@ export LC_ALL=C
 
 ###: CONFIGURATION =======================================================
 
-export MY_HOSTNAME=tapestone
+export MY_HOSTNAME=tsone
 
 
 ##: --- Networking ---
@@ -327,7 +327,7 @@ git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/nixos
 
 nixos-generate-config --root /mnt
 
-nix build '/mnt/etc/nixos#nixosConfigurations.tapestone.config.system.build.toplevel'
+nix build '/mnt/etc/nixos#nixosConfigurations.tsone.config.system.build.toplevel'
 
 # Pre-flight check to prevent issues with missing files during install.
 # https://discourse.nixos.org/t/nixos-21-05-installation-failed-installing-from-an-existing-distro/13627/3

@@ -6,7 +6,7 @@ let
 
   servers = with hostKeys;
     hierophant
-    ++ tapestone;
+    ++ tsone;
 
   workstations = with hostKeys;
     boschic

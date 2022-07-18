@@ -1,23 +1,23 @@
-## === TAPESTONE ===
+## === TSONE ===
 
-[tapestone]
+[tsone]
 network = "cubegarden"
 keys = [
   # initrd
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1BqcHeXW7K6H5t7/qKwR4SgZ7ME7rBpV0KfE/PTLKdoRnvNaIGcofNjfYltcSPl2M3q47mZplWcB8EzrM4ccv7x5IetA9OT2F9sjjOVTltiSPmcf92ySHyC3uJx/oZaf3e7CSTcRwhQvjKFyzBr5AWrTmni6nKbd8v1Mq7nqSBBkh2zCNMftFBSKenWOwIAwwkl5q72YPoQb6nXqDjnv1GbS6cPT9huyzukdNrUsVofgirHTokXHndMBFaci7ZouBpI5UJ6GyjXVpEHgTAbE+JFowvyfhlJTuw3VJRP/TR62evcQhbJoWzJ1t6yeNRlX6K/ExaSX3RU6EQEQ4YoznZBCBLBy/g68YYd7cVcnW9smw7LSdRt32tMGIelKQppTRHN/JUOOpzhZDs/5GfhrnDfIVMdNXA7zvvaRZXzFrUwCsC53UhtZqIJNn4Wbt8bbvMbt8CI4bHxznwzgMl1bGVKPA9sM55q4a5WVWzTiHmnDep2LfWly1BiEaXohuMvE= root@tapestone",
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJY03MUAtmAAFHqR/odRPPqLlL5dFhWfAEhdv0DFtaPU root@tapestone",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1BqcHeXW7K6H5t7/qKwR4SgZ7ME7rBpV0KfE/PTLKdoRnvNaIGcofNjfYltcSPl2M3q47mZplWcB8EzrM4ccv7x5IetA9OT2F9sjjOVTltiSPmcf92ySHyC3uJx/oZaf3e7CSTcRwhQvjKFyzBr5AWrTmni6nKbd8v1Mq7nqSBBkh2zCNMftFBSKenWOwIAwwkl5q72YPoQb6nXqDjnv1GbS6cPT9huyzukdNrUsVofgirHTokXHndMBFaci7ZouBpI5UJ6GyjXVpEHgTAbE+JFowvyfhlJTuw3VJRP/TR62evcQhbJoWzJ1t6yeNRlX6K/ExaSX3RU6EQEQ4YoznZBCBLBy/g68YYd7cVcnW9smw7LSdRt32tMGIelKQppTRHN/JUOOpzhZDs/5GfhrnDfIVMdNXA7zvvaRZXzFrUwCsC53UhtZqIJNn4Wbt8bbvMbt8CI4bHxznwzgMl1bGVKPA9sM55q4a5WVWzTiHmnDep2LfWly1BiEaXohuMvE= root@tsone",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJY03MUAtmAAFHqR/odRPPqLlL5dFhWfAEhdv0DFtaPU root@tsone",
 
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMStfE8GVUDwlWV9kxrDKN36IcA7ysmV24BVM+cqekS6 root@tapestone",
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYiNrzpmYACy/WJZlqfZGl2hdr27asu88Jq6BsrQf1ZhbvyYWmLiPp+4SM1Y4YhbbWb9ehIaD1Bv37amrzNzikcs4ybae6z6mB+4NUIcUqq5JzC9uGm13H8oL4Ure4fmk9+aFp+CgYS6Zx9tQWWgRp3/FbjjoyZ+TMEXZWRuhwboi3W5nvvMhNbG+hK2H6P8b65GQK/IkaqjtynP+p34V5vZvk7CghHLD2ehY6Y74y90gUrybv4HOU9ayKoBYZ3nGBb7ixIwnLj9jh7J82qf3h6yjOBES2Ts9/b32PMWmzjLiXk7GSTCIUTPqotJJDLH5bneOJ9bOpseqarXrZ/+R1OL1BVIF/6p6QfncLS0CqCqZUZh7dHyh/q+BNQZzdZ9v29o6KvzLnEDnoNfq4O0HWJ+sz7QX5mcR3ZQ3RCaK8pxSogJkz42owZuV41i4G/J4i+fc5aI69b6Uy+hwT0iSZ5PSnN4Y+FfPLnPPTd/FxvwbnHDFJ9KIKy52ptKsxr4wuahWrVXnvYzFzMKN/V/lIwHPRuGEGrwg/aklcgds7Hv6mzAGBY6uqvDzYCI+wRLMRlKUeKudBRQLIuK0DreUtEHnwB0Fg8C0fRt78aX/y0SQ6jAD9/RrY++HpFbVXsy8vAco+izA7BF8LuNRB11jv5GnHdS0zopoZagDVo2axxw== root@tapestone",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMStfE8GVUDwlWV9kxrDKN36IcA7ysmV24BVM+cqekS6 root@tsone",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYiNrzpmYACy/WJZlqfZGl2hdr27asu88Jq6BsrQf1ZhbvyYWmLiPp+4SM1Y4YhbbWb9ehIaD1Bv37amrzNzikcs4ybae6z6mB+4NUIcUqq5JzC9uGm13H8oL4Ure4fmk9+aFp+CgYS6Zx9tQWWgRp3/FbjjoyZ+TMEXZWRuhwboi3W5nvvMhNbG+hK2H6P8b65GQK/IkaqjtynP+p34V5vZvk7CghHLD2ehY6Y74y90gUrybv4HOU9ayKoBYZ3nGBb7ixIwnLj9jh7J82qf3h6yjOBES2Ts9/b32PMWmzjLiXk7GSTCIUTPqotJJDLH5bneOJ9bOpseqarXrZ/+R1OL1BVIF/6p6QfncLS0CqCqZUZh7dHyh/q+BNQZzdZ9v29o6KvzLnEDnoNfq4O0HWJ+sz7QX5mcR3ZQ3RCaK8pxSogJkz42owZuV41i4G/J4i+fc5aI69b6Uy+hwT0iSZ5PSnN4Y+FfPLnPPTd/FxvwbnHDFJ9KIKy52ptKsxr4wuahWrVXnvYzFzMKN/V/lIwHPRuGEGrwg/aklcgds7Hv6mzAGBY6uqvDzYCI+wRLMRlKUeKudBRQLIuK0DreUtEHnwB0Fg8C0fRt78aX/y0SQ6jAD9/RrY++HpFbVXsy8vAco+izA7BF8LuNRB11jv5GnHdS0zopoZagDVo2axxw== root@tsone",
 ]
 age = "age1lwhnkqg302er0gmunhc4sa97ycg806xhs04yf30w0kk5dm2fl40qct7z7n"
 
-[tapestone.ipv4]
+[tsone.ipv4]
 address = "94.130.220.154"
 prefixLength = 26
 gateway = "94.130.220.129"
 
-[tapestone.ipv6]
+[tsone.ipv6]
 addresses = [
   "2a01:4f8:13b:17ac::1",
 ]
@@ -26,8 +26,8 @@ subnet = "2a01:4f8:13b:17ac"
 prefixLength = 64
 gateway = "fe80::1"
 
-[tapestone.users.cdom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIbbTvwW0+4QZT4i670cpbyNY4MzyU203/S8uIUV3y8 cdom@tapestone"]
+[tsone.users.cdom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIbbTvwW0+4QZT4i670cpbyNY4MzyU203/S8uIUV3y8 cdom@tsone"]
 
 
 ## === HIEROPHANT ===

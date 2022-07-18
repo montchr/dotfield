@@ -45,7 +45,7 @@ Originally built in 2015, recently revamped for ~computing power~ ~playing Myst 
 
 ### Incubation
 
-#### "`tapestone`" (working title)
+#### "`tsone`" (working title)
 
 Hetzner SX134.
 

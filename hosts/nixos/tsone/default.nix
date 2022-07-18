@@ -9,7 +9,7 @@
   primaryUser,
   ...
 }: let
-  inherit (peers.hosts.tapestone) ipv4 ipv6;
+  inherit (peers.hosts.tsone) ipv4 ipv6;
   inherit (primaryUser) authorizedKeys;
   interface = "eth0";
 in {
@@ -39,8 +39,6 @@ in {
   };
 
   networking.useDHCP = true;
-  # FIXME
-  # networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
     tor

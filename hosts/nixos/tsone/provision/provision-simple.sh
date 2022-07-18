@@ -89,7 +89,7 @@ export DISK1="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701851"
 export DISK2="/dev/disk/by-id/nvme-SAMSUNG_MZQL2960HCJR-00A07_S64FNE0R701889"
 
 # choose whatever you want, it doesn't matter
-MY_HOSTNAME=tapestone
+MY_HOSTNAME=tsone
 MY_HOSTID=80428517
 
 # Undo existing setups to allow running the script multiple times to iterate on it.

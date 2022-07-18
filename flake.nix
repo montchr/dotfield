@@ -183,7 +183,7 @@
           boschic = {};
           hodgepodge = {};
           hierophant = {};
-          tapestone = {};
+          tsone = {};
           bootstrap-graphical = {};
         };
 
@@ -379,13 +379,13 @@
         #     (self.nixosConfigurations)
         #     boschic
         #     hodgepodge
-        #     tapestone
+        #     tsone
         #     ;
         # };
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        tapestone = {
-          hostname = peers.hosts.tapestone.ipv4.address;
+        tsone = {
+          hostname = peers.hosts.tsone.ipv4.address;
           sshUser = "root";
           fastConnection = true;
           autoRollback = true;

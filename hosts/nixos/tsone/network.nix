@@ -5,7 +5,7 @@
   peers,
   ...
 }: let
-  inherit (peers.hosts.tapestone) ipv4 ipv6;
+  inherit (peers.hosts.tsone) ipv4 ipv6;
   interface = "eth0";
 in {
   # Hetzner uses static IP assignments.
