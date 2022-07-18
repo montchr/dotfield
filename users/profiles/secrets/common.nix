@@ -4,9 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.whoami) pgpPublicKey;
-
-  dotfieldPath = "${config.xdg.configHome}/dotfield";
+  inherit (config.lib) dotfield;
 in {
-  home.sessionVariables.AGENIX_ROOT = dotfieldPath;
+  home.sessionVariables.AGENIX_ROOT = dotfield.fsPath;
 }

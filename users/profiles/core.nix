@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  lib.dotfield.userPath = "${config.xdg.configHome}/dotfield";
+  lib.dotfield.fsPath = "${config.xdg.configHome}/dotfield";
   lib.dotfield.whoami = rec {
     firstName = "Chris";
     lastName = "Montgomery";
@@ -69,7 +69,7 @@
   home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = config.lib.dotfield.userPath;
+    DOTFIELD_DIR = config.lib.dotfield.fsPath;
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.

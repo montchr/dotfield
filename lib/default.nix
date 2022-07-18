@@ -1,7 +1,5 @@
 {lib}:
 lib.makeExtensible (self: {
-  dotfieldPath = toString ../.;
-
   mkOpt = type: default: lib.mkOption {inherit type default;};
 
   mkOpt' = type: default: description:

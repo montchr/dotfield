@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (pkgs) system writeShellScriptBin;
-  inherit (pkgs.lib.our) dotfieldPath;
+  inherit (config.lib) dotfield;
 in {
   home.packages = with pkgs; [
     php80
@@ -31,7 +31,7 @@ in {
   ];
   home.sessionPath = [
     # TODO: prepend not append
-    "${dotfieldPath}/.composer/bin"
+    "${dotfield.fsPath}/.composer/bin"
   ];
   home.sessionVariables = {
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";

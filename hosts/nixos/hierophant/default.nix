@@ -26,7 +26,6 @@ in {
     options = ["noatime"];
   };
 
-  environment.variables.DOTFIELD_DIR = "/etc/dotfield";
   programs.mtr.enable = true;
   programs.gnupg.agent.enable = true;
 
@@ -45,7 +44,7 @@ in {
   home-manager.users.seadoom = hmArgs: {
     imports = [hmUsers.seadoom];
 
-    lib.dotfield.userPath = "/etc/dotfield";
+    lib.dotfield.fsPath = "/etc/dotfield";
   };
 
   system.stateVersion = "21.11";

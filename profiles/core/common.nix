@@ -5,9 +5,14 @@
   inputs,
   ...
 }: let
-  inherit (pkgs.lib.our) dotfieldPath;
+  inherit (config.lib) dotfield;
 in {
   imports = [./cachix.nix];
+
+  lib.dotfield = {
+    srcPath = toString ../../.;
+    fsPath = "/etc/dotfield";
+  };
 
   nix = {
     package = pkgs.nix;
@@ -34,7 +39,7 @@ in {
   time.timeZone = "America/New_York";
 
   environment.variables = {
-    DOTFIELD_DIR = lib.mkDefault "/etc/dotfield";
+    DOTFIELD_DIR = dotfield.fsPath;
     EDITOR = "vim";
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin
@@ -79,7 +84,7 @@ in {
   environment.systemPackages = with pkgs; [
     # TODO: add this via gitignore.nix or something to avoid IFD
     (writeScriptBin "dotfield"
-      (builtins.readFile "${dotfieldPath}/bin/dotfield"))
+      (builtins.readFile "${dotfield.srcPath}/bin/dotfield"))
 
     ## === Essentials ===
 
