@@ -1,13 +1,12 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, ...
-}:
-let
+moduleArgs @ {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.xdg) configHome;
-in
-{
+in {
   home.sessionVariables = {
     EMACSDIR = "${configHome}/emacs";
 
@@ -19,11 +18,12 @@ in
   programs.emacs = {
     enable = true;
     package =
-      if isDarwin then pkgs.emacsPlusNativeComp
+      if isDarwin
+      then pkgs.emacsPlusNativeComp
       else if (moduleArgs.osConfig.services.xserver.enable or false)
       then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
-    extraPackages = epkgs: with epkgs; [ vterm ];
+    extraPackages = epkgs: with epkgs; [vterm];
   };
 
   services.emacs = lib.mkIf (!isDarwin) {
@@ -35,7 +35,7 @@ in
   home.packages = with pkgs; [
     ediff-tool
     gnutls
-    (ripgrep.override { withPCRE2 = true; })
+    (ripgrep.override {withPCRE2 = true;})
 
     fd # faster projectile indexing
     imagemagick # for image-dired
@@ -52,16 +52,15 @@ in
 
     editorconfig-core-c
 
-
     ##: === writing ===
 
-    (aspellWithDicts (ds: with ds; [
-      en
-      en-computers
-      en-science
-    ]))
+    (aspellWithDicts (ds:
+      with ds; [
+        en
+        en-computers
+        en-science
+      ]))
     languagetool
-
 
     ##: === lang/lsp ===
 

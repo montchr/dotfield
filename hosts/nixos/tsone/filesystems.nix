@@ -6,91 +6,91 @@
 }: {
   boot.supportedFilesystems = ["btrfs"];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=local/root" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=local/root"];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=local/nix"
-        "compress=zstd"
-        "noatime"
-      ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=local/nix"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=local/log"
-        "noatime"
-        "compress=zstd"
-      ];
-      neededForBoot = true;
-    };
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=local/log"
+      "noatime"
+      "compress=zstd"
+    ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=safe/home"
-        "noatime"
-        "compress=zstd"
-      ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=safe/home"
+      "noatime"
+      "compress=zstd"
+    ];
+  };
 
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=safe/persist"
-        "noatime"
-        "compress=zstd"
-      ];
-      neededForBoot = true;
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=safe/persist"
+      "noatime"
+      "compress=zstd"
+    ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/var/lib/postgres" =
-    { device = "/dev/disk-by-label/nixos";
-      fsType = "btrfs";
-      options = [
-        "subvol=safe/postgres"
-        "compress=zstd"
-        "noatime"
-        "nofail"
-      ];
-    };
+  fileSystems."/var/lib/postgres" = {
+    device = "/dev/disk-by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=safe/postgres"
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
+  };
 
-  fileSystems."/silo/backup" =
-    { device = "/dev/disk/by-label/silo";
-      fsType = "btrfs";
-      options = [
-        "subvol=backup"
-        "compress=zstd"
-        "noatime"
-        "nofail"
-      ];
-    };
+  fileSystems."/silo/backup" = {
+    device = "/dev/disk/by-label/silo";
+    fsType = "btrfs";
+    options = [
+      "subvol=backup"
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
+  };
 
-  fileSystems."/silo/data" =
-    { device = "/dev/disk/by-label/silo";
-      fsType = "btrfs";
-      options = [
-        "subvol=data/media"
-        "compress=zstd"
-        "nofail"
-      ];
-    };
+  fileSystems."/silo/data" = {
+    device = "/dev/disk/by-label/silo";
+    fsType = "btrfs";
+    options = [
+      "subvol=data/media"
+      "compress=zstd"
+      "nofail"
+    ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CA0D-4891";
-      fsType = "vfat";
-      # options = ["nofail" "X-mount.mkdir"];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/CA0D-4891";
+    fsType = "vfat";
+    # options = ["nofail" "X-mount.mkdir"];
+  };
 
   boot.initrd.luks.devices = {
     "enc01" = {
@@ -146,6 +146,4 @@
       randomEncryption.enable = true;
     }
   ];
-
-
 }

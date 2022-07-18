@@ -30,7 +30,7 @@ in {
     ];
     kernelModules = [];
 
-    luks.cryptoModules = [ "aes" "sha512" "sha1" "xts" ];
+    luks.cryptoModules = ["aes" "sha512" "sha1" "xts"];
 
     extraUtilsCommands = ''
       copy_bin_and_libs ${pkgs.tor}/bin/tor

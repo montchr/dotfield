@@ -90,12 +90,16 @@
     sops-nix,
     ...
   } @ inputs': let
-    inputs = inputs' // {
-      # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
-      emacs-overlay = inputs'.emacs-overlay // {
-        overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
+    inputs =
+      inputs'
+      // {
+        # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
+        emacs-overlay =
+          inputs'.emacs-overlay
+          // {
+            overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
+          };
       };
-    };
     peers = import ./ops/metadata/peers.nix;
   in
     digga.lib.mkFlake {
@@ -358,7 +362,11 @@
               basic ++ developer;
           };
           seadoom = cdom;
-          chrismont = {profiles, suites, ...}: {
+          chrismont = {
+            profiles,
+            suites,
+            ...
+          }: {
             imports =
               (with suites; workstation)
               ++ (with profiles; [
@@ -373,15 +381,15 @@
       devshell = ./shell;
 
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
-        # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
-        # {
-        #   inherit
-        #     (self.nixosConfigurations)
-        #     boschic
-        #     hodgepodge
-        #     tsone
-        #     ;
-        # };
+      # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      # {
+      #   inherit
+      #     (self.nixosConfigurations)
+      #     boschic
+      #     hodgepodge
+      #     tsone
+      #     ;
+      # };
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
         tsone = {
