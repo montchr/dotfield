@@ -3,19 +3,6 @@
 # Installs NixOS on a SX134 Hetzner server, wiping the server.
 #
 # This is for a specific server configuration; adjust where needed.
-#
-# Usage:
-#     ssh root@YOUR_SERVERS_IP bash -s < provision.sh
-#
-# * FIXME: encrypted zfs pools must be created manually so the user can input a
-#   passphrase. the script will fail if this happens automatically because
-#   there's no input.
-#
-# * A root user with empty password is created, so that you can just login
-#   as root and press enter when using the Hetzner spider KVM.
-#   Of course that empty-password login isn't exposed to the Internet.
-#   Change the password afterwards to avoid anyone with physical access
-#   being able to login without any authentication.
 
 export LC_ALL=C
 
@@ -57,11 +44,9 @@ export HDD04="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04NFVNG"
 export HDD05="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04DFVNG"
 export HDD06="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A053FVNG"
 export HDD07="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A04TFVNG"
-
-# crypt
-export ENCD01="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
-export ENCD02="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
-export ENCD03="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
+export HDD08="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1W0A00HFVNG"
+export HDD09="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A02AFVNG"
+export HDD10="/dev/disk/by-id/ata-TOSHIBA_MG08ACA16TEY_X1J0A05YFVNG"
 
 export nvmexx=(
   "$NVME1"
@@ -75,9 +60,9 @@ export hddxx=(
   "$HDD05"
   "$HDD06"
   "$HDD07"
-  "$ENCD01"
-  "$ENCD02"
-  "$ENCD03"
+  "$HDD08"
+  "$HDD09"
+  "$HDD10"
 )
 export siloxx=(
   "$HDD01"
@@ -87,11 +72,9 @@ export siloxx=(
   "$HDD05"
   "$HDD06"
   "$HDD07"
-)
-export encdxx=(
-  "$ENCD01"
-  "$ENCD02"
-  "$ENCD03"
+  "$HDD08"
+  "$HDD09"
+  "$HDD10"
 )
 
 
@@ -129,21 +112,6 @@ mdadm --stop --scan
 echo 'AUTO -all
 ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 
-# format all hdds for silo + crypt
-for hdd in "${hddxx[@]}"; do
-  sgdisk --zap-all "$hdd"
-  parted_nice --script "$hdd" mklabel gpt
-
-  sgdisk -n1:0:0 -t1:8300 "$hdd"
-
-  partprobe
-
-  # Wipe any previous RAID/ZFS signatures
-  mdadm --zero-superblock --force "${hdd}-part1" || true
-
-  # Wait for all devices to exist
-  udevadm settle --timeout=5 --exit-if-exists="${hdd}-part1"
-done
 
 
 # Creating file systems changes their UUIDs.
@@ -225,6 +193,21 @@ mount -t btrfs -o "subvol=@postgres,ssd,${FSOPTS}" \
 
 ##: --- VOLUME: 'SILO' ---
 
+for hdd in "${hddxx[@]}"; do
+  sgdisk --zap-all "$hdd"
+  parted_nice --script "$hdd" mklabel gpt
+
+  sgdisk -n1:0:0 -t1:8300 "$hdd"
+
+  partprobe
+
+  # Wipe any previous RAID/ZFS signatures
+  mdadm --zero-superblock --force "${hdd}-part1" || true
+
+  # Wait for all devices to exist
+  udevadm settle --timeout=5 --exit-if-exists="${hdd}-part1"
+done
+
 mkfs.btrfs \
   --data raid10 \
   --metadata raid10 \
@@ -235,7 +218,10 @@ mkfs.btrfs \
     "${HDD04}-part1" \
     "${HDD05}-part1" \
     "${HDD06}-part1" \
-    "${HDD07}-part1"
+    "${HDD07}-part1" \
+    "${HDD08}-part1" \
+    "${HDD09}-part1" \
+    "${HDD10}-part1" \
 
 btrfs device scan
 
@@ -265,37 +251,6 @@ mount -t btrfs -o "subvol=@movies,${FSOPTS}" \
 mount -t btrfs -o "subvol=@tv-shows,${FSOPTS}" \
   LABEL="silo" \
   /mnt/silo/media/tv-shows
-
-
-##: --- VOLUME: 'CRYPT' ---
-
-# crypt
-for i in {01..03}; do
-  varName="ENCD${i}"
-  encd="${!varName}"
-
-  cryptsetup luksFormat --cipher aes-xts-plain64 "${encd}-part1"
-  cryptsetup open --type luks "${encd}-part1" "crypt-${i}"
-done
-
-mkfs.btrfs \
-  --data raid10 \
-  --metadata raid10 \
-  --label crypt \
-    "${ENCD01}-part1" \
-    "${ENCD02}-part1" \
-    "${ENCD03}-part1"
-
-btrfs device scan
-
-mount -t btrfs LABEL=crypt /mnt/crypt
-btrfs subvolume create /mnt/crypt/@crypted
-btrfs subvolume list -a /mnt/crypt
-umount /mnt/crypt
-
-mount -t btrfs -o "subvol=@crypted,${FSOPTS}" \
-  LABEL="crypt" \
-  /mnt/crypt
 
 
 ###: INSTALL NIX ===============================================================
