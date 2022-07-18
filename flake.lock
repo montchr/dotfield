@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "crafted-emacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658163400,
+        "narHash": "sha256-5jhAHlgZ6g4PbAzZYjsmX//0Mkn3hDL27HYXeIFSp1s=",
+        "owner": "SystemCrafters",
+        "repo": "crafted-emacs",
+        "rev": "6fde7e31b7dc05c7aeb63e7d92c5e8b0653395f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SystemCrafters",
+        "repo": "crafted-emacs",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -820,6 +836,7 @@
       "inputs": {
         "agenix": "agenix",
         "base16-kitty": "base16-kitty",
+        "crafted-emacs": "crafted-emacs",
         "darwin": "darwin",
         "deploy": "deploy",
         "digga": "digga",

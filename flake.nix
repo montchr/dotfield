@@ -52,9 +52,13 @@
     sops-nix.inputs.nixpkgs.follows = "nixos-stable";
 
     # Development tools.
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+
+    # Emacsen.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    crafted-emacs.url = "github:SystemCrafters/crafted-emacs";
+    crafted-emacs.flake = false;
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -318,7 +322,8 @@
             #: developer: those who go
             developer = [
               direnv
-              emacs.doom
+              emacs.crafted
+              # emacs.doom
               git
               gpg
               shells.zsh
