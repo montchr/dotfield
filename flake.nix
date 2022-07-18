@@ -314,7 +314,7 @@
             #: developer: those who go
             developer = [
               direnv
-              emacs
+              emacs.doom
               git
               gpg
               shells.zsh
