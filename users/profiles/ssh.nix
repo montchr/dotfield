@@ -19,7 +19,7 @@ in {
 
     matchBlocks = {
       "hierophant" = {
-        host = "100.68.129.15";
+        host = hierophant.ipv4.address;
       };
 
       "github.com" = {
