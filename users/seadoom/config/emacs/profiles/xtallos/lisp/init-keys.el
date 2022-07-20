@@ -31,12 +31,17 @@
 ;;
 ;;; Commentary:
 ;;
-;; Configuration for keybindings, evil-mode, and its evil relatives.
+;; Configuration for keybindings.
 ;;
 ;;; Code:
 
+;;; --- configuration -----------------------------------------------------------
+
 ;; Default indentation width is 2 spaces.
 (defvar xtallos/indent-width 2)
+
+
+;;; --- bindings: init ---------------------------------------------------------
 
 (defvar xtallos/leader--map (make-sparse-keymap)
   "An overriding keymap for <leader> keys.")
@@ -56,41 +61,72 @@
     :states '(normal insert visual emacs)
 :keymaps 'override)
 
-;;; bindings: top-level scopes
+
+;;; --- bindings: top-level scopes ----------------------------------------------
 
 (xtallos/leader-def
+  ;; (to be implemented)
   "/" '(nil :wk "find...")
-  "[" '(nil :wk "prev...")
-
-  "b" '(nil :wk "buff...")
-  ;; "bb" 'consult-buffer
-  "bh" 'previous-buffer
-  "bl" 'next-buffer
-  "bs" 'save-buffer
-
-  "f" '(nil :wk "file...")
-  "ff" 'find-file
-
-  "g" '(nil :wk "git...")
-  "gg" 'magit-status
-
   "i" '(nil :wk "ins...")
   "j" '(nil :wk "jump...")
   "n" '(nil :wk "note...")
   "o" '(nil :wk "open...")
 
+  ;; --- prev/next ---
+  ;; FIXME: should not be under leader map!
+  
+  "[" '(nil :wk "prev...")
+  "[b" 'previous-buffer
+
+  "]" '(nil :wk "next...")
+  "]b" 'next-buffer
+
+  ;; --- buffer ---
+
+  "b" '(nil :wk "buff...")
+
+  ;; buffer nav
+  "bh" 'previous-buffer
+  "b[" 'previous-buffer
+  "bl" 'next-buffer
+  "b]" 'next-buffer
+  ;; TODO
+  ;; "bb" 'consult-buffer
+
+  ;; buffer management
+  "bk" 'kill-buffer
+  "bs" 'save-buffer
+
+  ;; --- file ---
+
+  "f" '(nil :wk "file...")
+  "ff" 'find-file
+
+  ;; --- git ---
+
+  "g" '(nil :wk "git...")
+  "gg" 'magit-status
+
+  ;; --- search ---
+
   "s" '(nil :wk "serx...")
   "sp" 'project-find-file
   ;; "ss" 'consult-line
 
+  ;; --- window management ---
+
   "w" '(nil :wk "wind...")
+
+  ;; window nav
   "wh" 'windmove-left
   "wj" 'windmove-down
   "wk" 'windmove-up
-  "wl" 'windmove-right)
+  "wl" 'windmove-right
+
+  "wd" 'delete-window)
 
 
-;;; bindings: top-level oneoffs
+;;; --- bindings: top-level oneoffs ---------------------------------------------
 
 (xtallos/leader-def
   "a"   'org-agenda
@@ -104,6 +140,8 @@
   ;; "S-<return>" 'vterm
 
   "SPC" 'project-find-file)
+
+
 
 (use-package which-key
   :diminish which-key-mode
@@ -142,42 +180,6 @@ If any hook returns non-nil, all hooks after it are ignored.")
 ;;   (defvar mac-command-modifier)
 ;;   (setq mac-option-modifier nil
 ;;         mac-command-modifier 'meta))
-
-(use-package evil
-  ;; FIXME: why after minions?
-  ;; :after (minions)
-  :diminish undo-tree-mode
-
-  :init
-  (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil
-        evil-shift-width xtallos/indent-width)
-
-  :hook (after-init . evil-mode)
-
-  :preface
-  (defun xtallos/save-and-kill-this-buffer ()
-    (interactive)
-    (save-buffer)
-    (kill-this-buffer))
-  
-  :config
-  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
-    (define-key evil-insert-state-map (kbd "C-n") nil)
-    (define-key evil-insert-state-map (kbd "C-p") nil))
-  (evil-ex-define-cmd "q" #'kill-this-buffer)
-  (evil-ex-define-cmd "wq" #'xtallos/save-and-kill-this-buffer))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (setq evil-collection-company-use-tng nil)
-  (evil-collection-init))
-
-(use-package evil-commentary
-  :after evil
-  :diminish
-  :config (evil-commentary-mode +1))
 
 (provide 'init-keys)
 ;;; init-keys.el ends here

@@ -131,6 +131,8 @@
 ;;; Core
 
 (require 'init-keys)
+(require 'init-evil)
+
 (require 'init-editor)
 (require 'init-ui)
 (require 'init-window)
