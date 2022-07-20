@@ -14,10 +14,12 @@
     stateHome
     ;
 
-  profilePath = "emacs/profiles/crafted";
+  hmLib = config.lib;
+
+  profilePath = "emacs/profiles/xtallos";
 in {
   imports = [./common.nix];
 
-  home.sessionVariables."CRAFTED_EMACS_HOME" =
+  xdg.configFile."emacs".source = hmLib.file.mkOutOfStoreSymlink
     "${dotfield.fsPath}/users/${username}/config/${profilePath}";
 }

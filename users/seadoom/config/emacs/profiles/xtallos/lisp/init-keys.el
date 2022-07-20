@@ -37,37 +37,8 @@
 
 (require 'config-editor)
 
-(use-package general
-  :commands (general-define-key))
-
-(use-package which-key
-  :diminish which-key-mode
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
-
-(defvar kbd-escape-hook nil
-  "A hook run after \\[keyboard-quit] is pressed.
-Triggers `kbd-escape'.
-If any hook returns non-nil, all hooks after it are ignored.")
-
-;; Normalize behaviour upon pressing `ESC'.
-(defun kbd-escape ()
-  "Run the `kbd-escape-hook'."
-  (interactive)
-  (cond ((minibuffer-window-active-p (minibuffer-window))
-         ;; quit the minibuffer if open.
-         (abort-recursive-edit))
-        ;; Run all escape hooks. If any returns non-nil, then stop
-        ;; there.
-        ((cl-find-if #'funcall kbd-escape-hook))
-        ;; don't abort macros
-        ((or defining-kbd-macro executing-kbd-macro) nil)
-        ;; Back to the default
-        ((keyboard-quit))))
-(global-set-key [remap keyboard-quit] #'kbd-escape)
-
 (use-package evil
+  ;; :after (minions)
   :diminish undo-tree-mode
 
   :init
@@ -95,6 +66,91 @@ If any hook returns non-nil, all hooks after it are ignored.")
   :config
   (setq evil-collection-company-use-tng nil)
   (evil-collection-init))
+
+(use-package general)
+
+  ;; :config
+  ;; (general-define-key
+  ;;  :prefix "SPC"
+  ;;  :keymaps 'override
+  ;;  :states '(normal visual motion)
+
+  ;;  "<left>" 'previous-buffer
+  ;;  "<right>" 'next-buffer
+
+  ;;  "a" 'org-agenda
+  ;;  "bb" 'consult-buffer
+  ;;  ;; "c" 'org-capture
+  ;;  "ff" 'find-file
+  ;;  "gg" 'magit-status
+  ;;  "sp" 'project-find-file
+  ;;  "ss" 'consult-line
+  ;;  "w" 'write-file
+  ;;  "y" 'consult-yank-pop
+   
+  ;;  "S-<return>" 'vterm
+  ;;  "-" 'calendar
+  ;;  "=" 'quick-calc
+  ;;  "+" 'calc
+  ;;  "," 'eww))
+
+(general-create-definer xtallos/leader-def
+  :prefix "SPC"
+  :non-normal-prefix "M-SPC")
+
+(general-create-definer xtallos/local-leader-def
+  :prefix "SPC m"
+  :non-normal-prefix "M-SPC m")
+
+(xtallos/leader-def
+ "/" '(nil :which-key "Find")
+ "[" '(nil :which-key "Prev")
+ "g" '(nil :which-key "Git")
+ "i" '(nil :which-key "Ins")
+ "j" '(nil :which-key "Jump")
+ "n" '(nil :which-key "Note")
+ "o" '(nil :which-key "Open"))
+
+(use-package bind-key)
+
+(use-package which-key
+  :diminish which-key-mode
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.5
+        which-key-sort-order #'which-key-key-order-alpha
+        which-key-sort-uppercase-first nil
+        which-key-add-column-padding 1
+        ;; which-key-max-display-columns nil
+        which-key-min-display-lines 6))
+
+(defvar kbd-escape-hook nil
+  "A hook run after \\[keyboard-quit] is pressed.
+Triggers `kbd-escape'.
+If any hook returns non-nil, all hooks after it are ignored.")
+
+(defun kbd-escape ()
+  "Run the `kbd-escape-hook'."
+  (interactive)
+  (cond ((minibuffer-window-active-p (minibuffer-window))
+         ;; quit the minibuffer if open.
+         (abort-recursive-edit))
+        ;; Run all escape hooks. If any returns non-nil, then stop
+        ;; there.
+        ((cl-find-if #'funcall kbd-escape-hook))
+        ;; don't abort macros
+        ((or defining-kbd-macro executing-kbd-macro) nil)
+        ;; Back to the default
+        ((keyboard-quit))))
+
+(global-set-key [remap keyboard-quit] #'kbd-escape)
+
+(when (and env-sys-mac-p env-graphic-p)
+  (defvar mac-option-modifier)
+  (defvar mac-command-modifier)
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
+
 
 (provide 'init-keys)
 ;;; init-keys.el ends here

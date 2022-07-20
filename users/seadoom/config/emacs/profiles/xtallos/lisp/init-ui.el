@@ -71,6 +71,32 @@
   :init
   (minions-mode 1))
 
+(use-package fontaine
+  :hook (kill-emacs-hook fontaine-store-latest-preset)
+  :config
+  (setq fontaine-latest-state-file
+        (expand-file-name "fontaine-latest-state.eld" path-cache-dir))
+  (setq fontaine-presets
+        '((regular
+           :default-height 100)
+          (t
+           :default-family "Iosevka Seadome"
+           :default-weight regular
+           :default-height 100
+           :fixed-pitch-family nil
+           :fixed-pitch-family nil
+           :fixed-pitch-height 1.0
+           :fixed-pitch-serif-family nil
+           :fixed-pitch-serif-weight nil
+           :variable-pitch-family "IBM Plex Sans"
+           :variable-pitch-weight nil
+           :variable-pitch-height 1.0
+           :bold-family nil
+           :bold-weight bold
+           :italic-family nil
+           :italic-slant italic
+           :line-spacing nil)))
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

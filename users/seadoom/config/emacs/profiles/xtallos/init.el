@@ -35,56 +35,51 @@
 ;;
 ;;; Code:
 
+;;
+;;; Initialize
+
+;; Since we might be running in CI or other environments, stick to
+;; XDG_CONFIG_HOME value if possible.
+(let ((emacs-home (if-let ((xdg (getenv "XDG_CONFIG_HOME")))
+                      (expand-file-name "emacs/" xdg)
+                    user-emacs-directory)))
+  ;; Add Lisp directory to `load-path'.
+  (add-to-list 'load-path (expand-file-name "lisp" emacs-home)))
+
+;; Adjust garbage collection thresholds during startup, and thereafter.
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 128 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold
+                             normal-gc-cons-threshold))))
+
+(setq-default user-full-name "Chris Montgomery"
+              user-mail-address "chris@cdom.io")
+
+(setq-default load-prefer-newer t)
+
+;; No beep!
+(setq visible-bell t)
+
 
 ;;
 ;;; Bootstrap
-
-(setq user-emacs-directory (file-name-directory (or (buffer-file-name) load-file-name)))
-
-;; Add Lisp directory to `load-path'.
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-;; Delay garbage collection on startup, then re-enable.
-;;
-;; Setting a high gc threshold permanently can result in a perceived
-;; performance improvement... until the threshold is reached, at which
-;; point garbage collection can take a very long time.
-;;
-;; This technique can also be useful for other resource-intensive
-;; operations which may benefit from a temporary lifting of the
-;; gc threshold.
-;;
-;; https://github.com/matthewbauer/bauer#increase-gc
-;;
-;; Also see the original blog post which inspired the technique. If we
-;; need to apply the threshold switching to numerous operations, then
-;; it may be worth moving this to a function.
-;;
-;; http://web.archive.org/web/20210316200425/http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
-(defvar file-name-handler-alist-backup
-        file-name-handler-alist)
-(setq gc-cons-threshold most-positive-fixnum
-      file-name-handler-alist nil)
-(add-hook 'after-init-hook
-  (lambda ()
-    (garbage-collect)
-    (setq gc-cons-threshold
-            (car (get 'gc-cons-threshold 'standard-value))
-      file-name-handler-alist
-        (append
-          file-name-handler-alist-backup
-          file-name-handler-alist))))
 
 (require 'config-path)
 (require 'init-elpa)
 
 ;; Configure and load the customize file
 ;; Because sometimes we just need Emacs to write code for us
-(setq custom-file (expand-file-name "custom-settings.el" user-emacs-directory))
-(load custom-file t)
+;; FIXME: rename to the standard `custom.el'
+(setq custom-file (concat path-local-dir "custom-settings.el"))
 
-(setq default-directory (concat (getenv "DOTFIELD_DIR") "/config/emacs/profiles/xtallos/"))
-
+;; Load autoloads file
+;; FIXME: does not exist, see d12frosted repo
+;; (unless elpa-bootstrap-p
+;;   (unless (file-exists-p path-autoloads-file)
+;;     (error "Autoloads file doesn't exist!"))
+;;   (load path-autoloads-file nil 'nomessage))
 
 ;;
 ;;; Environment
@@ -97,7 +92,8 @@
 (defconst xtallos/is-darwin xtallos/env-sys-mac-p)
 (defconst xtallos/is-linux xtallos/env-sys-linux-p)
 
-(require 'init-exec-path)
+;; FIXME: may only be necessary for emacs =< 28
+;; (require 'init-exec-path)
 
 ;;
 ;;; Performance

@@ -6,10 +6,12 @@ this one.
 
 To get you started, copy both example files to your Crafted Emacs configuration
 directory, e.g.:
+
 - copy =examples/example-config.el= to =~/.crafted-emacs/config.el=
 - copy =examples/example-config.org= to =~/.crafted-emacs/config.org=
 - restart Emacs
 
+  
 After that, whenever you edit =config.org= in Emacs and save it, it updates
 =config.el= in the same directory.
 
@@ -94,10 +96,10 @@ loading a different theme from the venerable Doom Emacs project.
 
 
 #+begin_src emacs-lisp
-  (crafted-package-install-package 'doom-themes)
-  (progn
-    (disable-theme 'deeper-blue)          ; first turn off the deeper-blue theme
-    (load-theme 'doom-palenight t))       ; load the doom-palenight theme
+  ;; (crafted-package-install-package 'doom-themes)
+  ;; (progn
+  ;;   (disable-theme 'deeper-blue)          ; first turn off the deeper-blue theme
+  ;;   (load-theme 'doom-palenight t))       ; load the doom-palenight theme
 #+end_src
 
 * Custom.el

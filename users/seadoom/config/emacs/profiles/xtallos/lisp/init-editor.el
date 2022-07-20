@@ -41,25 +41,40 @@
 
 (require 'config-editor)
 
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment   'utf-8)
+
 ;; Backup files sound useful but get in the way, experts say.
 (setq make-backup-files nil)
 
 ;; Search improvements.
-(setq-default
- search-default-mode #'char-fold-to-regexp
- replace-char-fold t)
+(setq-default search-default-mode #'char-fold-to-regexp)
+(setq-default replace-char-fold t)
 
-;; Whitespace settings.
-(setq-default
- indent-tabs-mode nil
- tab-width xtallos/indent-width
- require-final-newline t
- tab-always-indent t)
+;; Electrify everything by default.
+(when (fboundp 'electric-pair-mode)
+  (add-hook 'after-init-hook 'electric-pair-mode))
+(defun editor-disable-electric-pair ()
+  "Disable the command `electric-pair-mode' locally."
+  (electric-pair-local-mode -1))
+(add-hook 'after-init-hook 'electric-indent-mode)
+(defun editor-disable-electric-indent ()
+  "Disable the command `electric-indent-mode' locally."
+  (electric-indent-local-mode -1))
 
 ;; Replace active region upon input.
 (delete-selection-mode +1)
 ;; Enable column numbers.
 (column-number-mode +1)
+
+;; Auto-save files, because I forget.
+(setq-default
+ auto-save-list-file-prefix (expand-file-name
+                             "auto-save-list/.saves-"
+                             path-cache-dir))
 
 ;; Refresh buffers every so often in case a file changes outside of Emacs.
 (use-package autorevert
@@ -77,19 +92,54 @@
 (use-package elec-pair
   :hook (prog-mode . electric-pair-mode))
 
-(use-package visual-fill-column
-  :hook ((visual-line-mode . visual-fill-column-mode)))
+;; Whitespace
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width xtallos/indent-width)
+(setq-default require-final-newline t)
+(setq-default tab-always-indent t)
+(setq-default delete-trailing-lines t)
+(setq-default sentence-end-double-space t)
+(setq-default word-wrap t)
+
+(defun editor-show-trailing-whitespace ()
+  "Enable display of trailing whitespace in this buffer."
+  (setq-local show-trailing-whitespace t))
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook 'editor-show-trailing-whitespace))
 
 (use-package adaptive-wrap
   :defer t)
 
+(setq-default fill-column 80)
+(use-package visual-fill-column
+  :hook ((visual-line-mode . visual-fill-column-mode)))
+
+(use-package unfill
+  :commands (unfill-toggle)
+  :general
+  ("M-q" #'unfill-toggle))
+
 (use-package move-text
   :commands (move-text-up
              move-text-down)
-  :bind
-  (([M-S-down] . #'move-text-down)
-   ([M-S-up] . #'move-text-up)))
+  :general
+  ("M-S-<down>" #'move-text-down)
+  ("M-S-<up>" #'move-text-up))
 
+(use-package avy
+  :defer t
+  :general
+  (xtallos/leader-def
+    "jj" '(avy-goto-char :which-key "char")
+    "jl" '(avy-goto-line :which-key "line")
+    "jw" '(avy-goto-word-0 :which-key "word")
+    "jJ" '(avy-goto-char-timer :which-key "charS")))
+
+(use-package ace-link
+  :defer t
+  :general
+  (xtallos/leader-def
+    "jb" '(ace-link :which-key "btn")))
 
 (provide 'init-editor)
 ;;; init-editor.el ends here

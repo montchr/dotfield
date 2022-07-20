@@ -48,7 +48,7 @@
 
 
 ;;
-;;; Initialize `straight.el'
+;;; init: `straight.el'
 
 (setq-default
  straight-repository-branch "develop"
@@ -63,6 +63,14 @@
 
  ;; Keep `straight.el' files and package repos out of the user directory.
  straight-base-dir path-packages-dir
+
+ ;; TODO: ensure this file is populated with package hash locks
+ ;; alternatively: use nix
+ straight-profiles (list
+                    (cons nil
+                          (expand-file-name
+                           "package.lock.el"
+                           path-emacs-dir)))
 
  ;; Avoid cloning the entire git history of packages.
  straight-vc-git-default-clone-depth '(1 single-branch))
@@ -83,12 +91,14 @@
 
 
 ;;
-;;; Initialize `use-package'
+;;; init: `use-package'
 
-
+(setq-default
+ use-package-enable-imenu-support t)
 (straight-use-package 'use-package)
 
 ;; Disable `:ensure'.
+;; TODO: but why?
 (setq use-package-ensure-function
       (lambda (name &rest _)
         (message "Ignoring ':ensure t' in '%s' config" name)))
@@ -100,19 +110,19 @@
 ;;
 ;;; Common packages
 
-
 (use-package s)
 (use-package dash)
 (use-package async)
-(use-package request)
+(use-package request
+  :defer t
+  :init
+  (setq-default
+   request-storage-directory (expand-file-name "request"
+                                               path-cache-dir)))
 
+;; Profiling
 
-;;
-;;; Miscellaneous core packages
-
-
-
-
+(use-package esup :defer t)
 
 (provide 'init-elpa)
 ;;; init-elpa.el ends here
