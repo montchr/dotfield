@@ -33,6 +33,8 @@
 ;;
 ;; Configuration for keybindings.
 ;;
+;; FIXME: M-SPC seems to be captured by GNOME
+;;
 ;;; Code:
 
 ;;; --- configuration -----------------------------------------------------------
@@ -74,7 +76,7 @@
 
   ;; --- prev/next ---
   ;; FIXME: should not be under leader map!
-  
+
   "[" '(nil :wk "prev...")
   "[b" 'previous-buffer
 
@@ -97,15 +99,28 @@
   "bk" 'kill-buffer
   "bs" 'save-buffer
 
+  ;; --- eval ---
+
+  "e" '(nil :wk "eval...")
+  "eb" 'eval-buffer
+  "ee" 'eval-buffer
+
   ;; --- file ---
 
   "f" '(nil :wk "file...")
   "ff" 'find-file
+  "fD" 'delete-file
+  "fR" 'rename-visited-file
 
   ;; --- git ---
 
   "g" '(nil :wk "git...")
   "gg" 'magit-status
+
+  ;; --- meta ---
+
+  "q" '(nil :wk "meta...")
+  "qq" 'save-buffers-kill-emacs
 
   ;; --- search ---
 
@@ -119,10 +134,15 @@
 
   ;; window nav
   "wh" 'windmove-left
+  "wH" 'windmove-swap-states-left
   "wj" 'windmove-down
+  "wJ" 'windmove-swap-states-down
   "wk" 'windmove-up
+  "wK" 'windmove-swap-states-up
   "wl" 'windmove-right
+  "wL" 'windmove-swap-states-right
 
+  "wn" 'split-window-vertically
   "wd" 'delete-window)
 
 
