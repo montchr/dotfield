@@ -35,83 +35,75 @@
 ;;
 ;;; Code:
 
-(require 'config-editor)
+;; Default indentation width is 2 spaces.
+(defvar xtallos/indent-width 2)
 
-(use-package evil
-  ;; :after (minions)
-  :diminish undo-tree-mode
-
-  :init
-  (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil
-        evil-shift-width xtallos/indent-width)
-
-  :hook (after-init . evil-mode)
-
-  :preface
-  (defun xtallos/save-and-kill-this-buffer ()
-    (interactive)
-    (save-buffer)
-    (kill-this-buffer))
-  
-  :config
-  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
-    (define-key evil-insert-state-map (kbd "C-n") nil)
-    (define-key evil-insert-state-map (kbd "C-p") nil))
-  (evil-ex-define-cmd "q" #'kill-this-buffer)
-  (evil-ex-define-cmd "wq" #'xtallos/save-and-kill-this-buffer))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (setq evil-collection-company-use-tng nil)
-  (evil-collection-init))
+(defvar xtallos/leader--map (make-sparse-keymap)
+  "An overriding keymap for <leader> keys.")
 
 (use-package general)
 
-  ;; :config
-  ;; (general-define-key
-  ;;  :prefix "SPC"
-  ;;  :keymaps 'override
-  ;;  :states '(normal visual motion)
-
-  ;;  "<left>" 'previous-buffer
-  ;;  "<right>" 'next-buffer
-
-  ;;  "a" 'org-agenda
-  ;;  "bb" 'consult-buffer
-  ;;  ;; "c" 'org-capture
-  ;;  "ff" 'find-file
-  ;;  "gg" 'magit-status
-  ;;  "sp" 'project-find-file
-  ;;  "ss" 'consult-line
-  ;;  "w" 'write-file
-  ;;  "y" 'consult-yank-pop
-   
-  ;;  "S-<return>" 'vterm
-  ;;  "-" 'calendar
-  ;;  "=" 'quick-calc
-  ;;  "+" 'calc
-  ;;  "," 'eww))
-
 (general-create-definer xtallos/leader-def
-  :prefix "SPC"
-  :non-normal-prefix "M-SPC")
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC"
+    :prefix-map 'xtallos/leader--map
+    :states '(normal insert visual emacs)
+    :keymaps 'override)
 
-(general-create-definer xtallos/local-leader-def
-  :prefix "SPC m"
-  :non-normal-prefix "M-SPC m")
+  (general-create-definer xtallos/local-leader-def
+    :prefix "SPC m"
+    :non-normal-prefix "M-SPC m"
+    :states '(normal insert visual emacs)
+:keymaps 'override)
+
+;;; bindings: top-level scopes
 
 (xtallos/leader-def
- "/" '(nil :which-key "Find")
- "[" '(nil :which-key "Prev")
- "g" '(nil :which-key "Git")
- "i" '(nil :which-key "Ins")
- "j" '(nil :which-key "Jump")
- "n" '(nil :which-key "Note")
- "o" '(nil :which-key "Open"))
+  "/" '(nil :wk "find...")
+  "[" '(nil :wk "prev...")
 
-(use-package bind-key)
+  "b" '(nil :wk "buff...")
+  ;; "bb" 'consult-buffer
+  "bh" 'previous-buffer
+  "bl" 'next-buffer
+  "bs" 'save-buffer
+
+  "f" '(nil :wk "file...")
+  "ff" 'find-file
+
+  "g" '(nil :wk "git...")
+  "gg" 'magit-status
+
+  "i" '(nil :wk "ins...")
+  "j" '(nil :wk "jump...")
+  "n" '(nil :wk "note...")
+  "o" '(nil :wk "open...")
+
+  "s" '(nil :wk "serx...")
+  "sp" 'project-find-file
+  ;; "ss" 'consult-line
+
+  "w" '(nil :wk "wind...")
+  "wh" 'windmove-left
+  "wj" 'windmove-down
+  "wk" 'windmove-up
+  "wl" 'windmove-right)
+
+
+;;; bindings: top-level oneoffs
+
+(xtallos/leader-def
+  "a"   'org-agenda
+  "c"   'org-capture
+  ;; "y"   'consult-yank-pop
+  
+  "-"   'calendar
+  "="   'quick-calc
+  "+"   'calc
+
+  ;; "S-<return>" 'vterm
+
+  "SPC" 'project-find-file)
 
 (use-package which-key
   :diminish which-key-mode
@@ -145,12 +137,47 @@ If any hook returns non-nil, all hooks after it are ignored.")
 
 (global-set-key [remap keyboard-quit] #'kbd-escape)
 
-(when (and env-sys-mac-p env-graphic-p)
-  (defvar mac-option-modifier)
-  (defvar mac-command-modifier)
-  (setq mac-option-modifier nil
-        mac-command-modifier 'meta))
+;; (when (and env-sys-mac-p env-graphic-p)
+;;   (defvar mac-option-modifier)
+;;   (defvar mac-command-modifier)
+;;   (setq mac-option-modifier nil
+;;         mac-command-modifier 'meta))
 
+(use-package evil
+  ;; FIXME: why after minions?
+  ;; :after (minions)
+  :diminish undo-tree-mode
+
+  :init
+  (setq evil-want-C-u-scroll t
+        evil-want-keybinding nil
+        evil-shift-width xtallos/indent-width)
+
+  :hook (after-init . evil-mode)
+
+  :preface
+  (defun xtallos/save-and-kill-this-buffer ()
+    (interactive)
+    (save-buffer)
+    (kill-this-buffer))
+  
+  :config
+  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
+    (define-key evil-insert-state-map (kbd "C-n") nil)
+    (define-key evil-insert-state-map (kbd "C-p") nil))
+  (evil-ex-define-cmd "q" #'kill-this-buffer)
+  (evil-ex-define-cmd "wq" #'xtallos/save-and-kill-this-buffer))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-company-use-tng nil)
+  (evil-collection-init))
+
+(use-package evil-commentary
+  :after evil
+  :diminish
+  :config (evil-commentary-mode +1))
 
 (provide 'init-keys)
 ;;; init-keys.el ends here
