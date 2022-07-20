@@ -137,10 +137,18 @@
 (require 'init-ui)
 (require 'init-window)
 
+
 ;;
 ;;; Utilities
 
 (require 'init-vcs)
+(require 'init-ide)
+
+
+;;
+;;; Languages
+
+(require 'init-lang-nix)
 
 ;;
 ;;; `dired'
