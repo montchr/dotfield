@@ -136,6 +136,7 @@
 (require 'init-editor)
 (require 'init-ui)
 (require 'init-window)
+(require 'init-selection)
 
 
 ;;

@@ -52,5 +52,12 @@
   :defer t
   :commands lsp-ui-mode)
 
+;; FIXME: is this thing on?
+(use-package consult-lsp
+  :defer t
+  :after lsp
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
+
 (provide 'init-ide)
 ;;; init-ide.el ends here
