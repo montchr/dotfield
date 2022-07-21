@@ -129,6 +129,7 @@
   ;; --- meta ---
 
   "q" '(nil :wk "meta...")
+  "qf" 'delete-frame
   "qq" 'save-buffers-kill-emacs
 
   ;; --- search ---
@@ -152,6 +153,7 @@
   "wL" 'windmove-swap-states-right
 
   "wn" 'split-window-vertically
+  "wN" 'split-window-horizontally
   "wd" 'delete-window)
 
 
