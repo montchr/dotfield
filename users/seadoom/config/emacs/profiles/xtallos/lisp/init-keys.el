@@ -117,6 +117,15 @@
   "g" '(nil :wk "git...")
   "gg" 'magit-status
 
+  ;; --- help ---
+
+  "h" '(nil :wk "help...")
+  "hb" 'describe-bindings
+  "hh" 'help
+  "hf" 'describe-function
+  "ho" 'describe-symbol
+  "hv" 'describe-variable
+
   ;; --- meta ---
 
   "q" '(nil :wk "meta...")
