@@ -40,9 +40,6 @@
 ;;; Code:
 
 
-;; Bleep the beep.
-(setq visible-bell nil)
-
 (setq-default
  inhibit-startup-message t
  inhibit-startup-screen t
