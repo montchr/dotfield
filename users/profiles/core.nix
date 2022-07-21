@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  lib.dotfield.userPath = "${config.xdg.configHome}/dotfield";
+  lib.dotfield.fsPath = "${config.xdg.configHome}/dotfield";
   lib.dotfield.whoami = rec {
     firstName = "Chris";
     lastName = "Montgomery";
@@ -28,6 +28,7 @@
     httpie # Modern, user-friendly command-line HTTP client for the API era.
     pastel # A command-line tool to generate, analyze, convert and manipulate colors
     tealdeer # A very fast implementation of tldr in Rust.
+
 
     ## === Formatters ===
 
@@ -70,7 +71,7 @@
   home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = config.lib.dotfield.userPath;
+    DOTFIELD_DIR = config.lib.dotfield.fsPath;
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
@@ -99,4 +100,6 @@
     # https://github.com/mfaerevaag/wd
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
+
+  home.stateVersion = lib.mkForce "22.05";
 }

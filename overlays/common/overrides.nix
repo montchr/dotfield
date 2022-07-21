@@ -3,14 +3,16 @@ channels: final: prev: {
 
   inherit
     (channels.nixos-unstable)
-    awscli2
     iosevka
     iosevka-bin
     iosevka-comfy
     nerdfonts
+    python310Packages
     kitty
-    xplr
     ;
 
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
+
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
+  httpie = final.python310Packages.httpie;
 }

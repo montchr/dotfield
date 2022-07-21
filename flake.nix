@@ -12,6 +12,7 @@
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
+    digga.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixlib.url = "github:nix-community/nixpkgs.lib";
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -51,9 +52,13 @@
     sops-nix.inputs.nixpkgs.follows = "nixos-stable";
 
     # Development tools.
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+
+    # Emacsen.
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    crafted-emacs.url = "github:SystemCrafters/crafted-emacs";
+    crafted-emacs.flake = false;
 
     # Other sources.
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -89,16 +94,31 @@
     sops-nix,
     ...
   } @ inputs': let
-    inputs = inputs' // {
-      # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
-      emacs-overlay = inputs'.emacs-overlay // {
-        overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
+    inputs =
+      inputs'
+      // {
+        # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
+        emacs-overlay =
+          inputs'.emacs-overlay
+          // {
+            overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
+          };
       };
-    };
     peers = import ./ops/metadata/peers.nix;
   in
     digga.lib.mkFlake {
       inherit self inputs;
+
+      supportedSystems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+
+        # FIXME: many python packages will not build on this system due to
+        # broken pyopenssl dependency
+        # https://github.com/NixOS/nixpkgs/issues/175875
+        # https://github.com/pyca/pyopenssl/issues/873
+        # "aarch64-darwin"
+      ];
 
       channelsConfig.allowUnfree = true;
 
@@ -171,7 +191,7 @@
           boschic = {};
           hodgepodge = {};
           hierophant = {};
-          tapestone = {};
+          tsone = {};
           bootstrap-graphical = {};
         };
 
@@ -196,7 +216,8 @@
               basic
               ++ [
                 networking.common
-                networking.tailscale
+                # FIXME: this can cause a lock-out!
+                # networking.tailscale
                 ssh-host
               ];
             tangible =
@@ -239,8 +260,10 @@
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/darwin)];
-        hosts = {};
+        imports = [(digga.lib.importHosts ./darwin/machines)];
+        hosts = {
+          cdotmpln = {};
+        };
 
         importables = rec {
           inherit peers;
@@ -254,6 +277,7 @@
               core.common
               core.darwin
               networking.common
+              networking.tailscale
             ];
             workstation = [
               fonts.common
@@ -262,6 +286,7 @@
               os-specific.darwin.gui
               os-specific.darwin.system-defaults
               secrets
+              ssh-host
             ];
           };
         };
@@ -297,7 +322,9 @@
             #: developer: those who go
             developer = [
               direnv
-              emacs
+              # emacs.crafted
+              # emacs.doom
+              emacs.xtallos
               git
               gpg
               shells.zsh
@@ -332,31 +359,48 @@
           };
         };
 
-        users = {
+        users = rec {
           nixos = {suites, ...}: {
             imports = [];
           };
-          seadoom = {suites, ...}: {
+          cdom = {suites, ...}: {
             imports = with suites;
               basic ++ developer;
           };
-          xtallos = {suites, ...}: {
-            imports = with suites;
-              basic ++ developer;
+          seadoom = cdom;
+          chrismont = {
+            profiles,
+            suites,
+            ...
+          }: {
+            imports =
+              (with suites; workstation)
+              ++ (with profiles; [
+                aws
+                nodejs
+                php
+              ]);
           };
         };
       };
 
       devshell = ./shell;
 
-      # homeConfigurations =
-      #   digga.lib.mkHomeConfigurations self.nixosConfigurations;
+      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
       # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
+      # {
+      #   inherit
+      #     (self.nixosConfigurations)
+      #     boschic
+      #     hodgepodge
+      #     tsone
+      #     ;
+      # };
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        tapestone = {
-          hostname = peers.hosts.tapestone.ipv4.address;
-          sshUser = "seadoom";
+        tsone = {
+          hostname = peers.hosts.tsone.ipv4.address;
+          sshUser = "root";
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;

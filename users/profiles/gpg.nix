@@ -42,6 +42,10 @@ in
             source = ../../identity + "/gpg-${pgpPublicKey}.txt";
             trust = "ultimate";
           }
+          {
+            source = ../../identity + "/gpg-0xF0B8FB42A7498482.txt";
+            trust = "ultimate";
+          }
         ];
 
         # https://github.com/drduh/config/blob/master/gpg.conf

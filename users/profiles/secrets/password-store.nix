@@ -24,7 +24,9 @@ in
       };
     }
     (lib.mkIf (!isDarwin) {
-      services.pass-secret-service.enable = true;
+      # FIXME: needs further configuration... does not play well with 1password,
+      # for example
+      # services.pass-secret-service.enable = true;
       services.password-store-sync.enable = true;
     })
     (lib.mkIf config.programs.firefox.enable {

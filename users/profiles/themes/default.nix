@@ -21,11 +21,11 @@ in {
       size = 13;
     };
     sans = {
-      family = "Iosevka Comfy Duo";
+      family = "IBM Plex Sans";
       size = 13;
     };
     serif = {
-      family = "Iosevka Curly Slab";
+      family = "IBM Plex Serif";
       size = 13;
     };
     # sym = {

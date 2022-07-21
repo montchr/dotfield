@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
   programs.foot = {
     enable = true;
     server.enable = true;

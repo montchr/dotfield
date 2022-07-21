@@ -1,13 +1,9 @@
 final: prev: {
-  # Handled by the Homebrew module
-  # This populates a dummy package to satisfy the requirement
-  firefox-darwin = final.runCommand "firefox-0.0.0" {} "mkdir $out";
-
-  # prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
+  # prefmanager = inputs.prefmanager.defaultPackage.${final.stdenv.system};
 
   yabai = final.callPackage (import ./yabai.nix) {};
 
-  emacsNativeComp = prev.emacsNativeComp.overrideAttrs (o: let
+  emacsPlusNativeComp = final.emacsNativeComp.overrideAttrs (o: let
     emacsPlus = final.fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
@@ -16,7 +12,7 @@ final: prev: {
     };
   in {
     # https://github.com/cmacrae/emacs/blob/03b4223e56e10a6d88faa151c5804d30b8680cca/flake.nix#L75
-    buildInputs = o.buildInputs ++ [prev.darwin.apple_sdk.frameworks.WebKit];
+    buildInputs = o.buildInputs ++ [final.darwin.apple_sdk.frameworks.WebKit];
 
     # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L16-L17
     configureFlags =

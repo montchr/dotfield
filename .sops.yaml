@@ -5,7 +5,7 @@ keys:
 
   - &boschic age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl
   - &hodgepodge age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w
-  - &tapestone age1yq6ccts5x73zfupehxu289yvqec6aez5yswcx5zje6gnj340qs7spurdzq
+  - &tsone age1lwhnkqg302er0gmunhc4sa97ycg806xhs04yf30w0kk5dm2fl40qct7z7n
 
 # Creation rules are evaluated sequentially. The first match wins.
 # https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
@@ -21,11 +21,11 @@ creation_rules:
       - age:
           - *cdom_age
           - *hodgepodge
-  - path_regex: hosts/nixos/tapestone/secrets/[^/]+\.yaml$
+  - path_regex: hosts/nixos/tsone/secrets/[^/]+\.yaml$
     key_groups:
       - age:
           - *cdom_age
-          - *tapestone
+          - *tsone
 
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -33,7 +33,7 @@ creation_rules:
           - *cdom_age
           - *boschic
           - *hodgepodge
-          - *tapestone
+          - *tsone
 
 ## Reference:
 # https://github.com/Mic92/sops-nix

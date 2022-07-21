@@ -32,7 +32,7 @@ moduleArgs @ {
       pistol
       unzip
     ]
-    ++ (lib.optionals isGraphical [
+    ++ (lib.optionals (isGraphical && !isMacOS) [
       imagemagick
       ffmpeg
       ffmpegthumbnailer

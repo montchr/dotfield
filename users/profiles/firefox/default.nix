@@ -146,7 +146,7 @@ in {
     enable = true;
     package =
       if isDarwin
-      then pkgs.firefox-darwin
+      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
         pkgs.firefox-wayland.override {

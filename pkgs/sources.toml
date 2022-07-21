@@ -1,9 +1,5 @@
 # nvfetcher.toml
 
-[chemacs]
-src.git = "https://github.com/plexus/chemacs2.git"
-fetch.git = "https://github.com/plexus/chemacs2.git"
-
 [fish-nvm]
 src.github = "jorgebucaran/nvm.fish"
 fetch.github = "jorgebucaran/nvm.fish"
