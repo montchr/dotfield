@@ -88,12 +88,12 @@
   "b" '(nil :wk "buff...")
 
   ;; buffer nav
+  "bb" 'consult-project-buffer
+  "bB" 'consult-buffer
   "bh" 'previous-buffer
   "b[" 'previous-buffer
   "bl" 'next-buffer
   "b]" 'next-buffer
-  ;; TODO
-  ;; "bb" 'consult-buffer
 
   ;; buffer management
   "bk" 'kill-buffer
@@ -134,8 +134,8 @@
   ;; --- search ---
 
   "s" '(nil :wk "serx...")
-  "sp" 'project-find-file
-  ;; "ss" 'consult-line
+  "sp" 'consult-ripgrep
+  "ss" 'consult-line
 
   ;; --- window management ---
 
@@ -159,9 +159,10 @@
 
 (xtallos/leader-def
   "a"   'org-agenda
-  "c"   'org-capture
-  ;; "y"   'consult-yank-pop
-  
+  ;; FIXME: possible conflict with lsp-mode?
+  ;; "c"   'org-capture
+  "y"   'consult-yank-pop
+
   "-"   'calendar
   "="   'quick-calc
   "+"   'calc
@@ -170,7 +171,8 @@
 
   "SPC" 'project-find-file)
 
-
+;;
+;;; Keybinding UX
 
 (use-package which-key
   :diminish which-key-mode
@@ -182,6 +184,8 @@
         which-key-add-column-padding 1
         ;; which-key-max-display-columns nil
         which-key-min-display-lines 6))
+
+;; <escape> escaping
 
 (defvar kbd-escape-hook nil
   "A hook run after \\[keyboard-quit] is pressed.
