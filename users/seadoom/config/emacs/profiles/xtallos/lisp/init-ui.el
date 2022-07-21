@@ -53,6 +53,11 @@
 ;; Display line numbers in every buffer
 (global-display-line-numbers-mode 1)
 
+;; Visual line mode everywhere
+(global-visual-line-mode 1)
+
+(fringe-mode 10)
+
 (blink-cursor-mode 1)
 
 
