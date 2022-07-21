@@ -37,7 +37,7 @@
 
 (use-package lsp-mode
   :init
-  (setq lsp-keymap-prefix "SPC c")
+  (setq lsp-keymap-prefix nil)
   (setq lsp-use-plists t)
   (setq-default lsp-session-file (concat path-etc-dir "lsp-session"))
   (setq-default lsp-keep-workspace-alive nil)
@@ -45,8 +45,7 @@
   :commands (lsp lsp-deferred)
 
   :hook ((nix-mode . lsp-deferred)
-         (lsp-mode . lsp-lens-mode)
-         (lsp-mode . lsp-enable-which-key-integration)))
+         (lsp-mode . lsp-lens-mode)))
 
 (use-package lsp-ui
   :defer t
