@@ -6,6 +6,9 @@
 
 export LC_ALL=C
 
+apt update -y
+apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parted 
+
 ###: CONFIGURATION =======================================================
 
 export MY_HOSTNAME=tsone
@@ -113,24 +116,14 @@ echo 'AUTO -all
 ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 
 
-
-# Creating file systems changes their UUIDs.
-# Trigger udev so that the entries in /dev/disk/by-uuid get refreshed.
-# `nixos-generate-config` depends on those being up-to-date.
-# See https://github.com/NixOS/nixpkgs/issues/62444
-udevadm trigger
-
-mkdir -p /mnt/boot{-fallback,}
-mount "${NVME1}-part2" /mnt/boot
-# mount "${NVME2}-part2" /mnt/boot-fallback
-
-
-##: --- VOLUME: 'NIXOS' ---
+##: --- VOLUME: 'NIXOS' ---------------------------------------------------------
 
 for nvme in "${nvmexx[@]}"; do
   # N.B. untested/aspirational!
   sgdisk --zap-all "$nvme"
   parted_nice --script "$nvme" mklabel gpt
+  # Wipe any previous RAID/ZFS signatures
+  wipefs --all --force $nvme
 
   sgdisk -n1:0:+4M  -t1:EF02 "$nvme"  # bios
   sgdisk -n2:0:+2G  -t2:EF00 "$nvme"  # esp
@@ -138,12 +131,6 @@ for nvme in "${nvmexx[@]}"; do
   sgdisk -n4:0:0    -t4:8300 "$nvme"  # root
 
   partprobe
-
-  for i in {1..4}; do
-    udevadm settle --timeout=5 --exit-if-exists="${nvme}-part${i}"
-    # Wipe any previous RAID/ZFS signatures
-    mdadm --zero-superblock --force "${nvme}-part${i}" || true
-  done
 
   mkfs.fat -F 32 -n EFI "${nvme}-part2"
 done
@@ -168,6 +155,9 @@ btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@persist
 btrfs subvolume create /mnt/@postgres
 
+# Create a read-only snapshot of the `@root` subvolume for impermanace.
+btrfs subvolume snapshot -r /mnt /@root-blank
+
 btrfs subvolume list -a /mnt
 umount /mnt
 
@@ -190,25 +180,34 @@ mount -t btrfs -o "subvol=@postgres,ssd,${FSOPTS}" \
   LABEL="nixos" \
   /mnt/var/lib/postgres
 
+# Creating file systems changes their UUIDs.
+# Trigger udev so that the entries in /dev/disk/by-uuid get refreshed.
+# `nixos-generate-config` depends on those being up-to-date.
+# See https://github.com/NixOS/nixpkgs/issues/62444
+udevadm trigger
 
-##: --- VOLUME: 'SILO' ---
+mkdir -p /mnt/boot{-fallback,}
+mount "${NVME1}-part2" /mnt/boot
+# mount "${NVME2}-part2" /mnt/boot-fallback
+
+
+##: --- VOLUME: 'SILO' ----------------------------------------------------------
 
 for hdd in "${hddxx[@]}"; do
   sgdisk --zap-all "$hdd"
   parted_nice --script "$hdd" mklabel gpt
+  wipefs --all --force $hdd
 
   sgdisk -n1:0:0 -t1:8300 "$hdd"
 
   partprobe
-
-  # Wipe any previous RAID/ZFS signatures
-  mdadm --zero-superblock --force "${hdd}-part1" || true
 
   # Wait for all devices to exist
   udevadm settle --timeout=5 --exit-if-exists="${hdd}-part1"
 done
 
 mkfs.btrfs \
+  --force \
   --data raid10 \
   --metadata raid10 \
   --label silo \
@@ -221,12 +220,12 @@ mkfs.btrfs \
     "${HDD07}-part1" \
     "${HDD08}-part1" \
     "${HDD09}-part1" \
-    "${HDD10}-part1" \
+    "${HDD10}-part1"
 
+udevadm trigger
 btrfs device scan
 
 mkdir -p /mnt/silo
-
 mount -t btrfs LABEL=silo /mnt/silo
 btrfs subvolume create /mnt/silo/@backups
 btrfs subvolume create /mnt/silo/@dl-completed
@@ -281,13 +280,12 @@ mkdir -p /mnt/etc/nixos
 git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/nixos
 
 nixos-generate-config --root /mnt
-
-nix build '/mnt/etc/nixos#nixosConfigurations.tsone.config.system.build.toplevel'
-
 # Pre-flight check to prevent issues with missing files during install.
 # https://discourse.nixos.org/t/nixos-21-05-installation-failed-installing-from-an-existing-distro/13627/3
 # https://github.com/NixOS/nixpkgs/issues/126141#issuecomment-861720372
-# nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
+nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
+
+nix build '/mnt/etc/nixos#nixosConfigurations.tsone.config.system.build.toplevel'
 
 # Install NixOS
 PATH="$PATH" "$(command -v nixos-install)" \
