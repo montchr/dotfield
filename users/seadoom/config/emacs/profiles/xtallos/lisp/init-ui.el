@@ -53,20 +53,17 @@
 ;; Display line numbers in every buffer
 (global-display-line-numbers-mode 1)
 
-(hl-line-mode 1)
 (blink-cursor-mode 1)
+
+
+;;
+;;; Theme
 
 (load-theme 'modus-vivendi t)
 
-(use-package highlight-numbers
-  :hook (prog-mode . highlight-numbers-mode))
 
-(use-package highlight-escape-sequences
-  :hook (prog-mode . hes-mode))
-
-(use-package minions
-  :init
-  (minions-mode 1))
+;;
+;;; Typefaces
 
 (use-package fontaine
   :commands (fontaine-store-latest-preset)
@@ -99,6 +96,27 @@
           :line-spacing nil)))
 
 (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+
+
+;;
+;;; Highlighting
+
+(hl-line-mode 1)
+
+(use-package highlight-numbers
+  :hook (prog-mode . highlight-numbers-mode))
+
+(use-package highlight-escape-sequences
+  :hook (prog-mode . hes-mode))
+
+
+;;
+;;; Modeline
+
+(use-package minions
+  :init
+  (minions-mode 1))
+
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.
