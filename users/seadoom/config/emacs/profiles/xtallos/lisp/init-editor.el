@@ -69,13 +69,13 @@
                              path-cache-dir))
 
 ;; Refresh buffers every so often in case a file changes outside of Emacs.
-(use-package autorevert
-  :config
-  (global-auto-revert-mode +1)
-  (setq auto-revert-interval 2
-        auto-revert-check-vc-info t
-        global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil))
+;; (use-package autorevert
+;;   :config
+;;   (global-auto-revert-mode +1)
+;;   (setq auto-revert-interval 2
+;;         auto-revert-check-vc-info t
+;;         global-auto-revert-non-file-buffers t
+;;         auto-revert-verbose nil))
 
 (use-package paren
   :init (setq show-paren-delay 0)
