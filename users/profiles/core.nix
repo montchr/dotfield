@@ -24,9 +24,11 @@
     ## === Utilities ===
 
     bat # A cat(1) clone with wings.
-    tealdeer # A very fast implementation of tldr in Rust.
     grex # Generate regexps from user-provided test cases.
     httpie # Modern, user-friendly command-line HTTP client for the API era.
+    pastel # A command-line tool to generate, analyze, convert and manipulate colors
+    tealdeer # A very fast implementation of tldr in Rust.
+
 
     ## === Formatters ===
 
