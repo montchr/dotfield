@@ -106,8 +106,7 @@
 (defconst xtallos/is-darwin xtallos/env-sys-mac-p)
 (defconst xtallos/is-linux xtallos/env-sys-linux-p)
 
-;; FIXME: may only be necessary for emacs =< 28
-;; (require 'init-exec-path)
+(require 'init-exec-path)
 
 ;;
 ;;; Performance
