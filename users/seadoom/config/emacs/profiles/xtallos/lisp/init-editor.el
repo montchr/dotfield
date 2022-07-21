@@ -91,7 +91,6 @@
 (setq-default tab-always-indent t)
 (setq-default delete-trailing-lines t)
 (setq-default sentence-end-double-space t)
-(setq-default word-wrap t)
 
 (defun editor-show-trailing-whitespace ()
   "Enable display of trailing whitespace in this buffer."
