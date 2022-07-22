@@ -163,6 +163,7 @@
 ;;; Languages
 
 (require 'init-lang-nix)
+(require 'init-lang-yaml)
 
 ;;
 ;;; `dired'
