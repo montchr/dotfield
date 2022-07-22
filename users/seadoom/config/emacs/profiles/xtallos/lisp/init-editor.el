@@ -88,6 +88,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width xtallos/indent-width)
 (setq-default require-final-newline t)
+;; FIXME: probably conflicts with completion
 (setq-default tab-always-indent t)
 (setq-default delete-trailing-lines t)
 (setq-default sentence-end-double-space t)
@@ -98,12 +99,12 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook 'editor-show-trailing-whitespace))
 
-(use-package adaptive-wrap
-  :defer t)
 
+;;
+;;; Column wrapping
+
+;; A traditional, terse, comfortable, and friendly column width.
 (setq-default fill-column 80)
-(use-package visual-fill-column
-  :hook ((visual-line-mode . visual-fill-column-mode)))
 
 (use-package unfill
   :commands (unfill-toggle)
@@ -116,6 +117,10 @@
   :general
   ("M-S-<down>" #'move-text-down)
   ("M-S-<up>" #'move-text-up))
+
+
+;;
+;;; In-buffer navigation
 
 (use-package avy
   :defer t
