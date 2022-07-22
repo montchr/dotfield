@@ -152,8 +152,10 @@
 ;;
 ;;; Utilities
 
-(require 'init-vcs)
+(require 'init-flycheck)
+(require 'init-hyperbole)
 (require 'init-ide)
+(require 'init-vcs)
 
 
 ;;

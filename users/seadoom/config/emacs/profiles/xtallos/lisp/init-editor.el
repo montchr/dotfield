@@ -136,6 +136,11 @@
   :config
   (apheleia-global-mode +1))
 
+;; https://github.com/redguardtoo/evil-nerd-commenter
+(use-package evil-nerd-commenter
+  :config
+  (evilnc-default-hotkeys))
+
 
 (provide 'init-editor)
 ;;; init-editor.el ends here

@@ -64,6 +64,13 @@
 
 (blink-cursor-mode 1)
 
+;; Small, flexible package to temporarily highlight the current line after a
+;; given function is invoked.
+;; https://protesilaos.com/emacs/pulsar
+(use-package pulsar
+  :config
+  (pulsar-global-mode 1))
+
 
 ;;
 ;;; --- Typefaces --------------------------------------------------------------
@@ -142,6 +149,13 @@
 
 ;;
 ;;; --- Modeline ---------------------------------------------------------------
+;;
+;;; Prior Farts:
+;;
+;; * https://github.com/motform/stimmung-themes
+
+;; Probably not particularly useful with an ultra-simplistic modeline.
+(use-package diminish)
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length.
