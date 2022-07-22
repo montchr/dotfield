@@ -50,8 +50,9 @@
  use-file-dialog nil
  use-dialog-box nil)
 
-;; Display line numbers in every buffer
-(global-display-line-numbers-mode 1)
+
+;; Disable line numbers by default.
+(global-display-line-numbers-mode -1)
 
 ;; Visual line mode everywhere
 (global-visual-line-mode 1)
