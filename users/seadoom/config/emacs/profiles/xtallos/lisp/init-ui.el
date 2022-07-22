@@ -62,12 +62,6 @@
 
 
 ;;
-;;; Theme
-
-(load-theme 'modus-vivendi t)
-
-
-;;
 ;;; Typefaces
 
 (use-package fontaine
@@ -104,6 +98,21 @@
 
 
 ;;
+;;; Theme
+
+;; (load-theme 'modus-vivendi t)
+
+(use-package stimmung-themes
+  :after (fontaine)
+  :config (stimmung-themes-load-dark))
+
+(setq window-divider-default-right-width  24
+      window-divider-default-bottom-width 12
+      window-divider-default-places       t)
+(window-divider-mode 1)
+
+
+;;
 ;;; Highlighting
 
 (hl-line-mode 1)
@@ -114,13 +123,53 @@
 (use-package highlight-escape-sequences
   :hook (prog-mode . hes-mode))
 
+;;
+;;; Frames
+
+(setq frame-resize-pixelwise t
+      default-frame-alist    (append (list
+                                      '(vertical-scroll-bars . nil)
+                                      ;; This controls the "margin" around each window's contents.
+                                      '(internal-border-width . 24)
+                                      '(right-fringe   . 0)
+                                      '(tool-bar-lines . 0))))
+
 
 ;;
 ;;; Modeline
 
-(use-package minions
-  :init
-  (minions-mode 1))
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length.
+Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width (- (window-total-width)
+							(+ (length (format-mode-line left))
+							   (length (format-mode-line right))))))
+    (append left
+            (list (format (format "%%%ds" available-width) ""))
+            right)))
+
+(setq-default
+ column-number-mode t
+ mode-line-format '((:eval (simple-mode-line-render
+							'("%e" ; left side
+                              mode-line-front-space
+                              mode-line-modified
+                              mode-line-remote
+                              mode-line-frame-identification
+                              mode-line-buffer-identification
+							  "  "
+							  "%l:%c"
+                              )
+                            '("%"
+                              mode-line-misc-info  ; right side
+                              "  "
+                              mode-line-process
+                              mode-line-end-spaces
+                              "  ")))))
+
+;; (use-package minions
+;;   :init
+;;   (minions-mode 1))
 
 
 (provide 'init-ui)
