@@ -124,20 +124,11 @@
 ;;
 ;;; In-buffer navigation
 
-(use-package avy
-  :defer t
-  :general
-  (xtallos/leader-def
-    "jj" '(avy-goto-char :which-key "char")
-    "jl" '(avy-goto-line :which-key "line")
-    "jw" '(avy-goto-word-0 :which-key "word")
-    "jJ" '(avy-goto-char-timer :which-key "charS")))
+(use-package avy)
 
-(use-package ace-link
-  :defer t
-  :general
-  (xtallos/leader-def
-    "jb" '(ace-link :which-key "btn")))
+(use-package ace-link)
+
+
 
 (provide 'init-editor)
 ;;; init-editor.el ends here

@@ -127,6 +127,16 @@
   "ho" 'describe-symbol
   "hv" 'describe-variable
 
+  ;; --- jump around ---
+
+  "j" '(nil :wk "help...")
+  "jj" '(avy-goto-char :which-key "char")
+  "jJ" '(avy-goto-char-timer :which-key "charS")
+
+  "jl" '(avy-goto-line :which-key "line")
+  "jw" '(avy-goto-word-0 :which-key "word")
+  "jb" '(ace-link :which-key "btn")
+
   ;; --- meta ---
 
   "q" '(nil :wk "meta...")
