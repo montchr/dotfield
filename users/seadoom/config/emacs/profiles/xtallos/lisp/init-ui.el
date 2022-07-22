@@ -170,17 +170,17 @@ Containing LEFT, and RIGHT aligned respectively."
 (setq-default
  column-number-mode t
  mode-line-format '((:eval (simple-mode-line-render
-							'("%e" ; left side
+							              '("%e" ; left side
                               mode-line-front-space
                               mode-line-modified
                               mode-line-remote
                               mode-line-frame-identification
                               mode-line-buffer-identification
-							  "  "
-							  "%l:%c"
+							                "  "
+							                "%l:%c"
                               )
-                            '("%"
-                              mode-line-misc-info  ; right side
+                            '("%" ; right side
+                              mode-line-misc-info
                               "  "
                               mode-line-process
                               mode-line-end-spaces
