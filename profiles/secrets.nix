@@ -38,9 +38,6 @@ in {
   users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
 
   age.secrets = lib.mkMerge [
-    {
-      "wireless.env".file = "${secretsDir}/wireless.env.age";
-    }
     (mkEspansoMatchesSecret "personal")
     # (mkEspansoMatchesSecret "work")
   ];
