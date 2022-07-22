@@ -93,15 +93,14 @@
 ;;
 ;;; init: `use-package'
 
-(setq-default
- use-package-enable-imenu-support t)
+(setq-default use-package-enable-imenu-support t)
 (straight-use-package 'use-package)
 
 ;; Disable `:ensure'.
 ;; TODO: but why?
-(setq use-package-ensure-function
-      (lambda (name &rest _)
-        (message "Ignoring ':ensure t' in '%s' config" name)))
+;; (setq use-package-ensure-function
+;;       (lambda (name &rest _)
+;;         (message "Ignoring ':ensure t' in '%s' config" name)))
 
 (use-package el-patch
   :straight t)

@@ -65,6 +65,7 @@
 ;;; Typefaces
 
 (use-package fontaine
+  :ensure t
   :commands (fontaine-store-latest-preset)
   :hook (kill-emacs-hook fontaine-store-latest-preset))
 
