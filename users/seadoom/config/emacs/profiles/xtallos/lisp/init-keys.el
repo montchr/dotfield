@@ -68,9 +68,7 @@
 
 (xtallos/leader-def
   ;; (to be implemented)
-  "/" '(nil :wk "find...")
   "i" '(nil :wk "ins...")
-  "j" '(nil :wk "jump...")
   "n" '(nil :wk "note...")
   "o" '(nil :wk "open...")
 
@@ -129,7 +127,7 @@
 
   ;; --- jump around ---
 
-  "j" '(nil :wk "help...")
+  "j" '(nil :wk "jump...")
   "jj" '(avy-goto-char :which-key "char")
   "jJ" '(avy-goto-char-timer :which-key "charS")
 
