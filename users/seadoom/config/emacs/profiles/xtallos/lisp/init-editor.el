@@ -47,11 +47,13 @@
 (setq-default replace-char-fold t)
 
 ;; Electrify everything by default.
+
 (when (fboundp 'electric-pair-mode)
   (add-hook 'after-init-hook 'electric-pair-mode))
 (defun editor-disable-electric-pair ()
   "Disable the command `electric-pair-mode' locally."
   (electric-pair-local-mode -1))
+
 (add-hook 'after-init-hook 'electric-indent-mode)
 (defun editor-disable-electric-indent ()
   "Disable the command `electric-indent-mode' locally."
@@ -91,7 +93,7 @@
 ;; FIXME: probably conflicts with completion
 (setq-default tab-always-indent t)
 (setq-default delete-trailing-lines t)
-(setq-default sentence-end-double-space t)
+(setq-default sentence-end-double-space nil)
 
 (defun editor-show-trailing-whitespace ()
   "Enable display of trailing whitespace in this buffer."
