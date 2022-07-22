@@ -170,6 +170,9 @@
 
 (require 'init-tools-devdocs)
 
+(use-package vterm
+  :defer t)
+
 ;;
 ;;; `dired'
 

@@ -60,9 +60,20 @@
     [remap magit-mode-bury-buffer]
     #'vcs-quit)
 
-  (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")
-        ;; Show word-granularity on selected hunk.
-        magit-diff-refine-hunk t))
+  ;; Show word-granularity on selected hunk.
+  (setq magit-diff-refine-hunk t))
+
+(use-package diff-hl
+  :init (global-diff-hl-mode)
+  :hook ((magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+         (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
+
+(use-package git-modes
+  :defer t
+  :commands (gitattributes-mode gitconfig-mode gitignore-mode))
+
+(use-package git-timemachine
+  :defer t)
 
 (provide 'init-vcs)
 ;;; init-vcs.el ends here.

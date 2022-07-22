@@ -70,7 +70,6 @@
   ;; (to be implemented)
   "i" '(nil :wk "ins...")
   "n" '(nil :wk "note...")
-  "o" '(nil :wk "open...")
 
   ;; --- prev/next ---
   ;; FIXME: should not be under leader map!
@@ -114,6 +113,7 @@
 
   "g" '(nil :wk "git...")
   "gg" 'magit-status
+  "gt" 'git-timemachine
 
   ;; --- help ---
 
@@ -134,6 +134,15 @@
   "jl" '(avy-goto-line :which-key "line")
   "jw" '(avy-goto-word-0 :which-key "word")
   "jb" '(ace-link :which-key "btn")
+
+
+  ;; --- open ---
+
+  "o" '(nil :wk "open...")
+  ;; FIXME: this duplicates the current buffer -- would be good to have a fresh start
+  "of" '(make-frame :wk "frame")
+  "ot" '(vterm-other-window :wk "term")
+
 
   ;; --- meta ---
 
