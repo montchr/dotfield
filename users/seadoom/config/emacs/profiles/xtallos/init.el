@@ -179,6 +179,9 @@
       (put 'dired-find-alternate-file 'disabled nil)
       (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)))
 
+;; Load the local customizations file.
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 (provide 'init)
 ;;; init.el ends here
