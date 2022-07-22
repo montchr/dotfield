@@ -38,17 +38,14 @@
 ;;; Core modes
 
 (use-package nix-mode
-  :mode ("\\.nix\\'" "\\.nix.in\\'"))
-
-
-;;
-;;; LSP support
-
-(add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-(lsp-register-client
- (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                  :major-modes '(nix-mode)
-                  :server-id 'nix))
+  :mode ("\\.nix\\'" "\\.nix.in\\'")
+  :config
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+    (lsp-register-client
+    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                     :major-modes '(nix-mode)
+                     :server-id 'nix))))
 
 (provide 'init-lang-nix)
 ;;; init-lang-nix.el ends here
