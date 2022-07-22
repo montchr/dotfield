@@ -50,6 +50,9 @@
  use-file-dialog nil
  use-dialog-box nil)
 
+;; No beeps, no bells.
+(setq visible-bell nil
+      ring-bell-function 'ignore)
 
 ;; Disable line numbers by default.
 (global-display-line-numbers-mode -1)

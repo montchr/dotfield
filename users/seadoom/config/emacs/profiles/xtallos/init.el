@@ -59,9 +59,6 @@
 
 (setq-default load-prefer-newer t)
 
-;; No beep!
-(setq visible-bell t)
-
 ;;; Unicode
 (set-language-environment   'utf-8)
 (when (fboundp 'set-charset-priority)
