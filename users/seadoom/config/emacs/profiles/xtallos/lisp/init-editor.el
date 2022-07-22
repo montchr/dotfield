@@ -39,12 +39,6 @@
 ;;
 ;;; Code:
 
-(prefer-coding-system       'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-language-environment   'utf-8)
-
 ;; Backup files sound useful but get in the way, experts say.
 (setq make-backup-files nil)
 
@@ -75,13 +69,13 @@
                              path-cache-dir))
 
 ;; Refresh buffers every so often in case a file changes outside of Emacs.
-(use-package autorevert
-  :config
-  (global-auto-revert-mode +1)
-  (setq auto-revert-interval 2
-        auto-revert-check-vc-info t
-        global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil))
+;; (use-package autorevert
+;;   :config
+;;   (global-auto-revert-mode +1)
+;;   (setq auto-revert-interval 2
+;;         auto-revert-check-vc-info t
+;;         global-auto-revert-non-file-buffers t
+;;         auto-revert-verbose nil))
 
 (use-package paren
   :init (setq show-paren-delay 0)
@@ -97,7 +91,6 @@
 (setq-default tab-always-indent t)
 (setq-default delete-trailing-lines t)
 (setq-default sentence-end-double-space t)
-(setq-default word-wrap t)
 
 (defun editor-show-trailing-whitespace ()
   "Enable display of trailing whitespace in this buffer."

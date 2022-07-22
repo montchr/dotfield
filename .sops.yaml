@@ -5,7 +5,7 @@ keys:
 
   - &boschic age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl
   - &hodgepodge age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w
-  - &tsone age1lwhnkqg302er0gmunhc4sa97ycg806xhs04yf30w0kk5dm2fl40qct7z7n
+  - &tsone age1rza57uagvpnmsu6kras64ajpl48f3wcugyydvvf3g5acj0mulyasw4u665
 
 # Creation rules are evaluated sequentially. The first match wins.
 # https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files

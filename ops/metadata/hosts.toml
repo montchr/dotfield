@@ -3,8 +3,10 @@
 [tsone]
 network = "cubegarden"
 keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGu6JFX4J6H3NgeQyuvCA2z2xh01um119P+tz5ZPWwO root@tsone",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXREGzvnOtPeSGlRz+Bktw5ls6qyLoKPiEvVOcdPTFUpb/0m3qjI5eNraLfdG4tQ081DRllIgTaQ41gwYxpWKQVmlEOSRjsWrG/XVtVmXpcGPkvGCqNGjgugLLeC+qhEC+BbruhMh5LVb5pDe3ATzJ4BftOK8P8AD4cu7n+oID/MxMm8ZjDJqGccSPhtteHKTot29ofhL2Ra9CYgitQEHHO3/+nl+8C0jErNFINveAeidgDbtEsFYR93DPXQDp454Pqh9S3NdT4DbbwhhsMuVla3eFcFEb+WrjPcSrE6wf2MXYu1agL9Pic89uYMV4kypArAfJW6Su0uxWJkZWboKb71Yan/wwCekEtJyTcvL4443YPb8+gdpGSXAj41ZuWyebEHOyQ5XQNPfqgmQ+TjEb9extYif32HPu47MEoAxAtDOahsTiGABqc2CqBbzVCZfXea/bDBjMpuCfRENmsGDDRO72nqKk3Q+8g2nzkzueftkWggjxTkM1Q78TfN96EzP2WvcBqeaQlMDJSKrG/1WT5o9UENCJ0iAbWLyZ5pnryJSoU0hqEVsKvd6J1W8ljrgXRm5tIs/IAIASbE9QR6bnyCOa54dsfMogleQ3+a3JWk0yGBt/Sp0QKt7aQI/rh2RvzMrJtF4UWoQcVh2fdA8dgz2JgLdZlii57RyEg1wEAw== root@tsone"
 ]
-age = ""
+age = "age1rza57uagvpnmsu6kras64ajpl48f3wcugyydvvf3g5acj0mulyasw4u665"
 
 [tsone.ipv4]
 address = "94.130.220.154"
@@ -21,7 +23,7 @@ prefixLength = 64
 gateway = "fe80::1"
 
 [tsone.users.cdom]
-keys = [""]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzpSe7IG82Fl/djgmhclz1QPtduts0JOm9ZEOt075le cdom@tsone"]
 
 
 ## === HIEROPHANT ===
