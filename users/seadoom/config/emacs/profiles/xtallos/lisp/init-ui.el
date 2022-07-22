@@ -66,7 +66,7 @@
 
 
 ;;
-;;; Typefaces
+;;; --- Typefaces --------------------------------------------------------------
 
 (use-package fontaine
   :ensure t
@@ -103,7 +103,7 @@
 
 
 ;;
-;;; Theme
+;;; --- Theme ------------------------------------------------------------------
 
 ;; (load-theme 'modus-vivendi t)
 
@@ -118,7 +118,7 @@
 
 
 ;;
-;;; Highlighting
+;;; --- Highlighting -----------------------------------------------------------
 
 (global-hl-line-mode)
 
@@ -129,7 +129,7 @@
   :hook (prog-mode . hes-mode))
 
 ;;
-;;; Frames
+;;; --- Frames -----------------------------------------------------------------
 
 (setq frame-resize-pixelwise t
       default-frame-alist    (append (list
@@ -141,7 +141,7 @@
 
 
 ;;
-;;; Modeline
+;;; --- Modeline ---------------------------------------------------------------
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length.
