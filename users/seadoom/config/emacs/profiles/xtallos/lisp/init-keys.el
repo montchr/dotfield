@@ -121,6 +121,7 @@
 
   "h" '(nil :wk "help...")
   "hb" 'describe-bindings
+  "hD" 'devdocs-lookup
   "hh" 'help
   "hf" 'describe-function
   "ho" 'describe-symbol

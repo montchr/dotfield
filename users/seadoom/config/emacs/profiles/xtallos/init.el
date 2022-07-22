@@ -165,6 +165,12 @@
 (require 'init-lang-nix)
 (require 'init-lang-yaml)
 
+
+;;
+;;; Tools
+
+(require 'init-tools-devdocs)
+
 ;;
 ;;; `dired'
 
