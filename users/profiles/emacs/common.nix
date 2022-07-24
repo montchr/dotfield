@@ -2,9 +2,10 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv) hostPlatform;
   inherit (config.xdg) configHome;
 in {
   home.sessionVariables = {
@@ -18,15 +19,15 @@ in {
   programs.emacs = {
     enable = true;
     package =
-      if isDarwin
-      then pkgs.emacsPlusNativeComp
+      if hostPlatform.isDarwin
+      then self.packages.${hostPlatform.system}.emacs-plus
       else if (moduleArgs.osConfig.services.xserver.enable or false)
       then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
-  services.emacs = lib.mkIf (!isDarwin) {
+  services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
     enable = true;
     defaultEditor = lib.mkForce true;
     socketActivation.enable = true;

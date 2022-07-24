@@ -13,6 +13,7 @@
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
     nixlib.url = "github:nix-community/nixpkgs.lib";
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -80,6 +81,7 @@
     darwin,
     deploy,
     digga,
+    flake-utils,
     gitignore,
     home-manager,
     nixlib,
@@ -94,6 +96,9 @@
     sops-nix,
     ...
   } @ inputs': let
+    inherit (digga.lib) flattenTree rakeLeaves;
+    inherit (flake-utils.lib) eachSystem system;
+    darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
     inputs =
       inputs'
       // {
@@ -106,7 +111,7 @@
       };
     peers = import ./ops/metadata/peers.nix;
   in
-    digga.lib.mkFlake {
+    (digga.lib.mkFlake {
       inherit self inputs;
 
       supportedSystems = [
@@ -138,8 +143,8 @@
             (digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable)
           ];
           overlays = [
-            ./pkgs/darwin
             inputs.emacs-overlay.overlay
+            (final: prev: {yabai = self.packages.${final.system}.yabai;})
           ];
         };
         nixos-unstable = {
@@ -406,5 +411,8 @@
           magicRollback = true;
         };
       };
-    };
+    }) // (eachSystem darwinSystems (system: {
+      packages = builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
+        (flattenTree (rakeLeaves ./darwin/packages));
+    }));
 }
