@@ -104,7 +104,7 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Increase chunk size when reading from process output.
-(setq read-process-output-max (* 64 1024))  ; 64kb
+(setq read-process-output-max (* 1024 1024)) ; 1M -- recommended by lsp-mode
 
 ;; Remove unnecessary OS-specific command-line options while running
 ;; Emacs in a different OS.
