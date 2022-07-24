@@ -38,14 +38,6 @@
 ;;
 ;;; Initialize
 
-;; Since we might be running in CI or other environments, stick to
-;; XDG_CONFIG_HOME value if possible.
-(let ((emacs-home (if-let ((xdg (getenv "XDG_CONFIG_HOME")))
-                      (expand-file-name "emacs/" xdg)
-                    user-emacs-directory)))
-  ;; Add Lisp directory to `load-path'.
-  (add-to-list 'load-path (expand-file-name "lisp" emacs-home)))
-
 ;; Adjust garbage collection thresholds during startup, and thereafter.
 (let ((normal-gc-cons-threshold (* 20 1024 1024))
       (init-gc-cons-threshold (* 128 1024 1024)))
@@ -59,20 +51,6 @@
 
 (setq-default load-prefer-newer t)
 
-;;; Unicode
-(set-language-environment   'utf-8)
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-(prefer-coding-system          'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-clipboard-coding-system   'utf-8)
-(set-default-coding-systems    'utf-8)
-(set-file-name-coding-system   'utf-8)
-(set-keyboard-coding-system    'utf-8)
-(set-selection-coding-system   'utf-8)
-(set-terminal-coding-system    'utf-8)
-(setq locale-coding-system     'utf-8)
-
 
 ;;
 ;;; Bootstrap
@@ -84,13 +62,9 @@
 ;; Because sometimes we just need Emacs to write code for us
 ;; FIXME: rename to the standard `custom.el'
 (setq custom-file (concat path-local-dir "custom-settings.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-;; Load autoloads file
-;; FIXME: does not exist, see d12frosted repo
-;; (unless elpa-bootstrap-p
-;;   (unless (file-exists-p path-autoloads-file)
-;;     (error "Autoloads file doesn't exist!"))
-;;   (load path-autoloads-file nil 'nomessage))
 
 ;;
 ;;; Environment
@@ -104,6 +78,7 @@
 (defconst xtallos/is-linux xtallos/env-sys-linux-p)
 
 (require 'init-exec-path)
+
 
 ;;
 ;;; Performance
@@ -184,9 +159,6 @@
       (put 'dired-find-alternate-file 'disabled nil)
       (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)))
 
-;; Load the local customizations file.
-(when (file-exists-p custom-file)
-  (load custom-file))
 
 (provide 'init)
 ;;; init.el ends here
