@@ -112,11 +112,37 @@
 ;;
 ;;; --- Theme ------------------------------------------------------------------
 
-;; (load-theme 'modus-vivendi t)
-
-(use-package stimmung-themes
+(use-package modus-themes
+  :ensure t
   :after (fontaine)
-  :config (stimmung-themes-load-dark))
+
+  :init
+  (setq
+    ;; type
+    modus-themes-italic-constructs t
+    modus-themes-bold-constructs t
+    modus-themes-mixed-fonts t
+
+    ;; ui
+    ;; modus-themes-completions nil
+    ;; modus-themes-fringes nil
+    modus-themes-hl-line '(accented)
+    modus-themes-links '(background neutral-underline)
+    modus-themes-mode-line '(borderless)
+    modus-themes-tabs-accented nil
+    modus-themes-box-buttons '(accented variable-pitch)
+
+    ;; syntax
+    ;; modus-themes-syntax '(alt-syntax)
+    modus-themes-markup '(background)
+    modus-themes-org-blocks '(gray-background)
+    modus-themes-paren-match '(bold))
+
+  ;; Load the theme files before loading the theme itself.
+  (modus-themes-load-themes)
+
+  :config
+  (modus-themes-load-vivendi))
 
 (setq window-divider-default-right-width  24
       window-divider-default-bottom-width 12
