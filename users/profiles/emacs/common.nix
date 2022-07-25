@@ -5,7 +5,7 @@ moduleArgs @ {
   self,
   ...
 }: let
-  inherit (pkgs.stdenv) hostPlatform;
+  inherit (pkgs.stdenv) buildPlatform hostPlatform;
   inherit (config.xdg) configHome;
 in {
   home.sessionVariables = {
@@ -19,8 +19,8 @@ in {
   programs.emacs = {
     enable = true;
     package =
-      if hostPlatform.isDarwin
-      then self.packages.${hostPlatform.system}.emacs-plus
+      if (hostPlatform.isDarwin && buildPlatform.isMacOS)
+      then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
       else if (moduleArgs.osConfig.services.xserver.enable or false)
       then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
