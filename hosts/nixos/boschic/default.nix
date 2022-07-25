@@ -80,6 +80,7 @@ in {
       "seadome"
       "secrets"
       (lib.mkIf config.virtualisation.libvirtd.enable "libvirtd")
+      (lib.mkIf config.virtualisation.virtualbox.host.enable "vboxusers")
     ];
     shell = pkgs.zsh;
   };
@@ -97,6 +98,7 @@ in {
     seadoom = hmArgs: {
       imports =
         (with hmArgs.suites; workstation)
+        ++ (with hmArgs.profiles; [virtualisation.vagrant])
         ++ [hmUsers.seadoom];
     };
     zortflower = hmArgs: {
@@ -108,4 +110,16 @@ in {
 
   programs.htop.enable = true;
   programs.steam.enable = true;
+
+
+  ### === virtualisation =======================================================
+
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableWebService = true;
+
+  environment.systemPackages = with pkgs; [
+    vagrant
+    virtualbox
+  ];
+
 }
