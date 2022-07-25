@@ -3,12 +3,17 @@ channels: final: prev: {
 
   inherit
     (channels.nixos-unstable)
+    python310Packages
+    kitty
+    ;
+
+  inherit
+    (channels.nixpkgs-trunk)
     iosevka
     iosevka-bin
     iosevka-comfy
+    iosevka-seadome
     nerdfonts
-    python310Packages
-    kitty
     ;
 
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
