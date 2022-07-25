@@ -26,7 +26,7 @@ jobs:
       - uses: cachix/install-nix-action@v17
         with:
           extra_nix_config: |
-            experimental-features = nix-command flakes
+            allow-import-from-derivation = true
 
       - uses: cachix/cachix-action@v10
         with:
