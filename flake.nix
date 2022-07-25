@@ -8,11 +8,10 @@
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
-    digga.url = "github:divnix/digga/home-manager-22.11";
+    digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
-    digga.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     nixlib.url = "github:nix-community/nixpkgs.lib";
     flake-compat = {
@@ -31,8 +30,8 @@
     nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
 
     # User environments.
-    home-manager.url = "github:montchr/home-manager/trunk";
-    # home-manager.url = "github:nix-community/home-manager";
+    # home-manager.url = "github:montchr/home-manager/trunk";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
 
     # Deployments.
