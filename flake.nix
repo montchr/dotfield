@@ -132,9 +132,7 @@
             (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/nixos-stable)
           ];
-          overlays = [
-            inputs.emacs-overlay.overlay
-          ];
+          overlays = [];
         };
         nixpkgs-darwin-stable = {
           imports = [
@@ -142,7 +140,6 @@
             (digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable)
           ];
           overlays = [
-            inputs.emacs-overlay.overlay
             (final: prev: {yabai = self.packages.${final.system}.yabai;})
           ];
         };
@@ -166,6 +163,8 @@
         })
 
         agenix.overlay
+        # HACK: see above
+        inputs.emacs-overlay.overlay
         gitignore.overlay
         nur.overlay
         nvfetcher.overlay
