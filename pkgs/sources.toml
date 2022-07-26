@@ -1,8 +1,12 @@
 # nvfetcher.toml
 
-[fish-nvm]
-src.github = "jorgebucaran/nvm.fish"
-fetch.github = "jorgebucaran/nvm.fish"
+[fish-done]
+src.github = "franciscolourenco/done"
+fetch.github = "franciscolourenco/done"
+
+[fish-fzf]
+src.github = "PatrickF1/fzf.fish"
+fetch.github = "PatrickF1/fzf.fish"
 
 [fish-replay]
 src.github = "jorgebucaran/replay.fish"

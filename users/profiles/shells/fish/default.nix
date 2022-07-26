@@ -28,6 +28,8 @@ in {
 
     enable = true;
     plugins = mkPlugins [
+      "done"
+      "fzf"
       # "nvm"
       # "replay"
     ];

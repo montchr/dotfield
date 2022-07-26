@@ -3,8 +3,9 @@ channels: final: prev: {
 
   inherit
     (channels.nixos-unstable)
-    python310Packages
+    fish
     kitty
+    python310Packages
     ;
 
   inherit

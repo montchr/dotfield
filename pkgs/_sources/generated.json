@@ -1,8 +1,8 @@
 {
-    "fish-nvm": {
+    "fish-done": {
         "cargoLocks": null,
         "extract": null,
-        "name": "fish-nvm",
+        "name": "fish-done",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -10,13 +10,32 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "jorgebucaran",
-            "repo": "nvm.fish",
-            "rev": "2.2.11",
-            "sha256": "sha256-LkCpij6i5XEkZGYLx9naO/cnbkUCuemypHwTjvfDzuk=",
+            "owner": "franciscolourenco",
+            "repo": "done",
+            "rev": "1.16.5",
+            "sha256": "sha256-E0wveeDw1VzEH2kzn63q9hy1xkccfxQHBV2gVpu2IdQ=",
             "type": "github"
         },
-        "version": "2.2.11"
+        "version": "1.16.5"
+    },
+    "fish-fzf": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "fish-fzf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "PatrickF1",
+            "repo": "fzf.fish",
+            "rev": "v9.1",
+            "sha256": "sha256-OLmPtgUVX+/uiZg6lMl1xF4MHGVZUpTVota68coexWw=",
+            "type": "github"
+        },
+        "version": "v9.1"
     },
     "fish-replay": {
         "cargoLocks": null,
