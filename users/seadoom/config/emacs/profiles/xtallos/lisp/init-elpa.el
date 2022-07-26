@@ -38,9 +38,6 @@
 
 (require 'config-path)
 
-;; TODO: what is this?
-(defvar elpa-bootstrap-p nil)
-
 (setq package-user-dir
       (expand-file-name
        "elpa/"

@@ -46,14 +46,7 @@
 (setq-default search-default-mode #'char-fold-to-regexp)
 (setq-default replace-char-fold t)
 
-;; Electrify everything by default.
-
-(when (fboundp 'electric-pair-mode)
-  (add-hook 'after-init-hook 'electric-pair-mode))
-(defun editor-disable-electric-pair ()
-  "Disable the command `electric-pair-mode' locally."
-  (electric-pair-local-mode -1))
-
+;; Electric indent by default, but with an escape hatch.
 (add-hook 'after-init-hook 'electric-indent-mode)
 (defun editor-disable-electric-indent ()
   "Disable the command `electric-indent-mode' locally."
@@ -79,12 +72,18 @@
 ;;         global-auto-revert-non-file-buffers t
 ;;         auto-revert-verbose nil))
 
+
+;;
+;;; --- Formatting -------------------------------------------------------------
+
+(use-package smartparens
+  :commands (sp-pair sp-local-pair sp-with-modes sp-point-in-comment sp-point-in-string)
+  :config
+  (require 'smartparens-config))
+
 (use-package paren
   :init (setq show-paren-delay 0)
   :config (show-paren-mode +1))
-
-(use-package elec-pair
-  :hook (prog-mode . electric-pair-mode))
 
 ;; Whitespace
 (setq-default indent-tabs-mode nil)
