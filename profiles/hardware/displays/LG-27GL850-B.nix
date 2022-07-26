@@ -1,7 +1,5 @@
 ##: LG-27GL850-B Monitor
 {
-  hardware.video.hidpi.enable = true;
-
   # diag = w: h: sqrt(w^2 + h^2);
   # diagPx = diag 2560 1440;        => 2937.21
   # diagIn = 27;

@@ -24,7 +24,6 @@ in {
       # FIXME: only apply this to the proper output -- will not currently allow
       # configuring multiple outputs.
       hardware.displays.LG-27GL850-B
-      hidpi
       nvidia
       remote-builder
       workstations.flatpak
