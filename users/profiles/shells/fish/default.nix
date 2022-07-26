@@ -19,7 +19,6 @@ in {
     fishPlugins.done
     fishPlugins.forgit
     fishPlugins.fzf-fish
-    fishPlugins.pisces
   ];
 
   programs.fish = {
@@ -33,6 +32,7 @@ in {
 
     enable = true;
     plugins = mkPlugins [
+      "autopair"
       # "replay"
     ];
   };

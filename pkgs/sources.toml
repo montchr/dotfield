@@ -1,5 +1,9 @@
 # nvfetcher.toml
 
+[fish-autopair]
+src.github = "jorgebucaran/autopair.fish"
+fetch.github = "jorgebucaran/autopair.fish"
+
 [fish-replay]
 src.github = "jorgebucaran/replay.fish"
 fetch.github = "jorgebucaran/replay.fish"
