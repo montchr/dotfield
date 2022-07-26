@@ -28,12 +28,11 @@ in {
       shellAbbrs
       shellAliases
     ;
-    # inherit shellAliases;
 
     enable = true;
     plugins = mkPlugins [
       "autopair"
-      # "replay"
+      "replay"
     ];
   };
 }
