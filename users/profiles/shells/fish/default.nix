@@ -23,14 +23,16 @@ in {
   ];
 
   programs.fish = {
-    inherit shellAbbrs shellAliases;
+    inherit
+      # FIXME: watch out, some of these abbrs may have undesirable results when
+      # expanded inline. needs review.
+      shellAbbrs
+      shellAliases
+    ;
     # inherit shellAliases;
 
     enable = true;
     plugins = mkPlugins [
-      "done"
-      "fzf"
-      # "nvm"
       # "replay"
     ];
   };
