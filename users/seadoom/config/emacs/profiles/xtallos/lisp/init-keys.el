@@ -95,6 +95,7 @@
   ;; buffer management
   "bk" 'kill-buffer
   "bs" 'save-buffer
+  "bS" 'save-some-buffers
 
   ;; --- eval ---
 
