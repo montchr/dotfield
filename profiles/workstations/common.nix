@@ -15,6 +15,10 @@
   # programs._1password-gui.enable = true;
   # programs._1password.enable = true;
 
+  xdg.portal.enable = true;
+  xdg.portal.gtkUsePortal = true;
+  xdg.portal.wlr.enable = true;
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;

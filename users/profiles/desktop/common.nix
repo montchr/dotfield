@@ -5,10 +5,6 @@ moduleArgs @ {
   ...
 }:
 lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-  programs.zathura.enable = true;
-  xsession.enable = true;
-  qt.enable = true;
-
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
@@ -17,6 +13,14 @@ lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       XDG_PROJECTS_DIR = "$HOME/Projects";
     };
   };
+
+  qt.enable = true;
+  qt.platformTheme = "gnome";
+  qt.style.package = pkgs.adwaita-qt;
+  # FIXME: dark mode
+  qt.style.name = "adwaita";
+
+  programs.zathura.enable = true;
 
   # TODO
   # xdg.desktopEntries = ...

@@ -10,11 +10,11 @@
       # https://github.com/gvolpe/dconf2nix
       dconf2nix
     ];
-    qt.platformTheme = "gnome";
-    qt.style.package = pkgs.adwaita-qt;
-    # FIXME: dark mode
-    qt.style.name = "adwaita";
+
+    # https://github.com/NixOS/nixpkgs/issues/174099
     services.gnome-keyring.enable = false;
+
+    # TODO
     # services.pulseeffects = ...
   };
 }
