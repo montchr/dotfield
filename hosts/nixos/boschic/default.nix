@@ -23,7 +23,7 @@ in {
       hardware.amd
       # FIXME: only apply this to the proper output -- will not currently allow
       # configuring multiple outputs.
-      hardware.displays.LG-27GL850-B
+      # hardware.displays.LG-27GL850-B
       nvidia
       remote-builder
       workstations.flatpak
