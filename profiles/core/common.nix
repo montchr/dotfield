@@ -74,7 +74,7 @@ in {
     enableCompletion = true;
   };
 
-  programs.fish.enable = lib.mkDefault false;
+  programs.fish.enable = lib.mkDefault true;
 
   home-manager = {
     useGlobalPkgs = true;

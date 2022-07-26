@@ -332,6 +332,7 @@
               git
               gpg
               shells.zsh
+              shells.fish
               ssh
             ];
             #: graphical:  familiar personal computing interfaces

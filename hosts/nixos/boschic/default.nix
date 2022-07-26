@@ -81,7 +81,7 @@ in {
       (lib.mkIf config.virtualisation.libvirtd.enable "libvirtd")
       (lib.mkIf config.virtualisation.virtualbox.host.enable "vboxusers")
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
   users.users.zortflower = {
     uid = 1001;
