@@ -52,5 +52,8 @@
     permitRootLogin = "prohibit-password";
   };
 
+  # Allow passwordless sudo within an SSH session.
+  security.pam.enableSSHAgentAuth = true;
+
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 }
