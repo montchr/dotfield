@@ -12,15 +12,15 @@
   fgrep = "fgrep --color=auto";
   egrep = "egrep --color=auto";
 
+  xat = "hexyl";
+
   ".." = "cd ..";
   "..." = "cd ../..";
   "...." = "cd ../../..";
   "....." = "cd ../../../..";
   "......" = "cd ../../../../..";
 
-  tree = "exa --tree";
-  # TODO: merge or remove:
-  # alias tree='tree -a -I .git'
+  tree = "broot";
 
   # IP addresses
   ip = "dig +short myip.opendns.com @resolver1.opendns.com";
@@ -28,8 +28,4 @@
 
   # Flush DNS cache
   flushdns = "dscacheutil -flushcache";
-
-  # Empty the Trash on all mounted volumes and the main HDD
-  # Also, clear Apple’s System Logs to improve shell startup speed
-  emptytrash = "sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl";
 }

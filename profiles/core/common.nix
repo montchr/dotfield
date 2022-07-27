@@ -96,9 +96,6 @@ in {
     binutils
     cacert
     coreutils
-    curl
-    dua
-    dnsutils
     exa
     fd
     findutils
@@ -112,7 +109,6 @@ in {
     jq
     less
     moreutils
-    nmap
     openssh
     openssl
     ripgrep
@@ -120,12 +116,23 @@ in {
     screen
     tmux
     vim
+
+    ## === Network ===
+
+    curl
+    dnsutils
+    nmap
     wget
     whois
 
-    ## === File Helpers ===
+    ## === Files ===
+
+    broot #    <- like tree, but in rust
+    chafa #    <- "terminal graphics for the 21st century"
+    dua #      <- quick disk usage
     file
-    glow # markdown cli renderer (by charmbracelet)
+    glow #     <- a markdown cli renderer (by charmbracelet)
+    hexyl #    <- a command-line hex viewer
     mediainfo
     unzip
 

@@ -17,18 +17,19 @@
   home.packages = with pkgs; [
     ## === Sysadmin ===
 
-    du-dust # Like du but more intuitive.
-    lnav # Log file navigator
-    procs # A modern replacement for ps.
+    du-dust #   <- Like du but more intuitive.
+    entr #      <- Run arbitrary commands when files change
+    lnav #      <- Log file navigator
+    procs #     <- A modern replacement for ps.
 
-    ## === Utilities ===
+    # A cat(1) clone with wings.
 
-    bat # A cat(1) clone with wings.
-    grex # Generate regexps from user-provided test cases.
-    httpie # Modern, user-friendly command-line HTTP client for the API era.
-    pastel # A command-line tool to generate, analyze, convert and manipulate colors
-    tealdeer # A very fast implementation of tldr in Rust.
+    bat
 
+    grex #      <- Generate regexps from user-provided test cases.
+    httpie #    <- Modern, user-friendly command-line HTTP client for the API era.
+    pastel #    <- A command-line tool to generate, analyze, convert and manipulate colors
+    tealdeer #  <- A very fast implementation of tldr in Rust.
 
     ## === Formatters ===
 
