@@ -66,11 +66,14 @@ in {
     zsh
   ];
 
-  # Enable completions for system packages.
-  environment.pathsToLink = ["/share/zsh"];
+  # Install completions for system packages.
+  environment.pathsToLink = [
+    (lib.optionalString config.programs.fish.enable "/share/fish")
+    (lib.optionalString config.programs.zsh.enable "/share/zsh")
+  ];
 
   programs.zsh = {
-    enable = true;
+    enable = lib.mkDefault true;
     enableCompletion = true;
   };
 
