@@ -26,6 +26,11 @@ in {
   programs.fzf = {
     enable = true;
     defaultCommand = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
+    defaultOptions = [
+      "--height 40%"
+      "--border"
+      "--no-multi"
+    ];
     changeDirWidgetCommand = "${fdBin} --type d .";
     fileWidgetCommand = "${fdBin} --type f --hidden --max-depth 5";
   };
