@@ -75,12 +75,18 @@ in {
     extraGroups = [
       "wheel"
       "video"
+      "audio"
       "networkmanager"
       "seadome"
       "secrets"
-      (lib.mkIf config.virtualisation.libvirtd.enable "libvirtd")
-      (lib.mkIf config.virtualisation.virtualbox.host.enable "vboxusers")
-    ];
+    ]
+    ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
+    ++ (lib.optional config.services.mysql.enable "mysql")
+    ++ (lib.optional config.virtualisation.docker.enable "docker")
+    ++ (lib.optional config.virtualisation.podman.enable "podman")
+    ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
+    ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers")
+    ;
     shell = pkgs.fish;
   };
   users.users.zortflower = {
