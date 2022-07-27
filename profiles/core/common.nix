@@ -16,17 +16,18 @@ in {
 
   nix = {
     package = pkgs.nix;
-    gc.automatic = true;
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel" "@seadome"];
 
-    # extraOptions = ''
-    #   min-free = 536870912
-    #   keep-outputs = true
-    #   keep-derivations = true
-    #   fallback = true
-    # '';
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
+
+    extraOptions = ''
+      warn-dirty = false
+    '';
 
     # FUP Options {{
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix
