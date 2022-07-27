@@ -8,6 +8,10 @@ fetch.github = "jorgebucaran/autopair.fish"
 src.github = "jorgebucaran/replay.fish"
 fetch.github = "jorgebucaran/replay.fish"
 
+[fish-fifc]
+src.git = "https://github.com/gazorby/fifc"
+fetch.git = "https://github.com/gazorby/fifc"
+
 [fzf-scripts]
 src.git = "https://github.com/DanielFGray/fzf-scripts"
 fetch.git = "https://github.com/DanielFGray/fzf-scripts"

@@ -12,6 +12,18 @@
       sha256 = "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=";
     });
   };
+  fish-fifc = {
+    pname = "fish-fifc";
+    version = "44566bd072f8b6fee7148148e9163d964bf054a1";
+    src = fetchgit {
+      url = "https://github.com/gazorby/fifc";
+      rev = "44566bd072f8b6fee7148148e9163d964bf054a1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-msJUQsTnswSb2uoke1U+enotEh4hQVEHu7eESxEvjsg=";
+    };
+  };
   fish-replay = {
     pname = "fish-replay";
     version = "1.2.1";

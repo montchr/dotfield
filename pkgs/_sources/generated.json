@@ -18,6 +18,24 @@
         },
         "version": "1.0.4"
     },
+    "fish-fifc": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "fish-fifc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "44566bd072f8b6fee7148148e9163d964bf054a1",
+            "sha256": "sha256-msJUQsTnswSb2uoke1U+enotEh4hQVEHu7eESxEvjsg=",
+            "type": "git",
+            "url": "https://github.com/gazorby/fifc"
+        },
+        "version": "44566bd072f8b6fee7148148e9163d964bf054a1"
+    },
     "fish-replay": {
         "cargoLocks": null,
         "extract": null,

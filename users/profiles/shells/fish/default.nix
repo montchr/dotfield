@@ -32,7 +32,12 @@ in {
     enable = true;
     plugins = mkPlugins [
       "autopair"
+      "fifc"
       "replay"
     ];
+    interactiveShellInit = ''
+      # "Required" by `fifc`
+      # set -Ux fifc_editor $EDITOR
+    '';
   };
 }
