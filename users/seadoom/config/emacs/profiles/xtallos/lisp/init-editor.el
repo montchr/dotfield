@@ -46,11 +46,20 @@
 (setq-default search-default-mode #'char-fold-to-regexp)
 (setq-default replace-char-fold t)
 
-;; Electric indent by default, but with an escape hatch.
+
+;;; Electrify everything by default.
+
+(when (fboundp 'electric-pair-mode)
+  (add-hook 'after-init-hook 'electric-pair-mode))
+(defun editor-disable-electric-pair ()
+  "Disable the command `electric-pair-mode' locally."
+  (electric-pair-local-mode -1))
+
 (add-hook 'after-init-hook 'electric-indent-mode)
 (defun editor-disable-electric-indent ()
   "Disable the command `electric-indent-mode' locally."
   (electric-indent-local-mode -1))
+
 
 ;; Replace active region upon input.
 (delete-selection-mode +1)
