@@ -26,8 +26,8 @@ in {
   programs.fzf = {
     enable = true;
     defaultCommand = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
-    changeDirWidgetCommand = "${fdBin} --type d . $HOME";
-    fileWidgetCommand = "${fdBin} --type f --hidden";
+    changeDirWidgetCommand = "${fdBin} --type d .";
+    fileWidgetCommand = "${fdBin} --type f --hidden --max-depth 5";
   };
 
   home.packages = with pkgs; [
