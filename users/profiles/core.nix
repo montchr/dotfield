@@ -3,15 +3,31 @@
   lib,
   pkgs,
   ...
-}: {
-  lib.dotfield.fsPath = "${config.xdg.configHome}/dotfield";
-  lib.dotfield.whoami = rec {
-    firstName = "Chris";
-    lastName = "Montgomery";
-    fullName = "${firstName} ${lastName}";
-    email = "chris@cdom.io";
-    githubUserName = "montchr";
-    pgpPublicKey = "0x135EEDD0F71934F3";
+}:
+let
+  inherit (config.home) username;
+  inherit
+    (config.xdg)
+    configHome
+    dataHome
+    stateHome
+    ;
+
+  hmLib = config.lib;
+in
+{
+  lib.dotfield = rec {
+    fsPath = "${configHome}/dotfield";
+    userConfigPath = "${fsPath}/users/${username}/config";
+
+    whoami = {
+      firstName = "Chris";
+      lastName = "Montgomery";
+      fullName = "${whoami.firstName} ${whoami.lastName}";
+      email = "chris@cdom.io";
+      githubUserName = "montchr";
+      pgpPublicKey = "0x135EEDD0F71934F3";
+    };
   };
 
   home.packages = with pkgs; [
