@@ -1,6 +1,11 @@
+# FIXME: none of these ignores should be necessary. files like these should end
+# up in the cache directory.
+
+/devdocs
 /eln-cache
 /eshell/history
 /games
+/history
 /projects
 /url
 /transient
