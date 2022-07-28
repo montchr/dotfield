@@ -4,21 +4,17 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) map;
+  inherit (config.lib.fish) mkPlugin;
+
   shellAbbrs = import ../abbrs.nix;
   shellAliases = import ../aliases.nix;
-
-  mkPlugin = name: {
-    inherit name;
-    inherit (pkgs.sources."fish-${name}") src;
-  };
-  mkPlugins = plugins: (map mkPlugin plugins);
 in {
   imports = [../common.nix];
 
   home.packages = with pkgs; [
     fishPlugins.done
     fishPlugins.forgit
-    fishPlugins.fzf-fish
   ];
 
   programs.fish = {
@@ -30,11 +26,13 @@ in {
     ;
 
     enable = true;
-    plugins = mkPlugins [
-      "autopair"
-      "fifc"
+    autopair.enable = true;
+    fifc.enable = true;
+
+    plugins = (map mkPlugin [
       "replay"
-    ];
+    ]);
+
     interactiveShellInit = ''
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
