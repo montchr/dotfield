@@ -20,7 +20,7 @@
   "....." = "cd ../../../..";
   "......" = "cd ../../../../..";
 
-  tree = "broot";
+  tree = "exa --tree";
 
   # IP addresses
   ip = "dig +short myip.opendns.com @resolver1.opendns.com";

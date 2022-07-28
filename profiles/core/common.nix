@@ -128,7 +128,6 @@ in {
 
     ## === Files ===
 
-    broot #    <- like tree, but in rust
     chafa #    <- "terminal graphics for the 21st century"
     dua #      <- quick disk usage
     file
@@ -136,6 +135,13 @@ in {
     hexyl #    <- a command-line hex viewer
     mediainfo
     unzip
+
+    # I'm not a fan of broot's keybindings at all... they don't seem to fit any
+    # existing paradigm that I've encountered, and many of the defaults seem
+    # counterintuitive, undesirable, or inconvenient. Not that I expect
+    # everything to "just work", but this feels like a red flag. I'm leaving
+    # this here as a note to self because I keep re-installing it...
+    # broot #    <- like tree, but in rust
 
     ## === Nix Helpers ===
 
