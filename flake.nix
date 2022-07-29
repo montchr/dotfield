@@ -389,7 +389,14 @@
 
       devshell = ./shell;
 
-      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+      homeConfigurations =
+        ((digga.lib.mkHomeConfigurations self.nixosConfigurations)
+          // {
+            "cdom@dev.klein.temple.edu" = {suites, ...}: {
+              imports = with suites;
+                basic ++ developer ++ server;
+            };
+          });
       # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
       # {
       #   inherit
