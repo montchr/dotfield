@@ -1,20 +1,68 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  self,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, self
+, ...
+}:
+let
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
   inherit (config.xdg) configHome;
-in {
+  inherit (config.lib.dag) entryAfter;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
+
+  doomRepoUrl = "https://github.com/doomemacs/doomemacs";
+  emacsDir = "${configHome}/emacs";
+in
+{
   home.sessionVariables = {
-    EMACSDIR = "${configHome}/emacs";
+    EMACSDIR = emacsDir;
+
+    # "default" profile
+    # FIXME: profiles seem broken, see doom issue tracker
+    # DOOMPROFILE = "doom";
+
+    DOOMDIR = "${configHome}/doom";
+
+    # local state :: built files, dependencies, etc.
+    # TODO: may no longer be necessary with doom profiles. re-evaluated.
+    # DOOMLOCALDIR = doomStateDir;
 
     # lsp: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
     LSP_USE_PLISTS = "true";
   };
+
+  home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
+
+  ## Doom Bootloader.
+  #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
+  # FIXME: profiles seem broken
+  # xdg.configFile."emacs/profiles/doom".source =
+  #   mkOutOfStoreSymlink "${profilesPath}/doom";
+  # xdg.configFile."emacs/profiles/xtallos".source =
+  #   mkOutOfStoreSymlink "${profilesPath}/xtallos";
+
+  # FIXME: use doom profile loader once issues are fixed upstream
+  xdg.configFile."doom".source =
+    mkOutOfStoreSymlink "${profilesPath}/doom";
+
+  # Install Doom imperatively to make use of its CLI.
+  # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
+  # due to the number of oddities it introduces.
+  home.activation.installDoomEmacs =
+    let
+      git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
+    in
+    entryAfter [ "writeBoundary" ] ''
+      if [[ ! -f "${emacsDir}/README.md" ]]; then
+        cd ${emacsDir}
+        ${git} init --initial-branch master
+        ${git} remote add origin ${doomRepoUrl}
+        ${git} fetch --depth=1 origin master
+        ${git} reset --hard origin/master
+      fi
+    '';
 
   programs.emacs = {
     enable = true;
@@ -24,7 +72,7 @@ in {
       else if (moduleArgs.osConfig.services.xserver.enable or false)
       then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
-    extraPackages = epkgs: with epkgs; [vterm];
+    extraPackages = epkgs: with epkgs; [ vterm ];
   };
 
   services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
@@ -36,7 +84,7 @@ in {
   home.packages = with pkgs; [
     ediff-tool
     gnutls
-    (ripgrep.override {withPCRE2 = true;})
+    (ripgrep.override { withPCRE2 = true; })
 
     fd # faster projectile indexing
     imagemagick # for image-dired

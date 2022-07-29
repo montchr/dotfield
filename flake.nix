@@ -326,9 +326,7 @@
             #: developer: those who go
             developer = [
               direnv
-              # emacs.crafted
-              # emacs.doom
-              emacs.xtallos
+              emacs
               git
               gpg
               shells.zsh

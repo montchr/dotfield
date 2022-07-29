@@ -28,6 +28,11 @@ in
       githubUserName = "montchr";
       pgpPublicKey = "0x135EEDD0F71934F3";
     };
+
+    emacs = {
+      profilesBase = "emacs/profiles";
+      profilesPath = "${userConfigPath}/${emacs.profilesBase}";
+    };
   };
 
   home.packages = with pkgs; [
