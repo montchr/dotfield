@@ -12,9 +12,13 @@
 ;; FIXME: varies per system! this is for the LG 27GL850-B 27" @ 2560x1440
 (setq! display-pixels-per-inch 108.79)
 
-;; Start the emacs server.
-;; Open a new frame with `emacsclient -cn'.
-;; (server-start)
+;; Start the emacs server, maybe.
+;; via https://github.com/purcell/emacs.d/blob/6190c87929af81dca0dd0a91ff71a3551daaaa68/init.el#L156-L161
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'server)
+            (unless (server-running-p)
+              (server-start))))
 
 ;; Display the fill-column indicator.
 (global-display-fill-column-indicator-mode +1)
