@@ -6,8 +6,8 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq doom-font (font-spec :family "Iosevka Seadome" :height 120)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :height 120))
+(setq doom-font nil
+      doom-variable-pitch-font nil)
 
 ;; FIXME: varies per system! this is for the LG 27GL850-B 27" @ 2560x1440
 (setq! display-pixels-per-inch 108.79)
@@ -89,6 +89,36 @@
     (if (equal "light" status)
         (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))
+
+(use-package fontaine
+  :ensure t
+  :commands (fontaine-store-latest-preset)
+  :hook (kill-emacs-hook fontaine-store-latest-preset))
+
+(setq fontaine-presets
+      '((regular
+          :default-height 120)
+        (large
+         :default-height 150)
+        (t
+          :default-family "Iosevka Seadome"
+          :default-weight regular
+          :default-height 100
+          :fixed-pitch-family nil
+          :fixed-pitch-family nil
+          :fixed-pitch-height 1.0
+          :fixed-pitch-serif-family nil
+          :fixed-pitch-serif-weight nil
+          :variable-pitch-family "IBM Plex Sans"
+          :variable-pitch-weight nil
+          :variable-pitch-height 1.0
+          :bold-family nil
+          :bold-weight bold
+          :italic-family nil
+          :italic-slant italic
+          :line-spacing nil)))
+
+(fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
 (use-package! modus-themes
   :init

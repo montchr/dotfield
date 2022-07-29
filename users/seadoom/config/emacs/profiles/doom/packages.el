@@ -48,6 +48,7 @@
 
 ;; themes
 (package! modus-themes)
+(package! fontaine)
 (package! svg-tag-mode)
 
 ;; modeline
