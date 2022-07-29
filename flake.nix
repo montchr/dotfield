@@ -376,13 +376,12 @@
               basic ++ developer;
           };
           seadoom = cdom;
-          chrismont = {
-            profiles,
-            suites,
-            ...
-          }: {
-            imports =
-              (with suites; workstation)
+          "cdom@dev.klein.temple.edu" = {suites, ...}: {
+            imports = with suites;
+              basic ++ developer ++ server;
+          };
+          chrismont = {profiles, suites, ...}: {
+            imports = (with suites; workstation)
               ++ (with profiles; [
                 aws
                 nodejs
@@ -394,14 +393,7 @@
 
       devshell = ./shell;
 
-      homeConfigurations =
-        ((digga.lib.mkHomeConfigurations self.nixosConfigurations)
-          // {
-            "cdom@dev.klein.temple.edu" = {suites, ...}: {
-              imports = with suites;
-                basic ++ developer ++ server;
-            };
-          });
+      homeConfigurations = (digga.lib.mkHomeConfigurations self.nixosConfigurations);
       # (digga.lib.collectHosts self.nixosConfigurations self.darwinConfigurations);
       # {
       #   inherit
