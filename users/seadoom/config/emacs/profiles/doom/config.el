@@ -327,6 +327,8 @@
 
 (after! (:or lsp-mode eglot)
   (setq! lsp-intelephense-licence-key (or (ignore-errors (fetch-auth-source :user "intelephense") nil))
+         ;; Enable WordPress stubs.
+         ;; FIXME: append only -- but this format has been difficult to work with
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
    "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
    "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
