@@ -96,10 +96,12 @@
   :hook (kill-emacs-hook fontaine-store-latest-preset)
   :config
   (setq fontaine-presets
-        '((regular
+        '((small
+            :default-height 100)
+          (regular
             :default-height 120)
           (large
-          :default-height 150)
+            :default-height 150)
           (t
             :default-family "Iosevka Seadome"
             :default-weight regular
