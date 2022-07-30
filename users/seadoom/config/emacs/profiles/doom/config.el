@@ -173,7 +173,7 @@
 ;;           )))
 
 
-;; === agenda ==================================================================
+;; === org-mode ================================================================
 
 (setq! org-directory "~/Documents/notes"
        +org-capture-todo-file (concat org-directory "inbox.org")
@@ -241,36 +241,6 @@
 ;;   (setq! org-expiry-inactive-timestamps t)
 ;;   (org-expiry-insinuate))
 
-;; Configure org-journal for compatability with org-roam-dailies
-(after! org-journal
-  (setq! org-journal-file-type 'daily
-         org-journal-file-format "%Y-%m-%d.org"
-         org-journal-dir org-directory
-         org-journal-date-format "%A, %d %B %Y"
-         org-journal-enable-agenda-integration t))
-
-;; === company =================================================================
-
-;; https://tecosaur.github.io/emacs-config/config.html#company
-;; (after! company
-;;   (setq! company-idle-delay nil)
-;;   ;; Make aborting less annoying.
-;;   (add-hook 'evil-normal-state-entry-hook #'company-abort))
-
-;; (use-package! which-key
-;;   :init
-;;   (setq! which-key-sort-order
-;;          ;; default
-;;          ;; 'which-key-key-order
-;;          ;; sort based on the key description ignoring case
-;;          ;; 'which-key-description-order
-;;          ;; same as default, except single characters are sorted alphabetically
-;;          ;; 'which-key-key-order-alpha
-;;          ;; same as default, except all prefix keys are grouped together at the end
-;;          ;; 'which-key-prefix-then-key-order
-;;          ;; same as default, except all keys from local maps shown first
-;;          'which-key-local-then-key-order))
-
 
 ;; === projects ================================================================
 
@@ -287,6 +257,18 @@
   (setq! doom-projectile-cache-purge-non-projects t))
 
 
+;; === lsp-mode / eglot ========================================================
+
+(use-package! lsp-mode
+  :init
+  (setq! lsp-use-plists t)
+  :config
+  (setq! lsp-vetur-use-workspace-dependencies t
+         lsp-enable-indentation nil
+         lsp-file-watch-threshold 666
+         lsp-ui-doc-delay 2))
+
+
 ;; === languages ===============================================================
 
 (use-package! apheleia)
@@ -299,6 +281,25 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 
+
+;;; --- nix ----------------------------
+
+;; Formatting with alejandra
+(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
+;; (setq-hook! 'nix-mode-hook +format-with 'alejandra)
+
+;; Register rnix-lsp as a client
+(use-package! lsp-mode
+  :config
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix)))
+
+
+;;; --- php ----------------------------
+
 (use-package! web-mode
   :config
   ;; Prevent web-mode from loading for all PHP files in WordPress themes.
@@ -307,27 +308,6 @@
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
-;; Nix formatting with Alejandra
-(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
-;; (setq-hook! 'nix-mode-hook +format-with 'alejandra)
-
-(use-package! lsp-mode
-  :init
-  (setq! lsp-use-plists t)
-
-  :config
-  ;; Register rnix-lsp as a client
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix)))
-
-(after! lsp-mode
-  (setq! lsp-vetur-use-workspace-dependencies t
-         lsp-enable-indentation nil
-         lsp-file-watch-threshold 666
-         lsp-ui-doc-delay 2
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
    "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
    "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
