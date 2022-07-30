@@ -299,6 +299,8 @@
 
 
 ;;; --- php ----------------------------
+;;; sources:
+;; - https://github.com/elken/doom#php
 
 (use-package! web-mode
   :config
@@ -308,6 +310,23 @@
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
+(after! eglot
+  (add-hook 'php-mode-hook 'eglot-ensure)
+  (defclass eglot-php (eglot-lsp-server) () :documentation "PHP's Intelephense")
+  (cl-defmethod eglot-initialization-options ((server eglot-php))
+    "Passes through required intelephense options"
+    `(:storagePath ,php-intelephense-storage-path
+      :licenceKey ,lsp-intelephense-licence-key
+      :clearCache t))
+  (add-to-list 'eglot-server-programs `((php-mode phps-mode) . (eglot-php . (,php-intelephense-command "--stdio")))))
+
+;; FIXME: needed for lsp-mode too?
+(when (featurep! :tools lsp +eglot)
+  (defvar php-intelephense-storage-path (expand-file-name "lsp-intelephense" doom-etc-dir))
+  (defvar php-intelephense-command (expand-file-name "lsp/npm/intelephense/bin/intelephense" doom-etc-dir)))
+
+(after! (:or lsp-mode eglot)
+  (setq! lsp-intelephense-licence-key (or (ignore-errors (fetch-auth-source :user "intelephense") nil))
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
    "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
    "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
