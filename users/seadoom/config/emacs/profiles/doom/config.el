@@ -7,10 +7,8 @@
        user-mail-address "chris@cdom.io")
 
 (setq doom-font nil
+      doom-unicode-font nil
       doom-variable-pitch-font nil)
-
-;; FIXME: varies per system! this is for the LG 27GL850-B 27" @ 2560x1440
-(setq! display-pixels-per-inch 108.79)
 
 ;; Start the emacs server, maybe.
 ;; via https://github.com/purcell/emacs.d/blob/6190c87929af81dca0dd0a91ff71a3551daaaa68/init.el#L156-L161
@@ -84,8 +82,6 @@
 
 ;; === appearance ==============================================================
 
-(setq! doom-theme 'modus-vivendi)
-
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
   (interactive)
@@ -94,35 +90,34 @@
         (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))
 
-(use-package fontaine
+(use-package! fontaine
   :ensure t
   :commands (fontaine-store-latest-preset)
-  :hook (kill-emacs-hook fontaine-store-latest-preset))
-
-(setq fontaine-presets
-      '((regular
-          :default-height 120)
-        (large
-         :default-height 150)
-        (t
-          :default-family "Iosevka Seadome"
-          :default-weight regular
-          :default-height 100
-          :fixed-pitch-family nil
-          :fixed-pitch-family nil
-          :fixed-pitch-height 1.0
-          :fixed-pitch-serif-family nil
-          :fixed-pitch-serif-weight nil
-          :variable-pitch-family "IBM Plex Sans"
-          :variable-pitch-weight nil
-          :variable-pitch-height 1.0
-          :bold-family nil
-          :bold-weight bold
-          :italic-family nil
-          :italic-slant italic
-          :line-spacing nil)))
-
-(fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+  :hook (kill-emacs-hook fontaine-store-latest-preset)
+  :config
+  (setq fontaine-presets
+        '((regular
+            :default-height 120)
+          (large
+          :default-height 150)
+          (t
+            :default-family "Iosevka Seadome"
+            :default-weight regular
+            :default-height 100
+            :fixed-pitch-family nil
+            :fixed-pitch-family nil
+            :fixed-pitch-height 1.0
+            :fixed-pitch-serif-family nil
+            :fixed-pitch-serif-weight nil
+            :variable-pitch-family "IBM Plex Sans"
+            :variable-pitch-weight nil
+            :variable-pitch-height 1.0
+            :bold-family nil
+            :bold-weight bold
+            :italic-family nil
+            :italic-slant italic
+            :line-spacing nil)))
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
 (use-package! modus-themes
   :init
@@ -132,7 +127,6 @@
 
    ;; type
    modus-themes-italic-constructs t
-   modus-themes-mixed-fonts t
 
    ;; ui
    ;; modus-themes-completions nil
@@ -147,7 +141,11 @@
    ;; modus-themes-syntax '(alt-syntax)
    modus-themes-markup '(background)
    modus-themes-org-blocks '(gray-background)
-   modus-themes-paren-match '(bold)))
+   modus-themes-paren-match '(bold))
+
+  :config
+  (modus-themes-load-themes)
+  (modus-themes-load-vivendi))
 
 ;; Reduce the size of text in Zen Mode.
 ;; (setq! +zen-text-scale 1)
@@ -286,6 +284,7 @@
 (after! projectile
   (setq! doom-projectile-cache-purge-non-projects t))
 
+
 ;; === languages ===============================================================
 
 (use-package! apheleia)
@@ -361,6 +360,7 @@
 
 (use-package! literate-calc-mode
   :defer-incrementally t)
+
 
 ;; === mail ====================================================================
 
