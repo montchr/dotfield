@@ -71,28 +71,36 @@
 ;; (package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
 ;; (package! minions)    ;                     :: https://github.com/tarsius/minions
 
-;; org
+
+;;; === org-mode ===============================================================
+
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! vulpea)
 
-;; languages
-(package! apheleia)
-(package! bats-mode)                 ; mode for editing and running BATS tests
-(package! literate-calc-mode)        ; like soulver, but in emacs
-(package! neon-mode
-  :recipe (:host github :repo "montchr/neon-mode"))
-(package! vimrc-mode)                ; vimrc syntax
+;;; importers/exporters
 
-;; importers/exporters
+;; FIXME: may have had errors at some point?
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
 (package! org-web-tools)             ; Webpage to org-mode content
 (package! ox-gfm)                    ; Export to GFM syntax
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
 
-;; apps
-(package! hledger-mode)
-;; (package! org-board)                 ; Pinboard-ish for org-mode
 
-;; tools
+;;; === languages ==============================================================
+
+(package! apheleia)
+(package! bats-mode)                 ; mode for editing and running BATS tests
+(package! hledger-mode)
+(package! literate-calc-mode)        ; like soulver, but in emacs
+(package! neon-mode
+  :recipe (:host github :repo "montchr/neon-mode"))
+(package! vimrc-mode)                ; vimrc syntax
+
+
+;;; === apps / tools ===========================================================
+
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
+
+;; TODO: check it out
+;; (package! org-board)              ; Pinboard-ish for org-mode
