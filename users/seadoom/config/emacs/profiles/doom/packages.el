@@ -46,7 +46,12 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;; themes
+
+;;; === ide ====================================================================
+
+(unpin! lsp-mode)
+
+
 ;;; === completions ============================================================
 
 ;; https://github.com/elken/doom/blob/fd381b6837a34bb7b9bc072909bb697c0ac11f70/config.org#disabledunpin
@@ -55,6 +60,8 @@
 
 (package! embark-vc)
 
+
+;;; === ui =====================================================================
 
 (package! modus-themes)
 (package! fontaine)
