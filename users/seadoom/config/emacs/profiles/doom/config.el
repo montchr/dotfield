@@ -251,7 +251,7 @@
 
 (use-package! projectile
   :config
-  (appendq! projectile-globally-ignored-directories '("client-mu-plugins/vendor")))
+  (appendq! projectile-globally-ignored-directories '("vendor")))
 
 (after! projectile
   (setq! doom-projectile-cache-purge-non-projects t))
