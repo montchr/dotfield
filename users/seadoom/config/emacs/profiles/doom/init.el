@@ -156,9 +156,7 @@
   ;;ocaml              ; an objective camel
   (org                 ; organize your plain life in plain text
     +dragndrop
-    +journal
     +pandoc
-    +pomodoro
     +roam2)
   ;;perl                ; write code no one else can comprehend
   (php +lsp)            ; perl's insecure younger brother
@@ -189,7 +187,7 @@
   ;;(wanderlust +gmail)
 
   :app
-  calendar
+  ;;calendar
   ;;emms
   everywhere     ; *leave* Emacs!? You must be joking
   ;;irc          ; how neckbeards socialize
