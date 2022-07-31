@@ -1,4 +1,9 @@
 final: prev: {
+  iosevka-xtal = final.iosevka.override {
+    set = "xtal";
+    privateBuildPlan = builtins.readFile ./iosevka-seadome.toml;
+  };
+
   iosevka-seadome = final.iosevka.override {
     set = "seadome";
     privateBuildPlan = {

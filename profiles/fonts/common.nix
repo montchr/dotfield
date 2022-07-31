@@ -24,6 +24,8 @@ in {
         public-sans
 
         iosevka-seadome
+        iosevka-xtal
+
         iosevka-nf
         iosevka-fixed
         iosevka-term
