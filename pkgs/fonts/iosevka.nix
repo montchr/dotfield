@@ -4,12 +4,18 @@ final: prev: {
     privateBuildPlan = builtins.readFile ./iosevka-seadome.toml;
   };
 
+  # https://github.com/be5invis/Iosevka/blob/master/doc/custom-build.md
   iosevka-seadome = final.iosevka.override {
     set = "seadome";
     privateBuildPlan = {
       family = "Iosevka Seadome";
       spacing = "normal";
       serifs = "sans";
+      # Required for Kitty. See Iosevka's custom build docs.
+      export-glyph-names = true;
+      ligations = {
+        inherits = "dlig";
+      };
       variants = {
         inherits = "ss08";
       };
