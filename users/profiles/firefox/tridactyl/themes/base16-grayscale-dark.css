@@ -2,11 +2,11 @@
   /* Grayscale-dark by Chris Kempson (http://chriskempson.com) */
 
   /* custom from cdom */
-  --tridactyl-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-cmdl-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-status-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-cmplt-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-hintspan-font-family: 'Iosevka Seadome' !important;
+  --tridactyl-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-cmdl-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-status-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-cmplt-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-hintspan-font-family: 'Iosevka Xtal' !important;
 
   --base00: #101010;
   --base01: #252525;

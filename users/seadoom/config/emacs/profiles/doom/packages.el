@@ -63,8 +63,9 @@
 
 ;;; === ui =====================================================================
 
-(package! modus-themes)
 (package! fontaine)
+;;(package! ligature)
+(package! modus-themes)
 (package! svg-tag-mode)
 
 ;; modeline

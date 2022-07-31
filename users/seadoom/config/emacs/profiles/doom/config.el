@@ -6,9 +6,9 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq doom-font nil
-      doom-unicode-font nil
-      doom-variable-pitch-font nil)
+(setq doom-font (font-spec :family "Iosevka Xtal" :height 120)
+      doom-unicode-font (font-spec :family "Iosevka Nerd Font" :height 120)
+      doom-variable-pitch-font (font-spec :family "Jost*" :height 120))
 
 ;; Start the emacs server, maybe.
 ;; via https://github.com/purcell/emacs.d/blob/6190c87929af81dca0dd0a91ff71a3551daaaa68/init.el#L156-L161
@@ -90,36 +90,39 @@
         (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))
 
-(use-package! fontaine
-  :ensure t
-  :commands (fontaine-store-latest-preset)
-  :hook (kill-emacs-hook fontaine-store-latest-preset)
-  :config
-  (setq fontaine-presets
-        '((small
-            :default-height 100)
-          (regular
-            :default-height 120)
-          (large
-            :default-height 150)
-          (t
-            :default-family "Iosevka Seadome"
-            :default-weight regular
-            :default-height 100
-            :fixed-pitch-family nil
-            :fixed-pitch-family nil
-            :fixed-pitch-height 1.0
-            :fixed-pitch-serif-family nil
-            :fixed-pitch-serif-weight nil
-            :variable-pitch-family "IBM Plex Sans"
-            :variable-pitch-weight nil
-            :variable-pitch-height 1.0
-            :bold-family nil
-            :bold-weight bold
-            :italic-family nil
-            :italic-slant italic
-            :line-spacing nil)))
-  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+;; (use-package! fontaine
+;;   :commands (fontaine-store-latest-preset)
+;;   :hook (kill-emacs-hook fontaine-store-latest-preset)
+;;   :config
+;;   (setq fontaine-presets
+;;         '((small
+;;             :default-height 100)
+;;           (regular
+;;             :default-height 120)
+;;           (large
+;;             :default-height 150)
+;;           (t
+;;             :default-family "Iosevka Xtal"
+;;             :default-weight regular
+;;             :default-height 100
+;;             :fixed-pitch-family nil
+;;             :fixed-pitch-family nil
+;;             :fixed-pitch-height 1.0
+;;             :fixed-pitch-serif-family nil
+;;             :fixed-pitch-serif-weight nil
+;;             :variable-pitch-family "IBM Plex Sans"
+;;             :variable-pitch-weight nil
+;;             :variable-pitch-height 1.0
+;;             :bold-family nil
+;;             :bold-weight bold
+;;             :italic-family nil
+;;             :italic-slant italic
+;;             :line-spacing nil)))
+;;   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+
+;; (use-package! ligature
+;;   :config
+;;   (ligature-set-ligatures 't '("www")))
 
 (use-package! modus-themes
   :init

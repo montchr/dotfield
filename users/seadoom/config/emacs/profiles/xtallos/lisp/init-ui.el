@@ -89,7 +89,7 @@
         (large
          :default-height 150)
         (t
-          :default-family "Iosevka Seadome"
+          :default-family "Iosevka Xtal"
           :default-weight regular
           :default-height 100
           :fixed-pitch-family nil

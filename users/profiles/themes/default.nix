@@ -17,7 +17,7 @@ in {
 
   theme.font = {
     mono = {
-      family = "Iosevka Seadome";
+      family = "Iosevka Xtal";
       size = 13;
     };
     sans = {

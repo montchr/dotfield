@@ -79,7 +79,7 @@ whenever a non-monospace face is preferred.
   (add-hook 'emacs-startup-hook
             (lambda ()
               (custom-set-faces
-               `(default ((t (:font "Iosevka Seadome 16"))))
+               `(default ((t (:font "Iosevka Xtal 16"))))
                `(fixed-pitch ((t (:inherit (default)))))
                `(fixed-pitch-serif ((t (:inherit (default)))))
                `(variable-pitch ((t (:font "IBM Plex Mono 18")))))))

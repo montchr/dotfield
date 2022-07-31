@@ -1,9 +1,9 @@
 :root {
-  --tridactyl-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-cmdl-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-status-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-cmplt-font-family: 'Iosevka Seadome' !important;
-  --tridactyl-hintspan-font-family: 'Iosevka Seadome' !important;
+  --tridactyl-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-cmdl-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-status-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-cmplt-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-hintspan-font-family: 'Iosevka Xtal' !important;
 }
 
 /* NixOS -- nixos.org */
@@ -48,7 +48,7 @@ tt,
 .upload-files .filename,
 .url-field,
 .wiki-wrapper .wiki-history .commit-meta code {
-  font-family: 'Iosevka Seadome', monospace !important;
+  font-family: 'Iosevka Xtal', monospace !important;
   font-size: 1.2em !important;
 }
 
