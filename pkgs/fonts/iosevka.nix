@@ -1,7 +1,7 @@
 final: prev: {
   iosevka-xtal = final.iosevka.override {
     set = "xtal";
-    privateBuildPlan = builtins.readFile ./iosevka-seadome.toml;
+    privateBuildPlan = builtins.readFile ./iosevka-xtal.toml;
   };
 
   # https://github.com/be5invis/Iosevka/blob/master/doc/custom-build.md
