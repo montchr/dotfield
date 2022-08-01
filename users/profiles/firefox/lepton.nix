@@ -23,35 +23,35 @@
     # };
 
     theme.lepton = {
+      # TODO: describe values/options
+      "layout.css.prefers-color-scheme.content-override" = 3;
+      "userChrome.icon.panel_full" = true; # Original, Proton
       "userChrome.tab.connect_to_window" = true; # Original, Photon
       "userChrome.tab.color_like_toolbar" = true; # Original, Photon
       "userChrome.tab.lepton_like_padding" = true; # Original
       # FIXME: typo?
       "userChrome.tab.dynamic_separtor" = true; # Original, Proton
       "userChrome.tab.newtab_button_like_tab" = true; # Original
-      "userChrome.icon.panel_full" = true; # Original, Proton
       "userChrome.tab.box_shadow" = true;
       "userChrome.tab.bottom_rounded_corner" = true;
-      # TODO: describe values/options
-      "layout.css.prefers-color-scheme.content-override" = 3;
     };
 
     theme.photon = {
+      "userChrome.icon.panel_photon" = true; # Photon
+      "userChrome.rounding.square_tab" = true;
       "userChrome.tab.connect_to_window" = true; # Original, Photon
       "userChrome.tab.color_like_toolbar" = true; # Original, Photon
       "userChrome.tab.photon_like_padding" = true; # Photon
       "userChrome.tab.static_separator" = true; # Photon
       "userChrome.tab.newtab_button_smaller" = true; # Photon
-      "userChrome.icon.panel_photon" = true; # Photon
       "userChrome.tab.photon_like_contextline" = true;
-      "userChrome.rounding.square_tab" = true;
     };
 
     theme.proton = {
+      "userChrome.icon.panel_full" = true; # Original, Proton
       # TODO: typo?
       "userChrome.tab.dynamic_separtor" = true; # Original, Proton
       "userChrome.tab.newtab_button_proton" = true; # Proton
-      "userChrome.icon.panel_full" = true; # Original, Proton
     };
 
     compat = {
