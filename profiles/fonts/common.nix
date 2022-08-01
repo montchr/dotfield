@@ -23,6 +23,10 @@ in {
         jost
         public-sans
 
+        # FIXME: doesn't exist... yet...
+        # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        nerdfonts-symbols-only
+
         iosevka-xtal
         iosevka-xtal-term
 

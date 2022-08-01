@@ -47,5 +47,6 @@ final: prev: {
 
   ## fonts =====================================================================
 
+  nerdfonts-symbols-only = final.callPackage ./fonts/nerdfonts-symbols-only.nix {};
   sf-pro = final.callPackage ./fonts/sf-pro.nix {};
 }
