@@ -55,12 +55,14 @@
     };
 
     compat = {
+      # "userChrome.compatibility.accent_color" = true; # Required for Firefox <= 102
       # "userChrome.compatibility.covered_header_image" = true;
       # "userChrome.compatibility.panel_cutoff" = true;
       # "userChrome.compatibility.navbar_top_border" = true;
       # "userChrome.compatibility.dynamic_separator" = true; # Need dynamic_seperator
 
       # "userChrome.compatiblity.os.linux_non_native_titlebar_button" = true;
+      # "userChrome.compatibility.os.windows_maximized" = true;
     };
 
     recommended = {
@@ -70,6 +72,7 @@
       "userChrome.theme.built_in_contrast" = true;
       "userChrome.theme.system_default" = true;
       "userChrome.theme.proton_color" = true;
+      # TODO: enforce rule deps with warnings
       "userChrome.theme.proton_chrome" = true; # Need proton_color
       "userChrome.theme.fully_color" = true; # Need proton_color
       "userChrome.theme.fully_dark" = true; # Need proton_color
@@ -180,6 +183,9 @@
 
       # "userChrome.icon.account_image_to_right" = true;
       # "userChrome.icon.account_label_to_right" = true;
+      "userChrome.icon.context_menu.share" = true;
+      # FIXME: enable for darwin (needs pkgs)
+      # "userChrome.icon.global_menu.mac" = true;
 
       ## User Content
 

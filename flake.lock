@@ -254,11 +254,11 @@
     "firefox-lepton": {
       "flake": false,
       "locked": {
-        "lastModified": 1659073656,
-        "narHash": "sha256-7pYVJhccS579/sEP8KktcZUexIkmsMVy3UAtyfdhM48=",
+        "lastModified": 1659171318,
+        "narHash": "sha256-EDGChB2lcELXcxsv10H/f1/GL6E1zbljWfkYyD5SvLA=",
         "owner": "black7375",
         "repo": "Firefox-UI-Fix",
-        "rev": "d735d21cbd783be0f5a583144f14687364c954f5",
+        "rev": "6f353154f29cab3a44a41857e5490c3a4a887201",
         "type": "github"
       },
       "original": {
