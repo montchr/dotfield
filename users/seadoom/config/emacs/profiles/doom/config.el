@@ -8,6 +8,7 @@
 
 (setq doom-font (font-spec :family "Iosevka Xtal" :height 120 :spacing 90)
       doom-unicode-font (font-spec :family "Iosevka Xtal" :spacing 90)
+      doom-serif-font (font-spec :family "Iosevka Slab" :spacing 90)
       doom-variable-pitch-font (font-spec :family "Jost*" :height 120))
 
 ;; Start the emacs server, maybe.
