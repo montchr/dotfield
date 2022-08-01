@@ -363,6 +363,7 @@
                 secrets.password-store
                 sync
                 yubikey
+                zotero
               ];
           };
         };
