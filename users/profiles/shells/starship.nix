@@ -13,11 +13,17 @@
         "$username"
         "$hostname"
         "$shlvl"
+        "$localip"
+        "$container"
+        "$docker_context"
         "$directory"
         "$git_branch"
+        "$git_commit"
+        "$git_state"
         "$git_metrics"
         "$git_status"
         "$fill"
+        "$deno"
         "$nodejs"
         "$php"
         "$python"
@@ -34,10 +40,6 @@
         "$character"
       ];
 
-      aws = {
-        symbol = " ";
-      };
-
       character = {
         success_symbol = "❯";
         error_symbol = "[](bold red)";
@@ -50,78 +52,39 @@
         discharging_symbol = "";
       };
 
-      conda = {
-        symbol = " ";
-      };
-
       directory = {
         style = "cyan";
-        read_only = " ";
-      };
-
-      git_branch = {
-        format = "[$symbol$branch]($style) ";
-        symbol = " ";
-        style = "bold dimmed white";
-      };
-
-      git_status = {
-        format = "([$all_status$ahead_behind]($style) )";
-        conflicted = " ";
-        ahead = " $count ";
-        behind = " $count ";
-        diverged = " ";
-        untracked = " ";
-        stashed = " ";
-        modified = " ";
-        staged = " ";
-        renamed = " ";
-        deleted = " ";
-        style = "bold bright-white";
-      };
-
-      memory_usage = {
-        symbol = " ";
+        read_only = " ";
       };
 
       nix_shell = {
-        format = "[$symbol$state]($style) ";
         symbol = " ";
         pure_msg = "λ ";
         impure_msg = "⎔ ";
       };
 
       nodejs = {
-        symbol = " ";
+        symbol = " ";
         version_format = "$major";
-        format = "[$symbol($version )]($style)";
-      };
-
-      package = {
-        symbol = " ";
       };
 
       php = {
         symbol = " ";
-        format = "[$symbol($version )]($style)";
         version_format = "$major.$minor";
       };
 
-      python = {
-        symbol = " ";
-      };
+      aws.symbol = " ";
+      conda.symbol = " ";
+      docker_context.symbol = " ";
+      fill.symbol = " ";
+      memory_usage.symbol = " ";
+      package.symbol = " ";
+      python.symbol = " ";
+      ruby.symbol = " ";
+      rust.symbol = " ";
 
-      ruby = {
-        symbol = " ";
-      };
-
-      rust = {
-        symbol = " ";
-      };
-
-      status = {
-        disabled = false;
-      };
+      shlvl.disabled = false;
+      status.disabled = false;
     };
   };
 }
