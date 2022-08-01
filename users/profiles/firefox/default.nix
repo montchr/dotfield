@@ -159,6 +159,8 @@ in {
             enableBukubrow = isBukuEnabled;
           };
         };
+
+    # TODO: add zotero connector addon -- not available in upstream nur repo
     extensions = with firefox-addons; [
       onepassword-password-manager
       a11ycss
@@ -173,17 +175,23 @@ in {
       mailvelope
       multi-account-containers
       octolinker
-      old-reddit-redirect
+      # FIXME: only use this if not using tridactyl (e.g. guest users on htpc)
+      # old-reddit-redirect
       org-capture
       pinboard
-      privacy-badger
+      # FIXME: needs configuration, probably
+      # promnesia
+      # protondb-for-steam
       react-devtools
       reddit-enhancement-suite
       reduxdevtools
+      # TODO: set default preferences for this and others? is that possible?
       refined-github
+      return-youtube-dislikes
+      sidebery
       single-file
+      sourcegraph
       tab-session-manager
-      tabliss
       temporary-containers
       tridactyl
       ublock-origin
