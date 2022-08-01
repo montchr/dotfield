@@ -13,7 +13,8 @@ channels: final: prev: {
     iosevka
     iosevka-bin
     iosevka-comfy
-    iosevka-seadome
+    iosevka-xtal
+    iosevka-xtal-term
     nerdfonts
     ;
 

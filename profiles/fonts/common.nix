@@ -23,8 +23,8 @@ in {
         jost
         public-sans
 
-        iosevka-seadome
         iosevka-xtal
+        iosevka-xtal-term
 
         iosevka-nf
         iosevka-fixed
