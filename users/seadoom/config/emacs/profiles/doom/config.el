@@ -6,8 +6,8 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq doom-font (font-spec :family "Iosevka Xtal" :height 120)
       doom-unicode-font (font-spec :family "Iosevka Nerd Font" :height 120)
+(setq doom-font (font-spec :family "Iosevka Xtal" :height 120 :spacing 90)
       doom-variable-pitch-font (font-spec :family "Jost*" :height 120))
 
 ;; Start the emacs server, maybe.
