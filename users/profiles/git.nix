@@ -6,7 +6,11 @@
   ...
 }: let
   inherit (lib) getAttr attrNames;
-  inherit (config.lib.dotfield.whoami) email fullName pgpPublicKey;
+  inherit (config.lib.dotfield.whoami)
+    email
+    fullName
+    githubUserName
+    pgpPublicKey;
 
   enableSigning =
     config.programs.gpg.enable
@@ -102,6 +106,7 @@ in {
     extraConfig = lib.mkMerge [
       {
         init.defaultBranch = "main";
+        github.user = githubUserName;
 
         # Environment variables will not be expanded -- this requires a path.
         init.templateDir = "${config.xdg.configHome}/git/templates";
