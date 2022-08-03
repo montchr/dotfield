@@ -35,7 +35,7 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: dotfield,nix-community,nrdxp
 
-      - run: nix -Lv flake show --show-trace
+      # FIXME: fails b/c ifd
+      # - run: nix -Lv flake show --show-trace
+
       - run: nix -Lv flake check --show-trace
-      # TODO: revise this so it's more useful and less prone to unexpected failures missed by checks
-      # run: nix -Lv build ".#${{ matrix.type }}Configurations.${{ matrix.hostname }}.config.system.build.toplevel" --show-trace
