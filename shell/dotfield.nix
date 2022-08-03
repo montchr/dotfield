@@ -38,6 +38,8 @@
 in {
   _file = toString ./.;
 
+  name = "Dotfield";
+
   commands =
     [
       (dotfield nixUnstable)
