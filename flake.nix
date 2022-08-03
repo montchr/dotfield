@@ -13,7 +13,8 @@
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
-    digga.url = "github:divnix/digga";
+    # digga.url = "github:divnix/digga";
+    digga.url = "github:GTrunSec/digga?ref=24cb8eb86d4740a1728ab5bd1dcc0a0399bbdea5";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.home-manager.follows = "home-manager";
