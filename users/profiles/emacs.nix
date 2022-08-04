@@ -94,8 +94,7 @@ in
     graphviz
 
     # FIXME: sqlite binary unusable in org-roam and forge even after supplying
-    # them... so we let these packages compile the binary... something is
-    # wrong...
+    # them... so we let these packages compile the binary...     
     gcc
     sqlite
 

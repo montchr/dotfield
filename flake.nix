@@ -61,7 +61,8 @@
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # Emacsen.
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # FIXME: last known working version of `emacsPgtkNativeComp`
+    emacs-overlay.url = "github:nix-community/emacs-overlay?ref=30a3d95bb4d9812e26822260b6ac45efde0d7700";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     crafted-emacs.url = "github:SystemCrafters/crafted-emacs";
     crafted-emacs.flake = false;
