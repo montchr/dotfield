@@ -1,4 +1,4 @@
-;;; completion/corfu/autoload.el -*- lexical-binding: t; -*-
+;;; completion/corfu/autoload/extra.el -*- lexical-binding: t; -*-
 ;;
 ;; https://git.sr.ht/~gagbo/doom-config/tree/31d0bd649b3eb97aebc319088e2674b0412e2beb/item/modules/completion/corfu/autoload/extra.el
 ;;

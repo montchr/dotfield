@@ -1,7 +1,8 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; completion/corfu/packages.el
 
-(package! corfu)
+(package! corfu
+  :recipe (:files (:defaults "extensions/*.el")))
 (when (featurep! +icons)
   (package! kind-icon))
 (when (featurep! +orderless)
