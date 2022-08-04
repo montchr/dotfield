@@ -86,6 +86,7 @@
     darwin,
     deploy,
     digga,
+    emacs-overlay,
     flake-utils,
     gitignore,
     home-manager,
@@ -100,20 +101,10 @@
     nvfetcher,
     sops-nix,
     ...
-  } @ inputs': let
+  }@inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
     inherit (flake-utils.lib) eachSystem system;
     darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
-    inputs =
-      inputs'
-      // {
-        # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
-        emacs-overlay =
-          inputs'.emacs-overlay
-          // {
-            overlay = self.lib.overlayNullProtector inputs'.emacs-overlay.overlay;
-          };
-      };
     peers = import ./ops/metadata/peers.nix;
   in
     (digga.lib.mkFlake {
@@ -169,8 +160,7 @@
         })
 
         agenix.overlay
-        # HACK: see above
-        inputs.emacs-overlay.overlay
+        emacs-overlay.overlay
         gitignore.overlay
         nur.overlay
         nvfetcher.overlay
