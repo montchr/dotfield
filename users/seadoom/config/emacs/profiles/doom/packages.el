@@ -55,8 +55,8 @@
 ;;; === completions ============================================================
 
 ;; https://github.com/elken/doom/blob/fd381b6837a34bb7b9bc072909bb697c0ac11f70/config.org#disabledunpin
-(when (featurep! :completion corfu
-  (unpin! evil-collection)))
+(when (featurep! :completion corfu)
+  (unpin! evil-collection))
 
 (package! embark-vc)
 
