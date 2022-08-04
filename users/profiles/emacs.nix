@@ -76,7 +76,8 @@ in
   };
 
   services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
-    enable = true;
+    # Doom will take care of running the server.
+    enable = lib.mkDefault false;
     defaultEditor = lib.mkForce true;
     socketActivation.enable = true;
   };

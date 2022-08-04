@@ -11,14 +11,6 @@
       doom-serif-font (font-spec :family "Iosevka Slab" :spacing 90)
       doom-variable-pitch-font (font-spec :family "Jost*" :height 120))
 
-;; Start the emacs server, maybe.
-;; via https://github.com/purcell/emacs.d/blob/6190c87929af81dca0dd0a91ff71a3551daaaa68/init.el#L156-L161
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'server)
-            (unless (server-running-p)
-              (server-start))))
-
 ;; Display the fill-column indicator.
 (global-display-fill-column-indicator-mode +1)
 
