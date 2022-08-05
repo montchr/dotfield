@@ -29,7 +29,7 @@ lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       }
-      (lib.mkIf moduleArgs.osConfig.hardware.nvidia.modesetting.enable {
+      (lib.mkIf (moduleArgs.osConfig.hardware.nvidia.modesetting.enable or false) {
         hwdec = "vdpau";
       })
       (lib.mkIf (moduleArgs.osConfig.xserver.displayManager.gdm.wayland or false) {
