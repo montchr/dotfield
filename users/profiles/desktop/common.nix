@@ -15,12 +15,36 @@ lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   };
 
   qt.enable = true;
-  qt.platformTheme = "gnome";
-  qt.style.package = pkgs.adwaita-qt;
-  # FIXME: dark mode
-  qt.style.name = "adwaita";
+  # TODO: disabled while troubleshooting plex-htpc... 
+  # qt.platformTheme = "gnome";
+  # qt.style.package = pkgs.adwaita-qt;
+  # qt.style.name = "adwaita";
 
   programs.zathura.enable = true;
+
+  programs.mpv = {
+    enable = true;
+    config = lib.mkMerge [
+      {
+        ytdl-format = "bestvideo+bestaudio";
+        cache-default = 4000000;
+      }
+      (lib.mkIf moduleArgs.osConfig.hardware.nvidia.modesetting.enable {
+        hwdec = "vdpau";
+      })
+      (lib.mkIf (moduleArgs.osConfig.xserver.displayManager.gdm.wayland or false) {
+        gpu-context = "wayland";
+      })
+    ];
+  };
+
+  # https://aur.archlinux.org/packages/plex-htpc#comment-854436
+  # FIXME: assumes nvidia
+  xdg.dataFile."plex/mpv.conf".text = ''
+    hwdec=vdpau
+    cache-default=4000000
+  '';
+
 
   # TODO
   # xdg.desktopEntries = ...
