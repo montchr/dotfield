@@ -22,6 +22,9 @@
     ;
 
   inherit (pkgs.nodePackages) prettier;
+  inherit (pkgs.stdenv.buildPlatform) isLinux isi686;
+
+  nixos-generators = inputs.nixos-generators.defaultPackage.${pkgs.system};
 
   # pkgs-unstable = import inputs.nixos-unstable { inherit (pkgs) lib system; };
 
@@ -80,8 +83,6 @@ in {
         '';
       }
     ]
-    ++ lib.optional (!pkgs.stdenv.buildPlatform.isi686)
-    (dotfield cachix)
-    ++ lib.optional (pkgs.stdenv.hostPlatform.isLinux && !pkgs.stdenv.buildPlatform.isDarwin)
-    (dotfield inputs.nixos-generators.defaultPackage.${pkgs.system});
+    ++ lib.optional (!isi686) (dotfield cachix)
+    ++ lib.optional isLinux (dotfield nixos-generators);
 }
