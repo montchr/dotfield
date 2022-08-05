@@ -105,6 +105,10 @@ in {
         (with hmArgs.suites; workstation)
         ++ (with hmArgs.profiles; [virtualisation.vagrant])
         ++ [hmUsers.seadoom];
+      # FIXME: it's all fucked up
+      # home.packages = with pkgs; [
+      #   zoom-us
+      # ];
     };
     zortflower = hmArgs: {
       imports =
