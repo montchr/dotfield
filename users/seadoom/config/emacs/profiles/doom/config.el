@@ -259,7 +259,52 @@
   (setq! doom-projectile-cache-purge-non-projects t))
 
 
-;; === lsp-mode / eglot ========================================================
+;; === ide =====================================================================
+
+(use-package! format-all
+  :custom
+  ;; N.B. This is a subset of available languages -- only the ones I might use.
+  ((format-all-default-formatters
+    '(("C" clang-format)
+      ("C#" clang-format)
+      ("C++" clang-format)
+      ("CMake" cmake-format)
+      ("CSS" prettier)
+      ("Dockerfile" dockfmt)
+      ("Emacs Lisp" emacs-lisp)
+      ("Fish" fish-indent)
+      ("GraphQL" prettier)
+      ("Haskell" brittany)
+      ("HTML" html-tidy)
+      ("JavaScript" prettier)
+      ("JSON" prettier)
+      ("JSX" prettier)
+      ("Less" prettier)
+      ("Lua" lua-fmt)
+      ("Markdown" prettier)
+      ("Nix" alejandra)
+      ("Perl" perltidy)
+      ;; N.B. usually php projects use some lang-specific tool for this, but i
+      ;; can also see why it could make sense to use prettier. either way, as of
+      ;; this writing, format-all only supports prettier for php.
+      ("PHP" prettier)
+      ("Python" black)
+      ("Ruby" rufo)
+      ("SCSS" prettier)
+      ("Shell" shfmt)
+      ("SQL" sqlformat)
+      ("Terraform" terraform-fmt)
+      ("TOML" prettier)
+      ("TSX" prettier)
+      ("TypeScript" prettier)
+      ("XML" html-tidy)
+      ("YAML" prettier)
+      ("_Ledger" ledger-mode)
+      ("_Nginx" nginxfmt))))
+
+  :config
+  (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
+  (add-hook 'prog-mode-hook 'format-all-mode))
 
 (use-package! lsp-mode
   :init
@@ -285,10 +330,6 @@
 
 
 ;;; --- nix ----------------------------
-
-;; Formatting with alejandra
-(set-formatter! 'alejandra "alejandra --quiet" :modes '(nix-mode))
-;; (setq-hook! 'nix-mode-hook +format-with 'alejandra)
 
 ;; Register rnix-lsp as a client
 (use-package! lsp-mode
@@ -332,15 +373,15 @@
          ;; Enable WordPress stubs.
          ;; FIXME: append only -- but this format has been difficult to work with
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
-   "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
-   "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
-   "intl" "json" "ldap" "libxml" "mbstring" "mcrypt" "meta" "mssql" "mysqli"
-   "oci8" "odbc" "openssl" "pcntl" "pcre" "PDO" "pdo_ibm" "pdo_mysql"
-   "pdo_pgsql" "pdo_sqlite" "pgsql" "Phar" "posix" "pspell" "readline" "recode"
-   "Reflection" "regex" "session" "shmop" "SimpleXML" "snmp" "soap" "sockets"
-   "sodium" "SPL" "sqlite3" "standard" "superglobals" "sybase" "sysvmsg"
-   "sysvsem" "sysvshm" "tidy" "tokenizer" "wddx" "wordpress" "xml" "xmlreader" "xmlrpc"
-   "xmlwriter" "Zend OPcache" "zip" "zlib"]))
+                                 "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
+                                 "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
+                                 "intl" "json" "ldap" "libxml" "mbstring" "mcrypt" "meta" "mssql" "mysqli"
+                                 "oci8" "odbc" "openssl" "pcntl" "pcre" "PDO" "pdo_ibm" "pdo_mysql"
+                                 "pdo_pgsql" "pdo_sqlite" "pgsql" "Phar" "posix" "pspell" "readline" "recode"
+                                 "Reflection" "regex" "session" "shmop" "SimpleXML" "snmp" "soap" "sockets"
+                                 "sodium" "SPL" "sqlite3" "standard" "superglobals" "sybase" "sysvmsg"
+                                 "sysvsem" "sysvshm" "tidy" "tokenizer" "wddx" "wordpress" "xml" "xmlreader" "xmlrpc"
+                                 "xmlwriter" "Zend OPcache" "zip" "zlib"]))
 
 
 ;; === tools ===================================================================

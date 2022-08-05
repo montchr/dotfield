@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
   nvStable = nvidiaPackages.stable;

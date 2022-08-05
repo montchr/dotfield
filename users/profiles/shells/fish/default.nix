@@ -23,15 +23,15 @@ in {
       # expanded inline. needs review.
       shellAbbrs
       shellAliases
-    ;
+      ;
 
     enable = true;
     autopair.enable = true;
     fifc.enable = true;
 
-    plugins = (map mkPlugin [
+    plugins = map mkPlugin [
       "replay"
-    ]);
+    ];
 
     interactiveShellInit = ''
       # "Required" by `fifc`

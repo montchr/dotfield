@@ -379,3 +379,7 @@ in {
     ]))
   ]);
 }
+# FIXME: doesn't seem to override properly
+# Local Variables:
+# format-all-formatters: (("Nix" nixpkgs-fmt))
+# End:

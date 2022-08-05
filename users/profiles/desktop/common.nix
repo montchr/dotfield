@@ -15,7 +15,7 @@ lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   };
 
   qt.enable = true;
-  # TODO: disabled while troubleshooting plex-htpc... 
+  # TODO: disabled while troubleshooting plex-htpc...
   # qt.platformTheme = "gnome";
   # qt.style.package = pkgs.adwaita-qt;
   # qt.style.name = "adwaita";
@@ -44,7 +44,6 @@ lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     hwdec=vdpau
     cache-default=4000000
   '';
-
 
   # TODO
   # xdg.desktopEntries = ...

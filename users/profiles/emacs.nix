@@ -1,10 +1,10 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, self
-, ...
-}:
-let
+moduleArgs @ {
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}: let
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
@@ -13,8 +13,7 @@ let
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   emacsDir = "${configHome}/emacs";
-in
-{
+in {
   home.sessionVariables = {
     EMACSDIR = emacsDir;
 
@@ -33,7 +32,7 @@ in
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
+  home.sessionPath = ["${configHome}/emacs/bin" "$PATH"];
 
   ## Doom Bootloader.
   #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
@@ -50,11 +49,10 @@ in
   # Install Doom imperatively to make use of its CLI.
   # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
   # due to the number of oddities it introduces.
-  home.activation.installDoomEmacs =
-    let
-      git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
-    in
-    entryAfter [ "writeBoundary" ] ''
+  home.activation.installDoomEmacs = let
+    git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
+  in
+    entryAfter ["writeBoundary"] ''
       if [[ ! -f "${emacsDir}/README.md" ]]; then
         cd ${emacsDir}
         ${git} init --initial-branch master
@@ -72,7 +70,7 @@ in
       else if (moduleArgs.osConfig.services.xserver.enable or false)
       then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
-    extraPackages = epkgs: with epkgs; [ vterm ];
+    extraPackages = epkgs: with epkgs; [vterm];
   };
 
   services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
@@ -85,7 +83,7 @@ in
   home.packages = with pkgs; [
     ediff-tool
     gnutls
-    (ripgrep.override { withPCRE2 = true; })
+    (ripgrep.override {withPCRE2 = true;})
 
     fd # faster projectile indexing
     imagemagick # for image-dired
@@ -95,7 +93,7 @@ in
     graphviz
 
     # FIXME: sqlite binary unusable in org-roam and forge even after supplying
-    # them... so we let these packages compile the binary...     
+    # them... so we let these packages compile the binary...
     gcc
     sqlite
 

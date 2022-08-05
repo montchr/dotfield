@@ -72,21 +72,21 @@ in {
     initialHashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
     hashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    extraGroups = [
-      "wheel"
-      "video"
-      "audio"
-      "networkmanager"
-      "seadome"
-      "secrets"
-    ]
-    ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
-    ++ (lib.optional config.services.mysql.enable "mysql")
-    ++ (lib.optional config.virtualisation.docker.enable "docker")
-    ++ (lib.optional config.virtualisation.podman.enable "podman")
-    ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
-    ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers")
-    ;
+    extraGroups =
+      [
+        "wheel"
+        "video"
+        "audio"
+        "networkmanager"
+        "seadome"
+        "secrets"
+      ]
+      ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
+      ++ (lib.optional config.services.mysql.enable "mysql")
+      ++ (lib.optional config.virtualisation.docker.enable "docker")
+      ++ (lib.optional config.virtualisation.podman.enable "podman")
+      ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
+      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     shell = pkgs.fish;
   };
   users.users.zortflower = {
@@ -116,7 +116,6 @@ in {
   programs.htop.enable = true;
   programs.steam.enable = true;
 
-
   ### === virtualisation =======================================================
 
   virtualisation.virtualbox.host.enable = true;
@@ -127,5 +126,4 @@ in {
     vagrant
     virtualbox
   ];
-
 }

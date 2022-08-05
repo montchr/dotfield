@@ -102,7 +102,7 @@
     nvfetcher,
     sops-nix,
     ...
-  }@inputs: let
+  } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
     inherit (flake-utils.lib) eachSystem system;
     darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
@@ -372,8 +372,13 @@
             imports = with suites;
               basic ++ developer ++ server;
           };
-          chrismont = {profiles, suites, ...}: {
-            imports = (with suites; workstation)
+          chrismont = {
+            profiles,
+            suites,
+            ...
+          }: {
+            imports =
+              (with suites; workstation)
               ++ (with profiles; [
                 aws
                 nodejs
@@ -396,8 +401,10 @@
           magicRollback = true;
         };
       };
-    }) // (eachSystem darwinSystems (system: {
-      packages = builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
+    })
+    // (eachSystem darwinSystems (system: {
+      packages =
+        builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
         (flattenTree (rakeLeaves ./darwin/packages));
     }));
 }

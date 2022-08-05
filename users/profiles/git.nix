@@ -6,11 +6,13 @@
   ...
 }: let
   inherit (lib) getAttr attrNames;
-  inherit (config.lib.dotfield.whoami)
+  inherit
+    (config.lib.dotfield.whoami)
     email
     fullName
     githubUserName
-    pgpPublicKey;
+    pgpPublicKey
+    ;
 
   enableSigning =
     config.programs.gpg.enable

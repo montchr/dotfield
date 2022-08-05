@@ -1,17 +1,15 @@
-moduleArgs@{
+moduleArgs @ {
   self,
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   sshHostPath =
     if (moduleArgs.impermanence or false)
     then "/persist/etc/ssh"
     else "/etc/ssh";
-in
-{
+in {
   nix = {
     autoOptimiseStore = true;
     nixPath = ["nixos-config=${../../lib/compat/nixos}"];

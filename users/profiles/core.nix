@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config.home) username;
   inherit
     (config.xdg)
@@ -14,8 +13,7 @@ let
     ;
 
   hmLib = config.lib;
-in
-{
+in {
   lib.dotfield = rec {
     fsPath = "${configHome}/dotfield";
     userConfigPath = "${fsPath}/users/${username}/config";

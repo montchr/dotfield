@@ -3,117 +3,137 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   commonOpts = [
     "noatime"
     "x-mount.mkdir"
     "compress=zstd"
   ];
-in
-{
+in {
   boot.supportedFilesystems = ["btrfs"];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@root"
-      "ssd"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@root"
+        "ssd"
+      ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@store"
-      "ssd"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@store"
+        "ssd"
+      ];
   };
 
   fileSystems."/var/log" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@log"
-      "ssd"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@log"
+        "ssd"
+      ];
     neededForBoot = true;
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@home"
-      "ssd"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@home"
+        "ssd"
+      ];
   };
 
   fileSystems."/persist" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@persist"
-      "ssd"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@persist"
+        "ssd"
+      ];
     neededForBoot = true;
   };
 
   fileSystems."/var/lib/postgres" = {
     device = "/dev/disk-by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@postgres"
-      "ssd"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@postgres"
+        "ssd"
+        "nofail"
+      ];
   };
 
   fileSystems."/silo/backups" = {
     device = "/dev/disk/by-label/silo";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@backups"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@backups"
+        "nofail"
+      ];
   };
 
   fileSystems."/silo/downloads/completed" = {
     device = "/dev/disk/by-label/silo";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@dl-completed"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@dl-completed"
+        "nofail"
+      ];
   };
 
   fileSystems."/silo/media/music" = {
     device = "/dev/disk/by-label/silo";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@music"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@music"
+        "nofail"
+      ];
   };
 
   fileSystems."/silo/media/movies" = {
     device = "/dev/disk/by-label/silo";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@movies"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@movies"
+        "nofail"
+      ];
   };
 
   fileSystems."/silo/media/tv-shows" = {
     device = "/dev/disk/by-label/silo";
     fsType = "btrfs";
-    options = commonOpts ++ [
-      "subvol=@tv-shows"
-      "nofail"
-    ];
+    options =
+      commonOpts
+      ++ [
+        "subvol=@tv-shows"
+        "nofail"
+      ];
   };
 
   fileSystems."/boot" = {

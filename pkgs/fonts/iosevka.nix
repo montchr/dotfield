@@ -1,8 +1,6 @@
-final: prev:
-let
+final: prev: let
   xtalVariantOverrides = builtins.readFile ./iosevka-xtal-variants.toml;
-in
-{
+in {
   # https://github.com/be5invis/Iosevka/blob/master/doc/custom-build.md
   iosevka-xtal = final.iosevka.override {
     set = "xtal";

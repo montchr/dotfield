@@ -188,3 +188,6 @@ in {
 
   ];
 }
+# Local Variables:
+# format-all-formatters: (("Nix" nixpkgs-fmt))
+# End:

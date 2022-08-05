@@ -21,8 +21,9 @@ in {
   config = lib.mkIf cfg.enable {
     lib.fish = {inherit mkPlugin;};
 
-    programs.fish.plugins = (map mkPlugin
+    programs.fish.plugins =
+      map mkPlugin
       ((lib.optional cfg.autopair.enable "autopair")
-      ++ (lib.optional cfg.fifc.enable "fifc")));
+        ++ (lib.optional cfg.fifc.enable "fifc"));
   };
 }

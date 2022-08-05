@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://nerdfonts.com/";
     license = licenses.mit;
-    maintainers = [ "montchr" ];
+    maintainers = ["montchr"];
     hydraPlatforms = []; # 'Output limit exceeded' on Hydra
   };
 }
