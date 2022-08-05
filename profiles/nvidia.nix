@@ -29,4 +29,5 @@ in {
   hardware.nvidia.powerManagement.enable = true;
 
   hardware.opengl.enable = true;
+  hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
 }
