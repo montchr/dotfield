@@ -6,11 +6,6 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-(setq doom-font (font-spec :family "Iosevka Xtal" :height 120 :spacing 90)
-      doom-unicode-font (font-spec :family "Iosevka Xtal" :spacing 90)
-      doom-serif-font (font-spec :family "Iosevka Slab" :spacing 90)
-      doom-variable-pitch-font (font-spec :family "Jost*" :height 120))
-
 ;; Display the fill-column indicator.
 (global-display-fill-column-indicator-mode +1)
 
@@ -89,39 +84,47 @@
         (modus-themes-load-operandi)
       (modus-themes-load-vivendi))))
 
-;; (use-package! fontaine
-;;   :commands (fontaine-store-latest-preset)
-;;   :hook (kill-emacs-hook fontaine-store-latest-preset)
-;;   :config
-;;   (setq fontaine-presets
-;;         '((small
-;;             :default-height 100)
-;;           (regular
-;;             :default-height 120)
-;;           (large
-;;             :default-height 150)
-;;           (t
-;;             :default-family "Iosevka Xtal"
-;;             :default-weight regular
-;;             :default-height 100
-;;             :fixed-pitch-family nil
-;;             :fixed-pitch-family nil
-;;             :fixed-pitch-height 1.0
-;;             :fixed-pitch-serif-family nil
-;;             :fixed-pitch-serif-weight nil
-;;             :variable-pitch-family "IBM Plex Sans"
-;;             :variable-pitch-weight nil
-;;             :variable-pitch-height 1.0
-;;             :bold-family nil
-;;             :bold-weight bold
-;;             :italic-family nil
-;;             :italic-slant italic
-;;             :line-spacing nil)))
-;;   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+(use-package! fontaine
+  :commands (fontaine-store-latest-preset)
+  :hook (kill-emacs-hook fontaine-store-latest-preset)
+  :config
+  (setq fontaine-presets
+        '((small
+           :default-height 100)
+          (regular
+           :default-height 120)
+          (large
+           :default-height 150)
+          (t
+           :default-family "Iosevka Xtal"
+           :default-weight regular
+           :default-height 100
+           :fixed-pitch-family nil
+           :fixed-pitch-family nil
+           :fixed-pitch-height 1.0
+           :fixed-pitch-serif-family nil
+           :fixed-pitch-serif-weight nil
+           :variable-pitch-family "IBM Plex Sans"
+           :variable-pitch-weight nil
+           :variable-pitch-height 1.0
+           :bold-family nil
+           :bold-weight bold
+           :italic-family nil
+           :italic-slant italic
+           :line-spacing nil)))
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
-;; (use-package! ligature
-;;   :config
-;;   (ligature-set-ligatures 't '("www")))
+(use-package ligature
+  :config
+  ;; Enable all Iosevka ligatures in programming modes
+  ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
+  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+  ;; Enables ligature checks globally in all buffers. You can also do it per
+  ;; mode with `ligature-mode'.
+  (global-ligature-mode t))
 
 (use-package! modus-themes
   :init
