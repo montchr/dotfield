@@ -5,14 +5,25 @@
   lib,
   ...
 }: let
+  # These packages are available only in the default `pkgs` via external
+  # overlays. We also need `system` to get the appropriate package set from the
+  # unstable channel.
   inherit
     (pkgs)
     agenix
+    nvfetcher-bin
+    system
+    ;
+  inherit (pkgs.stdenv.buildPlatform) isLinux isi686;
+
+  packages = inputs.nixos-unstable.legacyPackages.${system};
+
+  inherit
+    (packages)
     alejandra
     cachix
     editorconfig-checker
     nixUnstable
-    nvfetcher-bin
     rage
     shellcheck
     shfmt
@@ -21,12 +32,9 @@
     treefmt
     ;
 
-  inherit (pkgs.nodePackages) prettier;
-  inherit (pkgs.stdenv.buildPlatform) isLinux isi686;
+  inherit (packages.nodePackages) prettier;
 
   nixos-generators = inputs.nixos-generators.defaultPackage.${pkgs.system};
-
-  # pkgs-unstable = import inputs.nixos-unstable { inherit (pkgs) lib system; };
 
   hooks = import ./hooks;
 
