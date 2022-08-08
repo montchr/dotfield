@@ -103,24 +103,40 @@
     sops-nix,
     ...
   } @ inputs: let
-    inherit (digga.lib) flattenTree rakeLeaves;
-    inherit (flake-utils.lib) eachSystem system;
+    inherit
+      (digga.lib)
+      flattenTree
+      rakeLeaves
+      ;
+    inherit
+      (flake-utils.lib)
+      eachSystem
+      system
+      ;
+
+    supportedSystems = with system; [
+      x86_64-linux
+      x86_64-darwin
+
+      # FIXME: Something in this flake's chain of dependencies triggers a build
+      # failure when `aarch64-darwin` is added to `supportedSystems`,
+      # specifically due to `pyopenssl`. Many python packages will not build on
+      # this system due to the broken `pyopenssl` dependency.
+      # [Updated: 2022-08-08]
+      # https://github.com/NixOS/nixpkgs/issues/175875
+      # https://github.com/pyca/pyopenssl/issues/873
+      # aarch64-darwin
+    ];
+
     darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
     peers = import ./ops/metadata/peers.nix;
   in
     (digga.lib.mkFlake {
-      inherit self inputs;
-
-      supportedSystems = [
-        "x86_64-linux"
-        "x86_64-darwin"
-
-        # FIXME: many python packages will not build on this system due to
-        # broken pyopenssl dependency
-        # https://github.com/NixOS/nixpkgs/issues/175875
-        # https://github.com/pyca/pyopenssl/issues/873
-        # "aarch64-darwin"
-      ];
+      inherit
+        self
+        inputs
+        supportedSystems
+        ;
 
       channelsConfig.allowUnfree = true;
 
