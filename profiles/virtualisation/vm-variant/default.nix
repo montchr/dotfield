@@ -41,6 +41,8 @@ in {
           ipv6 = null;
         });
 
+    # Prefer a graphical QEMU window if the display server is enabled.
+    virtualisation.graphics = mkVMDefault config.services.xserver.enable;
 
     # Distinguish the guest system's hostname from the host system's hostname.
     # Especially important for workstations where document/data sync may occur.

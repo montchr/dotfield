@@ -13,8 +13,6 @@ in {
     # FIXME: currently 500K seems to be the limit?
     msize = mkVMDefault 104857600; # 100M
 
-    graphics = mkVMDefault false;
-
     diskImage = mkVMDefault "${cfg.dataHome}/${systemName}-rootfs.qcow2";
     # emptyDiskImages = lib.mkDefault [4096];
 

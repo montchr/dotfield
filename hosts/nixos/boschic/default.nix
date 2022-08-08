@@ -135,4 +135,8 @@ in {
     vagrant
     virtualbox
   ];
+
+  virtualisation.vmVariant = {
+    virtualisation.graphics = false;
+  };
 }
