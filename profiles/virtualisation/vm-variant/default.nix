@@ -16,6 +16,11 @@
   cfg = config.nixos-vm;
   mkVMDefault = lib.mkOverride 900;
 in {
+  environment.variables = {
+    NIXOS_VM_DATA_HOME = cfg.dataHome;
+    NIXOS_VM_HOSTNAME = cfg.hostName;
+  };
+
   virtualisation.vmVariant = {
     lib,
     pkgs,
