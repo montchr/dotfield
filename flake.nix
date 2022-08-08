@@ -216,7 +216,8 @@
               basic
               ++ [
                 networking.common
-                # FIXME: this can cause a lock-out!
+                # FIXME: this can cause a lock-out! needs a one-shot systemd
+                # unit to activate first. see Xe's articles/config
                 # networking.tailscale
                 ssh-host
               ];
