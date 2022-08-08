@@ -117,6 +117,7 @@
 
  :lang
  data                 ; config/data formats
+ dhall
  (emacs-lisp          ; drown in parentheses
   +tree-sitter)
  (json                ; At least it ain't XML
@@ -156,7 +157,6 @@
  ;;crystal            ; ruby at the speed of c
  ;;csharp             ; unity, .NET, and mono shenanigans
  ;;(dart +flutter)    ; paint ui and not much else
- ;;dhall
  ;;elixir             ; erlang done right
  ;;elm                ; care for a cup of TEA?
  ;;erlang             ; an elegant language for a more civilized age

@@ -273,6 +273,7 @@
       ("C++" clang-format)
       ("CMake" cmake-format)
       ("CSS" prettier)
+      ("Dhall" dhall)
       ("Dockerfile" dockfmt)
       ("Emacs Lisp" emacs-lisp)
       ("Fish" fish-indent)

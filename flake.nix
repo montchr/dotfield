@@ -322,6 +322,7 @@
             ];
             #: developer: those who go
             developer = [
+              dhall
               direnv
               emacs
               git
