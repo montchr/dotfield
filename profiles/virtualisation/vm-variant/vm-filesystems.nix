@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.nixos-vm;
-  systemName = config.system.name;
   mkVMDefault = lib.mkOverride 900;
 in {
   virtualisation = {
@@ -13,8 +12,7 @@ in {
     # FIXME: currently 500K seems to be the limit?
     msize = mkVMDefault 104857600; # 100M
 
-    diskImage = mkVMDefault "${cfg.dataHome}/${systemName}-rootfs.qcow2";
-    # emptyDiskImages = lib.mkDefault [4096];
+    diskImage = mkVMDefault "${cfg.dataHome}/${cfg.hostName}--rootfs.qcow2";
 
     sharedDirectories = {
       shared = {
