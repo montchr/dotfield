@@ -28,6 +28,7 @@ in {
       remote-builder
       workstations.flatpak
       virtualisation.libvirtd
+      virtualisation.vm-variant
     ])
     ++ [./hardware-configuration.nix];
 

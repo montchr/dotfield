@@ -9,5 +9,5 @@
   environment.systemPackages = with pkgs; [
     virt-manager
   ];
-  boot.zfs.devNodes = "/dev";
+  # boot.zfs.devNodes = "/dev";
 }
