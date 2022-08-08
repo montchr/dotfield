@@ -13,7 +13,7 @@
   primaryUser,
   ...
 }: let
-  inherit (config.networking) hostName;
+  cfg = config.nixos-vm;
   mkVMDefault = lib.mkOverride 900;
 in {
   virtualisation.vmVariant = {
@@ -27,12 +27,29 @@ in {
       # ./vm-networking.nix
     ];
 
-    # FIXME: does not read from the TOML peer configs since this isn't a real
-    # hostname. peers needs some kind of fallback logic, or perhaps more
-    # appropriate, should be overridden or translated for virtualisation
-    # networking.hostName = lib.mkVMOverride "${hostName}-dev";
-    networking.firewall.enable = mkVMDefault false;
+    # Kind of hacky way to answer the question "are we in a VM?"
+    nixos-vm.enable = true;
 
+    # Preserve most of the host machine's peer config but override networking.
+    nixos-vm.peerConfig =
+      lib.mkDefault
+      ((lib.our.peers.getHost config.networking.hostName)
+        // {
+          network = "local";
+          tailscale = null;
+          ipv4 = null;
+          ipv6 = null;
+        });
+
+
+    # Distinguish the guest system's hostname from the host system's hostname.
+    # Especially important for workstations where document/data sync may occur.
+    # For example, while Syncthing would (likely) be able to distinguish between
+    # each node with a UUID, it would be confusing and chaotic to have multiple
+    # nodes default to the same name.
+    networking.hostName = lib.mkVMOverride cfg.hostName;
+
+    networking.firewall.enable = mkVMDefault false;
     services.openssh.enable = mkVMDefault true;
 
     users.mutableUsers = false;

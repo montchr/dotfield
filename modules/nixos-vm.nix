@@ -13,13 +13,26 @@
   options,
   pkgs,
   modulesPath,
-  peers,
   ...
 }: let
   cfg = config.nixos-vm;
   user = builtins.getEnv "USER";
 in {
   options.nixos-vm = {
+    enable = lib.mkEnableOption "Whether to enable VM-specific configuration.";
+
+    hostName = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.networking.hostName}-dev";
+      description = "Hostname for the virtual machine.";
+    };
+
+    peerConfig = lib.mkOption {
+      type = lib.types.attrs;
+      default = null;
+      description = "Override the virtual machine's peer ops configuration.";
+    };
+
     # FIXME: must be created manually before the VM boots / shared directories mount!
     dataHome = lib.mkOption {
       type = lib.types.str;
@@ -27,6 +40,7 @@ in {
       # user's home directory or some other common path accessible to the
       # user?
       # default = "/persist/vm/${config.system.name}/data";
+      # FIXME: hardcoded user path, yuck
       default = "/home/seadoom/.local/share/vms/${config.system.name}/data";
       description = "Directory on the host machine where the VM's data will live.";
     };

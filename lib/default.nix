@@ -1,5 +1,13 @@
-{lib}:
+{
+  lib,
+  peers,
+}:
 lib.makeExtensible (self: {
+  peers = rec {
+    getHost = hostName: peers.hosts.${hostName} or false;
+    getNet = network: peers.networks.${network} or false;
+  };
+
   mkOpt = type: default: lib.mkOption {inherit type default;};
 
   mkOpt' = type: default: description:
@@ -11,7 +19,4 @@ lib.makeExtensible (self: {
       type = lib.types.bool;
       example = true;
     };
-
-  # FIXME: https://github.com/divnix/digga/issues/464#issuecomment-1154974631
-  overlayNullProtector = import ./overlay-null-protector.nix;
 })

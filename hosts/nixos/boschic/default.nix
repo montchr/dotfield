@@ -11,10 +11,6 @@
   ...
 }: let
   inherit (config.networking) hostName;
-
-  host = peers.hosts.${hostName};
-  net = peers.networks.${host.network};
-  interface = "eth0";
 in {
   imports =
     (with suites; tangible ++ workstation)
@@ -42,26 +38,34 @@ in {
 
   system.stateVersion = "21.11";
 
-  ## --- networking ---
+  ### === networking ===========================================================
 
-  networking.useDHCP = false;
-  networking.usePredictableInterfaceNames = false;
-  # networking.interfaces.wlp6s0.useDHCP = true;
-  networking.firewall.enable = false;
+  networking = lib.mkIf (!config.nixos-vm.enable) (
+    let
+      host = peers.hosts.${hostName};
+      net = peers.networks.${host.network};
+      interface = "eth0";
+    in {
+      useDHCP = false;
+      usePredictableInterfaceNames = false;
+      # interfaces.wlp6s0.useDHCP = true;
+      firewall.enable = false;
 
-  networking.defaultGateway = {
-    inherit interface;
-    inherit (net.ipv4) address;
-  };
+      defaultGateway = {
+        inherit interface;
+        inherit (net.ipv4) address;
+      };
 
-  networking.interfaces.${interface} = {
-    ipv4.addresses = [
-      {
-        inherit (host.ipv4) address;
-        inherit (net.ipv4) prefixLength;
-      }
-    ];
-  };
+      interfaces.${interface} = {
+        ipv4.addresses = [
+          {
+            inherit (host.ipv4) address;
+            inherit (net.ipv4) prefixLength;
+          }
+        ];
+      };
+    }
+  );
 
   ### === users ================================================================
 

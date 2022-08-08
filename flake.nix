@@ -149,7 +149,10 @@
         nixpkgs-trunk = {};
       };
 
-      lib = import ./lib {lib = digga.lib // nixos-unstable.lib;};
+      lib = import ./lib {
+        inherit peers;
+        lib = digga.lib // nixos-unstable.lib;
+      };
 
       sharedOverlays = [
         (final: prev: {
@@ -307,6 +310,8 @@
             basic = [
               core
               direnv
+              # FIXME: many of the packages in `misc` should only be added to
+              # graphical or media-workflow environments (e.g. ffmpeg)
               misc
               navi
               nnn
@@ -315,11 +320,13 @@
               tealdeer
               vim
             ];
+
             #: server: travellers across the ether
             server = [
               shells.fish
               ssh
             ];
+
             #: developer: those who go
             developer = [
               dhall
@@ -331,6 +338,7 @@
               shells.fish
               ssh
             ];
+
             #: graphical:  familiar personal computing interfaces
             graphical = [
               desktop.common
@@ -342,8 +350,10 @@
               secrets.one-password
               themes
             ];
+
             #: listen: hey!
             listen = [apple-music spotify];
+
             #: workstation: level++
             workstation =
               graphical
