@@ -364,6 +364,7 @@
               foot
               keyboard
               kitty
+              mpv
               secrets.one-password
               themes
             ];
