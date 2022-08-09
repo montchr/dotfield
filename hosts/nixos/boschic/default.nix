@@ -17,14 +17,26 @@ in {
     ++ (with profiles; [
       boot.refind
       hardware.amd
-      # FIXME: only apply this to the proper output -- will not currently allow
-      # configuring multiple outputs.
-      # hardware.displays.LG-27GL850-B
-      nvidia
       remote-builder
       workstations.flatpak
       virtualisation.libvirtd
       virtualisation.vm-variant
+
+      # Why use the proprietary drivers? While things *generally* work, I
+      # encountered frustrating issues:
+      #
+      #- Video playback performance was unacceptable.
+      #
+      # - Upon connecting/disconnecting displays while logged in, the session
+      # would lock. Although both displays would be available in the login
+      # manager, upon logging back in, neither display would work, with both of
+      # them displaying black. I could still SSH in, but could not figure out
+      # how to recover without rebooting.
+      nvidia
+
+      # FIXME: only apply this to the proper output -- will not currently allow
+      # configuring multiple outputs.
+      # hardware.displays.LG-27GL850-B
     ])
     ++ [./hardware-configuration.nix];
 
