@@ -11,6 +11,7 @@ in
       enable = true;
       createDirectories = true;
       extraConfig = {
+        XDG_DEV_DIR = "$HOME/Developer";
         XDG_MAIL_DIR = config.accounts.email.maildirBasePath or "$HOME/Mail";
         XDG_PROJECTS_DIR = "$HOME/Projects";
       };
