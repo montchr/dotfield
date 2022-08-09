@@ -260,6 +260,7 @@
                 video
                 workstations.common
                 yubikey
+                zoom-us
               ];
           };
         };
