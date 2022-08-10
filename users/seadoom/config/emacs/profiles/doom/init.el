@@ -136,7 +136,7 @@
   +roam2)
  (php +lsp)           ; perl's insecure younger brother
  (python              ; beautiful is better than ugly
-  +lsp
+  +lsp +pyright
   +poetry
   +tree-sitter)
  rest                 ; Emacs as a REST client

@@ -351,6 +351,7 @@
               emacs
               git
               gpg
+              python
               shells.zsh
               shells.fish
               ssh

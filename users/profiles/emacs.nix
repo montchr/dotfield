@@ -132,19 +132,6 @@ in {
     rnix-lsp
     #: php
     nodePackages.intelephense
-    #: python
-    pipenv
-    (python310.withPackages (ps:
-      with ps; [
-        black
-        grip
-        nose
-        pip
-        poetry
-        pylint
-        pytest
-        setuptools
-      ]))
     #: ruby
     rubyPackages.solargraph
     #: sh
