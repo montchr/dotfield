@@ -46,9 +46,17 @@
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
+
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
+    };
+
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      # Packages are built against this channel.
+      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.master.follows = "nixpkgs-trunk";
     };
 
     ##: --- other --------------------------------------------------------------
@@ -63,6 +71,7 @@
 
   outputs = {
     self,
+    nixpkgs,
     agenix,
     darwin,
     deploy,
@@ -76,8 +85,8 @@
     nixos-generators,
     nixos-hardware,
     nixos-stable,
-    nixpkgs,
     nixos-unstable,
+    nixpkgs-wayland,
     nur,
     nvfetcher,
     sops-nix,
@@ -114,6 +123,7 @@
       agenix.overlay
       emacs-overlay.overlay
       gitignore.overlay
+      nixpkgs-wayland.overlay
       nur.overlay
       nvfetcher.overlay
     ];
