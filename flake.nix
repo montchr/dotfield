@@ -36,6 +36,12 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
+    nix-dram = {
+      url = "github:dramforever/nix-dram";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     ##: --- sources ------------------------------------------------------------
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -85,6 +91,7 @@
     home-manager,
     nixlib,
     nix-colors,
+    nix-dram,
     nixos-generators,
     nixos-hardware,
     nixos-stable,
@@ -126,6 +133,7 @@
       agenix.overlay
       emacs-overlay.overlay
       gitignore.overlay
+      nix-dram.overlay
       nixpkgs-wayland.overlay
       nur.overlay
       nvfetcher.overlay
