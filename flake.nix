@@ -6,75 +6,55 @@
   nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    # Channels
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixos-unstable-iosevka-185633.url = "github:NixOS/nixpkgs?rev=12363fb6d89859a37cd7e27f85288599f13e49d9";
-
-    # Flake utilities.
-    digga.url = "github:divnix/digga";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
-    digga.inputs.darwin.follows = "darwin";
-    digga.inputs.home-manager.follows = "home-manager";
-    digga.inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
     nixlib.url = "github:nix-community/nixpkgs.lib";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
 
-    # System management.
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-    prefmanager.url = "github:malob/prefmanager";
-    prefmanager.inputs.nixpkgs.follows = "nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    nixos-generators.inputs.nixlib.follows = "nixlib";
-    nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
+    ##: --- utilities ----------------------------------------------------------
 
-    # User environments.
-    # home-manager.url = "github:montchr/home-manager/trunk";
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
-    home-manager.inputs.nixpkgs.follows = "nixos-unstable";
-
-    # Deployments.
-    deploy.url = "github:serokell/deploy-rs";
-    deploy.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Sources management.
-    nur.url = "github:nix-community/NUR";
-    nvfetcher.url = "github:berberman/nvfetcher";
-    nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
-    gitignore.url = "github:hercules-ci/gitignore.nix";
-    gitignore.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Secrets management.
     agenix.url = "github:montchr/agenix/darwin-support";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:LnL7/nix-darwin";
+    deploy.url = "github:serokell/deploy-rs";
+    digga.url = "github:divnix/digga";
+    flake-utils.url = "github:numtide/flake-utils";
+    prefmanager.url = "github:malob/prefmanager";
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nvfetcher.url = "github:berberman/nvfetcher";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixos-stable";
 
-    # Development tools.
+    home-manager = {
+      # url = "github:montchr/home-manager/trunk";
+      url = "github:nix-community/home-manager/release-22.05";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+
+    ##: --- sources ------------------------------------------------------------
+
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    gitignore.url = "github:hercules-ci/gitignore.nix";
+    nix-colors.url = "github:Misterio77/nix-colors";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nur.url = "github:nix-community/NUR";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
-    # Emacsen.
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    crafted-emacs.url = "github:SystemCrafters/crafted-emacs";
-    crafted-emacs.flake = false;
-
-    # Other sources.
-    nix-colors.url = "github:Misterio77/nix-colors";
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
+      flake = false;
+    };
+
+    ##: --- other --------------------------------------------------------------
+
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
       flake = false;
     };
 
