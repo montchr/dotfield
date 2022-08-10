@@ -4,12 +4,17 @@ channels: final: prev: {
   inherit
     (channels.nixos-unstable)
     fish
-    iosevka
-    iosevka-bin
-    iosevka-comfy
     kitty
     nerdfonts
     python310Packages
+    ;
+
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/185633
+  inherit
+    (channels.nixos-unstable-iosevka-185633)
+    iosevka
+    iosevka-bin
+    iosevka-comfy
     ;
 
   inherit
