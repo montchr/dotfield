@@ -82,7 +82,7 @@
 (package! doct)                      ; _d_eclarative _o_rg _c_apture _t_emplates
 (package! vulpea)
 
-;;; importers/exporters
+;;; === importers/exporters ====================================================
 
 ;; FIXME: may have had errors at some point?
 ;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
@@ -106,6 +106,7 @@
 ;;; === apps / tools ===========================================================
 
 (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
+(package! spdx)
 
 ;; TODO: check it out
 ;; (package! org-board)              ; Pinboard-ish for org-mode

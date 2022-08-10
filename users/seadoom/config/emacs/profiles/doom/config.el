@@ -390,6 +390,12 @@
 
 ;; === tools ===================================================================
 
+(use-package spdx
+  :defer t
+  :custom
+  (spdx-copyright-holder 'auto)
+  (spdx-project-detection 'auto))
+
 (use-package! org-board
   :defer t)
 
