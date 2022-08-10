@@ -6,7 +6,7 @@
   pkgs,
   ...
 }: let
-  pragmataPro = pkgs.callPackage ../../pkgs/fonts/pragmatapro.nix {};
+  pragmataPro = pkgs.callPackage ../../packages/fonts/common/pragmatapro.nix {};
 in {
   fonts.fonts = [pragmataPro];
 }

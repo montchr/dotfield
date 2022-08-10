@@ -7,8 +7,6 @@ channels: final: prev: {
     iosevka
     iosevka-bin
     iosevka-comfy
-    iosevka-xtal
-    iosevka-xtal-term
     kitty
     nerdfonts
     python310Packages

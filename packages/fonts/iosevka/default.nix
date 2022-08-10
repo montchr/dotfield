@@ -1,8 +1,14 @@
-final: prev: let
+channels: final: prev: let
+  inherit
+    (channels.nixos-unstable)
+    iosevka
+    iosevka-bin
+    nerdfonts
+    ;
   xtalVariantOverrides = builtins.readFile ./iosevka-xtal-variants.toml;
 in {
   # https://github.com/be5invis/Iosevka/blob/master/doc/custom-build.md
-  iosevka-xtal = final.iosevka.override {
+  iosevka-xtal = iosevka.override {
     set = "xtal";
     privateBuildPlan = ''
       [buildPlans.iosevka-xtal]
@@ -24,7 +30,7 @@ in {
     '';
   };
 
-  iosevka-xtal-term = final.iosevka.override {
+  iosevka-xtal-term = iosevka.override {
     set = "xtal-term";
     privateBuildPlan = ''
       [buildPlans.iosevka-xtal-term]
@@ -69,23 +75,23 @@ in {
     '';
   };
 
-  iosevka-nf = final.nerdfonts.override {fonts = ["Iosevka"];};
+  iosevka-nf = nerdfonts.override {fonts = ["Iosevka"];};
 
-  iosevka-fixed = final.iosevka-bin.override {variant = "sgr-iosevka-fixed";};
-  iosevka-term = final.iosevka-bin.override {variant = "sgr-iosevka-term";};
+  iosevka-fixed = iosevka-bin.override {variant = "sgr-iosevka-fixed";};
+  iosevka-term = iosevka-bin.override {variant = "sgr-iosevka-term";};
 
-  iosevka-slab = final.iosevka-bin.override {variant = "sgr-iosevka-slab";};
-  iosevka-fixed-slab = final.iosevka-bin.override {variant = "sgr-iosevka-fixed-slab";};
-  iosevka-term-slab = final.iosevka-bin.override {variant = "sgr-iosevka-term-slab";};
+  iosevka-slab = iosevka-bin.override {variant = "sgr-iosevka-slab";};
+  iosevka-fixed-slab = iosevka-bin.override {variant = "sgr-iosevka-fixed-slab";};
+  iosevka-term-slab = iosevka-bin.override {variant = "sgr-iosevka-term-slab";};
 
-  iosevka-curly = final.iosevka-bin.override {variant = "sgr-iosevka-curly";};
-  iosevka-fixed-curly = final.iosevka-bin.override {variant = "sgr-iosevka-fixed-curly";};
-  iosevka-term-curly = final.iosevka-bin.override {variant = "sgr-iosevka-term-curly";};
+  iosevka-curly = iosevka-bin.override {variant = "sgr-iosevka-curly";};
+  iosevka-fixed-curly = iosevka-bin.override {variant = "sgr-iosevka-fixed-curly";};
+  iosevka-term-curly = iosevka-bin.override {variant = "sgr-iosevka-term-curly";};
 
-  iosevka-curly-slab = final.iosevka-bin.override {variant = "sgr-iosevka-curly-slab";};
-  iosevka-fixed-curly-slab = final.iosevka-bin.override {variant = "sgr-iosevka-fixed-curly-slab";};
-  iosevka-term-curly-slab = final.iosevka-bin.override {variant = "sgr-iosevka-term-curly-slab";};
+  iosevka-curly-slab = iosevka-bin.override {variant = "sgr-iosevka-curly-slab";};
+  iosevka-fixed-curly-slab = iosevka-bin.override {variant = "sgr-iosevka-fixed-curly-slab";};
+  iosevka-term-curly-slab = iosevka-bin.override {variant = "sgr-iosevka-term-curly-slab";};
 
-  iosevka-aile = final.iosevka-bin.override {variant = "aile";};
-  iosevka-etoile = final.iosevka-bin.override {variant = "etoile";};
+  iosevka-aile = iosevka-bin.override {variant = "aile";};
+  iosevka-etoile = iosevka-bin.override {variant = "etoile";};
 }

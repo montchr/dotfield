@@ -63,7 +63,7 @@ in {
         category = "dotfield";
         name = nvfetcher-bin.pname;
         help = nvfetcher-bin.meta.description;
-        command = "cd $PRJ_ROOT/pkgs; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
+        command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
       }
 
       (utils {

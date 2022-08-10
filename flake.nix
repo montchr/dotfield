@@ -130,6 +130,13 @@
 
     darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
     peers = import ./ops/metadata/peers.nix;
+    overlays = [
+      agenix.overlay
+      emacs-overlay.overlay
+      gitignore.overlay
+      nur.overlay
+      nvfetcher.overlay
+    ];
   in
     (digga.lib.mkFlake {
       inherit
@@ -142,22 +149,25 @@
 
       channels = {
         nixos-stable = {
+          inherit overlays;
           imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/nixos-stable)
+            (digga.lib.importOverlays ./overlays/stable)
+            (digga.lib.importOverlays ./packages)
           ];
-          overlays = [];
         };
         nixpkgs-darwin-stable = {
           imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/nixpkgs-darwin-stable)
+            (digga.lib.importOverlays ./overlays/stable)
+            (digga.lib.importOverlays ./packages)
           ];
-          overlays = [
-            (final: prev: {yabai = self.packages.${final.system}.yabai;})
-          ];
+          overlays =
+            overlays
+            ++ [
+              (final: prev: {yabai = self.packages.${final.system}.yabai;})
+            ];
         };
         nixos-unstable = {
+          inherit overlays;
           imports = [
             (digga.lib.importOverlays ./overlays/nixos-unstable)
           ];
@@ -178,15 +188,6 @@
             our = self.lib;
           });
         })
-
-        agenix.overlay
-        emacs-overlay.overlay
-        gitignore.overlay
-        nur.overlay
-        nvfetcher.overlay
-
-        (import ./pkgs)
-        (import ./pkgs/fonts/iosevka.nix)
       ];
 
       nixos = {
