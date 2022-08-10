@@ -381,6 +381,7 @@
                 mail
                 newsboat
                 obs-studio
+                promnesia
                 secrets.password-store
                 sync
                 yubikey

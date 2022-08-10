@@ -1,7 +1,5 @@
 final: prev: {
-  # keep sources this first
   sources = prev.callPackage (import ./_sources/generated.nix) {};
-  # then, call packages with `final.callPackage`
 
   kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix {});
 
@@ -49,4 +47,14 @@ final: prev: {
 
   nerdfonts-symbols-only = final.callPackage ./fonts/nerdfonts-symbols-only.nix {};
   sf-pro = final.callPackage ./fonts/sf-pro.nix {};
+
+  ##: promnesia ----------------------------------------------------------------
+
+  promnesia = final.callPackage ./python/promnesia {
+    inherit (final) hpi orgparse;
+  };
+
+  # dependencies
+  hpi = final.callPackage ./python/HPI {};
+  orgparse = final.callPackage ./python/orgparse {};
 }

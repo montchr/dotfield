@@ -1,4 +1,18 @@
 {
+    "HPI": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "HPI",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=",
+            "type": "url",
+            "url": "https://pypi.io/packages/source/H/HPI/HPI-0.3.20220607.tar.gz"
+        },
+        "version": "0.3.20220607"
+    },
     "fish-autopair": {
         "cargoLocks": null,
         "extract": null,
@@ -29,12 +43,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "44566bd072f8b6fee7148148e9163d964bf054a1",
-            "sha256": "sha256-msJUQsTnswSb2uoke1U+enotEh4hQVEHu7eESxEvjsg=",
+            "rev": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca",
+            "sha256": "sha256-NIEyWkO+IVSv0NQz/otwPF5NdwheCz+HTs7YJGBdgJU=",
             "type": "git",
             "url": "https://github.com/gazorby/fifc"
         },
-        "version": "44566bd072f8b6fee7148148e9163d964bf054a1"
+        "version": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca"
     },
     "fish-replay": {
         "cargoLocks": null,
@@ -73,6 +87,20 @@
         },
         "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
     },
+    "hug": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "hug",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=",
+            "type": "url",
+            "url": "https://pypi.io/packages/source/h/hug/hug-2.6.1.tar.gz"
+        },
+        "version": "2.6.1"
+    },
     "kitty-bortflower-icons": {
         "cargoLocks": null,
         "extract": null,
@@ -84,11 +112,44 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b19b3969d3bdc870beeff332355f92e38dc5a704",
-            "sha256": "sha256-3Jri8/y/s6/QkOBb03R9nd1gyZPGZlekhli9ShTzOxg=",
+            "rev": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67",
+            "sha256": "sha256-Vy+iLGnysrJMSLfkaYq15pb/wG4kIbfsXRrPgSc3OFs=",
             "type": "git",
             "url": "https://github.com/DinkDonk/kitty-icon.git"
         },
-        "version": "b19b3969d3bdc870beeff332355f92e38dc5a704"
+        "version": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67"
+    },
+    "orgparse": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "orgparse",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=",
+            "type": "url",
+            "url": "https://pypi.io/packages/source/o/orgparse/orgparse-0.3.1.tar.gz"
+        },
+        "version": "0.3.1"
+    },
+    "promnesia": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "promnesia",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "karlicoss",
+            "repo": "promnesia",
+            "rev": "346b2e08e04604adffb17ae51244cd1b1ec9015f",
+            "sha256": "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=",
+            "type": "github"
+        },
+        "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
     }
 }

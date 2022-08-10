@@ -1,5 +1,11 @@
 # nvfetcher.toml
 
+[kitty-bortflower-icons]
+src.git = "https://github.com/DinkDonk/kitty-icon.git"
+fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
+
+##: --- fish shell ---
+
 [fish-autopair]
 src.github = "jorgebucaran/autopair.fish"
 fetch.github = "jorgebucaran/autopair.fish"
@@ -16,6 +22,25 @@ fetch.git = "https://github.com/gazorby/fifc"
 src.git = "https://github.com/DanielFGray/fzf-scripts"
 fetch.git = "https://github.com/DanielFGray/fzf-scripts"
 
-[kitty-bortflower-icons]
-src.git = "https://github.com/DinkDonk/kitty-icon.git"
-fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
+##: --- human programming interface + promnesia ---
+#
+##: Sources:
+#
+# https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/pkgs/sources.toml#L46-L60
+
+[promnesia]
+src.git = "https://github.com/karlicoss/promnesia"
+# TODO: note that this might only return the latest tag
+fetch.github = "karlicoss/promnesia"
+
+[HPI]
+src.pypi = "HPI"
+fetch.pypi = "HPI"
+
+[hug]
+src.pypi = "hug"
+fetch.pypi = "hug"
+
+[orgparse]
+src.pypi = "orgparse"
+fetch.pypi = "orgparse"
