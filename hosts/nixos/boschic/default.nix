@@ -38,7 +38,10 @@ in {
       # configuring multiple outputs.
       # hardware.displays.LG-27GL850-B
     ])
-    ++ [./hardware-configuration.nix];
+    ++ [
+      ./hardware-configuration.nix
+      ./virtualisation.nix
+    ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "auto";
@@ -132,19 +135,4 @@ in {
 
   programs.htop.enable = true;
   programs.steam.enable = true;
-
-  ### === virtualisation =======================================================
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableWebService = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  environment.systemPackages = with pkgs; [
-    vagrant
-    virtualbox
-  ];
-
-  virtualisation.vmVariant = {
-    virtualisation.graphics = false;
-  };
 }
