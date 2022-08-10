@@ -25,6 +25,12 @@
     enableBrowserSocket = true;
   };
 
+  # Hide cursor upon keystroke.
+  services.unclutter = {
+    enable = true;
+    keystroke = true;
+  };
+
   environment.variables = {
     MOZ_ENABLE_WAYLAND = "1";
   };
