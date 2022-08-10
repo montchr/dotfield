@@ -25,7 +25,7 @@ in {
       # Why use the proprietary drivers? While things *generally* work, I
       # encountered frustrating issues:
       #
-      #- Video playback performance was unacceptable.
+      # - Video playback performance was unacceptable.
       #
       # - Upon connecting/disconnecting displays while logged in, the session
       # would lock. Although both displays would be available in the login
@@ -40,7 +40,7 @@ in {
     ])
     ++ [
       ./hardware-configuration.nix
-      ./virtualisation.nix
+      # ./virtualisation.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
