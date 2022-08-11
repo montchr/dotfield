@@ -3,13 +3,16 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.lib.dotfield.sys) hasWayland;
+in {
   environment.systemPackages = with pkgs; [zoom-us];
   home-manager.sharedModules = [
-    (lib.mkIf config.services.xserver.displayManager.gdm.wayland {
+    {
+      # FIXME: does this prevent the gui from managing preferences?
       xdg.configFile."zoomus.conf".text = ''
-        enableWaylandShare=true
+        ${lib.optionalString hasWayland "enableWaylandShare=true"}
       '';
-    })
+    }
   ];
 }

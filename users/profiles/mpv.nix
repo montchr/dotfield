@@ -1,11 +1,10 @@
-moduleArgs @ {
+{
   config,
   lib,
   pkgs,
   ...
 }: let
-  isNvidia = moduleArgs.osConfig.hardware.nvidia.modesetting.enable or false;
-  isWayland = moduleArgs.osConfig.services.xserver.displayManager.gdm.wayland or false;
+  inherit (config.lib.dotfield.sys) hasNvidia hasWayland;
 in {
   programs.mpv = {
     enable = true;
@@ -14,10 +13,10 @@ in {
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       }
-      (lib.mkIf isNvidia {
+      (lib.mkIf hasNvidia {
         hwdec = "vdpau";
       })
-      (lib.mkIf isWayland {
+      (lib.mkIf hasWayland {
         gpu-context = "wayland";
       })
     ];
@@ -26,7 +25,7 @@ in {
   # https://aur.archlinux.org/packages/plex-htpc#comment-854436
   xdg.dataFile."plex/mpv.conf".text = ''
     cache-default=4000000
-    ${lib.optionalString isNvidia "hwdec=vdpau"}
-    ${lib.optionalString isWayland "gpu-context=wayland"}
+    ${lib.optionalString hasNvidia "hwdec=vdpau"}
+    ${lib.optionalString hasWayland "gpu-context=wayland"}
   '';
 }

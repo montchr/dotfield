@@ -1,4 +1,4 @@
-moduleArgs @ {
+{
   config,
   lib,
   options,
@@ -8,9 +8,14 @@ moduleArgs @ {
 }: let
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (config.lib.dotfield.sys) hasTwm;
 
-  hasTwm = moduleArgs.osConfig.services.yabai.enable or config.wayland.windowManager.sway.enable;
+  hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;
+
   socket = "unix:/tmp/kitty-socket";
+
+  settings = import ./settings.nix {inherit lib hasTwm socket;};
+  colors = import ./colors.nix config.colorscheme;
 
   # via home-manager kitty module
   toKittyConfig = lib.generators.toKeyValue {
@@ -45,6 +50,7 @@ moduleArgs @ {
     ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
   '';
 in
+  # FIXME: reduce the amount of merging -> reduce complecity
   lib.mkMerge [
     (lib.mkIf isDarwin {
       # Handled by the Homebrew module
@@ -71,14 +77,10 @@ in
 
       programs.kitty = {
         enable = true;
-
+        settings = settings // colors;
         extraConfig = ''
-          ${lib.optionalString (lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family) pragmataProExtras}
+          ${lib.optionalString hasPragPro pragmataProExtras}
         '';
-
-        settings =
-          (import ./settings.nix {inherit lib hasTwm socket;})
-          // (import ./colors.nix config.colorscheme);
       };
 
       xdg.configFile = {

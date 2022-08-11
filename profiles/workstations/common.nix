@@ -3,7 +3,27 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.lib.dotfield.sys) hasWayland;
+
+  firefoxPackage =
+    if hasWayland
+    then pkgs.firefox-wayland
+    else pkgs.firefox;
+
+  waylandPackages = with pkgs; [
+    wl-clipboard
+
+    # Grab images from a Wayland compositor
+    # https://sr.ht/~emersion/grim/
+    grim
+
+    # Select a region in a Wayland compositor and print it to the standard output.
+    # A complement to grim
+    # https://github.com/emersion/slurp
+    slurp
+  ];
+in {
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # FIXME: propagate to GNOME settings
@@ -17,7 +37,8 @@
 
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
-  xdg.portal.wlr.enable = true;
+  # FIXME: is it harmful to enable this if not using a wlroots compositor?
+  xdg.portal.wlr.enable = hasWayland;
 
   programs.gnupg.agent = {
     enable = true;
@@ -32,23 +53,15 @@
   };
 
   environment.variables = {
-    MOZ_ENABLE_WAYLAND = "1";
+    MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
   };
 
-  environment.systemPackages = with pkgs; [
-    _1password
-    _1password-gui
-    firefox-wayland
-    signal-desktop
-    wl-clipboard
-
-    # Grab images from a Wayland compositor
-    # https://sr.ht/~emersion/grim/
-    grim
-
-    # Select a region in a Wayland compositor and print it to the standard output.
-    # A complement to grim
-    # https://github.com/emersion/slurp
-    slurp
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      _1password
+      _1password-gui
+      firefoxPackage
+      signal-desktop
+    ])
+    ++ waylandPackages;
 }
