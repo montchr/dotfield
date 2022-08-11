@@ -24,5 +24,9 @@ in {
       # xdg.configFile."nix/registry.json".text =
       #   config.environment.etc."nix/registry.json".text;
     }
+    {
+      # Make system-level library functions and constants easily accessible.
+      lib.dotfield = {inherit (config.lib.dotfield) sys;};
+    }
   ];
 }

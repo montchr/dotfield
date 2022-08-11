@@ -7,16 +7,15 @@
 }: let
   inherit (config.lib) dotfield;
 in {
-  imports = [./cachix.nix];
-
-  lib.dotfield = {
-    srcPath = toString ../../.;
-    fsPath = "/etc/dotfield";
-  };
+  imports = [
+    ./cachix.nix
+    ./system-lib.nix
+  ];
 
   nix = {
     package = pkgs.nix;
     useSandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
+    # FIXME: dangerous
     allowedUsers = ["*"];
     trustedUsers = ["root" "@wheel" "@seadome"];
 

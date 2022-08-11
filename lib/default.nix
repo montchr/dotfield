@@ -40,9 +40,6 @@ lib.makeExtensible (self: rec {
   # => [ "foo" ]
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
 
-  # hasEnabledLeaves :: [String] -> AttrSet -> Bool
-  hasEnabledLeaves = path: attrs: (1 <= builtins.length (treesWithEnabledLeaf path attrs));
-
   peers = rec {
     getHost = hostName: peers.hosts.${hostName} or false;
     getNet = network: peers.networks.${network} or false;

@@ -1,37 +1,15 @@
-{
+moduleArgs @ {
   config,
   lib,
   pkgs,
   ...
 }: let
   inherit (config.home) username;
-  inherit
-    (config.xdg)
-    configHome
-    dataHome
-    stateHome
-    ;
-
-  hmLib = config.lib;
+  inherit (config.lib) dotfield;
 in {
-  lib.dotfield = rec {
-    fsPath = "${configHome}/dotfield";
-    userConfigPath = "${fsPath}/users/${username}/config";
-
-    whoami = {
-      firstName = "Chris";
-      lastName = "Montgomery";
-      fullName = "${whoami.firstName} ${whoami.lastName}";
-      email = "chris@cdom.io";
-      githubUserName = "montchr";
-      pgpPublicKey = "0x135EEDD0F71934F3";
-    };
-
-    emacs = {
-      profilesBase = "emacs/profiles";
-      profilesPath = "${userConfigPath}/${emacs.profilesBase}";
-    };
-  };
+  imports = [
+    ./home-lib.nix
+  ];
 
   home.packages = with pkgs; [
     ## === Sysadmin ===
@@ -100,14 +78,15 @@ in {
   home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = config.lib.dotfield.fsPath;
+    DOTFIELD_DIR = dotfield.fsPath;
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
+    # FIXME: enable when pragpro enabled
     # EXA_ICON_SPACING = "2";
 
     Z_DATA = "$XDG_DATA_HOME/z";
-    Z_OWNER = config.home.username;
+    Z_OWNER = username;
 
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
 
