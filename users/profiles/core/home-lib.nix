@@ -6,24 +6,26 @@ moduleArgs @ {
 }: let
   inherit (config.xdg) configHome dataHome stateHome;
   inherit (config.home) username;
+
+  this = config.lib.dotfield;
 in {
-  lib.dotfield = rec {
+  lib.dotfield = {
     fsPath = "${configHome}/dotfield";
-    userConfigPath = "${fsPath}/users/${username}/config";
+    userConfigPath = "${this.fsPath}/users/${username}/config";
 
     # FIXME: move this back to a module -- guardian
-    whoami = {
+    whoami = rec {
       firstName = "Chris";
       lastName = "Montgomery";
-      fullName = "${whoami.firstName} ${whoami.lastName}";
+      fullName = "${firstName} ${lastName}";
       email = "chris@cdom.io";
       githubUserName = "montchr";
       pgpPublicKey = "0x135EEDD0F71934F3";
     };
 
-    emacs = {
+    emacs = rec {
       profilesBase = "emacs/profiles";
-      profilesPath = "${userConfigPath}/${emacs.profilesBase}";
+      profilesPath = "${this.userConfigPath}/${profilesBase}";
     };
   };
 }
