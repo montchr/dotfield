@@ -22,9 +22,9 @@ lib.makeExtensible (self: rec {
   # }; in
   # lib.treesWithValue (_: v: "gnome3" == v) ["services" "gpg-agent" "pinentryFlavor"] users
   # => [ "bar" ]
-  treesWithValue = f: path: attrs: (builtins.attrNames
+  treesWithValue = pred: path: attrs: (builtins.attrNames
     (lib.attrsets.filterAttrs
-      (n: v: (f n (lib.attrsets.attrByPath path null v)))
+      (n: v: (pred n (lib.attrsets.getAttrFromPath path v)))
       attrs));
 
   # treesWithEnabledLeaf :: [String] -> AttrSet -> [String]
