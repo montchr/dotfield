@@ -34,9 +34,6 @@
   Whether the given window manager is enabled by any user.
   */
   hasWm = name: hasEnabledModule ["wayland" "windowManager" name];
-
-  # Whether any supported window manager is enabled by any user.
-  hasWm' = (hasWm "hyprland") -> (hasWm "sway");
 in {
   lib.dotfield = {
     srcPath = toString ../../.;
@@ -45,20 +42,22 @@ in {
     sys = {
       # Whether a NixOS system has enabled the proprietary NVIDIA drivers.
       #
-      # FIXME: The default null value indicates that we cannot know with
+      # FIXME: The default `false` value indicates that we cannot know with
       # certainty whether NVIDIA drives are in use. This may be the case, for
       # example, on generic Linux with a standalone home-manager.
-      hasNvidia = config.hardware.nvidia.modesetting.enable or null;
+      hasNvidia = config.hardware.nvidia.modesetting.enable or false;
 
-      # Whether the system has a tiling window manager enabled.
-      hasTwm = config.services.yabai.enable or hasWm';
+      # Whether a tiling window manager is enabled system-wide.
+      hasTwm =
+        config.services.yabai.enable
+        or config.programs.sway.enable;
 
       # Whether the system has any features indicating a Wayland session.
-      hasWayland = config.services.xserver.displayManager.gdm.wayland or hasWm';
+      hasWayland =
+        config.services.xserver.displayManager.gdm.wayland
+        or config.programs.sway.enable;
     };
 
-    home = {
-      inherit hasEnabledModule hasWm;
-    };
+    home = {inherit hasEnabledModule hasWm;};
   };
 }

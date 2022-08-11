@@ -1,4 +1,4 @@
-{
+moduleArgs @ {
   config,
   lib,
   options,
@@ -8,9 +8,7 @@
 }: let
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-  inherit (config.lib.dotfield.sys) hasTwm;
-
-  hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;
+  inherit (config.lib.dotfield.features) hasTwm hasPragPro;
 
   socket = "unix:/tmp/kitty-socket";
 
