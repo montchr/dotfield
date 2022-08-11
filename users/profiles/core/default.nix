@@ -7,10 +7,6 @@ moduleArgs @ {
   inherit (config.home) username;
   inherit (config.lib) dotfield;
 in {
-  imports = [
-    ./home-lib.nix
-  ];
-
   home.packages = with pkgs; [
     ## === Sysadmin ===
 

@@ -186,8 +186,9 @@
           channelName = "nixos-stable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
+            # TODO: can this be merged with the 'dotfield' lib?
             {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.basic;})
+            ({suites, ...}: {imports = suites.basic ++ [./lib/system];})
             digga.nixosModules.bootstrapIso
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
@@ -264,7 +265,7 @@
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.basic;})
+            ({suites, ...}: {imports = suites.basic ++ [./lib/system];})
             home-manager.darwinModules.home-manager
             # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
@@ -308,7 +309,7 @@
         imports = [(digga.lib.importExportableModules ./users/modules)];
         modules = [
           nix-colors.homeManagerModule
-          ({suites, ...}: {imports = suites.basic;})
+          ({suites, ...}: {imports = suites.basic ++ [./lib/home];})
         ];
         importables = rec {
           inherit peers;

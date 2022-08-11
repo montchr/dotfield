@@ -9,7 +9,6 @@
 in {
   imports = [
     ./cachix.nix
-    ./system-lib.nix
   ];
 
   nix = {
