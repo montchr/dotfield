@@ -7,7 +7,13 @@
   suites,
   ...
 }: {
-  imports = with suites; tangible ++ workstation;
+  imports =
+    (with suites;
+      tangible
+      ++ workstation)
+    ++ (with profiles; [
+      login.gdm
+    ]);
 
   boot.loader.systemd-boot.enable = true;
 

@@ -17,10 +17,13 @@ in {
     ++ (with profiles; [
       boot.refind
       hardware.amd
+      login.gdm
       remote-builder
-      workstations.flatpak
       virtualisation.libvirtd
       virtualisation.vm-variant
+
+      # Solely for Plex HTPC, which doesn't even work on Wayland...
+      workstations.flatpak
 
       # Why use the proprietary drivers? While things *generally* work, I
       # encountered frustrating issues:

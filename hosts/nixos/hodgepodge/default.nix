@@ -12,6 +12,7 @@
     (with suites; tangible ++ workstation)
     ++ (with profiles; [
       hidpi
+      login.gdm
       office
       # nvidia
     ])
