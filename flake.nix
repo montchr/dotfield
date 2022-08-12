@@ -347,12 +347,14 @@
               direnv
               emacs
               git
-              gpg
               python
               shells.zsh
               shells.fish
               ssh
             ];
+
+            #: trusted: nobody here
+            trusted = [gpg];
 
             #: graphical:  familiar personal computing interfaces
             graphical = [
@@ -374,6 +376,7 @@
             workstation =
               graphical
               ++ developer
+	      ++ trusted
               ++ [
                 espanso
                 mail
@@ -394,12 +397,24 @@
           };
           cdom = {suites, ...}: {
             imports = with suites;
-              basic ++ developer;
+              basic ++ developer ++ trusted;
           };
           seadoom = cdom;
-          "cdom@dev.klein.temple.edu" = {suites, ...}: {
+          "cdom@prod-www.klein.temple.edu" = {suites, lib, ...}: {
             imports = with suites;
-              basic ++ developer ++ server;
+              basic
+              ++ developer
+              ++ server;
+            home.username = lib.mkForce "cdom";
+	    home.homeDirectory = lib.mkForce "/home/cdom";
+          };
+          "cdom@dev.klein.temple.edu" = {suites, lib, ...}: {
+            imports = with suites;
+              basic
+	      ++ developer
+              ++ server;
+            home.username = lib.mkForce "cdom";
+	    home.homeDirectory = lib.mkForce "/home/cdom";
           };
           chrismont = {
             profiles,
