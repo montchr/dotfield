@@ -36,7 +36,8 @@ in {
   # programs._1password.enable = true;
 
   xdg.portal.enable = true;
-  xdg.portal.gtkUsePortal = true;
+  # FIXME: deprecated. remove or set manually if needed.
+  # xdg.portal.gtkUsePortal = true;
 
   programs.gnupg.agent = {
     enable = true;
