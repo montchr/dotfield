@@ -2,7 +2,7 @@
 result
 
 # nvfetcher
-pkgs/_sources/.shake*
+packages/sources/_sources/.shake*
 
 # Emacs
 custom.el
