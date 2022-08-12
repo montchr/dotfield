@@ -215,7 +215,7 @@
 
           profiles =
             digga.lib.rakeLeaves ./profiles
-            // {users = digga.lib.rakeLeaves ./users;};
+            // {users = digga.lib.rakeLeaves ./home/users;};
 
           suites = with profiles; rec {
             basic = [
@@ -306,14 +306,14 @@
       };
 
       home = {
-        imports = [(digga.lib.importExportableModules ./users/modules)];
+        imports = [(digga.lib.importExportableModules ./home/modules)];
         modules = [
           nix-colors.homeManagerModule
           ({suites, ...}: {imports = suites.basic ++ [./lib/home];})
         ];
         importables = rec {
           inherit peers;
-          profiles = digga.lib.rakeLeaves ./users/profiles;
+          profiles = digga.lib.rakeLeaves ./home/profiles;
           suites = with profiles; rec {
             #: basic: just your average anybody
             basic = [
