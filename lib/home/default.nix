@@ -13,7 +13,7 @@ moduleArgs @ {
 in {
   lib.dotfield = {
     fsPath = "${configHome}/dotfield";
-    userConfigPath = "${this.fsPath}/users/${username}/config";
+    userConfigPath = "${this.fsPath}/home/users/${username}/config";
 
     features = rec {
       hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;
