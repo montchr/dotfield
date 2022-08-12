@@ -37,8 +37,6 @@ in {
 
   xdg.portal.enable = true;
   xdg.portal.gtkUsePortal = true;
-  # FIXME: is it harmful to enable this if not using a wlroots compositor?
-  xdg.portal.wlr.enable = hasWayland;
 
   programs.gnupg.agent = {
     enable = true;
