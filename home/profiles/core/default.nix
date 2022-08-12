@@ -13,7 +13,8 @@ in {
     du-dust #   <- Like du but more intuitive.
     entr #      <- Run arbitrary commands when files change
     lnav #      <- Log file navigator
-    procs #     <- A modern replacement for ps.
+    # FIXME: marked as broken
+    # procs #     <- A modern replacement for ps.
 
     ## === `bat` and friends ===
     # A cat(1) clone with wings.

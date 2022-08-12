@@ -16,20 +16,22 @@
     ##: --- utilities ----------------------------------------------------------
 
     agenix.url = "github:montchr/agenix/darwin-support";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
     darwin.url = "github:LnL7/nix-darwin";
     deploy.url = "github:serokell/deploy-rs";
-    digga.url = "github:divnix/digga";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
     nixos-generators.url = "github:nix-community/nixos-generators";
     nvfetcher.url = "github:berberman/nvfetcher";
     sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixos-stable";
+
+    digga.url = "github:divnix/digga/home-manager-22.11";
+    digga.inputs.home-manager.follows = "home-manager";
+    digga.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       # url = "github:montchr/home-manager/trunk";
-      url = "github:nix-community/home-manager/release-22.05";
+      # url = "github:nix-community/home-manager/release-22.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
@@ -66,7 +68,7 @@
       flake = false;
     };
 
-    nixpkgs.follows = "nixos-stable";
+    nixpkgs.follows = "nixos-unstable";
   };
 
   outputs = {
@@ -141,12 +143,14 @@
         nixos-stable = {
           inherit overlays;
           imports = [
+            (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/stable)
             (digga.lib.importOverlays ./packages)
           ];
         };
         nixpkgs-darwin-stable = {
           imports = [
+            (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/stable)
             (digga.lib.importOverlays ./packages)
           ];
@@ -159,7 +163,9 @@
         nixos-unstable = {
           inherit overlays;
           imports = [
+            (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/nixos-unstable)
+            (digga.lib.importOverlays ./packages)
           ];
         };
         nixpkgs-trunk = {};
@@ -183,7 +189,7 @@
       nixos = {
         hostDefaults = {
           system = "x86_64-linux";
-          channelName = "nixos-stable";
+          channelName = "nixos-unstable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             # TODO: can this be merged with the 'dotfield' lib?
