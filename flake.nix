@@ -376,7 +376,7 @@
             workstation =
               graphical
               ++ developer
-	      ++ trusted
+              ++ trusted
               ++ [
                 espanso
                 mail
@@ -400,21 +400,30 @@
               basic ++ developer ++ trusted;
           };
           seadoom = cdom;
-          "cdom@prod-www.klein.temple.edu" = {suites, lib, ...}: {
+          "cdom@prod-www.klein.temple.edu" = {
+            suites,
+            lib,
+            ...
+          }: {
             imports = with suites;
               basic
               ++ developer
               ++ server;
             home.username = lib.mkForce "cdom";
-	    home.homeDirectory = lib.mkForce "/home/cdom";
+            home.homeDirectory = lib.mkForce "/home/cdom";
           };
-          "cdom@dev.klein.temple.edu" = {suites, lib, ...}: {
+          "cdom@dev.klein.temple.edu" = {
+            suites,
+            lib,
+            ...
+          }: {
             imports = with suites;
               basic
-	      ++ developer
+              ++ developer
               ++ server;
+
             home.username = lib.mkForce "cdom";
-	    home.homeDirectory = lib.mkForce "/home/cdom";
+            home.homeDirectory = lib.mkForce "/home/cdom";
           };
           chrismont = {
             profiles,
