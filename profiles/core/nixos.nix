@@ -11,10 +11,13 @@ moduleArgs @ {
     else "/etc/ssh";
 in {
   nix = {
-    autoOptimiseStore = true;
+    settings = {
+      auto-optimise-store = true;
+      system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+    };
+
     nixPath = ["nixos-config=${../../lib/compat/nixos}"];
     optimise.automatic = true;
-    systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
   };
 
   boot.loader.systemd-boot.consoleMode = "auto";
