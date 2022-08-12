@@ -197,7 +197,7 @@
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/nixos)];
+        imports = [(digga.lib.importHosts ./nixos/machines)];
         hosts = {
           boschic = {};
           hodgepodge = {};

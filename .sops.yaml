@@ -11,17 +11,17 @@ keys:
 # https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
 creation_rules:
 
-  - path_regex: hosts/nixos/boschic/secrets/[^/]+\.yaml$
+  - path_regex: nixos/machines/boschic/secrets/[^/]+\.yaml$
     key_groups:
       - age:
           - *cdom_age
           - *boschic
-  - path_regex: hosts/nixos/hodgepodge/secrets/[^/]+\.yaml$
+  - path_regex: nixos/machines/hodgepodge/secrets/[^/]+\.yaml$
     key_groups:
       - age:
           - *cdom_age
           - *hodgepodge
-  - path_regex: hosts/nixos/tsone/secrets/[^/]+\.yaml$
+  - path_regex: nixos/machines/tsone/secrets/[^/]+\.yaml$
     key_groups:
       - age:
           - *cdom_age
