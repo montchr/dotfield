@@ -281,9 +281,7 @@
         importables = rec {
           inherit peers;
 
-          profiles =
-            digga.lib.rakeLeaves ./profiles
-            // {users = digga.lib.rakeLeaves ./users;};
+          profiles = digga.lib.rakeLeaves ./profiles;
 
           suites = with profiles; rec {
             basic = [
