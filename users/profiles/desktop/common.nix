@@ -18,10 +18,6 @@ in
     };
 
     qt.enable = true;
-    # TODO: disabled while troubleshooting plex-htpc...
-    # qt.platformTheme = "gnome";
-    # qt.style.package = pkgs.adwaita-qt;
-    # qt.style.name = "adwaita";
 
     programs.zathura.enable = true;
 
