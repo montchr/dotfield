@@ -9,7 +9,7 @@ moduleArgs @ {
   identityFileName = "id_rsa_yk.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in {
-  home.file.".ssh/${identityFileName}".source = ../../identity/ssh-yubikey.pub;
+  home.file.".ssh/${identityFileName}".source = ../../secrets/ssh-yubikey.pub;
 
   programs.ssh = {
     enable = true;

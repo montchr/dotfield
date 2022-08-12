@@ -210,7 +210,7 @@
           inherit peers;
 
           primaryUser = {
-            authorizedKeys = import ./identity/authorized-keys.nix;
+            authorizedKeys = import ./secrets/authorized-keys.nix;
           };
 
           profiles =

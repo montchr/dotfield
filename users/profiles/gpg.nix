@@ -39,11 +39,11 @@ in
 
         publicKeys = [
           {
-            source = ../../identity + "/gpg-${pgpPublicKey}.txt";
+            source = ../../secrets + "/gpg-${pgpPublicKey}.txt";
             trust = "ultimate";
           }
           {
-            source = ../../identity + "/gpg-0xF0B8FB42A7498482.txt";
+            source = ../../secrets + "/gpg-0xF0B8FB42A7498482.txt";
             trust = "ultimate";
           }
         ];
