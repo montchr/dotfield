@@ -151,5 +151,24 @@
             "type": "github"
         },
         "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
+    },
+    "roots-trellis-cli": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "roots-trellis-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "roots",
+            "repo": "trellis-cli",
+            "rev": "v1.7.0",
+            "sha256": "sha256-/YUoGPVTbmegr8cmjhtHnG1jiwIjen91sUWjgK3T8GQ=",
+            "type": "github"
+        },
+        "version": "v1.7.0"
     }
 }

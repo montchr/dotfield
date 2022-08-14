@@ -4,6 +4,10 @@
 src.git = "https://github.com/DinkDonk/kitty-icon.git"
 fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
 
+[roots-trellis-cli]
+src.github = "roots/trellis-cli"
+fetch.github = "roots/trellis-cli"
+
 ##: --- fish shell ---
 
 [fish-autopair]
