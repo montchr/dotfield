@@ -395,47 +395,34 @@
         };
 
         users = rec {
-          nixos = {suites, ...}: {
-            imports = [];
-          };
-          cdom = {suites, ...}: {
-            imports = with suites;
+          nixos = hmArgs: {imports = [];};
+
+          cdom = hmArgs: {
+            imports = with hmArgs.suites;
               basic ++ developer ++ trusted;
           };
-          seadoom = cdom;
-          "cdom@prod-www.klein.temple.edu" = {
-            suites,
-            lib,
-            ...
-          }: {
-            imports = with suites;
-              basic
-              ++ developer
-              ++ server;
-            home.username = lib.mkForce "cdom";
-            home.homeDirectory = lib.mkForce "/home/cdom";
-          };
-          "cdom@dev.klein.temple.edu" = {
-            suites,
-            lib,
-            ...
-          }: {
-            imports = with suites;
-              basic
-              ++ developer
-              ++ server;
 
-            home.username = lib.mkForce "cdom";
-            home.homeDirectory = lib.mkForce "/home/cdom";
+          # FIXME: come on this is a mess
+          seadoom = cdom;
+
+          "cdom@prod-www.klein.temple.edu" = hmArgs: {
+            imports = with hmArgs.suites;
+              basic ++ developer ++ server;
+            home.username = hmArgs.lib.mkForce "cdom";
+            home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
           };
-          chrismont = {
-            profiles,
-            suites,
-            ...
-          }: {
+
+          "cdom@dev.klein.temple.edu" = hmArgs: {
+            imports = with hmArgs.suites;
+              basic ++ developer ++ server;
+            home.username = hmArgs.lib.mkForce "cdom";
+            home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
+          };
+
+          chrismont = hmArgs: {
             imports =
-              (with suites; workstation)
-              ++ (with profiles; [
+              (with hmArgs.suites; workstation)
+              ++ (with hmArgs.profiles; [
                 aws
                 nodejs
                 development.php
