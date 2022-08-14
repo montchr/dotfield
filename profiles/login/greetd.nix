@@ -19,21 +19,22 @@
 
   # If some users aren't able to shutdown/reboot, refer to the following:
   # https://github.com/apognu/tuigreet#power-management
-  kiosk-config = command:
-    pkgs.writeText "kiosk.config" ''
-      output * bg #000000 solid_color
-      exec "${command}; ${pkgs.sway}/bin/swaymsg exit"
-
-      bindsym Mod4+shift+e exec ${pkgs.sway}/bin/swaynag \
-        -t warning \
-        -m 'What do you want to do?' \
-        -b 'Poweroff' 'systemctl poweroff' \
-        -b 'Reboot' 'systemctl reboot'
-    '';
+  #
+  # FIXME: swaynag options here are not keyboard-focusable! without a mouse,
+  # that means there's no way to select them...
   sway-kiosk = command: ''
-    ${pkgs.sway}/bin/sway \
-      ${swayFlags} \
-      --config ${kiosk-config command}
+    ${pkgs.sway}/bin/sway ${swayFlags} --config \
+      ${pkgs.writeText "kiosk.config"
+      ''
+        output * bg #000000 solid_color
+        exec "${command}; ${pkgs.sway}/bin/swaymsg exit"
+
+        bindsym Mod4+shift+e exec ${pkgs.sway}/bin/swaynag \
+          -t warning \
+          -m 'What do you want to do?' \
+          -b 'Poweroff' 'systemctl poweroff' \
+          -b 'Reboot' 'systemctl reboot'
+      ''};
   '';
 
   sway = mkSession "sway" ''
