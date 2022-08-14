@@ -16,7 +16,7 @@ in {
   nixpkgs.config.allowUnfree = lib.mkForce true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.nvidia.package = nvLatest;
   services.xserver.videoDrivers = ["nvidia"];
