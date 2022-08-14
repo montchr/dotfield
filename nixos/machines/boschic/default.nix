@@ -18,6 +18,7 @@ in {
       boot.refind
       hardware.amd
       login.gdm
+      # login.greetd
       remote-builder
       virtualisation.libvirtd
       virtualisation.vm-variant
@@ -43,7 +44,7 @@ in {
     ])
     ++ [
       ./hardware-configuration.nix
-      # ./virtualisation.nix
+      ./virtualisation.nix
     ];
 
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
