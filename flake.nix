@@ -252,6 +252,7 @@
             workstation =
               tangible
               ++ [
+                boot.systemd-boot
                 fonts.common
                 fonts.pragmatapro
                 gnome-desktop

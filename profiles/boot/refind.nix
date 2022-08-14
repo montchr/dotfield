@@ -1,3 +1,4 @@
+# FIXME: refind gets wiped and becomes unavailable for some reason...
 {
   config,
   lib,
