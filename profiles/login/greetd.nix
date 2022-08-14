@@ -69,7 +69,7 @@ in {
     enable = true;
     settings = {
       default_session = {
-        command = sway-kiosk "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l &>/dev/null";
+        command = sway-kiosk "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l";
       };
       # initial_session = lib.mkIf config.dotfield.guardian.enable {
       #   user = config.dotfield.guardian.username;
