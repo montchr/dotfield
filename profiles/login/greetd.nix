@@ -41,7 +41,10 @@
     ${pkgs.sway}/bin/sway ${swayFlags}
   '';
   gnome = mkSession "gnome" ''
-    XDG_SESSION_TYPE=wayland ${pkgs.gnome.gnome-session}/bin/gnome-session
+    export XDG_SESSION_TYPE=wayland
+    export MOZ_ENABLE_WAYLAND=1
+    export QT_QPA_PLATFORM=wayland
+    ${pkgs.gnome.gnome-session}/bin/gnome-session
   '';
   steam-bigpicture = mkSession "steam-bigpicture" ''
     ${sway-kiosk "${pkgs.steam}/bin/steam -bigpicture"}
