@@ -20,7 +20,7 @@ in {
       login.gdm
       # login.greetd
       remote-builder
-      virtualisation.libvirtd
+      # virtualisation.libvirtd
       virtualisation.virtualbox
       virtualisation.vm-variant
 
