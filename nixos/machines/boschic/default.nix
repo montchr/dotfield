@@ -131,7 +131,7 @@ in {
   home-manager.users = {
     seadoom = hmArgs: {
       imports =
-        (with hmArgs.suites; workstation)
+        (with hmArgs.suites; workstation ++ opsbox)
         ++ (with hmArgs.profiles; [virtualisation.vagrant])
         ++ [hmUsers.seadoom];
     };

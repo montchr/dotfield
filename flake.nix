@@ -391,6 +391,17 @@
                 yubikey
                 zotero
               ];
+
+            #: opsbox: a toobox for work operatinos.
+            opsbox =
+              developer
+              ++ [
+                aws
+                nodejs
+                secrets.password-store
+                development.php
+                development.wordpress
+              ];
           };
         };
 
@@ -420,14 +431,8 @@
           };
 
           chrismont = hmArgs: {
-            imports =
-              (with hmArgs.suites; workstation)
-              ++ (with hmArgs.profiles; [
-                aws
-                nodejs
-                development.php
-                development.wordpress
-              ]);
+            imports = with hmArgs.suites;
+              workstation ++ opsbox;
           };
         };
       };
