@@ -21,6 +21,7 @@ in {
       # login.greetd
       remote-builder
       virtualisation.libvirtd
+      virtualisation.virtualbox
       virtualisation.vm-variant
 
       # Solely for Plex HTPC, which doesn't even work on Wayland...
@@ -44,7 +45,6 @@ in {
     ])
     ++ [
       ./hardware-configuration.nix
-      ./virtualisation.nix
     ];
 
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
@@ -55,6 +55,10 @@ in {
 
   # services.gnome.gnome-remote-desktop.enable = true;
   # environment.systemPackages = with pkgs; [gnome.gnome-remote-desktop];
+
+  virtualisation.vmVariant = {
+    virtualisation.graphics = false;
+  };
 
   system.stateVersion = "21.11";
 
