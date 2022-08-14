@@ -17,7 +17,8 @@ in {
     ++ (with profiles; [
       boot.refind
       hardware.amd
-      login.gdm
+      # login.gdm
+      login.greetd
       remote-builder
       virtualisation.libvirtd
       virtualisation.vm-variant
@@ -53,6 +54,9 @@ in {
   boot.loader.timeout = 15;
   boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
   boot.supportedFilesystems = ["ext4" "btrfs"];
+
+  # services.gnome.gnome-remote-desktop.enable = true;
+  # environment.systemPackages = with pkgs; [gnome.gnome-remote-desktop];
 
   system.stateVersion = "21.11";
 
