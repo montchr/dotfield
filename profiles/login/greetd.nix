@@ -1,3 +1,4 @@
+# FIXME: cannot boot into gnome!
 {
   config,
   lib,

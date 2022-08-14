@@ -17,8 +17,7 @@ in {
     ++ (with profiles; [
       boot.refind
       hardware.amd
-      # login.gdm
-      login.greetd
+      login.gdm
       remote-builder
       virtualisation.libvirtd
       virtualisation.vm-variant
