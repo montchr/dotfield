@@ -436,7 +436,8 @@
               ++ (with profiles; [
                 aws
                 nodejs
-                php
+                development.php
+                development.wordpress
               ]);
           };
         };

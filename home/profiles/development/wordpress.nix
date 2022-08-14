@@ -1,19 +1,20 @@
 {
   config,
-  pkgs,
   lib,
-  inputs,
+  pkgs,
+  profiles,
   ...
 }: let
-  inherit (pkgs) system writeShellScriptBin;
-  inherit (config.lib) dotfield;
+  gitCmd = "${pkgs.git}/bin/git";
 in {
-  home.packages = with pkgs; [
-    php80
-    php80Packages.composer
+  imports = [profiles.virtualisation.vagrant];
 
+  home.packages = with pkgs; [
+    trellis-cli
+
+    # FIXME: assumes a particular repo structure -- likely incompatible with trellis
     (writeShellScriptBin "wp-debug-display" ''
-      REPO_ROOT="$(git rev-parse --show-toplevel)"
+      REPO_ROOT="$(${gitCmd} rev-parse --show-toplevel)"
       case "$1" in
         on|true)
           CURRENT_STATE="false"
@@ -24,16 +25,13 @@ in {
           NEW_STATE="false"
           ;;
       esac
-      "${pkgs.gnused}/bin/sed" \
+      "${gnused}/bin/sed" \
         -i "/WP_DEBUG_DISPLAY/s/''${CURRENT_STATE}/''${NEW_STATE}/" \
         "''${REPO_ROOT}/../wp-config.php"
     '')
   ];
-  home.sessionPath = [
-    # TODO: prepend not append
-    "${dotfield.fsPath}/.composer/bin"
-  ];
-  home.sessionVariables = {
-    COMPOSER_HOME = "$XDG_STATE_HOME/composer";
+
+  home.shellAliases = {
+    "trellis" = "${pkgs.trellis-cli}/bin/trellis-cli";
   };
 }
