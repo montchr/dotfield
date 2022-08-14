@@ -216,6 +216,7 @@
         importables = rec {
           inherit peers;
 
+          # FIXME: move to guardian
           primaryUser = {
             authorizedKeys = import ./secrets/authorized-keys.nix;
           };
@@ -373,11 +374,12 @@
             #: listen: hey!
             listen = [apple-music spotify];
 
-            #: workstation: level++
+            #: workstation: it's more fun to compute!
             workstation =
               graphical
               ++ developer
               ++ trusted
+              ++ listen
               ++ [
                 espanso
                 mail
