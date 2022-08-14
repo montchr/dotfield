@@ -1,4 +1,8 @@
 # FIXME: cannot boot into gnome!
+#
+# FIXME: currently results in a quick flash of lightdm (the default login
+# manager on nixos) before attempting to boot into the initial session or
+# loading the default session
 {
   config,
   lib,
