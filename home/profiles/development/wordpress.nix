@@ -8,8 +8,6 @@
   gitCmd = "${pkgs.git}/bin/git";
 in {
   home.packages = with pkgs; [
-    trellis-cli
-
     # FIXME: assumes a particular repo structure -- likely incompatible with trellis
     (writeShellScriptBin "wp-debug-display" ''
       REPO_ROOT="$(${gitCmd} rev-parse --show-toplevel)"
