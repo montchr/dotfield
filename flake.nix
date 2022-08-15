@@ -230,16 +230,17 @@
               core.common
               core.nixos
             ];
+
             virtual = basic ++ [];
+
             server =
               basic
               ++ [
                 networking.common
-                # FIXME: this can cause a lock-out! needs a one-shot systemd
-                # unit to activate first. see Xe's articles/config
-                # networking.tailscale
+                networking.tailscale
                 ssh-host
               ];
+
             tangible =
               basic
               ++ [
@@ -250,6 +251,7 @@
                 networking.wifi
                 printers-scanners
               ];
+
             workstation =
               tangible
               ++ [
@@ -263,6 +265,7 @@
                 yubikey
                 zoom-us
               ];
+
             opsbox = [
               virtualisation.libvirtd
               virtualisation.vagrant
