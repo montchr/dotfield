@@ -5,7 +5,7 @@
   ...
 }: {
   virtualisation.libvirtd.enable = true;
-  networking.firewall.checkReversePath = false;
+  networking.firewall.checkReversePath = "loose";
   environment.systemPackages = with pkgs; [
     virt-manager
   ];
