@@ -263,6 +263,11 @@
                 yubikey
                 zoom-us
               ];
+            opsbox = [
+              virtualisation.libvirtd
+              virtualisation.vagrant
+              virtualisation.virtualbox
+            ];
           };
         };
       };

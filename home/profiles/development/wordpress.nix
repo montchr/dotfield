@@ -7,8 +7,6 @@
 }: let
   gitCmd = "${pkgs.git}/bin/git";
 in {
-  imports = [profiles.virtualisation.vagrant];
-
   home.packages = with pkgs; [
     trellis-cli
 

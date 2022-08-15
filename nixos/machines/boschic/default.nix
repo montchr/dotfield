@@ -13,15 +13,19 @@
   inherit (config.networking) hostName;
 in {
   imports =
-    (with suites; tangible ++ workstation)
+    [
+      ./hardware-configuration.nix
+    ]
+    ++ (with suites;
+      tangible
+      ++ workstation
+      ++ opsbox)
     ++ (with profiles; [
       boot.refind
       hardware.amd
       login.gdm
       # login.greetd
       remote-builder
-      # virtualisation.libvirtd
-      virtualisation.virtualbox
       virtualisation.vm-variant
 
       # Solely for Plex HTPC, which doesn't even work on Wayland...
@@ -42,10 +46,7 @@ in {
       # FIXME: only apply this to the proper output -- will not currently allow
       # configuring multiple outputs.
       # hardware.displays.LG-27GL850-B
-    ])
-    ++ [
-      ./hardware-configuration.nix
-    ];
+    ]);
 
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -132,7 +133,6 @@ in {
     seadoom = hmArgs: {
       imports =
         (with hmArgs.suites; workstation ++ opsbox)
-        ++ (with hmArgs.profiles; [virtualisation.vagrant])
         ++ [hmUsers.seadoom];
     };
     zortflower = hmArgs: {
