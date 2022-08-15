@@ -20,6 +20,12 @@ in {
     ./starship.nix
   ];
 
+  home.packages = [
+    (pkgs.writeShellScriptBin "md" ''
+      [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
+    '')
+  ];
+
   programs.bash = {
     inherit shellAliases;
 
