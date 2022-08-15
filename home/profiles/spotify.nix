@@ -3,6 +3,10 @@
   lib,
   pkgs,
   ...
-}: {
-  home.packages = with pkgs; [spotify spotify-tui];
+}:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  home.packages = with pkgs; [
+    spotify
+    spotify-tui
+  ];
 }
