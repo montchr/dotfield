@@ -74,7 +74,11 @@ in {
       useDHCP = false;
       usePredictableInterfaceNames = false;
       # interfaces.wlp6s0.useDHCP = true;
-      firewall.enable = false;
+
+      firewall = {
+        enable = true;
+        # allowedTCPPorts = [80 443];
+      };
 
       defaultGateway = {
         inherit interface;
