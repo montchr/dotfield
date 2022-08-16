@@ -276,6 +276,7 @@
 
             opsbox = [
               virtualisation.libvirtd
+              virtualisation.podman
               virtualisation.vagrant
               virtualisation.virtualbox
             ];
