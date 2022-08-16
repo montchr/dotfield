@@ -98,6 +98,9 @@ in {
 
   ### === users ================================================================
 
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "seadoom";
+
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$HshRirQmQu.nxnwE$6eUWz9pN3T9F4KZVBpz7KfvZhLAFRGRHkm1YFsIqpQUSHBw8Lfh6G6PBLbHp9/XUxiIz0MZQaxRqQvHMIn/hW0";
   users.users.seadoom = {
