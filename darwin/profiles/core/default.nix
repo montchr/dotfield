@@ -2,11 +2,18 @@
   config,
   lib,
   pkgs,
+  profiles,
   inputs,
   ...
 }: let
   inherit (config.lib) dotfield;
 in {
+  imports =
+    (with (profiles.common); [core])
+    ++ [
+      inputs.home-manager.darwinModules.home-manager
+    ];
+
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't
@@ -45,7 +52,6 @@ in {
 
   homebrew = {
     enable = true;
-    # enable = false;
     autoUpdate = true;
     global.noLock = true;
   };

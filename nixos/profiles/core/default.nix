@@ -3,20 +3,29 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  profiles,
   ...
 }: let
+  inherit (config.lib.dotfield) fsPath;
+
   sshHostPath =
     if (moduleArgs.impermanence or false)
     then "/persist/etc/ssh"
     else "/etc/ssh";
+
+  # FIXME: is this accurate?
+  nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in {
+  imports = with (profiles.common); [core];
+
   nix = {
     settings = {
       auto-optimise-store = true;
+      # TODO: is it really reasonable to set these all as defaults?
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
 
-    nixPath = ["nixos-config=${../../lib/compat/nixos}"];
+    nixPath = ["nixos-config=${nixosConfigPath}"];
     optimise.automatic = true;
   };
 

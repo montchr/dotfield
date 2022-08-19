@@ -113,6 +113,18 @@
       system
       ;
 
+    profiles =
+      # FIXME: at the moment, most profiles still live here, so we retain these
+      # attrs at the top-level. be careful about naming conflicts...
+      (rakeLeaves ./profiles)
+      // {
+        common = rakeLeaves ./profiles;
+        nixos = rakeLeaves ./nixos/profiles;
+        darwin = rakeLeaves ./darwin/profiles;
+        # FIXME: should be per-host-type due to many differences between OS
+        users = rakeLeaves ./home/users;
+      };
+
     supportedSystems = with system; [
       x86_64-linux
       x86_64-darwin
@@ -128,7 +140,9 @@
     ];
 
     darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
+
     peers = import ./ops/metadata/peers.nix;
+
     overlays = [
       agenix.overlay
       emacs-overlay.overlay
@@ -196,23 +210,23 @@
       ];
 
       nixos = {
+        imports = [(digga.lib.importHosts ./nixos/machines)];
+
         hostDefaults = {
           system = "x86_64-linux";
           channelName = "nixos-unstable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
-            # TODO: can this be merged with the 'dotfield' lib?
-            {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.basic ++ [./lib/system];})
+            ({roles, ...}: {imports = [roles.common];})
             digga.nixosModules.bootstrapIso
+            # FIXME: ensure upstream module provides reasonable defaults
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
+            # FIXME: migrate to sops
             agenix.nixosModules.age
-            sops-nix.nixosModules.sops
           ];
         };
 
-        imports = [(digga.lib.importHosts ./nixos/machines)];
         hosts = {
           boschic = {};
           hodgepodge = {};
@@ -223,43 +237,30 @@
         };
 
         importables = rec {
-          inherit peers;
+          inherit peers profiles;
+
+          roles = digga.lib.rakeLeaves ./nixos/roles;
 
           # FIXME: move to guardian
           primaryUser = {
             authorizedKeys = import ./secrets/authorized-keys.nix;
           };
 
-          profiles =
-            digga.lib.rakeLeaves ./profiles
-            // {users = digga.lib.rakeLeaves ./home/users;};
-
           suites = with profiles; rec {
-            basic = [
-              core.common
-              core.nixos
+            server = [
+              networking.common
+              networking.tailscale
+              ssh-host
             ];
 
-            virtual = basic ++ [];
-
-            server =
-              basic
-              ++ [
-                networking.common
-                networking.tailscale
-                ssh-host
-              ];
-
-            tangible =
-              basic
-              ++ [
-                audio
-                bluetooth
-                networking.common
-                networking.tailscale
-                networking.wifi
-                printers-scanners
-              ];
+            tangible = [
+              audio
+              bluetooth
+              networking.common
+              networking.tailscale
+              networking.wifi
+              printers-scanners
+            ];
 
             workstation =
               tangible
@@ -286,47 +287,26 @@
       };
 
       darwin = {
+        imports = [(digga.lib.importHosts ./darwin/machines)];
+
         hostDefaults = {
           system = "x86_64-darwin";
           channelName = "nixpkgs-darwin-stable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
-            {lib.our = self.lib;}
-            ({suites, ...}: {imports = suites.basic ++ [./lib/system];})
-            home-manager.darwinModules.home-manager
+            ({roles, ...}: {imports = [roles.common];})
             # `nixosModules` is correct, even for darwin
             agenix.nixosModules.age
+            # FIXME: should this be imported on a system level? i don't think so...
             nix-colors.homeManagerModule
           ];
         };
 
-        imports = [(digga.lib.importHosts ./darwin/machines)];
-        hosts = {
-          cdotmpln = {};
-        };
+        hosts.cdotmp = {};
 
-        importables = rec {
-          inherit peers;
-
-          profiles = digga.lib.rakeLeaves ./profiles;
-
-          suites = with profiles; rec {
-            basic = [
-              core.common
-              core.darwin
-              networking.common
-              networking.tailscale
-            ];
-            workstation = [
-              fonts.common
-              fonts.pragmatapro
-              os-specific.darwin.emacs
-              os-specific.darwin.gui
-              os-specific.darwin.system-defaults
-              secrets
-              ssh-host
-            ];
-          };
+        importables = {
+          inherit peers profiles;
+          roles = digga.lib.rakeLeaves ./darwin/roles;
         };
       };
 
