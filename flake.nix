@@ -217,6 +217,7 @@
           boschic = {};
           hodgepodge = {};
           hierophant = {};
+          ryosuke = {};
           tsone = {};
           bootstrap-graphical = {};
         };
