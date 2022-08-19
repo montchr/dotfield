@@ -6,7 +6,13 @@
 }: {
   imports = [./common.nix];
 
-  boot.loader.grub.enable = false;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.consoleMode = "auto";
+  boot.loader = {
+    grub.enable = false;
+    systemd-boot = {
+      enable = true;
+      consoleMode = "auto";
+      configurationLimit = lib.mkDefault 24;
+      editor = false;
+    };
+  };
 }
