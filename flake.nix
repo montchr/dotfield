@@ -218,10 +218,14 @@
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             ({roles, ...}: {imports = [roles.common];})
-            digga.nixosModules.bootstrapIso
             # FIXME: ensure upstream module provides reasonable defaults
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
+            # FIXME: upstream module causes a huge number of unnecessary
+            # dependencies to be pulled in for all systems -- many of them are
+            # graphical. should only be imported as needed.
+            # digga.nixosModules.bootstrapIso
+
             # FIXME: migrate to sops
             agenix.nixosModules.age
           ];
