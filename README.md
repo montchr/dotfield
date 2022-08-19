@@ -18,7 +18,7 @@ doesn't work for you, I may be able to help, but please don't assume that just
 because it lives in my configuration means that it "works" or "is a best
 practice" or "is in any way secure".
 
-Which brings me to the license,
+Which brings me to the license:
 
 ## License
 
