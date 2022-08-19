@@ -89,12 +89,10 @@
   :hook (kill-emacs-hook fontaine-store-latest-preset)
   :config
   (setq fontaine-presets
-        '((small
-           :default-height 100)
-          (regular
-           :default-height 120)
-          (large
-           :default-height 150)
+        '((small :default-height 100)
+          (regular :default-height 120)
+          (large :default-height 150)
+          (xlarge :default-height 170)
           (t
            :default-family "Iosevka Xtal"
            :default-weight regular
