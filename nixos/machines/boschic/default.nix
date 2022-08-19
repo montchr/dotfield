@@ -51,11 +51,8 @@ in {
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;
-  boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
-  boot.supportedFilesystems = ["ext4" "btrfs"];
-
-  # services.gnome.gnome-remote-desktop.enable = true;
-  # environment.systemPackages = with pkgs; [gnome.gnome-remote-desktop];
+  boot.initrd.supportedFilesystems = ["btrfs"];
+  boot.supportedFilesystems = ["btrfs"];
 
   virtualisation.vmVariant = {
     virtualisation.graphics = false;
