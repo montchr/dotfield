@@ -1,7 +1,6 @@
 channels: final: prev: let
-  # FIXME: https://github.com/NixOS/nixpkgs/issues/185633
   inherit
-    (channels.nixos-unstable-iosevka-185633)
+    (channels.nixos-unstable)
     iosevka
     iosevka-bin
     nerdfonts
