@@ -77,8 +77,8 @@ in {
       #net = peers.networks.${host.network};
       #interface = "eth0";
     in {
-  networkmanager.enable = true;
-  wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+      networkmanager.enable = true;
+      wireless.enable = true; # Enables wireless support via wpa_supplicant.
       useDHCP = true;
       usePredictableInterfaceNames = false;
 
