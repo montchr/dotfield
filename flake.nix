@@ -143,7 +143,7 @@
       # [Updated: 2022-08-20]
       # https://github.com/NixOS/nixpkgs/issues/175875
       # https://github.com/pyca/pyopenssl/issues/873
-      # aarch64-darwin
+      aarch64-darwin
     ];
 
     darwinSystems = [x86_64-darwin aarch64-darwin];
@@ -303,8 +303,8 @@
         imports = [(digga.lib.importHosts ./darwin/machines)];
 
         hostDefaults = {
-          system = "x86_64-darwin";
-          channelName = "nixpkgs-darwin-stable";
+          system = aarch64-darwin;
+          channelName = "nixos-unstable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
             ({roles, ...}: {imports = [roles.common];})
@@ -315,7 +315,9 @@
           ];
         };
 
-        hosts.cdotmp = {};
+        hosts.cdotmp = {
+          system = x86_64-darwin;
+        };
 
         importables = {
           inherit peers profiles;
