@@ -19,7 +19,7 @@ in {
       tangible
       ++ workstation
       ++ opsbox)
-    ++ (with profiles; [
+    ++ (with (profiles.shared); [
       boot.systemd-boot
       hardware.amd
       login.gdm

@@ -1,1 +1,1 @@
-{profiles, ...}: {imports = with (profiles.darwin); [core];}
+{profiles, ...}: {imports = with (profiles.system); [core];}

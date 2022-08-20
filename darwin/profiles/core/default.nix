@@ -8,11 +8,7 @@
 }: let
   inherit (config.lib) dotfield;
 in {
-  imports =
-    (with (profiles.common); [core])
-    ++ [
-      inputs.home-manager.darwinModules.home-manager
-    ];
+  imports = with (profiles.shared); [core];
 
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`

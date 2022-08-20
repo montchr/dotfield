@@ -14,7 +14,7 @@
 in {
   imports =
     (with suites; server)
-    ++ (with profiles; [hardware.amd])
+    ++ (with (profiles.shared); [hardware.amd])
     ++ [
       ./boot.nix
       ./filesystems.nix

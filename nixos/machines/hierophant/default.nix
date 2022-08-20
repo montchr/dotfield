@@ -10,7 +10,7 @@
 }: let
   secretsDir = ../../../secrets;
 in {
-  imports = with profiles; [
+  imports = with (profiles.shared); [
     environments.hetzner-cloud
     networking.tailscale
   ];

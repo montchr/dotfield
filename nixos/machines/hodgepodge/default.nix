@@ -9,7 +9,7 @@
 }: {
   imports =
     (with suites; tangible ++ workstation)
-    ++ (with profiles; [
+    ++ (with (profiles.shared); [
       hidpi
       login.gdm
       office

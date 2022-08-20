@@ -1,6 +1,6 @@
 {profiles, ...}: {
   imports =
-    (with (profiles.common); [
+    (with (profiles.shared); [
       networking.common
       networking.tailscale
       fonts.common
@@ -8,7 +8,7 @@
       secrets
       ssh-host
     ])
-    ++ (with (profiles.darwin); [
+    ++ (with (profiles.system); [
       emacs
       gui
       system-defaults

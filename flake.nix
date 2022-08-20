@@ -103,26 +103,19 @@
     inherit
       (digga.lib)
       flattenTree
+      importExportableModules
       rakeLeaves
       ;
     inherit
       (flake-utils.lib)
       eachSystem
       ;
-
-    inherit (flake-utils.lib.system) x86_64-linux aarch64-darwin x86_64-darwin;
-
-    profiles =
-      # FIXME: at the moment, most profiles still live here, so we retain these
-      # attrs at the top-level. be careful about naming conflicts...
-      (rakeLeaves ./profiles)
-      // {
-        common = rakeLeaves ./profiles;
-        nixos = rakeLeaves ./nixos/profiles;
-        darwin = rakeLeaves ./darwin/profiles;
-        # FIXME: should be per-host-type due to many differences between OS
-        users = rakeLeaves ./home/users;
-      };
+    inherit
+      (flake-utils.lib.system)
+      x86_64-linux
+      aarch64-darwin
+      x86_64-darwin
+      ;
 
     supportedSystems = [
       x86_64-linux
@@ -149,6 +142,12 @@
 
     peers = import ./ops/metadata/peers.nix;
 
+    modules = importExportableModules ./modules;
+    # FIXME: at the moment, most profiles still live here, so we retain these
+    # attrs at the top-level. be careful about naming conflicts...
+    profiles = rakeLeaves ./profiles;
+
+    # FIXME: split this to shared/nixos/darwin-specific
     overlays = [
       agenix.overlay
       emacs-overlay.overlay
@@ -183,6 +182,7 @@
             (digga.lib.importOverlays ./overlays/stable)
             (digga.lib.importOverlays ./packages)
           ];
+          # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
           overlays =
             overlays
             ++ [
@@ -215,115 +215,8 @@
         })
       ];
 
-      nixos = {
-        imports = [(digga.lib.importHosts ./nixos/machines)];
-
-        hostDefaults = {
-          system = x86_64-linux;
-          channelName = "nixos-unstable";
-          imports = [(digga.lib.importExportableModules ./modules)];
-          modules = [
-            ({roles, ...}: {imports = [roles.common];})
-            home-manager.nixosModules.home-manager
-
-            # FIXME: upstream module causes a huge number of unnecessary
-            # dependencies to be pulled in for all systems -- many of them are
-            # graphical. should only be imported as needed.
-            # digga.nixosModules.bootstrapIso
-
-            # FIXME: upstream module needs updating for unstable
-            # digga.nixosModules.nixConfig
-
-            # FIXME: migrate to sops
-            agenix.nixosModules.age
-          ];
-        };
-
-        hosts = {
-          boschic = {};
-          hodgepodge = {};
-          hierophant = {};
-          ryosuke = {};
-          tsone = {};
-          bootstrap-graphical = {};
-        };
-
-        importables = rec {
-          inherit peers profiles;
-
-          roles = digga.lib.rakeLeaves ./nixos/roles;
-
-          # FIXME: move to guardian
-          primaryUser = {
-            authorizedKeys = import ./secrets/authorized-keys.nix;
-          };
-
-          suites = with profiles; rec {
-            server = [
-              networking.common
-              networking.tailscale
-              ssh-host
-            ];
-
-            tangible = [
-              audio
-              bluetooth
-              networking.common
-              networking.tailscale
-              networking.wifi
-              printers-scanners
-            ];
-
-            workstation =
-              tangible
-              ++ [
-                boot.systemd-boot
-                fonts.common
-                fonts.pragmatapro
-                gnome-desktop
-                secrets
-                video
-                workstations.common
-                yubikey
-                zoom-us
-              ];
-
-            opsbox = [
-              virtualisation.libvirtd
-              virtualisation.podman
-              virtualisation.vagrant
-              virtualisation.virtualbox
-            ];
-          };
-        };
-      };
-
-      darwin = {
-        imports = [(digga.lib.importHosts ./darwin/machines)];
-
-        hostDefaults = {
-          system = aarch64-darwin;
-          channelName = "nixos-unstable";
-          imports = [(digga.lib.importExportableModules ./modules)];
-          modules = [
-            ({roles, ...}: {imports = [roles.common];})
-            # `nixosModules` is correct, even for darwin
-            agenix.nixosModules.age
-            # FIXME: should this be imported on a system level? i don't think so...
-            nix-colors.homeManagerModule
-          ];
-        };
-
-        hosts.cdotmp = {
-          system = x86_64-darwin;
-        };
-
-        importables = {
-          inherit peers profiles;
-          roles = digga.lib.rakeLeaves ./darwin/roles;
-        };
-      };
-
+      nixos = import ./nixos {inherit peers modules profiles;};
+      darwin = import ./darwin {inherit peers modules profiles;};
       home = import ./home {inherit peers;};
 
       devshell = ./shell;

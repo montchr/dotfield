@@ -16,7 +16,7 @@ moduleArgs @ {
   # FIXME: is this accurate?
   nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in {
-  imports = with (profiles.common); [core];
+  imports = with (profiles.shared); [core];
 
   nix = {
     settings = {

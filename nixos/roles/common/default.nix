@@ -1,1 +1,1 @@
-{profiles, ...}: {imports = with (profiles.nixos); [core];}
+{profiles, ...}: {imports = with (profiles.system); [core];}
