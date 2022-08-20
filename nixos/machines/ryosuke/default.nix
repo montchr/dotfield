@@ -1,6 +1,5 @@
 {
   config,
-  hmUsers,
   lib,
   pkgs,
   profiles,
@@ -131,13 +130,7 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  home-manager.users = {
-    cdom = hmArgs: {
-      imports =
-        (with hmArgs.suites; workstation ++ opsbox)
-        ++ [hmUsers.cdom];
-    };
-  };
+  home-manager.users.cdom = hmArgs: {imports = with hmArgs.roles; workstation;};
 
   programs.htop.enable = true;
 }

@@ -1,19 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  suites,
-  profiles,
-  hmUsers,
-  ...
-}: {
+# FIXME: non-functional
+{pkgs, ...}: {
   users.users.chris = {
     isHidden = false;
     shell = pkgs.zsh;
   };
 
   home-manager.users.chris = hmArgs: {
-    imports = [hmUsers.chrismont];
+    # imports = [hmUsers.chrismont];
 
     home.packages = with pkgs; [
       # TODO: move this to a common profile when pandas dep is fixed upstream

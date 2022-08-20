@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  hmUsers,
   primaryUser,
   profiles,
   suites,
@@ -48,9 +47,7 @@
   };
 
   home-manager.users.seadoom = hmArgs: {
-    imports =
-      [hmUsers.seadoom]
-      ++ (with hmArgs.suites; (listen ++ workstation));
+    imports = with hmArgs.roles; workstation;
 
     home.packages = with pkgs; [
       teams

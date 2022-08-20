@@ -1,6 +1,5 @@
 {
   config,
-  hmUsers,
   lib,
   pkgs,
   profiles,
@@ -134,16 +133,8 @@ in {
   };
 
   home-manager.users = {
-    seadoom = hmArgs: {
-      imports =
-        (with hmArgs.suites; workstation ++ opsbox)
-        ++ [hmUsers.seadoom];
-    };
-    zortflower = hmArgs: {
-      imports =
-        (with hmArgs.suites; graphical)
-        ++ [hmUsers.nixos];
-    };
+    seadoom = hmArgs: {imports = with hmArgs.roles; workstation;};
+    zortflower = hmArgs: {imports = with hmArgs.roles; graphical;};
   };
 
   programs.htop.enable = true;

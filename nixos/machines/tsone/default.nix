@@ -5,7 +5,6 @@
   lib,
   suites,
   profiles,
-  hmUsers,
   primaryUser,
   ...
 }: let
@@ -33,9 +32,7 @@ in {
     openssh.authorizedKeys.keys = authorizedKeys;
   };
   home-manager.users.cdom = hmArgs: {
-    imports =
-      (with hmArgs.suites; server)
-      ++ [hmUsers.cdom];
+    imports = with hmArgs.roles; remote;
   };
 
   networking.useDHCP = true;

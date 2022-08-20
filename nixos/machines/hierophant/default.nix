@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  hmUsers,
   modulesPath,
   suites,
   profiles,
@@ -42,8 +41,9 @@ in {
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
   home-manager.users.seadoom = hmArgs: {
-    imports = [hmUsers.seadoom];
+    imports = with hmArgs.roles; remote ++ developer ++ trusted;
 
+    # FIXME: no need to force this path, but the default directory must be created/linked
     lib.dotfield.fsPath = "/etc/dotfield";
   };
 

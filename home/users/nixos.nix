@@ -1,10 +1,10 @@
-{hmUsers, ...}: {
-  home-manager.users = {inherit (hmUsers) nixos;};
-
+{roles, ...}: {
   users.users.nixos = {
     password = "nixos";
     description = "default";
     isNormalUser = true;
     extraGroups = ["wheel"];
   };
+
+  home-manager.users.nixos = hmArgs: {imports = with hmArgs.roles; graphical;};
 }

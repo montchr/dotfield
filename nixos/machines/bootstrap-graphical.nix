@@ -1,6 +1,5 @@
 {
   config,
-  hmUsers,
   lib,
   pkgs,
   profiles,
@@ -28,7 +27,7 @@
   };
 
   home-manager.users.nixos = hmArgs: {
-    imports = with hmArgs.suites; basic ++ graphical;
+    imports = with hmArgs.roles; graphical;
   };
 
   system.stateVersion = "22.05";

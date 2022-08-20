@@ -7,6 +7,7 @@
   # nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
+    nixpkgs.follows = "nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
@@ -73,8 +74,6 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-
-    nixpkgs.follows = "nixos-unstable";
   };
 
   outputs = {
@@ -325,130 +324,7 @@
         };
       };
 
-      home = {
-        imports = [(digga.lib.importExportableModules ./home/modules)];
-        modules = [
-          nix-colors.homeManagerModule
-          ({suites, ...}: {imports = suites.basic ++ [./lib/home];})
-        ];
-        importables = rec {
-          inherit peers;
-          profiles = digga.lib.rakeLeaves ./home/profiles;
-          suites = with profiles; rec {
-            #: basic: just your average anybody
-            basic = [
-              core
-              direnv
-              # FIXME: many of the packages in `misc` should only be added to
-              # graphical or media-workflow environments (e.g. ffmpeg)
-              misc
-              navi
-              nnn
-              ranger
-              secrets.common
-              tealdeer
-              vim
-            ];
-
-            #: server: travellers across the ether
-            server = [
-              shells.fish
-              ssh
-            ];
-
-            #: developer: those who go
-            developer = [
-              dhall
-              direnv
-              emacs
-              git
-              python
-              shells.zsh
-              shells.fish
-              ssh
-            ];
-
-            #: trusted: nobody here
-            trusted = [gpg];
-
-            #: graphical:  familiar personal computing interfaces
-            graphical = [
-              desktop.common
-              desktop.gnome
-              firefox
-              foot
-              keyboard
-              kitty
-              mpv
-              secrets.one-password
-              themes
-            ];
-
-            #: listen: hey!
-            listen = [apple-music spotify];
-
-            #: workstation: it's more fun to compute!
-            workstation =
-              graphical
-              ++ developer
-              ++ trusted
-              ++ listen
-              ++ [
-                espanso
-                mail
-                newsboat
-                obs-studio
-                promnesia
-                secrets.password-store
-                sync
-                yubikey
-                zotero
-              ];
-
-            #: opsbox: a toobox for work operatinos.
-            opsbox =
-              developer
-              ++ [
-                aws
-                nodejs
-                secrets.password-store
-                development.php
-                development.wordpress
-              ];
-          };
-        };
-
-        users = rec {
-          nixos = hmArgs: {imports = [];};
-
-          cdom = hmArgs: {
-            imports = with hmArgs.suites;
-              basic ++ developer ++ trusted;
-          };
-
-          # FIXME: come on this is a mess
-          seadoom = cdom;
-
-          "cdom@prod-www.klein.temple.edu" = hmArgs: {
-            imports = with hmArgs.suites;
-              basic ++ developer ++ server;
-            home.username = hmArgs.lib.mkForce "cdom";
-            home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
-          };
-
-          "cdom@dev.klein.temple.edu" = hmArgs: {
-            imports = with hmArgs.suites;
-              basic ++ developer ++ server;
-            home.username = hmArgs.lib.mkForce "cdom";
-            home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
-          };
-
-          chrismont = hmArgs: {
-            imports = with hmArgs.suites;
-              workstation ++ opsbox;
-          };
-        };
-      };
+      home = import ./home {inherit peers;};
 
       devshell = ./shell;
 
