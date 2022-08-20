@@ -3,21 +3,24 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  substituters = [
+    "https://cache.nixos.org/"
+    "https://dotfield.cachix.org"
+    "https://nix-community.cachix.org"
+    "https://nixpkgs-wayland.cachix.org"
+  ];
+  trusted-substituters = substituters;
+in {
   nix = {
     package = pkgs.nix;
     settings = {
+      inherit substituters trusted-substituters;
+
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel" "@seadome"];
-
-      substituters = [
-        "https://cache.nixos.org/"
-        "https://dotfield.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://nixpkgs-wayland.cachix.org"
-      ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
