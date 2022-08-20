@@ -109,8 +109,9 @@
     inherit
       (flake-utils.lib)
       eachSystem
-      system
       ;
+
+    inherit (flake-utils.lib.system) x86_64-linux aarch64-darwin x86_64-darwin;
 
     profiles =
       # FIXME: at the moment, most profiles still live here, so we retain these
@@ -124,7 +125,7 @@
         users = rakeLeaves ./home/users;
       };
 
-    supportedSystems = with system; [
+    supportedSystems = [
       x86_64-linux
       x86_64-darwin
 
@@ -145,7 +146,7 @@
       # aarch64-darwin
     ];
 
-    darwinSystems = [system.x86_64-darwin system.aarch64-darwin];
+    darwinSystems = [x86_64-darwin aarch64-darwin];
 
     peers = import ./ops/metadata/peers.nix;
 
@@ -219,7 +220,7 @@
         imports = [(digga.lib.importHosts ./nixos/machines)];
 
         hostDefaults = {
-          system = "x86_64-linux";
+          system = x86_64-linux;
           channelName = "nixos-unstable";
           imports = [(digga.lib.importExportableModules ./modules)];
           modules = [
