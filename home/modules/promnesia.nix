@@ -16,6 +16,7 @@
 }:
 with lib; let
   cfg = config.services.promnesia;
+  # FIXME: pyopenssl failure on aarch64-darwin
   # FIXME: set up config file
   # https://github.com/GTrunSec/nixos-flk/blob/main/profiles/data/promnesia/config.py
   configFile = pkgs.writeScript "config.py" cfg.config;
