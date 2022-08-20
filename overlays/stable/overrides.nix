@@ -9,7 +9,7 @@ channels: final: prev: {
     iosevka-comfy
     kitty
     nerdfonts
-    python310Packages
+    python3Packages
     ;
 
   inherit
@@ -20,5 +20,5 @@ channels: final: prev: {
   ripgrep = prev.ripgrep.override {withPCRE2 = true;};
 
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
-  httpie = final.python310Packages.httpie;
+  httpie = final.python3Packages.httpie;
 }

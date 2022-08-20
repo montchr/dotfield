@@ -25,7 +25,7 @@
     tree-sitter
 
     #: python
-    python310Packages.pynvim
+    python3Packages.pynvim
 
     #: }}
   ];

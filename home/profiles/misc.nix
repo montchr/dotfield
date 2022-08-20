@@ -20,7 +20,7 @@
     tidy-viewer # Pretty-print CSV files
     xsv # A fast CSV command line toolkit
     # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
-    python310Packages.yq
+    python3Packages.yq
 
     # TODO: fails to build on darwin as of 2022-05-04
     # nodePackages.mermaid-cli # https://github.com/mermaid-js/mermaid-cli

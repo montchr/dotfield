@@ -5,7 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    (python310.withPackages (ps:
+    (python3.withPackages (ps:
       with ps; [
         black
         grip
