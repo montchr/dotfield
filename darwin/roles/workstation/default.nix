@@ -1,14 +1,18 @@
-{profiles, ...}: {
+{
+  collective,
+  profiles,
+  ...
+}: {
   imports =
-    (with (profiles.shared); [
-      networking.common
-      networking.tailscale
+    (with (collective.profiles); [
       fonts.common
       fonts.pragmatapro
+      networking.common
+      networking.ssh-host
+      networking.tailscale
       secrets
-      ssh-host
     ])
-    ++ (with (profiles.system); [
+    ++ (with profiles; [
       emacs
       gui
       system-defaults

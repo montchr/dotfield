@@ -5,26 +5,23 @@
   profiles,
   suites,
   inputs,
-  peers,
   primaryUser,
+  collective,
   ...
 }: let
+  inherit (collective) peers;
   inherit (config.networking) hostName;
 in {
   imports =
     [
       ./hardware-configuration.nix
     ]
-    ++ (with suites;
-      tangible
-      ++ workstation
-      ++ opsbox)
-    ++ (with (profiles.shared); [
+    ++ (with suites; tangible ++ workstation ++ opsbox)
+    ++ (with profiles; [
       boot.refind
       hardware.amd
       login.gdm
       # login.greetd
-      remote-builder
       virtualisation.vm-variant
 
       # Solely for Plex HTPC, which doesn't even work on Wayland...

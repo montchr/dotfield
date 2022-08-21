@@ -1,4 +1,4 @@
-{peers}: {self, ...}: let
+collective @ {peers, ...}: {self, ...}: let
   inherit (self.inputs) digga nix-colors;
   inherit (digga.lib) importExportableModules rakeLeaves;
 

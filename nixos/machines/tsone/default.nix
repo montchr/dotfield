@@ -1,20 +1,20 @@
 {
   config,
   pkgs,
-  peers,
   lib,
   suites,
   profiles,
   primaryUser,
+  collective,
   ...
 }: let
-  inherit (peers.hosts.tsone) ipv4 ipv6;
+  inherit (collective.peers.hosts.tsone) ipv4 ipv6;
   inherit (primaryUser) authorizedKeys;
   interface = "eth0";
 in {
   imports =
     (with suites; server)
-    ++ (with (profiles.shared); [hardware.amd])
+    ++ (with profiles; [hardware.amd])
     ++ [
       ./boot.nix
       ./filesystems.nix

@@ -145,12 +145,11 @@
 
     darwinSystems = [x86_64-darwin aarch64-darwin];
 
-    peers = import ./ops/metadata/peers.nix;
-
-    modules = importExportableModules ./modules;
-    # FIXME: at the moment, most profiles still live here, so we retain these
-    # attrs at the top-level. be careful about naming conflicts...
-    profiles = rakeLeaves ./profiles;
+    collective = {
+      modules = importExportableModules ./modules;
+      peers = import ./ops/metadata/peers.nix;
+      profiles = rakeLeaves ./profiles;
+    };
 
     # FIXME: split this to shared/nixos/darwin-specific
     overlays = [
@@ -206,7 +205,7 @@
       };
 
       lib = import ./lib {
-        inherit peers;
+        inherit (collective) peers;
         lib = digga.lib // nixos-unstable.lib;
       };
 
@@ -220,17 +219,17 @@
         })
       ];
 
-      nixos = import ./nixos {inherit peers modules profiles;};
-      darwin = import ./darwin {inherit peers modules profiles;};
-      home = import ./home {inherit peers;};
+      nixos = import ./nixos collective;
+      darwin = import ./darwin collective;
+      home = import ./home collective;
 
       devshell = ./shell;
 
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        tsone = {
-          hostname = peers.hosts.tsone.ipv4.address;
+        tsone = with (collective.peers.hosts.tsone); {
+          hostname = ipv4.address;
           sshUser = "root";
           fastConnection = true;
           autoRollback = true;

@@ -2,14 +2,11 @@
   config,
   lib,
   pkgs,
-  profiles,
   inputs,
   ...
 }: let
   inherit (config.lib) dotfield;
 in {
-  imports = with (profiles.shared); [core];
-
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't

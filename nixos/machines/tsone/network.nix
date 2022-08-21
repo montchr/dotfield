@@ -2,10 +2,10 @@
   config,
   lib,
   pkgs,
-  peers,
+  collective,
   ...
 }: let
-  inherit (peers.hosts.tsone) ipv4 ipv6;
+  inherit (collective.peers.hosts.tsone) ipv4 ipv6;
   interface = "eth0";
 in {
   # Hetzner uses static IP assignments.

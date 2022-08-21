@@ -3,7 +3,6 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
-  profiles,
   ...
 }: let
   inherit (config.lib.dotfield) fsPath;
@@ -16,8 +15,6 @@ moduleArgs @ {
   # FIXME: is this accurate?
   nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in {
-  imports = with (profiles.shared); [core];
-
   nix = {
     settings = {
       auto-optimise-store = true;
