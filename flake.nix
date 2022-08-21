@@ -42,6 +42,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    nixago = {
+      url = "github:nix-community/nixago";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ##: --- sources ------------------------------------------------------------
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
