@@ -6,12 +6,6 @@
   suites,
   ...
 }: {
-  imports =
-    (with suites; tangible ++ workstation)
-    ++ (with profiles; [
-      login.gdm
-    ]);
-
   boot.loader.systemd-boot.enable = true;
 
   # Will be overridden by the bootstrapIso module.

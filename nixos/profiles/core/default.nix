@@ -56,6 +56,8 @@ in {
     ];
   };
 
+  programs.mtr.enable = true;
+
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh = {

@@ -9,6 +9,8 @@
 
   # Use GnuPG's agent for SSH auth.
   programs.ssh.startAgent = false;
-  programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 }

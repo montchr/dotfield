@@ -12,18 +12,9 @@
   inherit (collective) peers;
   inherit (config.networking) hostName;
 in {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ]
-    ++ (with suites; tangible ++ workstation ++ opsbox)
-    ++ (with profiles; [
-      boot.systemd-boot
-      hardware.amd
-      login.gdm
-      # login.greetd
-      # virtualisation.vm-variant
-    ]);
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";

@@ -3,17 +3,26 @@ collective: {inputs, ...}: let
   inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
+  # FIXME: move to guardian
+  primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
+
   darwinModules = importExportableModules ./modules;
   profiles = rakeLeaves ./profiles;
-  roles = rakeLeaves ./roles;
+  roles = import ./roles {inherit collective profiles;};
+
+  importables = {inherit collective profiles roles primaryUser;};
 in {
+  inherit importables;
+
   imports = [(importHosts ./machines)];
-  importables = {inherit collective profiles roles;};
+
+  hosts.cdotmp = {
+    system = x86_64-darwin;
+  };
+
   hostDefaults = {
     system = aarch64-darwin;
     channelName = "nixos-unstable";
-    # FIXME: intention behind `imports` and `modules` is not clear -- couldn't
-    # the `import`ed modules just be imported to `modules`?
     imports = [collective.modules darwinModules];
     modules = [
       collective.profiles.core
@@ -23,9 +32,5 @@ in {
       # FIXME: migrate to sops
       agenix.nixosModules.age
     ];
-  };
-
-  hosts.cdotmp = {
-    system = x86_64-darwin;
   };
 }

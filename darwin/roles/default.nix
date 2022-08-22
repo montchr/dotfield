@@ -1,9 +1,8 @@
 {
   collective,
   profiles,
-  ...
-}: {
-  imports =
+}: let
+  workstation =
     (with (collective.profiles); [
       fonts.common
       fonts.pragmatapro
@@ -17,4 +16,8 @@
       gui
       system-defaults
     ]);
+in {
+  inherit
+    workstation
+    ;
 }

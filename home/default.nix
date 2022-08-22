@@ -2,17 +2,28 @@ collective @ {peers, ...}: {self, ...}: let
   inherit (self.inputs) digga nix-colors;
   inherit (digga.lib) importExportableModules rakeLeaves;
 
-  modules = importExportableModules ./modules;
+  homeModules = importExportableModules ./modules;
   profiles = rakeLeaves ./profiles;
   roles = import ./roles {inherit profiles;};
-in {
-  imports = [modules];
 
-  # FIXME: what is the point of modules vs imports?
-  modules = [
-    nix-colors.homeManagerModule
-    (_: {imports = [../lib/home];})
+  defaultProfiles = with profiles; [
+    core
+    direnv
+    navi
+    nnn
+    ranger
+    secrets.common
+    tealdeer
+    vim
   ];
+in {
+  imports = [homeModules];
+  modules =
+    defaultProfiles
+    ++ [
+      nix-colors.homeManagerModule
+      (_: {imports = [../lib/home];})
+    ];
 
   importables = {inherit peers profiles roles;};
 

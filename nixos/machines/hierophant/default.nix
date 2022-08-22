@@ -10,12 +10,6 @@
 }: let
   secretsDir = ../../../secrets;
 in {
-  imports = with profiles; [
-    environments.hetzner-cloud
-    # TODO: remove, and use the suite or whatever
-    # networking.tailscale
-  ];
-
   networking.firewall.enable = false;
   networking.firewall.trustedInterfaces = ["enp1s0"];
 

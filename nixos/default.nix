@@ -4,68 +4,73 @@ collective: {inputs, ...}: let
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
   # FIXME: move to guardian
-  primaryUser = {
-    authorizedKeys = import ../secrets/authorized-keys.nix;
-  };
+  primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
 
   nixosModules = importExportableModules ./modules;
   profiles = rakeLeaves ./profiles;
-  roles = rakeLeaves ./roles;
+  roles = import ./roles {inherit collective profiles;};
 
-  suites = {
-    server =
-      (with (collective.profiles); [
-        networking.common
-        networking.tailscale
-        networking.ssh-host
-      ])
-      ++ (with profiles; []);
+  importables = {inherit collective profiles roles primaryUser;};
+in {
+  inherit importables;
 
-    tangible =
-      (with (collective.profiles); [
-        networking.common
-        networking.tailscale
-      ])
+  imports = [(importHosts ./machines)];
+
+  hosts = {
+    bootstrap-graphical.modules =
+      (with roles; graphical ++ tangible ++ workstation)
       ++ (with profiles; [
-        audio
-        bluetooth
-        printers-scanners
-        networking.wifi
+        login.gdm
       ]);
 
-    workstation =
-      suites.tangible
-      ++ (with collective.profiles; [
-        fonts.common
-        fonts.pragmatapro
-        networking.ssh-host
-        secrets
-      ])
+    boschic.modules =
+      (with roles; graphical ++ tangible ++ webdev ++ workstation)
+      ++ (with profiles; [
+        boot.refind
+        hardware.amd
+        login.gdm
+        # login.greetd
+        nvidia
+        virtualisation.vm-variant
+        workstations.flatpak
+      ]);
+
+    hodgepodge.modules =
+      (with roles; graphical ++ tangible ++ workstation)
+      ++ (with profiles; [
+        hidpi
+        login.gdm
+        office
+      ]);
+
+    hierophant.modules = with profiles; [
+      environments.hetzner-cloud
+      # TODO: remove, and use the suite or whatever
+      # networking.tailscale
+    ];
+
+    ryosuke.modules =
+      (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
         boot.systemd-boot
-        gnome-desktop
-        video
-        workstations.common
-        yubikey
-        zoom-us
+        hardware.amd
+        login.gdm
+        # login.greetd
+        # virtualisation.vm-variant
       ]);
 
-    opsbox = with profiles; [
-      virtualisation.libvirtd
-      virtualisation.podman
-      virtualisation.vagrant
-      virtualisation.virtualbox
-    ];
+    tsone.modules =
+      (with roles; server)
+      ++ (with profiles; [hardware.amd]);
   };
-in {
-  imports = [(importHosts ./machines)];
 
   hostDefaults = {
     system = x86_64-linux;
     channelName = "nixos-unstable";
-    # FIXME: intention behind `imports` and `modules` is not clear -- couldn't
-    # the `import`ed modules just be imported to `modules`?
-    imports = [collective.modules nixosModules];
+    imports = [
+      collective.modules
+      nixosModules
+    ];
     modules = [
       collective.profiles.core
       profiles.core
@@ -83,15 +88,4 @@ in {
       agenix.nixosModules.age
     ];
   };
-
-  hosts = {
-    boschic = {};
-    hodgepodge = {};
-    hierophant = {};
-    ryosuke = {};
-    tsone = {};
-    bootstrap-graphical = {};
-  };
-
-  importables = {inherit collective profiles roles suites primaryUser;};
 }

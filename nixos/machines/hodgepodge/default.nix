@@ -7,17 +7,9 @@
   suites,
   ...
 }: {
-  imports =
-    (with suites; tangible ++ workstation)
-    ++ (with profiles; [
-      hidpi
-      login.gdm
-      office
-      # nvidia
-    ])
-    ++ [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

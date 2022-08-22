@@ -1,16 +1,5 @@
 {profiles}:
 with profiles; let
-  base = [
-    core
-    direnv
-    navi
-    nnn
-    ranger
-    secrets.common
-    tealdeer
-    vim
-  ];
-
   developer = [
     dhall
     direnv
@@ -83,4 +72,5 @@ with profiles; let
       ++ trusted
       ++ webdev;
   };
-in (builtins.mapAttrs (n: v: v ++ base) roles)
+in
+  roles

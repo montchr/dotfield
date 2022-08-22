@@ -12,37 +12,9 @@
   inherit (collective) peers;
   inherit (config.networking) hostName;
 in {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ]
-    ++ (with suites; tangible ++ workstation ++ opsbox)
-    ++ (with profiles; [
-      boot.refind
-      hardware.amd
-      login.gdm
-      # login.greetd
-      virtualisation.vm-variant
-
-      # Solely for Plex HTPC, which doesn't even work on Wayland...
-      workstations.flatpak
-
-      # Why use the proprietary drivers? While things *generally* work, I
-      # encountered frustrating issues:
-      #
-      # - Video playback performance was unacceptable.
-      #
-      # - Upon connecting/disconnecting displays while logged in, the session
-      # would lock. Although both displays would be available in the login
-      # manager, upon logging back in, neither display would work, with both of
-      # them displaying black. I could still SSH in, but could not figure out
-      # how to recover without rebooting.
-      nvidia
-
-      # FIXME: only apply this to the proper output -- will not currently allow
-      # configuring multiple outputs.
-      # hardware.displays.LG-27GL850-B
-    ]);
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
