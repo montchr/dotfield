@@ -5,6 +5,7 @@ keys:
 
   - &boschic age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl
   - &hodgepodge age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w
+  - &ryosuke age1s2wwls2ltcjqsrlsrh4sn7q5u7xkdu6q7dtr3mk8z9mqmfh0kyvs5qx3ax
   - &tsone age1rza57uagvpnmsu6kras64ajpl48f3wcugyydvvf3g5acj0mulyasw4u665
 
 # Creation rules are evaluated sequentially. The first match wins.
@@ -21,6 +22,13 @@ creation_rules:
       - age:
           - *cdom_age
           - *hodgepodge
+  - path_regex: nixos/machines/ryosuke/secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *cdom_age
+          # TODO: remove when ryosuke is stable
+          - *boschic
+          - *ryosuke
   - path_regex: nixos/machines/tsone/secrets/[^/]+\.yaml$
     key_groups:
       - age:
@@ -33,6 +41,7 @@ creation_rules:
           - *cdom_age
           - *boschic
           - *hodgepodge
+          - *ryosuke
           - *tsone
 
 ## Reference:

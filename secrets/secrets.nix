@@ -10,7 +10,8 @@ let
 
   workstations = with hostKeys;
     boschic
-    ++ hodgepodge;
+    ++ hodgepodge
+    ++ ryosuke;
 
   allMachines = servers ++ workstations;
 in {
