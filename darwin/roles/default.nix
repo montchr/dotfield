@@ -13,7 +13,10 @@
     ])
     ++ (with profiles; [
       emacs
-      gui
+      graphical.common
+      # graphical.hammerspoon
+      # graphical.sketchybar
+      graphical.yabai
       system-defaults
     ]);
 in {

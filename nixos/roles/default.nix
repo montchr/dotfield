@@ -10,10 +10,10 @@
     ])
     ++ (with profiles; [
       boot.systemd-boot
-      desktop
-      gnome-desktop
-      video
-      zoom-us
+      desktop.common
+      desktop.gnome-desktop
+      desktop.video
+      desktop.zoom-us
     ]);
 
   server =
@@ -30,9 +30,9 @@
       networking.tailscale
     ])
     ++ (with profiles; [
-      audio
-      bluetooth
-      printers-scanners
+      hardware.audio
+      hardware.bluetooth
+      hardware.printers-scanners
       networking.wifi
     ]);
 
@@ -50,7 +50,7 @@
     ])
     ++ (with profiles; [
       boot.systemd-boot
-      yubikey
+      hardware.yubikey
     ]);
 in {
   inherit

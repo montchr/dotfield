@@ -27,27 +27,26 @@ in {
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
         boot.refind
+        desktop.flatpak
         hardware.amd
         login.gdm
         # login.greetd
-        nvidia
+        hardware.nvidia
         virtualisation.vm-variant
-        workstations.flatpak
       ]);
 
     hodgepodge.modules =
       (with roles; graphical ++ tangible ++ workstation)
       ++ (with profiles; [
-        hidpi
+        hardware.hidpi
         login.gdm
-        office
       ]);
 
-    hierophant.modules = with profiles; [
-      environments.hetzner-cloud
-      # TODO: remove, and use the suite or whatever
-      # networking.tailscale
-    ];
+    hierophant.modules =
+      (with roles; server)
+      ++ (with profiles; [
+        environments.hetzner-cloud
+      ]);
 
     ryosuke.modules =
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
@@ -61,7 +60,9 @@ in {
 
     tsone.modules =
       (with roles; server)
-      ++ (with profiles; [hardware.amd]);
+      ++ (with profiles; [
+        hardware.amd
+      ]);
   };
 
   hostDefaults = {
