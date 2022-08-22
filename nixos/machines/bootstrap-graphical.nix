@@ -19,7 +19,7 @@
   };
 
   home-manager.users.nixos = hmArgs: {
-    imports = with hmArgs.roles; graphical;
+    imports = with hmArgs.roles; graphical ++ tangible ++ developer;
   };
 
   system.stateVersion = "22.05";
