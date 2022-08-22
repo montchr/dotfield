@@ -17,18 +17,10 @@ in {
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
-  boot.supportedFilesystems = ["ext4" "btrfs"];
+  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.initrd.supportedFilesystems = ["btrfs"];
+  boot.supportedFilesystems = ["btrfs"];
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-bd80ec2d-c0ae-4132-b0c2-4cd10bf59a78".device = "/dev/disk/by-uuid/bd80ec2d-c0ae-4132-b0c2-4cd10bf59a78";
-  boot.initrd.luks.devices."luks-bd80ec2d-c0ae-4132-b0c2-4cd10bf59a78".keyFile = "/crypto_keyfile.bin";
 
   virtualisation.vmVariant = {
     virtualisation.graphics = false;
@@ -64,10 +56,10 @@ in {
       #net = peers.networks.${host.network};
       #interface = "eth0";
     in {
-      networkmanager.enable = true;
-      wireless.enable = true; # Enables wireless support via wpa_supplicant.
-      useDHCP = true;
-      usePredictableInterfaceNames = false;
+      #networkmanager.enable = true;
+      #wireless.enable = true; # Enables wireless support via wpa_supplicant.
+      #useDHCP = true;
+      #usePredictableInterfaceNames = false;
 
       firewall = {
         enable = true;
