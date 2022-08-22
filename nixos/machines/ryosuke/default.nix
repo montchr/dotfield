@@ -110,7 +110,12 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  home-manager.users.cdom = hmArgs: {imports = with hmArgs.roles; workstation;};
+  home-manager.users.cdom = hmArgs: {
+    imports = with hmArgs.roles; workstation;
+    home.stateVersion = "22.05";
+    # FIXME: this must be set everywhere!
+    programs.home-manager.enable = true;
+  };
 
   programs.htop.enable = true;
 }
