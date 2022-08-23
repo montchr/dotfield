@@ -27,6 +27,8 @@
     };
   };
 in {
+  # FIXME: Doesn't this contradict `sops.age.keyFile`? it's for user-specific
+  # key paths, but shouldn't that be handled in home-manager?
   environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
 
   environment.systemPackages = with pkgs; [
@@ -42,7 +44,8 @@ in {
     # (mkEspansoMatchesSecret "work")
   ];
 
-  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  # TODO: generate automatically? see `sops.age.generateKey`
+  # https://github.com/Mic92/sops-nix/blob/6068774a8e85fea4b0177efcc90afb3c3b74430b/modules/sops/default.nix#L254-L262
   sops.age.keyFile = "/var/lib/sops-nix/key";
 
   # This can be overridden per-host for localised secrets.
