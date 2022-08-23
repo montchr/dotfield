@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./root.nix
     ./seadoom.nix
     ./zortflower.nix
   ];
