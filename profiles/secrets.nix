@@ -42,7 +42,9 @@ in {
     # (mkEspansoMatchesSecret "work")
   ];
 
-  sops.defaultSopsFile = ../secrets/global.secrets.yaml;
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   sops.age.keyFile = "/var/lib/sops-nix/key";
+
+  # This can be overridden per-host for localised secrets.
+  sops.defaultSopsFile = lib.mkDefault ../secrets/global.secrets.yaml;
 }
