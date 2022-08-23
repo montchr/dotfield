@@ -26,7 +26,6 @@ in {
     optimise.automatic = true;
   };
 
-  boot.loader.systemd-boot.consoleMode = "auto";
   boot.cleanTmpDir = lib.mkDefault true;
 
   environment.shellAliases = {

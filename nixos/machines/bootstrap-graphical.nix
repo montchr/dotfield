@@ -6,8 +6,6 @@
   suites,
   ...
 }: {
-  boot.loader.systemd-boot.enable = true;
-
   # Will be overridden by the bootstrapIso module.
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 

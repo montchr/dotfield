@@ -51,7 +51,6 @@ in {
     ryosuke.modules =
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
-        boot.systemd-boot
         hardware.amd
         login.gdm
         # login.greetd
@@ -62,6 +61,10 @@ in {
       (with roles; server)
       ++ (with profiles; [
         hardware.amd
+
+        # This host has Hetzner Online UEFI boot enabled in BIOS.
+        # Normally Hetzner Online would require booting with GRUB.
+        boot.systemd-boot
       ]);
   };
 

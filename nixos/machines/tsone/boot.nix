@@ -71,20 +71,5 @@ in {
     };
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.grub = {
-    enable = false;
-    version = 2;
-    efiSupport = true;
-    device = "nodev";
-    copyKernels = true;
-    # mirroredBoots = [
-    #   {
-    #     devices = [config.fileSystems."/boot-fallback".device];
-    #     path = "/boot-fallback";
-    #   }
-    # ];
-  };
-
   boot.extraModulePackages = [];
 }
