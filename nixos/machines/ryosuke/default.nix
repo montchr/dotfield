@@ -60,7 +60,4 @@ in {
       };
     }
   );
-
-  # FIXME: just make this part of core profile
-  programs.htop.enable = true;
 }

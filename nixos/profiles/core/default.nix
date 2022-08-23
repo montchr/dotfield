@@ -56,6 +56,7 @@ in {
     ];
   };
 
+  programs.htop.enable = true;
   programs.mtr.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
