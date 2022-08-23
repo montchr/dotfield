@@ -26,8 +26,6 @@ creation_rules:
     key_groups:
       - age:
           - *cdom_age
-          # TODO: remove when ryosuke is stable
-          - *boschic
           - *ryosuke
   - path_regex: nixos/machines/tsone/secrets/[^/]+\.yaml$
     key_groups:
