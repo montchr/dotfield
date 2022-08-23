@@ -31,6 +31,7 @@
       "wheel"
       "seadome"
       "secrets"
+      "keys"
       "video"
       "networkmanager"
     ];

@@ -95,6 +95,7 @@ in {
         "audio"
         "seadome"
         "secrets"
+        "keys"
       ]
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
       ++ (lib.optional config.services.mysql.enable "mysql")
