@@ -5,7 +5,6 @@
   profiles,
   suites,
   inputs,
-  primaryUser,
   collective,
   ...
 }: let
@@ -14,6 +13,8 @@
 in {
   imports = [
     ./hardware-configuration.nix
+    ./profiles/sops.nix
+    ./users
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -60,55 +61,6 @@ in {
     }
   );
 
-  ### === users ================================================================
-
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cdom";
-
-  users.mutableUsers = false;
-  users.users.root.initialHashedPassword = "$6$0H8NbKLF5uDD.rvG$S46H2N8W0wKiRRCZOlE5QXBxZCd9CEU0rRi5kZdLMfvcMaYGMC9OEojjAW9i/3c6vRktxQnSUwv4xIZlOOjlB/";
-  users.users.cdom = {
-    uid = 1000;
-    isNormalUser = true;
-    initialHashedPassword = "$6$XTIAlt33Lwfe309d$Zbthi9TYLdnxxKawGXzzX2QawlWkssJkYwP5NsxVb4430IRWz6TEtQfGdp5A9If5kRgj3BS2aacRsFxprfyKy.";
-    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    extraGroups =
-      [
-        "wheel"
-        "video"
-        "audio"
-        "seadome"
-        "secrets"
-        "keys"
-      ]
-      ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
-      ++ (lib.optional config.services.mysql.enable "mysql")
-      ++ (lib.optional config.virtualisation.docker.enable "docker")
-      ++ (lib.optional config.virtualisation.podman.enable "podman")
-      ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
-      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
-    shell = pkgs.fish;
-  };
-
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "cdom";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  home-manager.users.cdom = hmArgs: {
-    imports = with hmArgs.roles; workstation;
-    home.stateVersion = "22.05";
-    # FIXME: this must be set everywhere!
-    programs.home-manager.enable = true;
-  };
-
+  # FIXME: just make this part of core profile
   programs.htop.enable = true;
 }
