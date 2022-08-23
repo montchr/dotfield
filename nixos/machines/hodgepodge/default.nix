@@ -9,6 +9,8 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./profiles/sops.nix
+    ./users
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -20,34 +22,6 @@
 
   services.printing.enable = true;
   hardware.facetimehd.enable = true;
-
-  users.mutableUsers = false;
-  users.users.seadoom = {
-    isNormalUser = true;
-    uid = 1000;
-    initialHashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
-    hashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
-    extraGroups = [
-      "wheel"
-      "seadome"
-      "secrets"
-      "keys"
-      "video"
-      "networkmanager"
-    ];
-    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    shell = pkgs.zsh;
-  };
-
-  home-manager.users.seadoom = hmArgs: {
-    imports = with hmArgs.roles; workstation;
-
-    home.packages = with pkgs; [
-      teams
-    ];
-
-    programs.kitty.settings."font_size" = "11.0";
-  };
 
   programs.htop.enable = true;
 
