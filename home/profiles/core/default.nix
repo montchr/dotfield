@@ -6,6 +6,7 @@ moduleArgs @ {
 }: let
   inherit (config.home) username;
   inherit (config.lib) dotfield;
+  inherit (config.lib.dotfield.features) hasPragPro;
 in {
   home.packages = with pkgs; [
     ## === Sysadmin ===
@@ -77,15 +78,9 @@ in {
   home.sessionVariables = {
     DOTFIELD_DIR = dotfield.fsPath;
 
-    # Default is "1". But when typeset in PragmataPro that leaves no space
-    # between the icon and its filename.
-    # FIXME: enable when pragpro enabled
-    # EXA_ICON_SPACING = "2";
-
+    LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
     Z_OWNER = username;
-
-    LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
 
     # Docker
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
@@ -106,5 +101,6 @@ in {
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
 
+  # FIXME: probably not a nice thing to do to all of myselves
   home.stateVersion = lib.mkForce "22.05";
 }

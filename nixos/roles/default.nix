@@ -5,8 +5,6 @@
   graphical =
     (with collective.profiles; [
       fonts.common
-      # TODO: remove?
-      # fonts.pragmatapro
     ])
     ++ (with profiles; [
       boot.systemd-boot
