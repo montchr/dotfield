@@ -6,9 +6,15 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux system;
+  # TODO: impermanence
+  hasImpermanence = false;
 
   cfg = config.age;
   secretsDir = ../secrets;
+  sshPath =
+    if hasImpermanence
+    then "/persist/etc/ssh"
+    else "/etc/ssh";
 
   # nix-darwin does not support the `users.<name>.extraGroups` option, but
   # that's not a problem since we're only using darwin systems as a single
@@ -43,6 +49,8 @@ in {
     (mkEspansoMatchesSecret "personal")
     # (mkEspansoMatchesSecret "work")
   ];
+
+  sops.age.sshKeyPaths = ["${sshPath}/ssh_host_ed25519_key"];
 
   # This can be overridden per-host for localised secrets.
   sops.defaultSopsFile = lib.mkDefault ../secrets/global.secrets.yaml;
