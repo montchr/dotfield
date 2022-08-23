@@ -44,10 +44,6 @@ in {
     # (mkEspansoMatchesSecret "work")
   ];
 
-  # TODO: generate automatically? see `sops.age.generateKey`
-  # https://github.com/Mic92/sops-nix/blob/6068774a8e85fea4b0177efcc90afb3c3b74430b/modules/sops/default.nix#L254-L262
-  sops.age.keyFile = "/var/lib/sops-nix/key";
-
   # This can be overridden per-host for localised secrets.
   sops.defaultSopsFile = lib.mkDefault ../secrets/global.secrets.yaml;
 }
