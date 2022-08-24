@@ -78,6 +78,7 @@ in {
     modules = [
       collective.profiles.core
       profiles.core
+      profiles.boot.common
       home-manager.nixosModules.home-manager
 
       # FIXME: upstream module causes a huge number of unnecessary
