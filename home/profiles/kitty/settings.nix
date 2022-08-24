@@ -26,7 +26,7 @@ in {
   #: }}}
 
   #: Window layout {{{
-  remember_window_size = false;
+  remember_window_size = true;
   initial_window_width = "640";
   initial_window_height = "800";
   window_padding_width = "10";
