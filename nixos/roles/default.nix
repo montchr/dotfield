@@ -30,6 +30,7 @@
     ++ (with profiles; [
       hardware.audio
       hardware.bluetooth
+      hardware.keyboard
       hardware.printers-scanners
       networking.wifi
     ]);
