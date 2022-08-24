@@ -48,12 +48,13 @@ in {
 
   # Install Doom imperatively to make use of its CLI.
   # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
-  # due to the number of oddities it introduces.
+  # due to the number of oddities it introduces (though I haven't tried it).
   home.activation.installDoomEmacs = let
     git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
   in
     entryAfter ["writeBoundary"] ''
       if [[ ! -f "${emacsDir}/README.md" ]]; then
+        mkdir -p "${emacsDir}"
         cd ${emacsDir}
         ${git} init --initial-branch master
         ${git} remote add origin ${doomRepoUrl}
