@@ -15,10 +15,6 @@ in {
       manual.json.enable = true;
       news.display = "show";
       xdg.enable = true;
-
-      # TODO: what benefit does symlinking this provide?
-      # xdg.configFile."nix/registry.json".text =
-      #   config.environment.etc."nix/registry.json".text;
       home.stateVersion = lib.mkDefault "22.05";
     }
   ];
