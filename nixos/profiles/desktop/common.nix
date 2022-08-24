@@ -24,6 +24,8 @@ in {
 
   programs.gnupg.agent.enableBrowserSocket = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Hide cursor upon keystroke.
   services.unclutter = {
     enable = true;

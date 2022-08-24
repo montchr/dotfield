@@ -62,8 +62,6 @@ in {
   programs.htop.enable = true;
   programs.mtr.enable = true;
 
-  security.sudo.wheelNeedsPassword = false;
-
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
     enable = lib.mkForce true;
