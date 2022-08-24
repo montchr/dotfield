@@ -32,15 +32,21 @@ in {
     # nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
   };
 
+  # Essential tools for the best of times and the worst of times.
   environment.systemPackages = with pkgs; [
+    bat
+    curl
     dosfstools
-    efibootmgr
+    fd
+    git
     gptfdisk
     inetutils
     iputils
-    mtr
+    less
     pciutils
+    ripgrep
     sysstat
+    tldr
     usbutils
     utillinux
   ];

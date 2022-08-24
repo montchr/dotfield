@@ -21,16 +21,9 @@
   services.printing.enable = true;
   hardware.facetimehd.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    _1password-gui
-    _1password
-  ];
-
+  # FIXME
   networking.firewall.enable = false;
 
-  system.stateVersion = "21.11"; # Did you read the comment?
-
   nixpkgs.config.allowUnfree = true;
+  system.stateVersion = "21.11"; # Did you read the comment?
 }
