@@ -6,7 +6,10 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
+  inherit (config.lib.dag) entryAfter;
+
   passwordStorePath = config.xdg.dataHome + "/pass";
+  passwordStoreRemoteUrl = "git@git.sr.ht:~montchr/password-store";
 in
   lib.mkIf config.programs.gpg.enable {
     programs.password-store = {
@@ -25,7 +28,16 @@ in
     programs.browserpass.enable = true;
     programs.browserpass.browsers = ["firefox"];
 
-    services.password-store-sync.enable = true;
+    # Ensure the password store exists.
+    #
+    # Initially, I tried using `services.git-sync` to clone this automatically
+    # but that didn't work -- perhaps I misunderstood its usage.
+    home.activation.ensurePasswordStore = entryAfter ["writeBoundary"] ''
+      if [[ ! -d "${passwordStorePath}" ]]; then
+        $DRY_RUN_CMD ${pkgs.git}/bin/git clone ${passwordStoreRemoteUrl} ${passwordStorePath}
+      fi
+    '';
+
     services.password-store-sync.enable = !isDarwin;
 
     # FIXME: needs further configuration... does not play well with 1password,
