@@ -18,6 +18,11 @@ creation_rules:
       - age:
           - *cdom_age
           - *boschic
+  - path_regex: nixos/machines/hierophant/secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *cdom_age
+          - *hierophant
   - path_regex: nixos/machines/hodgepodge/secrets/[^/]+\.yaml$
     key_groups:
       - age:
@@ -39,6 +44,7 @@ creation_rules:
       - age:
           - *cdom_age
           - *boschic
+          - *hierophant
           - *hodgepodge
           - *ryosuke
           - *tsone

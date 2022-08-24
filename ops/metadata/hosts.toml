@@ -27,6 +27,7 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzpSe7IG82Fl/djgmhclz1QPtduts0JOm9
 
 
 ## === HIEROPHANT ===
+
 [hierophant]
 network = "seadome"
 keys = [
