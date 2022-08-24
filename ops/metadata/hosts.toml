@@ -53,14 +53,14 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPhDD8yaBeZNP0Qv2b4DAx2QUlu+YX41zSod8k8dS8b root@ryosuke",
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfa+BY8CbQBAYXZGRz+x7FxG2QxQCOqnRgg6D9jsUpZjI2So0KIX0h1xxdCiGRr0ZKgKqn+dVln/eAnbPkcIg7QfJjYdMNDgZef89lU+EbDXp4n4kfH1tyRZq273rR6pu6PthKyD6GxCnfMPZmTe9kR3ndDWEz++pS0ChMFRQsUy+zTnTxj/b8O6eTHRRQDYoCvETc1kKfoH/O852/U2hXcQPYR0qpH1TF1nzJhC5sStLWiAws2g2I+53e7XAluBCyqQBPjPlENwVTPH+riTTvUNEg5p7KmZodK3grD1FylvxA/E1iR6PQJT++PkczQyguI51SjMHng9rSFHDn24jT3/g8u2tHuBfKZV8cV6JvX07tUF8Fn1Mmo6Pas0WjJmvx7aFBt2LI/jJ0CYMqcsND84Z6qZQ3f18mQG/pS3N4yNmsVW6XDvMQ+sIU1tJgGlZrbT6ITJDvD4MEyC7UeT1Oy9yS1+IyJfSX48RqHxdeoWXARm58m/rzemx7m7q2UQXhzLlL1jdZwcDsXXa5AOuNWCsmZi6gIr7mVEaVIrXl7S08NGtU8QRmZFE0XA+bbCJP6iL0Gjos6HZvaqRk221coX1idMP8+uFSQhpzDYexF8CHM5j+anO6J/dpUjsy0cgvITnF1gkbv1YkYGSeIC2rrbQPhUJ99Pp6jfN9/5UxFw== root@ryosuke",
 ]
-age = "age1s2wwls2ltcjqsrlsrh4sn7q5u7xkdu6q7dtr3mk8z9mqmfh0kyvs5qx3ax"
+age = "age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak"
 
 [ryosuke.ipv4]
 address = "192.168.1.217"
 
 [ryosuke.users.cdom]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"]
-age = "age1fpjz2x5vlrtqr5hqy4mgmq6xf3uh3epalwek0shur574rm4hngks97taru"
+age = "age19une89quzx4jt36hndrdp5ghr43845dndctfta206f7ts5ucsyjqt0l3pm"
 
 
 ## === BOSCHIC ===
