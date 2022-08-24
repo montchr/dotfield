@@ -33,9 +33,12 @@
     };
   };
 in {
-  # FIXME: Doesn't this contradict `sops.age.keyFile`? it's for user-specific
-  # key paths, but shouldn't that be handled in home-manager?
-  environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
+  home-manager.sharedModules = [
+    {
+      # Allow running sops as a normal user without sudo.
+      home.sessionVariables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
+    }
+  ];
 
   environment.systemPackages = with pkgs; [
     agenix
@@ -45,6 +48,7 @@ in {
 
   users.groups.secrets.members = ["root" "cdom" "seadoom" "xtallos"];
 
+  # FIXME: avoid unnecessary mkmerge (it makes debugging harder)
   age.secrets = lib.mkMerge [
     (mkEspansoMatchesSecret "personal")
     # (mkEspansoMatchesSecret "work")
