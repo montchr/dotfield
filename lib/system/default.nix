@@ -40,6 +40,8 @@ in {
     fsPath = "/etc/dotfield";
 
     sys = {
+      hasHidpi = config.hardware.video.hidpi.enable or false;
+
       # Whether a NixOS system has enabled the proprietary NVIDIA drivers.
       #
       # FIXME: The default `false` value indicates that we cannot know with

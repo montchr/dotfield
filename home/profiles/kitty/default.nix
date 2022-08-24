@@ -8,11 +8,11 @@ moduleArgs @ {
 }: let
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-  inherit (config.lib.dotfield.features) hasTwm hasPragPro;
+  inherit (config.lib.dotfield) features;
 
   socket = "unix:/tmp/kitty-socket";
 
-  settings = import ./settings.nix {inherit lib hasTwm socket;};
+  settings = import ./settings.nix {inherit lib features socket;};
   colors = import ./colors.nix config.colorscheme;
 
   # via home-manager kitty module
@@ -77,7 +77,7 @@ in
         enable = true;
         settings = settings // colors;
         extraConfig = ''
-          ${lib.optionalString hasPragPro pragmataProExtras}
+          ${lib.optionalString features.hasPragPro pragmataProExtras}
         '';
       };
 

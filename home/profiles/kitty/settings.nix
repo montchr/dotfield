@@ -1,13 +1,15 @@
 {
   lib,
-  hasTwm,
+  features,
   socket,
-}: {
+}: let
+  inherit (features) hasHidpi hasTwm;
+in {
   font_family = "Iosevka Xtal Term";
-  font_size = lib.mkDefault "16.0";
-  adjust_line_height = "110%";
-  # TODO: why?
-  box_drawing_scale = "0.001, 1, 1.5, 2";
+  font_size =
+    if hasHidpi
+    then "14.0"
+    else "16.0";
 
   #: Cursor customization {{{
   cursor_shape = "beam";
