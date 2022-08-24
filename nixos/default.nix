@@ -52,6 +52,7 @@ in {
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
         hardware.amd
+        hardware.hidpi
         login.gdm
         # login.greetd
         # virtualisation.vm-variant
