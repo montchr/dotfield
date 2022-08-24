@@ -26,8 +26,6 @@ in {
     optimise.automatic = true;
   };
 
-  boot.cleanTmpDir = lib.mkDefault true;
-
   environment.shellAliases = {
     # Fix `nixos-option` for flake compatibility
     # FIXME: it's broken
