@@ -10,7 +10,6 @@
   users.users.cdom = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$XTIAlt33Lwfe309d$Zbthi9TYLdnxxKawGXzzX2QawlWkssJkYwP5NsxVb4430IRWz6TEtQfGdp5A9If5kRgj3BS2aacRsFxprfyKy.";
     passwordFile = config.sops.secrets."users/cdom/passphrase".path;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups =
