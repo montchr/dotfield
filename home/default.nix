@@ -33,6 +33,7 @@ in {
         developer ++ remote;
       home.username = hmArgs.lib.mkForce "cdom";
       home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
+      home.stateVersion = "22.05";
     };
 
     "cdom@dev.klein.temple.edu" = hmArgs: {
@@ -40,6 +41,7 @@ in {
         developer ++ remote;
       home.username = hmArgs.lib.mkForce "cdom";
       home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
+      home.stateVersion = "22.05";
     };
   };
 }

@@ -100,7 +100,4 @@ in {
     # https://github.com/mfaerevaag/wd
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
-
-  # FIXME: probably not a nice thing to do to all of myselves
-  home.stateVersion = lib.mkForce "22.05";
 }
