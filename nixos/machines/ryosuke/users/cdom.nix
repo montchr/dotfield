@@ -3,11 +3,15 @@
   lib,
   pkgs,
   primaryUser,
+  inputs,
   ...
 }: let
+  inherit (inputs.digga.lib) rakeLeaves;
+  inherit (config.lib.dotfield) srcPath;
 
   username = "cdom";
 
+  ownProfiles = rakeLeaves (srcPath + "/home/users/${username}/profiles");
 in {
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 
@@ -43,7 +47,9 @@ in {
   systemd.services."autovt@tty1".enable = false;
 
   home-manager.users.${username} = hmArgs: {
-    imports = with hmArgs.roles; workstation;
+    imports =
+      (with hmArgs.roles; workstation)
+      ++ (with ownProfiles; [work]);
     home.stateVersion = "22.05";
     # FIXME: this must be set everywhere!
     programs.home-manager.enable = true;
