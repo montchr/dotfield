@@ -15,8 +15,7 @@ in {
   programs.ssh.matchBlocks = lib.mkAfter {
     "kweb-prod-www" = {
       hostname = "67.225.164.90";
-      # FIXME
-      # port = 522;
+      port = 5623;
       user = "cdom";
     };
     "kweb-prod-db" = {
