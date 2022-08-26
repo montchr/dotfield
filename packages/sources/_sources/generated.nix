@@ -9,6 +9,17 @@
       sha256 = "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=";
     };
   };
+  cpanel-cli = {
+    pname = "cpanel-cli";
+    version = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+    src = fetchFromGitHub ({
+      owner = "layfellow";
+      repo = "cpanel-cli";
+      rev = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+      fetchSubmodules = false;
+      sha256 = "sha256-EhlL6xamqvTqCAq8k1XrxzgbqhdpG0TpFVYzJSNqpfE=";
+    });
+  };
   fish-autopair = {
     pname = "fish-autopair";
     version = "1.0.4";

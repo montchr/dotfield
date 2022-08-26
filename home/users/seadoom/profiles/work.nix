@@ -6,6 +6,9 @@
 }: let
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 in {
+  home.packages = with pkgs; [
+    cpanel-cli
+  ];
   programs.firefox.extensions = with firefox-addons; [
     lastpass-password-manager
   ];

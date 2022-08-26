@@ -13,6 +13,25 @@
         },
         "version": "0.3.20220607"
     },
+    "cpanel-cli": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cpanel-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "layfellow",
+            "repo": "cpanel-cli",
+            "rev": "c2419f32ebf31fa4f7122ddf110df0a8b9e44925",
+            "sha256": "sha256-EhlL6xamqvTqCAq8k1XrxzgbqhdpG0TpFVYzJSNqpfE=",
+            "type": "github"
+        },
+        "version": "c2419f32ebf31fa4f7122ddf110df0a8b9e44925"
+    },
     "fish-autopair": {
         "cargoLocks": null,
         "extract": null,
