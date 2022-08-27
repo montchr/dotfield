@@ -16,7 +16,7 @@ in {
 }
 # { config, lib, pkgs, ... }:
 # let
-#   inherit (pkgs.lib.our) mkOpt mkOpt' mkBoolOpt;
+#   inherit (lib.dotfield) mkOpt mkOpt' mkBoolOpt;
 #   t = with lib.types; either str path;
 # in
 # {

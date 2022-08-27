@@ -145,7 +145,18 @@
 
     darwinSystems = [x86_64-darwin aarch64-darwin];
 
+    lib = nixos-unstable.lib.extend (lfinal: lprev: {
+      # FIXME: should not be required for upstream digga to function...
+      digga = inputs.digga.lib;
+      dotfield = import ./lib {
+        inherit inputs;
+        inherit (collective) peers;
+        lib = lfinal;
+      };
+    });
+
     collective = {
+      inherit lib;
       modules = importExportableModules ./modules;
       peers = import ./ops/metadata/peers.nix;
       profiles = rakeLeaves ./profiles;
@@ -168,6 +179,8 @@
         inputs
         supportedSystems
         ;
+
+      lib = lib.dotfield;
 
       channelsConfig.allowUnfree = true;
 
@@ -204,18 +217,10 @@
         nixpkgs-trunk = {};
       };
 
-      lib = import ./lib {
-        inherit (collective) peers;
-        lib = digga.lib // nixos-unstable.lib;
-      };
-
       sharedOverlays = [
         (final: prev: {
           __dontExport = true;
-          inherit inputs;
-          lib = prev.lib.extend (lfinal: lprev: {
-            our = self.lib;
-          });
+          inherit inputs lib;
         })
       ];
 

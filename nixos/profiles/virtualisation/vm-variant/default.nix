@@ -38,7 +38,7 @@ in {
     # Preserve most of the host machine's peer config but override networking.
     nixos-vm.peerConfig =
       lib.mkDefault
-      ((lib.our.peers.getHost config.networking.hostName)
+      ((lib.dotfield.peers.getHost config.networking.hostName)
         // {
           network = "local";
           tailscale = null;

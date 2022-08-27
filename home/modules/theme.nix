@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our) mkOpt;
-  inherit (pkgs.lib.types) int str;
+  inherit (lib.dotfield) mkOpt;
+  inherit (lib.types) int str;
 
   cfg = config.theme;
   normalWeight = 400;

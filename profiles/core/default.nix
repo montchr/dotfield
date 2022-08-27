@@ -17,7 +17,7 @@ in {
   ];
 
   # TODO: can this be merged with the 'dotfield' lib?
-  lib.our = self.lib;
+  # lib.dotfield = self.lib;
 
   time.timeZone = "America/New_York";
 

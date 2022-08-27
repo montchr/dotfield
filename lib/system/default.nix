@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib.our) treesWithEnabledLeaf;
+  inherit (lib.dotfield) treesWithEnabledLeaf;
 
   /*
   hasEnabledModule :: [String] -> AttrSet -> Bool
