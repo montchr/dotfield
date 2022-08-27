@@ -12,7 +12,6 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
-    nixlib.url = "github:nix-community/nixpkgs.lib";
 
     ##: --- utilities ----------------------------------------------------------
 
@@ -92,7 +91,6 @@
     flake-utils,
     gitignore,
     home-manager,
-    nixlib,
     nix-colors,
     nix-dram,
     nixos-generators,
