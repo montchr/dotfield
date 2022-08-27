@@ -48,3 +48,9 @@ fetch.pypi = "hug"
 [orgparse]
 src.pypi = "orgparse"
 fetch.pypi = "orgparse"
+
+##: --- section of unfortunate circumstance ---
+
+[cpanel-cli]
+src.git = "https://github.com/layfellow/cpanel-cli"
+fetch.github = "layfellow/cpanel-cli"

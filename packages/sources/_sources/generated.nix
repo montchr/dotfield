@@ -9,6 +9,17 @@
       sha256 = "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=";
     };
   };
+  cpanel-cli = {
+    pname = "cpanel-cli";
+    version = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+    src = fetchFromGitHub ({
+      owner = "layfellow";
+      repo = "cpanel-cli";
+      rev = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+      fetchSubmodules = false;
+      sha256 = "sha256-EhlL6xamqvTqCAq8k1XrxzgbqhdpG0TpFVYzJSNqpfE=";
+    });
+  };
   fish-autopair = {
     pname = "fish-autopair";
     version = "1.0.4";
@@ -22,14 +33,14 @@
   };
   fish-fifc = {
     pname = "fish-fifc";
-    version = "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca";
+    version = "4e71328f18182e7c538c38396ef293a7c6b9ad3c";
     src = fetchgit {
       url = "https://github.com/gazorby/fifc";
-      rev = "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca";
+      rev = "4e71328f18182e7c538c38396ef293a7c6b9ad3c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-NIEyWkO+IVSv0NQz/otwPF5NdwheCz+HTs7YJGBdgJU=";
+      sha256 = "sha256-uwUE9oXy13ohHzT+3bGYCK/XgSAPOJm6/9KglX79VDQ=";
     };
   };
   fish-replay = {
