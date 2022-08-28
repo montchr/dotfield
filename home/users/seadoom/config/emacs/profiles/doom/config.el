@@ -30,6 +30,18 @@
 
 ;; === buffers =================================================================
 
+;; Keep the minibuffer in a different frame (only for `read-from-minibuffer').
+;; via https://github.com/elken/doom/commit/765563e089b8b92bd21368100b84e042edb9c529
+(use-package! mini-frame
+  :hook (doom-init-ui-hook . mini-frame-mode)
+  :init
+  (custom-set-variables
+   '(mini-frame-show-parameters
+     '((top . 10)
+       (width . 0.7)
+       (left . 0.5)
+       (no-accept-focus . t)))))
+
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
 (setq! doom-fallback-buffer-name "► Doom"

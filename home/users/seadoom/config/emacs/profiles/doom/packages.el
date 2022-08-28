@@ -23,6 +23,7 @@
 
 (package! fontaine)
 (package! ligature)
+(package! mini-frame)
 (package! modus-themes)
 (package! svg-tag-mode)
 
