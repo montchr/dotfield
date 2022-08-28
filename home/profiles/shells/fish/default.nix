@@ -38,4 +38,10 @@ in {
       # set -Ux fifc_editor $EDITOR
     '';
   };
+
+  programs.bash = {
+    initExtra = lib.mkAfter ''
+      exec ${config.programs.fish.package}/bin/fish
+    '';
+  };
 }

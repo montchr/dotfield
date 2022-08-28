@@ -35,7 +35,6 @@ in {
       ++ (lib.optional config.virtualisation.podman.enable "podman")
       ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
       ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
-    shell = pkgs.fish;
   };
 
   # Enable automatic login for the user.
