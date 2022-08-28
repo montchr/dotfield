@@ -108,8 +108,6 @@
 ;; === font ====================================================================
 
 (use-package! fontaine
-  :commands (fontaine-store-latest-preset)
-  :hook (kill-emacs-hook fontaine-store-latest-preset)
   :config
   (setq fontaine-presets
         '((small :default-height 100)
@@ -133,8 +131,13 @@
            :italic-family nil
            :italic-slant italic
            :line-spacing nil)))
+
+  ;; Set last preset or fall back to desired style from `fontaine-presets'.
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+
+  ;; The other side of `fontaine-restore-latest-preset'.
   ;; FIXME: does not set font on startup -- i've only seen this happen on ryosuke, however...
-  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+  (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 (use-package ligature
   :config
