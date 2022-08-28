@@ -166,9 +166,9 @@
       # "userChrome.urlView.go_button_when_typing" = true;
       # "userChrome.urlView.always_show_page_actions" = true;
 
-      # "userChrome.tab.on_bottom" = true;
-      # "userChrome.tab.on_bottom.above_bookmark" = true; # Need on_bottom
-      # "userChrome.tab.on_bottom.menubar_on_top" = true; # Need on_bottom
+      # "userChrome.tabbar.on_bottom" = true;
+      # "userChrome.tabbar.on_bottom.above_bookmark" = true; # Need on_bottom
+      # "userChrome.tabbar.on_bottom.menubar_on_top" = true; # Need on_bottom
       # "userChrome.tab.always_show_tab_icon" = true;
       # "userChrome.tab.close_button_at_pinned" = true;
       # "userChrome.tab.close_button_at_pinned.always" = true;
