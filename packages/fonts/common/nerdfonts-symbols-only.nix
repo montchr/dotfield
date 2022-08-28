@@ -4,13 +4,16 @@
   lib,
   unzip,
 }:
-stdenv.mkDerivation rec {
+let
+  version = "2.2.1";
   pname = "nerdfonts-symbols-only";
-  version = "2.2.0-RC";
+in
+stdenv.mkDerivation {
+  inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/2.2.0-RC/NerdFontsSymbolsOnly.zip";
-    hash = "sha256-dEB0hwl9tCb4jfQ8frh79IUH44rY8cMzi6HIMWNEWu8=";
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/NerdFontsSymbolsOnly.zip";
+    hash = "sha256-mLhcPVoNXWXKoZYleptkduXL5U5fIeWxMkLJ6MgFvWM=";
   };
 
   nativeBuildInputs = [unzip];
