@@ -3,9 +3,9 @@
 
 (package! corfu
   :recipe (:files (:defaults "extensions/*.el")))
-(when (featurep! +icons)
+(when (modulep! +icons)
   (package! kind-icon))
-(when (featurep! +orderless)
+(when (modulep! +orderless)
   (package! orderless))
 (package! corfu-doc
   :recipe (:host github :repo "galeo/corfu-doc"))

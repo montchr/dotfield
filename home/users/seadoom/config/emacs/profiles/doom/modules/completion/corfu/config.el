@@ -29,12 +29,12 @@
   :hook
   (doom-first-buffer . global-corfu-mode)
   :config
-  (when (featurep! +minibuffer)
+  (when (modulep! +minibuffer)
     (add-hook 'minibuffer-setup-hook #'+corfu--enable-in-minibuffer))
 
   ;; Dirty hack to get c completion running
   ;; Discussion in https://github.com/minad/corfu/issues/34
-  (when (and (featurep! :lang cc)
+  (when (and (modulep! :lang cc)
              (equal tab-always-indent 'complete))
     (map! :map c-mode-base-map
           :i [remap c-indent-line-or-region] #'completion-at-point))
@@ -63,7 +63,7 @@
     (evil-make-overriding-map corfu-map))
 
   (defadvice! +corfu--org-return (orig) :around '+org/return
-    (if (and (featurep! :completion corfu)
+    (if (and (modulep! :completion corfu)
              corfu-mode
              (>= corfu--index 0))
         (corfu-insert)
@@ -85,7 +85,7 @@
 
 
 (use-package! orderless
-  :when (featurep! +orderless)
+  :when (modulep! +orderless)
   :init
   (setq completion-styles '(orderless partial-completion)
         completion-category-defaults nil
@@ -94,7 +94,7 @@
 
 (use-package! kind-icon
   :after corfu
-  :when (featurep! +icons)
+  :when (modulep! +icons)
   :custom
   (kind-icon-default-face 'corfu-default)
   :config
@@ -144,7 +144,7 @@
    [remap dabbrev-expand] 'cape-dabbrev)
   (add-hook! 'latex-mode-hook (defun +corfu--latex-set-capfs ()
                                 (add-to-list 'completion-at-point-functions #'cape-tex)))
-  (when (featurep! :checkers spell)
+  (when (modulep! :checkers spell)
     (add-to-list 'completion-at-point-functions #'cape-dict)
     (add-to-list 'completion-at-point-functions #'cape-ispell))
   (add-to-list 'completion-at-point-functions #'cape-file)
@@ -169,7 +169,7 @@
 
 ;; TODO This doesn't _quite_ work
 (use-package! evil-collection-corfu
-  :when (featurep! :editor evil +everywhere)
+  :when (modulep! :editor evil +everywhere)
   :defer t
   :init (setq evil-collection-corfu-key-themes '(default magic-return))
   :config

@@ -333,15 +333,15 @@
       :clearCache t))
   (add-to-list 'eglot-server-programs `((php-mode phps-mode) . (eglot-php . (,php-intelephense-command "--stdio")))))
 
-;; FIXME: needed for lsp-mode too?
-(when (featurep! :tools lsp +eglot)
+;; TODO: needed for lsp-mode too?
+(when (modulep! :tools lsp +eglot)
   (defvar php-intelephense-storage-path (expand-file-name "lsp-intelephense" doom-etc-dir))
   (defvar php-intelephense-command (expand-file-name "lsp/npm/intelephense/bin/intelephense" doom-etc-dir)))
 
 (after! (:or lsp-mode eglot)
   (setq! lsp-intelephense-licence-key (or (ignore-errors (fetch-auth-source :user "intelephense") nil))
          ;; Enable WordPress stubs.
-         ;; FIXME: append only -- but this format has been difficult to work with
+         ;; TODO: append only -- but this format has been difficult to work with
          lsp-intelephense-stubs ["apache" "bcmath" "bz2" "calendar"
                                  "com_dotnet" "Core" "ctype" "curl" "date" "dba" "dom" "enchant"
                                  "exif" "fileinfo" "filter" "fpm" "ftp" "gd" "hash" "iconv" "imap" "interbase"
