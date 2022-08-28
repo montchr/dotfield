@@ -137,7 +137,6 @@
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
   ;; The other side of `fontaine-restore-latest-preset'.
-  ;; FIXME: does not set font on startup -- i've only seen this happen on ryosuke, however...
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 (use-package! ligature
