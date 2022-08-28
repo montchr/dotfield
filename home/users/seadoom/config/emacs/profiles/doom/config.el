@@ -108,6 +108,7 @@
 ;; === font ====================================================================
 
 (use-package! fontaine
+  :after modus-themes
   :config
   (setq fontaine-presets
         '((small :default-height 100)
@@ -140,6 +141,7 @@
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 (use-package ligature
+  :after fontaine
   :config
   ;; Enable all Iosevka ligatures in programming modes
   ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
