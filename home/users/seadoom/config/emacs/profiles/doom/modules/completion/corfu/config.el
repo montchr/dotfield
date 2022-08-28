@@ -152,6 +152,16 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
 
 
+(use-package! cape-yasnippet
+  :after cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
+  (after! lsp-mode
+    (add-hook 'lsp-managed-mode-hook #'cape-yasnippet--lsp))
+  (after! eglot
+    (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
+
+
 (use-package! corfu-history
   :after corfu
   :hook (corfu-mode . (lambda ()
