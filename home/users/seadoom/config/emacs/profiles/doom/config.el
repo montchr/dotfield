@@ -79,9 +79,6 @@
 (use-package! modus-themes
   :init
   (setq!
-   ;; meta
-   modus-themes-inhibit-reload nil
-
    ;; type
    modus-themes-italic-constructs t
 
