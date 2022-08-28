@@ -93,7 +93,7 @@
    modus-themes-box-buttons '(accented variable-pitch)
 
    ;; syntax
-   ;; modus-themes-syntax '(alt-syntax)
+   modus-themes-syntax '(alt-syntax)
    modus-themes-markup '(background)
    modus-themes-org-blocks '(gray-background)
    modus-themes-paren-match '(bold))
