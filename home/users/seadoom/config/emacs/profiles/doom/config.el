@@ -74,7 +74,58 @@
 ;; === modeline ================================================================
 
 
-;; === appearance ==============================================================
+;; === theme ===================================================================
+
+(use-package! modus-themes
+  :init
+  (setq!
+   ;; meta
+   modus-themes-inhibit-reload nil
+
+   ;; type
+   modus-themes-italic-constructs t
+
+   ;; ui
+   ;; modus-themes-completions nil
+   ;; modus-themes-fringes nil
+   modus-themes-hl-line '(accented)
+   modus-themes-links '(background neutral-underline)
+   modus-themes-mode-line '(borderless)
+   modus-themes-tabs-accented nil
+   modus-themes-box-buttons '(accented variable-pitch)
+
+   ;; syntax
+   ;; modus-themes-syntax '(alt-syntax)
+   modus-themes-markup '(background)
+   modus-themes-org-blocks '(gray-background)
+   modus-themes-paren-match '(bold))
+
+  :config
+  (modus-themes-load-themes)
+  (modus-themes-load-vivendi))
+
+;; TODO: these don't work quite right
+;; https://github.com/konrad1977/emacs/blob/main/init.el
+;; (use-package! svg-tag-mode
+;;   :hook ((prog-mode . svg-tag-mode)
+;;          (org-mode . svg-tag-mode))
+;;   :config
+;;   (setq svg-tag-tags
+;;         '(
+;;           ("DONE\\b" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :margin 0))))
+;;           ("FIXME\\b" . ((lambda (tag) (svg-tag-make "FIXME" :face 'org-todo :inverse t :margin 0))))
+;;           ("\\/\\/\\W?MARK\\b:\\|MARK\\b:" . ((lambda (tag) (svg-tag-make "MARK" :face 'font-lock-doc-face :inverse t :margin 0 :crop-right t))))
+;;           ("MARK\\b:\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'font-lock-doc-face :crop-left t))))
+
+;;           ("\\/\\/\\W?eslint-disable" . ((lambda (tag) (svg-tag-make "eslint-disable" :face 'org-level-3 :inverse t :margin 0 :crop-right t))))
+;;           ("eslint-disable\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'org-level-3 :crop-left t))))
+
+;;           ("\\/\\/\\W?TODO\\b\\|TODO\\b" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0 :crop-right t))))
+;;           ("TODO\\b\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'org-todo :crop-left t))))
+;;           )))
+
+
+;; === font ====================================================================
 
 (defun +cdom/load-os-theme ()
   "Load the theme corresponding to the system's dark mode status."
@@ -110,6 +161,7 @@
            :italic-family nil
            :italic-slant italic
            :line-spacing nil)))
+  ;; FIXME: does not set font on startup -- i've only seen this happen on ryosuke, however...
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
 (use-package ligature
@@ -123,57 +175,6 @@
   ;; Enables ligature checks globally in all buffers. You can also do it per
   ;; mode with `ligature-mode'.
   (global-ligature-mode t))
-
-(use-package! modus-themes
-  :init
-  (setq!
-   ;; meta
-   modus-themes-inhibit-reload nil
-
-   ;; type
-   modus-themes-italic-constructs t
-
-   ;; ui
-   ;; modus-themes-completions nil
-   ;; modus-themes-fringes nil
-   modus-themes-hl-line '(accented)
-   modus-themes-links '(background neutral-underline)
-   modus-themes-mode-line '(borderless)
-   modus-themes-tabs-accented nil
-   modus-themes-box-buttons '(accented variable-pitch)
-
-   ;; syntax
-   ;; modus-themes-syntax '(alt-syntax)
-   modus-themes-markup '(background)
-   modus-themes-org-blocks '(gray-background)
-   modus-themes-paren-match '(bold))
-
-  :config
-  (modus-themes-load-themes)
-  (modus-themes-load-vivendi))
-
-;; Reduce the size of text in Zen Mode.
-;; (setq! +zen-text-scale 1)
-
-;; TODO: these don't work quite right
-;; https://github.com/konrad1977/emacs/blob/main/init.el
-;; (use-package! svg-tag-mode
-;;   :hook ((prog-mode . svg-tag-mode)
-;;          (org-mode . svg-tag-mode))
-;;   :config
-;;   (setq svg-tag-tags
-;;         '(
-;;           ("DONE\\b" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :margin 0))))
-;;           ("FIXME\\b" . ((lambda (tag) (svg-tag-make "FIXME" :face 'org-todo :inverse t :margin 0))))
-;;           ("\\/\\/\\W?MARK\\b:\\|MARK\\b:" . ((lambda (tag) (svg-tag-make "MARK" :face 'font-lock-doc-face :inverse t :margin 0 :crop-right t))))
-;;           ("MARK\\b:\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'font-lock-doc-face :crop-left t))))
-
-;;           ("\\/\\/\\W?eslint-disable" . ((lambda (tag) (svg-tag-make "eslint-disable" :face 'org-level-3 :inverse t :margin 0 :crop-right t))))
-;;           ("eslint-disable\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'org-level-3 :crop-left t))))
-
-;;           ("\\/\\/\\W?TODO\\b\\|TODO\\b" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0 :crop-right t))))
-;;           ("TODO\\b\\(.*\\)" . ((lambda (tag) (svg-tag-make tag :face 'org-todo :crop-left t))))
-;;           )))
 
 
 ;; === org-mode ================================================================
