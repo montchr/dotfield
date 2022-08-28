@@ -18,7 +18,6 @@ moduleArgs @ {
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
 
   shellAliases = {
-    n = "${cfg.package}/bin/nnn -a";
     nnn = "${cfg.package}/bin/nnn -a";
   };
 
