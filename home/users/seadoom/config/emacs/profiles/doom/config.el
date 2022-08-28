@@ -80,6 +80,7 @@
   :init
   (setq
    ;; type
+   modus-themes-bold-constructs t
    modus-themes-italic-constructs t
 
    ;; ui
