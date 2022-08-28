@@ -22,8 +22,7 @@
 ;;; === ui =====================================================================
 
 (package! fontaine)
-(package! ligature
-  :recipe (:host github :repo "mickeynp/ligature.el"))
+(package! ligature)
 (package! modus-themes)
 (package! svg-tag-mode)
 
