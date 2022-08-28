@@ -40,7 +40,13 @@
      '((top . 10)
        (width . 0.7)
        (left . 0.5)
-       (no-accept-focus . t)))))
+       (no-accept-focus . t))))
+  :config
+  ;; Workaround for GNOME Shell compatibility.
+  ;; https://github.com/muffinmad/emacs-mini-frame#gnome-shell-does-not-resize-emacs-child-frames
+  (when (string= (getenv "XDG_SESSION_DESKTOP") "gnome")
+    (setq x-gtk-resize-child-frames 'resize-mode)))
+
 
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
