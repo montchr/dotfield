@@ -140,7 +140,7 @@
   ;; FIXME: does not set font on startup -- i've only seen this happen on ryosuke, however...
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package ligature
+(use-package! ligature
   :after fontaine
   :config
   ;; Enable all Iosevka ligatures in programming modes
