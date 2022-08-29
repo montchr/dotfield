@@ -27,21 +27,17 @@ in {
 
   importables = {inherit peers profiles roles;};
 
-  users = {
-    "cdom@prod-www.klein.temple.edu" = hmArgs: {
+  users = let
+    fieldOps = hmArgs: {
       imports = with hmArgs.roles;
-        developer ++ remote;
+        remote ++ webdev;
       home.username = hmArgs.lib.mkForce "cdom";
       home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
       home.stateVersion = "22.05";
     };
-
-    "cdom@dev.klein.temple.edu" = hmArgs: {
-      imports = with hmArgs.roles;
-        developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cdom";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
-      home.stateVersion = "22.05";
-    };
+  in {
+    "cdom@kweb-prod-www" = fieldOps;
+    "cdom@kweb-prod-db" = fieldOps;
+    "cdom@kweb-dev" = fieldOps;
   };
 }
