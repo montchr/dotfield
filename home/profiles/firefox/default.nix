@@ -246,7 +246,7 @@ in {
         // {
           "browser.startup.homepage" = "about:blank";
           "browser.urlbar.placeholderName" = "Search";
-          "privacy.trackingprotection.enabled" = false;
+          "privacy.trackingprotection.enabled" = true;
         };
     };
   };
