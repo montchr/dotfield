@@ -10,7 +10,7 @@
     "eslint": "^7.32.0",
     "npm-check-updates": "^11.8.5",
     "prettier": "^2.4.0",
-    "stylelint": "^13.13.1",
+    "stylelint": "^14.0.0",
     "svgo": "^2.5.0"
   },
   "packageManager": "yarn@3.1.1"
