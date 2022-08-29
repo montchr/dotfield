@@ -6,14 +6,6 @@
   --tridactyl-hintspan-font-family: 'Iosevka Xtal' !important;
 }
 
-/* NixOS -- nixos.org */
-@-moz-document domain(nixos.org) {
-  body {
-    /* As of 2022-06-02 the body font weight is too light, so make it normal. */
-    font-weight: normal;
-  }
-}
-
 /* Alternate monospace font stack, sorted by least popular so you're most likely
  * to get the font you want.
  * */
