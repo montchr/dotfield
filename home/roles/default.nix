@@ -1,13 +1,21 @@
 {profiles}:
 with profiles; let
+  remote = [
+    direnv
+    git
+    shells.fish
+    ssh
+  ];
+
+  # TODO: dissolve into workstation?
   developer = [
     dhall
     direnv
     emacs
     git
     python
-    shells.zsh
     shells.fish
+    shells.zsh
     ssh
   ];
 
@@ -32,11 +40,6 @@ with profiles; let
     spotify
     sync
     zotero
-  ];
-
-  remote = [
-    shells.fish
-    ssh
   ];
 
   trusted = [
