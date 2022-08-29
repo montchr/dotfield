@@ -68,6 +68,13 @@ moduleArgs @ {
   };
 
   privacySettings = {
+    # 0 = Accept all cookies by default
+    # 1 = Only accept from the originating site (block third-party cookies)
+    # 2 = Block all cookies by default
+    # 3 = Block cookies from unvisited sites
+    # 4 = New Cookie Jar policy (prevent storage access to trackers)
+    "network.cookie.cookieBehavior" = 1;
+
     "network.dns.disablePrefetch" = true;
     "privacy.donottrackheader.enabled" = true;
     "privacy.donottrackheader.value" = 1;
@@ -124,13 +131,6 @@ moduleArgs @ {
 
       # CSS blur filter in v88+
       "layout.css.backdrop-filter.enabled" = true;
-
-      # 0 = Accept all cookies by default
-      # 1 = Only accept from the originating site (block third-party cookies)
-      # 2 = Block all cookies by default
-      # 3 = Block cookies from unvisited sites
-      # 4 = New Cookie Jar policy (prevent storage access to trackers)
-      "network.cookie.cookieBehavior" = 1;
 
       # Disable fingerprinting on AMO for Tridactyl.
       # See https://github.com/tridactyl/tridactyl/issues/1800
