@@ -2,9 +2,11 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
+  inherit (pkgs) firefox-wayland runCommandNoCC writeText;
+  inherit (lib) concatStrings mapAttrsToList;
+  inherit (pkgs.sources) firefox-lepton-ui;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
@@ -12,9 +14,43 @@ moduleArgs @ {
 
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
 
-  hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-  lepton = import ./lepton.nix;
+  cfg = config.programs.firefox;
+  homeProfilePath = ".mozilla/firefox/${cfg.profiles.home.path}";
+  workProfilePath = ".mozilla/firefox/${cfg.profiles.work.path}";
 
+  hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
+
+
+  leptonPath = firefox-lepton-ui.src;
+  leptonSettings = import ./lepton-settings.nix;
+  # These CSS files must be `@import`ed in order to preserve relative URIs
+  # expected for icons.
+  leptonChrome = ''
+    @import url("${leptonPath}/css/leptonChrome.css");
+  '';
+  leptonContent = ''
+    @import url("${leptonPath}/css/leptonContent.css");
+  '';
+
+  makeProfileSettings = profile:
+    writeText "user.js" (concatStrings
+      (mapAttrsToList (name: value: ''
+          user_pref("${name}", ${builtins.toJSON value});
+        '')
+        cfg.profiles.${profile}.settings));
+
+  makeProfileSettingsFile = profile:
+    runCommandNoCC "firefox-${profile}-settings" {} ''
+      cat '${leptonPath}/user.js' '${makeProfileSettings profile}' > $out
+    '';
+
+  userChrome = leptonChrome;
+  userContent =
+    leptonContent
+    + (builtins.readFile ./userContent.css);
+
+  # TODO: consider removing. if you want a firefox without telemetry, use
+  # librewolf. otherwise let mozilla do its thing.
   disableTelemetry = {
     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
     "browser.newtabpage.activity-stream.telemetry" = false;
@@ -60,7 +96,8 @@ moduleArgs @ {
       "browser.startup.homepage" = "https://lobste.rs";
 
       # 0 = Normal; 1 = Compact; 2 = Touch
-      "browser.uidensity" = 1;
+      # FIXME: does this conflict with lepton?
+      # "browser.uidensity" = 1;
 
       "browser.urlbar.placeholderName" = "…";
       "browser.urlbar.showSearchSuggestionsFirst" = false;
@@ -107,37 +144,16 @@ moduleArgs @ {
       # Enable custom stylesheets.
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     };
-
-  styles = {
-    dotfield = {
-      userChrome = ''
-        /* Load Dotfield customisations. */
-        /* Note: the entire content of this file is copied below, so the file itself isn't imported. */
-        /* @import url("${toString ./userChrome.css}"); */
-
-        * {
-          font-family: ${themeFonts.mono.family}, monospace !important;
-          /* font-size: ${builtins.toString themeFonts.mono.size}px; */
-        }
-      '';
-      userContent = ''
-        /* Load Dotfield customisations. */
-        @import url("${toString ./userContent.css}");
-      '';
-    };
-    lepton = {
-      userChrome = ''
-        /* Load Lepton userChrome.css */
-        @import url("${inputs.firefox-lepton.outPath}/userChrome.css");
-      '';
-      userContent = ''
-        /* Load Lepton userContent.css */
-        @import url("${inputs.firefox-lepton.outPath}/userContent.css");
-      '';
-    };
-  };
 in {
   xdg.configFile."tridactyl".source = ./tridactyl;
+
+  home.file = {
+    "${homeProfilePath}/chrome/icons".source = leptonPath + "/icons";
+    "${homeProfilePath}/user.js".source = makeProfileSettingsFile "home";
+
+    "${workProfilePath}/chrome/icons".source = leptonPath + "/icons";
+    "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
+  };
 
   programs.buku.enable = true;
   programs.buku.enableBrowserIntegration = true;
@@ -207,39 +223,19 @@ in {
     ];
 
     profiles.home = {
+      inherit userChrome userContent;
       id = 0;
-
       settings =
         defaultSettings
         // privacySettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
-        // lepton.settings.recommended
-        // lepton.settings.optional;
-
-      userChrome = ''
-        ${styles.lepton.userChrome}
-
-        :root {
-          --dotfield-tab-line-color: #5e81ac;
-        }
-
-        ${styles.dotfield.userChrome}
-      '';
-
-      userContent = ''
-        ${styles.lepton.userContent}
-        ${styles.dotfield.userContent}
-      '';
+        // leptonSettings;
     };
 
     profiles.work = {
+      inherit userChrome userContent;
       id = 1;
-
       settings =
         defaultSettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
         // {
           "browser.startup.homepage" = "about:blank";
           "browser.urlbar.placeholderName" = "Search";
@@ -253,15 +249,6 @@ in {
 
           "privacy.trackingprotection.enabled" = false;
         };
-
-      userChrome = ''
-        ${styles.lepton.userChrome}
-        ${styles.dotfield.userChrome}
-      '';
-
-      userContent = ''
-        ${styles.dotfield.userContent}
-      '';
     };
   };
 }
@@ -269,4 +256,3 @@ in {
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
-

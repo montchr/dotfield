@@ -20,6 +20,17 @@
       sha256 = "sha256-EhlL6xamqvTqCAq8k1XrxzgbqhdpG0TpFVYzJSNqpfE=";
     });
   };
+  firefox-lepton-ui = {
+    pname = "firefox-lepton-ui";
+    version = "v6.0.0";
+    src = fetchFromGitHub ({
+      owner = "black7375";
+      repo = "Firefox-UI-Fix";
+      rev = "v6.0.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-w4kgupQEhtZMVYJ4JR5aJf+BSa25i4ksIYDY9QaQyr8=";
+    });
+  };
   fish-autopair = {
     pname = "fish-autopair";
     version = "1.0.4";
@@ -33,14 +44,14 @@
   };
   fish-fifc = {
     pname = "fish-fifc";
-    version = "4e71328f18182e7c538c38396ef293a7c6b9ad3c";
+    version = "adff5966739667d4c13d6388372e40f821571208";
     src = fetchgit {
       url = "https://github.com/gazorby/fifc";
-      rev = "4e71328f18182e7c538c38396ef293a7c6b9ad3c";
+      rev = "adff5966739667d4c13d6388372e40f821571208";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-uwUE9oXy13ohHzT+3bGYCK/XgSAPOJm6/9KglX79VDQ=";
+      sha256 = "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=";
     };
   };
   fish-replay = {

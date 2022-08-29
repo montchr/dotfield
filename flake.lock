@@ -263,22 +263,6 @@
         "type": "github"
       }
     },
-    "firefox-lepton": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1661413048,
-        "narHash": "sha256-pBzM6pDht7YHg15+J7eCoMKZRY35vTukR40EIMEB0mA=",
-        "owner": "black7375",
-        "repo": "Firefox-UI-Fix",
-        "rev": "02fa9bd036ff416f100689bedebf94f3af8c61b1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "black7375",
-        "repo": "Firefox-UI-Fix",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -1232,7 +1216,6 @@
         "deploy": "deploy",
         "digga": "digga",
         "emacs-overlay": "emacs-overlay",
-        "firefox-lepton": "firefox-lepton",
         "flake-compat": "flake-compat_4",
         "flake-utils": "flake-utils_4",
         "gitignore": "gitignore",

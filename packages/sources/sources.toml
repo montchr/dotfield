@@ -4,6 +4,10 @@
 src.git = "https://github.com/DinkDonk/kitty-icon.git"
 fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
 
+[firefox-lepton-ui]
+src.github = "black7375/Firefox-UI-Fix"
+fetch.github = "black7375/Firefox-UI-Fix"
+
 [roots-trellis-cli]
 src.github = "roots/trellis-cli"
 fetch.github = "roots/trellis-cli"

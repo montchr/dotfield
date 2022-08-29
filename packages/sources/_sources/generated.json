@@ -32,6 +32,25 @@
         },
         "version": "c2419f32ebf31fa4f7122ddf110df0a8b9e44925"
     },
+    "firefox-lepton-ui": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "firefox-lepton-ui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "black7375",
+            "repo": "Firefox-UI-Fix",
+            "rev": "v6.0.0",
+            "sha256": "sha256-w4kgupQEhtZMVYJ4JR5aJf+BSa25i4ksIYDY9QaQyr8=",
+            "type": "github"
+        },
+        "version": "v6.0.0"
+    },
     "fish-autopair": {
         "cargoLocks": null,
         "extract": null,
@@ -62,12 +81,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4e71328f18182e7c538c38396ef293a7c6b9ad3c",
-            "sha256": "sha256-uwUE9oXy13ohHzT+3bGYCK/XgSAPOJm6/9KglX79VDQ=",
+            "rev": "adff5966739667d4c13d6388372e40f821571208",
+            "sha256": "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=",
             "type": "git",
             "url": "https://github.com/gazorby/fifc"
         },
-        "version": "4e71328f18182e7c538c38396ef293a7c6b9ad3c"
+        "version": "adff5966739667d4c13d6388372e40f821571208"
     },
     "fish-replay": {
         "cargoLocks": null,

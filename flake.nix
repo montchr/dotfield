@@ -60,11 +60,6 @@
       flake = false;
     };
 
-    firefox-lepton = {
-      url = "github:black7375/Firefox-UI-Fix";
-      flake = false;
-    };
-
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       # Packages are built against this channel.
