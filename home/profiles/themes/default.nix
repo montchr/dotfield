@@ -2,18 +2,19 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
-  theme =
-    if envTheme != ""
-    then envTheme
-    else "black-metal-khold";
 in {
-  colorscheme = inputs.nix-colors.colorSchemes.${theme};
+  theme.enable = true;
+
+  theme.colors = {
+    active = lib.mkIf (envTheme != "") envTheme;
+    dark = "ia-dark";
+    light = "ia-light";
+  };
 
   theme.font = {
     mono = {
@@ -35,8 +36,6 @@ in {
   };
 
   home.sessionVariables = {
-    BASE16_THEME_DARK = "black-metal-khold";
-    BASE16_THEME_LIGHT = "grayscale-light";
     DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
     DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
   };
