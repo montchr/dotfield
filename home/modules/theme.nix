@@ -18,10 +18,8 @@ in {
       enable = lib.mkEnableOption "Whether to enable the theme module.";
       colors = {
         active = mkOpt str cfg.colors.dark;
-        # FIXME: set a sensible default
-        dark = mkOpt str "";
-        # FIXME: set a sensible default
-        light = mkOpt str "";
+        dark = mkOpt str "default-dark";
+        light = mkOpt str "default-light";
       };
       font = {
         mono = {
