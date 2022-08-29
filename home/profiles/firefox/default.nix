@@ -10,8 +10,7 @@ moduleArgs @ {
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
-  themeFonts = config.theme.font;
-
+  hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
 
   cfg = config.programs.firefox;
@@ -20,6 +19,7 @@ moduleArgs @ {
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
 
+  themeFonts = config.theme.font;
 
   leptonPath = firefox-lepton-ui.src;
   leptonSettings = import ./lepton-settings.nix;
@@ -169,16 +169,12 @@ in {
     enable = true;
     package =
       if isDarwin
-      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
-      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
+      then runCommandNoCC "firefox-0.0.0" {} "mkdir $out"
       else
-        pkgs.firefox-wayland.override {
+        firefox-wayland.override {
           cfg = {
-            # Gnome shell native connector
-            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable;
-            # Tridactyl native connector
+            enableGnomeExtensions = hasGnomeShell;
             enableTridactylNative = true;
-            # Buku bookmarking tool native connector
             enableBukubrow = isBukuEnabled;
           };
         };
