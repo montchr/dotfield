@@ -3,7 +3,7 @@
 
   "userChrome.theme.monospace" = true;
 
-  # "userChrome.decoration.disable_panel_animate" = true;
+  "userChrome.decoration.disable_panel_animate" = true;
   # "userChrome.decoration.disable_sidebar_animate" = true;
 
   "userChrome.theme.proton_color.dark_blue_accent" = true;
@@ -15,11 +15,11 @@
   "userChrome.autohide.navbar" = true;
   "userChrome.autohide.bookmarkbar" = true;
   # "userChrome.autohide.sidebar" = true;
-  # "userChrome.autohide.fill_urlbar" = true;
+  "userChrome.autohide.fill_urlbar" = true;
   "userChrome.autohide.back_button" = true;
   "userChrome.autohide.forward_button" = true;
   "userChrome.autohide.page_action" = true;
-  # "userChrome.autohide.toolbar_overlap" = true;
+  "userChrome.autohide.toolbar_overlap" = true;
 
   "userChrome.hidden.tab_icon" = true;
   # "userChrome.hidden.tab_icon.always" = true;
