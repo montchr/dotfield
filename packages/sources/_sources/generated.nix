@@ -22,14 +22,15 @@
   };
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "v6.0.0";
-    src = fetchFromGitHub ({
-      owner = "black7375";
-      repo = "Firefox-UI-Fix";
-      rev = "v6.0.0";
+    version = "bc75ca2d6b53616a1e1a1700794c850bb7afec7d";
+    src = fetchgit {
+      url = "https://github.com/black7375/Firefox-UI-Fix";
+      rev = "bc75ca2d6b53616a1e1a1700794c850bb7afec7d";
       fetchSubmodules = false;
-      sha256 = "sha256-w4kgupQEhtZMVYJ4JR5aJf+BSa25i4ksIYDY9QaQyr8=";
-    });
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-oCyvnSbeFiOCgFh/wL5Z5NasUgoScSnoqiXxUQ1MPjo=";
+    };
   };
   fish-autopair = {
     pname = "fish-autopair";
