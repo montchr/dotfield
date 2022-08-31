@@ -15,11 +15,15 @@
   "userChrome.autohide.navbar" = true;
   "userChrome.autohide.bookmarkbar" = true;
   # "userChrome.autohide.sidebar" = true;
-  "userChrome.autohide.fill_urlbar" = true;
   "userChrome.autohide.back_button" = true;
   "userChrome.autohide.forward_button" = true;
   "userChrome.autohide.page_action" = true;
-  "userChrome.autohide.toolbar_overlap" = true;
+  # "userChrome.autohide.toolbar_overlap" = true;
+
+  # N.B. While `fill_urlbar` is cool, enabling it prevents add-on panels (e.g.
+  # 1Password) from activating via keyboard shortcut. In the case of 1Password,
+  # this means that the configured shortcut to auto-fill a form does nothing.
+  # "userChrome.autohide.fill_urlbar" = true;
 
   "userChrome.hidden.tab_icon" = true;
   # "userChrome.hidden.tab_icon.always" = true;
@@ -89,10 +93,10 @@
 
   ###: === userContent =========================================================
 
-  "userContent.player.ui.twoline" = true;
+  "userContent.page.monospace" = true;
 
   "userContent.page.proton_color.dark_blue_accent" = true;
   # "userContent.page.proton_color.system_accent" = true;
 
-  "userContent.page.monospace" = true;
+  "userContent.player.ui.twoline" = true;
 }
