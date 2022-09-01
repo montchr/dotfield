@@ -292,7 +292,7 @@
 
   :config
   (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-  (add-hook 'prog-mode-hook 'format-all-mode))
+  (add-hook 'nix-mode-hook 'format-all-mode))
 
 (use-package! lsp-mode
   :init
