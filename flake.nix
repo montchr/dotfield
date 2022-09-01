@@ -118,21 +118,6 @@
     supportedSystems = [
       x86_64-linux
       x86_64-darwin
-
-      # FIXME: Something in this flake's chain of dependencies triggers a build
-      # failure when `aarch64-darwin` is added to `supportedSystems`,
-      # specifically due to `pyopenssl`. Many python packages will not build on
-      # this system due to the broken `pyopenssl` dependency.
-      #
-      # As of 2022-08-20, it appears most of these issues have been fixed, but
-      # some packages have still caused errors:
-      #
-      # - promnesia
-      # - yubikey-manager and/or yubikey-personalization
-      #
-      # [Updated: 2022-08-20]
-      # https://github.com/NixOS/nixpkgs/issues/175875
-      # https://github.com/pyca/pyopenssl/issues/873
       aarch64-darwin
     ];
 
