@@ -1,16 +1,16 @@
 {
-  collective,
-  profiles,
+  sharedProfiles,
+  darwinProfiles,
 }: let
   workstation =
-    (with (collective.profiles); [
+    (with sharedProfiles; [
       fonts.common
       networking.common
       networking.ssh-host
       networking.tailscale
       secrets
     ])
-    ++ (with profiles; [
+    ++ (with darwinProfiles; [
       emacs
       graphical.common
       # graphical.hammerspoon
@@ -18,8 +18,4 @@
       graphical.yabai
       system-defaults
     ]);
-in {
-  inherit
-    workstation
-    ;
-}
+in {inherit workstation;}

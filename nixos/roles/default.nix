@@ -1,12 +1,12 @@
 {
-  collective,
-  profiles,
+  sharedProfiles,
+  nixosProfiles,
 }: let
   graphical =
-    (with collective.profiles; [
+    (with sharedProfiles; [
       fonts.common
     ])
-    ++ (with profiles; [
+    ++ (with nixosProfiles; [
       boot.systemd-boot
       desktop.common
       desktop.gnome-desktop
@@ -15,17 +15,17 @@
     ]);
 
   server =
-    (with (collective.profiles); [
+    (with sharedProfiles; [
       networking.common
       networking.ssh-host
     ])
-    ++ (with profiles; []);
+    ++ (with nixosProfiles; []);
 
   tangible =
-    (with (collective.profiles); [
+    (with sharedProfiles; [
       networking.common
     ])
-    ++ (with profiles; [
+    ++ (with nixosProfiles; [
       hardware.audio
       hardware.bluetooth
       hardware.keyboard
@@ -33,7 +33,7 @@
       networking.wifi
     ]);
 
-  webdev = with profiles; [
+  webdev = with nixosProfiles; [
     virtualisation.libvirtd
     virtualisation.podman
     virtualisation.vagrant
@@ -41,11 +41,11 @@
   ];
 
   workstation =
-    (with collective.profiles; [
+    (with sharedProfiles; [
       networking.ssh-host
       secrets
     ])
-    ++ (with profiles; [
+    ++ (with nixosProfiles; [
       boot.systemd-boot
       hardware.yubikey
     ]);

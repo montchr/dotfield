@@ -82,6 +82,7 @@
     deploy,
     digga,
     emacs-overlay,
+    flake-parts,
     flake-utils,
     gitignore,
     home-manager,
@@ -97,131 +98,55 @@
     sops-nix,
     ...
   } @ inputs: let
-    inherit
-      (digga.lib)
-      flattenTree
-      importExportableModules
-      rakeLeaves
-      ;
-    inherit
-      (flake-utils.lib)
-      eachSystem
-      ;
-    inherit
-      (flake-utils.lib.system)
-      x86_64-linux
-      aarch64-darwin
-      x86_64-darwin
-      ;
+    inherit (digga.lib) rakeLeaves;
+    inherit (lib.dotfield) importLeaves;
 
-    supportedSystems = [
+    supportedSystems = with flake-utils.lib.system; [
       x86_64-linux
+      aarch64-linux
       x86_64-darwin
       aarch64-darwin
     ];
 
-    darwinSystems = [x86_64-darwin aarch64-darwin];
-
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
-      # FIXME: should not be required for upstream digga to function...
       digga = inputs.digga.lib;
       dotfield = import ./lib {
-        inherit inputs;
-        inherit (collective) peers;
+        inherit inputs peers;
         lib = lfinal;
       };
     });
 
-    collective = {
-      inherit lib;
-      modules = importExportableModules ./modules;
-      peers = import ./ops/metadata/peers.nix;
-      profiles = rakeLeaves ./profiles;
-    };
-
-    # FIXME: split this to shared/nixos/darwin-specific
-    overlays = [
-      agenix.overlay
-      emacs-overlay.overlay
-      gitignore.overlay
-      nix-dram.overlay
-      nixpkgs-wayland.overlay
-      nur.overlay
-      nvfetcher.overlay
-    ];
+    peers = import ./ops/metadata/peers.nix;
+    sharedModules = importLeaves (rakeLeaves ./modules);
+    sharedProfiles = importLeaves (rakeLeaves ./profiles);
   in
-    (digga.lib.mkFlake {
-      inherit
-        self
-        inputs
-        supportedSystems
-        ;
-
-      lib = lib.dotfield;
-
-      channelsConfig.allowUnfree = true;
-
-      channels = {
-        nixos-stable = {
-          inherit overlays;
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/stable)
-            (digga.lib.importOverlays ./packages)
-          ];
-        };
-        nixpkgs-darwin-stable = {
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/stable)
-            (digga.lib.importOverlays ./packages)
-          ];
-          # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
-          overlays =
-            overlays
-            ++ [
-              (final: prev: {yabai = self.packages.${final.system}.yabai;})
-            ];
-        };
-        nixos-unstable = {
-          inherit overlays;
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/nixos-unstable)
-            (digga.lib.importOverlays ./packages)
-          ];
-        };
-        nixpkgs-trunk = {};
+    flake-parts.lib.mkFlake {inherit self;} {
+      systems = supportedSystems;
+      _module.args = {
+        inherit peers sharedModules sharedProfiles;
+        lib = self.lib;
       };
+      imports = [
+        ./darwin/flake-module.nix
 
-      sharedOverlays = [
-        (final: prev: {
-          __dontExport = true;
-          inherit inputs lib;
-        })
+        ./darwin/configurations.nix
+        ./home/configurations.nix
+        ./nixos/configurations.nix
+
+        ./darwin/packages
       ];
+      flake = {
+        inherit lib sharedModules sharedProfiles;
 
-      nixos = import ./nixos collective;
-      darwin = import ./darwin collective;
-      home = import ./home collective;
-
-      devshell = ./shell;
-
-      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
-
-      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        tsone = with (collective.peers.hosts.tsone); {
-          hostname = ipv4.address;
-          sshUser = "root";
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
+        deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+          tsone = with (peers.hosts.tsone); {
+            hostname = ipv4.address;
+            sshUser = "root";
+            fastConnection = true;
+            autoRollback = true;
+            magicRollback = true;
+          };
         };
       };
-    })
-    // (eachSystem darwinSystems (system: {
-      packages =
-        builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
-        (flattenTree (rakeLeaves ./darwin/packages));
-    }));
+    };
 }
