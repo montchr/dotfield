@@ -19,8 +19,6 @@ in {
     "darwin=/etc/nix/inputs/darwin"
   ];
 
-  environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
-
   # Administrative users on Darwin systems are part of the admin group by default.
   nix.trustedUsers = ["@admin" "@wheel"];
 

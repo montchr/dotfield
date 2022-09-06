@@ -11,9 +11,6 @@ moduleArgs @ {
     if (moduleArgs.impermanence or false)
     then "/persist/etc/ssh"
     else "/etc/ssh";
-
-  # FIXME: is this accurate?
-  nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in {
   nix = {
     settings = {
@@ -21,15 +18,7 @@ in {
       # TODO: is it really reasonable to set these all as defaults?
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
-
-    nixPath = ["nixos-config=${nixosConfigPath}"];
     optimise.automatic = true;
-  };
-
-  environment.shellAliases = {
-    # Fix `nixos-option` for flake compatibility
-    # FIXME: it's broken
-    # nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
   };
 
   # Essential tools for the best of times and the worst of times.

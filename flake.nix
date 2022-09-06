@@ -66,13 +66,6 @@
       # Packages are built against this channel.
       inputs.nixpkgs.follows = "nixos-unstable";
     };
-
-    ##: --- other --------------------------------------------------------------
-
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
   };
 
   outputs = {
