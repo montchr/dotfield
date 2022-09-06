@@ -17,7 +17,8 @@
 
     agenix.url = "github:montchr/agenix/darwin-support";
     darwin.url = "github:LnL7/nix-darwin";
-    deploy.url = "github:serokell/deploy-rs";
+    deploy-rs.url = "github:serokell/deploy-rs";
+    devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
     nixos-generators.url = "github:nix-community/nixos-generators";
@@ -129,6 +130,7 @@
       imports = [
         ./darwin/flake-module.nix
 
+        ./shell.nix
         ./darwin/configurations.nix
         ./home/configurations.nix
         ./nixos/configurations.nix
