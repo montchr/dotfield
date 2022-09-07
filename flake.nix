@@ -89,43 +89,51 @@
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
       digga = digga.lib;
       dotfield = import ./lib {
-        inherit inputs peers;
+        inherit peers;
         lib = lfinal;
       };
     });
 
     peers = import ./ops/metadata/peers.nix;
-    sharedModules = importLeaves (rakeLeaves ./modules);
-    sharedProfiles = importLeaves (rakeLeaves ./profiles);
+    sharedModules = flattenTree (rakeLeaves ./modules);
+    sharedProfiles = rakeLeaves ./profiles;
   in
-    flake-parts.lib.mkFlake {inherit self;} {
+    (flake-parts.lib.evalFlakeModule {inherit self;} {
       systems = supportedSystems;
-      _module.args = {
-        inherit peers sharedModules sharedProfiles;
-        lib = self.lib;
+      perSystem = {
+        inputs',
+        config,
+        ...
+      }: {
+        _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
+        _module.args.lib = config.lib;
       };
       imports = [
-        ./darwin/flake-module.nix
+        {
+          _module.args.peers = peers;
+        }
+        # ./darwin/flake-module.nix
+        # ./darwin/packages
 
         ./shell.nix
         ./darwin/configurations.nix
         ./home/configurations.nix
         ./nixos/configurations.nix
-
-        ./darwin/packages
       ];
       flake = {
         inherit lib sharedModules sharedProfiles;
 
-        deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-          tsone = with (peers.hosts.tsone); {
-            hostname = ipv4.address;
-            sshUser = "root";
-            fastConnection = true;
-            autoRollback = true;
-            magicRollback = true;
-          };
-        };
+        # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+        #   tsone = with (peers.hosts.tsone); {
+        #     hostname = ipv4.address;
+        #     sshUser = "root";
+        #     fastConnection = true;
+        #     autoRollback = true;
+        #     magicRollback = true;
+        #   };
+        # };
       };
-    };
+    })
+    .config
+    .flake;
 }

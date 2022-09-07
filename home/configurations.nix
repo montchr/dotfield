@@ -4,16 +4,23 @@
   self,
   ...
 }: let
+  inherit (self) inputs;
+  inherit
+    (inputs)
+    nixpkgs
+    nixos-stable
+    nixos-unstable
+    home-manager
+    nix-colors
+    ;
   inherit (collective) peers;
-  inherit (self.inputs) home-manager nix-colors nixos-unstable;
-  inherit (self.inputs.digga.lib) flattenTree rakeLeaves;
-  inherit (self.inputs.flake-utils.system) x86_64-linux;
+  inherit (inputs.digga.lib) flattenTree rakeLeaves;
 
-  homeModules = builtins.attrValues self.homeManagerModules;
-  profiles = rakeLeaves ./profiles;
-  roles = import ./roles {inherit profiles;};
+  homeModules = flattenTree (rakeLeaves ./modules);
+  homeProfiles = rakeLeaves ./profiles;
+  roles = import ./roles {inherit homeProfiles;};
 
-  defaultProfiles = with profiles; [
+  defaultProfiles = with homeProfiles; [
     core
     direnv
     navi
@@ -26,53 +33,69 @@
 
   defaultModules =
     defaultProfiles
-    ++ homeModules
+    ++ (builtins.attrValues homeModules)
     ++ [
+      ../lib/home
       {
-        imports = [../lib/home];
-        _module.args = {
-          inherit
-            peers
-            profiles
-            roles
-            ;
-        };
+        # _module.args.peers = peers;
+        _module.args.self = self;
+        _module.args.inputs = self.inputs;
+        # _module.args.primaryUser = primaryUser;
       }
       nix-colors.homeManagerModule
+      ({
+        config,
+        lib,
+        pkgs,
+        ...
+      }: let
+        inherit (config.home) username;
+      in {
+        programs.home-manager.enable = true;
+        manual.json.enable = true;
+        news.display = "show";
+        xdg.enable = true;
+        home.stateVersion = lib.mkDefault "22.05";
+        # https://github.com/nix-community/home-manager/issues/2942
+        nixpkgs.config.allowUnfreePredicate = pkg: true;
+
+        home.homeDirectory =
+          if pkgs.stdenv.hostPlatform.isDarwin
+          then "/Users/${username}"
+          else "/home/${username}";
+      })
     ];
+
+  extraSpecialArgs = {inherit homeProfiles roles;};
 
   makeHomeConfiguration = {
     username,
-    system ? x86_64-linux,
     modules ? [],
   }: (home-manager.lib.homeManagerConfiguration {
-    pkgs = nixos-unstable.legacyPackages.${system};
+    inherit extraSpecialArgs;
     modules =
       defaultModules
       ++ modules
-      ++ [
-        ./nixpkgs-config.nix
-        ({
-          pkgs,
-          lib,
-          ...
-        }: {
-          home.username = username;
-          home.homeDirectory =
-            if pkgs.stdenv.hostPlatform.isDarwin
-            then "/Users/${username}"
-            else "/home/${username}";
-          home.stateVersion = lib.mkDefault "22.05";
-        })
-      ];
+      ++ [{home.username = username;}];
   });
 
   traveller = makeHomeConfiguration {
     username = "cdom";
     modules = with roles; remote ++ webdev;
   };
+
+  sharedConfiguration = {
+    home-manager = {
+      inherit extraSpecialArgs;
+      sharedModules = defaultModules;
+      useUserPackages = true;
+      verbose = true;
+    };
+  };
 in {
-  flake.homeModules = flattenTree (rakeLeaves ./home/modules);
+  flake.nixosModules.hm-shared-config = sharedConfiguration;
+  flake.darwinModules.hm-shared-config = sharedConfiguration;
+  flake.homeModules = homeModules;
   flake.homeConfigurations = {
     "cdom@kweb-prod-www" = traveller;
     "cdom@kweb-prod-db" = traveller;

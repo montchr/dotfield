@@ -1,5 +1,5 @@
-{profiles}:
-with profiles; let
+{homeProfiles}:
+with homeProfiles; let
   remote = [
     direnv
     git
