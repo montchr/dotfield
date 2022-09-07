@@ -12,12 +12,12 @@
   # "userChrome.autohide.tab.opacity" = true;
   # "userChrome.autohide.tab.blur" = true;
   # "userChrome.autohide.tabbar" = true;
-  "userChrome.autohide.navbar" = true;
-  "userChrome.autohide.bookmarkbar" = true;
+  # "userChrome.autohide.navbar" = true;
+  # "userChrome.autohide.bookmarkbar" = true;
   # "userChrome.autohide.sidebar" = true;
-  "userChrome.autohide.back_button" = true;
-  "userChrome.autohide.forward_button" = true;
-  "userChrome.autohide.page_action" = true;
+  # "userChrome.autohide.back_button" = true;
+  # "userChrome.autohide.forward_button" = true;
+  # "userChrome.autohide.page_action" = true;
   # "userChrome.autohide.toolbar_overlap" = true;
 
   # N.B. While `fill_urlbar` is cool, enabling it prevents add-on panels (e.g.
