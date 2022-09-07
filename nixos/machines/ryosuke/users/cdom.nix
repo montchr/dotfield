@@ -3,10 +3,9 @@
   lib,
   pkgs,
   primaryUser,
-  inputs,
   ...
 }: let
-  inherit (inputs.digga.lib) rakeLeaves;
+  inherit (lib.digga) rakeLeaves;
   inherit (config.lib.dotfield) srcPath;
 
   username = "cdom";

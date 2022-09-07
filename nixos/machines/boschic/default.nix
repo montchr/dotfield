@@ -2,9 +2,6 @@
   config,
   lib,
   pkgs,
-  profiles,
-  suites,
-  inputs,
   collective,
   ...
 }: let

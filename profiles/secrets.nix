@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux system;

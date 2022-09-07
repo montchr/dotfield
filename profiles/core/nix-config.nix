@@ -18,7 +18,7 @@ in {
       inherit substituters trusted-substituters;
 
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
-      # FIXME: dangerous
+      # FIXME: dangerous?
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel" "@seadome"];
 
