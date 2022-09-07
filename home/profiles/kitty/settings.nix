@@ -2,15 +2,7 @@
   lib,
   features,
   socket,
-}: let
-  inherit (features) hasHidpi hasTwm;
-in {
-  font_family = "Iosevka Xtal Term";
-  font_size =
-    if hasHidpi
-    then "14.0"
-    else "16.0";
-
+}: {
   #: Cursor customization {{{
   cursor_shape = "beam";
   cursor_beam_thickness = "1.5";

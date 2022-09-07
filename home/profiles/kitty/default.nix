@@ -9,6 +9,7 @@ moduleArgs @ {
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (config.lib.dotfield) features;
+  inherit (config) theme;
 
   socket = "unix:/tmp/kitty-socket";
 
@@ -25,8 +26,8 @@ moduleArgs @ {
     in "${key} ${value'}";
   };
 
-  mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
-  mkTheme' = name: toKittyConfig (mkTheme name);
+  colorScheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
+  mkColorScheme = name: toKittyConfig (colorScheme name);
 
   mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
 
@@ -75,7 +76,13 @@ in
 
       programs.kitty = {
         enable = true;
-        settings = settings // colors;
+        settings =
+          settings
+          // colors
+          // {
+            font_family = theme.font.term.family;
+            font_size = "${builtins.toString theme.font.term.size}.0";
+          };
         extraConfig = ''
           ${lib.optionalString features.hasPragPro pragmataProExtras}
         '';
@@ -83,9 +90,10 @@ in
 
       xdg.configFile = {
         "kitty/base16-kitty".source = base16-kitty.outPath;
-        "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
-        "kitty/themes/light.conf".text = mkTheme' "grayscale-light";
+        "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
+        "kitty/themes/light.conf".text = mkColorScheme theme.colors.light;
 
+        # FIXME: does not appear to have an effect
         "kitty/session".text = ''
           # Start new sessions in the previous working directory
           # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
