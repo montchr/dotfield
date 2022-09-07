@@ -17,16 +17,42 @@
   scrollback_pager_history_size = "666"; # in MB
   #: }}}
 
+  #: Mouse {{{
+  strip_trailing_spaces = "always";
+  #: }}}
+
   #: Window layout {{{
+
+  # sizing/spacing
   remember_window_size = true;
-  initial_window_width = "640";
-  initial_window_height = "800";
   window_padding_width = "10";
   window_margin_width = "0";
   single_window_margin_width = "-1";
+
+  # decorations
   draw_minimal_borders = true;
-  hide_window_decorations = hasTwm;
+  hide_window_decorations = true;
   confirm_os_window_close = "0";
+
+  # layouts (preferred order)
+  #
+  # - First layout in list becomes the default layout.
+  # - Order of layouts affects next/prev cycling order.
+  # - Default value is all layouts in alphabetical order.
+  # - Accepts a comma-separated string.
+  #
+  # https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.enabled_layouts
+  # https://sw.kovidgoyal.net/kitty/overview/#layouts
+  enabled_layouts = builtins.concatStringsSep ", " [
+    "tall"
+    "grid"
+    "horizontal"
+    "vertical"
+    "fat"
+    "splits"
+    "stack"
+  ];
+
   #: }}}
 
   #: Tab bar {{{
@@ -45,12 +71,21 @@
   #: }}}
 
   #: Keyboard shortcuts {{{
-  # This is the default value.
-  # kitty_mod = "ctrl+shift";
+  kitty_mod = "ctrl+shift"; # default
   #: }}}
 
+  #: Performance {{{
   # Prevent input latency.
   sync_to_monitor = false;
+  #: }}}
 
+  #: Terminal bell {{{
   enable_audio_bell = false;
+  visual_bell_duration = "0.3";
+  #: }}}
+
+  #: OS-specific tweaks {{{
+  # Set the titlebar background color to that of the currently-active window.
+  wayland_titlebar_color = "background";
+  #: }}}
 }
