@@ -28,6 +28,11 @@ in {
           weight = mkOpt int normalWeight;
           size = mkOpt int 13;
         };
+        term = with cfg.font; {
+          family = mkOpt str mono.family;
+          weight = mkOpt int mono.weight;
+          size = mkOpt int mono.size;
+        };
         sans = {
           # FIXME: set a sensible default
           family = mkOpt str "";

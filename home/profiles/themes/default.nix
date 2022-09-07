@@ -21,6 +21,9 @@ in {
       family = "Iosevka Xtal";
       size = 13;
     };
+    term = {
+      family = "Iosevka Xtal Term";
+    };
     sans = {
       family = "IBM Plex Sans";
       size = 13;
