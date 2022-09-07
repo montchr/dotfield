@@ -57,15 +57,6 @@ in {
       signByDefault = true;
     };
 
-    delta = {
-      enable = true;
-      options = {
-        line-numbers = true;
-        navigate = true;
-        keep-plus-minus-markers = true;
-      };
-    };
-
     ignores = [
       ".yarn"
       "node_modules"
