@@ -13,7 +13,7 @@
 
   #: Scrollback {{{
   scrollback_lines = "4000";
-  scrollback_pager = "less";
+  scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER"; # default value
   scrollback_pager_history_size = "666"; # in MB
   #: }}}
 
