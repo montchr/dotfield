@@ -10,6 +10,7 @@ with profiles; let
   # TODO: dissolve into workstation?
   developer = [
     dhall
+    difftools.difftastic
     direnv
     emacs
     git
