@@ -17,7 +17,6 @@
   server =
     (with (collective.profiles); [
       networking.common
-      networking.tailscale
       networking.ssh-host
     ])
     ++ (with profiles; []);
@@ -25,7 +24,6 @@
   tangible =
     (with (collective.profiles); [
       networking.common
-      networking.tailscale
     ])
     ++ (with profiles; [
       hardware.audio
