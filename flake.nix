@@ -64,7 +64,6 @@
       url = "github:nix-community/nixpkgs-wayland";
       # Packages are built against this channel.
       inputs.nixpkgs.follows = "nixos-unstable";
-      inputs.master.follows = "nixpkgs-trunk";
     };
 
     ##: --- other --------------------------------------------------------------
