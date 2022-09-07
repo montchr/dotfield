@@ -12,11 +12,11 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    darwin.url = "github:LnL7/nix-darwin";
 
     ##: --- utilities ----------------------------------------------------------
 
     agenix.url = "github:montchr/agenix/darwin-support";
-    darwin.url = "github:LnL7/nix-darwin";
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
@@ -70,29 +70,13 @@
 
   outputs = {
     self,
-    nixpkgs,
-    agenix,
-    darwin,
-    deploy,
-    digga,
-    emacs-overlay,
     flake-parts,
-    flake-utils,
-    gitignore,
-    home-manager,
-    nix-colors,
-    nix-dram,
-    nixos-generators,
-    nixos-hardware,
-    nixos-stable,
     nixos-unstable,
-    nixpkgs-wayland,
-    nur,
-    nvfetcher,
-    sops-nix,
+    digga,
+    flake-utils,
     ...
-  } @ inputs: let
-    inherit (digga.lib) rakeLeaves;
+  }: let
+    inherit (digga.lib) flattenTree rakeLeaves;
     inherit (lib.dotfield) importLeaves;
 
     supportedSystems = with flake-utils.lib.system; [
@@ -103,7 +87,7 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
-      digga = inputs.digga.lib;
+      digga = digga.lib;
       dotfield = import ./lib {
         inherit inputs peers;
         lib = lfinal;
