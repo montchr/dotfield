@@ -6,7 +6,7 @@
   "author": "Chris Montgomery <chris@cdom.io> (https://github.com/montchr/)",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@prettier/plugin-php": "^0.17.4",
+    "@prettier/plugin-php": "^0.19.0",
     "eslint": "^7.32.0",
     "npm-check-updates": "^11.8.5",
     "prettier": "^2.4.0",
