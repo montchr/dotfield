@@ -92,43 +92,40 @@
     peers = import ./ops/metadata/peers.nix;
     sharedModules = flattenTree (rakeLeaves ./modules);
     sharedProfiles = rakeLeaves ./profiles;
-  in
-    (flake-parts.lib.evalFlakeModule {inherit self;} {
-      systems = supportedSystems;
-      perSystem = {
-        inputs',
-        config,
-        ...
-      }: {
-        _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-        _module.args.lib = config.lib;
-      };
-      imports = [
-        {
-          _module.args.peers = peers;
-        }
-        # ./darwin/flake-module.nix
-        # ./darwin/packages
+  in (flake-parts.lib.mkFlake {inherit self;} {
+    systems = supportedSystems;
+    perSystem = {
+      inputs',
+      config,
+      ...
+    }: {
+      _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
+      _module.args.lib = config.lib;
+    };
+    imports = [
+      {
+        _module.args.peers = peers;
+      }
+      # ./darwin/flake-module.nix
+      # ./darwin/packages
 
-        ./shell.nix
-        ./darwin/configurations.nix
-        ./home/configurations.nix
-        ./nixos/configurations.nix
-      ];
-      flake = {
-        inherit lib sharedModules sharedProfiles;
+      ./shell.nix
+      ./darwin/configurations.nix
+      ./home/configurations.nix
+      ./nixos/configurations.nix
+    ];
+    flake = {
+      inherit lib sharedModules sharedProfiles;
 
-        # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        #   tsone = with (peers.hosts.tsone); {
-        #     hostname = ipv4.address;
-        #     sshUser = "root";
-        #     fastConnection = true;
-        #     autoRollback = true;
-        #     magicRollback = true;
-        #   };
-        # };
-      };
-    })
-    .config
-    .flake;
+      # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+      #   tsone = with (peers.hosts.tsone); {
+      #     hostname = ipv4.address;
+      #     sshUser = "root";
+      #     fastConnection = true;
+      #     autoRollback = true;
+      #     magicRollback = true;
+      #   };
+      # };
+    };
+  });
 }
