@@ -38,7 +38,7 @@
     inherit (pkgs) system;
     channels = channelsForSystem system;
   in {
-    inherit channels lib;
+    inherit channels;
 
     inherit
       (channels.nixos-stable)
