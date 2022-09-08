@@ -8,58 +8,54 @@
 
   inputs = {
     nixpkgs.follows = "nixos-unstable";
+
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      # Packages are built against this channel.
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+    nur.url = "github:nix-community/NUR";
 
     darwin.url = "github:LnL7/nix-darwin";
+    digga = {
+      url = "github:divnix/digga/home-manager-22.11";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager.url = "github:nix-community/home-manager";
-
-    ##: --- utilities ----------------------------------------------------------
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-utils.url = "github:numtide/flake-utils";
 
     agenix.url = "github:montchr/agenix/darwin-support";
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
-    flake-utils.url = "github:numtide/flake-utils";
-    prefmanager.url = "github:malob/prefmanager";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    nvfetcher.url = "github:berberman/nvfetcher";
-    sops-nix.url = "github:Mic92/sops-nix";
-
-    digga.url = "github:divnix/digga/home-manager-22.11";
-    digga.inputs.home-manager.follows = "home-manager";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
-
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-dram = {
       url = "github:dramforever/nix-dram";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-
+    nix-colors.url = "github:Misterio77/nix-colors";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-generators.url = "github:nix-community/nixos-generators";
     nixago = {
       url = "github:nix-community/nixago";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ##: --- sources ------------------------------------------------------------
-
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    gitignore.url = "github:hercules-ci/gitignore.nix";
-    nix-colors.url = "github:Misterio77/nix-colors";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nur.url = "github:nix-community/NUR";
+    nvfetcher.url = "github:berberman/nvfetcher";
+    prefmanager.url = "github:malob/prefmanager";
+    sops-nix.url = "github:Mic92/sops-nix";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
+    # TODO: use nix-colors or something
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
-    };
-
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      # Packages are built against this channel.
-      inputs.nixpkgs.follows = "nixos-unstable";
     };
   };
 
