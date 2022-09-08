@@ -102,8 +102,8 @@
       {
         _module.args.peers = peers;
       }
-      # ./darwin/flake-module.nix
-      # ./darwin/packages
+      ./packages
+      ./darwin/packages
 
       ./shell.nix
       ./darwin/configurations.nix
@@ -112,6 +112,8 @@
     ];
     flake = {
       inherit lib sharedModules sharedProfiles;
+
+      overlays.default = final: prev: (import ./packages/all-packages.nix final);
 
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
       #   tsone = with (peers.hosts.tsone); {

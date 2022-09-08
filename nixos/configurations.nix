@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs sharedModules sharedProfiles;
-  inherit (nixpkgs.lib) mapAttrs mapAttrs';
+  inherit (nixpkgs.lib) mapAttrs mapAttrs' makeOverridable nixosSystem;
   inherit (inputs.digga.lib) flattenTree rakeLeaves;
 
   inherit
@@ -89,17 +89,23 @@
     system ? x86_64-linux,
     modules ? [],
   }:
-    nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules =
-        defaultModules
-        ++ (builtins.attrValues sharedModules)
-        ++ modules
-        ++ [
-          nixosMachines.${hostname}
-        ];
-      specialArgs = {inherit collective nixosProfiles roles;};
-    };
+    withSystem system (
+      ctx @ {pkgs, ...}:
+        makeOverridable nixosSystem {
+          inherit system;
+          modules =
+            defaultModules
+            ++ (builtins.attrValues sharedModules)
+            ++ modules
+            ++ [
+              {
+                _module.args.packages = ctx.config.packages;
+              }
+              nixosMachines.${hostname}
+            ];
+          specialArgs = {inherit collective nixosProfiles roles;};
+        }
+    );
 in {
   # flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
