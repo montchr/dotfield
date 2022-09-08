@@ -12,7 +12,9 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+
     darwin.url = "github:LnL7/nix-darwin";
+    home-manager.url = "github:nix-community/home-manager";
 
     ##: --- utilities ----------------------------------------------------------
 
@@ -28,13 +30,6 @@
     digga.url = "github:divnix/digga/home-manager-22.11";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager = {
-      # url = "github:montchr/home-manager/trunk";
-      # url = "github:nix-community/home-manager/release-22.05";
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
 
     nix-dram = {
       url = "github:dramforever/nix-dram";
