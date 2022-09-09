@@ -2,12 +2,21 @@
   withSystem,
   collective,
   self,
+  lib,
   ...
 }: let
-  inherit (self) inputs sharedModules sharedProfiles;
-  inherit (nixpkgs.lib) mapAttrs mapAttrs' makeOverridable nixosSystem;
-  inherit (inputs.digga.lib) flattenTree rakeLeaves;
-
+  inherit
+    (self)
+    inputs
+    nixpkgsConfig
+    sharedModules
+    sharedProfiles
+    ;
+  inherit
+    (inputs.digga.lib)
+    flattenTree
+    rakeLeaves
+    ;
   inherit
     (inputs)
     nixpkgs
@@ -20,13 +29,20 @@
     nvfetcher
     sops-nix
     ;
-  inherit (inputs.flake-utils.lib.system) x86_64-linux;
-  inherit (self.nixosModules) hm-shared-config;
-
   inherit
-    (import ../nixpkgs-config.nix {inherit self;})
-    overlays
-    packageOverrides
+    (nixpkgs.lib)
+    mapAttrs
+    mapAttrs'
+    makeOverridable
+    nixosSystem
+    ;
+  inherit
+    (inputs.flake-utils.lib.system)
+    x86_64-linux
+    ;
+  inherit
+    (self.nixosModules)
+    hm-shared-config
     ;
 
   roles = import ./roles {inherit sharedProfiles nixosProfiles;};
@@ -48,13 +64,11 @@
       imports =
         (builtins.attrValues (flattenTree nixosModules))
         ++ [
-          # TODO: this may not work...
-          # ({pkgs, ...}: {
-          #   _module.args.packages = self.config.packages;
-          # })
-          #
-
           ({pkgs, ...}: {
+            imports = [
+              nixpkgsConfig
+              {_module.args.packages = self.packages.${pkgs.system};}
+            ];
             nix.nixPath =
               # (lib.optionals pkgs.stdenv.hostPlatform.isDarwin "darwin=${darwin}")
               # ++ [
@@ -63,13 +77,6 @@
                 "home-manager=${home-manager}"
               ];
             documentation.info.enable = false;
-            nixpkgs = {
-              inherit overlays;
-              config = {
-                inherit packageOverrides;
-                allowUnfree = true;
-              };
-            };
           })
 
           sharedProfiles.core

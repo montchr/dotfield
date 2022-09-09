@@ -7,8 +7,13 @@
   inherit
     (self)
     inputs
+    nixpkgsConfig
     sharedModules
     sharedProfiles
+    ;
+  inherit
+    (self.darwinModules)
+    hm-shared-config
     ;
   inherit
     (inputs)
@@ -22,15 +27,22 @@
     nvfetcher
     sops-nix
     ;
-  inherit (inputs.digga.lib) flattenTree rakeLeaves;
-  inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
-  inherit (nixpkgs.lib) mapAttrs mapAttrs';
-  inherit (self.darwinModules) hm-shared-config;
-
   inherit
-    (import ../nixpkgs-config.nix {inherit self;})
-    overlays
-    packageOverrides
+    (inputs.digga.lib)
+    flattenTree
+    rakeLeaves
+    ;
+  inherit
+    (inputs.flake-utils.lib.system)
+    aarch64-darwin
+    x86_64-darwin
+    ;
+  inherit
+    (nixpkgs.lib)
+    makeOverridable
+    mapAttrs
+    mapAttrs'
+    ;
   inherit
     (darwin.lib)
     darwinSystem
@@ -60,19 +72,16 @@
       }
 
       ({pkgs, ...}: {
+        imports = [
+          nixpkgsConfig
+          # {_module.args.packages = self.packages.${pkgs.system};}
+        ];
         nix.nixPath = [
           "darwin=${darwin}"
           "nixpkgs=${pkgs.path}"
           "home-manager=${home-manager}"
         ];
         documentation.info.enable = false;
-        nixpkgs = {
-          inherit overlays;
-          config = {
-            inherit packageOverrides;
-            allowUnfree = true;
-          };
-        };
       })
 
       hm-shared-config
@@ -98,6 +107,9 @@
             ++ (builtins.attrValues sharedModules)
             ++ modules
             ++ [
+              {
+                _module.args.packages = ctx.config.packages;
+              }
               darwinMachines.${hostname}
             ];
         })

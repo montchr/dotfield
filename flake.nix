@@ -102,6 +102,7 @@
       {
         _module.args.peers = peers;
       }
+      ./nixpkgs
       ./packages
       ./darwin/packages
 
