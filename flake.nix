@@ -95,14 +95,6 @@
     sharedProfiles = rakeLeaves ./profiles;
   in (flake-parts.lib.mkFlake {inherit self;} {
     systems = supportedSystems;
-    perSystem = {
-      inputs',
-      config,
-      ...
-    }: {
-      _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-      _module.args.lib = config.lib;
-    };
     imports = [
       {
         _module.args.peers = peers;
