@@ -2,13 +2,23 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  sources,
   ...
 }: let
-  inherit (pkgs) firefox-wayland runCommandNoCC writeText;
-  inherit (lib) concatStrings mapAttrsToList;
-  inherit (pkgs.sources) firefox-lepton-ui;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
+  inherit (sources) firefox-lepton-ui;
+  inherit
+    (lib)
+    concatStrings
+    mapAttrsToList
+    ;
+  inherit
+    (pkgs)
+    firefox-wayland
+    runCommandNoCC
+    writeText
+    ;
 
   hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
@@ -21,15 +31,15 @@ moduleArgs @ {
 
   themeFonts = config.theme.font;
 
-  leptonPath = firefox-lepton-ui.src;
+  leptonSrc = firefox-lepton-ui.src;
   leptonSettings = import ./lepton-settings.nix;
   # These CSS files must be `@import`ed in order to preserve relative URIs
   # expected for icons.
   leptonChrome = ''
-    @import url("${leptonPath}/css/leptonChrome.css");
+    @import url("${leptonSrc}/css/leptonChrome.css");
   '';
   leptonContent = ''
-    @import url("${leptonPath}/css/leptonContent.css");
+    @import url("${leptonSrc}/css/leptonContent.css");
   '';
 
   makeProfileSettings = profile:
@@ -41,7 +51,7 @@ moduleArgs @ {
 
   makeProfileSettingsFile = profile:
     runCommandNoCC "firefox-${profile}-settings" {} ''
-      cat '${leptonPath}/user.js' '${makeProfileSettings profile}' > $out
+      cat '${leptonSrc}/user.js' '${makeProfileSettings profile}' > $out
     '';
 
   userChrome = leptonChrome;
@@ -155,10 +165,10 @@ in {
   xdg.configFile."tridactyl".source = ./tridactyl;
 
   home.file = {
-    "${homeProfilePath}/chrome/icons".source = leptonPath + "/icons";
+    "${homeProfilePath}/chrome/icons".source = leptonSrc + "/icons";
     "${homeProfilePath}/user.js".source = makeProfileSettingsFile "home";
 
-    "${workProfilePath}/chrome/icons".source = leptonPath + "/icons";
+    "${workProfilePath}/chrome/icons".source = leptonSrc + "/icons";
     "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
   };
 

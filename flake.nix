@@ -110,7 +110,6 @@
     flake = {
       inherit sharedModules sharedProfiles;
 
-      overlays.default = final: prev: (import ./packages/all-packages.nix final);
       lib = import ./lib {inherit lib peers;};
 
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {

@@ -7,7 +7,7 @@
 {
   lib,
   python3Packages,
-  sources,
+  source,
 }: let
   cpanel-api = python3Packages.buildPythonPackage rec {
     pname = "cpanel-api";
@@ -21,7 +21,7 @@
   };
 in
   python3Packages.buildPythonPackage rec {
-    inherit (sources.cpanel-cli) pname version src;
+    inherit (source) pname version src;
     propagatedBuildInputs = with python3Packages; [
       cpanel-api
       parsedatetime

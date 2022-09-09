@@ -35,8 +35,6 @@ in {
     overlays =
       externalOverlays
       ++ [
-        # nvfetcher sources must be loaded before other internal packages.
-        overlays.sources
         overlays.default
       ];
     config = {

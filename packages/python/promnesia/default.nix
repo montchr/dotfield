@@ -15,7 +15,7 @@
   fetchFromGitHub,
   orgparse,
   hpi,
-  sources,
+  source,
 }: let
   mistletoe = python3Packages.buildPythonPackage rec {
     pname = "mistletoe";
@@ -77,19 +77,15 @@
   };
 in
   python3Packages.buildPythonPackage rec {
-    inherit (sources.promnesia) pname version src;
+    inherit (source) pname version src;
     makeWrapperArgs = ["--prefix PYTHONPATH : $PYTHONPATH"];
-
     postPatch = ''
       substituteInPlace setup.py \
           --replace "idna<3" "idna" \
           --replace "tzlocal>=3.0" "tzlocal"
     '';
-
     SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
     doCheck = false;
-
     propagatedBuildInputs = with python3Packages; [
       pytest
       appdirs
