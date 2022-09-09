@@ -4,8 +4,12 @@
   self,
   ...
 }: let
-  inherit (self) inputs sharedModules sharedProfiles;
-
+  inherit
+    (self)
+    inputs
+    sharedModules
+    sharedProfiles
+    ;
   inherit
     (inputs)
     nixpkgs
@@ -27,6 +31,9 @@
     (import ../nixpkgs-config.nix {inherit self;})
     overlays
     packageOverrides
+  inherit
+    (darwin.lib)
+    darwinSystem
     ;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
@@ -38,15 +45,17 @@
   darwinMachines = rakeLeaves ./machines;
   darwinProfiles = rakeLeaves ./profiles;
 
+  specialArgs = {
+    inherit darwinProfiles sharedModules sharedProfiles;
+    roles = roles;
+  };
+
   defaultModules =
     (builtins.attrValues (flattenTree darwinModules))
     ++ [
       {
         _module.args.self = self;
         _module.args.inputs = self.inputs;
-        _module.args.collective = collective;
-        _module.args.darwinProfiles = darwinProfiles;
-        _module.args.roles = roles;
         _module.args.primaryUser = primaryUser;
       }
 
@@ -79,19 +88,20 @@
   makeDarwinSystem = hostname: {
     system ? aarch64-darwin,
     modules ? [],
-    extraModuleArgs ? {},
   }:
-    nixpkgs.lib.makeOverridable (darwin.lib.darwinSystem {
-      inherit system;
-      modules =
-        defaultModules
-        ++ (builtins.attrValues sharedModules)
-        ++ modules
-        ++ [
-          extraModuleArgs
-          darwinMachines.${hostname}
-        ];
-    });
+    withSystem system (
+      ctx @ {pkgs, ...}:
+        makeOverridable (darwinSystem {
+          inherit system specialArgs;
+          modules =
+            defaultModules
+            ++ (builtins.attrValues sharedModules)
+            ++ modules
+            ++ [
+              darwinMachines.${hostname}
+            ];
+        })
+    );
 in {
   # flake.darwinModules = importLeaves darwinModules;
   # flake.darwinProfiles = importLeaves darwinProfiles;
