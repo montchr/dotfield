@@ -59,16 +59,14 @@
     };
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     flake-parts,
-    nixos-unstable,
     digga,
     flake-utils,
     ...
   }: let
     inherit (digga.lib) flattenTree rakeLeaves;
-    inherit (lib.dotfield) importLeaves;
 
     supportedSystems = with flake-utils.lib.system; [
       x86_64-linux
@@ -77,11 +75,18 @@
       aarch64-darwin
     ];
 
-    lib = nixos-unstable.lib.extend (lfinal: lprev: {
-      digga = digga.lib;
-      dotfield = import ./lib {
-        inherit peers;
-        lib = lfinal;
+    lib = inputs.nixos-unstable.lib.extend (lfinal: lprev: {
+      ##: exo :: from without
+      exo = builtins.mapAttrs (n: v: v.lib) {
+        inherit
+          (inputs)
+          digga
+          flake-parts
+          gitignore
+          nix-colors
+          ;
+        hm = inputs.home-manager;
+        utils = inputs.flake-utils;
       };
     });
 
@@ -112,9 +117,10 @@
       ./nixos/configurations.nix
     ];
     flake = {
-      inherit lib sharedModules sharedProfiles;
+      inherit sharedModules sharedProfiles;
 
       overlays.default = final: prev: (import ./packages/all-packages.nix final);
+      lib = import ./lib {inherit lib peers;};
 
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
       #   tsone = with (peers.hosts.tsone); {

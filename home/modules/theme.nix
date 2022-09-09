@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (inputs.nix-colors) colorSchemes;
-  inherit (lib.dotfield) mkOpt;
+  inherit (lib.eso) mkOpt;
   inherit (lib.types) int str;
 
   cfg = config.theme;

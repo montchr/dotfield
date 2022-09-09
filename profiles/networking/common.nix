@@ -6,7 +6,7 @@
 }: let
   inherit (config.networking) hostName;
   hostNet =
-    (lib.dotfield.peers.getHost hostName).network
+    (lib.eso.peers.getHost hostName).network
     or (config.nixos-vm.peerConfig).network;
 in
   lib.mkMerge [
@@ -23,6 +23,6 @@ in
       };
     }
     (lib.mkIf (config.networking ? domain) {
-      networking.domain = (lib.dotfield.peers.getNet hostNet).domain or null;
+      networking.domain = (lib.eso.peers.getNet hostNet).domain or null;
     })
   ]

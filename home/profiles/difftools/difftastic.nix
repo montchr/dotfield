@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (inputs.nix-colors) colorSchemes;
-  inherit (lib.dotfield) inverseSchemeType;
+  inherit (lib.eso) inverseSchemeType;
   inherit (config) colorScheme;
 in {
   home.packages = with pkgs; [difftastic];

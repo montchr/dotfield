@@ -3,7 +3,7 @@
   peers,
 }: let
   inherit (lib) makeExtensible attrValues foldr;
-  inherit (lib.digga) rakeLeaves;
+  inherit (lib.exo.digga) rakeLeaves;
 
   dotfieldLib = makeExtensible (self:
     builtins.mapAttrs
