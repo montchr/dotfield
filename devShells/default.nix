@@ -15,14 +15,13 @@
       sops-init-gpg-key
       ssh-to-pgp
       ;
-    # FIXME: `defaultPackage` doesn't exist? why?
-    # nvfetcher = inputs'.nvfetcher.defaultPackage;
 
     inherit
       (pkgs)
       alejandra
       cachix
       editorconfig-checker
+      nvfetcher
       rage
       shellcheck
       shfmt
@@ -61,12 +60,12 @@
         (dotfield terraform)
         (dotfield treefmt)
 
-        # {
-        #   category = "dotfield";
-        #   name = nvfetcher.pname;
-        #   help = nvfetcher.meta.description;
-        #   command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
-        # }
+        {
+          category = "dotfield";
+          name = nvfetcher.pname;
+          help = nvfetcher.meta.description;
+          command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
+        }
 
         (utils {
           name = "evalnix";

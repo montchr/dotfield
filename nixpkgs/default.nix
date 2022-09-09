@@ -12,7 +12,6 @@
     home-manager
     nix-dram
     nur
-    nvfetcher
     sops-nix
     ;
 
@@ -22,7 +21,6 @@
     nix-dram.overlay
     nixpkgs-wayland.overlay
     nur.overlay
-    nvfetcher.overlay
   ];
 
   channelsForSystem = system:

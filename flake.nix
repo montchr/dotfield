@@ -47,7 +47,6 @@
       url = "github:nix-community/nixago";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvfetcher.url = "github:berberman/nvfetcher";
     prefmanager.url = "github:malob/prefmanager";
     sops-nix.url = "github:Mic92/sops-nix";
     rnix-lsp.url = "github:nix-community/rnix-lsp";

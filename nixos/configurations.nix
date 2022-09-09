@@ -26,7 +26,6 @@
     agenix
     home-manager
     nur
-    nvfetcher
     sops-nix
     ;
   inherit

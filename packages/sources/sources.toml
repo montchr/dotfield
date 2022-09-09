@@ -1,5 +1,3 @@
-# nvfetcher.toml
-
 [kitty-bortflower-icons]
 src.git = "https://github.com/DinkDonk/kitty-icon.git"
 fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
@@ -30,18 +28,10 @@ fetch.git = "https://github.com/gazorby/fifc"
 src.git = "https://github.com/DanielFGray/fzf-scripts"
 fetch.git = "https://github.com/DanielFGray/fzf-scripts"
 
-##: --- human programming interface + promnesia ---
-#
-##: Sources:
-#
-# https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/pkgs/sources.toml#L46-L60
-
 [promnesia]
 src.git = "https://github.com/karlicoss/promnesia"
 # TODO: note that this might only return the latest tag
 fetch.github = "karlicoss/promnesia"
-
-##: --- section of unfortunate circumstance ---
 
 [cpanel-cli]
 src.git = "https://github.com/layfellow/cpanel-cli"
