@@ -1,8 +1,8 @@
 {
-  mkDerivation,
+  stdenv,
   gitignoreSource,
 }:
-mkDerivation rec {
+stdenv.mkDerivation rec {
   name = "git-submodule-rewrite";
   src = gitignoreSource ./git-submodule-rewrite;
   installPhase = ''
