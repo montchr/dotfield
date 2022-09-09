@@ -8,12 +8,14 @@
 {
   lib,
   python3Packages,
-  fetchurl,
-  sources,
 }:
 python3Packages.buildPythonPackage rec {
-  inherit (sources.HPI) pname version src;
-
+  pname = "HPI";
+  version = "0.3.20220607";
+  src = python3Packages.fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=";
+  };
   propagatedBuildInputs = with python3Packages; [
     pandas
     appdirs
@@ -23,11 +25,8 @@ python3Packages.buildPythonPackage rec {
     setuptools_scm
     click
   ];
-
   makeWrapperArgs = ["--prefix PYTHONPATH : $PYTHONPATH"];
-
   doCheck = false;
-
   meta = with lib; {
     description = "Human Programming Interface 🧑👽🤖";
     homepage = "https://github.com/karlicoss/HPI";

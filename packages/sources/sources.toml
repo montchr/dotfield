@@ -41,18 +41,6 @@ src.git = "https://github.com/karlicoss/promnesia"
 # TODO: note that this might only return the latest tag
 fetch.github = "karlicoss/promnesia"
 
-[HPI]
-src.pypi = "HPI"
-fetch.pypi = "HPI"
-
-[hug]
-src.pypi = "hug"
-fetch.pypi = "hug"
-
-[orgparse]
-src.pypi = "orgparse"
-fetch.pypi = "orgparse"
-
 ##: --- section of unfortunate circumstance ---
 
 [cpanel-cli]

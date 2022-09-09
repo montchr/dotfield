@@ -1,18 +1,4 @@
 {
-    "HPI": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "HPI",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/H/HPI/HPI-0.3.20220607.tar.gz"
-        },
-        "version": "0.3.20220607"
-    },
     "cpanel-cli": {
         "cargoLocks": null,
         "extract": null,
@@ -124,20 +110,6 @@
         },
         "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
     },
-    "hug": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "hug",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/h/hug/hug-2.6.1.tar.gz"
-        },
-        "version": "2.6.1"
-    },
     "kitty-bortflower-icons": {
         "cargoLocks": null,
         "extract": null,
@@ -155,20 +127,6 @@
             "url": "https://github.com/DinkDonk/kitty-icon.git"
         },
         "version": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67"
-    },
-    "orgparse": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "orgparse",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/o/orgparse/orgparse-0.3.1.tar.gz"
-        },
-        "version": "0.3.1"
     },
     "promnesia": {
         "cargoLocks": null,

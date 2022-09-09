@@ -30,7 +30,12 @@
   };
 
   hug = python3Packages.buildPythonPackage rec {
-    inherit (sources.hug) pname version src;
+    pname = "hug";
+    version = "2.6.1";
+    src = python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=";
+    };
     doCheck = false;
     nativeBuildInputs = with python3Packages; [pytestrunner];
     propagatedBuildInputs = with python3Packages; [falcon requests];
