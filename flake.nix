@@ -107,11 +107,11 @@
       {
         _module.args.peers = peers;
       }
+      ./devShells
       ./nixpkgs
       ./packages
       ./darwin/packages
 
-      ./shell.nix
       ./darwin/configurations.nix
       ./home/configurations.nix
       ./nixos/configurations.nix
