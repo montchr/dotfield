@@ -56,25 +56,11 @@
   darwinMachines = rakeLeaves ./machines;
   darwinProfiles = rakeLeaves ./profiles;
 
-  specialArgs = {
-    inherit darwinProfiles sharedModules sharedProfiles;
-    roles = roles;
-  };
-
   defaultModules =
     (builtins.attrValues (flattenTree darwinModules))
     ++ [
-      {
-        _module.args.self = self;
-        _module.args.inputs = self.inputs;
-        _module.args.primaryUser = primaryUser;
-      }
-
       ({pkgs, ...}: {
-        imports = [
-          nixpkgsConfig
-          # {_module.args.packages = self.packages.${pkgs.system};}
-        ];
+        imports = [nixpkgsConfig];
         nix.nixPath = [
           "darwin=${darwin}"
           "nixpkgs=${pkgs.path}"
@@ -98,19 +84,33 @@
     modules ? [],
   }:
     withSystem system (
-      ctx @ {pkgs, ...}:
+      ctx @ {sources, ...}: let
+        moduleArgs = {
+          _module.args.self = self;
+          _module.args.inputs' = self.inputs';
+          _module.args.primaryUser = primaryUser;
+          _module.args.packages = ctx.config.packages;
+          _module.args.sources = sources;
+        };
+      in
         makeOverridable (darwinSystem {
-          inherit system specialArgs;
+          inherit system;
           modules =
             defaultModules
             ++ (builtins.attrValues sharedModules)
             ++ modules
             ++ [
-              {
-                _module.args.packages = ctx.config.packages;
-              }
+              moduleArgs
+              {home-manager.sharedModules = [moduleArgs];}
               darwinMachines.${hostname}
             ];
+          specialArgs = {
+            inherit
+              darwinProfiles
+              sharedProfiles
+              roles
+              ;
+          };
         })
     );
 in {

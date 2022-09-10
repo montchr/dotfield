@@ -55,26 +55,17 @@
 
   defaultModules = [
     {
-      _module.args.self = self;
-      _module.args.inputs = self.inputs;
-      _module.args.primaryUser = primaryUser;
-    }
-    {
       imports =
         (builtins.attrValues (flattenTree nixosModules))
         ++ [
           ({pkgs, ...}: {
             imports = [
               nixpkgsConfig
-              {_module.args.packages = self.packages.${pkgs.system};}
             ];
-            nix.nixPath =
-              # (lib.optionals pkgs.stdenv.hostPlatform.isDarwin "darwin=${darwin}")
-              # ++ [
-              [
-                "nixpkgs=${pkgs.path}"
-                "home-manager=${home-manager}"
-              ];
+            nix.nixPath = [
+              "nixpkgs=${pkgs.path}"
+              "home-manager=${home-manager}"
+            ];
             documentation.info.enable = false;
           })
 
@@ -96,7 +87,19 @@
     modules ? [],
   }:
     withSystem system (
-      ctx @ {pkgs, ...}:
+      ctx @ {
+        pkgs,
+        inputs',
+        sources,
+        ...
+      }: let
+        moduleArgs = {
+          _module.args.inputs' = inputs';
+          _module.args.primaryUser = primaryUser;
+          _module.args.packages = ctx.config.packages;
+          _module.args.sources = sources;
+        };
+      in
         makeOverridable nixosSystem {
           inherit system;
           modules =
@@ -104,12 +107,17 @@
             ++ (builtins.attrValues sharedModules)
             ++ modules
             ++ [
-              {
-                _module.args.packages = ctx.config.packages;
-              }
+              moduleArgs
+              {home-manager.sharedModules = [moduleArgs];}
               nixosMachines.${hostname}
             ];
-          specialArgs = {inherit collective nixosProfiles roles;};
+          specialArgs = {
+            inherit
+              nixosProfiles
+              sharedProfiles
+              roles
+              ;
+          };
         }
     );
 in {
