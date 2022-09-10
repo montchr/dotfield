@@ -15,6 +15,7 @@
     ;
   inherit (collective) peers;
   inherit (inputs.digga.lib) flattenTree rakeLeaves;
+  inherit (inputs.flake-utils.lib.system) x86_64-linux;
 
   homeModules = flattenTree (rakeLeaves ./modules);
   homeProfiles = rakeLeaves ./profiles;
@@ -74,14 +75,34 @@
 
   makeHomeConfiguration = {
     username,
+    system ? x86_64-linux,
     modules ? [],
-  }: (home-manager.lib.homeManagerConfiguration {
-    inherit extraSpecialArgs;
-    modules =
-      defaultModules
-      ++ modules
-      ++ [{home.username = username;}];
-  });
+  }:
+    withSystem system (
+      ctx @ {
+        pkgs,
+        sources,
+        inputs',
+        ...
+      }: let
+        moduleArgs = {
+          _module.args.inputs' = inputs';
+          _module.args.packages = ctx.config.packages;
+          _module.args.sources = sources;
+        };
+      in (
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs extraSpecialArgs;
+          modules =
+            defaultModules
+            ++ modules
+            ++ [
+              moduleArgs
+              {home.username = username;}
+            ];
+        }
+      )
+    );
 
   traveller = makeHomeConfiguration {
     username = "cdom";
