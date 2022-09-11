@@ -89,6 +89,8 @@
       };
     });
 
+    # shared importables :: may be used within system configurations for any
+    # supported operating system (e.g. nixos, nix-darwin).
     peers = import ./ops/metadata/peers.nix;
     sharedModules = flattenTree (rakeLeaves ./modules);
     sharedProfiles = rakeLeaves ./profiles;
@@ -98,6 +100,9 @@
       {
         _module.args.peers = peers;
       }
+      ./flake-modules/sharedModules.nix
+      ./flake-modules/sharedProfiles.nix
+
       ./devShells
       ./nixpkgs
       ./packages
@@ -108,7 +113,11 @@
       ./nixos/configurations.nix
     ];
     flake = {
-      inherit sharedModules sharedProfiles;
+      inherit
+        sharedModules
+        sharedProfiles
+        ;
+
 
       lib = import ./lib {inherit lib peers;};
 
