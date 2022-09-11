@@ -47,7 +47,7 @@ in {
 
     peerConfig = mkOption {
       type = attrsOf raw;
-      default = null;
+      default = {};
       description = "Override the virtual machine's peer ops configuration.";
     };
 
