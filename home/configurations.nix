@@ -61,8 +61,6 @@
         news.display = "show";
         xdg.enable = true;
         home.stateVersion = lib.mkDefault "22.05";
-        # https://github.com/nix-community/home-manager/issues/2942
-        nixpkgs.config.allowUnfreePredicate = pkg: true;
 
         home.homeDirectory =
           if pkgs.stdenv.hostPlatform.isDarwin
@@ -109,23 +107,23 @@
     modules = with roles; remote ++ webdev;
   };
 
-  sharedConfiguration = {
+  settingsProfile = {...}: {
     home-manager = {
       inherit extraSpecialArgs;
       sharedModules = defaultModules;
+      useGlobalPkgs = true;
       useUserPackages = true;
       verbose = true;
     };
   };
 in {
-  flake.homeModules = homeModules;
-  flake.homeConfigurations = {
-    "cdom@kweb-prod-www" = traveller;
-    "cdom@kweb-prod-db" = traveller;
-    "cdom@kweb-dev" = traveller;
+  flake = {
+    inherit homeModules homeProfiles;
+    sharedProfiles.homeManagerSettings = settingsProfile;
+    homeConfigurations = {
+      "cdom@kweb-prod-www" = traveller;
+      "cdom@kweb-prod-db" = traveller;
+      "cdom@kweb-dev" = traveller;
+    };
   };
-
-  # FIXME: placeholders for now
-  flake.nixosModules.hm-shared-config = sharedConfiguration;
-  flake.darwinModules.hm-shared-config = sharedConfiguration;
 }

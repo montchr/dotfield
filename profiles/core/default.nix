@@ -57,10 +57,4 @@ in {
   };
 
   programs.fish.enable = lib.mkDefault true;
-
-  # This setting is enabled within the shared core profile because enabling it
-  # for standalone home-manager configurations would disable hm's `nixpkgs.*`
-  # options. When an hm config is built for a NixOS or nix-darwin system, we can
-  # rely on the system's nixpkgs configuration.
-  home-manager.useGlobalPkgs = true;
 }

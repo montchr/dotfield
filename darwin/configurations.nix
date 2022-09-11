@@ -69,9 +69,9 @@
         documentation.info.enable = false;
       })
 
-      hm-shared-config
-
       sharedProfiles.core
+      sharedProfiles.homeManagerSettings
+
       darwinProfiles.core
       home-manager.darwinModules.home-manager
       # `nixosModules` is correct, even for darwin

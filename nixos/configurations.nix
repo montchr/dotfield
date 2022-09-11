@@ -70,10 +70,10 @@
           })
 
           sharedProfiles.core
+          sharedProfiles.homeManagerSettings
+
           nixosProfiles.core
           nixosProfiles.boot.common
-
-          hm-shared-config
 
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
