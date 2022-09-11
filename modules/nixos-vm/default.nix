@@ -15,27 +15,45 @@
   modulesPath,
   ...
 }: let
+  inherit
+    (builtins)
+    getEnv
+    ;
+  inherit
+    (lib)
+    mkEnableOption
+    mkOption
+    types
+    ;
+  inherit
+    (types)
+    attrsOf
+    bool
+    nullOr
+    raw
+    str
+    ;
   cfg = config.nixos-vm;
-  user = builtins.getEnv "USER";
+  user = getEnv "USER";
 in {
   options.nixos-vm = {
-    enable = lib.mkEnableOption "Whether to enable VM-specific configuration.";
+    enable = mkEnableOption "Whether to enable VM-specific configuration.";
 
-    hostName = lib.mkOption {
-      type = lib.types.str;
+    hostName = mkOption {
+      type = str;
       default = "${config.networking.hostName}-dev";
       description = "Hostname for the virtual machine.";
     };
 
-    peerConfig = lib.mkOption {
-      type = lib.types.attrs;
+    peerConfig = mkOption {
+      type = attrsOf raw;
       default = null;
       description = "Override the virtual machine's peer ops configuration.";
     };
 
     # FIXME: must be created manually before the VM boots / shared directories mount!
-    dataHome = lib.mkOption {
-      type = lib.types.str;
+    dataHome = mkOption {
+      type = str;
       # FIXME: assumes `/persist/vm` exists -- can this be stored in the
       # user's home directory or some other common path accessible to the
       # user?
@@ -46,21 +64,21 @@ in {
     };
 
     mounts = {
-      mountHome = lib.mkOption {
-        type = lib.types.bool;
+      mountHome = mkOption {
+        type = bool;
         default = true;
         description = "Whether to mount <filename>/home</filename>.";
       };
 
       # FIXME: this won't work in pure eval mode
-      mountNixProfile = lib.mkOption {
-        type = lib.types.bool;
+      mountNixProfile = mkOption {
+        type = bool;
         # FIXME: should be true
         default = false;
         description = "Whether to mount the user's nix profile.";
       };
 
-      extraMounts = lib.mkOption {
+      extraMounts = mkOption {
         inherit
           (options.virtualisation.sharedDirectories)
           default
