@@ -66,9 +66,11 @@
 
     ##: python packages
     cpanel-cli = ./python/cpanel-cli;
-    hpi = ./python/HPI;
-    orgparse = ./python/orgparse;
-    promnesia = ./python/promnesia;
+
+    # FIXME: disabled due to pyopenssl dependency
+    # hpi = ./python/HPI;
+    # orgparse = ./python/orgparse;
+    # promnesia = ./python/promnesia;
   };
 
   dotfieldPackages = pkgs: (mapAttrs (n: v: callPackage v pkgs) packageIndex);
