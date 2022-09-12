@@ -94,7 +94,7 @@
       ./flake-modules/sharedProfiles.nix
 
       ./devShells
-      ./nixpkgs
+      ./overlays
       ./packages
       ./darwin/packages
 

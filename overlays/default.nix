@@ -48,7 +48,7 @@ in {
         httpie
         ;
 
-      ripgrep = final.ripgrep.override {withPCRE2 = true;};
+      ripgrep = prev.ripgrep.override {withPCRE2 = true;};
     };
   };
 }

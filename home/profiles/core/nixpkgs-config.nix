@@ -7,6 +7,7 @@ moduleArgs @ {
   inherit
     (inputs)
     agenix
+    emacs-overlay
     gitignore
     nix-dram
     nixpkgs-wayland
@@ -20,13 +21,14 @@ in
       config.allowUnfreePredicate = pkg: true;
       overlays = [
         agenix.overlay
+        emacs-overlay.overlay
         gitignore.overlay
-        nix-dram.overlay
+        # nix-dram.overlay
         nixpkgs-wayland.overlay
-        nur.overlay
+        # nur.overlay
 
         # self.overlays.internalLib
-        # self.overlays.packages
+        self.overlays.packages
         self.overlays.overrides
       ];
     };

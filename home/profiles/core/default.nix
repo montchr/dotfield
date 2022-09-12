@@ -8,7 +8,10 @@ moduleArgs @ {
   inherit (config.lib) dotfield;
   inherit (config.lib.dotfield.features) hasPragPro;
 in {
-  imports = [./home-packages.nix];
+  imports = [
+    ./home-packages.nix
+    ./nixpkgs-config.nix
+  ];
 
   programs.bash.enable = true;
   programs.fish.enable = true;

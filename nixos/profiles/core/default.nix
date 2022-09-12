@@ -3,6 +3,7 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  sharedProfiles,
   ...
 }: let
   inherit (config.lib.dotfield) fsPath;
@@ -12,10 +13,11 @@ moduleArgs @ {
     then "/persist/etc/ssh"
     else "/etc/ssh";
 in {
+  imports = [sharedProfiles.core];
+
   nix = {
     settings = {
       auto-optimise-store = true;
-      # TODO: is it really reasonable to set these all as defaults?
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
     optimise.automatic = true;

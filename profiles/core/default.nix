@@ -9,6 +9,7 @@ in {
   imports = [
     ../../lib/system
     ./nix-config.nix
+    ./nixpkgs-config.nix
     ./system-packages.nix
   ];
 

@@ -5,14 +5,13 @@
   ...
 }: let
   inherit (config.lib) dotfield;
-
   # TODO: add this via gitignore.nix or something to avoid IFD
-  dotfieldScript =
-    pkgs.writeScriptBin "dotfield"
-    (builtins.readFile "${dotfield.srcPath}/packages/dotfield");
+  # dotfieldScript =
+  #   pkgs.writeScriptBin "dotfield"
+  #   (builtins.readFile "${dotfield.srcPath}/packages/dotfield");
 in {
   environment.systemPackages = with pkgs; [
-    dotfieldScript
+    # dotfieldScript
 
     ## === Essentials ===
 

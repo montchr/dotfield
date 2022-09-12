@@ -59,9 +59,6 @@
         (builtins.attrValues (flattenTree nixosModules))
         ++ [
           ({pkgs, ...}: {
-            imports = [
-              nixpkgsConfig
-            ];
             nix.nixPath = [
               "nixpkgs=${pkgs.path}"
               "home-manager=${home-manager}"

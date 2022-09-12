@@ -4,7 +4,7 @@
   self,
   ...
 }: let
-  inherit (self) inputs nixpkgsConfig;
+  inherit (self) inputs;
   inherit
     (inputs)
     nixpkgs
@@ -51,10 +51,6 @@
       }: let
         inherit (config.home) username;
       in {
-        imports = [
-          nixpkgsConfig
-          {_module.args.packages = self.packages.${pkgs.system};}
-        ];
         programs.home-manager.enable = true;
         manual.json.enable = true;
         news.display = "show";

@@ -1,10 +1,6 @@
-{
-  self,
-  config,
-  lib,
-  withSystem,
-  ...
-}: let
+{self, ...}: let
+  inherit (self) inputs;
+  inherit (inputs.gitignore.lib) gitignoreSource;
   inherit
     (builtins)
     functionArgs
@@ -12,90 +8,84 @@
     isPath
     mapAttrs
     ;
-in {
-  config = {
-    flake.overlays = {
-      default = final: prev: self.packages;
-    };
 
-    perSystem = ctx @ {
-      pkgs,
-      config,
-      inputs',
-      ...
-    }: let
-      inherit (pkgs) callPackage;
+  packageIndex = {
+    ##: internal packages
+    dotfield-config = ./dotfield/dotfield-config.nix;
 
-      ##: nvfetcher sources
-      #
-      # some of these packages depend on raw sources managed by nvfetcher.
-      # nvfetcher's output will not pass checks as a package, but its generated
-      # nix expression still depends on various core fetcher packages so it
-      # needs to have access to `pkgs`.
-      #
-      # at the time of writing, nvfetcher still seems like the simplest approach
-      # to managing raw sources centrally (as opposed to a slew of scattered
-      # dependency pinning throughout package expressions). even though flakes
-      # seem like they'd provide a built-in solution to such a workflow, i gave
-      # up after hours of trying to replace nvfetcher with a flakes-only
-      # workflow (using a subflake in `./sources/flake.nix` to avoid cluttering
-      # the toplevel inputs). if you, dear reader, have any pointers toward such
-      # a workflow, i welcome your advice!
-      sources =
-        (import ./sources/_sources/generated.nix)
-        {inherit (pkgs) fetchurl fetchgit fetchFromGitHub;};
+    ##: application helpers
+    # firefox-lepton-ui = {source}: source.src;
+    kitty-set-app-icon = ./applications/kitty/set-app-icon.nix;
+    kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id.nix;
 
-      packageIndex = {
-        ##: internal packages
-        dotfield-config = ./dotfield/dotfield-config.nix;
+    ##: development tools
+    ediff-tool = ./development-tools/ediff-tool;
+    git-submodule-rewrite = ./development-tools/git-submodule-rewrite;
 
-        ##: application helpers
-        firefox-lepton-ui = {source}: source.src;
-        kitty-set-app-icon = ./applications/kitty/set-app-icon.nix;
-        kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id.nix;
+    ##: drivers
+    epson-201212w = ./drivers/epson_201212w;
 
-        ##: development tools
-        ediff-tool = ./development-tools/ediff-tool;
-        git-submodule-rewrite = ./development-tools/git-submodule-rewrite;
+    ##: fonts
+    nerdfonts-symbols-only = ./fonts/nerdfonts-symbols-only.nix;
+    # pragmatapro = ./fonts/pragmatapro.nix;
+    sf-pro = ./fonts/sf-pro.nix;
 
-        ##: drivers
-        epson-201212w = ./drivers/epson_201212w;
+    ##: golang packages
+    trellis-cli = ./golang/trellis-cli;
 
-        ##: fonts
-        nerdfonts-symbols-only = ./fonts/nerdfonts-symbols-only.nix;
-        # pragmatapro = ./fonts/pragmatapro.nix;
-        sf-pro = ./fonts/sf-pro.nix;
+    ##: php packages
+    phpactor = ./php/phpactor;
 
-        ##: golang packages
-        trellis-cli = ./golang/trellis-cli;
+    ##: python packages
+    cpanel-cli = ./python/cpanel-cli;
+    hpi = ./python/HPI;
+    orgparse = ./python/orgparse;
+    promnesia = ./python/promnesia;
+  };
 
-        ##: php packages
-        phpactor = ./php/phpactor;
+  # packageDeps = name: package: (intersectAttrs
+  #   (functionArgs package)
+  #   (config.packages
+  #     // {
+  #       # FIXME: `inputs'` tends to destroy non-system-spaced attrs, this may not work
+  #       inherit (inputs'.gitignore.lib) gitignoreSource;
+  #       source = sources.${name};
+  #     }));
 
-        ##: python packages
-        cpanel-cli = ./python/cpanel-cli;
-        hpi = ./python/HPI;
-        orgparse = ./python/orgparse;
-        promnesia = ./python/promnesia;
+  generatedSources = pkgs:
+    pkgs.callPackage
+    (import ./sources/_sources/generated.nix) {};
+  # {inherit (pkgs) fetchurl fetchzip fetchFromGitHub;};
+
+  dotfieldPackages = pkgs: let
+    sources = generatedSources pkgs;
+  in
+    mapAttrs (name: v: let
+      package =
+        if (isPath v)
+        then (import v)
+        else v;
+      extraDeps = {
+        inherit gitignoreSource;
+        source = sources.${name};
       };
-
-      packageDeps = name: package: (intersectAttrs
-        (functionArgs package)
-        (config.packages
-          // {
-            inherit (inputs'.gitignore.lib) gitignoreSource;
-            source = sources.${name};
-          }));
-    in {
-      _module.args.sources = sources;
-
-      packages = mapAttrs (name: v: let
-        package =
-          if (isPath v)
-          then (import v)
-          else v;
-      in (callPackage package (packageDeps name package)))
-      packageIndex;
-    };
+    in (pkgs.callPackage package
+      (intersectAttrs (functionArgs package) extraDeps)))
+    packageIndex;
+in {
+  flake.overlays = {
+    packages = final: prev: (dotfieldPackages final);
+  };
+  perSystem = ctx @ {
+    pkgs,
+    config,
+    inputs',
+    ...
+  }: let
+    sources = generatedSources pkgs;
+  in {
+    # TODO: remove the need for sources outside of this flake module -- package everything beforehand
+    _module.args.sources = sources;
+    packages = dotfieldPackages pkgs;
   };
 }
