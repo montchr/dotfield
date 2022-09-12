@@ -86,7 +86,6 @@
     withSystem system (
       ctx @ {sources, ...}: let
         moduleArgs = {
-          _module.args.self = self;
           _module.args.inputs = self.inputs;
           _module.args.inputs' = self.inputs';
           _module.args.primaryUser = primaryUser;
@@ -107,6 +106,7 @@
             ];
           specialArgs = {
             inherit
+              self
               darwinProfiles
               sharedProfiles
               roles
