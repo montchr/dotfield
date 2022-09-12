@@ -1,5 +1,6 @@
 {self, ...}: let
   inherit (self) inputs;
+  inherit (inputs.flake-utils.lib) filterPackages;
   inherit (inputs.gitignore.lib) gitignoreSource;
   inherit
     (builtins)
@@ -79,6 +80,7 @@ in {
   };
   perSystem = ctx @ {
     pkgs,
+    system,
     config,
     inputs',
     ...
@@ -87,6 +89,6 @@ in {
   in {
     # TODO: remove the need for sources outside of this flake module -- package everything beforehand
     _module.args.sources = sources;
-    packages = dotfieldPackages pkgs;
+    packages = filterPackages system (dotfieldPackages pkgs);
   };
 }
