@@ -2,12 +2,12 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (config.networking) hostName;
-  hostNet =
-    (lib.eso.peers.getHost hostName).network
-    or (config.nixos-vm.peerConfig).network;
+  inherit (self.lib.peers) getHost getNet;
+  hostNet = (getHost hostName).network or (config.nixos-vm.peerConfig).network or null;
 in
   lib.mkMerge [
     {
@@ -23,6 +23,6 @@ in
       };
     }
     (lib.mkIf (config.networking ? domain) {
-      networking.domain = (lib.eso.peers.getNet hostNet).domain or null;
+      networking.domain = (getNet hostNet).domain or null;
     })
   ]

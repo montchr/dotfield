@@ -3,11 +3,12 @@
   lib,
   pkgs,
   inputs,
+  self,
   ...
 }: let
   inherit (inputs.nix-colors) colorSchemes;
-  inherit (lib.eso) mkOpt;
   inherit (lib.types) int str;
+  inherit (self.lib) mkOpt;
 
   cfg = config.theme;
 

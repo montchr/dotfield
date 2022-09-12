@@ -11,6 +11,7 @@
   config,
   lib,
   primaryUser,
+  self,
   ...
 }: let
   cfg = config.nixos-vm;
@@ -38,7 +39,7 @@ in {
     # Preserve most of the host machine's peer config but override networking.
     nixos-vm.peerConfig =
       lib.mkDefault
-      ((lib.eso.peers.getHost config.networking.hostName)
+      ((self.lib.peers.getHost config.networking.hostName)
         // {
           network = "local";
           tailscale = null;

@@ -75,17 +75,10 @@
     ];
 
     lib = inputs.nixos-unstable.lib.extend (lfinal: lprev: {
-      ##: exo :: from without
-      exo = builtins.mapAttrs (n: v: v.lib) {
-        inherit
-          (inputs)
-          digga
-          flake-parts
-          gitignore
-          nix-colors
-          ;
-        hm = inputs.home-manager;
-        utils = inputs.flake-utils;
+      digga = digga.lib;
+      eso = import ./lib {
+        inherit peers;
+        lib = lfinal;
       };
     });
 
@@ -116,7 +109,7 @@
         ;
 
 
-      lib = import ./lib {inherit lib peers;};
+      lib = lib.eso;
 
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
       #   tsone = with (peers.hosts.tsone); {

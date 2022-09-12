@@ -12,9 +12,6 @@ in {
     ./system-packages.nix
   ];
 
-  # TODO: can this be merged with the 'dotfield' lib?
-  # lib.eso = self.lib;
-
   time.timeZone = "America/New_York";
 
   environment.variables = {
