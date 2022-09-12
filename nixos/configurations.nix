@@ -133,59 +133,59 @@ in {
         ]);
     };
 
-    # boschic = makeNixosSystem "boschic" {
-    #   modules =
-    #     (with roles; graphical ++ tangible ++ webdev ++ workstation)
-    #     ++ (with nixosProfiles; [
-    #       boot.refind
-    #       desktop.flatpak
-    #       hardware.amd
-    #       login.gdm
-    #       # login.greetd
-    #       hardware.nvidia
-    #       virtualisation.vm-variant
-    #     ]);
-    # };
+    boschic = makeNixosSystem "boschic" {
+      modules =
+        (with roles; graphical ++ tangible ++ webdev ++ workstation)
+        ++ (with nixosProfiles; [
+          boot.refind
+          desktop.flatpak
+          hardware.amd
+          login.gdm
+          # login.greetd
+          hardware.nvidia
+          virtualisation.vm-variant
+        ]);
+    };
 
-    # hodgepodge = makeNixosSystem "hodgepodge" {
-    #   modules =
-    #     (with roles; graphical ++ tangible ++ workstation)
-    #     ++ (with nixosProfiles; [
-    #       hardware.hidpi
-    #       login.gdm
-    #     ]);
-    # };
+    hodgepodge = makeNixosSystem "hodgepodge" {
+      modules =
+        (with roles; graphical ++ tangible ++ workstation)
+        ++ (with nixosProfiles; [
+          hardware.hidpi
+          login.gdm
+        ]);
+    };
 
-    # hierophant = makeNixosSystem "hierophant" {
-    #   modules =
-    #     (with roles; server)
-    #     ++ (with nixosProfiles; [
-    #       environments.hetzner-cloud
-    #     ]);
-    # };
+    hierophant = makeNixosSystem "hierophant" {
+      modules =
+        (with roles; server)
+        ++ (with nixosProfiles; [
+          environments.hetzner-cloud
+        ]);
+    };
 
-    # ryosuke = makeNixosSystem "ryosuke" {
-    #   modules =
-    #     (with roles; graphical ++ tangible ++ webdev ++ workstation)
-    #     ++ (with nixosProfiles; [
-    #       hardware.amd
-    #       hardware.hidpi
-    #       login.gdm
-    #       # login.greetd
-    #       # virtualisation.vm-variant
-    #     ]);
-    # };
+    ryosuke = makeNixosSystem "ryosuke" {
+      modules =
+        (with roles; graphical ++ tangible ++ webdev ++ workstation)
+        ++ (with nixosProfiles; [
+          hardware.amd
+          hardware.hidpi
+          login.gdm
+          # login.greetd
+          # virtualisation.vm-variant
+        ]);
+    };
 
-    # tsone = makeNixosSystem "tsone" {
-    #   modules =
-    #     (with roles; server)
-    #     ++ (with nixosProfiles; [
-    #       hardware.amd
+    tsone = makeNixosSystem "tsone" {
+      modules =
+        (with roles; server)
+        ++ (with nixosProfiles; [
+          hardware.amd
 
-    #       # This host has Hetzner Online UEFI boot enabled in BIOS.
-    #       # Normally Hetzner Online would require booting with GRUB.
-    #       boot.systemd-boot
-    #     ]);
-    # };
+          # This host has Hetzner Online UEFI boot enabled in BIOS.
+          # Normally Hetzner Online would require booting with GRUB.
+          boot.systemd-boot
+        ]);
+    };
   };
 }
