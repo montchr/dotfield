@@ -147,10 +147,10 @@
         },
         "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
     },
-    "roots-trellis-cli": {
+    "trellis-cli": {
         "cargoLocks": null,
         "extract": null,
-        "name": "roots-trellis-cli",
+        "name": "trellis-cli",
         "passthru": null,
         "pinned": false,
         "src": {

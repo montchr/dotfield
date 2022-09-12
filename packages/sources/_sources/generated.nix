@@ -93,8 +93,8 @@
       sha256 = "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=";
     });
   };
-  roots-trellis-cli = {
-    pname = "roots-trellis-cli";
+  trellis-cli = {
+    pname = "trellis-cli";
     version = "v1.7.0";
     src = fetchFromGitHub ({
       owner = "roots";
