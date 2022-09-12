@@ -2,10 +2,9 @@
   config,
   lib,
   pkgs,
-  collective,
+  peers,
   ...
 }: let
-  inherit (collective) peers;
   inherit (config.networking) hostName;
 in {
   imports = [

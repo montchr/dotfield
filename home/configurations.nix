@@ -1,6 +1,6 @@
 {
   withSystem,
-  collective,
+  peers,
   self,
   ...
 }: let
@@ -13,7 +13,6 @@
     home-manager
     nix-colors
     ;
-  inherit (collective) peers;
   inherit (inputs.digga.lib) flattenTree rakeLeaves;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
 
@@ -37,11 +36,6 @@
     ++ (builtins.attrValues homeModules)
     ++ [
       ../lib/home
-      {
-        # _module.args.peers = peers;
-        _module.args.inputs = self.inputs;
-        # _module.args.primaryUser = primaryUser;
-      }
       nix-colors.homeManagerModule
       ({
         config,
@@ -92,7 +86,7 @@
           _module.args.inputs' = inputs';
           _module.args.packages = ctx.config.packages;
           _module.args.sources = sources;
-          # _module.args.peers = peers;
+          _module.args.peers = peers;
           # _module.args.primaryUser = primaryUser;
         };
       in (

@@ -15,6 +15,7 @@
 
     ##: application helpers
     # firefox-lepton-ui = {source}: source.src;
+    # FIXME: the magical "withDeps" approach won't work here because it requires a source of a different name
     kitty-set-app-icon = ./applications/kitty/set-app-icon.nix;
     kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id.nix;
 
