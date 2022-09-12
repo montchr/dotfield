@@ -1,21 +1,46 @@
-{self, ...}: let
+{
+  self,
+  lib,
+  ...
+}: let
   inherit (self) inputs;
   inherit (inputs.flake-utils.lib) filterPackages;
   inherit (inputs.gitignore.lib) gitignoreSource;
   inherit
     (builtins)
+    baseNameOf
     functionArgs
     intersectAttrs
     isPath
     mapAttrs
+    toString
     ;
+  inherit
+    (lib)
+    callPackageWith
+    removeSuffix
+    ;
+
+  generatedSources = pkgs: pkgs.callPackage (import ./sources/_sources/generated.nix) {};
+
+  callPackage = file: pkgs: let
+    sources = generatedSources pkgs;
+    name = removeSuffix ".nix" (baseNameOf (toString file));
+    basePkgs = pkgs // (dotfieldPackages pkgs);
+  in
+    callPackageWith (basePkgs
+      // {
+        inherit gitignoreSource;
+        source = sources.${name};
+      })
+    file {};
 
   packageIndex = {
     ##: internal packages
     dotfield-config = ./dotfield/dotfield-config.nix;
 
     ##: application helpers
-    firefox-lepton-ui = {source}: source.src;
+    # firefox-lepton-ui = {source}: source.src;
     # FIXME: the magical "withDeps" approach won't work here because it requires a source of a different name
     # kitty-set-app-icon = ./applications/kitty/set-app-icon;
     kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id;
@@ -46,35 +71,7 @@
     promnesia = ./python/promnesia;
   };
 
-  # packageDeps = name: package: (intersectAttrs
-  #   (functionArgs package)
-  #   (config.packages
-  #     // {
-  #       # FIXME: `inputs'` tends to destroy non-system-spaced attrs, this may not work
-  #       inherit (inputs'.gitignore.lib) gitignoreSource;
-  #       source = sources.${name};
-  #     }));
-
-  generatedSources = pkgs:
-    pkgs.callPackage
-    (import ./sources/_sources/generated.nix) {};
-  # {inherit (pkgs) fetchurl fetchzip fetchFromGitHub;};
-
-  dotfieldPackages = pkgs: let
-    sources = generatedSources pkgs;
-  in
-    mapAttrs (name: v: let
-      package =
-        if (isPath v)
-        then (import v)
-        else v;
-      extraDeps = {
-        inherit gitignoreSource;
-        source = sources.${name};
-      };
-    in (pkgs.callPackage package
-      (intersectAttrs (functionArgs package) extraDeps)))
-    packageIndex;
+  dotfieldPackages = pkgs: (mapAttrs (n: v: callPackage v pkgs) packageIndex);
 in {
   flake.overlays = {
     packages = final: prev: (dotfieldPackages final);
