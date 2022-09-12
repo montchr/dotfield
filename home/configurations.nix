@@ -84,9 +84,13 @@
         ...
       }: let
         moduleArgs = {
+          _module.args.self = self;
+          _module.args.inputs = self.inputs;
           _module.args.inputs' = inputs';
           _module.args.packages = ctx.config.packages;
           _module.args.sources = sources;
+          # _module.args.peers = peers;
+          # _module.args.primaryUser = primaryUser;
         };
       in (
         home-manager.lib.homeManagerConfiguration {

@@ -97,9 +97,6 @@
   in (flake-parts.lib.mkFlake {inherit self;} {
     systems = supportedSystems;
     imports = [
-      {
-        _module.args.peers = peers;
-      }
       ./flake-modules/sharedModules.nix
       ./flake-modules/sharedProfiles.nix
 
