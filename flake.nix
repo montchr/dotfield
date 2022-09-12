@@ -108,7 +108,6 @@
         sharedProfiles
         ;
 
-
       lib = lib.eso;
 
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
