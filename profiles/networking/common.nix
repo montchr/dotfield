@@ -22,7 +22,7 @@ in
         ];
       };
     }
-    (lib.mkIf (config.networking ? domain) {
+    (lib.mkIf ((config.networking ? domain) && hostNet != null) {
       networking.domain = (getNet hostNet).domain or null;
     })
   ]
