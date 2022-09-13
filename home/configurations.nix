@@ -1,18 +1,10 @@
 {
+  self,
   withSystem,
   peers,
-  self,
   ...
 }: let
   inherit (self) inputs;
-  inherit
-    (inputs)
-    nixpkgs
-    nixos-stable
-    nixos-unstable
-    home-manager
-    nix-colors
-    ;
   inherit (inputs.digga.lib) flattenTree rakeLeaves;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
 
@@ -32,11 +24,11 @@
   ];
 
   defaultModules =
-    defaultProfiles
-    ++ (builtins.attrValues homeModules)
+    (builtins.attrValues homeModules)
+    ++ defaultProfiles
     ++ [
       ../lib/home
-      nix-colors.homeManagerModule
+      inputs.nix-colors.homeManagerModule
       ({
         config,
         lib,
@@ -62,8 +54,6 @@
     inherit
       self
       inputs
-      # sources
-
       homeProfiles
       roles
       ;
@@ -72,36 +62,29 @@
   makeHomeConfiguration = {
     username,
     system ? x86_64-linux,
+    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
     modules ? [],
-  }:
-    withSystem system (
-      ctx @ {
-        pkgs,
-        sources,
-        inputs',
-        ...
-      }: let
-        moduleArgs = {
-          _module.args.inputs = self.inputs;
-          _module.args.inputs' = inputs';
-          _module.args.packages = ctx.config.packages;
-          _module.args.sources = sources;
-          _module.args.peers = peers;
-          # _module.args.primaryUser = primaryUser;
-        };
-      in (
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs extraSpecialArgs;
-          modules =
-            defaultModules
-            ++ modules
-            ++ [
-              moduleArgs
-              {home.username = username;}
-            ];
-        }
-      )
-    );
+  }: (withSystem system (
+    ctx @ {...}: let
+      moduleArgs = {
+        _module.args.inputs = self.inputs;
+        _module.args.packages = ctx.config.packages;
+        _module.args.sources = ctx.sources;
+        _module.args.peers = peers;
+      };
+    in (
+      inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs extraSpecialArgs;
+        modules =
+          defaultModules
+          ++ modules
+          ++ [
+            moduleArgs
+            {home.username = username;}
+          ];
+      }
+    )
+  ));
 
   traveller = makeHomeConfiguration {
     username = "cdom";

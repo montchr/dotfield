@@ -8,24 +8,8 @@
   inherit
     (self)
     inputs
-    nixpkgsConfig
     sharedModules
     sharedProfiles
-    ;
-  inherit
-    (self.darwinModules)
-    hm-shared-config
-    ;
-  inherit
-    (inputs)
-    nixpkgs
-    nixos-stable
-    nixos-unstable
-    darwin
-    agenix
-    home-manager
-    nur
-    sops-nix
     ;
   inherit
     (inputs.digga.lib)
@@ -43,10 +27,7 @@
     mapAttrs
     mapAttrs'
     ;
-  inherit
-    (darwin.lib)
-    darwinSystem
-    ;
+  inherit (inputs.darwin.lib) darwinSystem;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
 
@@ -57,38 +38,24 @@
   darwinMachines = rakeLeaves ./machines;
   darwinProfiles = rakeLeaves ./profiles;
 
-  defaultModules =
-    (builtins.attrValues (flattenTree darwinModules))
-    ++ [
-      ({pkgs, ...}: {
-        imports = [nixpkgsConfig];
-        nix.nixPath = [
-          "darwin=${darwin}"
-          "nixpkgs=${pkgs.path}"
-          "home-manager=${home-manager}"
-        ];
-        documentation.info.enable = false;
-      })
-
-      sharedProfiles.core
-      sharedProfiles.homeManagerSettings
-
-      darwinProfiles.core
-      home-manager.darwinModules.home-manager
-      # `nixosModules` is correct, even for darwin
-      # FIXME: migrate to sops
-      agenix.nixosModules.age
-    ];
+  defaultModules = [
+    sharedProfiles.core
+    sharedProfiles.homeManagerSettings
+    darwinProfiles.core
+    inputs.home-manager.darwinModules.home-manager
+    # `nixosModules` is correct, even for darwin
+    inputs.agenix.nixosModules.age
+  ];
 
   makeDarwinSystem = hostname: {
     system ? aarch64-darwin,
+    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
     modules ? [],
   }:
     withSystem system (
       ctx @ {sources, ...}: let
         moduleArgs = {
           _module.args.inputs = self.inputs;
-          _module.args.inputs' = self.inputs';
           _module.args.primaryUser = primaryUser;
           _module.args.packages = ctx.config.packages;
           _module.args.sources = sources;
@@ -100,15 +67,26 @@
           modules =
             defaultModules
             ++ (builtins.attrValues sharedModules)
+            ++ (builtins.attrValues (flattenTree darwinModules))
             ++ modules
             ++ [
               moduleArgs
-              {home-manager.sharedModules = [moduleArgs];}
+              {
+                nix.nixPath = [
+                  "darwin=${inputs.darwin}"
+                  "nixpkgs=${pkgs.path}"
+                  "home-manager=${inputs.home-manager}"
+                ];
+                nixpkgs.pkgs = pkgs;
+                networking.hostName = hostname;
+                home-manager.sharedModules = [moduleArgs];
+              }
               darwinMachines.${hostname}
             ];
           specialArgs = {
             inherit
               self
+              inputs
               darwinProfiles
               sharedProfiles
               roles

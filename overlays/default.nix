@@ -1,12 +1,11 @@
-{self, ...}: let
+{
+  self,
+  withSystem,
+  ...
+}: let
   inherit (self) inputs packages;
+  inherit (builtins) mapAttrs;
   internalLib = self.lib;
-  mkChannels = pkgs: (pkgs.lib.genAttrs [
-    "nixos-stable"
-    "nixos-unstable"
-    "nixpkgs-trunk"
-    "nixpkgs-darwin-stable"
-  ] (name: inputs.${name}.legacyPackages.${pkgs.system}));
 in {
   flake.overlays = {
     internalLib = final: prev: {
@@ -15,9 +14,17 @@ in {
         eso = internalLib;
       });
     };
-    # packages = final: prev: (packages.${prev.system});
     overrides = final: prev: let
-      channels = mkChannels final;
+      channels = withSystem final.system ({inputs', ...}:
+        mapAttrs (_: v: v.legacyPackages) {
+          inherit
+            (inputs')
+            nixos-stable
+            nixos-unstable
+            nixpkgs-trunk
+            nixpkgs-darwin-stable
+            ;
+        });
     in {
       inherit channels;
 

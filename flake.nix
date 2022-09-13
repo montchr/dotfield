@@ -58,9 +58,15 @@
 
   outputs = inputs @ {
     self,
+    nixpkgs,
+    nixos-unstable,
     flake-parts,
     digga,
     flake-utils,
+    nixpkgs-wayland,
+    emacs-overlay,
+    nur,
+    nix-dram,
     ...
   }: let
     inherit (digga.lib) flattenTree rakeLeaves;
@@ -80,6 +86,19 @@
       };
     });
 
+    exoOverlays = [
+      nixpkgs-wayland.overlay
+      emacs-overlay.overlay
+      nur.overlay
+      nix-dram.overlay
+    ];
+
+    esoOverlays = [
+      (final: prev: {inherit lib;})
+      self.overlays.packages
+      self.overlays.overrides
+    ];
+
     # shared importables :: may be used within system configurations for any
     # supported operating system (e.g. nixos, nix-darwin).
     peers = import ./ops/metadata/peers.nix;
@@ -89,7 +108,6 @@
     systems = supportedSystems;
     imports = [
       {
-        _module.args.lib = lib;
         _module.args.peers = peers;
       }
 
@@ -105,6 +123,13 @@
       ./home/configurations.nix
       ./nixos/configurations.nix
     ];
+    perSystem = {system, ...}: {
+      _module.args.pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = exoOverlays ++ esoOverlays;
+      };
+    };
     flake = {
       inherit
         sharedModules

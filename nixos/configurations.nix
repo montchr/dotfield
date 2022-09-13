@@ -8,7 +8,6 @@
   inherit
     (self)
     inputs
-    nixpkgsConfig
     sharedModules
     sharedProfiles
     ;
@@ -17,21 +16,7 @@
     flattenTree
     rakeLeaves
     ;
-  inherit
-    (inputs)
-    nixpkgs
-    nixpkgs-wayland
-    nixos-stable
-    nixos-unstable
-    agenix
-    home-manager
-    nur
-    sops-nix
-    ;
-  inherit
-    (inputs.flake-utils.lib.system)
-    x86_64-linux
-    ;
+  inherit (inputs.flake-utils.lib.system) x86_64-linux;
   inherit
     (lib)
     mapAttrs
@@ -50,48 +35,27 @@
   nixosProfiles = rakeLeaves ./profiles;
 
   defaultModules = [
-    {
-      imports =
-        (builtins.attrValues (flattenTree nixosModules))
-        ++ [
-          ({pkgs, ...}: {
-            nix.nixPath = [
-              "nixpkgs=${pkgs.path}"
-              "home-manager=${home-manager}"
-            ];
-            documentation.info.enable = false;
-          })
-
-          sharedProfiles.core
-          sharedProfiles.homeManagerSettings
-
-          nixosProfiles.core
-          nixosProfiles.boot.common
-
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-          agenix.nixosModules.age
-        ];
-    }
+    sharedProfiles.core
+    sharedProfiles.homeManagerSettings
+    nixosProfiles.core
+    nixosProfiles.boot.common
+    inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
+    inputs.agenix.nixosModules.age
   ];
 
   makeNixosSystem = hostname: {
     system ? x86_64-linux,
+    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
     modules ? [],
   }:
     withSystem system (
-      ctx @ {
-        pkgs,
-        inputs',
-        sources,
-        ...
-      }: let
+      ctx @ {...}: let
         moduleArgs = {
           _module.args.inputs = self.inputs;
-          _module.args.inputs' = inputs';
           _module.args.primaryUser = primaryUser;
           _module.args.packages = ctx.config.packages;
-          _module.args.sources = sources;
+          _module.args.sources = ctx.sources;
           _module.args.peers = peers;
         };
       in
@@ -100,10 +64,19 @@
           modules =
             defaultModules
             ++ (builtins.attrValues sharedModules)
+            ++ (builtins.attrValues (flattenTree nixosModules))
             ++ modules
             ++ [
               moduleArgs
-              {home-manager.sharedModules = [moduleArgs];}
+              {
+                nix.nixPath = [
+                  "nixpkgs=${pkgs.path}"
+                  "home-manager=${inputs.home-manager}"
+                ];
+                nixpkgs.pkgs = pkgs;
+                networking.hostName = hostname;
+                home-manager.sharedModules = [moduleArgs];
+              }
               nixosMachines.${hostname}
             ];
           specialArgs = {
@@ -138,7 +111,8 @@ in {
           hardware.amd
           login.gdm
           # login.greetd
-          hardware.nvidia
+          # FIXME: `lib.mkForce` fails
+          # hardware.nvidia
           virtualisation.vm-variant
         ]);
     };
