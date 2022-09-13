@@ -7,24 +7,17 @@
   # nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    nixpkgs.follows = "nixos-unstable";
-
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      # Packages are built against this channel.
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
 
     darwin.url = "github:LnL7/nix-darwin";
     digga = {
       url = "github:divnix/digga/home-manager-22.11";
       inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager.url = "github:nix-community/home-manager";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -37,16 +30,12 @@
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-dram = {
       url = "github:dramforever/nix-dram";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     nix-colors.url = "github:Misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
-    nixago = {
-      url = "github:nix-community/nixago";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixago.url = "github:nix-community/nixago";
     prefmanager.url = "github:malob/prefmanager";
     sops-nix.url = "github:Mic92/sops-nix";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -56,6 +45,15 @@
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
+
+    digga.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.inputs.nixpkgs.follows = "nixpkgs";
+    nix-dram.inputs.nixpkgs.follows = "nixpkgs";
+    nixago.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixos-unstable";
+
+    nixpkgs.follows = "nixos-unstable";
   };
 
   outputs = inputs @ {
