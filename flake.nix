@@ -91,6 +91,7 @@
     systems = supportedSystems;
     imports = [
       {
+        _module.args.lib = lib;
         _module.args.peers = peers;
       }
 

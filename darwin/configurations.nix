@@ -2,6 +2,7 @@
   withSystem,
   self,
   peers,
+  lib,
   ...
 }: let
   inherit
@@ -37,7 +38,7 @@
     x86_64-darwin
     ;
   inherit
-    (nixpkgs.lib)
+    (lib)
     makeOverridable
     mapAttrs
     mapAttrs'

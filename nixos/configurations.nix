@@ -29,19 +29,15 @@
     sops-nix
     ;
   inherit
-    (nixpkgs.lib)
-    mapAttrs
-    mapAttrs'
-    makeOverridable
-    nixosSystem
-    ;
-  inherit
     (inputs.flake-utils.lib.system)
     x86_64-linux
     ;
   inherit
-    (self.nixosModules)
-    hm-shared-config
+    (lib)
+    mapAttrs
+    mapAttrs'
+    makeOverridable
+    nixosSystem
     ;
 
   roles = import ./roles {inherit sharedProfiles nixosProfiles;};
