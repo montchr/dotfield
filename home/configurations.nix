@@ -36,28 +36,22 @@
         ...
       }: let
         inherit (config.home) username;
+        inherit (pkgs.stdenv.hostPlatform) isDarwin;
+        homePrefix =
+          if isDarwin
+          then "/Users"
+          else "/home";
       in {
         programs.home-manager.enable = true;
         manual.json.enable = true;
         news.display = "show";
         xdg.enable = true;
         home.stateVersion = lib.mkDefault "22.05";
-
-        home.homeDirectory =
-          if pkgs.stdenv.hostPlatform.isDarwin
-          then "/Users/${username}"
-          else "/home/${username}";
+        home.homeDirectory = "${homePrefix}/${username}";
       })
     ];
 
-  extraSpecialArgs = {
-    inherit
-      self
-      inputs
-      homeProfiles
-      roles
-      ;
-  };
+  extraSpecialArgs = {inherit self inputs homeProfiles roles;};
 
   makeHomeConfiguration = {
     username,
