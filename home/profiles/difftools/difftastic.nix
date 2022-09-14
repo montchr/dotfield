@@ -13,6 +13,6 @@ in {
   home.packages = with pkgs; [difftastic];
   programs.git.difftastic = {
     enable = lib.mkDefault (!config.programs.git.delta.enable);
-    background = inverseSchemeType colorScheme.kind;
+    background = lib.mkIf config.theme.enable (inverseSchemeType colorScheme.kind);
   };
 }
