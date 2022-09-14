@@ -25,13 +25,19 @@ in {
         jost
         public-sans
 
-        # FIXME: this is released in nixos-unstable
-        # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        nerdfonts-symbols-only
+        (nerdfonts.override {
+          fonts = [
+            "Iosevka"
+            "NerdFontsSymbolsOnly"
+          ];
+        })
 
-        iosevka-nf
         iosevka-xtal.xtal
         iosevka-xtal.xtal-term
+
+        # "Iosevka Comfy" by Protesilaos Stavrou
+        # https://git.sr.ht/~protesilaos/iosevka-comfy
+        # https://protesilaos.com/emacs/iosevka-comfy-pictures
         iosevka-comfy.comfy
         iosevka-comfy.comfy-duo
         iosevka-comfy.comfy-wide
