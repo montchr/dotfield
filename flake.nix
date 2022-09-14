@@ -56,7 +56,7 @@
     nixpkgs.follows = "nixos-unstable";
   };
 
-  outputs = inputs @ {
+  outputs = {
     self,
     nixpkgs,
     nixos-unstable,
@@ -78,10 +78,10 @@
       aarch64-darwin
     ];
 
-    lib = inputs.nixos-unstable.lib.extend (lfinal: lprev: {
-      digga = digga.lib;
+    lib = nixos-unstable.lib.extend (lfinal: lprev: {
       eso = import ./lib {
         inherit peers;
+        flake = self;
         lib = lfinal;
       };
     });
