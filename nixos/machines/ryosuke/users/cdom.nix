@@ -1,11 +1,12 @@
 {
+  self,
   config,
   lib,
   pkgs,
   primaryUser,
   ...
 }: let
-  inherit (lib.digga) rakeLeaves;
+  inherit (self.inputs.digga.lib) rakeLeaves;
   inherit (config.lib.dotfield) srcPath;
 
   username = "cdom";
