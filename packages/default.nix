@@ -85,8 +85,10 @@
     inherit (splicedPackages) callPackage callPackages;
     splicedPackages = splice pkgs;
     dotfieldPackages = mapAttrs (n: v: callPackage n v {}) packageIndex;
-  in
-    dotfieldPackages;
+    iosevkaPackages = {
+      iosevka-xtal = recurseIntoAttrs (pkgs.callPackages ./fonts/iosevka-xtal.nix {});
+    };
+  in (dotfieldPackages // iosevkaPackages);
 in {
   flake.overlays.packages = final: prev: (internalPackages final);
   perSystem = ctx @ {

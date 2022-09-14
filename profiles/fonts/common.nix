@@ -29,9 +29,9 @@ in {
         # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         nerdfonts-symbols-only
 
-        iosevka-xtal
-        iosevka-xtal-term
         iosevka-nf
+        iosevka-xtal.xtal
+        iosevka-xtal.xtal-term
         iosevka-comfy.comfy
         iosevka-comfy.comfy-duo
         iosevka-comfy.comfy-wide
