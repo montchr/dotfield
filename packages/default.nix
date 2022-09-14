@@ -18,22 +18,30 @@
   inherit
     (lib)
     callPackageWith
+    callPackagesWith
+    recurseIntoAttrs
     removeSuffix
     ;
 
   generatedSources = pkgs: pkgs.callPackage (import ./sources/_sources/generated.nix) {};
 
-  callPackage = file: pkgs: let
+  # inspired by the definitions for the eponymous functions in nixpkgs:
+  # https://github.com/NixOS/nixpkgs/blob/738fe494da28777ddeb2612c70a5dc909958df4b/pkgs/top-level/splice.nix
+  splice = pkgs: let
     sources = generatedSources pkgs;
-    name = removeSuffix ".nix" (baseNameOf (toString file));
-    basePkgs = pkgs // (dotfieldPackages pkgs);
-  in
-    callPackageWith (basePkgs
+    mashedPackages = pkgs // (internalPackages pkgs);
+    splicePackages = name:
+      mashedPackages
       // {
+        # TODO: use `cleanSource` from nixpkgs
         inherit gitignoreSource;
         source = sources.${name};
-      })
-    file {};
+      };
+  in {
+    inherit splicePackages;
+    callPackage = name: callPackageWith (splicePackages name);
+    callPackages = name: callPackagesWith (splicePackages name);
+  };
 
   packageIndex = {
     ##: internal packages
@@ -73,9 +81,14 @@
     # promnesia = ./python/promnesia;
   };
 
-  dotfieldPackages = pkgs: (mapAttrs (n: v: callPackage v pkgs) packageIndex);
+  internalPackages = pkgs: let
+    inherit (splicedPackages) callPackage callPackages;
+    splicedPackages = splice pkgs;
+    dotfieldPackages = mapAttrs (n: v: callPackage n v {}) packageIndex;
+  in
+    dotfieldPackages;
 in {
-  flake.overlays.packages = final: prev: (dotfieldPackages final);
+  flake.overlays.packages = final: prev: (internalPackages final);
   perSystem = ctx @ {
     pkgs,
     system,
@@ -97,6 +110,6 @@ in {
   in {
     # TODO: remove the need for sources outside of this flake module -- package everything beforehand
     _module.args.sources = sources;
-    packages = filterPackages system (dotfieldPackages pkgs);
+    packages = filterPackages system (internalPackages pkgs);
   };
 }
