@@ -72,7 +72,6 @@ in {
 
     alejandra # The Uncompromising Nix Code Formatter
     cachix
-    fup-repl
     manix # nix documentation search
     nix-diff # Explain why two Nix derivations differ
     nix-tree # Interactively browse dependency graphs of Nix derivations.

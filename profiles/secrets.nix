@@ -40,7 +40,6 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
-    agenix
     rage
     sops
   ];

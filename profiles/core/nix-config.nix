@@ -16,12 +16,13 @@ in {
     package = pkgs.nix;
     settings = {
       inherit substituters trusted-substituters;
-
+      experimental-features = ["nix-command" "flakes"];
+      # darwin: shits outside the litterbox.
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
-      # FIXME: dangerous?
+      # any user is allowed to use nix (as long as multi-user mode is used,
+      # which it generally always is).
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel" "@seadome"];
-
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
