@@ -91,7 +91,7 @@
         }
     );
 in {
-  # flake.nixosModules = nixosModules;
+  flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
     bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
       modules =
