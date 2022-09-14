@@ -123,8 +123,21 @@
 
 ;; === font ====================================================================
 
-(use-package! fontaine
+(use-package! ligature
   :after modus-themes
+  :config
+  ;; Enable all Iosevka ligatures in programming modes
+  ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
+  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+  ;; Enables ligature checks globally in all buffers. You can also do it per
+  ;; mode with `ligature-mode'.
+  (global-ligature-mode t))
+
+(use-package! fontaine
+  :after ligature
   :config
   (setq fontaine-presets
         '((small :default-height 100)
@@ -155,18 +168,6 @@
   ;; The other side of `fontaine-restore-latest-preset'.
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package! ligature
-  :after fontaine
-  :config
-  ;; Enable all Iosevka ligatures in programming modes
-  ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
-  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
-  ;; Enables ligature checks globally in all buffers. You can also do it per
-  ;; mode with `ligature-mode'.
-  (global-ligature-mode t))
 
 
 ;; === org-mode ================================================================
