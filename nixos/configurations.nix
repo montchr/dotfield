@@ -83,7 +83,6 @@
             inherit
               self
               inputs
-              sources
               nixosProfiles
               sharedProfiles
               roles
