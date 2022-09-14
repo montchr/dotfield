@@ -96,7 +96,7 @@
   };
 in {
   flake = {
-    inherit homeModules homeProfiles;
+    inherit homeModules;
     sharedProfiles.homeManagerSettings = settingsProfile;
     homeConfigurations = {
       "cdom@kweb-prod-www" = traveller;
