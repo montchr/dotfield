@@ -1,9 +1,29 @@
+# Copyright (C) 2022 Chris Montgomery
+# SPDX-License-Identifier: GPL-3.0+
+#
+# Copyright (C) 2021 Gytis Ivaskevicius
+# SPDX-License-Identifier: MIT
+#
+## Sources:
+#
+# https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a/LICENSE
 {
+  self,
   config,
   lib,
   pkgs,
   ...
 }: let
+  inherit
+    (builtins)
+    mapAttrs
+    ;
+  inherit
+    (lib)
+    filterAttrs
+    mapAttrs'
+    ;
+  inherit (self) inputs;
   substituters = [
     "https://cache.nixos.org/"
     "https://dotfield.cachix.org"
@@ -11,9 +31,17 @@
     "https://nixpkgs-wayland.cachix.org"
   ];
   trusted-substituters = substituters;
+  inputFlakes = filterAttrs (_: v: v ? outputs) inputs;
+  inputsToPaths = mapAttrs' (name: value: {
+    name = "nix/inputs/${name}";
+    value.source = value.outPath;
+  });
 in {
+  environment.etc = inputsToPaths inputs;
   nix = {
     package = pkgs.nix;
+    nixPath = ["/etc/nix/inputs"];
+    registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
       inherit substituters trusted-substituters;
       experimental-features = ["nix-command" "flakes"];
