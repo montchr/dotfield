@@ -23,6 +23,7 @@
       editorconfig-checker
       nvfetcher
       rage
+      repl
       shellcheck
       shfmt
       ssh-to-age
@@ -55,6 +56,7 @@
       # ];
 
       commands = [
+        (dotfield repl)
         (dotfield deploy-rs)
         # (dotfield nixos-generators)
         (dotfield terraform)

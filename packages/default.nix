@@ -46,6 +46,7 @@
   packageIndex = {
     ##: internal packages
     dotfield-config = ./dotfield/dotfield-config.nix;
+    repl = ./dotfield/fup-repl;
 
     ##: application helpers
     # firefox-lepton-ui = {source}: source.src;
