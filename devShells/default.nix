@@ -1,6 +1,9 @@
-{...}: {
+{self, ...}: let
+  inherit (self) inputs;
+in {
   perSystem = {
     inputs',
+    system,
     pkgs,
     lib,
     ...
@@ -33,6 +36,8 @@
       ;
     inherit (pkgs.nodePackages) prettier;
     inherit (pkgs.stdenv) isLinux;
+
+    mozilla-addons-to-nix = inputs.mozilla-addons-to-nix.defaultPackage.${system};
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
@@ -68,6 +73,12 @@
           help = nvfetcher.meta.description;
           command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
         }
+
+        (utils {
+          name = mozilla-addons-to-nix.pname;
+          help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
+          package = mozilla-addons-to-nix;
+        })
 
         (utils {
           name = "evalnix";

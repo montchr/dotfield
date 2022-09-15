@@ -28,6 +28,7 @@
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     gitignore.url = "github:hercules-ci/gitignore.nix";
+    mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
     nix-dram = {
       url = "github:dramforever/nix-dram";
       inputs.flake-utils.follows = "flake-utils";
