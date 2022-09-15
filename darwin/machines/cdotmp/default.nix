@@ -11,7 +11,7 @@
     (with suites; workstation)
     ++ (with profiles; [users.chris]);
 
-  networking.hostName = "tmpln";
+  networking.hostName = "cdotmp";
 
   # FIXME: verify
   # $ networksetup -listallnetworkservices

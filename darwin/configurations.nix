@@ -62,7 +62,7 @@
           _module.args.peers = peers;
         };
       in
-        makeOverridable (darwinSystem {
+        darwinSystem {
           inherit system;
           modules =
             defaultModules
@@ -92,7 +92,7 @@
               roles
               ;
           };
-        })
+        }
     );
 in {
   # flake.darwinModules = importLeaves darwinModules;
