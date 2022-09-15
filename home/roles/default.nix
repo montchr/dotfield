@@ -55,6 +55,7 @@ with homeProfiles; let
   webdev = [
     aws
     nodejs
+    development.flyio
     development.php
     development.wordpress
   ];
