@@ -54,6 +54,54 @@ pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 
 More details forthcoming...
 
+
+## Vertebrae
+
+- [hercules-ci/flake-parts][flake-parts] :: a framework for flake modules
+- [divnix/digga][digga] :: helpful lib functions and examples
+
+[flake-parts]: https://github.com/hercules-ci/flake-parts
+[digga]: https://github.com/divnix/digga
+
+## Grafts
+
+Generally in order of [frecency][frecency], along with an optional description
+of reasons for inclusion.
+
+More recently, I've aimed to reference sources with comments and SPDX headings
+in relevant files.
+
+### NixOS/nix-darwin/home-manager
+
+- https://github.com/Mic92/dotfiles :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
+- https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
+- https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
+- https://github.com/srid/nixos-config :: nixos, flake-parts
+- https://github.com/TLATER/dotfiles :: home-manager, structure
+- https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
+- https://github.com/colemickens/nixcfg :: nixos, extensive, fun
+- https://github.com/cole-h/nixos-config/ :: nixos, media server
+- https://github.com/kclejeune/system :: nixos, home-manager
+- https://github.com/Xe/nixos-configs :: networking, extensive
+- https://github.com/sei40kr/dotfiles
+- https://github.com/malob/nixpkgs :: nix-darwin, docs
+- https://github.com/ahmedelgabri/dotfiles
+- https://github.com/cmacrae/config :: nix-darwin, nixos, emacs
+- https://github.com/d12frosted/environment :: nixos, nix-darwin, provisioning, world-building, emacs, docs
+
+### Emacs
+
+- [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
+- [elken's doom configs][elken-doom]
+- [d12frosted's emacs configs][d12frosted-emacs]
+
+
+[frecency]: https://en.wikipedia.org/wiki/Frecency
+[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
+[elken-doom]: https://github.com/elken/doom
+[d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
+
+
 ## Systems
 
 ### `ryosuke` [Teenage Engineering Computer-1]
@@ -137,54 +185,6 @@ Still works, but unusable without external display.
 Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
 
 Currently lost somewhere in the meat ether.
-
-
-
-## Vertebrae
-
-- [hercules-ci/flake-parts][flake-parts] :: a framework for flake modules
-- [divnix/digga][digga] :: helpful lib functions and examples
-
-[flake-parts]: https://github.com/hercules-ci/flake-parts
-[digga]: https://github.com/divnix/digga
-
-## Grafts
-
-Generally in order of [frecency][frecency], along with an optional description
-of reasons for inclusion.
-
-More recently, I've aimed to reference sources with comments and SPDX headings
-in relevant files.
-
-### NixOS/nix-darwin/home-manager
-
-- https://github.com/Mic92/dotfiles :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
-- https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
-- https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
-- https://github.com/srid/nixos-config :: nixos, flake-parts
-- https://github.com/TLATER/dotfiles :: home-manager, structure
-- https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
-- https://github.com/colemickens/nixcfg :: nixos, extensive, fun
-- https://github.com/cole-h/nixos-config/ :: nixos, media server
-- https://github.com/kclejeune/system :: nixos, home-manager
-- https://github.com/Xe/nixos-configs :: networking, extensive
-- https://github.com/sei40kr/dotfiles
-- https://github.com/malob/nixpkgs :: nix-darwin, docs
-- https://github.com/ahmedelgabri/dotfiles
-- https://github.com/cmacrae/config :: nix-darwin, nixos, emacs
-- https://github.com/d12frosted/environment :: nixos, nix-darwin, provisioning, world-building, emacs, docs
-
-### Emacs
-
-- [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
-- [elken's doom configs][elken-doom]
-- [d12frosted's emacs configs][d12frosted-emacs]
-
-
-[frecency]: https://en.wikipedia.org/wiki/Frecency
-[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
-[elken-doom]: https://github.com/elken/doom
-[d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 ## Errata
 
