@@ -18,3 +18,4 @@ flycheck_config.el
 
 /.composer/
 /.direnv
+*.tmp
