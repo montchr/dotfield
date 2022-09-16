@@ -64,7 +64,7 @@ every day. I've also used it in the office as a "laptop".
 
 ### `boschic`
 
-A three-faced beast lurking in the shadows of my living room.
+A beast lurking in the shadows of my living room.
 
 Originally built in 2015, recently revamped.
 
@@ -84,57 +84,12 @@ Type|Item
 **Power Supply** | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)
 **Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)
 
-#### Face One: Gaming + VR
-
-I don't want to open a gateway to [my own VR Hell on NixOS][vrhell], so this
-Face should only be summoned after invoking the Ten Windows.
-
-[vrhell]: https://xeiaso.net/blog/nixos-vr-hell-2021-12-02
-
-#### Face Two: Home Theater PC
-
-Boschic is connected to a ViewSonic "4K" projector pointed at a ceiling-mounted
-100in. screen.
-
-While the Plex Media Player experience on NixOS is... manageable... I suspect
-that the situation may be deteriorating:
-
-Plex has stated they will be dropping support for the "Plex Media Player"
-application. And it shows. This would be fine with me, because its UI is
-terrible, especially in 4K resolution across the room. Its UI animations are
-janky and jittery as hell. And yet... it plays even 4K video perfectly.
-
-The ~new~ resurrected Plex HTPC application is beautiful. The design is
-well-thought-out for my own sort of use case. However, it requires Flatpak
-(yuck), and it totally fails to play back even low-resolution videos on my
-projector without introducing unwatchable stuttering. I've noticed some log
-errors relating to WebGL. It seems to be related to Wayland/XWayland. I thought
-that the proprietary NVIDIA drivers fixed the issue, but then it came back. It's
-completely unusable with Nouveau.
-
-So, uh, I don't know.
-
-My roommates usually invoke the Ten Windows before playing video anyway. I'm
-sure this says something about how I have not done a great job making the
-NixOS-GNOME HTPC experience easily approachable on a guest user account (that's
-`zortflower`!), but I've ran into so many issues trying to get it working on my
-own account that I totally understand.
-
-#### Face Three: Daily Driver
-
-Currently my primary computer, which has caused some conflict and pain (I
-literally sit on the couch all day). This shouldn't be the case for much longer
-though.
-
 ### `HodgePodge` aka the "Sacred Chao"
 
 An early-2014 15-inch MacBook Pro who has seen quite the life. Mostly unused for
 the past several years due to the availability of more portable work laptops. It
-is now living out its life in a declarative retirement home.
-
-Its excessive clunkiness is excacerbated by the sharp edges exposed on its
-sturdy sticker-laden plastic case over the years. The situation is more
-manageable now thanks to the globs of Sugru preventing any further bodily harm.
+is now living out its life in a declarative retirement home. `nixos-rebuild` is
+impossibly slow, even with the binary cache and `ryosuke` as build host.
 
 
 ### Incubation
