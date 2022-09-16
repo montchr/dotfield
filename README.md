@@ -66,67 +66,23 @@ every day. I've also used it in the office as a "laptop".
 
 A three-faced beast lurking in the shadows of my living room.
 
-Originally built in 2015, recently revamped for ~computing power~ ~playing Myst in VR~
-~Elden Ring~ fun.
+Originally built in 2015, recently revamped.
 
-<table>
-<tbody>
-<tr>
-<th class="org-left">CPU</th>
-<td class="org-left">AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor</td>
-</tr>
+[PCPartPicker Part List](https://pcpartpicker.com/list/LKQQRv)
 
-<tr>
-<th class="org-left">CPU Cooler</th>
-<td class="org-left">Noctua NH-D15 82.5 CFM CPU Cooler</td>
-</tr>
-
-<tr>
-<th class="org-left">Motherboard</th>
-<td class="org-left">Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard</td>
-</tr>
-
-<tr>
-<th class="org-left">Memory</th>
-<td class="org-left">Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Seagate BarraCuda 1 TB 3.5&ldquo; 7200RPM Internal Hard Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Crucial MX100 256 GB 2.5&ldquo; Solid State Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">GPU</th>
-<td class="org-left">NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card</td>
-</tr>
-
-<tr>
-<th class="org-left">Case</th>
-<td class="org-left">Phanteks Enthoo Pro ATX Full Tower Case</td>
-</tr>
-
-<tr>
-<th class="org-left">PSU</th>
-<td class="org-left">Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply</td>
-</tr>
-
-<tr>
-<th class="org-left">Wireless Adapter</th>
-<td class="org-left">TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter</td>
-</tr>
-</tbody>
-</table>
+Type|Item
+:----|:----
+**CPU** | [AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor](https://pcpartpicker.com/product/g94BD3/amd-ryzen-5-5600x-37-ghz-6-core-processor-100-100000065box)
+**CPU Cooler** | [Noctua NH-D15 82.5 CFM CPU Cooler](https://pcpartpicker.com/product/4vzv6h/noctua-nh-d15-825-cfm-cpu-cooler-nh-d15)
+**Motherboard** | [Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard](https://pcpartpicker.com/product/xYvqqs/asus-rog-strix-b450-f-gaming-ii-atx-am4-motherboard-rog-strix-b450-f-gaming-ii)
+**Memory** | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)
+**Storage** | [Crucial MX100 256 GB 2.5" Solid State Drive](https://pcpartpicker.com/product/63V48d/crucial-internal-hard-drive-ct256mx100ssd1)
+**Storage** | [Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Fv8j4D/samsung-970-evo-plus-2-tb-m2-2280-nvme-solid-state-drive-mz-v7s2t0bam)
+**Storage** | [Seagate BarraCuda 1 TB 3.5" 7200RPM Internal Hard Drive](https://pcpartpicker.com/product/dCxfrH/seagate-internal-hard-drive-st1000dm003)
+**Video Card** | [NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card](https://pcpartpicker.com/product/c2kWGX/nvidia-geforce-rtx-3080-ti-12-gb-founders-edition-video-card-900-1g133-2518-000)
+**Case** | [Phanteks Enthoo Pro ATX Full Tower Case](https://pcpartpicker.com/product/mn3RsY/phanteks-case-phes614pbk)
+**Power Supply** | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)
+**Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)
 
 #### Face One: Gaming + VR
 
@@ -140,7 +96,8 @@ Face should only be summoned after invoking the Ten Windows.
 Boschic is connected to a ViewSonic "4K" projector pointed at a ceiling-mounted
 100in. screen.
 
-While the Plex Media Player experience on NixOS is... manageable... I suspect that the situation may be deteriorating:
+While the Plex Media Player experience on NixOS is... manageable... I suspect
+that the situation may be deteriorating:
 
 Plex has stated they will be dropping support for the "Plex Media Player"
 application. And it shows. This would be fine with me, because its UI is
