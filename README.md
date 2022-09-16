@@ -47,16 +47,28 @@ finding a better suggestion.
 
 ## Systems
 
-### `ryosuke` Computer-1
+### `ryosuke` [Teenage Engineering Computer-1]
 
-This one is fresh off the workbench. After much frustration and screaming during
-assembly, I've built a small form-factor PC in a Teenage Engineering Computer-1
-case.
+Ryosuke is a "ghost of the circuit", a denizen of Kairo, LoBE.
 
-Details to follow.
+[PCPartPicker Part List](https://pcpartpicker.com/list/pXZ9nt)
 
-I intend for this to be my primary and semi-portable personal computer and
-perhaps transitioning `boschic` to a new Face as home server.
+Type|Item
+:----|:----
+**CPU** | [AMD Ryzen 9 5900X 3.7 GHz 12-Core Processor](https://pcpartpicker.com/product/KwLwrH/amd-ryzen-9-5900x-37-ghz-12-core-processor-100-100000061wof)
+**CPU Cooler** | [Noctua NH-L9a-AM4 33.84 CFM CPU Cooler](https://pcpartpicker.com/product/DZfhP6/noctua-nh-l9a-am4-338-cfm-cpu-cooler-nh-l9a-am4)
+**Motherboard** | [Gigabyte X570SI AORUS PRO AX Mini ITX AM4 Motherboard](https://pcpartpicker.com/product/s792FT/gigabyte-x570si-aorus-pro-ax-mini-itx-am4-motherboard-x570si-aorus-pro-ax)
+**Memory** | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)
+**Storage** | [Samsung 970 Evo Plus 1 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Zxw7YJ/samsung-970-evo-plus-1-tb-m2-2280-nvme-solid-state-drive-mz-v7s1t0bam)
+**Video Card** | [PowerColor Radeon RX 6500 XT 4 GB ITX Video Card](https://pcpartpicker.com/product/DxjBD3/powercolor-radeon-rx-6500-xt-4-gb-itx-video-card-axrx-6500xt-4gbd6-dh)
+**Case** | [teenage engineering Computer-1 Mini ITX Desktop Case](https://pcpartpicker.com/product/sdRYcf/teenage-engineering-computer-1-mini-itx-desktop-case-te030as001)
+**Power Supply** | [Corsair SF 600 W 80+ Platinum Certified Fully Modular SFX Power Supply](https://pcpartpicker.com/product/BtsmP6/corsair-sf-600w-80-platinum-certified-fully-modular-sfx-power-supply-cp-9020182-na)
+**Case Fan** | [Noctua A8 PWM chromax.black.swap 32.67 CFM 80 mm Fan](https://pcpartpicker.com/product/Jdwkcf/noctua-nf-a8-pwm-chromaxblackswap-3267-cfm-80-mm-fan-nf-a8-pwm-chromaxblackswap)
+
+The Ryzen 9 5900X processor and mini-ITX Teenage Engineering Computer-1 case are the stars here.
+
+This is my primary computer. I carry it up and down three flights of stairs
+every day. I've also used it in the office as a "laptop".
 
 ### `boschic`
 
