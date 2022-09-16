@@ -2,40 +2,36 @@
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-My worlds and systems, a nutrient-rich typo terraforming the hungry heads of a
-talking planet.
+> The map is open and connectable in all of its dimensions; it is detachable,
+> reversible, susceptible to constant modification. … The map has to do with
+> performance, whereas the tracing always involves an alleged “competence”.
 
-## Disclaimer
+My worlds and systems, a nutrient-rich collection of typos feeding the hungry
+heads of a talking planet, "oriented toward an experimentation in contact with
+the real".
 
-These configurations are generally very rough, disorganised, and frustrating to
-work with. I plan to do some clean up soon.
+These are my personal configurations and are not intended for use as a template,
+but you are welcome to do so if you like! I hope visitors manage to find
+something helpful/inspiring/interesting, but please keep in mind that *I have no
+idea what I'm doing*.
 
-If you have questions or feedback, please ask/post away! I hope visitors manage
-to find something helpful/inspiring/interesting, but please keep in mind that
-**I have no idea what I'm doing**. I sometimes make changes that I sound
-confident about, but may end up reversing them days or hours later. If something
-doesn't work for you, I may be able to help, but please don't assume that just
-because it lives in my configuration means that it "works" or "is a best
-practice" or "is in any way secure".
+Dotfield does not embody "best practices" or "the right way to Nix". The project
+exists as an evolving and unstable result of one amateur's take on identifying
+and implementing flexible and understandishable patterns or novelties across
+other sources this amateur has encountered.
 
-Which brings me to the license:
+Feel free to copy/modify/fork under the terms of [the license](./COPYING), but
+nothing here is guaranteed to work. In fact, some of it *doesn't* work or might
+be total nonsense, but I will generally indicate that with `FIXME` or `TODO`
+comments scattered throughout.
 
-## License
+## Fellow Travellers
 
-Copyright (C) 2020-2022 Chris Montgomery
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You may read the license in full within the [COPYING](./COPYING) file included
-in the project root. You may also find it at <https://www.gnu.org/licenses/>
+If you have questions or feedback, please ask away! If you use anything within
+as a starting point for your own configurations and find that my implementation
+doesn't work for you, feel free to ask for help. Even if I can't help, I would
+be interested to hear about what you've encountered -- perhaps such an issue
+would be something I'd have run into at a future point.
 
 ## Structure
 
@@ -221,23 +217,49 @@ gpg --recv $KEYID
 
 ## Vertebrae
 
-- https://github.com/divnix/digga :: a good friend
+- [hercules-ci/flake-parts][flake-parts] :: a framework for flake modules
+- [divnix/digga][digga] :: helpful lib functions and examples
+
+[flake-parts]: https://github.com/hercules-ci/flake-parts
+[digga]: https://github.com/divnix/digga
 
 ## Grafts
 
-Generally in order of recency.
+Generally in order of [frecency][frecency], along with an optional description
+of reasons for inclusion.
 
-- https://github.com/Xe/nixos-configs
+More recently, I've aimed to reference sources with comments and SPDX headings
+in relevant files.
+
+### NixOS/nix-darwin/home-manager
+
+- https://github.com/Mic92/dotfiles :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
+- https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
+- https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
+- https://github.com/srid/nixos-config :: nixos, flake-parts
+- https://github.com/TLATER/dotfiles :: home-manager, structure
+- https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
+- https://github.com/colemickens/nixcfg :: nixos, extensive, fun
+- https://github.com/cole-h/nixos-config/ :: nixos, media server
+- https://github.com/kclejeune/system :: nixos, home-manager
+- https://github.com/Xe/nixos-configs :: networking, extensive
 - https://github.com/sei40kr/dotfiles
-- https://github.com/malob/nixpkgs
-- https://github.com/kclejeune/system
+- https://github.com/malob/nixpkgs :: nix-darwin, docs
 - https://github.com/ahmedelgabri/dotfiles
-- https://github.com/cmacrae/config
-- https://github.com/hlissner/dotfiles
-- https://github.com/d12frosted/environment
-- https://github.com/hardselius/dotfiles
-- https://github.com/alrra/dotfiles
-- https://github.com/jasonheecs/ubuntu-server-setup
+- https://github.com/cmacrae/config :: nix-darwin, nixos, emacs
+- https://github.com/d12frosted/environment :: nixos, nix-darwin, provisioning, world-building, emacs, docs
+
+### Emacs
+
+- [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
+- [elken's doom configs][elken-doom]
+- [d12frosted's emacs configs][d12frosted-emacs]
+
+
+[frecency]: https://en.wikipedia.org/wiki/Frecency
+[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
+[elken-doom]: https://github.com/elken/doom
+[d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 ## Errata
 
@@ -255,7 +277,7 @@ While I personally don't _dislike_ the kitty icon, these alternatives are great.
 
 #### NixOS
 
-TKTKTK
+Not yet.
 
 #### macOS
 
@@ -270,3 +292,20 @@ to `kitty.app` post-update. This script is available via the
 `kitty-helpers.setAppIcon` package.
 
 Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/) for outlining a simple alternative to the usual drag-and-drop approach.
+
+## License
+
+Copyright (C) 2020-2022 Chris Montgomery
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You may read the license in full within the [COPYING](./COPYING) file included
+in the project root. You may also find it at <https://www.gnu.org/licenses/>
