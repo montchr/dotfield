@@ -35,15 +35,7 @@ would be something I'd have run into at a future point.
 
 ## Structure
 
-### Profiles/Suites
-
-Overall, I've found that the profile "composition" approach is very difficult to
-scale. I plan on moving back towards a simpler module-toggle structure,
-converting "suites" into "profiles". From my understanding, that's what profiles
-always have been in NixOS terminology. I believe "suites" is an unncessary and
-unwieldly abstraction and hope to see it removed from the DevOS example
-eventually, or at least "downgraded" to just another example. But only after
-finding a better suggestion.
+More details forthcoming...
 
 ## Systems
 
