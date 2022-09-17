@@ -1,3 +1,4 @@
+# FIXME: make reusable -- duplicated as seadoom@hodgepodge
 {
   self,
   config,
