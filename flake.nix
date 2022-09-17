@@ -118,11 +118,14 @@
       ./devShells
       ./overlays
       ./packages
-      ./darwin/packages
+
+      ./nixos/configurations.nix
+      ./nixos/checks.nix
+
+      ./home/configurations.nix
 
       ./darwin/configurations.nix
-      ./home/configurations.nix
-      ./nixos/configurations.nix
+      ./darwin/packages
     ];
     perSystem = {system, ...}: {
       _module.args.pkgs = import nixpkgs {
