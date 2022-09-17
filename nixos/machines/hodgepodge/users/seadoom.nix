@@ -23,9 +23,5 @@
 
   home-manager.users.seadoom = hmArgs: {
     imports = with hmArgs.roles; workstation;
-
-    home.packages = with pkgs; [
-      teams
-    ];
   };
 }
