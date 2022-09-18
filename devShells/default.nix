@@ -37,8 +37,6 @@ in {
     inherit (pkgs.nodePackages) prettier;
     inherit (pkgs.stdenv) isLinux;
 
-    mozilla-addons-to-nix = inputs.mozilla-addons-to-nix.defaultPackage.${system};
-
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
 
@@ -75,9 +73,16 @@ in {
         }
 
         (utils {
-          name = mozilla-addons-to-nix.pname;
+          name = "mozilla-addons-to-nix";
           help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
-          package = mozilla-addons-to-nix;
+          # N.B. As a Haskell package, including this flake's default package
+          # directly will break our own `nix flake check` due to IFD.
+          #
+          # The current method here relies on the flake being available in the
+          # registry, which happens automatically when added as an input. We
+          # could, instead, just as easily reference the flake's upstream URL in
+          # the command, but would then lose the benefits of pinning inputs.
+          command = "nix run mozilla-addons-to-nix -- $@";
         })
 
         (utils {
