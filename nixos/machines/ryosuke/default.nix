@@ -18,7 +18,7 @@ in {
   boot.supportedFilesystems = ["btrfs"];
 
   virtualisation.vmVariant = {
-    virtualisation.graphics = false;
+    virtualisation.graphics = true;
   };
 
   system.stateVersion = "22.05";
