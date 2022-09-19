@@ -79,8 +79,12 @@
 
 ;; Store the value of the shell environment's =SSH_*= variables when generating
 ;; the env file.
-(when noninteractive
-  (add-to-list 'doom-env-whitelist "^SSH_"))
+;;
+;; FIXME: results in error. the name of the doom variable has likely changed
+;; upstream in 3.0.0 prep.
+;;
+;; (when noninteractive (add-to-list
+;; 'doom-env-whitelist "^SSH_"))
 
 
 ;; === completion =============================================================
