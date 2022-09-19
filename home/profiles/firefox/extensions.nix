@@ -17,8 +17,6 @@ in {
     display-_anchors
     firefox-color
     (lib.mkIf config.programs.browserpass.enable browserpass)
-    # TODO: remove unfree package
-    # flagfox
     mailvelope
     multi-account-containers
     octolinker
