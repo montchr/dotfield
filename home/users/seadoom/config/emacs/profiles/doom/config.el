@@ -151,7 +151,7 @@
           (t
            :default-family "Iosevka Xtal"
            :default-weight regular
-           :default-height 100
+           :default-height 120
            :fixed-pitch-family nil
            :fixed-pitch-family nil
            :fixed-pitch-height 1.0
