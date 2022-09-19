@@ -49,7 +49,7 @@ in {
     git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
   in
     entryAfter ["writeBoundary"] ''
-      if [[ ! -f "${emacsDir}/README.md" ]]; then
+      if [[ ! -f "${emacsDir}/.doomrc" ]]; then
         mkdir -p "${emacsDir}"
         cd ${emacsDir}
         ${git} init --initial-branch master
