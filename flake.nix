@@ -97,6 +97,7 @@
     esoOverlays = [
       (final: prev: {inherit lib;})
       self.overlays.packages
+      self.overlays.iosevka
       self.overlays.overrides
     ];
 

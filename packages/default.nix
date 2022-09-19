@@ -94,6 +94,7 @@
 in {
   flake.overlays = {
     packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);
+    iosevka = makeOverlay (pkgs': {inherit (pkgs') iosevka-xtal;});
   };
   perSystem = ctx @ {
     pkgs,
