@@ -89,3 +89,4 @@ in {
 }
 ##: Sources
 # - https://git.sr.ht/~misterio/nix-config/tree/e2b8e924cfb7bb9f5d71e4e3e1fe92c181d46a65/item/hosts/common/optional/misterio-greetd.nix
+
