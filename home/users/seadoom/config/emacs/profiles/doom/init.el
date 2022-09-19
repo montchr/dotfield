@@ -142,7 +142,7 @@
  (ruby                ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
   +lsp
   +tree-sitter)
- (scheme +guile)      ; a fully conniving family of lisps
+ ;;(scheme)      ; a fully conniving family of lisps
  (sh +fish +lsp)      ; she sells {ba,z,fi}sh shells on the C xor
  (web +lsp)           ; the tubes
  (yaml +lsp)          ; JSON, but readable
