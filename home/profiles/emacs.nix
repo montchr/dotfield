@@ -68,8 +68,6 @@ in {
     package =
       if (hostPlatform.isDarwin && buildPlatform.isMacOS)
       then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
-      else if (moduleArgs.osConfig.services.xserver.enable or false)
-      then pkgs.emacsPgtkNativeComp
       else pkgs.emacsNativeComp;
     extraPackages = epkgs: with epkgs; [vterm];
   };
