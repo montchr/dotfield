@@ -98,6 +98,7 @@
       (final: prev: {inherit lib;})
       self.overlays.packages
       self.overlays.iosevka
+      self.overlays.firefox-addons
       self.overlays.overrides
     ];
 

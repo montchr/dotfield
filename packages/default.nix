@@ -87,6 +87,7 @@
     pkgs' = splice pkgs;
     dotfieldPackages = mapAttrs (n: v: pkgs'.callPackage n v {}) packageIndex;
     iosevka-xtal = recurseIntoAttrs (callPackages ./fonts/iosevka-xtal.nix {});
+    firefox-addons = recurseIntoAttrs (callPackages ./applications/firefox/firefox-addons {});
   in
     dotfieldPackages // {inherit dotfieldPackages iosevka-xtal firefox-addons;};
 
@@ -95,6 +96,7 @@ in {
   flake.overlays = {
     packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);
     iosevka = makeOverlay (pkgs': {inherit (pkgs') iosevka-xtal;});
+    firefox-addons = makeOverlay (pkgs': {firefox-addons = pkgs'.firefox-addons.addons;});
   };
   perSystem = ctx @ {
     pkgs,

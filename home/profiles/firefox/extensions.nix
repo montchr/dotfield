@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
+  inherit (pkgs) firefox-addons;
 in {
-  # TODO: add zotero connector addon -- not available in upstream nur repo
+  # TODO: add zotero connector addon
   programs.firefox.extensions = with firefox-addons; [
     onepassword-password-manager
     a11ycss
@@ -17,7 +17,8 @@ in {
     display-_anchors
     firefox-color
     (lib.mkIf config.programs.browserpass.enable browserpass)
-    flagfox
+    # TODO: remove unfree package
+    # flagfox
     mailvelope
     multi-account-containers
     octolinker
