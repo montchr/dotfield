@@ -44,6 +44,7 @@
   :config
   ;; Workaround for GNOME Shell compatibility.
   ;; https://github.com/muffinmad/emacs-mini-frame#gnome-shell-does-not-resize-emacs-child-frames
+  ;; FIXME: only when gtk feature is available (29+)
   (when (string= (getenv "XDG_SESSION_DESKTOP") "gnome")
     (setq x-gtk-resize-child-frames 'resize-mode)))
 

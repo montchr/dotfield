@@ -3,25 +3,25 @@
 {
   cpanel-cli = {
     pname = "cpanel-cli";
-    version = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+    version = "76011d87384eeec6d81a15999d41e740db0dff95";
     src = fetchFromGitHub ({
       owner = "layfellow";
       repo = "cpanel-cli";
-      rev = "c2419f32ebf31fa4f7122ddf110df0a8b9e44925";
+      rev = "76011d87384eeec6d81a15999d41e740db0dff95";
       fetchSubmodules = false;
-      sha256 = "sha256-EhlL6xamqvTqCAq8k1XrxzgbqhdpG0TpFVYzJSNqpfE=";
+      sha256 = "sha256-Dhow7cZ37pzR9REVubKiTHqrUHF78TI4Xy9EWUkpHkg=";
     });
   };
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "bc75ca2d6b53616a1e1a1700794c850bb7afec7d";
+    version = "fc204137f720b159e2102a7ace79bc9c3fba56af";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "bc75ca2d6b53616a1e1a1700794c850bb7afec7d";
+      rev = "fc204137f720b159e2102a7ace79bc9c3fba56af";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-oCyvnSbeFiOCgFh/wL5Z5NasUgoScSnoqiXxUQ1MPjo=";
+      sha256 = "sha256-9BzKGD9CYm2g6tQjFnMrhO0zVLTKkUdjCXlriV8+b58=";
     };
   };
   fish-autopair = {
@@ -60,14 +60,14 @@
   };
   fzf-scripts = {
     pname = "fzf-scripts";
-    version = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+    version = "15156e3cb56c715464a2421e6f4e4356a26ac975";
     src = fetchgit {
       url = "https://github.com/DanielFGray/fzf-scripts";
-      rev = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+      rev = "15156e3cb56c715464a2421e6f4e4356a26ac975";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=";
+      sha256 = "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=";
     };
   };
   kitty-bortflower-icons = {

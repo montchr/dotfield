@@ -678,10 +678,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001340/steam_database-3.6.0.xpi";
-      sha256 = "20471181c2ae53df18a4460fbe68623e0a2eb197598fc1cb00d24d60ed094082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003523/steam_database-3.6.1.xpi";
+      sha256 = "1eabb49a99f1cee7b0c8659266a79a6ee19edc2b2304ece1e12f0554e753aa2c";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -747,10 +747,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.2";
+      version = "3.9.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002516/tree_style_tab-3.9.2.xpi";
-      sha256 = "1cc960c77aeeeaefb6583b78851e8fe33550711b21959891f35718e82d551606";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003852/tree_style_tab-3.9.3.xpi";
+      sha256 = "b4a368aa2c9dc35db7b1cb7e57549daa594f5cc7a8e8295c809bf1d6f588a5f9";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -808,10 +808,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.44.2";
+      version = "1.44.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3998742/ublock_origin-1.44.2.xpi";
-      sha256 = "00f4d9b50f9e3395c6d8c1c6306bac3c43fd8b20fb62e0307d21834ba5967a7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
+      sha256 = "0be550c9a27c040d04ad71954dd9e9a4967a27d48ffa2cdfe91171752e152685";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
