@@ -35,7 +35,7 @@ in {
       treefmt
       ;
     inherit (pkgs.nodePackages) prettier;
-    inherit (pkgs.stdenv) isLinux;
+    inherit (pkgs.stdenv) isDarwin isLinux;
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
@@ -45,6 +45,26 @@ in {
     formatter = pkgWithCategory "formatters";
     utils = withCategory "utils";
     secrets = pkgWithCategory "secrets";
+
+    updateSources = {
+      category = "dotfield";
+      name = nvfetcher.pname;
+      help = nvfetcher.meta.description;
+      command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
+    };
+
+    updateFirefoxAddons = utils {
+      name = "mozilla-addons-to-nix";
+      help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
+      # N.B. As a Haskell package, including this flake's default package
+      # directly will break our own `nix flake check` due to IFD.
+      #
+      # The current method here relies on the flake being available in the
+      # registry, which happens automatically when added as an input. We
+      # could, instead, just as easily reference the flake's upstream URL in
+      # the command, but would then lose the benefits of pinning inputs.
+      command = "nix run mozilla-addons-to-nix -- $@";
+    };
   in {
     devShells.default = inputs'.devshell.legacyPackages.mkShell {
       name = "Dotfield";
@@ -65,25 +85,25 @@ in {
         (dotfield terraform)
         (dotfield treefmt)
 
+        updateSources
+        updateFirefoxAddons
+
         {
           category = "dotfield";
-          name = nvfetcher.pname;
-          help = nvfetcher.meta.description;
-          command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
+          name = "dotfield-update-all";
+          command = let
+            rebuildSystem =
+              if isDarwin
+              then "darwin-rebuild"
+              else "nixos-rebuild";
+          in ''
+            nix flake update --verbose
+            ${updateSources.command}
+            ${updateFirefoxAddons.command}
+            doom upgrade
+            ${rebuildSystem} build --verbose
+          '';
         }
-
-        (utils {
-          name = "mozilla-addons-to-nix";
-          help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
-          # N.B. As a Haskell package, including this flake's default package
-          # directly will break our own `nix flake check` due to IFD.
-          #
-          # The current method here relies on the flake being available in the
-          # registry, which happens automatically when added as an input. We
-          # could, instead, just as easily reference the flake's upstream URL in
-          # the command, but would then lose the benefits of pinning inputs.
-          command = "nix run mozilla-addons-to-nix -- $@";
-        })
 
         (utils {
           name = "evalnix";
