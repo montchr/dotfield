@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (self) inputs;
-  inherit (inputs.flake-utils.lib) filterPackages;
+  inherit (inputs.flake-utils.lib) filterPackages flattenTree;
   inherit (inputs.gitignore.lib) gitignoreSource;
   inherit
     (builtins)
@@ -29,7 +29,7 @@
   # https://github.com/NixOS/nixpkgs/blob/738fe494da28777ddeb2612c70a5dc909958df4b/pkgs/top-level/splice.nix
   splice = pkgs: let
     sources = generatedSources pkgs;
-    mashedPackages = pkgs // (internalPackages pkgs);
+    mashedPackages = pkgs // (packages pkgs);
     splicePackages = name:
       mashedPackages
       // {
@@ -82,16 +82,19 @@
     # promnesia = ./python/promnesia;
   };
 
-  internalPackages = pkgs: let
-    inherit (splicedPackages) callPackage callPackages;
-    splicedPackages = splice pkgs;
-    dotfieldPackages = mapAttrs (n: v: callPackage n v {}) packageIndex;
-    iosevkaPackages = {
-      iosevka-xtal = recurseIntoAttrs (pkgs.callPackages ./fonts/iosevka-xtal.nix {});
-    };
-  in (dotfieldPackages // iosevkaPackages);
+  packages = pkgs: let
+    inherit (pkgs) callPackages;
+    pkgs' = splice pkgs;
+    dotfieldPackages = mapAttrs (n: v: pkgs'.callPackage n v {}) packageIndex;
+    iosevka-xtal = recurseIntoAttrs (callPackages ./fonts/iosevka-xtal.nix {});
+  in
+    dotfieldPackages // {inherit dotfieldPackages iosevka-xtal firefox-addons;};
+
+  makeOverlay = f: (final: prev: (f (packages final)));
 in {
-  flake.overlays.packages = final: prev: (internalPackages final);
+  flake.overlays = {
+    packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);
+  };
   perSystem = ctx @ {
     pkgs,
     system,
@@ -113,6 +116,6 @@ in {
   in {
     # TODO: remove the need for sources outside of this flake module -- package everything beforehand
     _module.args.sources = sources;
-    packages = filterPackages system (internalPackages pkgs);
+    packages = filterPackages system (flattenTree (packages pkgs));
   };
 }
