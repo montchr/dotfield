@@ -17,12 +17,10 @@
 
   networking.useDHCP = false;
   networking.interfaces.enp0s20u1.useDHCP = true;
+  networking.firewall.enable = true;
 
   services.printing.enable = true;
   hardware.facetimehd.enable = true;
-
-  # FIXME
-  networking.firewall.enable = false;
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "21.11"; # Did you read the comment?
