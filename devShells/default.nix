@@ -8,10 +8,10 @@ in {
     lib,
     ...
   }: let
+    inherit (lib) optionals;
+    inherit (pkgs.stdenv) isDarwin isLinux;
     inherit (inputs'.agenix.packages) agenix;
     inherit (inputs'.deploy-rs.packages) deploy-rs;
-    # FIXME: does not exist for darwin systems
-    # inherit (inputs'.nixos-generators.packages) nixos-generators;
     inherit
       (inputs'.sops-nix.packages)
       sops-import-keys-hook
@@ -35,7 +35,6 @@ in {
       treefmt
       ;
     inherit (pkgs.nodePackages) prettier;
-    inherit (pkgs.stdenv) isDarwin isLinux;
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
@@ -65,6 +64,63 @@ in {
       # the command, but would then lose the benefits of pinning inputs.
       command = "nix run mozilla-addons-to-nix -- $@";
     };
+
+    commonCommands = [
+      (dotfield repl)
+      (dotfield deploy-rs)
+      (dotfield terraform)
+      (dotfield treefmt)
+
+      updateSources
+      updateFirefoxAddons
+
+      {
+        category = "dotfield";
+        name = "dotfield-update-all";
+        command = let
+          rebuildSystem =
+            if isDarwin
+            then "darwin-rebuild"
+            else "nixos-rebuild";
+        in ''
+          nix flake update --verbose
+          ${updateSources.command}
+          ${updateFirefoxAddons.command}
+          doom upgrade
+          ${rebuildSystem} build --verbose
+        '';
+      }
+
+      (utils {
+        name = "evalnix";
+        help = "Check Nix parsing";
+        command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+      })
+
+      (formatter alejandra)
+      (formatter prettier)
+      (formatter shfmt)
+
+      (linter editorconfig-checker)
+      (linter shellcheck)
+
+      (secrets agenix)
+      (secrets rage)
+      (secrets ssh-to-age)
+      {
+        category = "secrets";
+        name = "convert-keys";
+        help = "helper to convert the usual ssh ed25519 keys to age keys";
+        command = ''
+          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
+          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
+        '';
+      }
+    ];
+
+    linuxCommands = [
+      (dotfield inputs'.nixos-generators.packages.nixos-generators)
+    ];
   in {
     devShells.default = inputs'.devshell.legacyPackages.mkShell {
       name = "Dotfield";
@@ -78,59 +134,9 @@ in {
       #   # pkgs.python3.pkgs.invoke
       # ];
 
-      commands = [
-        (dotfield repl)
-        (dotfield deploy-rs)
-        # (dotfield nixos-generators)
-        (dotfield terraform)
-        (dotfield treefmt)
-
-        updateSources
-        updateFirefoxAddons
-
-        {
-          category = "dotfield";
-          name = "dotfield-update-all";
-          command = let
-            rebuildSystem =
-              if isDarwin
-              then "darwin-rebuild"
-              else "nixos-rebuild";
-          in ''
-            nix flake update --verbose
-            ${updateSources.command}
-            ${updateFirefoxAddons.command}
-            doom upgrade
-            ${rebuildSystem} build --verbose
-          '';
-        }
-
-        (utils {
-          name = "evalnix";
-          help = "Check Nix parsing";
-          command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
-        })
-
-        (formatter alejandra)
-        (formatter prettier)
-        (formatter shfmt)
-
-        (linter editorconfig-checker)
-        (linter shellcheck)
-
-        (secrets agenix)
-        (secrets rage)
-        (secrets ssh-to-age)
-        {
-          category = "secrets";
-          name = "convert-keys";
-          help = "helper to convert the usual ssh ed25519 keys to age keys";
-          command = ''
-            ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
-            ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
-          '';
-        }
-      ];
+      commands =
+        commonCommands
+        ++ (optionals isLinux linuxCommands);
     };
   };
 }
