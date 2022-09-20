@@ -94,7 +94,7 @@ in {
       (utils {
         name = "evalnix";
         help = "Check Nix parsing";
-        command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+        command = "${pkgs.fd}/bin/fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
 
       (formatter alejandra)
