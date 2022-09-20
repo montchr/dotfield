@@ -22,6 +22,5 @@
   services.printing.enable = true;
   hardware.facetimehd.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "21.11"; # Did you read the comment?
 }
