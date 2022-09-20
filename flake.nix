@@ -28,6 +28,7 @@
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     gitignore.url = "github:hercules-ci/gitignore.nix";
+    lando-cli.url = "github:montchr/lando-cli/nix-support";
     mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
     nix-dram = {
       url = "github:dramforever/nix-dram";
@@ -68,6 +69,7 @@
     emacs-overlay,
     nur,
     nix-dram,
+    lando-cli,
     ...
   }: let
     inherit (digga.lib) flattenTree rakeLeaves;
@@ -92,6 +94,7 @@
       emacs-overlay.overlay
       nur.overlay
       nix-dram.overlay
+      lando-cli.overlays.default
     ];
 
     esoOverlays = [

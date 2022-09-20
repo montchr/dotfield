@@ -3,9 +3,9 @@
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
-;; GNU Emacs 29+ only: Disable titlebar on frames.
-;; https://github.com/d12frosted/homebrew-emacs-plus/issues/433#issuecomment-1025547880
-(when (>= emacs-major-version 29) (add-to-list 'default-frame-alist '(undecorated . t)))
+;; Disable frame decorations (titlebar + scrollbar).
+(setq default-frame-alist '((undecorated . t)))
+(scroll-bar-mode -1)
 
 ;; Respect visual line mode
 (setq! evil-respect-visual-line-mode t)
@@ -143,7 +143,7 @@
  (ruby                ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
   +lsp
   +tree-sitter)
- (scheme +guile)      ; a fully conniving family of lisps
+ ;;(scheme)      ; a fully conniving family of lisps
  (sh +fish +lsp)      ; she sells {ba,z,fi}sh shells on the C xor
  (web +lsp)           ; the tubes
  (yaml +lsp)          ; JSON, but readable

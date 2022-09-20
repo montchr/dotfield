@@ -37,7 +37,8 @@
     virtualisation.libvirtd
     virtualisation.podman
     virtualisation.vagrant
-    virtualisation.virtualbox
+    # FIXME: virtualbox always causes a bunch of time-consuming rebuilds
+    # virtualisation.virtualbox
   ];
 
   workstation =
