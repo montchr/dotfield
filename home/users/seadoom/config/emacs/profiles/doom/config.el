@@ -246,10 +246,12 @@
 
 (use-package! projectile
   :config
-  (appendq! projectile-globally-ignored-directories '("vendor")))
-
-(after! projectile
-  (setq! doom-projectile-cache-purge-non-projects t))
+  (appendq! projectile-globally-ignored-directories '("vendor"))
+  (setq! doom-projectile-cache-purge-non-projects t)
+  (setq! projectile-project-search-path
+         '(("~/Developer/contrib/" . 2)
+           ("~/Developer/sources/" . 1)
+           ("~/Developer/work/" . 2))))
 
 
 ;; === ide =====================================================================
