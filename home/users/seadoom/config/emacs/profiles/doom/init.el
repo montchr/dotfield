@@ -3,8 +3,9 @@
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
-;; Disable frame (i.e. OS window) titlebar.
+;; Disable frame decorations (titlebar + scrollbar).
 (setq default-frame-alist '((undecorated . t)))
+(scroll-bar-mode -1)
 
 ;; Respect visual line mode
 (setq! evil-respect-visual-line-mode t)
