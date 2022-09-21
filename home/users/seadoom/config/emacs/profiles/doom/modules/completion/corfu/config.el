@@ -17,7 +17,7 @@
   (corfu-separator ?\s)          ;; Orderless field separator
   (corfu-preview-current t)      ;; Enable current candidate preview
   (corfu-auto t)
-  (corfu-auto-delay 0.0)
+  (corfu-auto-delay 0.2)
   (corfu-on-exact-match nil)
   (corfu-quit-no-match t)
   (corfu-cycle t)
