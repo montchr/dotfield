@@ -41,4 +41,17 @@ in {
   networking.firewall.enable = true;
   networking.useDHCP = true;
   networking.usePredictableInterfaceNames = false;
+
+  ##: wake on lan
+
+  networking.interfaces."eth0".wakeOnLan.enable = true;
+  # https://wiki.archlinux.org/title/Wake-on-LAN#Enable_WoL_in_TLP
+  services.tlp.settings.WOL_DISABLE = "N";
+  environment.systemPackages = with pkgs; [
+    # Manually enable WOL:
+    #   $ sudo ethtool -s eth0 wol g
+    # Check WOL status:
+    #   $ sudo ethtool eth0 | grep Wake-on
+    ethtool
+  ];
 }
