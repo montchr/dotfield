@@ -50,7 +50,11 @@
 
     ##: application helpers
     # firefox-lepton-ui = {source}: source.src;
-    # FIXME: the magical "withDeps" approach won't work here because it requires a source of a different name
+    #
+    # FIXME: the magical "withDeps" approach won't work here because it requires
+    # a source of a different name. consider allowing an attrset or list in
+    # addition to a path -- if is not path, then use the extra arg as an attrset
+    # of extra deps
     # kitty-set-app-icon = ./applications/kitty/set-app-icon;
     kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id;
 
