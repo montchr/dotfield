@@ -38,21 +38,7 @@ in {
 
   ### === networking ===========================================================
 
-  networking = lib.mkIf (!config.nixos-vm.enable) (
-    let
-      #host = peers.hosts.${hostName};
-      #net = peers.networks.${host.network};
-      #interface = "eth0";
-    in {
-      #networkmanager.enable = true;
-      #wireless.enable = true; # Enables wireless support via wpa_supplicant.
-      #useDHCP = true;
-      #usePredictableInterfaceNames = false;
-
-      firewall = {
-        enable = true;
-        # allowedTCPPorts = [80 443];
-      };
-    }
-  );
+  networking.firewall.enable = true;
+  networking.useDHCP = true;
+  networking.usePredictableInterfaceNames = false;
 }
