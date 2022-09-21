@@ -4,7 +4,6 @@
   pkgs,
   primaryUser,
   profiles,
-  suites,
   ...
 }: {
   imports = [
