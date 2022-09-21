@@ -71,12 +71,12 @@
             ++ modules
             ++ [
               moduleArgs
+              # It's extremely unlikely that a Darwin system will ever be
+              # anything other than a "workstation" i.e. a laptop running macOS.
+              # Until that changes, there's no need to import this role in every
+              # Darwin host.
+              roles.workstation
               {
-                nix.nixPath = [
-                  "darwin=${inputs.darwin}"
-                  "nixpkgs=${pkgs.path}"
-                  "home-manager=${inputs.home-manager}"
-                ];
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];

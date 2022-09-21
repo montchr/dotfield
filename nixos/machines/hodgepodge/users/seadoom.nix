@@ -48,5 +48,6 @@ in {
 
   home-manager.users.${username} = hmArgs: {
     imports = with hmArgs.roles; workstation;
+    home.stateVersion = "21.11";
   };
 }

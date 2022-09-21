@@ -4,9 +4,16 @@
   pkgs,
   primaryUser,
   profiles,
-  suites,
+  peers,
   ...
-}: {
+}: let
+  inherit (config.networking) hostName;
+
+  # Shared by both "predictable" interface names:
+  # - enp0s20u1
+  # - wlp3s0
+  interface = "eth0";
+in {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
@@ -14,16 +21,11 @@
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.useDHCP = false;
-  networking.interfaces.enp0s20u1.useDHCP = true;
-
   services.printing.enable = true;
   hardware.facetimehd.enable = true;
 
-  # FIXME
-  networking.firewall.enable = false;
+  networking.usePredictableInterfaceNames = false;
+  networking.firewall.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "21.11"; # Did you read the comment?
 }

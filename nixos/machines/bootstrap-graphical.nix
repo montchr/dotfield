@@ -2,8 +2,6 @@
   config,
   lib,
   pkgs,
-  profiles,
-  suites,
   ...
 }: {
   # Will be overridden by the bootstrapIso module.

@@ -38,21 +38,20 @@ in {
 
   ### === networking ===========================================================
 
-  networking = lib.mkIf (!config.nixos-vm.enable) (
-    let
-      #host = peers.hosts.${hostName};
-      #net = peers.networks.${host.network};
-      #interface = "eth0";
-    in {
-      #networkmanager.enable = true;
-      #wireless.enable = true; # Enables wireless support via wpa_supplicant.
-      #useDHCP = true;
-      #usePredictableInterfaceNames = false;
+  networking.firewall.enable = true;
+  networking.useDHCP = true;
+  networking.usePredictableInterfaceNames = false;
 
-      firewall = {
-        enable = true;
-        # allowedTCPPorts = [80 443];
-      };
-    }
-  );
+  ##: wake on lan
+
+  networking.interfaces."eth0".wakeOnLan.enable = true;
+  # https://wiki.archlinux.org/title/Wake-on-LAN#Enable_WoL_in_TLP
+  services.tlp.settings.WOL_DISABLE = "N";
+  environment.systemPackages = with pkgs; [
+    # Manually enable WOL:
+    #   $ sudo ethtool -s eth0 wol g
+    # Check WOL status:
+    #   $ sudo ethtool eth0 | grep Wake-on
+    ethtool
+  ];
 }

@@ -1,6 +1,36 @@
-;;; config/emacs/profiles/doom/graveyard.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/graveyard/graveyard.el -*- lexical-binding: t; -*-
 
-;; === graveyard ===============================================================
+;; (use-package! embark-vc
+;;   :after embark)
+
+;; Keep the minibuffer in a different frame (only for `read-from-minibuffer').
+;; via https://github.com/elken/doom/commit/765563e089b8b92bd21368100b84e042edb9c529
+;; FIXME: only when gtk feature is available (29+)
+;; (use-package! mini-frame
+;;   :hook (doom-init-ui-hook . mini-frame-mode)
+;;   :init
+;;   (custom-set-variables
+;;    '(mini-frame-show-parameters
+;;      '((top . 10)
+;;        (width . 1.0)
+;;        (left . 0.5)
+;;        (no-accept-focus . t))))
+;;   :config
+;;   ;; Workaround for GNOME Shell compatibility.
+;;   ;; https://github.com/muffinmad/emacs-mini-frame#gnome-shell-does-not-resize-emacs-child-frames
+;;   (when (string= (getenv "XDG_SESSION_DESKTOP") "gnome")
+;;     (setq x-gtk-resize-child-frames 'resize-mode)))
+
+
+
+;; Store the value of the shell environment's =SSH_*= variables when generating
+;; the env file.
+;;
+;; FIXME: results in error. the name of the doom variable has likely changed
+;; upstream in 3.0.0 prep.
+;;
+;; (when noninteractive (add-to-list
+;; 'doom-env-whitelist "^SSH_"))
 
 ;; TODO: these don't work quite right
 ;; https://github.com/konrad1977/emacs/blob/main/init.el

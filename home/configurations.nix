@@ -4,8 +4,18 @@
   peers,
   ...
 }: let
-  inherit (self) inputs;
-  inherit (inputs.digga.lib) flattenTree rakeLeaves;
+  inherit
+    (self)
+    inputs
+    nixosConfigurations
+    darwinConfigurations
+    ;
+  inherit
+    (inputs.digga.lib)
+    flattenTree
+    mkHomeConfigurations
+    rakeLeaves
+    ;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
 
   homeModules = flattenTree (rakeLeaves ./modules);
@@ -98,10 +108,15 @@ in {
   flake = {
     inherit homeModules;
     sharedProfiles.homeManagerSettings = settingsProfile;
-    homeConfigurations = {
-      "cdom@kweb-prod-www" = traveller;
-      "cdom@kweb-prod-db" = traveller;
-      "cdom@kweb-dev" = traveller;
-    };
+    homeConfigurations =
+      (mkHomeConfigurations nixosConfigurations)
+      # FIXME: currently broken -- may be due to a lack of hm configs on these
+      # systems for the moment?
+      # // (mkHomeConfigurations darwinConfigurations)
+      // {
+        "cdom@kweb-prod-www" = traveller;
+        "cdom@kweb-prod-db" = traveller;
+        "cdom@kweb-dev" = traveller;
+      };
   };
 }

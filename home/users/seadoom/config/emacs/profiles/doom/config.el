@@ -30,25 +30,6 @@
 
 ;; === buffers =================================================================
 
-;; Keep the minibuffer in a different frame (only for `read-from-minibuffer').
-;; via https://github.com/elken/doom/commit/765563e089b8b92bd21368100b84e042edb9c529
-(use-package! mini-frame
-  :hook (doom-init-ui-hook . mini-frame-mode)
-  :init
-  (custom-set-variables
-   '(mini-frame-show-parameters
-     '((top . 10)
-       (width . 1.0)
-       (left . 0.5)
-       (no-accept-focus . t))))
-  :config
-  ;; Workaround for GNOME Shell compatibility.
-  ;; https://github.com/muffinmad/emacs-mini-frame#gnome-shell-does-not-resize-emacs-child-frames
-  ;; FIXME: only when gtk feature is available (29+)
-  (when (string= (getenv "XDG_SESSION_DESKTOP") "gnome")
-    (setq x-gtk-resize-child-frames 'resize-mode)))
-
-
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
 (setq! doom-fallback-buffer-name "► Doom"
@@ -68,33 +49,36 @@
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
-;; TODO: This still throws a message because it's called on the hook, unaffected
-;; by ~auto-save-no-message~
-;;
-;; TODO: may be causing crashes when performing other actions simultaneously?
-;; not just limited to actions in org files fwiw.
-;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 
 ;; === env =====================================================================
 
-;; Store the value of the shell environment's =SSH_*= variables when generating
-;; the env file.
-;;
-;; FIXME: results in error. the name of the doom variable has likely changed
-;; upstream in 3.0.0 prep.
-;;
-;; (when noninteractive (add-to-list
-;; 'doom-env-whitelist "^SSH_"))
-
 
 ;; === completion =============================================================
 
-(use-package! embark-vc
-  :after embark)
-
 
 ;; === modeline ================================================================
+
+;; Refer to the modus-themes documentation for specific configuration advice:
+;; https://protesilaos.com/emacs/modus-themes#h:27943af6-d950-42d0-bc23-106e43f50a24
+(use-package! moody
+  :config
+  (setq x-underline-at-descent-line t)
+
+  ;; The `45000' value is suggested by modus-themes, but may be adjusted
+  ;; according to preference. The `moody' default value is `30000', while
+  ;; modus-themes recommends a value of `70000' when its `moody' styles are used
+  ;; in combination with the `accented' styles within `modus-themes-mode-line'.
+  (setq face-near-same-color-threshold 45000)
+
+  ;; modus-themes: required setting for 29+
+  (when (>= emacs-major-version 29)
+    (setq x-use-underline-position-properties nil))
+
+  (moody-replace-eldoc-minibuffer-message-function))
+
+(use-package! minions
+  :config (minions-mode 1))
 
 
 ;; === theme ===================================================================
@@ -111,9 +95,9 @@
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(background neutral-underline)
-   modus-themes-mode-line '(borderless)
+   modus-themes-mode-line '(moody borderless)
    modus-themes-tabs-accented nil
-   modus-themes-box-buttons '(accented variable-pitch)
+   modus-themes-box-buttons '(accented)
 
    ;; syntax
    modus-themes-syntax '(alt-syntax)
@@ -210,12 +194,11 @@
 (use-package! org
   :config
   (setq! org-image-actual-width 300
-         ;; org-startup-folded t
          org-startup-with-inline-images t
          org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
          org-cycle-separator-lines -1
          ;; TODO: could this cause an issue with org-roam IDs?
-         org-use-property-inheritance t              ; it's convenient to have properties inherited
+         ;; org-use-property-inheritance t              ; it's convenient to have properties inherited
          org-log-done 'time                          ; log the time an item was completed
          ;; org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
@@ -314,7 +297,7 @@
 
 ;; === languages ===============================================================
 
-(use-package! apheleia)
+;; (use-package! apheleia)
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
@@ -388,12 +371,6 @@
   (spdx-copyright-holder 'auto)
   (spdx-project-detection 'auto))
 
-(use-package! org-board
-  :defer t)
-
-(use-package! devdocs-browser
-  :defer t)
-
 ;; (use-package! org-protocol-capture-html
 ;;   :after (org))
 
@@ -448,8 +425,6 @@
          "I have nothing to say, and I am saying it."
          "Who walkies the walkmen?"
          "The Empire never ended."
-         "Chaos never died."
-         "There is no done."
          "Thesis -> Antithesis -> Synthesis"
          "I'm making my lunch!"
          "Eat protein!"))

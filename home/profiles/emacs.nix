@@ -104,6 +104,9 @@ in {
       ]))
     languagetool
 
+    #: lookup +docsets
+    wordnet
+
     ##: === lang/lsp ===
 
     #: docker

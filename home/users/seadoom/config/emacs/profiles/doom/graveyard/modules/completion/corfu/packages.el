@@ -1,5 +1,5 @@
-;; -*- no-byte-compile: t; -*-
-;;; completion/corfu/packages.el
+;;; completion/corfu/packages.el -*- no-byte-compile: t; -*-
+;;;###if (modulep! :completion corfu)
 
 (package! corfu
   :recipe (:files (:defaults "extensions/*.el")))

@@ -20,8 +20,10 @@
 
     programs.git.includes = [
       {
+        # FIXME: update to point to correct path after setting up gpg
         condition = "gitdir:~/workspaces/kleinweb**";
         contents = {
+          # FIXME: add this email to pgp key
           # TODO: configure mail
           user.email = "chrismont@temple.edu";
         };

@@ -94,7 +94,7 @@ keys = [
 age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
 
 [hodgepodge.ipv4]
-address = "192.168.1.174"
+address = "192.168.1.152"
 
 [hodgepodge.users.seadoom]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"]

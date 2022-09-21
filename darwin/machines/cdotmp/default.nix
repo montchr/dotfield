@@ -2,14 +2,13 @@
   config,
   pkgs,
   lib,
-  suites,
-  profiles,
-  hmUsers,
+  sharedProfiles,
   ...
 }: {
-  imports =
-    (with suites; workstation)
-    ++ (with profiles; [users.chris]);
+  # FIXME: the profile file says this is "non-functional"... and i can't
+  # remember why, but i believe me
+  #
+  # imports = with sharedProfiles; [users.chris];
 
   networking.hostName = "cdotmp";
 

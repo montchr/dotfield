@@ -63,8 +63,7 @@
     git-submodule-rewrite = ./development-tools/git-submodule-rewrite;
 
     ##: drivers
-    # FIXME: does not respect allowUnfree?
-    # epson-201212w = ./drivers/epson_201212w;
+    epson-201212w = ./drivers/epson_201212w;
 
     ##: fonts
     nerdfonts-symbols-only = ./fonts/nerdfonts-symbols-only.nix;

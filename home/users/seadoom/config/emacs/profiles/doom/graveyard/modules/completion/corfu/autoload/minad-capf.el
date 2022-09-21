@@ -1,4 +1,5 @@
 ;;; completion/corfu/autoload/minad-capf.el -*- lexical-binding: t; -*-
+;;;###if (modulep! :completion corfu)
 ;;
 ;; Copyright 2020 - 2022, Gerry Agbobada
 ;; https://git.sr.ht/~gagbo/doom-config/tree/31d0bd649b3eb97aebc319088e2674b0412e2beb/item/modules/completion/corfu/autoload/minad-capf.el

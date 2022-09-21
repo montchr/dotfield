@@ -7,9 +7,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    # EPSON WF-3520
-    # FIXME: see packages/default.nix
-    # epson-201212w
+    epson-201212w # EPSON WF-3520
     gutenprint
   ];
   nixpkgs.config.allowUnfree = lib.mkForce true;
