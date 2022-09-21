@@ -48,7 +48,7 @@
  ;; (treemacs +lsp)           ; a project drawer, like neotree but cooler
  ;; unicode                   ; extended unicode support for various languages
  (vc-gutter +pretty)          ; vcs diff in the fringe
- ;; vi-tilde-fringe           ; fringe tildes to mark beyond EOB
+ vi-tilde-fringe              ; fringe tildes to mark beyond EOB
  ;; window-select             ; visually switch windows
  workspaces                   ; tab emulation, persistence & separate workspaces
  zen                          ; distraction-free coding or writing
@@ -62,7 +62,7 @@
  ;;lispy            ; vim for lisp, for people who don't like vim
  ;;multiple-cursors ; editing in many places at once
  ;;objed            ; text object editing for the innocent
- ;;(parinfer +rust) ; turn lisp into python, sort of
+ ;;parinfer         ; turn lisp into python, sort of
  rotate-text        ; cycle region at point between text candidates
  snippets           ; my elves. They type so I don't have to
  word-wrap          ; soft wrapping with language-aware indent
@@ -88,12 +88,13 @@
  :tools
  (debugger +lsp)    ; FIXME stepping through code, to help you add bugs
  direnv
- (docker)
+ (docker +lsp)
  editorconfig       ; let someone else argue about tabs vs spaces
  (eval +overlay)    ; run code, run (also, repls)
- gist               ; interacting with github gists
+ ;;gist               ; interacting with github gists
  (lookup            ; navigate your code and its documentation
   +dictionary
+  +docsets
   +offline)
  (lsp)              ; M-x vscode
  (magit +forge)     ; a git porcelain for Emacs
@@ -136,14 +137,14 @@
   +roam2)
  (php +lsp)           ; perl's insecure younger brother
  (python              ; beautiful is better than ugly
-  +lsp +pyright
+  +lsp
+  +pyright
   +poetry
   +tree-sitter)
  rest                 ; Emacs as a REST client
  (ruby                ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
   +lsp
   +tree-sitter)
- ;;(scheme)      ; a fully conniving family of lisps
  (sh +fish +lsp)      ; she sells {ba,z,fi}sh shells on the C xor
  (web +lsp)           ; the tubes
  (yaml +lsp)          ; JSON, but readable
@@ -186,6 +187,7 @@
  ;;rst               ; ReST in peace
  ;;(rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
  ;;scala             ; java, but good
+ ;;scheme            ; a fully conniving family of lisps
  ;;sml
  ;;solidity          ; do you need a blockchain? No.
  ;;swift             ; who asked for emoji variables?
