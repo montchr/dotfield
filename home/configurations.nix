@@ -4,7 +4,12 @@
   peers,
   ...
 }: let
-  inherit (self) inputs;
+  inherit
+    (self)
+    inputs
+    nixosConfigurations
+    darwinConfigurations
+    ;
   inherit
     (inputs.digga.lib)
     flattenTree
@@ -104,8 +109,10 @@ in {
     inherit homeModules;
     sharedProfiles.homeManagerSettings = settingsProfile;
     homeConfigurations =
-      (mkHomeConfigurations self.nixosConfigurations)
-      // (mkHomeConfigurations self.darwinConfigurations)
+      (mkHomeConfigurations nixosConfigurations)
+      # FIXME: currently broken -- may be due to a lack of hm configs on these
+      # systems for the moment?
+      # // (mkHomeConfigurations darwinConfigurations)
       // {
         "cdom@kweb-prod-www" = traveller;
         "cdom@kweb-prod-db" = traveller;
