@@ -25,10 +25,6 @@
 (package! modus-themes)
 (package! svg-tag-mode)
 
-;; modeline
-(package! moody)      ; a mood for any mode :: https://github.com/tarsius/moody
-(package! minions)    ;                     :: https://github.com/tarsius/minions
-
 
 ;;; === org-mode ===============================================================
 

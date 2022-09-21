@@ -51,35 +51,6 @@
        auto-save-no-message t)
 
 
-;; === env =====================================================================
-
-
-;; === completion =============================================================
-
-
-;; === modeline ================================================================
-
-;; Refer to the modus-themes documentation for specific configuration advice:
-;; https://protesilaos.com/emacs/modus-themes#h:27943af6-d950-42d0-bc23-106e43f50a24
-(use-package! moody
-  :config
-  (setq x-underline-at-descent-line t)
-
-  ;; The `45000' value is suggested by modus-themes, but may be adjusted
-  ;; according to preference. The `moody' default value is `30000', while
-  ;; modus-themes recommends a value of `70000' when its `moody' styles are used
-  ;; in combination with the `accented' styles within `modus-themes-mode-line'.
-  (setq face-near-same-color-threshold 45000)
-
-  ;; modus-themes: required setting for 29+
-  (when (>= emacs-major-version 29)
-    (setq x-use-underline-position-properties nil))
-
-  (moody-replace-eldoc-minibuffer-message-function))
-
-(use-package! minions
-  :config (minions-mode 1))
-
 
 ;; === theme ===================================================================
 
@@ -95,7 +66,7 @@
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(background neutral-underline)
-   modus-themes-mode-line '(moody borderless)
+   modus-themes-mode-line '(borderless)
    modus-themes-tabs-accented nil
    modus-themes-box-buttons '(accented)
 
@@ -156,7 +127,6 @@
 
   ;; The other side of `fontaine-restore-latest-preset'.
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
-
 
 
 ;; === org-mode ================================================================
