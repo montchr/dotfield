@@ -77,11 +77,6 @@
               # Darwin host.
               roles.workstation
               {
-                nix.nixPath = [
-                  "darwin=${inputs.darwin}"
-                  "nixpkgs=${pkgs.path}"
-                  "home-manager=${inputs.home-manager}"
-                ];
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
