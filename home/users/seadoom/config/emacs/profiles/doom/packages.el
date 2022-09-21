@@ -6,7 +6,6 @@
 
 (unpin! lsp-mode)
 (unpin! format-all)
-;;(package! format-all)
 
 
 ;;; === completions ============================================================
@@ -14,16 +13,15 @@
 ;; https://github.com/elken/doom/blob/fd381b6837a34bb7b9bc072909bb697c0ac11f70/config.org#disabledunpin
 (disable-packages! evil-escape)
 (when (modulep! :completion corfu)
-  (unpin! evil-collection))
-
-(package! embark-vc)
+  (unpin! evil-collection)
+  (package! embark-vc)
+  (package! mini-frame))
 
 
 ;;; === ui =====================================================================
 
 (package! fontaine)
 (package! ligature)
-(package! mini-frame)
 (package! modus-themes)
 (package! svg-tag-mode)
 
@@ -60,7 +58,7 @@
 
 ;;; === apps / tools ===========================================================
 
-(package! devdocs-browser)           ; Browse devdocs.io documents using EWW
+;; (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
 (package! spdx)
 
 ;; TODO: check it out

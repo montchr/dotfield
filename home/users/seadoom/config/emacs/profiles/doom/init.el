@@ -79,10 +79,9 @@
  vterm     ; the best terminal emulation in Emacs
 
  :checkers
- (syntax)
-   ;; +childframe)   ; tasing you for every semicolon you forget
+ syntax                 ; tasing you for every semicolon you forget
  ;; (spell +aspell)     ; tasing you for misspelling mispelling
- ;; grammar  ; tasing grammar mistake every you make
+ ;; grammar             ; tasing grammar mistake every you make
 
  :tools
  (debugger +lsp)    ; FIXME stepping through code, to help you add bugs
@@ -90,7 +89,7 @@
  (docker +lsp)
  editorconfig       ; let someone else argue about tabs vs spaces
  (eval +overlay)    ; run code, run (also, repls)
- ;;gist               ; interacting with github gists
+ ;;gist             ; DEPRECATED interacting with github gists
  (lookup            ; navigate your code and its documentation
   +dictionary
   +docsets
@@ -120,6 +119,8 @@
  dhall
  (emacs-lisp          ; drown in parentheses
   +tree-sitter)
+ (go +lsp)            ; the hipster dialect
+ (haskell +lsp)       ; a language that's lazier than I am
  (json                ; At least it ain't XML
   +lsp
   +tree-sitter)
@@ -166,9 +167,7 @@
  ;;fsharp            ; ML stands for Microsoft's Language
  ;;fstar             ; (dependent) types and (monadic) effects and Z3
  ;;gdscript          ; the language you waited for
- ;;(go +lsp)         ; the hipster dialect
  ;;(graphql +lsp)    ; Give queries a REST
- ;;(haskell +lsp)    ; a language that's lazier than I am
  ;;hy                ; readability of scheme w/ speed of python
  ;;idris             ; a language you can depend on
  ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
