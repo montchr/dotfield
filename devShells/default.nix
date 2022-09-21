@@ -117,7 +117,16 @@ in {
       (secrets ssh-to-age)
       {
         category = "secrets";
-        name = "convert-keys";
+        name = "install-age-key";
+        help = "copy the age secret key from the password-store into place";
+        command = ''
+          mkdir -p $SOPS_AGE_KEY_DIR
+          ${pkgs.pass}/bin/pass show age--secret-key >> $SOPS_AGE_KEY_FILE
+        '';
+      }
+      {
+        category = "secrets";
+        name = "convert-ssh-to-age-key";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
