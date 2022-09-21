@@ -49,7 +49,11 @@ in {
       category = "dotfield";
       name = nvfetcher.pname;
       help = nvfetcher.meta.description;
-      command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@";
+      command = ''
+        pushd $PRJ_ROOT/packages/sources
+        ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@
+        popd
+      '';
     };
 
     updateFirefoxAddons = utils {
@@ -62,7 +66,11 @@ in {
       # registry, which happens automatically when added as an input. We
       # could, instead, just as easily reference the flake's upstream URL in
       # the command, but would then lose the benefits of pinning inputs.
-      command = "nix run mozilla-addons-to-nix -- $@";
+      command = ''
+        pushd $PRJ_ROOT/packages/applications/firefox/firefox-addons
+        nix run mozilla-addons-to-nix -- addons.json addons.nix
+        popd
+      '';
     };
 
     commonCommands = [
@@ -112,8 +120,9 @@ in {
         name = "convert-keys";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
-          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
-          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
+          mkdir -p $SOPS_AGE_KEY_DIR
+          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
+          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
         '';
       }
     ];
@@ -133,6 +142,17 @@ in {
       #   # inputs'.deploykit.packages.deploykit
       #   # pkgs.python3.pkgs.invoke
       # ];
+
+      env = [
+        {
+          name = "SOPS_AGE_KEY_DIR";
+          eval = "$XDG_CONFIG_HOME/sops/age";
+        }
+        {
+          name = "SOPS_AGE_KEY_FILE";
+          eval = "$XDG_CONFIG_HOME/sops/age/keys";
+        }
+      ];
 
       commands =
         commonCommands
