@@ -96,6 +96,16 @@
 
 ;; === modeline ================================================================
 
+(use-package! moody
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (moody-replace-eldoc-minibuffer-message-function))
+
+(use-package! minions
+  :config (minions-mode 1))
+
 
 ;; === theme ===================================================================
 
@@ -111,9 +121,9 @@
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(background neutral-underline)
-   modus-themes-mode-line '(borderless)
+   modus-themes-mode-line '(moody borderless)
    modus-themes-tabs-accented nil
-   modus-themes-box-buttons '(accented variable-pitch)
+   modus-themes-box-buttons '(accented)
 
    ;; syntax
    modus-themes-syntax '(alt-syntax)
