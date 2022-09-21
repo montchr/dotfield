@@ -2,6 +2,15 @@
 
 ;; === graveyard ===============================================================
 
+;; Store the value of the shell environment's =SSH_*= variables when generating
+;; the env file.
+;;
+;; FIXME: results in error. the name of the doom variable has likely changed
+;; upstream in 3.0.0 prep.
+;;
+;; (when noninteractive (add-to-list
+;; 'doom-env-whitelist "^SSH_"))
+
 ;; TODO: these don't work quite right
 ;; https://github.com/konrad1977/emacs/blob/main/init.el
 ;; (use-package! svg-tag-mode

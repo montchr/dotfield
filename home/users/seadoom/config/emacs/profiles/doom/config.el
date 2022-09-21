@@ -68,24 +68,9 @@
 ;; Autosave
 (setq! auto-save-default t
        auto-save-no-message t)
-;; TODO: This still throws a message because it's called on the hook, unaffected
-;; by ~auto-save-no-message~
-;;
-;; TODO: may be causing crashes when performing other actions simultaneously?
-;; not just limited to actions in org files fwiw.
-;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 
 ;; === env =====================================================================
-
-;; Store the value of the shell environment's =SSH_*= variables when generating
-;; the env file.
-;;
-;; FIXME: results in error. the name of the doom variable has likely changed
-;; upstream in 3.0.0 prep.
-;;
-;; (when noninteractive (add-to-list
-;; 'doom-env-whitelist "^SSH_"))
 
 
 ;; === completion =============================================================
