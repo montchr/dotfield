@@ -338,12 +338,6 @@
   (spdx-copyright-holder 'auto)
   (spdx-project-detection 'auto))
 
-;; (use-package! org-protocol-capture-html
-;;   :after (org))
-
-(use-package! org-web-tools
-  :after (org))
-
 (use-package! ox-gfm
   :after org)
 

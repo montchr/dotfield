@@ -1,5 +1,4 @@
-;; -*- no-byte-compile: t; -*-
-;;; $DOOMDIR/packages.el
+;;; $DOOMDIR/packages.el -*- no-byte-compile: t; -*-
 
 
 ;;; === ide ====================================================================
@@ -33,9 +32,6 @@
 
 ;;; === importers/exporters ====================================================
 
-;; FIXME: may have had errors at some point?
-;; (package! org-protocol-capture-html) ; Capture webpage via org-protocol
-(package! org-web-tools)             ; Webpage to org-mode content
 (package! ox-gfm)                    ; Export to GFM syntax
 (package! ox-jira                    ; Export to Jira syntax
   :recipe (:branch "trunk"))
@@ -47,15 +43,10 @@
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! hledger-mode)
 (package! literate-calc-mode)        ; like soulver, but in emacs
-(package! neon-mode
-  :recipe (:host github :repo "montchr/neon-mode"))
 (package! vimrc-mode)                ; vimrc syntax
 
 
 ;;; === apps / tools ===========================================================
 
-;; (package! devdocs-browser)           ; Browse devdocs.io documents using EWW
+(package! devdocs-browser)           ; Browse devdocs.io documents using EWW
 (package! spdx)
-
-;; TODO: check it out
-;; (package! org-board)              ; Pinboard-ish for org-mode
