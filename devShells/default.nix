@@ -94,6 +94,7 @@ in {
           nix flake update --verbose
           ${updateSources.command}
           ${updateFirefoxAddons.command}
+          doom profiles sync
           doom upgrade
           ${rebuildSystem} build --verbose
         '';
