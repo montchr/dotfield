@@ -23,34 +23,6 @@
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
 
-;; Prevent evil-lion from removing extra spaces.
-;; Add any desired extra space prior to invoking evil-lion.
-;; (setq! evil-lion-squeeze-spaces nil)
-
-
-;; === buffers =================================================================
-
-;; Change default buffer and frame names.
-;; https://tecosaur.github.io/emacs-config/config.html#window-title
-(setq! doom-fallback-buffer-name "► Doom"
-       +doom-dashboard-name "► Doom"
-       frame-title-format
-       '(""
-         (:eval
-          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-              (replace-regexp-in-string
-               ".*/[0-9]*-?" "☰ "
-               (subst-char-in-string ?_ ?  buffer-file-name))
-            "%b"))
-         (:eval " ▲ doom")
-         (:eval
-          (when (frame-parent) " ◂ [child]"))))
-
-;; Autosave
-(setq! auto-save-default t
-       auto-save-no-message t)
-
-
 
 ;; === theme ===================================================================
 
@@ -188,6 +160,31 @@
 (use-package! doct
   :after (org-capture)
   :commands (doct))
+
+
+;; === buffers =================================================================
+
+;; Change default buffer and frame names.
+;; https://tecosaur.github.io/emacs-config/config.html#window-title
+(setq! doom-fallback-buffer-name "► Doom"
+       +doom-dashboard-name "► Doom"
+       frame-title-format
+       '(""
+         (:eval
+          (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+              (replace-regexp-in-string
+               ".*/[0-9]*-?" "☰ "
+               (subst-char-in-string ?_ ?  buffer-file-name))
+            "%b"))
+         (:eval " ▲ doom")
+         (:eval
+          (when (frame-parent) " ◂ [child]"))))
+
+;; Autosave
+(setq! auto-save-default t
+       auto-save-no-message t)
+
+
 
 
 ;; === projects ================================================================
