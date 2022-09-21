@@ -90,8 +90,8 @@
 
 ;; === completion =============================================================
 
-(use-package! embark-vc
-  :after embark)
+;; (use-package! embark-vc
+;;   :after embark)
 
 
 ;; === modeline ================================================================
