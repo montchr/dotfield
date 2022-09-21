@@ -39,7 +39,6 @@ in {
   ### === networking ===========================================================
 
   networking.firewall.enable = true;
-  networking.useDHCP = true;
   networking.usePredictableInterfaceNames = false;
 
   ##: wake on lan
