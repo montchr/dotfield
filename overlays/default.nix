@@ -20,10 +20,11 @@ in {
       # order to prevent infinite recursions.
       packagesByInput =
         withSystem prev.system ({inputs', ...}:
-          mapAttrs (_: v: v.packages) {inherit (inputs') agenix gitignore;});
+          mapAttrs (_: v: v.packages) {inherit (inputs') agenix gitignore rnix-lsp;});
     in
       with packagesByInput; {
         inherit (agenix) agenix;
+        inherit (rnix-lsp) rnix-lsp;
         inherit
           (gitignore)
           gitignoreSource
