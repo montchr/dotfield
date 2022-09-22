@@ -14,8 +14,28 @@ in {
         eso = internalLib;
       });
     };
+    externalPackages = final: prev: let
+      # NOTE: This must be assigned to a variable instead of performing the
+      # system scope change and mapping directly in the resulting attrset in
+      # order to prevent infinite recursions.
+      packagesByInput =
+        withSystem prev.system ({inputs', ...}:
+          mapAttrs (_: v: v.packages) {inherit (inputs') agenix gitignore;});
+    in
+      with packagesByInput; {
+        inherit (agenix) agenix;
+        inherit
+          (gitignore)
+          gitignoreSource
+          gitignoreSourceWith
+          gitignoreFilter
+          gitignoreFilterWith
+          ;
+      };
     overrides = final: prev: let
-      channels = withSystem final.system ({inputs', ...}:
+      # Follows the same principle as the `externalPackages` attributes from
+      # `inputs'` saved as a variable to prevent infinite recursions.
+      channels = withSystem prev.system ({inputs', ...}:
         mapAttrs (_: v: v.legacyPackages) {
           inherit
             (inputs')

@@ -95,6 +95,7 @@
       nur.overlay
       nix-dram.overlay
       lando-cli.overlays.default
+      self.overlays.externalPackages
     ];
 
     esoOverlays = [

@@ -108,16 +108,6 @@ in {
     inputs',
     ...
   }: let
-    packagesArg = {
-      inherit (inputs'.agenix.packages) agenix;
-      inherit
-        (inputs'.gitignore.packages)
-        gitignoreSource
-        gitignoreSourceWith
-        gitignoreFilter
-        gitignoreFilterWith
-        ;
-    };
     sources = generatedSources pkgs;
   in {
     # TODO: remove the need for sources outside of this flake module -- package everything beforehand
