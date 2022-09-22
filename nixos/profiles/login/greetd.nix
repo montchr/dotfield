@@ -1,5 +1,3 @@
-# FIXME: cannot boot into gnome!
-#
 # FIXME: currently results in a quick flash of lightdm (the default login
 # manager on nixos) before attempting to boot into the initial session or
 # loading the default session
@@ -10,16 +8,11 @@
   ...
 }: let
   inherit (config.lib.dotfield.sys) hasNvidia;
-  inherit (config.lib.dotfield.home) hasWm;
 
-  hasGnome = config.services.xserver.desktopManager.gnome.enable;
-  hasSteam = config.programs.steam.enable;
-  hasSway = config.programs.sway.enable or (hasWm "sway");
-  mkSession = name: pkgs.writeShellScriptBin "dotfield-session-${name}";
+  cfg = config.services.greetd;
 
-  # TODO: Once the `nvidia-open` drivers are in a stable place, hopefully we can
-  # remove this...
   swayFlags = lib.optionalString hasNvidia "--unsupported-gpu";
+  mkSession = name: pkgs.writeShellScriptBin "dotfield-session-${name}";
 
   # If some users aren't able to shutdown/reboot, refer to the following:
   # https://github.com/apognu/tuigreet#power-management
@@ -41,52 +34,42 @@
       ''};
   '';
 
-  sway = mkSession "sway" ''
+  greeterSession = sway-kiosk "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l";
+  swaySession = mkSession "sway" ''
     ${pkgs.sway}/bin/sway ${swayFlags}
-  '';
-  gnome = mkSession "gnome" ''
-    export XDG_SESSION_TYPE=wayland
-    export MOZ_ENABLE_WAYLAND=1
-    export QT_QPA_PLATFORM=wayland
-    ${pkgs.gnome.gnome-session}/bin/gnome-session
-  '';
-  steam-bigpicture = mkSession "steam-bigpicture" ''
-    ${sway-kiosk "${pkgs.steam}/bin/steam -bigpicture"}
   '';
 in {
   environment.systemPackages = [
     pkgs.bashInteractive
     pkgs.fish
-    (lib.mkIf hasGnome gnome)
-    (lib.mkIf hasSteam steam-bigpicture)
-    (lib.mkIf hasSway sway)
+    swaySession
   ];
 
   environment.etc."greetd/environments".text =
-    (lib.optionalString hasSway "${sway.name}\n")
-    + (lib.optionalString hasGnome "${gnome.name}\n")
+    "${swaySession.name}\n"
     + "fish\n"
-    + "bash\n"
-    + (lib.optionalString hasSteam "${steam-bigpicture.name}\n");
+    + "bash\n";
 
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = sway-kiosk "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l";
+        command = greeterSession;
       };
-      # initial_session = lib.mkIf config.dotfield.guardian.enable {
-      #   user = config.dotfield.guardian.username;
-      #   command =
-      #     if hasSway
-      #     then sway.name
-      #     else if hasGnome
-      #     then gnome.name
-      #     else "${pkgs.fish}/bin/fish -l";
-      # };
+      initial_session =
+        lib.mkIf config.dotfield.guardian.enable
+        (let
+          user = config.dotfield.guardian.username;
+          hmConfig = config.home-manager.users.${user};
+        in {
+          inherit user;
+          command =
+            if (hmConfig.wayland.windowManager.sway.enable)
+            then swaySession.name
+            else "${pkgs.fish}/bin/fish -l";
+        });
     };
   };
 }
 ##: Sources
 # - https://git.sr.ht/~misterio/nix-config/tree/e2b8e924cfb7bb9f5d71e4e3e1fe92c181d46a65/item/hosts/common/optional/misterio-greetd.nix
-
