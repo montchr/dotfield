@@ -11,11 +11,10 @@
 ;; https://git.sr.ht/~gagbo/doom-config/tree/31d0bd649b3eb97aebc319088e2674b0412e2beb/item/modules/completion/corfu/config.el
 ;; SPDX-License-Identifier: MIT
 
-
 (use-package! corfu
   :custom
-  (corfu-separator ?\s)          ;; Orderless field separator
-  ;; (corfu-preview-current t)      ;; Enable current candidate preview
+  (corfu-separator ?\s)
+  (corfu-preview-current t)
   (corfu-auto t)
   (corfu-auto-delay 0.0)
   (corfu-on-exact-match nil)
@@ -24,8 +23,7 @@
   (corfu-auto-prefix 2)
   (completion-cycle-threshold 1)
   (tab-always-indent 'complete)
-  (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)
+  (corfu-max-width 80)
   :hook
   (doom-first-buffer . global-corfu-mode)
   :config
@@ -57,6 +55,7 @@
         (:prefix "C-x"
          "C-k"     #'cape-dict
          "C-f"     #'cape-file))
+
   (after! evil
     (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
     (advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
@@ -166,9 +165,5 @@
          ("C-q" . corfu-quick-insert)))
 
 
-(use-package! evil-collection-corfu
-  :when (modulep! :editor evil +everywhere)
-  :defer t
-  :init (setq evil-collection-corfu-key-themes '(default magic-return))
-  :config
-  (evil-collection-corfu-setup))
+(when (modulep! :editor evil +everywhere)
+  (setq evil-collection-corfu-key-themes '(default magic-return)))

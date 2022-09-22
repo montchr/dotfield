@@ -91,14 +91,16 @@ in relevant files.
 
 ### Emacs
 
-- [elken's doom configs][elken-doom] :: doom, similar goals, corfu module
+- [elken's doom configs][elken-doom] :: doom, php, corfu
+- [gagbo's doom configs][gagbo-doom] :: doom, corfu, apheleia
 - [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
 - [d12frosted's emacs configs][d12frosted-emacs]
 
 
 [frecency]: https://en.wikipedia.org/wiki/Frecency
-[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
 [elken-doom]: https://github.com/elken/doom
+[gagbo-doom]: https://git.sr.ht/~gagbo/doom-config
+[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
 [d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 

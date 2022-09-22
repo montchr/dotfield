@@ -127,7 +127,8 @@
           history-length 1000)))
 
 (set-company-backend! 'emacs-lisp-mode
-  'company-capf 'company-yasnippet)
+                      'company-capf
+                      'company-yasnippet)
 
 
 ;; === org-mode ================================================================
@@ -286,12 +287,31 @@
   (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp"))))
 
 (after! lsp-mode
-  (setq +lsp-company-backends
-        '(:separate company-capf company-yasnippet company-dabbrev))
-  (setq! lsp-vetur-use-workspace-dependencies t
-         lsp-enable-indentation nil
-         lsp-file-watch-threshold 666
-         lsp-ui-doc-delay 2))
+  (setq lsp-auto-guess-root t
+        lsp-progress-via-spinner t
+        lsp-enable-file-watchers nil
+        lsp-idle-delay 0.47
+        lsp-completion-enable-additional-text-edit t
+        lsp-signature-render-documentation t
+        lsp-signature-auto-activate '(:on-trigger-char :on-server-request :after-completion)
+        lsp-signature-doc-lines 10
+        lsp-eldoc-enable-hover t
+        lsp-modeline-code-actions-segments '(count icon name)
+        lsp-vetur-use-workspace-dependencies t
+        lsp-enable-indentation nil
+        lsp-enable-on-type-formatting nil)
+
+  (when (modulep! :completion company)
+    (setq +lsp-company-backends '(company-capf :with company-yasnippet company-dabbrev))))
+
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+    lsp-ui-doc-position 'top
+    lsp-ui-doc-delay 0.51
+    lsp-ui-doc-max-width 50
+    lsp-ui-doc-max-height 30
+    lsp-ui-doc-include-signature t
+    lsp-ui-doc-header t))
 
 
 ;; === languages ===============================================================
