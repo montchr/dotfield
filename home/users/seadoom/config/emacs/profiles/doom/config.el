@@ -264,8 +264,6 @@
 
 ;; === languages ===============================================================
 
-;; (use-package! apheleia)
-
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
@@ -273,18 +271,6 @@
   :defer-incrementally t
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
-
-
-;;; --- nix ----------------------------
-
-;; Register rnix-lsp as a client
-(use-package! lsp-mode
-  :config
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix)))
 
 
 ;;; --- php ----------------------------
