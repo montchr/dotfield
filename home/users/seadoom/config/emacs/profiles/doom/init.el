@@ -13,6 +13,12 @@
 ;; Performance improvement for lsp-mode.
 (setq! lsp-use-plists t)
 
+;; Restore ahead-of-time native compilation behavior.
+;; https://github.com/doomemacs/doomemacs/issues/6811#issuecomment-1250350426
+(setq native-comp-deferred-compilation nil)
+(after! (doom-packages straight)
+  (setq straight--native-comp-available t))
+
 (doom!
  :input
  ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
