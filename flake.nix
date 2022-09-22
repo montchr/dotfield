@@ -40,6 +40,7 @@
     nixago.url = "github:nix-community/nixago";
     prefmanager.url = "github:malob/prefmanager";
     sops-nix.url = "github:Mic92/sops-nix";
+    nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # TODO: use nix-colors or something

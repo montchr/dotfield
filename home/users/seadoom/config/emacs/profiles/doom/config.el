@@ -283,9 +283,6 @@
   (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
   (add-hook 'nix-mode-hook 'format-all-mode))
 
-(after! eglot
-  (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp"))))
-
 (after! lsp-mode
   (setq lsp-auto-guess-root t
         lsp-progress-via-spinner t
@@ -323,6 +320,18 @@
   :defer-incrementally t
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
+
+;;; --- nix ----------------------------
+
+(after! lsp-mode
+  (lsp-register-client
+    (make-lsp-client :new-connection (lsp-stdio-connection "nil")
+                     :major-modes '(nix-mode)
+                     :server-id 'nix-nil-lsp)))
+
+(after! eglot
+  ;; https://github.com/oxalica/nil
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 
 
 ;;; --- php ----------------------------

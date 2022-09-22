@@ -127,6 +127,7 @@ in {
     #: markdown
     nodePackages.unified-language-server
     #: nix
+    nil-lsp
     rnix-lsp
     #: php
     nodePackages.intelephense
