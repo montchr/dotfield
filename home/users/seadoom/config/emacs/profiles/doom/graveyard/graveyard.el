@@ -1,7 +1,5 @@
 ;;; $DOOMDIR/graveyard/graveyard.el -*- lexical-binding: t; -*-
 
-;; (use-package! embark-vc
-;;   :after embark)
 
 ;; Keep the minibuffer in a different frame (only for `read-from-minibuffer').
 ;; via https://github.com/elken/doom/commit/765563e089b8b92bd21368100b84e042edb9c529

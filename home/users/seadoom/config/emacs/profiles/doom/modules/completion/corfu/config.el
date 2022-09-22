@@ -1,5 +1,4 @@
 ;;; completion/corfu/config.el -*- lexical-binding: t; -*-
-;;;###if (modulep! :completion corfu)
 ;;
 ;; Copyright 2022, Chris Montgomery
 ;; SPDX-License-Identifier: GPL-3.0-or-later
@@ -18,7 +17,7 @@
   (corfu-separator ?\s)          ;; Orderless field separator
   (corfu-preview-current t)      ;; Enable current candidate preview
   (corfu-auto t)
-  (corfu-auto-delay 0.2)
+  (corfu-auto-delay 0.1)
   (corfu-on-exact-match nil)
   (corfu-quit-no-match t)
   (corfu-cycle t)

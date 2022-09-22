@@ -18,9 +18,9 @@
  ;;layout            ; auie,ctsrnm is the superior home row
 
  :completion
- (company)
+ (corfu +icons +orderless)
  (vertico +icons)
- ;; (corfu +icons +minibuffer) +orderless)
+ ;;(company)
 
  :ui
  doom-quit                    ; DOOM quit-message prompts when you quit Emacs

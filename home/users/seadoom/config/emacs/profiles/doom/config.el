@@ -189,6 +189,9 @@
 
 ;; === projects ================================================================
 
+(use-package! embark-vc
+  :after embark)
+
 (after! magit
   ;; List magit branches by date.
   (setq! magit-list-refs-sortby "-creatordate"
