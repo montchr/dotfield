@@ -40,7 +40,6 @@
     "calibre"
     "caprine"
     "corelocationcli"
-    "docker"
     "dropbox"
     "eloston-chromium"
     "fantastical"
