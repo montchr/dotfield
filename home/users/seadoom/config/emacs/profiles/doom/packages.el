@@ -1,7 +1,9 @@
 ;;; $DOOMDIR/packages.el -*- no-byte-compile: t; -*-
 
 
-(disable-packages! evil-escape)
+(disable-packages!
+  evil-escape
+  solaire-mode)
 
 (unpin! forge)
 (unpin! lsp-mode)
