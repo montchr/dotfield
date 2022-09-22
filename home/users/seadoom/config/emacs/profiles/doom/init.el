@@ -78,7 +78,7 @@
   +dictionary
   +docsets
   +offline)
- (lsp)
+ (lsp +eglot)
  (magit +forge)
  (pass +auth)
  pdf
@@ -97,7 +97,7 @@
  dhall
  (emacs-lisp +tree-sitter)
  (go +lsp)
- (haskell +lsp)
+ (haskell)
  (json +lsp +tree-sitter)
  (javascript +lsp +tree-sitter)
  ledger
