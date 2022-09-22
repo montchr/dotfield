@@ -43,12 +43,12 @@
 (use-package! modus-themes
   :init
   (setq
-   ;; type
+   ;; --- type ---
    modus-themes-bold-constructs t
    modus-themes-italic-constructs t
 
-   ;; ui
-   ;; modus-themes-completions nil
+   ;; --- ui ---
+   modus-themes-completions nil
    ;; modus-themes-fringes nil
    modus-themes-hl-line '(accented)
    modus-themes-links '(background neutral-underline)
@@ -56,7 +56,7 @@
    modus-themes-tabs-accented nil
    modus-themes-box-buttons '(accented)
 
-   ;; syntax
+   ;; --- syntax ---
    modus-themes-syntax '(alt-syntax)
    modus-themes-markup '(background)
    modus-themes-org-blocks '(gray-background)
@@ -86,14 +86,18 @@
   :after ligature
   :config
   (setq fontaine-presets
-        '((small :default-height 100)
-          (regular :default-height 120)
-          (large :default-height 150)
-          (xlarge :default-height 170)
+        '((small :default-height 106
+                 :bold-weight normal)
+          (regular :default-height 124)
+          (medium :default-height 133)
+          (large :default-height 150
+                 :bold-weight bold)
+          (xlarge :default-height 170
+                  :bold-weight bold)
           (t
            :default-family "Iosevka Xtal"
            :default-weight regular
-           :default-height 120
+           :default-height 124
            :fixed-pitch-family nil
            :fixed-pitch-family nil
            :fixed-pitch-height 1.0
@@ -103,7 +107,10 @@
            :variable-pitch-weight nil
            :variable-pitch-height 1.0
            :bold-family nil
-           :bold-weight bold
+            ;; I've often gotten the sense that bold constructs don't work so well
+            ;; with a narrow programming font like Iosevka. It tends to result in
+            ;; muddy-looking characters at small sizes.
+           :bold-weight semibold
            :italic-family nil
            :italic-slant italic
            :line-spacing nil)))
