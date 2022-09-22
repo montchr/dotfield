@@ -1,4 +1,5 @@
 ;;; completion/corfu/autoload/corfu.el -*- lexical-binding: t; -*-
+;;;###if (modulep! :completion corfu +minibuffer)
 ;;
 ;; Copyright 2022, Chris Montgomery
 ;; SPDX-License-Identifier: GPL-3.0-or-later

@@ -91,8 +91,8 @@ in relevant files.
 
 ### Emacs
 
+- [elken's doom configs][elken-doom] :: doom, similar goals, corfu module
 - [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
-- [elken's doom configs][elken-doom]
 - [d12frosted's emacs configs][d12frosted-emacs]
 
 

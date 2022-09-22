@@ -1,20 +1,28 @@
 ;;; $DOOMDIR/packages.el -*- no-byte-compile: t; -*-
 
 
-;;; === ide ====================================================================
+(disable-packages! evil-escape)
 
+(unpin! forge)
 (unpin! lsp-mode)
 (unpin! format-all)
+
+(when (modulep! :completion corfu)
+  (unpin! evil-collection))
+(when (modulep! :tools lsp +eglot)
+  (unpin! eglot))
+
+
+(package! embark-vc)
 
 
 ;;; === completions ============================================================
 
-;; https://github.com/elken/doom/blob/fd381b6837a34bb7b9bc072909bb697c0ac11f70/config.org#disabledunpin
-(when (modulep! :completion corfu)
-  (disable-packages! evil-escape)
-  (unpin! evil-collection)
-  (package! embark-vc)
-  (package! mini-frame))
+(when (modulep! :completion company)
+  (package! company-prescient))
+
+(package! cape-yasnippet
+  :recipe (:host github :repo "elken/cape-yasnippet"))
 
 
 ;;; === ui =====================================================================

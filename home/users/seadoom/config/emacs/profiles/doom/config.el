@@ -20,8 +20,22 @@
   (setq! evil-shift-width 2
          evil-vsplit-window-right t))
 
+(setq enable-dir-local-variables t)
+
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
+
+;; camelCaseWords
+(global-subword-mode 1)
+
+;; Globally s/
+(setq evil-ex-substitute-global t)
+
+;; === modeline ================================================================
+
+(after! doom-modeline
+  (setq doom-modeline-major-mode-icon (display-graphic-p)
+        doom-modeline-major-mode-color-icon (display-graphic-p)))
 
 
 ;; === theme ===================================================================
@@ -101,6 +115,21 @@
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 
+;; === completions =============================================================
+
+(when (modulep! :completion company)
+  (use-package! company-prescient
+    :after company
+    :hook (company-mode . company-prescient-mode)
+    :hook (company-prescient-mode . prescient-persist-mode)
+    :config
+    (setq prescient-save-file (concat doom-cache-dir "prescient-save.el")
+          history-length 1000)))
+
+(set-company-backend! 'emacs-lisp-mode
+  'company-capf 'company-yasnippet)
+
+
 ;; === org-mode ================================================================
 
 (setq! org-directory "~/Documents/notes"
@@ -139,12 +168,11 @@
          org-startup-with-inline-images t
          org-blank-before-new-entry '((heading . t) (plain-list-item . auto))
          org-cycle-separator-lines -1
-         ;; TODO: could this cause an issue with org-roam IDs?
-         ;; org-use-property-inheritance t              ; it's convenient to have properties inherited
-         org-log-done 'time                          ; log the time an item was completed
+         org-use-property-inheritance t
+         org-log-done 'time
          ;; org-log-refile 'time
          org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-         org-catch-invisible-edits 'smart          ; try not to accidently do weird stuff in invisible regions
+         org-catch-invisible-edits 'smart
          org-export-copy-to-kill-ring 'if-interactive)
   (defun +cdom/org-archive-done-tasks ()
     "Archive all completed tasks in a file to an archive sibling."
@@ -199,7 +227,6 @@
 
 (use-package! projectile
   :config
-  (appendq! projectile-globally-ignored-directories '("vendor"))
   (setq! doom-projectile-cache-purge-non-projects t)
   (setq! projectile-project-search-path
          '(("~/Developer/contrib/" . 2)
@@ -255,14 +282,12 @@
   (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
   (add-hook 'nix-mode-hook 'format-all-mode))
 
-(use-package! eglot
-  :config
+(after! eglot
   (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp"))))
 
-(use-package! lsp-mode
-  :init
-  (setq! lsp-use-plists t)
-  :config
+(after! lsp-mode
+  (setq +lsp-company-backends
+        '(:separate company-capf company-yasnippet company-dabbrev))
   (setq! lsp-vetur-use-workspace-dependencies t
          lsp-enable-indentation nil
          lsp-file-watch-threshold 666
@@ -284,16 +309,43 @@
 ;;; sources:
 ;; - https://github.com/elken/doom#php
 
-(use-package! web-mode
-  :config
+(defvar xref-ignored-files '("_ide_helper_models.php" "_ide_helper.php")
+  "List of files to be ignored by `xref'.")
+
+(defun xref-ignored-file-p (item)
+  "Return t if `item' should be ignored."
+  (seq-some
+   (lambda (cand)
+     (string-suffix-p cand (oref (xref-item-location item) file))) xref-ignored-files))
+
+(defadvice! +lsp--ignored-locations-to-xref-items-a (items)
+  "Remove ignored files from list of xref-items."
+  :filter-return #'lsp--locations-to-xref-items
+  (cl-remove-if #'xref-ignored-file-p items))
+
+(defadvice! +lsp-ui-peek--ignored-locations-a (items)
+  "Remove ignored files from list of xref-items."
+  :filter-return #'lsp-ui-peek--get-references
+  (cl-remove-if #'xref-ignored-file-p items))
+
+(defvar php-intelephense-storage-path (expand-file-name "lsp-intelephense" doom-data-dir))
+(defvar php-intelephense-command (expand-file-name "lsp/npm/intelephense/bin/intelephense" doom-data-dir))
+
+(after! web-mode
+  (pushnew! web-mode-engines-alist '(("blade"  . "\\.blade\\.")))
   ;; Prevent web-mode from loading for all PHP files in WordPress themes.
   ;; Overrides doom behavior.
   (add-to-list 'auto-mode-alist '("wp-content/themes/.+\\.php\\'" . php-mode))
   ;; Template partials should still load web-mode.
   (add-to-list 'auto-mode-alist '("wp-content/.+/template-parts/.+\\.php\\'" . web-mode)))
 
-(defvar php-intelephense-storage-path (expand-file-name "lsp-intelephense" doom-data-dir))
-(defvar php-intelephense-command (expand-file-name "lsp/npm/intelephense/bin/intelephense" doom-data-dir))
+(after! projectile
+  (add-to-list 'projectile-globally-ignored-directories "vendor"))
+
+(after! lsp-mode
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\vendor")
+  (setq +lsp-company-backends
+        '(:separate company-capf company-yasnippet company-dabbrev)))
 
 (after! (:or lsp-mode eglot)
   (setq! lsp-intelephense-licence-key (or (ignore-errors (fetch-auth-source :user "intelephense") nil))
@@ -310,17 +362,27 @@
                                  "sysvsem" "sysvshm" "tidy" "tokenizer" "wddx" "wordpress" "xml" "xmlreader" "xmlrpc"
                                  "xmlwriter" "Zend OPcache" "zip" "zlib"]))
 
-(when (modulep! :tools lsp +eglot)
-  (after! eglot
-    (add-hook 'php-mode-hook 'eglot-ensure)
-    (defclass eglot-php (eglot-lsp-server) () :documentation "PHP's Intelephense")
-    (cl-defmethod eglot-initialization-options ((server eglot-php))
-      "Passes through required intelephense options"
-      `(:storagePath ,php-intelephense-storage-path
-        :licenceKey ,lsp-intelephense-licence-key
-        :clearCache t))
-    (add-to-list 'eglot-server-programs `((php-mode phps-mode) . (eglot-php . (,php-intelephense-command "--stdio"))))))
+(after! eglot
+  (add-hook 'php-mode-hook 'eglot-ensure)
+  (defclass eglot-php (eglot-lsp-server) () :documentation "PHP's Intelephense")
+  (cl-defmethod eglot-initialization-options ((server eglot-php))
+    "Passes through required intelephense options"
+    `(:storagePath ,php-intelephense-storage-path
+      :licenceKey ,lsp-intelephense-licence-key
+      :clearCache t))
+  (add-to-list 'eglot-server-programs `((php-mode phps-mode) . (eglot-php . (,php-intelephense-command "--stdio")))))
 
+
+;; === snippets ===================================================================
+
+(use-package! cape-yasnippet
+  :after cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
+  (after! lsp-mode
+    (add-hook 'lsp-managed-mode-hook #'cape-yasnippet--lsp))
+  (after! eglot
+    (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
 
 
 ;; === tools ===================================================================

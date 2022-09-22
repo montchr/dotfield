@@ -15,9 +15,9 @@
 (use-package! corfu
   :custom
   (corfu-separator ?\s)          ;; Orderless field separator
-  (corfu-preview-current t)      ;; Enable current candidate preview
+  ;; (corfu-preview-current t)      ;; Enable current candidate preview
   (corfu-auto t)
-  (corfu-auto-delay 0.1)
+  (corfu-auto-delay 0.0)
   (corfu-on-exact-match nil)
   (corfu-quit-no-match t)
   (corfu-cycle t)
@@ -152,16 +152,6 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
 
 
-(use-package! cape-yasnippet
-  :after cape
-  :init
-  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
-  (after! lsp-mode
-    (add-hook 'lsp-managed-mode-hook #'cape-yasnippet--lsp))
-  (after! eglot
-    (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
-
-
 (use-package! corfu-history
   :after corfu
   :hook (corfu-mode . (lambda ()
@@ -173,11 +163,9 @@
 (use-package! corfu-quick
   :after corfu
   :bind (:map corfu-map
-         ("M-q" . corfu-quick-complete)
          ("C-q" . corfu-quick-insert)))
 
 
-;; TODO This doesn't _quite_ work
 (use-package! evil-collection-corfu
   :when (modulep! :editor evil +everywhere)
   :defer t
