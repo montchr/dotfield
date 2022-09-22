@@ -134,12 +134,15 @@
       ./darwin/configurations.nix
       ./darwin/packages
     ];
-    perSystem = {system, ...}: {
-      _module.args.pkgs = import nixpkgs {
+    perSystem = {system, ...}: let
+      pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = exoOverlays ++ esoOverlays;
       };
+    in {
+      _module.args.pkgs = pkgs;
+      formatter = pkgs.alejandra;
     };
     flake = {
       inherit
