@@ -98,8 +98,18 @@ in {
     bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
       modules =
         (with roles; graphical ++ tangible ++ workstation)
+        ++ (with nixosProfiles; [login.gdm]);
+    };
+
+    ryosuke = makeNixosSystem "ryosuke" {
+      modules =
+        (with roles; graphical ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
+          hardware.amd
+          hardware.hidpi
           login.gdm
+          # login.greetd
+          # virtualisation.vm-variant
         ]);
     };
 
@@ -132,18 +142,6 @@ in {
         (with roles; server)
         ++ (with nixosProfiles; [
           environments.hetzner-cloud
-        ]);
-    };
-
-    ryosuke = makeNixosSystem "ryosuke" {
-      modules =
-        (with roles; graphical ++ tangible ++ webdev ++ workstation)
-        ++ (with nixosProfiles; [
-          hardware.amd
-          hardware.hidpi
-          login.gdm
-          # login.greetd
-          # virtualisation.vm-variant
         ]);
     };
 
