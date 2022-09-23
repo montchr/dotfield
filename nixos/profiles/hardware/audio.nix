@@ -14,4 +14,5 @@
     pulse.enable = true;
   };
   hardware.pulseaudio.enable = false;
+  dotfield.guardian.user.extraGroups = ["audio"];
 }

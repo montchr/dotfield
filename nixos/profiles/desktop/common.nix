@@ -11,6 +11,7 @@
     then pkgs.firefox-wayland
     else pkgs.firefox;
 in {
+  dotfield.guardian.user.extraGroups = ["video"];
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # FIXME: propagate to GNOME settings

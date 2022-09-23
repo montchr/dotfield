@@ -41,5 +41,5 @@ in {
   # containers will need to be added to this group. However, note that this
   # essentially gives container `root` users access to the host system via the
   # socket.
-  users.users.${guardian.username}.extraGroups = ["podman"];
+  dotfield.guardian.user.extraGroups = ["podman"];
 }

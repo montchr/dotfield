@@ -50,5 +50,14 @@ in {
 
     dotfield.guardian.user = mkAliasDefinitions config.users.users.${cfg.username};
     users.groups."wheel".members = [cfg.username];
+    users.users.${cfg.username}.extraGroups =
+      [
+        "seadome"
+        "secrets" # agenix
+        "keys" # sops-nix
+      ]
+      ++ (optional config.networking.networkmanager.enable "networkmanager")
+      ++ (optional config.services.mysql.enable "mysql")
+      ++ (optional config.virtualisation.docker.enable "docker");
   };
 }
