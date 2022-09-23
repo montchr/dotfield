@@ -32,7 +32,9 @@ in {
   systemd.services."autovt@tty1".enable = false;
 
   home-manager.users.${username} = hmArgs: {
-    imports = with hmArgs.roles; workstation;
+    imports =
+      (with hmArgs.roles; workstation)
+      ++ (with ownProfiles; [work]);
     home.stateVersion = "21.11";
   };
 }
