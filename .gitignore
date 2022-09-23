@@ -20,3 +20,4 @@ flycheck_config.el
 /.direnv
 *.tmp
 *.qcow2
+*.img
