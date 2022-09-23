@@ -24,6 +24,7 @@ in {
       alejandra
       cachix
       editorconfig-checker
+      nix-diff
       nvfetcher
       rage
       repl
@@ -35,6 +36,11 @@ in {
       treefmt
       ;
     inherit (pkgs.nodePackages) prettier;
+
+    rebuildSystem =
+      if isDarwin
+      then "darwin-rebuild"
+      else "nixos-rebuild";
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
@@ -77,7 +83,6 @@ in {
       (dotfield repl)
       (dotfield deploy-rs)
       (dotfield terraform)
-      (dotfield treefmt)
 
       updateSources
       updateFirefoxAddons
@@ -85,12 +90,7 @@ in {
       {
         category = "dotfield";
         name = "dotfield-update-all";
-        command = let
-          rebuildSystem =
-            if isDarwin
-            then "darwin-rebuild"
-            else "nixos-rebuild";
-        in ''
+        command = ''
           nix flake update --verbose
           ${updateSources.command}
           ${updateFirefoxAddons.command}
@@ -105,6 +105,7 @@ in {
         help = "Check Nix parsing";
         command = "${pkgs.fd}/bin/fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
+      (utils nix-diff)
 
       (formatter alejandra)
       (formatter prettier)
@@ -112,9 +113,11 @@ in {
 
       (linter editorconfig-checker)
       (linter shellcheck)
+      (linter treefmt)
 
       (secrets agenix)
       (secrets rage)
+      (secrets sops)
       (secrets ssh-to-age)
       {
         category = "secrets";
@@ -167,6 +170,13 @@ in {
       commands =
         commonCommands
         ++ (optionals isLinux linuxCommands);
+
+      packages = [
+        cachix
+        sops-import-keys-hook
+        sops-init-gpg-key
+        ssh-to-pgp
+      ];
     };
   };
 }
