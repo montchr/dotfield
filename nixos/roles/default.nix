@@ -14,12 +14,10 @@
       desktop.zoom-us
     ]);
 
-  server =
-    (with sharedProfiles; [
-      networking.common
-      networking.ssh-host
-    ])
-    ++ (with nixosProfiles; []);
+  server = with sharedProfiles; [
+    networking.common
+    networking.ssh-host
+  ];
 
   tangible =
     (with sharedProfiles; [
@@ -34,9 +32,10 @@
     ]);
 
   webdev = with nixosProfiles; [
-    virtualisation.libvirtd
+    virtualisation.libvirt
     virtualisation.podman
     virtualisation.vagrant
+    virtualisation.virt-manager
     # FIXME: virtualbox always causes a bunch of time-consuming rebuilds
     # virtualisation.virtualbox
   ];
