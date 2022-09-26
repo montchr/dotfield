@@ -37,7 +37,7 @@ in {
     pciutils
     ripgrep
     sysstat
-    tldr
+    tealdeer
     usbutils
     utillinux
   ];
