@@ -39,7 +39,7 @@ in {
     sysstat
     tealdeer
     usbutils
-    utillinux
+    util-linux
   ];
 
   programs.git.enable = true;
