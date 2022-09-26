@@ -99,10 +99,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.5.0";
+      version = "2.8.6.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003883/bypass_paywalls_clean-2.8.5.0.xpi";
-      sha256 = "09fc16733722e4f950cc19b08ddac2567ead132cb875af4a9bcbef32ee79fd2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007095/bypass_paywalls_clean-2.8.6.0.xpi";
+      sha256 = "c3e64b277facb189fdd09651805b6f51683f93db83f02610e9a99a0555046013";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -141,10 +141,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.57";
+      version = "4.9.58";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992744/darkreader-4.9.57.xpi";
-      sha256 = "235281b6419dd1b78683caa4ca95d509538b1b03ad22afb9bbbbe85861ee23a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005595/darkreader-4.9.58.xpi";
+      sha256 = "2adf7f533055e50a5d7840f5ea738577d58c14fac15fc3a62fb559829edb65ba";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -569,10 +569,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.21";
+      version = "22.9.25";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005173/refined_github-22.9.21.xpi";
-      sha256 = "aa2e6476fcc594338d13655edbfd22c31c0b04696a487face3af288620925f5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006995/refined_github-22.9.25.xpi";
+      sha256 = "613d3e2ea79573bb31c9b25b099af8b445b81b04d312e1087ce46e745bde659b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
