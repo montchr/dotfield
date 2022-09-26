@@ -33,6 +33,7 @@
 
   webdev = with nixosProfiles; [
     virtualisation.libvirt
+    virtualisation.microvm-host
     virtualisation.podman
     virtualisation.vagrant
     virtualisation.virt-manager
