@@ -29,10 +29,11 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     lando-cli.url = "github:montchr/lando-cli/nix-support";
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # FIXME: usage of `nixFlakes` command causes failure
+    # microvm = {
+    #   url = "github:astro/microvm.nix";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
+    # };
     mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
     nix-dram = {
       url = "github:dramforever/nix-dram";

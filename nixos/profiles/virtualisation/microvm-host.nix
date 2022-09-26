@@ -6,7 +6,7 @@
   ...
 }: let
 in {
-  imports = [inputs.microvm.nixosModules.host];
+  # imports = [inputs.microvm.nixosModules.host];
   # microvm.autostart = [
   #   "wp-microvm"
   # ];
