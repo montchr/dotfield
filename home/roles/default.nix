@@ -24,12 +24,12 @@ with homeProfiles; let
     desktop.common
     desktop.gnome
     firefox
-    foot
     keyboard
     kitty
     misc
     mpv
     themes
+    # foot
   ];
 
   personalised = [
