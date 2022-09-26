@@ -15,7 +15,7 @@ moduleArgs @ {
   inherit
     (pkgs)
     firefox-wayland
-    runCommandNoCC
+    runCommand
     writeText
     ;
 
@@ -49,7 +49,7 @@ moduleArgs @ {
         cfg.profiles.${profile}.settings));
 
   makeProfileSettingsFile = profile:
-    runCommandNoCC "firefox-${profile}-settings" {} ''
+    runCommand "firefox-${profile}-settings" {} ''
       cat '${leptonSrc}/user.js' '${makeProfileSettings profile}' > $out
     '';
 
@@ -182,7 +182,7 @@ in {
     enable = true;
     package =
       if isDarwin
-      then runCommandNoCC "firefox-0.0.0" {} "mkdir $out"
+      then runCommand "firefox-0.0.0" {} "mkdir $out"
       else
         firefox-wayland.override {
           cfg = {
