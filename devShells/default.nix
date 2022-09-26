@@ -1,5 +1,5 @@
-{self, ...}: let
-  inherit (self) inputs;
+{lib, ...}: let
+  inherit (lib) getBin;
 in {
   perSystem = {
     inputs',
@@ -27,7 +27,7 @@ in {
       nix-diff
       nvfetcher
       rage
-      repl
+      fup-repl
       shellcheck
       shfmt
       ssh-to-age
@@ -44,25 +44,28 @@ in {
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
-
-    dotfield = pkgWithCategory "dotfield";
-    linter = pkgWithCategory "linters";
-    formatter = pkgWithCategory "formatters";
-    utils = withCategory "utils";
-    secrets = pkgWithCategory "secrets";
-
-    updateSources = {
-      category = "dotfield";
-      name = nvfetcher.pname;
-      help = nvfetcher.meta.description;
-      command = ''
-        pushd $PRJ_ROOT/packages/sources
-        ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@
-        popd
-      '';
+    wrapPkg = package: command: {
+      inherit command;
+      name = package.pname;
+      help = package.meta.description;
     };
 
-    updateFirefoxAddons = utils {
+    dotfield = pkgWithCategory "dotfield";
+    dotfield' = withCategory "dotfield";
+    linter = pkgWithCategory "linters";
+    formatter = pkgWithCategory "formatters";
+    utils = pkgWithCategory "utils";
+    utils' = withCategory "utils";
+    secrets = pkgWithCategory "secrets";
+    secrets' = withCategory "secrets";
+
+    updateSources = dotfield' (wrapPkg nvfetcher ''
+      pushd $PRJ_ROOT/packages/sources
+      ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@
+      popd
+    '');
+
+    updateFirefoxAddons = utils' {
       name = "mozilla-addons-to-nix";
       help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
       # N.B. As a Haskell package, including this flake's default package
@@ -80,64 +83,70 @@ in {
     };
 
     commonCommands = [
-      (dotfield repl)
       (dotfield deploy-rs)
       (dotfield terraform)
+      (dotfield' {
+        name = "do-repl";
+        help = "a REPL for the system flake, by flake-utils-plus";
+        command = "${getBin fup-repl} $@";
+      })
 
       updateSources
       updateFirefoxAddons
 
-      {
-        category = "dotfield";
-        name = "dotfield-update-all";
+      (dotfield' {
+        name = "do-update-all";
+        help = "update all of the things and switch to a new generation";
         command = ''
           nix flake update --verbose
           ${updateSources.command}
           ${updateFirefoxAddons.command}
           doom profiles sync
           doom upgrade
-          ${rebuildSystem} build --verbose
+          ${getBin cachix} watch-exec --jobs 2 dotfield \
+            ${rebuildSystem} -- switch --verbose
         '';
-      }
+      })
 
-      (utils {
+      (utils nix-diff)
+      (utils' {
         name = "evalnix";
         help = "Check Nix parsing";
-        command = "${pkgs.fd}/bin/fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+        command = ''
+          ${getBin pkgs.fd} --extension nix --exec \
+            nix-instantiate --parse --quiet {} >/dev/null
+        '';
       })
-      (utils nix-diff)
 
       (formatter alejandra)
       (formatter prettier)
       (formatter shfmt)
+      (formatter treefmt)
 
       (linter editorconfig-checker)
       (linter shellcheck)
-      (linter treefmt)
 
       (secrets agenix)
       (secrets rage)
       (secrets sops)
       (secrets ssh-to-age)
-      {
-        category = "secrets";
+      (secrets' {
         name = "install-age-key";
         help = "copy the age secret key from the password-store into place";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
           ${pkgs.pass}/bin/pass show age--secret-key >> $SOPS_AGE_KEY_FILE
         '';
-      }
-      {
-        category = "secrets";
+      })
+      (secrets' {
         name = "convert-ssh-to-age-key";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
-          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
-          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
+          ${getBin ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
+          ${getBin ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
         '';
-      }
+      })
     ];
 
     linuxCommands = [
@@ -145,7 +154,7 @@ in {
     ];
   in {
     devShells.default = inputs'.devshell.legacyPackages.mkShell {
-      name = "Dotfield";
+      name = "dotfield";
 
       # git.hooks.enable = true;
       # git.hooks.pre-commit.text = ''${pkgs.treefmt}/bin/treefmt'';
