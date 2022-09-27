@@ -1,4 +1,4 @@
-moduleArgs @ {
+{
   config,
   lib,
   pkgs,
@@ -7,6 +7,7 @@ moduleArgs @ {
   inherit (lib) mkIf;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.home) homeDirectory;
+  inherit (config.accounts.email) maildirBasePath;
 in
   mkIf isLinux {
     # imports = [./dconf.settings.nix];
@@ -21,7 +22,7 @@ in
       createDirectories = true;
       extraConfig = {
         XDG_PROJECTS_DIR = homeDirectory + "/Developer";
-        XDG_MAIL_DIR = config.accounts.email.maildirBasePath or "$HOME/Mail";
+        XDG_MAIL_DIR = "$HOME/${maildirBasePath}";
       };
     };
 
