@@ -22,6 +22,7 @@
     home-manager.url = "github:nix-community/home-manager";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    nix-std.url = "github:chessai/nix-std";
 
     agenix.url = "github:montchr/agenix/darwin-support";
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -75,6 +76,7 @@
     emacs-overlay,
     nur,
     nix-dram,
+    nix-std,
     lando-cli,
     ...
   }: let
@@ -88,6 +90,7 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
+      std = nix-std;
       eso = import ./lib {
         inherit peers;
         flake = self;
