@@ -33,6 +33,9 @@ in {
 
   environment.variables = {
     MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
+    # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
+    # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
+    MOZ_USE_XINPUT2 = "1";
   };
 
   environment.systemPackages =
