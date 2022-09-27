@@ -22,7 +22,6 @@ with homeProfiles; let
 
   graphical = [
     desktop.common
-    desktop.gnome
     firefox
     keyboard
     kitty
