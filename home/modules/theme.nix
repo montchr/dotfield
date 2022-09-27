@@ -47,6 +47,7 @@ in {
           size = mkOpt int cfg.font.sans.size;
         };
         emoji.family = mkOpt str "";
+        symbols.family = mkOpt str "";
       };
     };
   };

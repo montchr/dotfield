@@ -32,10 +32,10 @@ in {
       family = "IBM Plex Serif";
       size = 13;
     };
-    # sym = {
-    #   family = "Iosevka Nerd Font Complete";
-    #   size = lib.mkDefault config.theme.font.mono.size;
-    # };
+    symbols = {
+      # NOTE: this family name is unexpected, but that's what's listed in Font Manager
+      family = "Symbols Nerd Font Mono";
+    };
   };
 
   home.packages = with pkgs; [
