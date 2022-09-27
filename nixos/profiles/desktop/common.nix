@@ -19,7 +19,9 @@ in {
 
   xdg.portal.enable = true;
 
-  programs.gnupg.agent.enableBrowserSocket = true;
+
+  # FIXME: still necessary? this isn't a great idea
+  # programs.gnupg.agent.enableBrowserSocket = true;
 
   security.sudo.wheelNeedsPassword = false;
 
