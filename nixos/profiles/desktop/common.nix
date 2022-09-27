@@ -17,10 +17,6 @@ in {
   # FIXME: propagate to GNOME settings
   services.xserver.xkbOptions = "caps:ctrl_modifier";
 
-  # TODO: might only be available on master?
-  # programs._1password-gui.enable = true;
-  # programs._1password.enable = true;
-
   xdg.portal.enable = true;
 
   programs.gnupg.agent.enableBrowserSocket = true;
@@ -39,8 +35,6 @@ in {
 
   environment.systemPackages =
     (with pkgs; [
-      _1password
-      _1password-gui
       firefoxPackage
       signal-desktop
     ])

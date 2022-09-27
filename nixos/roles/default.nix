@@ -43,6 +43,7 @@
 
   workstation =
     (with sharedProfiles; [
+      one-password
       networking.ssh-host
       secrets
     ])

@@ -47,7 +47,6 @@ with homeProfiles; let
     gpg
     mail
     promnesia
-    secrets.one-password
     secrets.password-store
     yubikey
   ];

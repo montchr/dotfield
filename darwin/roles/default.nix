@@ -4,6 +4,7 @@
 }: let
   workstation =
     (with sharedProfiles; [
+      one-password
       fonts.common
       networking.common
       networking.ssh-host

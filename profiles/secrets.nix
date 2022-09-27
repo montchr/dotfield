@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux system;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   # TODO: impermanence
   hasImpermanence = false;
 
