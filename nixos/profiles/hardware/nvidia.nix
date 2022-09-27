@@ -13,20 +13,15 @@
     then nvStable
     else nvBeta;
 in {
-  nixpkgs.config.allowUnfree = lib.mkForce true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
   hardware.nvidia.package = nvLatest;
   services.xserver.videoDrivers = ["nvidia"];
-
-  # Required for Wayland?
+  hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
+  # Seems required for Wayland, though I thought this setting only applied to
+  # GPU switching which isn't relevant to any of my hardware configurations.
   hardware.nvidia.modesetting.enable = true;
-
   # Prevent display corruption upon wake from a suspended or hibernated state.
   hardware.nvidia.powerManagement.enable = true;
-
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
 }

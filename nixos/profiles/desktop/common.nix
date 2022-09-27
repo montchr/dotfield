@@ -19,6 +19,10 @@ in {
 
   xdg.portal.enable = true;
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+  };
 
   # FIXME: still necessary? this isn't a great idea
   # programs.gnupg.agent.enableBrowserSocket = true;
