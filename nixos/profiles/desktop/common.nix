@@ -11,11 +11,11 @@
     then pkgs.firefox-wayland
     else pkgs.firefox;
 in {
-  dotfield.guardian.user.extraGroups = ["video"];
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  # FIXME: propagate to GNOME settings
+  # TODO: tap-dance: esc
   services.xserver.xkbOptions = "caps:ctrl_modifier";
+  dotfield.guardian.user.extraGroups = ["video"];
 
   xdg.portal.enable = true;
 
