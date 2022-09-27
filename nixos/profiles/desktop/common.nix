@@ -15,10 +15,23 @@ in {
   services.xserver.layout = "us";
   # TODO: tap-dance: esc
   services.xserver.xkbOptions = "caps:ctrl_modifier";
-  dotfield.guardian.user.extraGroups = ["video"];
+  dotfield.guardian.user.extraGroups = ["audio" "video"];
 
   xdg.portal.enable = true;
 
+  sound.enable = true;
+  hardware.pulseaudio.enable = false; # required for pipewire
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+  };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluez;
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -34,6 +47,12 @@ in {
     enable = true;
     keystroke = true;
   };
+
+  # Prevent stupid boot delays waiting for internet.
+  # FIXME: this doesn't really seem to help much. dhcp still delays boot.
+  # https://discourse.nixos.org/t/boot-faster-by-disabling-udev-settle-and-nm-wait-online/6339
+  systemd.services.systemd-udev-settle.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   environment.variables = {
     MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";

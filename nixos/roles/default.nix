@@ -10,7 +10,6 @@
       boot.systemd-boot
       desktop.common
       desktop.gnome-desktop
-      desktop.video
       desktop.zoom-us
     ]);
 
@@ -24,11 +23,8 @@
       networking.common
     ])
     ++ (with nixosProfiles; [
-      hardware.audio
-      hardware.bluetooth
       hardware.keyboard
       hardware.printers-scanners
-      networking.wifi
     ]);
 
   webdev = with nixosProfiles; [
