@@ -27,7 +27,6 @@
     direnv
     navi
     nnn
-    ranger
     secrets.common
     tealdeer
     vim
