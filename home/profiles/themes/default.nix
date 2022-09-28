@@ -16,7 +16,7 @@ in {
     light = "ia-light";
   };
 
-  theme.font = {
+  theme.fonts = {
     mono = {
       family = "Iosevka Xtal";
       size = 13;

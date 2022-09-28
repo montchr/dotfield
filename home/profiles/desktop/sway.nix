@@ -27,11 +27,11 @@ in {
       fonts = {
         # NOTE: the order is important: icon font must go before normal text font.
         names = [
-          themeCfg.font.symbols.family
-          themeCfg.font.mono.family
+          themeCfg.fonts.symbols.family
+          themeCfg.fonts.mono.family
         ];
         # Window titles should be slightly larger than the normal text size.
-        size = toFloat (add themeCfg.font.mono.size 2);
+        size = toFloat (add themeCfg.fonts.mono.size 2);
         # style = "Bold";
       };
       modifier = "Mod4";

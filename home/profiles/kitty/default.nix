@@ -80,8 +80,8 @@ in
           settings
           // colors
           // {
-            font_family = theme.font.term.family;
-            font_size = "${builtins.toString theme.font.term.size}.0";
+            font_family = theme.fonts.term.family;
+            font_size = "${builtins.toString theme.fonts.term.size}.0";
           };
         extraConfig = ''
           ${lib.optionalString features.hasPragPro pragmataProExtras}

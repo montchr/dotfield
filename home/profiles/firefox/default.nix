@@ -28,7 +28,7 @@ moduleArgs @ {
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
 
-  themeFonts = config.theme.font;
+  themeFonts = config.theme.fonts;
 
   leptonSrc = firefox-lepton-ui.src;
   leptonSettings = import ./lepton-settings.nix;

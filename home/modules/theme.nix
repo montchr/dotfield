@@ -22,29 +22,26 @@ in {
         dark = mkOpt str "default-dark";
         light = mkOpt str "default-light";
       };
-      font = {
+      fonts = {
         mono = {
-          # FIXME: set a sensible default
           family = mkOpt str "";
           weight = mkOpt int normalWeight;
           size = mkOpt int 13;
         };
-        term = with cfg.font; {
+        term = with cfg.fonts; {
           family = mkOpt str mono.family;
           weight = mkOpt int mono.weight;
           size = mkOpt int mono.size;
         };
         sans = {
-          # FIXME: set a sensible default
           family = mkOpt str "";
           weight = mkOpt int normalWeight;
           size = mkOpt int 10;
         };
         serif = {
-          # FIXME: set a sensible default
           family = mkOpt str "";
           weight = mkOpt int normalWeight;
-          size = mkOpt int cfg.font.sans.size;
+          size = mkOpt int cfg.fonts.sans.size;
         };
         emoji.family = mkOpt str "";
         symbols.family = mkOpt str "";
