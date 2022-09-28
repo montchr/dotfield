@@ -23,7 +23,7 @@ bind --mode=visual t composite js document.getSelection().toString() | fillcmdli
 bindurl reddit.com gu urlparent 4
 
 " Allow Ctrl-a to select all in the commandline
-unbind --mode=ex <C-a>
+" unbind --mode=ex <C-a>
 
 " Allow Ctrl-c to copy in the commandline
 unbind --mode=ex <C-c>
@@ -63,7 +63,8 @@ blacklistadd https://configure.zsa.io
 " === URL redirects ============================================================
 
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
-autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www", "smile")
+" FIXME: causes a redirect loop?
+" autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www", "smile")
 
 " Isolate Facebook in its own container
 " set auconcreatecontainer true
