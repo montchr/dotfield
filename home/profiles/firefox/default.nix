@@ -18,6 +18,7 @@ moduleArgs @ {
     runCommand
     writeText
     ;
+  inherit (config.theme) fonts;
 
   hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
@@ -27,8 +28,6 @@ moduleArgs @ {
   workProfilePath = ".mozilla/firefox/${cfg.profiles.work.path}";
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-
-  themeFonts = config.theme.fonts;
 
   leptonSrc = firefox-lepton-ui.src;
   leptonSettings = import ./lepton-settings.nix;
@@ -54,8 +53,16 @@ moduleArgs @ {
     '';
 
   userChrome = leptonChrome;
+  userContentVars = ''
+    :root {
+      --dotfield-font-family-serif: "${fonts.serif.family}", serif;
+      --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
+      --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
+    }
+  '';
   userContent =
-    leptonContent
+    userContentVars
+    + leptonContent
     + (builtins.readFile ./userContent.css);
 
   # TODO: consider removing. if you want a firefox without telemetry, use
@@ -111,10 +118,6 @@ moduleArgs @ {
       "browser.send_pings" = false;
       "browser.startup.homepage" = "https://lobste.rs";
 
-      # 0 = Normal; 1 = Compact; 2 = Touch
-      # FIXME: does this conflict with lepton?
-      # "browser.uidensity" = 1;
-
       "browser.urlbar.placeholderName" = "…";
       "browser.urlbar.showSearchSuggestionsFirst" = false;
       "browser.urlbar.suggest.calculator" = true;
@@ -129,12 +132,11 @@ moduleArgs @ {
       # See https://github.com/tridactyl/tridactyl/issues/1800
       "extensions.webextensions.restrictedDomains" = "";
 
-      # FIXME: use global font defaults
-      "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = themeFonts.mono.family;
-      "font.name.sans-serif.x-western" = themeFonts.sans.family;
-      "font.name.serif.x-western" = themeFonts.serif.family;
-      "font.size.monospace.x-western" = themeFonts.mono.size;
+      "font.default.x-western" = fonts.sans.family;
+      "font.name.monospace.x-western" = fonts.mono.family;
+      "font.name.sans-serif.x-western" = fonts.sans.family;
+      "font.name.serif.x-western" = fonts.serif.family;
+      "font.size.monospace.x-western" = fonts.mono.size;
 
       "identity.fxaccounts.account.device.name" = hostName;
 
@@ -218,4 +220,3 @@ in {
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
-

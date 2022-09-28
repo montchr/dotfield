@@ -1,9 +1,9 @@
 :root {
-  --tridactyl-font-family: 'Iosevka Xtal' !important;
-  --tridactyl-cmdl-font-family: 'Iosevka Xtal' !important;
-  --tridactyl-status-font-family: 'Iosevka Xtal' !important;
-  --tridactyl-cmplt-font-family: 'Iosevka Xtal' !important;
-  --tridactyl-hintspan-font-family: 'Iosevka Xtal' !important;
+  --tridactyl-font-family: var(--dotfield-font-family-mono) !important;
+  --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
 }
 
 /* Alternate monospace font stack, sorted by least popular so you're most likely
@@ -40,7 +40,7 @@ tt,
 .upload-files .filename,
 .url-field,
 .wiki-wrapper .wiki-history .commit-meta code {
-  font-family: 'Iosevka Xtal', monospace !important;
+  font-family: var(--dotfield-font-family-mono) !important;
   font-size: 1.2em !important;
 }
 
