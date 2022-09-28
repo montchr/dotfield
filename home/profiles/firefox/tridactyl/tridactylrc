@@ -3,9 +3,8 @@
 " https://github.com/tridactyl/tridactyl/blob/master/.tridactylrc
 " May require the latest beta builds.
 
-"
-" Binds
-"
+
+" === Keybindings ==============================================================
 
 " Comment toggler for Reddit, Hacker News and Lobste.rs
 bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
@@ -43,16 +42,14 @@ command hint_focus hint -;
 " Suspend / "discard" all tabs - handy for stretching out battery life
 command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts.map(t=>t.id)))
 
-"
-" Misc settings
-"
+
+" === Misc settings ============================================================
 
 " Hinting mode
 set hintfiltermode vimperator-reflow
 set hintnames short
 
-" Defaults to 300ms
-set hintdelay 100
+set hintdelay 100 " default => 300ms
 
 " Make quickmarks for the sane Tridactyl issue view
 " TODO: read up on `quickmark`
@@ -63,13 +60,9 @@ blacklistadd https://mail.google.com/mail
 blacklistadd https://configure.zsa.io
 
 
-"
-" URL redirects
-"
+" === URL redirects ============================================================
 
-" New reddit is bad
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
-" Mosquito nets won't make themselves
 autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www", "smile")
 
 " Isolate Facebook in its own container
@@ -80,9 +73,7 @@ autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www",
 colors base16-grayscale-dark
 
 
-"
-" Search
-"
+" === Search ===================================================================
 
 set searchurls.alt2 https://alternativeto.net/browse/search/?q=
 set searchurls.caniuse https://caniuse.com/?search=
