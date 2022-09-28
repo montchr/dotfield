@@ -21,6 +21,7 @@ with homeProfiles; let
   ];
 
   graphical = [
+    chromium
     desktop.common
     firefox
     keyboard
