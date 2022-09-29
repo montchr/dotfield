@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 
-;; === basic ===================================================================
+;;; === basic ==================================================================
 
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
@@ -31,14 +31,14 @@
 ;; Globally s/
 (setq evil-ex-substitute-global t)
 
-;; === modeline ================================================================
+;;; === modeline ===============================================================
 
 (after! doom-modeline
   (setq doom-modeline-major-mode-icon (display-graphic-p)
         doom-modeline-major-mode-color-icon (display-graphic-p)))
 
 
-;; === theme ===================================================================
+;;; === theme ==================================================================
 
 (use-package! modus-themes
   :init
@@ -67,7 +67,7 @@
   (modus-themes-load-vivendi))
 
 
-;; === font ====================================================================
+;;; === font ===================================================================
 
 (use-package! ligature
   :after modus-themes
@@ -122,7 +122,7 @@
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 
-;; === completions =============================================================
+;;; === completions ============================================================
 
 (when (modulep! :completion company)
   (use-package! company-prescient
@@ -138,7 +138,7 @@
                       'company-yasnippet)
 
 
-;; === org-mode ================================================================
+;;; === org-mode ===============================================================
 
 (setq! org-directory "~/Documents/notes"
        +org-capture-todo-file (concat org-directory "inbox.org")
@@ -198,7 +198,7 @@
   :commands (doct))
 
 
-;; === buffers =================================================================
+;;; === buffers ================================================================
 
 ;; Change default buffer and frame names.
 ;; https://tecosaur.github.io/emacs-config/config.html#window-title
@@ -223,7 +223,7 @@
 
 
 
-;; === projects ================================================================
+;;; === projects ===============================================================
 
 (use-package! embark-vc
   :after embark)
@@ -242,7 +242,7 @@
            ("~/Developer/work/" . 2))))
 
 
-;; === ide =====================================================================
+;;; === ide ====================================================================
 
 (use-package! format-all
   :custom
@@ -318,7 +318,7 @@
     lsp-ui-doc-header t))
 
 
-;; === languages ===============================================================
+;;; === languages ==============================================================
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
@@ -328,7 +328,7 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
 
-;;; --- nix ----------------------------
+;; --- nix ----------------------------
 
 (after! lsp-mode
   (lsp-register-client
@@ -341,8 +341,8 @@
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 
 
-;;; --- php ----------------------------
-;;; sources:
+;; --- php ----------------------------
+;; sources:
 ;; - https://github.com/elken/doom#php
 
 (defvar xref-ignored-files '("_ide_helper_models.php" "_ide_helper.php")
@@ -409,7 +409,7 @@
   (add-to-list 'eglot-server-programs `((php-mode phps-mode) . (eglot-php . (,php-intelephense-command "--stdio")))))
 
 
-;; === snippets ===================================================================
+;;; === snippets ==================================================================
 
 (use-package! cape-yasnippet
   :after cape
@@ -421,7 +421,7 @@
     (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
 
 
-;; === tools ===================================================================
+;;; === tools ==================================================================
 
 (use-package spdx
   :defer t
@@ -439,7 +439,7 @@
   :defer-incrementally t)
 
 
-;; === mail ====================================================================
+;;; === mail ===================================================================
 
 (after! mu4e
   (setq! sendmail-program (executable-find "msmtp")
@@ -460,7 +460,7 @@
                     t)
 
 
-;; === misc. ===================================================================
+;;; === misc. ==================================================================
 
 (setq! +doom-quit-messages
        '("(setq nothing t everything 'permitted)"
