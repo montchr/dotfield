@@ -2,7 +2,7 @@
   makeIosevkaVariant = variant: pkgs.iosevka-bin.override {inherit variant;};
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";
 in {
-  fonts.fonts = with pkgs; [
+  fonts.fonts = [
     ##: proportional-ish variants
     (makeIosevkaVariant "aile")
     (makeIosevkaVariant "etoile")
