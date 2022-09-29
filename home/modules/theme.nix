@@ -1,4 +1,4 @@
-{
+moduleArgs @ {
   config,
   lib,
   pkgs,
@@ -6,11 +6,25 @@
   self,
   ...
 }: let
+  inherit (builtins) head mapAttrs;
   inherit (inputs.nix-colors) colorSchemes;
   inherit (lib.types) int str;
   inherit (self.lib) mkOpt;
 
   cfg = config.theme;
+
+  # The single-item list format of the fallback set follows that of the NixOS
+  # option type. While repetitive, maybe, it's simple.
+  defaultFonts = let
+    fonts =
+      moduleArgs.osConfig.fonts.fontconfig.defaultFonts
+      or {
+        monospace = ["DejaVu Sans Mono"];
+        sansSerif = ["DejaVu Sans"];
+        serif = ["DejaVu Serif"];
+      };
+  in
+    mapAttrs (_: head) fonts;
 
   normalWeight = 400;
 in {
@@ -24,7 +38,7 @@ in {
       };
       fonts = {
         mono = {
-          family = mkOpt str "";
+          family = mkOpt str defaultFonts.monospace;
           weight = mkOpt int normalWeight;
           size = mkOpt int 13;
         };
@@ -34,12 +48,12 @@ in {
           size = mkOpt int mono.size;
         };
         sans = {
-          family = mkOpt str "";
+          family = mkOpt str defaultFonts.sansSerif;
           weight = mkOpt int normalWeight;
           size = mkOpt int 10;
         };
         serif = {
-          family = mkOpt str "";
+          family = mkOpt str defaultFonts.serif;
           weight = mkOpt int normalWeight;
           size = mkOpt int cfg.fonts.sans.size;
         };
