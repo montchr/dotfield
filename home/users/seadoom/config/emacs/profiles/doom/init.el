@@ -101,6 +101,7 @@
  (tty +osc)          ; improve the terminal Emacs experience
 
  :lang
+ (graphql +lsp)
  data
  dhall
  (emacs-lisp +tree-sitter)
@@ -127,6 +128,7 @@
  rest
  (ruby +lsp
        +tree-sitter)
+ (rust +lsp)
  (sh
   +fish
   +lsp
@@ -139,7 +141,6 @@
  ;;common-lisp       ; if you've seen one lisp, you've seen them all
  ;;elm               ; care for a cup of TEA?
  ;;(go +lsp)
- ;;(graphql +lsp)    ; Give queries a REST
  ;;(haskell)
  ;;idris             ; a language you can depend on
  ;;nim               ; python + lisp at the speed of c
@@ -147,7 +148,6 @@
  ;;plantuml          ; diagrams for confusing people more
  ;;purescript        ; javascript, but functional
  ;;rst               ; ReST in peace
- ;;(rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
  ;;scheme            ; a fully conniving family of lisps
  ;;swift             ; who asked for emoji variables?
  ;;zig               ; C, but simpler
