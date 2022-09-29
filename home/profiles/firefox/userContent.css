@@ -8,7 +8,7 @@
 
 /* Alternate monospace font stack, sorted by least popular so you're most likely
  * to get the font you want.
- * */
+ */
 code,
 kbd,
 pre,
@@ -48,16 +48,15 @@ tt,
   line-height: 1.2 !important;
 }
 
-}
-
 /* GitHub: supplemental text */
 .text-mono {
   font-family: var(--dotfield-font-family-mono) !important;
 }
 
-/* body, */
-/* .tooltipped:after, */
-/* .markdown-body, */
-/* .hx_text-body { */
-/* 	font-family: sans-serif !important; */
-/* } */
+body,
+.tooltipped:after,
+.markdown-body,
+.hx_text-body {
+  /* Very politely encourage use of our preferred body font family. */
+  font-family: var(--dotfield-font-family-sans);
+}
