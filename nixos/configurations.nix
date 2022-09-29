@@ -106,7 +106,6 @@ in {
         (with roles; graphical ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
-          hardware.hidpi
           login.gdm
           # login.greetd
           # virtualisation.vm-variant
