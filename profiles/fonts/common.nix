@@ -5,11 +5,11 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+  inherit (lib) optionals;
 in {
-  imports = [./iosevka-variants.nix];
-
-  environment.systemPackages = with pkgs; [
-    (lib.mkIf isLinux font-manager)
+  imports = [
+    ./fontconfig.nix
+    ./iosevka-variants.nix
   ];
 
   fonts = {
