@@ -1,5 +1,6 @@
 {
   config,
+  options,
   lib,
   pkgs,
   ...
@@ -48,6 +49,14 @@ in {
       # certainty whether NVIDIA drives are in use. This may be the case, for
       # example, on generic Linux with a standalone home-manager.
       hasNvidia = config.hardware.nvidia.modesetting.enable or false;
+
+      # Whether Impermanence aka "ephemeral root storage" aka "darling erasure"
+      # is enabled for this configuration.
+      #
+      # TODO: until impermanence support is added, this should be set to false.
+      # for the time being, we use the setting to prepare for impermanence prior
+      # to implementation.
+      hasImpermanence = false;
 
       # Whether a tiling window manager is enabled system-wide.
       hasTwm =
