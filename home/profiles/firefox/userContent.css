@@ -16,8 +16,11 @@ tt,
 .ace_editor.ace-github-light,
 .blame-sha,
 .blob-code-inner,
+.blob-code-inner > *,
 .blob-num,
 .branch-name,
+.CodeMirror pre > span,
+.CodeMirror-linenumber,
 .commit .sha,
 .commit .sha-block,
 .commit-desc pre,
@@ -42,6 +45,11 @@ tt,
 .wiki-wrapper .wiki-history .commit-meta code {
   font-family: var(--dotfield-font-family-mono) !important;
   font-size: 1.2em !important;
+}
+
+/* GitHub: supplemental text */
+.text-mono {
+  font-family: var(--dotfield-font-family-mono) !important;
 }
 
 /* body, */
