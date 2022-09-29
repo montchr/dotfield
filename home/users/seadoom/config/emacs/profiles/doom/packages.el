@@ -49,10 +49,12 @@
 
 ;;; === languages ==============================================================
 
+(package! apache-mode)               ; a web server almost as old as emacs itself
 (package! apheleia)
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! hledger-mode)
 (package! literate-calc-mode)        ; like soulver, but in emacs
+(package! robots-txt-mode)           ; 87 lines of pure metal
 (package! vimrc-mode)                ; vimrc syntax
 
 

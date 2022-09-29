@@ -320,6 +320,10 @@
 
 ;;; === languages ==============================================================
 
+(use-package! apache-mode)
+
+(use-package! robots-txt-mode)
+
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
