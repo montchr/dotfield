@@ -177,6 +177,17 @@ in {
     "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
   };
 
+  home.packages = with pkgs; [
+    (makeDesktopItem {
+      name = "firefox-work-profile";
+      desktopName = "Firefox (Work)";
+      genericName = "Open a Firefox window scoped to the Work profile.";
+      icon = "firefox";
+      exec = "${cfg.package}/bin/firefox -P ${cfg.profiles.work.path}";
+      categories = ["Application" "Network" "WebBrowser"];
+    })
+  ];
+
   programs.buku.enable = true;
   programs.buku.enableBrowserIntegration = true;
 
