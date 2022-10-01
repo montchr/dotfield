@@ -14,12 +14,6 @@ in (mkIf isLinux {
 
   fonts.fontconfig = {
     enable = true;
-    antialias = !hasHidpi;
-    subpixel.lcdfilter =
-      if hasHidpi
-      then "none"
-      else "default";
-    hinting.enable = !hasHidpi;
     defaultFonts = {
       monospace = mkDefault ["Iosevka Xtal"];
       serif = mkDefault ["IBM Plex Serif"];
