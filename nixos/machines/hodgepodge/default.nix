@@ -27,5 +27,11 @@ in {
   networking.usePredictableInterfaceNames = false;
   networking.firewall.enable = true;
 
+  # diag = w: h: sqrt(w^2 + h^2);
+  # diagPx = diag 2880 1800;      => 3396.23320754
+  # diagIn = 15;
+  # ppi = diagPx / diagIn;        => 226.415547169
+  services.xserver.dpi = 226;
+
   system.stateVersion = "21.11"; # Did you read the comment?
 }
