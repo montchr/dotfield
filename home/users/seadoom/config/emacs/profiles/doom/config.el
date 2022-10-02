@@ -87,7 +87,8 @@
   :config
   (setq fontaine-presets
         '((small :default-height 106
-                 :bold-weight normal)
+           :bold-weight normal
+           :default-family "Iosevka Xtal Term")
           (regular :default-height 124)
           (medium :default-height 133)
           (large :default-height 150
