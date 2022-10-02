@@ -6,12 +6,8 @@ moduleArgs @ {
   sharedProfiles,
   ...
 }: let
-  inherit (config.lib.dotfield) fsPath;
-
-  sshHostPath =
-    if (moduleArgs.impermanence or false)
-    then "/persist/etc/ssh"
-    else "/etc/ssh";
+  inherit (config.lib.dotfield.sys) storageBase;
+  sshHostPath = "${storageBase}/etc/ssh";
 in {
   imports = [sharedProfiles.core];
 
