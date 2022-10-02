@@ -132,7 +132,13 @@
           (unit "u" :icon "ruler-square" :face shadow)
           (value "v" :icon "numeric-1-box-multiple-outline" :face font-lock-builtin-face)
           (variable "va" :icon "adjust" :face font-lock-variable-name-face)))
-  (add-hook 'doom-load-theme-hook #'kind-icon-reset-cache)
+  ;; Clear the icon cache after loading themes or changing font settings.
+  (dolist (hook '(doom-load-theme-hook
+                  ef-themes-post-load-hook
+                  fontaine-set-preset-hook
+                  ligature-mode-hook
+                  modus-themes-after-load-theme-hook))
+    (add-hook hook #'kind-icon-reset-cache))
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 
