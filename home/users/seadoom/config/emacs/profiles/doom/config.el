@@ -107,9 +107,9 @@
            :variable-pitch-weight nil
            :variable-pitch-height 1.0
            :bold-family nil
-            ;; I've often gotten the sense that bold constructs don't work so well
-            ;; with a narrow programming font like Iosevka. It tends to result in
-            ;; muddy-looking characters at small sizes.
+           ;; I've often gotten the sense that bold constructs don't work so well
+           ;; with a narrow programming font like Iosevka. It tends to result in
+           ;; muddy-looking characters at small sizes.
            :bold-weight semibold
            :italic-family nil
            :italic-slant italic
@@ -310,12 +310,12 @@
 
 (after! lsp-ui
   (setq lsp-ui-doc-enable t
-    lsp-ui-doc-position 'top
-    lsp-ui-doc-delay 0.51
-    lsp-ui-doc-max-width 50
-    lsp-ui-doc-max-height 30
-    lsp-ui-doc-include-signature t
-    lsp-ui-doc-header t))
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-delay 0.51
+        lsp-ui-doc-max-width 50
+        lsp-ui-doc-max-height 30
+        lsp-ui-doc-include-signature t
+        lsp-ui-doc-header t))
 
 
 ;;; === languages ==============================================================
@@ -336,9 +336,9 @@
 
 (after! lsp-mode
   (lsp-register-client
-    (make-lsp-client :new-connection (lsp-stdio-connection "nil")
-                     :major-modes '(nix-mode)
-                     :server-id 'nix-nil-lsp)))
+   (make-lsp-client :new-connection (lsp-stdio-connection "nil")
+                    :major-modes '(nix-mode)
+                    :server-id 'nix-nil-lsp)))
 
 (after! eglot
   ;; https://github.com/oxalica/nil

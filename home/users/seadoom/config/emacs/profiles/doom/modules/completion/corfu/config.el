@@ -53,8 +53,8 @@
         "C-n"      #'corfu-next
         "C-p"      #'corfu-previous
         (:prefix "C-x"
-         "C-k"     #'cape-dict
-         "C-f"     #'cape-file))
+                 "C-k"     #'cape-dict
+                 "C-f"     #'cape-file))
 
   (after! evil
     (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
@@ -78,9 +78,9 @@
   :custom
   (corfu-doc-delay 0)
   :bind (:map corfu-map
-         ("M-n" . corfu-doc-scroll-down)
-         ("M-p" . corfu-doc-scroll-up)
-         ("M-d" . corfu-doc-toggle)))
+              ("M-n" . corfu-doc-scroll-down)
+              ("M-p" . corfu-doc-scroll-up)
+              ("M-d" . corfu-doc-toggle)))
 
 
 (use-package! orderless
@@ -168,7 +168,7 @@
 (use-package! corfu-quick
   :after corfu
   :bind (:map corfu-map
-         ("C-q" . corfu-quick-insert)))
+              ("C-q" . corfu-quick-insert)))
 
 
 (when (modulep! :editor evil +everywhere)
