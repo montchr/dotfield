@@ -120,7 +120,13 @@
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
   ;; The other side of `fontaine-restore-latest-preset'.
-  (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
+  (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset)
+
+  ;; Persist font configurations while switching themes.
+  (dolist (hook '(modus-themes-after-load-theme-hook
+                  ef-themes-post-load-hook
+                  ligature-mode-hook))
+    (add-hook hook #'fontaine-apply-current-preset)))
 
 
 ;;; === completions ============================================================
