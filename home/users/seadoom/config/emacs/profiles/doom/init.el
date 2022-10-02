@@ -39,7 +39,7 @@
  hl-todo                      ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
  hydra
  (modeline +light)
- nav-flash                    ; blink cursor line after big motions
+ ;; nav-flash                    ; blink cursor line after big motions
  ophints                      ; highlight the region an operation acts on
  (popup +all
         +defaults)
