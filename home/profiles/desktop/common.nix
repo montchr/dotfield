@@ -26,6 +26,8 @@ in
       };
     };
 
+    fonts.fontconfig.enable = true;
+
     # TODO: configure gtk settings
     # gtk.enable = true;
     # TODO: set these based on color scheme
