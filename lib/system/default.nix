@@ -35,12 +35,25 @@
   Whether the given window manager is enabled by any user.
   */
   hasWm = name: hasEnabledModule ["wayland" "windowManager" name];
+
+  # Whether Impermanence aka "ephemeral root storage" aka "darling erasure"
+  # is enabled for this configuration.
+  #
+  # TODO: until impermanence support is added, this should be set to false.
+  # for the time being, we use the setting to prepare for impermanence prior
+  # to implementation.
+  hasImpermanence = false;
+
+  # Absolute path to the default persistent storage root directory.
+  persistentStorageBase = "/persist";
 in {
   lib.dotfield = {
     srcPath = toString ../../.;
     fsPath = "/etc/dotfield";
 
     sys = {
+      inherit hasImpermanence persistentStorageBase;
+
       hasHidpi = config.hardware.video.hidpi.enable or false;
 
       # Whether a NixOS system has enabled the proprietary NVIDIA drivers.
@@ -50,13 +63,12 @@ in {
       # example, on generic Linux with a standalone home-manager.
       hasNvidia = config.hardware.nvidia.modesetting.enable or false;
 
-      # Whether Impermanence aka "ephemeral root storage" aka "darling erasure"
-      # is enabled for this configuration.
-      #
-      # TODO: until impermanence support is added, this should be set to false.
-      # for the time being, we use the setting to prepare for impermanence prior
-      # to implementation.
-      hasImpermanence = false;
+      # Absolute path to the root directory for non-ephemeral file storage,
+      # taking impermanence settings into account.
+      storageBase =
+        if hasImpermanence
+        then persistentStorageBase
+        else "";
 
       # Whether a tiling window manager is enabled system-wide.
       hasTwm =

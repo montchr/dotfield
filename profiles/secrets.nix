@@ -5,15 +5,12 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  # TODO: impermanence
-  hasImpermanence = false;
+  inherit (config.lib.dotfield.sys) storageBase;
 
   cfg = config.age;
+
   secretsDir = ../secrets;
-  sshPath =
-    if hasImpermanence
-    then "/persist/etc/ssh"
-    else "/etc/ssh";
+  sshPath = "${storageBase}/etc/ssh";
 
   # nix-darwin does not support the `users.<name>.extraGroups` option, but
   # that's not a problem since we're only using darwin systems as a single
