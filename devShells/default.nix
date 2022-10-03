@@ -1,6 +1,4 @@
-{lib, ...}: let
-  inherit (lib) getBin;
-in {
+{lib, ...}: {
   perSystem = {
     inputs',
     system,
@@ -8,7 +6,7 @@ in {
     lib,
     ...
   }: let
-    inherit (lib) optionals;
+    inherit (lib) getExe optionals;
     inherit (pkgs.stdenv) isDarwin isLinux;
     inherit (inputs'.agenix.packages) agenix;
     inherit (inputs'.deploy-rs.packages) deploy-rs;
@@ -88,7 +86,7 @@ in {
       (dotfield' {
         name = "do-repl";
         help = "a REPL for the system flake, by flake-utils-plus";
-        command = "${getBin fup-repl} $@";
+        command = "${getExe fup-repl} $@";
       })
 
       updateSources
@@ -103,7 +101,7 @@ in {
           ${updateFirefoxAddons.command}
           doom profiles sync
           doom upgrade
-          ${getBin cachix} watch-exec --jobs 2 dotfield \
+          ${getExe cachix} watch-exec --jobs 2 dotfield \
             ${rebuildSystem} -- switch --verbose
         '';
       })
@@ -113,7 +111,7 @@ in {
         name = "evalnix";
         help = "Check Nix parsing";
         command = ''
-          ${getBin pkgs.fd} --extension nix --exec \
+          ${getExe pkgs.fd} --extension nix --exec \
             nix-instantiate --parse --quiet {} >/dev/null
         '';
       })
@@ -143,8 +141,8 @@ in {
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
-          ${getBin ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
-          ${getBin ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
+          ${getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
+          ${getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
         '';
       })
     ];
