@@ -6,6 +6,7 @@
 stdenv.mkDerivation {
   name = "sf-pro";
 
+  # <https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts>
   src = fetchFromGitHub {
     owner = "sahibjotsaggu";
     repo = "San-Francisco-Pro-Fonts";
@@ -31,6 +32,6 @@ stdenv.mkDerivation {
       supports over 150 languages across Latin, Greek, and Cyrillic scripts.
     '';
     platforms = platforms.all;
-    licence = licences.unfree;
+    license = licenses.unfree;
   };
 }
