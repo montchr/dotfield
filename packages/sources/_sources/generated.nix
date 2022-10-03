@@ -14,14 +14,14 @@
   };
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "48c17f313a626a295595f30a3d4e0a71d68f7f0a";
+    version = "19530cc7eff02128db8bd5e000afbc45d5317a7b";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "48c17f313a626a295595f30a3d4e0a71d68f7f0a";
+      rev = "19530cc7eff02128db8bd5e000afbc45d5317a7b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Tza0XZmEOEBJLuHEfvqvogKyxp6Euys1bEsV7774FLk=";
+      sha256 = "sha256-x1jYsqqQ8TSuhlHg81gAxNrfNTmjgh7mxMbd/5l0MhQ=";
     };
   };
   fish-autopair = {

@@ -43,10 +43,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.8.0";
+      version = "2022.9.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986147/bitwarden_password_manager-2022.8.0.xpi";
-      sha256 = "208fba348f86fde8bd6663e0ed0540a993d74c4a35d71bf899c106bbcd555400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002564/bitwarden_password_manager-2022.9.1.xpi";
+      sha256 = "a9239572037cfc5643a0054b5783cf0caf9d3b0994ca0e97b45fea7e850b076a";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -99,10 +99,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.6.0";
+      version = "2.8.7.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007095/bypass_paywalls_clean-2.8.6.0.xpi";
-      sha256 = "c3e64b277facb189fdd09651805b6f51683f93db83f02610e9a99a0555046013";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010387/bypass_paywalls_clean-2.8.7.0.xpi";
+      sha256 = "27ae07742b10c3da1cfc75f54e9c131639c7431dd9c132f09439629859c8f389";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -396,10 +396,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.7";
+      version = "2.3.8";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972472/1password_x_password_manager-2.3.7.xpi";
-      sha256 = "9aaee3215d05faa802d83c5a355405d1ba8659f502aacd32aa44c036d2d6d354";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005261/1password_x_password_manager-2.3.8.xpi";
+      sha256 = "504ede6aef639030e40667356abfe04bd3a8311a2d959801c3e767fed28f455e";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -569,10 +569,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.25";
+      version = "22.10.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006995/refined_github-22.9.25.xpi";
-      sha256 = "613d3e2ea79573bb31c9b25b099af8b445b81b04d312e1087ce46e745bde659b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010795/refined_github-22.10.3.xpi";
+      sha256 = "8ef201df21a08f6fe986d2bf0c080516ea64ae5e9798ec132b548266980582ce";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -666,10 +666,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.9.14.1616";
+      version = "22.9.27.1330";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002472/sourcegraph_for_firefox-22.9.14.1616.xpi";
-      sha256 = "4f33a94308524150e0ec2acb42b449c05c9e40e2c3df414a00269909da2650a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4008084/sourcegraph_for_firefox-22.9.27.1330.xpi";
+      sha256 = "2f405da746b55a10d5133a660a1817a80148ec4c09be5aeb7857ec26589ba3fe";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -780,10 +780,10 @@
       };
     "tst-tab-search" = buildFirefoxXpiAddon {
       pname = "tst-tab-search";
-      version = "0.0.5";
+      version = "0.0.6";
       addonId = "@tst-search";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3982203/tst_search-0.0.5.xpi";
-      sha256 = "767614427624c41a63946c7e0eb10d8e0237f65a3e5cd8a5e28f03f9ed3acebd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009035/tst_search-0.0.6.xpi";
+      sha256 = "1c4ebfaadb2af712684acc96d12da69e86d4bcff9db84c97c20d3576722a4981";
       meta = with lib;
       {
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
