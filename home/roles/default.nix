@@ -55,6 +55,7 @@ with homeProfiles; let
     aws
     nodejs
     development.flyio
+    development.javascript
     development.php
     development.wordpress
   ];
