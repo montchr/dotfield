@@ -14,7 +14,6 @@
 (use-package! corfu
   :custom
   (corfu-separator ?\s)
-  (corfu-preview-current t)
   (corfu-auto t)
   (corfu-auto-delay 0.0)
   (corfu-on-exact-match nil)
