@@ -342,10 +342,15 @@
 ;; --- nix ----------------------------
 
 (after! lsp-mode
+  ;; FIXME: nil lsp server causing hangs
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection "nil")
+  ;;                   :major-modes '(nix-mode)
+  ;;                   :server-id 'nix-nil-lsp)))
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "nil")
+   (make-lsp-client :new-connection (lsp-stdio-connection "rnix-lsp")
                     :major-modes '(nix-mode)
-                    :server-id 'nix-nil-lsp)))
+                    :server-id 'rnix-lsp)))
 
 (after! eglot
   ;; https://github.com/oxalica/nil
