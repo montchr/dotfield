@@ -171,5 +171,9 @@
               ("C-q" . corfu-quick-insert)))
 
 
-(when (modulep! :editor evil +everywhere)
-  (setq evil-collection-corfu-key-themes '(default magic-return)))
+(use-package! evil-collection-corfu
+  :when (modulep! :editor evil +everywhere)
+  :defer t
+  :init (setq evil-collection-corfu-key-themes '(default magic-return))
+  :config
+  (evil-collection-corfu-setup))
