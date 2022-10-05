@@ -38,6 +38,6 @@ jobs:
           extraPullNames: dotfield,nix-community,nixpkgs-wayland
 
       # FIXME: fails b/c ifd
-      # - run: nix -Lv flake show --show-trace
+      - run: nix -Lv flake show --show-trace
 
       - run: nix -Lv flake check --show-trace
