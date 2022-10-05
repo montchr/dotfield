@@ -246,7 +246,7 @@
   (setq! projectile-project-search-path
          '(("~/Developer/contrib/" . 2)
            ("~/Developer/sources/" . 1)
-           ("~/Developer/work/" . 2))))
+           ("~/Developer/work/" . 3))))
 
 
 ;;; === ide ====================================================================
