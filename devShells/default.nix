@@ -63,8 +63,8 @@
       popd
     '');
 
-    updateFirefoxAddons = utils' {
-      name = "mozilla-addons-to-nix";
+    updateFirefoxAddons = dotfield' {
+      name = "do-update-firefox-addons";
       help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
       # N.B. As a Haskell package, including this flake's default package
       # directly will break our own `nix flake check` due to IFD.
@@ -74,9 +74,9 @@
       # could, instead, just as easily reference the flake's upstream URL in
       # the command, but would then lose the benefits of pinning inputs.
       command = ''
-        pushd $PRJ_ROOT/packages/applications/firefox/firefox-addons
+        cd $PRJ_ROOT/packages/applications/firefox/firefox-addons
         nix run mozilla-addons-to-nix -- addons.json addons.nix
-        popd
+        cd $PRJ_ROOT
       '';
     };
 
