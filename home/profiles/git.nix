@@ -106,6 +106,12 @@ in {
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
+        ##: `tig` configuration {{
+        tig = {
+          line-graphics = "auto";
+        };
+        ##: }}
+
         ##: Remotes {{
         fetch.recurseSubmodules = true;
         push.default = "current";
