@@ -509,3 +509,7 @@
          "Thesis -> Antithesis -> Synthesis"
          "I'm making my lunch!"
          "Eat protein!"))
+
+;; Load machine-local private configuration.
+(when (file-exists-p! "config-local.el" doom-user-dir)
+  (load! "config-local.el" doom-user-dir))
