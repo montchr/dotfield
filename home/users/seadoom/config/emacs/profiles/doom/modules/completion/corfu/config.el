@@ -14,7 +14,6 @@
 (use-package! corfu
   :custom
   (corfu-separator ?\s)
-  (corfu-preview-current t)
   (corfu-auto t)
   (corfu-auto-delay 0.0)
   (corfu-on-exact-match nil)
@@ -171,5 +170,9 @@
               ("C-q" . corfu-quick-insert)))
 
 
-(when (modulep! :editor evil +everywhere)
-  (setq evil-collection-corfu-key-themes '(default magic-return)))
+(use-package! evil-collection-corfu
+  :when (modulep! :editor evil +everywhere)
+  :defer t
+  :init (setq evil-collection-corfu-key-themes '(default magic-return))
+  :config
+  (evil-collection-corfu-setup))

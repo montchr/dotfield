@@ -8,6 +8,7 @@
 (unpin! forge)
 (unpin! lsp-mode)
 (unpin! format-all)
+(unpin! vterm)
 
 (when (modulep! :completion corfu)
   (unpin! evil-collection))

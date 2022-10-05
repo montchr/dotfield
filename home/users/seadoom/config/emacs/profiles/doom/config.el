@@ -141,8 +141,7 @@
           history-length 1000)))
 
 (set-company-backend! 'emacs-lisp-mode
-                      'company-capf
-                      'company-yasnippet)
+                      'company-capf 'company-yasnippet)
 
 
 ;;; === org-mode ===============================================================
@@ -299,21 +298,24 @@
 
 (after! lsp-mode
   (setq lsp-auto-guess-root t
-        lsp-progress-via-spinner t
-        lsp-enable-file-watchers nil
-        lsp-idle-delay 0.47
         lsp-completion-enable-additional-text-edit t
-        lsp-signature-render-documentation t
-        lsp-signature-auto-activate '(:on-trigger-char :on-server-request :after-completion)
-        lsp-signature-doc-lines 10
         lsp-eldoc-enable-hover t
-        lsp-modeline-code-actions-segments '(count icon name)
-        lsp-vetur-use-workspace-dependencies t
+        lsp-enable-file-watchers nil
         lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil)
-
-  (when (modulep! :completion company)
-    (setq +lsp-company-backends '(company-capf :with company-yasnippet company-dabbrev))))
+        lsp-enable-on-type-formatting nil
+        lsp-idle-delay 0.47
+        lsp-modeline-code-actions-segments '(count icon name)
+        lsp-progress-via-spinner t
+        lsp-signature-doc-lines 10
+        lsp-signature-render-documentation t
+        lsp-signature-auto-activate '(:on-trigger-char
+                                      :on-server-request
+                                      :after-completion)
+        lsp-vetur-use-workspace-dependencies t
+        +lsp-company-backends '(:separate
+                                company-capf
+                                company-yasnippet
+                                company-dabbrev)))
 
 (after! lsp-ui
   (setq lsp-ui-doc-enable t
@@ -390,9 +392,7 @@
   (add-to-list 'projectile-globally-ignored-directories "vendor"))
 
 (after! lsp-mode
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\vendor")
-  (setq +lsp-company-backends
-        '(:separate company-capf company-yasnippet company-dabbrev)))
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\vendor"))
 
 (after! (:or lsp-mode eglot)
   (setq! lsp-intelephense-licence-key (or (ignore-errors (fetch-auth-source :user "intelephense") nil))
@@ -430,6 +430,19 @@
     (add-hook 'lsp-managed-mode-hook #'cape-yasnippet--lsp))
   (after! eglot
     (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
+
+
+;;; === spelling ==================================================================
+
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra" "--lang=en_GB")
+      ispell-dictionary "en"
+      ispell-personal-dictionary "~/Sync/dict")
+
+(after! cape
+  (setq cape-dict-file (if (file-exists-p ispell-personal-dictionary)
+                           ispell-personal-dictionary
+                         cape-dict-file)))
 
 
 ;;; === tools ==================================================================
@@ -491,3 +504,7 @@
          "Thesis -> Antithesis -> Synthesis"
          "I'm making my lunch!"
          "Eat protein!"))
+
+;; Load machine-local private configuration.
+(when (file-exists-p! "config-local.el" doom-user-dir)
+  (load! "config-local.el" doom-user-dir))

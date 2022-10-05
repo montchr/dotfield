@@ -77,7 +77,8 @@
 
  :checkers
  syntax
- ;; (spell +aspell)
+ (:if (executable-find "aspell")
+   spell +aspell)
  ;; grammar
 
  :tools
@@ -87,7 +88,7 @@
  editorconfig
  (eval +overlay)
  (lookup +docsets)
- (lsp)
+ (lsp +eglot)
  (magit +forge)
  (pass +auth)
  pdf

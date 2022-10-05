@@ -59,7 +59,7 @@
 
     updateSources = dotfield' (wrapPkg nvfetcher ''
       pushd $PRJ_ROOT/packages/sources
-      ${nvfetcher}/bin/nvfetcher -c ./sources.toml $@
+      ${getExe nvfetcher} -c ./sources.toml $@
       popd
     '');
 
