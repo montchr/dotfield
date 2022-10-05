@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  self,
+  lib,
+  ...
+}: {
   perSystem = {
     inputs',
     system,
@@ -19,7 +23,6 @@
 
     inherit
       (pkgs)
-      alejandra
       cachix
       editorconfig-checker
       nix-diff
@@ -27,7 +30,6 @@
       rage
       fup-repl
       shellcheck
-      shfmt
       ssh-to-age
       sops
       terraform
@@ -50,8 +52,8 @@
 
     dotfield = pkgWithCategory "dotfield";
     dotfield' = withCategory "dotfield";
-    linter = pkgWithCategory "linters";
-    formatter = pkgWithCategory "formatters";
+    linters = pkgWithCategory "linters";
+    formatters = pkgWithCategory "formatters";
     utils = pkgWithCategory "utils";
     utils' = withCategory "utils";
     secrets = pkgWithCategory "secrets";
@@ -82,16 +84,18 @@
 
     commonCommands = [
       (dotfield deploy-rs)
+      (dotfield' {
+        name = "do-format";
+        command = ''
+          treefmt --clear-cache -- "$@"
+        '';
+      })
       (dotfield terraform)
       (dotfield' {
         name = "do-repl";
         help = "a REPL for the system flake, by flake-utils-plus";
         command = "${getExe fup-repl} $@";
       })
-
-      updateSources
-      updateFirefoxAddons
-
       (dotfield' {
         name = "do-update-all";
         help = "update all of the things and switch to a new generation";
@@ -106,6 +110,9 @@
         '';
       })
 
+      updateSources
+      updateFirefoxAddons
+
       (utils nix-diff)
       (utils' {
         name = "evalnix";
@@ -116,13 +123,10 @@
         '';
       })
 
-      (formatter alejandra)
-      (formatter prettier)
-      (formatter shfmt)
-      (formatter treefmt)
-
-      (linter editorconfig-checker)
-      (linter shellcheck)
+      (linters editorconfig-checker)
+      (linters shellcheck)
+      (formatters prettier)
+      (formatters treefmt)
 
       (secrets agenix)
       (secrets rage)
@@ -151,17 +155,18 @@
       (dotfield inputs'.nixos-generators.packages.nixos-generators)
     ];
   in {
-    devShells.default = inputs'.devshell.legacyPackages.mkShell {
+    devShells.default = inputs'.devshell.legacyPackages.mkShell ({extraModulesPath, ...}: {
+      imports = ["${extraModulesPath}/git/hooks.nix"];
+
       name = "dotfield";
 
+      # FIXME: very not ready for usage, don't even try
       # git.hooks.enable = true;
-      # git.hooks.pre-commit.text = ''${pkgs.treefmt}/bin/treefmt'';
+      # git.hooks.pre-commit.text = builtins.readFile ./git/hooks/pre-commit.sh;
+
+      # TODO
       # sopsPGPKeyDirs = ["./nixos/secrets/keys"];
       # sopsCreateGPGHome = true;
-      # nativeBuildInputs = [
-      #   # inputs'.deploykit.packages.deploykit
-      #   # pkgs.python3.pkgs.invoke
-      # ];
 
       env = [
         {
@@ -184,6 +189,6 @@
         sops-init-gpg-key
         ssh-to-pgp
       ];
-    };
+    });
   };
 }

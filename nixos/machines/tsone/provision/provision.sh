@@ -7,12 +7,11 @@
 export LC_ALL=C
 
 apt update -y
-apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parted 
+apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parted
 
 ###: CONFIGURATION =======================================================
 
 export MY_HOSTNAME=tsone
-
 
 ##: --- Networking ---
 
@@ -28,7 +27,6 @@ export IPV6_GATEWAY="fe80::1"
 # Cloudflare nameservers.
 export NSV4="1.1.1.1" # also 1.0.0.1
 export NSV6="2606:4700:4700::1111"
-
 
 ##: --- Devices ---
 
@@ -80,18 +78,16 @@ export siloxx=(
   "$HDD10"
 )
 
-
 ##: --- Helper Functions ---
 
 # Wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
 # the kernel of partitions changing (we use partprobe for that).
 parted_nice() {
-  parted "$@" 2> parted-stderr.txt || {
-    grep "unable to inform the kernel of the change" parted-stderr.txt \
-      || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"
+  parted "$@" 2>parted-stderr.txt || {
+    grep "unable to inform the kernel of the change" parted-stderr.txt ||
+      echo >&2 "Parted failed; stderr: $(<parted-stderr.txt)"
   }
 }
-
 
 ###: FORMAT/PARTITION/MOUNT =======================================================
 
@@ -113,8 +109,7 @@ mdadm --stop --scan
 # We use `>` because the file may already contain some detected RAID arrays,
 # which would take precedence over our `<ignore>`.
 echo 'AUTO -all
-ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
-
+ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' >/etc/mdadm/mdadm.conf
 
 ##: --- VOLUME: 'NIXOS' ---------------------------------------------------------
 
@@ -125,23 +120,22 @@ for nvme in "${nvmexx[@]}"; do
   # Wipe any previous RAID/ZFS signatures
   wipefs --all --force $nvme
 
-  sgdisk -n1:0:+4M  -t1:EF02 "$nvme"  # bios
-  sgdisk -n2:0:+2G  -t2:EF00 "$nvme"  # esp
-  sgdisk -n3:0:+11G -t3:8200 "$nvme"  # swap
-  sgdisk -n4:0:0    -t4:8300 "$nvme"  # root
+  sgdisk -n1:0:+4M -t1:EF02 "$nvme"  # bios
+  sgdisk -n2:0:+2G -t2:EF00 "$nvme"  # esp
+  sgdisk -n3:0:+11G -t3:8200 "$nvme" # swap
+  sgdisk -n4:0:0 -t4:8300 "$nvme"    # root
 
   partprobe
 
   mkfs.fat -F 32 -n EFI "${nvme}-part2"
 done
 
-
 mkfs.btrfs --force \
   --data single \
   --metadata single \
   --label nixos \
-    "${NVME1}-part4" \
-    "${NVME2}-part4"
+  "${NVME1}-part4" \
+  "${NVME2}-part4"
 
 btrfs device scan
 
@@ -190,7 +184,6 @@ mkdir -p /mnt/boot{-fallback,}
 mount "${NVME1}-part2" /mnt/boot
 # mount "${NVME2}-part2" /mnt/boot-fallback
 
-
 ##: --- VOLUME: 'SILO' ----------------------------------------------------------
 
 for hdd in "${hddxx[@]}"; do
@@ -211,16 +204,16 @@ mkfs.btrfs \
   --data raid10 \
   --metadata raid10 \
   --label silo \
-    "${HDD01}-part1" \
-    "${HDD02}-part1" \
-    "${HDD03}-part1" \
-    "${HDD04}-part1" \
-    "${HDD05}-part1" \
-    "${HDD06}-part1" \
-    "${HDD07}-part1" \
-    "${HDD08}-part1" \
-    "${HDD09}-part1" \
-    "${HDD10}-part1"
+  "${HDD01}-part1" \
+  "${HDD02}-part1" \
+  "${HDD03}-part1" \
+  "${HDD04}-part1" \
+  "${HDD05}-part1" \
+  "${HDD06}-part1" \
+  "${HDD07}-part1" \
+  "${HDD08}-part1" \
+  "${HDD09}-part1" \
+  "${HDD10}-part1"
 
 udevadm trigger
 btrfs device scan
@@ -251,25 +244,23 @@ mount -t btrfs -o "subvol=@tv-shows,${FSOPTS}" \
   LABEL="silo" \
   /mnt/silo/media/tv-shows
 
-
 ###: INSTALL NIX ===============================================================
 
 mkdir -p /etc/nix
 # Let root run nix
-echo "build-users-group =" > /etc/nix/nix.conf
+echo "build-users-group =" >/etc/nix/nix.conf
 
 curl -L https://nixos.org/nix/install | sh
 set +u +x # sourcing this may refer to unset variables that we have no control over
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 set -u -x
 
-echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
 
 nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
 nix-channel --update
 
 nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
-
 
 ###: PREPARE NIXOS CONFIGURATION ===============================================
 

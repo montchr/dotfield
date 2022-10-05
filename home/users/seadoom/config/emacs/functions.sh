@@ -9,13 +9,13 @@ e() {
 }
 
 ediff() {
-  emacs -nw --eval "(ediff-files \"$1\" \"$2\")";
+  emacs -nw --eval "(ediff-files \"$1\" \"$2\")"
 }
 
 eman() {
-  emacs -nw --eval "(switch-to-buffer (man \"$1\"))";
+  emacs -nw --eval "(switch-to-buffer (man \"$1\"))"
 }
 
 ekill() {
-  emacsclient --eval '(kill-emacs)';
+  emacsclient --eval '(kill-emacs)'
 }

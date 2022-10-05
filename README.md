@@ -14,8 +14,8 @@ the real".
 
 These are my personal configurations and are not intended for use as a template,
 but you are welcome to do so if you like! I hope visitors manage to find
-something helpful/inspiring/interesting, but please keep in mind that *I have no
-idea what I'm doing*.
+something helpful/inspiring/interesting, but please keep in mind that _I have no
+idea what I'm doing_.
 
 Dotfield does not embody "best practices" or "the right way to Nix". The project
 exists as an evolving and unstable result of one amateur's take on identifying
@@ -25,7 +25,7 @@ other sources this amateur has encountered.
 ### Attn: Fellow Travellers
 
 Feel free to copy/modify/fork under the terms of [the license](./COPYING), but
-nothing here is guaranteed to work. In fact, some of it *doesn't* work or might
+nothing here is guaranteed to work. In fact, some of it _doesn't_ work or might
 be total nonsense, but I will generally indicate that with `FIXME` or `TODO`
 comments scattered throughout.
 
@@ -49,11 +49,9 @@ mkdir -p $XDG_CONFIG_HOME/sops/age
 pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 ```
 
-
 ## Structure
 
 More details forthcoming...
-
 
 ## Vertebrae
 
@@ -96,13 +94,11 @@ in relevant files.
 - [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
 - [d12frosted's emacs configs][d12frosted-emacs]
 
-
 [frecency]: https://en.wikipedia.org/wiki/Frecency
 [elken-doom]: https://github.com/elken/doom
 [gagbo-doom]: https://git.sr.ht/~gagbo/doom-config
 [tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
 [d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
-
 
 ## Systems
 
@@ -112,17 +108,17 @@ Ryosuke is a "ghost of the circuit", a denizen of Kairo, LoBE.
 
 [PCPartPicker Part List](https://pcpartpicker.com/list/pXZ9nt)
 
-Type|Item
-:----|:----
-**CPU** | [AMD Ryzen 9 5900X 3.7 GHz 12-Core Processor](https://pcpartpicker.com/product/KwLwrH/amd-ryzen-9-5900x-37-ghz-12-core-processor-100-100000061wof)
-**CPU Cooler** | [Noctua NH-L9a-AM4 33.84 CFM CPU Cooler](https://pcpartpicker.com/product/DZfhP6/noctua-nh-l9a-am4-338-cfm-cpu-cooler-nh-l9a-am4)
-**Motherboard** | [Gigabyte X570SI AORUS PRO AX Mini ITX AM4 Motherboard](https://pcpartpicker.com/product/s792FT/gigabyte-x570si-aorus-pro-ax-mini-itx-am4-motherboard-x570si-aorus-pro-ax)
-**Memory** | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)
-**Storage** | [Samsung 970 Evo Plus 1 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Zxw7YJ/samsung-970-evo-plus-1-tb-m2-2280-nvme-solid-state-drive-mz-v7s1t0bam)
-**Video Card** | [PowerColor Radeon RX 6500 XT 4 GB ITX Video Card](https://pcpartpicker.com/product/DxjBD3/powercolor-radeon-rx-6500-xt-4-gb-itx-video-card-axrx-6500xt-4gbd6-dh)
-**Case** | [teenage engineering Computer-1 Mini ITX Desktop Case](https://pcpartpicker.com/product/sdRYcf/teenage-engineering-computer-1-mini-itx-desktop-case-te030as001)
-**Power Supply** | [Corsair SF 600 W 80+ Platinum Certified Fully Modular SFX Power Supply](https://pcpartpicker.com/product/BtsmP6/corsair-sf-600w-80-platinum-certified-fully-modular-sfx-power-supply-cp-9020182-na)
-**Case Fan** | [Noctua A8 PWM chromax.black.swap 32.67 CFM 80 mm Fan](https://pcpartpicker.com/product/Jdwkcf/noctua-nf-a8-pwm-chromaxblackswap-3267-cfm-80-mm-fan-nf-a8-pwm-chromaxblackswap)
+| Type             | Item                                                                                                                                                                                                 |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CPU**          | [AMD Ryzen 9 5900X 3.7 GHz 12-Core Processor](https://pcpartpicker.com/product/KwLwrH/amd-ryzen-9-5900x-37-ghz-12-core-processor-100-100000061wof)                                                   |
+| **CPU Cooler**   | [Noctua NH-L9a-AM4 33.84 CFM CPU Cooler](https://pcpartpicker.com/product/DZfhP6/noctua-nh-l9a-am4-338-cfm-cpu-cooler-nh-l9a-am4)                                                                    |
+| **Motherboard**  | [Gigabyte X570SI AORUS PRO AX Mini ITX AM4 Motherboard](https://pcpartpicker.com/product/s792FT/gigabyte-x570si-aorus-pro-ax-mini-itx-am4-motherboard-x570si-aorus-pro-ax)                           |
+| **Memory**       | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)                   |
+| **Storage**      | [Samsung 970 Evo Plus 1 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Zxw7YJ/samsung-970-evo-plus-1-tb-m2-2280-nvme-solid-state-drive-mz-v7s1t0bam)                           |
+| **Video Card**   | [PowerColor Radeon RX 6500 XT 4 GB ITX Video Card](https://pcpartpicker.com/product/DxjBD3/powercolor-radeon-rx-6500-xt-4-gb-itx-video-card-axrx-6500xt-4gbd6-dh)                                    |
+| **Case**         | [teenage engineering Computer-1 Mini ITX Desktop Case](https://pcpartpicker.com/product/sdRYcf/teenage-engineering-computer-1-mini-itx-desktop-case-te030as001)                                      |
+| **Power Supply** | [Corsair SF 600 W 80+ Platinum Certified Fully Modular SFX Power Supply](https://pcpartpicker.com/product/BtsmP6/corsair-sf-600w-80-platinum-certified-fully-modular-sfx-power-supply-cp-9020182-na) |
+| **Case Fan**     | [Noctua A8 PWM chromax.black.swap 32.67 CFM 80 mm Fan](https://pcpartpicker.com/product/Jdwkcf/noctua-nf-a8-pwm-chromaxblackswap-3267-cfm-80-mm-fan-nf-a8-pwm-chromaxblackswap)                      |
 
 The Ryzen 9 5900X processor and mini-ITX Teenage Engineering Computer-1 case are the stars here.
 
@@ -137,19 +133,19 @@ Originally built in 2015, recently revamped.
 
 [PCPartPicker Part List](https://pcpartpicker.com/list/LKQQRv)
 
-Type|Item
-:----|:----
-**CPU** | [AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor](https://pcpartpicker.com/product/g94BD3/amd-ryzen-5-5600x-37-ghz-6-core-processor-100-100000065box)
-**CPU Cooler** | [Noctua NH-D15 82.5 CFM CPU Cooler](https://pcpartpicker.com/product/4vzv6h/noctua-nh-d15-825-cfm-cpu-cooler-nh-d15)
-**Motherboard** | [Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard](https://pcpartpicker.com/product/xYvqqs/asus-rog-strix-b450-f-gaming-ii-atx-am4-motherboard-rog-strix-b450-f-gaming-ii)
-**Memory** | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)
-**Storage** | [Crucial MX100 256 GB 2.5" Solid State Drive](https://pcpartpicker.com/product/63V48d/crucial-internal-hard-drive-ct256mx100ssd1)
-**Storage** | [Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Fv8j4D/samsung-970-evo-plus-2-tb-m2-2280-nvme-solid-state-drive-mz-v7s2t0bam)
-**Storage** | [Seagate BarraCuda 1 TB 3.5" 7200RPM Internal Hard Drive](https://pcpartpicker.com/product/dCxfrH/seagate-internal-hard-drive-st1000dm003)
-**Video Card** | [NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card](https://pcpartpicker.com/product/c2kWGX/nvidia-geforce-rtx-3080-ti-12-gb-founders-edition-video-card-900-1g133-2518-000)
-**Case** | [Phanteks Enthoo Pro ATX Full Tower Case](https://pcpartpicker.com/product/mn3RsY/phanteks-case-phes614pbk)
-**Power Supply** | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)
-**Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)
+| Type                         | Item                                                                                                                                                                                    |
+| :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CPU**                      | [AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor](https://pcpartpicker.com/product/g94BD3/amd-ryzen-5-5600x-37-ghz-6-core-processor-100-100000065box)                                        |
+| **CPU Cooler**               | [Noctua NH-D15 82.5 CFM CPU Cooler](https://pcpartpicker.com/product/4vzv6h/noctua-nh-d15-825-cfm-cpu-cooler-nh-d15)                                                                    |
+| **Motherboard**              | [Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard](https://pcpartpicker.com/product/xYvqqs/asus-rog-strix-b450-f-gaming-ii-atx-am4-motherboard-rog-strix-b450-f-gaming-ii)           |
+| **Memory**                   | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)      |
+| **Storage**                  | [Crucial MX100 256 GB 2.5" Solid State Drive](https://pcpartpicker.com/product/63V48d/crucial-internal-hard-drive-ct256mx100ssd1)                                                       |
+| **Storage**                  | [Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Fv8j4D/samsung-970-evo-plus-2-tb-m2-2280-nvme-solid-state-drive-mz-v7s2t0bam)              |
+| **Storage**                  | [Seagate BarraCuda 1 TB 3.5" 7200RPM Internal Hard Drive](https://pcpartpicker.com/product/dCxfrH/seagate-internal-hard-drive-st1000dm003)                                              |
+| **Video Card**               | [NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card](https://pcpartpicker.com/product/c2kWGX/nvidia-geforce-rtx-3080-ti-12-gb-founders-edition-video-card-900-1g133-2518-000) |
+| **Case**                     | [Phanteks Enthoo Pro ATX Full Tower Case](https://pcpartpicker.com/product/mn3RsY/phanteks-case-phes614pbk)                                                                             |
+| **Power Supply**             | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)                                            |
+| **Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)                    |
 
 ### `HodgePodge` aka the "Sacred Chao"
 
@@ -158,9 +154,7 @@ the past several years due to the availability of more portable work laptops. It
 is now living out its life in a declarative retirement home. `nixos-rebuild` is
 impossibly slow, even with the binary cache and `ryosuke` as build host.
 
-
 ### Incubation
-
 
 #### "`tsone`" (working title)
 
@@ -231,7 +225,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You may read the license in full within the [COPYING](./COPYING) file included

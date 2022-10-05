@@ -231,3 +231,4 @@ in {
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
+
