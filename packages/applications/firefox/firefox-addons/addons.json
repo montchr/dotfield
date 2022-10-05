@@ -233,5 +233,9 @@
   {
     "slug": "xbs",
     "pname": "xbrowsersync"
+  },
+  {
+    "slug": "zoom-new-scheduler",
+    "pname": "zoom-scheduler"
   }
 ]

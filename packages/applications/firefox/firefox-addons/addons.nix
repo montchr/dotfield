@@ -862,4 +862,18 @@
         platforms = platforms.all;
         };
       };
+    "zoom-scheduler" = buildFirefoxXpiAddon {
+      pname = "zoom-scheduler";
+      version = "2.1.29";
+      addonId = "{bf855ead-d7c3-4c7b-9f88-9a7e75c0efdf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979414/zoom_new_scheduler-2.1.29.xpi";
+      sha256 = "d4cb05d6e33f0c0ecd5edcba00b4ac7479084ec2b7cc420c02725d811ecbfaa3";
+      meta = with lib;
+      {
+        homepage = "https://zoom.us/";
+        description = "Recommended, support FireFox 45+.\nThe Zoom Firefox Extension allows participants to schedule Zoom cloud meetings directly from Google Calendar. you can start an instant meeting or schedule a future meeting via a button.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     }
