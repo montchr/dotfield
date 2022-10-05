@@ -437,6 +437,19 @@
     (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
 
 
+;;; === spelling ==================================================================
+
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra" "--lang=en_GB")
+      ispell-dictionary "en"
+      ispell-personal-dictionary "~/Sync/dict")
+
+(after! cape
+  (setq cape-dict-file (if (file-exists-p ispell-personal-dictionary)
+                           ispell-personal-dictionary
+                         cape-dict-file)))
+
+
 ;;; === tools ==================================================================
 
 (use-package spdx

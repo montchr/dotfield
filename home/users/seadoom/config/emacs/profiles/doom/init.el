@@ -77,7 +77,8 @@
 
  :checkers
  syntax
- ;; (spell +aspell)
+ (:if (executable-find "aspell")
+   spell +aspell)
  ;; grammar
 
  :tools
