@@ -88,7 +88,7 @@
  editorconfig
  (eval +overlay)
  (lookup +docsets)
- (lsp)
+ (lsp +eglot)
  (magit +forge)
  (pass +auth)
  pdf
