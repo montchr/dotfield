@@ -10,7 +10,7 @@ keys = [
 age = ""
 
 [tuvix.ipv4]
-address = ""
+address = "192.168.1.155"
 
 [tuvix.users.cdom]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"]
