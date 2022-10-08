@@ -63,7 +63,7 @@
         };
       in
         darwinSystem {
-          inherit system;
+          inherit pkgs system;
           modules =
             defaultModules
             ++ (builtins.attrValues sharedModules)
