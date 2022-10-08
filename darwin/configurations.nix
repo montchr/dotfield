@@ -11,6 +11,7 @@
     sharedModules
     sharedProfiles
     ;
+  inherit (self.inputs) nixpkgs;
   inherit
     (inputs.digga.lib)
     flattenTree
@@ -26,6 +27,7 @@
     makeOverridable
     mapAttrs
     mapAttrs'
+    optionalAttrs
     ;
   inherit (inputs.darwin.lib) darwinSystem;
 
@@ -54,6 +56,12 @@
   }:
     withSystem system (
       ctx @ {...}: let
+        rosettaPkgs = optionalAttrs (system == aarch64-darwin)
+          import nixpkgs {
+            system = x86_64-darwin;
+            config.allowUnfree = true;
+            config.allowBroken = true;
+          };
         moduleArgs = {
           _module.args.inputs = self.inputs;
           _module.args.primaryUser = primaryUser;
@@ -89,6 +97,7 @@
               darwinProfiles
               sharedProfiles
               roles
+              rosettaPkgs
               ;
           };
         }
@@ -96,6 +105,7 @@
 in {
   # flake.darwinModules = importLeaves darwinModules;
   # flake.darwinProfiles = importLeaves darwinProfiles;
+
   flake.darwinConfigurations = {
     tuvix = makeDarwinSystem "tuvix" {};
     cdotmp = makeDarwinSystem "cdotmp" {
