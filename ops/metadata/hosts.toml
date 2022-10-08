@@ -1,3 +1,22 @@
+## === TUVIX ===
+
+[tuvix]
+network = "home"
+# tailscale = ""
+keys = [
+  # "",
+  # "",
+]
+age = ""
+
+[tuvix.ipv4]
+address = ""
+
+[tuvix.users.cdom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"]
+age = "age18yqe2svh9ck0san5uzthh6m774r2450hhz4ustguza2l8nttk30qxvtpf4"
+
+
 ## === RYOSUKE ===
 
 [ryosuke]
