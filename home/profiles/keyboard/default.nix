@@ -6,10 +6,7 @@
 }:
 lib.mkMerge [
   {
-    home.packages = with pkgs; [
-      # https://ergodox-ez.com/pages/wally-planck
-      wally-cli
-    ];
+    home.packages = with pkgs; [ ];
   }
   (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     services.skhd.enable = true;
