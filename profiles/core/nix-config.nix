@@ -49,10 +49,7 @@ in {
     settings = {
       inherit substituters trusted-substituters;
       experimental-features = ["nix-command" "flakes"];
-      # darwin: shits outside the litterbox.
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
-      # any user is allowed to use nix (as long as multi-user mode is used,
-      # which it generally always is).
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel" "@seadome"];
       trusted-public-keys = [

@@ -27,6 +27,8 @@ in {
         ###: --- preferred defaults ---
 
         ibm-plex
+        # FIXME: do not rebuild every time a build input changes! they're just
+        # fonts! also causes a totally unnecessary new build for darwin...
         iosevka-xtal.xtal
         iosevka-xtal.xtal-term
 
