@@ -30,8 +30,8 @@ in {
 
   homebrew = {
     enable = true;
-    autoUpdate = true;
-    global.noLock = true;
+    # use the nix-darwin brewfile when invoking `brew bundle` imperatively
+    global.brewfile = true;
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
