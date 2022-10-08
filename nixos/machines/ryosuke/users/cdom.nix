@@ -38,6 +38,5 @@ in {
     home.stateVersion = "22.05";
     # FIXME: this must be set everywhere!
     programs.home-manager.enable = true;
-    home.packages = with pkgs; [lando-cli];
   };
 }

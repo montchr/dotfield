@@ -29,7 +29,6 @@ in {
       (with hmArgs.roles; workstation)
       ++ (with ownProfiles; [work]);
     home.stateVersion = "22.05";
-    home.packages = with pkgs; [lando-cli];
   };
   system.stateVersion = 4;
 }
