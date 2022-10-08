@@ -6,8 +6,10 @@
 }: let
   inherit (config.lib) dotfield;
 in {
-  # Administrative users on Darwin systems are part of the admin group by default.
-  nix.trustedUsers = ["@admin" "@wheel"];
+  nix.configureBuildUsers = true;
+  # Administrative users on Darwin systems are part of the admin group.
+  nix.settings.trusted-users = ["@admin"];
+  # nix.settings.sandbox = false;
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
@@ -18,15 +20,13 @@ in {
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
-    # FIXME: `prefmanager` build fails with sandbox mode enabled
-    # https://github.com/malob/prefmanager/issues/2
+    # TODO: re-enable
     # prefmanager
   ];
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
 
   homebrew = {
     enable = true;

@@ -61,7 +61,10 @@ in {
 
     gc = {
       automatic = true;
-      dates = "weekly";
+      interval = "weekly";
+      # TODO: nix-darwin fails b/c gc.interval should be used instead. but i
+      # haven't seen such an error on nixos. can the same option be used?
+      # dates = "weekly";
     };
 
     extraOptions = ''

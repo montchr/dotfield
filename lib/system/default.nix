@@ -73,12 +73,14 @@ in {
       # Whether a tiling window manager is enabled system-wide.
       hasTwm =
         config.services.yabai.enable
-        or config.programs.sway.enable;
+        or config.programs.sway.enable
+        or false;
 
       # Whether the system has any features indicating a Wayland session.
       hasWayland =
         config.services.xserver.displayManager.gdm.wayland
-        or config.programs.sway.enable;
+        or config.programs.sway.enable
+        or false;
     };
 
     home = {inherit hasEnabledModule hasWm;};
