@@ -147,6 +147,7 @@
         src = nixpkgs;
         patches = [
           ./packages/patches/nixos-nixpkgs-193589.patch
+          ./packages/patches/nixos-nixpkgs-194308.patch
         ];
       };
       pkgs = import nixpkgs' {
