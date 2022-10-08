@@ -48,6 +48,7 @@ in {
     registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
       inherit substituters trusted-substituters;
+      auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       allowed-users = ["*"];
