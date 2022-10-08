@@ -69,20 +69,6 @@
         platforms = platforms.all;
         };
       };
-    "bukubrow" = buildFirefoxXpiAddon {
-      pname = "bukubrow";
-      version = "5.0.3.0";
-      addonId = "bukubrow@samhh.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3769984/bukubrow-5.0.3.0.xpi";
-      sha256 = "4c9424d0f13df8f1f6ac605302c42bb30f3c138eb76c8d4ced5d45a637942913";
-      meta = with lib;
-      {
-        homepage = "https://github.com/samhh/bukubrow";
-        description = "Synchronise your browser bookmarks with Buku";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "1.3.2";

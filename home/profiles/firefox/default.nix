@@ -21,7 +21,6 @@ moduleArgs @ {
   inherit (config.theme) fonts;
 
   hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
-  isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
 
   cfg = config.programs.firefox;
   homeProfilePath = ".mozilla/firefox/${cfg.profiles.home.path}";
@@ -164,7 +163,7 @@ moduleArgs @ {
     };
 in {
   imports = [
-    (import ./extensions.nix {inherit isBukuEnabled;})
+    ./extensions.nix
   ];
 
   xdg.configFile."tridactyl".source = ./tridactyl;
@@ -188,9 +187,6 @@ in {
     })
   ];
 
-  programs.buku.enable = true;
-  programs.buku.enableBrowserIntegration = true;
-
   programs.firefox = {
     enable = true;
     package =
@@ -201,7 +197,6 @@ in {
           cfg = {
             enableGnomeExtensions = hasGnomeShell;
             enableTridactylNative = true;
-            enableBukubrow = isBukuEnabled;
           };
         };
 
@@ -231,4 +226,3 @@ in {
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
-

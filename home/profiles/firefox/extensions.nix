@@ -1,4 +1,4 @@
-{isBukuEnabled}: {
+{
   config,
   lib,
   pkgs,
@@ -11,7 +11,6 @@ in {
     onepassword-password-manager
     a11ycss
     add-custom-search-engine
-    (lib.mkIf isBukuEnabled bukubrow)
     copy-selection-as-markdown
     darkreader
     display-_anchors
