@@ -21,6 +21,7 @@ in {
     home = "/Users/${username}";
     # isNormalUser = true;
     isHidden = false;
+    shell = pkgs.fish;
     # openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
 
