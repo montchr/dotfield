@@ -15,6 +15,7 @@
 
   server =
     (with nixosProfiles; [
+      networking.common
       networking.ssh-host
     ])
     ++ (with sharedProfiles; [
@@ -28,6 +29,7 @@
     ++ (with nixosProfiles; [
       hardware.keyboard
       hardware.printers-scanners
+      networking.common
     ]);
 
   webdev = with nixosProfiles; [
@@ -48,6 +50,7 @@
     ++ (with nixosProfiles; [
       boot.systemd-boot
       hardware.yubikey
+      networking.common
       networking.ssh-host
     ]);
 in {
