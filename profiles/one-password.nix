@@ -1,11 +1,13 @@
 {
+  options,
   config,
   lib,
   pkgs,
   ...
 }: let
+  inherit (builtins) hasAttr;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (lib) mkIf mkMerge optional;
+  inherit (lib) mkMerge optionals optionalAttrs;
 in
   mkMerge [
     {
@@ -13,12 +15,12 @@ in
         ({pkgs, ...}: {
           home.packages =
             [pkgs._1password]
-            ++ (optional (!isDarwin) pkgs._1password-gui);
+            ++ (optionals (!isDarwin) pkgs._1password-gui);
         })
       ];
     }
-    (mkIf (config.programs ? _1password) {programs._1password.enable = true;})
-    (mkIf (config.programs ? _1password-gui) {
+    (optionalAttrs (hasAttr "_1password" options.programs) {programs._1password.enable = true;})
+    (optionalAttrs (hasAttr "_1password-gui" options.programs) {
       programs._1password-gui.enable = true;
       programs._1password-gui.polkitPolicyOwners = [config.dotfield.guardian.username];
     })

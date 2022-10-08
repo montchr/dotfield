@@ -13,10 +13,10 @@ in {
 
   nix = {
     settings = {
-      auto-optimise-store = true;
+      optimise.automatic = true;
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
-    optimise.automatic = true;
+      gc.dates = "weekly";
   };
 
   # Essential tools for the best of times and the worst of times.

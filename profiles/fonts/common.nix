@@ -18,7 +18,6 @@ in {
       [
         ###: --- essentials ---
 
-        corefonts
         dejavu_fonts
         inconsolata
         liberation_ttf
@@ -58,6 +57,7 @@ in {
       ]
       ++ (optionals isLinux [
         bakoma_ttf
+        corefonts # broken on aarch64-darwin
         gentium
       ])
       ++ (optionals isMacOS [
