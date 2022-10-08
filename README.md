@@ -49,6 +49,28 @@ mkdir -p $XDG_CONFIG_HOME/sops/age
 pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 ```
 
+### macOS/Darwin
+
+I went several months without a macOS computer available, so my Nix+Darwin
+configurations have suffered a bit of rot over that time. But I've finally
+picked up an M2 MacBook Air, and now I'm faced with the task of picking up where
+I left off and making this computer usable. I've taken some incomplete notes
+below about getting set up on a new macOS system.
+
+- `sudo xcode-select --install`
+- Install Homebrew
+- `brew install git bash zsh ripgrep fd tealdeer bat coreutils`
+- Add `PATH` entries to `~/.zprofile`
+- Install Nix
+- Generate SSH keys for your user and add them to GitHub/Sourcehut.
+- `mkdir -p ~/.config`
+- `git clone git@github.com:montchr/dotfield.git ~/.config/dotfield`
+- Create a basic config for the new host in `./darwin/machines/<hostname>/default.nix`
+- Add the new host to `flake.darwinConfigurations.<hostname>` in `./darwin/configurations.nix`
+- `nix build .#darwinConfigurations.<hostname>.system --verbose`
+- `./result/sw/bin/darwin-rebuild switch --flake .#<hostname>` (assuming that
+  the desired hostname has not yet been set -- otherwise, `... --flake .` should suffice)
+
 ## Structure
 
 More details forthcoming...
