@@ -9,6 +9,8 @@
     ./yabai.nix
   ];
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   environment.systemPackages = with pkgs; [
     gtk-mac-integration
   ];
