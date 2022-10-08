@@ -7,7 +7,6 @@
       one-password
       fonts.common
       networking.common
-      networking.ssh-host
       networking.tailscale
       secrets
     ])

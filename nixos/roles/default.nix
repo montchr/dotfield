@@ -13,10 +13,13 @@
       desktop.zoom-us
     ]);
 
-  server = with sharedProfiles; [
-    networking.common
-    networking.ssh-host
-  ];
+  server =
+    (with nixosProfiles; [
+      networking.ssh-host
+    ])
+    ++ (with sharedProfiles; [
+      networking.common
+    ]);
 
   tangible =
     (with sharedProfiles; [
@@ -40,12 +43,12 @@
   workstation =
     (with sharedProfiles; [
       one-password
-      networking.ssh-host
       secrets
     ])
     ++ (with nixosProfiles; [
       boot.systemd-boot
       hardware.yubikey
+      networking.ssh-host
     ]);
 in {
   inherit
