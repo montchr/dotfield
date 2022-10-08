@@ -58,8 +58,6 @@
     # "nextcloud"
     "plexamp"
     "qlmarkdown"
-    "qlstephen"
-    "qlvideo"
     "quicklook-json"
     "quicklookase"
     "signal"
