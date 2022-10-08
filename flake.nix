@@ -60,7 +60,7 @@
     flake-parts.inputs.nixpkgs.follows = "nixpkgs";
     nix-dram.inputs.nixpkgs.follows = "nixpkgs";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "nixos-unstable";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs.follows = "nixos-unstable";
   };
