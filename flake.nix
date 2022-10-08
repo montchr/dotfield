@@ -54,6 +54,7 @@
       flake = false;
     };
 
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.inputs.nixpkgs.follows = "nixpkgs";

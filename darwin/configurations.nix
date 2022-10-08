@@ -77,7 +77,6 @@
             ++ [
               moduleArgs
               {
-                nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
               }
