@@ -24,6 +24,12 @@
     "homebrew/cask-versions"
   ];
 
+  # $ networksetup -listallnetworkservices
+  networking.knownNetworkServices = [
+    "Wi-Fi"
+    "Thunderbolt Bridge"
+  ];
+
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
     # TODO: are there any better alternatives yet???
