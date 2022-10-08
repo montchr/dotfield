@@ -1,0 +1,70 @@
+From 81a7db9cbd52dcaf2d069bca37e0315a5e068f34 Mon Sep 17 00:00:00 2001
+From: Dmitry Ivankov <divanorama@gmail.com>
+Date: Thu, 29 Sep 2022 23:50:19 +0200
+Subject: [PATCH] jemalloc: fix aarch64-darwin build
+
+Switch to default clang11 and apply a patch to fix tests.
+
+The issue is compiler optimizations for unused `malloc` calls
+being applied to jemalloc tests with empty `--with-jemalloc-prefix=`.
+Tests want to test bad arguments to malloc and optimization broke
+such assertions in some of tests, so patch is applied to disable
+builtin functions optimizations (only for tests code).
+
+Fixes https://github.com/NixOS/nixpkgs/issues/152056
+
+Patch submission upstream
+https://github.com/jemalloc/jemalloc/pull/2340
+---
+ pkgs/development/libraries/jemalloc/default.nix | 11 ++++++++++-
+ pkgs/top-level/all-packages.nix                 |  6 +-----
+ 2 files changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/pkgs/development/libraries/jemalloc/default.nix b/pkgs/development/libraries/jemalloc/default.nix
+index a2812a9c66779..762096277769c 100644
+--- a/pkgs/development/libraries/jemalloc/default.nix
++++ b/pkgs/development/libraries/jemalloc/default.nix
+@@ -1,6 +1,7 @@
+ { lib
+ , stdenv
+ , fetchurl
++, fetchpatch
+ # By default, jemalloc puts a je_ prefix onto all its symbols on OSX, which
+ # then stops downstream builds (mariadb in particular) from detecting it. This
+ # option should remove the prefix and give us a working jemalloc.
+@@ -16,9 +17,17 @@ stdenv.mkDerivation rec {
+ 
+   src = fetchurl {
+     url = "https://github.com/jemalloc/jemalloc/releases/download/${version}/${pname}-${version}.tar.bz2";
+-    sha256 = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
++    hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
+   };
+ 
++  patches = [
++    # fix tests under --with-jemalloc-prefix=, see https://github.com/jemalloc/jemalloc/pull/2340
++    (fetchpatch {
++      url = "https://github.com/jemalloc/jemalloc/commit/d00ecee6a8dfa90afcb1bbc0858985c17bef6559.patch";
++      hash = "sha256:11wp6byrhxi8ymqgknb40xx5xcwyj60ydajqh2029qc924ivi61p";
++    })
++  ];
++
+   # see the comment on stripPrefix
+   configureFlags = []
+     ++ lib.optional stripPrefix "--with-jemalloc-prefix="
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 295e50ee13fc6..0c81b65a2f29c 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -19190,11 +19190,7 @@ with pkgs;
+ 
+   jbigkit = callPackage ../development/libraries/jbigkit { };
+ 
+-  jemalloc = callPackage ../development/libraries/jemalloc {
+-    # tests fail with LLVM 11+
+-    # https://github.com/jemalloc/jemalloc/issues/2091
+-    stdenv = if stdenv.cc.isClang then llvmPackages_10.stdenv else stdenv;
+-  };
++  jemalloc = callPackage ../development/libraries/jemalloc { };
+ 
+   jose = callPackage ../development/libraries/jose { };
+ 

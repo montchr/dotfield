@@ -140,7 +140,16 @@
       ./darwin/packages
     ];
     perSystem = {system, ...}: let
-      pkgs = import nixpkgs {
+      nixpkgs' = (import nixpkgs { inherit system; }).applyPatches {
+        # https://github.com/NixOS/nixpkgs/pull/193589
+        # https://github.com/NixOS/nixpkgs/pull/194308
+        name = "nixpkgs-patched-for-tuvix";
+        src = nixpkgs;
+        patches = [
+          ./packages/patches/nixos-nixpkgs-193589.patch
+        ];
+      };
+      pkgs = import nixpkgs' {
         inherit system;
         config.allowUnfree = true;
         overlays = exoOverlays ++ esoOverlays;
