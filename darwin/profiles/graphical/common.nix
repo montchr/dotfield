@@ -18,82 +18,61 @@
   };
 
   homebrew.taps = [
-    "FelixKratz/formulae"
+    # TODO: which cask is this for? sketchybar iirc?
+    # "FelixKratz/formulae"
     "homebrew/cask"
     "homebrew/cask-versions"
   ];
 
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
-    "pinentry-mac"
+    # TODO: are there any better alternatives yet???
+    # "pinentry-mac"
   ];
 
   homebrew.casks = [
-    "1password-cli"
-    "adobe-acrobat-reader"
+    # TODO: use creative cloud?
+    # "adobe-acrobat-reader"
     "alfred"
     "appcleaner"
     "bartender"
-    "bitwarden"
-    "brave-browser"
-    "basictex"
     "calibre"
-    "caprine"
-    "corelocationcli"
-    "dropbox"
-    "eloston-chromium"
+    "eloston-chromium" # aka "ungoogled-chromium" in nixpkgs
     "fantastical"
     "firefox-developer-edition"
     "flameshot"
-    "google-chrome"
-    "google-drive"
-    "imageoptim"
-    "istat-menus"
-    "kap"
+    # "istat-menus" # TODO: replace w/some cli tools or scripty things for a bar?
+    "kap" # screen recorder... written w/next.js?!
+    # TODO: there might be a nix-darwin module for this soon
     "karabiner-elements"
-    "keyboard-maestro"
     "kitty"
-    # "libreoffice"
-    "marked"
     "mpv"
-    "nextcloud"
-    "pdf-expert"
+    # "nextcloud"
     "plexamp"
-    "qlcolorcode"
     "qlmarkdown"
     "qlstephen"
     "qlvideo"
     "quicklook-json"
     "quicklookase"
     "signal"
-    "slack"
     "soundsource"
     "spotify"
-    "steermouse"
-    "sublime-text"
-    "transmit"
-    "vagrant"
-    "vimr"
-    # Disabled because updates to VirtualBox are disruptive
-    # "virtualbox"
-    "visual-studio-code"
+    "steermouse" # for input device mapping
+    "vscodium"
     "webpquicklook"
-    # "zoom"
+    "zoom"
   ];
 
   # Disabled because these greatly slow down installation time.
-  # homebrew.masApps = {
-  #   "Affinity Photo" = 824183456;
-  #   "Be Focused Pro" = 961632517;
-  #   "Canary Mail" = 1236045954;
-  #   "DaisyDisk" = 411643860;
-  #   "Deliveries" = 924726344;
-  #   "Drafts" = 1435957248;
-  #   "GoodTask" = 1143437985;
-  #   "Keka" = 470158793;
-  #   "NepTunes" = 1006739057;
-  #   "New File Menu" = 1064959555;
-  #   "Reeder" = 1529448980;
-  #   "Tailscale" = 1475387142;
-  # };
+  homebrew.masApps = {
+    "DaisyDisk" = 411643860;
+    # "Deliveries" = 924726344;
+    # "Drafts" = 1435957248;
+    # "GoodTask" = 1143437985;
+    # "Keka" = 470158793;
+    # "NepTunes" = 1006739057;
+    # "New File Menu" = 1064959555;
+    # "Reeder" = 1529448980;
+    # "Tailscale" = 1475387142;
+  };
 }
