@@ -69,10 +69,6 @@
             ++ [
               moduleArgs
               {
-                nix.nixPath = [
-                  "nixpkgs=${pkgs.path}"
-                  "home-manager=${inputs.home-manager}"
-                ];
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];

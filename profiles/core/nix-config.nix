@@ -40,7 +40,11 @@ in {
   environment.etc = inputsToPaths inputs;
   nix = {
     package = pkgs.nix;
-    nixPath = ["/etc/nix/inputs"];
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+      "home-manager=${inputs.home-manager}"
+      "/etc/nix/inputs"
+    ];
     registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
       inherit substituters trusted-substituters;

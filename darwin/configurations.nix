@@ -30,6 +30,7 @@
     optionalAttrs
     ;
   inherit (inputs.darwin.lib) darwinSystem;
+  inherit (lib) mkBefore;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
 
@@ -85,6 +86,7 @@
             ++ [
               moduleArgs
               {
+                nix.nixPath = mkBefore ["darwin=${inputs.darwin}"];
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
               }
