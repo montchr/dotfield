@@ -18,15 +18,15 @@ in {
       [
         ###: --- essentials ---
 
-        dejavu_fonts
-        inconsolata
-        liberation_ttf
-        terminus_font
-        ubuntu_font_family
+        dejavu_fonts # dejavu_fonts
+        inconsolata # i HeArD YoU lIkEd pr0gRAmMiNg F0nT5
+        liberation_ttf # freedom as in freedom fries
+        terminus_font # we are the robots
+        ubuntu_font_family # ubuntu means fun!
 
-        ###: --- preferred defaults ---
+        ibm-plex # ibm sponsors my media server
 
-        ibm-plex
+        # TODO: move to a separate flake repo w/its own build ci
         # FIXME: do not rebuild every time a build input changes! they're just
         # fonts! also causes a totally unnecessary new build for darwin...
         iosevka-xtal.xtal
@@ -34,13 +34,13 @@ in {
 
         ###: --- optionals ---
 
-        b612
-        barlow
-        emacs-all-the-icons-fonts
-        fira
-        inter
-        jost
-        public-sans
+        b612 # preparing for my pilot's license
+        barlow # only here to remind me of sebastopol
+        emacs-all-the-icons-fonts # because!
+        fira # i wouldn't be a programmer without this font
+        inter # fun fun fun on the autozone
+        jost # if colin jost was a font?
+        public-sans # slightly more boring than ibm-plex
 
         (nerdfonts.override {
           fonts = [
