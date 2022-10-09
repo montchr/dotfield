@@ -45,8 +45,15 @@ with homeProfiles; let
 
   trusted = [
     gpg
-    mail
-    promnesia
+
+    # FIXME: upstream bug? `mu` is hardcoded, not a reference to `pkgs.mu`
+    # > Activating runMuInit
+    # > /nix/store/crf1jbfp5zs9l4xrpfck5lh4sk5d5rlx-home-manager-generation/activate: line 290: mu: command not found
+    # mail
+
+    # FIXME: broken
+    # promnesia
+
     secrets.password-store
     yubikey
   ];
