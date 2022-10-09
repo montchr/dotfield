@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib) dotfield;
+  inherit (lib) mkIf;
 in {
   nix.configureBuildUsers = true;
   # Administrative users on Darwin systems are part of the admin group.
   nix.settings.trusted-users = ["@admin"];
   # Required for building some incompatible packages via Rosetta.
-  nix.settings.extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
+  nix.settings.extra-platforms = mkIf (pkgs.system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
   # nix.settings.sandbox = false;
 
   environment.systemPackages = with pkgs; [
@@ -36,7 +36,8 @@ in {
 
   homebrew = {
     enable = true;
-    # use the nix-darwin brewfile when invoking `brew bundle` imperatively
+    onActivation.cleanup = "zap";
+    # Use the nix-darwin brewfile when invoking `brew bundle` imperatively.
     global.brewfile = true;
   };
 
