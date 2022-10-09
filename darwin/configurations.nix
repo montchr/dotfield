@@ -92,6 +92,9 @@
             ++ [
               moduleArgs
               {
+                # FIXME: nix-darwin upstream does not support these options, which exist on nixos
+                # nixpkgs.pkgs = mkDefault pkgs;
+                # nixpkgs.localSystem = mkDefault pkgs.stdenv.hostPlatform;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
               }
