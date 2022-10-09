@@ -14,8 +14,8 @@
       emacs
       graphical.common
       # graphical.hammerspoon
-      # graphical.sketchybar
-      graphical.yabai
+      # graphical.yabai
       system-defaults
+      # graphical.sketchybar
     ]);
 in {inherit workstation;}
