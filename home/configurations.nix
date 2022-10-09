@@ -109,9 +109,7 @@ in {
     sharedProfiles.homeManagerSettings = settingsProfile;
     homeConfigurations =
       (mkHomeConfigurations nixosConfigurations)
-      # FIXME: currently broken -- may be due to a lack of hm configs on these
-      # systems for the moment?
-      # // (mkHomeConfigurations darwinConfigurations)
+      // (mkHomeConfigurations darwinConfigurations)
       // {
         "cdom@kweb-prod-www" = traveller;
         "cdom@kweb-prod-db" = traveller;
