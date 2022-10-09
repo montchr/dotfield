@@ -10,10 +10,6 @@
     gtk-mac-integration
   ];
 
-  environment.variables = {
-    TERMINFO_DIRS = "/Applications/kitty.app/Contents/Resources/kitty/terminfo";
-  };
-
   homebrew.taps = [
     # TODO: which cask is this for? sketchybar iirc?
     # "FelixKratz/formulae"
