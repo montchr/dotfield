@@ -6,8 +6,19 @@ moduleArgs @ {
   inputs,
   ...
 }: let
+  inherit (builtins) toString;
   inherit (inputs) base16-kitty nix-colors;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit
+    (lib)
+    concatMapStringsSep
+    concatStringsSep
+    isBool
+    mkIf
+    optionalString
+    ;
+  inherit (lib.generators) toKeyValue;
+  inherit (lib.hm.booleans) yesNo;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.lib.dotfield) features;
   inherit (config) theme;
 
@@ -17,22 +28,22 @@ moduleArgs @ {
   colors = import ./colors.nix config.colorscheme;
 
   # via home-manager kitty module
-  toKittyConfig = lib.generators.toKeyValue {
+  toKittyConfig = toKeyValue {
     mkKeyValue = key: value: let
       value' =
-        if lib.isBool value
-        then (lib.hm.booleans.yesNo value)
-        else builtins.toString value;
+        if isBool value
+        then (yesNo value)
+        else toString value;
     in "${key} ${value'}";
   };
 
   colorScheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
   mkColorScheme = name: toKittyConfig (colorScheme name);
 
-  mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
+  mkFontFeatures = name: features: "font_features ${name} ${concatStringsSep " " features}";
 
   mkFontFeatures' = family: styles: features:
-    lib.concatMapStringsSep "\n"
+    concatMapStringsSep "\n"
     (style: mkFontFeatures "${family}-${style}" features)
     styles;
 
@@ -48,54 +59,48 @@ moduleArgs @ {
   in ''
     ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
   '';
-in
-  # FIXME: reduce the amount of merging -> reduce complecity
-  lib.mkMerge [
-    (lib.mkIf isDarwin {
-      programs.kitty.darwinLaunchOptions = [
-        "--single-instance"
-        "--listen-on=${socket}"
-      ];
-    })
+in {
+  home.packages = with pkgs; [
+    kitty-get-window-by-platform-id
+    # (mkIf isDarwin kitty-set-app-icon)
+  ];
 
-    {
-      home.packages = with pkgs; [
-        kitty-get-window-by-platform-id
-        # (lib.mkIf isDarwin kitty-set-app-icon)
-      ];
+  home.sessionVariables = {
+    KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
+    # FIXME: necessary?
+    KITTY_SOCKET = socket;
+  };
 
-      home.sessionVariables = {
-        KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
-        # FIXME: necessary?
-        KITTY_SOCKET = socket;
+  programs.kitty = {
+    enable = true;
+    settings =
+      settings
+      // colors
+      // {
+        font_family = theme.fonts.term.family;
+        font_size = "${builtins.toString theme.fonts.term.size}.0";
       };
+    extraConfig = ''
+      ${optionalString features.hasPragPro pragmataProExtras}
+    '';
 
-      programs.kitty = {
-        enable = true;
-        settings =
-          settings
-          // colors
-          // {
-            font_family = theme.fonts.term.family;
-            font_size = "${builtins.toString theme.fonts.term.size}.0";
-          };
-        extraConfig = ''
-          ${lib.optionalString features.hasPragPro pragmataProExtras}
-        '';
-      };
+    darwinLaunchOptions = mkIf isDarwin [
+      "--single-instance"
+      "--listen-on=${socket}"
+    ];
+  };
 
-      xdg.configFile = {
-        "kitty/base16-kitty".source = base16-kitty.outPath;
-        "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
-        "kitty/themes/light.conf".text = mkColorScheme theme.colors.light;
+  xdg.configFile = {
+    "kitty/base16-kitty".source = base16-kitty.outPath;
+    "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
+    "kitty/themes/light.conf".text = mkColorScheme theme.colors.light;
 
-        # FIXME: does not appear to have an effect
-        "kitty/session".text = ''
-          # Start new sessions in the previous working directory
-          # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
-          # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
-          launch --cwd=current
-        '';
-      };
-    }
-  ]
+    # FIXME: does not appear to have an effect?
+    "kitty/session".text = ''
+      # Start new sessions in the previous working directory
+      # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
+      # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
+      launch --cwd=current
+    '';
+  };
+}
