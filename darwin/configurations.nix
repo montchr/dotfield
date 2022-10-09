@@ -48,6 +48,7 @@
     inputs.home-manager.darwinModules.home-manager
     # `nixosModules` is correct, even for darwin
     inputs.agenix.nixosModules.age
+    # inputs.sops-nix.darwinModules.sops
   ];
 
   makeDarwinSystem = hostname: {

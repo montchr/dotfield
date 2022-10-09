@@ -7,7 +7,7 @@
       one-password
       fonts.common
       networking.common
-      secrets
+      # secrets
       # networking.tailscale
     ])
     ++ (with darwinProfiles; [
