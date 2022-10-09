@@ -234,21 +234,5 @@ I've added a script called `kitty-set-app-icon` to re-copy the desired icon back
 to `kitty.app` post-update. This script is available via the
 `kitty-helpers.setAppIcon` package.
 
-Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/) for outlining a simple alternative to the usual drag-and-drop approach.
-
-## License
-
-Copyright (C) 2020-2022 Chris Montgomery
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You may read the license in full within the [COPYING](./COPYING) file included
-in the project root. You may also find it at <https://www.gnu.org/licenses/>
+Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/)
+for outlining a simple alternative to the usual drag-and-drop approach.
