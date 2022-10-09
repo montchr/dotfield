@@ -49,6 +49,7 @@
       ctx @ {system, ...}: let
         pkgs = nixosArgs.pkgs or ctx.pkgs;
         moduleArgs = {
+          _module.args.self = self;
           _module.args.inputs = self.inputs;
           _module.args.primaryUser = primaryUser;
           _module.args.packages = ctx.config.packages;
@@ -76,8 +77,6 @@
             ];
           specialArgs = {
             inherit
-              self
-              inputs
               nixosProfiles
               sharedProfiles
               roles

@@ -60,7 +60,12 @@
       })
     ];
 
-  extraSpecialArgs = {inherit self inputs homeProfiles roles;};
+  extraSpecialArgs = {
+    inherit
+      homeProfiles
+      roles
+      ;
+  };
 
   makeHomeConfiguration = username: hmArgs:
     withSystem (hmArgs.system or x86_64-linux) (
