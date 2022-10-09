@@ -44,13 +44,10 @@
     inputs.agenix.nixosModules.age
   ];
 
-  makeNixosSystem = hostname: {
-    system ? x86_64-linux,
-    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
-    modules ? [],
-  }:
-    withSystem system (
-      ctx @ {...}: let
+  makeNixosSystem = hostname: nixosArgs:
+    withSystem (nixosArgs.system or x86_64-linux) (
+      ctx @ {system, ...}: let
+        pkgs = nixosArgs.pkgs or ctx.pkgs;
         moduleArgs = {
           _module.args.inputs = self.inputs;
           _module.args.primaryUser = primaryUser;
@@ -65,8 +62,9 @@
             defaultModules
             ++ (builtins.attrValues sharedModules)
             ++ (builtins.attrValues (flattenTree nixosModules))
-            ++ modules
+            ++ (nixosArgs.modules or [])
             ++ [
+              nixosMachines.${hostname}
               moduleArgs
               {
                 nixpkgs.pkgs = pkgs;
@@ -75,7 +73,6 @@
                 # if this were enabled, rebuilds will take forrrreevvvveerrrrr.
                 documentation.info.enable = false;
               }
-              nixosMachines.${hostname}
             ];
           specialArgs = {
             inherit

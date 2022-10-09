@@ -51,13 +51,11 @@
     # inputs.sops-nix.darwinModules.sops
   ];
 
-  makeDarwinSystem = hostname: {
-    system ? aarch64-darwin,
-    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
-    modules ? [],
-  }:
-    withSystem system (
-      ctx @ {...}: let
+  makeDarwinSystem = hostname: darwinArgs:
+    withSystem (darwinArgs.system or aarch64-darwin) (
+      ctx @ {system, ...}: let
+        pkgs = darwinArgs.pkgs or ctx.pkgs;
+
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
         #
@@ -68,6 +66,7 @@
           (import nixpkgs {
             system = x86_64-darwin;
             config.allowUnfree = true;
+            # FIXME: this may have been necessary at somepoint, but is it still?
             config.allowBroken = true;
           });
         moduleArgs = {
@@ -84,7 +83,7 @@
             defaultModules
             ++ (builtins.attrValues sharedModules)
             ++ (builtins.attrValues (flattenTree darwinModules))
-            ++ modules
+            ++ (darwinArgs.modules or [])
             # It's extremely unlikely that a Darwin system will ever be
             # anything other than a "workstation" i.e. a laptop running macOS.
             # Until that changes, there's no need to import this role in every

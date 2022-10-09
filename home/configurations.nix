@@ -62,35 +62,30 @@
 
   extraSpecialArgs = {inherit self inputs homeProfiles roles;};
 
-  makeHomeConfiguration = {
-    username,
-    system ? x86_64-linux,
-    pkgs ? (withSystem system (ctx @ {...}: ctx.pkgs)),
-    modules ? [],
-  }: (withSystem system (
-    ctx @ {...}: let
-      moduleArgs = {
-        _module.args.inputs = self.inputs;
-        _module.args.packages = ctx.config.packages;
-        _module.args.sources = ctx.sources;
-        _module.args.peers = peers;
-      };
-    in (
-      inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs extraSpecialArgs;
+  makeHomeConfiguration = username: hmArgs:
+    withSystem (hmArgs.system or x86_64-linux) (
+      ctx @ {...}: let
+        pkgs = hmArgs.pkgs or ctx.pkgs;
+        moduleArgs = {
+          _module.args.self = self;
+          _module.args.inputs = self.inputs;
+          _module.args.packages = ctx.config.packages;
+          _module.args.sources = ctx.sources;
+          _module.args.peers = peers;
+        };
+      in (inputs.home-manager.lib.homeManagerConfiguration {
+        inherit extraSpecialArgs;
         modules =
           defaultModules
-          ++ modules
+          ++ (hmArgs.modules or [])
           ++ [
             moduleArgs
             {home.username = username;}
           ];
-      }
-    )
-  ));
+      })
+    );
 
-  traveller = makeHomeConfiguration {
-    username = "cdom";
+  traveller = makeHomeConfiguration "cdom" {
     modules = with roles; remote ++ webdev;
   };
 
