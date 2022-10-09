@@ -22,40 +22,37 @@ exists as an evolving and unstable result of one amateur's take on identifying
 and implementing flexible and understandishable patterns or novelties across
 other sources this amateur has encountered.
 
-### Attn: Fellow Travellers
-
-Feel free to copy/modify/fork under the terms of [the license](./COPYING), but
-nothing here is guaranteed to work. In fact, some of it _doesn't_ work or might
-be total nonsense, but I will generally indicate that with `FIXME` or `TODO`
-comments scattered throughout.
-
-If you have questions or feedback, please ask away! If you use anything within
-as a starting point for your own configurations and find that my implementation
-doesn't work for you, feel free to ask for help. Even if I can't help, I would
-be interested to hear about what you've encountered -- perhaps such an issue
-would be something I'd have run into at a future point.
+If you have questions or feedback, feel free to reach out in the issues or discussions!
 
 ## Bootstrapping
 
 This section is incomplete and fragmented, but contains important reference
 notes for stuff I always forget.
 
-```sh
-export KEYID="0x135EEDD0F71934F3"
-gpg --recv $KEYID
+### NixOS
 
-mkdir -p $XDG_CONFIG_HOME/sops/age
-# Required for editing sops files
-pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
-```
+TODO
+
+Mostly self-explanatory following the manual, but the initial setup process can
+be a bit circuitous, especially when you are only starting with a macOS system
+like I did. Fortunately, things have improved quite a lot since then, as QEMU
+now supports running NixOS VMs on `aarch64-darwin`.
+
+### Generic Linux
+
+TODO
+
+Only home-manager support is possible here. These profiles may be deployable
+with `deploy-rs`. That feature alone makes `deploy-rs` stand out from the rest
+of the Nix-centric deployment tools available as of this writing.
 
 ### macOS/Darwin
 
 I went several months without a macOS computer available, so my Nix+Darwin
 configurations have suffered a bit of rot over that time. But I've finally
 picked up an M2 MacBook Air, and now I'm faced with the task of picking up where
-I left off and making this computer usable. I've taken some incomplete notes
-below about getting set up on a new macOS system.
+I left off and making this computer usable. I've taken some rough notes below
+about getting set up on a new macOS system.
 
 - `sudo xcode-select --install`
 - Install Homebrew
@@ -70,6 +67,24 @@ below about getting set up on a new macOS system.
 - `nix build .#darwinConfigurations.<hostname>.system --verbose`
 - `./result/sw/bin/darwin-rebuild switch --flake .#<hostname>` (assuming that
   the desired hostname has not yet been set -- otherwise, `... --flake .` should suffice)
+
+### Secrets
+
+After the initial generation with secrets disabled (due to a
+catch-22/bootstrapping problem), you should then be able to do the following
+with a smartcard attached.
+
+```sh
+export KEYID="0x135EEDD0F71934F3"
+gpg --recv $KEYID
+gpg --list-secret-keys
+gpg-agent-restart
+
+mkdir -p $XDG_CONFIG_HOME/sops/age
+# Required for editing sops files
+pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
+```
+
 
 ## Structure
 
@@ -94,9 +109,9 @@ in relevant files.
 ### NixOS/nix-darwin/home-manager
 
 - https://github.com/Mic92/dotfiles :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
+- https://github.com/srid/nixos-config :: nixos, nix-darwin, vms, simple, nixos-shell
 - https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
 - https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
-- https://github.com/srid/nixos-config :: nixos, flake-parts
 - https://github.com/TLATER/dotfiles :: home-manager, structure
 - https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
 - https://github.com/colemickens/nixcfg :: nixos, extensive, fun
@@ -123,6 +138,10 @@ in relevant files.
 [d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 ## Systems
+
+### `tuvix` [MacBook Air M2]
+
+Work computer running macOS. It's fresh.
 
 ### `ryosuke` [Teenage Engineering Computer-1]
 
@@ -208,7 +227,8 @@ Currently lost somewhere in the meat ether.
 
 ### kitty terminal custom icons
 
-kitty's FAQ page shows a small collection of high-quality alternative icons designed by some kitty fans.
+kitty's FAQ page shows a small collection of high-quality alternative icons
+designed by some kitty fans.
 
 <https://sw.kovidgoyal.net/kitty/faq/#i-do-not-like-the-kitty-icon>
 
