@@ -38,6 +38,7 @@
     "calibre"
     "eloston-chromium" # aka "ungoogled-chromium" in nixpkgs
     "fantastical"
+    "firefox"
     "firefox-developer-edition"
     "flameshot"
     # "istat-menus" # TODO: replace w/some cli tools or scripty things for a bar?
