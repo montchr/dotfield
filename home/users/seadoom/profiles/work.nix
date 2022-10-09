@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
+  inherit (pkgs) firefox-addons;
 in {
   home.packages = with pkgs; [
     cpanel-cli
