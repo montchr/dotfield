@@ -43,6 +43,7 @@ in {
     nixPath = [
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
+      "darwin=${inputs.darwin}"
       "/etc/nix/inputs"
     ];
     registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;

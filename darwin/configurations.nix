@@ -92,7 +92,6 @@
             ++ [
               moduleArgs
               {
-                nix.nixPath = mkBefore ["darwin=${inputs.darwin}"];
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
               }
