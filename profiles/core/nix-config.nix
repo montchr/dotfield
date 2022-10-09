@@ -41,7 +41,7 @@ in {
   nix = {
     package = pkgs.nix;
     nixPath = [
-      "nixpkgs=${inputs.nixpkgs}"
+      "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
       "/etc/nix/inputs"
     ];
