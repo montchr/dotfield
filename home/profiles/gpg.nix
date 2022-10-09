@@ -11,11 +11,6 @@ in
     {
       home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
 
-      # Stupid hack to override GNOME keyring.
-      home.sessionVariablesExtra = ''
-        export SSH_AUTH_SOCK="$(${config.programs.gpg.package}/bin/gpgconf --list-dirs agent-ssh-socket)"
-      '';
-
       home.packages = with pkgs; [
         gnupg
         gpgme
