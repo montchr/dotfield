@@ -4,11 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./hammerspoon.nix
-    ./yabai.nix
-  ];
-
   security.pam.enableSudoTouchIdAuth = true;
 
   environment.systemPackages = with pkgs; [
