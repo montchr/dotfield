@@ -30,6 +30,10 @@ in {
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
 
+  environment.shellInit = mkIf config.homebrew.enable ''
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+  '';
+
   homebrew = {
     enable = true;
     # use the nix-darwin brewfile when invoking `brew bundle` imperatively
