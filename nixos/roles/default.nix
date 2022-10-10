@@ -32,8 +32,6 @@
     virtualisation.podman
     virtualisation.vagrant
     virtualisation.virt-manager
-    # FIXME: virtualbox always causes a bunch of time-consuming rebuilds
-    # virtualisation.virtualbox
   ];
 
   workstation =
