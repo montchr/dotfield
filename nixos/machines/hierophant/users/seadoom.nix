@@ -17,5 +17,7 @@
 
     # FIXME: no need to force this path, but the default directory must be created/linked
     lib.dotfield.fsPath = "/etc/dotfield";
+
+    home.stateVersion = "21.11";
   };
 }

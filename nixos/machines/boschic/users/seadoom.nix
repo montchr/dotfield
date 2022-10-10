@@ -12,5 +12,8 @@
     passwordFile = config.sops.secrets."users/seadoom/passphrase".path;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
-  home-manager.users.seadoom = hmArgs: {imports = with hmArgs.roles; workstation;};
+  home-manager.users.seadoom = hmArgs: {
+    imports = with hmArgs.roles; workstation;
+    home.stateVersion = "21.11";
+  };
 }

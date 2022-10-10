@@ -14,5 +14,8 @@
       "networkmanager"
     ];
   };
-  home-manager.users.zortflower = hmArgs: {imports = with hmArgs.roles; graphical;};
+  home-manager.users.zortflower = hmArgs: {
+    imports = with hmArgs.roles; graphical;
+    home.stateVersion = "22.05";
+  };
 }

@@ -18,5 +18,6 @@ in {
   };
   home-manager.users.cdom = hmArgs: {
     imports = with hmArgs.roles; remote;
+    home.stateVersion = "22.05";
   };
 }

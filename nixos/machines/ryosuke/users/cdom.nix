@@ -36,7 +36,5 @@ in {
       (with hmArgs.roles; workstation)
       ++ (with ownProfiles; [work]);
     home.stateVersion = "22.05";
-    # FIXME: this must be set everywhere!
-    programs.home-manager.enable = true;
   };
 }
