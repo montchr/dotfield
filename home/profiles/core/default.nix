@@ -1,6 +1,4 @@
-{config, ...}: let
-  inherit (config.home) username;
-in {
+{config, ...}: {
   imports = [
     ./home-packages.nix
     ./nixpkgs-config.nix
@@ -20,7 +18,6 @@ in {
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
-    Z_OWNER = username;
 
     # Docker
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
