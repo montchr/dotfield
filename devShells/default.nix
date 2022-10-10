@@ -83,7 +83,6 @@
     };
 
     commonCommands = [
-      (dotfield deploy-rs)
       (dotfield' {
         name = "do-format";
         command = ''
@@ -152,6 +151,7 @@
     ];
 
     linuxCommands = [
+      (dotfield deploy-rs)
       (dotfield inputs'.nixos-generators.packages.nixos-generators)
     ];
   in {
