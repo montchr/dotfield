@@ -36,8 +36,7 @@
           else "/home";
       in {
         _module.args = {
-          inherit self peers;
-          inputs = self.inputs;
+          inherit peers;
           sources = perSystem.sources;
           packages = perSystem.config.packages;
         };
@@ -64,8 +63,19 @@
     ];
 
   platformSpecialArgs = hostPlatform: {
-    inherit homeProfiles roles;
-    inherit (hostPlatform) isDarwin isLinux isMacOS system;
+    inherit
+      self
+      inputs
+      homeProfiles
+      roles
+      ;
+    inherit
+      (hostPlatform)
+      isDarwin
+      isLinux
+      isMacOS
+      system
+      ;
   };
 
   settingsModule = moduleWithSystem (perSystem: osArgs: let
