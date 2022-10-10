@@ -57,11 +57,6 @@
           sources = perSystem.sources;
           packages = perSystem.config.packages;
         };
-        programs.home-manager.enable = true;
-        manual.json.enable = true;
-        news.display = "show";
-        xdg.enable = true;
-        home.stateVersion = lib.mkDefault "22.05";
         home.homeDirectory = "${homePrefix}/${username}";
       }))
     ];

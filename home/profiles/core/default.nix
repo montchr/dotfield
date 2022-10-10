@@ -1,17 +1,15 @@
-# TODO: https://github.com/malob/nixpkgs/blob/f7a29deb3531d700e45efa30ee559cdcb48232f8/flake.nix#L77
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   inherit (config.home) username;
-  inherit (config.lib.dotfield.features) hasPragPro;
 in {
   imports = [
     ./home-packages.nix
     ./nixpkgs-config.nix
   ];
+
+  programs.home-manager.enable = true;
+  manual.json.enable = true;
+  news.display = "show";
+  xdg.enable = true;
 
   programs.bash.enable = true;
   programs.fish.enable = true;
