@@ -64,8 +64,6 @@
           (import nixpkgs {
             system = x86_64-darwin;
             config.allowUnfree = true;
-            # FIXME: this may have been necessary at somepoint, but is it still?
-            config.allowBroken = true;
           });
         moduleArgs = {
           _module.args.self = self;
