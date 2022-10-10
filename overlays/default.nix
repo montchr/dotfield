@@ -52,7 +52,6 @@ in {
             nixos-stable
             nixos-unstable
             nixpkgs-trunk
-            nixpkgs-darwin-stable
             ;
         });
     in {

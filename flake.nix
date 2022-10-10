@@ -7,41 +7,60 @@
   # nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
+    nixpkgs.follows = "nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nur.url = "github:nix-community/NUR";
 
-    darwin.url = "github:LnL7/nix-darwin";
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     digga = {
       url = "github:divnix/digga/home-manager-22.11";
       inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
-    nix-std.url = "github:chessai/nix-std";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-colors = {
+      url = "github:Misterio77/nix-colors";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    nix-dram = {
+      url = "github:dramforever/nix-dram";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixago = {
+      url = "github:nix-community/nixago";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix.url = "github:montchr/agenix/darwin-support";
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
-    nix-dram = {
-      url = "github:dramforever/nix-dram";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    nix-colors.url = "github:Misterio77/nix-colors";
+    nix-std.url = "github:chessai/nix-std";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
-    nixago.url = "github:nix-community/nixago";
     prefmanager.url = "github:malob/prefmanager";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
@@ -52,16 +71,6 @@
       url = "github:kdrag0n/base16-kitty";
       flake = false;
     };
-
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    flake-parts.inputs.nixpkgs.follows = "nixpkgs";
-    nix-dram.inputs.nixpkgs.follows = "nixpkgs";
-    nixago.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixpkgs.follows = "nixos-unstable";
   };
 
   outputs = {
@@ -73,7 +82,6 @@
     flake-utils,
     nixpkgs-wayland,
     emacs-overlay,
-    nur,
     nix-dram,
     nix-std,
     ...
@@ -99,7 +107,6 @@
     exoOverlays = [
       nixpkgs-wayland.overlay
       emacs-overlay.overlay
-      nur.overlay
       nix-dram.overlay
       self.overlays.externalPackages
     ];
