@@ -124,6 +124,7 @@
         _module.args.peers = peers;
       }
 
+      ./flake-modules/homeConfigurations.nix
       ./flake-modules/sharedModules.nix
       ./flake-modules/sharedProfiles.nix
 
