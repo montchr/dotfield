@@ -141,7 +141,7 @@
     ];
     perSystem = {system, ...}: let
       nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
-        name = "nixpkgs-patched-for-tuvix";
+        name = "nixpkgs-patched-for-aarch64-darwin";
         src = nixpkgs;
         patches = [
           # https://github.com/NixOS/nixpkgs/pull/193589 <- 2022-10-10: waiting for review since 2022-10-01
