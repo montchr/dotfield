@@ -79,7 +79,9 @@
               nixosProfiles
               sharedProfiles
               roles
+              system
               ;
+            inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isMacOS;
           };
         }
     );

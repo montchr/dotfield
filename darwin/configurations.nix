@@ -26,12 +26,9 @@
   inherit
     (lib)
     makeOverridable
-    mapAttrs
-    mapAttrs'
     optionalAttrs
     ;
   inherit (inputs.darwin.lib) darwinSystem;
-  inherit (lib) mkBefore;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
 
@@ -52,10 +49,10 @@
     # inputs.sops-nix.darwinModules.sops
   ];
 
-  makeDarwinSystem = hostname: darwinArgs:
-    withSystem (darwinArgs.system or aarch64-darwin) (
+  makeDarwinSystem = hostname: args:
+    withSystem (args.system or aarch64-darwin) (
       ctx @ {system, ...}: let
-        pkgs = darwinArgs.pkgs or ctx.pkgs;
+        pkgs = args.pkgs or ctx.pkgs;
 
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
@@ -107,8 +104,9 @@
               darwinProfiles
               sharedProfiles
               roles
-              rosettaPkgs
+              system
               ;
+            inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isMacOS;
           };
         }
     );
