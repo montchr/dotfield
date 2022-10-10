@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  system,
   ...
 }: let
   inherit (lib) mkIf;
@@ -10,8 +11,7 @@ in {
   # Administrative users on Darwin systems are part of the admin group.
   nix.settings.trusted-users = ["@admin"];
   # Required for building some incompatible packages via Rosetta.
-  nix.settings.extra-platforms = mkIf (pkgs.system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
-  # nix.settings.sandbox = false;
+  nix.settings.extra-platforms = mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
