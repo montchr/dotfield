@@ -11,6 +11,7 @@
     sharedModules
     sharedProfiles
     ;
+  inherit (self.nixosModules) homeManagerSettings;
   inherit
     (inputs.digga.lib)
     flattenTree
@@ -19,8 +20,6 @@
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
   inherit
     (lib)
-    mapAttrs
-    mapAttrs'
     makeOverridable
     nixosSystem
     ;
@@ -36,7 +35,7 @@
 
   defaultModules = [
     sharedProfiles.core
-    sharedProfiles.homeManagerSettings
+    homeManagerSettings
     nixosProfiles.core
     nixosProfiles.boot.common
     inputs.home-manager.nixosModules.home-manager

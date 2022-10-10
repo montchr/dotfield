@@ -11,6 +11,7 @@
     sharedModules
     sharedProfiles
     ;
+  inherit (self.nixosModules) homeManagerSettings;
   inherit (self.inputs) nixpkgs;
   inherit
     (inputs.digga.lib)
@@ -43,7 +44,7 @@
 
   defaultModules = [
     sharedProfiles.core
-    sharedProfiles.homeManagerSettings
+    homeManagerSettings
     darwinProfiles.core
     inputs.home-manager.darwinModules.home-manager
     # `nixosModules` is correct, even for darwin
@@ -84,7 +85,7 @@
             defaultModules
             ++ (builtins.attrValues sharedModules)
             ++ (builtins.attrValues (flattenTree darwinModules))
-            ++ (darwinArgs.modules or [])
+            ++ (args.modules or [])
             # It's extremely unlikely that a Darwin system will ever be
             # anything other than a "workstation" i.e. a laptop running macOS.
             # Until that changes, there's no need to import this role in every
