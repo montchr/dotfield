@@ -4,10 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (lib) mkDefault mkIf;
-  hasHidpi = config.hardware.video.hidpi.enable or false;
-in (mkIf isLinux {
+  inherit (lib) mkDefault;
+in {
   environment.systemPackages = with pkgs; [
     font-manager
   ];
@@ -20,4 +18,4 @@ in (mkIf isLinux {
       sansSerif = mkDefault ["IBM Plex Sans"];
     };
   };
-})
+}

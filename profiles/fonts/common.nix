@@ -2,15 +2,16 @@
   config,
   lib,
   pkgs,
+  isDarwin,
+  isLinux,
+  isMacOS,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-  inherit (lib) optionals;
+  inherit (lib) optional optionals;
 in {
-  imports = [
-    ./fontconfig.nix
-    ./iosevka-variants.nix
-  ];
+  imports =
+    [./iosevka-variants.nix]
+    ++ (optional (!isDarwin) ./fontconfig.nix);
 
   fonts = {
     fontDir.enable = true;
