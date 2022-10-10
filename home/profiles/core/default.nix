@@ -6,7 +6,6 @@ moduleArgs @ {
   ...
 }: let
   inherit (config.home) username;
-  inherit (config.lib) dotfield;
   inherit (config.lib.dotfield.features) hasPragPro;
 in {
   imports = [
@@ -21,8 +20,6 @@ in {
   home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = dotfield.fsPath;
-
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
     Z_OWNER = username;
