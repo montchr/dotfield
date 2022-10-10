@@ -2,16 +2,14 @@
   config,
   lib,
   pkgs,
-  nixosProfiles,
   ...
 }: let
   inherit (lib) optional;
   inherit (dotfieldLib.sys) hasNvidia;
   dotfieldLib = config.lib.dotfield;
 in {
-  imports = with nixosProfiles; [
-    desktop.common
-  ];
+  imports = [../common.nix];
+
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;

@@ -2,17 +2,13 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
-  homeProfiles,
   ...
 }: let
   inherit (builtins) add;
   inherit (lib.std.num) toFloat;
   themeCfg = config.themes;
 in {
-  imports = with homeProfiles; [
-    desktop.common
-    themes
-  ];
+  imports = [../common.nix];
 
   wayland.windowManager.sway = {
     enable = true;
