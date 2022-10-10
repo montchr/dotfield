@@ -6,7 +6,7 @@
     (with sharedProfiles; [
       one-password
       fonts.common
-      networking.common
+      fonts.iosevka-variants
       # secrets
       # networking.tailscale
     ])

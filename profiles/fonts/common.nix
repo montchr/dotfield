@@ -7,12 +7,9 @@
   isMacOS,
   ...
 }: let
-  inherit (lib) optional optionals;
+  inherit (lib) optionals;
 in {
-  imports =
-    [./iosevka-variants.nix]
-    ++ (optional (!isDarwin) ./fontconfig.nix);
-
+  imports = [./iosevka-variants.nix];
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs;

@@ -5,6 +5,8 @@
   graphical =
     (with sharedProfiles; [
       fonts.common
+      fonts.fontconfig
+      fonts.iosevka-variants
     ])
     ++ (with nixosProfiles; [
       boot.systemd-boot
@@ -13,24 +15,16 @@
       desktop.zoom-us
     ]);
 
-  server =
-    (with nixosProfiles; [
-      networking.common
-      networking.ssh-host
-    ])
-    ++ (with sharedProfiles; [
-      networking.common
-    ]);
+  server = with nixosProfiles; [
+    networking.common
+    networking.ssh-host
+  ];
 
-  tangible =
-    (with sharedProfiles; [
-      networking.common
-    ])
-    ++ (with nixosProfiles; [
-      hardware.keyboard
-      hardware.printers-scanners
-      networking.common
-    ]);
+  tangible = with nixosProfiles; [
+    hardware.keyboard
+    hardware.printers-scanners
+    networking.common
+  ];
 
   webdev = with nixosProfiles; [
     virtualisation.libvirt
