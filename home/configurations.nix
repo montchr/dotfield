@@ -19,10 +19,32 @@
     rakeLeaves
     ;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
+  inherit (lib) mkBefore;
 
   homeModules = flattenTree (rakeLeaves ./modules);
   homeProfiles = rakeLeaves ./profiles;
   roles = import ./roles {inherit homeProfiles;};
+
+  bootstrapProfile = moduleWithSystem (
+    perSystem @ {...}: (
+      {config, ...}: let
+        inherit (config.home) username;
+        inherit (perSystem.pkgs.stdenv.hostPlatform) isDarwin;
+        homePrefix =
+          if isDarwin
+          then "/Users"
+          else "/home";
+      in {
+        _module.args = {
+          inherit self peers;
+          inputs = self.inputs;
+          sources = perSystem.sources;
+          packages = perSystem.config.packages;
+        };
+        home.homeDirectory = "${homePrefix}/${username}";
+      }
+    )
+  );
 
   defaultModules =
     (builtins.attrValues homeModules)
@@ -37,48 +59,13 @@
     ])
     ++ [
       ../lib/home
+      bootstrapProfile
       inputs.nix-colors.homeManagerModule
-      (moduleWithSystem (perSystem @ {...}: {
-        config,
-        lib,
-        pkgs,
-        ...
-      }: let
-        inherit (config.home) username;
-        inherit (pkgs.stdenv.hostPlatform) isDarwin;
-        homePrefix =
-          if isDarwin
-          then "/Users"
-          else "/home";
-      in {
-        _module.args = {
-          inherit self peers;
-          inputs = self.inputs;
-          sources = perSystem.sources;
-          packages = perSystem.config.packages;
-        };
-        home.homeDirectory = "${homePrefix}/${username}";
-      }))
     ];
-  userDefaults = username: defaultModules ++ [{home.username = username;}];
 
   platformSpecialArgs = hostPlatform: {
     inherit homeProfiles roles;
     inherit (hostPlatform) isDarwin isLinux isMacOS system;
-  };
-
-  makeHomeConfiguration = username: args:
-    withSystem (args.system or x86_64-linux) (
-      perSystem @ {system, ...}: let
-        inherit ((args.pkgs or perSystem.pkgs).stdenv) hostPlatform;
-      in (inputs.home-manager.lib.homeManagerConfiguration {
-        modules = (userDefaults username) ++ (args.modules or []);
-        extraSpecialArgs = platformSpecialArgs hostPlatform;
-      })
-    );
-
-  traveller = makeHomeConfiguration "cdom" {
-    modules = with roles; remote ++ webdev;
   };
 
   settingsModule = moduleWithSystem (perSystem: osArgs: let
@@ -97,13 +84,31 @@ in {
     inherit homeModules;
     nixosModules.homeManagerSettings = settingsModule;
     darwinModules.homeManagerSettings = settingsModule;
-    homeConfigurations =
+    homeConfigurations = mkBefore (
       (mkHomeConfigurations nixosConfigurations)
       // (mkHomeConfigurations darwinConfigurations)
-      // {
-        "cdom@kweb-prod-www" = traveller;
-        "cdom@kweb-prod-db" = traveller;
-        "cdom@kweb-dev" = traveller;
+    );
+  };
+
+  perSystem = ctx @ {pkgs, ...}: {
+    homeConfigurations = let
+      userDefaults = username:
+        defaultModules
+        ++ [{home.username = username;}];
+
+      makeHomeConfiguration = username: args: let
+        pkgs = args.pkgs or ctx.pkgs;
+      in (inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = (userDefaults username) ++ (args.modules or []);
+        extraSpecialArgs = platformSpecialArgs pkgs.stdenv.hostPlatform;
+      });
+
+      traveller = makeHomeConfiguration "cdom" {
+        modules = with roles; remote ++ webdev;
       };
+    in {
+      inherit traveller;
+    };
   };
 }
