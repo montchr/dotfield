@@ -18,7 +18,8 @@ in {
     # => https://github.com/rgcr/m-cli
     m-cli
     mas
-    terminal-notifier
+    # FIXME: broken on aarch64? error when run: "Bad CPU type in executable"
+    # terminal-notifier
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
