@@ -20,11 +20,26 @@ moduleArgs @ {
     ;
   inherit (config.theme) fonts;
 
+  cfg = config.programs.firefox;
+
   hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
 
-  cfg = config.programs.firefox;
-  homeProfilePath = ".mozilla/firefox/${cfg.profiles.home.path}";
-  workProfilePath = ".mozilla/firefox/${cfg.profiles.work.path}";
+  # via https://github.com/nix-community/home-manager/blob/e1f1160284198a68ea8c7fffbbb1436f99e46ef9/modules/programs/firefox.nix#L11-L20
+  mozillaConfigPath =
+    if isDarwin
+    then "Library/Application Support/Mozilla"
+    else ".mozilla";
+  firefoxConfigPath =
+    if isDarwin
+    then "Library/Application Support/Firefox"
+    else "${mozillaConfigPath}/firefox";
+  profilesPath =
+    if isDarwin
+    then "${firefoxConfigPath}/Profiles"
+    else firefoxConfigPath;
+
+  homeProfilePath = "${profilesPath}/${cfg.profiles.home.path}";
+  workProfilePath = "${profilesPath}/${cfg.profiles.work.path}";
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
 
