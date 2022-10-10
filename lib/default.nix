@@ -1,14 +1,14 @@
 {
   lib,
   peers,
-  flake,
+  inputs,
 }: let
   inherit (builtins) mapAttrs;
   inherit (lib) makeExtensible attrValues foldr;
-  inherit (flake.inputs.digga.lib) rakeLeaves;
+  inherit (inputs.digga.lib) rakeLeaves;
 
   dotfieldLib = makeExtensible (self: (mapAttrs
-    (name: path: (import path {inherit flake self lib peers;}))
+    (name: path: (import path {inherit inputs self lib peers;}))
     (rakeLeaves ./src)));
 in
   # for convenience, provide all namespaced functions at the top level,

@@ -98,8 +98,8 @@
     lib = nixos-unstable.lib.extend (lfinal: lprev: {
       std = nix-std;
       eso = import ./lib {
+        inherit (self) inputs;
         inherit peers;
-        flake = self;
         lib = lfinal;
       };
     });
