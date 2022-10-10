@@ -3,7 +3,6 @@
   lib,
   pkgs,
   primaryUser,
-  profiles,
   peers,
   ...
 }: let

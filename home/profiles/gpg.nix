@@ -22,6 +22,9 @@ in
 
       services.gpg-agent = {
         enable = true;
+        # FIXME: pinentry won't work in emacs for ssh, looks for terminal to
+        # attach to with ncurses. however, pinentry will work for gpg signing
+        # commits.
         enableSshSupport = true;
         sshKeys = [pgpPublicKey];
       };
@@ -32,6 +35,7 @@ in
         mutableKeys = false;
         mutableTrust = false;
 
+        # TODO: clean up the format/structure of these key files
         publicKeys = [
           {
             source = ../../secrets + "/gpg-${pgpPublicKey}.txt";

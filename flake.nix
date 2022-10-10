@@ -140,13 +140,13 @@
       ./darwin/packages
     ];
     perSystem = {system, ...}: let
-      nixpkgs' = (import nixpkgs { inherit system; }).applyPatches {
-        # https://github.com/NixOS/nixpkgs/pull/193589
-        # https://github.com/NixOS/nixpkgs/pull/194308
+      nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
         name = "nixpkgs-patched-for-tuvix";
         src = nixpkgs;
         patches = [
+          # https://github.com/NixOS/nixpkgs/pull/193589 <- 2022-10-10: waiting for review since 2022-10-01
           ./packages/patches/nixos-nixpkgs-193589.patch
+          # https://github.com/NixOS/nixpkgs/pull/194308 <- 2022-10-10: merged into `staging` a week ago
           ./packages/patches/nixos-nixpkgs-194308.patch
         ];
       };
