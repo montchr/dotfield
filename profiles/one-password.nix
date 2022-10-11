@@ -7,7 +7,7 @@
 }: let
   inherit (builtins) hasAttr;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (lib) mkMerge optionals optionalAttrs;
+  inherit (lib) mkMerge optional optionalAttrs;
 in
   mkMerge [
     {
@@ -15,7 +15,7 @@ in
         ({pkgs, ...}: {
           home.packages =
             [pkgs._1password]
-            ++ (optionals (!isDarwin) pkgs._1password-gui);
+            ++ (optional (!isDarwin) pkgs._1password-gui);
         })
       ];
     }
