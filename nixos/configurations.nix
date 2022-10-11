@@ -2,7 +2,9 @@
   withSystem,
   self,
   lib,
+  # DEPRECATED:
   peers,
+  primaryUser,
   ...
 }: let
   inherit
@@ -26,9 +28,6 @@
 
   roles = import ./roles {inherit sharedProfiles nixosProfiles;};
 
-  # FIXME: move to guardian
-  primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
-
   nixosModules = rakeLeaves ./modules;
   nixosMachines = rakeLeaves ./machines;
   nixosProfiles = rakeLeaves ./profiles;
@@ -48,9 +47,10 @@
       ctx @ {system, ...}: let
         pkgs = nixosArgs.pkgs or ctx.pkgs;
         moduleArgs = {
-          _module.args.primaryUser = primaryUser;
-          _module.args.packages = ctx.config.packages;
-          _module.args.peers = peers;
+          _module.args = {
+            inherit peers primaryUser;
+            inherit (ctx.config) packages;
+          };
         };
       in
         makeOverridable nixosSystem {
@@ -66,7 +66,6 @@
               {
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
-                home-manager.sharedModules = [moduleArgs];
               }
             ];
           specialArgs = {

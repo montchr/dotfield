@@ -120,6 +120,9 @@
       self.overlays.overrides
     ];
 
+    # FIXME: move to guardian
+    primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
+
     # shared importables :: may be used within system configurations for any
     # supported operating system (e.g. nixos, nix-darwin).
     peers = import ./ops/metadata/peers.nix;
@@ -129,7 +132,9 @@
     systems = supportedSystems;
     imports = [
       {
-        _module.args.peers = peers;
+        _module.args = {
+          inherit peers primaryUser;
+        };
       }
 
       ./flake-modules/homeConfigurations.nix
@@ -165,7 +170,7 @@
         overlays = exoOverlays ++ esoOverlays;
       };
     in {
-      _module.args.pkgs = pkgs;
+      _module.args = {inherit pkgs primaryUser;};
       formatter = pkgs.alejandra;
     };
     flake = {

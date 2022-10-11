@@ -1,8 +1,10 @@
 {
-  withSystem,
   self,
-  peers,
   lib,
+  withSystem,
+  # DEPRECATED:
+  peers,
+  primaryUser,
   ...
 }: let
   inherit
@@ -31,9 +33,6 @@
   inherit (inputs.darwin.lib) darwinSystem;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
-
-  # FIXME: move to guardian
-  primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
 
   darwinModules = rakeLeaves ./modules;
   darwinMachines = rakeLeaves ./machines;
@@ -66,10 +65,10 @@
             config.allowUnfree = true;
           });
         moduleArgs = {
-          _module.args.primaryUser = primaryUser;
-          _module.args.packages = ctx.config.packages;
-          _module.args.rosettaPkgs = rosettaPkgs;
-          _module.args.peers = peers;
+          _module.args = {
+            inherit peers primaryUser rosettaPkgs;
+            inherit (ctx.config) packages;
+          };
         };
       in
         darwinSystem {
@@ -86,13 +85,7 @@
             ++ roles.workstation
             ++ [
               moduleArgs
-              {
-                # FIXME: nix-darwin upstream does not support these options, which exist on nixos
-                # nixpkgs.pkgs = mkDefault pkgs;
-                # nixpkgs.localSystem = mkDefault pkgs.stdenv.hostPlatform;
-                networking.hostName = hostname;
-                home-manager.sharedModules = [moduleArgs];
-              }
+              {networking.hostName = hostname;}
               darwinMachines.${hostname}
             ];
           specialArgs = {
