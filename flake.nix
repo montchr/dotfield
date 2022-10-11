@@ -154,6 +154,8 @@
       ./darwin/packages
     ];
     perSystem = {system, ...}: let
+      # FIXME: while this fixes builds on `aarch64-darwin`, checks fail:
+      # => a 'x86_64-linux' with features {} is required to build...
       nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
         name = "nixpkgs-patched-for-aarch64-darwin";
         src = nixpkgs;
