@@ -75,7 +75,6 @@
       sharedModules = defaultModules;
       useGlobalPkgs = true;
       useUserPackages = true;
-      verbose = true;
     };
   });
 in {
