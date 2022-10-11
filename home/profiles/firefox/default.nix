@@ -4,16 +4,18 @@ moduleArgs @ {
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (pkgs.sources) firefox-lepton-ui;
   inherit
     (lib)
     concatStrings
     mapAttrsToList
+    optional
     ;
   inherit
     (pkgs)
     firefox-wayland
+    makeDesktopItem
     runCommand
     writeText
     ;
@@ -190,16 +192,14 @@ in {
     "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
   };
 
-  home.packages = with pkgs; [
-    (makeDesktopItem {
-      name = "firefox-work-profile";
-      desktopName = "Firefox (Work)";
-      genericName = "Open a Firefox window scoped to the Work profile.";
-      icon = "firefox";
-      exec = "${cfg.package}/bin/firefox -P ${cfg.profiles.work.path}";
-      categories = ["Application" "Network" "WebBrowser"];
-    })
-  ];
+  home.packages = optional isLinux (makeDesktopItem {
+    name = "firefox-work-profile";
+    desktopName = "Firefox (Work)";
+    genericName = "Open a Firefox window scoped to the Work profile.";
+    icon = "firefox";
+    exec = "${cfg.package}/bin/firefox -P ${cfg.profiles.work.path}";
+    categories = ["Application" "Network" "WebBrowser"];
+  });
 
   programs.firefox = {
     enable = true;
