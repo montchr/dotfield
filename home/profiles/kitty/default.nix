@@ -1,7 +1,6 @@
-moduleArgs @ {
+{
   config,
   lib,
-  options,
   pkgs,
   inputs,
   ...
@@ -64,12 +63,6 @@ in {
     kitty-get-window-by-platform-id
     # (mkIf isDarwin kitty-set-app-icon)
   ];
-
-  home.sessionVariables = {
-    KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
-    # FIXME: necessary?
-    KITTY_SOCKET = socket;
-  };
 
   programs.kitty = {
     enable = true;
