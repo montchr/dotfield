@@ -24,10 +24,8 @@ in {
 
   users.users.${username} = {
     home = "/Users/${username}";
-    # isNormalUser = true;
     isHidden = false;
-    shell = pkgs.fish;
-    # openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
+    shell = pkgs.bashInteractive;
   };
 
   home-manager.users.${username} = hmArgs: {
@@ -36,5 +34,6 @@ in {
       ++ (with ownProfiles; [work]);
     home.stateVersion = "22.05";
   };
+
   system.stateVersion = 4;
 }
