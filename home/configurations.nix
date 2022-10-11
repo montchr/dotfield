@@ -37,7 +37,6 @@
       in {
         _module.args = {
           inherit peers;
-          sources = perSystem.sources;
           packages = perSystem.config.packages;
         };
         home.homeDirectory = "${homePrefix}/${username}";

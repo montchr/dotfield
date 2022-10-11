@@ -91,8 +91,10 @@
     dotfieldPackages = mapAttrs (n: v: pkgs'.callPackage n v {}) packageIndex;
     iosevka-xtal = recurseIntoAttrs (callPackages ./fonts/iosevka-xtal.nix {});
     firefox-addons = recurseIntoAttrs (callPackages ./applications/firefox/firefox-addons {});
+    # TODO: remove the need for sources outside of this flake module -- package everything beforehand
+    sources = generatedSources pkgs;
   in
-    dotfieldPackages // {inherit dotfieldPackages iosevka-xtal firefox-addons;};
+    dotfieldPackages // {inherit dotfieldPackages iosevka-xtal firefox-addons sources;};
 
   makeOverlay = f: (final: prev: (f (packages final)));
 in {
@@ -100,18 +102,14 @@ in {
     packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);
     iosevka = makeOverlay (pkgs': {inherit (pkgs') iosevka-xtal;});
     firefox-addons = makeOverlay (pkgs': {firefox-addons = pkgs'.firefox-addons.addons;});
+    # TODO: remove the need for sources outside of this flake module -- package everything beforehand
+    sources = makeOverlay (pkgs': {inherit (pkgs') sources;});
   };
-  perSystem = ctx @ {
+  perSystem = {
     pkgs,
     system,
-    config,
-    inputs',
     ...
-  }: let
-    sources = generatedSources pkgs;
-  in {
-    # TODO: remove the need for sources outside of this flake module -- package everything beforehand
-    _module.args.sources = sources;
+  }: {
     packages = filterPackages system (flattenTree (packages pkgs));
   };
 }

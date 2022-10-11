@@ -113,6 +113,7 @@
 
     esoOverlays = [
       (final: prev: {inherit lib;})
+      self.overlays.sources
       self.overlays.packages
       self.overlays.iosevka
       self.overlays.firefox-addons

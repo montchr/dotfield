@@ -2,11 +2,10 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
-  sources,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (sources) firefox-lepton-ui;
+  inherit (pkgs.sources) firefox-lepton-ui;
   inherit
     (lib)
     concatStrings

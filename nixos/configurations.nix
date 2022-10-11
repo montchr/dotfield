@@ -50,7 +50,6 @@
         moduleArgs = {
           _module.args.primaryUser = primaryUser;
           _module.args.packages = ctx.config.packages;
-          _module.args.sources = ctx.sources;
           _module.args.peers = peers;
         };
       in

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  sources,
   ...
 }: let
   inherit (builtins) map;
@@ -11,7 +10,7 @@
 
   mkPlugin = name: {
     inherit name;
-    inherit (sources."fish-${name}") src;
+    inherit (pkgs.sources."fish-${name}") src;
   };
 in {
   options = {
