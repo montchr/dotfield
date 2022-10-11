@@ -9,13 +9,18 @@
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
   inherit (config.lib.dotfield) srcPath;
+  inherit (lib) optional;
 
   username = "cdom";
 
-  # ownProfiles = rakeLeaves (srcPath + "/home/users/${username}/profiles");
-  ownProfiles = rakeLeaves (srcPath + "/home/users/seadoom/profiles");
+  hmCfg = config.home-manager.users.${username};
+  # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
+  ownProfiles = rakeLeaves (srcPath + "/home/users/${username}/profiles");
 in {
-  # sops.secrets."users/${username}/passphrase".neededForUsers = true;
+  # Allow nix-darwin to install the specified programs as applications.
+  environment.systemPackages =
+    (optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package)
+    ++ (optional hmCfg.programs.emacs.enable hmCfg.programs.emacs.package);
 
   users.users.${username} = {
     home = "/Users/${username}";

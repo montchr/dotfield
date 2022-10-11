@@ -43,9 +43,8 @@
     "flameshot"
     # "istat-menus" # TODO: replace w/some cli tools or scripty things for a bar?
     "kap" # screen recorder... written w/next.js?!
-    # TODO: there might be a nix-darwin module for this soon
+    # TODO: there might be a nix-darwin module for karabiner-elements soon
     "karabiner-elements"
-    "kitty"
     "mpv"
     # "nextcloud"
     "plexamp"
