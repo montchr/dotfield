@@ -68,8 +68,6 @@
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [moduleArgs];
-                # if this were enabled, rebuilds will take forrrreevvvveerrrrr.
-                documentation.info.enable = false;
               }
             ];
           specialArgs = {

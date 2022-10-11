@@ -11,12 +11,15 @@ moduleArgs @ {
 in {
   imports = [sharedProfiles.core];
 
+  # If this were enabled, rebuilds will take... a very long time.
+  documentation.info.enable = false;
+
   nix = {
     settings = {
       optimise.automatic = true;
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
-      gc.dates = "weekly";
+    gc.dates = "weekly";
   };
 
   # Essential tools for the best of times and the worst of times.
