@@ -96,6 +96,7 @@
         help = "update all of the things and switch to a new generation";
         command = ''
           export CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/auth-token)"
+          export TERM="xterm-256color"
           nix flake update --verbose
           ${updateSources.command}
           ${updateFirefoxAddons.command}
