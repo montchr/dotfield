@@ -21,10 +21,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +51,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
