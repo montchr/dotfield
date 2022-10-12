@@ -9,7 +9,6 @@ with homeProfiles; let
 
   # TODO: dissolve into workstation?
   developer = [
-    dhall
     difftools.difftastic
     direnv
     emacs
@@ -29,7 +28,6 @@ with homeProfiles; let
     misc
     mpv
     themes
-    # foot
   ];
 
   personalised = [
