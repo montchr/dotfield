@@ -9,7 +9,7 @@
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
-        description = "a11y.css provides warnings about possible risks and mistakes that exist in HTML code through a style sheet. This extension also provides several accessibility-related utilities.\n\nsee <a href=\"https://outgoing.prod.mozaws.net/v1/4c643171ccddfcfa3712d45a2b7b615f54195eb4507868ab6ef3fbf6694dc4c2/https%3A//github.com/ffoodd/a11y.css/tree/webextension\" rel=\"nofollow\">https://github.com/ffoodd/a11y.css/tree/webextension</a> for  details";
+        description = "a11y.css provides warnings about possible risks and mistakes that exist in HTML code through a style sheet. This extension also provides several accessibility-related utilities.\n\nsee <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4c643171ccddfcfa3712d45a2b7b615f54195eb4507868ab6ef3fbf6694dc4c2/https%3A//github.com/ffoodd/a11y.css/tree/webextension\" rel=\"nofollow\">https://github.com/ffoodd/a11y.css/tree/webextension</a> for  details";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -64,7 +64,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
-        description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://outgoing.prod.mozaws.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
+        description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
         license = licenses.isc;
         platforms = platforms.all;
         };
@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.7.0";
+      version = "2.8.8.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010387/bypass_paywalls_clean-2.8.7.0.xpi";
-      sha256 = "27ae07742b10c3da1cfc75f54e9c131639c7431dd9c132f09439629859c8f389";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013804/bypass_paywalls_clean-2.8.8.0.xpi";
+      sha256 = "a98c938acef41f8fa81e61c910a00ae7cd455024c81197be6e2406ab91ad9ef8";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -155,10 +155,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.4";
+      version = "2.3.6";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000006/facebook_container-2.3.4.xpi";
-      sha256 = "9013f91f1e5ecdafdc9eb3cb75e3a1947d5a13b551c6bd6a78625972e9024d61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015054/facebook_container-2.3.6.xpi";
+      sha256 = "ff9944fb0d6041127f85b19485198cb030e9afdf639ca99ffcfa2eba554d27ea";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -204,7 +204,7 @@
       meta = with lib;
       {
         homepage = "https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome";
-        description = "This extension provides integration with GNOME Shell and the corresponding extensions repository <a href=\"https://outgoing.prod.mozaws.net/v1/b16ff805576d83628b80265636b483e6f56c58d6e812e04045626ff602eff739/https%3A//extensions.gnome.org\" rel=\"nofollow\">https://extensions.gnome.org</a>";
+        description = "This extension provides integration with GNOME Shell and the corresponding extensions repository <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b16ff805576d83628b80265636b483e6f56c58d6e812e04045626ff602eff739/https%3A//extensions.gnome.org\" rel=\"nofollow\">https://extensions.gnome.org</a>";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -218,7 +218,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
-        description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
+        description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -264,6 +264,19 @@
         platforms = platforms.all;
         };
       };
+    "kagi-search" = buildFirefoxXpiAddon {
+      pname = "kagi-search";
+      version = "0.2";
+      addonId = "search@kagi.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942576/kagi_search_for_firefox-0.2.xpi";
+      sha256 = "3fd046ba0332fa76bc00bedf0f9d1c9282618c1545016bbfde246b1c8f34d311";
+      meta = with lib;
+      {
+        description = "A simple helper extension for setting Kagi as a default search engine, and automatically logging in to Kagi in private browsing windows.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
       pname = "kristofferhagen-nord-theme";
       version = "2.0";
@@ -273,7 +286,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/kristofferhagen/firefox-nord-theme";
-        description = "Firefox theme inspired by <a href=\"https://outgoing.prod.mozaws.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
+        description = "Firefox theme inspired by <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
         license = licenses.cc-by-30;
         platforms = platforms.all;
         };
@@ -408,7 +421,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/sprig/org-capture-extension";
-        description = "A helper for capturing things via org-protocol in emacs: First, set up: <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/04ad17418f8d35ee0f3edf4599aed951b2a5ef88d4bc7e0e3237f6d86135e4fb/http%3A//orgmode.org/worg/org-contrib/org-protocol.html\">http://orgmode.org/worg/org-contrib/org-protocol.html</a> or <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/fb401af8127ccf82bc948b0a7af0543eec48d58100c0c46404f81aabeda442e6/https%3A//github.com/sprig/org-capture-extension\">https://github.com/sprig/org-capture-extension</a>\n\nSee <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/6aad51cc4e2f9476f9fff344e6554eade08347181aed05f8b61cda05073daecb/https%3A//youtu.be/zKDHto-4wsU\">https://youtu.be/zKDHto-4wsU</a> for example usage";
+        description = "A helper for capturing things via org-protocol in emacs: First, set up: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/04ad17418f8d35ee0f3edf4599aed951b2a5ef88d4bc7e0e3237f6d86135e4fb/http%3A//orgmode.org/worg/org-contrib/org-protocol.html\">http://orgmode.org/worg/org-contrib/org-protocol.html</a> or <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fb401af8127ccf82bc948b0a7af0543eec48d58100c0c46404f81aabeda442e6/https%3A//github.com/sprig/org-capture-extension\">https://github.com/sprig/org-capture-extension</a>\n\nSee <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/6aad51cc4e2f9476f9fff344e6554eade08347181aed05f8b61cda05073daecb/https%3A//youtu.be/zKDHto-4wsU\">https://youtu.be/zKDHto-4wsU</a> for example usage";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -436,7 +449,7 @@
       meta = with lib;
       {
         homepage = "https://browsernative.com/mozilla-firefox-extensions/";
-        description = "Unofficial Firefox add-on for <a href=\"https://outgoing.prod.mozaws.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
+        description = "Unofficial Firefox add-on for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -492,7 +505,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
-        description = "Shows ratings from <a href=\"https://outgoing.prod.mozaws.net/v1/f8db0358d96c1a46b9a77aa02190de811e40819051b1d42dd013c17276046ffd/http%3A//protondb.com\" rel=\"nofollow\">protondb.com</a> on Steam";
+        description = "Shows ratings from <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f8db0358d96c1a46b9a77aa02190de811e40819051b1d42dd013c17276046ffd/http%3A//protondb.com\" rel=\"nofollow\">protondb.com</a> on Steam";
         license = licenses.lgpl3;
         platforms = platforms.all;
         };
@@ -555,10 +568,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.3";
+      version = "22.10.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010795/refined_github-22.10.3.xpi";
-      sha256 = "8ef201df21a08f6fe986d2bf0c080516ea64ae5e9798ec132b548266980582ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015172/refined_github-22.10.12.xpi";
+      sha256 = "3f84eb1a714d92721e17b85a480998f7b7d530a5eb3a9081bd6c1d4465efa6e9";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -589,7 +602,7 @@
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
-        description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\n<a href=\"https://outgoing.prod.mozaws.net/v1/4af48e3229ba03b454fb9b352a7e5a4c038e1bcc6721bf744b781a5e96b9e798/https%3A//rust.extension.sh\" rel=\"nofollow\">https://rust.extension.sh</a>";
+        description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4af48e3229ba03b454fb9b352a7e5a4c038e1bcc6721bf744b781a5e96b9e798/https%3A//rust.extension.sh\" rel=\"nofollow\">https://rust.extension.sh</a>";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -727,16 +740,16 @@
       meta = with lib;
       {
         homepage = "https://github.com/ChristosBouronikos/Nord-Polar-Night-Theme";
-        description = "<a href=\"https://outgoing.prod.mozaws.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
+        description = "<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
         platforms = platforms.all;
         };
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.5";
+      version = "3.9.6";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4004810/tree_style_tab-3.9.5.xpi";
-      sha256 = "f867a2790e3e149c1fc8ff7ad547b4c03beb7a5164cd67a188bbba83590a0144";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014811/tree_style_tab-3.9.6.xpi";
+      sha256 = "094fad60d7828d593e323e9e110dc2dd3d1b34e54578d10d19294f56aae3950d";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -808,14 +821,14 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.1";
+      version = "2.13.2";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003302/violentmonkey-2.13.1.xpi";
-      sha256 = "f6b8e2e5abc885e5ff781f759337866c734e8413bc9d136b9f97e4b4c7b76582";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013376/violentmonkey-2.13.2.xpi";
+      sha256 = "f3c30b47d6f2abc70c0c31e43fb4e9e13355f043adcf3464a5b50d2392a56e9a";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
-        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
+        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
         license = licenses.mit;
         platforms = platforms.all;
         };

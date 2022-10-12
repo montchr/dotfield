@@ -16,6 +16,7 @@ in {
     display-_anchors
     firefox-color
     (lib.mkIf config.programs.browserpass.enable browserpass)
+    kagi-search
     mailvelope
     multi-account-containers
     octolinker
