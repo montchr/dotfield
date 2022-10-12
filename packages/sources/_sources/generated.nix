@@ -3,25 +3,25 @@
 {
   cpanel-cli = {
     pname = "cpanel-cli";
-    version = "7b24cade6baae9d81d920c4946723be4478e0033";
+    version = "6ce69394a726bd337a07048b4601cbb2623cf7a6";
     src = fetchFromGitHub ({
       owner = "layfellow";
       repo = "cpanel-cli";
-      rev = "7b24cade6baae9d81d920c4946723be4478e0033";
+      rev = "6ce69394a726bd337a07048b4601cbb2623cf7a6";
       fetchSubmodules = false;
-      sha256 = "sha256-h6VPYqsuIkEr99HkJ7B01s7oioRXv55Ld+L7AiIFfk8=";
+      sha256 = "sha256-RtUH7HgW6ZPt/JH4v7bsJfsEiyQDykUvlIM8Yq0vrTw=";
     });
   };
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "e4a235b590e1c8565c92a199ea6301526c5feb1f";
+    version = "d4c01b52f866ce9259c48d35d6c53c982868037d";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "e4a235b590e1c8565c92a199ea6301526c5feb1f";
+      rev = "d4c01b52f866ce9259c48d35d6c53c982868037d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-cqTgN11k1R10sstGHZscwZJa7LrIRvABJzRpb1pPnQ8=";
+      sha256 = "sha256-XUG/Vk3pKjEdPruKAEI4jX/k6wspUcr1YE3BP8/EDmQ=";
     };
   };
   fish-autopair = {

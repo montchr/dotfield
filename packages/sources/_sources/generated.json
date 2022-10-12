@@ -12,11 +12,11 @@
             "name": null,
             "owner": "layfellow",
             "repo": "cpanel-cli",
-            "rev": "7b24cade6baae9d81d920c4946723be4478e0033",
-            "sha256": "sha256-h6VPYqsuIkEr99HkJ7B01s7oioRXv55Ld+L7AiIFfk8=",
+            "rev": "6ce69394a726bd337a07048b4601cbb2623cf7a6",
+            "sha256": "sha256-RtUH7HgW6ZPt/JH4v7bsJfsEiyQDykUvlIM8Yq0vrTw=",
             "type": "github"
         },
-        "version": "7b24cade6baae9d81d920c4946723be4478e0033"
+        "version": "6ce69394a726bd337a07048b4601cbb2623cf7a6"
     },
     "firefox-lepton-ui": {
         "cargoLocks": null,
@@ -29,12 +29,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e4a235b590e1c8565c92a199ea6301526c5feb1f",
-            "sha256": "sha256-cqTgN11k1R10sstGHZscwZJa7LrIRvABJzRpb1pPnQ8=",
+            "rev": "d4c01b52f866ce9259c48d35d6c53c982868037d",
+            "sha256": "sha256-XUG/Vk3pKjEdPruKAEI4jX/k6wspUcr1YE3BP8/EDmQ=",
             "type": "git",
             "url": "https://github.com/black7375/Firefox-UI-Fix"
         },
-        "version": "e4a235b590e1c8565c92a199ea6301526c5feb1f"
+        "version": "d4c01b52f866ce9259c48d35d6c53c982868037d"
     },
     "fish-autopair": {
         "cargoLocks": null,
