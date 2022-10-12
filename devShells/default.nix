@@ -178,6 +178,10 @@
           name = "SOPS_AGE_KEY_FILE";
           eval = "$XDG_CONFIG_HOME/sops/age/keys";
         }
+        {
+          name = "AGENIX_ROOT";
+          eval = "$PRJ_ROOT";
+        }
       ];
 
       commands =

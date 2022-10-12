@@ -41,7 +41,6 @@
       direnv
       navi
       nnn
-      secrets.common
       tealdeer
       vim
     ])
