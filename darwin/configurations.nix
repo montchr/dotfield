@@ -106,7 +106,11 @@ in {
   # flake.darwinProfiles = importLeaves darwinProfiles;
 
   flake.darwinConfigurations = {
-    tuvix = makeDarwinSystem "tuvix" {};
+    tuvix = makeDarwinSystem "tuvix" {
+      modules = [
+        darwinProfiles.virtualisation.nixos-vm-host
+      ];
+    };
     cdotmp = makeDarwinSystem "cdotmp" {
       system = x86_64-darwin;
     };
