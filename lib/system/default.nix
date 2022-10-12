@@ -48,9 +48,6 @@
   persistentStorageBase = "/persist";
 in {
   lib.dotfield = {
-    srcPath = toString ../../.;
-    fsPath = "/etc/dotfield";
-
     sys = {
       inherit hasImpermanence persistentStorageBase;
 

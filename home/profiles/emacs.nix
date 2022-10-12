@@ -6,12 +6,13 @@ moduleArgs @ {
   ...
 }: let
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
+  inherit (config.home) username;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
+  profilesPath = "${configHome}/dotfield/users/${username}/config/emacs/profiles";
   emacsDir = "${configHome}/emacs";
 in {
   home.sessionVariables = {

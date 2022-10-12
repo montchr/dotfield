@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (config.lib) dotfield;
-in {
+}: {
   imports = [
     ../../lib/system
     ./nix-config.nix
@@ -15,7 +13,6 @@ in {
   time.timeZone = "America/New_York";
 
   environment.variables = {
-    DOTFIELD_DIR = dotfield.fsPath;
     EDITOR = "vim";
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin

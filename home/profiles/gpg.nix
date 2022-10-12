@@ -4,8 +4,7 @@ moduleArgs @ {
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.whoami) pgpPublicKey;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (config.dotfield.whoami) pgpPublicKey;
 in
   lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
     {

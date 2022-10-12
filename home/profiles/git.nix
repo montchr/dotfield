@@ -5,7 +5,7 @@
   ...
 }: let
   inherit
-    (config.lib.dotfield.whoami)
+    (config.dotfield.whoami)
     email
     fullName
     githubUserName
