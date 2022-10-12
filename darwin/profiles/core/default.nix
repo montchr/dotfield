@@ -11,7 +11,7 @@ in {
   nix = {
     configureBuildUsers = true;
     # FIXME: needs flake-compat
-    nixPath = mkBefore ["darwin-config=${self}"];
+    # nixPath = mkBefore ["darwin-config=${self}"];
     settings = {
       # Administrative users on Darwin systems are part of the admin group.
       trusted-users = ["@admin"];
