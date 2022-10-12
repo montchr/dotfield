@@ -3,15 +3,22 @@
   lib,
   pkgs,
   system,
+  self,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkBefore mkIf;
 in {
-  nix.configureBuildUsers = true;
-  # Administrative users on Darwin systems are part of the admin group.
-  nix.settings.trusted-users = ["@admin"];
-  # Required for building some incompatible packages via Rosetta.
-  nix.settings.extra-platforms = mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
+  nix = {
+    configureBuildUsers = true;
+    # FIXME: needs flake-compat
+    nixPath = mkBefore ["darwin-config=${self}"];
+    settings = {
+      # Administrative users on Darwin systems are part of the admin group.
+      trusted-users = ["@admin"];
+      # Required for building some incompatible packages via Rosetta.
+      extra-platforms = mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
