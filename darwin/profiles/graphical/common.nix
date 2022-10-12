@@ -37,6 +37,7 @@
     "bartender"
     "calibre"
     "eloston-chromium" # aka "ungoogled-chromium" in nixpkgs
+    "dropbox"
     "fantastical"
     "firefox"
     "firefox-developer-edition"
