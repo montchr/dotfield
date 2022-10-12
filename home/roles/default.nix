@@ -36,6 +36,8 @@ with homeProfiles; let
     apple-music
     espanso
     misc
+    # FIXME: rust-motd v1.0.0 unavailable? won't build on aarch64-darwin
+    # motd
     newsboat
     obs-studio
     spotify
