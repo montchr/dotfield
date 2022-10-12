@@ -9,17 +9,8 @@
       with ps; [
         black
         grip
-        nose
-        pandas
         pip
-        poetry
-        pylint
-        pytest
-        setuptools
-        types-toml
+        pyright # lsp server
       ]))
-
-    # lsp server
-    pyright
   ];
 }
