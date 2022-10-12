@@ -69,15 +69,11 @@
       name = "do-update-firefox-addons";
       help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
       # N.B. As a Haskell package, including this flake's default package
-      # directly will break our own `nix flake check` due to IFD.
-      #
-      # The current method here relies on the flake being available in the
-      # registry, which happens automatically when added as an input. We
-      # could, instead, just as easily reference the flake's upstream URL in
-      # the command, but would then lose the benefits of pinning inputs.
+      # directly will break our own `nix flake check` due to IFD. It will also break
+      # CI SaaS (e.g. Garnix) when included as a flake input.
       command = ''
         cd $PRJ_ROOT/packages/applications/firefox/firefox-addons
-        nix run mozilla-addons-to-nix -- addons.json addons.nix
+        nix run sourcehut:~rycee/mozilla-addons-to-nix -- addons.json addons.nix
         cd $PRJ_ROOT
       '';
     };

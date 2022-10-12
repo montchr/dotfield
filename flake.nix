@@ -58,7 +58,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
-    mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
     nix-std.url = "github:chessai/nix-std";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
