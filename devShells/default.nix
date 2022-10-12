@@ -99,6 +99,7 @@
         name = "do-update-all";
         help = "update all of the things and switch to a new generation";
         command = ''
+          export CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/auth-token)"
           nix flake update --verbose
           ${updateSources.command}
           ${updateFirefoxAddons.command}
