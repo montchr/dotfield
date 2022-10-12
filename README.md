@@ -85,7 +85,6 @@ mkdir -p $XDG_CONFIG_HOME/sops/age
 pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 ```
 
-
 ## Structure
 
 More details forthcoming...

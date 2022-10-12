@@ -6,7 +6,7 @@
 }:
 lib.mkMerge [
   {
-    home.packages = with pkgs; [ ];
+    home.packages = with pkgs; [];
   }
   (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     services.skhd.enable = true;
