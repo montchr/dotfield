@@ -66,7 +66,6 @@ in {
 
   home.sessionVariables = {
     KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
-    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo:$TERMINFO_DIRS";
   };
 
   programs.kitty = {

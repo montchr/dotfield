@@ -10,6 +10,12 @@
     gtk-mac-integration
   ];
 
+  # kitty terminfo must be applied on the system level
+  # https://github.com/nix-community/home-manager/issues/423
+  environment.variables = {
+    TERMINFO_DIRS = ["${pkgs.kitty.terminfo.outPath}/share/terminfo"];
+  };
+
   homebrew.taps = [
     # TODO: which cask is this for? sketchybar iirc?
     # "FelixKratz/formulae"
