@@ -29,6 +29,8 @@ includes = [
 ]
 excludes = [
   "generated.json",
+  "karabiner.json",
+  "Dark-Reader-Settings.json",
 ]
 
 [formatter.shell]
