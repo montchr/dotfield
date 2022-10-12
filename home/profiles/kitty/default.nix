@@ -64,6 +64,11 @@ in {
     # (mkIf isDarwin kitty-set-app-icon)
   ];
 
+  home.sessionVariables = {
+    KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo:$TERMINFO_DIRS";
+  };
+
   programs.kitty = {
     enable = true;
     settings =
