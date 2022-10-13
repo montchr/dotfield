@@ -71,7 +71,7 @@
           };
         };
       in
-        darwinSystem {
+        makeOverridable darwinSystem {
           inherit pkgs system;
           modules =
             defaultModules
