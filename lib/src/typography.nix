@@ -1,12 +1,4 @@
-{lib, ...}: let
-  inherit
-    (lib)
-    findFirst
-    mapAttrs'
-    nameValuePair
-    toLower
-    ;
-
+{l, ...}: let
   fontWeightDict = {
     thin = 100;
     extraLight = 200;
@@ -19,7 +11,7 @@
     heavy = 900;
   };
   # Weight names normalised to lowercase.
-  fontWeightDict' = mapAttrs' (n: v: nameValuePair (toLower n) v) fontWeightDict;
+  fontWeightDict' = l.mapAttrs' (n: v: l.nameValuePair (l.toLower n) v) fontWeightDict;
 
   withAliases = set:
     set
@@ -30,5 +22,5 @@
     });
 in {
   fontWeightValue = name: (withAliases fontWeightDict').name;
-  fontWeightName = value: findFirst (n: v: v == value) fontWeightDict';
+  fontWeightName = value: l.findFirst (n: v: v == value) fontWeightDict';
 }

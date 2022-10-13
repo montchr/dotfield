@@ -1,6 +1,9 @@
-{lib, ...}: let
-  inherit (lib) mapAttrs;
-  inherit (lib.digga) flattenTree;
+{
+  l,
+  inputs,
+  ...
+}: let
+  inherit (inputs.digga.lib) flattenTree;
 in {
-  importLeaves = leaves: mapAttrs (n: v: import v) (flattenTree leaves);
+  importLeaves = leaves: l.mapAttrs (n: v: import v) (flattenTree leaves);
 }

@@ -1,4 +1,4 @@
-{lib, ...}: {
+{...}: {
   inverseSchemeType = type:
     if ("dark" == type)
     then "light"

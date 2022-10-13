@@ -465,6 +465,21 @@
     },
     "flake-utils_13": {
       "locked": {
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_14": {
+      "locked": {
         "lastModified": 1649676176,
         "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
         "owner": "numtide",
@@ -674,8 +689,8 @@
     },
     "lib-aggregate": {
       "inputs": {
-        "flake-utils": "flake-utils_12",
-        "nixpkgs-lib": "nixpkgs-lib_2"
+        "flake-utils": "flake-utils_13",
+        "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
         "lastModified": 1665317514,
@@ -778,7 +793,7 @@
       "inputs": {
         "base16-schemes": "base16-schemes",
         "nixpkgs-lib": [
-          "nixpkgs"
+          "nixlib"
         ]
       },
       "locked": {
@@ -917,6 +932,25 @@
       }
     },
     "nixlib_2": {
+      "inputs": {
+        "flake-utils": "flake-utils_12",
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1665317514,
+        "narHash": "sha256-Kk1uPg/yRm6gweBwNn5HrXbgm/tJ6ClHp7a00yQh7gI=",
+        "owner": "nix-community",
+        "repo": "lib-aggregate",
+        "rev": "d6f8e6456ec59ff51034d3e434739926470af7aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "lib-aggregate",
+        "type": "github"
+      }
+    },
+    "nixlib_3": {
       "locked": {
         "lastModified": 1636849918,
         "narHash": "sha256-nzUK6dPcTmNVrgTAC1EOybSMsrcx+QrVPyqRdyKLkjA=",
@@ -933,7 +967,7 @@
     },
     "nixos-generators": {
       "inputs": {
-        "nixlib": "nixlib_2",
+        "nixlib": "nixlib_3",
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
@@ -1048,6 +1082,21 @@
       }
     },
     "nixpkgs-lib_2": {
+      "locked": {
+        "lastModified": 1665277441,
+        "narHash": "sha256-TTuO5F7sStTBL/twYMSnRakrw1l7FqAYulN7+HPYjqc=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "76ef73e385f96bb438676cf5f21f220694fd3d73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib_3": {
       "locked": {
         "lastModified": 1665277441,
         "narHash": "sha256-TTuO5F7sStTBL/twYMSnRakrw1l7FqAYulN7+HPYjqc=",
@@ -1308,7 +1357,7 @@
       "inputs": {
         "devshell": "devshell_3",
         "flake-compat": "flake-compat_5",
-        "flake-utils": "flake-utils_13",
+        "flake-utils": "flake-utils_14",
         "nixpkgs": "nixpkgs_10",
         "plist-source": "plist-source"
       },
@@ -1366,6 +1415,7 @@
         "nix-dram": "nix-dram",
         "nix-std": "nix-std",
         "nixago": "nixago",
+        "nixlib": "nixlib_2",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
