@@ -10,7 +10,7 @@
     lib,
     ...
   }: let
-    inherit (lib) getExe optionals;
+    inherit (lib) getExe optionals optionalString;
     inherit (pkgs.stdenv) isDarwin isLinux;
     inherit (inputs'.agenix.packages) agenix;
     inherit (inputs'.deploy-rs.packages) deploy-rs;
@@ -59,13 +59,24 @@
     secrets = pkgWithCategory "secrets";
     secrets' = withCategory "secrets";
 
-    updateSources = dotfield' (wrapPkg nvfetcher ''
-      pushd $PRJ_ROOT/packages/sources
-      ${getExe nvfetcher} -c ./sources.toml $@
-      popd
-    '');
+    # Mitigate issues with home-manager and kitty terminal on Darwin
+    withTermFix = optionalString isDarwin ''TERM="xterm-256color"'';
 
-    updateFirefoxAddons = dotfield' {
+    cacheName = "dotfield";
+    withCachixToken = ''CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/auth-token)"'';
+    cachixExec = ''${getExe cachix} watch-exec --jobs 2 ${cacheName}'';
+
+    do-update-nvfetcher-sources = dotfield' {
+      name = "do-update-nvfetcher-sources";
+      help = nvfetcher.meta.description;
+      command = ''
+        pushd $PRJ_ROOT/packages/sources
+        ${getExe nvfetcher} -c ./sources.toml $@
+        popd
+      '';
+    };
+
+    do-update-firefox-addons = dotfield' {
       name = "do-update-firefox-addons";
       help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
       # N.B. As a Haskell package, including this flake's default package
@@ -78,6 +89,16 @@
       '';
     };
 
+    rebuildSysCmd = op: ''
+      ${withTermFix} ${withCachixToken} ${cachixExec} \
+        ${rebuildSystem} -- ${op} --flake $PRJ_ROOT --verbose
+    '';
+    do-rebuild-sys = dotfield' {
+      name = "do-rebuild-sys";
+      help = "run the system's rebuild command with the supplied operation arg";
+      command = ''${rebuildSysCmd "$1"}'';
+    };
+
     commonCommands = [
       (dotfield' {
         name = "do-format";
@@ -85,30 +106,32 @@
           treefmt --clear-cache -- "$@"
         '';
       })
+
       (dotfield terraform)
+
+      # FIXME: non-functional, needs re-work
       (dotfield' {
         name = "do-repl";
         help = "a REPL for the system flake, by flake-utils-plus";
         command = "${getExe fup-repl} $@";
       })
+
+      do-update-firefox-addons
+      do-update-nvfetcher-sources
+      do-rebuild-sys
+
       (dotfield' {
         name = "do-update-all";
         help = "update all of the things and switch to a new generation";
         command = ''
-          export CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/auth-token)"
-          export TERM="xterm-256color"
           nix flake update --verbose
-          ${updateSources.command}
-          ${updateFirefoxAddons.command}
+          ${do-update-nvfetcher-sources.command}
+          ${do-update-firefox-addons.command}
+          ${rebuildSysCmd "switch"}
           doom profiles sync
           doom upgrade
-          ${getExe cachix} watch-exec --jobs 2 dotfield \
-            ${rebuildSystem} -- switch --verbose
         '';
       })
-
-      updateSources
-      updateFirefoxAddons
 
       (utils nix-diff)
       (utils' {
