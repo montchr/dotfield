@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) toString;
-  inherit (inputs) base16-kitty nix-colors;
+  inherit (inputs) nix-colors;
   inherit
     (lib)
     concatMapStringsSep
@@ -88,7 +88,6 @@ in {
   };
 
   xdg.configFile = {
-    "kitty/base16-kitty".source = base16-kitty.outPath;
     "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
     "kitty/themes/light.conf".text = mkColorScheme theme.colors.light;
 

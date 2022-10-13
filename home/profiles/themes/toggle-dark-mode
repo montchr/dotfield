@@ -4,8 +4,6 @@
 #
 # Supports:
 # - kitty
-# - base16-shell
-# - base16-fzf
 # - emacs
 
 [[ -z $DOTFIELD_DIR ]] && {
@@ -13,21 +11,13 @@
   return 1
 }
 
-# TODO: point shellcheck to something
-# shellcheck disable=SC1091
-# . "${XDG_CONFIG_HOME}/bash/env"
-
 # shellcheck source=../../../lib/utils.sh
 . "${DOTFIELD_DIR}/lib/utils.sh"
 
 
 function kitty::theme_change() {
-  # FIXME: provide a default so we don't end up with an invalid color scheme
-  ln -sfv \
-    "${XDG_CONFIG_HOME}/kitty/base16-kitty/colors/base16-${1}-256.conf" \
-    "${XDG_CONFIG_HOME}/kitty/theme.conf"
   kitty @ --to unix:/tmp/kitty-socket \
-    set-colors -a -c "${XDG_CONFIG_HOME}/kitty/theme.conf"
+    set-colors -a -c "${XDG_CONFIG_HOME}/kitty/themes/${appearance}.conf"
 }
 
 function emacs::theme_change () {
@@ -46,21 +36,7 @@ function main() {
 
   appearance="$(dotfield_os_appearance)"
   theme="$(dotfield_base16_theme "${appearance}")"
-
-  printf "\n=========\n"
-  printf "Appearance:\t%s\n" "${appearance}"
-  printf "Base16 Theme:\t%s\n" "${theme}"
-  printf "\n"
-
-  echo "${theme}" > "${XDG_CACHE_HOME}/shell-color-theme.lock"
-
-  kitty::theme_change "${theme}"
-
-  # FIXME: sourcing has no effect, because this is a function
-  # base16_fzf_dir="${ZSH_DATA}/sources/fnune/base16-fzf/___/bash/base16-${theme}.config"
-  # [[ -e "${base16_fzf_dir}" ]] \
-  #   && . "${base16_fzf_dir}"
-
+  kitty::theme_change "${appearance}"
   emacs::theme_change "${theme}"
 }
 

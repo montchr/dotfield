@@ -70,12 +70,6 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
-
-    # TODO: use nix-colors or something
-    base16-kitty = {
-      url = "github:kdrag0n/base16-kitty";
-      flake = false;
-    };
   };
 
   outputs = {
