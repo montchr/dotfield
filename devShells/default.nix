@@ -58,7 +58,7 @@
     withTermFix = optionalString isDarwin ''TERM="xterm-256color"'';
 
     cacheName = "dotfield";
-    withCachixToken = ''CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/auth-token)"'';
+    withCachixToken = ''CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/${cacheName}/auth-token)"'';
     cachixExec = ''${getExe cachix} watch-exec --jobs 2 ${cacheName}'';
 
     do-update-nvfetcher-sources = dotfield' {
