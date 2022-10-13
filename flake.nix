@@ -58,19 +58,25 @@
     ##: sources
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
-    deploy-rs.url = "github:serokell/deploy-rs";
+    ##: universal
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    # FIXME: remove flake-utils (provided by nixlib)
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-std.url = "github:chessai/nix-std";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    prefmanager.url = "github:malob/prefmanager";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
+
+    ##: darwin
+    prefmanager.url = "github:malob/prefmanager";
+
+    ##: linux
+    deploy-rs.url = "github:serokell/deploy-rs";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-generators.url = "github:nix-community/nixos-generators";
   };
 
   outputs = {
