@@ -12,7 +12,7 @@ moduleArgs @ {
   inherit (config.lib.file) mkOutOfStoreSymlink;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  profilesPath = "${configHome}/dotfield/users/${username}/config/emacs/profiles";
+  profilesPath = "${configHome}/dotfield/home/users/${username}/config/emacs/profiles";
   emacsDir = "${configHome}/emacs";
 in {
   home.sessionVariables = {
