@@ -111,8 +111,5 @@ in {
         darwinProfiles.virtualisation.nixos-vm-host
       ];
     };
-    cdotmp = makeDarwinSystem "cdotmp" {
-      system = x86_64-darwin;
-    };
   };
 }
