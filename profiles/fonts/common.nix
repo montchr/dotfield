@@ -9,11 +9,14 @@
 }: let
   inherit (lib) optionals;
 in {
-  imports = [./iosevka-variants.nix];
+  imports = [
+    ./iosevka-variants.nix
+    ./iosevka-xtal.nix
+  ];
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs;
-      [
+    fonts =
+      (with pkgs; [
         ###: --- essentials ---
 
         dejavu_fonts # dejavu_fonts
@@ -23,12 +26,6 @@ in {
         ubuntu_font_family # ubuntu means fun!
 
         ibm-plex # ibm sponsors my media server
-
-        # TODO: move to a separate flake repo w/its own build ci
-        # FIXME: do not rebuild every time a build input changes! they're just
-        # fonts! also causes a totally unnecessary new build for darwin...
-        iosevka-xtal.xtal
-        iosevka-xtal.xtal-term
 
         ###: --- optionals ---
 
@@ -54,14 +51,14 @@ in {
         iosevka-comfy.comfy-duo
         iosevka-comfy.comfy-wide
         iosevka-comfy.comfy-wide-fixed
-      ]
-      ++ (optionals isLinux [
+      ])
+      ++ (optionals isLinux (with pkgs; [
         bakoma_ttf
         corefonts # broken on aarch64-darwin
         gentium
-      ])
-      ++ (optionals isMacOS [
+      ]))
+      ++ (optionals isMacOS (with pkgs; [
         sf-pro
-      ]);
+      ]));
   };
 }

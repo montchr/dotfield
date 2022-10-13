@@ -635,6 +635,25 @@
         "type": "github"
       }
     },
+    "iosevka-xtal": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1665616248,
+        "narHash": "sha256-f0Tp0r8qlniMH7Z2YYMcx3zbqQgj/1ATfyyiyADDwkE=",
+        "owner": "montchr",
+        "repo": "iosevka-xtal",
+        "rev": "bd35f1216dbeb9f6c229eca17d7105e0be62e39c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "repo": "iosevka-xtal",
+        "type": "github"
+      }
+    },
     "latest": {
       "locked": {
         "lastModified": 1657356697,
@@ -736,7 +755,7 @@
     "nil-lsp": {
       "inputs": {
         "flake-utils": "flake-utils_8",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_8",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
@@ -913,7 +932,7 @@
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib_2",
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1660727616,
@@ -1256,7 +1275,7 @@
         "devshell": "devshell_3",
         "flake-compat": "flake-compat_5",
         "flake-utils": "flake-utils_13",
-        "nixpkgs": "nixpkgs_8",
+        "nixpkgs": "nixpkgs_10",
         "plist-source": "plist-source"
       },
       "locked": {
@@ -1276,7 +1295,7 @@
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk",
-        "nixpkgs": "nixpkgs_9",
+        "nixpkgs": "nixpkgs_11",
         "utils": "utils_4"
       },
       "locked": {
@@ -1306,6 +1325,7 @@
         "flake-utils": "flake-utils_5",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
+        "iosevka-xtal": "iosevka-xtal",
         "macos-builder": "macos-builder",
         "microvm": "microvm",
         "nil-lsp": "nil-lsp",
@@ -1354,7 +1374,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_10",
+        "nixpkgs": "nixpkgs_12",
         "nixpkgs-22_05": "nixpkgs-22_05"
       },
       "locked": {
