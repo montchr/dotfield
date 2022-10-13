@@ -44,11 +44,6 @@
 
     withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
-    wrapPkg = package: command: {
-      inherit command;
-      name = package.pname;
-      help = package.meta.description;
-    };
 
     dotfield = pkgWithCategory "dotfield";
     dotfield' = withCategory "dotfield";
