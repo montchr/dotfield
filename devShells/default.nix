@@ -26,13 +26,13 @@
       cachix
       editorconfig-checker
       nix-diff
+      nix-tree
+      nvd
       nvfetcher
       rage
-      fup-repl
       shellcheck
       ssh-to-age
       sops
-      terraform
       treefmt
       ;
     inherit (pkgs.nodePackages) prettier;
@@ -48,7 +48,9 @@
     dotfield = pkgWithCategory "dotfield";
     dotfield' = withCategory "dotfield";
     linters = pkgWithCategory "linters";
+    linters' = withCategory "linters";
     formatters = pkgWithCategory "formatters";
+    formatters' = withCategory "formatters";
     utils = pkgWithCategory "utils";
     utils' = withCategory "utils";
     secrets = pkgWithCategory "secrets";
@@ -60,6 +62,23 @@
     cacheName = "dotfield";
     withCachixToken = ''CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/${cacheName}/auth-token)"'';
     cachixExec = ''${getExe cachix} watch-exec --jobs 2 ${cacheName}'';
+
+    # FIXME: non-functional, needs re-work
+    # do-repl =
+    #   dotfield' {
+    #     name = "do-repl";
+    #     help = "a REPL for the system flake, by flake-utils-plus";
+    #     command = "${getExe fup-repl} $@";
+    #   };
+
+    do-theme-kitty = dotfield' {
+      name = "do-theme-kitty";
+      help = "change the current kitty theme";
+      command = ''
+        ${getExe pkgs.kitty} @set-colors -a -c \
+          $KITTY_CONFIG_DIRECTORY/themes/$1.conf
+      '';
+    };
 
     do-update-nvfetcher-sources = dotfield' {
       name = "do-update-nvfetcher-sources";
@@ -84,74 +103,78 @@
       '';
     };
 
-    # FIXME: handle sudo for `nixos-rebuild switch` etc.
-    rebuildSysCmd = op: ''
-      ${withTermFix} ${withCachixToken} ${cachixExec} \
-        ${rebuildSystem} -- ${op} --flake $PRJ_ROOT --verbose
-    '';
-    do-rebuild-sys = dotfield' {
+    do-update-all = dotfield' {
+      name = "do-update-all";
+      help = "update all of the things and build a new system derivation";
+      command = ''
+        set -e
+        nix flake update --verbose
+        ${do-update-nvfetcher-sources.command}
+        ${do-update-firefox-addons.command}
+        doom upgrade
+        ${do-sys-rebuild.command} build
+        ${do-sys-diff-next.command}
+      '';
+    };
+
+    do-sys-rebuild = dotfield' {
       name = "do-rebuild-sys";
       help = "run the system's rebuild command with the supplied operation arg";
-      command = ''${rebuildSysCmd "$1"}'';
+      command = ''
+        set -e
+        ${withTermFix} ${withCachixToken} ${cachixExec} \
+          ${rebuildSystem} -- $@ --flake $PRJ_ROOT --verbose
+      '';
+    };
+
+    do-sys-diff-next = utils' {
+      name = "do-sys-diff-next";
+      help = "compare the current system derivation with a project-local result";
+      command = ''
+        ${getExe nvd} diff /run/current-system $PRJ_ROOT/result
+      '';
+    };
+
+    do-sys-next = dotfield' {
+      name = "do-sys-next";
+      help = "switch to a new system generation";
+      command = ''
+        ${do-sys-rebuild.command} build
+        ${do-sys-diff-next.command}
+        sudo ${do-sys-rebuild.command} switch
+      '';
     };
 
     commonCommands = [
-      (dotfield' {
-        name = "do-format";
-        command = ''
-          treefmt --clear-cache -- "$@"
-        '';
-      })
-
-      (dotfield terraform)
-
-      # FIXME: non-functional, needs re-work
-      (dotfield' {
-        name = "do-repl";
-        help = "a REPL for the system flake, by flake-utils-plus";
-        command = "${getExe fup-repl} $@";
-      })
-
-      (dotfield' {
-        name = "do-theme-kitty";
-        help = "change the current kitty theme";
-        command = ''
-          ${getExe pkgs.kitty} @set-colors -a -c \
-            $KITTY_CONFIG_DIRECTORY/themes/$1.conf
-        '';
-      })
-
       do-update-firefox-addons
       do-update-nvfetcher-sources
-      do-rebuild-sys
-
-      (dotfield' {
-        name = "do-update-all";
-        help = "update all of the things and switch to a new generation";
-        command = ''
-          nix flake update --verbose
-          ${do-update-nvfetcher-sources.command}
-          ${do-update-firefox-addons.command}
-          ${rebuildSysCmd "switch"}
-          doom profiles sync
-          doom upgrade
-        '';
-      })
+      do-update-all
+      do-sys-diff-next
+      do-sys-next
+      do-sys-rebuild
+      do-theme-kitty
 
       (utils nix-diff)
-      (utils' {
+      (utils nix-tree)
+
+      (linters editorconfig-checker)
+      (linters shellcheck)
+      (linters' {
         name = "evalnix";
-        help = "Check Nix parsing";
+        help = "check for nix syntax errors";
         command = ''
           ${getExe pkgs.fd} --extension nix --exec \
             nix-instantiate --parse --quiet {} >/dev/null
         '';
       })
 
-      (linters editorconfig-checker)
-      (linters shellcheck)
       (formatters prettier)
       (formatters treefmt)
+      (formatters' {
+        name = "do-format";
+        help = "run treefmt on the project";
+        command = ''${getExe treefmt} --clear-cache -- "$@"'';
+      })
 
       (secrets agenix)
       (secrets rage)
