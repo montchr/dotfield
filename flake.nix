@@ -109,6 +109,12 @@
       };
     });
 
+    priorityOverlays = [
+      # FIXME: remove after https://github.com/NixOS/nixpkgs/pull/193589
+      # [2022-10-14]: waiting for review since 2022-10-01
+      self.overlays.nixpkgs-193589-jemalloc
+    ];
+
     exoOverlays = [
       nixpkgs-wayland.overlay
       emacs-overlay.overlay
@@ -162,18 +168,7 @@
         default = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = exoOverlays ++ esoOverlays;
-        };
-
-        # FIXME: while this fixes builds on `aarch64-darwin`, checks fail:
-        # => a 'x86_64-linux' with features {} is required to build...
-        "aarch64-darwin" = pkgSets.default.applyPatches {
-          name = "nixpkgs-patched-for-aarch64-darwin";
-          src = nixpkgs;
-          patches = [
-            # https://github.com/NixOS/nixpkgs/pull/193589 <- 2022-10-10: waiting for review since 2022-10-01
-            ./packages/patches/nixos-nixpkgs-193589.patch
-          ];
+          overlays = priorityOverlays ++ exoOverlays ++ esoOverlays;
         };
       };
       pkgs = pkgSets.default;
