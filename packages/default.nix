@@ -6,22 +6,7 @@
   inherit (self) inputs;
   inherit (inputs.flake-utils.lib) filterPackages flattenTree;
   inherit (inputs.gitignore.lib) gitignoreSource;
-  inherit
-    (builtins)
-    baseNameOf
-    functionArgs
-    intersectAttrs
-    isPath
-    mapAttrs
-    toString
-    ;
-  inherit
-    (lib)
-    callPackageWith
-    callPackagesWith
-    recurseIntoAttrs
-    removeSuffix
-    ;
+  l = lib // builtins;
 
   generatedSources = pkgs: pkgs.callPackage (import ./sources/_sources/generated.nix) {};
 
@@ -39,8 +24,8 @@
       };
   in {
     inherit splicePackages;
-    callPackage = name: callPackageWith (splicePackages name);
-    callPackages = name: callPackagesWith (splicePackages name);
+    callPackage = name: l.callPackageWith (splicePackages name);
+    callPackages = name: l.callPackagesWith (splicePackages name);
   };
 
   packageIndex = {
@@ -88,8 +73,8 @@
   packages = pkgs: let
     inherit (pkgs) callPackages;
     pkgs' = splice pkgs;
-    dotfieldPackages = mapAttrs (n: v: pkgs'.callPackage n v {}) packageIndex;
-    firefox-addons = recurseIntoAttrs (callPackages ./applications/firefox/firefox-addons {});
+    dotfieldPackages = l.mapAttrs (n: v: pkgs'.callPackage n v {}) packageIndex;
+    firefox-addons = l.recurseIntoAttrs (callPackages ./applications/firefox/firefox-addons {});
     # TODO: remove the need for sources outside of this flake module -- package everything beforehand
     sources = generatedSources pkgs;
   in
