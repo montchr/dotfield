@@ -16,6 +16,7 @@
       # graphical.hammerspoon
       # graphical.yabai
       system-defaults
+      virtualisation.containers
       # graphical.sketchybar
     ]);
 in {inherit workstation;}
