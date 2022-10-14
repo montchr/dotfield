@@ -13,6 +13,7 @@
     inherit (lib) getExe optionals optionalString;
     inherit (pkgs.stdenv) isDarwin isLinux;
     inherit (inputs'.agenix.packages) agenix;
+    inherit (inputs'.deadnix.packages) deadnix;
     inherit (inputs'.deploy-rs.packages) deploy-rs;
     inherit
       (inputs'.sops-nix.packages)
@@ -32,6 +33,7 @@
       rage
       shellcheck
       ssh-to-age
+      statix
       sops
       treefmt
       ;
@@ -77,6 +79,14 @@
       command = ''
         ${getExe pkgs.kitty} @set-colors -a -c \
           $KITTY_CONFIG_DIRECTORY/themes/$1.conf
+      '';
+    };
+
+    do-theme-emacs = dotfield' {
+      name = "do-theme-emacs";
+      help = "change the current emacs theme";
+      command = ''
+        emacsclient --no-wait --eval "(modus-themes-toggle)" >/dev/null
       '';
     };
 
@@ -152,13 +162,31 @@
       do-sys-diff-next
       do-sys-next
       do-sys-rebuild
+
       do-theme-kitty
+      do-theme-emacs
 
       (utils nix-diff)
       (utils nix-tree)
 
       (linters editorconfig-checker)
       (linters shellcheck)
+      (linters statix)
+
+      # TODO: ignore generated files, contributed modules, etc.
+      # (tho rly contrib modules should live elsewhere)
+      (linters' {
+        name = "deadnix-check";
+        help = "run deadnix linting on project nix files";
+        command = ''
+          ${getExe deadnix} check \
+            --no-underscore \
+            --fail \
+            --no-lambda-arg \
+            --no-lambda-pattern-names \
+            $PRJ_ROOT
+        '';
+      })
       (linters' {
         name = "evalnix";
         help = "check for nix syntax errors";
@@ -238,6 +266,7 @@
 
       packages = [
         cachix
+        deadnix
         sops-import-keys-hook
         sops-init-gpg-key
         ssh-to-pgp

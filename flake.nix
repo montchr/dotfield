@@ -58,6 +58,7 @@
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
     ##: universal
+    deadnix.url = "github:astro/deadnix";
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     flake-parts.url = "github:hercules-ci/flake-parts";

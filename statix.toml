@@ -1,0 +1,16 @@
+disabled = [
+  "useless_parens"
+]
+nix_version = "2.11"
+# FIXME: share these with treefmt etc.
+ignore = [
+  ".direnv",
+
+  ##: upstreamable
+  "home/modules/gpg-agent.nix",
+  "home/modules/syncthing.nix",
+
+  ##: generated files
+  "packages/applications/firefox/firefox-addons/addons.nix",
+  "packages/sources/_sources/*.nix",
+]
