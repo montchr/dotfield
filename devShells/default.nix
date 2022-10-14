@@ -112,6 +112,15 @@
         command = "${getExe fup-repl} $@";
       })
 
+      (dotfield' {
+        name = "do-theme-kitty";
+        help = "change the current kitty theme";
+        command = ''
+          ${getExe pkgs.kitty} @set-colors -a -c \
+            $KITTY_CONFIG_DIRECTORY/themes/$1.conf
+        '';
+      })
+
       do-update-firefox-addons
       do-update-nvfetcher-sources
       do-rebuild-sys
