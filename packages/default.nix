@@ -68,6 +68,8 @@
     # hpi = ./python/HPI;
     # orgparse = ./python/orgparse;
     # promnesia = ./python/promnesia;
+
+    archivebox = ./applications/archivebox;
   };
 
   packages = pkgs: let
