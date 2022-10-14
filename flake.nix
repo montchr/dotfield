@@ -11,7 +11,6 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixlib.url = "github:nix-community/lib-aggregate";
 
     darwin = {
       url = "github:LnL7/nix-darwin";
@@ -36,7 +35,7 @@
     };
     nix-colors = {
       url = "github:Misterio77/nix-colors";
-      inputs.nixpkgs-lib.follows = "nixlib";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     nix-dram = {
       url = "github:dramforever/nix-dram";
@@ -76,7 +75,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixlib,
     nixos-unstable,
     flake-parts,
     digga,
@@ -86,8 +84,39 @@
     nix-dram,
     nix-std,
     ...
-  }: (flake-parts.lib.mkFlake {inherit self;} (let
+  }: let
     inherit (digga.lib) flattenTree rakeLeaves;
+
+    supportedSystems = with flake-utils.lib.system; [
+      x86_64-linux
+      aarch64-linux
+      x86_64-darwin
+      aarch64-darwin
+    ];
+
+    lib = nixos-unstable.lib.extend (lfinal: lprev: {
+      std = nix-std;
+      eso = import ./lib {
+        inherit (self) inputs;
+        inherit peers;
+        lib = lfinal;
+      };
+    });
+
+    exoOverlays = [
+      nixpkgs-wayland.overlay
+      emacs-overlay.overlay
+      nix-dram.overlay
+      self.overlays.externalPackages
+    ];
+
+    esoOverlays = [
+      (final: prev: {inherit lib;})
+      self.overlays.sources
+      self.overlays.packages
+      self.overlays.firefox-addons
+      self.overlays.overrides
+    ];
 
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
@@ -97,14 +126,8 @@
     peers = import ./ops/metadata/peers.nix;
     sharedModules = flattenTree (rakeLeaves ./modules);
     sharedProfiles = rakeLeaves ./profiles;
-  in {
-    systems = with flake-utils.lib.system; [
-      x86_64-linux
-      aarch64-linux
-      x86_64-darwin
-      aarch64-darwin
-    ];
-
+  in (flake-parts.lib.mkFlake {inherit self;} {
+    systems = supportedSystems;
     imports = [
       {
         _module.args = {
@@ -117,7 +140,6 @@
       ./flake-modules/sharedProfiles.nix
 
       ./devShells
-      ./lib
       ./overlays
       ./packages
 
@@ -129,22 +151,7 @@
       ./darwin/configurations.nix
       ./darwin/packages
     ];
-
     perSystem = {system, ...}: let
-      exoOverlays = [
-        nixpkgs-wayland.overlay
-        emacs-overlay.overlay
-        nix-dram.overlay
-        self.overlays.externalPackages
-      ];
-
-      esoOverlays = [
-        self.overlays.sources
-        self.overlays.packages
-        self.overlays.firefox-addons
-        self.overlays.overrides
-      ];
-
       # FIXME: while this fixes builds on `aarch64-darwin`, checks fail:
       # => a 'x86_64-linux' with features {} is required to build...
       nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
@@ -170,6 +177,8 @@
         sharedProfiles
         ;
 
+      lib = lib.eso;
+
       # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
       #   tsone = with (peers.hosts.tsone); {
       #     hostname = ipv4.address;
@@ -180,5 +189,5 @@
       #   };
       # };
     };
-  }));
+  });
 }

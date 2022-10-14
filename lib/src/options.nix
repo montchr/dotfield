@@ -1,13 +1,15 @@
-{l, ...}: {
-  mkOpt = type: default: l.mkOption {inherit type default;};
+{lib, ...}: let
+  inherit (lib) mkOption types;
+in {
+  mkOpt = type: default: mkOption {inherit type default;};
 
   mkOpt' = type: default: description:
-    l.mkOption {inherit type default description;};
+    mkOption {inherit type default description;};
 
   mkBoolOpt = default:
-    l.mkOption {
+    mkOption {
       inherit default;
-      type = l.types.bool;
+      type = types.bool;
       example = true;
     };
 }
