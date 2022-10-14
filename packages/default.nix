@@ -62,7 +62,6 @@
     phpactor = ./php/phpactor;
 
     ##: python packages
-    cpanel-cli = ./python/cpanel-cli;
 
     # FIXME: disabled due to pyopenssl dependency
     # hpi = ./python/HPI;

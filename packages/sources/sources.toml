@@ -32,7 +32,3 @@ fetch.git = "https://github.com/DanielFGray/fzf-scripts"
 src.git = "https://github.com/karlicoss/promnesia"
 # TODO: note that this might only return the latest tag
 fetch.github = "karlicoss/promnesia"
-
-[cpanel-cli]
-src.git = "https://github.com/layfellow/cpanel-cli"
-fetch.github = "layfellow/cpanel-cli"
