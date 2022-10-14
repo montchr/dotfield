@@ -51,7 +51,7 @@
   makeDarwinSystem = hostname: args:
     withSystem (args.system or aarch64-darwin) (
       ctx @ {system, ...}: let
-        pkgs = args.pkgs or ctx.pkgs;
+        pkgs = args.pkgs or ctx.pkgSets.${system} or ctx.pkgSets.default;
 
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
