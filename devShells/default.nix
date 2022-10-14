@@ -84,6 +84,7 @@
       '';
     };
 
+    # FIXME: handle sudo for `nixos-rebuild switch` etc.
     rebuildSysCmd = op: ''
       ${withTermFix} ${withCachixToken} ${cachixExec} \
         ${rebuildSystem} -- ${op} --flake $PRJ_ROOT --verbose

@@ -5,6 +5,6 @@
   services.gnome.sushi.enable = true;
   # FIXME: has no effect, prob cos gpg-agent is configured in home-manager?
   programs.gnupg.agent.pinentryFlavor = "gnome3";
-  # Required for Firefox integration in home-manager
-  services.gnome.chrome-gnome-shell.enable = true;
+  # Required for browser integrations with GNOME services.
+  services.gnome.gnome-browser-connector.enable = true;
 }

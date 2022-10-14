@@ -1,4 +1,4 @@
-{l, ...}: {
+{lib, ...}: {
   /*
   Converts the first character of an ASCII string to upper-case.
 
@@ -8,5 +8,5 @@
     upperFirstChar "nixOS"
     => "NixOS"
   */
-  upperFirstChar = s: l.toUpper (l.substring 0 1 s) + l.substring 1 (-1) s;
+  upperFirstChar = s: lib.toUpper (lib.substring 0 1 s) + lib.substring 1 (-1) s;
 }

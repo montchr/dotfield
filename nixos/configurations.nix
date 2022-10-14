@@ -1,7 +1,6 @@
 {
   withSystem,
   self,
-  lib,
   # DEPRECATED:
   peers,
   primaryUser,
@@ -20,11 +19,7 @@
     rakeLeaves
     ;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
-  inherit
-    (lib)
-    makeOverridable
-    nixosSystem
-    ;
+  l = inputs.nixpkgs.lib // builtins;
 
   roles = import ./roles {inherit sharedProfiles nixosProfiles;};
 
@@ -53,7 +48,7 @@
           };
         };
       in
-        makeOverridable nixosSystem {
+        l.makeOverridable l.nixosSystem {
           inherit system;
           modules =
             defaultModules

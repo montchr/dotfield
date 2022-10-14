@@ -1,4 +1,4 @@
-{l, ...}: rec {
+{lib, ...}: rec {
   /*
   Given a nested attrset and an attribute path, return the names of the
   top-level attributes whose attribute value at the given path matches a
@@ -18,12 +18,12 @@
         bar = { services.gpg-agent.pinentryFlavor = "gnome3"; };
       };
     in
-    l.treesWithValue (_: v: "gnome3" == v) ["services" "gpg-agent" "pinentryFlavor"] users
+    lib.treesWithValue (_: v: "gnome3" == v) ["services" "gpg-agent" "pinentryFlavor"] users
       => [ "bar" ]
   */
   treesWithValue = pred: path: attrs: (builtins.attrNames
-    (l.attrsets.filterAttrs
-      (n: v: (pred n (l.attrsets.getAttrFromPath path v)))
+    (lib.attrsets.filterAttrs
+      (n: v: (pred n (lib.attrsets.getAttrFromPath path v)))
       attrs));
 
   /*
@@ -39,7 +39,7 @@
         bar = { programs.emacs.enable = false; };
       };
     in
-    l.treesWithEnabledLeaf ["programs" "emacs" "enable"] users
+    lib.treesWithEnabledLeaf ["programs" "emacs" "enable"] users
       => [ "foo" ]
   */
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;

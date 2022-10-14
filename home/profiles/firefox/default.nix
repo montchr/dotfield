@@ -23,7 +23,7 @@ moduleArgs @ {
 
   cfg = config.programs.firefox;
 
-  hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
+  hasGnomeConnector = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable or false;
 
   # via https://github.com/nix-community/home-manager/blob/e1f1160284198a68ea8c7fffbbb1436f99e46ef9/modules/programs/firefox.nix#L11-L20
   mozillaConfigPath =
@@ -209,7 +209,7 @@ in {
       else
         firefox-wayland.override {
           cfg = {
-            enableGnomeExtensions = hasGnomeShell;
+            enableGnomeExtensions = hasGnomeConnector;
             enableTridactylNative = true;
           };
         };
