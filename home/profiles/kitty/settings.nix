@@ -1,14 +1,8 @@
 {
   lib,
-  hasTwm,
+  features,
   socket,
 }: {
-  font_family = "Iosevka Xtal Term";
-  font_size = lib.mkDefault "16.0";
-  adjust_line_height = "110%";
-  # TODO: why?
-  box_drawing_scale = "0.001, 1, 1.5, 2";
-
   #: Cursor customization {{{
   cursor_shape = "beam";
   cursor_beam_thickness = "1.5";
@@ -19,20 +13,46 @@
 
   #: Scrollback {{{
   scrollback_lines = "4000";
-  scrollback_pager = "less";
+  scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER"; # default value
   scrollback_pager_history_size = "666"; # in MB
   #: }}}
 
+  #: Mouse {{{
+  strip_trailing_spaces = "always";
+  #: }}}
+
   #: Window layout {{{
-  remember_window_size = false;
-  initial_window_width = "640";
-  initial_window_height = "800";
+
+  # sizing/spacing
+  remember_window_size = true;
   window_padding_width = "10";
   window_margin_width = "0";
   single_window_margin_width = "-1";
+
+  # decorations
   draw_minimal_borders = true;
-  hide_window_decorations = hasTwm;
+  hide_window_decorations = true;
   confirm_os_window_close = "0";
+
+  # layouts (preferred order)
+  #
+  # - First layout in list becomes the default layout.
+  # - Order of layouts affects next/prev cycling order.
+  # - Default value is all layouts in alphabetical order.
+  # - Accepts a comma-separated string.
+  #
+  # https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.enabled_layouts
+  # https://sw.kovidgoyal.net/kitty/overview/#layouts
+  enabled_layouts = builtins.concatStringsSep ", " [
+    "tall"
+    "grid"
+    "horizontal"
+    "vertical"
+    "fat"
+    "splits"
+    "stack"
+  ];
+
   #: }}}
 
   #: Tab bar {{{
@@ -51,12 +71,21 @@
   #: }}}
 
   #: Keyboard shortcuts {{{
-  # This is the default value.
-  # kitty_mod = "ctrl+shift";
+  kitty_mod = "ctrl+shift"; # default
   #: }}}
 
+  #: Performance {{{
   # Prevent input latency.
   sync_to_monitor = false;
+  #: }}}
 
+  #: Terminal bell {{{
   enable_audio_bell = false;
+  visual_bell_duration = "0.3";
+  #: }}}
+
+  #: OS-specific tweaks {{{
+  # Set the titlebar background color to that of the currently-active window.
+  wayland_titlebar_color = "background";
+  #: }}}
 }

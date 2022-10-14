@@ -4,7 +4,7 @@
   mkdir = "mkdir -pv";
 
   # Use Kitty terminal"s ssh helper kitten
-  sshk = "kitty +kitten ssh -o SendEnv=DOTFIELD_OS_APPEARANCE -A";
+  sshk = "kitty +kitten ssh";
   # Display an image in kitty
   icat = "kitty +kitten icat";
 
@@ -22,12 +22,29 @@
   "....." = "cd ../../../..";
   "......" = "cd ../../../../..";
 
+  top = "btm";
   tree = "exa --tree";
 
-  # IP addresses
-  ip = "dig +short myip.opendns.com @resolver1.opendns.com";
+  # IPs/DNS
+  getip = "curl ifconfig.me";
   localip = "ipconfig getifaddr en1";
-
-  # Flush DNS cache
   flushdns = "dscacheutil -flushcache";
+
+  ##: --- nix ------------------------------------------------------------------
+
+  n = "nix";
+  nd = "nix develop";
+  ns = "nix shell";
+  nsn = "nix shell nixpkgs#";
+  nb = "nix build";
+  nbn = "nix build nixpkgs#";
+  nf = "nix flake";
+
+  nr = "nixos-rebuild --flake .";
+  nrs = "nixos-rebuild --flake . switch";
+  snr = "sudo nixos-rebuild --flake .";
+  snrs = "sudo nixos-rebuild --flake . switch";
+
+  hm = "home-manager --flake .";
+  hms = "home-manager --flake . switch";
 }

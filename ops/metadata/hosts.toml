@@ -1,3 +1,78 @@
+## === TUVIX ===
+
+[tuvix]
+network = "home"
+# tailscale = ""
+keys = [
+  # "",
+  # "",
+]
+age = ""
+
+[tuvix.ipv4]
+address = "192.168.1.155"
+
+[tuvix.users.cdom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"]
+age = "age18yqe2svh9ck0san5uzthh6m774r2450hhz4ustguza2l8nttk30qxvtpf4"
+
+
+## === RYOSUKE ===
+
+[ryosuke]
+network = "home"
+tailscale = "100.123.41.68"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPhDD8yaBeZNP0Qv2b4DAx2QUlu+YX41zSod8k8dS8b root@ryosuke",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfa+BY8CbQBAYXZGRz+x7FxG2QxQCOqnRgg6D9jsUpZjI2So0KIX0h1xxdCiGRr0ZKgKqn+dVln/eAnbPkcIg7QfJjYdMNDgZef89lU+EbDXp4n4kfH1tyRZq273rR6pu6PthKyD6GxCnfMPZmTe9kR3ndDWEz++pS0ChMFRQsUy+zTnTxj/b8O6eTHRRQDYoCvETc1kKfoH/O852/U2hXcQPYR0qpH1TF1nzJhC5sStLWiAws2g2I+53e7XAluBCyqQBPjPlENwVTPH+riTTvUNEg5p7KmZodK3grD1FylvxA/E1iR6PQJT++PkczQyguI51SjMHng9rSFHDn24jT3/g8u2tHuBfKZV8cV6JvX07tUF8Fn1Mmo6Pas0WjJmvx7aFBt2LI/jJ0CYMqcsND84Z6qZQ3f18mQG/pS3N4yNmsVW6XDvMQ+sIU1tJgGlZrbT6ITJDvD4MEyC7UeT1Oy9yS1+IyJfSX48RqHxdeoWXARm58m/rzemx7m7q2UQXhzLlL1jdZwcDsXXa5AOuNWCsmZi6gIr7mVEaVIrXl7S08NGtU8QRmZFE0XA+bbCJP6iL0Gjos6HZvaqRk221coX1idMP8+uFSQhpzDYexF8CHM5j+anO6J/dpUjsy0cgvITnF1gkbv1YkYGSeIC2rrbQPhUJ99Pp6jfN9/5UxFw== root@ryosuke",
+]
+age = "age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak"
+
+[ryosuke.ipv4]
+address = "192.168.1.217"
+
+[ryosuke.users.cdom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"]
+age = "age19une89quzx4jt36hndrdp5ghr43845dndctfta206f7ts5ucsyjqt0l3pm"
+
+
+## === BOSCHIC ===
+
+[boschic]
+network = "home"
+tailscale = "100.112.94.38"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILieF9RIyF4rnqOyse7+3RMYQGH8IrBkTOuMb3O4oDXU root@boschic",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC55brzXJiHpeY6ivYPshjG664jx87m7qLLv6ur8r5i9eWjQK9MIW4OB4Bfc4LKjNNSgeZ9Exs9L2V5ci3hFsBUUiANUuKNWrplO8CjHmAYndo1fQ+NlOqwTug+NOIjAjc4tZ2QxO1QLxBrRieF7UTBm52C4v3fIingi38UYGQje9JedFdxhuUWQW4a+VBpjYX7r6QjSd3+yO29u97fi9HxK54aVCW41ylsAOp75ty6HYoOi4cuqsZipFm+u4lTxj9XtEyernVX0dqIJLuKSB1WnZNeTe3U41+VeZG8H5eEiChJGbfWaAXRjYLiU15Akz/PVDXmkD19F7oqeqsU0VkaUi2y3vpADlMEi4jXaLsaX0xNkGvUyTLGr1TKBBlEDspr4ptN5EyvAzUFOwSAyEnsfjL9QaLs4kNgiJjzMYXr8w7CHfXgI7tw3ERryOS9FpfCo92KqHMkkQ8psqI/DOvxREY+uCeU4VPuiXLH2Q9w0TJuN3MC6V6cr3qiaMTZwaM6dLRb9FGHTk2XycP+EgJywM3zsc2MPijb4B9PXWlUIi20mnEQTVsGhiN738QwVTAWIlAPk4GnWcJLtrdRaOXUyEe/HAWks6vXeMAduKM1vF8MzgHKz4QJVsbcaPrOxAnS9i70UeA0qNjn3n9d2C9cATJEVS9OD2GoTbkMWWQ5uw== root@boschic",
+]
+age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl"
+
+[boschic.ipv4]
+address = "192.168.1.214"
+
+[boschic.users.seadoom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"]
+age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
+
+
+## === HODGEPODGE ===
+
+[hodgepodge]
+network = "home"
+tailscale = "100.71.240.35"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS",
+  # TODO: add rsa key
+]
+age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
+
+[hodgepodge.ipv4]
+address = "192.168.1.152"
+
+[hodgepodge.users.seadoom]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"]
+
+
 ## === TSONE ===
 
 [tsone]
@@ -42,62 +117,6 @@ address = "100.68.129.15"
 [hierophant.users.hierophant]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rvq4vlUFFXH hierophant@loop.garden"]
 age = "age18ngk35h7qycc9kzjc4fy788nvnvlce8gvjahkvkkjxlahd5r54vqhmq9y2"
-
-
-## === RYOSUKE ===
-
-[ryosuke]
-network = "home"
-tailscale = "100.123.41.68"
-keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPhDD8yaBeZNP0Qv2b4DAx2QUlu+YX41zSod8k8dS8b root@ryosuke",
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfa+BY8CbQBAYXZGRz+x7FxG2QxQCOqnRgg6D9jsUpZjI2So0KIX0h1xxdCiGRr0ZKgKqn+dVln/eAnbPkcIg7QfJjYdMNDgZef89lU+EbDXp4n4kfH1tyRZq273rR6pu6PthKyD6GxCnfMPZmTe9kR3ndDWEz++pS0ChMFRQsUy+zTnTxj/b8O6eTHRRQDYoCvETc1kKfoH/O852/U2hXcQPYR0qpH1TF1nzJhC5sStLWiAws2g2I+53e7XAluBCyqQBPjPlENwVTPH+riTTvUNEg5p7KmZodK3grD1FylvxA/E1iR6PQJT++PkczQyguI51SjMHng9rSFHDn24jT3/g8u2tHuBfKZV8cV6JvX07tUF8Fn1Mmo6Pas0WjJmvx7aFBt2LI/jJ0CYMqcsND84Z6qZQ3f18mQG/pS3N4yNmsVW6XDvMQ+sIU1tJgGlZrbT6ITJDvD4MEyC7UeT1Oy9yS1+IyJfSX48RqHxdeoWXARm58m/rzemx7m7q2UQXhzLlL1jdZwcDsXXa5AOuNWCsmZi6gIr7mVEaVIrXl7S08NGtU8QRmZFE0XA+bbCJP6iL0Gjos6HZvaqRk221coX1idMP8+uFSQhpzDYexF8CHM5j+anO6J/dpUjsy0cgvITnF1gkbv1YkYGSeIC2rrbQPhUJ99Pp6jfN9/5UxFw== root@ryosuke",
-]
-age = "age1s2wwls2ltcjqsrlsrh4sn7q5u7xkdu6q7dtr3mk8z9mqmfh0kyvs5qx3ax"
-
-[ryosuke.ipv4]
-address = "192.168.1.217"
-
-[ryosuke.users.cdom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"]
-age = "age1fpjz2x5vlrtqr5hqy4mgmq6xf3uh3epalwek0shur574rm4hngks97taru"
-
-
-## === BOSCHIC ===
-
-[boschic]
-network = "home"
-tailscale = "100.112.94.38"
-keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILieF9RIyF4rnqOyse7+3RMYQGH8IrBkTOuMb3O4oDXU root@boschic",
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC55brzXJiHpeY6ivYPshjG664jx87m7qLLv6ur8r5i9eWjQK9MIW4OB4Bfc4LKjNNSgeZ9Exs9L2V5ci3hFsBUUiANUuKNWrplO8CjHmAYndo1fQ+NlOqwTug+NOIjAjc4tZ2QxO1QLxBrRieF7UTBm52C4v3fIingi38UYGQje9JedFdxhuUWQW4a+VBpjYX7r6QjSd3+yO29u97fi9HxK54aVCW41ylsAOp75ty6HYoOi4cuqsZipFm+u4lTxj9XtEyernVX0dqIJLuKSB1WnZNeTe3U41+VeZG8H5eEiChJGbfWaAXRjYLiU15Akz/PVDXmkD19F7oqeqsU0VkaUi2y3vpADlMEi4jXaLsaX0xNkGvUyTLGr1TKBBlEDspr4ptN5EyvAzUFOwSAyEnsfjL9QaLs4kNgiJjzMYXr8w7CHfXgI7tw3ERryOS9FpfCo92KqHMkkQ8psqI/DOvxREY+uCeU4VPuiXLH2Q9w0TJuN3MC6V6cr3qiaMTZwaM6dLRb9FGHTk2XycP+EgJywM3zsc2MPijb4B9PXWlUIi20mnEQTVsGhiN738QwVTAWIlAPk4GnWcJLtrdRaOXUyEe/HAWks6vXeMAduKM1vF8MzgHKz4QJVsbcaPrOxAnS9i70UeA0qNjn3n9d2C9cATJEVS9OD2GoTbkMWWQ5uw== root@boschic",
-]
-age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl"
-
-[boschic.ipv4]
-address = "192.168.1.214"
-
-[boschic.users.seadoom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"]
-age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
-
-
-## === HODGEPODGE ===
-
-[hodgepodge]
-network = "home"
-tailscale = "100.71.240.35"
-keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS",
-  # TODO: add rsa key
-]
-age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
-
-[hodgepodge.ipv4]
-address = "192.168.1.174"
-
-[hodgepodge.users.seadoom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"]
 
 
 ## === SYNOXYN ===

@@ -1,28 +1,18 @@
 {
-  self,
   config,
   lib,
   pkgs,
-  profiles,
-  inputs,
   ...
-}: let
-  inherit (config.lib) dotfield;
-in {
+}: {
   imports = [
-    inputs.sops-nix.nixosModules.sops
     ../../lib/system
     ./nix-config.nix
     ./system-packages.nix
   ];
 
-  # TODO: can this be merged with the 'dotfield' lib?
-  lib.our = self.lib;
-
   time.timeZone = "America/New_York";
 
   environment.variables = {
-    DOTFIELD_DIR = dotfield.fsPath;
     EDITOR = "vim";
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin
@@ -61,9 +51,4 @@ in {
   };
 
   programs.fish.enable = lib.mkDefault true;
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
 }

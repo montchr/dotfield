@@ -2,70 +2,63 @@
   config,
   lib,
   pkgs,
+  isDarwin,
+  isLinux,
+  isMacOS,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+  inherit (lib) optionals;
 in {
-  environment.systemPackages = with pkgs; [
-    (lib.mkIf isLinux font-manager)
+  imports = [
+    ./iosevka-variants.nix
+    ./iosevka-xtal.nix
   ];
-
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs;
-      [
-        b612
-        barlow
-        emacs-all-the-icons-fonts
-        fira
-        ibm-plex
-        inter
-        jost
-        public-sans
+    fonts =
+      (with pkgs; [
+        ###: --- essentials ---
 
-        # FIXME: doesn't exist... yet...
-        # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        nerdfonts-symbols-only
+        dejavu_fonts # dejavu_fonts
+        inconsolata # i HeArD YoU lIkEd pr0gRAmMiNg F0nT5
+        liberation_ttf # freedom as in freedom fries
+        terminus_font # we are the robots
+        ubuntu_font_family # ubuntu means fun!
 
-        iosevka-xtal
-        iosevka-xtal-term
+        ibm-plex # ibm sponsors my media server
 
-        iosevka-nf
-        iosevka-fixed
-        iosevka-term
+        ###: --- optionals ---
 
-        iosevka-slab
-        iosevka-fixed-slab
-        iosevka-term-slab
+        b612 # preparing for my pilot's license
+        barlow # only here to remind me of sebastopol
+        emacs-all-the-icons-fonts # because!
+        fira # i wouldn't be a programmer without this font
+        inter # fun fun fun on the autozone
+        jost # if colin jost was a font?
+        public-sans # slightly more boring than ibm-plex
 
-        iosevka-curly
-        iosevka-fixed-curly
-        iosevka-term-curly
+        (nerdfonts.override {
+          fonts = [
+            "Iosevka"
+            "NerdFontsSymbolsOnly"
+          ];
+        })
 
-        iosevka-curly-slab
-        iosevka-fixed-curly-slab
-        iosevka-term-curly-slab
-
-        iosevka-aile
-        iosevka-etoile
-
+        # "Iosevka Comfy" by Protesilaos Stavrou
+        # https://git.sr.ht/~protesilaos/iosevka-comfy
+        # https://protesilaos.com/emacs/iosevka-comfy-pictures
         iosevka-comfy.comfy
         iosevka-comfy.comfy-duo
         iosevka-comfy.comfy-wide
         iosevka-comfy.comfy-wide-fixed
-      ]
-      ++ (lib.optionals isLinux [
-        corefonts
-        inconsolata
-        liberation_ttf
-        dejavu_fonts
-        bakoma_ttf
-        gentium
-        ubuntu_font_family
-        terminus_font
       ])
-      ++ (lib.optionals isMacOS [
+      ++ (optionals isLinux (with pkgs; [
+        bakoma_ttf
+        corefonts # broken on aarch64-darwin
+        gentium
+      ]))
+      ++ (optionals isMacOS (with pkgs; [
         sf-pro
-      ]);
+      ]));
   };
 }

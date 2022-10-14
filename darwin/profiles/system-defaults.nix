@@ -55,7 +55,7 @@
     NSTextShowsControlCharacters = true;
     # Disable the over-the-top focus ring animation
     # NSUseAnimatedFocusRing = false;
-    NSWindowResizeTime = "0.001";
+    NSWindowResizeTime = 0.001;
     PMPrintingExpandedStateForPrint = true;
     PMPrintingExpandedStateForPrint2 = true;
     # Whether to hide the menu bar.
@@ -71,15 +71,15 @@
     # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.sound.beep.volume
     # "com.apple.sound.beep.volume" = null;
     # Set the spring loading delay for directories. The default is the float `1.0`.
-    "com.apple.springing.delay" = "0.1";
+    "com.apple.springing.delay" = 0.1;
     # Enable spring loading (expose) for directories.
     "com.apple.springing.enabled" = true;
     # Disable "Natural" scrolling direction.
     "com.apple.swipescrolldirection" = false;
     # Whether to enable trackpad secondary click.
     "com.apple.trackpad.enableSecondaryClick" = true;
-    # Configures the trackpad tracking speed (0 to 3). The default is "1".
-    "com.apple.trackpad.scaling" = "1.0";
+    # Configures the trackpad tracking speed (0 to 3). The default is 1.0.
+    "com.apple.trackpad.scaling" = 1.0;
     # Configures the trackpad corner click behavior. Mode 1 enables right click.
     # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.trackpad.trackpadCornerClickBehavior
     "com.apple.trackpad.trackpadCornerClickBehavior" = null;
@@ -101,11 +101,11 @@
 
   system.defaults.dock = {
     autohide = true;
-    autohide-delay = "0";
-    autohide-time-modifier = "0";
+    autohide-delay = 0.1;
+    autohide-time-modifier = 0.1;
     dashboard-in-overlay = false;
     enable-spring-load-actions-on-all-items = false;
-    expose-animation-duration = "0.1";
+    expose-animation-duration = 0.1;
     expose-group-by-app = false;
     launchanim = false;
     mineffect = "genie";

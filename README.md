@@ -2,186 +2,199 @@
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-My worlds and systems, a nutrient-rich typo terraforming the hungry heads of a
-talking planet.
+> The map is open and connectable in all of its dimensions; it is detachable,
+> reversible, susceptible to constant modification. … The map has to do with
+> performance, whereas the tracing always involves an alleged “competence”.
 
-## Disclaimer
+My worlds and systems, a nutrient-rich collection of typos feeding the hungry
+heads of a talking planet, "oriented toward an experimentation in contact with
+the real".
 
-These configurations are generally very rough, disorganised, and frustrating to
-work with. I plan to do some clean up soon.
+### Disclaimerisms
 
-If you have questions or feedback, please ask/post away! I hope visitors manage
-to find something helpful/inspiring/interesting, but please keep in mind that
-**I have no idea what I'm doing**. I sometimes make changes that I sound
-confident about, but may end up reversing them days or hours later. If something
-doesn't work for you, I may be able to help, but please don't assume that just
-because it lives in my configuration means that it "works" or "is a best
-practice" or "is in any way secure".
+These are my personal configurations and are not intended for use as a template,
+but you are welcome to do so if you like! I hope visitors manage to find
+something helpful/inspiring/interesting, but please keep in mind that _I have no
+idea what I'm doing_.
 
-Which brings me to the license:
+Dotfield does not embody "best practices" or "the right way to Nix". The project
+exists as an evolving and unstable result of one amateur's take on identifying
+and implementing flexible and understandishable patterns or novelties across
+other sources this amateur has encountered.
 
-## License
+If you have questions or feedback, feel free to reach out in the issues or discussions!
 
-Copyright (C) 2020-2022 Chris Montgomery
+## Bootstrapping
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This section is incomplete and fragmented, but contains important reference
+notes for stuff I always forget.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+### NixOS
 
-You may read the license in full within the [COPYING](./COPYING) file included
-in the project root. You may also find it at <https://www.gnu.org/licenses/>
+TODO
+
+Mostly self-explanatory following the manual, but the initial setup process can
+be a bit circuitous, especially when you are only starting with a macOS system
+like I did. Fortunately, things have improved quite a lot since then, as QEMU
+now supports running NixOS VMs on `aarch64-darwin`.
+
+### Generic Linux
+
+TODO
+
+Only home-manager support is possible here. These profiles may be deployable
+with `deploy-rs`. That feature alone makes `deploy-rs` stand out from the rest
+of the Nix-centric deployment tools available as of this writing.
+
+### macOS/Darwin
+
+I went several months without a macOS computer available, so my Nix+Darwin
+configurations have suffered a bit of rot over that time. But I've finally
+picked up an M2 MacBook Air, and now I'm faced with the task of picking up where
+I left off and making this computer usable. I've taken some rough notes below
+about getting set up on a new macOS system.
+
+- `sudo xcode-select --install`
+- Install Homebrew
+- `brew install git bash zsh ripgrep fd tealdeer bat coreutils`
+- Add `PATH` entries to `~/.zprofile`
+- Install Nix
+- Generate SSH keys for your user and add them to GitHub/Sourcehut.
+- `mkdir -p ~/.config`
+- `git clone git@github.com:montchr/dotfield.git ~/.config/dotfield`
+- Create a basic config for the new host in `./darwin/machines/<hostname>/default.nix`
+- Add the new host to `flake.darwinConfigurations.<hostname>` in `./darwin/configurations.nix`
+- `nix build .#darwinConfigurations.<hostname>.system --verbose`
+- `./result/sw/bin/darwin-rebuild switch --flake .#<hostname>` (assuming that
+  the desired hostname has not yet been set -- otherwise, `... --flake .` should suffice)
+
+### Secrets
+
+After the initial generation with secrets disabled (due to a
+catch-22/bootstrapping problem), you should then be able to do the following
+with a smartcard attached.
+
+```sh
+export KEYID="0x135EEDD0F71934F3"
+gpg --recv $KEYID
+gpg --list-secret-keys
+gpg-agent-restart
+
+mkdir -p $XDG_CONFIG_HOME/sops/age
+# Required for editing sops files
+pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
+```
 
 ## Structure
 
-### Profiles/Suites
+More details forthcoming...
 
-Overall, I've found that the profile "composition" approach is very difficult to
-scale. I plan on moving back towards a simpler module-toggle structure,
-converting "suites" into "profiles". From my understanding, that's what profiles
-always have been in NixOS terminology. I believe "suites" is an unncessary and
-unwieldly abstraction and hope to see it removed from the DevOS example
-eventually, or at least "downgraded" to just another example. But only after
-finding a better suggestion.
+## Vertebrae
+
+- [hercules-ci/flake-parts][flake-parts] :: a framework for flake modules
+- [divnix/digga][digga] :: helpful lib functions and examples
+
+[flake-parts]: https://github.com/hercules-ci/flake-parts
+[digga]: https://github.com/divnix/digga
+
+## Grafts
+
+Generally in order of [frecency][frecency], along with an optional description
+of reasons for inclusion.
+
+More recently, I've aimed to reference sources with comments and SPDX headings
+in relevant files.
+
+### NixOS/nix-darwin/home-manager
+
+- https://github.com/Mic92/dotfiles :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
+- https://github.com/srid/nixos-config :: nixos, nix-darwin, vms, simple, nixos-shell
+- https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
+- https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
+- https://github.com/TLATER/dotfiles :: home-manager, structure
+- https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
+- https://github.com/colemickens/nixcfg :: nixos, extensive, fun
+- https://github.com/cole-h/nixos-config/ :: nixos, media server
+- https://github.com/kclejeune/system :: nixos, home-manager
+- https://github.com/Xe/nixos-configs :: networking, extensive
+- https://github.com/sei40kr/dotfiles
+- https://github.com/malob/nixpkgs :: nix-darwin, docs
+- https://github.com/ahmedelgabri/dotfiles
+- https://github.com/cmacrae/config :: nix-darwin, nixos, emacs
+- https://github.com/d12frosted/environment :: nixos, nix-darwin, provisioning, world-building, emacs, docs
+
+### Emacs
+
+- [elken's doom configs][elken-doom] :: doom, php, corfu
+- [gagbo's doom configs][gagbo-doom] :: doom, corfu, apheleia
+- [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
+- [d12frosted's emacs configs][d12frosted-emacs]
+
+[frecency]: https://en.wikipedia.org/wiki/Frecency
+[elken-doom]: https://github.com/elken/doom
+[gagbo-doom]: https://git.sr.ht/~gagbo/doom-config
+[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
+[d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 ## Systems
 
-### `ryosuke` Computer-1
+### `tuvix` [MacBook Air M2]
 
-This one is fresh off the workbench. After much frustration and screaming during
-assembly, I've built a small form-factor PC in a Teenage Engineering Computer-1
-case.
+Work computer running macOS. It's fresh.
 
-Details to follow.
+### `ryosuke` [Teenage Engineering Computer-1]
 
-I intend for this to be my primary and semi-portable personal computer and
-perhaps transitioning `boschic` to a new Face as home server.
+Ryosuke is a "ghost of the circuit", a denizen of Kairo, LoBE.
+
+[PCPartPicker Part List](https://pcpartpicker.com/list/pXZ9nt)
+
+| Type             | Item                                                                                                                                                                                                 |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CPU**          | [AMD Ryzen 9 5900X 3.7 GHz 12-Core Processor](https://pcpartpicker.com/product/KwLwrH/amd-ryzen-9-5900x-37-ghz-12-core-processor-100-100000061wof)                                                   |
+| **CPU Cooler**   | [Noctua NH-L9a-AM4 33.84 CFM CPU Cooler](https://pcpartpicker.com/product/DZfhP6/noctua-nh-l9a-am4-338-cfm-cpu-cooler-nh-l9a-am4)                                                                    |
+| **Motherboard**  | [Gigabyte X570SI AORUS PRO AX Mini ITX AM4 Motherboard](https://pcpartpicker.com/product/s792FT/gigabyte-x570si-aorus-pro-ax-mini-itx-am4-motherboard-x570si-aorus-pro-ax)                           |
+| **Memory**       | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)                   |
+| **Storage**      | [Samsung 970 Evo Plus 1 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Zxw7YJ/samsung-970-evo-plus-1-tb-m2-2280-nvme-solid-state-drive-mz-v7s1t0bam)                           |
+| **Video Card**   | [PowerColor Radeon RX 6500 XT 4 GB ITX Video Card](https://pcpartpicker.com/product/DxjBD3/powercolor-radeon-rx-6500-xt-4-gb-itx-video-card-axrx-6500xt-4gbd6-dh)                                    |
+| **Case**         | [teenage engineering Computer-1 Mini ITX Desktop Case](https://pcpartpicker.com/product/sdRYcf/teenage-engineering-computer-1-mini-itx-desktop-case-te030as001)                                      |
+| **Power Supply** | [Corsair SF 600 W 80+ Platinum Certified Fully Modular SFX Power Supply](https://pcpartpicker.com/product/BtsmP6/corsair-sf-600w-80-platinum-certified-fully-modular-sfx-power-supply-cp-9020182-na) |
+| **Case Fan**     | [Noctua A8 PWM chromax.black.swap 32.67 CFM 80 mm Fan](https://pcpartpicker.com/product/Jdwkcf/noctua-nf-a8-pwm-chromaxblackswap-3267-cfm-80-mm-fan-nf-a8-pwm-chromaxblackswap)                      |
+
+The Ryzen 9 5900X processor and mini-ITX Teenage Engineering Computer-1 case are the stars here.
+
+This is my primary computer. I carry it up and down three flights of stairs
+every day. I've also used it in the office as a "laptop".
 
 ### `boschic`
 
-A three-faced beast lurking in the shadows of my living room.
+A beast lurking in the shadows of my living room.
 
-Originally built in 2015, recently revamped for ~computing power~ ~playing Myst in VR~
-~Elden Ring~ fun.
+Originally built in 2015, recently revamped.
 
-<table>
-<tbody>
-<tr>
-<th class="org-left">CPU</th>
-<td class="org-left">AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor</td>
-</tr>
+[PCPartPicker Part List](https://pcpartpicker.com/list/LKQQRv)
 
-<tr>
-<th class="org-left">CPU Cooler</th>
-<td class="org-left">Noctua NH-D15 82.5 CFM CPU Cooler</td>
-</tr>
-
-<tr>
-<th class="org-left">Motherboard</th>
-<td class="org-left">Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard</td>
-</tr>
-
-<tr>
-<th class="org-left">Memory</th>
-<td class="org-left">Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Seagate BarraCuda 1 TB 3.5&ldquo; 7200RPM Internal Hard Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Crucial MX100 256 GB 2.5&ldquo; Solid State Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">Storage</th>
-<td class="org-left">Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive</td>
-</tr>
-
-<tr>
-<th class="org-left">GPU</th>
-<td class="org-left">NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card</td>
-</tr>
-
-<tr>
-<th class="org-left">Case</th>
-<td class="org-left">Phanteks Enthoo Pro ATX Full Tower Case</td>
-</tr>
-
-<tr>
-<th class="org-left">PSU</th>
-<td class="org-left">Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply</td>
-</tr>
-
-<tr>
-<th class="org-left">Wireless Adapter</th>
-<td class="org-left">TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter</td>
-</tr>
-</tbody>
-</table>
-
-#### Face One: Gaming + VR
-
-I don't want to open a gateway to [my own VR Hell on NixOS][vrhell], so this
-Face should only be summoned after invoking the Ten Windows.
-
-[vrhell]: https://xeiaso.net/blog/nixos-vr-hell-2021-12-02
-
-#### Face Two: Home Theater PC
-
-Boschic is connected to a ViewSonic "4K" projector pointed at a ceiling-mounted
-100in. screen.
-
-While the Plex Media Player experience on NixOS is... manageable... I suspect that the situation may be deteriorating:
-
-Plex has stated they will be dropping support for the "Plex Media Player"
-application. And it shows. This would be fine with me, because its UI is
-terrible, especially in 4K resolution across the room. Its UI animations are
-janky and jittery as hell. And yet... it plays even 4K video perfectly.
-
-The ~new~ resurrected Plex HTPC application is beautiful. The design is
-well-thought-out for my own sort of use case. However, it requires Flatpak
-(yuck), and it totally fails to play back even low-resolution videos on my
-projector without introducing unwatchable stuttering. I've noticed some log
-errors relating to WebGL. It seems to be related to Wayland/XWayland. I thought
-that the proprietary NVIDIA drivers fixed the issue, but then it came back. It's
-completely unusable with Nouveau.
-
-So, uh, I don't know.
-
-My roommates usually invoke the Ten Windows before playing video anyway. I'm
-sure this says something about how I have not done a great job making the
-NixOS-GNOME HTPC experience easily approachable on a guest user account (that's
-`zortflower`!), but I've ran into so many issues trying to get it working on my
-own account that I totally understand.
-
-#### Face Three: Daily Driver
-
-Currently my primary computer, which has caused some conflict and pain (I
-literally sit on the couch all day). This shouldn't be the case for much longer
-though.
+| Type                         | Item                                                                                                                                                                                    |
+| :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CPU**                      | [AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor](https://pcpartpicker.com/product/g94BD3/amd-ryzen-5-5600x-37-ghz-6-core-processor-100-100000065box)                                        |
+| **CPU Cooler**               | [Noctua NH-D15 82.5 CFM CPU Cooler](https://pcpartpicker.com/product/4vzv6h/noctua-nh-d15-825-cfm-cpu-cooler-nh-d15)                                                                    |
+| **Motherboard**              | [Asus ROG STRIX B450-F GAMING II ATX AM4 Motherboard](https://pcpartpicker.com/product/xYvqqs/asus-rog-strix-b450-f-gaming-ii-atx-am4-motherboard-rog-strix-b450-f-gaming-ii)           |
+| **Memory**                   | [Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3600 CL18 Memory](https://pcpartpicker.com/product/Yg3mP6/corsair-vengeance-lpx-32-gb-2-x-16-gb-ddr4-3600-memory-cmk32gx4m2d3600c18)      |
+| **Storage**                  | [Crucial MX100 256 GB 2.5" Solid State Drive](https://pcpartpicker.com/product/63V48d/crucial-internal-hard-drive-ct256mx100ssd1)                                                       |
+| **Storage**                  | [Samsung 970 Evo Plus 2 TB M.2-2280 NVME Solid State Drive](https://pcpartpicker.com/product/Fv8j4D/samsung-970-evo-plus-2-tb-m2-2280-nvme-solid-state-drive-mz-v7s2t0bam)              |
+| **Storage**                  | [Seagate BarraCuda 1 TB 3.5" 7200RPM Internal Hard Drive](https://pcpartpicker.com/product/dCxfrH/seagate-internal-hard-drive-st1000dm003)                                              |
+| **Video Card**               | [NVIDIA GeForce RTX 3080 Ti 12 GB Founders Edition Video Card](https://pcpartpicker.com/product/c2kWGX/nvidia-geforce-rtx-3080-ti-12-gb-founders-edition-video-card-900-1g133-2518-000) |
+| **Case**                     | [Phanteks Enthoo Pro ATX Full Tower Case](https://pcpartpicker.com/product/mn3RsY/phanteks-case-phes614pbk)                                                                             |
+| **Power Supply**             | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)                                            |
+| **Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)                    |
 
 ### `HodgePodge` aka the "Sacred Chao"
 
 An early-2014 15-inch MacBook Pro who has seen quite the life. Mostly unused for
 the past several years due to the availability of more portable work laptops. It
-is now living out its life in a declarative retirement home.
-
-Its excessive clunkiness is excacerbated by the sharp edges exposed on its
-sturdy sticker-laden plastic case over the years. The situation is more
-manageable now thanks to the globs of Sugru preventing any further bodily harm.
-
+is now living out its life in a declarative retirement home. `nixos-rebuild` is
+impossibly slow, even with the binary cache and `ryosuke` as build host.
 
 ### Incubation
-
 
 #### "`tsone`" (working title)
 
@@ -209,41 +222,12 @@ Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
 
 Currently lost somewhere in the meat ether.
 
-## Identities
-
-From https://github.com/drduh/YubiKey-Guide#using-keys:
-
-```sh
-export KEYID="0x135EEDD0F71934F3"
-gpg --recv $KEYID
-```
-
-
-## Vertebrae
-
-- https://github.com/divnix/digga :: a good friend
-
-## Grafts
-
-Generally in order of recency.
-
-- https://github.com/Xe/nixos-configs
-- https://github.com/sei40kr/dotfiles
-- https://github.com/malob/nixpkgs
-- https://github.com/kclejeune/system
-- https://github.com/ahmedelgabri/dotfiles
-- https://github.com/cmacrae/config
-- https://github.com/hlissner/dotfiles
-- https://github.com/d12frosted/environment
-- https://github.com/hardselius/dotfiles
-- https://github.com/alrra/dotfiles
-- https://github.com/jasonheecs/ubuntu-server-setup
-
 ## Errata
 
 ### kitty terminal custom icons
 
-kitty's FAQ page shows a small collection of high-quality alternative icons designed by some kitty fans.
+kitty's FAQ page shows a small collection of high-quality alternative icons
+designed by some kitty fans.
 
 <https://sw.kovidgoyal.net/kitty/faq/#i-do-not-like-the-kitty-icon>
 
@@ -255,7 +239,7 @@ While I personally don't _dislike_ the kitty icon, these alternatives are great.
 
 #### NixOS
 
-TKTKTK
+Not yet.
 
 #### macOS
 
@@ -269,4 +253,5 @@ I've added a script called `kitty-set-app-icon` to re-copy the desired icon back
 to `kitty.app` post-update. This script is available via the
 `kitty-helpers.setAppIcon` package.
 
-Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/) for outlining a simple alternative to the usual drag-and-drop approach.
+Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/)
+for outlining a simple alternative to the usual drag-and-drop approach.

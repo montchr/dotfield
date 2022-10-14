@@ -3,33 +3,23 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  sharedProfiles,
   ...
 }: let
-  inherit (config.lib.dotfield) fsPath;
-
-  sshHostPath =
-    if (moduleArgs.impermanence or false)
-    then "/persist/etc/ssh"
-    else "/etc/ssh";
-
-  # FIXME: is this accurate?
-  nixosConfigPath = "${fsPath}/lib/compat/nixos";
+  inherit (config.lib.dotfield.sys) storageBase;
+  sshHostPath = "${storageBase}/etc/ssh";
 in {
+  imports = [sharedProfiles.core];
+
+  # If this were enabled, rebuilds will take... a very long time.
+  documentation.info.enable = false;
+
   nix = {
     settings = {
-      auto-optimise-store = true;
-      # TODO: is it really reasonable to set these all as defaults?
+      optimise.automatic = true;
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     };
-
-    nixPath = ["nixos-config=${nixosConfigPath}"];
-    optimise.automatic = true;
-  };
-
-  environment.shellAliases = {
-    # Fix `nixos-option` for flake compatibility
-    # FIXME: it's broken
-    # nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
+    gc.dates = "weekly";
   };
 
   # Essential tools for the best of times and the worst of times.
@@ -46,9 +36,9 @@ in {
     pciutils
     ripgrep
     sysstat
-    tldr
+    tealdeer
     usbutils
-    utillinux
+    util-linux
   ];
 
   programs.git.enable = true;

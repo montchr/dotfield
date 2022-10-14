@@ -2,19 +2,86 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.sources) firefox-lepton-ui;
+  inherit
+    (lib)
+    concatStrings
+    mapAttrsToList
+    optional
+    ;
+  inherit
+    (pkgs)
+    firefox-wayland
+    makeDesktopItem
+    runCommand
+    writeText
+    ;
+  inherit (config.theme) fonts;
 
-  themeFonts = config.theme.font;
+  cfg = config.programs.firefox;
 
-  isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
+  hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
+
+  # via https://github.com/nix-community/home-manager/blob/e1f1160284198a68ea8c7fffbbb1436f99e46ef9/modules/programs/firefox.nix#L11-L20
+  mozillaConfigPath =
+    if isDarwin
+    then "Library/Application Support/Mozilla"
+    else ".mozilla";
+  firefoxConfigPath =
+    if isDarwin
+    then "Library/Application Support/Firefox"
+    else "${mozillaConfigPath}/firefox";
+  profilesPath =
+    if isDarwin
+    then "${firefoxConfigPath}/Profiles"
+    else firefoxConfigPath;
+
+  homeProfilePath = "${profilesPath}/${cfg.profiles.home.path}";
+  workProfilePath = "${profilesPath}/${cfg.profiles.work.path}";
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-  lepton = import ./lepton.nix;
 
+  leptonSrc = firefox-lepton-ui.src;
+  leptonSettings = import ./lepton-settings.nix;
+  # These CSS files must be `@import`ed in order to preserve relative URIs
+  # expected for icons.
+  leptonChrome = ''
+    @import url("${leptonSrc}/css/leptonChrome.css");
+  '';
+  leptonContent = ''
+    @import url("${leptonSrc}/css/leptonContent.css");
+  '';
+
+  makeProfileSettings = profile:
+    writeText "user.js" (concatStrings
+      (mapAttrsToList (name: value: ''
+          user_pref("${name}", ${builtins.toJSON value});
+        '')
+        cfg.profiles.${profile}.settings));
+
+  makeProfileSettingsFile = profile:
+    runCommand "firefox-${profile}-settings" {} ''
+      cat '${leptonSrc}/user.js' '${makeProfileSettings profile}' > $out
+    '';
+
+  userChrome = leptonChrome;
+  userContentVars = ''
+    :root {
+      --dotfield-font-family-serif: "${fonts.serif.family}", serif;
+      --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
+      --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
+    }
+  '';
+  userContent =
+    userContentVars
+    + leptonContent
+    + (builtins.readFile ./userContent.css);
+
+  # TODO: consider removing. if you want a firefox without telemetry, use
+  # librewolf. otherwise let mozilla do its thing.
   disableTelemetry = {
     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
     "browser.newtabpage.activity-stream.telemetry" = false;
@@ -32,6 +99,13 @@ moduleArgs @ {
   };
 
   privacySettings = {
+    # 0 = Accept all cookies by default
+    # 1 = Only accept from the originating site (block third-party cookies)
+    # 2 = Block all cookies by default
+    # 3 = Block cookies from unvisited sites
+    # 4 = New Cookie Jar policy (prevent storage access to trackers)
+    "network.cookie.cookieBehavior" = 1;
+
     "network.dns.disablePrefetch" = true;
     "privacy.donottrackheader.enabled" = true;
     "privacy.donottrackheader.value" = 1;
@@ -59,9 +133,6 @@ moduleArgs @ {
       "browser.send_pings" = false;
       "browser.startup.homepage" = "https://lobste.rs";
 
-      # 0 = Normal; 1 = Compact; 2 = Touch
-      "browser.uidensity" = 1;
-
       "browser.urlbar.placeholderName" = "…";
       "browser.urlbar.showSearchSuggestionsFirst" = false;
       "browser.urlbar.suggest.calculator" = true;
@@ -76,12 +147,11 @@ moduleArgs @ {
       # See https://github.com/tridactyl/tridactyl/issues/1800
       "extensions.webextensions.restrictedDomains" = "";
 
-      # FIXME: use global font defaults
-      "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = themeFonts.mono.family;
-      "font.name.sans-serif.x-western" = themeFonts.sans.family;
-      "font.name.serif.x-western" = themeFonts.serif.family;
-      "font.size.monospace.x-western" = themeFonts.mono.size;
+      "font.default.x-western" = fonts.sans.family;
+      "font.name.monospace.x-western" = fonts.mono.family;
+      "font.name.sans-serif.x-western" = fonts.sans.family;
+      "font.name.serif.x-western" = fonts.serif.family;
+      "font.size.monospace.x-western" = fonts.mono.size;
 
       "identity.fxaccounts.account.device.name" = hostName;
 
@@ -107,161 +177,62 @@ moduleArgs @ {
       # Enable custom stylesheets.
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     };
-
-  styles = {
-    dotfield = {
-      userChrome = ''
-        /* Load Dotfield customisations. */
-        /* Note: the entire content of this file is copied below, so the file itself isn't imported. */
-        /* @import url("${toString ./userChrome.css}"); */
-
-        * {
-          font-family: ${themeFonts.mono.family}, monospace !important;
-          /* font-size: ${builtins.toString themeFonts.mono.size}px; */
-        }
-      '';
-      userContent = ''
-        /* Load Dotfield customisations. */
-        @import url("${toString ./userContent.css}");
-      '';
-    };
-    lepton = {
-      userChrome = ''
-        /* Load Lepton userChrome.css */
-        @import url("${inputs.firefox-lepton.outPath}/userChrome.css");
-      '';
-      userContent = ''
-        /* Load Lepton userContent.css */
-        @import url("${inputs.firefox-lepton.outPath}/userContent.css");
-      '';
-    };
-  };
 in {
+  imports = [
+    ./extensions.nix
+  ];
+
   xdg.configFile."tridactyl".source = ./tridactyl;
 
-  programs.buku.enable = true;
-  programs.buku.enableBrowserIntegration = true;
+  home.file = {
+    "${homeProfilePath}/chrome/icons".source = leptonSrc + "/icons";
+    "${homeProfilePath}/user.js".source = makeProfileSettingsFile "home";
+
+    "${workProfilePath}/chrome/icons".source = leptonSrc + "/icons";
+    "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
+  };
+
+  home.packages = optional isLinux (makeDesktopItem {
+    name = "firefox-work-profile";
+    desktopName = "Firefox (Work)";
+    genericName = "Open a Firefox window scoped to the Work profile.";
+    icon = "firefox";
+    exec = "${cfg.package}/bin/firefox -P ${cfg.profiles.work.path}";
+    categories = ["Application" "Network" "WebBrowser"];
+  });
 
   programs.firefox = {
     enable = true;
     package =
       if isDarwin
-      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
-      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
+      then runCommand "firefox-0.0.0" {} "mkdir $out"
       else
-        pkgs.firefox-wayland.override {
+        firefox-wayland.override {
           cfg = {
-            # Gnome shell native connector
-            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable;
-            # Tridactyl native connector
+            enableGnomeExtensions = hasGnomeShell;
             enableTridactylNative = true;
-            # Buku bookmarking tool native connector
-            enableBukubrow = isBukuEnabled;
           };
         };
 
-    # TODO: add zotero connector addon -- not available in upstream nur repo
-    extensions = with firefox-addons; [
-      onepassword-password-manager
-      a11ycss
-      add-custom-search-engine
-      (lib.mkIf isBukuEnabled bukubrow)
-      copy-selection-as-markdown
-      darkreader
-      display-_anchors
-      firefox-color
-      (lib.mkIf config.programs.browserpass.enable browserpass)
-      flagfox
-      mailvelope
-      multi-account-containers
-      octolinker
-      # FIXME: only use this if not using tridactyl (e.g. guest users on htpc)
-      # old-reddit-redirect
-      org-capture
-      pinboard
-      # FIXME: needs configuration, probably
-      # promnesia
-      # protondb-for-steam
-      react-devtools
-      reddit-enhancement-suite
-      reduxdevtools
-      # TODO: set default preferences for this and others? is that possible?
-      refined-github
-      return-youtube-dislikes
-      sidebery
-      single-file
-      sourcegraph
-      tab-session-manager
-      temporary-containers
-      tridactyl
-      ublock-origin
-
-      ##: Themes {{
-
-      # TODO: add this to upstream repo
-      # arctic-nord-theme
-
-      theme-nord-polar-night
-
-      ##: }}
-    ];
-
     profiles.home = {
+      inherit userChrome userContent;
       id = 0;
-
       settings =
         defaultSettings
         // privacySettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
-        // lepton.settings.recommended
-        // lepton.settings.optional;
-
-      userChrome = ''
-        ${styles.lepton.userChrome}
-
-        :root {
-          --dotfield-tab-line-color: #5e81ac;
-        }
-
-        ${styles.dotfield.userChrome}
-      '';
-
-      userContent = ''
-        ${styles.lepton.userContent}
-        ${styles.dotfield.userContent}
-      '';
+        // leptonSettings;
     };
 
     profiles.work = {
+      inherit userChrome userContent;
       id = 1;
-
       settings =
         defaultSettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
         // {
           "browser.startup.homepage" = "about:blank";
           "browser.urlbar.placeholderName" = "Search";
-
-          # 0 = Accept all cookies by default
-          # 1 = Only accept from the originating site (block third-party cookies)
-          # 2 = Block all cookies by default
-          # 3 = Block cookies from unvisited sites
-          # 4 = New Cookie Jar policy (prevent storage access to trackers)
-          "network.cookie.cookieBehavior" = 0;
-
-          "privacy.trackingprotection.enabled" = false;
+          "privacy.trackingprotection.enabled" = true;
         };
-
-      userChrome = ''
-        ${styles.lepton.userChrome}
-        ${styles.dotfield.userChrome}
-      '';
-
-      userContent = ''
-        ${styles.dotfield.userContent}
-      '';
     };
   };
 }

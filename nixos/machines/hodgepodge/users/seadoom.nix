@@ -1,33 +1,40 @@
+# FIXME: make reusable -- copied wholesale from cdom@ryosuke
 {
+  self,
   config,
   lib,
   pkgs,
   primaryUser,
   ...
-}: {
-  sops.secrets."users/seadoom/passphrase".neededForUsers = true;
-  users.users.seadoom = {
-    isNormalUser = true;
+}: let
+  inherit (self.inputs.digga.lib) rakeLeaves;
+  inherit (config.dotfield.paths) flakeRoot;
+
+  username = "seadoom";
+
+  ownProfiles = rakeLeaves (flakeRoot + "/home/users/${username}/profiles");
+in {
+  sops.secrets."users/${username}/passphrase".neededForUsers = true;
+
+  users.users.${username} = {
     uid = 1000;
-    extraGroups = [
-      "wheel"
-      "seadome"
-      "secrets"
-      "keys"
-      "video"
-      "networkmanager"
-    ];
+    isNormalUser = true;
+    passwordFile = config.sops.secrets."users/${username}/passphrase".path;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    shell = pkgs.zsh;
   };
 
-  home-manager.users.seadoom = hmArgs: {
-    imports = with hmArgs.roles; workstation;
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = username;
 
-    home.packages = with pkgs; [
-      teams
-    ];
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
-    programs.kitty.settings."font_size" = "11.0";
+  home-manager.users.${username} = hmArgs: {
+    imports =
+      (with hmArgs.roles; workstation)
+      ++ (with ownProfiles; [work]);
+    home.stateVersion = "21.11";
   };
 }

@@ -8,11 +8,14 @@
 {
   lib,
   python3Packages,
-  fetchurl,
-  sources,
 }:
 python3Packages.buildPythonPackage rec {
-  inherit (sources.orgparse) pname version src;
+  pname = "orgparse";
+  version = "0.3.1";
+  src = python3Packages.fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=";
+  };
   propagatedBuildInputs = with python3Packages; [setuptools_scm];
   doCheck = false;
   meta = with lib; {

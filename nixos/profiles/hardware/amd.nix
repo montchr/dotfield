@@ -3,7 +3,11 @@
   lib,
   pkgs,
   ...
-}: {
-  boot.kernelModules = ["kvm-amd"];
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+}: let
+  inherit (lib) mkDefault optional;
+in {
+  boot.kernelModules =
+    optional config.virtualisation.libvirtd.enable "kvm-amd";
+  hardware.cpu.amd.updateMicrocode =
+    mkDefault config.hardware.enableRedistributableFirmware;
 }

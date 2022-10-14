@@ -4,15 +4,13 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib) dotfield;
-
   # TODO: add this via gitignore.nix or something to avoid IFD
-  dotfieldScript =
-    pkgs.writeScriptBin "dotfield"
-    (builtins.readFile "${dotfield.srcPath}/packages/dotfield");
+  # dotfieldScript =
+  #   pkgs.writeScriptBin "dotfield"
+  #   (builtins.readFile "${config.dotfield.paths.flakeRoot}/packages/dotfield");
 in {
   environment.systemPackages = with pkgs; [
-    dotfieldScript
+    # dotfieldScript
 
     ## === Essentials ===
 
@@ -73,10 +71,8 @@ in {
 
     alejandra # The Uncompromising Nix Code Formatter
     cachix
-    fup-repl
     manix # nix documentation search
     nix-diff # Explain why two Nix derivations differ
     nix-tree # Interactively browse dependency graphs of Nix derivations.
-    nvfetcher-bin # Generate nix sources expression for the latest version of packages
   ];
 }

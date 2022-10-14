@@ -1,0 +1,242 @@
+[
+  {
+    "pname": "onepassword-password-manager",
+    "slug": "1password-x-password-manager",
+    "license": {
+      "tag": "custom",
+      "shortName": "1pwd",
+      "fullName": "Service Agreement for 1Password users and customers",
+      "url": "https://1password.com/legal/terms-of-service/",
+      "free": false
+    }
+  },
+  {
+    "slug": "a11ycss"
+  },
+  {
+    "slug": "add-custom-search-engine"
+  },
+  {
+    "slug": "anchors-reveal"
+  },
+  {
+    "slug": "bitwarden-password-manager",
+    "pname": "bitwarden"
+  },
+  {
+    "slug": "browserpass-ce",
+    "pname": "browserpass"
+  },
+  {
+    "slug": "buster-captcha-solver"
+  },
+  {
+    "slug": "bypass-paywalls-clean"
+  },
+  {
+    "slug": "consent-o-matic",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mit"
+    }
+  },
+  {
+    "slug": "copy-selection-as-markdown"
+  },
+  {
+    "slug": "darkreader"
+  },
+  {
+    "slug": "display-_anchors"
+  },
+  {
+    "slug": "facebook-container"
+  },
+  {
+    "slug": "firefox-color"
+  },
+  {
+    "slug": "floccus"
+  },
+  {
+    "slug": "gnome-shell-integration"
+  },
+  {
+    "slug": "gopass-bridge"
+  },
+  {
+    "slug": "greasemonkey"
+  },
+  {
+    "slug": "ipfs-companion"
+  },
+  {
+    "slug": "js-search-extension"
+  },
+  {
+    "slug": "kagi-search-for-firefox",
+    "pname": "kagi-search"
+  },
+  {
+    "slug": "kristofferhagen-nord-theme"
+  },
+  {
+    "slug": "laboratory-by-mozilla"
+  },
+  {
+    "slug": "lastpass-password-manager",
+    "license": {
+      "tag": "custom",
+      "shortName": "unfree",
+      "fullName": "Unfree",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/license/",
+      "free": false
+    }
+  },
+  {
+    "slug": "mailvelope"
+  },
+  {
+    "slug": "multi-account-containers"
+  },
+  {
+    "pname": "theme-nord-polar-night",
+    "slug": "nord-polar-night-theme"
+  },
+  {
+    "slug": "octolinker"
+  },
+  {
+    "slug": "octotree"
+  },
+  {
+    "slug": "old-reddit-redirect"
+  },
+  {
+    "slug": "org-capture"
+  },
+  {
+    "slug": "peertubeify"
+  },
+  {
+    "slug": "pinboard"
+  },
+  {
+    "slug": "plasma-integration"
+  },
+  {
+    "slug": "privacy-redirect",
+    "license": {
+      "tag": "predefined",
+      "shortName": "gpl3Plus"
+    }
+  },
+  {
+    "slug": "promnesia"
+  },
+  {
+    "slug": "protondb-for-steam"
+  },
+  {
+    "slug": "pywalfox"
+  },
+  {
+    "slug": "react-devtools"
+  },
+  {
+    "slug": "reddit-enhancement-suite"
+  },
+  {
+    "slug": "reduxdevtools"
+  },
+  {
+    "slug": "refined-github-",
+    "pname": "refined-github"
+  },
+  {
+    "slug": "return-youtube-dislikes"
+  },
+  {
+    "slug": "rust-search-extension"
+  },
+  {
+    "slug": "search-engines-helper"
+  },
+  {
+    "slug": "sidebery"
+  },
+  {
+    "slug": "simple-tab-groups"
+  },
+  {
+    "slug": "single-file",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Plus"
+    }
+  },
+  {
+    "slug": "sourcegraph-for-firefox",
+    "pname": "sourcegraph"
+  },
+  {
+    "slug": "steam-database",
+    "license": {
+      "tag": "predefined",
+      "shortName": "bsd3"
+    }
+  },
+  {
+    "slug": "styl-us",
+    "pname": "stylus"
+  },
+  {
+    "slug": "tab-session-manager"
+  },
+  {
+    "slug": "temporary-containers"
+  },
+  {
+    "slug": "tree-style-tab",
+    "license": {
+      "tag": "custom",
+      "shortName": "tree-style-tab",
+      "fullName": "Tree Style Tab License, primarily MPL 2.0",
+      "url": "https://github.com/piroor/treestyletab/blob/trunk/COPYING.txt",
+      "free": true
+    }
+  },
+  {
+    "slug": "tridactyl-vim",
+    "pname": "tridactyl",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
+    "slug": "tst-search",
+    "pname": "tst-tab-search"
+  },
+  {
+    "slug": "ublacklist"
+  },
+  {
+    "slug": "ublock-origin"
+  },
+  {
+    "slug": "violentmonkey"
+  },
+  {
+    "slug": "wayback-machine_new",
+    "pname": "wayback-machine"
+  },
+  {
+    "slug": "xbs",
+    "pname": "xbrowsersync"
+  },
+  {
+    "slug": "zoom-new-scheduler",
+    "pname": "zoom-scheduler"
+  }
+]

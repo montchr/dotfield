@@ -1,55 +1,49 @@
 {
-  collective,
-  profiles,
+  sharedProfiles,
+  nixosProfiles,
 }: let
   graphical =
-    (with collective.profiles; [
+    (with sharedProfiles; [
       fonts.common
+      fonts.fontconfig
+      fonts.iosevka-variants
     ])
-    ++ (with profiles; [
+    ++ (with nixosProfiles; [
       boot.systemd-boot
       desktop.common
       desktop.gnome-desktop
-      desktop.video
       desktop.zoom-us
     ]);
 
-  server =
-    (with (collective.profiles); [
-      networking.common
-      networking.tailscale
-      networking.ssh-host
-    ])
-    ++ (with profiles; []);
+  server = with nixosProfiles; [
+    networking.common
+    networking.ssh-host
+  ];
 
-  tangible =
-    (with (collective.profiles); [
-      networking.common
-      networking.tailscale
-    ])
-    ++ (with profiles; [
-      hardware.audio
-      hardware.bluetooth
-      hardware.keyboard
-      hardware.printers-scanners
-      networking.wifi
-    ]);
+  tangible = with nixosProfiles; [
+    hardware.keyboard
+    hardware.printers-scanners
+    networking.common
+  ];
 
-  webdev = with profiles; [
-    virtualisation.libvirtd
+  webdev = with nixosProfiles; [
+    virtualisation.libvirt
+    virtualisation.microvm-host
     virtualisation.podman
     virtualisation.vagrant
-    virtualisation.virtualbox
+    virtualisation.virt-manager
   ];
 
   workstation =
-    (with collective.profiles; [
-      networking.ssh-host
+    (with sharedProfiles; [
+      one-password
       secrets
     ])
-    ++ (with profiles; [
+    ++ (with nixosProfiles; [
       boot.systemd-boot
       hardware.yubikey
+      networking.common
+      networking.ssh-host
     ]);
 in {
   inherit

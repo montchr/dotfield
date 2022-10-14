@@ -15,7 +15,7 @@
   fetchFromGitHub,
   orgparse,
   hpi,
-  sources,
+  source,
 }: let
   mistletoe = python3Packages.buildPythonPackage rec {
     pname = "mistletoe";
@@ -30,7 +30,12 @@
   };
 
   hug = python3Packages.buildPythonPackage rec {
-    inherit (sources.hug) pname version src;
+    pname = "hug";
+    version = "2.6.1";
+    src = python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=";
+    };
     doCheck = false;
     nativeBuildInputs = with python3Packages; [pytestrunner];
     propagatedBuildInputs = with python3Packages; [falcon requests];
@@ -72,19 +77,15 @@
   };
 in
   python3Packages.buildPythonPackage rec {
-    inherit (sources.promnesia) pname version src;
+    inherit (source) pname version src;
     makeWrapperArgs = ["--prefix PYTHONPATH : $PYTHONPATH"];
-
     postPatch = ''
       substituteInPlace setup.py \
           --replace "idna<3" "idna" \
           --replace "tzlocal>=3.0" "tzlocal"
     '';
-
     SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
     doCheck = false;
-
     propagatedBuildInputs = with python3Packages; [
       pytest
       appdirs

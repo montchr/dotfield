@@ -2,52 +2,59 @@
   config,
   lib,
   pkgs,
-  inputs,
+  system,
+  self,
   ...
 }: let
-  inherit (config.lib) dotfield;
+  inherit (lib) mkBefore mkIf;
 in {
-  nix.nixPath = [
-    # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
-    # and `nix.generateNixPathFromInputs` options, but currently that doesn't
-    # work because nix-darwin doesn't export packages, which FUP expects.
-    #
-    # This entry should be removed once the upstream issues are fixed.
-    #
-    # https://github.com/LnL7/nix-darwin/issues/277
-    # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
-    "darwin=/etc/nix/inputs/darwin"
-  ];
-
-  environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
-
-  # Administrative users on Darwin systems are part of the admin group by default.
-  nix.trustedUsers = ["@admin" "@wheel"];
+  nix = {
+    configureBuildUsers = true;
+    # FIXME: needs flake-compat
+    # nixPath = mkBefore ["darwin-config=${self}"];
+    settings = {
+      # Administrative users on Darwin systems are part of the admin group.
+      trusted-users = ["@admin"];
+      # Required for building some incompatible packages via Rosetta.
+      extra-platforms = mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
     # => https://github.com/rgcr/m-cli
     m-cli
     mas
-    terminal-notifier
+    # FIXME: broken on aarch64? error when run: "Bad CPU type in executable"
+    # terminal-notifier
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
-    # FIXME: `prefmanager` build fails with sandbox mode enabled
-    # https://github.com/malob/prefmanager/issues/2
+    # TODO: re-enable
     # prefmanager
   ];
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
+
+  environment.shellInit = mkIf config.homebrew.enable ''
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+  '';
 
   homebrew = {
     enable = true;
-    autoUpdate = true;
-    global.noLock = true;
+    onActivation.cleanup = "zap";
+    # Use the nix-darwin brewfile when invoking `brew bundle` imperatively.
+    global.brewfile = true;
   };
+
+  networking.dns = [
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion

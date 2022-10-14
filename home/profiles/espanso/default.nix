@@ -13,7 +13,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: {
   xdg.configFile."espanso" = {

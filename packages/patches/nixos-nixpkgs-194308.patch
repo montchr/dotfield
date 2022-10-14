@@ -1,0 +1,59 @@
+From 2ba40b566960fbab1e549a792fe4690cd31bb70f Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Tue, 4 Oct 2022 02:31:30 +0200
+Subject: [PATCH] python3Packages.pytest-xdist: Disable fork safety on darwin
+
+We run pytest with `--forked` in nixpkgs, to reduce side effects that
+can occur when multiple tests mutate their environment in incompatible
+ways.
+
+Forking on macOS 10.13 and later is unsafe when an application does work
+between calls to fork() and its followup exec(). This may lead to
+crashes when calls into the Objective-C runtime are issued, which will
+in turn coredump the Python interpreter.
+
+One good reproducer for this scenario is when the urllib module tries
+to lookup proxy configurations in `urllib.request.getproxies()` through
+`get_proxies_macos_sysconf` into the native `_scproxy` module.
+
+This is a class of issues that is of course not limited to the urllib
+module. The general recommendation is to use `spawn` instead of `fork`,
+but we don't have any influence on upstream developers to do one or the
+other.
+
+One often cited workaround would be to disable fork safety entirely on
+calls to `initialize()`, which is probably a better solution than
+running without multithreading (slow) or without the `--forked` (prone
+to side effects) mode.
+
+This currently happens on aarch64-linux only, where we use more recent
+11.0 SDK version, while x86_64-darwin has been stuck on 10.12 for a
+while now.
+
+https://github.com/python/cpython/issues/77906#issuecomment-1093788352
+http://www.sealiesoftware.com/blog/archive/2017/6/5/Objective-C_and_fork_in_macOS_1013.html
+
+Closes: #194290
+---
+ .../development/python-modules/pytest-xdist/setup-hook.sh | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/pkgs/development/python-modules/pytest-xdist/setup-hook.sh b/pkgs/development/python-modules/pytest-xdist/setup-hook.sh
+index 5523a7f360f5f..61d0f64d1a4da 100644
+--- a/pkgs/development/python-modules/pytest-xdist/setup-hook.sh
++++ b/pkgs/development/python-modules/pytest-xdist/setup-hook.sh
+@@ -3,6 +3,14 @@ pytestXdistHook() {
+         "--numprocesses=$NIX_BUILD_CORES"
+         "--forked"
+     )
++
++    # Using --forked on darwin leads to crashes when fork safety is
++    # enabled. This often happens when urllib tries to request proxy
++    # settings on MacOS through `urllib.request.getproxies()`
++    # - https://github.com/python/cpython/issues/77906
++    if [[ "$OSTYPE" == "darwin"* ]]; then
++        export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
++    fi
+ }
+ 
+ # the flags should be added before pytestCheckHook runs so

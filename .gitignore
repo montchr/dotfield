@@ -1,20 +1,40 @@
-# Nix
+##: nix build artifacts
 result
 
-# nvfetcher
-packages/sources/_sources/.shake*
+##: dependencies / package managers
+node_modules/
+.composer/
 
-# Emacs
+##: editor files
+.idea
 custom.el
 flycheck_config.el
 
-# Local files
+##: local-only files
 *.local
 
-# CI
-.terraform/
-*.tfvars
+##: cache/state files
 *.tfstate*
+*.tfvars
+.direnv/
+.eslintcache/
+.npm/
+.terraform/
+packages/sources/_sources/.shake*
 
-/.composer/
-/.direnv
+##: virtual machine images
+*.qcow2
+*.img
+
+##: operating system clutter
+.DS_Store
+
+##: temporary files
+*.tmp
+tmp/
+
+##: logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo

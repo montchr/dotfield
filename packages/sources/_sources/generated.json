@@ -1,17 +1,40 @@
 {
-    "HPI": {
+    "cpanel-cli": {
         "cargoLocks": null,
         "extract": null,
-        "name": "HPI",
+        "name": "cpanel-cli",
         "passthru": null,
         "pinned": false,
         "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
             "name": null,
-            "sha256": "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/H/HPI/HPI-0.3.20220607.tar.gz"
+            "owner": "layfellow",
+            "repo": "cpanel-cli",
+            "rev": "6ce69394a726bd337a07048b4601cbb2623cf7a6",
+            "sha256": "sha256-RtUH7HgW6ZPt/JH4v7bsJfsEiyQDykUvlIM8Yq0vrTw=",
+            "type": "github"
         },
-        "version": "0.3.20220607"
+        "version": "6ce69394a726bd337a07048b4601cbb2623cf7a6"
+    },
+    "firefox-lepton-ui": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "firefox-lepton-ui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "d4c01b52f866ce9259c48d35d6c53c982868037d",
+            "sha256": "sha256-XUG/Vk3pKjEdPruKAEI4jX/k6wspUcr1YE3BP8/EDmQ=",
+            "type": "git",
+            "url": "https://github.com/black7375/Firefox-UI-Fix"
+        },
+        "version": "d4c01b52f866ce9259c48d35d6c53c982868037d"
     },
     "fish-autopair": {
         "cargoLocks": null,
@@ -43,12 +66,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca",
-            "sha256": "sha256-NIEyWkO+IVSv0NQz/otwPF5NdwheCz+HTs7YJGBdgJU=",
+            "rev": "adff5966739667d4c13d6388372e40f821571208",
+            "sha256": "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=",
             "type": "git",
             "url": "https://github.com/gazorby/fifc"
         },
-        "version": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca"
+        "version": "adff5966739667d4c13d6388372e40f821571208"
     },
     "fish-replay": {
         "cargoLocks": null,
@@ -80,26 +103,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f",
-            "sha256": "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=",
+            "rev": "15156e3cb56c715464a2421e6f4e4356a26ac975",
+            "sha256": "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=",
             "type": "git",
             "url": "https://github.com/DanielFGray/fzf-scripts"
         },
-        "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
-    },
-    "hug": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "hug",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/h/hug/hug-2.6.1.tar.gz"
-        },
-        "version": "2.6.1"
+        "version": "15156e3cb56c715464a2421e6f4e4356a26ac975"
     },
     "kitty-bortflower-icons": {
         "cargoLocks": null,
@@ -118,20 +127,6 @@
             "url": "https://github.com/DinkDonk/kitty-icon.git"
         },
         "version": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67"
-    },
-    "orgparse": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "orgparse",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/o/orgparse/orgparse-0.3.1.tar.gz"
-        },
-        "version": "0.3.1"
     },
     "promnesia": {
         "cargoLocks": null,
@@ -152,10 +147,10 @@
         },
         "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
     },
-    "roots-trellis-cli": {
+    "trellis-cli": {
         "cargoLocks": null,
         "extract": null,
-        "name": "roots-trellis-cli",
+        "name": "trellis-cli",
         "passthru": null,
         "pinned": false,
         "src": {

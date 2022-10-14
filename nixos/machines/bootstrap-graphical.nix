@@ -2,8 +2,6 @@
   config,
   lib,
   pkgs,
-  profiles,
-  suites,
   ...
 }: {
   # Will be overridden by the bootstrapIso module.
@@ -18,6 +16,7 @@
 
   home-manager.users.nixos = hmArgs: {
     imports = with hmArgs.roles; graphical ++ developer;
+    home.stateVersion = "22.05";
   };
 
   system.stateVersion = "22.05";

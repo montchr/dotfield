@@ -7,8 +7,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    # EPSON WF-3520
-    epson-201212w
+    epson-201212w # EPSON WF-3520
   ];
   nixpkgs.config.allowUnfree = lib.mkForce true;
   networking.extraHosts = ''

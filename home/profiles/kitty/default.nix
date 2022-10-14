@@ -1,37 +1,48 @@
-moduleArgs @ {
+{
   config,
   lib,
-  options,
   pkgs,
   inputs,
   ...
 }: let
-  inherit (inputs) base16-kitty nix-colors;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-  inherit (config.lib.dotfield.features) hasTwm hasPragPro;
+  inherit (builtins) toString;
+  inherit (inputs) nix-colors;
+  inherit
+    (lib)
+    concatMapStringsSep
+    concatStringsSep
+    isBool
+    mkIf
+    optionalString
+    ;
+  inherit (lib.generators) toKeyValue;
+  inherit (lib.hm.booleans) yesNo;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (config.lib.dotfield) features;
+  inherit (config) theme;
 
   socket = "unix:/tmp/kitty-socket";
 
-  settings = import ./settings.nix {inherit lib hasTwm socket;};
+  settings = import ./settings.nix {inherit lib features socket;};
   colors = import ./colors.nix config.colorscheme;
 
   # via home-manager kitty module
-  toKittyConfig = lib.generators.toKeyValue {
+  toKittyConfig = toKeyValue {
     mkKeyValue = key: value: let
       value' =
-        if lib.isBool value
-        then (lib.hm.booleans.yesNo value)
-        else builtins.toString value;
+        if isBool value
+        then (yesNo value)
+        else toString value;
     in "${key} ${value'}";
   };
 
-  mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
-  mkTheme' = name: toKittyConfig (mkTheme name);
+  colorScheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
+  mkColorScheme = name: toKittyConfig (colorScheme name);
 
-  mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
+  mkFontFeatures = name: features: "font_features ${name} ${concatStringsSep " " features}";
 
   mkFontFeatures' = family: styles: features:
-    lib.concatMapStringsSep "\n"
+    concatMapStringsSep "\n"
     (style: mkFontFeatures "${family}-${style}" features)
     styles;
 
@@ -47,51 +58,45 @@ moduleArgs @ {
   in ''
     ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
   '';
-in
-  # FIXME: reduce the amount of merging -> reduce complecity
-  lib.mkMerge [
-    (lib.mkIf isDarwin {
-      # Handled by the Homebrew module
-      # This populates a dummy package to satisfy the requirement
-      programs.kitty.package = pkgs.runCommand "kitty-0.0.0" {} "mkdir $out";
+in {
+  home.packages = with pkgs; [
+    kitty-get-window-by-platform-id
+    # (mkIf isDarwin kitty-set-app-icon)
+  ];
 
-      programs.kitty.darwinLaunchOptions = [
-        "--single-instance"
-        "--listen-on=${socket}"
-      ];
-    })
+  home.sessionVariables = {
+    KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
+  };
 
-    {
-      home.packages = with pkgs; [
-        kitty-helpers.getWindowByPlatformId
-        (lib.mkIf isDarwin kitty-helpers.setAppIcon)
-      ];
-
-      home.sessionVariables = {
-        KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
-        # FIXME: necessary?
-        KITTY_SOCKET = socket;
+  programs.kitty = {
+    enable = true;
+    settings =
+      settings
+      // colors
+      // {
+        font_family = theme.fonts.term.family;
+        font_size = "${builtins.toString theme.fonts.term.size}.0";
       };
+    extraConfig = ''
+      ${optionalString features.hasPragPro pragmataProExtras}
+    '';
 
-      programs.kitty = {
-        enable = true;
-        settings = settings // colors;
-        extraConfig = ''
-          ${lib.optionalString hasPragPro pragmataProExtras}
-        '';
-      };
+    darwinLaunchOptions = mkIf isDarwin [
+      "--single-instance"
+      "--listen-on=${socket}"
+    ];
+  };
 
-      xdg.configFile = {
-        "kitty/base16-kitty".source = base16-kitty.outPath;
-        "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
-        "kitty/themes/light.conf".text = mkTheme' "grayscale-light";
+  xdg.configFile = {
+    "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
+    "kitty/themes/light.conf".text = mkColorScheme theme.colors.light;
 
-        "kitty/session".text = ''
-          # Start new sessions in the previous working directory
-          # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
-          # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
-          launch --cwd=current
-        '';
-      };
-    }
-  ]
+    # FIXME: does not appear to have an effect?
+    "kitty/session".text = ''
+      # Start new sessions in the previous working directory
+      # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
+      # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
+      launch --cwd=current
+    '';
+  };
+}

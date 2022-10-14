@@ -3,6 +3,14 @@
 [formatter.nix]
 command = "alejandra"
 includes = ["*.nix"]
+excludes = [
+  ##: upstreamable
+  "home/modules/gpg-agent.nix",
+  "home/modules/syncthing.nix",
+  ##: generated files
+  "packages/applications/firefox/firefox-addons/addons.nix",
+  "packages/sources/_sources/*.nix",
+]
 
 [formatter.prettier]
 command = "prettier"
@@ -19,16 +27,25 @@ includes = [
     "*.ts",
     "*.tsx",
 ]
+excludes = [
+  "generated.json",
+  "karabiner.json",
+  "Dark-Reader-Settings.json",
+]
 
 [formatter.shell]
 command = "sh"
 options = [
     "-eucx",
     """
-if [[ $# -le 0 ]]; then exit 0; fi
-shellcheck "$@"
+##: 1) shellcheck
+# FIXME: shellcheck may be too aggressive for now
+# shellcheck --external-sources --source-path=SCRIPTDIR "$@"
+
+##: 2) format
 shfmt -i 2 -s -w "$@"
-    """
+    """,
+    "--", # bash swallows the second argument when using -c
 ]
 includes = ["*.sh"]
 excludes = []

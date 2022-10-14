@@ -13,16 +13,32 @@
 in {
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  # FIXME: propagate to GNOME settings
+  # TODO: tap-dance: esc
   services.xserver.xkbOptions = "caps:ctrl_modifier";
-
-  # TODO: might only be available on master?
-  # programs._1password-gui.enable = true;
-  # programs._1password.enable = true;
+  dotfield.guardian.user.extraGroups = ["audio" "video"];
 
   xdg.portal.enable = true;
 
-  programs.gnupg.agent.enableBrowserSocket = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = false; # required for pipewire
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+  };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluez;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+  };
+
+  # FIXME: still necessary? this isn't a great idea
+  # programs.gnupg.agent.enableBrowserSocket = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -32,27 +48,25 @@ in {
     keystroke = true;
   };
 
+  # Prevent stupid boot delays waiting for internet.
+  # FIXME: this doesn't really seem to help much. dhcp still delays boot.
+  # https://discourse.nixos.org/t/boot-faster-by-disabling-udev-settle-and-nm-wait-online/6339
+  systemd.services.systemd-udev-settle.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   environment.variables = {
     MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
+    # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
+    # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
+    MOZ_USE_XINPUT2 = "1";
   };
 
   environment.systemPackages =
     (with pkgs; [
-      _1password
-      _1password-gui
       firefoxPackage
       signal-desktop
     ])
     ++ (lib.optionals hasWayland (with pkgs; [
       wl-clipboard
-
-      # Grab images from a Wayland compositor
-      # https://sr.ht/~emersion/grim/
-      grim
-
-      # Select a region in a Wayland compositor and print it to the standard output.
-      # A complement to grim
-      # https://github.com/emersion/slurp
-      slurp
     ]));
 }

@@ -2,18 +2,12 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
-  inherit (lib.dotfield.whoami) githubUserName;
-
   envInit = import ./env-init.sh.nix;
-
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
-
-  fdBin = "${pkgs.fd}/bin/fd";
 in {
   imports = [
     ./fzf.nix

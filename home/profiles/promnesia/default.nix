@@ -18,7 +18,7 @@
   # configFile = pkgs.writeScript "config.py" readConfig;
   # watcherPath = "/home/gtrun/Dropbox/org-notes/braindump";
 in {
-  home.packages = with pkgs; [promnesia];
+  # home.packages = with pkgs; [promnesia];
   # systemd.user.services.promnesia = {
   #   description = "promnesia Daemon";
   #   wantedBy = ["graphical-session.target"];

@@ -1,49 +1,82 @@
+# Copyright (C) 2022 Chris Montgomery
+# SPDX-License-Identifier: GPL-3.0+
+#
+# Copyright (C) 2021 Gytis Ivaskevicius
+# SPDX-License-Identifier: MIT
+#
+## Sources:
+#
+# https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a/LICENSE
 {
+  self,
   config,
   lib,
   pkgs,
   ...
 }: let
+  inherit
+    (builtins)
+    mapAttrs
+    ;
+  inherit
+    (lib)
+    filterAttrs
+    mapAttrs'
+    ;
+  inherit (self) inputs;
   substituters = [
-    "https://cache.nixos.org/"
+    ##: personal
     "https://dotfield.cachix.org"
-    "https://nix-community.cachix.org"
+    "https://iosevka-xtal.cachix.org"
+    ##: community
     "https://nixpkgs-wayland.cachix.org"
+    "https://nix-community.cachix.org"
+    ##: official
+    "https://cache.nixos.org/"
+  ];
+  trusted-public-keys = [
+    "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
+    "iosevka-xtal.cachix.org-1:5d7Is01fs3imwU9w5dom2PcSskJNwtJGbfjRxunuOcw="
+    "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   trusted-substituters = substituters;
+  inputFlakes = filterAttrs (_: v: v ? outputs) inputs;
+  inputsToPaths = mapAttrs' (name: value: {
+    name = "nix/inputs/${name}";
+    value.source = value.outPath;
+  });
 in {
+  environment.etc = inputsToPaths inputs;
   nix = {
     package = pkgs.nix;
+    nixPath = [
+      "nixpkgs=${pkgs.path}"
+      "home-manager=${inputs.home-manager}"
+      "darwin=${inputs.darwin}"
+      "/etc/nix/inputs"
+    ];
+    registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
-      inherit substituters trusted-substituters;
-
+      inherit
+        substituters
+        trusted-substituters
+        trusted-public-keys
+        ;
+      auto-optimise-store = true;
+      experimental-features = ["nix-command" "flakes"];
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
-      # FIXME: dangerous
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel" "@seadome"];
-
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      ];
     };
 
     gc = {
       automatic = true;
-      dates = "weekly";
     };
 
     extraOptions = ''
       warn-dirty = false
     '';
-
-    # FUP Options {{
-    # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix
-    linkInputs = true;
-    generateRegistryFromInputs = true;
-    generateNixPathFromInputs = true;
-    # }}
   };
 }

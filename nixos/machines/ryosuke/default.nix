@@ -2,13 +2,9 @@
   config,
   lib,
   pkgs,
-  profiles,
-  suites,
-  inputs,
-  collective,
+  peers,
   ...
 }: let
-  inherit (collective) peers;
   inherit (config.networking) hostName;
 in {
   imports = [
@@ -22,7 +18,7 @@ in {
   boot.supportedFilesystems = ["btrfs"];
 
   virtualisation.vmVariant = {
-    virtualisation.graphics = false;
+    virtualisation.graphics = true;
   };
 
   system.stateVersion = "22.05";
@@ -32,7 +28,6 @@ in {
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -43,21 +38,19 @@ in {
 
   ### === networking ===========================================================
 
-  networking = lib.mkIf (!config.nixos-vm.enable) (
-    let
-      #host = peers.hosts.${hostName};
-      #net = peers.networks.${host.network};
-      #interface = "eth0";
-    in {
-      #networkmanager.enable = true;
-      #wireless.enable = true; # Enables wireless support via wpa_supplicant.
-      #useDHCP = true;
-      #usePredictableInterfaceNames = false;
+  networking.firewall.enable = true;
+  networking.usePredictableInterfaceNames = false;
 
-      firewall = {
-        enable = true;
-        # allowedTCPPorts = [80 443];
-      };
-    }
-  );
+  ##: wake on lan
+
+  networking.interfaces."eth0".wakeOnLan.enable = true;
+  # https://wiki.archlinux.org/title/Wake-on-LAN#Enable_WoL_in_TLP
+  services.tlp.settings.WOL_DISABLE = "N";
+  environment.systemPackages = with pkgs; [
+    # Manually enable WOL:
+    #   $ sudo ethtool -s eth0 wol g
+    # Check WOL status:
+    #   $ sudo ethtool eth0 | grep Wake-on
+    ethtool
+  ];
 }

@@ -17,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Required for accessing private repos with an authorised key.
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2.3.1
         with:
@@ -28,14 +29,15 @@ jobs:
           extra_nix_config: |
             allow-import-from-derivation = true
 
-      - uses: cachix/cachix-action@v10
+      - name: Set up binary cache
+        uses: cachix/cachix-action@v10
         with:
           name: dotfield
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          extraPullNames: dotfield,nix-community,nrdxp
+          extraPullNames: dotfield,nix-community,nixpkgs-wayland
 
       # FIXME: fails b/c ifd
-      # - run: nix -Lv flake show --show-trace
+      - run: nix -Lv flake show --show-trace
 
       - run: nix -Lv flake check --show-trace

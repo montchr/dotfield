@@ -1,21 +1,28 @@
-{profiles}:
-with profiles; let
-  developer = [
-    dhall
+{homeProfiles}:
+with homeProfiles; let
+  remote = [
     direnv
-    emacs
     git
-    python
-    shells.zsh
     shells.fish
     ssh
   ];
 
+  # TODO: dissolve into workstation?
+  developer = [
+    difftools.difftastic
+    direnv
+    emacs
+    git
+    python
+    shells.fish
+    shells.zsh
+    ssh
+  ];
+
   graphical = [
+    chromium
     desktop.common
-    desktop.gnome
     firefox
-    foot
     keyboard
     kitty
     misc
@@ -27,6 +34,8 @@ with profiles; let
     apple-music
     espanso
     misc
+    # FIXME: rust-motd v1.0.0 unavailable? won't build on aarch64-darwin
+    # motd
     newsboat
     obs-studio
     spotify
@@ -34,16 +43,17 @@ with profiles; let
     zotero
   ];
 
-  remote = [
-    shells.fish
-    ssh
-  ];
-
   trusted = [
     gpg
-    mail
-    promnesia
-    secrets.one-password
+
+    # FIXME: upstream bug? `mu` is hardcoded, not a reference to `pkgs.mu`
+    # > Activating runMuInit
+    # > /nix/store/crf1jbfp5zs9l4xrpfck5lh4sk5d5rlx-home-manager-generation/activate: line 290: mu: command not found
+    # mail
+
+    # FIXME: broken
+    # promnesia
+
     secrets.password-store
     yubikey
   ];
@@ -51,6 +61,8 @@ with profiles; let
   webdev = [
     aws
     nodejs
+    development.flyio
+    development.javascript
     development.php
     development.wordpress
   ];

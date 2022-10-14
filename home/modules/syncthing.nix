@@ -10,12 +10,9 @@ let
 
 in {
   meta.maintainers = [ maintainers.rycee ];
-    # Use our local fork of these modules while still pending upstream changes.
-    # This is necessary in order to avoid tracking `nixpkgs-unstable` to appease hm.
-    disabledModules = [
-      "services/syncthing.nix"
-    ];
 
+  # Use our local fork of these modules while still pending upstream changes.
+  disabledModules = ["services/syncthing.nix"];
 
   options = {
     services.syncthing = {

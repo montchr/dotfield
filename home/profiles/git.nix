@@ -2,12 +2,10 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
-  inherit (lib) getAttr attrNames;
   inherit
-    (config.lib.dotfield.whoami)
+    (config.dotfield.whoami)
     email
     fullName
     githubUserName
@@ -19,31 +17,36 @@
     && config.services.gpg-agent.enable
     && "" != pgpPublicKey;
 in {
-  home.packages = with pkgs; [
-    ediff-tool
-    exiftool # EXIF diff handler
-    git-cliff
-    git-submodule-rewrite
-    gitAndTools.hub
-    gitAndTools.gh
-    gitAndTools.tig
+  home.packages =
+    (with pkgs.gitAndTools; [
+      hub
+      gh
+      tig
+    ])
+    ++ (with pkgs; [
+      ediff-tool
+      exiftool # EXIF diff handler
+      git-cliff
+      git-submodule-rewrite
 
-    # Identify the largest files in a git repo's history.
-    #
-    # Even after committing the deletion of a file, it will remain in git
-    # history forever. This script allows for the identification of such files,
-    # sorted from smallest to largest.
-    #
-    # via: https://stackoverflow.com/a/42544963
-    (writeShellScriptBin "git-hls-by-size" ''
-      git rev-list --objects --all \
-        | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
-        | sed -n 's/^blob //p' \
-        | sort --numeric-sort --key=2 \
-        | cut -c 1-12,41- \
-        | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
-    '')
-  ];
+      # Identify the largest files in a git repo's history.
+      #
+      # Even after committing the deletion of a file, it will remain in git
+      # history forever. This script allows for the identification of such files,
+      # sorted from smallest to largest.
+      #
+      # via: https://stackoverflow.com/a/42544963
+      #
+      # TODO: use pkgs instead of hard-coded commands
+      (writeShellScriptBin "git-hls-by-size" ''
+        git rev-list --objects --all \
+          | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+          | sed -n 's/^blob //p' \
+          | sort --numeric-sort --key=2 \
+          | cut -c 1-12,41- \
+          | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+      '')
+    ]);
 
   programs.git = {
     enable = true;
@@ -55,15 +58,6 @@ in {
     signing = lib.mkIf enableSigning {
       key = pgpPublicKey;
       signByDefault = true;
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        line-numbers = true;
-        navigate = true;
-        keep-plus-minus-markers = true;
-      };
     };
 
     ignores = [
@@ -115,6 +109,12 @@ in {
 
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
+
+        ##: `tig` configuration {{
+        tig = {
+          line-graphics = "auto";
+        };
+        ##: }}
 
         ##: Remotes {{
         fetch.recurseSubmodules = true;

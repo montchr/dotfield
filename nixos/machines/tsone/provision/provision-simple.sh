@@ -12,7 +12,7 @@
 #   * - parted
 #   * - sudo
 #   * - grub-efi-amd64-bin
-cat > /etc/apt/preferences.d/90_zfs <<EOF
+cat >/etc/apt/preferences.d/90_zfs <<EOF
 Package: libnvpair1linux libuutil1linux libzfs2linux libzpool2linux spl-dkms zfs-dkms zfs-test zfsutils-linux zfsutils-linux-dev zfs-zed
 Pin: release n=buster-backports
 Pin-Priority: 990
@@ -109,11 +109,11 @@ mdadm --stop --scan
 # We use `>` because the file may already contain some detected RAID arrays,
 # which would take precedence over our `<ignore>`.
 echo 'AUTO -all
-ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
+ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' >/etc/mdadm/mdadm.conf
 
 # Create wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
 # the kernel of partitions changing (we use partprobe for that).
-echo -e "#! /usr/bin/env bash\nset -e\n" 'parted $@ 2> parted-stderr.txt || grep "unable to inform the kernel of the change" parted-stderr.txt && echo "This is expected, continuing" || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"' > parted-ignoring-partprobe-error.sh && chmod +x parted-ignoring-partprobe-error.sh
+echo -e "#! /usr/bin/env bash\nset -e\n" 'parted $@ 2> parted-stderr.txt || grep "unable to inform the kernel of the change" parted-stderr.txt && echo "This is expected, continuing" || echo >&2 "Parted failed; stderr: $(< parted-stderr.txt)"' >parted-ignoring-partprobe-error.sh && chmod +x parted-ignoring-partprobe-error.sh
 
 # Create partition tables (--script to not ask)
 ./parted-ignoring-partprobe-error.sh --script $DISK1 mklabel gpt
@@ -138,14 +138,14 @@ echo -e "#! /usr/bin/env bash\nset -e\n" 'parted $@ 2> parted-stderr.txt || grep
 # however if it's less the installation fails with
 # cannot copy /nix/store/d4xbrrailkn179cdp90v4m57mqd73hvh-linux-5.4.100/bzImage to /boot/kernels/d4xbrrailkn179cdp90v4m57mqd73hvh-linux-5.4.100-bzImage.tmp: No space left on device
 ./parted-ignoring-partprobe-error.sh --script --align optimal $DISK1 -- mklabel gpt \
-    mkpart 'BIOS-boot-partition' 1MB 2MB set 1 bios_grub on \
-    mkpart 'EFI-system-partition' 2MB 512MB set 2 esp on \
-    mkpart 'data-partition' 512MB '100%'
+  mkpart 'BIOS-boot-partition' 1MB 2MB set 1 bios_grub on \
+  mkpart 'EFI-system-partition' 2MB 512MB set 2 esp on \
+  mkpart 'data-partition' 512MB '100%'
 
 ./parted-ignoring-partprobe-error.sh --script --align optimal $DISK2 -- mklabel gpt \
-    mkpart 'BIOS-boot-partition' 1MB 2MB set 1 bios_grub on \
-    mkpart 'EFI-system-partition' 2MB 512MB set 2 esp on \
-    mkpart 'data-partition' 512MB '100%'
+  mkpart 'BIOS-boot-partition' 1MB 2MB set 1 bios_grub on \
+  mkpart 'EFI-system-partition' 2MB 512MB set 2 esp on \
+  mkpart 'data-partition' 512MB '100%'
 
 # Reload partitions
 partprobe
@@ -171,13 +171,13 @@ udevadm trigger
 
 # taken from https://nixos.wiki/wiki/NixOS_on_ZFS
 zpool create -O mountpoint=none \
-    -O atime=off \
-    -O compression=lz4 \
-    -O xattr=sa \
-    -O acltype=posixacl \
-    -o ashift=12 \
-    -f \
-    rpool mirror $DISK1-part3 $DISK2-part3
+  -O atime=off \
+  -O compression=lz4 \
+  -O xattr=sa \
+  -O acltype=posixacl \
+  -o ashift=12 \
+  -f \
+  rpool mirror $DISK1-part3 $DISK2-part3
 
 # Create the filesystems. This layout is designed so that /home is separate from the root
 # filesystem, as you'll likely want to snapshot it differently for backup purposes. It also
@@ -191,10 +191,10 @@ zfs create -o mountpoint=legacy rpool/home
 zfs create -o refreservation=1G -o mountpoint=none rpool/reserved
 # this creates a special volume for db data see https://wiki.archlinux.org/index.php/ZFS#Databases
 zfs create -o mountpoint=legacy \
-    -o recordsize=8K \
-    -o primarycache=metadata \
-    -o logbias=throughput \
-    rpool/postgres
+  -o recordsize=8K \
+  -o primarycache=metadata \
+  -o logbias=throughput \
+  rpool/postgres
 
 # NixOS pre-installation mounts
 #
@@ -211,12 +211,12 @@ mount -t zfs rpool/postgres /mnt/var/lib/postgres
 # TODO check this though the following article says it doesn't work properly
 # https://outflux.net/blog/archives/2018/04/19/uefi-booting-and-raid1/
 mdadm --create --run --verbose /dev/md127 \
-    --level 1 \
-    --raid-disks 2 \
-    --metadata 1.0 \
-    --homehost=$MY_HOSTNAME \
-    --name=boot_efi \
-    $DISK1-part2 $DISK2-part2
+  --level 1 \
+  --raid-disks 2 \
+  --metadata 1.0 \
+  --homehost=$MY_HOSTNAME \
+  --name=boot_efi \
+  $DISK1-part2 $DISK2-part2
 
 # Assembling the RAID can result in auto-activation of previously-existing LVM
 # groups, preventing the RAID block device wiping below with
@@ -230,7 +230,7 @@ wipefs -a /dev/md127
 
 # Disable RAID recovery. We don't want this to slow down machine provisioning
 # in the rescue mode. It can run in normal operation after reboot.
-echo 0 > /proc/sys/dev/raid/speed_limit_max
+echo 0 >/proc/sys/dev/raid/speed_limit_max
 
 # Filesystems (-F to not ask on preexisting FS)
 mkfs.vfat -F 32 /dev/md127
@@ -249,7 +249,7 @@ mount /dev/md127 /mnt/boot/efi
 # Allow installing nix as root, see
 #   https://github.com/NixOS/nix/issues/936#issuecomment-475795730
 mkdir -p /etc/nix
-echo "build-users-group =" > /etc/nix/nix.conf
+echo "build-users-group =" >/etc/nix/nix.conf
 
 # TODO
 # warning: installing Nix as root is not supported by this script!
@@ -298,11 +298,12 @@ IP_V6="$(ip route get 2001:4860:4860:0:0:0:0:8888 | head -1 | cut -d' ' -f7 | cu
 echo "Determined IP_V6 as $IP_V6"
 
 # From https://stackoverflow.com/questions/1204629/how-do-i-get-the-default-gateway-in-linux-given-the-destination/15973156#15973156
-read _ _ DEFAULT_GATEWAY _ < <(ip route list match 0/0); echo "$DEFAULT_GATEWAY"
+read _ _ DEFAULT_GATEWAY _ < <(ip route list match 0/0)
+echo "$DEFAULT_GATEWAY"
 echo "Determined DEFAULT_GATEWAY as $DEFAULT_GATEWAY"
 
 # Generate `configuration.nix`. Note that we splice in shell variables.
-cat > /mnt/etc/nixos/configuration.nix <<EOF
+cat >/mnt/etc/nixos/configuration.nix <<EOF
 { config, pkgs, ... }:
 
 {
@@ -367,7 +368,7 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
 EOF
 
 # Install NixOS
-PATH="$PATH" NIX_PATH="$NIX_PATH" `which nixos-install` \
+PATH="$PATH" NIX_PATH="$NIX_PATH" $(which nixos-install) \
   --no-root-passwd --root /mnt --max-jobs 40
 
 umount /mnt

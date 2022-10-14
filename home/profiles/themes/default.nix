@@ -2,23 +2,27 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
-  theme =
-    if envTheme != ""
-    then envTheme
-    else "black-metal-khold";
 in {
-  colorscheme = inputs.nix-colors.colorSchemes.${theme};
+  theme.enable = true;
 
-  theme.font = {
+  theme.colors = {
+    active = lib.mkIf (envTheme != "") envTheme;
+    dark = "ia-dark";
+    light = "ia-light";
+  };
+
+  theme.fonts = {
     mono = {
       family = "Iosevka Xtal";
       size = 13;
+    };
+    term = {
+      family = "Iosevka Xtal Term";
     };
     sans = {
       family = "IBM Plex Sans";
@@ -28,17 +32,10 @@ in {
       family = "IBM Plex Serif";
       size = 13;
     };
-    # sym = {
-    #   family = "Iosevka Nerd Font Complete";
-    #   size = lib.mkDefault config.theme.font.mono.size;
-    # };
-  };
-
-  home.sessionVariables = {
-    BASE16_THEME_DARK = "black-metal-khold";
-    BASE16_THEME_LIGHT = "grayscale-light";
-    DOTFIELD_EMACS_THEME_DARK = "modus-vivendi";
-    DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
+    symbols = {
+      # NOTE: this family name is unexpected, but that's what's listed in Font Manager
+      family = "Symbols Nerd Font Mono";
+    };
   };
 
   home.packages = with pkgs; [
