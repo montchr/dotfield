@@ -25,12 +25,9 @@
     aarch64-darwin
     x86_64-darwin
     ;
-  inherit
-    (lib)
-    makeOverridable
-    optionalAttrs
-    ;
   inherit (inputs.darwin.lib) darwinSystem;
+
+  l = lib // builtins;
 
   roles = import ./roles {inherit sharedProfiles darwinProfiles;};
 
@@ -59,7 +56,7 @@
         # NOTE: I have not yet had to use this, fortunately, but that means it's
         # untested.
         rosettaPkgs =
-          optionalAttrs (system == aarch64-darwin)
+          l.optionalAttrs (system == aarch64-darwin)
           (import nixpkgs {
             system = x86_64-darwin;
             config.allowUnfree = true;
@@ -71,7 +68,7 @@
           };
         };
       in
-        makeOverridable darwinSystem {
+        l.makeOverridable darwinSystem {
           inherit pkgs system;
           modules =
             defaultModules
