@@ -24,8 +24,10 @@
 
     inherit
       (pkgs)
+      alejandra
       cachix
       editorconfig-checker
+      manix
       nix-diff
       nix-tree
       nvd
@@ -166,6 +168,8 @@
       do-theme-kitty
       do-theme-emacs
 
+      (utils cachix)
+      (utils manix)
       (utils nix-diff)
       (utils nix-tree)
 
@@ -196,6 +200,7 @@
         '';
       })
 
+      (formatters alejandra)
       (formatters prettier)
       (formatters treefmt)
       (formatters' {
