@@ -39,14 +39,14 @@ in {
 
   # Install completions for system packages.
   environment.pathsToLink = [
-    (lib.optionalString config.programs.fish.enable "/share/fish")
-    (lib.optionalString config.programs.zsh.enable "/share/zsh")
+    (l.optionalString config.programs.fish.enable "/share/fish")
+    (l.optionalString config.programs.zsh.enable "/share/zsh")
   ];
 
   programs.zsh = {
-    enable = lib.mkDefault true;
+    enable = l.mkDefault true;
     enableCompletion = true;
   };
 
-  programs.fish.enable = lib.mkDefault true;
+  programs.fish.enable = l.mkDefault true;
 }
