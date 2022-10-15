@@ -14,10 +14,6 @@
 
   environment.variables = {
     EDITOR = "vim";
-    KERNEL_NAME =
-      if pkgs.stdenv.hostPlatform.isDarwin
-      then "darwin"
-      else "linux";
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     XDG_CACHE_HOME = "$HOME/.cache";
