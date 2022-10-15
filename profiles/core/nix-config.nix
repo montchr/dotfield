@@ -68,7 +68,7 @@ in {
       experimental-features = ["nix-command" "flakes"];
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       allowed-users = ["*"];
-      trusted-users = ["root" "@wheel" "@seadome"];
+      trusted-users = ["root" "@wheel"];
     };
 
     gc = {
