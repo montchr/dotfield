@@ -3,14 +3,16 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  l = lib // builtins;
+in {
   imports = [
     ../../lib/system
     ./nix-config.nix
     ./system-packages.nix
   ];
 
-  time.timeZone = "America/New_York";
+  time.timeZone = l.mkDefault "America/New_York";
 
   environment.variables = {
     EDITOR = "vim";
