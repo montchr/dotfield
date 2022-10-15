@@ -14,16 +14,9 @@
   pkgs,
   ...
 }: let
-  inherit
-    (builtins)
-    mapAttrs
-    ;
-  inherit
-    (lib)
-    filterAttrs
-    mapAttrs'
-    ;
   inherit (self) inputs;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  l = lib // builtins;
   substituters = [
     ##: personal
     "https://dotfield.cachix.org"
@@ -42,10 +35,10 @@
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   trusted-substituters = substituters;
-  inputFlakes = filterAttrs (_: v: v ? outputs) inputs;
-  inputsToPaths = mapAttrs' (name: value: {
-    name = "nix/inputs/${name}";
-    value.source = value.outPath;
+  inputFlakes = l.filterAttrs (_: v: v ? outputs) inputs;
+  inputsToPaths = l.mapAttrs' (n: v: {
+    name = "nix/inputs/${n}";
+    value.source = v.outPath;
   });
 in {
   environment.etc = inputsToPaths inputs;
@@ -57,7 +50,7 @@ in {
       "darwin=${inputs.darwin}"
       "/etc/nix/inputs"
     ];
-    registry = mapAttrs (_: flake: {inherit flake;}) inputFlakes;
+    registry = l.mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
       inherit
         substituters
@@ -66,14 +59,12 @@ in {
         ;
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
-      sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
+      sandbox = l.mkDefault (!isDarwin);
       allowed-users = ["*"];
       trusted-users = ["root" "@wheel"];
     };
 
-    gc = {
-      automatic = true;
-    };
+    gc.automatic = true;
 
     extraOptions = ''
       warn-dirty = false
