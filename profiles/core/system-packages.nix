@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ## === Essentials ===
 
@@ -15,6 +10,7 @@
     exa
     fd
     findutils
+    fish
     gawk
     git
     gnumake
@@ -30,12 +26,14 @@
     ripgrep
     rsync
     screen
+    tealdeer
     tmux
     vim
 
     ## === Network ===
 
     curl
+    dig
     dnsutils
     nmap
     wget
