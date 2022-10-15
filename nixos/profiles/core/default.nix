@@ -1,9 +1,7 @@
-moduleArgs @ {
-  self,
+{
   config,
   lib,
   pkgs,
-  sharedProfiles,
   ...
 }: let
   inherit (config.lib.dotfield.sys) storageBase;
@@ -20,21 +18,13 @@ in {
     optimise.automatic = true;
   };
 
-  # Essential tools for the best of times and the worst of times.
   environment.systemPackages = with pkgs; [
-    bat
-    curl
     dosfstools
-    fd
-    git
     gptfdisk
     inetutils
     iputils
-    less
     pciutils
-    ripgrep
     sysstat
-    tealdeer
     usbutils
     util-linux
   ];
@@ -53,7 +43,6 @@ in {
   services.openssh = {
     # For rage encryption, all hosts need a ssh key pair
     enable = lib.mkForce true;
-
     openFirewall = true;
     passwordAuthentication = false;
     permitRootLogin = "prohibit-password";
