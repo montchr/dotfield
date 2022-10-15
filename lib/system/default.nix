@@ -29,13 +29,6 @@
     trees = treesWithEnabledLeaf (path ++ ["enable"]) config.home-manager.users;
   in ((builtins.length trees) >= 1);
 
-  /*
-  hasWm :: String -> Bool
-
-  Whether the given window manager is enabled by any user.
-  */
-  hasWm = name: hasEnabledModule ["wayland" "windowManager" name];
-
   # Whether Impermanence aka "ephemeral root storage" aka "darling erasure"
   # is enabled for this configuration.
   #
@@ -80,6 +73,6 @@ in {
         or false;
     };
 
-    home = {inherit hasEnabledModule hasWm;};
+    home = {inherit hasEnabledModule;};
   };
 }
