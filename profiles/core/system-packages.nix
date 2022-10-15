@@ -3,15 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
-  # TODO: add this via gitignore.nix or something to avoid IFD
-  # dotfieldScript =
-  #   pkgs.writeScriptBin "dotfield"
-  #   (builtins.readFile "${config.dotfield.paths.flakeRoot}/packages/dotfield");
-in {
+}: {
   environment.systemPackages = with pkgs; [
-    # dotfieldScript
-
     ## === Essentials ===
 
     bashInteractive
