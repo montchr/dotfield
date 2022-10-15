@@ -43,4 +43,26 @@
       => [ "foo" ]
   */
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
+
+  /*
+  hasEnabledLeaf :: [String] -> AttrSet -> Bool
+
+  Whether any of the top-level trees of the same form have a module-like
+  "enable" option whose value is true.
+
+  Example:
+
+  ```nix
+  {
+    home-manager.users = {
+      foo = { programs.emacs.enable = true; };
+      bar = { programs.neovim.enable = true; };
+    };
+    programs.emacs.enable = hasEnabledLeaf ["programs" "emacs"];
+  }
+  ```
+  */
+  hasEnabledLeaf = path: attrs: let
+    trees = treesWithEnabledLeaf (path ++ ["enable"]) attrs;
+  in ((builtins.length trees) >= 1);
 }
