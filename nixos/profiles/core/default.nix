@@ -9,8 +9,6 @@ moduleArgs @ {
   inherit (config.lib.dotfield.sys) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
-  imports = [sharedProfiles.core];
-
   # If this were enabled, rebuilds will take... a very long time.
   documentation.info.enable = false;
 
