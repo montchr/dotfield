@@ -5,8 +5,8 @@
   ...
 }: {
   boot = {
+    # TODO: consider setting this at some higher level... VMs may not want this...
     cleanTmpDir = lib.mkDefault true;
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     consoleLogLevel = lib.mkDefault 3;
 
     # Enable all Magic SysRq functions via ALT-PrtSc-<command key>

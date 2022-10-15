@@ -1,12 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  peers,
-  ...
-}: let
-  inherit (config.networking) hostName;
-in {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
@@ -16,6 +8,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = ["btrfs"];
   boot.supportedFilesystems = ["btrfs"];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   virtualisation.vmVariant = {
     virtualisation.graphics = true;
