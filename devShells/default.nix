@@ -64,7 +64,6 @@
     withTermFix = optionalString isDarwin ''TERM="xterm-256color"'';
 
     cacheName = "dotfield";
-    withCachixToken = ''CACHIX_AUTH_TOKEN="$(${getExe pkgs.pass} show cachix.org/${cacheName}/auth-token)"'';
     cachixExec = ''${getExe cachix} watch-exec --jobs 2 ${cacheName}'';
 
     # FIXME: non-functional, needs re-work
@@ -134,7 +133,7 @@
       help = "run the system's rebuild command with the supplied operation arg";
       command = ''
         set -e
-        ${withTermFix} ${withCachixToken} ${cachixExec} \
+        ${withTermFix} ${cachixExec} \
           ${rebuildSystem} -- $@ --flake $PRJ_ROOT --verbose
       '';
     };
