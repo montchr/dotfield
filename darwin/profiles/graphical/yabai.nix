@@ -209,17 +209,15 @@ in {
       mouse_action1 = "move";
       mouse_action2 = "resize";
 
-      # Default window layout
       window_placement = "second_child";
-      # Display floating windows on top.
-      window_topmost = "off";
+      window_shadow = "float"; # apply modified shadows to floating windows
+      window_topmost = "on"; # floating windows always on top
       split_ratio = 0.5;
       auto_balance = "on";
 
       # Window opacity
       # Disabled due to possible issues with external displays
       window_opacity = "off";
-      window_shadow = "off";
     };
 
     extraConfig = let
@@ -230,12 +228,9 @@ in {
 
       rules = mkRules [
         (commonRules // {app = "1Password";})
-        (commonRules // {app = "Affinity";})
         (commonRules // {app = "Alfred Preferences";})
         (commonRules // {app = "AppCleaner";})
         (commonRules // {app = "Fanatastical Helper";})
-        (commonRules // {app = "Harvest";})
-        (commonRules // {app = "^LibreOffice";})
         (commonRules // {app = "Stickies";})
         (commonRules // {app = "^System Preferences$";})
 
@@ -285,13 +280,13 @@ in {
 
       ###: NOTEBOOK WORKSPACES {{{
 
-        #: 'connect' :: slack, zoom, any others related to a current meeting
-        yabai -m space 1 --label 'connect'
+        #: 'home' :: personal browser etc.
+        yabai -m space 1 --label 'home'
 
-        #: 'browse' :: firefox for the machine's primary profile
-        yabai -m space 2 --label 'browse'
+        #: 'work' :: work browser + zoom
+        yabai -m space 2 --label 'work'
 
-        #: 'test' :: additional browser, other utils for testing current task
+        #: 'iterate' :: additional browser, other utils for testing current task
         yabai -m space 3 --label 'test'
 
         #: 'code' :: emacs, sometimes kitty
@@ -303,31 +298,25 @@ in {
         #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
         yabai -m space 6 --label 'media'
 
-        #: 'browse-alt' :: additional firefox instance for secondary profile
-        yabai -m space 7 --label 'browse-alt'
-
       ### }}}
 
 
       ###: DESKTOP WORKSPACES {{{
+      # FIXME: declare target display
 
         ##: CENTER DISPLAY {{
 
-          yabai -m space 1 --label 'connect'
-          yabai -m space 2 --label 'browse'
-          yabai -m space 3 --label 'code'
+          # yabai -m space 1 --label 'work'
+          # yabai -m space 2 --label 'iterate'
+          # yabai -m space 3 --label 'code'
 
         ## }}
 
         ##: RIGHT DISPLAY {{
 
-          yabai -m space 1 --label 'term'
-
-          #: 'chat' :: slack, irc, signal, etc.
-          yabai -m space 2 --label 'chat'
-
-          yabai -m space 3 --label 'media'
-          yabai -m space 4 --label 'browse-alt'
+          # yabai -m space 1 --label 'term'
+          # yabai -m space 2 --label 'home'
+          # yabai -m space 3 --label 'media'
 
         ## }}
 
