@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d4c01b52f866ce9259c48d35d6c53c982868037d",
-            "sha256": "sha256-XUG/Vk3pKjEdPruKAEI4jX/k6wspUcr1YE3BP8/EDmQ=",
+            "rev": "97d8753ec2e816f4d00fd195d0a58894405f4546",
+            "sha256": "sha256-g2x4GokOCw4Me25tcJNPX9O0Cj+2TWhySxgAhzgAqOA=",
             "type": "git",
             "url": "https://github.com/black7375/Firefox-UI-Fix"
         },
-        "version": "d4c01b52f866ce9259c48d35d6c53c982868037d"
+        "version": "97d8753ec2e816f4d00fd195d0a58894405f4546"
     },
     "fish-autopair": {
         "cargoLocks": null,
@@ -141,10 +141,10 @@
             "name": null,
             "owner": "roots",
             "repo": "trellis-cli",
-            "rev": "v1.7.0",
-            "sha256": "sha256-/YUoGPVTbmegr8cmjhtHnG1jiwIjen91sUWjgK3T8GQ=",
+            "rev": "v1.8.0",
+            "sha256": "sha256-w02vxf9PZDuHbrItKOYG1U7tUWnFMNKeJRjWa2FNz+c=",
             "type": "github"
         },
-        "version": "v1.7.0"
+        "version": "v1.8.0"
     }
 }

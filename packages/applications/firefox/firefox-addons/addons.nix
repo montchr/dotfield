@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.8.0";
+      version = "2.8.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013804/bypass_paywalls_clean-2.8.8.0.xpi";
-      sha256 = "a98c938acef41f8fa81e61c910a00ae7cd455024c81197be6e2406ab91ad9ef8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016551/bypass_paywalls_clean-2.8.9.0.xpi";
+      sha256 = "495332975143acca4d2accfe478b2a0dae59556768435cef00ad78a4d5414308";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -512,10 +512,10 @@
       };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
-      version = "2.0.8";
+      version = "2.0.9";
       addonId = "pywalfox@frewacom.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942967/pywalfox-2.0.8.xpi";
-      sha256 = "9527552b0a80b4ca02d0622ab9e4364fbd880d843958eed04cfd0bad814516c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016698/pywalfox-2.0.9.xpi";
+      sha256 = "93d0af40d17f0a2683fffdeb32b6ecbaf466f525bec0df5c6763f561db01c95d";
       meta = with lib;
       {
         homepage = "https://github.com/frewacom/Pywalfox";
@@ -651,10 +651,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.21";
+      version = "1.21.22";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990955/single_file-1.21.21.xpi";
-      sha256 = "68b81fa27aa28535863d41211daf77b6f9c472b740dddd2cec5461ba05f6a1b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016609/single_file-1.21.22.xpi";
+      sha256 = "a0405d144556f5986dc319d9a13215ab3239383abaa28fcf536e13054b24f57b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -665,10 +665,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.9.27.1330";
+      version = "22.10.17.1112";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4008084/sourcegraph_for_firefox-22.9.27.1330.xpi";
-      sha256 = "2f405da746b55a10d5133a660a1817a80148ec4c09be5aeb7857ec26589ba3fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
+      sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -821,10 +821,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.2";
+      version = "2.13.3";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013376/violentmonkey-2.13.2.xpi";
-      sha256 = "f3c30b47d6f2abc70c0c31e43fb4e9e13355f043adcf3464a5b50d2392a56e9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015933/violentmonkey-2.13.3.xpi";
+      sha256 = "1dbbf2ebbddd13d27acc0248a5bcc8b7e3e4a52988a85b0c26a317fd230cea81";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
