@@ -1,5 +1,6 @@
 {config, ...}: {
   imports = [
+    ./bat.nix
     ./home-packages.nix
     ./nixpkgs-config.nix
   ];
