@@ -7,6 +7,7 @@
       fonts.common
       fonts.fontconfig
       fonts.iosevka-variants
+      one-password
     ])
     ++ (with nixosProfiles; [
       boot.systemd-boot
@@ -36,7 +37,6 @@
 
   workstation =
     (with sharedProfiles; [
-      one-password
       secrets
     ])
     ++ (with nixosProfiles; [
