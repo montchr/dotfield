@@ -29,6 +29,12 @@
     tmux
     vim
 
+    (
+      if stdenv.hostPlatform.isDarwin
+      then clang
+      else gcc
+    )
+
     ## === Network ===
 
     curl
