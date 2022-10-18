@@ -4,7 +4,6 @@
 
     bashInteractive
     bat
-    binutils
     cacert
     coreutils
     exa
