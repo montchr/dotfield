@@ -5,22 +5,9 @@
   ...
 }: {
   home.packages = with pkgs; [
-    ## === Sysadmin ===
-
-    du-dust #   <- Like du but more intuitive.
-    entr #      <- Run arbitrary commands when files change
-    lnav #      <- Log file navigator
-    # FIXME: marked as broken
-    # procs #     <- A modern replacement for ps.
-
-    grex #      <- Generate regexps from user-provided test cases.
-    httpie #    <- Modern, user-friendly command-line HTTP client for the API era.
-    pastel #    <- A command-line tool to generate, analyze, convert and manipulate colors
-    tealdeer #  <- A very fast implementation of tldr in Rust.
-
-    ## === Formatters ===
-
-    treefmt # One CLI to format the code tree
+    grex #      <- generate regexps from user-provided test cases
+    pastel #    <- generate, analyze, convert and manipulate colors
+    treefmt #   <- one cli to format the code tree
   ];
 
   programs.bottom.enable = true;

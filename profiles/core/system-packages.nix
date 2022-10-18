@@ -39,14 +39,19 @@
     wget
     whois
 
+    ## === Monitoring ===
+
+    dua #      <- learn about the disk usage of directories, fast!
+    lnav #     <- log file navigator
+    procs #    <- a "modern" replacement for ps
+
     ## === Files ===
 
-    chafa #    <- "terminal graphics for the 21st century"
-    dua #      <- quick disk usage
-    file
-    glow #     <- a markdown cli renderer (by charmbracelet)
-    hexyl #    <- a command-line hex viewer
-    mediainfo
-    unzip
+    entr #     <- Run arbitrary commands when files change
+    du-dust #  <- like du but more intuitive
+    file #     <- a program that shows the type of files
+    glow #     <- charmbracelet's markdown cli renderer
+    hexyl #    <- command-line hex viewer
+    unzip #    <- *.zip archive extraction utility
   ];
 }
