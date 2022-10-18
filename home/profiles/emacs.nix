@@ -146,6 +146,8 @@ in {
     nodePackages.intelephense
     #: ruby
     rubyPackages.solargraph
+    #: rust +lsp
+    rust-analyzer
     #: sh
     nodePackages.bash-language-server
     #: toml
