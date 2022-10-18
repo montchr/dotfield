@@ -68,8 +68,8 @@
       ;
   };
 
-  settingsModule = moduleWithSystem (ctx: osArgs: let
-    inherit ((osArgs.pkgs or ctx.pkgs).stdenv) hostPlatform;
+  settingsModule = moduleWithSystem ({pkgsets, ...}: osArgs: let
+    inherit ((osArgs.pkgs or pkgsets.default).stdenv) hostPlatform;
   in {
     home-manager = {
       extraSpecialArgs = platformSpecialArgs hostPlatform;
@@ -89,12 +89,12 @@ in {
     );
   };
 
-  perSystem = ctx @ {...}: {
+  perSystem = {pkgsets, ...}: {
     homeConfigurations = let
       makeHomeConfiguration = username: args: let
         inherit (pkgs.stdenv) hostPlatform;
         inherit (hostPlatform) isDarwin;
-        pkgs = args.pkgs or ctx.pkgs;
+        pkgs = args.pkgs or pkgsets.default;
         homePrefix = ifThenElse isDarwin "/Users" "/home";
       in (inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

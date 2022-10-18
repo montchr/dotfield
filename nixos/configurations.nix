@@ -44,7 +44,7 @@
         pkgsets,
         ...
       }: let
-        pkgs = nixosArgs.pkgs or ctx.pkgs;
+        pkgs = nixosArgs.pkgs or pkgsets.default;
         moduleArgs = {
           _module.args = {
             inherit peers primaryUser;
