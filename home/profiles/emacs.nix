@@ -98,7 +98,11 @@ in {
 
     # FIXME: sqlite binary unusable in org-roam and forge even after supplying
     # them... so we let these packages compile the binary...
-    gcc
+    (
+      if stdenv.hostPlatform.isDarwin
+      then clang
+      else gcc
+    )
     sqlite
 
     editorconfig-core-c
