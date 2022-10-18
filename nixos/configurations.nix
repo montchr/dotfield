@@ -39,11 +39,16 @@
 
   makeNixosSystem = hostname: nixosArgs:
     withSystem (nixosArgs.system or x86_64-linux) (
-      ctx @ {system, ...}: let
+      ctx @ {
+        system,
+        pkgsets,
+        ...
+      }: let
         pkgs = nixosArgs.pkgs or ctx.pkgs;
         moduleArgs = {
           _module.args = {
             inherit peers primaryUser;
+            inherit (ctx) pkgsets;
             inherit (ctx.config) packages;
           };
         };

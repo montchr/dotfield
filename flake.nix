@@ -164,17 +164,24 @@
       ./darwin/configurations.nix
       ./darwin/packages
     ];
-    perSystem = {system, ...}: let
-      pkgSets = {
+    perSystem = {
+      system,
+      inputs',
+      ...
+    }: let
+      pkgsets = {
         default = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
           overlays = priorityOverlays ++ exoOverlays ++ esoOverlays;
         };
+        stable = inputs'.nixos-stable.legacyPackages;
+        unstable = inputs'.nixos-unstable.legacyPackages;
+        trunk = inputs'.nixpkgs-trunk.legacyPackages;
       };
-      pkgs = pkgSets.default;
+      pkgs = pkgsets.default;
     in {
-      _module.args = {inherit pkgs pkgSets primaryUser;};
+      _module.args = {inherit pkgs primaryUser pkgsets;};
       formatter = pkgs.alejandra;
     };
     flake = {

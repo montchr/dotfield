@@ -47,9 +47,11 @@
 
   makeDarwinSystem = hostname: args:
     withSystem (args.system or aarch64-darwin) (
-      ctx @ {system, ...}: let
-        pkgs = args.pkgs or ctx.pkgSets.default;
-
+      ctx @ {
+        system,
+        pkgsets,
+        ...
+      }: let
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
         #
@@ -61,10 +63,13 @@
             system = x86_64-darwin;
             config.allowUnfree = true;
           });
+        pkgsets' = pkgsets // {inherit rosettaPkgs;};
+        pkgs = args.pkgs or pkgsets'.default;
         moduleArgs = {
           _module.args = {
-            inherit peers primaryUser rosettaPkgs;
+            inherit peers primaryUser;
             inherit (ctx.config) packages;
+            pkgsets = pkgsets';
           };
         };
       in

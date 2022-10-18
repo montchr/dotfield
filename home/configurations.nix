@@ -27,12 +27,14 @@
   homeProfiles = rakeLeaves ./profiles;
   roles = import ./roles {inherit homeProfiles;};
 
-  moduleArgs = moduleWithSystem (ctx: {...}: {
-    _module.args = {
-      inherit peers primaryUser;
-      inherit (ctx.config) packages;
-    };
-  });
+  moduleArgs = moduleWithSystem (
+    ctx @ {pkgsets, ...}: args: {
+      _module.args = {
+        inherit peers primaryUser pkgsets;
+        inherit (ctx.config) packages;
+      };
+    }
+  );
 
   defaultModules =
     (builtins.attrValues homeModules)

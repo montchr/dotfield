@@ -42,21 +42,7 @@ in {
         # context of Emacs where the literal `nil` symbol is ubiquitous...
         nil-lsp = nil-lsp.nil;
       };
-    overrides = final: prev: let
-      # Follows the same principle as the `externalPackages` attributes from
-      # `inputs'` saved as a variable to prevent infinite recursions.
-      channels = withSystem prev.system ({inputs', ...}:
-        mapAttrs (_: v: v.legacyPackages) {
-          inherit
-            (inputs')
-            nixos-stable
-            nixos-unstable
-            nixpkgs-trunk
-            ;
-        });
-    in {
-      inherit channels;
-
+    overrides = final: prev: {
       ripgrep = prev.ripgrep.override {withPCRE2 = true;};
     };
   };
