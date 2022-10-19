@@ -330,8 +330,8 @@
 ;;; === languages ==============================================================
 
 (use-package! apache-mode)
-
 (use-package! robots-txt-mode)
+(use-package! lsp-tailwindcss)
 
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))

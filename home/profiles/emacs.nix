@@ -125,6 +125,7 @@ in {
     nodePackages.eslint
     nodePackages.typescript-language-server
     #: json
+    # FIXME: i think this language server is prone to failure?
     nodePackages.vscode-json-languageserver
     #: ledger
     # FIXME: marked as broken upstream
@@ -142,6 +143,8 @@ in {
     rust-analyzer
     #: sh
     nodePackages.bash-language-server
+    #: tailwindcss
+    nodePackages.tailwindcss
     #: toml
     taplo-lsp
     #: web-mode
