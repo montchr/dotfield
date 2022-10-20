@@ -308,7 +308,6 @@
         lsp-signature-auto-activate '(:on-trigger-char
                                       :on-server-request
                                       :after-completion)
-        lsp-vetur-use-workspace-dependencies t
         +lsp-company-backends '(:separate
                                 company-capf
                                 company-yasnippet
