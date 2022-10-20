@@ -25,9 +25,6 @@
 ;; Allow the default macOS ~alt~ behavior for special keyboard chars.
 (setq! ns-right-alternate-modifier 'none)
 
-;; camelCaseWords
-(global-subword-mode 1)
-
 ;; Globally s/
 (setq evil-ex-substitute-global t)
 
