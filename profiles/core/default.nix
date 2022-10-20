@@ -22,7 +22,6 @@ in {
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
-    ZDOTDIR = "$HOME/.config/zsh";
 
     # Although it points to a commonly-used path for user-owned executables,
     # $XDG_BIN_HOME is a non-standard environment variable. It is not part of
@@ -46,6 +45,9 @@ in {
   programs.zsh = {
     enable = l.mkDefault true;
     enableCompletion = true;
+    shellInit = l.mkBefore ''
+      export ZDOTDIR="$HOME/.config/zsh"
+    '';
   };
 
   programs.fish.enable = l.mkDefault true;
