@@ -291,7 +291,7 @@
 
   :config
   (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-  (add-hook 'nix-mode-hook 'format-all-mode))
+  (add-hook 'emacs-lisp-mode-hook 'format-all-mode))
 
 (after! lsp-mode
   (setq lsp-auto-guess-root t
@@ -344,6 +344,9 @@
 
 
 ;; --- nix ----------------------------
+
+(after! format-all
+  (add-hook 'nix-mode-hook 'format-all-mode))
 
 (after! lsp-mode
   (lsp-register-client
