@@ -114,6 +114,12 @@ in {
 
     ##: === lang/lsp ===
 
+    # NOTE: TypeScript is naturally used by many LSP servers. Some of these,
+    # unfortunately, expect `typescript` to be available in the environment, so
+    # the LSP servers fail at runtime without it. `vscode-json-languageserver`
+    # is one of these bad actors.
+    nodePackages.typescript
+
     #: docker
     nodePackages.dockerfile-language-server-nodejs
     #: terraform
@@ -125,7 +131,7 @@ in {
     nodePackages.eslint
     nodePackages.typescript-language-server
     #: json
-    # FIXME: i think this language server is prone to failure?
+    # NOTE: requires `typescript` dependency in environment (see above)
     nodePackages.vscode-json-languageserver
     #: ledger
     # FIXME: marked as broken upstream
