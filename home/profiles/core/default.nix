@@ -14,8 +14,6 @@
   programs.fish.enable = true;
   programs.zsh.enable = true;
 
-  home.extraOutputsToInstall = ["/share/zsh"];
-
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
