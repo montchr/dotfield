@@ -38,13 +38,14 @@
 
   defaultModules =
     (builtins.attrValues homeModules)
+    # TODO: declare this in a real role for easier finding
     ++ (with homeProfiles; [
       core
       direnv
       navi
       nnn
+      nvim
       tealdeer
-      vim
     ])
     ++ [
       moduleArgs
