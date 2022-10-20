@@ -31,7 +31,7 @@
  ;; +icons ; FIXME: icon height does not scale with font size -- also causes lag
  ;; +orderless)
  (vertico +icons)
- (company)
+ (company +childframe)
 
  :ui
  deft                         ; notational velocity for Emacs
