@@ -141,7 +141,7 @@
           history-length 1000)))
 
 (set-company-backend! 'emacs-lisp-mode
-                      'company-capf 'company-yasnippet)
+  'company-capf 'company-yasnippet)
 
 
 ;;; === org-mode ===============================================================
@@ -333,6 +333,10 @@
 (use-package! robots-txt-mode)
 (use-package! lsp-tailwindcss)
 
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
+
 (after! markdown
   (add-to-list 'auto-mode-alist '("\\.mdx" . markdown-mode)))
 
@@ -340,6 +344,7 @@
   :defer-incrementally t
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
+
 
 ;; --- nix ----------------------------
 
@@ -352,6 +357,12 @@
 (after! eglot
   ;; https://github.com/oxalica/nil
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
+
+
+;; --- js -----------------------------
+
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 
 
 ;; --- php ----------------------------

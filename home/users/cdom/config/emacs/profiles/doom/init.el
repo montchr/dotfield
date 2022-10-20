@@ -27,11 +27,11 @@
  ;;layout            ; auie,ctsrnm is the superior home row
 
  :completion
- (corfu
-  ;; +icons ; FIXME: icon height does not scale with font size -- also causes lag
-  +orderless)
+ ;; (corfu
+ ;; +icons ; FIXME: icon height does not scale with font size -- also causes lag
+ ;; +orderless)
  (vertico +icons)
- ;;(company)
+ (company)
 
  :ui
  deft                         ; notational velocity for Emacs
