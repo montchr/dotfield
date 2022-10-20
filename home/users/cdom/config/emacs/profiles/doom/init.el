@@ -46,8 +46,7 @@
  (vc-gutter)
  vi-tilde-fringe              ; fringe tildes to mark beyond EOB
  workspaces
- ;; FIXME: disabled due to visual-fill-column repo 502 error
- ;;zen                          ; distraction-free coding or writing
+ zen                          ; distraction-free coding or writing
  ;; doom                      ; what makes DOOM look the way it does
  ;; ligatures                 ; ligatures and symbols to make your code pretty again
  ;; (treemacs +lsp)           ; a project drawer, like neotree but cooler
