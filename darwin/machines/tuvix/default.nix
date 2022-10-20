@@ -25,7 +25,7 @@ in {
   users.users.${username} = {
     home = "/Users/${username}";
     isHidden = false;
-    shell = pkgs.bashInteractive;
+    shell = pkgs.fish;
   };
 
   home-manager.users.${username} = hmArgs: {
