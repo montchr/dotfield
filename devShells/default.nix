@@ -1,8 +1,4 @@
-{
-  self,
-  lib,
-  ...
-}: {
+{self, ...}: {
   perSystem = {
     inputs',
     system,
@@ -10,7 +6,6 @@
     lib,
     ...
   }: let
-    inherit (lib) getExe optionals optionalString;
     inherit (pkgs.stdenv) isDarwin isLinux;
     inherit (inputs'.agenix.packages) agenix;
     inherit (inputs'.deadnix.packages) deadnix;
@@ -41,6 +36,8 @@
       ;
     inherit (pkgs.nodePackages) prettier;
 
+    l = lib // builtins;
+
     rebuildSystem =
       if isDarwin
       then "darwin-rebuild"
@@ -61,10 +58,10 @@
     secrets' = withCategory "secrets";
 
     # Mitigate issues with home-manager and kitty terminal on Darwin
-    withTermFix = optionalString isDarwin ''TERM="xterm-256color"'';
+    withTermFix = l.optionalString isDarwin ''TERM="xterm-256color"'';
 
     cacheName = "dotfield";
-    cachixExec = ''${getExe cachix} watch-exec --jobs 2 ${cacheName}'';
+    cachixExec = ''${l.getExe cachix} watch-exec --jobs 2 ${cacheName}'';
 
     # FIXME: non-functional, needs re-work
     # do-repl =
@@ -76,16 +73,16 @@
 
     do-theme-kitty = dotfield' {
       name = "do-theme-kitty";
-      help = "change the current kitty theme";
+      help = "toggle the current kitty theme between light<->dark";
       command = ''
-        ${getExe pkgs.kitty} @set-colors -a -c \
+        ${l.getExe pkgs.kitty} @set-colors -a -c \
           $KITTY_CONFIG_DIRECTORY/themes/$1.conf
       '';
     };
 
     do-theme-emacs = dotfield' {
       name = "do-theme-emacs";
-      help = "change the current emacs theme";
+      help = "toggle the current emacs theme between light<->dark";
       command = ''
         emacsclient --no-wait --eval "(modus-themes-toggle)" >/dev/null
       '';
@@ -96,7 +93,7 @@
       help = nvfetcher.meta.description;
       command = ''
         pushd $PRJ_ROOT/packages/sources
-        ${getExe nvfetcher} -c ./sources.toml $@
+        ${l.getExe nvfetcher} -c ./sources.toml $@
         popd
       '';
     };
@@ -142,7 +139,7 @@
       name = "do-sys-diff-next";
       help = "compare the current system derivation with a project-local result";
       command = ''
-        ${getExe nvd} diff /run/current-system $PRJ_ROOT/result
+        ${l.getExe nvd} diff /run/current-system $PRJ_ROOT/result
       '';
     };
 
@@ -182,7 +179,7 @@
         name = "deadnix-check";
         help = "run deadnix linting on project nix files";
         command = ''
-          ${getExe deadnix} check \
+          ${l.getExe deadnix} check \
             --no-underscore \
             --fail \
             --no-lambda-arg \
@@ -194,7 +191,7 @@
         name = "evalnix";
         help = "check for nix syntax errors";
         command = ''
-          ${getExe pkgs.fd} --extension nix --exec \
+          ${l.getExe pkgs.fd} --extension nix --exec \
             nix-instantiate --parse --quiet {} >/dev/null
         '';
       })
@@ -205,7 +202,7 @@
       (formatters' {
         name = "do-format";
         help = "run treefmt on the project";
-        command = ''${getExe treefmt} --clear-cache -- "$@"'';
+        command = ''${l.getExe treefmt} --clear-cache -- "$@"'';
       })
 
       (secrets agenix)
@@ -225,8 +222,8 @@
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
-          ${getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
-          ${getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
+          ${l.getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
+          ${l.getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
         '';
       })
     ];
@@ -236,14 +233,8 @@
       (dotfield inputs'.nixos-generators.packages.nixos-generators)
     ];
   in {
-    devShells.default = inputs'.devshell.legacyPackages.mkShell ({extraModulesPath, ...}: {
-      imports = ["${extraModulesPath}/git/hooks.nix"];
-
+    devShells.default = inputs'.devshell.legacyPackages.mkShell ({...}: {
       name = "dotfield";
-
-      # FIXME: very not ready for usage, don't even try
-      # git.hooks.enable = true;
-      # git.hooks.pre-commit.text = builtins.readFile ./git/hooks/pre-commit.sh;
 
       # TODO
       # sopsPGPKeyDirs = ["./nixos/secrets/keys"];
@@ -266,7 +257,7 @@
 
       commands =
         commonCommands
-        ++ (optionals isLinux linuxCommands);
+        ++ (l.optionals isLinux linuxCommands);
 
       packages = [
         cachix
