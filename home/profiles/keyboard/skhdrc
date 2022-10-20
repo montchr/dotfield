@@ -95,7 +95,11 @@ sys     < hyper - q ; default
 sys     < escape    ; default
 
 # Toggle dark mode.
-sys     < d : toggle-dark-mode ; \
+# FIXME: command removed -- maybe try (untested):
+# ```
+# nix develop $DOTFIELD_DIR -c do-theme-toggle
+# ```
+# sys     < d : toggle-dark-mode ; \
               skhd -k 'escape'
 
 # Reload Espanso configs.

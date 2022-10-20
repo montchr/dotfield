@@ -1,27 +1,22 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: let
-  envExtra = import ../env-init.sh.nix;
+  inherit (config.xdg) cacheHome dataHome;
   shellAliases =
     (import ../abbrs.nix)
     // (import ../aliases.nix);
 in {
   imports = [../common.nix];
 
-  home.packages = with pkgs; [
-    zsh
-  ];
+  home.packages = with pkgs; [zsh];
+  home.extraOutputsToInstall = ["/share/zsh"];
 
   programs.starship.enableZshIntegration = true;
 
   programs.zsh = {
-    inherit
-      envExtra
-      shellAliases
-      ;
+    inherit shellAliases;
 
     enable = true;
     dotDir = ".config/zsh";

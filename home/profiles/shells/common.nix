@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  envInit = import ./env-init.sh.nix;
   shellAliases =
     (import ./abbrs.nix)
     // (import ./aliases.nix);
@@ -24,7 +23,6 @@ in {
     inherit shellAliases;
 
     enable = true;
-    bashrcExtra = envInit;
     # profileExtra = "";
 
     sessionVariables = {
