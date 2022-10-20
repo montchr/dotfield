@@ -77,7 +77,7 @@
  :checkers
  syntax
  (:if (executable-find "aspell")
-   spell +aspell)
+     spell +aspell)
  ;; grammar
 
  :tools
@@ -104,7 +104,6 @@
  :lang
  (graphql +lsp)
  data
- dhall
  (emacs-lisp +tree-sitter)
  (json +lsp
        +tree-sitter)
@@ -140,6 +139,7 @@
  ;;agda              ; types of types of types of types...
  ;;beancount         ; mind the GAAP
  ;;common-lisp       ; if you've seen one lisp, you've seen them all
+ ;;dhall
  ;;elm               ; care for a cup of TEA?
  ;;(go +lsp)
  ;;(haskell)
