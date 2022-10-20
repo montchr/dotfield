@@ -327,7 +327,6 @@
 
 (use-package! apache-mode)
 (use-package! robots-txt-mode)
-(use-package! lsp-tailwindcss)
 
 (after! sh-script
   (set-company-backend! 'sh-mode
@@ -362,6 +361,14 @@
 
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+
+;; --- css ----------------------------
+
+(use-package! lsp-tailwindcss
+  :custom
+  (lsp-tailwindcss-add-on-mode t)
+  (lsp-tailwindcss-emmet-completions t))
 
 
 ;; --- php ----------------------------
