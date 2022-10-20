@@ -48,6 +48,7 @@
 
     dotfield = pkgWithCategory "dotfield";
     dotfield' = withCategory "dotfield";
+    ui' = withCategory "ui";
     linters = pkgWithCategory "linters";
     linters' = withCategory "linters";
     formatters = pkgWithCategory "formatters";
@@ -71,7 +72,8 @@
     #     command = "${getExe fup-repl} $@";
     #   };
 
-    do-theme-kitty = dotfield' {
+    # TODO: make argument optional to allow true toggling ... maybe symlinks?
+    do-theme-kitty = ui' {
       name = "do-theme-kitty";
       help = "toggle the current kitty theme between light<->dark";
       command = ''
@@ -80,11 +82,30 @@
       '';
     };
 
-    do-theme-emacs = dotfield' {
+    do-theme-emacs = ui' {
       name = "do-theme-emacs";
       help = "toggle the current emacs theme between light<->dark";
       command = ''
         emacsclient --no-wait --eval "(modus-themes-toggle)" >/dev/null
+      '';
+    };
+
+    do-theme-macos = ui' {
+      name = "do-theme-macos";
+      help = "toggle the current macOS system theme between light<->dark";
+      command = ''
+        osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
+      '';
+    };
+
+    do-theme-toggle = ui' {
+      name = "do-theme-toggle";
+      help = "toggle all application themes between light<->dark";
+      command = ''
+        ${l.optionalString isDarwin do-theme-macos.command}
+        # FIXME: this command requires light/dark input currently
+        # ${do-theme-kitty.command}
+        ${do-theme-emacs.command}
       '';
     };
 
@@ -153,80 +174,96 @@
       '';
     };
 
-    commonCommands = [
-      do-update-firefox-addons
-      do-update-nvfetcher-sources
-      do-update-all
-      do-sys-diff-next
-      do-sys-next
-      do-sys-rebuild
+    commonCommands =
+      [
+        ##: --- sys/hm mgmt --------------
 
-      do-theme-kitty
-      do-theme-emacs
+        do-update-firefox-addons
+        do-update-nvfetcher-sources
+        do-update-all
+        do-sys-diff-next
+        do-sys-next
+        do-sys-rebuild
 
-      (utils cachix)
-      (utils manix)
-      (utils nix-diff)
-      (utils nix-tree)
+        ##: --- ui -----------------------
 
-      (linters editorconfig-checker)
-      (linters shellcheck)
-      (linters statix)
+        do-theme-kitty
+        do-theme-emacs
+        do-theme-toggle
+      ]
+      ++ (l.optional isDarwin do-theme-macos)
+      ++ [
+        ##: --- utils --------------------
 
-      # TODO: ignore generated files, contributed modules, etc.
-      # (tho rly contrib modules should live elsewhere)
-      (linters' {
-        name = "deadnix-check";
-        help = "run deadnix linting on project nix files";
-        command = ''
-          ${l.getExe deadnix} check \
-            --no-underscore \
-            --fail \
-            --no-lambda-arg \
-            --no-lambda-pattern-names \
-            $PRJ_ROOT
-        '';
-      })
-      (linters' {
-        name = "evalnix";
-        help = "check for nix syntax errors";
-        command = ''
-          ${l.getExe pkgs.fd} --extension nix --exec \
-            nix-instantiate --parse --quiet {} >/dev/null
-        '';
-      })
+        (utils cachix)
+        (utils manix)
+        (utils nix-diff)
+        (utils nix-tree)
 
-      (formatters alejandra)
-      (formatters prettier)
-      (formatters treefmt)
-      (formatters' {
-        name = "do-format";
-        help = "run treefmt on the project";
-        command = ''${l.getExe treefmt} --clear-cache -- "$@"'';
-      })
+        ##: --- linters ------------------
 
-      (secrets agenix)
-      (secrets rage)
-      (secrets sops)
-      (secrets ssh-to-age)
-      (secrets' {
-        name = "install-age-key";
-        help = "copy the age secret key from the password-store into place";
-        command = ''
-          mkdir -p $SOPS_AGE_KEY_DIR
-          ${pkgs.pass}/bin/pass show age--secret-key >> $SOPS_AGE_KEY_FILE
-        '';
-      })
-      (secrets' {
-        name = "convert-ssh-to-age-key";
-        help = "helper to convert the usual ssh ed25519 keys to age keys";
-        command = ''
-          mkdir -p $SOPS_AGE_KEY_DIR
-          ${l.getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
-          ${l.getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
-        '';
-      })
-    ];
+        (linters editorconfig-checker)
+        (linters shellcheck)
+        (linters statix)
+
+        # TODO: ignore generated files, contributed modules, etc.
+        # (tho rly contrib modules should live elsewhere)
+        (linters' {
+          name = "deadnix-check";
+          help = "run deadnix linting on project nix files";
+          command = ''
+            ${l.getExe deadnix} check \
+              --no-underscore \
+              --fail \
+              --no-lambda-arg \
+              --no-lambda-pattern-names \
+              $PRJ_ROOT
+          '';
+        })
+        (linters' {
+          name = "evalnix";
+          help = "check for nix syntax errors";
+          command = ''
+            ${l.getExe pkgs.fd} --extension nix --exec \
+              nix-instantiate --parse --quiet {} >/dev/null
+          '';
+        })
+
+        ##: --- formatters ---------------
+
+        (formatters alejandra)
+        (formatters prettier)
+        (formatters treefmt)
+        (formatters' {
+          name = "do-format";
+          help = "run treefmt on the project";
+          command = ''${l.getExe treefmt} --clear-cache -- "$@"'';
+        })
+
+        ##: --- secrets ------------------
+
+        (secrets agenix)
+        (secrets rage)
+        (secrets sops)
+        (secrets ssh-to-age)
+        (secrets' {
+          name = "install-age-key";
+          help = "copy the age secret key from the password-store into place";
+          command = ''
+            mkdir -p $SOPS_AGE_KEY_DIR
+            ${pkgs.pass}/bin/pass show age--secret-key >> $SOPS_AGE_KEY_FILE
+          '';
+        })
+        (secrets' {
+          name = "convert-ssh-to-age-key";
+          help = "helper to convert the usual ssh ed25519 keys to age keys";
+          command = ''
+            mkdir -p $SOPS_AGE_KEY_DIR
+            ${l.getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
+            ${l.getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
+          '';
+        })
+      ];
 
     linuxCommands = [
       (dotfield deploy-rs)
