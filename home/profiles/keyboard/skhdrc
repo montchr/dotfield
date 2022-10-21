@@ -100,7 +100,7 @@ sys     < escape    ; default
 # nix develop $DOTFIELD_DIR -c do-theme-toggle
 # ```
 # sys     < d : toggle-dark-mode ; \
-              skhd -k 'escape'
+#                 skhd -k 'escape'
 
 # Reload Espanso configs.
 sys     < p : espanso restart ; \
