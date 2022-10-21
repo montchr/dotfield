@@ -112,6 +112,9 @@ sys     < s : skhd -r ; \
               skhd -k 'escape'
 
 # Restart yabai
+#
+# FIXME: cannot kickstart service when launched via nix-darwin:
+# => Could not kickstart service "org.nixos.yabai": 125: Domain does not support specified action
 sys     < y : launchctl kickstart -k "gui/$UID/org.nixos.yabai" ; \
               skhd -k 'escape'
 
