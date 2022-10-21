@@ -14,7 +14,7 @@
       emacs
       graphical.common
       # graphical.hammerspoon
-      # graphical.yabai
+      graphical.yabai
       system-defaults
       virtualisation.containers
       # graphical.sketchybar
