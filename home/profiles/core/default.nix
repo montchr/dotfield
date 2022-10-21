@@ -19,8 +19,10 @@
     Z_DATA = "$XDG_DATA_HOME/z";
 
     # Docker
-    DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
-    MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker-machine";
+    # NOTE: disabled so as not to interfere with overriding "docker" with other providers
+    # TODO: move this to a docker-specific profile if ever needed.
+    # DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+    # MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker-machine";
 
     # Go
     GOPATH = "$XDG_DATA_HOME/go";
