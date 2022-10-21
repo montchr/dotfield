@@ -2,12 +2,16 @@
   config,
   lib,
   pkgs,
+  self,
+  system,
   ...
 }: let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
   cfg = config.services.yabai;
   # barCfg = config.services.sketchybar;
+
+  yabaiPackage = self.packages.${system}.yabai;
 
   configDir = "${pkgs.dotfield-config}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
@@ -155,9 +159,8 @@
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
 in {
   environment.systemPackages =
-    map
-    (key: builtins.getAttr key scripts)
-    (builtins.attrNames scripts);
+    [yabaiPackage]
+    ++ (map (key: builtins.getAttr key scripts) (builtins.attrNames scripts));
 
   environment.variables = {
     YABAI_PADDING_DEFAULT = defaults.padding;
@@ -171,7 +174,7 @@ in {
 
   services.yabai = {
     enable = true;
-    package = pkgs.yabai;
+    package = yabaiPackage;
     enableScriptingAddition = true;
 
     config = {
