@@ -1,4 +1,4 @@
-moduleArgs @ {
+{
   config,
   lib,
   pkgs,
@@ -12,45 +12,7 @@ moduleArgs @ {
   home.sessionVariables = {
     NODE_REPL_HISTORY = "${config.xdg.dataHome}/node/repl_history";
     NVM_DIR = "${config.xdg.dataHome}/node/nvm";
-
-    # volta: the hassle-free javascript tool manager
-    # https://volta.sh/
-    VOLTA_HOME = "${config.xdg.dataHome}/volta";
   };
-
-  programs.direnv.stdlib = ''
-    use_nvm() {
-      watch_file .nvmrc
-
-      export NVM_DIR="$PWD/.direnv/nvm"
-      local nvm_path="$NVM_DIR/nvm.sh"
-
-      if ! [ -f "$nvm_path" ]; then
-        echo "Installing NVM" >&2
-        mkdir -p "$NVM_DIR"
-
-        # Run the NVM installer but prevent it from attempting to install its
-        # hooks into the user's global shell configuration files.
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | PROFILE="/dev/null" bash
-      fi
-
-      [ -s "$nvm_path" ] && . "$nvm_path"
-
-      nvm install
-    }
-
-    # https://github.com/direnv/direnv/wiki/Node#use-volta-with-node
-    use_volta() {
-      export VOLTA_HOME="$PWD/.direnv/volta"
-      PATH_add "$VOLTA_HOME/bin"
-
-      if ! [ -f "$VOLTA_HOME/bin/volta" ]; then
-        curl https://get.volta.sh/ | bash
-      fi
-
-      layout node
-    }
-  '';
 
   # npmrc *requires* that environment variables are encosed in `${...}`
   # braces, but Nix will interpret this as antiquotation within its
