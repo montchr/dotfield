@@ -44,7 +44,7 @@
       direnv
       navi
       nnn
-      nvim
+      neovim
       tealdeer
     ])
     ++ [

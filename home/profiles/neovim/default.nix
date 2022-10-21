@@ -10,8 +10,8 @@
   nvimPackage = pkgs.neovim-unwrapped;
 in {
   imports = [./lunarvim.nix];
-  home.shellAliases."vim" = l.getExe nvimPackage;
-  xdg.configFile."nvim" = mkOutOfStoreSymlink "${configHome}/nvim";
+  home.shellAliases."vim" = "${nvimPackage}/bin/nvim";
+  xdg.configFile."nvim".source = mkOutOfStoreSymlink "${configHome}/dotfield/home/users/${config.home.username}/config/nvim";
   home.packages = with pkgs; [
     nvimPackage
     tree-sitter
