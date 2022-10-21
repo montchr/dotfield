@@ -348,9 +348,11 @@
 
 (after! lsp-mode
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "nil")
+   ;; The `nil' lsp server is prone to uncontrollable hanging when using
+   ;; lsp-mode, so we use `rnix-lsp' instead.
+   (make-lsp-client :new-connection (lsp-stdio-connection "rnix-lsp")
                     :major-modes '(nix-mode)
-                    :server-id 'nix-nil-lsp)))
+                    :server-id 'rnix-lsp)))
 
 (after! eglot
   ;; https://github.com/oxalica/nil
