@@ -5,8 +5,7 @@
   ...
 }: let
   inherit (lib) optional;
-  inherit (dotfieldLib.sys) hasNvidia;
-  dotfieldLib = config.lib.dotfield;
+  inherit (config.dotfield.features) hasNvidia;
 in {
   imports = [../common.nix];
 

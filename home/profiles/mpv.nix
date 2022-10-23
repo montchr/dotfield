@@ -4,8 +4,8 @@ moduleArgs @ {
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.features) hasWayland;
-  hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
+  inherit (config.dotfield.features) hasWayland;
+  hasNvidia = moduleArgs.osConfig.dotfield.features.hasNvidia or false;
 in {
   programs.mpv = {
     enable = true;

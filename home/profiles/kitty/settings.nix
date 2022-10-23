@@ -1,8 +1,4 @@
-{
-  lib,
-  features,
-  socket,
-}: {
+{lib}: {
   #: Cursor customization {{{
   cursor_shape = "beam";
   cursor_beam_thickness = "1.5";
@@ -65,7 +61,7 @@
 
   #: Advanced {{{
   allow_remote_control = true;
-  listen_on = socket;
+  listen_on = "unix:/tmp/kitty-socket";
   # FIXME: why not?
   # startup_session = "session";
   #: }}}

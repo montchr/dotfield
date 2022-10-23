@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (config.lib.dotfield.sys) storageBase;
+  inherit (config.dotfield.paths) storageBase;
 
   cfg = config.age;
 
