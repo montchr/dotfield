@@ -49,7 +49,6 @@
     ])
     ++ [
       moduleArgs
-      ../lib/home
       inputs.nix-colors.homeManagerModule
     ];
 

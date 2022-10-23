@@ -151,11 +151,6 @@ in {
         };
         ##: }}
       }
-
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-        # TODO: still necessary?
-        credential.helper = "osxkeychain";
-      })
     ];
   };
 

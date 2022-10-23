@@ -14,6 +14,11 @@
   yabaiPackage = self.packages.${system}.yabai;
 
   configDir = "${pkgs.dotfield-config}/yabai";
+
+  # yabai    => ~/Library/LaunchAgents/
+  #          -> gui/$UID/org.nixos.yabai
+  # yabai-sa => /Library/LaunchDaemons/
+  #          -> system/org.nixos.yabai-sa
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
   defaults = {

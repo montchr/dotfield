@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.sys) storageBase;
+  inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
   # If this were enabled, rebuilds will take... a very long time.

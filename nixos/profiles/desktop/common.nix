@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.sys) hasWayland;
+  inherit (config.dotfield.features) hasWayland;
 
   firefoxPackage =
     if hasWayland

@@ -41,7 +41,7 @@ in {
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = ["${configHome}/emacs/bin" "$PATH"];
+  home.sessionPath = l.mkAfter ["${configHome}/emacs/bin"];
 
   ## Doom Bootloader.
   # FIXME: profiles still unusable as of 2022-09-19

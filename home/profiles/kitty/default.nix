@@ -18,12 +18,10 @@
   inherit (lib.generators) toKeyValue;
   inherit (lib.hm.booleans) yesNo;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config.lib.dotfield) features;
+  inherit (config.dotfield.features) hasPragPro;
   inherit (config) theme;
 
-  socket = "unix:/tmp/kitty-socket";
-
-  settings = import ./settings.nix {inherit lib features socket;};
+  settings = import ./settings.nix {inherit lib;};
   colors = import ./colors.nix config.colorscheme;
 
   # via home-manager kitty module
@@ -78,12 +76,11 @@ in {
         font_size = "${builtins.toString theme.fonts.term.size}.0";
       };
     extraConfig = ''
-      ${optionalString features.hasPragPro pragmataProExtras}
+      ${optionalString hasPragPro pragmataProExtras}
     '';
 
     darwinLaunchOptions = mkIf isDarwin [
       "--single-instance"
-      "--listen-on=${socket}"
     ];
   };
 

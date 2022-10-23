@@ -7,7 +7,6 @@
   l = lib // builtins;
 in {
   imports = [
-    ../../lib/system
     ./nix-config.nix
     ./system-packages.nix
   ];

@@ -7,7 +7,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib.dotfield.sys) hasNvidia;
+  inherit (config.dotfield.features) hasNvidia;
 
   cfg = config.services.greetd;
 
