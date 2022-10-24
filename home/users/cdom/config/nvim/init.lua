@@ -1,5 +1,5 @@
 if vim.g.vscode then
-    -- VSCode extension
+  -- VSCode extension
 else
-    -- ordinary Neovim
+  vim.g["aniseed#env"] = {module = "cdom.init"}
 end
