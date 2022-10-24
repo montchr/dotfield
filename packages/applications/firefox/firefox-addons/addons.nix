@@ -43,10 +43,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.10.0";
+      version = "2022.10.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015122/bitwarden_password_manager-2022.10.0.xpi";
-      sha256 = "3b722aeb9d254627bf45d519ffb701a9c802625fa8dd9ca69fd5455a8910c2e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018008/bitwarden_password_manager-2022.10.1.xpi";
+      sha256 = "453a932a48dda6722fa824f30414ffae3efc4797c6df9e76c6a07b2ff412bbe7";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.9.0";
+      version = "2.9.0.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016551/bypass_paywalls_clean-2.8.9.0.xpi";
-      sha256 = "495332975143acca4d2accfe478b2a0dae59556768435cef00ad78a4d5414308";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019911/bypass_paywalls_clean-2.9.0.0.xpi";
+      sha256 = "f54711550b84e860833654fb716d0241b842fddcf923d2c3f313e18ab6321de2";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -368,10 +368,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.6.1";
+      version = "7.7.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999843/octotree-7.6.1.xpi";
-      sha256 = "135b563cf69f8887394699255d1e827e8a15736454daa7280228f113c38f368d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018464/octotree-7.7.0.xpi";
+      sha256 = "e73730768caee30f15f9ea741b972b4812a74fa15ca230b847651b50a45f8c2a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -651,10 +651,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.22";
+      version = "1.21.24";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016609/single_file-1.21.22.xpi";
-      sha256 = "a0405d144556f5986dc319d9a13215ab3239383abaa28fcf536e13054b24f57b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019568/single_file-1.21.24.xpi";
+      sha256 = "72bb74c13a772148e67f6089f384e268a7b109ce9507a5eeb852eeb210f6e024";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -665,10 +665,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.10.17.1112";
+      version = "22.10.18.1133";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
-      sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
+      sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -746,10 +746,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.6";
+      version = "3.9.7";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014811/tree_style_tab-3.9.6.xpi";
-      sha256 = "094fad60d7828d593e323e9e110dc2dd3d1b34e54578d10d19294f56aae3950d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
+      sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";

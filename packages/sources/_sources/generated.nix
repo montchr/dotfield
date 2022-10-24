@@ -3,14 +3,14 @@
 {
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "97d8753ec2e816f4d00fd195d0a58894405f4546";
+    version = "0f1c64eeff063638a481737857cdfa9e0a57609a";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "97d8753ec2e816f4d00fd195d0a58894405f4546";
+      rev = "0f1c64eeff063638a481737857cdfa9e0a57609a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-g2x4GokOCw4Me25tcJNPX9O0Cj+2TWhySxgAhzgAqOA=";
+      sha256 = "sha256-BJRt46PZ3LxoNkL0kmdcRuibOJ6+6N4DRAZ3TtJp3Ms=";
     };
   };
   fish-autopair = {
@@ -73,13 +73,13 @@
   };
   promnesia = {
     pname = "promnesia";
-    version = "346b2e08e04604adffb17ae51244cd1b1ec9015f";
+    version = "47ae8c654bbba8e506c2c0e852ff0d4763d42869";
     src = fetchFromGitHub ({
       owner = "karlicoss";
       repo = "promnesia";
-      rev = "346b2e08e04604adffb17ae51244cd1b1ec9015f";
+      rev = "47ae8c654bbba8e506c2c0e852ff0d4763d42869";
       fetchSubmodules = false;
-      sha256 = "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=";
+      sha256 = "sha256-d1lbn92fzHajRYOIOoT6pbR+hc+vks+aLHjmJvfPEAs=";
     });
   };
   trellis-cli = {
