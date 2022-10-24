@@ -28,10 +28,10 @@ jobs:
         working-directory: ./.ci
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
           
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2.0.0
+        uses: hashicorp/setup-terraform@v2.0.2
   
       - name: Terraform fmt
         id: fmt
