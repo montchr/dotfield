@@ -25,3 +25,10 @@ jobs:
           pr-labels: |
             dependencies
             automated
+
+      - name: Push to binary cache
+        uses: cachix/cachix-action@v12
+        with:
+          name: dotfield
+          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          extraPullNames: iosevka-xtal,nixpkgs-wayland,nix-community
