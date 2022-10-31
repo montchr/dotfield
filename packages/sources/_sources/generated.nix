@@ -36,6 +36,18 @@
       sha256 = "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=";
     };
   };
+  fish-nix-env = {
+    pname = "fish-nix-env";
+    version = "7b65bd228429e852c8fdfa07601159130a818cfa";
+    src = fetchgit {
+      url = "https://github.com/lilyball/nix-env.fish";
+      rev = "7b65bd228429e852c8fdfa07601159130a818cfa";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-RG/0rfhgq6aEKNZ0XwIqOaZ6K5S4+/Y5EEMnIdtfPhk=";
+    };
+  };
   fish-replay = {
     pname = "fish-replay";
     version = "1.2.1";

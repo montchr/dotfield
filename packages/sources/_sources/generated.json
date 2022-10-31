@@ -54,6 +54,24 @@
         },
         "version": "adff5966739667d4c13d6388372e40f821571208"
     },
+    "fish-nix-env": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "fish-nix-env",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "7b65bd228429e852c8fdfa07601159130a818cfa",
+            "sha256": "sha256-RG/0rfhgq6aEKNZ0XwIqOaZ6K5S4+/Y5EEMnIdtfPhk=",
+            "type": "git",
+            "url": "https://github.com/lilyball/nix-env.fish"
+        },
+        "version": "7b65bd228429e852c8fdfa07601159130a818cfa"
+    },
     "fish-replay": {
         "cargoLocks": null,
         "extract": null,

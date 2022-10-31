@@ -4,7 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) map;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  l = lib // builtins;
 
   cfg = config.programs.fish;
 
@@ -14,16 +15,15 @@
   };
 in {
   options = {
-    programs.fish.autopair.enable = lib.mkEnableOption "Whether to enable autopairing of symbols with the autopair plugin.";
-    programs.fish.fifc.enable = lib.mkEnableOption "Whether to enable the fifc fish plugin.";
+    programs.fish.autopair.enable = l.mkEnableOption "Whether to enable autopairing of symbols with the autopair plugin.";
+    programs.fish.fifc.enable = l.mkEnableOption "Whether to enable the fifc fish plugin.";
   };
 
-  config = lib.mkIf cfg.enable {
-    lib.fish = {inherit mkPlugin;};
-
+  config = l.mkIf cfg.enable {
     programs.fish.plugins =
-      map mkPlugin
-      ((lib.optional cfg.autopair.enable "autopair")
-        ++ (lib.optional cfg.fifc.enable "fifc"));
+      l.map mkPlugin
+      ((l.optional cfg.autopair.enable "autopair")
+        ++ (l.optional cfg.fifc.enable "fifc")
+        ++ (l.optional isDarwin "nix-env"));
   };
 }
