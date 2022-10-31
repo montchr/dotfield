@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.0.0";
+      version = "2.9.1.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019911/bypass_paywalls_clean-2.9.0.0.xpi";
-      sha256 = "f54711550b84e860833654fb716d0241b842fddcf923d2c3f313e18ab6321de2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023655/bypass_paywalls_clean-2.9.1.0.xpi";
+      sha256 = "9b5e289d4967a4b0cf1decc0feca0aca071cefab45d5f2c6e76b4cfcb91b0174";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -127,10 +127,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.58";
+      version = "4.9.60";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005595/darkreader-4.9.58.xpi";
-      sha256 = "2adf7f533055e50a5d7840f5ea738577d58c14fac15fc3a62fb559829edb65ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021899/darkreader-4.9.60.xpi";
+      sha256 = "202eccf8088bd2842158f5fe4f4b751217a05b2f0ada02057c16314c174df01b";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -568,10 +568,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.12";
+      version = "22.10.26.814";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015172/refined_github-22.10.12.xpi";
-      sha256 = "3f84eb1a714d92721e17b85a480998f7b7d530a5eb3a9081bd6c1d4465efa6e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021486/refined_github-22.10.26.814.xpi";
+      sha256 = "7b78accbd392432779b6974c838df9bb879c28ec2af75f06a305cf39a151a4ef";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -595,10 +595,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990385/rust_search_extension-1.8.1.xpi";
-      sha256 = "a09895131b0e1fde06dbcc6f5596160b1511f070152022ca1ada36fd64c1e8d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023616/rust_search_extension-1.8.2.xpi";
+      sha256 = "451756b4e4ea0ffe8118f3b97577fb6e0c3488ad5d13dbde0094141a93fb449d";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -793,10 +793,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.0.2";
+      version = "8.1.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003811/ublacklist-8.0.2.xpi";
-      sha256 = "167c4edbda983fa17e048207704742122b5eeae8487ceb05e1e305274dea526a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022687/ublacklist-8.1.1.xpi";
+      sha256 = "c81dc9dc3a60901f25374a4f8015e8bdeda3556dd72ce5a831b009b5cf0a39a7";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
