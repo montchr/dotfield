@@ -50,6 +50,7 @@
             inherit peers primaryUser;
             inherit (ctx) pkgsets;
             inherit (ctx.config) packages;
+            isNixos = true;
           };
         };
       in
@@ -66,6 +67,7 @@
               {
                 nixpkgs.pkgs = pkgs;
                 networking.hostName = hostname;
+                home-manager.sharedModules = [{_module.args.isNixos = true;}];
               }
             ];
           specialArgs = {

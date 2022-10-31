@@ -101,10 +101,14 @@ in {
         modules =
           defaultModules
           ++ [
-            {
+            (moduleArgs: {
               home.username = username;
               home.homeDirectory = "${homePrefix}/${username}";
-            }
+              _module.args.isNixos =
+                (moduleArgs.nixosConfig ? hardware)
+                # We only care if the option exists -- its value doesn't matter.
+                && (moduleArgs.nixosConfig.hardware.enableRedistributableFirmware -> true);
+            })
           ]
           ++ (args.modules or []);
         extraSpecialArgs = platformSpecialArgs hostPlatform;

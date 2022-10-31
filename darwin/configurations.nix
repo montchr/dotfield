@@ -70,6 +70,7 @@
             inherit peers primaryUser;
             inherit (ctx.config) packages;
             pkgsets = pkgsets';
+            isNixos = false;
           };
         };
       in
@@ -88,6 +89,7 @@
             ++ [
               moduleArgs
               {networking.hostName = hostname;}
+              {home-manager.sharedModules = [{_module.args.isNixos = false;}];}
               darwinMachines.${hostname}
             ];
           specialArgs = {
