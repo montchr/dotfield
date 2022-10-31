@@ -20,6 +20,7 @@ in {
   };
 
   config = l.mkIf cfg.enable {
+    lib.fish = {inherit mkPlugin;};
     programs.fish.plugins =
       l.map mkPlugin
       ((l.optional cfg.autopair.enable "autopair")
