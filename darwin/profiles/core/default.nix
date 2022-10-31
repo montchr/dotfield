@@ -6,7 +6,7 @@
   self,
   ...
 }: let
-  inherit (lib) mkBefore mkIf;
+  l = lib // builtins;
 in {
   nix = {
     configureBuildUsers = true;
@@ -16,7 +16,7 @@ in {
       # Administrative users on Darwin systems are part of the admin group.
       trusted-users = ["@admin"];
       # Required for building some incompatible packages via Rosetta.
-      extra-platforms = mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
+      extra-platforms = l.mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
     };
   };
 
@@ -38,9 +38,9 @@ in {
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
 
-  environment.shellInit = mkIf config.homebrew.enable ''
+  environment.shellInit = l.mkAfter (l.optionalString config.homebrew.enable ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
-  '';
+  '');
 
   homebrew = {
     enable = true;
