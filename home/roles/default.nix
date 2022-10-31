@@ -82,7 +82,10 @@ with homeProfiles; let
       ++ graphical
       ++ personalised
       ++ trusted
-      ++ webdev;
+      ++ webdev
+      ++ [
+        vhs
+      ];
   };
 in
   roles
