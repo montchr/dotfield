@@ -6,6 +6,7 @@
   self,
   ...
 }: let
+  inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = lib // builtins;
 in {
   nix = {
@@ -16,31 +17,31 @@ in {
       # Administrative users on Darwin systems are part of the admin group.
       trusted-users = ["@admin"];
       # Required for building some incompatible packages via Rosetta.
-      extra-platforms = l.mkIf (system == "aarch64-darwin") ["x86_64-darwin" "aarch64-darwin"];
+      extra-platforms = l.mkIf isAarch64 ["x86_64-darwin" "aarch64-darwin"];
     };
   };
 
   environment.systemPackages = with pkgs; [
-    #  Swiss Army Knife for macOS
-    # => https://github.com/rgcr/m-cli
     m-cli
     mas
-    # FIXME: broken on aarch64? error when run: "Bad CPU type in executable"
-    # terminal-notifier
-
-    # A tool for managing macOS defaults.
-    # https://github.com/malob/prefmanager
-    # TODO: re-enable
     # prefmanager
   ];
+
+  environment.variables =
+    l.mkIf config.homebrew.enable
+    (let
+      inherit (config.homebrew) brewPrefix;
+    in {
+      HOMEBREW_PREFIX = brewPrefix;
+      HOMEBREW_CELLAR = "${brewPrefix}/Cellar";
+      HOMEBREW_REPOSITORY = brewPrefix;
+      MANPATH = "${brewPrefix}/share/man:$MANPATH:";
+      INFOPATH = "${brewPrefix}/share/info:$INFOPATH";
+    });
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
-
-  environment.shellInit = l.mkAfter (l.optionalString config.homebrew.enable ''
-    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
-  '');
 
   homebrew = {
     enable = true;
