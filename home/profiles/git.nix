@@ -63,14 +63,6 @@ in {
     };
 
     ignores = [
-      ".yarn"
-      "node_modules"
-
-      # Logs and databases
-      "*.sql"
-      "*.sqlite"
-      ".log"
-
       # OS or Editor files
       "._*"
       ".DS_Store"
@@ -92,13 +84,6 @@ in {
       "*.sw?"
       "*.vi"
       "*.bak"
-
-      # Credentials and Sensitive Info
-      ".env"
-      ".direnv"
-      ".scratch"
-      "*localrc"
-      "*.local"
     ];
 
     extraConfig = lib.mkMerge [
