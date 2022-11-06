@@ -92,6 +92,12 @@ in {
         ++ (with nixosProfiles; [login.gdm]);
     };
 
+    freundix = makeNixosSystem "freundix" {
+      modules =
+        (with roles; graphical ++ workstation)
+        ++ (with nixosProfiles; [login.gdm]);
+    };
+
     ryosuke = makeNixosSystem "ryosuke" {
       modules =
         (with roles; graphical ++ tangible ++ webdev ++ workstation)
