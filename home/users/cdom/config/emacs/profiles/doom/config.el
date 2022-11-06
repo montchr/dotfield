@@ -346,17 +346,17 @@
 (after! format-all
   (add-hook 'nix-mode-hook 'format-all-mode))
 
-(after! lsp-mode
-  (lsp-register-client
-   ;; The `nil' lsp server is prone to uncontrollable hanging when using
-   ;; lsp-mode, so we use `rnix-lsp' instead.
-   (make-lsp-client :new-connection (lsp-stdio-connection "rnix-lsp")
-                    :major-modes '(nix-mode)
-                    :server-id 'rnix-lsp)))
+;; (after! lsp-mode
+;;   (lsp-register-client
+;;    ;; The `nil' lsp server is prone to uncontrollable hanging when using
+;;    ;; lsp-mode, so we use `rnix-lsp' instead.
+;;    (make-lsp-client :new-connection (lsp-stdio-connection "rnix-lsp")
+;;                     :major-modes '(nix-mode)
+;;                     :server-id 'rnix-lsp)))
 
-(after! eglot
-  ;; https://github.com/oxalica/nil
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
+;; (after! eglot
+;;   ;; https://github.com/oxalica/nil
+;;   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 
 
 ;; --- js -----------------------------

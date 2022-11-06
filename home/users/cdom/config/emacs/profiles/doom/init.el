@@ -4,7 +4,7 @@
 ;; in. Remember to run 'doom sync' after modifying it!
 
 ;; Disable frame decorations (titlebar + scrollbar).
-(setq default-frame-alist '((undecorated . t)))
+;; (setq default-frame-alist '((undecorated . t)))
 (scroll-bar-mode -1)
 
 ;; Respect visual line mode

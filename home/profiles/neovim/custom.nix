@@ -13,11 +13,13 @@
   configBasePath = "${configHome}/dotfield/home/users/${config.home.username}/config";
   cfg = config.programs.neovim;
 
-  luaPlugin = attrs: attrs // {
-    type = "lua";
-	config = l.optionalString (attrs ? config && attrs.config != null)  (luaBlock attrs.plugin.pname attrs.config);
-  };
-  luaPlugin' = plugin: config: luaPlugin { inherit plugin config; };
+  luaPlugin = attrs:
+    attrs
+    // {
+      type = "lua";
+      config = l.optionalString (attrs ? config && attrs.config != null) (luaBlock attrs.plugin.pname attrs.config);
+    };
+  luaPlugin' = plugin: config: luaPlugin {inherit plugin config;};
 
   luaBlock = title: content: ''
     --: ${title} {{{
@@ -70,79 +72,77 @@ in {
 
   programs.neovim = {
     plugins = with pkgs.vimPlugins;
-    muPlugins
-    # TODO
-    # ++ themePlugins
-    ++ [
+      muPlugins
+      # TODO
+      # ++ themePlugins
+      ++ [
+        ##: completions
+        nvim-cmp
+        cmp-buffer
+        cmp-cmdline
+        cmp-conjure
+        cmp-nvim-lsp
+        cmp-path
 
-      ##: completions
-      nvim-cmp
-      cmp-buffer
-      cmp-cmdline
-      cmp-conjure
-      cmp-nvim-lsp
-      cmp-path
+        ##: formatting
+        # FIXME: is this for syntax support? vim-sleuth should handle the actual tooling support
+        # editorconfig-vim
 
-      ##: formatting
-      # FIXME: is this for syntax support? vim-sleuth should handle the actual tooling support
-      # editorconfig-vim
+        ##: editing
+        vim-repeat #     <- "enable repeating supported plugin maps with `.`"
+        vim-sexp #       <- "precision editing for S-expressions"
+        vim-sexp-mappings-for-regular-people
+        vim-surround
+        nvim-autopairs
 
-      ##: editing
-      vim-repeat #     <- "enable repeating supported plugin maps with `.`"
-      vim-sexp #       <- "precision editing for S-expressions"
-      vim-sexp-mappings-for-regular-people
-      vim-surround
-      nvim-autopairs
+        ##: lsp
+        nvim-lspconfig
+        nvim-lsputils
 
-      ##: lsp
-      nvim-lspconfig
-      nvim-lsputils
+        ##: nav
+        leap-nvim #         <- a clairvoyant interface for on-screen jumps (successor to lightspeed.vim)
+        vim-argumentative # <- helpers for function args
+        vim-unimpaired #    <- "pairs of handy bracket mappings"
+        which-key-nvim
 
-      ##: nav
-      leap-nvim #         <- a clairvoyant interface for on-screen jumps (successor to lightspeed.vim)
-      vim-argumentative # <- helpers for function args
-      vim-unimpaired #    <- "pairs of handy bracket mappings"
-      which-key-nvim
+        ##: syntax/linting/tree-sitter
+        ale # <- Asynchronous Lint Engine
+        (nvim-treesitter.withPlugins (_p: pkgs.tree-sitter.allGrammars))
+        # NOTE: tree-sitter support is currently experimental!
+        nvim-treesitter-context # <- "lightweight alternative to context.vim"
+        nvim-treesitter-textobjects
+        # TODO: requires configuration, see repo
+        # nvim-treesitter-refactor
 
-      ##: syntax/linting/tree-sitter
-      ale # <- Asynchronous Lint Engine
-      (nvim-treesitter.withPlugins (_p: pkgs.tree-sitter.allGrammars))
-      # NOTE: tree-sitter support is currently experimental!
-      nvim-treesitter-context # <- "lightweight alternative to context.vim"
-      nvim-treesitter-textobjects
-      # TODO: requires configuration, see repo
-      # nvim-treesitter-refactor
+        ##: lang support
+        vim-fish
+        vim-nix
 
-      ##: lang support
-      vim-fish
-      vim-nix
+        ##: find/filter/preview/pick
+        plenary-nvim
+        popup-nvim
+        telescope-nvim
+        vim-abolish # <- "easily search for, substitute, and abbreviate multiple variants of a word"
+        #telescope-fzy-native-nvim
+        #fzf-vim
 
-      ##: find/filter/preview/pick
-      plenary-nvim
-      popup-nvim
-      telescope-nvim
-      vim-abolish # <- "easily search for, substitute, and abbreviate multiple variants of a word"
-      #telescope-fzy-native-nvim
-      #fzf-vim
+        ##: vcs
+        vim-fugitive
 
-      ##: vcs
-      vim-fugitive
+        ##: ui
+        lualine-nvim
+        todo-comments-nvim
+        undotree
+        vim-css-color
+        vim-gitgutter
+        vim-vinegar # <- "combine with netrw to create a delicious salad dressing"
 
-      ##: ui
-      lualine-nvim
-      todo-comments-nvim
-      undotree
-      vim-css-color
-      vim-gitgutter
-      vim-vinegar # <- "combine with netrw to create a delicious salad dressing"
+        null-ls-nvim
+        tabular
+        trouble-nvim
 
-      null-ls-nvim
-      tabular
-      trouble-nvim
-
-      ##: misc
-      vim-eunuch # <- "helpers for unix"
-
-    ];
+        ##: misc
+        vim-eunuch # <- "helpers for unix"
+      ];
   };
 }
