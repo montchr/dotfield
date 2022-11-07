@@ -25,6 +25,7 @@
       manix
       nix-diff
       nix-tree
+      nodejs
       nvd
       nvfetcher
       rage
@@ -34,7 +35,11 @@
       sops
       treefmt
       ;
-    inherit (pkgs.nodePackages) prettier;
+    inherit
+      (pkgs.nodePackages)
+      prettier
+      yarn
+      ;
 
     l = lib // builtins;
 
@@ -302,6 +307,8 @@
         sops-import-keys-hook
         sops-init-gpg-key
         ssh-to-pgp
+        nodejs
+        yarn
       ];
     });
   };

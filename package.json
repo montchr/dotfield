@@ -5,5 +5,16 @@
   "repository": "https://github.com/montchr/dotfield",
   "author": "Chris Montgomery <chris@cdom.io> (https://github.com/montchr/)",
   "license": "GPL-3.0-or-later",
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "yarn@3.2.4",
+  "devDependencies": {
+    "commitlint": "^17.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
+    "pinst": "^3.0.0"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
+  }
 }
