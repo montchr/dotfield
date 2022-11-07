@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "78e3fe21915c81d7be5cd7c63fe2b8f7acd7538c",
-            "sha256": "sha256-DNUcoIbFS2bEXq1t/BXFzzIiAih7k+5uZBT27t2V3i0=",
+            "rev": "f0681b237d944bb3b9c5b7e2d775357532d42893",
+            "sha256": "sha256-nhqgRY38kC77pjP7tyT0CLGnpcBS/a2q7fyhdfhtFRg=",
             "type": "git",
             "url": "https://github.com/black7375/Firefox-UI-Fix"
         },
-        "version": "78e3fe21915c81d7be5cd7c63fe2b8f7acd7538c"
+        "version": "f0681b237d944bb3b9c5b7e2d775357532d42893"
     },
     "fish-autopair": {
         "cargoLocks": null,
@@ -28,13 +28,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "jorgebucaran",
-            "repo": "autopair.fish",
-            "rev": "1.0.4",
-            "sha256": "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=",
-            "type": "github"
+            "rev": "4d1752ff5b39819ab58d7337c69220342e9de0e2",
+            "sha256": "sha256-qt3t1iKRRNuiLWiVoiAYOu+9E7jsyECyIqZJ/oRIT1A=",
+            "type": "git",
+            "url": "https://github.com/jorgebucaran/autopair.fish"
         },
-        "version": "1.0.4"
+        "version": "4d1752ff5b39819ab58d7337c69220342e9de0e2"
     },
     "fish-fifc": {
         "cargoLocks": null,
@@ -83,13 +82,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "jorgebucaran",
-            "repo": "replay.fish",
-            "rev": "1.2.1",
+            "rev": "bd8e5b89ec78313538e747f0292fcaf631e87bd2",
             "sha256": "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/jorgebucaran/replay.fish"
         },
-        "version": "1.2.1"
+        "version": "bd8e5b89ec78313538e747f0292fcaf631e87bd2"
     },
     "fzf-scripts": {
         "cargoLocks": null,
@@ -138,11 +136,10 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "karlicoss",
-            "repo": "promnesia",
             "rev": "47ae8c654bbba8e506c2c0e852ff0d4763d42869",
-            "sha256": "sha256-d1lbn92fzHajRYOIOoT6pbR+hc+vks+aLHjmJvfPEAs=",
-            "type": "github"
+            "sha256": "sha256-MpgXhDQ8J9hd+t8mKAP3DufFsibmE+lo6A34ZrXnuMk=",
+            "type": "git",
+            "url": "https://github.com/karlicoss/promnesia"
         },
         "version": "47ae8c654bbba8e506c2c0e852ff0d4763d42869"
     },
@@ -157,12 +154,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "roots",
-            "repo": "trellis-cli",
-            "rev": "v1.8.0",
-            "sha256": "sha256-w02vxf9PZDuHbrItKOYG1U7tUWnFMNKeJRjWa2FNz+c=",
-            "type": "github"
+            "rev": "56bd46546c69a7fe58d689ab4e15539b86a3d81a",
+            "sha256": "sha256-/bJYUOK4Y3CjKaNC/jQ8mAD3nGym0WR/CboWAizzwfI=",
+            "type": "git",
+            "url": "https://github.com/roots/trellis-cli"
         },
-        "version": "v1.8.0"
+        "version": "56bd46546c69a7fe58d689ab4e15539b86a3d81a"
     }
 }

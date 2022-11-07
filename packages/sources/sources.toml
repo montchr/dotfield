@@ -7,23 +7,22 @@ src.git = "https://github.com/black7375/Firefox-UI-Fix"
 fetch.git = "https://github.com/black7375/Firefox-UI-Fix"
 
 [trellis-cli]
-src.github = "roots/trellis-cli"
-fetch.github = "roots/trellis-cli"
+src.git = "https://github.com/roots/trellis-cli"
+fetch.git = "https://github.com/roots/trellis-cli"
 
 [promnesia]
 src.git = "https://github.com/karlicoss/promnesia"
-# TODO: note that this might only return the latest tag
-fetch.github = "karlicoss/promnesia"
+fetch.git = "https://github.com/karlicoss/promnesia"
 
 ##: --- fish shell ---
 
 [fish-autopair]
-src.github = "jorgebucaran/autopair.fish"
-fetch.github = "jorgebucaran/autopair.fish"
+src.git = "https://github.com/jorgebucaran/autopair.fish"
+fetch.git = "https://github.com/jorgebucaran/autopair.fish"
 
 [fish-replay]
-src.github = "jorgebucaran/replay.fish"
-fetch.github = "jorgebucaran/replay.fish"
+src.git = "https://github.com/jorgebucaran/replay.fish"
+fetch.git = "https://github.com/jorgebucaran/replay.fish"
 
 [fish-fifc]
 src.git = "https://github.com/gazorby/fifc"

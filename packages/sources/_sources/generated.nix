@@ -3,26 +3,27 @@
 {
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "78e3fe21915c81d7be5cd7c63fe2b8f7acd7538c";
+    version = "f0681b237d944bb3b9c5b7e2d775357532d42893";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "78e3fe21915c81d7be5cd7c63fe2b8f7acd7538c";
+      rev = "f0681b237d944bb3b9c5b7e2d775357532d42893";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-DNUcoIbFS2bEXq1t/BXFzzIiAih7k+5uZBT27t2V3i0=";
+      sha256 = "sha256-nhqgRY38kC77pjP7tyT0CLGnpcBS/a2q7fyhdfhtFRg=";
     };
   };
   fish-autopair = {
     pname = "fish-autopair";
-    version = "1.0.4";
-    src = fetchFromGitHub ({
-      owner = "jorgebucaran";
-      repo = "autopair.fish";
-      rev = "1.0.4";
+    version = "4d1752ff5b39819ab58d7337c69220342e9de0e2";
+    src = fetchgit {
+      url = "https://github.com/jorgebucaran/autopair.fish";
+      rev = "4d1752ff5b39819ab58d7337c69220342e9de0e2";
       fetchSubmodules = false;
-      sha256 = "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=";
-    });
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-qt3t1iKRRNuiLWiVoiAYOu+9E7jsyECyIqZJ/oRIT1A=";
+    };
   };
   fish-fifc = {
     pname = "fish-fifc";
@@ -50,14 +51,15 @@
   };
   fish-replay = {
     pname = "fish-replay";
-    version = "1.2.1";
-    src = fetchFromGitHub ({
-      owner = "jorgebucaran";
-      repo = "replay.fish";
-      rev = "1.2.1";
+    version = "bd8e5b89ec78313538e747f0292fcaf631e87bd2";
+    src = fetchgit {
+      url = "https://github.com/jorgebucaran/replay.fish";
+      rev = "bd8e5b89ec78313538e747f0292fcaf631e87bd2";
       fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
       sha256 = "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=";
-    });
+    };
   };
   fzf-scripts = {
     pname = "fzf-scripts";
@@ -86,23 +88,25 @@
   promnesia = {
     pname = "promnesia";
     version = "47ae8c654bbba8e506c2c0e852ff0d4763d42869";
-    src = fetchFromGitHub ({
-      owner = "karlicoss";
-      repo = "promnesia";
+    src = fetchgit {
+      url = "https://github.com/karlicoss/promnesia";
       rev = "47ae8c654bbba8e506c2c0e852ff0d4763d42869";
       fetchSubmodules = false;
-      sha256 = "sha256-d1lbn92fzHajRYOIOoT6pbR+hc+vks+aLHjmJvfPEAs=";
-    });
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-MpgXhDQ8J9hd+t8mKAP3DufFsibmE+lo6A34ZrXnuMk=";
+    };
   };
   trellis-cli = {
     pname = "trellis-cli";
-    version = "v1.8.0";
-    src = fetchFromGitHub ({
-      owner = "roots";
-      repo = "trellis-cli";
-      rev = "v1.8.0";
+    version = "56bd46546c69a7fe58d689ab4e15539b86a3d81a";
+    src = fetchgit {
+      url = "https://github.com/roots/trellis-cli";
+      rev = "56bd46546c69a7fe58d689ab4e15539b86a3d81a";
       fetchSubmodules = false;
-      sha256 = "sha256-w02vxf9PZDuHbrItKOYG1U7tUWnFMNKeJRjWa2FNz+c=";
-    });
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-/bJYUOK4Y3CjKaNC/jQ8mAD3nGym0WR/CboWAizzwfI=";
+    };
   };
 }
