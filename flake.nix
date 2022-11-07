@@ -112,7 +112,7 @@
 
     priorityOverlays = [
       # FIXME: remove after https://github.com/NixOS/nixpkgs/pull/193589
-      # [2022-10-14]: waiting for review since 2022-10-01
+      # [2022-11-07]: waiting for review since 2022-10-01
       self.overlays.nixpkgs-193589-jemalloc
     ];
 

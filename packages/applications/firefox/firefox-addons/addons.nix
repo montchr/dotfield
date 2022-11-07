@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.1.0";
+      version = "2.9.2.2";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023655/bypass_paywalls_clean-2.9.1.0.xpi";
-      sha256 = "9b5e289d4967a4b0cf1decc0feca0aca071cefab45d5f2c6e76b4cfcb91b0174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026939/bypass_paywalls_clean-2.9.2.2.xpi";
+      sha256 = "be677ad2a3484cc6f95da8e14f509e80a81e41301e127a3a23dbfdf983b7dc7f";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -155,10 +155,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.6";
+      version = "2.3.9";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015054/facebook_container-2.3.6.xpi";
-      sha256 = "ff9944fb0d6041127f85b19485198cb030e9afdf639ca99ffcfa2eba554d27ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024031/facebook_container-2.3.9.xpi";
+      sha256 = "f4cdd84471e2f6d3195a3f90aa511b0aba7f138f888bd239d8cb71684611ef78";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -582,10 +582,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.26.814";
+      version = "22.11.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021486/refined_github-22.10.26.814.xpi";
-      sha256 = "7b78accbd392432779b6974c838df9bb879c28ec2af75f06a305cf39a151a4ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026634/refined_github-22.11.6.xpi";
+      sha256 = "3b86ddcbbf6878440a9b77e6f48323a654c2b71bd0cd87b8be7040bd9de332f5";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -665,10 +665,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.24";
+      version = "1.21.26";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019568/single_file-1.21.24.xpi";
-      sha256 = "72bb74c13a772148e67f6089f384e268a7b109ce9507a5eeb852eeb210f6e024";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026276/single_file-1.21.26.xpi";
+      sha256 = "13aeb64bf04be235d8d36bfb5957a6d29b863d5cbf56471f34923099a128b7d7";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -760,10 +760,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.7";
+      version = "3.9.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
-      sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025276/tree_style_tab-3.9.8.xpi";
+      sha256 = "ea509937742b045d5764ee64b590051c72b43496ea69da7f4e651cf5c0140db4";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
