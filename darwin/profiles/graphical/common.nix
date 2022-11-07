@@ -47,6 +47,7 @@
     "karabiner-elements"
     "mpv"
     "plexamp"
+    "raindropio"
     "signal"
     "soundsource"
     "spotify"
