@@ -15,6 +15,7 @@ with homeProfiles; let
     git
     python
     shells.fish
+    shells.nushell
     shells.zsh
     ssh
   ];
