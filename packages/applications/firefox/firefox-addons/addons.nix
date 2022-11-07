@@ -524,6 +524,20 @@
         platforms = platforms.all;
         };
       };
+    "raindropio" = buildFirefoxXpiAddon {
+      pname = "raindropio";
+      version = "6.5.12";
+      addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021564/raindropio-6.5.12.xpi";
+      sha256 = "d3f1b0e305abf7785baef2b116a780eafa792484f7b76124903e66a3e1dd09ff";
+      meta = with lib;
+      {
+        homepage = "https://raindrop.io";
+        description = "All-in-one bookmark manager";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "4.25.0";
