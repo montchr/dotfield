@@ -4,20 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv) buildPlatform hostPlatform;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.home) username;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   l = lib // builtins;
-
-  # TODO: is it really helpful/necessary to restrict by build platform? are
-  # the macOS libraries available to linux builders? i don't think they are,
-  # but am not sure...
-  buildForMac = hostPlatform.isDarwin && buildPlatform.isMacOS;
-
-  # NOTE: [2022-10-18]: emacs-mac fails to build on aarch64
-  emacsMac = pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   profilesPath = "${configHome}/dotfield/home/users/${username}/config/emacs/profiles";
@@ -69,15 +61,12 @@ in {
     '';
 
   programs.emacs = {
-    enable = true;
-    package =
-      if buildForMac
-      then emacsMac
-      else pkgs.emacsNativeComp;
+    enable = !isDarwin;
+    package = pkgs.emacsNativeComp;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
-  services.emacs = l.mkIf (!hostPlatform.isDarwin) {
+  services.emacs = l.mkIf (!isDarwin) {
     # Doom will take care of running the server.
     enable = l.mkDefault false;
     defaultEditor = l.mkForce true;

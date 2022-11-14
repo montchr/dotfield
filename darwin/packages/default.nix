@@ -7,7 +7,7 @@ in {
     ...
   }: {
     packages = filterPackages system (flattenTree {
-      # emacs-plus = pkgs.callPackage ./emacs-plus.nix {};
+      emacs-plus = pkgs.callPackage ./emacs-plus.nix {};
       yabai = pkgs.callPackage ./yabai.nix {};
     });
   };
