@@ -111,8 +111,7 @@
              +tree-sitter)
  ledger
  (lua +lsp)
- (nix +lsp
-      +tree-sitter)
+ (nix +tree-sitter)
  (markdown +grip)
  (org
   +dragndrop
