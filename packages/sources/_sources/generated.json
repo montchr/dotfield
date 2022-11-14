@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f0681b237d944bb3b9c5b7e2d775357532d42893",
-            "sha256": "sha256-nhqgRY38kC77pjP7tyT0CLGnpcBS/a2q7fyhdfhtFRg=",
+            "rev": "92461f25887854fb31b9259998df2f36a8dd84dd",
+            "sha256": "sha256-FDeZuX2onQuHuTArBsWnM+nyiT96uyPQJKPhTNdWwf0=",
             "type": "git",
             "url": "https://github.com/black7375/Firefox-UI-Fix"
         },
-        "version": "f0681b237d944bb3b9c5b7e2d775357532d42893"
+        "version": "92461f25887854fb31b9259998df2f36a8dd84dd"
     },
     "fish-autopair": {
         "cargoLocks": null,
@@ -154,11 +154,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "56bd46546c69a7fe58d689ab4e15539b86a3d81a",
-            "sha256": "sha256-/bJYUOK4Y3CjKaNC/jQ8mAD3nGym0WR/CboWAizzwfI=",
+            "rev": "ef7c061ffe3d068a9035d6add2ee6139c463e093",
+            "sha256": "sha256-ynHIFbGe15D0lJGBMJj0NJOVxacfu+lHvu7+//yutvo=",
             "type": "git",
             "url": "https://github.com/roots/trellis-cli"
         },
-        "version": "56bd46546c69a7fe58d689ab4e15539b86a3d81a"
+        "version": "ef7c061ffe3d068a9035d6add2ee6139c463e093"
     }
 }

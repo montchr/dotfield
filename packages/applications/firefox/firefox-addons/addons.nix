@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.2.2";
+      version = "2.9.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026939/bypass_paywalls_clean-2.9.2.2.xpi";
-      sha256 = "be677ad2a3484cc6f95da8e14f509e80a81e41301e127a3a23dbfdf983b7dc7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029691/bypass_paywalls_clean-2.9.3.0.xpi";
+      sha256 = "54720c81b2b254d8af443079d32bf70e3d337877daa514f521bda816310664d9";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -307,10 +307,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.101.0.2";
+      version = "4.102.1.8";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984651/lastpass_password_manager-4.101.0.2.xpi";
-      sha256 = "44294c1cb711a5d566a17de6087e4825755e81944735e6f182de4cf9d63e8cfc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019352/lastpass_password_manager-4.102.1.8.xpi";
+      sha256 = "ee484e832186d44200ffad465cfd25835d62e42406981d942b6148b26c36bf5a";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -326,10 +326,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.6.1";
+      version = "4.7.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000537/mailvelope-4.6.1.xpi";
-      sha256 = "dc9e8f83bb14517a1714a29c066ae3d559a92ac65688a9effcb713d7e6749c86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027599/mailvelope-4.7.0.xpi";
+      sha256 = "5cb57a8e9d7517aaaa5dc8afa38ae0076aff15462f362799575a220fd5758561";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -354,10 +354,10 @@
       };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
-      version = "6.10.4";
+      version = "6.10.5";
       addonId = "octolinker@stefanbuck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3976430/octolinker-6.10.4.xpi";
-      sha256 = "140327b54f7a7afef4de8ffe2a741c1a48eb2b8413deabb99d14497b3e594227";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029754/octolinker-6.10.5.xpi";
+      sha256 = "36a953c5bd3a60648a45ec04fb131664f54f2d31caf26853c2b3d438d50674c1";
       meta = with lib;
       {
         homepage = "https://octolinker.vercel.app";
@@ -679,10 +679,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.10.18.1133";
+      version = "22.11.14.1521";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
-      sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030032/sourcegraph_for_firefox-22.11.14.1521.xpi";
+      sha256 = "edddff58e32db6fad0220d9dcb19881d25d00d5ac24602d609535d4a68790a17";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -691,10 +691,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003523/steam_database-3.6.1.xpi";
-      sha256 = "1eabb49a99f1cee7b0c8659266a79a6ee19edc2b2304ece1e12f0554e753aa2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026911/steam_database-3.6.2.xpi";
+      sha256 = "fd0ee7a05a7df29a8e4a7e7141b391c9e243874de59116bbd543b1c9ebe08a60";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -760,10 +760,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.8";
+      version = "3.9.10";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025276/tree_style_tab-3.9.8.xpi";
-      sha256 = "ea509937742b045d5764ee64b590051c72b43496ea69da7f4e651cf5c0140db4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028300/tree_style_tab-3.9.10.xpi";
+      sha256 = "4a26348d5aadfb0d14aa1be33c23cecf89dc1f39edc87dfe26b6e81782c1eba2";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -821,10 +821,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.44.4";
+      version = "1.45.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
-      sha256 = "0be550c9a27c040d04ad71954dd9e9a4967a27d48ffa2cdfe91171752e152685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028976/ublock_origin-1.45.2.xpi";
+      sha256 = "fb173895c76c3b05f132caf87a716c75e3db21be861ead1b14ba6abc7e715e8b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";

@@ -3,14 +3,14 @@
 {
   firefox-lepton-ui = {
     pname = "firefox-lepton-ui";
-    version = "f0681b237d944bb3b9c5b7e2d775357532d42893";
+    version = "92461f25887854fb31b9259998df2f36a8dd84dd";
     src = fetchgit {
       url = "https://github.com/black7375/Firefox-UI-Fix";
-      rev = "f0681b237d944bb3b9c5b7e2d775357532d42893";
+      rev = "92461f25887854fb31b9259998df2f36a8dd84dd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-nhqgRY38kC77pjP7tyT0CLGnpcBS/a2q7fyhdfhtFRg=";
+      sha256 = "sha256-FDeZuX2onQuHuTArBsWnM+nyiT96uyPQJKPhTNdWwf0=";
     };
   };
   fish-autopair = {
@@ -99,14 +99,14 @@
   };
   trellis-cli = {
     pname = "trellis-cli";
-    version = "56bd46546c69a7fe58d689ab4e15539b86a3d81a";
+    version = "ef7c061ffe3d068a9035d6add2ee6139c463e093";
     src = fetchgit {
       url = "https://github.com/roots/trellis-cli";
-      rev = "56bd46546c69a7fe58d689ab4e15539b86a3d81a";
+      rev = "ef7c061ffe3d068a9035d6add2ee6139c463e093";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-/bJYUOK4Y3CjKaNC/jQ8mAD3nGym0WR/CboWAizzwfI=";
+      sha256 = "sha256-ynHIFbGe15D0lJGBMJj0NJOVxacfu+lHvu7+//yutvo=";
     };
   };
 }
