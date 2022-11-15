@@ -47,18 +47,23 @@
   /*
   hasEnabledLeaf :: [String] -> AttrSet -> Bool
 
-  Whether any of the top-level trees of the same form have a module-like
+  Whether any of the top-level trees of the same structure have a module-like
   "enable" option whose value is true.
 
   Example:
 
   ```nix
+  {config,...}:
+  let
+    hmUsers = config.home-manager.users;
+    hasUserEmacs = hasEnabledLeaf ["programs" "emacs"] hmUsers;
+  in
   {
     home-manager.users = {
       foo = { programs.emacs.enable = true; };
       bar = { programs.neovim.enable = true; };
     };
-    programs.emacs.enable = hasEnabledLeaf ["programs" "emacs"];
+    programs.emacs.enable = hasUserEmacs;
   }
   ```
   */
