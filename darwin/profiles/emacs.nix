@@ -12,8 +12,4 @@ in {
       icon = "modern-alecive-flatwoken";
     })
   ];
-  homebrew.brews = [
-    # :lang org (macOS only)
-    "pngpaste"
-  ];
 }
