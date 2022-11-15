@@ -29,6 +29,7 @@ with homeProfiles; let
     misc
     mpv
     themes
+    vscode
   ];
 
   personalised = [
