@@ -21,9 +21,7 @@
   #          -> system/org.nixos.yabai-sa
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
-  defaults = {
-    padding = "6";
-  };
+  defaultPadding = "6";
 
   mkArgString = lib.generators.toKeyValue {
     mkKeyValue = key: value: let
@@ -113,15 +111,8 @@
         #   yabai-set-padding [<padding-value>]
         #   yabai-set-padding 6
         #
-        # Note that environment variables may not be available when the
-        # config is loaded for the first time, so it's best to set the desired
-        # values explicitly as an initial fallback -- a default for the default.
-        #
 
-
-        DEFAULT_PADDING="''${YABAI_PADDING_DEFAULT:-${defaults.padding}}"
-
-        PADDING="''${1:-$DEFAULT_PADDING}"
+        PADDING="''${1:-''${YABAI_PADDING_DEFAULT:-${defaultPadding}}}"
 
         yabai -m config top_padding "$PADDING"
         yabai -m config bottom_padding "$PADDING"
@@ -168,7 +159,7 @@ in {
     ++ (map (key: builtins.getAttr key scripts) (builtins.attrNames scripts));
 
   environment.variables = {
-    YABAI_PADDING_DEFAULT = defaults.padding;
+    YABAI_PADDING_DEFAULT = defaultPadding;
   };
 
   # FIXME: scoping these to a user path isn't possible without assumptions about the username
@@ -183,49 +174,37 @@ in {
     enableScriptingAddition = true;
 
     config = {
-      external_bar = false;
-
-      # TODO: set based on external bar config
-      # if barCfg.enable
-      # then
-      #   let
-      #     position = barCfg.config.position;
-      #     height = barCfg.config.height;
-      #   in
-      #   (lib.concatStringsSep ":" [
-      #     (barCfg.config.display)
-      #     (if "top" == position then (toString height) else "0")
-      #     (if "bottom" == position then (toString height) else "0")
-      #   ])
-      # else "off";
+      ###: --- tiling options ---
 
       layout = "bsp";
+      window_placement = "second_child";
 
-      # FIXME: Default to `on` and write rules for disallowed applications
-      # that this setting conflicts with.
-      #
-      # I tend to switch this on every so often because it seems like a good
-      # idea. But I always end up disabling it because it causes lots of
-      # frustrating issues when using GUIs with flyout menus activated on
-      # hover (like iStat, for example).
+      top_padding = defaultPadding;
+      bottom_padding = defaultPadding;
+      left_padding = defaultPadding;
+      right_padding = defaultPadding;
+      window_padding = defaultPadding;
+
+      auto_balance = "on";
+      split_ratio = 0.5;
+
+      ###: --- mouse support ---
+
       mouse_follows_focus = "off";
-
-      # `autoraise` will override the effect of `window_topmost`
-      # TODO: `autoraise` behavior was substatially improved in v4.0.0 -- check it out again
-      focus_follows_mouse = "off";
+      focus_follows_mouse = "off"; # <- "autoraise" | "autofocus"
       mouse_modifier = "fn";
       mouse_action1 = "move";
       mouse_action2 = "resize";
 
-      window_placement = "second_child";
-      window_shadow = "float"; # apply modified shadows to floating windows
-      window_topmost = "on"; # floating windows always on top
-      split_ratio = 0.5;
-      auto_balance = "on";
+      ###: --- window modifications ---
 
-      # Window opacity
-      # Disabled due to possible issues with external displays
+      window_topmost = "on";
+      window_shadow = "float";
       window_opacity = "off";
+
+      ###: --- status bar ---
+
+      external_bar = false;
     };
 
     extraConfig = let
