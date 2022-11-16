@@ -198,7 +198,7 @@ in {
 
       ###: --- window modifications ---
 
-      window_topmost = "on";
+      window_topmost = "off";
       window_shadow = "float";
       window_opacity = "off";
 
