@@ -200,7 +200,11 @@ in {
 
       window_topmost = "off";
       window_shadow = "float";
-      window_opacity = "off";
+
+      ##: opacity
+      window_opacity = "on";
+      active_window_opacity = 1.0;
+      normal_window_opacity = 0.9;
 
       ###: --- status bar ---
 
