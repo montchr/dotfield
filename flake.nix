@@ -11,6 +11,7 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
 
     darwin = {
       url = "github:LnL7/nix-darwin";
@@ -178,6 +179,7 @@
         stable = inputs'.nixos-stable.legacyPackages;
         unstable = inputs'.nixos-unstable.legacyPackages;
         trunk = inputs'.nixpkgs-trunk.legacyPackages;
+        forked-with-lint-staged = inputs'.nixpkgs-fork-add-lint-staged.legacyPackages;
       };
       pkgs = pkgsets.default;
     in {

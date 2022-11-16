@@ -16,6 +16,7 @@
       sops-init-gpg-key
       ssh-to-pgp
       ;
+    inherit (inputs'.nixpkgs-fork-add-lint-staged.legacyPackages) lint-staged;
 
     inherit
       (pkgs)
@@ -304,6 +305,7 @@
       packages = [
         cachix
         deadnix
+        lint-staged
         sops-import-keys-hook
         sops-init-gpg-key
         ssh-to-pgp

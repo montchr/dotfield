@@ -1108,6 +1108,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-fork-add-lint-staged": {
+      "locked": {
+        "lastModified": 1668627881,
+        "narHash": "sha256-+kPFumVQBh4FSv8JdQ/XameZJ1uF5LbnIztbfx/82M8=",
+        "owner": "montchr",
+        "repo": "nixpkgs",
+        "rev": "9ef81a0dd60fe1872919de6b98934cdf5622730f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "ref": "add-lint-staged",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -1497,6 +1513,7 @@
         "nixpkgs": [
           "nixos-unstable"
         ],
+        "nixpkgs-fork-add-lint-staged": "nixpkgs-fork-add-lint-staged",
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",
