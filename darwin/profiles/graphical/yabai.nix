@@ -185,7 +185,7 @@ in {
       right_padding = defaultPadding;
       window_padding = defaultPadding;
 
-      auto_balance = "on";
+      auto_balance = "off";
       split_ratio = 0.5;
 
       ###: --- mouse support ---
