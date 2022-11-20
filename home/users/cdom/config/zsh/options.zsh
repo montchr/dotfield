@@ -4,8 +4,8 @@
 # WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
 
 # ls et al.
-# AUTO_LS_COMMANDS="exa --oneline"
-# AUTO_LS_NEWLINE=false
+AUTO_LS_COMMANDS="exa --oneline"
+AUTO_LS_NEWLINE=false
 
 
 ###: INTERACTION/FEEDBACK ======================================================
