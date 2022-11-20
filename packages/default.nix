@@ -83,7 +83,6 @@
 
   makeOverlay = f: (final: prev: (f (packages final)));
 in {
-  imports = [./nixpkgs-193589-jemalloc.nix];
   flake.overlays = {
     packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);
     firefox-addons = makeOverlay (pkgs': {firefox-addons = pkgs'.firefox-addons.addons;});

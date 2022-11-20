@@ -111,12 +111,6 @@
       };
     });
 
-    priorityOverlays = [
-      # FIXME: remove after https://github.com/NixOS/nixpkgs/pull/193589
-      # [2022-11-07]: waiting for review since 2022-10-01
-      self.overlays.nixpkgs-193589-jemalloc
-    ];
-
     exoOverlays = [
       nixpkgs-wayland.overlay
       emacs-overlay.overlay
@@ -174,7 +168,7 @@
         default = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = priorityOverlays ++ exoOverlays ++ esoOverlays;
+          overlays = exoOverlays ++ esoOverlays;
         };
         stable = inputs'.nixos-stable.legacyPackages;
         unstable = inputs'.nixos-unstable.legacyPackages;
