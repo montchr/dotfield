@@ -14,7 +14,6 @@ setopt HASH_LIST_ALL
 setopt GLOBDOTS                 # Glob dotfiles as well.
 setopt COMBINING_CHARS          # Combine zero-length punc chars (accents) with base char
 setopt EXTENDED_GLOB            # Enable more powerful glob features
-setopt INTERACTIVE_COMMENTS     # Enable comments in interactive shell.
 setopt RC_QUOTES                # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'
 
 unsetopt CASE_GLOB        # Use case-insensitve globbing.
