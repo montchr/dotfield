@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./bat.nix
     ./home-packages.nix
