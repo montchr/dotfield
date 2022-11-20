@@ -3,14 +3,11 @@
   pkgs,
   ...
 }: let
-  inherit (config.xdg) cacheHome dataHome;
-  shellAliases =
-    (import ../abbrs.nix)
-    // (import ../aliases.nix);
+  inherit (config) xdg;
+  shellAliases = (import ../abbrs.nix) // (import ../aliases.nix);
 in {
   imports = [../common.nix];
 
-  home.packages = with pkgs; [zsh];
   home.extraOutputsToInstall = ["/share/zsh"];
 
   programs.starship.enableZshIntegration = true;
@@ -23,12 +20,21 @@ in {
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
+    # enableVteIntegration = true;
     autocd = true;
 
-    history.path = "${dataHome}/zsh/history";
+    defaultKeymap = "viins"; # <- "emacs" | "vicmd" | "viins"
+
+    history.path = "${xdg.dataHome}/zsh/history";
     history.expireDuplicatesFirst = true;
     history.extended = true;
     history.ignoreDups = true;
+    history.ignoreSpace = true;
+    history.save = 10000;
+    history.share = true;
+    history.size = 10000;
+
+    historySubstringSearch.enable = true;
 
     # plugins = with pkgs; [];
 
@@ -50,8 +56,8 @@ in {
     '';
 
     sessionVariables = {
-      ZSH_CACHE = "${cacheHome}/zsh";
-      ZSH_DATA = "${dataHome}/zsh";
+      ZSH_CACHE = "${xdg.cacheHome}/zsh";
+      ZSH_DATA = "${xdg.dataHome}/zsh";
     };
   };
 }
