@@ -21,6 +21,5 @@
   programs.man.generateCaches = lib.mkDefault true;
   programs.nix-index.enable = true;
   programs.pandoc.enable = true;
-  programs.tealdeer.enable = true;
   programs.zoxide.enable = true;
 }

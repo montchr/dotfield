@@ -45,7 +45,6 @@
       navi
       nnn
       neovim
-      tealdeer
     ])
     ++ [
       moduleArgs

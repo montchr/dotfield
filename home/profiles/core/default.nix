@@ -3,6 +3,7 @@
     ./bat.nix
     ./home-packages.nix
     ./nixpkgs-config.nix
+    ./tealdeer.nix
   ];
 
   programs.home-manager.enable = true;
