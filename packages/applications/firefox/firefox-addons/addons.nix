@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.3.0";
+      version = "2.9.4.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029691/bypass_paywalls_clean-2.9.3.0.xpi";
-      sha256 = "54720c81b2b254d8af443079d32bf70e3d337877daa514f521bda816310664d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032949/bypass_paywalls_clean-2.9.4.0.xpi";
+      sha256 = "d24880e6fcf83d65d327d55b2b3c19b8000051232febe6bc96722a38777dc3c3";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -326,10 +326,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.7.0";
+      version = "4.7.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027599/mailvelope-4.7.0.xpi";
-      sha256 = "5cb57a8e9d7517aaaa5dc8afa38ae0076aff15462f362799575a220fd5758561";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032584/mailvelope-4.7.1.xpi";
+      sha256 = "5b8ecaecc0945956ef9ae063b0ade9812b8558ba8821c0935371ca2e74148e4e";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -609,10 +609,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.8.2";
+      version = "1.9.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023616/rust_search_extension-1.8.2.xpi";
-      sha256 = "451756b4e4ea0ffe8118f3b97577fb6e0c3488ad5d13dbde0094141a93fb449d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032910/rust_search_extension-1.9.0.xpi";
+      sha256 = "847533a31ec07aa76b5c36c42a76ef7c7f8dc7592814fe320e5e2f7a4f50dcf9";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -877,10 +877,10 @@
       };
     "zoom-scheduler" = buildFirefoxXpiAddon {
       pname = "zoom-scheduler";
-      version = "2.1.29";
+      version = "2.1.32";
       addonId = "{bf855ead-d7c3-4c7b-9f88-9a7e75c0efdf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979414/zoom_new_scheduler-2.1.29.xpi";
-      sha256 = "d4cb05d6e33f0c0ecd5edcba00b4ac7479084ec2b7cc420c02725d811ecbfaa3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029912/zoom_new_scheduler-2.1.32.xpi";
+      sha256 = "d6a34a5624e81e9f0732ce2282b2105b6a271be7be298352da8624b87bd58406";
       meta = with lib;
       {
         homepage = "https://zoom.us/";
