@@ -39,4 +39,10 @@ in {
     search_mode = "fuzzy"; # 'prefix' | 'fulltext' | 'fuzzy'
     filter_mode = "global"; # 'global' | 'host' | 'session' | 'directory'
   };
+
+  programs.bottom.enable = true;
+  programs.exa.enable = true;
+  programs.exa.enableAliases = true;
+  programs.less.enable = true;
+  programs.zoxide.enable = true;
 }
