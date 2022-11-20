@@ -38,17 +38,6 @@ in {
 
     # plugins = with pkgs; [];
 
-    initExtraFirst = ''
-      # if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-      #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      # fi
-    '';
-
-    # FIXME: compdef not defined -- should be loaded after compinit
-    # initExtraBeforeCompInit = ''
-    #   compdef _directories md
-    # '';
-
     initExtra = ''
       export DOTFIELD_USER_ZDOTDIR="$DOTFIELD_DIR/home/users/$USER/config/zsh"
 
