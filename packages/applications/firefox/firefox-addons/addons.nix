@@ -833,6 +833,20 @@
         platforms = platforms.all;
         };
       };
+    "unclutter" = buildFirefoxXpiAddon {
+      pname = "unclutter";
+      version = "1.2.0";
+      addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031467/lindylearn-1.2.0.xpi";
+      sha256 = "de67617f7195ed0c417a5c01a15fe1d762507f2b1e365707d60d8376a581531b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/lindylearn/unclutter";
+        description = "Remove annoyances, customise your reading &amp; save highlights.";
+        license = licenses.agpl3;
+        platforms = platforms.all;
+        };
+      };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
       version = "2.13.3";

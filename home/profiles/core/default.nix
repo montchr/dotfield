@@ -1,18 +1,33 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./bat.nix
     ./home-packages.nix
     ./nixpkgs-config.nix
+    ./tealdeer.nix
   ];
 
+  ##: home-manager setup
   programs.home-manager.enable = true;
   manual.json.enable = true;
   news.display = "show";
   xdg.enable = true;
 
+  ##: shells
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.zsh.enable = true;
+
+  ##: essential tools
+  programs.command-not-found.enable = true;
+  programs.jq.enable = true;
+  programs.man.enable = true;
+  # N.B. This can slow down builds, but enables more manpage integrations
+  # across various tools. See the home-manager manual for more info.
+  programs.man.generateCaches = lib.mkDefault true;
 
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
