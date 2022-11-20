@@ -228,6 +228,14 @@
     "slug": "ublock-origin"
   },
   {
+    "slug": "lindylearn",
+    "pname": "unclutter",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3"
+    }
+  },
+  {
     "slug": "violentmonkey"
   },
   {
