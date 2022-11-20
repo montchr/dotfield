@@ -23,7 +23,7 @@ in {
     # enableVteIntegration = true;
     autocd = true;
 
-    defaultKeymap = "viins"; # <- "emacs" | "vicmd" | "viins"
+    defaultKeymap = "viins";
 
     history.path = "${xdg.dataHome}/zsh/history";
     history.expireDuplicatesFirst = true;
