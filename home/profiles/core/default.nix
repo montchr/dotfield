@@ -22,6 +22,7 @@
   programs.zsh.enable = true;
 
   ##: essential tools
+  programs.command-not-found.enable = true;
   programs.jq.enable = true;
   programs.man.enable = true;
   # N.B. This can slow down builds, but enables more manpage integrations
