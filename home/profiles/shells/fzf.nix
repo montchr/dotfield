@@ -22,6 +22,9 @@
     });
 
   fdBin = "${pkgs.fd}/bin/fd";
+
+  findFiles = "${fdBin} --hidden --follow --exclude .git";
+  findDirs = "${fdBin} --type d";
 in {
   programs.fzf = {
     enable = true;
@@ -29,14 +32,14 @@ in {
     # fish integration may be handled by the fifc plugin
     enableFishIntegration = !config.programs.fish.fifc.enable;
 
-    defaultCommand = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
+    defaultCommand = "${findFiles} 2>/dev/null";
     defaultOptions = [
       "--height 40%"
       "--border"
       "--no-multi"
     ];
-    changeDirWidgetCommand = "${fdBin} --type d .";
-    fileWidgetCommand = "${fdBin} --type f --hidden --max-depth 5";
+    changeDirWidgetCommand = findDirs;
+    fileWidgetCommand = findFiles;
   };
 
   home.packages = with pkgs; [
