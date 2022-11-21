@@ -35,6 +35,11 @@ in {
 
     defaultKeymap = "viins";
 
+    initExtraFirst = ''
+      # Initialise the builtin profiler -- run `zprof` to read results
+      zmodload zsh/zprof
+    '';
+
     history.path = "${xdg.dataHome}/zsh/history";
     history.expireDuplicatesFirst = true;
     history.extended = true;
