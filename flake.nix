@@ -27,6 +27,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-pr-2964 = {
+      url = "github:montchr/home-manager/gpg-agent-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     macos-builder = {
       url = "github:Gabriella439/macos-builder";
       inputs.nixpkgs.follows = "nixpkgs";

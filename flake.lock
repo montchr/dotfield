@@ -676,6 +676,28 @@
         "type": "github"
       }
     },
+    "home-manager-pr-2964": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils_5"
+      },
+      "locked": {
+        "lastModified": 1669064941,
+        "narHash": "sha256-A9BJMGO1hhBqtXXVh/pvynzk2o9opL2VDsEXzWv0B68=",
+        "owner": "montchr",
+        "repo": "home-manager",
+        "rev": "a3b2221a203fc6cd05838247b5dce5f2a707d4c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "ref": "gpg-agent-darwin",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "iosevka-xtal": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -1485,7 +1507,7 @@
       "inputs": {
         "naersk": "naersk_2",
         "nixpkgs": "nixpkgs_14",
-        "utils": "utils_5"
+        "utils": "utils_6"
       },
       "locked": {
         "lastModified": 1666639010,
@@ -1514,6 +1536,7 @@
         "flake-utils": "flake-utils_5",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
+        "home-manager-pr-2964": "home-manager-pr-2964",
         "iosevka-xtal": "iosevka-xtal",
         "macos-builder": "macos-builder",
         "microvm": "microvm",
@@ -1663,6 +1686,21 @@
       }
     },
     "utils_5": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "utils_6": {
       "locked": {
         "lastModified": 1656928814,
         "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
