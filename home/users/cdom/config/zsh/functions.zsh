@@ -1,19 +1,33 @@
-###: GENERAL ===================================================================
+### $DOTFIELD_USER_ZDOTDIR/functions.zsh :: custom functions and hooks
 
 autoload -Uz add-zsh-hook zmv
 
+##: Create a new directory via `mkdir -p` and move into it.
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
-# ls on cd
+##: List directory contents on arrival.
 chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
-# start new sessions from most recent dir
-# https://wiki.archlinux.org/title/zsh#cdr
-# FIXME: doesn't work, but no visible errors
+##: Start new sessions from most recent dir
+#: https://wiki.archlinux.org/title/zsh#cdr
+#: FIXME: doesn't work, but no visible errors
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
+
+
+#=====================================
+#: Search for an entry in the zsh manual
+#
+# Usage:
+#   zman <query-string>
+# Parameters:
+#   Search query.
+#=====================================
+function zman {
+  PAGER="less -g -I -s '+/^       "$1"'" man zshall;
+}
 
 
 ###: COLOR =====================================================================

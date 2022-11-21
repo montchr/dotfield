@@ -8,3 +8,4 @@
 . ${0:h}/options.zsh
 . ${0:h}/functions.zsh
 . ${0:h}/keybinds.zsh
+. ${0:h}/completions.zsh

@@ -2,8 +2,11 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
+  l = inputs.nixpkgs.lib // builtins;
+
   mkTheme = with config.colorscheme.colors;
     lib.concatStringsSep ","
     (lib.mapAttrsToList (n: v: "${n}:#${v}") {
@@ -21,10 +24,11 @@
       "spinner" = base0C;
     });
 
-  fdBin = "${pkgs.fd}/bin/fd";
+  exa = l.getExe pkgs.exa;
+  fd = l.getExe pkgs.fd;
 
-  findFiles = "${fdBin} --hidden --follow --exclude .git";
-  findDirs = "${fdBin} --type d";
+  findFiles = "${fd} --hidden --follow --exclude .git";
+  findDirs = "${fd} --type d";
 in {
   programs.fzf = {
     enable = true;
@@ -34,12 +38,14 @@ in {
 
     defaultCommand = "${findFiles} 2>/dev/null";
     defaultOptions = [
-      "--height 40%"
-      "--border"
-      "--no-multi"
+      "--ansi"
+      "--reverse"
     ];
     changeDirWidgetCommand = findDirs;
+    changeDirWidgetOptions = ["--preview '${exa} --tree {} | head -n 200'"];
     fileWidgetCommand = findFiles;
+    fileWidgetOptions = ["--preview 'head {}'"];
+    historyWidgetOptions = ["--sort" "--exact"];
   };
 
   home.packages = with pkgs; [
