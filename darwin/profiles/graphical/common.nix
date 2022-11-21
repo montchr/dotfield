@@ -6,10 +6,6 @@
 }: {
   security.pam.enableSudoTouchIdAuth = true;
 
-  environment.systemPackages = with pkgs; [
-    gtk-mac-integration
-  ];
-
   # kitty terminfo must be applied on the system level
   # https://github.com/nix-community/home-manager/issues/423
   environment.variables = {
@@ -25,12 +21,6 @@
   networking.knownNetworkServices = [
     "Wi-Fi"
     "Thunderbolt Bridge"
-  ];
-
-  homebrew.brews = [
-    # This provides a GUI, despite it not being a cask.
-    # TODO: are there any better alternatives yet???
-    # "pinentry-mac"
   ];
 
   homebrew.casks = [

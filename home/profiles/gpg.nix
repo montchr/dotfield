@@ -6,13 +6,15 @@ moduleArgs @ {
   ...
 }: let
   inherit (config.dotfield.whoami) pgpPublicKey;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  l = inputs.nixpkgs.lib // builtins;
 in {
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
   imports = [(inputs.home-manager-pr-2964 + "/modules/services/gpg-agent.nix")];
   disabledModules = ["services/gpg-agent.nix"];
 
-  config = lib.mkIf ("" != pgpPublicKey) {
+  config = l.mkIf ("" != pgpPublicKey) {
     home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
 
     home.packages = with pkgs; [
@@ -30,6 +32,7 @@ in {
       # attach to with ncurses. however, pinentry will work for gpg signing
       # commits.
       enableSshSupport = true;
+      pinentryFlavor = l.mkIf isDarwin "mac";
       sshKeys = [pgpPublicKey];
     };
 
