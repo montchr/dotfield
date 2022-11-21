@@ -76,7 +76,6 @@ in {
         options.dotfield.features = featuresOpt;
         config.dotfield.features = {
           inherit hasSway;
-          hasPragPro = l.strings.hasPrefix "PragmataPro" hmConfig.theme.fonts.mono.family;
           hasWayland = osCfg.hasWayland or hasSway;
         };
       })

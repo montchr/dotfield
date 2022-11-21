@@ -42,7 +42,6 @@
 
     ##: fonts
     nerdfonts-symbols-only = ./fonts/nerdfonts-symbols-only.nix;
-    # pragmatapro = ./fonts/pragmatapro.nix;
     sf-pro = ./fonts/sf-pro.nix;
 
     ##: python packages

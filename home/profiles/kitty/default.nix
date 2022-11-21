@@ -43,19 +43,6 @@
     concatMapStringsSep "\n"
     (style: mkFontFeatures "${family}-${style}" features)
     styles;
-
-  pragmataProExtras = let
-    fontStyles = ["Regular" "Italic" "BoldItalic"];
-    # https://fsd.it/pragmatapro/Handbook.png
-    fontFeatures = [
-      "+calt" # Standard programming ligatures.
-      # "+frac" # Fraction stylization.
-      # "+ss12" # Assorted iconizations.
-      # "+ss13" # Smooth graphs e.g. for git log.
-    ];
-  in ''
-    ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
-  '';
 in {
   home.packages = with pkgs; [
     kitty-get-window-by-platform-id
@@ -74,9 +61,6 @@ in {
         font_family = theme.fonts.term.family;
         font_size = "${builtins.toString theme.fonts.term.size}.0";
       };
-    extraConfig = ''
-      ${optionalString hasPragPro pragmataProExtras}
-    '';
 
     darwinLaunchOptions = mkIf isDarwin [
       "--single-instance"
