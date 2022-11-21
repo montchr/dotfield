@@ -43,6 +43,12 @@
     concatMapStringsSep "\n"
     (style: mkFontFeatures "${family}-${style}" features)
     styles;
+
+  iosevkaPostScriptSuffixes = ["Bold" "Bold-Extended" "Bold-Extended-Italic" "Bold-Extended-Oblique" "Bold-Italic" "Bold-Oblique" "Extended" "Extrabold" "Extralight" "Heavy" "Italic" "Light" "Medium" "Medium-Italic" "Regular" "Semibold" "Thin" "Thin-Italic"];
+  fontSettings = {
+    font_family = theme.fonts.term.family;
+    font_size = "${builtins.toString theme.fonts.term.size}.0";
+  };
 in {
   home.packages = with pkgs; [
     kitty-get-window-by-platform-id
@@ -54,17 +60,9 @@ in {
 
   programs.kitty = {
     enable = true;
-    settings =
-      settings
-      // colors
-      // {
-        font_family = theme.fonts.term.family;
-        font_size = "${builtins.toString theme.fonts.term.size}.0";
-      };
-
-    darwinLaunchOptions = mkIf isDarwin [
-      "--single-instance"
-    ];
+    settings = settings // colors // fontSettings;
+    darwinLaunchOptions = mkIf isDarwin ["--single-instance"];
+    extraConfig = mkFontFeatures' "Iosevka-Term" iosevkaPostScriptSuffixes ["-calt +dlig"];
   };
 
   xdg.configFile = {
