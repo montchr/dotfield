@@ -6,15 +6,16 @@
 }: let
   inherit (config) xdg;
   shellAliases = (import ../abbrs.nix) // (import ../aliases.nix);
+  zsh-completions-latest = pkgs.zsh-completions.overrideAttrs (o: {
+    version = inputs.zsh-completions.rev;
+    src = inputs.zsh-completions;
+  });
 in {
   imports = [../common.nix];
 
   home.extraOutputsToInstall = ["/share/zsh"];
   home.packages = [
-    (pkgs.zsh-completions.overrideAttrs (o: {
-      version = inputs.zsh-completions.rev;
-      src = inputs.zsh-completions;
-    }))
+    zsh-completions-latest
   ];
 
   programs.starship.enableZshIntegration = true;
@@ -53,7 +54,9 @@ in {
     historySubstringSearch.enable = true;
 
     initExtraBeforeCompInit = ''
-      fpath+=${pkgs.zsh-completions}/src
+      # Normal plugin load happens too late for `zsh-users/zsh-completions`
+      # because of its non-standard source path in `/src/`.
+      fpath+=${zsh-completions-latest}/src
     '';
 
     plugins = [
