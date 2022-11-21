@@ -1,0 +1,3 @@
+{...}: {
+  programs.just.enable = true;
+}

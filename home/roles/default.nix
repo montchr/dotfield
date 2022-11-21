@@ -13,6 +13,7 @@ with homeProfiles; let
     direnv
     emacs
     git
+    just
     python
     shells.fish
     shells.nushell
