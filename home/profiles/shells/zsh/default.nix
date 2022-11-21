@@ -26,7 +26,7 @@ in {
     enable = true;
     dotDir = ".config/zsh";
     enableCompletion = true;
-    # enableVteIntegration = true;
+    enableVteIntegration = true;
     autocd = true;
 
     # use zdharma-continuum/fast-syntax-highlighting instead
