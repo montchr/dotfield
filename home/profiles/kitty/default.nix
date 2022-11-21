@@ -59,7 +59,6 @@
 in {
   home.packages = with pkgs; [
     kitty-get-window-by-platform-id
-    # (mkIf isDarwin kitty-set-app-icon)
   ];
 
   home.sessionVariables = {

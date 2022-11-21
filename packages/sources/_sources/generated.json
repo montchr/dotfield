@@ -142,23 +142,5 @@
             "url": "https://github.com/karlicoss/promnesia"
         },
         "version": "47ae8c654bbba8e506c2c0e852ff0d4763d42869"
-    },
-    "trellis-cli": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "trellis-cli",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "ef7c061ffe3d068a9035d6add2ee6139c463e093",
-            "sha256": "sha256-ynHIFbGe15D0lJGBMJj0NJOVxacfu+lHvu7+//yutvo=",
-            "type": "git",
-            "url": "https://github.com/roots/trellis-cli"
-        },
-        "version": "ef7c061ffe3d068a9035d6add2ee6139c463e093"
     }
 }

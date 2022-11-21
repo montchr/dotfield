@@ -28,12 +28,6 @@ in {
   options.dotfield = {
     features = featuresOpt;
     paths = {
-      # FIXME: won't this still end up referencing the previous generation in the store?
-      flakeRoot = l.mkOption {
-        type = l.types.path;
-        apply = toString;
-        readOnly = true;
-      };
       fsPath = l.mkOption {
         type = l.types.str;
         default =
@@ -56,7 +50,6 @@ in {
   };
   config = {
     dotfield = {
-      paths.flakeRoot = ../../.;
       features = {
         inherit hasImpermanence;
 

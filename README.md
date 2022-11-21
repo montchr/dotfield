@@ -205,7 +205,6 @@ be accessible remotely.
 
 ##### Planned
 
-- ArchiveBox
 - BorgBackup archive storage from other hosts
 - Some sort of fast "cloud" storage for everyday use (notes and document sync, recent photos, etc.)
 
@@ -221,37 +220,3 @@ Still works, but unusable without external display.
 Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
 
 Currently lost somewhere in the meat ether.
-
-## Errata
-
-### kitty terminal custom icons
-
-kitty's FAQ page shows a small collection of high-quality alternative icons
-designed by some kitty fans.
-
-<https://sw.kovidgoyal.net/kitty/faq/#i-do-not-like-the-kitty-icon>
-
-While I personally don't _dislike_ the kitty icon, these alternatives are great.
-
-- **Currently: <https://github.com/DinkDonk/kitty-icon>**
-- <https://github.com/k0nserv/kitty-icon>
-- <https://github.com/hristost/kitty-alternative-icon>
-
-#### NixOS
-
-Not yet.
-
-#### macOS
-
-There's a couple hoops to jump through in order to specify a custom application icon.
-
-And, unfortunately, because I currently install `kitty.app` with Homebrew due to
-frequent build failures with `nixpkgs#kitty`, any customisations will be
-reverted whenever the app updates.
-
-I've added a script called `kitty-set-app-icon` to re-copy the desired icon back
-to `kitty.app` post-update. This script is available via the
-`kitty-helpers.setAppIcon` package.
-
-Credit goes to [this blog post](https://www.sethvargo.com/replace-icons-osx/)
-for outlining a simple alternative to the usual drag-and-drop approach.

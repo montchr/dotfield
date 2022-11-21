@@ -13,10 +13,13 @@
   config,
   lib,
   pkgs,
+  self,
   ...
-}: {
+}: let
+  configBasePath = self + "/home/users/cdom/config";
+in {
   xdg.configFile."espanso" = {
-    source = "${pkgs.dotfield-config}/espanso";
+    source = "${configBasePath}/espanso";
     recursive = true;
   };
 }

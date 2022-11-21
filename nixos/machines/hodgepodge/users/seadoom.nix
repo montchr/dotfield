@@ -8,11 +8,10 @@
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
-  inherit (config.dotfield.paths) flakeRoot;
 
   username = "seadoom";
 
-  ownProfiles = rakeLeaves (flakeRoot + "/home/users/${username}/profiles");
+  ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
 in {
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 

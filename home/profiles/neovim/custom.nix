@@ -10,7 +10,7 @@
   inherit (config.xdg) configHome;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   l = lib // builtins;
-  configBasePath = "${configHome}/dotfield/home/users/${config.home.username}/config";
+  configBasePath = "${configHome}/dotfield/home/users/cdom/config";
   cfg = config.programs.neovim;
 
   luaPlugin = attrs:

@@ -15,7 +15,7 @@
   inherit (config.lib.file) mkOutOfStoreSymlink;
 
   # FIXME: don't hard-code flake root path
-  configBasePath = "${xdg.configHome}/dotfield/home/users/${username}/config";
+  configBasePath = "${xdg.configHome}/dotfield/home/users/cdom/config";
   configDir = "${configBasePath}/vscode";
 
   vscodePname = "vscodium";

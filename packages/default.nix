@@ -30,22 +30,12 @@
 
   packageIndex = {
     ##: internal packages
-    dotfield-config = ./dotfield/dotfield-config.nix;
-    fup-repl = ./dotfield/fup-repl;
+    # FIXME: broken
+    # fup-repl = ./dotfield/fup-repl;
 
     ##: application helpers
     # firefox-lepton-ui = {source}: source.src;
-    #
-    # FIXME: the magical "withDeps" approach won't work here because it requires
-    # a source of a different name. consider allowing an attrset or list in
-    # addition to a path -- if is not path, then use the extra arg as an attrset
-    # of extra deps
-    # kitty-set-app-icon = ./applications/kitty/set-app-icon;
     kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id;
-
-    ##: development tools
-    ediff-tool = ./development-tools/ediff-tool;
-    git-submodule-rewrite = ./development-tools/git-submodule-rewrite;
 
     ##: drivers
     epson-201212w = ./drivers/epson_201212w;
@@ -55,20 +45,12 @@
     # pragmatapro = ./fonts/pragmatapro.nix;
     sf-pro = ./fonts/sf-pro.nix;
 
-    ##: golang packages
-    trellis-cli = ./golang/trellis-cli;
-
-    ##: php packages
-    phpactor = ./php/phpactor;
-
     ##: python packages
 
     # FIXME: disabled due to pyopenssl dependency
     # hpi = ./python/HPI;
     # orgparse = ./python/orgparse;
     # promnesia = ./python/promnesia;
-
-    archivebox = ./applications/archivebox;
   };
 
   packages = pkgs: let

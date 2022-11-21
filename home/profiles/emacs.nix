@@ -12,7 +12,7 @@
   l = lib // builtins;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  profilesPath = "${configHome}/dotfield/home/users/${username}/config/emacs/profiles";
+  profilesPath = "${configHome}/dotfield/home/users/cdom/config/emacs/profiles";
   emacsDir = "${configHome}/emacs";
 in {
   home.sessionVariables = {
@@ -74,7 +74,6 @@ in {
   };
 
   home.packages = with pkgs; [
-    ediff-tool
     gnutls
     (ripgrep.override {withPCRE2 = true;})
 

@@ -24,10 +24,8 @@ in {
       tig
     ])
     ++ (with pkgs; [
-      ediff-tool
       exiftool # EXIF diff handler
       git-cliff
-      git-submodule-rewrite
 
       # Identify the largest files in a git repo's history.
       #
@@ -127,13 +125,11 @@ in {
 
         difftool = {
           prompt = false;
-          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
           vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
         };
 
         mergetool = {
           prompt = false;
-          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
           vscode.cmd = "code --wait $MERGED";
         };
         ##: }}
@@ -143,6 +139,4 @@ in {
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
-
-  xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
 }

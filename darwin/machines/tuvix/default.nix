@@ -8,14 +8,13 @@
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
-  inherit (config.dotfield.paths) flakeRoot;
   inherit (lib) optional;
 
   username = "cdom";
 
   hmCfg = config.home-manager.users.${username};
   # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
-  ownProfiles = rakeLeaves (flakeRoot + "/home/users/${username}/profiles");
+  ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
 in {
   # Allow nix-darwin to install the specified programs as applications.
   environment.systemPackages =

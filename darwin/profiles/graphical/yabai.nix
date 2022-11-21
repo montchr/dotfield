@@ -13,7 +13,8 @@
 
   yabaiPackage = self.packages.${system}.yabai;
 
-  configDir = "${pkgs.dotfield-config}/yabai";
+  configBasePath = self + "/home/users/cdom/config";
+  configDir = "${configBasePath}/yabai";
 
   # yabai    => ~/Library/LaunchAgents/
   #          -> gui/$UID/org.nixos.yabai
