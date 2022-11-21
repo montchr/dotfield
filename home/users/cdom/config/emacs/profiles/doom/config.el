@@ -85,7 +85,7 @@
   (setq fontaine-presets
         '((small :default-height 106
            :bold-weight normal
-           :default-family "Iosevka Xtal Term")
+           :default-family "Iosevka Term")
           (regular :default-height 124)
           (medium :default-height 133)
           (large :default-height 150
@@ -93,7 +93,7 @@
           (xlarge :default-height 170
                   :bold-weight bold)
           (t
-           :default-family "Iosevka Xtal"
+           :default-family "Iosevka"
            :default-weight regular
            :default-height 124
            :fixed-pitch-family nil

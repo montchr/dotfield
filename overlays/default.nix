@@ -3,6 +3,7 @@
   withSystem,
   ...
 }: let
+  inherit (self) inputs;
   inherit (builtins) mapAttrs;
   internalLib = self.lib;
 in {
@@ -43,6 +44,7 @@ in {
         nil-lsp = nil-lsp.nil;
       };
     overrides = final: prev: {
+      inherit (inputs.nixpkgs-fork-update-iosevka.legacyPackages.${prev.system}) iosevka-bin;
       ripgrep = prev.ripgrep.override {withPCRE2 = true;};
     };
   };

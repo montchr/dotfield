@@ -3,9 +3,13 @@
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";
 in {
   fonts.fonts = [
-    ##: proportional-ish variants
+    pkgs.iosevka-bin
+
+    ##: stylistic variants
     (makeIosevkaVariant "aile")
     (makeIosevkaVariant "etoile")
+    # pragmatapro style
+    (makeIosevkaVariant "ss08")
 
     ##: width variants
     (makeIosevkaSgrVariant "fixed")

@@ -13,7 +13,7 @@ in {
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = mkDefault ["Iosevka Xtal"];
+      monospace = mkDefault ["Iosevka"];
       serif = mkDefault ["IBM Plex Serif"];
       sansSerif = mkDefault ["IBM Plex Sans"];
     };

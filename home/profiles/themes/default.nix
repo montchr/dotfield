@@ -18,11 +18,11 @@ in {
 
   theme.fonts = {
     mono = {
-      family = "Iosevka Xtal";
+      family = "Iosevka";
       size = 13;
     };
     term = {
-      family = "Iosevka Xtal Term";
+      family = "Iosevka Term";
     };
     sans = {
       family = "IBM Plex Sans";

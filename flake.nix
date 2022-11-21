@@ -11,6 +11,7 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-fork-update-iosevka.url = "github:montchr/nixpkgs/iosevka-v16.4.0";
     nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
 
     darwin = {
