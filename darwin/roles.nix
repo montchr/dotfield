@@ -12,10 +12,9 @@
     ])
     ++ (with darwinProfiles; [
       emacs
-      graphical.common
-      graphical.yabai
+      graphical
       system-defaults
       virtualisation.containers
-      # graphical.sketchybar
+      yabai
     ]);
 in {inherit workstation;}

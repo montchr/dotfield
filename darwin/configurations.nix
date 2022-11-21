@@ -29,7 +29,7 @@
 
   l = lib // builtins;
 
-  roles = import ./roles {inherit sharedProfiles darwinProfiles;};
+  roles = import ./roles.nix {inherit sharedProfiles darwinProfiles;};
 
   darwinModules = rakeLeaves ./modules;
   darwinMachines = rakeLeaves ./machines;
