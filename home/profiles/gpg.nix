@@ -3,11 +3,13 @@ moduleArgs @ {
   lib,
   pkgs,
   inputs,
+  self,
   ...
 }: let
   inherit (config.dotfield.whoami) pgpPublicKey;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = inputs.nixpkgs.lib // builtins;
+  keysDir = self + "/secrets/keys";
 in {
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
@@ -28,9 +30,6 @@ in {
 
     services.gpg-agent = {
       enable = true;
-      # FIXME: pinentry won't work in emacs for ssh, looks for terminal to
-      # attach to with ncurses. however, pinentry will work for gpg signing
-      # commits.
       enableSshSupport = true;
       pinentryFlavor = l.mkIf isDarwin "mac";
       sshKeys = [pgpPublicKey];
@@ -38,18 +37,16 @@ in {
 
     programs.gpg = {
       enable = true;
-
       mutableKeys = false;
       mutableTrust = false;
-
       # TODO: clean up the format/structure of these key files
       publicKeys = [
         {
-          source = ../../secrets + "/gpg-${pgpPublicKey}.txt";
+          source = keysDir + "/${pgpPublicKey}.asc";
           trust = "ultimate";
         }
         {
-          source = ../../secrets + "/gpg-0xF0B8FB42A7498482.txt";
+          source = keysDir + "/0xF0B8FB42A7498482.asc";
           trust = "ultimate";
         }
       ];

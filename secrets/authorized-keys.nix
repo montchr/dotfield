@@ -2,7 +2,7 @@ let
   inherit (builtins) readFile;
   inherit (peers) hosts;
   peers = import ../ops/metadata/peers.nix;
-  yubiGpg = readFile ./ssh-yubikey.pub;
+  yubiGpg = readFile ./keys/id_rsa_gpg_yk.pub;
 in
   with hosts;
     [yubiGpg]

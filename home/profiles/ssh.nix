@@ -5,12 +5,10 @@ moduleArgs @ {
   peers,
   ...
 }: let
+  inherit (config) xdg;
   inherit (peers.hosts) hierophant tsone;
-  identityFileName = "id_rsa_yk.pub";
-  identityFile = "~/.ssh/${identityFileName}";
+  identityFile = "${xdg.configHome}/dotfield/secrets/keys/id_rsa_gpg_yk.pub";
 in {
-  home.file.".ssh/${identityFileName}".source = ../../secrets/ssh-yubikey.pub;
-
   programs.ssh = {
     enable = true;
     forwardAgent = false;
