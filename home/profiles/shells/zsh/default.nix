@@ -40,10 +40,11 @@ in {
     historySubstringSearch.enable = true;
 
     plugins = [
-      # FIXME: requires a very-specific load order -- after compinit but before
-      # other plugins defining zle widgets. including it here causes fzf-tab to
-      # load after zsh-autosuggestions, which the fzf-tab readme explicitly
-      # warns against.
+      # NOTE: fzf-tab requires a very-specific load order -- after compinit but
+      # before other plugins defining zle widgets. including it here causes
+      # fzf-tab to load after zsh-autosuggestions when the latter was enabled
+      # via the hm option, which the fzf-tab readme explicitly warns against. so
+      # instead we load zsh-autosuggestions manually after fzf-tab.
       # https://github.com/Aloxaf/fzf-tab
       {
         name = "fzf-tab";
