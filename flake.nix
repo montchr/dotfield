@@ -81,6 +81,8 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
 
     ##: zsh plugins
+    zsh-autopair.url = "github:hlissner/zsh-autopair";
+    zsh-autopair.flake = false;
     zsh-completions.url = "github:zsh-users/zsh-completions";
     zsh-completions.flake = false;
     zsh-fast-syntax-highlighting.url = "github:zdharma-continuum/fast-syntax-highlighting";

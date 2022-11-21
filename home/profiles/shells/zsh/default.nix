@@ -73,14 +73,10 @@ in {
       }
       {
         name = "zsh-autopair";
-        # The `v1.0.0` version in nixpkgs is over a year old, so use a recent
-        # commit instead.
-        src = pkgs.fetchFromGitHub {
-          owner = "hlissner";
-          repo = "zsh-autopair";
-          rev = "396c38a7468458ba29011f2ad4112e4fd35f78e6";
-          sha256 = "sha256-PXHxPxFeoYXYMOC29YQKDdMnqTO0toyA7eJTSCV6PGE=";
-        };
+        # The version in nixpkgs is over a year old because it's pinned to the
+        # plugin's only tag release (as of 2022-11-21). The author has made some
+        # changes since the most recent release.
+        src = inputs.zsh-autopair;
       }
       {
         name = "fast-syntax-highlighting";

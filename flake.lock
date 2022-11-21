@@ -1536,6 +1536,7 @@
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
         "sops-nix": "sops-nix",
+        "zsh-autopair": "zsh-autopair",
         "zsh-completions": "zsh-completions",
         "zsh-fast-syntax-highlighting": "zsh-fast-syntax-highlighting"
       }
@@ -1673,6 +1674,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zsh-autopair": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1664801964,
+        "narHash": "sha256-PXHxPxFeoYXYMOC29YQKDdMnqTO0toyA7eJTSCV6PGE=",
+        "owner": "hlissner",
+        "repo": "zsh-autopair",
+        "rev": "396c38a7468458ba29011f2ad4112e4fd35f78e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hlissner",
+        "repo": "zsh-autopair",
         "type": "github"
       }
     },
