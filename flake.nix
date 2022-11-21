@@ -82,6 +82,8 @@
     ##: zsh plugins
     zsh-completions.url = "github:zsh-users/zsh-completions";
     zsh-completions.flake = false;
+    zsh-fast-syntax-highlighting.url = "github:zdharma-continuum/fast-syntax-highlighting";
+    zsh-fast-syntax-highlighting.flake = false;
   };
 
   outputs = {

@@ -1519,7 +1519,8 @@
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
         "sops-nix": "sops-nix",
-        "zsh-completions": "zsh-completions"
+        "zsh-completions": "zsh-completions",
+        "zsh-fast-syntax-highlighting": "zsh-fast-syntax-highlighting"
       }
     },
     "rust-analyzer-src": {
@@ -1671,6 +1672,22 @@
       "original": {
         "owner": "zsh-users",
         "repo": "zsh-completions",
+        "type": "github"
+      }
+    },
+    "zsh-fast-syntax-highlighting": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668912623,
+        "narHash": "sha256-wLpgkX53wzomHMEpymvWE86EJfxlIb3S8TPy74WOBD4=",
+        "owner": "zdharma-continuum",
+        "repo": "fast-syntax-highlighting",
+        "rev": "7c390ee3bfa8069b8519582399e0a67444e6ea61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zdharma-continuum",
+        "repo": "fast-syntax-highlighting",
         "type": "github"
       }
     }
