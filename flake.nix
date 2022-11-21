@@ -78,6 +78,10 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
+
+    ##: zsh plugins
+    zsh-completions.url = "github:zsh-users/zsh-completions";
+    zsh-completions.flake = false;
   };
 
   outputs = {

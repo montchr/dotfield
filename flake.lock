@@ -1518,7 +1518,8 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "zsh-completions": "zsh-completions"
       }
     },
     "rust-analyzer-src": {
@@ -1654,6 +1655,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zsh-completions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668870484,
+        "narHash": "sha256-aKhsXDMlZ/RzidSG7n6Tyb4JyMqsx+qY/NpCfaXZWr0=",
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "rev": "6a5b7245bed56083839c037aa0d37d8bd30df281",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
         "type": "github"
       }
     }

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (config) xdg;
@@ -9,6 +10,12 @@ in {
   imports = [../common.nix];
 
   home.extraOutputsToInstall = ["/share/zsh"];
+  home.packages = [
+    (pkgs.zsh-completions.overrideAttrs (o: {
+      version = inputs.zsh-completions.rev;
+      src = inputs.zsh-completions;
+    }))
+  ];
 
   programs.starship.enableZshIntegration = true;
 
@@ -38,6 +45,10 @@ in {
     history.size = 10000;
 
     historySubstringSearch.enable = true;
+
+    initExtraBeforeCompInit = ''
+      fpath+=${pkgs.zsh-completions}/src
+    '';
 
     plugins = [
       # NOTE: fzf-tab requires a very-specific load order -- after compinit but
