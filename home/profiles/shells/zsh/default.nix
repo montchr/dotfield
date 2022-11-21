@@ -60,16 +60,19 @@ in {
     '';
 
     plugins = [
-      # NOTE: fzf-tab requires a very-specific load order -- after compinit but
-      # before other plugins defining zle widgets. including it here causes
-      # fzf-tab to load after zsh-autosuggestions when the latter was enabled
-      # via the hm option, which the fzf-tab readme explicitly warns against. so
-      # instead we load zsh-autosuggestions manually after fzf-tab.
-      # https://github.com/Aloxaf/fzf-tab
+      # NOTE: `fzf-tab` requires a very-specific load order -- *after*
+      # `compinit` but *before* other plugins defining zle widgets. With
+      # `enableAutosuggestions` enabled, even with `fzf-tab` as the first plugin
+      # in this list, it will load after `zsh-autosuggestions` as enabled by the
+      # related option, which the `fzf-tab` docs explicitly warn against. So
+      # instead, we disable `enableAutosuggestions` and load zsh-autosuggestions
+      # manually after fzf-tab. https://github.com/Aloxaf/fzf-tab
       {
         name = "fzf-tab";
         inherit (pkgs.zsh-fzf-tab) src;
       }
+      # See above note -- `zsh-autosuggestions` *MUST* be loaded after
+      # `fzf-tab`, but will not do so when enabled via `enableAutosuggestions`.
       {
         name = "zsh-autosuggestions";
         inherit (pkgs.zsh-autosuggestions) src;
@@ -81,6 +84,11 @@ in {
         # changes since the most recent release.
         src = inputs.zsh-autopair;
       }
+      # The `enableSyntaxHighlighting` uses the older and arguably inferior
+      # `zsh-users/zsh-syntax-hightlighting` plugin, not the
+      # more-commonly-recommended `zdharma-continuum/fast-syntax-highlighting`.
+      # The Readme for the latter plugin provides a comparison of the two
+      # plugins, demonstrating the improvements made in `fast-syntax-highlighting`.
       {
         name = "fast-syntax-highlighting";
         src = inputs.zsh-fast-syntax-highlighting;
