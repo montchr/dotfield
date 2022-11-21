@@ -1,6 +1,8 @@
 {
   config,
   lib,
+  inputs,
+  system,
   ...
 }: {
   imports = [
@@ -28,6 +30,8 @@
   # N.B. This can slow down builds, but enables more manpage integrations
   # across various tools. See the home-manager manual for more info.
   programs.man.generateCaches = lib.mkDefault true;
+
+  home.packages = [inputs.home-manager.packages.${system}.default];
 
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
