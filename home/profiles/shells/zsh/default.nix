@@ -52,6 +52,8 @@ in {
     history.size = 10000;
 
     historySubstringSearch.enable = true;
+    historySubstringSearch.searchUpKey = "^p";
+    historySubstringSearch.searchDownKey = "^n";
 
     initExtraBeforeCompInit = ''
       # Normal plugin load happens too late for `zsh-users/zsh-completions`
