@@ -89,9 +89,6 @@ in {
         init.defaultBranch = "main";
         github.user = githubUserName;
 
-        # Environment variables will not be expanded -- this requires a path.
-        init.templateDir = "${config.xdg.configHome}/git/templates";
-
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 

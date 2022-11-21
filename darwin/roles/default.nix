@@ -13,7 +13,6 @@
     ++ (with darwinProfiles; [
       emacs
       graphical.common
-      # graphical.hammerspoon
       graphical.yabai
       system-defaults
       virtualisation.containers
