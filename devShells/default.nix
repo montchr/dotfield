@@ -23,6 +23,7 @@
       alejandra
       cachix
       editorconfig-checker
+      just
       manix
       nix-diff
       nix-tree
@@ -198,6 +199,7 @@
         ##: --- utils --------------------
 
         (utils cachix)
+        (utils just)
         (utils manix)
         (utils nix-diff)
         (utils nix-tree)
@@ -208,39 +210,11 @@
         (linters shellcheck)
         (linters statix)
 
-        # TODO: ignore generated files, contributed modules, etc.
-        # (tho rly contrib modules should live elsewhere)
-        (linters' {
-          name = "deadnix-check";
-          help = "run deadnix linting on project nix files";
-          command = ''
-            ${l.getExe deadnix} check \
-              --no-underscore \
-              --fail \
-              --no-lambda-arg \
-              --no-lambda-pattern-names \
-              $PRJ_ROOT
-          '';
-        })
-        (linters' {
-          name = "evalnix";
-          help = "check for nix syntax errors";
-          command = ''
-            ${l.getExe pkgs.fd} --extension nix --exec \
-              nix-instantiate --parse --quiet {} >/dev/null
-          '';
-        })
-
         ##: --- formatters ---------------
 
         (formatters alejandra)
         (formatters prettier)
         (formatters treefmt)
-        (formatters' {
-          name = "do-format";
-          help = "run treefmt on the project";
-          command = ''${l.getExe treefmt} --clear-cache -- "$@"'';
-        })
 
         ##: --- secrets ------------------
 
