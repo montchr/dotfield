@@ -684,11 +684,11 @@
         "utils": "utils_5"
       },
       "locked": {
-        "lastModified": 1669066804,
-        "narHash": "sha256-+afu+WZG2KDeMGX+bh2BZ2k++pIMvW8kWX+HEsq2PBQ=",
+        "lastModified": 1669089296,
+        "narHash": "sha256-EVFOCULvEBgsyXKAC9d80mKklYaQQ58pfF0VEQBSLgQ=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "1fbfd363c206a4cb798e514ad187e8589dd6fab4",
+        "rev": "f344b8b4824ec2828b9f9c78be1b2123117da406",
         "type": "github"
       },
       "original": {
