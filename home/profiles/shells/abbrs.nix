@@ -50,8 +50,8 @@
   gshp = "git stash pop";
   gshl = "git stash list";
 
-  # log
-  gl = "git log --oneline --decorate -20";
+  # concise log
+  gl = "git log --oneline --decorate -5";
   # List all the commits on the current branch ahead of master.
   # glb="git log --oneline --decorate ${GIT_PRIMARY_BRANCH:-main}..${GIT_BRANCH_NAME:-HEAD}"
 
