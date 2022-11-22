@@ -23,6 +23,7 @@
 
   # commit
   gc = "git commit -v";
+  gcm = "git commit -v -m";
   gca = "git commit -v --amend";
   # amend in place with no edits to message
   gcam = "git commit -v --amend -C HEAD";
