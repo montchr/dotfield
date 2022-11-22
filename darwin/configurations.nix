@@ -45,13 +45,17 @@
     # inputs.sops-nix.darwinModules.sops
   ];
 
-  makeDarwinSystem = hostname: args:
+  makeDarwinSystem = hostName: args:
     withSystem (args.system or aarch64-darwin) (
       ctx @ {
         system,
         pkgsets,
         ...
       }: let
+        inherit (self.lib.peers) getHost getNet;
+        net = (getHost hostName).network or null;
+        domain = (getNet net).domain or null;
+
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
         #
@@ -88,9 +92,13 @@
             ++ roles.workstation
             ++ [
               moduleArgs
-              {networking.hostName = hostname;}
-              {home-manager.sharedModules = [{_module.args.isNixos = false;}];}
-              darwinMachines.${hostname}
+              {
+                networking.hostName = hostName;
+                networking.computerName = hostName;
+                networking.localHostName = l.mkIf (domain != null) "${hostName}.${domain}";
+                home-manager.sharedModules = [{_module.args.isNixos = false;}];
+              }
+              darwinMachines.${hostName}
             ];
           specialArgs = {
             inherit
