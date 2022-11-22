@@ -52,10 +52,6 @@
         pkgsets,
         ...
       }: let
-        inherit (self.lib.peers) getHost getNet;
-        net = (getHost hostName).network or null;
-        domain = (getNet net).domain or null;
-
         # Cross-compiled package set via Rosetta for packages which fail to
         # build on `aarch64-darwin`.
         #
@@ -95,7 +91,6 @@
               {
                 networking.hostName = hostName;
                 networking.computerName = hostName;
-                networking.localHostName = l.mkIf (domain != null) "${hostName}.${domain}";
                 home-manager.sharedModules = [{_module.args.isNixos = false;}];
               }
               darwinMachines.${hostName}
