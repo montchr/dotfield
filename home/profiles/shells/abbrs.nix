@@ -2,7 +2,7 @@
   t = "tail -f";
 
   # Make it easy to copy/paste script commands verbatim
-  # "$" = "";
+  "$" = " ";
 
   q = "exit";
   wget = "wget -c";
