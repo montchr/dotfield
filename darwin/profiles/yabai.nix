@@ -97,7 +97,7 @@
           sudo launchctl unload ${daemonPath}
         }
         sudo yabai --uninstall-sa
-        sudo yabai --install-sa
+        sudo yabai --load-sa
         sudo launchctl load ${daemonPath}
 
         set +x
