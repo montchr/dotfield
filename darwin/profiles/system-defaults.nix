@@ -4,6 +4,7 @@
   ...
 }: let
   l = inputs.nixpkgs.lib // builtins;
+  isYabaiEnabled = config.services.yabai.enable;
 in {
   ##: Hostname
   system.defaults.smb.NetBIOSName = config.networking.hostName;
@@ -68,7 +69,7 @@ in {
   system.defaults.dock.static-only = true;
   system.defaults.dock.tilesize = 32;
 
-  system.defaults.spaces.spans-displays = true;
+  system.defaults.spaces.spans-displays = !isYabaiEnabled;
 
   ##: Corner hot actions
   # 1 => Disabled
