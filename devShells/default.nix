@@ -64,9 +64,6 @@
     secrets = pkgWithCategory "secrets";
     secrets' = withCategory "secrets";
 
-    # Mitigate issues with home-manager and kitty terminal on Darwin
-    withTermFix = l.optionalString isDarwin ''TERM="xterm-256color"'';
-
     cacheName = "dotfield";
     cachixExec = ''${l.getExe cachix} watch-exec --jobs 2 ${cacheName}'';
 
@@ -157,8 +154,7 @@
       help = "run the system's rebuild command with the supplied operation arg";
       command = ''
         set -e
-        ${withTermFix} ${cachixExec} \
-          ${rebuildSystem} -- $@ --flake $PRJ_ROOT --verbose
+        ${cachixExec} ${rebuildSystem} -- $@ --flake $PRJ_ROOT --verbose
       '';
     };
 
