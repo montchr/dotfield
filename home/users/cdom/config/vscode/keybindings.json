@@ -1,66 +1,66 @@
 [
   {
-    "command": "cursorTop",
     "key": "g g",
+    "command": "cursorTop",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "magit.refresh",
     "key": "g r",
+    "command": "magit.refresh",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "extension.vim_tab",
     "key": "tab",
+    "command": "extension.vim_tab",
     "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && editorLangId != 'magit'"
   },
   {
-    "command": "-extension.vim_tab",
     "key": "tab",
+    "command": "-extension.vim_tab",
     "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
   },
   {
-    "command": "magit.discard-at-point",
     "key": "x",
+    "command": "magit.discard-at-point",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "-magit.discard-at-point",
-    "key": "k"
+    "key": "k",
+    "command": "-magit.discard-at-point"
   },
   {
-    "command": "magit.reverse-at-point",
     "key": "-",
+    "command": "magit.reverse-at-point",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "-magit.reverse-at-point",
-    "key": "v"
+    "key": "v",
+    "command": "-magit.reverse-at-point"
   },
   {
-    "command": "magit.reverting",
     "key": "shift+-",
+    "command": "magit.reverting",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "-magit.reverting",
-    "key": "shift+v"
+    "key": "shift+v",
+    "command": "-magit.reverting"
   },
   {
-    "command": "magit.resetting",
     "key": "shift+o",
+    "command": "magit.resetting",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
   {
-    "command": "-magit.resetting",
-    "key": "shift+x"
+    "key": "shift+x",
+    "command": "-magit.resetting"
   },
   {
-    "command": "-magit.reset-mixed",
-    "key": "x"
+    "key": "x",
+    "command": "-magit.reset-mixed"
   },
   {
-    "command": "-magit.reset-hard",
-    "key": "ctrl+u x"
+    "key": "ctrl+u x",
+    "command": "-magit.reset-hard"
   }
 ]
