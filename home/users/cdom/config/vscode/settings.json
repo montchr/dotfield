@@ -91,7 +91,7 @@
   "markdown.preview.fontFamily": "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
   "material-icon-theme.saturation": 0.5,
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "/etc/profiles/per-user/cdom/bin/rnix-lsp",
+  "nix.serverPath": "/etc/profiles/per-user/cdom/bin/nil",
   "problems.showCurrentInStatus": true,
   "redhat.telemetry.enabled": false,
   "rewrap.autoWrap.enabled": true,
@@ -155,6 +155,5 @@
   "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
   "workbench.preferredHighContrastLightColorTheme": "GitHub Light High Contrast",
   "workbench.preferredLightColorTheme": "GitHub Light Monochrome Focused",
-  "zenMode.fullScreen": false,
-  "window.zoomLevel": 1
+  "zenMode.fullScreen": false
 }
