@@ -1,8 +1,4 @@
-{
-  config,
-  peers,
-  ...
-}: let
+{peers, ...}: let
   inherit (peers.hosts) hierophant tsone;
 in {
   programs.ssh = {

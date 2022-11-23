@@ -1,0 +1,25 @@
+###: treefmt.lint-fix.toml :: treefmt configuration to apply fixes from linters
+
+# https://github.com/numtide/treefmt/wiki
+
+[formatter.nix]
+command = "sh"
+options = ["-eucx", """
+    # only accepts a single argument
+    for file in "$@"; do statix fix -- "$file"; done
+    deadnix --edit "$@"
+  """, "--"]
+includes = ["*.nix"]
+excludes = [
+  ##: work-in-progress
+  "home/profiles/kitty/default.nix",
+  "home/profiles/neovim/custom.nix",
+  ##: generated files
+  "packages/applications/firefox/firefox-addons/addons.nix",
+  "packages/sources/_sources/*.nix",
+]
+
+[formatter.eslint]
+command = "eslint"
+options = ["--fix"]
+includes = ["*.js", "*.jsx", "*.ts", "*.tsx"]

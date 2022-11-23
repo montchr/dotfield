@@ -2,8 +2,6 @@ icon-ok := '✔'
 msg-ok := icon-ok + " OK"
 msg-done := icon-ok + " Done"
 
-nix-files := `fd -t f -e nix . $PRJ_ROOT`
-
 firefox-addons-dir := "${PRJ_ROOT}/packages/applications/firefox/firefox-addons"
 sources-dir := "${PRJ_ROOT}/packages/sources"
 
@@ -11,39 +9,19 @@ sources-dir := "${PRJ_ROOT}/packages/sources"
 ###: LINTING/FORMATTING ========================================================
 
 # Format source files
-fmt *FILES='$PRJ_ROOT':
-  treefmt --no-cache {{FILES}}
-  @echo {{msg-ok}}
+fmt *FILES="$PRJ_ROOT":
+  treefmt --no-cache \
+    --config-file $PRJ_ROOT/treefmt.toml \
+    --tree-root $PRJ_ROOT \
+    {{FILES}}
 
-# Format all changed source files
-fmt-changed:
-  @echo 'Formatting all changed source files in working tree'
-  treefmt --no-cache `git diff --name-only --cached`
-  @echo {{msg-ok}}
+# Write automatic linter fixes to source files
+fix *FILES="$PRJ_ROOT":
+  treefmt --no-cache --fail-on-change \
+    --config-file $PRJ_ROOT/treefmt.lint-fix.toml \
+    --tree-root $PRJ_ROOT \
+    {{FILES}}
 
-# Lint Nix files
-lint-nix *FILES="$PRJ_ROOT":
-  deadnix --fail {{FILES}}
-  statix check {{FILES}}
-  @echo {{msg-ok}}
-
-# Fix Nix files according to linters
-lint-fix-nix +FILES="$PRJ_ROOT":
-  deadnix --edit {{FILES}}
-  statix fix {{FILES}}
-  @echo {{msg-ok}}
-
-# Check Nix files for unused statements
-deadnix args:
-  @echo 'Checking Nix files for dead code...'
-  deadnix --fail \
-    {{args}}
-  @echo {{msg-ok}}
-
-statix subcommand args:
-  @echo 'Linting Nix files...'
-  statix {{subcommand}} {{args}}
-  @echo {{msg-ok}}
 
 ###: SYSTEM ====================================================================
 
