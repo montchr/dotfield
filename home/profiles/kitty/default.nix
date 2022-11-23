@@ -10,7 +10,7 @@
   inherit (config) xdg;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  imports = [./settings];
+  imports = [./settings ./theme.nix];
 
   home.packages = with pkgs; [
     kitty-get-window-by-platform-id
