@@ -31,7 +31,7 @@ deadnix *ARGS='$PRJ_ROOT':
 
 ###: SYSTEM ====================================================================
 
-sys := system
+alias sys := system
 
 cachix-cache-name := 'dotfield'
 cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
