@@ -35,6 +35,9 @@ in {
         jost # if colin jost was a font?
         public-sans # slightly more boring than ibm-plex
 
+        ##: bitmap fonts
+        scientifica
+
         (nerdfonts.override {
           fonts = [
             "Iosevka"
