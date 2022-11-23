@@ -1,7 +1,6 @@
 moduleArgs @ {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;

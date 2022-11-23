@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   virtualisation.libvirtd.enable = true;
   networking.firewall.checkReversePath = "loose";
   dotfield.guardian.user.extraGroups = [

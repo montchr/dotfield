@@ -11,10 +11,6 @@ moduleArgs @ {
   kittyCfg = config.programs.kitty;
 
   isGraphical = isMacOS || (moduleArgs.osConfig.services.xserver.enable or false);
-  isKittyAvailable =
-    kittyCfg.enable
-    && (kittyCfg.settings.allow_remote_control or false)
-    && (kittyCfg.settings.listen_on or false);
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
 
   shellAliases = {

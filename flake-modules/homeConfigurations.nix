@@ -29,7 +29,7 @@ in {
       };
     };
 
-    perSystem = mkPerSystemOption ({config, ...}: {
+    perSystem = mkPerSystemOption (_: {
       _file = ./homeConfigurations.nix;
       options = {
         homeConfigurations = mkOption {
@@ -46,7 +46,7 @@ in {
   config = {
     flake.homeConfigurations =
       mapAttrs
-      (k: v: v.homeConfigurations or {})
+      (_k: v: v.homeConfigurations or {})
       config.allSystems;
 
     perInput = system: flake:

@@ -1,8 +1,3 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   programs.navi.enable = true;
 }

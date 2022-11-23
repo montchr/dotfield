@@ -9,8 +9,6 @@
 }: let
   inherit (config.dotfield.features) hasNvidia;
 
-  cfg = config.services.greetd;
-
   swayFlags = lib.optionalString hasNvidia "--unsupported-gpu";
   mkSession = name: pkgs.writeShellScriptBin "dotfield-session-${name}";
 

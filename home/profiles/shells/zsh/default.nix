@@ -6,7 +6,7 @@
 }: let
   inherit (config) xdg;
   shellAliases = (import ../abbrs.nix) // (import ../aliases.nix);
-  zsh-completions-latest = pkgs.zsh-completions.overrideAttrs (o: {
+  zsh-completions-latest = pkgs.zsh-completions.overrideAttrs (_o: {
     version = inputs.zsh-completions.rev;
     src = inputs.zsh-completions;
   });

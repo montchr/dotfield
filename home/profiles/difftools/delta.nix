@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-in {
+}: {
   home.packages = with pkgs; [delta];
   programs.git.delta = {
     enable = lib.mkDefault (!config.programs.git.difftastic.enable);

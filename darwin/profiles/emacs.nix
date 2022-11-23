@@ -8,7 +8,7 @@ in {
   environment.systemPackages = [
     (emacs-plus.override {
       withTitleBar = false;
-      withDebug = true;
+      # withDebug = true;
       icon = "modern-alecive-flatwoken";
     })
   ];

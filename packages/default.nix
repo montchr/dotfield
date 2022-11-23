@@ -62,7 +62,7 @@
   in
     dotfieldPackages // {inherit dotfieldPackages firefox-addons sources;};
 
-  makeOverlay = f: (final: prev: (f (packages final)));
+  makeOverlay = f: (final: _prev: (f (packages final)));
 in {
   flake.overlays = {
     packages = makeOverlay (pkgs': pkgs'.dotfieldPackages);

@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
-in {
+_: {
   # imports = [inputs.microvm.nixosModules.host];
   # microvm.autostart = [
   #   "wp-microvm"

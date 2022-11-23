@@ -7,8 +7,6 @@
   ...
 }: let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
-
-  cfg = config.services.yabai;
   # barCfg = config.services.sketchybar;
 
   yabaiPackage = self.packages.${system}.yabai;
@@ -63,14 +61,14 @@
       ${mkArgString args'}
   '';
 
-  mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
-  mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
+  mkRules = lib.strings.concatMapStringsSep "\n" (mkRule);
+  mkSignals = lib.strings.concatMapStringsSep "\n" (mkSignal);
 
   # FIXME: avoid IFD -- add to a package derivation
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
-  scriptsFromFiles = map (n: mkScriptFromFile n) [
+  scriptsFromFiles = map (mkScriptFromFile) [
     "close-window"
     "focus-direction"
   ];
@@ -78,7 +76,7 @@
   scripts =
     (builtins.listToAttrs (map
       (drv: {
-        name = drv.name;
+        inherit (drv) name;
         value = drv;
       })
       scriptsFromFiles))

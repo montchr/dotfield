@@ -1,13 +1,9 @@
-moduleArgs @ {
+{
   config,
-  lib,
-  pkgs,
   peers,
   ...
 }: let
-  inherit (config) xdg;
   inherit (peers.hosts) hierophant tsone;
-  identityFile = "${xdg.configHome}/dotfield/secrets/keys/id_rsa_gpg_yk.pub";
 in {
   programs.ssh = {
     enable = true;

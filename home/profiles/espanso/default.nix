@@ -10,9 +10,6 @@
 # directory, containing only an import directive. but all that said, there's
 # probably a much simpler way.
 {
-  config,
-  lib,
-  pkgs,
   self,
   ...
 }: let

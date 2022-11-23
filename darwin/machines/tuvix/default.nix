@@ -4,7 +4,6 @@
   config,
   lib,
   pkgs,
-  primaryUser,
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;

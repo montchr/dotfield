@@ -22,7 +22,7 @@
     heavy = 900;
   };
   # Weight names normalised to lowercase.
-  fontWeightDict' = mapAttrs' (n: v: nameValuePair (toLower n) v) fontWeightDict;
+  fontWeightDict' = mapAttrs' (n: nameValuePair (toLower n)) fontWeightDict;
 
   makeXtalFamily = set: family: {
     spacing ? "normal",

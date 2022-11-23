@@ -3,7 +3,6 @@
   lib,
   pkgs,
   system,
-  self,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isAarch64;

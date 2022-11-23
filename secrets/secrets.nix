@@ -1,19 +1,18 @@
 let
   inherit (peers) hosts;
   peers = import ../ops/metadata/peers.nix;
-  hostKeys = builtins.mapAttrs (n: v: v.keys) hosts;
+  hostKeys = builtins.mapAttrs (_n: v: v.keys) hosts;
   trustedUsers = import ./authorized-keys.nix;
 
-  servers = with hostKeys;
-    hierophant
-    ++ tsone;
+  # servers = with hostKeys;
+  #   hierophant
+  #   ++ tsone;
 
   workstations = with hostKeys;
     boschic
     ++ hodgepodge
     ++ ryosuke;
-
-  allMachines = servers ++ workstations;
+  # allMachines = servers ++ workstations;
 in {
   "espanso/personal.yml.age".publicKeys = workstations ++ trustedUsers;
 

@@ -1,8 +1,6 @@
 # FIXME: use device labels for interop
 {
-  config,
   lib,
-  pkgs,
   ...
 }: {
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];

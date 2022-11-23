@@ -1,4 +1,4 @@
-moduleArgs @ {
+{
   config,
   lib,
   pkgs,
@@ -7,9 +7,6 @@ moduleArgs @ {
 }: let
   inherit (config.lib.fish) mkPlugin;
   l = lib // builtins;
-
-  hasHomebrew = moduleArgs.darwinConfig.homebrew.enable or false;
-  brewPrefix = moduleArgs.darwinConfig.homebrew.brewPrefix or "/opt/homebrew";
 
   shellAbbrs = import ../abbrs.nix;
   shellAliases = import ../aliases.nix;

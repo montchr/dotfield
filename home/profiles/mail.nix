@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -114,7 +113,7 @@ in {
   };
 
   programs.emacs = {
-    extraPackages = epkgs: [
+    extraPackages = _epkgs: [
       pkgs.mu
     ];
   };

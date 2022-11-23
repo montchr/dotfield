@@ -1,13 +1,7 @@
 {
-  config,
   pkgs,
-  lib,
-  peers,
   ...
-}: let
-  inherit (peers.hosts.tsone) ipv4 ipv6;
-  interface = "eth0";
-in {
+}: {
   imports = [
     ./boot.nix
     ./filesystems.nix

@@ -2,7 +2,6 @@
   self,
   lib,
   moduleWithSystem,
-  withSystem,
   # DEPRECATED:
   peers,
   primaryUser,

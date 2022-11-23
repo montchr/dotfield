@@ -2,11 +2,9 @@
   lib,
   emacsNativeComp,
   fetchFromGitHub,
-  darwin,
   ##: options
   withTitleBar ? true,
   withRoundCorners ? false,
-  withDebug ? false,
   withFrameRefocus ? true,
   icon ? null,
 }: let

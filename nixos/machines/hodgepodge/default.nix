@@ -1,18 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  primaryUser,
-  peers,
-  ...
-}: let
-  inherit (config.networking) hostName;
-
-  # Shared by both "predictable" interface names:
-  # - enp0s20u1
-  # - wlp3s0
-  interface = "eth0";
-in {
+_: {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix

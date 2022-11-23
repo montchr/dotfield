@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   # Will be overridden by the bootstrapIso module.
   fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 

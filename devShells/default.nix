@@ -1,12 +1,11 @@
-{self, ...}: {
+_: {
   perSystem = {
     inputs',
-    system,
     pkgs,
     lib,
     ...
   }: let
-    inherit (pkgs.stdenv) isDarwin isLinux;
+    inherit (pkgs.stdenv) isLinux;
     inherit (inputs'.agenix.packages) agenix;
     inherit (inputs'.deadnix.packages) deadnix;
     inherit (inputs'.deploy-rs.packages) deploy-rs;
@@ -24,7 +23,6 @@
       cachix
       editorconfig-checker
       just
-      manix
       nix-diff
       nix-tree
       nodejs
@@ -44,32 +42,17 @@
       ;
 
     l = lib // builtins;
-
-    rebuildSystem =
-      if isDarwin
-      then "darwin-rebuild"
-      else "nixos-rebuild";
-
-    withCategory = category: attrset: attrset // {inherit category;};
     pkgWithCategory = category: package: {inherit package category;};
 
     dotfield = pkgWithCategory "dotfield";
-    dotfield' = withCategory "dotfield";
-    ui' = withCategory "ui";
     linters = pkgWithCategory "linters";
-    linters' = withCategory "linters";
     formatters = pkgWithCategory "formatters";
-    formatters' = withCategory "formatters";
     utils = pkgWithCategory "utils";
-    utils' = withCategory "utils";
     secrets = pkgWithCategory "secrets";
-    secrets' = withCategory "secrets";
 
-    cacheName = "dotfield";
-    cachixExec = ''${l.getExe cachix} watch-exec --jobs 2 ${cacheName}'';
-
-    mozilla-addons-to-nix-wrapped = utils' {
+    mozilla-addons-to-nix-wrapped = {
       name = "mozilla-addons-to-nix";
+      category = "utils";
       help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
       command = ''
         nix run sourcehut:~rycee/mozilla-addons-to-nix -- $@
@@ -81,15 +64,14 @@
 
       (utils cachix)
       (utils just)
-      (utils manix)
       (utils nix-diff)
       (utils nix-tree)
+      (utils nvd)
       mozilla-addons-to-nix-wrapped
 
       ##: --- linters ------------------
 
-      (linters editorconfig-checker)
-      (linters shellcheck)
+      (linters deadnix)
       (linters statix)
 
       ##: --- formatters ---------------
@@ -104,23 +86,25 @@
       (secrets rage)
       (secrets sops)
       (secrets ssh-to-age)
-      (secrets' {
+      {
         name = "install-age-key";
+        category = "secrets";
         help = "copy the age secret key from the password-store into place";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
           ${pkgs.pass}/bin/pass show age--secret-key >> $SOPS_AGE_KEY_FILE
         '';
-      })
-      (secrets' {
+      }
+      {
         name = "convert-ssh-to-age-key";
+        category = "secrets";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
           mkdir -p $SOPS_AGE_KEY_DIR
           ${l.getExe ssh-to-age} -private-key -i ~/.ssh/id_ed25519 > $SOPS_AGE_KEY_DIR/age-key.sec
           ${l.getExe ssh-to-age} -i ~/.ssh/id_ed25519.pub > $SOPS_AGE_KEY_DIR/age-key.pub
         '';
-      })
+      }
     ];
 
     linuxCommands = [
@@ -128,7 +112,7 @@
       (dotfield inputs'.nixos-generators.packages.nixos-generators)
     ];
   in {
-    devShells.default = inputs'.devshell.legacyPackages.mkShell ({...}: {
+    devShells.default = inputs'.devshell.legacyPackages.mkShell (_: {
       name = "dotfield";
 
       # TODO
@@ -156,12 +140,14 @@
 
       packages = [
         cachix
-        deadnix
+        editorconfig-checker
         lint-staged
+        shellcheck
         sops-import-keys-hook
         sops-init-gpg-key
         ssh-to-pgp
         nodejs
+        nvfetcher
         yarn
       ];
     });

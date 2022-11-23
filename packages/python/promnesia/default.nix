@@ -9,10 +9,7 @@
 # https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/pkgs/python/promnesia/default.nix
 # https://github.com/karlicoss/promnesia/issues/137
 {
-  stdenv,
   python3Packages,
-  python3,
-  fetchFromGitHub,
   orgparse,
   hpi,
   source,

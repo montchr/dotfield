@@ -117,7 +117,7 @@
       aarch64-darwin
     ];
 
-    lib = nixos-unstable.lib.extend (lfinal: lprev: {
+    lib = nixos-unstable.lib.extend (lfinal: _lprev: {
       std = nix-std;
       eso = import ./lib {
         inherit (self) inputs;
@@ -134,7 +134,7 @@
     ];
 
     esoOverlays = [
-      (final: prev: {inherit lib;})
+      (_final: _prev: {inherit lib;})
       self.overlays.sources
       self.overlays.packages
       self.overlays.firefox-addons

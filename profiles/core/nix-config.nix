@@ -9,7 +9,6 @@
 # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a/LICENSE
 {
   self,
-  config,
   lib,
   pkgs,
   ...

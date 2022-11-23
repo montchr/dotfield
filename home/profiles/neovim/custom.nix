@@ -9,23 +9,23 @@
 }: let
   inherit (config.xdg) configHome;
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  l = lib // builtins;
+  # l = lib // builtins;
   configBasePath = "${configHome}/dotfield/home/users/cdom/config";
-  cfg = config.programs.neovim;
+  # cfg = config.programs.neovim;
 
-  luaPlugin = attrs:
-    attrs
-    // {
-      type = "lua";
-      config = l.optionalString (attrs ? config && attrs.config != null) (luaBlock attrs.plugin.pname attrs.config);
-    };
-  luaPlugin' = plugin: config: luaPlugin {inherit plugin config;};
+  # luaPlugin = attrs:
+  #   attrs
+  #   // {
+  #     type = "lua";
+  #     config = l.optionalString (attrs ? config && attrs.config != null) (luaBlock attrs.plugin.pname attrs.config);
+  #   };
+  # luaPlugin' = plugin: config: luaPlugin {inherit plugin config;};
 
-  luaBlock = title: content: ''
-    --: ${title} {{{
-    ${content}
-    --: }}}
-  '';
+  # luaBlock = title: content: ''
+  #   --: ${title} {{{
+  #   ${content}
+  #   --: }}}
+  # '';
 
   muPlugins = with pkgs.vimPlugins; [
     # packer compat with nix-provided plugins
@@ -51,10 +51,9 @@
     vim-dispatch-neovim # <- add neovim support to vim-dispatch
     vim-sleuth #          <- "heuristically set buffer options"
   ];
-
-  themePlugins = with pkgs.vimPlugins; [
-    material-nvim
-  ];
+  # themePlugins = with pkgs.vimPlugins; [
+  #   material-nvim
+  # ];
 in {
   xdg.configFile = {
     "nvim".source = mkOutOfStoreSymlink "${configBasePath}/nvim";

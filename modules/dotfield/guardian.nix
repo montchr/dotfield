@@ -2,7 +2,6 @@
   options,
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (builtins) hasAttr;

@@ -19,7 +19,7 @@
     heavy = 900;
   };
   # Weight names normalised to lowercase.
-  fontWeightDict' = mapAttrs' (n: v: nameValuePair (toLower n) v) fontWeightDict;
+  fontWeightDict' = mapAttrs' (n: nameValuePair (toLower n)) fontWeightDict;
 
   withAliases = set:
     set
@@ -30,5 +30,5 @@
     });
 in {
   fontWeightValue = name: (withAliases fontWeightDict').name;
-  fontWeightName = value: findFirst (n: v: v == value) fontWeightDict';
+  fontWeightName = value: findFirst (_n: v: v == value) fontWeightDict';
 }

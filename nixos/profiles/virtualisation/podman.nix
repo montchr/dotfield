@@ -15,7 +15,6 @@
 # - https://github.com/hercules-ci/arion/issues/122
 {
   config,
-  lib,
   pkgs,
   ...
 }: let

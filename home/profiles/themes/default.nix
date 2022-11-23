@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  pkgs,
   ...
 }: let
   # Note that `builtins.getEnv` will only return an empty string unless running

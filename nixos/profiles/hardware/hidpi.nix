@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkDefault;
-in {
+_: {
   hardware.video.hidpi.enable = true;
   fonts.fontconfig = {
     # NOTE: NixOS docs suggest the following settings may be preferable on hidpi

@@ -10,7 +10,6 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config.home) username;
   inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
 

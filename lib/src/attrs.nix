@@ -42,7 +42,7 @@
     lib.treesWithEnabledLeaf ["programs" "emacs" "enable"] users
       => [ "foo" ]
   */
-  treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
+  treesWithEnabledLeaf = treesWithValue (_: v: v);
 
   /*
   hasEnabledLeaf :: [String] -> AttrSet -> Bool

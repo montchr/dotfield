@@ -1,11 +1,6 @@
 {
-  config,
-  lib,
-  pkgs,
   ...
-}: let
-  l = lib // builtins;
-in {
+}: {
   imports = [
     ./custom.nix
     # ./lunarvim.nix

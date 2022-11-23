@@ -1,4 +1,4 @@
-{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
+{ buildFirefoxXpiAddon, lib, stdenv }:
   {
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";

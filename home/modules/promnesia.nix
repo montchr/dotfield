@@ -14,18 +14,7 @@
   pkgs,
   ...
 }:
-with lib; let
-  cfg = config.services.promnesia;
-  # FIXME: pyopenssl failure on aarch64-darwin
-  # FIXME: set up config file
-  # https://github.com/GTrunSec/nixos-flk/blob/main/profiles/data/promnesia/config.py
-  configFile = pkgs.writeScript "config.py" cfg.config;
-  PreShell = pkgs.writeScript "preRun-promnesia" ''
-    if [ ! -d "$HOME/.local/share/promnesia.sqlite" ];then
-       ${cfg.package}/bin/promnesia index --config ${configFile}
-       fi
-  '';
-in {
+with lib; {
   options.services.promnesia = {
     enable = mkOption {
       description = "Whether to enable promnesia.";

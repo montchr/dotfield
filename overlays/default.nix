@@ -8,13 +8,13 @@
   internalLib = self.lib;
 in {
   flake.overlays = {
-    internalLib = final: prev: {
-      lib = prev.lib.extend (lfinal: lprev: {
+    internalLib = _final: prev: {
+      lib = prev.lib.extend (_lfinal: _lprev: {
         ##: eso :: from within
         eso = internalLib;
       });
     };
-    externalPackages = final: prev: let
+    externalPackages = _final: prev: let
       # NOTE: This must be assigned to a variable instead of performing the
       # system scope change and mapping directly in the resulting attrset in
       # order to prevent infinite recursions.
@@ -43,7 +43,7 @@ in {
         # context of Emacs where the literal `nil` symbol is ubiquitous...
         nil-lsp = nil-lsp.nil;
       };
-    overrides = final: prev: {
+    overrides = _final: prev: {
       inherit (inputs.nixpkgs-fork-update-iosevka.legacyPackages.${prev.system}) iosevka-bin;
       ripgrep = prev.ripgrep.override {withPCRE2 = true;};
     };

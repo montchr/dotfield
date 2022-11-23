@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+_: let
   commonOpts = [
     "noatime"
     "x-mount.mkdir"

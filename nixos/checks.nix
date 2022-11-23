@@ -22,12 +22,10 @@
     attrValues
     mapAttrs
     foldl
-    optionalAttrs
     warnIf
     ;
-  systemSieve = system: host: host.config.nixpkgs.system == system;
 in {
-  perSystem = ctx @ {system, ...}: {
+  perSystem = {system, ...}: {
     checks = let
       customTests = [];
       hostConfigsOnSystem =

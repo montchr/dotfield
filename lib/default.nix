@@ -8,11 +8,11 @@
   inherit (inputs.digga.lib) rakeLeaves;
 
   dotfieldLib = makeExtensible (self: (mapAttrs
-    (name: path: (import path {inherit inputs self lib peers;}))
+    (_name: path: (import path {inherit inputs self lib peers;}))
     (rakeLeaves ./src)));
 in
   # for convenience, provide all namespaced functions at the top level,
   # following the example of `nixpkgs.lib`.
   (dotfieldLib.extend
-    (lfinal: lprev: (foldr
+    (_lfinal: lprev: (foldr
       (a: b: a // b) {} (attrValues lprev))))
