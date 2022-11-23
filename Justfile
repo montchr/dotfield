@@ -1,3 +1,5 @@
+default: build
+
 icon-ok := '✔'
 msg-ok := icon-ok + " OK"
 msg-done := icon-ok + " Done"
@@ -25,8 +27,6 @@ fix *FILES="$PRJ_ROOT":
 
 ###: SYSTEM ====================================================================
 
-alias sys := system
-
 cachix-cache-name := 'dotfield'
 cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 sys-rebuild := if os() == "linux" {
@@ -39,6 +39,9 @@ system subcommand="build" *ARGS='':
   {{cachix-exec}} {{sys-rebuild}} {{subcommand}} -- \
     {{ARGS}} --flake $PRJ_ROOT --verbose
   @echo {{msg-done}}
+
+build: (system "build")
+  nvd diff /run/current-system $PRJ_ROOT/result
 
 
 ###: UPDATES ===================================================================
