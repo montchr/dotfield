@@ -62,5 +62,25 @@
   {
     "key": "ctrl+u x",
     "command": "-magit.reset-hard"
+  },
+  {
+    "key": "] ]",
+    "command": "editor.action.marker.next",
+    "when": "editorFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "alt+f8",
+    "command": "-editor.action.marker.next",
+    "when": "editorFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "[ [",
+    "command": "editor.action.marker.prev",
+    "when": "editorFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "shift+alt+f8",
+    "command": "-editor.action.marker.prev",
+    "when": "editorFocus && vim.mode == 'Normal'"
   }
 ]
