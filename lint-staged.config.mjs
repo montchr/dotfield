@@ -3,4 +3,5 @@
 
 export default {
   '*': 'nix run nixpkgs#treefmt -- --no-cache',
-}
+  '*.nix': 'just lint-nix',
+};
