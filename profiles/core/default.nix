@@ -37,7 +37,8 @@ in {
 
   # Install completions for system packages.
   environment.pathsToLink =
-    (l.optional config.programs.fish.enable "/share/fish")
+    ["/share/bash-completion"]
+    ++ (l.optional config.programs.fish.enable "/share/fish")
     ++ (l.optional config.programs.zsh.enable "/share/zsh");
 
   programs.zsh = {
