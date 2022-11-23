@@ -9,9 +9,8 @@ in {
 
   xdg.configFile = {
     "kitty/themes".source = ./themes;
-
-    # "kitty/themes/dark.conf".source = ./themes/dark/Substrata.conf;
-    # "kitty/themes/light.conf".source = ./themes/light/Alabaster.conf;
+    "kitty/theme-dark.conf".source = ./themes/dark/Substrata.conf;
+    "kitty/theme-light.conf".source = ./themes/light/Clrs.conf;
 
     # FIXME: allow for specifying custom nix-colors-compatible color schemes
     # "kitty/themes/dark.conf".text = mkColorScheme theme.colors.dark;
