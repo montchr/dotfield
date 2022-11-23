@@ -1,26 +1,32 @@
 {
+  inputs,
   config,
   ...
 }: let
-  shellAliases =
-    (import ./abbrs.nix)
-    // (import ./aliases.nix);
+  l = inputs.nixpkgs.lib // builtins;
+  shellAbbrs = import ./abbrs.nix;
 in {
   imports = [
     ./fzf.nix
     ./starship.nix
   ];
 
+  home.extraOutputsToInstall =
+    ["/share/bash-completion"]
+    ++ (l.optional config.programs.fish.enable "/share/fish")
+    ++ (l.optional config.programs.zsh.enable "/share/zsh");
+  home.shellAliases = import ./aliases.nix;
+
   programs.bash = {
-    inherit shellAliases;
-
     enable = true;
-    # profileExtra = "";
-
     sessionVariables = {
       BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
     };
   };
+
+  programs.bash.shellAliases = shellAbbrs;
+  programs.zsh.shellAliases = shellAbbrs;
+  programs.fish = {inherit shellAbbrs;};
 
   # Magical shell history
   programs.atuin.enable = true;

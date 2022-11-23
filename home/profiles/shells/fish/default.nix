@@ -7,9 +7,6 @@
 }: let
   inherit (config.lib.fish) mkPlugin;
   l = lib // builtins;
-
-  shellAbbrs = import ../abbrs.nix;
-  shellAliases = import ../aliases.nix;
 in {
   imports = [../common.nix];
 
@@ -19,13 +16,6 @@ in {
   ];
 
   programs.fish = {
-    inherit
-      # FIXME: watch out, some of these abbrs may have undesirable results when
-      # expanded inline. needs review.
-      shellAbbrs
-      shellAliases
-      ;
-
     enable = true;
     autopair.enable = true;
     fifc.enable = true;

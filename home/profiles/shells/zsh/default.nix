@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config) xdg;
-  shellAliases = (import ../abbrs.nix) // (import ../aliases.nix);
+
   zsh-completions-latest = pkgs.zsh-completions.overrideAttrs (_o: {
     version = inputs.zsh-completions.rev;
     src = inputs.zsh-completions;
@@ -21,13 +21,16 @@ in {
   programs.starship.enableZshIntegration = true;
 
   programs.zsh = {
-    inherit shellAliases;
-
     enable = true;
     dotDir = ".config/zsh";
     enableCompletion = true;
     enableVteIntegration = true;
     autocd = true;
+
+    shellAliases = {
+      # Make it easy to copy/paste script commands verbatim
+      "$" = " ";
+    };
 
     # use zdharma-continuum/fast-syntax-highlighting instead
     enableSyntaxHighlighting = false;
