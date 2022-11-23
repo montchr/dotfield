@@ -46,6 +46,9 @@ system subcommand="build" *ARGS='':
 build: (system "build")
   nvd diff /run/current-system $PRJ_ROOT/result
 
+# Rebuild the system and switch to the next generation
+switch: (system "switch")
+
 
 ###: UPDATES ===================================================================
 
