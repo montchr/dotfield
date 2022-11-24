@@ -178,7 +178,7 @@
       system,
       inputs',
       ...
-    }: let
+    } @ ctx: let
       pkgsets = {
         default = import nixpkgs {
           inherit system;
@@ -194,6 +194,7 @@
     in {
       _module.args = {inherit pkgs primaryUser pkgsets;};
       formatter = pkgs.alejandra;
+      devShells.default = ctx.config.devShells.dotfield;
     };
     flake = {
       inherit
