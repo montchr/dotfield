@@ -38,7 +38,7 @@ in {
     # after fzf-tab.
     enableAutosuggestions = false;
 
-    defaultKeymap = "viins";
+    defaultKeymap = "emacs";
 
     initExtraFirst = ''
       # Initialise the builtin profiler -- run `zprof` to read results
