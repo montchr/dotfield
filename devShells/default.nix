@@ -6,10 +6,10 @@ in {
     inputs',
     pkgs,
     ...
-  }: let
+  } @ ctx: let
     inherit (inputs'.devshell.legacyPackages) mkShell;
   in {
-    devShells = l.mapAttrs (_: v: mkShell (import v {inherit inputs' pkgs;})) {
+    devShells = l.mapAttrs (_: v: mkShell (import v (ctx // {inherit pkgs;}))) {
       dotfield = ./dotfield.nix;
       ci = ./ci.nix;
     };
