@@ -19,7 +19,7 @@ fmt *FILES="$PRJ_ROOT":
 
 # Write automatic linter fixes to source files
 fix *FILES="$PRJ_ROOT":
-  treefmt --no-cache --fail-on-change \
+  treefmt --no-cache \
     --config-file $PRJ_ROOT/treefmt.lint-fix.toml \
     --tree-root $PRJ_ROOT \
     {{FILES}}
