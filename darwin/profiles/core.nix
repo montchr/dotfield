@@ -20,6 +20,13 @@ in {
     };
   };
 
+  # These UI-enhancement plugins come at an even higher performance cost than
+  # completion and do not belong in system configuration at all.
+  programs.zsh.enableFzfCompletion = l.mkForce false;
+  programs.zsh.enableFzfGit = l.mkForce false;
+  programs.zsh.enableFzfHistory = l.mkForce false;
+  programs.zsh.enableSyntaxHighlighting = l.mkForce false;
+
   environment.systemPackages = with pkgs; [
     m-cli
     mas

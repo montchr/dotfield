@@ -43,28 +43,17 @@ in {
 
   programs.zsh = {
     enable = l.mkDefault true;
-
-    variables = l.mkDefault {};
-
     shellInit = l.mkDefault "";
     loginShellInit = l.mkDefault "";
     interactiveShellInit = l.mkDefault "";
 
-    # A prompt should never be initialised at the system-level because it will
-    # need to be initialised a second time once the user's zsh configs load.
+    # Prompts/completions/widgets should never be initialised at the
+    # system-level because it will need to be initialised a second time once the
+    # user's zsh configs load.
     promptInit = l.mkForce "";
-
-    # Completion should never be initialised at the system-level because it will
-    # need to be initialised a second time once the user's zsh configs load.
     enableCompletion = l.mkForce false;
     enableBashCompletion = l.mkForce false;
-
-    # These UI-enhancement plugins come at an even higher performance cost than
-    # completion and do not belong in system configuration at all.
-    enableFzfCompletion = l.mkForce false;
-    enableFzfGit = l.mkForce false;
-    enableFzfHistory = l.mkForce false;
-    enableSyntaxHighlighting = l.mkForce false;
+    syntaxHighlighting.enable = l.mkForce false;
   };
 
   programs.fish.enable = l.mkDefault true;
