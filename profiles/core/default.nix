@@ -53,7 +53,6 @@ in {
     promptInit = l.mkForce "";
     enableCompletion = l.mkForce false;
     enableBashCompletion = l.mkForce false;
-    syntaxHighlighting.enable = l.mkForce false;
   };
 
   programs.fish.enable = l.mkDefault true;

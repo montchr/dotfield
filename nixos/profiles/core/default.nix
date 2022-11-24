@@ -30,6 +30,7 @@ in {
   ];
 
   users.defaultUserShell = pkgs.fish;
+  programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
 
   programs.git.enable = true;
   programs.git.config = {
