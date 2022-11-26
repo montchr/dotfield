@@ -78,7 +78,7 @@
     # FIXME: remove flake-utils (provided by nixlib)
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
-    nix-std.url = "github:chessai/nix-std";
+    stdlib.url = "github:chessai/nix-std";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -111,7 +111,7 @@
     nixpkgs-wayland,
     emacs-overlay,
     nix-dram,
-    nix-std,
+    stdlib,
     ...
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
@@ -125,7 +125,7 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: _lprev: {
-      std = nix-std;
+      std = stdlib;
       eso = import ./lib {
         inherit (self) inputs;
         inherit peers;
@@ -161,18 +161,23 @@
       inherit inputs;
       cellsFrom = ./cells;
       cellBlocks = [
-        (blockTypes.functions "lib")
-        (blockTypes.functions "cmds")
-
+        ##: lib
+        (blockTypes.functions "dev")
+        (blockTypes.functions "functions")
         (blockTypes.nixago "nixago")
+        (blockTypes.installables "packages")
 
+        ##: hosts
         (blockTypes.data "modules")
         (blockTypes.data "profiles")
         (blockTypes.data "hosts")
         (blockTypes.data "compat")
 
+        ##: automation
+        (blockTypes.data "constants")
         (blockTypes.data "devshellProfiles")
         (blockTypes.devshells "devshells")
+        (blockTypes.nixago "nixago")
         (blockTypes.installables "packages")
       ];
     }

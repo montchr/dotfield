@@ -1061,21 +1061,6 @@
         "type": "github"
       }
     },
-    "nix-std": {
-      "locked": {
-        "lastModified": 1669307590,
-        "narHash": "sha256-S6XTgYUoDOt+PBzUPQ5sTgAWwqKTjx0oQnp5MUJLPuI=",
-        "owner": "chessai",
-        "repo": "nix-std",
-        "rev": "661b635736794e42c450daf0c237866addd298e8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chessai",
-        "repo": "nix-std",
-        "type": "github"
-      }
-    },
     "nixago": {
       "inputs": {
         "flake-utils": "flake-utils_9",
@@ -1731,7 +1716,6 @@
         "nil-lsp": "nil-lsp",
         "nix-colors": "nix-colors",
         "nix-dram": "nix-dram",
-        "nix-std": "nix-std",
         "nixago": "nixago",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
@@ -1748,6 +1732,7 @@
         "rnix-lsp": "rnix-lsp",
         "sops-nix": "sops-nix",
         "std": "std",
+        "stdlib": "stdlib",
         "zsh-autopair": "zsh-autopair",
         "zsh-completions": "zsh-completions",
         "zsh-fast-syntax-highlighting": "zsh-fast-syntax-highlighting"
@@ -1853,6 +1838,21 @@
       "original": {
         "owner": "divnix",
         "repo": "std",
+        "type": "github"
+      }
+    },
+    "stdlib": {
+      "locked": {
+        "lastModified": 1669307590,
+        "narHash": "sha256-S6XTgYUoDOt+PBzUPQ5sTgAWwqKTjx0oQnp5MUJLPuI=",
+        "owner": "chessai",
+        "repo": "nix-std",
+        "rev": "661b635736794e42c450daf0c237866addd298e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chessai",
+        "repo": "nix-std",
         "type": "github"
       }
     },

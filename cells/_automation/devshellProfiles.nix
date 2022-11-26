@@ -2,91 +2,53 @@
   inputs,
   cell,
 }: let
+  inherit (inputs) nixpkgs;
+  inherit (inputs.cells.lib.dev) pkgWithCategory withCategory;
+  inherit (nixpkgs.stdenv) isLinux;
+
   l = inputs.nixpkgs.lib // builtins;
-  pkgs = inputs.nixpkgs;
+  cats = cell.constants.devshellCategories;
 
-  inherit (pkgs.stdenv) isLinux;
-  inherit (inputs.deadnix.packages) deadnix;
-  inherit (inputs.deploy-rs.packages) deploy-rs;
-  inherit (inputs.nixpkgs-fork-add-lint-staged.legacyPackages) lint-staged;
-
-  inherit
-    (pkgs)
-    alejandra
-    cachix
-    editorconfig-checker
-    just
-    nix-diff
-    nix-tree
-    nodejs
-    nvd
-    nvfetcher
-    shellcheck
-    statix
-    treefmt
-    ;
-  inherit
-    (pkgs.nodePackages)
-    prettier
-    yarn
-    ;
-
-  pkgWithCategory = category: package: {inherit package category;};
-
-  dotfield = pkgWithCategory "dotfield";
-  linters = pkgWithCategory "linters";
-  formatters = pkgWithCategory "formatters";
-  utils = pkgWithCategory "utils";
-
-  mozilla-addons-to-nix-wrapped = {
-    name = "mozilla-addons-to-nix";
-    category = "utils";
-    help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
-    command = ''
-      nix run sourcehut:~rycee/mozilla-addons-to-nix -- $@
-    '';
-  };
+  dotfield = pkgWithCategory cats.dotfield;
+  maintenance = pkgWithCategory cats.maintenance;
+  utils = pkgWithCategory cats.utils;
 
   commonCommands = [
-    ##: --- utils --------------------
+    (utils nixpkgs.cachix)
+    (utils nixpkgs.just)
+    (utils nixpkgs.nix-diff)
+    (utils nixpkgs.nix-tree)
+    (utils nixpkgs.nvd)
+    (withCategory cats.utils {
+      name = "mozilla-addons-to-nix";
+      help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
+      command = ''
+        nix run sourcehut:~rycee/mozilla-addons-to-nix -- $@
+      '';
+    })
 
-    (utils cachix)
-    (utils just)
-    (utils nix-diff)
-    (utils nix-tree)
-    (utils nvd)
-    mozilla-addons-to-nix-wrapped
-
-    ##: --- linters ------------------
-
-    (linters deadnix)
-    (linters statix)
-
-    ##: --- formatters ---------------
-
-    (formatters alejandra)
-    (formatters prettier)
-    (formatters treefmt)
+    (maintenance nixpkgs.alejandra)
+    (maintenance nixpkgs.deadnix)
+    (maintenance nixpkgs.nodePackages.prettier)
+    (maintenance nixpkgs.statix)
+    (maintenance nixpkgs.treefmt)
   ];
 
-  linuxCommands = [
-    (dotfield deploy-rs)
+  linuxCommands = l.optionals isLinux [
+    (dotfield inputs.deploy-rs.packages.deploy-rs)
     (dotfield inputs.nixos-generators.packages.nixos-generate)
   ];
 in {
   default = _: {
-    commands =
-      commonCommands
-      ++ (l.optionals isLinux linuxCommands);
+    commands = commonCommands ++ linuxCommands;
 
     packages = [
-      cachix
-      editorconfig-checker
-      lint-staged
-      shellcheck
-      nodejs
-      nvfetcher
-      yarn
+      nixpkgs.cachix
+      nixpkgs.editorconfig-checker
+      nixpkgs.shellcheck
+      nixpkgs.nodejs
+      nixpkgs.nvfetcher
+      nixpkgs.nodePackages.yarn
     ];
   };
 }

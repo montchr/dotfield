@@ -1,34 +1,56 @@
+# SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 default: build
 
+##: feedback
 icon-ok := '✔'
 msg-ok := icon-ok + " OK"
 msg-done := icon-ok + " Done"
 
-firefox-addons-dir := "${PRJ_ROOT}/packages/applications/firefox/firefox-addons"
-sources-dir := "${PRJ_ROOT}/packages/sources"
+##: legal/reuse
+copyright := 'Chris Montgomery <chris@cdom.io>'
+default-license := 'GPL-3.0-or-later'
+docs-license := 'CC-BY-SA-4.0'
+public-domain-license := 'CC0-1.0'
+
+##: binary cache
+cachix-cache-name := 'dotfield'
+cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
+
+##: directories/paths
+prj-root := env_var('PRJ_ROOT')
+firefox-addons-dir := prj-root / "packages/applications/firefox/firefox-addons"
+sources-dir := prj-root / "packages/sources"
 
 
 ###: LINTING/FORMATTING ========================================================
 
-# Format source files
-fmt *FILES="$PRJ_ROOT":
-  treefmt --no-cache \
-    --config-file $PRJ_ROOT/treefmt.toml \
-    --tree-root $PRJ_ROOT \
-    {{FILES}}
+# Lint and format files
+fmt *FILES=prj-root:
+  treefmt --no-cache {{FILES}}
 
-# Write automatic linter fixes to source files
-fix *FILES="$PRJ_ROOT":
-  treefmt --no-cache \
-    --config-file $PRJ_ROOT/treefmt.lint-fix.toml \
-    --tree-root $PRJ_ROOT \
+# Write automatic linter fixes to files
+lint-fix *FILES=prj-root: (deadnix "fix" FILES) (statix "fix" FILES)
+
+# Run `statix`
+statix action +FILES=prj-root:
+  @ # Note that stderr is silenced due to an upstream bug
+  @ # https://github.com/nerdypepper/statix/issues/59
+  @ for f in {{FILES}}; do \
+    statix {{action}} -- "$f" 2>/dev/null; \
+  done
+
+# Run `deadnix` with sane options
+deadnix action +FILES=prj-root:
+  @deadnix \
+    {{ if action == "fix" { "--edit" } else { "--fail" } }} \
+    --no-underscore \
+    --no-lambda-pattern-names \
     {{FILES}}
 
 
 ###: SYSTEM ====================================================================
-
-cachix-cache-name := 'dotfield'
-cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 
 sys-rebuild := if os() == "linux" {
   "nixos-rebuild"
@@ -39,12 +61,12 @@ sys-rebuild := if os() == "linux" {
 # Rebuild the system and push any new derivations to the binary cache
 system subcommand="build" *ARGS='':
   {{cachix-exec}} {{sys-rebuild}} {{subcommand}} -- \
-    {{ARGS}} --flake $PRJ_ROOT --verbose
+    {{ARGS}} --flake {{prj-root}} --verbose
   @echo {{msg-done}}
 
 # Rebuild the system and provide a summary of the changes
 build: (system "build")
-  nvd diff /run/current-system $PRJ_ROOT/result
+  nvd diff /run/current-system {{prj-root}}/result
 
 # Rebuild the system and switch to the next generation
 switch: (system "switch")
@@ -104,3 +126,25 @@ toggle-macos-appearance:
 [macos]
 toggle-ui-mode: toggle-emacs-theme toggle-macos-appearance
   @echo {{msg-done}}
+
+
+###: LICENSING =================================================================
+
+# Add the project default license header to the specified files
+alias license := license-gpl
+
+# Validate the project's licensing and copyright info
+license-check:
+  reuse lint
+
+# Add a GPL-3.0-or-later license header to the specified files
+license-gpl +FILES:
+  reuse addheader -l {{default-license}} -c '{{copyright}}' {{FILES}}
+
+# Add a CC-BY-SA-4.0 license header to the specified files
+license-cc +FILES:
+  reuse addheader -l {{docs-license}} -c '{{copyright}}' {{FILES}}
+
+# Add a public domain CC0-1.0 license header to the specified files
+license-public-domain +FILES:
+  reuse addheader -l {{public-domain-license}} -c '{{copyright}}' {{FILES}}
