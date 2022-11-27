@@ -59,6 +59,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    std = {
+      # url = "github:divnix/std";
+      url = "github:divnix/std/fix-editorconfig-hack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ##: forks
     agenix.url = "github:montchr/agenix/darwin-support";
 
@@ -73,7 +79,7 @@
     # FIXME: remove flake-utils (provided by nixlib)
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
-    nix-std.url = "github:chessai/nix-std";
+    stdlib.url = "github:chessai/nix-std";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -97,6 +103,7 @@
 
   outputs = {
     self,
+    std,
     nixpkgs,
     nixos-unstable,
     flake-parts,
@@ -105,10 +112,11 @@
     nixpkgs-wayland,
     emacs-overlay,
     nix-dram,
-    nix-std,
+    stdlib,
     ...
-  }: let
+  } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
+    inherit (std) blockTypes growOn harvest;
 
     supportedSystems = with flake-utils.lib.system; [
       x86_64-linux
@@ -118,7 +126,7 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: _lprev: {
-      std = nix-std;
+      std = stdlib;
       eso = import ./lib {
         inherit (self) inputs;
         inherit peers;
@@ -149,70 +157,96 @@
     peers = import ./ops/metadata/peers.nix;
     sharedModules = flattenTree (rakeLeaves ./modules);
     sharedProfiles = rakeLeaves ./profiles;
-  in (flake-parts.lib.mkFlake {inherit self;} {
-    systems = supportedSystems;
-    imports = [
-      {
-        _module.args = {
-          inherit peers primaryUser;
+  in
+    growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      cellBlocks = [
+        ##: lib
+        (blockTypes.functions "dev")
+        (blockTypes.functions "functions")
+        (blockTypes.nixago "nixago")
+        (blockTypes.installables "packages")
+
+        ##: hosts
+        (blockTypes.data "modules")
+        (blockTypes.data "profiles")
+        (blockTypes.data "hosts")
+        (blockTypes.data "compat")
+
+        ##: automation
+        (blockTypes.data "constants")
+        (blockTypes.data "devshellProfiles")
+        (blockTypes.devshells "devshells")
+        (blockTypes.nixago "nixago")
+        (blockTypes.installables "packages")
+      ];
+    }
+    {
+      devShells = harvest self [["dotfield" "devshells"] ["_automation" "devshells"]];
+    }
+    (flake-parts.lib.mkFlake {inherit self;} {
+      systems = supportedSystems;
+      imports = [
+        {
+          _module.args = {
+            inherit peers primaryUser;
+          };
+        }
+
+        ./flake-modules/homeConfigurations.nix
+        ./flake-modules/sharedModules.nix
+        ./flake-modules/sharedProfiles.nix
+
+        ./overlays
+        ./packages
+
+        ./nixos/configurations.nix
+        ./nixos/checks.nix
+
+        ./home/configurations.nix
+
+        ./darwin/configurations.nix
+        ./darwin/packages
+      ];
+      perSystem = {
+        system,
+        inputs',
+        ...
+      }: let
+        pkgsets = {
+          default = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = exoOverlays ++ esoOverlays;
+          };
+          stable = inputs'.nixos-stable.legacyPackages;
+          unstable = inputs'.nixos-unstable.legacyPackages;
+          trunk = inputs'.nixpkgs-trunk.legacyPackages;
+          forked-with-lint-staged = inputs'.nixpkgs-fork-add-lint-staged.legacyPackages;
         };
-      }
-
-      ./flake-modules/homeConfigurations.nix
-      ./flake-modules/sharedModules.nix
-      ./flake-modules/sharedProfiles.nix
-
-      ./devShells
-      ./overlays
-      ./packages
-
-      ./nixos/configurations.nix
-      ./nixos/checks.nix
-
-      ./home/configurations.nix
-
-      ./darwin/configurations.nix
-      ./darwin/packages
-    ];
-    perSystem = {
-      system,
-      inputs',
-      ...
-    } @ ctx: let
-      pkgsets = {
-        default = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = exoOverlays ++ esoOverlays;
-        };
-        stable = inputs'.nixos-stable.legacyPackages;
-        unstable = inputs'.nixos-unstable.legacyPackages;
-        trunk = inputs'.nixpkgs-trunk.legacyPackages;
-        forked-with-lint-staged = inputs'.nixpkgs-fork-add-lint-staged.legacyPackages;
+        pkgs = pkgsets.default;
+      in {
+        _module.args = {inherit pkgs primaryUser pkgsets;};
+        formatter = pkgs.alejandra;
       };
-      pkgs = pkgsets.default;
-    in {
-      _module.args = {inherit pkgs primaryUser pkgsets;};
-      formatter = pkgs.alejandra;
-      devShells.default = ctx.config.devShells.dotfield;
-    };
-    flake = {
-      inherit
-        sharedModules
-        sharedProfiles
-        ;
+      flake = {
+        inherit
+          sharedModules
+          sharedProfiles
+          ;
 
-      lib = lib.eso;
+        lib = lib.eso;
 
-      # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-      #   tsone = with (peers.hosts.tsone); {
-      #     hostname = ipv4.address;
-      #     sshUser = "root";
-      #     fastConnection = true;
-      #     autoRollback = true;
-      #     magicRollback = true;
-      #   };
-      # };
-    };
-  });
+        # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+        #   tsone = with (peers.hosts.tsone); {
+        #     hostname = ipv4.address;
+        #     sshUser = "root";
+        #     fastConnection = true;
+        #     autoRollback = true;
+        #     magicRollback = true;
+        #   };
+        # };
+      };
+    });
 }

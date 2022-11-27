@@ -1,25 +1,22 @@
 {homeProfiles}:
 with homeProfiles; let
-  remote = [
+  base = [
     direnv
     git
-    shells.fish
-    ssh
-  ];
-
-  # TODO: dissolve into workstation?
-  developer = [
-    difftools.difftastic
-    direnv
-    emacs
-    git
-    just
-    python
-    shells.fish
-    shells.nushell
     shells.zsh
     ssh
   ];
+  remote = base;
+
+  # TODO: dissolve into workstation?
+  developer =
+    base
+    ++ [
+      difftools.difftastic
+      emacs
+      just
+      python
+    ];
 
   graphical = [
     chromium
@@ -48,17 +45,12 @@ with homeProfiles; let
 
   trusted = [
     gpg
+    secrets.password-store
 
     # FIXME: upstream bug? `mu` is hardcoded, not a reference to `pkgs.mu`
     # > Activating runMuInit
     # > /nix/store/crf1jbfp5zs9l4xrpfck5lh4sk5d5rlx-home-manager-generation/activate: line 290: mu: command not found
     # mail
-
-    # FIXME: broken
-    # promnesia
-
-    secrets.password-store
-    yubikey
   ];
 
   webdev = [
@@ -72,6 +64,7 @@ with homeProfiles; let
 
   roles = {
     inherit
+      base
       developer
       graphical
       personalised
@@ -88,6 +81,7 @@ with homeProfiles; let
       ++ webdev
       ++ [
         vhs
+        yubikey
       ];
   };
 in

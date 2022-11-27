@@ -1,9 +1,10 @@
 {
-  lib,
   inputs,
   system,
   ...
-}: {
+}: let
+  l = inputs.nixpkgs.lib // builtins;
+in {
   imports = [
     ./bat.nix
     ./home-packages.nix
@@ -19,8 +20,8 @@
 
   ##: shells
   programs.bash.enable = true;
-  programs.fish.enable = true;
-  programs.zsh.enable = true;
+  programs.fish.enable = l.mkDefault false;
+  programs.zsh.enable = l.mkDefault true;
 
   ##: essential tools
   programs.command-not-found.enable = true;
@@ -28,7 +29,7 @@
   programs.man.enable = true;
   # N.B. This can slow down builds, but enables more manpage integrations
   # across various tools. See the home-manager manual for more info.
-  programs.man.generateCaches = lib.mkDefault true;
+  programs.man.generateCaches = l.mkDefault true;
 
   home.packages = [inputs.home-manager.packages.${system}.default];
 

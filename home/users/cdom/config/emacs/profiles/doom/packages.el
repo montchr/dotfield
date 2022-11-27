@@ -2,9 +2,11 @@
 
 
 (disable-packages!
-  evil-escape
-  solaire-mode)
+ evil-escape
+ solaire-mode)
 
+;; https://github.com/doomemacs/doomemacs/issues/6960
+(unpin! straight)
 (unpin! forge)
 (unpin! lsp-mode)
 (unpin! format-all)
@@ -54,6 +56,7 @@
 (package! apheleia)
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! hledger-mode)
+(package! just-mode)                 ; justfile language support
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! lsp-tailwindcss
   :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))

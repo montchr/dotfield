@@ -1,9 +1,9 @@
-#!/usr/bin/env sh
 # SPDX-FileCopyrightText: 2022 Chris Montgomery <chris@cdom.io>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-
-# shellcheck disable=1091
-. "$(dirname -- "$0")/_/husky.sh"
-
-lint-staged
+{
+  proseWrap = "always";
+  semi = false;
+  singleQuote = true;
+  trailingComma = "all";
+}
