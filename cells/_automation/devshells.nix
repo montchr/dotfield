@@ -21,6 +21,9 @@ in
       nixago = [
         (presets.nixago.commitlint {})
         (presets.nixago.editorconfig {})
+        (cell.nixago.garnix {
+          hook.mode = "copy";
+        })
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})

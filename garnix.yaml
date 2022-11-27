@@ -1,0 +1,11 @@
+builds:
+  default:
+    exclude:
+    - darwinConfigurations.*
+    - '*.aarch64-darwin.*'
+    - '*.x86_64-darwin.*'
+    include:
+    - '*.x86_64-linux.*'
+    - packages.x86_64-linux.*
+    - packages.aarch64-linux.*
+    - devShells.x86_64-linux.*
