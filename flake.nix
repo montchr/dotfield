@@ -60,7 +60,8 @@
     };
 
     std = {
-      url = "github:divnix/std";
+      # url = "github:divnix/std";
+      url = "github:divnix/std/fix-editorconfig-hack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

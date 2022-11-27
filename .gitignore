@@ -58,6 +58,7 @@ yarn-error.log*
 
 
 # nixago: ignore-linked-files
+.editorconfig
 statix.toml
 .commitlintrc.json
 treefmt.toml

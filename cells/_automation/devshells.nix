@@ -20,6 +20,7 @@ in
       ];
       nixago = [
         (presets.nixago.commitlint {})
+        (presets.nixago.editorconfig {})
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})

@@ -13,6 +13,9 @@ in {
   commitlint = lib.nixago.commitlint {
     configData = import ./nixago/commitlint.nix;
   };
+  editorconfig = std.nixago.editorconfig {
+    configData = import ./nixago/editorconfig.nix;
+  };
   lefthook = std.nixago.lefthook {
     configData = import ./nixago/lefthook.nix;
   };
