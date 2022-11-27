@@ -2,8 +2,8 @@
 
 
 (disable-packages!
-  evil-escape
-  solaire-mode)
+ evil-escape
+ solaire-mode)
 
 (unpin! forge)
 (unpin! lsp-mode)
@@ -54,6 +54,7 @@
 (package! apheleia)
 (package! bats-mode)                 ; mode for editing and running BATS tests
 (package! hledger-mode)
+(package! just-mode)                 ; justfile language support
 (package! literate-calc-mode)        ; like soulver, but in emacs
 (package! lsp-tailwindcss
   :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))

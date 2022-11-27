@@ -326,6 +326,7 @@
 ;;; === languages ==============================================================
 
 (use-package! apache-mode)
+(use-package! just-mode)
 (use-package! robots-txt-mode)
 
 (after! sh-script
