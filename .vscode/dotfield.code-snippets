@@ -1,4 +1,9 @@
 {
+  "llibb": {
+    "scope": "nix",
+    "prefix": "llibb",
+    "body": ["l = ${1:inputs.nixpkgs.}lib // builtins;$0"]
+  },
   "Standard Organelle": {
     "scope": "nix",
     "prefix": "organelle",
