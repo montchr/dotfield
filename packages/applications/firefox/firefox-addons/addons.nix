@@ -1,4 +1,4 @@
-{ buildFirefoxXpiAddon, lib, stdenv }:
+{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
@@ -85,10 +85,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.4.0";
+      version = "2.9.5.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032949/bypass_paywalls_clean-2.9.4.0.xpi";
-      sha256 = "d24880e6fcf83d65d327d55b2b3c19b8000051232febe6bc96722a38777dc3c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035936/bypass_paywalls_clean-2.9.5.0.xpi";
+      sha256 = "683051a5c39e33244e9d78e6bde1ca9bdcec3c2f8bcd7086d2e840a88d4459fd";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -99,10 +99,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003406/consent_o_matic-1.0.10.xpi";
-      sha256 = "8d465f05d0beed30e7eeb3908d2ef51d25709f2e469b8f984ef63d9488141d4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035338/consent_o_matic-1.0.11.xpi";
+      sha256 = "b2192a852d3a2f469274258cd8be2099a8117879809ebb1ef25b76e4f40c1a01";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -239,10 +239,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.19.1";
+      version = "2.20.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3804013/ipfs_companion-2.19.1.xpi";
-      sha256 = "6abe23deb1fdf9e0634aa8bd0c8115b03631affc67e2a88b47590b389dca2017";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034948/ipfs_companion-2.20.0.xpi";
+      sha256 = "31237635e8b10275db898bd49e2ed3d2f18ed251e4f702facb46330bc90011b3";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -582,10 +582,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.11.6";
+      version = "22.11.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026634/refined_github-22.11.6.xpi";
-      sha256 = "3b86ddcbbf6878440a9b77e6f48323a654c2b71bd0cd87b8be7040bd9de332f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033502/refined_github-22.11.21.xpi";
+      sha256 = "bb7f53e8e2eaddceb4c0e74ff0c3b9665d8fd04be2f9d54e37b0e0cca9157c25";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -596,10 +596,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.6";
+      version = "3.0.0.7";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005382/return_youtube_dislikes-3.0.0.6.xpi";
-      sha256 = "568885aefe2ff80ad3fd8c0e2a56b93282e2bc7a3c00e4c4853c45de3d8d0d46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032427/return_youtube_dislikes-3.0.0.7.xpi";
+      sha256 = "343f9b966ad7c0341f46e94892f811623190529d964b6d6cdddbe8da96b653ec";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -609,10 +609,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.9.0";
+      version = "1.9.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032910/rust_search_extension-1.9.0.xpi";
-      sha256 = "847533a31ec07aa76b5c36c42a76ef7c7f8dc7592814fe320e5e2f7a4f50dcf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035825/rust_search_extension-1.9.1.xpi";
+      sha256 = "0291fd0d0601d09592e96de58bd5ee57ea1fb4c840566ccbbf25037e97d4e7e3";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -623,10 +623,10 @@
       };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827755/search_engines_helper-3.2.2.xpi";
-      sha256 = "2ed0dd789cd2b6530e5ba7a6eb095f7fdb3e9518e1df2ae6d855699c60bff9ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035680/search_engines_helper-3.2.3.xpi";
+      sha256 = "a566ec01cc1354abc4cd277f5ba2a3cd074e8de7c477e0a898ceb627f3bcd68e";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -665,10 +665,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.26";
+      version = "1.21.29";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026276/single_file-1.21.26.xpi";
-      sha256 = "13aeb64bf04be235d8d36bfb5957a6d29b863d5cbf56471f34923099a128b7d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034610/single_file-1.21.29.xpi";
+      sha256 = "88169f010378427e08c0b169fed4147811503560dab4f3f848bb24fc55f35c1c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -679,10 +679,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.11.14.1521";
+      version = "22.11.24.1820";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030032/sourcegraph_for_firefox-22.11.14.1521.xpi";
-      sha256 = "edddff58e32db6fad0220d9dcb19881d25d00d5ac24602d609535d4a68790a17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034959/sourcegraph_for_firefox-22.11.24.1820.xpi";
+      sha256 = "143177cdbae5cda807edccb309bccaa27c76e06c34ff2985b5c0a43517a481a4";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -807,10 +807,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.1.1";
+      version = "8.2.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022687/ublacklist-8.1.1.xpi";
-      sha256 = "c81dc9dc3a60901f25374a4f8015e8bdeda3556dd72ce5a831b009b5cf0a39a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035662/ublacklist-8.2.0.xpi";
+      sha256 = "092547105e7c4d5f34f28ed7727f04b49651ceeef159e43a496b2dd7c1e0148f";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -835,14 +835,14 @@
       };
     "unclutter" = buildFirefoxXpiAddon {
       pname = "unclutter";
-      version = "1.2.0";
+      version = "1.2.2";
       addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031467/lindylearn-1.2.0.xpi";
-      sha256 = "de67617f7195ed0c417a5c01a15fe1d762507f2b1e365707d60d8376a581531b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034919/lindylearn-1.2.2.xpi";
+      sha256 = "78f9defcf2f862494105207c20aec8dcde2b5160099f1fcbebd4ea3fb31b261b";
       meta = with lib;
       {
         homepage = "https://github.com/lindylearn/unclutter";
-        description = "Remove annoyances, customise your reading &amp; save highlights.";
+        description = "Read, collect, and highlight articles with style.";
         license = licenses.agpl3;
         platforms = platforms.all;
         };
