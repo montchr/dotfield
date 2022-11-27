@@ -7,11 +7,11 @@
   pkgs,
   ...
 }: let
-  inherit (config.xdg) configHome;
+  inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  # l = lib // builtins;
-  configBasePath = "${configHome}/dotfield/home/users/cdom/config";
-  # cfg = config.programs.neovim;
+  l = lib // builtins;
+  configBasePath = "${xdg.configHome}/dotfield/home/users/cdom/config";
+  cfg = config.programs.neovim;
 
   # luaPlugin = attrs:
   #   attrs
@@ -51,9 +51,9 @@
     vim-dispatch-neovim # <- add neovim support to vim-dispatch
     vim-sleuth #          <- "heuristically set buffer options"
   ];
-  # themePlugins = with pkgs.vimPlugins; [
-  #   material-nvim
-  # ];
+  themePlugins = with pkgs.vimPlugins; [
+    material-nvim
+  ];
 in {
   xdg.configFile = {
     "nvim".source = mkOutOfStoreSymlink "${configBasePath}/nvim";
@@ -61,7 +61,7 @@ in {
     # "nvim/fnl" = {
     #   source = ./fnl;
     #   onChange = ''
-    #     rm -rf "${configHome}/nvim/lua"
+    #     rm -rf "${xdg.configHome}/nvim/lua"
     #     ${l.getExe cfg.package} --headless \
     #       -c "lua require('aniseed.env').init()" \
     #       -c q
@@ -69,11 +69,20 @@ in {
     # };
   };
 
+  home.packages = [
+    (pkgs.writeShellScriptBin "nvim-packer-sync" ''
+      LUA_DIR=''${LUA_DIR:-${xdg.dataHome}/nvim/lua}
+      ${l.getExe cfg.finalPackage} +"au User PackerComplete" +PackerSync $@
+    '')
+  ];
+
   programs.neovim = {
+    extraPackages = with pkgs; [
+      sumneko-lua-language-server
+    ];
     plugins = with pkgs.vimPlugins;
       muPlugins
-      # TODO
-      # ++ themePlugins
+      ++ themePlugins
       ++ [
         ##: completions
         nvim-cmp
