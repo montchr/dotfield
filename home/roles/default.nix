@@ -1,25 +1,22 @@
 {homeProfiles}:
 with homeProfiles; let
-  remote = [
+  base = [
     direnv
     git
-    shells.fish
-    ssh
-  ];
-
-  # TODO: dissolve into workstation?
-  developer = [
-    difftools.difftastic
-    direnv
-    emacs
-    git
-    just
-    python
-    shells.fish
-    shells.nushell
     shells.zsh
     ssh
   ];
+  remote = base;
+
+  # TODO: dissolve into workstation?
+  developer =
+    base
+    ++ [
+      difftools.difftastic
+      emacs
+      just
+      python
+    ];
 
   graphical = [
     chromium
@@ -72,6 +69,7 @@ with homeProfiles; let
 
   roles = {
     inherit
+      base
       developer
       graphical
       personalised
