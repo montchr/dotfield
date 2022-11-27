@@ -5,6 +5,8 @@
  evil-escape
  solaire-mode)
 
+;; https://github.com/doomemacs/doomemacs/issues/6960
+(unpin! straight)
 (unpin! forge)
 (unpin! lsp-mode)
 (unpin! format-all)
