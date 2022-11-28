@@ -10,6 +10,7 @@
       one-password
     ])
     ++ (with nixosProfiles; [
+      bitwarden
       boot.systemd-boot
       desktop.common
       desktop.gnome-desktop
