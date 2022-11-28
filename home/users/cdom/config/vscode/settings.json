@@ -138,7 +138,7 @@
   "window.dialogStyle": "custom",
   "window.restoreFullscreen": true,
   "workbench.activityBar.visible": false,
-  "workbench.colorTheme": "Vitesse Dark",
+  "workbench.colorTheme": "GitHub Light Monochrome Focused",
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromCodeNavigation": true,
   "workbench.editor.enablePreviewFromQuickOpen": true,
