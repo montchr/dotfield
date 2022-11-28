@@ -43,7 +43,7 @@
       direnv
       navi
       nnn
-      neovim
+      nvim
     ])
     ++ [
       moduleArgs

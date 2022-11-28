@@ -15,6 +15,8 @@ in {
     fishPlugins.forgit
   ];
 
+  programs.neovim.plugins = [pkgs.vimPlugins.vim-fish];
+
   programs.fish = {
     enable = true;
     autopair.enable = true;
