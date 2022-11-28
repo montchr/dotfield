@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 {
-  proseWrap = "always";
   semi = false;
   singleQuote = true;
   trailingComma = "all";
