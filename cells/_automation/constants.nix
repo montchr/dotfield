@@ -7,6 +7,7 @@
   inherit (inputs.cells.lib.functions) enumAttrs;
 in {
   devshellCategories = enumAttrs [
+    "dotfield"
     "general"
     "legal"
     "maintenance"
