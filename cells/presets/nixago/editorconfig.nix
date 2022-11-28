@@ -17,7 +17,6 @@
   };
 
   "*.md" = {
-    indent_size = 4;
     indent_style = "space";
     trim_trailing_whitespace = false;
   };
