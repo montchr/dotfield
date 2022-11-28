@@ -11,6 +11,7 @@
       # networking.tailscale
     ])
     ++ (with darwinProfiles; [
+      bitwarden
       emacs
       graphical
       system-defaults
