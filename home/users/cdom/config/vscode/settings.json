@@ -155,5 +155,6 @@
   "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
   "workbench.preferredHighContrastLightColorTheme": "GitHub Light High Contrast",
   "workbench.preferredLightColorTheme": "GitHub Light Monochrome Focused",
-  "zenMode.fullScreen": false
+  "zenMode.fullScreen": false,
+  "prettier.requireConfig": true
 }
