@@ -1,7 +1,10 @@
 {
   pkgs,
+  config,
   ...
-}: {
+}: let
+  inherit (config.homebrew) brewPrefix;
+in {
   security.pam.enableSudoTouchIdAuth = true;
 
   # kitty terminfo must be applied on the system level
@@ -9,6 +12,9 @@
   environment.variables = {
     TERMINFO_DIRS = ["${pkgs.kitty.terminfo.outPath}/share/terminfo"];
   };
+
+  # Allow for usage of `brew` CLI without adding to `PATH`
+  environment.shellAliases."brew" = "${brewPrefix}/bin/brew";
 
   homebrew.taps = [
     "homebrew/cask"
