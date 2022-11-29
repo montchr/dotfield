@@ -138,7 +138,6 @@
   "window.dialogStyle": "custom",
   "window.restoreFullscreen": true,
   "workbench.activityBar.visible": false,
-  "workbench.colorTheme": "GitHub Light Monochrome Focused",
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromCodeNavigation": true,
   "workbench.editor.enablePreviewFromQuickOpen": true,
@@ -154,7 +153,9 @@
   "workbench.preferredDarkColorTheme": "Vitesse Dark",
   "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
   "workbench.preferredHighContrastLightColorTheme": "GitHub Light High Contrast",
-  "workbench.preferredLightColorTheme": "GitHub Light Monochrome Focused",
+  "workbench.preferredLightColorTheme": "Vitesse Light",
   "zenMode.fullScreen": false,
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "workbench.statusBar.visible": false,
+  "workbench.colorTheme": "Vitesse Dark"
 }
