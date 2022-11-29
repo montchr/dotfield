@@ -41,7 +41,7 @@
   :init
   (setq
    ;; --- type ---
-   modus-themes-bold-constructs t
+   modus-themes-bold-constructs nil
    modus-themes-italic-constructs t
 
    ;; --- ui ---
@@ -54,7 +54,7 @@
    modus-themes-box-buttons '(accented)
 
    ;; --- syntax ---
-   modus-themes-syntax '(alt-syntax)
+   ;; modus-themes-syntax '(alt-syntax)
    modus-themes-markup '(background)
    modus-themes-org-blocks '(gray-background)
    modus-themes-paren-match '(bold))
@@ -87,8 +87,8 @@
            :bold-weight normal
            :default-family "Iosevka Term")
           (regular :default-height 124)
-          (medium :default-height 133)
-          (large :default-height 150
+          (medium :default-height 135)
+          (large :default-height 160
                  :bold-weight bold)
           (xlarge :default-height 170
                   :bold-weight bold)
@@ -108,7 +108,7 @@
            ;; I've often gotten the sense that bold constructs don't work so well
            ;; with a narrow programming font like Iosevka. It tends to result in
            ;; muddy-looking characters at small sizes.
-           :bold-weight semibold
+           :bold-weight bold
            :italic-family nil
            :italic-slant italic
            :line-spacing nil)))
