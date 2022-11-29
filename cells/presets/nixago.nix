@@ -25,6 +25,9 @@ in {
   statix = lib.nixago.statix {
     configData = import ./nixago/statix.nix;
   };
+  stylua = lib.nixago.stylua {
+    configData = import ./nixago/stylua.nix;
+  };
   treefmt = std.nixago.treefmt {
     configData = import ./nixago/treefmt.nix;
     packages = [
@@ -35,6 +38,7 @@ in {
       nixpkgs.nodePackages.prettier-plugin-toml
       nixpkgs.shfmt
       nixpkgs.statix
+      nixpkgs.stylua
     ];
     devshell.startup.prettier-plugin-toml = l.stringsWithDeps.noDepEntry ''
       export NODE_PATH=${nixpkgs.nodePackages.prettier-plugin-toml}/lib/node_modules:$NODE_PATH

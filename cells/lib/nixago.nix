@@ -11,4 +11,5 @@ builtins.mapAttrs (_: inputs.std.lib.dev.mkNixago) {
   # lint-staged = import ./nixago/lint-staged.nix cellArgs;
   prettier = import ./nixago/prettier.nix cellArgs;
   statix = import ./nixago/statix.nix cellArgs;
+  stylua = import ./nixago/stylua.nix cellArgs;
 }
