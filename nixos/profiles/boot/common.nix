@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   boot = {
     # TODO: consider setting this at some higher level... VMs may not want this...
     cleanTmpDir = lib.mkDefault true;

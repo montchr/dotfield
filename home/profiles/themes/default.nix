@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: let
+{lib, ...}: let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";

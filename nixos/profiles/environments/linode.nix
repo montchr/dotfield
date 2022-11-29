@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # LISH compatibility
   boot.kernelParams = ["console=ttyS0,19200n8"];
   boot.loader.timeout = 10;

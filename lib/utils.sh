@@ -46,12 +46,12 @@
 #==============================================#
 
 # shellcheck disable=2153
-[[ -n ${ZSH_VERSION} ]] &&
-  emulate -L bash
+[[ -n ${ZSH_VERSION} ]] \
+  && emulate -L bash
 
 # Gracefully return if sourcing multiple times.
-[[ -n ${UTILS_LOADED} ]] &&
-  return 0
+[[ -n ${UTILS_LOADED} ]] \
+  && return 0
 readonly UTILS_LOADED="true"
 
 # Settings
@@ -276,9 +276,9 @@ function msg::get_answer {
 #   1 - Negative
 #========================================
 function msg::is_confirmed {
-  [[ $REPLY =~ ^[Yy]$ ]] &&
-    return 0 ||
-    return 1
+  [[ $REPLY =~ ^[Yy]$ ]] \
+    && return 0 \
+    || return 1
 }
 
 #========================================
@@ -791,14 +791,14 @@ function shell::is_ci {
 # Whether the current shell is a recent version.
 function shell::is_modern {
   case "${BASH_VERSION}" in
-  4* | 5*) return 0 ;;
-  *) return 1 ;;
+    4* | 5*) return 0 ;;
+    *) return 1 ;;
   esac
 }
 
 function shell::set_trap {
-  trap -p "$1" | grep "$2" &>/dev/null ||
-    trap '$2' "$1"
+  trap -p "$1" | grep "$2" &>/dev/null \
+    || trap '$2' "$1"
 }
 
 #======================================
@@ -967,8 +967,8 @@ function fs::linkfile {
   msg::subdomain "linkfile: ${file}"
 
   if [[ -e ${file} ]]; then
-    cd "$(dirname "${file}")" ||
-      return 1
+    cd "$(dirname "${file}")" \
+      || return 1
     fs::map_lines \
       fs::link \
       "${file}"
@@ -1101,8 +1101,8 @@ function fs::combine {
   local output
   output=$(mktemp)
   for f in "$@"; do
-    [[ -f $f ]] &&
-      cat "$f" >>"${output}"
+    [[ -f $f ]] \
+      && cat "$f" >>"${output}"
   done
   echo "${output}"
 }
@@ -1210,27 +1210,27 @@ function repo::qualify_url {
   fi
 
   case $forge in
-  gh | github)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://github.com/${identifier}.git"
-    else
-      echo "git@github.com:${identifier}.git"
-    fi
-    ;;
-  gl | gitlab)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://gitlab.com/${identifier}.git"
-    else
-      echo "git@gitlab.com:${identifier}.git"
-    fi
-    ;;
-  srht | sourcehut)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://git.sr.ht/~${identifier}"
-    else
-      echo "git@git.sr.ht:${identifier}"
-    fi
-    ;;
+    gh | github)
+      if [[ $USE_HTTPS == "true" ]]; then
+        echo "https://github.com/${identifier}.git"
+      else
+        echo "git@github.com:${identifier}.git"
+      fi
+      ;;
+    gl | gitlab)
+      if [[ $USE_HTTPS == "true" ]]; then
+        echo "https://gitlab.com/${identifier}.git"
+      else
+        echo "git@gitlab.com:${identifier}.git"
+      fi
+      ;;
+    srht | sourcehut)
+      if [[ $USE_HTTPS == "true" ]]; then
+        echo "https://git.sr.ht/~${identifier}"
+      else
+        echo "git@git.sr.ht:${identifier}"
+      fi
+      ;;
   esac
 }
 
@@ -1248,9 +1248,9 @@ function repo::log {
 function repo::get_forge_id {
   local forge=$1
   case $forge in
-  gh | github) echo "gh" ;;
-  gl | gitlab) echo "gl" ;;
-  srht | sourcehut) echo "srht" ;;
+    gh | github) echo "gh" ;;
+    gl | gitlab) echo "gl" ;;
+    srht | sourcehut) echo "srht" ;;
   esac
 }
 
@@ -1272,9 +1272,9 @@ function repo::qualify_raw_url {
   local path="$4"
 
   case $forge in
-  gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
-  gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
-  srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
+    gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
+    gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
+    srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
   esac
 
   printf "%s" "$_"
@@ -1432,8 +1432,8 @@ function user::create_account() {
 #   1 - User does not exist.
 #========================================
 function user::exists() {
-  id "$1" >/dev/null 2>&1 &&
-    return 0
+  id "$1" >/dev/null 2>&1 \
+    && return 0
   return 1
 }
 
@@ -1504,14 +1504,14 @@ function user::allow_passwordless_sudo() {
 function user::get_home() {
   local username="${1:-${USER}}"
   case $KERNEL_NAME in
-  linux)
-    case $username in
-    root) echo "/root" ;;
-    *) echo "/home/${username}" ;;
-    esac
-    return
-    ;;
-  darwin) echo "/Users/${username}" && return ;;
+    linux)
+      case $username in
+        root) echo "/root" ;;
+        *) echo "/home/${username}" ;;
+      esac
+      return
+      ;;
+    darwin) echo "/Users/${username}" && return ;;
   esac
 }
 

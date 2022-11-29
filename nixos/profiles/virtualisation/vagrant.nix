@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [vagrant];
 
   # https://nixos.wiki/wiki/Vagrant#Using_NFS_mounts

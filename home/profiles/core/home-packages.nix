@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     grex #      <- generate regexps from user-provided test cases
     pastel #    <- generate, analyze, convert and manipulate colors

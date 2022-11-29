@@ -84,8 +84,8 @@ export siloxx=(
 # the kernel of partitions changing (we use partprobe for that).
 parted_nice() {
   parted "$@" 2>parted-stderr.txt || {
-    grep "unable to inform the kernel of the change" parted-stderr.txt ||
-      echo >&2 "Parted failed; stderr: $(<parted-stderr.txt)"
+    grep "unable to inform the kernel of the change" parted-stderr.txt \
+      || echo >&2 "Parted failed; stderr: $(<parted-stderr.txt)"
   }
 }
 

@@ -10,8 +10,6 @@ fetch.git = "https://github.com/black7375/Firefox-UI-Fix"
 src.git = "https://github.com/karlicoss/promnesia"
 fetch.git = "https://github.com/karlicoss/promnesia"
 
-##: --- fish shell ---
-
 [fish-autopair]
 src.git = "https://github.com/jorgebucaran/autopair.fish"
 fetch.git = "https://github.com/jorgebucaran/autopair.fish"

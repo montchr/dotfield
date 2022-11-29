@@ -2,39 +2,39 @@ global_vars:
   - name: date
     type: date
     params:
-      format: "%F"
+      format: '%F'
   - name: time
     type: date
     params:
-      format: "%T"
+      format: '%T'
 
 matches:
   # Short date
-  - trigger: ":d.dd"
-    replace: "{{date}}"
+  - trigger: ':d.dd'
+    replace: '{{date}}'
 
   # Friendly date for humans
-  - trigger: ":d.df"
-    replace: "{{dateFriendly}}"
+  - trigger: ':d.df'
+    replace: '{{dateFriendly}}'
     vars:
       - name: dateFriendly
         type: date
         params:
-          format: "%B %e, %Y"
+          format: '%B %e, %Y'
 
   # Time
-  - trigger: ":d.tt"
-    replace: "{{time}}"
+  - trigger: ':d.tt'
+    replace: '{{time}}'
 
   # Date + Time
-  - trigger: ":d.dt"
-    replace: "{{date}} {{time}}"
+  - trigger: ':d.dt'
+    replace: '{{date}} {{time}}'
 
   # Datetime ID
-  - trigger: ":d.id"
-    replace: "{{id}}"
+  - trigger: ':d.id'
+    replace: '{{id}}'
     vars:
       - name: id
         type: date
         params:
-          format: "%Y%m%d%H%M%S"
+          format: '%Y%m%d%H%M%S'
