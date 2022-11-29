@@ -2,6 +2,11 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 {
+  global.excludes = [
+    "*generated*"
+    "*secrets.yaml"
+    "*secrets.yml"
+  ];
   formatter = {
     nix = {
       command = "sh";
@@ -16,7 +21,8 @@
       ];
       includes = ["*.nix"];
       excludes = [
-        "**/_sources/*"
+        ##: follows home-manager upstream formatting
+        "home/modules/syncthing.nix"
       ];
     };
     js = {
@@ -56,7 +62,11 @@
         "*.yaml"
         "*.yml"
       ];
-      excludes = ["_sources/**"];
+      excludes = [
+        "dark-reader.json"
+        "devdocs.json"
+        "karabiner.json"
+      ];
     };
     shell = {
       command = "shfmt";
