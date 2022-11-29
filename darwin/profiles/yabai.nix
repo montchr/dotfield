@@ -61,14 +61,14 @@
       ${mkArgString args'}
   '';
 
-  mkRules = lib.strings.concatMapStringsSep "\n" (mkRule);
-  mkSignals = lib.strings.concatMapStringsSep "\n" (mkSignal);
+  mkRules = lib.strings.concatMapStringsSep "\n" mkRule;
+  mkSignals = lib.strings.concatMapStringsSep "\n" mkSignal;
 
   # FIXME: avoid IFD -- add to a package derivation
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
-  scriptsFromFiles = map (mkScriptFromFile) [
+  scriptsFromFiles = map mkScriptFromFile [
     "close-window"
     "focus-direction"
   ];

@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   sops.secrets."users/zortflower/passphrase".neededForUsers = true;
   users.users.zortflower = {
     uid = 1001;

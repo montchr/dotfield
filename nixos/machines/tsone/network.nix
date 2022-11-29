@@ -1,7 +1,4 @@
-{
-  peers,
-  ...
-}: let
+{peers, ...}: let
   inherit (peers.hosts.tsone) ipv4 ipv6;
   interface = "eth0";
 in {

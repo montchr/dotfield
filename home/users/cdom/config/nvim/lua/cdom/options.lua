@@ -2,23 +2,23 @@ vim.opt.fileencoding = "utf-8"
 
 -- [ history ] --
 
-vim.opt.clipboard = "unnamedplus"               -- use the system clipboard
+vim.opt.clipboard = "unnamedplus" -- use the system clipboard
 vim.opt.undofile = true -- enable persistent undo
 
 -- [ completions ] --
 
 vim.opt.completeopt = { "menuone", "noselect" }
-vim.opt.shortmess:append "c" -- hide extraneous completion messages
+vim.opt.shortmess:append("c") -- hide extraneous completion messages
 
 -- [ interface ] --
 
 -- TODO: re-enable when a decent color scheme is enabled
 -- vim.opt.cursorline = true -- highlight current line
-vim.opt.cmdheight = 1                            
+vim.opt.cmdheight = 1
 vim.opt.mouse = "a" -- allow mouse usage
 vim.opt.number = true -- display line numbers
 vim.opt.numberwidth = 4 -- min number cols for line number gutter
-vim.opt.pumheight = 10-- popup menu height
+vim.opt.pumheight = 10 -- popup menu height
 vim.opt.scrolloff = 8 -- min screen lines above/below of cursor
 vim.opt.sidescrolloff = 8 -- min screen cols left/right of cursor
 vim.opt.showmode = true
@@ -45,7 +45,7 @@ vim.opt.updatetime = 300 -- faster completion
 
 -- [ integrity ] --
 
-vim.opt.backup = false                           -- create a backup file
+vim.opt.backup = false -- create a backup file
 vim.opt.swapfile = true
 vim.opt.writebackup = true
 
@@ -64,5 +64,5 @@ vim.opt.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to prev/next lin
 
 -- [ search ] --
 
-vim.opt.hlsearch = true    -- highlight search results
-vim.opt.ignorecase = true  -- ignore case in search patterns
+vim.opt.hlsearch = true -- highlight search results
+vim.opt.ignorecase = true -- ignore case in search patterns
