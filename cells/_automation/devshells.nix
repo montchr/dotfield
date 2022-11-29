@@ -27,12 +27,12 @@ in
         (presets.nixago.lefthook {})
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})
-
         (presets.nixago.statix {
           configData = {
             disabled = ["useless_parens"];
           };
         })
+        (presets.nixago.stylua {})
       ];
       packages = [
         nixpkgs.deadnix

@@ -38,6 +38,10 @@
         "*.tsx"
       ];
     };
+    lua = {
+      command = "stylua";
+      includes = ["*.lua"];
+    };
     prettier = {
       command = "prettier";
       options = ["--plugin" "prettier-plugin-toml" "--write"];
