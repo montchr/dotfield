@@ -91,7 +91,7 @@ update-doom:
 # Generate updated Nix expressions for Firefox addons
 update-firefox-addons dir=firefox-addons-dir:
   @echo 'Updating Nix expressions for Firefox addons...'
-  mozilla-addons-to-nix {{dir}}/addons.json {{dir}}/addons.nix
+  mozilla-addons-to-nix {{dir}}/addons.json {{dir}}/addons.generated.nix
   @echo {{msg-done}}
 
 # Generate updated Nix expressions for external sources
