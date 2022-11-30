@@ -96,7 +96,7 @@ in {
 
     ryosuke = makeNixosSystem "ryosuke" {
       modules =
-        (with roles; gnome ++ graphical ++ tangible ++ webdev ++ workstation)
+        (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
           # login.greetd
@@ -106,7 +106,7 @@ in {
 
     boschic = makeNixosSystem "boschic" {
       modules =
-        (with roles; gnome ++ graphical ++ tangible ++ webdev ++ workstation)
+        (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           boot.refind
           desktop.flatpak
@@ -120,7 +120,7 @@ in {
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       modules =
-        (with roles; gnome ++ graphical ++ tangible ++ workstation)
+        (with roles; gnome ++ graphical ++ office ++ tangible ++ workstation)
         ++ (with nixosProfiles; [hardware.hidpi]);
     };
 

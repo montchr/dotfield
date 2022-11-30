@@ -18,6 +18,11 @@
     login.gdm
   ];
 
+  office = with nixosProfiles; [
+    desktop.zoom-us
+    hardware.printers-scanners
+  ];
+
   server = with nixosProfiles; [
     networking.common
     networking.ssh-host
@@ -25,7 +30,6 @@
 
   tangible = with nixosProfiles; [
     hardware.keyboard
-    hardware.printers-scanners
     networking.common
   ];
 
@@ -45,7 +49,6 @@
     ++ (with nixosProfiles; [
       bitwarden
       boot.systemd-boot
-      desktop.zoom-us
       hardware.yubikey
       networking.common
       networking.ssh-host
@@ -54,6 +57,7 @@ in {
   inherit
     gnome
     graphical
+    office
     server
     tangible
     webdev
