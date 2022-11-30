@@ -2,3 +2,5 @@
 
 require("cdom.options")
 require("cdom.keymaps")
+
+require("cdom.lang.markdown")

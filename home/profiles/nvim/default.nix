@@ -47,12 +47,13 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
     withNodeJs = true;
-    withPython3 = false;
-    withRuby = false;
+    withPython3 = true;
+    withRuby = true;
 
     extraPackages = [
       pkgs.fd
       pkgs.git
+      pkgs.glow # for glow-nvim
       pkgs.ripgrep
       pkgs.sumneko-lua-language-server
     ];

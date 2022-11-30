@@ -5,7 +5,7 @@ local opts = { silent = true }
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
--- [ NORMAL ] ------------------------------------------------------------------
+-- [ NORMAL MODE ] -------------------------------------------------------------
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -20,10 +20,23 @@ keymap("n", "<C-Left>", ":vertical :resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical :resize +2<CR>", opts)
 
 -- Buffer navigation
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "[b", ":bnext<CR>", opts)
+keymap("n", "]b", ":bprevious<CR>", opts)
 
--- [ INSERT ] ------------------------------------------------------------------
+-- Close buffer(s?)
+-- FIXME: "not an editor command!"
+-- keymap("n", "<leader>bd", "<cmd>Bdelete!<CR>", opts)
 
--- Quickly press `jk` to enter INSERT mode
+-- [ INSERT MODE ] -------------------------------------------------------------
+
+-- Quickly press `jk` to enter NORMAL mode from INSERT mode
 keymap("i", "jk", "<ESC>", opts)
+
+-- [ VISUAL MODE ] -------------------------------------------------------------
+
+-- "Better" paste
+keymap("v", "p", "_dP", opts)
+
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)

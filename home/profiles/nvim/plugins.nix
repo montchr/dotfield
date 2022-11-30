@@ -2,8 +2,6 @@
   inherit (pkgs) vimPlugins;
 in {
   programs.neovim.plugins = [
-    ###: --- optional --------------------------------------------------------
-
     # vimPlugins.vim-commentary #      <- "comment stuff out"
     # vimPlugins.vim-dispatch #        <- async build and test dispatcher
     # vimPlugins.vim-dispatch-neovim # <- add neovim support to vim-dispatch
@@ -20,16 +18,12 @@ in {
     # vimPlugins.cmp-nvim-lsp
     # vimPlugins.cmp-path
 
-    ##: formatting
-    # FIXME: is this for syntax support? vim-sleuth should handle the actual tooling support
-    # vimPlugins.editorconfig-vim
-
     ##: editing
+    vimPlugins.nvim-autopairs
     # vimPlugins.vim-repeat #     <- "enable repeating supported plugin maps with `.`"
     # vimPlugins.vim-sexp #       <- "precision editing for S-expressions"
     # vimPlugins.vim-sexp-mappings-for-regular-people
     # vimPlugins.vim-surround
-    # vimPlugins.nvim-autopairs
 
     ##: lsp
     vimPlugins.nvim-lspconfig
@@ -51,7 +45,10 @@ in {
     # TODO: requires configuration, see repo
     # vimPlugins.nvim-treesitter-refactor
 
-    ##: lang support
+    ##: lang->markdown
+    vimPlugins.glow-nvim
+
+    ##: lang->nix
     vimPlugins.vim-nix
 
     ##: find/filter/preview/pick

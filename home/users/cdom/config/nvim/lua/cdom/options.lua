@@ -2,8 +2,16 @@ vim.opt.fileencoding = "utf-8"
 
 -- [ history ] --
 
-vim.opt.clipboard = "unnamedplus" -- use the system clipboard
-vim.opt.undofile = true -- enable persistent undo
+-- Use the system clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- Enable persistent undo
+vim.opt.undofile = true
+
+-- Disable backup/swap files
+vim.opt.backup = false
+vim.opt.swapfile = false
+vim.opt.writebackup = false
 
 -- [ completions ] --
 
@@ -19,42 +27,38 @@ vim.opt.mouse = "a" -- allow mouse usage
 vim.opt.number = true -- display line numbers
 vim.opt.numberwidth = 4 -- min number cols for line number gutter
 vim.opt.pumheight = 10 -- popup menu height
-vim.opt.scrolloff = 8 -- min screen lines above/below of cursor
-vim.opt.sidescrolloff = 8 -- min screen cols left/right of cursor
+vim.opt.scrolloff = 4 -- min screen lines above/below of cursor
+vim.opt.sidescrolloff = 4 -- min screen cols left/right of cursor
 vim.opt.showmode = true
 vim.opt.showtabline = 0 -- always show tabs
--- TODO: re-enable when a decent color scheme is enabled
--- vim.opt.signcolumn = "yes" -- always show sign col to prevent text shift
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.opt.signcolumn = "yes:1" -- always show sign col to prevent text shift
 vim.opt.termguicolors = true
 vim.opt.wrap = false
 
+-- [ window management ] --
+
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- [ typography ] --
 
--- vim.opt.guifont = "monospace:h17"
+vim.opt.guifont = "Iosevka:h15"
 
 -- [ performance ] --
 
-vim.opt.timeoutlen = 1000 -- timeout for mapped sequence to finish
-vim.opt.updatetime = 300 -- faster completion
+vim.opt.timeoutlen = 1000
+vim.opt.updatetime = 300
 
--- [ rendering ] --
-
--- vim.opt.conceallevel = 0                      -- make '``' visible in markdown files
-
--- [ integrity ] --
-
-vim.opt.backup = false -- create a backup file
-vim.opt.swapfile = true
-vim.opt.writebackup = true
+-- Avoid redrawing the screen when executing macros
+vim.opt.lazyredraw = true
 
 -- [ formatting ] --
 
-vim.opt.smartcase = true
+-- Prefer space over tab indentation
 vim.opt.smartindent = true
-vim.opt.expandtab = true -- convert tabs to spaces
+vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 vim.opt.linebreak = true
 
@@ -64,5 +68,18 @@ vim.opt.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to prev/next lin
 
 -- [ search ] --
 
-vim.opt.hlsearch = true -- highlight search results
-vim.opt.ignorecase = true -- ignore case in search patterns
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Global substitution by default
+vim.opt.gdefault = true
+
+-- Use ripgrep for builtin grepping
+vim.opt.grepprg = "rg --vimgrep"
+-- TODO: vim.opt.grepformat "%f:%l:%c:%m"
+
+-- Highlight search results
+vim.opt.hlsearch = true
+
+-- Fuzzy file search patterns
+vim.opt.path = { ".", "**" }
