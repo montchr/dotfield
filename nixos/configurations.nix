@@ -91,7 +91,7 @@ in {
     };
 
     freundix = makeNixosSystem "freundix" {
-      modules = with roles; gnome ++ graphical ++ workstation;
+      modules = with roles; gnome ++ graphical;
     };
 
     ryosuke = makeNixosSystem "ryosuke" {
