@@ -87,23 +87,18 @@ in {
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
     bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
-      modules =
-        (with roles; graphical ++ tangible ++ workstation)
-        ++ (with nixosProfiles; [login.gdm]);
+      modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
     };
 
     freundix = makeNixosSystem "freundix" {
-      modules =
-        (with roles; graphical ++ workstation)
-        ++ (with nixosProfiles; [login.gdm]);
+      modules = with roles; gnome ++ graphical ++ workstation;
     };
 
     ryosuke = makeNixosSystem "ryosuke" {
       modules =
-        (with roles; graphical ++ tangible ++ webdev ++ workstation)
+        (with roles; gnome ++ graphical ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
-          login.gdm
           # login.greetd
           # virtualisation.vm-variant
         ]);
@@ -111,12 +106,11 @@ in {
 
     boschic = makeNixosSystem "boschic" {
       modules =
-        (with roles; graphical ++ tangible ++ webdev ++ workstation)
+        (with roles; gnome ++ graphical ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           boot.refind
           desktop.flatpak
           hardware.amd
-          login.gdm
           # login.greetd
           # FIXME: `lib.mkForce` fails
           # hardware.nvidia
@@ -126,11 +120,8 @@ in {
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       modules =
-        (with roles; graphical ++ tangible ++ workstation)
-        ++ (with nixosProfiles; [
-          hardware.hidpi
-          login.gdm
-        ]);
+        (with roles; gnome ++ graphical ++ tangible ++ workstation)
+        ++ (with nixosProfiles; [hardware.hidpi]);
     };
 
     hierophant = makeNixosSystem "hierophant" {

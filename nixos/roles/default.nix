@@ -13,9 +13,13 @@
       bitwarden
       boot.systemd-boot
       desktop.common
-      desktop.gnome-desktop
       desktop.zoom-us
     ]);
+
+  gnome = with nixosProfiles; [
+    desktop.gnome-desktop
+    login.gdm
+  ];
 
   server = with nixosProfiles; [
     networking.common
@@ -48,6 +52,7 @@
     ]);
 in {
   inherit
+    gnome
     graphical
     server
     tangible
