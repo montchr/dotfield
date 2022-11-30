@@ -27,20 +27,6 @@
         platforms = platforms.all;
         };
       };
-    "anchors-reveal" = buildFirefoxXpiAddon {
-      pname = "anchors-reveal";
-      version = "1.1";
-      addonId = "jid1-XX0TcCGBa7GVGw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1690998/anchors_reveal-1.1.xpi";
-      sha256 = "0412acabe742f7e78ff77aa95c4196150c240592a1bbbad75012b39a05352c36";
-      meta = with lib;
-      {
-        homepage = "http://dascritch.net/post/2014/06/24/Sniffeur-d-ancre";
-        description = "Reveal the anchors in a webpage";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "2022.10.1";
@@ -66,48 +52,6 @@
         homepage = "https://github.com/browserpass/browserpass-extension";
         description = "Browserpass is a browser extension for Firefox and Chrome to retrieve login details from zx2c4's pass (<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fcd8dcb23434c51a78197a1c25d3e2277aa1bc764c827b4b4726ec5a5657eb64/http%3A//passwordstore.org\" rel=\"nofollow\">passwordstore.org</a>) straight from your browser. Tags: passwordstore, password store, password manager, passwordmanager, gpg";
         license = licenses.isc;
-        platforms = platforms.all;
-        };
-      };
-    "buster-captcha-solver" = buildFirefoxXpiAddon {
-      pname = "buster-captcha-solver";
-      version = "1.3.2";
-      addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3997075/buster_captcha_solver-1.3.2.xpi";
-      sha256 = "bd8b13aebb7437b57acd898c5f0a1326e5af61ac41316abbca30c075636fa1f7";
-      meta = with lib;
-      {
-        homepage = "https://github.com/dessant/buster";
-        description = "Save time by asking Buster to solve captchas for you.";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
-    "bypass-paywalls-clean" = buildFirefoxXpiAddon {
-      pname = "bypass-paywalls-clean";
-      version = "2.9.5.0";
-      addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035936/bypass_paywalls_clean-2.9.5.0.xpi";
-      sha256 = "683051a5c39e33244e9d78e6bde1ca9bdcec3c2f8bcd7086d2e840a88d4459fd";
-      meta = with lib;
-      {
-        homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
-        description = "Bypass Paywalls of (custom) news sites";
-        license = licenses.mit;
-        platforms = platforms.all;
-        };
-      };
-    "consent-o-matic" = buildFirefoxXpiAddon {
-      pname = "consent-o-matic";
-      version = "1.0.11";
-      addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035338/consent_o_matic-1.0.11.xpi";
-      sha256 = "b2192a852d3a2f469274258cd8be2099a8117879809ebb1ef25b76e4f40c1a01";
-      meta = with lib;
-      {
-        homepage = "https://consentomatic.au.dk/";
-        description = "Automatic handling of GDPR consent forms";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -177,20 +121,6 @@
       {
         homepage = "https://color.firefox.com";
         description = "Build, save and share beautiful Firefox themes.";
-        license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
-    "floccus" = buildFirefoxXpiAddon {
-      pname = "floccus";
-      version = "4.17.1";
-      addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3998783/floccus-4.17.1.xpi";
-      sha256 = "b646b439290052c9793b9c9f35f01a2753ed524663f71f8bc73f15091c809180";
-      meta = with lib;
-      {
-        homepage = "https://floccus.org";
-        description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or Google Drive";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -277,20 +207,6 @@
         platforms = platforms.all;
         };
       };
-    "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
-      pname = "kristofferhagen-nord-theme";
-      version = "2.0";
-      addonId = "{e410fec2-1cbd-4098-9944-e21e708418af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3365523/kristofferhagen_nord_theme-2.0.xpi";
-      sha256 = "60b123e10d4e99deed1c4414ac784664ae5e0e0c196cd8610c468f2fa116c935";
-      meta = with lib;
-      {
-        homepage = "https://github.com/kristofferhagen/firefox-nord-theme";
-        description = "Firefox theme inspired by <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
-        license = licenses.cc-by-30;
-        platforms = platforms.all;
-        };
-      };
     "laboratory-by-mozilla" = buildFirefoxXpiAddon {
       pname = "laboratory-by-mozilla";
       version = "3.0.8";
@@ -307,10 +223,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.102.1.8";
+      version = "4.104.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019352/lastpass_password_manager-4.102.1.8.xpi";
-      sha256 = "ee484e832186d44200ffad465cfd25835d62e42406981d942b6148b26c36bf5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034858/lastpass_password_manager-4.104.0.3.xpi";
+      sha256 = "a8ed9b32fd8b87647805c4e7b96120b166e629fe585f830be9b610ec0d3b12f4";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -363,19 +279,6 @@
         homepage = "https://octolinker.vercel.app";
         description = "It turns language-specific module-loading statements like include, require or import into links. Depending on the language it will either redirect you to the referenced file or to an external website like a manual page or another service.";
         license = licenses.mit;
-        platforms = platforms.all;
-        };
-      };
-    "octotree" = buildFirefoxXpiAddon {
-      pname = "octotree";
-      version = "7.7.0";
-      addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018464/octotree-7.7.0.xpi";
-      sha256 = "e73730768caee30f15f9ea741b972b4812a74fa15ca230b847651b50a45f8c2a";
-      meta = with lib;
-      {
-        homepage = "https://github.com/buunguyen/octotree/";
-        description = "GitHub on steroids";
         platforms = platforms.all;
         };
       };
@@ -440,20 +343,6 @@
         platforms = platforms.all;
         };
       };
-    "pinboard" = buildFirefoxXpiAddon {
-      pname = "pinboard";
-      version = "5.0.0";
-      addonId = "{5158522f-7494-41b1-89ff-00d4cc1d87d3}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3581599/pinboard-5.0.0.xpi";
-      sha256 = "767db6bcd7d4ad32478c5a38d513feeea638d1ceff231a97f40fd010a1499e59";
-      meta = with lib;
-      {
-        homepage = "https://browsernative.com/mozilla-firefox-extensions/";
-        description = "Unofficial Firefox add-on for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
-        license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
       version = "1.8.1";
@@ -479,20 +368,6 @@
         homepage = "https://github.com/SimonBrazell/privacy-redirect";
         description = "Redirects Twitter, YouTube, Instagram and more to privacy friendly alternatives.";
         license = licenses.gpl3Plus;
-        platforms = platforms.all;
-        };
-      };
-    "promnesia" = buildFirefoxXpiAddon {
-      pname = "promnesia";
-      version = "1.1.2";
-      addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953419/promnesia-1.1.2.xpi";
-      sha256 = "342a1025aa3a282c9dc088fe2b5225d316208d996f2164c81831f7efaed7058d";
-      meta = with lib;
-      {
-        homepage = "https://github.com/karlicoss/promnesia";
-        description = "Enhancement of your browsing history";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -703,20 +578,6 @@
         platforms = platforms.all;
         };
       };
-    "stylus" = buildFirefoxXpiAddon {
-      pname = "stylus";
-      version = "1.5.26";
-      addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3995806/styl_us-1.5.26.xpi";
-      sha256 = "b30b14e9c4fa0c8d490d57e6b7d8afe6cc71e2f459b974b5c6fa2bfa32210294";
-      meta = with lib;
-      {
-        homepage = "https://add0n.com/stylus.html";
-        description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
       version = "6.12.1";
@@ -745,19 +606,6 @@
         platforms = platforms.all;
         };
       };
-    "theme-nord-polar-night" = buildFirefoxXpiAddon {
-      pname = "theme-nord-polar-night";
-      version = "1.18";
-      addonId = "{758478b6-29f3-4d69-ab17-c49fe568ed80}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3786274/nord_polar_night_theme-1.18.xpi";
-      sha256 = "3a871b7ad5f78fe929b14d12afca722155bf47382d94da53bc9db899b78ec34c";
-      meta = with lib;
-      {
-        homepage = "https://github.com/ChristosBouronikos/Nord-Polar-Night-Theme";
-        description = "<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
-        platforms = platforms.all;
-        };
-      };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
       version = "3.9.10";
@@ -779,43 +627,15 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.22.1";
+      version = "1.23.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl_vim-1.22.1.xpi";
-      sha256 = "ed0337dd67516142d1f02a77cab910c7cb95ca575ec1ee4b1f5cf8971918b0f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036604/tridactyl_vim-1.23.0.xpi";
+      sha256 = "08b7af97bef05300ab3ac3ad721322ff00505631233482568fc4489c16d51b71";
       meta = with lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
         description = "Vim, but in your browser. Replace Firefox's control mechanism with one modelled on Vim.\n\nThis addon is very usable, but is in an early stage of development. We intend to implement the majority of Vimperator's features.";
         license = licenses.asl20;
-        platforms = platforms.all;
-        };
-      };
-    "tst-tab-search" = buildFirefoxXpiAddon {
-      pname = "tst-tab-search";
-      version = "0.0.6";
-      addonId = "@tst-search";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009035/tst_search-0.0.6.xpi";
-      sha256 = "1c4ebfaadb2af712684acc96d12da69e86d4bcff9db84c97c20d3576722a4981";
-      meta = with lib;
-      {
-        homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
-        description = "Search for or filter the Tabs in TST's sidebar, and quickly find and activate them.";
-        license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
-    "ublacklist" = buildFirefoxXpiAddon {
-      pname = "ublacklist";
-      version = "8.2.0";
-      addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035662/ublacklist-8.2.0.xpi";
-      sha256 = "092547105e7c4d5f34f28ed7727f04b49651ceeef159e43a496b2dd7c1e0148f";
-      meta = with lib;
-      {
-        homepage = "https://iorate.github.io/ublacklist/";
-        description = "Blocks sites you specify from appearing in Google search results";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -835,10 +655,10 @@
       };
     "unclutter" = buildFirefoxXpiAddon {
       pname = "unclutter";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034919/lindylearn-1.2.2.xpi";
-      sha256 = "78f9defcf2f862494105207c20aec8dcde2b5160099f1fcbebd4ea3fb31b261b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036815/lindylearn-1.2.3.xpi";
+      sha256 = "a4d967a17027844b091a96e2db1d71dcf064a5b2071b4618210a49bebaeadf7b";
       meta = with lib;
       {
         homepage = "https://github.com/lindylearn/unclutter";
@@ -875,26 +695,12 @@
         platforms = platforms.all;
         };
       };
-    "xbrowsersync" = buildFirefoxXpiAddon {
-      pname = "xbrowsersync";
-      version = "1.5.2";
-      addonId = "{019b606a-6f61-4d01-af2a-cea528f606da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3546070/xbs-1.5.2.xpi";
-      sha256 = "8b58ad5498273e121b1ba5abaf108d2bc9f4fb4795bd5c7e6a3778196f7a0221";
-      meta = with lib;
-      {
-        homepage = "https://www.xbrowsersync.org/";
-        description = "Browser syncing as it should be: secure, anonymous and free! Sync bookmarks across your browsers and devices, no sign up required.";
-        license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
     "zoom-scheduler" = buildFirefoxXpiAddon {
       pname = "zoom-scheduler";
-      version = "2.1.32";
+      version = "2.1.34";
       addonId = "{bf855ead-d7c3-4c7b-9f88-9a7e75c0efdf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029912/zoom_new_scheduler-2.1.32.xpi";
-      sha256 = "d6a34a5624e81e9f0732ce2282b2105b6a271be7be298352da8624b87bd58406";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035558/zoom_new_scheduler-2.1.34.xpi";
+      sha256 = "0a9f9da01a94e58511a515140a4bb845fdd38c46f41825276806a4e89449be45";
       meta = with lib;
       {
         homepage = "https://zoom.us/";

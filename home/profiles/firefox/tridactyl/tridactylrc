@@ -63,10 +63,6 @@ blacklistadd https://configure.zsa.io
 
 " === URL redirects ============================================================
 
-autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
-" FIXME: causes a redirect loop?
-" autocmd DocStart ^http(s?)://www.amazon.com js tri.excmds.urlmodify("-t", "www", "smile")
-
 " Isolate Facebook in its own container
 " set auconcreatecontainer true
 " autocontain facebook\.com facebook

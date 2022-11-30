@@ -17,28 +17,12 @@
     "slug": "add-custom-search-engine"
   },
   {
-    "slug": "anchors-reveal"
-  },
-  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },
   {
     "slug": "browserpass-ce",
     "pname": "browserpass"
-  },
-  {
-    "slug": "buster-captcha-solver"
-  },
-  {
-    "slug": "bypass-paywalls-clean"
-  },
-  {
-    "slug": "consent-o-matic",
-    "license": {
-      "tag": "predefined",
-      "shortName": "mit"
-    }
   },
   {
     "slug": "copy-selection-as-markdown"
@@ -54,9 +38,6 @@
   },
   {
     "slug": "firefox-color"
-  },
-  {
-    "slug": "floccus"
   },
   {
     "slug": "gnome-shell-integration"
@@ -78,9 +59,6 @@
     "pname": "kagi-search"
   },
   {
-    "slug": "kristofferhagen-nord-theme"
-  },
-  {
     "slug": "laboratory-by-mozilla"
   },
   {
@@ -100,14 +78,7 @@
     "slug": "multi-account-containers"
   },
   {
-    "pname": "theme-nord-polar-night",
-    "slug": "nord-polar-night-theme"
-  },
-  {
     "slug": "octolinker"
-  },
-  {
-    "slug": "octotree"
   },
   {
     "slug": "old-reddit-redirect"
@@ -119,9 +90,6 @@
     "slug": "peertubeify"
   },
   {
-    "slug": "pinboard"
-  },
-  {
     "slug": "plasma-integration"
   },
   {
@@ -130,9 +98,6 @@
       "tag": "predefined",
       "shortName": "gpl3Plus"
     }
-  },
-  {
-    "slug": "promnesia"
   },
   {
     "slug": "protondb-for-steam"
@@ -190,10 +155,6 @@
     }
   },
   {
-    "slug": "styl-us",
-    "pname": "stylus"
-  },
-  {
     "slug": "tab-session-manager"
   },
   {
@@ -218,13 +179,6 @@
     }
   },
   {
-    "slug": "tst-search",
-    "pname": "tst-tab-search"
-  },
-  {
-    "slug": "ublacklist"
-  },
-  {
     "slug": "ublock-origin"
   },
   {
@@ -241,10 +195,6 @@
   {
     "slug": "wayback-machine_new",
     "pname": "wayback-machine"
-  },
-  {
-    "slug": "xbs",
-    "pname": "xbrowsersync"
   },
   {
     "slug": "zoom-new-scheduler",
