@@ -57,6 +57,7 @@ set hintdelay 100 " default => 300ms
 
 " Add some URLs to the disallow list
 blacklistadd https://mail.google.com/mail
+blacklistadd https://outlook.office.com
 blacklistadd https://mail.proton.me/
 blacklistadd https://configure.zsa.io
 
