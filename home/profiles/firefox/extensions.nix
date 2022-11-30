@@ -23,6 +23,7 @@ in {
     octolinker
     old-reddit-redirect
     org-capture
+    raindropio
     react-devtools
     reddit-enhancement-suite
     reduxdevtools
