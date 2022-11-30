@@ -7,13 +7,10 @@
       fonts.common
       fonts.fontconfig
       fonts.iosevka-variants
-      one-password
     ])
     ++ (with nixosProfiles; [
-      bitwarden
       boot.systemd-boot
       desktop.common
-      desktop.zoom-us
     ]);
 
   gnome = with nixosProfiles; [
@@ -42,10 +39,13 @@
 
   workstation =
     (with sharedProfiles; [
+      one-password
       secrets
     ])
     ++ (with nixosProfiles; [
+      bitwarden
       boot.systemd-boot
+      desktop.zoom-us
       hardware.yubikey
       networking.common
       networking.ssh-host
