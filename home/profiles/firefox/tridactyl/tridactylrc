@@ -69,7 +69,7 @@ blacklistadd https://configure.zsa.io
 " autocontain facebook\.com facebook
 
 " Load my preferred color scheme.
-colors base16-grayscale-dark
+" colors base16-grayscale-dark
 
 
 " === Search ===================================================================
