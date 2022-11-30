@@ -32,6 +32,7 @@ in {
     "appcleaner"
     "bartender"
     "calibre"
+    "caprine"
     "eloston-chromium" #          <- aka "ungoogled-chromium" in nixpkgs
     "dropbox"
     "fantastical"
