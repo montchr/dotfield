@@ -51,10 +51,8 @@
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     std = {
-      # url = "github:divnix/std";
-      url = "github:divnix/std/fix-editorconfig-hack";
+      url = "github:divnix/std";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

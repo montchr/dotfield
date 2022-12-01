@@ -1782,16 +1782,15 @@
         "yants": "yants"
       },
       "locked": {
-        "lastModified": 1669582433,
-        "narHash": "sha256-BoT+d04W9hvfohNPPyQW7RL5TUNGFB1YWjs/bL/692A=",
+        "lastModified": 1669927082,
+        "narHash": "sha256-XXtKPgkUX3Y5Ui2tUX8pJR6NT/re743pxj28tNOETsQ=",
         "owner": "divnix",
         "repo": "std",
-        "rev": "c02e09ebee28723665fe6599c17bf565ac22606a",
+        "rev": "14e27125911f70cf70879031f7c616628e183429",
         "type": "github"
       },
       "original": {
         "owner": "divnix",
-        "ref": "fix-editorconfig-hack",
         "repo": "std",
         "type": "github"
       }
