@@ -11,8 +11,8 @@ _: {
 
   home-manager.users.nixos = hmArgs: {
     imports = with hmArgs.roles; graphical ++ developer;
-    home.stateVersion = "22.05";
+    home.stateVersion = "22.11";
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }

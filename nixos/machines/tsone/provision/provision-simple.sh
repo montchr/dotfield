@@ -259,7 +259,7 @@ set +u +x # sourcing this may refer to unset variables that we have no control o
 set -u -x
 
 # Keep in sync with `system.stateVersion` set below!
-nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
+nix-channel --add https://nixos.org/channels/nixos-22.11 nixpkgs
 nix-channel --update
 
 # Getting NixOS installation tools
@@ -362,7 +362,7 @@ cat >/mnt/etc/nixos/configuration.nix <<EOF
 
   services.openssh.enable = true;
 
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 
 }
 EOF

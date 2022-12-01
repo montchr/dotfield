@@ -257,7 +257,7 @@ set -u -x
 
 echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
 
-nix-channel --add https://nixos.org/channels/nixos-22.05 nixpkgs
+nix-channel --add https://nixos.org/channels/nixos-22.11 nixpkgs
 nix-channel --update
 
 nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
