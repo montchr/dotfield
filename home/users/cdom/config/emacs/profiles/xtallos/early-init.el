@@ -77,18 +77,15 @@ Use this for files that change often, like cache files.")
   "Where packages are stored.")
 
 
-;;; Add lisp directory to load path --------------------------------------------
+;;; Load modules ------------------------------------------------
 
-(let ((emacs-home (if-let ((xdg (getenv "XDG_CONFIG_HOME")))
-                      (expand-file-name "emacs/" xdg)
-                    user-emacs-directory)))
-  ;; Add Lisp directory to `load-path'.
-  (add-to-list 'load-path (expand-file-name "lisp" emacs-home)))
+;; Add lisp directory to `load-path'.
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 
 ;;; Native compilation settings ------------------------------------------------
 
-(setq native-comp-async-report-warnings-errors nil
+(setq ;; native-comp-async-report-warnings-errors nil
       native-comp-deferred-compilation t)
 
 ;; Set the right directory to store the native compilation cache.
@@ -104,7 +101,8 @@ Use this for files that change often, like cache files.")
 
 ;; Disable titlebar on frames
 ;; https://github.com/d12frosted/homebrew-emacs-plus/issues/433#issuecomment-1025547880
-(add-to-list 'default-frame-alist '(undecorated . t))
+(unless (version<= emacs-version "29")
+  (add-to-list 'default-frame-alist '(undecorated . t)))
 
 ;; Prevent `package.el' from loading packages before `straight.el' can.
 ;; https://github.com/raxod502/straight.el/#getting-started

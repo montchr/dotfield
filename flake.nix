@@ -92,6 +92,10 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
 
+    ##: emacs
+    chemacs.url = "github:plexus/chemacs2";
+    chemacs.flake = false;
+
     ##: zsh plugins
     zsh-autopair.url = "github:hlissner/zsh-autopair";
     zsh-autopair.flake = false;

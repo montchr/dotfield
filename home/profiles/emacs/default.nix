@@ -2,45 +2,47 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config.xdg) configHome;
+  inherit (config) xdg;
   inherit (config.lib.dag) entryAfter;
-  inherit (config.lib.file) mkOutOfStoreSymlink;
   l = lib // builtins;
 
+  profilesBasePath = "${xdg.configHome}/dotfield/home/users/cdom/config/emacs/profiles";
+
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  profilesPath = "${configHome}/dotfield/home/users/cdom/config/emacs/profiles";
-  emacsDir = "${configHome}/emacs";
+  doomSourceDir = "${xdg.dataHome}/doomemacs";
+  doomProfileDir = "${profilesBasePath}/doom";
+
+  # emacsDir = "${xdg.configHome}/emacs";
+  defaultProfile = "xtallos";
 in {
   home.sessionVariables = {
-    EMACSDIR = emacsDir;
+    # EMACSDIR = emacsDir;
+    CHEMACS_PROFILE = defaultProfile;
+    DOOMDIR = doomProfileDir;
 
-    # "default" profile
-    # FIXME: profiles seem broken, see doom issue tracker
-    # DOOMPROFILE = "doom";
-
-    DOOMDIR = "${configHome}/doom";
-
-    # local state :: built files, dependencies, etc.
-    # TODO: may no longer be necessary with doom profiles. re-evaluate.
-    # DOOMLOCALDIR = doomStateDir;
-
-    # lsp: use plists instead of hashtables for performance improvement
+    ##: lsp-mode: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = l.mkAfter ["${configHome}/emacs/bin"];
+  home.sessionPath = l.mkAfter ["${doomSourceDir}/bin"];
 
-  ## Doom Bootloader.
-  # FIXME: profiles still unusable as of 2022-09-19
-  # xdg.configFile."emacs/profiles/doom".source = mkOutOfStoreSymlink "${profilesPath}/doom";
-  # xdg.configFile."emacs/profiles/xtallos".source = mkOutOfStoreSymlink "${profilesPath}/xtallos";
+  xdg.configFile."emacs" = {
+    source = inputs.chemacs;
+    recursive = true;
+  };
 
-  # TODO: use doom profile loader once issues are fixed upstream
-  xdg.configFile."doom".source = mkOutOfStoreSymlink "${profilesPath}/doom";
+  xdg.configFile."chemacs/profiles.el".text = ''
+    (("default" . ((user-emacs-directory . "${profilesBasePath}/${defaultProfile}")))
+     ("doom" . ((user-emacs-directory . "${doomSourceDir}")
+                (server-name . "doom")))
+     ("xtallos" . ((user-emacs-directory . "${profilesBasePath}/xtallos")
+                   (server-name . "xtallos"))))
+  '';
 
   # Install Doom imperatively to make use of its CLI.
   # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
@@ -49,9 +51,9 @@ in {
     git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
   in
     entryAfter ["writeBoundary"] ''
-      if [[ ! -f "${emacsDir}/.doomrc" ]]; then
-        mkdir -p "${emacsDir}"
-        cd ${emacsDir}
+      if [[ ! -f "${doomSourceDir}/.doomrc" ]]; then
+        mkdir -p "${doomSourceDir}"
+        cd ${doomSourceDir}
         ${git} init --initial-branch master
         ${git} remote add origin ${doomRepoUrl}
         ${git} fetch --depth=1 origin master
@@ -65,12 +67,12 @@ in {
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
-  services.emacs = l.mkIf (!isDarwin) {
-    # Doom will take care of running the server.
-    enable = l.mkDefault false;
-    defaultEditor = l.mkForce true;
-    socketActivation.enable = true;
-  };
+  # services.emacs = l.mkIf (!isDarwin) {
+  #   # Doom will take care of running the server.
+  #   enable = l.mkDefault false;
+  #   defaultEditor = true;
+  #   socketActivation.enable = true;
+  # };
 
   home.packages = with pkgs; [
     gnutls
@@ -101,10 +103,7 @@ in {
 
     ##: === lang/lsp ===
 
-    # NOTE: TypeScript is naturally used by many LSP servers. Some of these,
-    # unfortunately, expect `typescript` to be available in the environment, so
-    # the LSP servers fail at runtime without it. `vscode-json-languageserver`
-    # is one of these bad actors.
+    # typescript is a required peer dependency for many language servers.
     nodePackages.typescript
 
     #: docker
@@ -118,7 +117,6 @@ in {
     nodePackages.eslint
     nodePackages.typescript-language-server
     #: json
-    # NOTE: requires `typescript` dependency in environment (see above)
     nodePackages.vscode-json-languageserver
     #: ledger
     # FIXME: marked as broken upstream

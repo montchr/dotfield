@@ -65,6 +65,22 @@
         "type": "github"
       }
     },
+    "chemacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669371124,
+        "narHash": "sha256-cYIC5P0t7YJxfAF8g7Q2Stfz8+wrqXLonrfsEhotVY0=",
+        "owner": "plexus",
+        "repo": "chemacs2",
+        "rev": "fb6301d1563c6cf88c8aac51ff8bcd4e06276139",
+        "type": "github"
+      },
+      "original": {
+        "owner": "plexus",
+        "repo": "chemacs2",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1653,6 +1669,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "chemacs": "chemacs",
         "darwin": "darwin",
         "deadnix": "deadnix",
         "deploy-rs": "deploy-rs",

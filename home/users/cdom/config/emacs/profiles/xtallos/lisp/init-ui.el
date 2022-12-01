@@ -168,7 +168,7 @@
       default-frame-alist    (append (list
                                       '(vertical-scroll-bars . nil)
                                       ;; This controls the "margin" around each window's contents.
-                                      '(internal-border-width . 24)
+                                      ;; '(internal-border-width . 24)
                                       '(right-fringe   . 0)
                                       '(tool-bar-lines . 0))))
 
