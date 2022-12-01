@@ -53,7 +53,7 @@
 
 (defconst path-projects-dir
   (file-name-as-directory
-   (or (getenv "PROJECTS_HOME")
+   (or (getenv "XDG_PROJECTS_HOME")
        (concat path-home-dir "Developer")))
   "The root directory for projects.")
 

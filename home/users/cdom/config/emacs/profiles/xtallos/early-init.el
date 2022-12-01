@@ -30,12 +30,20 @@
 ;;; Commentary:
 ;;
 ;; See Emacs Help for more information on The Early Init File.
-;; Basically, this file contains frame customizations.
 ;;
 ;;; Code:
 
-;;
-;;; Configuration paths.
+;; Adjust garbage collection thresholds during startup, and thereafter.
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 128 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold
+                             normal-gc-cons-threshold))))
+
+(customize-set-variable 'load-prefer-newer noninteractive)
+
+;;; Configuration Paths --------------------------------------------------------
 
 (defconst path-home-dir (file-name-as-directory (getenv "HOME"))
   "Path to user home directory.")
@@ -53,8 +61,8 @@
 (defconst path-local-dir
   (concat
    (file-name-as-directory
-    (or (getenv "XDG_CACHE_HOME")
-        (concat path-home-dir ".cache")))
+    (or (getenv "XDG_DATA_HOME")
+        (concat path-home-dir ".local/share/")))
    "emacs/")
   "The root directory for local Emacs files.
 Use this as permanent storage for files that are safe to share
@@ -65,7 +73,12 @@ across systems.")
 Use this for files that don't change much, like servers binaries,
 external dependencies or long-term shared data.")
 
-(defconst path-cache-dir (concat path-local-dir "cache/")
+(defconst path-cache-dir
+  (concat
+   (file-name-as-directory
+    (or (getenv "XDG_CACHE_HOME")
+        (concat path-home-dir ".cache/")))
+   "emacs/")
   "Directory for volatile storage.
 Use this for files that change often, like cache files.")
 
@@ -76,37 +89,47 @@ Use this for files that change often, like cache files.")
                     path-local-dir)
   "Where packages are stored.")
 
-
-;;; Load modules ------------------------------------------------
-
 ;; Add lisp directory to `load-path'.
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 
 ;;; Native compilation settings ------------------------------------------------
 
-(setq ;; native-comp-async-report-warnings-errors nil
-      native-comp-deferred-compilation t)
+(when (featurep 'native-compile)
+  (setq native-comp-async-report-warnings-errors nil
+        native-comp-deferred-compilation t)
 
-;; Set the right directory to store the native compilation cache.
-(when (fboundp 'startup-redirect-eln-cache)
-  (let ((eln-cache-dir (convert-standard-filename (expand-file-name "eln-cache/" path-cache-dir))))
-    (if (version< emacs-version "29")
-        (add-to-list 'native-comp-eln-load-path eln-cache-dir)
-      (startup-redirect-eln-cache eln-cache-dir))))
+  ;; Set the right directory to store the native compilation cache.
+  (when (fboundp 'startup-redirect-eln-cache)
+    (let ((eln-cache-dir (convert-standard-filename (expand-file-name "eln-cache/" path-cache-dir))))
+      (if (version< emacs-version "29")
+          (add-to-list 'native-comp-eln-load-path eln-cache-dir)
+        (startup-redirect-eln-cache eln-cache-dir)))))
 
 
 ;;; Misc. settings -------------------------------------------------------------
 
+(setq inhibit-startup-message t)
 
 ;; Disable titlebar on frames
 ;; https://github.com/d12frosted/homebrew-emacs-plus/issues/433#issuecomment-1025547880
 (unless (version<= emacs-version "29")
-  (add-to-list 'default-frame-alist '(undecorated . t)))
+  (push '(undecorated . t) default-frame-alist))
+
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(mouse-color . "white") default-frame-alist)
+
+;; Prevent white screen flash on startup
+;; (load-theme 'modus-vivendi t)
+
+;; Make the initial buffer load faster by setting its mode to fundamental-mode
+(customize-set-variable 'initial-major-mode 'fundamental-mode)
 
 ;; Prevent `package.el' from loading packages before `straight.el' can.
 ;; https://github.com/raxod502/straight.el/#getting-started
-(setq package-enable-at-startup nil)
+;; (setq package-enable-at-startup nil)
 
 ;; Unicode
 (set-language-environment   'utf-8)
@@ -121,6 +144,3 @@ Use this for files that change often, like cache files.")
 (set-selection-coding-system   'utf-8)
 (set-terminal-coding-system    'utf-8)
 (setq locale-coding-system     'utf-8)
-
-(provide 'early-init)
-;;; early-init.el ends here

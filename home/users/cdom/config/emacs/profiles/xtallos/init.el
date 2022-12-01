@@ -35,21 +35,15 @@
 ;;
 ;;; Code:
 
-;;
-;;; Initialize
-
-;; Adjust garbage collection thresholds during startup, and thereafter.
-(let ((normal-gc-cons-threshold (* 20 1024 1024))
-      (init-gc-cons-threshold (* 128 1024 1024)))
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (add-hook 'emacs-startup-hook
-            (lambda () (setq gc-cons-threshold
-                             normal-gc-cons-threshold))))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Xtallos Emacs loaded in %s."
+                     (emacs-init-time))))
 
 (setq-default user-full-name "Chris Montgomery"
               user-mail-address "chris@cdom.io")
 
-(setq-default load-prefer-newer t)
+(customize-set-variable 'large-file-warning-threshold 100000000)
 
 
 ;;
@@ -59,9 +53,8 @@
 (require 'init-elpa)
 
 ;; Configure and load the customize file
-;; Because sometimes we just need Emacs to write code for us
-;; FIXME: rename to the standard `custom.el'
-(setq custom-file (concat path-local-dir "custom-settings.el"))
+(customize-set-variable 'custom-file
+  (expand-file-name "custom.el" path-local-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -158,7 +151,3 @@
   #'(lambda ()
       (put 'dired-find-alternate-file 'disabled nil)
       (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)))
-
-
-(provide 'init)
-;;; init.el ends here
