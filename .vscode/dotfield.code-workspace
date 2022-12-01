@@ -3,10 +3,6 @@
     {
       "name": "dotfield",
       "path": ".."
-    },
-    {
-      "name": "nvim-config",
-      "path": "../home/users/cdom/config/nvim"
     }
   ],
   "settings": {}
