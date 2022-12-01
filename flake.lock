@@ -760,16 +760,16 @@
         "utils": "utils_5"
       },
       "locked": {
-        "lastModified": 1669089296,
-        "narHash": "sha256-EVFOCULvEBgsyXKAC9d80mKklYaQQ58pfF0VEQBSLgQ=",
+        "lastModified": 1669928264,
+        "narHash": "sha256-GXqH5aPf1W5oPPo3/wAS1ucEsBfMVifYD54Ge4C7I+k=",
         "owner": "montchr",
         "repo": "home-manager",
-        "rev": "f344b8b4824ec2828b9f9c78be1b2123117da406",
+        "rev": "bfbe06c2cb29ac1ce2cb0955a33077459b0c16bb",
         "type": "github"
       },
       "original": {
         "owner": "montchr",
-        "ref": "gpg-agent-darwin-with-pinentry-mac",
+        "ref": "gpg-agent-darwin",
         "repo": "home-manager",
         "type": "github"
       }

@@ -23,9 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-pr-2964 = {
-      # url = "github:montchr/home-manager/gpg-agent-darwin";
-      # Includes changes from https://github.com/nix-community/home-manager/pull/3183
-      url = "github:montchr/home-manager/gpg-agent-darwin-with-pinentry-mac";
+      url = "github:montchr/home-manager/gpg-agent-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     macos-builder = {
