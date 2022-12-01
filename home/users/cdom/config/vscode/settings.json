@@ -153,7 +153,7 @@
   "workbench.preferredDarkColorTheme": "Vitesse Dark",
   "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
   "workbench.preferredHighContrastLightColorTheme": "GitHub Light High Contrast",
-  "workbench.preferredLightColorTheme": "Vitesse Light",
+  "workbench.preferredLightColorTheme": "GitHub Light Monochrome",
   "zenMode.fullScreen": false,
   "prettier.requireConfig": true,
   "workbench.statusBar.visible": false,
