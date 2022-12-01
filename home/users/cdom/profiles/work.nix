@@ -1,14 +1,10 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs) firefox-addons;
 in {
   programs.firefox.extensions = with firefox-addons; [
     lastpass-password-manager
   ];
-  programs.ssh.matchBlocks = lib.mkAfter {
+  programs.ssh.matchBlocks = {
     "kweb-prod-www" = {
       hostname = "67.225.164.90";
       port = 5623;
