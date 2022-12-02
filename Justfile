@@ -23,6 +23,10 @@ prj-root := env_var('PRJ_ROOT')
 firefox-addons-dir := prj-root / "packages/applications/firefox/firefox-addons"
 sources-dir := prj-root / "packages/sources"
 
+# TODO: this does not handle hostnames with spaces (but you aren't doing that anyway, right?)
+hm-default-config := env_var('USER') + "@" + `hostname`
+hm-current-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+
 
 ###: LINTING/FORMATTING ========================================================
 
@@ -66,10 +70,18 @@ system subcommand="build" *ARGS='':
 
 # Rebuild the system and provide a summary of the changes
 build: (system "build")
+  # TODO: update along the lines of diff-next-hm-gen
   nvd diff /run/current-system {{prj-root}}/result
 
 # Rebuild the system and switch to the next generation
 switch: (system "switch")
+
+###: HOME-MANAGER ==============================================================
+
+# Compare the most recent home-manager generation with the next one
+diff-next-hm-gen name=hm-default-config:
+  nvd diff {{hm-current-gen-path}} \
+    `nix build --print-out-paths .\#homeConfigurations.{{name}}.activationPackage`
 
 
 ###: UPDATES ===================================================================
