@@ -14,7 +14,7 @@ in {
   };
 
   # Allow for usage of `brew` CLI without adding to `PATH`
-  environment.shellAliases."brew" = "${brewPrefix}/bin/brew";
+  environment.shellAliases."brew" = "${brewPrefix}/brew";
 
   homebrew.taps = [
     "homebrew/cask"
