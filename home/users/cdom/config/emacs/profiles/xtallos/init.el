@@ -54,7 +54,7 @@
 
 ;; Configure and load the customize file
 (customize-set-variable 'custom-file
-  (expand-file-name "custom.el" path-local-dir))
+                        (expand-file-name "custom.el" path-local-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -109,7 +109,8 @@
 ;;; Core
 
 (require 'init-keys)
-(require 'init-evil)
+(require 'init-meow)
+;; (require 'init-evil)
 
 (require 'init-editor)
 (require 'init-ui)

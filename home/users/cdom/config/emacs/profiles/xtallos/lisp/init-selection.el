@@ -108,10 +108,10 @@
   (marginalia-mode)
 
   :bind (
-   ;; Either bind `marginalia-cycle` globally or only in the minibuffer
-   ;; ("M-A" . marginalia-cycle)
-   :map minibuffer-local-map
-   ("M-A" . marginalia-cycle)))
+         ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+         ;; ("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle)))
 
 
 ;;
@@ -210,23 +210,24 @@
 
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :general (:prefix "M-p"
-    ("p" . completion-at-point) ;; capf
-    ("t" . complete-tag)        ;; etags
-    ("d" . cape-dabbrev)        ;; or dabbrev-completion
-    ("h" . cape-history)
-    ("f" . cape-file)
-    ("k" . cape-keyword)
-    ("s" . cape-symbol)
-    ("a" . cape-abbrev)
-    ("i" . cape-ispell)
-    ("l" . cape-line)
-    ("w" . cape-dict)
-    ("\\" . cape-tex)
-    ("_" . cape-tex)
-    ("^" . cape-tex)
-    ("&" . cape-sgml)
-    ("r" . cape-rfc1345)))
+  ;; :general (:prefix "M-p"
+  ;;   ("p" . completion-at-point) ;; capf
+  ;;   ("t" . complete-tag)        ;; etags
+  ;;   ("d" . cape-dabbrev)        ;; or dabbrev-completion
+  ;;   ("h" . cape-history)
+  ;;   ("f" . cape-file)
+  ;;   ("k" . cape-keyword)
+  ;;   ("s" . cape-symbol)
+  ;;   ("a" . cape-abbrev)
+  ;;   ("i" . cape-ispell)
+  ;;   ("l" . cape-line)
+  ;;   ("w" . cape-dict)
+  ;;   ("\\" . cape-tex)
+  ;;   ("_" . cape-tex)
+  ;;   ("^" . cape-tex)
+  ;;   ("&" . cape-sgml)
+  ;;   ("r" . cape-rfc1345))
+  )
 
 
 ;;
