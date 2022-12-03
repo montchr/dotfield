@@ -40,13 +40,15 @@ in {
     "firefox-developer-edition" # <- "work" browser
     "flameshot"
     "karabiner-elements"
-    "mpv"
+    "keycastr"
+    "obs"
     "plexamp"
     "raindropio"
     "signal"
     "soundsource"
     "spotify"
     "steermouse" # <- for input device mapping
+    "vlc"
     "vscodium"
     "zoom"
   ];
