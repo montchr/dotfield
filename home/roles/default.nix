@@ -14,7 +14,6 @@ with homeProfiles; let
     ++ [
       difftools.difftastic
       emacs
-      just
       python
     ];
 

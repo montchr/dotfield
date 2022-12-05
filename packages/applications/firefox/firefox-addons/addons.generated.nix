@@ -223,10 +223,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.104.0.3";
+      version = "4.105.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034858/lastpass_password_manager-4.104.0.3.xpi";
-      sha256 = "a8ed9b32fd8b87647805c4e7b96120b166e629fe585f830be9b610ec0d3b12f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038088/lastpass_password_manager-4.105.0.2.xpi";
+      sha256 = "90a56344764eaf73c4373d95aa6fe04347773b8cfb6831cdf76d3507c774a043";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -256,10 +256,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.7";
+      version = "8.0.9";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932862/multi_account_containers-8.0.7.xpi";
-      sha256 = "0e60e00c13dcc372b43ddb2e5428c2e3c1e79d2b23d7166df82d45245edc4f10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038684/multi_account_containers-8.0.9.xpi";
+      sha256 = "1e68ef3bf65d6c309a7d5666da2295987beb7832a211117d41a3ebeb71d16f95";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -415,10 +415,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.25.0";
+      version = "4.27.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975827/react_devtools-4.25.0.xpi";
-      sha256 = "8547cb5044edc99c6408722913649102ec48e56a18eec73848325e02992155a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037731/react_devtools-4.27.0.xpi";
+      sha256 = "e8ab6c631b6522577b67cf7a181cf389f8ac3d6257c81c08a788c8390f017ea7";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -540,10 +540,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.29";
+      version = "1.21.31";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034610/single_file-1.21.29.xpi";
-      sha256 = "88169f010378427e08c0b169fed4147811503560dab4f3f848bb24fc55f35c1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037364/single_file-1.21.31.xpi";
+      sha256 = "19f328176e5b830f3cebaa159b2d007f7af8964291a8a2015cddbcac4e6e1c66";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -655,10 +655,10 @@
       };
     "unclutter" = buildFirefoxXpiAddon {
       pname = "unclutter";
-      version = "1.2.3";
+      version = "1.2.4";
       addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036815/lindylearn-1.2.3.xpi";
-      sha256 = "a4d967a17027844b091a96e2db1d71dcf064a5b2071b4618210a49bebaeadf7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038356/lindylearn-1.2.4.xpi";
+      sha256 = "aee14c9e093c79a746c11b0d5bc879f0e1c1017dad6c62ce2cbe995bcabd71d9";
       meta = with lib;
       {
         homepage = "https://github.com/lindylearn/unclutter";
