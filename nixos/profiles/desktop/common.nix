@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
@@ -11,6 +12,8 @@
     then pkgs.firefox-wayland
     else pkgs.firefox;
 in {
+  imports = [(self + "/nixos/profiles/core/substituters/nixpkgs-wayland.nix")];
+
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # TODO: tap-dance: esc

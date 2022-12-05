@@ -8,6 +8,8 @@
   inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = lib // builtins;
 in {
+  imports = [./builders/nixbuild-net.nix];
+
   nix = {
     configureBuildUsers = true;
     # FIXME: needs flake-compat
