@@ -1,5 +1,5 @@
-{homeProfiles}:
-with homeProfiles; let
+{profiles}:
+with profiles; let
   base = [
     direnv
     git

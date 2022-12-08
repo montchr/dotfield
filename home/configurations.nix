@@ -23,8 +23,8 @@
   inherit (lib.std.bool) ifThenElse;
 
   homeModules = flattenTree (rakeLeaves ./modules);
-  homeProfiles = rakeLeaves ./profiles;
-  roles = import ./roles {inherit homeProfiles;};
+  profiles = rakeLeaves ./profiles;
+  roles = import ./roles {inherit profiles;};
 
   moduleArgs = moduleWithSystem (
     ctx @ {pkgsets, ...}: args: {
@@ -38,7 +38,7 @@
   defaultModules =
     (builtins.attrValues homeModules)
     # TODO: declare this in a real role for easier finding
-    ++ (with homeProfiles; [
+    ++ (with profiles; [
       core
       direnv
       navi
@@ -54,7 +54,7 @@
     inherit
       self
       inputs
-      homeProfiles
+      profiles
       roles
       ;
     inherit
