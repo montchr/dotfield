@@ -12,10 +12,7 @@ in {
     (style: makeFontFeatures "${family}-${style}" features)
     styles;
 
-  makeTheme = colors:
-    toKeyValue {
-      mkKeyValue = key: value: "${key} #${value}";
-    } (import ./theme.nix colors);
+  makeTheme = import ./makeTheme.nix {inherit l;};
 
   makeConf = toKeyValue {
     mkKeyValue = key: value: let

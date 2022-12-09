@@ -1,5 +1,8 @@
-colors:
-with colors; {
+{l}: colors:
+l.generators.toKeyValue {
+  mkKeyValue = key: value: "${key} #${value}";
+}
+(with colors; {
   ##: by role
   foreground = base05;
   background = base00;
@@ -38,4 +41,4 @@ with colors; {
   color19 = base02;
   color20 = base04;
   color21 = base06;
-}
+})
