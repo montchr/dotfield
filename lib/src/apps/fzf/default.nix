@@ -8,5 +8,5 @@ in {
   makeTheme = colors:
     l.concatStringsSep "," (l.mapAttrsToList
       (name: value: "${name}:#${value}")
-      (lib.apps.fzf.makeTheme colors));
+      colors);
 }
