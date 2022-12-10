@@ -1,4 +1,4 @@
-{l}: colors:
+{l}: {colors, ...}:
 l.generators.toKeyValue {
   mkKeyValue = key: value: "${key} #${value}";
 }

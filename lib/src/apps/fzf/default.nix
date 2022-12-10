@@ -5,7 +5,7 @@
 }: let
   l = inputs.nixpkgs.lib // builtins;
 in {
-  makeTheme = colors:
+  makeTheme = {colors, ...}:
     l.concatStringsSep "," (l.mapAttrsToList
       (name: value: "${name}:#${value}")
       colors);

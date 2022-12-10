@@ -5,7 +5,7 @@
 }: let
   inherit (self.lib.apps.kitty) makeTheme;
 in {
-  programs.kitty.extraConfig = makeTheme config.colorscheme.colors;
+  programs.kitty.extraConfig = makeTheme config.colorscheme;
 
   xdg.configFile = {
     "kitty/themes".source = ./themes;
