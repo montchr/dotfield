@@ -67,10 +67,9 @@
     devshell.url = "github:numtide/devshell";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    # FIXME: remove flake-utils (provided by nixlib)
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
-    stdlib.url = "github:chessai/nix-std";
+    nix-std.url = "github:chessai/nix-std";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -107,7 +106,7 @@
     nixpkgs-wayland,
     emacs-overlay,
     nix-dram,
-    stdlib,
+    nix-std,
     ...
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
@@ -121,7 +120,7 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: _lprev: {
-      std = stdlib;
+      std = nix-std;
       eso = import ./lib {
         inherit (self) inputs;
         inherit peers;
