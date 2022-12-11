@@ -64,7 +64,7 @@
     "command": "-magit.reset-hard"
   },
   {
-    "key": "] ]",
+    "key": "] e",
     "command": "editor.action.marker.next",
     "when": "editorFocus && vim.mode == 'Normal'"
   },
@@ -74,7 +74,7 @@
     "when": "editorFocus && vim.mode == 'Normal'"
   },
   {
-    "key": "[ [",
+    "key": "[ e",
     "command": "editor.action.marker.prev",
     "when": "editorFocus && vim.mode == 'Normal'"
   },
