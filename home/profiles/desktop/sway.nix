@@ -6,7 +6,7 @@ moduleArgs @ {
 }: let
   inherit (builtins) add;
   inherit (lib.std.num) toFloat;
-  themeCfg = config.themes;
+  themeCfg = config.theme;
 in {
   imports = [../common.nix];
 
