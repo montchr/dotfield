@@ -93,44 +93,31 @@ in {
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
-        ##: `tig` configuration {{
         tig = {
           line-graphics = "auto";
         };
-        ##: }}
 
-        ##: Remotes {{
+        ##: --- remotes ---
+
         fetch.recurseSubmodules = true;
         push.default = "current";
         apply.whitespace = "nowarn";
-        # Only enable this on a per-repo basis.
-        pull.rebase = false;
-        ##: }}
+        pull.rebase = true;
 
-        ##: Diff/Merge Tools {{
+        ##: --- diff/merge tools ---
+
         rerere.enabled = true;
         merge.conflictstyle = "diff3";
         merge.tool = "ediff";
 
         diff = {
-          algorithm = "minimal";
+          algorithm = "histogram";
           exif.textconv = "${pkgs.exiftool}/bin/exiftool";
-          # colorMoved = "default";
+          colorMoved = "dimmed-zebra";
           tool = "ediff";
           # `plutil` is a darwin utility
           plist.textconv = "plutil -convert xml1 -o -";
         };
-
-        difftool = {
-          prompt = false;
-          vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
-        };
-
-        mergetool = {
-          prompt = false;
-          vscode.cmd = "code --wait $MERGED";
-        };
-        ##: }}
       }
     ];
   };
