@@ -1,12 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [delta];
+{pkgs, ...}: {
   programs.git.delta = {
-    enable = lib.mkDefault (!config.programs.git.difftastic.enable);
+    enable = true;
     options = {
       line-numbers = true;
       navigate = true;

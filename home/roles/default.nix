@@ -12,7 +12,7 @@ with profiles; let
   developer =
     base
     ++ [
-      difftools.difftastic
+      difftools.delta
       emacs
       python
     ];

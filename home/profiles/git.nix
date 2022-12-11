@@ -24,8 +24,9 @@ in {
       tig
     ])
     ++ (with pkgs; [
-      exiftool # EXIF diff handler
-      git-cliff
+      difftastic #   <- syntax-aware structural diff tool
+      exiftool #     <- EXIF diff handler
+      git-cliff #    <- flexible changelog generator
 
       # Identify the largest files in a git repo's history.
       #
