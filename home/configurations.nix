@@ -13,6 +13,7 @@
     nixosConfigurations
     darwinConfigurations
     ;
+  inherit (inputs.nix-std.lib.bool) ifThenElse;
   inherit
     (inputs.digga.lib)
     flattenTree
@@ -20,7 +21,6 @@
     rakeLeaves
     ;
   inherit (lib) mkBefore;
-  inherit (lib.std.bool) ifThenElse;
 
   homeModules = flattenTree (rakeLeaves ./modules);
   profiles = rakeLeaves ./profiles;

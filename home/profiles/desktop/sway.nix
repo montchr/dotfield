@@ -1,11 +1,12 @@
 moduleArgs @ {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }: let
   inherit (builtins) add;
-  inherit (lib.std.num) toFloat;
+  inherit (inputs.nix-std.lib.num) toFloat;
   themeCfg = config.theme;
 in {
   imports = [../common.nix];

@@ -120,7 +120,6 @@
     ];
 
     lib = nixos-unstable.lib.extend (lfinal: _lprev: {
-      std = nix-std;
       eso = import ./lib {
         inherit (self) inputs;
         inherit peers;

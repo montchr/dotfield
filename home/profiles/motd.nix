@@ -1,9 +1,9 @@
 {
-  lib,
   pkgs,
+  inputs,
   ...
 }: let
-  inherit (lib.std.lib.serde) toTOML;
+  inherit (inputs.nix-std.lib.serde) toTOML;
 in {
   home.packages = with pkgs; [rust-motd];
   xdg.configFile."rust-motd/config.toml".text = toTOML {
