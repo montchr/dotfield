@@ -1,6 +1,18 @@
-{lib, ...}: {
+{inputs, ...}: let
+  l = inputs.nixpkgs.lib // builtins;
+in {
   /*
-  Converts the first character of an ASCII string to upper-case.
+  Convert a boolean to a "yes" or "no" string.
+
+  Type: boolToYesNo :: boolean -> string
+  */
+  boolToYesNo = value:
+    if value
+    then "yes"
+    else "no";
+
+  /*
+  Capitalise the first letter of the given string.
 
   Type: upperFirstChar :: string -> string
 
@@ -8,5 +20,5 @@
     upperFirstChar "nixOS"
     => "NixOS"
   */
-  upperFirstChar = s: lib.toUpper (lib.substring 0 1 s) + lib.substring 1 (-1) s;
+  upperFirstChar = s: l.toUpper (l.substring 0 1 s) + l.substring 1 (-1) s;
 }
