@@ -45,7 +45,6 @@
     "strings": "on"
   },
   "editor.renderLineHighlightOnlyWhenFocus": true,
-  "editor.rulers": [80, 100],
   "editor.scrollBeyondLastLine": false,
   "editor.tabSize": 2,
   "errorLens.enabledInMergeConflict": false,
@@ -141,7 +140,6 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromCodeNavigation": true,
   "workbench.editor.enablePreviewFromQuickOpen": true,
-  "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.limit.enabled": true,
   "workbench.editor.limit.excludeDirty": true,
   "workbench.editor.limit.perEditorGroup": true,
