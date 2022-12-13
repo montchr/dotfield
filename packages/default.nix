@@ -29,10 +29,6 @@
   };
 
   packageIndex = {
-    ##: internal packages
-    # FIXME: broken
-    # fup-repl = ./dotfield/fup-repl;
-
     ##: application helpers
     # firefox-lepton-ui = {source}: source.src;
     kitty-get-window-by-platform-id = ./applications/kitty/get-window-by-platform-id;
@@ -41,15 +37,7 @@
     epson-201212w = ./drivers/epson_201212w;
 
     ##: fonts
-    nerdfonts-symbols-only = ./fonts/nerdfonts-symbols-only.nix;
     sf-pro = ./fonts/sf-pro.nix;
-
-    ##: python packages
-
-    # FIXME: disabled due to pyopenssl dependency
-    # hpi = ./python/HPI;
-    # orgparse = ./python/orgparse;
-    # promnesia = ./python/promnesia;
   };
 
   packages = pkgs: let

@@ -119,23 +119,16 @@
       aarch64-darwin
     ];
 
-    lib = nixos-unstable.lib.extend (lfinal: _lprev: {
-      eso = import ./lib {
-        inherit (self) inputs;
-        inherit peers;
-        lib = lfinal;
-      };
-    });
+    lib = import ./lib {inherit inputs peers;};
 
-    exoOverlays = [
+    externalOverlays = [
       nixpkgs-wayland.overlay
       emacs-overlay.overlay
       nix-dram.overlay
       self.overlays.externalPackages
     ];
 
-    esoOverlays = [
-      (_final: _prev: {inherit lib;})
+    internalOverlays = [
       self.overlays.sources
       self.overlays.packages
       self.overlays.firefox-addons
@@ -211,7 +204,7 @@
           default = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
-            overlays = exoOverlays ++ esoOverlays;
+            overlays = externalOverlays ++ internalOverlays;
           };
           stable = inputs'.nixos-stable.legacyPackages;
           unstable = inputs'.nixos-unstable.legacyPackages;
@@ -223,24 +216,7 @@
         _module.args = {inherit pkgs primaryUser pkgsets;};
         formatter = pkgs.alejandra;
       };
-      flake = {
-        inherit
-          sharedModules
-          sharedProfiles
-          ;
-
-        lib = lib.eso;
-
-        # deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        #   tsone = with (peers.hosts.tsone); {
-        #     hostname = ipv4.address;
-        #     sshUser = "root";
-        #     fastConnection = true;
-        #     autoRollback = true;
-        #     magicRollback = true;
-        #   };
-        # };
-      };
+      flake = {inherit lib sharedModules sharedProfiles;};
     });
 
   nixConfig = {

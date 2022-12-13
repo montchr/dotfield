@@ -1,4 +1,6 @@
-{lib, ...}: rec {
+{inputs, ...}: let
+  l = inputs.nixpkgs.lib // builtins;
+in rec {
   /*
   Given a nested attrset and an attribute path, return the names of the
   top-level attributes whose attribute value at the given path matches a
@@ -21,9 +23,9 @@
     lib.treesWithValue (_: v: "gnome3" == v) ["services" "gpg-agent" "pinentryFlavor"] users
       => [ "bar" ]
   */
-  treesWithValue = pred: path: attrs: (builtins.attrNames
-    (lib.attrsets.filterAttrs
-      (n: v: (pred n (lib.attrsets.getAttrFromPath path v)))
+  treesWithValue = fn: path: attrs: (l.attrNames
+    (l.filterAttrs
+      (k: v: (fn k (l.getAttrFromPath path v)))
       attrs));
 
   /*

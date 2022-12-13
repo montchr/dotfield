@@ -7,7 +7,6 @@
   shellAbbrs = import ./abbrs.nix;
 in {
   imports = [
-    ./fzf.nix
     ./starship.nix
   ];
 

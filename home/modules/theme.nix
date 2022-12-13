@@ -1,19 +1,16 @@
 moduleArgs @ {
+  options,
   config,
-  lib,
   inputs,
   self,
   ...
 }: let
-  inherit (builtins) head mapAttrs;
-  inherit (inputs.nix-colors) colorSchemes;
-  inherit (lib.types) int str;
   inherit (self.lib) mkOpt;
-
+  inherit (l.types) str int;
+  l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
 
-  # The single-item list format of the fallback set follows that of the NixOS
-  # option type. While repetitive, maybe, it's simple.
+  # Single-item list format follows the NixOS options.
   defaultFonts = let
     fonts =
       moduleArgs.osConfig.fonts.fontconfig.defaultFonts
@@ -23,17 +20,25 @@ moduleArgs @ {
         serif = ["DejaVu Serif"];
       };
   in
-    mapAttrs (_: head) fonts;
+    l.mapAttrs (_: l.head) fonts;
+
+  getColorScheme = name: inputs.nix-colors.colorSchemes.${name};
+  # colorSchemeSubmodule = import (inputs.nix-colors + "/module/colorscheme.nix");
+  mkColorSchemeOption = default:
+    l.mkOption {
+      inherit default;
+      type = l.types.submodule {options = options.colorScheme;};
+    };
 
   normalWeight = 400;
 in {
   options = {
     theme = {
-      enable = lib.mkEnableOption "Whether to enable the theme module.";
+      enable = l.mkEnableOption "Whether to enable the theme module.";
       colors = {
-        active = mkOpt str cfg.colors.dark;
-        dark = mkOpt str "default-dark";
-        light = mkOpt str "default-light";
+        active = mkColorSchemeOption cfg.colors.dark;
+        dark = mkColorSchemeOption (getColorScheme "default-dark");
+        light = mkColorSchemeOption (getColorScheme "default-light");
       };
       fonts = {
         mono = {
@@ -62,11 +67,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      BASE16_THEME_DARK = cfg.colors.dark;
-      BASE16_THEME_LIGHT = cfg.colors.light;
-    };
-    colorScheme = colorSchemes.${cfg.colors.active};
+  config = l.mkIf cfg.enable {
+    colorScheme = cfg.colors.active;
   };
 }

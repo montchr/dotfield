@@ -5,15 +5,8 @@
 }: let
   inherit (self) inputs;
   inherit (builtins) mapAttrs;
-  internalLib = self.lib;
 in {
   flake.overlays = {
-    internalLib = _final: prev: {
-      lib = prev.lib.extend (_lfinal: _lprev: {
-        ##: eso :: from within
-        eso = internalLib;
-      });
-    };
     externalPackages = _final: prev: let
       # NOTE: This must be assigned to a variable instead of performing the
       # system scope change and mapping directly in the resulting attrset in

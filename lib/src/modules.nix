@@ -1,6 +1,6 @@
-{lib, ...}: let
-  inherit (lib) mapAttrs;
-  inherit (lib.digga) flattenTree;
+{inputs, ...}: let
+  inherit (inputs.digga.lib) flattenTree;
+  l = inputs.nixpkgs.lib // builtins;
 in {
-  importLeaves = leaves: mapAttrs (_n: import) (flattenTree leaves);
+  importLeaves = leaves: l.mapAttrs (_n: import) (flattenTree leaves);
 }

@@ -1,12 +1,5 @@
-{lib, ...}: let
-  inherit
-    (lib)
-    findFirst
-    mapAttrs'
-    nameValuePair
-    toLower
-    ;
-
+{inputs, ...}: let
+  l = inputs.nixpkgs.lib // builtins;
   fontWeightDict = {
     thin = 100;
     extraLight = 200;
@@ -19,7 +12,7 @@
     heavy = 900;
   };
   # Weight names normalised to lowercase.
-  fontWeightDict' = mapAttrs' (n: nameValuePair (toLower n)) fontWeightDict;
+  fontWeightDict' = l.mapAttrs' (n: l.nameValuePair (l.toLower n)) fontWeightDict;
 
   withAliases = set:
     set
@@ -30,5 +23,5 @@
     });
 in {
   fontWeightValue = name: (withAliases fontWeightDict').name;
-  fontWeightName = value: findFirst (_n: v: v == value) fontWeightDict';
+  fontWeightName = value: l.findFirst (_n: v: v == value) fontWeightDict';
 }

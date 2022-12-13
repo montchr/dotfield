@@ -1,18 +1,15 @@
 {
-  lib,
-  peers,
   inputs,
+  peers,
 }: let
-  inherit (builtins) mapAttrs;
-  inherit (lib) makeExtensible attrValues foldr;
   inherit (inputs.digga.lib) rakeLeaves;
+  l = inputs.nixpkgs.lib // builtins;
 
-  dotfieldLib = makeExtensible (self: (mapAttrs
-    (_name: path: (import path {inherit inputs self lib peers;}))
+  dotfieldLib = l.makeExtensible (self: (l.mapAttrs
+    (_name: path: (import path {inherit inputs self peers;}))
     (rakeLeaves ./src)));
 in
-  # for convenience, provide all namespaced functions at the top level,
-  # following the example of `nixpkgs.lib`.
+  # for convenience, provide all namespaced functions at the top level
   (dotfieldLib.extend
-    (_lfinal: lprev: (foldr
-      (a: b: a // b) {} (attrValues lprev))))
+    (_lfinal: lprev: (l.foldr
+      (a: b: a // b) {} (l.attrValues lprev))))

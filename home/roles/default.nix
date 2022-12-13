@@ -2,6 +2,7 @@
 with profiles; let
   base = [
     direnv
+    fzf
     git
     shells.zsh
     ssh
@@ -25,7 +26,7 @@ with profiles; let
     kitty
     misc
     mpv
-    themes
+    theme
     vscode
   ];
 

@@ -1,25 +1,40 @@
-{inputs, ...}: let
-  inherit (inputs.nixpkgs.lib.generators) toKeyValue;
-  inherit (inputs.home-manager.lib.hm.booleans) yesNo;
+{
+  inputs,
+  self,
+  ...
+}: let
+  inherit (self.strings) boolToYesNo;
+  inherit (l.generators) mkKeyValueDefault toKeyValue;
   l = inputs.nixpkgs.lib // builtins;
-
-  makeFontFeatures = name: features: "font_features ${name} ${l.concatStringsSep " " features}";
 in {
-  inherit makeFontFeatures;
+  /*
+  Reshape a Base16 color scheme into attrs of hex color strings describing a
+  kitty theme.
 
-  makeFontFeatures' = family: styles: features:
-    l.concatMapStringsSep "\n"
-    (style: makeFontFeatures "${family}-${style}" features)
-    styles;
+  Type: makeThemeAttrs :: AttrSet -> AttrSet
+  */
+  makeThemeAttrs = {colors}: let
+    themeAttrs = import ./makeThemeAttrs.nix {inherit colors;};
+    applyPrefix = _: v:
+      if (l.hasPrefix "#" v)
+      then v
+      else ("#" + v);
+  in (l.mapAttrs applyPrefix themeAttrs);
 
-  makeTheme = import ./makeTheme.nix {inherit l;};
+  /*
+  Generate a kitty configuration string from an attrset.
 
+  Type: makeConf :: AttrSet -> string
+  @partial
+  */
   makeConf = toKeyValue {
-    mkKeyValue = key: value: let
-      value' =
-        if l.isBool value
-        then (yesNo value)
-        else l.toString value;
-    in "${key} ${value'}";
+    listsAsDuplicateKeys = true;
+    mkKeyValue = k: v: let
+      v' =
+        if l.isBool v
+        then boolToYesNo v
+        else v;
+    in
+      mkKeyValueDefault {} " " k v';
   };
 }

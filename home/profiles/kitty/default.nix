@@ -1,16 +1,16 @@
 {
   config,
-  lib,
   pkgs,
   inputs,
   self,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config) xdg;
+  inherit (config) theme xdg;
+  inherit (self.lib.apps.kitty) makeConf makeThemeAttrs;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  imports = [./settings ./theme.nix];
+  imports = [./settings.nix];
 
   home.packages = with pkgs; [
     kitty-get-window-by-platform-id
@@ -23,9 +23,15 @@ in {
   programs.kitty = {
     enable = true;
     darwinLaunchOptions = l.mkIf isDarwin ["--single-instance"];
+    settings = makeThemeAttrs {inherit (config.colorscheme) colors;};
   };
 
   xdg.configFile = {
+    "kitty/theme-dark.conf".text =
+      makeConf (makeThemeAttrs {inherit (theme.colors.dark) colors;});
+    "kitty/theme-light.conf".text =
+      makeConf (makeThemeAttrs {inherit (theme.colors.light) colors;});
+
     # FIXME: does not appear to have an effect?
     "kitty/session".text = ''
       # Start new sessions in the previous working directory

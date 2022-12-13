@@ -3,8 +3,11 @@
   lib,
   pkgs,
   inputs,
+  self,
   ...
 }: let
+  inherit (self.lib.apps.fzf) makeThemeAttrs;
+  inherit (config) theme;
   l = inputs.nixpkgs.lib // builtins;
 
   exa = l.getExe pkgs.exa;
@@ -15,6 +18,9 @@
 in {
   programs.fzf = {
     enable = true;
+    colors =
+      lib.mkIf theme.enable
+      (makeThemeAttrs {inherit (theme.colors.active) colors;});
 
     # fish integration may be handled by the fifc plugin
     enableFishIntegration = !config.programs.fish.fifc.enable;
