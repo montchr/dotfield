@@ -1,4 +1,4 @@
-{colors}:
+{colors, ...}:
 with colors; {
   "bg" = base00;
   "bg+" = base01;

@@ -1,56 +1,54 @@
 {
   config,
   inputs,
+  self,
   ...
 }: let
+  inherit (self.lib.colors) getColorScheme;
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
-  getColorScheme = name: inputs.nix-colors.colorSchemes.${name};
 
   #: NOTE: Requires `--impure` flag.
   envColors = l.getEnv "DOTFIELD_COLORS";
-  envColorsLight = l.getEnv "DOTFIELD_COLORS_LIGHT";
-  envColorsDark = l.getEnv "DOTFIELD_COLORS_DARK";
 
-  dark =
-    if (envColorsDark != "")
-    then envColorsDark
-    else "black-metal-khold";
-  light =
-    if (envColorsLight != "")
-    then envColorsLight
-    else "one-light";
+  colors = {
+    active =
+      if (envColors != "")
+      then (colors.${envColors} or (getColorScheme envColors))
+      else colors.dark;
+    dark = getColorScheme "black-metal-khold";
+    light = getColorScheme "one-light";
+  };
 
   sessionVariables = {
+    # DOTFIELD_THEME_MODE = cfg.colors.active.kind;
     DOTFIELD_COLORS = cfg.colors.active.slug;
     DOTFIELD_COLORS_DARK = cfg.colors.dark.slug;
     DOTFIELD_COLORS_LIGHT = cfg.colors.light.slug;
   };
 in {
-  theme.enable = true;
-  theme.colors = {
-    active = l.mkIf (envColors != "") (getColorScheme envColors);
-    dark = getColorScheme dark;
-    light = getColorScheme light;
-  };
-  theme.fonts = {
-    mono = {
-      family = "Iosevka";
-      size = 13;
-    };
-    term = {
-      family = "Iosevka Term";
-    };
-    sans = {
-      family = "IBM Plex Sans";
-      size = 13;
-    };
-    serif = {
-      family = "IBM Plex Serif";
-      size = 13;
-    };
-    symbols = {
-      family = "Symbols Nerd Font Mono";
+  theme = {
+    enable = true;
+    inherit colors;
+    fonts = {
+      mono = {
+        family = "Iosevka";
+        size = 13;
+      };
+      term = {
+        family = "Iosevka Term";
+      };
+      sans = {
+        family = "IBM Plex Sans";
+        size = 13;
+      };
+      serif = {
+        family = "IBM Plex Serif";
+        size = 13;
+      };
+      symbols = {
+        family = "Symbols Nerd Font Mono";
+      };
     };
   };
 
@@ -76,5 +74,13 @@ in {
   };
 
   # https://github.com/nix-community/home-manager/blob/master/modules/misc/specialization.nix#blob-path
-  # specialization = [];
+  # specialization = {
+  #   # dark.configuration = {
+  #   #   theme.colors.active = l.mkForce config.theme.colors.dark;
+  #   # };
+  #   light.configuration = {
+  #     theme.colors.active = l.mkForce colors.light;
+  #     colorScheme = l.mkForce colors.light;
+  #   };
+  # };
 }

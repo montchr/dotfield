@@ -9,6 +9,10 @@
   inherit (config) theme xdg;
   inherit (self.lib.apps.kitty) makeConf makeThemeAttrs;
   l = inputs.nixpkgs.lib // builtins;
+  colorScheme =
+    if theme.colors.active != null
+    then theme.colors.active
+    else theme.colors.dark;
 in {
   imports = [./settings.nix];
 
@@ -23,14 +27,14 @@ in {
   programs.kitty = {
     enable = true;
     darwinLaunchOptions = l.mkIf isDarwin ["--single-instance"];
-    settings = makeThemeAttrs {inherit (config.colorscheme) colors;};
+    settings = makeThemeAttrs colorScheme;
   };
 
   xdg.configFile = {
     "kitty/theme-dark.conf".text =
-      makeConf (makeThemeAttrs {inherit (theme.colors.dark) colors;});
+      makeConf (makeThemeAttrs theme.colors.dark);
     "kitty/theme-light.conf".text =
-      makeConf (makeThemeAttrs {inherit (theme.colors.light) colors;});
+      makeConf (makeThemeAttrs theme.colors.light);
 
     # FIXME: does not appear to have an effect?
     "kitty/session".text = ''

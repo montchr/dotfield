@@ -78,10 +78,13 @@ switch: (system "switch")
 
 ###: HOME-MANAGER ==============================================================
 
-# Compare the most recent home-manager generation with the next one
-diff-next-hm-gen name=hm-default-config:
-  nvd diff {{hm-current-gen-path}} \
-    `nix build --print-out-paths .\#homeConfigurations.{{name}}.activationPackage`
+# Compare the active home-manager generation with the next one
+home-diff-next name=hm-default-config:
+  nix-diff {{hm-current-gen-path}} \
+    `nix build --print-out-paths {{prj-root}}#homeConfigurations.{{name}}.activationPackage`
+
+switch-theme $DOTFIELD_COLORS:
+  home-manager switch --impure --flake {{prj-root}} \
 
 
 ###: UPDATES ===================================================================

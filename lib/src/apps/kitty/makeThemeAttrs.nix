@@ -1,4 +1,4 @@
-{colors}: (with colors; {
+{colors, ...}: (with colors; {
   ##: by role
   foreground = base05;
   background = base00;

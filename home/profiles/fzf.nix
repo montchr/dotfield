@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   inputs,
   self,
@@ -18,9 +17,7 @@
 in {
   programs.fzf = {
     enable = true;
-    colors =
-      lib.mkIf theme.enable
-      (makeThemeAttrs {inherit (theme.colors.active) colors;});
+    colors = l.mkIf theme.enable (makeThemeAttrs theme.colors.active);
 
     # fish integration may be handled by the fifc plugin
     enableFishIntegration = !config.programs.fish.fifc.enable;

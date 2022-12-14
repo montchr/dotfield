@@ -156,6 +156,5 @@
   "prettier.requireConfig": true,
   "workbench.statusBar.visible": false,
   "workbench.colorTheme": "Vitesse Dark",
-  "debug.javascript.codelens.npmScripts": "never",
-  "window.zoomLevel": 1
+  "debug.javascript.codelens.npmScripts": "never"
 }

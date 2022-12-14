@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (self.strings) boolToYesNo;
+  inherit (self.colors) withHexPrefixes;
   inherit (l.generators) mkKeyValueDefault toKeyValue;
   l = inputs.nixpkgs.lib // builtins;
 in {
@@ -13,13 +14,7 @@ in {
 
   Type: makeThemeAttrs :: AttrSet -> AttrSet
   */
-  makeThemeAttrs = {colors}: let
-    themeAttrs = import ./makeThemeAttrs.nix {inherit colors;};
-    applyPrefix = _: v:
-      if (l.hasPrefix "#" v)
-      then v
-      else ("#" + v);
-  in (l.mapAttrs applyPrefix themeAttrs);
+  makeThemeAttrs = args: withHexPrefixes (import ./makeThemeAttrs.nix args);
 
   /*
   Generate a kitty configuration string from an attrset.
