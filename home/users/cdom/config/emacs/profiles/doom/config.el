@@ -39,25 +39,25 @@
 
 (use-package! modus-themes
   :init
-  (setq
-   ;; --- type ---
-   modus-themes-bold-constructs nil
-   modus-themes-italic-constructs t
+  ;; (setq
+  ;; --- type ---
+  ;; modus-themes-bold-constructs nil
+  ;; modus-themes-italic-constructs t
 
-   ;; --- ui ---
-   modus-themes-completions nil
-   ;; modus-themes-fringes nil
-   modus-themes-hl-line '(accented)
-   modus-themes-links '(background neutral-underline)
-   modus-themes-mode-line '(borderless)
-   modus-themes-tabs-accented nil
-   modus-themes-box-buttons '(accented)
+  ;; --- ui ---
+  ;; modus-themes-completions nil
+  ;; modus-themes-fringes nil
+  ;; modus-themes-hl-line '(accented)
+  ;; modus-themes-links '(background neutral-underline)
+  ;; modus-themes-mode-line '(borderless)
+  ;; modus-themes-tabs-accented nil
+  ;; modus-themes-box-buttons '(accented)
 
-   ;; --- syntax ---
-   ;; modus-themes-syntax '(alt-syntax)
-   modus-themes-markup '(background)
-   modus-themes-org-blocks '(gray-background)
-   modus-themes-paren-match '(bold))
+  ;; --- syntax ---
+  ;; modus-themes-syntax '(alt-syntax)
+  ;; modus-themes-markup '(background)
+  ;; modus-themes-org-blocks '(gray-background)
+  ;; modus-themes-paren-match '(bold))
 
   :config
   (modus-themes-load-themes)
@@ -467,11 +467,11 @@
 
 ;;; === tools ==================================================================
 
-(use-package spdx
-  :defer t
-  :custom
-  (spdx-copyright-holder 'auto)
-  (spdx-project-detection 'auto))
+;; (use-package spdx
+;;   :defer t
+;;   :custom
+;;   (spdx-copyright-holder 'auto)
+;;   (spdx-project-detection 'auto))
 
 (use-package! ox-gfm
   :after org)
