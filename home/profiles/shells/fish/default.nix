@@ -7,15 +7,14 @@
 }: let
   inherit (config.lib.fish) mkPlugin;
   l = lib // builtins;
+  cfg = config.programs.fish;
 in {
   imports = [../common.nix];
 
-  home.packages = with pkgs; [
-    fishPlugins.done
-    fishPlugins.forgit
+  home.packages = with pkgs.fishPlugins; [
+    done
+    forgit
   ];
-
-  programs.neovim.plugins = [pkgs.vimPlugins.vim-fish];
 
   programs.fish = {
     enable = true;
@@ -44,4 +43,9 @@ in {
       # set -Ux fifc_editor $EDITOR
     '';
   };
+
+  # fzf integration is handled by fifc
+  programs.fzf.enableFishIntegration = !cfg.fifc.enable;
+
+  programs.neovim.plugins = [pkgs.vimPlugins.vim-fish];
 }

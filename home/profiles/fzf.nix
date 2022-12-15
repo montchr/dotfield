@@ -19,9 +19,6 @@ in {
     enable = true;
     # colors = l.mkIf theme.enable (makeThemeAttrs theme.colors.active);
 
-    # fish integration may be handled by the fifc plugin
-    enableFishIntegration = !config.programs.fish.fifc.enable;
-
     defaultCommand = "${findFiles} 2>/dev/null";
     defaultOptions = [
       "--ansi"
