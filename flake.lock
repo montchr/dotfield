@@ -1303,16 +1303,16 @@
     },
     "nixpkgs-fork-update-iosevka": {
       "locked": {
-        "lastModified": 1669007984,
-        "narHash": "sha256-rZAtnbRwPe3BjZbBW82Y85jQU02YdToQeWeS//ZNCjo=",
-        "owner": "montchr",
+        "lastModified": 1670842045,
+        "narHash": "sha256-Szj6nPIxeOD83HAdmoV3Cz9MWt4O9ykoZYrvUgqSzOE=",
+        "owner": "r-ryantm",
         "repo": "nixpkgs",
-        "rev": "4cb7fffa6e8823563c2f4408201b57af5b9aa9ef",
+        "rev": "386c7380995e0265634fffc683f3ee94eb805066",
         "type": "github"
       },
       "original": {
-        "owner": "montchr",
-        "ref": "iosevka-v16.4.0",
+        "owner": "r-ryantm",
+        "ref": "auto-update/iosevka-bin",
         "repo": "nixpkgs",
         "type": "github"
       }
