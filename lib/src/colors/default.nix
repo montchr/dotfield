@@ -37,6 +37,14 @@ in {
     withHexPrefixes
     ;
 
+  /*
+  Mapping of common semantic usages to Base16 color values.
+
+  Type: semanticAliases :: AttrSet -> AttrSet
+  @partial
+  */
+  semanticAliases = import ./semanticAliases.nix;
+
   inverseSchemeType = type:
     if ("dark" == type)
     then "light"
