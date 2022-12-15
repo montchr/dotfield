@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  home.shellAliases."grr" = pkgs.bat-extras.batgrep;
+  home.shellAliases."man" = pkgs.bat-extras.batman;
+
   home.packages = with pkgs; [
     # Bash scripts that integrate bat with various command line tools.
     # https://github.com/eth-p/bat-extras/
