@@ -81,49 +81,43 @@
 
 (use-package! fontaine
   :after ligature
+  :commands (fontaine-store-latest-preset)
+  :hook (;; Persist font configurations while switching themes.
+         (modus-themes-after-load-theme-hook
+          ef-themes-post-load-hook
+          ligature-mode-hook) . fontaine-apply-current-preset)
   :config
-  (setq fontaine-presets
-        '((small :default-height 106
-           :bold-weight normal
-           :default-family "Iosevka Term")
-          (regular :default-height 124)
-          (medium :default-height 135)
-          (large :default-height 160
-                 :bold-weight bold)
-          (xlarge :default-height 170
-                  :bold-weight bold)
-          (t
-           :default-family "Iosevka"
-           :default-weight regular
-           :default-height 124
-           :fixed-pitch-family nil
-           :fixed-pitch-family nil
-           :fixed-pitch-height 1.0
-           :fixed-pitch-serif-family nil
-           :fixed-pitch-serif-weight nil
-           :variable-pitch-family "IBM Plex Sans"
-           :variable-pitch-weight nil
-           :variable-pitch-height 1.0
-           :bold-family nil
-           ;; I've often gotten the sense that bold constructs don't work so well
-           ;; with a narrow programming font like Iosevka. It tends to result in
-           ;; muddy-looking characters at small sizes.
-           :bold-weight bold
-           :italic-family nil
-           :italic-slant italic
-           :line-spacing nil)))
-
-  ;; Set last preset or fall back to desired style from `fontaine-presets'.
-  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+  (setq! fontaine-presets
+         '((small :default-height 106
+            :default-family "Iosevka Term")
+           (regular :default-height 124)
+           (medium :default-height 135)
+           (large :default-height 160)
+           (xlarge :default-height 170
+                   :bold-weight bold)
+           (t
+            :default-family "Iosevka"
+            :default-weight regular
+            :default-height 124
+            :fixed-pitch-family nil
+            :fixed-pitch-family nil
+            :fixed-pitch-height 1.0
+            :fixed-pitch-serif-family nil
+            :fixed-pitch-serif-weight nil
+            :variable-pitch-family "IBM Plex Sans"
+            :variable-pitch-weight nil
+            :variable-pitch-height 1.0
+            :bold-family nil
+            :bold-weight semibold
+            :italic-family nil
+            :italic-slant italic
+            :line-spacing nil)))
 
   ;; The other side of `fontaine-restore-latest-preset'.
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset)
 
-  ;; Persist font configurations while switching themes.
-  (dolist (hook '(modus-themes-after-load-theme-hook
-                  ef-themes-post-load-hook
-                  ligature-mode-hook))
-    (add-hook hook #'fontaine-apply-current-preset)))
+  ;; Set last preset or fall back to desired style from `fontaine-presets'.
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
 
 ;;; === completions ============================================================
@@ -131,8 +125,8 @@
 (when (modulep! :completion company)
   (use-package! company-prescient
     :after company
-    :hook (company-mode . company-prescient-mode)
-    :hook (company-prescient-mode . prescient-persist-mode)
+    :hook ((company-mode . company-prescient-mode)
+           (company-prescient-mode . prescient-persist-mode))
     :config
     (setq prescient-save-file (concat doom-cache-dir "prescient-save.el")
           history-length 1000)))
@@ -193,8 +187,7 @@
   (setq! org-archive-default-command 'org-archive-to-archive-sibling))
 
 (use-package! vulpea
-  ;; FIXME: malformed function?
-  :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
+  :hook (org-roam-db-autosync-mode . vulpea-db-autosync-enable))
 
 (use-package! doct
   :after (org-capture)
@@ -455,9 +448,9 @@
 ;;; === spelling ==================================================================
 
 (setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra" "--lang=en_GB")
+      ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")
       ispell-dictionary "en"
-      ispell-personal-dictionary "~/Sync/dict")
+      ispell-personal-dictionary "~/.local/share/aspell/user-dictionary")
 
 (after! cape
   (setq cape-dict-file (if (file-exists-p ispell-personal-dictionary)
