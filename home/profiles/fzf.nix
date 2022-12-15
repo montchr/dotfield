@@ -5,8 +5,7 @@
   self,
   ...
 }: let
-  # inherit (self.lib.apps.fzf) makeThemeAttrs;
-  # inherit (config) theme;
+  inherit (config) theme;
   l = inputs.nixpkgs.lib // builtins;
 
   exa = l.getExe pkgs.exa;
@@ -17,13 +16,13 @@
 in {
   programs.fzf = {
     enable = true;
-    # colors = l.mkIf theme.enable (makeThemeAttrs theme.colors.active);
-
     defaultCommand = "${findFiles} 2>/dev/null";
-    defaultOptions = [
-      "--ansi"
-      "--reverse"
-    ];
+    defaultOptions =
+      [
+        "--ansi"
+        "--reverse"
+      ]
+      ++ (l.optional theme.enable "--color=16");
     changeDirWidgetCommand = findDirs;
     changeDirWidgetOptions = ["--preview '${exa} --tree {} | head -n 200'"];
     fileWidgetCommand = findFiles;
