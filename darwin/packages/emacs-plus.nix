@@ -1,6 +1,6 @@
 {
   lib,
-  emacsNativeComp,
+  emacsUnstable,
   fetchFromGitHub,
   ##: options
   withTitleBar ? true,
@@ -16,7 +16,7 @@
   };
   patchesDir = emacsPlus + "/patches/emacs-28";
 in
-  emacsNativeComp.overrideAttrs (o: {
+  emacsUnstable.overrideAttrs (o: {
     pname = "emacsPlusNativeComp";
 
     patches =

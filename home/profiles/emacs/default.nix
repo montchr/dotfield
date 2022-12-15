@@ -65,7 +65,7 @@ in {
 
   programs.emacs = {
     enable = !isDarwin;
-    package = pkgs.emacsNativeComp;
+    package = pkgs.emacsUnstable;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
