@@ -107,22 +107,33 @@ home subcommand name=hm-fragment *ARGS='--impure':
 # TODO: <- Toggle all application themes between light<->dark
 
 # <- Set the theme for all applications
-set-theme $DOTFIELD_COLORS: && (set-system-appearance) (set-kitty-theme env_var( 'DOTFIELD_COLORS' )) (toggle-emacs-theme)
-  home-manager switch --impure --flake {{prj-root}}
+set-theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
+  DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
+
+##: --- kitty ---
 
 # <- Toggle the current kitty theme between light<->dark
 [private]
 set-kitty-theme mode='dark':
-  @echo "Setting kitty terminal colors to {{mode}} theme"
+  @echo "Setting kitty {{mode}} theme"
   kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{mode}}.conf
   @echo {{msg-done}}
 
+##: --- emacs ---
+
+emacs-dark := "(modus-themes-load-vivendi)"
+emacs-light := "(modus-themes-load-operandi)"
+
+# FIXME: server not reachable, but should otherwise work
 # <- Toggle the current Emacs theme between light<->dark
 [private]
-toggle-emacs-theme:
-  @echo "Toggling Emacs modus-themes color scheme"
-  emacsclient --no-wait --eval "(modus-themes-toggle)" >/dev/null
-  @echo {{msg-done}}
+set-emacs-theme mode='dark':
+  just _emacs-cmd {{ quote( if mode == 'dark' { emacs-dark } else { emacs-light } ) }}
+_emacs-cmd eval:
+  emacsclient --no-wait --eval "{{eval}}" >/dev/null
+
+
+##: --- macOS ---
 
 applescript-dark-mode := 'tell app "System Events" to tell appearance preferences to set dark mode to '
 _mac-dark-mode value:
