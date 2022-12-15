@@ -12,7 +12,7 @@
   exa = l.getExe pkgs.exa;
   fd = l.getExe pkgs.fd;
 
-  findFiles = "${fd} --hidden --follow --exclude .git";
+  findFiles = "${fd} --hidden --follow --exclude '.git'";
   findDirs = "${fd} --type d";
 in {
   programs.fzf = {
