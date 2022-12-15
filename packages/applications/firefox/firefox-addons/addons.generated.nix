@@ -298,10 +298,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.8";
+      version = "2.5.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005261/1password_x_password_manager-2.3.8.xpi";
-      sha256 = "504ede6aef639030e40667356abfe04bd3a8311a2d959801c3e767fed28f455e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040641/1password_x_password_manager-2.5.1.xpi";
+      sha256 = "ad8fd2ab9e561b70813f98d19c946a6ffb808746779783f0048a96f1e52f0f04";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -401,10 +401,10 @@
       };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.5.12";
+      version = "6.5.13";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021564/raindropio-6.5.12.xpi";
-      sha256 = "d3f1b0e305abf7785baef2b116a780eafa792484f7b76124903e66a3e1dd09ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040837/raindropio-6.5.13.xpi";
+      sha256 = "bc54c86154f2dd85d16d32cccebd2324e1e1997547a112572d0d1c6233b00e7d";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -415,10 +415,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.27.0";
+      version = "4.27.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037731/react_devtools-4.27.0.xpi";
-      sha256 = "e8ab6c631b6522577b67cf7a181cf389f8ac3d6257c81c08a788c8390f017ea7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040280/react_devtools-4.27.1.xpi";
+      sha256 = "c0cf290a4dab2d18f840d7267da68033779bb3a001986aed2a78ed5e92432a1e";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -498,10 +498,10 @@
       };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
-      version = "3.2.3";
+      version = "3.3.0";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035680/search_engines_helper-3.2.3.xpi";
-      sha256 = "a566ec01cc1354abc4cd277f5ba2a3cd074e8de7c477e0a898ceb627f3bcd68e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041949/search_engines_helper-3.3.0.xpi";
+      sha256 = "0e6f49394b7798d27dd507b0de2b27ad4cc888949a0ec9ac02294eb27f1a6382";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -608,10 +608,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.10";
+      version = "3.9.11";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028300/tree_style_tab-3.9.10.xpi";
-      sha256 = "4a26348d5aadfb0d14aa1be33c23cecf89dc1f39edc87dfe26b6e81782c1eba2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039584/tree_style_tab-3.9.11.xpi";
+      sha256 = "3b0e7fc54f51dfe2f52a419e7f2c89dd721d6661ceddba2d736f2477c5456ca3";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -655,10 +655,10 @@
       };
     "unclutter" = buildFirefoxXpiAddon {
       pname = "unclutter";
-      version = "1.2.4";
+      version = "1.3.1";
       addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038356/lindylearn-1.2.4.xpi";
-      sha256 = "aee14c9e093c79a746c11b0d5bc879f0e1c1017dad6c62ce2cbe995bcabd71d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040652/lindylearn-1.3.1.xpi";
+      sha256 = "3cb1be1216a5d87176977fa613283f79ff83ccba0f52aa669e45e53dcf1b258e";
       meta = with lib;
       {
         homepage = "https://github.com/lindylearn/unclutter";
