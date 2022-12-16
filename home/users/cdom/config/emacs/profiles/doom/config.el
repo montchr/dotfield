@@ -66,21 +66,8 @@
 
 ;;; === font ===================================================================
 
-(use-package! ligature
-  :after modus-themes
-  :config
-  ;; Enable all Iosevka ligatures in programming modes
-  ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
-  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
-  ;; Enables ligature checks globally in all buffers. You can also do it per
-  ;; mode with `ligature-mode'.
-  (global-ligature-mode t))
-
 (use-package! fontaine
-  :after ligature
+  :after modus-themes
   :commands (fontaine-store-latest-preset)
   :hook (;; Persist font configurations while switching themes.
          (modus-themes-after-load-theme
@@ -118,6 +105,19 @@
 
   ;; Set last preset or fall back to desired style from `fontaine-presets'.
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+
+(use-package! ligature
+  :after fontaine
+  :config
+  ;; Enable all Iosevka ligatures in programming modes
+  ;; https://github.com/mickeynp/ligature.el/wiki#iosevka
+  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+  ;; Enables ligature checks globally in all buffers. You can also do it per
+  ;; mode with `ligature-mode'.
+  (global-ligature-mode t))
 
 
 ;;; === completions ============================================================
