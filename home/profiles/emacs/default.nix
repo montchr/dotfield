@@ -65,7 +65,7 @@ in {
 
   programs.emacs = {
     enable = !isDarwin;
-    package = pkgs.emacsUnstable;
+    package = pkgs.emacsGit; # bleeding edge from emacs-overlay
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
