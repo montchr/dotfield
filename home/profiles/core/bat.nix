@@ -15,6 +15,7 @@
   programs.bat = {
     enable = true;
     config = {
+      theme = "base16";
       map-syntax = [
         ".*ignore:Git Ignore"
         ".gitconfig.local:Git Config"
