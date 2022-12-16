@@ -8,6 +8,7 @@ in {
   }: {
     packages = filterPackages system (flattenTree {
       emacs-plus = pkgs.callPackage ./emacs-plus.nix {};
+      emacs-plus-edge = pkgs.callPackage ./emacs-plus-edge.nix {};
       yabai = pkgs.callPackage ./yabai.nix {};
     });
   };

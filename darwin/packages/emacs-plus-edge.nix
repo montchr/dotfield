@@ -8,7 +8,7 @@
     owner = "d12frosted";
     repo = "homebrew-emacs-plus";
     rev = "61d588ce80fb4282e107f5ab97914e32451c3da1";
-    sha256 = "";
+    sha256 = "sha256-xJYEGu9wnndEhUTMVKiFPL1jwq+T6yEoZdYi5A1TTFQ=";
   };
   patchesDir = emacsPlus + "/patches/emacs-30";
 in
