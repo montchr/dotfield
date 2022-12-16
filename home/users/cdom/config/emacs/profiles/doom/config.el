@@ -67,7 +67,6 @@
 ;;; === font ===================================================================
 
 (use-package! fontaine
-  :after modus-themes
   :commands (fontaine-store-latest-preset)
   :hook (;; Persist font configurations while switching themes.
          (modus-themes-after-load-theme
@@ -127,8 +126,7 @@
 
 (setq! org-directory "~/Documents/notes"
        +org-capture-todo-file (concat org-directory "inbox.org")
-       org-roam-directory org-directory
-       deft-directory org-directory)
+       org-roam-directory org-directory)
 
 (after! org-capture
   (setq!

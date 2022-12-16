@@ -28,22 +28,22 @@
  (company +childframe)
 
  :ui
- deft                         ; notational velocity for Emacs
  doom-quit                    ; DOOM quit-message prompts when you quit Emacs
  hl-todo                      ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
- hydra
  (modeline +light)
- ;; nav-flash                    ; blink cursor line after big motions
  ophints                      ; highlight the region an operation acts on
  (popup +all
         +defaults)
- (treemacs +lsp)           ; a project drawer, like neotree but cooler
  (vc-gutter)
  vi-tilde-fringe              ; fringe tildes to mark beyond EOB
  workspaces
  zen                          ; distraction-free coding or writing
+ ;; deft                         ; notational velocity for Emacs
  ;; doom                      ; what makes DOOM look the way it does
+ ;; hydra
  ;; ligatures                 ; ligatures and symbols to make your code pretty again
+ ;; nav-flash                    ; blink cursor line after big motions
+ ;; (treemacs +lsp)           ; a project drawer, like neotree but cooler
  ;; window-select             ; visually switch windows
 
  :editor
