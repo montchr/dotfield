@@ -270,6 +270,7 @@
       ("PHP" prettier)
       ("Python" black)
       ("Ruby" rufo)
+      ("Rust" rustfmt)
       ("SCSS" prettier)
       ("Shell" shfmt)
       ("SQL" sqlformat)
