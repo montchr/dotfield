@@ -190,7 +190,7 @@ in {
       ###: --- mouse support ---
 
       mouse_follows_focus = "on";
-      focus_follows_mouse = "autoraise"; # <- "autoraise" | "autofocus"
+      focus_follows_mouse = "off"; # <- "autoraise" | "autofocus" | "off"
       mouse_modifier = "fn";
       mouse_action1 = "move";
       mouse_action2 = "resize";
