@@ -122,18 +122,6 @@
 
 ;;; === completions ============================================================
 
-(when (modulep! :completion company)
-  (use-package! company-prescient
-    :after company
-    :hook ((company-mode . company-prescient-mode)
-           (company-prescient-mode . prescient-persist-mode))
-    :config
-    (setq prescient-save-file (concat doom-cache-dir "prescient-save.el")
-          history-length 1000)))
-
-(set-company-backend! 'emacs-lisp-mode
-  'company-capf 'company-yasnippet)
-
 
 ;;; === org-mode ===============================================================
 
@@ -283,9 +271,8 @@
       ("_Ledger" ledger-mode)
       ("_Nginx" nginxfmt))))
 
-  :config
-  (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-  (add-hook 'emacs-lisp-mode-hook 'format-all-mode))
+  :hook ((format-all-mode . format-all-ensure-formatter)
+         ((emacs-lisp-mode nix-mode) . format-all-mode)))
 
 (after! lsp-mode
   (setq lsp-auto-guess-root t
@@ -334,24 +321,6 @@
   :defer-incrementally t
   :init
   (add-to-list 'auto-mode-alist '("\\.(idea)?vim\\(rc\\)?\\'" . vimrc-mode)))
-
-
-;; --- nix ----------------------------
-
-(after! format-all
-  (add-hook 'nix-mode-hook 'format-all-mode))
-
-;; (after! lsp-mode
-;;   (lsp-register-client
-;;    ;; The `nil' lsp server is prone to uncontrollable hanging when using
-;;    ;; lsp-mode, so we use `rnix-lsp' instead.
-;;    (make-lsp-client :new-connection (lsp-stdio-connection "rnix-lsp")
-;;                     :major-modes '(nix-mode)
-;;                     :server-id 'rnix-lsp)))
-
-;; (after! eglot
-;;   ;; https://github.com/oxalica/nil
-;;   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 
 
 ;; --- js -----------------------------
@@ -440,10 +409,8 @@
   :after cape
   :init
   (add-to-list 'completion-at-point-functions #'cape-yasnippet)
-  (after! lsp-mode
-    (add-hook 'lsp-managed-mode-hook #'cape-yasnippet--lsp))
-  (after! eglot
-    (add-hook 'eglot-managed-mode-hook #'cape-yasnippet--eglot)))
+  :hook ((lsp-managed-mode . cape-yasnippet--lsp)
+         (eglot-managed-mode . cape-yasnippet--eglot)))
 
 
 ;;; === spelling ==================================================================
@@ -451,6 +418,7 @@
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")
       ispell-dictionary "en"
+      ;; FIXME: don't hard-code this path -- use an env var
       ispell-personal-dictionary "~/.local/share/aspell/user-dictionary")
 
 (after! cape
