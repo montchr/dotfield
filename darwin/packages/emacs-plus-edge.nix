@@ -34,4 +34,6 @@ in
       + ''
         ln -snf $out/lib/emacs/${o.version}/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
       '';
+
+    meta.platforms = ["x86_64-darwin" "aarch64-darwin"];
   })
