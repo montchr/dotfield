@@ -27,9 +27,9 @@
   roles = import ./roles {inherit profiles;};
 
   moduleArgs = moduleWithSystem (
-    ctx @ {pkgsets, ...}: args: {
+    ctx: args: {
       _module.args = {
-        inherit peers primaryUser pkgsets;
+        inherit peers primaryUser;
         inherit (ctx.config) packages;
       };
     }
@@ -66,8 +66,8 @@
       ;
   };
 
-  settingsModule = moduleWithSystem ({pkgsets, ...}: osArgs: let
-    inherit ((osArgs.pkgs or pkgsets.default).stdenv) hostPlatform;
+  settingsModule = moduleWithSystem ({pkgs, ...}: osArgs: let
+    inherit ((osArgs.pkgs or pkgs).stdenv) hostPlatform;
   in {
     home-manager = {
       extraSpecialArgs = platformSpecialArgs hostPlatform;
@@ -87,12 +87,12 @@ in {
     );
   };
 
-  perSystem = {pkgsets, ...}: {
+  perSystem = ctx: {
     homeConfigurations = let
       makeHomeConfiguration = username: args: let
         inherit (pkgs.stdenv) hostPlatform;
         inherit (hostPlatform) isDarwin;
-        pkgs = args.pkgs or pkgsets.default;
+        pkgs = args.pkgs or ctx.pkgs;
         homePrefix = ifThenElse isDarwin "/Users" "/home";
       in (inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

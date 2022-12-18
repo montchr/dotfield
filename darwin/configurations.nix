@@ -14,17 +14,12 @@
     sharedProfiles
     ;
   inherit (self.nixosModules) homeManagerSettings;
-  inherit (self.inputs) nixpkgs;
   inherit
     (inputs.digga.lib)
     flattenTree
     rakeLeaves
     ;
-  inherit
-    (inputs.flake-utils.lib.system)
-    aarch64-darwin
-    x86_64-darwin
-    ;
+  inherit (inputs.flake-utils.lib.system) aarch64-darwin;
   inherit (inputs.darwin.lib) darwinSystem;
 
   l = lib // builtins;
@@ -49,33 +44,20 @@
     withSystem (args.system or aarch64-darwin) (
       ctx @ {
         system,
-        pkgsets,
+        pkgs,
         ...
       }: let
-        # Cross-compiled package set via Rosetta for packages which fail to
-        # build on `aarch64-darwin`.
-        #
-        # NOTE: I have not yet had to use this, fortunately, but that means it's
-        # untested.
-        rosettaPkgs =
-          l.optionalAttrs (system == aarch64-darwin)
-          (import nixpkgs {
-            system = x86_64-darwin;
-            config.allowUnfree = true;
-          });
-        pkgsets' = pkgsets // {inherit rosettaPkgs;};
-        pkgs = args.pkgs or pkgsets'.default;
         moduleArgs = {
           _module.args = {
             inherit peers primaryUser;
             inherit (ctx.config) packages;
-            pkgsets = pkgsets';
             isNixos = false;
           };
         };
       in
         l.makeOverridable darwinSystem {
-          inherit pkgs system;
+          inherit system;
+          pkgs = args.pkgs or pkgs;
           modules =
             defaultModules
             ++ (builtins.attrValues sharedModules)

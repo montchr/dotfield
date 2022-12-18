@@ -41,14 +41,12 @@
     withSystem (nixosArgs.system or x86_64-linux) (
       ctx @ {
         system,
-        pkgsets,
+        pkgs,
         ...
       }: let
-        pkgs = nixosArgs.pkgs or pkgsets.default;
         moduleArgs = {
           _module.args = {
             inherit peers primaryUser;
-            inherit (ctx) pkgsets;
             inherit (ctx.config) packages;
             isNixos = true;
           };
@@ -65,7 +63,7 @@
               nixosMachines.${hostname}
               moduleArgs
               {
-                nixpkgs.pkgs = pkgs;
+                nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [{_module.args.isNixos = true;}];
               }

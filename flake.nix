@@ -200,20 +200,13 @@
         inputs',
         ...
       }: let
-        pkgsets = {
-          default = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = externalOverlays ++ internalOverlays;
-          };
-          stable = inputs'.nixos-stable.legacyPackages;
-          unstable = inputs'.nixos-unstable.legacyPackages;
-          trunk = inputs'.nixpkgs-trunk.legacyPackages;
-          forked-with-lint-staged = inputs'.nixpkgs-fork-add-lint-staged.legacyPackages;
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = externalOverlays ++ internalOverlays;
         };
-        pkgs = pkgsets.default;
       in {
-        _module.args = {inherit pkgs primaryUser pkgsets;};
+        _module.args = {inherit pkgs primaryUser;};
         formatter = pkgs.alejandra;
       };
       flake = {inherit lib sharedModules sharedProfiles;};
