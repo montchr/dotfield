@@ -118,17 +118,15 @@
 
 (use-package unfill
   :commands (unfill-toggle)
-  ;; :general
-  ;; ("M-q" #'unfill-toggle)
-  )
+  :general
+  ("M-q" #'unfill-toggle))
 
 (use-package move-text
   :commands (move-text-up
              move-text-down)
-  ;; :general
-  ;; ("M-S-<down>" #'move-text-down)
-  ;; ("M-S-<up>" #'move-text-up)
-  )
+  :general
+  ("M-S-<down>" #'move-text-down)
+  ("M-S-<up>" #'move-text-up))
 
 
 ;;
@@ -147,9 +145,9 @@
   (apheleia-global-mode +1))
 
 ;; https://github.com/redguardtoo/evil-nerd-commenter
-;; (use-package evil-nerd-commenter
-;;   :config
-;;   (evilnc-default-hotkeys))
+(use-package evil-nerd-commenter
+  :config
+  (evilnc-default-hotkeys))
 
 
 (provide 'init-editor)

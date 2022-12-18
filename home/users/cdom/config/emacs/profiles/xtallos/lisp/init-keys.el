@@ -45,152 +45,152 @@
 
 ;;; --- bindings: init ---------------------------------------------------------
 
-;; (defvar xtallos/leader--map (make-sparse-keymap)
-;;   "An overriding keymap for <leader> keys.")
+(defvar xtallos/leader--map (make-sparse-keymap)
+  "An overriding keymap for <leader> keys.")
 
-;; (use-package general)
+(use-package general)
 
-;; (general-create-definer xtallos/leader-def
-;;     :prefix "SPC"
-;;     :non-normal-prefix "M-SPC"
-;;     :prefix-map 'xtallos/leader--map
-;;     :states '(normal insert visual emacs)
-;;     :keymaps 'override)
+(general-create-definer xtallos/leader-def
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC"
+    :prefix-map 'xtallos/leader--map
+    :states '(normal insert visual emacs)
+    :keymaps 'override)
 
-;;   (general-create-definer xtallos/local-leader-def
-;;     :prefix "SPC m"
-;;     :non-normal-prefix "M-SPC m"
-;;     :states '(normal insert visual emacs)
-;; :keymaps 'override)
+  (general-create-definer xtallos/local-leader-def
+    :prefix "SPC m"
+    :non-normal-prefix "M-SPC m"
+    :states '(normal insert visual emacs)
+:keymaps 'override)
 
 
 ;;; --- bindings: top-level scopes ----------------------------------------------
 
-;; (xtallos/leader-def
-;;   ;; (to be implemented)
-;;   "i" '(nil :wk "ins...")
-;;   "n" '(nil :wk "note...")
+(xtallos/leader-def
+  ;; (to be implemented)
+  "i" '(nil :wk "ins...")
+  "n" '(nil :wk "note...")
 
-;;   ;; --- prev/next ---
-;;   ;; FIXME: should not be under leader map!
+  ;; --- prev/next ---
+  ;; FIXME: should not be under leader map!
 
-;;   "[" '(nil :wk "prev...")
-;;   "[b" 'previous-buffer
+  "[" '(nil :wk "prev...")
+  "[b" 'previous-buffer
 
-;;   "]" '(nil :wk "next...")
-;;   "]b" 'next-buffer
+  "]" '(nil :wk "next...")
+  "]b" 'next-buffer
 
-;;   ;; --- buffer ---
+  ;; --- buffer ---
 
-;;   "b" '(nil :wk "buff...")
+  "b" '(nil :wk "buff...")
 
-;;   ;; buffer nav
-;;   "bb" 'consult-project-buffer
-;;   "bB" 'consult-buffer
-;;   "bh" 'previous-buffer
-;;   "b[" 'previous-buffer
-;;   "bl" 'next-buffer
-;;   "b]" 'next-buffer
+  ;; buffer nav
+  "bb" 'consult-project-buffer
+  "bB" 'consult-buffer
+  "bh" 'previous-buffer
+  "b[" 'previous-buffer
+  "bl" 'next-buffer
+  "b]" 'next-buffer
 
-;;   ;; buffer management
-;;   "bk" 'kill-buffer
-;;   "bs" 'save-buffer
-;;   "bS" 'save-some-buffers
+  ;; buffer management
+  "bk" 'kill-buffer
+  "bs" 'save-buffer
+  "bS" 'save-some-buffers
 
-;;   ;; --- eval ---
+  ;; --- eval ---
 
-;;   "e" '(nil :wk "eval...")
-;;   "eb" 'eval-buffer
-;;   "ee" 'eval-buffer
+  "e" '(nil :wk "eval...")
+  "eb" 'eval-buffer
+  "ee" 'eval-buffer
 
-;;   ;; --- file ---
+  ;; --- file ---
 
-;;   "f" '(nil :wk "file...")
-;;   "ff" 'find-file
-;;   "fD" 'delete-file
-;;   "fR" 'rename-visited-file
+  "f" '(nil :wk "file...")
+  "ff" 'find-file
+  "fD" 'delete-file
+  "fR" 'rename-visited-file
 
-;;   ;; --- git ---
+  ;; --- git ---
 
-;;   "g" '(nil :wk "git...")
-;;   "gg" 'magit-status
-;;   "gt" 'git-timemachine
+  "g" '(nil :wk "git...")
+  "gg" 'magit-status
+  "gt" 'git-timemachine
 
-;;   ;; --- help ---
+  ;; --- help ---
 
-;;   "h" '(nil :wk "help...")
-;;   "hb" 'describe-bindings
-;;   "hD" 'devdocs-lookup
-;;   "hh" 'help
-;;   "hf" 'describe-function
-;;   "ho" 'describe-symbol
-;;   "hv" 'describe-variable
+  "h" '(nil :wk "help...")
+  "hb" 'describe-bindings
+  "hD" 'devdocs-lookup
+  "hh" 'help
+  "hf" 'describe-function
+  "ho" 'describe-symbol
+  "hv" 'describe-variable
 
-;;   ;; --- jump around ---
+  ;; --- jump around ---
 
-;;   "j" '(nil :wk "jump...")
-;;   "jj" '(avy-goto-char :which-key "char")
-;;   "jJ" '(avy-goto-char-timer :which-key "charS")
+  "j" '(nil :wk "jump...")
+  "jj" '(avy-goto-char :which-key "char")
+  "jJ" '(avy-goto-char-timer :which-key "charS")
 
-;;   "jl" '(avy-goto-line :which-key "line")
-;;   "jw" '(avy-goto-word-0 :which-key "word")
-;;   "jb" '(ace-link :which-key "btn")
-
-
-;;   ;; --- open ---
-
-;;   "o" '(nil :wk "open...")
-;;   ;; FIXME: this duplicates the current buffer -- would be good to have a fresh start
-;;   "of" '(make-frame :wk "frame")
-;;   "ot" '(vterm-other-window :wk "term")
+  "jl" '(avy-goto-line :which-key "line")
+  "jw" '(avy-goto-word-0 :which-key "word")
+  "jb" '(ace-link :which-key "btn")
 
 
-;;   ;; --- meta ---
+  ;; --- open ---
 
-;;   "q" '(nil :wk "meta...")
-;;   "qf" 'delete-frame
-;;   "qq" 'save-buffers-kill-emacs
-
-;;   ;; --- search ---
-
-;;   "s" '(nil :wk "serx...")
-;;   "sp" 'consult-ripgrep
-;;   "ss" 'consult-line
-
-;;   ;; --- window management ---
-
-;;   "w" '(nil :wk "wind...")
-
-;;   ;; window nav
-;;   "wh" 'windmove-left
-;;   "wH" 'windmove-swap-states-left
-;;   "wj" 'windmove-down
-;;   "wJ" 'windmove-swap-states-down
-;;   "wk" 'windmove-up
-;;   "wK" 'windmove-swap-states-up
-;;   "wl" 'windmove-right
-;;   "wL" 'windmove-swap-states-right
-
-;;   "wn" 'split-window-vertically
-;;   "wN" 'split-window-horizontally
-;;   "wd" 'delete-window)
+  "o" '(nil :wk "open...")
+  ;; FIXME: this duplicates the current buffer -- would be good to have a fresh start
+  "of" '(make-frame :wk "frame")
+  "ot" '(vterm-other-window :wk "term")
 
 
-;; ;;; --- bindings: top-level oneoffs ---------------------------------------------
+  ;; --- meta ---
 
-;; (xtallos/leader-def
-;;   "a"   'org-agenda
-;;   ;; FIXME: possible conflict with lsp-mode?
-;;   ;; "c"   'org-capture
-;;   "y"   'consult-yank-pop
+  "q" '(nil :wk "meta...")
+  "qf" 'delete-frame
+  "qq" 'save-buffers-kill-emacs
 
-;;   "-"   'calendar
-;;   "="   'quick-calc
-;;   "+"   'calc
+  ;; --- search ---
 
-;;   ;; "S-<return>" 'vterm
+  "s" '(nil :wk "serx...")
+  "sp" 'consult-ripgrep
+  "ss" 'consult-line
 
-;;   "SPC" 'project-find-file)
+  ;; --- window management ---
+
+  "w" '(nil :wk "wind...")
+
+  ;; window nav
+  "wh" 'windmove-left
+  "wH" 'windmove-swap-states-left
+  "wj" 'windmove-down
+  "wJ" 'windmove-swap-states-down
+  "wk" 'windmove-up
+  "wK" 'windmove-swap-states-up
+  "wl" 'windmove-right
+  "wL" 'windmove-swap-states-right
+
+  "wn" 'split-window-vertically
+  "wN" 'split-window-horizontally
+  "wd" 'delete-window)
+
+
+;;; --- bindings: top-level oneoffs ---------------------------------------------
+
+(xtallos/leader-def
+  "a"   'org-agenda
+  ;; FIXME: possible conflict with lsp-mode?
+  ;; "c"   'org-capture
+  "y"   'consult-yank-pop
+
+  "-"   'calendar
+  "="   'quick-calc
+  "+"   'calc
+
+  ;; "S-<return>" 'vterm
+
+  "SPC" 'project-find-file)
 
 ;;
 ;;; Keybinding UX
@@ -227,7 +227,7 @@ If any hook returns non-nil, all hooks after it are ignored.")
         ;; Back to the default
         ((keyboard-quit))))
 
-;; (global-set-key [remap keyboard-quit] #'kbd-escape)
+(global-set-key [remap keyboard-quit] #'kbd-escape)
 
 ;; (when (and env-sys-mac-p env-graphic-p)
 ;;   (defvar mac-option-modifier)
