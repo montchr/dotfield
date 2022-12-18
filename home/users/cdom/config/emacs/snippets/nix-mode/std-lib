@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: std-lib
+# uuid: nix-std-lib-l
+# key: llib
+# --
+l = inputs.nixpkgs.lib // builtins;

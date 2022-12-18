@@ -2,13 +2,8 @@
 # group: file templates
 # contributor: Chris Montgomery
 # --
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-
+{inputs, ...}: let
+  l = inputs.nixpkgs.lib // builtins;
 in {
   $0
 }
