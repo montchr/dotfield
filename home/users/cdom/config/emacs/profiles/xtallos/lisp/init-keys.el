@@ -33,19 +33,23 @@
 ;;
 ;; Configuration for keybindings.
 ;;
-;; FIXME: M-SPC seems to be captured by GNOME
+;; FIXME: Swap super and meta keys
 ;;
 ;;; Code:
 
-;;; --- configuration -----------------------------------------------------------
+;;
+;;; Configuration ===========================================================
 
 ;; Default indentation width is 2 spaces.
+;; FIXME: this does not belong with keybindings
 (defvar xtallos/indent-width 2)
 
 
-;;; --- bindings: init ---------------------------------------------------------
+;;; --- Leader Scopes -----------------------------------------------------------
 
 (defvar xtallos/leader--map (make-sparse-keymap)
+  "An overriding keymap for <leader> keys.")
+(defvar xtallos/top-level--map (make-sparse-keymap)
   "An overriding keymap for <leader> keys.")
 
 (use-package general)
@@ -63,22 +67,54 @@
     :states '(normal insert visual emacs)
 :keymaps 'override)
 
+(general-create-definer xtallos/nav-prev-leader-def
+  :prefix "["
+  :non-normal-prefix "M-["
+  :prefix-map 'xtallos/top-level--map
+  ;; :states '(normal insert visual emacs)
+  :keymaps 'override)
 
-;;; --- bindings: top-level scopes ----------------------------------------------
+(general-create-definer xtallos/nav-next-leader-def
+  :prefix "]"
+  :non-normal-prefix "M-]"
+  :prefix-map 'xtallos/top-level--map
+  ;; :states '(normal insert visual emacs)
+  :keymaps 'override)
+
+
+;;
+;;; Bindings --------------------------------------------------------------------
+
+
+;;; --- Top-Level ---------------------------------------------------------------
+
+(xtallos/nav-prev-leader-def
+  "b" 'previous-buffer)
+
+(xtallos/nav-next-leader-def
+  "b" 'next-buffer)
+
+
+;;; --- Primary Leader ----------------------------------------------------------
 
 (xtallos/leader-def
-  ;; (to be implemented)
+  ;; TODO
   "i" '(nil :wk "ins...")
   "n" '(nil :wk "note...")
 
-  ;; --- prev/next ---
-  ;; FIXME: should not be under leader map!
+  ;; --- one-offs ---
 
-  "[" '(nil :wk "prev...")
-  "[b" 'previous-buffer
+  "a"   'org-agenda
+  "x"   'org-capture
+  "y"   'consult-yank-pop
 
-  "]" '(nil :wk "next...")
-  "]b" 'next-buffer
+  "-"   'calendar
+  "="   'quick-calc
+  "+"   'calc
+
+  ;; "S-<return>" 'vterm
+
+  "SPC" 'project-find-file
 
   ;; --- buffer ---
 
@@ -176,24 +212,8 @@
   "wd" 'delete-window)
 
 
-;;; --- bindings: top-level oneoffs ---------------------------------------------
-
-(xtallos/leader-def
-  "a"   'org-agenda
-  ;; FIXME: possible conflict with lsp-mode?
-  ;; "c"   'org-capture
-  "y"   'consult-yank-pop
-
-  "-"   'calendar
-  "="   'quick-calc
-  "+"   'calc
-
-  ;; "S-<return>" 'vterm
-
-  "SPC" 'project-find-file)
-
 ;;
-;;; Keybinding UX
+;;; Keybinding UX ===============================================================
 
 (use-package which-key
   :diminish which-key-mode
