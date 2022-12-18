@@ -111,6 +111,7 @@
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
     inherit (std) blockTypes growOn harvest;
+    l = nixpkgs.lib // builtins;
 
     supportedSystems = with flake-utils.lib.system; [
       x86_64-linux
@@ -120,20 +121,6 @@
     ];
 
     lib = import ./lib {inherit inputs peers;};
-
-    externalOverlays = [
-      nixpkgs-wayland.overlay
-      emacs-overlay.overlay
-      nix-dram.overlay
-      self.overlays.externalPackages
-    ];
-
-    internalOverlays = [
-      self.overlays.sources
-      self.overlays.packages
-      self.overlays.firefox-addons
-      self.overlays.overrides
-    ];
 
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
@@ -200,10 +187,22 @@
         inputs',
         ...
       }: let
+        isLinux = l.hasSuffix "-linux";
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = externalOverlays ++ internalOverlays;
+          overlays =
+            (l.optional (isLinux system) nixpkgs-wayland.overlay)
+            ++ [
+              emacs-overlay.overlay
+              # TODO: implement or remove
+              # nix-dram.overlay
+              self.overlays.externalPackages
+              self.overlays.sources
+              self.overlays.packages
+              self.overlays.firefox-addons
+              self.overlays.overrides
+            ];
         };
       in {
         _module.args = {inherit pkgs primaryUser;};
