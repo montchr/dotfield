@@ -163,7 +163,7 @@
       imports = [
         {
           _module.args = {
-            inherit peers primaryUser;
+            inherit inputs peers primaryUser;
           };
         }
 
