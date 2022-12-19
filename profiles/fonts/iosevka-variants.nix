@@ -3,10 +3,8 @@
   pkgs,
   ...
 }: let
-  inherit (nixpkgs-pr-iosevka-bin-update) iosevka-bin;
-  nixpkgs-pr-iosevka-bin-update = import inputs.nixpkgs-pr-iosevka-bin-update {
-    inherit (pkgs.stdenv.hostPlatform) system;
-  };
+  inherit (pkgs.stdenv.hostPlatform) system;
+  inherit (inputs.nixpkgs-update-iosevka-bin.legacyPackages.${system}) iosevka-bin;
 
   makeIosevkaVariant = variant: iosevka-bin.override {inherit variant;};
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";

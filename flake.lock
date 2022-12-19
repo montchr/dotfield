@@ -1334,22 +1334,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-pr-iosevka-bin-update": {
-      "locked": {
-        "lastModified": 1670842045,
-        "narHash": "sha256-Szj6nPIxeOD83HAdmoV3Cz9MWt4O9ykoZYrvUgqSzOE=",
-        "owner": "r-ryantm",
-        "repo": "nixpkgs",
-        "rev": "386c7380995e0265634fffc683f3ee94eb805066",
-        "type": "github"
-      },
-      "original": {
-        "owner": "r-ryantm",
-        "ref": "auto-update/iosevka-bin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1670146390,
@@ -1394,6 +1378,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-update-iosevka-bin": {
+      "locked": {
+        "lastModified": 1671414669,
+        "narHash": "sha256-v892X3gKtg+hzkkAN9wqxFWuoe31m28ln9v9WaE6W+Q=",
+        "owner": "montchr",
+        "repo": "nixpkgs",
+        "rev": "799eba97dd98ad56ba8a97860a0b5aa2dfd9ffbc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "ref": "update-iosevka-bin",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1712,8 +1712,8 @@
           "nixos-unstable"
         ],
         "nixpkgs-fork-add-lint-staged": "nixpkgs-fork-add-lint-staged",
-        "nixpkgs-pr-iosevka-bin-update": "nixpkgs-pr-iosevka-bin-update",
         "nixpkgs-trunk": "nixpkgs-trunk",
+        "nixpkgs-update-iosevka-bin": "nixpkgs-update-iosevka-bin",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
