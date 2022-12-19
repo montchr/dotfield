@@ -28,14 +28,7 @@
 
   defaultModules =
     (l.attrValues homeModules)
-    # TODO: declare this in a real role for easier finding
-    ++ (with profiles; [
-      core
-      direnv
-      navi
-      nnn
-      nvim
-    ])
+    ++ roles.base
     ++ [
       inputs.nix-colors.homeManagerModule
       (moduleWithSystem (

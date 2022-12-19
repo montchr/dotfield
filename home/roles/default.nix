@@ -1,12 +1,17 @@
 {profiles}:
 with profiles; let
   base = [
+    core
     direnv
     fzf
     git
+    navi
+    nnn
+    nvim
     shells.zsh
     ssh
   ];
+
   remote = base;
 
   # TODO: dissolve into workstation?
