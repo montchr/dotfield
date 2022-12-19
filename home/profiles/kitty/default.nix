@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   self,
+  packages,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
@@ -16,8 +17,8 @@
 in {
   imports = [./settings.nix];
 
-  home.packages = with pkgs; [
-    kitty-get-window-by-platform-id
+  home.packages = [
+    packages.kitty-get-window-by-platform-id
   ];
 
   home.sessionVariables = {

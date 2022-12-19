@@ -32,10 +32,20 @@
     ++ [
       inputs.nix-colors.homeManagerModule
       (moduleWithSystem (
-        ctx @ {inputs', ...}: args: {
+        {
+          inputs',
+          packages,
+          sources,
+          ...
+        }: args: {
           _module.args = {
-            inherit inputs' peers primaryUser;
-            inherit (ctx.config) packages;
+            inherit
+              inputs'
+              packages
+              peers
+              primaryUser
+              sources
+              ;
           };
         }
       ))

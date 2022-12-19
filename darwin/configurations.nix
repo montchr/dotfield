@@ -39,8 +39,10 @@
   makeDarwinSystem = hostName: darwinArgs @ {system, ...}:
     withSystem system (
       ctx @ {
-        pkgs,
         inputs',
+        packages,
+        pkgs,
+        sources,
         ...
       }:
         l.makeOverridable inputs.darwin.lib.darwinSystem {
@@ -55,7 +57,7 @@
             ++ [
               {
                 _module.args = {
-                  inherit inputs' peers primaryUser;
+                  inherit inputs' peers primaryUser sources;
                   inherit (ctx.config) packages;
                   isNixos = false;
                 };
@@ -70,8 +72,9 @@
               self
               inputs
               darwinProfiles
-              sharedProfiles
+              packages
               roles
+              sharedProfiles
               system
               ;
             inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isMacOS;

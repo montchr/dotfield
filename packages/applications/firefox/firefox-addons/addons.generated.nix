@@ -29,10 +29,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.10.1";
+      version = "2022.12.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018008/bitwarden_password_manager-2022.10.1.xpi";
-      sha256 = "453a932a48dda6722fa824f30414ffae3efc4797c6df9e76c6a07b2ff412bbe7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043600/bitwarden_password_manager-2022.12.0.xpi";
+      sha256 = "e1b7cebfe52689dc3a067b46e4cfba1d2dc9512fa4fc73e0298226623d84c2f5";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -169,10 +169,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.20.0";
+      version = "2.20.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034948/ipfs_companion-2.20.0.xpi";
-      sha256 = "31237635e8b10275db898bd49e2ed3d2f18ed251e4f702facb46330bc90011b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045650/ipfs_companion-2.20.1.xpi";
+      sha256 = "aa2653c5dfc8680d81c44c771e381ad9eb257cfc81239f465b758e39d43f6bb3";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -223,10 +223,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.105.0.2";
+      version = "4.106.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038088/lastpass_password_manager-4.105.0.2.xpi";
-      sha256 = "90a56344764eaf73c4373d95aa6fe04347773b8cfb6831cdf76d3507c774a043";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042923/lastpass_password_manager-4.106.0.2.xpi";
+      sha256 = "85f7d2f1bd6cbbded169ab2ad30b09625982bad9cec1ed55201e385aec77d0b8";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -457,10 +457,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.11.21";
+      version = "22.12.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033502/refined_github-22.11.21.xpi";
-      sha256 = "bb7f53e8e2eaddceb4c0e74ff0c3b9665d8fd04be2f9d54e37b0e0cca9157c25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4044034/refined_github-22.12.15.xpi";
+      sha256 = "fb3b3fce7a292daeb2fb8979ca86abeb7b4f03bc4ab915a5257a9144f3c405d1";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";

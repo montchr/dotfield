@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  packages,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
@@ -13,12 +14,9 @@ in {
   fonts.fontDir.enable = true;
   fonts.fonts =
     (with pkgs; [
-      dejavu_fonts
       emacs-all-the-icons-fonts
       ibm-plex
       inter
-      liberation_ttf
-      terminus_font # we are the robots
       (nerdfonts.override {
         fonts = [
           "Iosevka"
@@ -29,7 +27,10 @@ in {
     ++ (l.optionals isLinux (with pkgs; [
       bakoma_ttf
       corefonts # broken on aarch64-darwin
+      dejavu_fonts
       gentium
+      liberation_ttf
+      terminus_font # broken on aarch64-darwin
     ]))
-    ++ (l.optional isMacOS pkgs.sf-pro);
+    ++ (l.optional isMacOS packages.sf-pro);
 }

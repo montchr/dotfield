@@ -1,18 +1,13 @@
 {
   config,
-  lib,
+  inputs,
   pkgs,
-  self,
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
-
-  firefoxPackage =
-    if hasWayland
-    then pkgs.firefox-wayland
-    else pkgs.firefox;
+  l = inputs.nixpkgs.lib // builtins;
 in {
-  imports = [(self + "/nixos/profiles/core/substituters/nixpkgs-wayland.nix")];
+  imports = [./nixpkgs-wayland.nix];
 
   services.xserver.enable = true;
   services.xserver.layout = "us";
@@ -40,9 +35,6 @@ in {
     driSupport = true;
   };
 
-  # FIXME: still necessary? this isn't a great idea
-  # programs.gnupg.agent.enableBrowserSocket = true;
-
   security.sudo.wheelNeedsPassword = false;
 
   # Hide cursor upon keystroke.
@@ -58,18 +50,16 @@ in {
   systemd.services.NetworkManager-wait-online.enable = false;
 
   environment.variables = {
-    MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
+    MOZ_ENABLE_WAYLAND = l.optionalString hasWayland "1";
     # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
     # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
     MOZ_USE_XINPUT2 = "1";
   };
 
   environment.systemPackages =
-    (with pkgs; [
-      firefoxPackage
-      signal-desktop
-    ])
-    ++ (lib.optionals hasWayland (with pkgs; [
-      wl-clipboard
-    ]));
+    [
+      (pkgs.firefox.override {wayland = hasWayland;})
+      pkgs.signal-desktop
+    ]
+    ++ (l.optional hasWayland pkgs.wl-clipboard);
 }

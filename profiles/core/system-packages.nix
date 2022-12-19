@@ -22,7 +22,7 @@
     moreutils
     openssh
     openssl
-    ripgrep
+    (ripgrep.override {withPCRE2 = true;})
     rsync
     screen
     tealdeer

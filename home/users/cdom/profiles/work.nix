@@ -1,8 +1,6 @@
-{pkgs, ...}: let
-  inherit (pkgs) firefox-addons;
-in {
-  programs.firefox.extensions = with firefox-addons; [
-    lastpass-password-manager
+{sources, ...}: {
+  programs.firefox.extensions = [
+    sources.firefox-addons.lastpass-password-manager
   ];
   programs.ssh.matchBlocks = {
     "kweb-prod-www" = {

@@ -3,8 +3,7 @@
 {
   inputs,
   cell,
-}: let
-in rec {
+}: rec {
   pkgWithCategory = category: package: withCategory category {inherit package;};
   withCategory = category: attrs: attrs // {inherit category;};
 }

@@ -1,17 +1,18 @@
 {
   config,
-  lib,
+  inputs,
   pkgs,
+  sources,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  l = lib // builtins;
+  l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.fish;
 
   mkPlugin = name: {
     inherit name;
-    inherit (pkgs.sources."fish-${name}") src;
+    inherit (sources."fish-${name}") src;
   };
 in {
   options = {

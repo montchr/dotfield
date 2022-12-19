@@ -3,8 +3,7 @@
 {
   inputs,
   cell,
-}: let
-in {
+}: {
   output = "garnix.yaml";
   configData = {};
   format = "yaml";

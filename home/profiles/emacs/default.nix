@@ -1,14 +1,16 @@
 {
   config,
-  lib,
   pkgs,
   inputs,
+  inputs',
   ...
 }: let
+  inherit (inputs'.emacs-overlay.packages) emacsGit;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) xdg;
   inherit (config.lib.dag) entryAfter;
-  l = lib // builtins;
+
+  l = inputs.nixpkgs.lib // builtins;
 
   profilesBasePath = "${xdg.configHome}/dotfield/home/users/cdom/config/emacs/profiles";
 
@@ -19,6 +21,8 @@
   # emacsDir = "${xdg.configHome}/emacs";
   defaultProfile = "xtallos";
 in {
+  imports = [./extra-packages.nix];
+
   home.sessionVariables = {
     # EMACSDIR = emacsDir;
     CHEMACS_PROFILE = defaultProfile;
@@ -64,8 +68,10 @@ in {
     '';
 
   programs.emacs = {
+    # darwin emacs packages result in app bundles, which hm does not handle
+    # well. nix-darwin currently does a (slightly) better job of it.
     enable = !isDarwin;
-    package = pkgs.emacsGit; # bleeding edge from emacs-overlay
+    package = emacsGit; # bleeding edge from emacs-overlay
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
@@ -76,77 +82,8 @@ in {
   #   socketActivation.enable = true;
   # };
 
-  home.packages = with pkgs; [
-    gnutls
-    (ripgrep.override {withPCRE2 = true;})
-
-    fd # faster projectile indexing
-    imagemagick # for image-dired
-    zstd # for undo-fu-session/undo-tree compression
-
-    #: org
-    graphviz
-    sqlite
-
-    editorconfig-core-c
-
-    ##: === writing ===
-
-    (aspellWithDicts (ds:
-      with ds; [
-        en
-        en-computers
-        en-science
-      ]))
-    languagetool
-
-    #: lookup +docsets
-    wordnet
-
-    ##: === lang/lsp ===
-
-    # typescript is a required peer dependency for many language servers.
-    nodePackages.typescript
-
-    #: docker
-    nodePackages.dockerfile-language-server-nodejs
-    #: terraform
-    terraform
-    terraform-ls
-    #: css
-    nodePackages.vscode-css-languageserver-bin
-    #: js
-    nodePackages.eslint
-    nodePackages.typescript-language-server
-    #: json
-    nodePackages.vscode-json-languageserver
-    #: ledger
-    # FIXME: marked as broken upstream
-    # ledger
-    #: markdown
-    nodePackages.unified-language-server
-    #: nix
-    nil-lsp
-    rnix-lsp
-    #: php
-    nodePackages.intelephense
-    #: ruby
-    rubyPackages.solargraph
-    #: rust +lsp
-    rust-analyzer
-    #: sh
-    nodePackages.bash-language-server
-    #: tailwindcss
-    nodePackages.tailwindcss
-    #: toml
-    taplo-lsp
-    #: web-mode
-    nodePackages.js-beautify
-    nodePackages.stylelint
-    nodePackages.vscode-html-languageserver-bin
-    #: yaml
-    nodePackages.yaml-language-server
-    #: vimrc
-    nodePackages.vim-language-server
+  home.packages = [
+    inputs'.nil-lsp.packages.nil
+    inputs'.rnix-lsp.packages.rnix-lsp
   ];
 }

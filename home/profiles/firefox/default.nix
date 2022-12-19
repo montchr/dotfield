@@ -1,25 +1,17 @@
+# FIXME: numerous instances of IFD in this file, which cause all builds to slow
+# to a crawl
 moduleArgs @ {
+  inputs,
   config,
-  lib,
   pkgs,
+  sources,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-  inherit (pkgs.sources) firefox-lepton-ui;
-  inherit
-    (lib)
-    concatStrings
-    mapAttrsToList
-    optional
-    ;
-  inherit
-    (pkgs)
-    firefox-wayland
-    makeDesktopItem
-    runCommand
-    writeText
-    ;
+  inherit (sources) firefox-lepton-ui;
+  inherit (config.dotfield.features) hasWayland;
   inherit (config.theme) fonts;
+  l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
 
@@ -42,7 +34,7 @@ moduleArgs @ {
   homeProfilePath = "${profilesPath}/${cfg.profiles.home.path}";
   workProfilePath = "${profilesPath}/${cfg.profiles.work.path}";
 
-  hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
+  hostName = moduleArgs.osConfig.networking.hostName or (l.getEnv "HOSTNAME");
 
   leptonSrc = firefox-lepton-ui.src;
   leptonSettings = import ./lepton-settings.nix;
@@ -56,14 +48,14 @@ moduleArgs @ {
   '';
 
   makeProfileSettings = profile:
-    writeText "user.js" (concatStrings
-      (mapAttrsToList (name: value: ''
-          user_pref("${name}", ${builtins.toJSON value});
+    pkgs.writeText "user.js" (l.concatStrings
+      (l.mapAttrsToList (name: value: ''
+          user_pref("${name}", ${l.toJSON value});
         '')
         cfg.profiles.${profile}.settings));
 
   makeProfileSettingsFile = profile:
-    runCommand "firefox-${profile}-settings" {} ''
+    pkgs.runCommand "firefox-${profile}-settings" {} ''
       cat '${leptonSrc}/user.js' '${makeProfileSettings profile}' > $out
     '';
 
@@ -78,7 +70,7 @@ moduleArgs @ {
   userContent =
     userContentVars
     + leptonContent
-    + (builtins.readFile ./userContent.css);
+    + (l.readFile ./userContent.css);
 
   # TODO: consider removing. if you want a firefox without telemetry, use
   # librewolf. otherwise let mozilla do its thing.
@@ -192,7 +184,7 @@ in {
     "${workProfilePath}/user.js".source = makeProfileSettingsFile "work";
   };
 
-  home.packages = optional isLinux (makeDesktopItem {
+  home.packages = l.optional isLinux (pkgs.makeDesktopItem {
     name = "firefox-work-profile";
     desktopName = "Firefox (Work)";
     genericName = "Open a Firefox window scoped to the Work profile.";
@@ -205,9 +197,10 @@ in {
     enable = true;
     package =
       if isDarwin
-      then runCommand "firefox-0.0.0" {} "mkdir $out"
+      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
       else
-        firefox-wayland.override {
+        pkgs.firefox.override {
+          wayland = hasWayland;
           cfg = {
             enableGnomeExtensions = hasGnomeConnector;
             enableTridactylNative = true;
@@ -240,4 +233,3 @@ in {
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
-

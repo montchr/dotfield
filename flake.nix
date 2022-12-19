@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.follows = "nixos-unstable";
+    # nixpkgs.follows = "nixpkgs-unfree";
+    nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
+    nixpkgs-unfree.inputs.nixpkgs.follows = "nixos-unstable";
+
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
@@ -100,19 +104,14 @@
     self,
     std,
     nixpkgs,
-    nixos-unstable,
     flake-parts,
     digga,
     flake-utils,
-    nixpkgs-wayland,
-    emacs-overlay,
-    nix-dram,
     nix-std,
     ...
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
     inherit (std) blockTypes growOn harvest;
-    l = nixpkgs.lib // builtins;
 
     systems = with flake-utils.lib.system; [
       x86_64-linux
@@ -159,7 +158,7 @@
     {
       devShells = harvest self [["dotfield" "devshells"] ["_automation" "devshells"]];
     }
-    (flake-parts.lib.mkFlake {inherit self;} {
+    (flake-parts.lib.mkFlake {inherit inputs;} {
       inherit systems;
       imports = [
         {
@@ -172,7 +171,6 @@
         ./flake-modules/sharedModules.nix
         ./flake-modules/sharedProfiles.nix
 
-        ./overlays
         ./packages
 
         ./nixos/configurations.nix
@@ -183,27 +181,10 @@
         ./darwin/configurations.nix
         ./darwin/packages
       ];
-      perSystem = {
-        system,
-        inputs',
-        ...
-      }: let
-        isLinux = l.hasSuffix "-linux";
+      perSystem = {system, ...}: let
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays =
-            (l.optional (isLinux system) nixpkgs-wayland.overlay)
-            ++ [
-              emacs-overlay.overlay
-              # TODO: implement or remove
-              # nix-dram.overlay
-              self.overlays.externalPackages
-              self.overlays.sources
-              self.overlays.packages
-              self.overlays.firefox-addons
-              self.overlays.overrides
-            ];
         };
       in {
         _module.args = {inherit pkgs primaryUser;};

@@ -438,11 +438,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1670441596,
-        "narHash": "sha256-+T487QnluBT5F9tVk0chG/zzv+9zzTrx3o7rlOBK7ps=",
+        "lastModified": 1671322946,
+        "narHash": "sha256-J8Qj+ITV+eti+irTK9Zn2LZVYoIW2g7irPUckU8yZvU=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "8d0e2444ab05f79df93b70e5e497f8c708eb6b9b",
+        "rev": "3f7172646953bf86dad5953bc45f0edae62ac445",
         "type": "github"
       },
       "original": {
@@ -1366,6 +1366,26 @@
         "type": "github"
       }
     },
+    "nixpkgs-unfree": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1670356484,
+        "narHash": "sha256-+6w0Dlc4mdMy2qN+OmPtRMVOdMnsl+GUbGbwd5Tte6s=",
+        "owner": "numtide",
+        "repo": "nixpkgs-unfree",
+        "rev": "6fdd877dde2d6a6cfc17879fcf87c7e9b35f1397",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nixpkgs-unfree",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1657413868,
@@ -1713,6 +1733,7 @@
         ],
         "nixpkgs-fork-add-lint-staged": "nixpkgs-fork-add-lint-staged",
         "nixpkgs-trunk": "nixpkgs-trunk",
+        "nixpkgs-unfree": "nixpkgs-unfree",
         "nixpkgs-update-iosevka-bin": "nixpkgs-update-iosevka-bin",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",

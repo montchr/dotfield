@@ -39,9 +39,11 @@
 
   makeNixosSystem = hostname: nixosArgs @ {system, ...}:
     withSystem system (
-      ctx @ {
+      {
         inputs',
         pkgs,
+        packages,
+        sources,
         ...
       }:
         l.makeOverridable l.nixosSystem {
@@ -55,8 +57,7 @@
               nixosMachines.${hostname}
               {
                 _module.args = {
-                  inherit inputs' peers primaryUser;
-                  inherit (ctx.config) packages;
+                  inherit inputs' packages peers primaryUser sources;
                   isNixos = true;
                 };
                 nixpkgs.pkgs = nixosArgs.pkgs or pkgs;

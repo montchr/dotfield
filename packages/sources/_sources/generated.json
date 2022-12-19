@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "53213ead345fb9a025a5dc3b578c73d8fec22173",
-            "sha256": "sha256-g8aIg7+wHCVOd/UkR57UJZEHPdfIkMUHPsTq/AfYGC0=",
+            "rev": "edf06317653e9294983144b485701658c79d88c9",
+            "sha256": "sha256-2rVY270KYy+Xf79XxaGlOzTbkp9uDQORlNbWf1YZGEo=",
             "type": "git",
             "url": "https://github.com/black7375/Firefox-UI-Fix"
         },
-        "version": "53213ead345fb9a025a5dc3b578c73d8fec22173"
+        "version": "edf06317653e9294983144b485701658c79d88c9"
     },
     "fish-autopair": {
         "cargoLocks": null,
