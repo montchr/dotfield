@@ -73,14 +73,24 @@ across systems.")
 Use this for files that don't change much, like servers binaries,
 external dependencies or long-term shared data.")
 
-(defconst path-cache-dir
+(defconst path-prefix-cache-dir
   (concat
    (file-name-as-directory
     (or (getenv "XDG_CACHE_HOME")
         (concat path-home-dir ".cache/")))
    "emacs/")
+  "Path prefix for cached files.")
+
+(defconst path-cache-dir
+  (expand-file-name
+   (format "%s.%s/"
+                            emacs-major-version
+                            emacs-minor-version)
+                    path-prefix-cache-dir)
   "Directory for volatile storage.
-Use this for files that change often, like cache files.")
+Use this for files that change often, like cache files.
+Prefixed with the Emacs version to avoid conflicts across versions.")
+
 
 (defconst path-packages-dir
   (expand-file-name (format "packages/%s.%s/"
