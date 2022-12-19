@@ -126,17 +126,18 @@
     ;; ui
     ;; modus-themes-completions nil
     ;; modus-themes-fringes nil
-    modus-themes-hl-line '(accented)
-    modus-themes-links '(background neutral-underline)
-    modus-themes-mode-line '(borderless)
-    modus-themes-tabs-accented nil
-    modus-themes-box-buttons '(accented variable-pitch)
+    ;; modus-themes-hl-line '(accented)
+    ;; modus-themes-links '(background neutral-underline)
+    ;; modus-themes-mode-line '(borderless)
+    ;; modus-themes-tabs-accented nil
+    ;; modus-themes-box-buttons '(accented variable-pitch)
 
     ;; syntax
     ;; modus-themes-syntax '(alt-syntax)
-    modus-themes-markup '(background)
-    modus-themes-org-blocks '(gray-background)
-    modus-themes-paren-match '(bold))
+    ;; modus-themes-markup '(background)
+    ;; modus-themes-org-blocks '(gray-background)
+    ;; modus-themes-paren-match '(bold)
+    )
 
   ;; Load the theme files before loading the theme itself.
   (modus-themes-load-themes)
@@ -147,7 +148,7 @@
 (setq window-divider-default-right-width  24
       window-divider-default-bottom-width 12
       window-divider-default-places       t)
-(window-divider-mode 1)
+(window-divider-mode -1)
 
 
 ;;
@@ -168,7 +169,7 @@
       default-frame-alist    (append (list
                                       '(vertical-scroll-bars . nil)
                                       ;; This controls the "margin" around each window's contents.
-                                      ;; '(internal-border-width . 24)
+                                      '(internal-border-width . 24)
                                       '(right-fringe   . 0)
                                       '(tool-bar-lines . 0))))
 
@@ -193,9 +194,7 @@ Containing LEFT, and RIGHT aligned respectively."
             (list (format (format "%%%ds" available-width) ""))
             right)))
 
-(setq-default
- column-number-mode t
- mode-line-format '((:eval (simple-mode-line-render
+(defvar simple-mode-line-format '((:eval (simple-mode-line-render
 							              '("%e" ; left side
                               mode-line-front-space
                               mode-line-modified
@@ -211,6 +210,8 @@ Containing LEFT, and RIGHT aligned respectively."
                               mode-line-process
                               mode-line-end-spaces
                               "  ")))))
+
+(setq-default column-number-mode t)
 
 ;; (use-package minions
 ;;   :init
