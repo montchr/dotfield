@@ -22,7 +22,10 @@
     value.source = v.outPath;
   });
 in {
-  imports = [./substituters/common.nix];
+  imports = [
+    ./substituters/common.nix
+    ./substituters/nixpkgs-update.nix
+  ];
 
   environment.etc = inputsToPaths inputs;
   nix = {
