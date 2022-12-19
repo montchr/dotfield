@@ -36,10 +36,9 @@
     # inputs.sops-nix.darwinModules.sops
   ];
 
-  makeDarwinSystem = hostName: darwinArgs:
-    withSystem (darwinArgs.system or aarch64-darwin) (
+  makeDarwinSystem = hostName: darwinArgs @ {system, ...}:
+    withSystem system (
       ctx @ {
-        system,
         pkgs,
         inputs',
         ...
@@ -85,6 +84,7 @@ in {
 
   flake.darwinConfigurations = {
     tuvix = makeDarwinSystem "tuvix" {
+      system = aarch64-darwin;
       modules = [
         darwinProfiles.virtualisation.nixos-vm-host
       ];

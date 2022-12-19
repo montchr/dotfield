@@ -37,10 +37,10 @@
     inputs.agenix.nixosModules.age
   ];
 
-  makeNixosSystem = hostname: nixosArgs:
-    withSystem (nixosArgs.system or x86_64-linux) (
+  makeNixosSystem = hostname: nixosArgs @ {system, ...}:
+    withSystem system (
       ctx @ {
-        system,
+        inputs',
         pkgs,
         ...
       }:
@@ -55,7 +55,7 @@
               nixosMachines.${hostname}
               {
                 _module.args = {
-                  inherit peers primaryUser;
+                  inherit inputs' peers primaryUser;
                   inherit (ctx.config) packages;
                   isNixos = true;
                 };
@@ -81,14 +81,17 @@ in {
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
     bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
+      system = x86_64-linux;
       modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
     };
 
     freundix = makeNixosSystem "freundix" {
+      system = x86_64-linux;
       modules = with roles; gnome ++ graphical;
     };
 
     ryosuke = makeNixosSystem "ryosuke" {
+      system = x86_64-linux;
       modules =
         (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
@@ -99,6 +102,7 @@ in {
     };
 
     boschic = makeNixosSystem "boschic" {
+      system = x86_64-linux;
       modules =
         (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
@@ -113,12 +117,14 @@ in {
     };
 
     hodgepodge = makeNixosSystem "hodgepodge" {
+      system = x86_64-linux;
       modules =
         (with roles; gnome ++ graphical ++ office ++ tangible ++ workstation)
         ++ (with nixosProfiles; [hardware.hidpi]);
     };
 
     hierophant = makeNixosSystem "hierophant" {
+      system = x86_64-linux;
       modules =
         (with roles; server)
         ++ (with nixosProfiles; [
@@ -127,6 +133,7 @@ in {
     };
 
     tsone = makeNixosSystem "tsone" {
+      system = x86_64-linux;
       modules =
         (with roles; server)
         ++ (with nixosProfiles; [
