@@ -20,7 +20,7 @@
     mkHomeConfigurations
     rakeLeaves
     ;
-  inherit (lib) mkBefore;
+  l = inputs.nixpkgs.lib // builtins;
 
   homeModules = flattenTree (rakeLeaves ./modules);
   profiles = rakeLeaves ./profiles;
@@ -36,7 +36,7 @@
   );
 
   defaultModules =
-    (builtins.attrValues homeModules)
+    (l.attrValues homeModules)
     # TODO: declare this in a real role for easier finding
     ++ (with profiles; [
       core
@@ -81,7 +81,7 @@ in {
     inherit homeModules;
     nixosModules.homeManagerSettings = settingsModule;
     darwinModules.homeManagerSettings = settingsModule;
-    homeConfigurations = mkBefore (
+    homeConfigurations = l.mkBefore (
       (mkHomeConfigurations nixosConfigurations)
       // (mkHomeConfigurations darwinConfigurations)
     );
@@ -89,10 +89,10 @@ in {
 
   perSystem = ctx @ {inputs', ...}: {
     homeConfigurations = let
-      makeHomeConfiguration = username: args: let
+      makeHomeConfiguration = username: hmArgs: let
         inherit (pkgs.stdenv) hostPlatform;
         inherit (hostPlatform) isDarwin;
-        pkgs = args.pkgs or ctx.pkgs;
+        pkgs = hmArgs.pkgs or ctx.pkgs;
         homePrefix = ifThenElse isDarwin "/Users" "/home";
       in (inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -109,7 +109,7 @@ in {
                 && (moduleArgs.nixosConfig.hardware.enableRedistributableFirmware -> true);
             })
           ]
-          ++ (args.modules or []);
+          ++ (hmArgs.modules or []);
         extraSpecialArgs = platformSpecialArgs hostPlatform;
       });
 

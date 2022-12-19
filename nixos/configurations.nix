@@ -56,8 +56,8 @@
           inherit system;
           modules =
             defaultModules
-            ++ (builtins.attrValues sharedModules)
-            ++ (builtins.attrValues (flattenTree nixosModules))
+            ++ (l.attrValues sharedModules)
+            ++ (l.attrValues (flattenTree nixosModules))
             ++ (nixosArgs.modules or [])
             ++ [
               nixosMachines.${hostname}

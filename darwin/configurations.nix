@@ -1,6 +1,5 @@
 {
   self,
-  lib,
   withSystem,
   # DEPRECATED:
   peers,
@@ -20,9 +19,7 @@
     rakeLeaves
     ;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin;
-  inherit (inputs.darwin.lib) darwinSystem;
-
-  l = lib // builtins;
+  l = inputs.nixpkgs.lib // builtins;
 
   roles = import ./roles.nix {inherit sharedProfiles darwinProfiles;};
 
@@ -35,13 +32,12 @@
     homeManagerSettings
     darwinProfiles.core
     inputs.home-manager.darwinModules.home-manager
-    # `nixosModules` is correct, even for darwin
     inputs.agenix.nixosModules.age
     # inputs.sops-nix.darwinModules.sops
   ];
 
-  makeDarwinSystem = hostName: args:
-    withSystem (args.system or aarch64-darwin) (
+  makeDarwinSystem = hostName: darwinArgs:
+    withSystem (darwinArgs.system or aarch64-darwin) (
       ctx @ {
         system,
         pkgs,
@@ -56,14 +52,14 @@
           };
         };
       in
-        l.makeOverridable darwinSystem {
+        l.makeOverridable inputs.darwin.lib.darwinSystem {
           inherit system;
-          pkgs = args.pkgs or pkgs;
+          pkgs = darwinArgs.pkgs or pkgs;
           modules =
             defaultModules
-            ++ (builtins.attrValues sharedModules)
-            ++ (builtins.attrValues (flattenTree darwinModules))
-            ++ (args.modules or [])
+            ++ (l.attrValues sharedModules)
+            ++ (l.attrValues (flattenTree darwinModules))
+            ++ (darwinArgs.modules or [])
             ++ roles.workstation
             ++ [
               moduleArgs
