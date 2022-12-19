@@ -1,10 +1,10 @@
 {
-  system,
+  inputs',
   self,
   ...
 }: let
   inherit
-    (self.inputs.iosevka-xtal.packages.${system})
+    (inputs'.iosevka-xtal.packages)
     iosevka-xtal
     iosevka-xtal-term
     ;

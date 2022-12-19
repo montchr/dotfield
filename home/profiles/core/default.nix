@@ -1,6 +1,6 @@
 {
   inputs,
-  system,
+  inputs',
   ...
 }: let
   l = inputs.nixpkgs.lib // builtins;
@@ -31,7 +31,7 @@ in {
   # across various tools. See the home-manager manual for more info.
   programs.man.generateCaches = l.mkDefault true;
 
-  home.packages = [inputs.home-manager.packages.${system}.default];
+  home.packages = [inputs'.home-manager.packages.default];
 
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";

@@ -45,11 +45,12 @@
       ctx @ {
         system,
         pkgs,
+        inputs',
         ...
       }: let
         moduleArgs = {
           _module.args = {
-            inherit peers primaryUser;
+            inherit inputs' peers primaryUser;
             inherit (ctx.config) packages;
             isNixos = false;
           };
@@ -63,10 +64,6 @@
             ++ (builtins.attrValues sharedModules)
             ++ (builtins.attrValues (flattenTree darwinModules))
             ++ (args.modules or [])
-            # It's extremely unlikely that a Darwin system will ever be
-            # anything other than a "workstation" i.e. a laptop running macOS.
-            # Until that changes, there's no need to import this role in every
-            # Darwin host.
             ++ roles.workstation
             ++ [
               moduleArgs

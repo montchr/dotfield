@@ -27,9 +27,9 @@
   roles = import ./roles {inherit profiles;};
 
   moduleArgs = moduleWithSystem (
-    ctx: args: {
+    ctx @ {inputs', ...}: args: {
       _module.args = {
-        inherit peers primaryUser;
+        inherit inputs' peers primaryUser;
         inherit (ctx.config) packages;
       };
     }
@@ -87,7 +87,7 @@ in {
     );
   };
 
-  perSystem = ctx: {
+  perSystem = ctx @ {inputs', ...}: {
     homeConfigurations = let
       makeHomeConfiguration = username: args: let
         inherit (pkgs.stdenv) hostPlatform;
@@ -102,6 +102,7 @@ in {
             (moduleArgs: {
               home.username = username;
               home.homeDirectory = "${homePrefix}/${username}";
+              _module.args.inputs' = inputs';
               _module.args.isNixos =
                 (moduleArgs.nixosConfig ? hardware)
                 # We only care if the option exists -- its value doesn't matter.

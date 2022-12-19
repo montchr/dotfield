@@ -1,11 +1,5 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) system;
-  inherit (inputs.nixpkgs-update-iosevka-bin.legacyPackages.${system}) iosevka-bin;
-
+{inputs', ...}: let
+  inherit (inputs'.nixpkgs-update-iosevka-bin.legacyPackages) iosevka-bin;
   makeIosevkaVariant = variant: iosevka-bin.override {inherit variant;};
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";
 in {
