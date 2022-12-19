@@ -114,14 +114,14 @@
     inherit (std) blockTypes growOn harvest;
     l = nixpkgs.lib // builtins;
 
-    supportedSystems = with flake-utils.lib.system; [
+    systems = with flake-utils.lib.system; [
       x86_64-linux
       aarch64-linux
       x86_64-darwin
       aarch64-darwin
     ];
 
-    lib = import ./lib {inherit inputs peers;};
+    lib = import ./lib {inherit inputs peers systems;};
 
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
@@ -160,7 +160,7 @@
       devShells = harvest self [["dotfield" "devshells"] ["_automation" "devshells"]];
     }
     (flake-parts.lib.mkFlake {inherit self;} {
-      systems = supportedSystems;
+      inherit systems;
       imports = [
         {
           _module.args = {
