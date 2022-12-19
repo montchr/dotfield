@@ -43,15 +43,7 @@
         pkgs,
         inputs',
         ...
-      }: let
-        moduleArgs = {
-          _module.args = {
-            inherit inputs' peers primaryUser;
-            inherit (ctx.config) packages;
-            isNixos = false;
-          };
-        };
-      in
+      }:
         l.makeOverridable inputs.darwin.lib.darwinSystem {
           inherit system;
           pkgs = darwinArgs.pkgs or pkgs;
@@ -62,8 +54,12 @@
             ++ (darwinArgs.modules or [])
             ++ roles.workstation
             ++ [
-              moduleArgs
               {
+                _module.args = {
+                  inherit inputs' peers primaryUser;
+                  inherit (ctx.config) packages;
+                  isNixos = false;
+                };
                 networking.hostName = hostName;
                 networking.computerName = hostName;
                 home-manager.sharedModules = [{_module.args.isNixos = false;}];

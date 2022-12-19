@@ -26,15 +26,6 @@
   profiles = rakeLeaves ./profiles;
   roles = import ./roles {inherit profiles;};
 
-  moduleArgs = moduleWithSystem (
-    ctx @ {inputs', ...}: args: {
-      _module.args = {
-        inherit inputs' peers primaryUser;
-        inherit (ctx.config) packages;
-      };
-    }
-  );
-
   defaultModules =
     (l.attrValues homeModules)
     # TODO: declare this in a real role for easier finding
@@ -46,8 +37,15 @@
       nvim
     ])
     ++ [
-      moduleArgs
       inputs.nix-colors.homeManagerModule
+      (moduleWithSystem (
+        ctx @ {inputs', ...}: args: {
+          _module.args = {
+            inherit inputs' peers primaryUser;
+            inherit (ctx.config) packages;
+          };
+        }
+      ))
     ];
 
   platformSpecialArgs = hostPlatform: {

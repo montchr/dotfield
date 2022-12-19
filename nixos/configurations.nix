@@ -43,15 +43,7 @@
         system,
         pkgs,
         ...
-      }: let
-        moduleArgs = {
-          _module.args = {
-            inherit peers primaryUser;
-            inherit (ctx.config) packages;
-            isNixos = true;
-          };
-        };
-      in
+      }:
         l.makeOverridable l.nixosSystem {
           inherit system;
           modules =
@@ -61,8 +53,12 @@
             ++ (nixosArgs.modules or [])
             ++ [
               nixosMachines.${hostname}
-              moduleArgs
               {
+                _module.args = {
+                  inherit peers primaryUser;
+                  inherit (ctx.config) packages;
+                  isNixos = true;
+                };
                 nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
                 networking.hostName = hostname;
                 home-manager.sharedModules = [{_module.args.isNixos = true;}];
