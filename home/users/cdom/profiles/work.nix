@@ -1,4 +1,9 @@
-{sources, ...}: {
+{
+  sources,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.lastpass-cli];
   programs.firefox.extensions = [
     sources.firefox-addons.lastpass-password-manager
   ];
