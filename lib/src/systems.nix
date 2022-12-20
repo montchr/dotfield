@@ -7,6 +7,6 @@
 in rec {
   isDarwin = l.hasSuffix "-darwin";
   isLinux = l.hasSuffix "-linux";
-  eachDarwinSystem = attrs: l.genAttrs (l.filter isDarwin) (_: attrs);
-  eachLinuxSystem = attrs: l.genAttrs (l.filter isLinux) (_: attrs);
+  eachDarwinSystem = l.genAttrs (l.filter isDarwin systems);
+  eachLinuxSystem = l.genAttrs (l.filter isLinux systems);
 }
