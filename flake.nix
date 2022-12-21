@@ -156,7 +156,11 @@
       ];
     }
     {
-      devShells = harvest self [["dotfield" "devshells"] ["_automation" "devshells"]];
+      devShells = harvest self [
+        ["dotfield" "devshells"]
+        ["_automation" "devshells"]
+        ["secrets" "devshells"]
+      ];
     }
     (flake-parts.lib.mkFlake {inherit inputs;} {
       inherit systems;

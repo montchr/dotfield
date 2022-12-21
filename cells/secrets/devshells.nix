@@ -1,5 +1,8 @@
-{inputs}: let
-  inherit (inputs.std) std;
+{
+  inputs,
+  cell,
+}: let
+  inherit (inputs) std;
   inherit (inputs.agenix.packages) agenix;
   inherit
     (inputs.sops-nix.packages)
@@ -13,7 +16,7 @@
   category = "secrets";
   cmd = package: {inherit package category;};
 in {
-  secrets = std.lib.mkShell (_: {
+  secrets = std.lib.dev.mkShell (_: {
     name = "dotfield-secrets";
     commands = [
       (cmd agenix)
