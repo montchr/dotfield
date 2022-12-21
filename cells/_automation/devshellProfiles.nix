@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (inputs) nixpkgs home-manager;
   inherit (inputs.cells.lib.dev) pkgWithCategory withCategory;
   inherit (nixpkgs.stdenv) isLinux;
 
@@ -15,6 +15,7 @@
 
   commonCommands = [
     (utils nixpkgs.cachix)
+    (utils home-manager.packages.default)
     (utils nixpkgs.just)
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)

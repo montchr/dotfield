@@ -31,8 +31,6 @@ in {
   # across various tools. See the home-manager manual for more info.
   programs.man.generateCaches = l.mkDefault true;
 
-  home.packages = [inputs'.home-manager.packages.default];
-
   home.sessionVariables = {
     LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
     Z_DATA = "$XDG_DATA_HOME/z";
