@@ -29,10 +29,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.12.0";
+      version = "2022.12.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043600/bitwarden_password_manager-2022.12.0.xpi";
-      sha256 = "e1b7cebfe52689dc3a067b46e4cfba1d2dc9512fa4fc73e0298226623d84c2f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046308/bitwarden_password_manager-2022.12.1.xpi";
+      sha256 = "7d28b17bf51222bf605142b9189a181e05184c95937c72906ea1f8f08f23abb0";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -223,10 +223,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.106.0.2";
+      version = "4.106.1.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042923/lastpass_password_manager-4.106.0.2.xpi";
-      sha256 = "85f7d2f1bd6cbbded169ab2ad30b09625982bad9cec1ed55201e385aec77d0b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045944/lastpass_password_manager-4.106.1.3.xpi";
+      sha256 = "38e35b111bc037c5fcffda58a782be3c0a3611862a000939790de4d41a0bfe2d";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -429,10 +429,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.10";
+      version = "5.22.14";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10.xpi";
-      sha256 = "749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046245/reddit_enhancement_suite-5.22.14.xpi";
+      sha256 = "1e2658b1525a5c334bcf466cd8a2fe2985d51069048b80b64c017cfb3bcdc4f4";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -655,10 +655,10 @@
       };
     "unclutter" = buildFirefoxXpiAddon {
       pname = "unclutter";
-      version = "1.3.1";
+      version = "1.4.0";
       addonId = "{8f8c4c52-216c-4c6f-aae0-c214a870d9d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040652/lindylearn-1.3.1.xpi";
-      sha256 = "3cb1be1216a5d87176977fa613283f79ff83ccba0f52aa669e45e53dcf1b258e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046836/lindylearn-1.4.0.xpi";
+      sha256 = "ef865a711a0f706b8f2f056c0833b748c7a60a5c1a141ac633cc581ac0fb17a0";
       meta = with lib;
       {
         homepage = "https://github.com/lindylearn/unclutter";
@@ -697,10 +697,10 @@
       };
     "zoom-scheduler" = buildFirefoxXpiAddon {
       pname = "zoom-scheduler";
-      version = "2.1.34";
+      version = "2.1.36";
       addonId = "{bf855ead-d7c3-4c7b-9f88-9a7e75c0efdf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035558/zoom_new_scheduler-2.1.34.xpi";
-      sha256 = "0a9f9da01a94e58511a515140a4bb845fdd38c46f41825276806a4e89449be45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046191/zoom_new_scheduler-2.1.36.xpi";
+      sha256 = "815e85fc809b8c12c5151bf6e3ca7bedf4787b7a17aa4cb86e98d65f9b2be2e2";
       meta = with lib;
       {
         homepage = "https://zoom.us/";
