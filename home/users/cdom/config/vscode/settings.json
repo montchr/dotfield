@@ -154,6 +154,6 @@
   "workbench.preferredLightColorTheme": "GitHub Light Monochrome",
   "zenMode.fullScreen": false,
   "prettier.requireConfig": true,
-  "workbench.colorTheme": "GitHub Light Monochrome",
+  "workbench.colorTheme": "Vitesse Dark",
   "debug.javascript.codelens.npmScripts": "never"
 }
