@@ -28,7 +28,8 @@ in {
   programs.fish = {inherit shellAbbrs;};
 
   # Magical shell history
-  programs.atuin.enable = true;
+  # FIXME: https://github.com/nix-community/home-manager/issues/3511
+  # programs.atuin.enable = true;
   programs.atuin.settings = {
     auto_sync = true;
     sync_frequency = "10m";
