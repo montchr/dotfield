@@ -14,6 +14,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devenv = {
+      url = "github:cachix/devenv/v0.5";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     digga = {
       url = "github:divnix/digga/home-manager-22.11";
       inputs.home-manager.follows = "home-manager";
@@ -169,6 +173,8 @@
             inherit inputs peers primaryUser;
           };
         }
+
+        ./flake
 
         ./flake-modules/homeConfigurations.nix
         ./flake-modules/sharedModules.nix
