@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.follows = "nixos-unstable";
-    # nixpkgs.follows = "nixpkgs-unfree";
-    nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
-    nixpkgs-unfree.inputs.nixpkgs.follows = "nixos-unstable";
-
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
@@ -21,6 +17,10 @@
     digga = {
       url = "github:divnix/digga/home-manager-22.11";
       inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -70,7 +70,6 @@
     ##: universal
     deadnix.url = "github:astro/deadnix";
     devshell.url = "github:numtide/devshell";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
