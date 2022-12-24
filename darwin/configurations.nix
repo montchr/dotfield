@@ -88,9 +88,7 @@ in {
   flake.darwinConfigurations = {
     tuvix = makeDarwinSystem "tuvix" {
       system = aarch64-darwin;
-      modules = [
-        darwinProfiles.virtualisation.nixos-vm-host
-      ];
+      modules = [];
     };
   };
 }
