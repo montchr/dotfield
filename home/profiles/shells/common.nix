@@ -6,10 +6,6 @@
   l = inputs.nixpkgs.lib // builtins;
   shellAbbrs = import ./abbrs.nix;
 in {
-  imports = [
-    ./starship.nix
-  ];
-
   home.extraOutputsToInstall =
     ["/share/bash-completion"]
     ++ (l.optional config.programs.fish.enable "/share/fish")

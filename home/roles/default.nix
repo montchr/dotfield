@@ -8,6 +8,7 @@ with profiles; let
     navi
     nnn
     nvim
+    shells.prompts.starship
     shells.zsh
     ssh
   ];
