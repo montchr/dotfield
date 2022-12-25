@@ -18,8 +18,6 @@ in {
     zsh-completions-latest
   ];
 
-  programs.starship.enableZshIntegration = true;
-
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
