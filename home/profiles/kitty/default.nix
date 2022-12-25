@@ -15,7 +15,10 @@
     then theme.colors.active
     else theme.colors.dark;
 in {
-  imports = [./settings.nix];
+  imports = [
+    ./settings.nix
+    ./symbols.nix
+  ];
 
   home.packages = [
     packages.kitty-get-window-by-platform-id
