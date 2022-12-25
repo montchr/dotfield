@@ -101,6 +101,9 @@
 
 ;;; === completions ============================================================
 
+(setq! company-minimum-prefix-length 2
+       company-idle-delay 0.1)
+
 
 ;;; === org-mode ===============================================================
 
@@ -183,17 +186,17 @@
        auto-save-no-message t)
 
 
-
-
 ;;; === projects ===============================================================
 
 (use-package! embark-vc
   :after embark)
 
 (after! magit
-  ;; List magit branches by date.
-  (setq! magit-list-refs-sortby "-creatordate"
-         magit-process-finish-apply-ansi-colors t))
+  (setq!
+   ;; List magit branches by date.
+   magit-list-refs-sortby "-creatordate"
+   ;; Ensure that ANSI color output from process output is rendered properly.
+   magit-process-finish-apply-ansi-colors t))
 
 (use-package! projectile
   :config
@@ -253,33 +256,56 @@
          ((emacs-lisp-mode nix-mode) . format-all-mode)))
 
 (after! lsp-mode
-  (setq lsp-auto-guess-root t
-        lsp-completion-enable-additional-text-edit t
-        lsp-eldoc-enable-hover t
-        lsp-enable-file-watchers nil
-        lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil
-        lsp-idle-delay 0.47
-        lsp-modeline-code-actions-segments '(count icon name)
-        lsp-progress-via-spinner t
-        lsp-signature-doc-lines 10
-        lsp-signature-render-documentation t
-        lsp-signature-auto-activate '(:on-trigger-char
-                                      :on-server-request
-                                      :after-completion)
-        +lsp-company-backends '(:separate
-                                company-capf
-                                company-yasnippet
-                                company-dabbrev)))
+  (setq! lsp-auto-guess-root t
+         ;; Temporarily use last server result when interrupted by keyboard. This
+         ;; will help minimize popup flickering issue in `company-mode'.
+         ;; lsp-completion-use-last-result t
+         lsp-eldoc-enable-hover t
+         lsp-enable-file-watchers nil
+         lsp-enable-indentation nil
+         lsp-enable-snippet t
+         lsp-enable-symbol-highlighting t
+         lsp-headerline-breadcrumb-enable t
+         lsp-eldoc-enable-hover t
+         lsp-enable-on-type-formatting nil
+         lsp-enable-xref t
+         lsp-idle-delay 0.47
+         lsp-keep-workspace-alive nil
+         lsp-lens-enable t
+         lsp-log-io nil
+         lsp-modeline-code-actions-enable t
+         lsp-modeline-code-actions-segments '(count icon name)
+         lsp-modeline-diagnostics-enable t
+         lsp-modeline-workspace-status-enable t
+         lsp-progress-via-spinner t
+         ;; TODO: does this interact or conflict with tree-sitter?
+         lsp-semantic-tokens-enable t
+         lsp-signature-doc-lines 10
+         lsp-signature-render-documentation t
+         lsp-signature-auto-activate '(:on-trigger-char
+                                       :on-server-request
+                                       :after-completion)
+         +lsp-company-backends '(:separate
+                                 company-capf
+                                 company-yasnippet
+                                 company-dabbrev)))
 
 (after! lsp-ui
-  (setq lsp-ui-doc-enable t
-        lsp-ui-doc-position 'top
-        lsp-ui-doc-delay 0.51
-        lsp-ui-doc-max-width 50
-        lsp-ui-doc-max-height 30
-        lsp-ui-doc-include-signature t
-        lsp-ui-doc-header t))
+  (setq! lsp-ui-doc-enable t
+         lsp-ui-doc-position 'top
+         lsp-ui-doc-delay 0.2
+         ;; lsp-ui-doc-delay 0.51
+         lsp-ui-doc-max-width 50
+         lsp-ui-doc-max-height 30
+         lsp-ui-doc-include-signature t
+         lsp-ui-doc-header t
+         lsp-ui-doc-delay 0.51
+         lsp-ui-doc-show-with-cursor t
+         lsp-ui-sideline-show-diagnostics t
+         lsp-ui-sideline-show-hover t
+         lsp-ui-sideline-show-code-actions t
+         lsp-ui-sideline-update-mode 'point
+         lsp-ui-sideline-delay 0.2))
 
 
 ;;; === languages ==============================================================
@@ -319,24 +345,24 @@
 ;; sources:
 ;; - https://github.com/elken/doom#php
 
-(defvar xref-ignored-files '("_ide_helper_models.php" "_ide_helper.php")
-  "List of files to be ignored by `xref'.")
+;; (defvar xref-ignored-files '("_ide_helper_models.php" "_ide_helper.php")
+;;   "List of files to be ignored by `xref'.")
 
-(defun xref-ignored-file-p (item)
-  "Return t if `item' should be ignored."
-  (seq-some
-   (lambda (cand)
-     (string-suffix-p cand (oref (xref-item-location item) file))) xref-ignored-files))
+;; (defun xref-ignored-file-p (item)
+;;   "Return t if `item' should be ignored."
+;;   (seq-some
+;;    (lambda (cand)
+;;      (string-suffix-p cand (oref (xref-item-location item) file))) xref-ignored-files))
 
-(defadvice! +lsp--ignored-locations-to-xref-items-a (items)
-  "Remove ignored files from list of xref-items."
-  :filter-return #'lsp--locations-to-xref-items
-  (cl-remove-if #'xref-ignored-file-p items))
+;; (defadvice! +lsp--ignored-locations-to-xref-items-a (items)
+;;   "Remove ignored files from list of xref-items."
+;;   :filter-return #'lsp--locations-to-xref-items
+;;   (cl-remove-if #'xref-ignored-file-p items))
 
-(defadvice! +lsp-ui-peek--ignored-locations-a (items)
-  "Remove ignored files from list of xref-items."
-  :filter-return #'lsp-ui-peek--get-references
-  (cl-remove-if #'xref-ignored-file-p items))
+;; (defadvice! +lsp-ui-peek--ignored-locations-a (items)
+;;   "Remove ignored files from list of xref-items."
+;;   :filter-return #'lsp-ui-peek--get-references
+;;   (cl-remove-if #'xref-ignored-file-p items))
 
 (defvar php-intelephense-storage-path (expand-file-name "lsp-intelephense" doom-data-dir))
 (defvar php-intelephense-command (expand-file-name "lsp/npm/intelephense/bin/intelephense" doom-data-dir))
