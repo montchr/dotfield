@@ -48,10 +48,10 @@
 
 (use-package! fontaine
   :commands (fontaine-store-latest-preset)
-  :hook (;; Persist font configurations while switching themes.
-         (modus-themes-after-load-theme
-          ef-themes-post-load
-          ligature-mode) . fontaine-apply-current-preset)
+  :hook '(;; Persist font configurations while switching themes.
+          (modus-themes-after-load-theme
+           ef-themes-post-load
+           ligature-mode) . fontaine-apply-current-preset)
   :config
   (setq! fontaine-presets
          '((small :default-height 106
