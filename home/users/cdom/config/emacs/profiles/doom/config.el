@@ -6,9 +6,6 @@
 (setq! user-full-name "Chris Montgomery"
        user-mail-address "chris@cdom.io")
 
-;; Display the fill-column indicator.
-(global-display-fill-column-indicator-mode +1)
-
 ;; Simple settings.
 ;; https://tecosaur.github.io/emacs-config/config.html#simple-settings
 (setq! display-line-numbers-type 'relative)
