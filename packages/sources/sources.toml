@@ -2,10 +2,6 @@
 src.git = "https://github.com/DinkDonk/kitty-icon.git"
 fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
 
-[firefox-lepton-ui]
-src.git = "https://github.com/black7375/Firefox-UI-Fix"
-fetch.git = "https://github.com/black7375/Firefox-UI-Fix"
-
 [promnesia]
 src.git = "https://github.com/karlicoss/promnesia"
 fetch.git = "https://github.com/karlicoss/promnesia"

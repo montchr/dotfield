@@ -31,7 +31,6 @@ in {
       single-file
       tab-session-manager
       temporary-containers
-      tridactyl
     ]
     ++ (l.optional config.programs.browserpass.enable browserpass);
 }
