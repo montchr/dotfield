@@ -50,4 +50,15 @@ in rec {
   */
   upperFirstChar = transformFirstChar l.toUpper;
 
+  /*
+  Trim leading and trailing whitespace from a string.
+
+  Type: trim :: string -> string
+
+  Example:
+    trim "  FOO  "
+    => "FOO"
+  */
+  trim = s: l.head (l.match "^[[:space:]]+|[[:space:]]+$" s);
+
 }
