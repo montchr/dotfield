@@ -9,6 +9,7 @@
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.programs.firefox;
 in {
+  # TODO: seems potentially fragile -- make sure this works!
   programs.firefox.package =
     l.mkIf (!isDarwin)
     (cfg.package.override {enableTridactylNative = true;});
