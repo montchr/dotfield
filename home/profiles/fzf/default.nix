@@ -21,12 +21,6 @@
   toSourcesCommand = srcs: "command cat " + (l.concatMapStringsSep " " procSub srcs);
   toSourcesCommand' = srcs: toSourcesCommand ([freCommand] ++ srcs);
 
-  commonWidgetOpts = [
-    "--tiebreak=index"
-    # `fre` will take care of sorting in widgets
-    "--no-sort"
-  ];
-
   dirPreviewCommand = l.getExe pkgs.exa + " --tree {} | head -n 200";
 in {
   imports = [./igr.nix];
@@ -40,14 +34,12 @@ in {
 
     ##: --- files ---
 
-    fileWidgetCommand = toSourcesCommand' [
-      (findFiles {
-        hidden = true;
-        follow = true;
-        exclude = [".git"];
-      })
-    ];
-    fileWidgetOptions = commonWidgetOpts ++ ["--preview 'head {}'"];
+    fileWidgetCommand = findFiles {
+      hidden = true;
+      follow = true;
+      exclude = [".git"];
+    };
+    fileWidgetOptions = ["--preview 'head {}'"];
 
     ##: --- directories ---
 
@@ -55,7 +47,12 @@ in {
       (findDirs {})
       ((findDirs {}) + " . ~")
     ];
-    changeDirWidgetOptions = commonWidgetOpts ++ ["--preview '${dirPreviewCommand}'"];
+    changeDirWidgetOptions = [
+      "--tiebreak=index"
+      # `fre` will take care of sorting
+      "--no-sort"
+      "--preview '${dirPreviewCommand}'"
+    ];
 
     ##: --- history ---
 
