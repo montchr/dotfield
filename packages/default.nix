@@ -13,6 +13,9 @@ in {
     _module.args.packages = ctx.config.packages;
     _module.args.sources = sources // {inherit firefox-addons;};
     packages = filterPackages system (flattenTree {
+      ##: tools
+      fre = pkgs.callPackage ./tools/misc/fre {};
+
       ##: application helpers
       kitty-get-window-by-platform-id = pkgs.callPackage ./applications/kitty/get-window-by-platform-id {};
 
