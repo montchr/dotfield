@@ -1,40 +1,9 @@
-{
-  config,
-  pkgs,
-  inputs,
-  self,
-  ...
-}: let
-  inherit (config) theme;
-  l = inputs.nixpkgs.lib // builtins;
-
-  exa = l.getExe pkgs.exa;
-  fd = l.getExe pkgs.fd;
-
-  findFiles = "${fd} --hidden --follow --exclude '.git'";
-  findDirs = "${fd} --type d";
-in {
-  programs.fzf = {
-    enable = true;
-    defaultCommand = "${findFiles} 2>/dev/null";
-    defaultOptions =
-      [
-        "--ansi"
-        "--reverse"
-      ]
-      ++ (l.optional theme.enable "--color=16");
-    changeDirWidgetCommand = findDirs;
-    changeDirWidgetOptions = ["--preview '${exa} --tree {} | head -n 200'"];
-    fileWidgetCommand = findFiles;
-    fileWidgetOptions = ["--preview 'head {}'"];
-    historyWidgetOptions = ["--sort" "--exact"];
-  };
-
-  home.packages = with pkgs; [
-    # Use ripgrep interactively
-    (writeShellApplication {
+###: Use ripgrep interactively
+{pkgs, ...}: {
+  home.packages = [
+    (pkgs.writeShellApplication {
       name = "igr";
-      runtimeInputs = [bat fzf ripgrep];
+      runtimeInputs = with pkgs; [bat fzf ripgrep];
       text = ''
         # Copyright 2020, Daniel F. Gray and the fzf-scripts contributors
         # SPDX-License-Identifier: GPL-3.0-only
