@@ -41,6 +41,9 @@ sys-cmd := if os() == "linux" {
 
 ###: LINTING/FORMATTING ========================================================
 
+# <- Lint files
+lint *FILES=prj-root: (deadnix "check" FILES) (statix "check" FILES)
+
 # <- Lint and format files
 fmt *FILES=prj-root:
   treefmt --no-cache {{FILES}}
