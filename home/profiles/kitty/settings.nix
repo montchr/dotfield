@@ -95,8 +95,15 @@ in {
     visual_bell_duration = "0.3";
     #: }}}
 
-    #: OS-specific tweaks {{{
-    # Set the titlebar background color to that of the currently-active window.
+    ##: --- os-specific tweaks ---
+
+    ##: macOS
+    # make keyboard shortcuts usable again
+    # https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.macos_option_as_alt
+    macos_option_as_alt = "left"; # => "left" | "right" | "both" | false;
+
+    ##: linux
+    # set the titlebar background color to that of the currently-active window
     wayland_titlebar_color = "background";
     #: }}}
   };
