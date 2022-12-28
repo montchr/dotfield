@@ -28,23 +28,10 @@ in {
       exiftool #     <- EXIF diff handler
       git-cliff #    <- flexible changelog generator
 
-      # Identify the largest files in a git repo's history.
-      #
-      # Even after committing the deletion of a file, it will remain in git
-      # history forever. This script allows for the identification of such files,
-      # sorted from smallest to largest.
-      #
-      # via: https://stackoverflow.com/a/42544963
-      #
-      # TODO: use pkgs instead of hard-coded commands
-      (writeShellScriptBin "git-hls-by-size" ''
-        git rev-list --objects --all \
-          | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
-          | sed -n 's/^blob //p' \
-          | sort --numeric-sort --key=2 \
-          | cut -c 1-12,41- \
-          | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
-      '')
+      ##: --- for occasional-use ---
+
+      # git-filter-repo # :: history-rewrite toolkit + repo analysis + alternative
+      # to `git filter-branch` recommended *in the git manual itself*
     ]);
 
   programs.lazygit.enable = true;
