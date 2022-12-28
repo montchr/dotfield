@@ -23,7 +23,7 @@
 
   dirPreviewCommand = l.getExe pkgs.exa + " --tree {} | head -n 200";
 in {
-  imports = [./igr.nix];
+  home.packages = [packages.fre packages.igr];
 
   programs.fzf = {
     enable = true;
@@ -61,7 +61,6 @@ in {
 
   ###: --- `fre` configuration -------------------------------------------------
 
-  home.packages = [packages.fre];
   programs.bash.initExtra = ''
     __fre_pwd() {
       builtin pwd -L
