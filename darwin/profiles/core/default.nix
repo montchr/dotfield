@@ -1,26 +1,22 @@
 {
+  inputs,
   config,
-  lib,
   pkgs,
-  system,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isAarch64;
-  l = lib // builtins;
   inherit (config.homebrew) brewPrefix;
+  l = inputs.nixpkgs.lib // builtins;
 in {
   imports = [./builders/nixbuild-net.nix];
 
   nix = {
     configureBuildUsers = true;
-    # FIXME: needs flake-compat
-    # nixPath = mkBefore ["darwin-config=${self}"];
     settings = {
       # Administrative users on Darwin systems are part of the admin group.
       trusted-users = ["@admin"];
-      # Required for building some incompatible packages via Rosetta.
-      extra-platforms = l.mkIf isAarch64 ["x86_64-darwin" "aarch64-darwin"];
     };
+    # FIXME: needs flake-compat
+    # nixPath = mkBefore ["darwin-config=${self}"];
   };
 
   # These UI-enhancement plugins come at an even higher performance cost than
