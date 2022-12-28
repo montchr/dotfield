@@ -1,12 +1,5 @@
-{
-  sources,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = [pkgs.lastpass-cli];
-  programs.firefox.extensions = [
-    sources.firefox-addons.lastpass-password-manager
-  ];
   programs.ssh.matchBlocks = {
     "kweb-prod-www" = {
       hostname = "67.225.164.90";

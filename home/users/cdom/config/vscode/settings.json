@@ -154,7 +154,7 @@
   "workbench.preferredLightColorTheme": "GitHub Light Monochrome",
   "zenMode.fullScreen": false,
   "prettier.requireConfig": true,
-  "workbench.colorTheme": "GitHub Light Monochrome",
+  "workbench.colorTheme": "Vitesse Dark",
   "debug.javascript.codelens.npmScripts": "never",
   "eslint.packageManager": "yarn",
   "editor.inlayHints.fontFamily": "'Iosevka Nerd Font Mono'",
