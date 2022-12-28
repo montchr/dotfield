@@ -38,6 +38,12 @@ be a bit circuitous, especially when you are only starting with a macOS system
 like I did. Fortunately, things have improved quite a lot since then, as QEMU
 now supports running NixOS VMs on `aarch64-darwin`.
 
+Next time I need to provision a fresh system from scratch,
+I plan on checking out [nix-community/disko][disko-repo],
+as the initial manual formatting process has always been a bit of a hurdle for me.
+
+[disko-repo]: https://github.com/nix-community/disko
+
 ### Generic Linux
 
 TODO
@@ -48,16 +54,12 @@ of the Nix-centric deployment tools available as of this writing.
 
 ### macOS/Darwin
 
-I went several months without a macOS computer available, so my Nix+Darwin
-configurations have suffered a bit of rot over that time. But I've finally
-picked up an M2 MacBook Air, and now I'm faced with the task of picking up where
-I left off and making this computer usable. I've taken some rough notes below
-about getting set up on a new macOS system.
+Something along these lines:
 
 - `sudo xcode-select --install`
 - Install Homebrew
 - `brew install git bash zsh ripgrep fd tealdeer bat coreutils`
-- Add `PATH` entries to `~/.zprofile`
+- Add Homebrew `PATH` entries to `~/.zprofile` as directed
 - Install Nix
 - Generate SSH keys for your user and add them to GitHub/Sourcehut.
 - `mkdir -p ~/.config`
@@ -87,7 +89,9 @@ pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 
 ## Structure
 
-More details forthcoming...
+I still don't know what I'm doing.
+Maybe one day I will have enough of an idea that I can write it down with any amount of coherence.
+Or maybe I'm doing it all backwards…?
 
 ## Vertebrae
 
@@ -112,6 +116,7 @@ in relevant files.
 - https://github.com/viperML/dotfiles :: nixos, flake-parts, structure
 - https://git.sr.ht/~misterio/nix-config/ :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
 - https://github.com/TLATER/dotfiles :: home-manager, structure
+- https://github.com/d12frosted/environment :: nixos, nix-darwin, world-building, emacs, docs
 - https://github.com/hlissner/dotfiles :: nixos, libs, original, structure, homes w/o home-manager
 - https://github.com/colemickens/nixcfg :: nixos, extensive, fun
 - https://github.com/cole-h/nixos-config/ :: nixos, media server
@@ -121,7 +126,6 @@ in relevant files.
 - https://github.com/malob/nixpkgs :: nix-darwin, docs
 - https://github.com/ahmedelgabri/dotfiles
 - https://github.com/cmacrae/config :: nix-darwin, nixos, emacs
-- https://github.com/d12frosted/environment :: nixos, nix-darwin, provisioning, world-building, emacs, docs
 
 ### Emacs
 
@@ -140,7 +144,7 @@ in relevant files.
 
 ### `tuvix` [MacBook Air M2]
 
-Work computer running macOS. It's fresh.
+Work computer running macOS. It's fresh. It's sleek. But it's still a Mac...
 
 ### `ryosuke` [Teenage Engineering Computer-1]
 
