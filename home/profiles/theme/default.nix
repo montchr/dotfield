@@ -73,14 +73,18 @@ in {
     '';
   };
 
-  # https://github.com/nix-community/home-manager/blob/master/modules/misc/specialization.nix#blob-path
+  # FIXME: The option `home-manager.users.cdom.specialization.dark.configuration._module.args.name' is defined multiple times.
+  # Definition values:
+  # - In `/nix/store/na16w66xsip7lzbvy4qlagfi3dz66cs9-source/modules/misc/specialization.nix': "cdom"
+  # - In `<unknown-file>': "configuration"
   # specialization = {
-  #   # dark.configuration = {
-  #   #   theme.colors.active = l.mkForce config.theme.colors.dark;
-  #   # };
+  #   dark.configuration = {
+  #     theme.colors.active = colors.dark;
+  #     colorScheme = colors.dark;
+  #   };
   #   light.configuration = {
-  #     theme.colors.active = l.mkForce colors.light;
-  #     colorScheme = l.mkForce colors.light;
+  #     theme.colors.active = colors.light;
+  #     colorScheme = colors.light;
   #   };
   # };
 }
