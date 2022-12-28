@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs home-manager;
+  inherit (inputs) nixpkgs;
   inherit (inputs.cells.lib.dev) pkgWithCategory withCategory;
   inherit (nixpkgs.stdenv) isLinux;
 
@@ -13,9 +13,11 @@
   maintenance = pkgWithCategory cats.maintenance;
   utils = pkgWithCategory cats.utils;
 
+  home-manager = inputs.home-manager.packages.default;
+
   commonCommands = [
     (utils nixpkgs.cachix)
-    (utils home-manager.packages.default)
+    (utils home-manager)
     (utils nixpkgs.just)
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
@@ -42,7 +44,16 @@
 in {
   default = _: {
     commands = commonCommands ++ linuxCommands;
-
+    env = [
+      {
+        name = "DOTFIELD_SYS_DRV";
+        eval = "/nix/var/nix/profiles/system";
+      }
+      {
+        name = "DOTFIELD_HOME_DRV";
+        eval = "/nix/var/nix/profiles/per-user/$USER/home-manager";
+      }
+    ];
     packages = [
       nixpkgs.cachix
       nixpkgs.editorconfig-checker

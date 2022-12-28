@@ -28,9 +28,9 @@ sources-dir := prj-root / "packages/sources"
 # `package.json` runnables
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
-sys-gen-path := "/run/current-system"
+sys-gen-path := env_var('DOTFIELD_SYS_DRV')
+hm-gen-path := env_var('DOTFIELD_HOME_DRV')
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
-hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
 
 sys-cmd := if os() == "linux" {
   "nixos-rebuild"
