@@ -1,28 +1,18 @@
 {
-  config,
-  lib,
+  inputs,
   pkgs,
-  isDarwin,
   ...
 }: let
-  inherit (config.lib.fish) mkPlugin;
-  l = lib // builtins;
-  cfg = config.programs.fish;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  l = inputs.nixpkgs.lib // builtins;
 in {
   imports = [../common.nix];
 
-  home.packages = with pkgs.fishPlugins; [
-    done
-    forgit
-  ];
-
   programs.fish = {
     enable = true;
-    autopair.enable = true;
-    fifc.enable = true;
-
-    plugins = l.map mkPlugin [
-      "replay"
+    plugins = with pkgs.fishPlugins; [
+      done
+      forgit
     ];
 
     # Workaround for clobbered `$PATH` with nix-darwin
@@ -37,15 +27,8 @@ in {
         /opt/homebrew/bin \
         /opt/homebrew/sbin
     '';
-
-    interactiveShellInit = ''
-      # "Required" by `fifc`
-      # set -Ux fifc_editor $EDITOR
-    '';
   };
 
-  # fzf integration is handled by fifc
-  programs.fzf.enableFishIntegration = !cfg.fifc.enable;
-
-  programs.neovim.plugins = [pkgs.vimPlugins.vim-fish];
+  programs.fzf.enableFishIntegration = true;
+  programs.neovim.plugins = with pkgs.vimPlugins; [vim-fish];
 }
