@@ -7,6 +7,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = lib // builtins;
+  inherit (config.homebrew) brewPrefix;
 in {
   imports = [./builders/nixbuild-net.nix];
 
@@ -35,17 +36,13 @@ in {
     # prefmanager
   ];
 
-  environment.variables =
-    l.mkIf config.homebrew.enable
-    (let
-      inherit (config.homebrew) brewPrefix;
-    in {
-      HOMEBREW_PREFIX = brewPrefix;
-      HOMEBREW_CELLAR = "${brewPrefix}/Cellar";
-      HOMEBREW_REPOSITORY = brewPrefix;
-      MANPATH = "${brewPrefix}/share/man:$MANPATH:";
-      INFOPATH = "${brewPrefix}/share/info:$INFOPATH";
-    });
+  environment.variables = {
+    HOMEBREW_PREFIX = brewPrefix;
+    HOMEBREW_CELLAR = "${brewPrefix}/Cellar";
+    HOMEBREW_REPOSITORY = brewPrefix;
+    INFOPATH = "${brewPrefix}/share/info:$INFOPATH";
+    MANPATH = "${brewPrefix}/share/man:$MANPATH:";
+  };
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
