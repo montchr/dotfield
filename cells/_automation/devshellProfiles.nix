@@ -3,7 +3,7 @@
   cell,
 }: let
   inherit (inputs) nixpkgs;
-  inherit (inputs.cells.lib.dev) pkgWithCategory withCategory;
+  inherit (inputs.cells.lib.dev) pkgWithCategory;
   inherit (nixpkgs.stdenv) isLinux;
 
   l = inputs.nixpkgs.lib // builtins;
@@ -22,13 +22,6 @@
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
-    (withCategory cats.utils {
-      name = "mozilla-addons-to-nix";
-      help = "Generate a Nix package set of Firefox add-ons from a JSON manifest.";
-      command = ''
-        nix run sourcehut:~rycee/mozilla-addons-to-nix -- $@
-      '';
-    })
 
     (maintenance nixpkgs.alejandra)
     (maintenance nixpkgs.deadnix)
@@ -59,7 +52,6 @@ in {
       nixpkgs.editorconfig-checker
       nixpkgs.shellcheck
       nixpkgs.nodejs
-      nixpkgs.nvfetcher
       nixpkgs.nodePackages.yarn
     ];
   };

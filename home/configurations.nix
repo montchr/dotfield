@@ -35,7 +35,6 @@
         {
           inputs',
           packages,
-          sources,
           ...
         }: args: {
           _module.args = {
@@ -44,7 +43,6 @@
               packages
               peers
               primaryUser
-              sources
               ;
           };
         }

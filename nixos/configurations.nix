@@ -43,7 +43,6 @@
         inputs',
         pkgs,
         packages,
-        sources,
         ...
       }:
         l.makeOverridable l.nixosSystem {
@@ -57,7 +56,7 @@
               nixosMachines.${hostname}
               {
                 _module.args = {
-                  inherit inputs' packages peers primaryUser sources;
+                  inherit inputs' packages peers primaryUser;
                   isNixos = true;
                 };
                 nixpkgs.pkgs = nixosArgs.pkgs or pkgs;

@@ -1,13 +1,14 @@
 {
   inputs,
+  inputs',
   config,
-  sources,
   ...
 }: let
+  firefox-addons = inputs'.firefox-addons.packages;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  programs.firefox.extensions = with sources.firefox-addons;
-    [
+  programs.firefox.extensions =
+    (with firefox-addons; [
       onepassword-password-manager
       a11ycss
       add-custom-search-engine
@@ -17,7 +18,6 @@ in {
       display-_anchors
       firefox-color
       kagi-search
-      mailvelope
       multi-account-containers
       octolinker
       old-reddit-redirect
@@ -31,6 +31,6 @@ in {
       single-file
       tab-session-manager
       temporary-containers
-    ]
-    ++ (l.optional config.programs.browserpass.enable browserpass);
+    ])
+    ++ (l.optional config.programs.browserpass.enable firefox-addons.browserpass);
 }

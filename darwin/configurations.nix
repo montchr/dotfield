@@ -42,7 +42,6 @@
         inputs',
         packages,
         pkgs,
-        sources,
         ...
       }:
         l.makeOverridable inputs.darwin.lib.darwinSystem {
@@ -57,7 +56,7 @@
             ++ [
               {
                 _module.args = {
-                  inherit inputs' peers primaryUser sources;
+                  inherit inputs' peers primaryUser;
                   inherit (ctx.config) packages;
                   isNixos = false;
                 };

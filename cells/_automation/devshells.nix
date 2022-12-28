@@ -49,7 +49,6 @@ in
         deadnix
         just
         nvd
-        nvfetcher
         shellcheck
         statix
       ];

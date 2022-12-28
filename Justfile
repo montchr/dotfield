@@ -23,8 +23,6 @@ cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
 
 ##: directories/paths
 prj-root := env_var('PRJ_ROOT')
-firefox-addons-dir := prj-root / "packages/applications/firefox/firefox-addons"
-sources-dir := prj-root / "packages/sources"
 # `package.json` runnables
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
@@ -149,10 +147,9 @@ set-system-appearance mode="toggle":
   {{ if mode == "dark" { "just _mac-dark-mode 'true'" } else if mode == "light" { "just _mac-dark-mode 'false'" } else { "just _mac-dark-mode 'not dark mode'" } }}
 
 
-
 ###: UPDATES ===================================================================
 
-update-all: update-flake-inputs update-sources update-firefox-addons update-doom
+update-all: update-flake-inputs update-doom
 
 # <- Update the flake inputs
 update-flake-inputs:
@@ -164,18 +161,6 @@ update-flake-inputs:
 update-doom:
   @echo 'Updating Doom Emacs...'
   doom upgrade
-  @echo {{msg-done}}
-
-# <- Generate updated Nix expressions for Firefox addons
-update-firefox-addons dir=firefox-addons-dir:
-  @echo 'Updating Nix expressions for Firefox addons...'
-  mozilla-addons-to-nix {{dir}}/addons.json {{dir}}/addons.generated.nix
-  @echo {{msg-done}}
-
-# <- Generate updated Nix expressions for external sources
-update-sources dir=sources-dir:
-  @echo 'Updating external sources with nvfetcher...'
-  cd {{sources-dir}} && nvfetcher -c ./sources.toml
   @echo {{msg-done}}
 
 

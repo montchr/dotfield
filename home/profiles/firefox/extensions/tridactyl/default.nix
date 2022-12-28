@@ -1,8 +1,9 @@
 {
   config,
   inputs,
-  sources,
+  inputs',
   pkgs,
+  packages,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
@@ -13,7 +14,7 @@ in {
   programs.firefox.package =
     l.mkIf (!isDarwin)
     (cfg.package.override {enableTridactylNative = true;});
-  programs.firefox.extensions = [sources.firefox-addons.tridactyl];
+  programs.firefox.extensions = [inputs'.firefox-addons.packages.tridactyl];
   xdg.configFile."tridactyl/themes".source = ./themes;
   xdg.configFile."tridactyl/tridactylrc".source = ./tridactylrc;
 }
