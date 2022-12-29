@@ -9,15 +9,22 @@
 in {
   imports = [./builders/nixbuild-net.nix];
 
-  nix = {
-    configureBuildUsers = true;
-    settings = {
-      # Administrative users on Darwin systems are part of the admin group.
-      trusted-users = ["@admin"];
-    };
-    # FIXME: needs flake-compat
-    # nixPath = mkBefore ["darwin-config=${self}"];
-  };
+  # These should (must?) be enabled in any recent multi-user Nix installation,
+  # and yet they remain disabled by default in nix-darwin...
+  services.nix-daemon.enable = l.mkForce true;
+  nix.configureBuildUsers = l.mkForce true;
+
+  # Administrative users on Darwin systems are part of the admin group.
+  nix.settings.trusted-users = ["@admin"];
+
+  nix.distributedBuilds = l.mkDefault true;
+
+  # FIXME: currently requires running `nix run nixpkgs#darwin.builder`
+  # manually in a separate shell session
+  nix.nixos-builder-vm.enable = true;
+
+  # FIXME: needs flake-compat
+  # nix.nixPath = mkBefore ["darwin-config=${self}"];
 
   # These UI-enhancement plugins come at an even higher performance cost than
   # completion and do not belong in system configuration at all.
@@ -39,10 +46,6 @@ in {
     INFOPATH = "${brewPrefix}/share/info:$INFOPATH";
     MANPATH = "${brewPrefix}/share/man:$MANPATH:";
   };
-
-  # Recreate /run/current-system symlink after boot
-  services.activate-system.enable = true;
-  services.nix-daemon.enable = true;
 
   homebrew = {
     enable = true;
