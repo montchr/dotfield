@@ -40,8 +40,7 @@
    modus-themes-italic-constructs t)
 
   :config
-  (modus-themes-load-themes)
-  (modus-themes-load-vivendi))
+  (load-theme 'modus-operandi :no-confirm))
 
 
 ;;; === font ===================================================================
