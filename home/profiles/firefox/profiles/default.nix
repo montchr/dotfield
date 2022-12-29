@@ -55,13 +55,6 @@ in {
     mkPrefLine = k: v: "user_pref(\"${k}\", ${l.toJSON v});\n";
 
     profileUserPrefsJs = l.concatStrings (l.mapAttrsToList mkPrefLine profile.settings);
-    profileUserContentVars = ''
-      :root {
-        --dotfield-font-family-serif: "${fonts.serif.family}", serif;
-        --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
-        --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
-      }
-    '';
   in {
     "${profileDir}/user.js".source = pkgs.concatText (pnamePrefix "user-js-text") [
       (firefox-lepton-ui + "/user.js")
@@ -70,13 +63,29 @@ in {
 
     "${profileDir}/chrome/icons".source = firefox-lepton-ui + "/icons";
 
-    "${profileDir}/chrome/userChrome.css".source = pkgs.concatText (pnamePrefix "userChrome-text") [
-      (firefox-lepton-ui + "/css/leptonChrome.css")
-    ];
+    "${profileDir}/chrome/userChrome.css".text = ''
+      /* Lepton CSS must be imported to preserve relative path structure */
+      @import url("${firefox-lepton-ui + "/css/leptonChrome.css"}");
+    '';
 
     "${profileDir}/chrome/userContent.css".source = pkgs.concatText (pnamePrefix "userContent-text") [
-      (firefox-lepton-ui + "/css/leptonContent.css")
-      (pkgs.writeText (pnamePrefix "userContent-vars") profileUserContentVars)
+      (pkgs.writeText "lepton-content-css-import" ''
+        /* Lepton CSS must be imported to preserve relative path structure */
+        @import url("${firefox-lepton-ui + "/css/leptonContent.css"}");
+      '')
+      (pkgs.writeText (pnamePrefix "userContent-vars") ''
+        :root {
+          --dotfield-font-family-serif: "${fonts.serif.family}", serif;
+          --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
+          --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
+
+          --tridactyl-font-family: var(--dotfield-font-family-mono) !important;
+          --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
+          --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
+          --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
+          --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
+        }
+      '')
       ./userContent.css
     ];
   }));

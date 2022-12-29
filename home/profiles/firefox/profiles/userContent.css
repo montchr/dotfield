@@ -1,11 +1,3 @@
-:root {
-  --tridactyl-font-family: var(--dotfield-font-family-mono) !important;
-  --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
-  --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
-  --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
-  --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
-}
-
 /* Alternate monospace font stack, sorted by least popular so you're most likely
  * to get the font you want.
  */
