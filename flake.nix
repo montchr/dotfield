@@ -88,8 +88,6 @@
 
     ##: firefox
     firefox-addons.url = "github:seadome/firefox-addons";
-    firefox-lepton-ui.url = "github:black7375/Firefox-UI-Fix";
-    firefox-lepton-ui.flake = false;
 
     ##: zsh plugins
     zsh-autopair.url = "github:hlissner/zsh-autopair";

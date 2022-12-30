@@ -2,9 +2,9 @@ hmArgs @ {
   config,
   inputs,
   pkgs,
+  packages,
   ...
 }: let
-  inherit (inputs) firefox-lepton-ui;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
@@ -25,17 +25,41 @@ hmArgs @ {
     then "${firefoxConfigPath}/Profiles"
     else firefoxConfigPath;
 
-  commonSettings = import ./settings/common.nix hmArgs;
-  leptonSettings = import ./settings/lepton.nix;
+  settingsType = with l.types;
+    lazyAttrsOf (oneOf [bool int str]);
+
+  evalSettings = modules:
+    l.evalModules {
+      modules =
+        modules
+        ++ (l.singleton {
+          _module.args.osConfig = hmArgs.osConfig or null;
+          _module.args.theme = config.theme;
+          _module.freeformType = settingsType;
+        });
+      specialArgs = {inherit inputs;};
+    };
+
+  makeSettings = {modules ? []}:
+    evalSettings ([
+        ./settings/common.nix
+        ./settings/lepton.nix
+      ]
+      ++ modules);
+
+  makeSettings' = module: (makeSettings {modules = [module];}).config;
 in {
   programs.firefox.profiles.home = {
     id = 0;
-    settings = l.recursiveUpdate commonSettings leptonSettings;
+    settings = makeSettings' {
+      imports = [./settings/dev.nix];
+      "browser.startup.homepage" = "https://lobste.rs";
+    };
   };
 
   programs.firefox.profiles.work = {
     id = 1;
-    settings = l.recursiveUpdate commonSettings {
+    settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";
     };
   };
@@ -52,41 +76,45 @@ in {
   home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
     profileDir = "${profilesPath}/${profile.path}";
     pnamePrefix = s: "firefox-profile-${profile.name}-" + s;
-    mkPrefLine = k: v: "user_pref(\"${k}\", ${l.toJSON v});\n";
-
-    profileUserPrefsJs = l.concatStrings (l.mapAttrsToList mkPrefLine profile.settings);
+    toUserPrefLine = k: v: "user_pref(\"${k}\", ${l.toJSON v});\n";
+    leptonCssDir = "${packages.firefox-ui-fix}/chrome/css";
   in {
     "${profileDir}/user.js".source = pkgs.concatText (pnamePrefix "user-js-text") [
-      (firefox-lepton-ui + "/user.js")
-      (pkgs.writeText (pnamePrefix "user-prefs-js") profileUserPrefsJs)
+      (packages.firefox-ui-fix + "/user.js")
+      (pkgs.writeText (pnamePrefix "user-prefs-js")
+        (l.concatStrings (l.mapAttrsToList toUserPrefLine profile.settings)))
     ];
 
-    "${profileDir}/chrome/icons".source = firefox-lepton-ui + "/icons";
+    "${profileDir}/chrome/content-overrides.css".source = ./userContent.css;
 
     "${profileDir}/chrome/userChrome.css".text = ''
-      /* Lepton CSS must be imported to preserve relative path structure */
-      @import url("${firefox-lepton-ui + "/css/leptonChrome.css"}");
+      @import url("${leptonCssDir}/leptonChrome.css");
     '';
 
-    "${profileDir}/chrome/userContent.css".source = pkgs.concatText (pnamePrefix "userContent-text") [
-      (pkgs.writeText "lepton-content-css-import" ''
-        /* Lepton CSS must be imported to preserve relative path structure */
-        @import url("${firefox-lepton-ui + "/css/leptonContent.css"}");
-      '')
-      (pkgs.writeText (pnamePrefix "userContent-vars") ''
-        :root {
-          --dotfield-font-family-serif: "${fonts.serif.family}", serif;
-          --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
-          --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
+    "${profileDir}/chrome/userContent.css".text = ''
+      /*
+      NOTE: The import order here is important.
+            All imports must occur before `@namespace` declarations,
+            which happens at the beginning of `leptonContent.css`.
+            This is not a restriction imposed by Lepton or even Mozilla,
+            it is a restriction of the CSS specification:
+            - <https://github.com/black7375/Firefox-UI-Fix/blob/master/docs/Restrictions.md#import>
+            - <https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace>
+      */
+      @import url("content-overrides.css");
+      @import url("${leptonCssDir}/leptonContent.css");
 
-          --tridactyl-font-family: var(--dotfield-font-family-mono) !important;
-          --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
-          --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
-          --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
-          --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
-        }
-      '')
-      ./userContent.css
-    ];
+      :root {
+        --dotfield-font-family-serif: "${fonts.serif.family}", serif;
+        --dotfield-font-family-sans-serif: "${fonts.sans.family}", sans-serif;
+        --dotfield-font-family-mono: "${fonts.mono.family}", monospace;
+
+        --tridactyl-font-family: var(--dotfield-font-family-mono) !important;
+        --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
+        --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
+        --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
+        --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
+      }
+    '';
   }));
 }
