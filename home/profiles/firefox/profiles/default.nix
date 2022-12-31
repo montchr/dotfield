@@ -43,7 +43,7 @@ hmArgs @ {
   makeSettings = {modules ? []}:
     evalSettings ([
         ./settings/common.nix
-        ./settings/lepton.nix
+        # ./settings/lepton.nix
       ]
       ++ modules);
 
@@ -80,7 +80,7 @@ in {
     leptonCssDir = "${packages.firefox-ui-fix}/chrome/css";
   in {
     "${profileDir}/user.js".source = pkgs.concatText (pnamePrefix "user-js-text") [
-      (packages.firefox-ui-fix + "/user.js")
+      # (packages.firefox-ui-fix + "/user.js")
       (pkgs.writeText (pnamePrefix "user-prefs-js")
         (l.concatStrings (l.mapAttrsToList toUserPrefLine profile.settings)))
     ];
@@ -88,7 +88,7 @@ in {
     "${profileDir}/chrome/content-overrides.css".source = ./userContent.css;
 
     "${profileDir}/chrome/userChrome.css".text = ''
-      @import url("${leptonCssDir}/leptonChrome.css");
+      /* @import url("${leptonCssDir}/leptonChrome.css"); */
     '';
 
     "${profileDir}/chrome/userContent.css".text = ''
@@ -102,7 +102,7 @@ in {
             - <https://developer.mozilla.org/en-US/docs/Web/CSS/@namespace>
       */
       @import url("content-overrides.css");
-      @import url("${leptonCssDir}/leptonContent.css");
+      /* @import url("${leptonCssDir}/leptonContent.css"); */
 
       :root {
         --dotfield-font-family-serif: "${fonts.serif.family}", serif;

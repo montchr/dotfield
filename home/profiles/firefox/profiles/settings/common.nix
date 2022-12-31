@@ -2,19 +2,20 @@
   inputs,
   theme,
   osConfig,
+  ...
 }: let
   inherit (theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
   hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
 in {
-  "app.update.auto" = true;
+  # "app.update.auto" = true;
 
-  "browser.aboutConfig.showWarning" = false;
-  "browser.bookmarks.showMobileBookmarks" = true;
+  # "browser.aboutConfig.showWarning" = false;
+  # "browser.bookmarks.showMobileBookmarks" = true;
   # "browser.display.use_document_fonts" = "1"; # default => "1"
   "browser.ctrlTab.recentlyUsedOrder" = false;
-  "browser.fullscreen.exit_on_escape" = false;
-  "browser.proton.enabled" = true;
+  # "browser.fullscreen.exit_on_escape" = false;
+  # "browser.proton.enabled" = true;
   "browser.newtabpage.enabled" = true;
   # TODO: these are the default values -- customise them?
   # "browser.newtabpage.activity-stream.default.sites" = l.concatStringsSep "," [
@@ -29,7 +30,7 @@ in {
   # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
   "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
 
-  "browser.privatebrowsing.autostart" = false;
+  # "browser.privatebrowsing.autostart" = false;
 
   "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
   "browser.search.region" = "US";
@@ -43,7 +44,7 @@ in {
   "browser.urlbar.suggest.calculator" = true;
   "browser.urlbar.suggest.history" = true;
 
-  "browser.xul.error_pages.expert_bad_cert" = true;
+  # "browser.xul.error_pages.expert_bad_cert" = true;
 
   "devtools.theme" = "auto";
   "devtools.cache.disabled" = true;
@@ -56,16 +57,11 @@ in {
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "extensions.webextensions.restrictedDomains" = "";
 
-  "font.default.x-unicode" = fonts.sans.family;
   "font.default.x-western" = fonts.sans.family;
-  # TODO
-  # "font.language.group" = "x-unicode";
-  "font.name.monospace.x-unicode" = fonts.mono.family;
   "font.name.monospace.x-western" = fonts.mono.family;
-  "font.name.sans-serif.x-unicode" = fonts.sans.family;
   "font.name.sans-serif.x-western" = fonts.sans.family;
-  "font.name.serif.x-unicode" = fonts.serif.family;
   "font.name.serif.x-western" = fonts.serif.family;
+
   "font.size.monospace.x-western" = fonts.mono.size;
 
   "identity.fxaccounts.account.device.name" = hostName;
@@ -85,7 +81,7 @@ in {
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
 
   "security.enterprise_roots.enabled" = true;
-  "services.sync.declinedEngines" = "addons,prefs,creditcards,addresses,passwords";
+  # "services.sync.declinedEngines" = "addons,prefs,creditcards,addresses,passwords";
   "services.sync.engine.addons" = false;
   "services.sync.engine.passwords" = false;
   "services.sync.engine.prefs" = false;
