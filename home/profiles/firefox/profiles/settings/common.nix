@@ -116,3 +116,4 @@ in {
 }
 ##: Sources:
 # - https://git.sr.ht/~rycee/configurations/tree/5ef3e3b2bd400841be7ec641812b8006191bb7fc/item/user/firefox.nix
+
