@@ -23,7 +23,7 @@ in {
       kagi-search
       libredirect
       link-cleaner
-      linkhints
+      # linkhints
       multi-account-containers
       # octolinker
       offline-qr-code-generator
