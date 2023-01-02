@@ -252,7 +252,7 @@
       ("_Nginx" nginxfmt))))
 
   :hook ((format-all-mode . format-all-ensure-formatter)
-         ((emacs-lisp-mode nix-mode) . format-all-mode)))
+         ((emacs-lisp-mode json-mode nix-mode) . format-all-mode)))
 
 (after! lsp-mode
   (setq! lsp-auto-guess-root t
