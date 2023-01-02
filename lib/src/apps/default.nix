@@ -1,4 +1,6 @@
-moduleArgs: {
-  fzf = import ./fzf moduleArgs;
-  kitty = import ./kitty moduleArgs;
+moduleArgs @ {l, ...}:
+l.mapAttrs (_: v: import v moduleArgs) {
+  firefox = ./firefox;
+  fzf = ./fzf;
+  kitty = ./kitty;
 }

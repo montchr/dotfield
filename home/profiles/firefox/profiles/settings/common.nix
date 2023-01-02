@@ -8,50 +8,42 @@
   l = inputs.nixpkgs.lib // builtins;
   hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
 in {
-  # "app.update.auto" = true;
-
-  # "browser.aboutConfig.showWarning" = false;
   # "browser.bookmarks.showMobileBookmarks" = true;
-  # "browser.display.use_document_fonts" = "1"; # default => "1"
+  "browser.contentblocking.category" = "strict";
   "browser.ctrlTab.recentlyUsedOrder" = false;
+  "browser.display.os-zoom-behavior" = 1;
   # "browser.fullscreen.exit_on_escape" = false;
-  # "browser.proton.enabled" = true;
+  "browser.proton.enabled" = true;
   "browser.newtabpage.enabled" = true;
-  # TODO: these are the default values -- customise them?
-  # "browser.newtabpage.activity-stream.default.sites" = l.concatStringsSep "," [
-  #   "https://www.youtube.com/"
-  #   "https://www.facebook.com/"
-  #   "https://www.amazon.com/"
-  #   "https://www.reddit.com/"
-  #   "https://www.wikipedia.org/"
-  #   "https://twitter.com/"
-  # ];
 
   # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
   "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
 
-  # "browser.privatebrowsing.autostart" = false;
+  "browser.safebrowsing.appRepURL" = "";
+  "browser.safebrowsing.malware.enabled" = false;
 
   "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
   "browser.search.region" = "US";
   "browser.search.suggest.enabled" = true;
 
   "browser.send_pings" = false;
-  # "browser.ssl_override_behavior" = 2; default => 2
-
+  "browser.startup.page" = 3;
+  "browser.uidensity" = 1; # Dense.
   "browser.urlbar.placeholderName" = "…";
   "browser.urlbar.showSearchSuggestionsFirst" = false;
+  "browser.urlbar.speculativeConnect.enabled" = false;
   "browser.urlbar.suggest.calculator" = true;
   "browser.urlbar.suggest.history" = true;
 
-  # "browser.xul.error_pages.expert_bad_cert" = true;
-
   "devtools.theme" = "auto";
-  "devtools.cache.disabled" = true;
-  "devtools.defaultColorUnit" = "authored";
-  "devtools.editor.tabsize" = 2;
+  # "devtools.cache.disabled" = true;
 
-  "extensions.pocket.enabled" = false;
+  "dom.security.https_only_mode" = true;
+
+  "experiments.activeExperiment" = false;
+  "experiments.enabled" = false;
+  "experiments.supported" = false;
+
   # Allow extensions to run on Mozilla domains.
   # Required for Tridactyl and Dark Reader support on those pages.
   # See https://github.com/tridactyl/tridactyl/issues/1800
@@ -69,10 +61,23 @@ in {
   # CSS blur filter in v88+
   "layout.css.backdrop-filter.enabled" = true;
 
+  # Follow system color theme.
+  "layout.css.prefers-color-scheme.content-override" = 2;
+
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
+
+  "network.allow-experiments" = false;
+  "network.dns.disablePrefetch" = true;
+  "network.http.referer.XOriginPolicy" = 2;
+  "network.http.referer.XOriginTrimmingPolicy" = 2;
+  "network.http.referer.trimmingPolicy" = 1;
+  "network.prefetch-next" = false;
+
+  "permissions.default.shortcuts" = 2; # Don't steal my shortcuts!
 
   "privacy.donottrackheader.enabled" = true;
   "privacy.donottrackheader.value" = 1;
+  # "privacy.firstparty.isolate" = true;
   "privacy.trackingprotection.enabled" = true;
   "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
   "privacy.trackingprotection.socialtracking.enabled" = true;
@@ -80,14 +85,7 @@ in {
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
 
-  "security.enterprise_roots.enabled" = true;
-  # "services.sync.declinedEngines" = "addons,prefs,creditcards,addresses,passwords";
-  "services.sync.engine.addons" = false;
   "services.sync.engine.passwords" = false;
-  "services.sync.engine.prefs" = false;
-  "services.sync.engine.tabs" = true;
-  "services.sync.engineStatusChanged.addons" = true;
-  "services.sync.engineStatusChanged.prefs" = true;
 
   "signon.rememberSignons" = false;
 
@@ -97,4 +95,24 @@ in {
 
   # Enable custom stylesheets.
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+  "ui.textScaleFactor" = 100;
+
+  # Fully disable Pocket. See
+  # https://www.reddit.com/r/linux/comments/zabm2a.
+  "extensions.pocket.enabled" = false;
+  "extensions.pocket.api" = "0.0.0.0";
+  "extensions.pocket.loggedOutVariant" = "";
+  "extensions.pocket.oAuthConsumerKey" = "";
+  "extensions.pocket.onSaveRecs" = false;
+  "extensions.pocket.onSaveRecs.locales" = "";
+  "extensions.pocket.showHome" = false;
+  "extensions.pocket.site" = "0.0.0.0";
+  "browser.newtabpage.activity-stream.pocketCta" = "";
+  "browser.newtabpage.activity-stream.section.highlights.includePocket" =
+    false;
+  "services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket" =
+    false;
 }
+##: Sources:
+# - https://git.sr.ht/~rycee/configurations/tree/5ef3e3b2bd400841be7ec641812b8006191bb7fc/item/user/firefox.nix

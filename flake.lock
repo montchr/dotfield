@@ -362,11 +362,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1672205839,
-        "narHash": "sha256-W1B51+55mhRP61eO3LmkpWCwe+GJfVoJoZOPvHexL9Q=",
+        "lastModified": 1672513025,
+        "narHash": "sha256-B5QEQ2LQkvfx8azn7jBNN1Hv7TpFVdiUsZhqQy6KyRQ=",
         "owner": "seadome",
         "repo": "firefox-addons",
-        "rev": "87a31faa8000f083fd267fea6d6e538f277ea7b1",
+        "rev": "4fdb556c007722e1a565e2adf4dc2917fc0be1a9",
         "type": "github"
       },
       "original": {
