@@ -96,6 +96,7 @@ in {
     inherit userChrome userContent;
     id = 0;
     settings = makeSettings' {
+      imports = [./settings/dev.nix];
       "browser.startup.homepage" = "https://lobste.rs";
     };
   };
