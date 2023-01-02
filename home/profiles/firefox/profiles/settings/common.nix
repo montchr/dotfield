@@ -28,6 +28,12 @@ in {
 
   "browser.send_pings" = false;
   "browser.startup.page" = 3;
+
+  # Whether we should draw the tabs on top of the titlebar.
+  # no (0), yes (1), or default (2), which is true everywhere except Linux.
+  # <https://searchfox.org/mozilla-release/rev/b6792379492929d65f5b61a3caa0a9b19bbd7078/modules/libpref/init/StaticPrefList.yaml#1565-1571>
+  "browser.tabs.inTitlebar" = 1;
+
   "browser.uidensity" = 1; # Dense.
   "browser.urlbar.placeholderName" = "…";
   "browser.urlbar.showSearchSuggestionsFirst" = false;
@@ -73,7 +79,7 @@ in {
   "network.http.referer.trimmingPolicy" = 1;
   "network.prefetch-next" = false;
 
-  "permissions.default.shortcuts" = 2; # Don't steal my shortcuts!
+  "permissions.default.shortcuts" = 2;
 
   "privacy.donottrackheader.enabled" = true;
   "privacy.donottrackheader.value" = 1;

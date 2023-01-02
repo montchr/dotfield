@@ -44,8 +44,9 @@ hmArgs @ {
       visibility: collapse;
     }
 
-    #titlebar {
-      display: none;
+    #navigator-toolbox:hover #TabsToolbar,
+    #navigator-toolbox:active #TabsToolbar {
+      visibility: visible;
     }
 
     #sidebar-header {
@@ -96,7 +97,7 @@ in {
     inherit userChrome userContent;
     id = 0;
     settings = makeSettings' {
-      imports = [./settings/dev.nix];
+      imports = [./settings/browser-toolbox.nix];
       "browser.startup.homepage" = "https://lobste.rs";
     };
   };
