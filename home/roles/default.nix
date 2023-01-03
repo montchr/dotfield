@@ -2,7 +2,8 @@
 with profiles; let
   base = [
     core
-    atuin
+    # atuin
+    mcfly
     direnv
     fzf
     git
