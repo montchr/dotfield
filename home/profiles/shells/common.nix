@@ -23,17 +23,6 @@ in {
   programs.zsh.shellAliases = shellAbbrs;
   programs.fish = {inherit shellAbbrs;};
 
-  # Magical shell history
-  # FIXME: https://github.com/nix-community/home-manager/issues/3511
-  # programs.atuin.enable = true;
-  programs.atuin.settings = {
-    auto_sync = true;
-    sync_frequency = "10m";
-    sync_address = "https://api.atuin.sh";
-    search_mode = "fuzzy"; # 'prefix' | 'fulltext' | 'fuzzy'
-    filter_mode = "global"; # 'global' | 'host' | 'session' | 'directory'
-  };
-
   programs.bottom.enable = true;
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
