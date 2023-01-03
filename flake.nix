@@ -6,8 +6,8 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-update-iosevka-bin.url = "github:montchr/nixpkgs/update-iosevka-bin";
-    # nixpkgs-update-iosevka-bin.url = "github:r-ryantm/nixpkgs?ref=auto-update/iosevka-bin";
+    # nixpkgs-update-iosevka-bin.url = "github:montchr/nixpkgs/update-iosevka-bin";
+    nixpkgs-update-iosevka-bin.url = "github:r-ryantm/nixpkgs?ref=auto-update/iosevka-bin";
     nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
 
     darwin = {

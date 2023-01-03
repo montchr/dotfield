@@ -1483,16 +1483,16 @@
     },
     "nixpkgs-update-iosevka-bin": {
       "locked": {
-        "lastModified": 1671414669,
-        "narHash": "sha256-v892X3gKtg+hzkkAN9wqxFWuoe31m28ln9v9WaE6W+Q=",
-        "owner": "montchr",
+        "lastModified": 1672227663,
+        "narHash": "sha256-XQFHjrddyYo7FZikNf/RGiyyRFIruQwq3Glwk3GzntY=",
+        "owner": "r-ryantm",
         "repo": "nixpkgs",
-        "rev": "799eba97dd98ad56ba8a97860a0b5aa2dfd9ffbc",
+        "rev": "c2cf4d198773574f0b34ca3f207b2f9e2b010eb3",
         "type": "github"
       },
       "original": {
-        "owner": "montchr",
-        "ref": "update-iosevka-bin",
+        "owner": "r-ryantm",
+        "ref": "auto-update/iosevka-bin",
         "repo": "nixpkgs",
         "type": "github"
       }
