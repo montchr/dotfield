@@ -92,9 +92,19 @@ hmArgs @ {
       }
     }
   '';
+
+  search = {
+    default = "Kagi";
+    engines = {
+      "Kagi" = {urls = [{template = "https://kagi.com/search?q={searchTerms}";}];};
+      "Nix Packages" = import ./search/nix-packages.nix {inherit pkgs;};
+      "NixOS Wiki" = import ./search/nixos-wiki.nix;
+    };
+    force = true;
+  };
 in {
   programs.firefox.profiles.home = {
-    inherit userChrome userContent;
+    inherit userChrome userContent search;
     id = 0;
     settings = makeSettings' {
       imports = [./settings/browser-toolbox.nix];
@@ -103,7 +113,7 @@ in {
   };
 
   programs.firefox.profiles.work = {
-    inherit userContent;
+    inherit userContent search;
     id = 1;
     settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";
