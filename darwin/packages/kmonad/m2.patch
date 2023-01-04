@@ -1,0 +1,46 @@
+diff --git a/c_src/mac/keyio_mac.hpp b/c_src/mac/keyio_mac.hpp
+index a88a770..ec965ed 100644
+--- a/c_src/mac/keyio_mac.hpp
++++ b/c_src/mac/keyio_mac.hpp
+@@ -80,8 +80,14 @@ void open_matching_devices(char *product, io_iterator_t iter) {
+     for(mach_port_t curr = IOIteratorNext(iter); curr; curr = IOIteratorNext(iter)) {
+         CFStringRef cfcurr = (CFStringRef)IORegistryEntryCreateCFProperty(curr, CFSTR(kIOHIDProductKey), kCFAllocatorDefault, kIOHIDOptionsTypeNone);
+         if(cfcurr == NULL) {
+-            print_iokit_error("IORegistryEntryCreateCFProperty");
+-            continue;
++            CFStringRef transport = (CFStringRef)IORegistryEntryCreateCFProperty(curr, CFSTR("Transport"),  kCFAllocatorDefault, kIOHIDOptionsTypeNone);
++            if (CFStringCompare(CFSTR("FIFO"), transport, 0) == kCFCompareEqualTo) {
++                cfcurr = CFStringCreateWithCString(kCFAllocatorDefault, "Apple Internal Keyboard / Trackpad", CFStringGetSystemEncoding());
++            }
++            else {
++                print_iokit_error("IORegistryEntryCreateCFProperty");
++                continue;
++            }
+         }
+         bool match = (CFStringCompare(cfcurr, cfkarabiner, 0) != kCFCompareEqualTo);
+         if(product) {
+diff --git a/c_src/mac/list-keyboards.c b/c_src/mac/list-keyboards.c
+index ba1725e..ce1796f 100644
+--- a/c_src/mac/list-keyboards.c
++++ b/c_src/mac/list-keyboards.c
+@@ -18,7 +18,7 @@ int main() {
+     CFDictionarySetValue(matching_dictionary,CFSTR(kIOHIDDeviceUsageKey),cfValue);
+     CFRelease(cfValue);
+     io_iterator_t iter = IO_OBJECT_NULL;
+-    kern_return_t r = IOServiceGetMatchingServices(kIOMasterPortDefault,
++    kern_return_t r = IOServiceGetMatchingServices(kIOMainPortDefault,
+                                                    matching_dictionary,
+                                                    &iter);
+     if(r != KERN_SUCCESS) {
+@@ -30,6 +30,11 @@ int main() {
+                                                         CFSTR("Product"),
+                                                         kCFAllocatorDefault,
+                                                         kIOHIDOptionsTypeNone);
++
++        if (str == NULL && CFStringCompare(CFSTR("FIFO"), IORegistryEntryCreateCFProperty(curr, CFSTR("Transport"),  kCFAllocatorDefault, kIOHIDOptionsTypeNone), 0) == kCFCompareEqualTo) {
++            str = CFSTR("Apple Internal Keyboard / Trackpad");
++        }
++
+         CFShow(str);
+     }
+     return 0;

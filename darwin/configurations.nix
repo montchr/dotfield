@@ -87,7 +87,7 @@ in {
   flake.darwinConfigurations = {
     tuvix = makeDarwinSystem "tuvix" {
       system = aarch64-darwin;
-      modules = [];
+      modules = [darwinProfiles.hardware.m2];
     };
   };
 }

@@ -63,12 +63,13 @@
     ##: sources
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
-    ##: universal
+    ##: tools
     deadnix.url = "github:astro/deadnix";
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
+    kmonad.url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
     nix-std.url = "github:chessai/nix-std";
     sops-nix.url = "github:Mic92/sops-nix";
     nil-lsp.url = "github:oxalica/nil";
