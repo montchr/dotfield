@@ -23,6 +23,7 @@ with profiles; let
     ++ [
       difftools.delta
       emacs
+      just
       python
     ];
 
