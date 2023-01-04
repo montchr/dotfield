@@ -55,6 +55,7 @@ with profiles; let
   trusted = [
     gpg
     secrets.password-store
+    secrets.rbw
 
     # FIXME: upstream bug? `mu` is hardcoded, not a reference to `pkgs.mu`
     # > Activating runMuInit
