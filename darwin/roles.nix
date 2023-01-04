@@ -14,6 +14,7 @@
       bitwarden
       emacs
       graphical
+      keyboard
       system-defaults
       virtualisation.containers
       yabai

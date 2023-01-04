@@ -39,7 +39,6 @@ in {
     "firefox" #                   <- "home" browser
     "firefox-developer-edition" # <- "work" browser
     "flameshot"
-    "karabiner-elements"
     "keycastr"
     "obs"
     "plexamp"
