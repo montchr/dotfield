@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: inherit-hostPlatform
+# uuid:
+# key: hplat
+# condition: t
+# --
+inherit (pkgs.stdenv.hostPlatform) ${1:isDarwin} ${2:isLinux};
