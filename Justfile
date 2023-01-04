@@ -108,8 +108,14 @@ home subcommand name=hm-fragment *ARGS='--impure':
 # TODO: <- Toggle all application themes between light<->dark
 
 # <- Set the theme for all applications
-set-theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
+theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
   DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
+
+# <- Use the 'light' theme for all applications
+light: (theme "light")
+
+# <- Use the 'dark' theme for all applications
+dark: (theme "dark")
 
 ##: --- kitty ---
 
