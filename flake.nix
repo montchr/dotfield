@@ -100,34 +100,17 @@
 
   outputs = {
     self,
-    std,
-    nixpkgs,
     flake-parts,
+    nixpkgs,
     digga,
-    flake-utils,
-    nix-std,
+    std,
     ...
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
     inherit (std) blockTypes growOn harvest;
 
-    systems = with flake-utils.lib.system; [
-      x86_64-linux
-      aarch64-linux
-      x86_64-darwin
-      aarch64-darwin
-    ];
-
-    lib = import ./lib {inherit inputs peers systems;};
-
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
-
-    # shared importables :: may be used within system configurations for any
-    # supported operating system (e.g. nixos, nix-darwin).
-    peers = import ./ops/metadata/peers.nix;
-    sharedModules = flattenTree (rakeLeaves ./modules);
-    sharedProfiles = rakeLeaves ./profiles;
   in
     growOn {
       inherit inputs;
@@ -161,11 +144,12 @@
       ];
     }
     (flake-parts.lib.mkFlake {inherit inputs;} {
-      inherit systems;
+      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
       imports = [
         {
           _module.args = {
-            inherit inputs peers primaryUser;
+            inherit inputs primaryUser;
+            peers = import ./ops/metadata/peers.nix;
           };
         }
 
@@ -173,6 +157,7 @@
         ./flake-modules/sharedModules.nix
         ./flake-modules/sharedProfiles.nix
 
+        ./lib
         ./packages
 
         ./nixos/configurations.nix
@@ -183,16 +168,24 @@
         ./darwin/configurations.nix
         ./darwin/packages
       ];
-      perSystem = {system, ...}: let
-        pkgs = import nixpkgs {
+      perSystem = {
+        system,
+        inputs',
+        ...
+      }: {
+        _module.args.primaryUser = primaryUser;
+        _module.args.pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
-      in {
-        _module.args = {inherit pkgs primaryUser;};
-        formatter = pkgs.alejandra;
+        formatter = inputs'.nixpkgs.legacyPackages.alejandra;
       };
-      flake = {inherit lib sharedModules sharedProfiles;};
+      flake = {
+        # shared importables :: may be used within system configurations for any
+        # supported operating system (e.g. nixos, nix-darwin).
+        sharedModules = flattenTree (rakeLeaves ./modules);
+        sharedProfiles = rakeLeaves ./profiles;
+      };
     });
 
   nixConfig = {
