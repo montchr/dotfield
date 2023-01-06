@@ -6,14 +6,16 @@ hmArgs @ {
   self,
   ...
 }: let
+  inherit (inputs.digga.lib) rakeLeaves;
   inherit (self.lib.colors) withHexPrefixes;
-  inherit (self.lib.apps.firefox) evalSettings mixins;
+  inherit (self.lib.apps.firefox) evalSettings;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
+  mixins = rakeLeaves ./mixins;
 
   imp = s: s + " !important";
 
@@ -35,26 +37,22 @@ hmArgs @ {
   ffMono = fontStack' fonts.mono + "monospace";
   ffTerm = (fontStack' [fonts.term fonts.mono]) + "monospace";
 
-  userChrome = ''
+  userChrome = with mixins.userChrome; ''
     * {
       font-family: ${imp ffTerm};
     }
 
-    #TabsToolbar {
-      visibility: collapse;
-    }
-
-    #navigator-toolbox:hover #TabsToolbar,
-    #navigator-toolbox:active #TabsToolbar {
-      visibility: visible;
-    }
+    /*
+    FIXME: auto-hiding tabs is difficult to use...
+    ${import autoHideTabs}
+    */
 
     #sidebar-header {
       display: none;
     }
   '';
-  userContent = ''
-    ${mixins.monospaceText ''
+  userContent = with mixins.userContent; ''
+    ${import monospaceText ''
       font-family: ${imp ffMono};
       font-size: 1em !important;
       line-height: 1.2 !important;
