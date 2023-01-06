@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  home.packages = [pkgs.lastpass-cli];
   programs.ssh.matchBlocks = {
     "kweb-prod-www" = {
       hostname = "67.225.164.90";
