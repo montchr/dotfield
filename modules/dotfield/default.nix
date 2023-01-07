@@ -26,6 +26,10 @@ in {
     ./guardian.nix
   ];
   options.dotfield = {
+    enable = l.mkOption {
+      default = true;
+      type = l.types.bool;
+    };
     features = featuresOpt;
     paths = {
       fsPath = l.mkOption {
