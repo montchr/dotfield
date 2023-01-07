@@ -12,6 +12,20 @@ in rec {
     else "no";
 
   /*
+  Test whether a value matches a provided regex pattern exactly.
+
+  Type: test :: string<regexp> -> any -> bool
+  */
+  test = re: x: l.isString x && testString re x;
+
+  /*
+  Test whether a string matches a provided regex pattern exactly.
+
+  Type: testString :: string<regexp> -> string -> bool
+  */
+  testString = re: x: l.match re x != null;
+
+  /*
   Apply a function to the first character in a string.
 
   Type: transformFirstChar :: (string -> string) -> string -> string
