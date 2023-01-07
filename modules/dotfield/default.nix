@@ -24,6 +24,8 @@
 in {
   imports = [
     ./guardian.nix
+    ./hosts.nix
+    ./users.nix
   ];
   options.dotfield = {
     enable = l.mkOption {
