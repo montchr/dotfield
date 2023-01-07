@@ -1,4 +1,3 @@
-# TODO: rename to `num`
 {
   l,
   self,
