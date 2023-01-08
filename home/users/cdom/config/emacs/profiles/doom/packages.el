@@ -7,6 +7,7 @@
 
 ;; https://github.com/doomemacs/doomemacs/issues/6960
 (unpin! straight)
+(unpin! magit)
 (unpin! forge)
 (unpin! lsp-mode)
 (unpin! format-all)
