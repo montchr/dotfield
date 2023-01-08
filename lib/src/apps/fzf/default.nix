@@ -1,11 +1,10 @@
 {
-  inputs,
-  self,
+  l,
+  lself,
   ...
 }: let
-  inherit (self.colors) withHexPrefixes;
+  inherit (lself.colors) withHexPrefixes;
   inherit (l.generators) mkKeyValueDefault;
-  l = inputs.nixpkgs.lib // builtins;
 in rec {
   /*
   Convert a Base16 color scheme set into a string format suitable for setting

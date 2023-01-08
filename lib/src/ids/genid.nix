@@ -1,9 +1,9 @@
 ###: Source: <https://git.thalheim.io/Mic92/stockholm/src/commit/0b2952f4ed9572521f7c4a21904943ac33c602b0/lib/genid.nix>
 {
   l,
-  self,
+  lself,
 }: let
-  inherit (self.num) mod;
+  inherit (lself.num) mod;
 
   out = genid;
 

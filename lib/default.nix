@@ -8,9 +8,6 @@
   l = inputs.nixpkgs.lib // builtins;
 in {
   flake.lib = l.makeExtensible (lself: (l.mapAttrs
-    (_: path: (import path {
-      inherit l inputs peers systems;
-      self = lself;
-    }))
+    (_: path: (import path {inherit l inputs lself peers systems;}))
     (rakeLeaves ./src)));
 }

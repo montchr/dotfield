@@ -9,14 +9,13 @@
 # - Intentionally removed `net.tinc` option -- I don't expect to use this.
 #
 {
-  self,
-  inputs,
+  l,
+  lself,
   ...
 }: let
-  inherit (self.ids) genid_uint31;
-  inherit (self.net) normalize-ip6-addr;
-  inherit (self.strings) test;
-  l = inputs.nixpkgs.lib // builtins;
+  inherit (lself.ids) genid_uint31;
+  inherit (lself.net) normalize-ip6-addr;
+  inherit (lself.strings) test;
   t = l.types;
 in rec {
   uint = l.mkOptionType {

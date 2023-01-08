@@ -1,8 +1,4 @@
-{
-  l,
-  self,
-  ...
-}: {
+_: {
   /*
   Type: mod :: int -> int
 
