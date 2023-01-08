@@ -19,7 +19,7 @@
   doomProfileDir = "${profilesBasePath}/doom";
 
   # emacsDir = "${xdg.configHome}/emacs";
-  defaultProfile = "xtallos";
+  defaultProfile = "doom";
 in {
   imports = [./extra-packages.nix];
 
