@@ -1,12 +1,10 @@
 {
-  inputs,
-  systems,
+  l,
+  supportedSystems,
   ...
-}: let
-  l = inputs.nixpkgs.lib // builtins;
-in rec {
+}: rec {
   isDarwin = l.hasSuffix "-darwin";
   isLinux = l.hasSuffix "-linux";
-  eachDarwinSystem = l.genAttrs (l.filter isDarwin systems);
-  eachLinuxSystem = l.genAttrs (l.filter isLinux systems);
+  eachDarwinSystem = l.genAttrs (l.filter isDarwin supportedSystems);
+  eachLinuxSystem = l.genAttrs (l.filter isLinux supportedSystems);
 }

@@ -1,5 +1,4 @@
-{inputs, ...}: let
-  l = inputs.nixpkgs.lib // builtins;
+{l, ...}: rec {
   fontWeightDict = {
     thin = 100;
     extraLight = 200;
@@ -21,7 +20,6 @@
       black = heavy;
       demibold = semibold;
     });
-in {
   fontWeightValue = name: (withAliases fontWeightDict').name;
   fontWeightName = value: l.findFirst (_n: v: v == value) fontWeightDict';
 }

@@ -1,8 +1,6 @@
 ###: <https://tools.ietf.org/html/rfc5952>
 ###: via <https://git.thalheim.io/Mic92/stockholm/src/commit/0b2952f4ed9572521f7c4a21904943ac33c602b0/lib/default.nix#L107-L162>
-{inputs, ...}: let
-  l = inputs.nixpkgs.lib // builtins;
-
+{l, ...}: let
   max-run-0 = let
     both = v: {
       off = v;

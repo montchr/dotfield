@@ -1,9 +1,9 @@
 {
   l,
-  lself,
+  lib,
   ...
 }: let
-  inherit (lself.colors) withHexPrefixes;
+  inherit (lib.colors) withHexPrefixes;
   inherit (l.generators) mkKeyValueDefault;
 in rec {
   /*

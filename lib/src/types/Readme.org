@@ -1,0 +1,9 @@
+#+title: `dotfield.lib.types`
+
+* Sources
+** <https://cgit.krebsco.de/stockholm/tree/lib/types.nix?id=4adca5a98417c089e36d27f5a33c454d3d4ff3d8>
+** <https://git.thalheim.io/Mic92/stockholm/src/commit/0b2952f4ed9572521f7c4a21904943ac33c602b0/lib/types.nix>
+
+* Notes
+** TODO References to `retiolum` and `wiregrill` should be replaced accordingly
+** TODO Determine whether to use `net.tinc` -- I didn't add it yet...

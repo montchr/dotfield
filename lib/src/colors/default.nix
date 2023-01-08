@@ -1,6 +1,9 @@
-{inputs, ...}: let
+{
+  l,
+  inputs,
+  ...
+}: let
   inherit (inputs.nix-colors) colorSchemes;
-  l = inputs.nixpkgs.lib // builtins;
 
   /*
   Returns a library color scheme specification.
@@ -43,7 +46,7 @@ in {
   Type: semanticAliases :: AttrSet -> AttrSet
   @partial
   */
-  semanticAliases = import ./semanticAliases.nix;
+  semanticAliases = import ./aliases.nix;
 
   inverseSchemeType = type:
     if ("dark" == type)

@@ -1,6 +1,8 @@
-{inputs, ...}: let
-  l = inputs.nixpkgs.lib // builtins;
-in {
+{
+  l,
+  inputs,
+  ...
+}: {
   mixins.monospaceText = import ./mixins/monospaceText.nix;
   paths = import ./paths.nix;
 

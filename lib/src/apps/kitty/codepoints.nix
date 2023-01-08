@@ -1,6 +1,4 @@
-{inputs, ...}: let
-  l = inputs.nixpkgs.lib // builtins;
-in rec {
+{l}: rec {
   prefix = x: "U+" + x;
 
   /*

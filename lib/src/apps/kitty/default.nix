@@ -1,15 +1,13 @@
 {
-  inputs,
-  lself,
+  l,
+  lib,
   ...
 }: let
-  inherit (lself.strings) boolToYesNo;
-  inherit (lself.colors) withHexPrefixes;
+  inherit (lib.colors) withHexPrefixes;
+  inherit (lib.strings) boolToYesNo;
   inherit (l.generators) mkKeyValueDefault toKeyValue;
-  l = inputs.nixpkgs.lib // builtins;
-  codepoints = import ./codepoints.nix {inherit inputs;};
-in {
-  inherit codepoints;
+in rec {
+  codepoints = import ./codepoints.nix {inherit l;};
 
   /*
   @partial

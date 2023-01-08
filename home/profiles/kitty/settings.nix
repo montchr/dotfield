@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config.theme) fonts;
-  inherit (self.lib.num) toFloat;
+  inherit (self.lib.nums) toFloat;
   l = inputs.nixpkgs.lib // builtins;
 in {
   programs.kitty.settings = {
