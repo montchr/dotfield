@@ -110,90 +110,84 @@
     flake-parts,
     nixpkgs,
     digga,
-    std,
     ...
   } @ inputs: let
     inherit (digga.lib) flattenTree rakeLeaves;
-    inherit (std) blockTypes growOn harvest;
-
+    peers = import ./ops/metadata/peers.nix;
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
-  in
-    growOn {
-      inherit inputs;
-      cellsFrom = ./cells;
-      cellBlocks = [
-        ##: lib
-        (blockTypes.functions "dev")
-        (blockTypes.functions "functions")
-        (blockTypes.nixago "nixago")
-        (blockTypes.installables "packages")
+  in (flake-parts.lib.mkFlake {inherit inputs;} {
+    systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+    std.grow.cellsFrom = ./cells;
+    std.grow.cellBlocks = with inputs.std.blockTypes; [
+      ##: lib
+      (functions "dev")
+      (functions "functions")
+      (nixago "nixago")
+      (installables "packages")
 
-        ##: hosts
-        (blockTypes.data "modules")
-        (blockTypes.data "profiles")
-        (blockTypes.data "hosts")
-        (blockTypes.data "compat")
+      ##: hosts
+      (data "modules")
+      (data "profiles")
+      (data "hosts")
+      (data "compat")
 
-        ##: automation
-        (blockTypes.data "constants")
-        (blockTypes.data "devshellProfiles")
-        (blockTypes.devshells "devshells")
-        (blockTypes.nixago "nixago")
-        (blockTypes.installables "packages")
-      ];
-    }
-    {
-      devShells = harvest self [
+      ##: automation
+      (data "constants")
+      (data "devshellProfiles")
+      (devshells "devshells")
+      (nixago "nixago")
+      (installables "packages")
+    ];
+    std.harvest = {
+      devShells = [
         ["dotfield" "devshells"]
         ["_automation" "devshells"]
         ["secrets" "devshells"]
       ];
-    }
-    (flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-      imports = [
-        {
-          _module.args = {
-            inherit inputs primaryUser;
-            peers = import ./ops/metadata/peers.nix;
-          };
-        }
+    };
+    # FIXME: this is required, but shouldn't be -- needs upstream fix
+    # https://github.com/divnix/std/issues/235
+    std.grow.nixpkgsConfig = {allowUnfree = true;};
+    imports = [
+      inputs.std.flakeModule
 
-        ./flake-modules/homeConfigurations.nix
-        ./flake-modules/sharedModules.nix
-        ./flake-modules/sharedProfiles.nix
+      {_module.args = {inherit inputs peers primaryUser;};}
 
-        ./lib
-        ./packages
+      ./flake-modules/homeConfigurations.nix
+      ./flake-modules/sharedModules.nix
+      ./flake-modules/sharedProfiles.nix
 
-        ./nixos/configurations.nix
-        ./nixos/checks.nix
+      ./lib
+      ./packages
 
-        ./home/configurations.nix
+      ./nixos/configurations.nix
+      ./nixos/checks.nix
 
-        ./darwin/configurations.nix
-        ./darwin/packages
-      ];
-      perSystem = {
-        system,
-        inputs',
-        ...
-      }: {
-        _module.args.primaryUser = primaryUser;
-        _module.args.pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        formatter = inputs'.nixpkgs.legacyPackages.alejandra;
+      ./home/configurations.nix
+
+      ./darwin/configurations.nix
+      ./darwin/packages
+    ];
+    perSystem = {
+      system,
+      inputs',
+      ...
+    }: {
+      _module.args.primaryUser = primaryUser;
+      _module.args.pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
       };
-      flake = {
-        # shared importables :: may be used within system configurations for any
-        # supported operating system (e.g. nixos, nix-darwin).
-        sharedModules = flattenTree (rakeLeaves ./modules);
-        sharedProfiles = rakeLeaves ./profiles;
-      };
-    });
+      formatter = inputs'.nixpkgs.legacyPackages.alejandra;
+    };
+    flake = {
+      # shared importables :: may be used within system configurations for any
+      # supported operating system (e.g. nixos, nix-darwin).
+      sharedModules = flattenTree (rakeLeaves ./modules);
+      sharedProfiles = rakeLeaves ./profiles;
+    };
+  });
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes";
