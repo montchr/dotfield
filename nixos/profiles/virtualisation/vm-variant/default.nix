@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 Chris Montgomery
+# SPDX-FileCopyrightText: Copyright (c) 2022-2023 Chris Montgomery
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 # SPDX-FileCopyrightText: Copyright (c) 2020-2021 Jörg Thalheim and nixos-shell contributors

@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Chris Montgomery
+# Copyright (C) 2022-2023 Chris Montgomery
 # SPDX-License-Identifier: GPL-3.0+
 #
 # Copyright (C) 2021 Gytis Ivaskevicius

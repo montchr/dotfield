@@ -1,6 +1,6 @@
 ;;; init-keys.el --- Keybindings configuration -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2022, Chris Montgomery <chris@cdom.io>
+;; Copyright (c) 2022-2023, Chris Montgomery <chris@cdom.io>
 ;;
 ;; Author: Chris Montgomery <https://github.com/montchr>
 ;; Maintainer: Chris Montgomery <chris@cdom.io>

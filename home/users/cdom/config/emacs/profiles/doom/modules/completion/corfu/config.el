@@ -1,6 +1,6 @@
 ;;; completion/corfu/config.el -*- lexical-binding: t; -*-
 ;;
-;; Copyright 2022, Chris Montgomery
+;; Copyright 2022-2023, Chris Montgomery
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;
 ;; Copyright 2022, Ellis Kenyő

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText Copyright (c) 2022 Chris Montgomery
+# SPDX-FileCopyrightText Copyright (c) 2022-2023 Chris Montgomery
 # SPDX-FileCopyrightText Copyright (c) 2017-2022 Home Manager contributors
 # SPDX-LicenseIdentifier: GPL-3.0-or-later OR MIT
 #
