@@ -25,6 +25,7 @@
     (ripgrep.override {withPCRE2 = true;})
     rsync
     screen
+    sd
     tealdeer
     tmux
     vim
