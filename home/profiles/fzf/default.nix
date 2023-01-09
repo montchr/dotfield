@@ -37,7 +37,7 @@ in {
     fileWidgetCommand = findFiles {
       hidden = true;
       follow = true;
-      exclude = [".git"];
+      exclude = [".git" ".direnv" ".std" "node_modules" "vendor"];
     };
     fileWidgetOptions = ["--preview 'head {}'"];
 
