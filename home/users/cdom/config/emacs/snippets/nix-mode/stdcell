@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: nix standard cell
+# name: std cell
 # uuid: nix-std-cell
 # key: stdcell
 # condition: t
@@ -7,9 +7,8 @@
 {
   inputs,
   cell,
-}:${1: let
-  ${2:l = inputs.nixpkgs.lib // builtins;}
-in}
-{
+}:${1:let
+  l = inputs.nixpkgs.lib // builtins;
+in }{
   $0
 }
