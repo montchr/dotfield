@@ -1,13 +1,13 @@
 # FIXME: make reusable -- duplicated as seadoom@hodgepodge
 {
   self,
+  inputs,
   config,
-  lib,
   pkgs,
   ...
 }: let
-  inherit (self.inputs.digga.lib) rakeLeaves;
-  inherit (lib) optional;
+  inherit (inputs.flib.lib.modules) rakeLeaves;
+  l = inputs.nixpkgs.lib // builtins;
 
   username = "cdom";
 
@@ -25,8 +25,8 @@ in {
 
   # Allow nix-darwin to install the specified programs as applications.
   environment.systemPackages =
-    (optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package)
-    ++ (optional hmCfg.programs.emacs.enable hmCfg.programs.emacs.package);
+    (l.optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package)
+    ++ (l.optional hmCfg.programs.emacs.enable hmCfg.programs.emacs.package);
 
   users.users.${username} = {
     home = "/Users/${username}";

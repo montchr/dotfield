@@ -5,11 +5,14 @@ moduleArgs @ {
   self,
   ...
 }: let
-  inherit (l.types) str int;
-  inherit (self.lib.options) mkOpt;
-  inherit (self.lib.colors) getColorScheme;
-  inherit (l) types;
+  inherit (t) str int;
+  inherit (inputs.flib) lib;
+  inherit (lib.options) mkOpt;
+  inherit (lib.colors) getColorScheme;
+
   l = inputs.nixpkgs.lib // builtins;
+  t = l.types;
+
   cfg = config.theme;
 
   # Single-item list format follows the NixOS options.
@@ -24,7 +27,7 @@ moduleArgs @ {
   in
     l.mapAttrs (_: l.head) fonts;
 
-  colorSchemeType = l.types.submodule {options = options.colorScheme;};
+  colorSchemeType = t.submodule {options = options.colorScheme;};
   mkColorSchemeOption = default:
     l.mkOption {
       inherit default;
@@ -38,7 +41,7 @@ in {
       enable = l.mkEnableOption "Whether to enable the theme module.";
       colors = {
         active = l.mkOption {
-          type = with types; nullOr colorSchemeType;
+          type = t.nullOr colorSchemeType;
           default = cfg.colors.dark;
           description = ''
             Currently-active color scheme, defaulting to the value of the dark theme.

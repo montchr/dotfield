@@ -68,6 +68,11 @@
     agenix.url = "github:montchr/agenix/darwin-support";
 
     ##: sources
+    flib = {
+      url = "sourcehut:~montchr/flib";
+      inputs.nix-colors.follows = "nix-colors";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
     ##: universal

@@ -6,12 +6,13 @@ hmArgs @ {
   self,
   ...
 }: let
-  inherit (inputs.digga.lib) rakeLeaves;
-  inherit (self.lib.colors) withHexPrefixes;
-  inherit (self.lib.apps.firefox) evalSettings;
+  inherit (inputs.flib.lib.color) withHexPrefixes;
+  inherit (inputs.flib.lib.modules) rakeLeaves;
+  inherit (inputs.flib.apps.lib.firefox) evalSettings;
+
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
-  inherit (config.theme) fonts;
+
   l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
@@ -33,9 +34,9 @@ hmArgs @ {
   fontStack = l.concatMapStrings (y: ''"${y}", '');
   fontStack' = x: fontStack (l.map (y: y.family) (l.toList x));
 
-  ffSans = fontStack' fonts.sans + "sans-serif";
-  ffMono = fontStack' fonts.mono + "monospace";
-  ffTerm = (fontStack' [fonts.term fonts.mono]) + "monospace";
+  ffSans = fontStack' theme.fonts.sans + "sans-serif";
+  ffMono = fontStack' theme.fonts.mono + "monospace";
+  ffTerm = (fontStack' [theme.fonts.term theme.fonts.mono]) + "monospace";
 
   userChrome = with mixins.userChrome; ''
     * {

@@ -1,10 +1,10 @@
 {
   config,
   inputs,
-  self,
   ...
 }: let
-  inherit (self.lib.colors) getColorScheme;
+  inherit (inputs.flib.lib.color) getColorScheme;
+
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
 
