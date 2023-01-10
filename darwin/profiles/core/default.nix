@@ -67,7 +67,6 @@ in {
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
     # Use the nix-darwin brewfile when invoking `brew bundle` imperatively.
     global.brewfile = true;
   };
