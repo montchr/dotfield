@@ -4,8 +4,16 @@
   pkgs,
   ...
 }: let
-  inherit (config.homebrew) brewPrefix;
+  inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = inputs.nixpkgs.lib // builtins;
+
+  # NOTE: This is NOT the same as upstream's `homebrew.brewPrefix` option,
+  # which defaults to the equivalent of `$(brew --prefix)/bin`.
+  # <https://github.com/LnL7/nix-darwin/issues/596>
+  brewPrefix =
+    if isAarch64
+    then "/opt/homebrew"
+    else "/usr/local";
 in {
   imports = [./builders/nixbuild-net.nix];
 
@@ -39,12 +47,22 @@ in {
     # prefmanager
   ];
 
+  # <https://github.com/LnL7/nix-darwin/issues/596>
+  #
+  # $ brew shellenv
+  # export HOMEBREW_PREFIX="/opt/homebrew";
+  # export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+  # export HOMEBREW_REPOSITORY="/opt/homebrew";
+  # export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  # export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+  # export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+  environment.systemPath = l.mkBefore ["${brewPrefix}/bin" "${brewPrefix}/sbin"];
   environment.variables = {
     HOMEBREW_PREFIX = brewPrefix;
     HOMEBREW_CELLAR = "${brewPrefix}/Cellar";
     HOMEBREW_REPOSITORY = brewPrefix;
-    INFOPATH = "${brewPrefix}/share/info:$INFOPATH";
-    MANPATH = "${brewPrefix}/share/man:$MANPATH:";
+    INFOPATH = "${brewPrefix}/share/info:\${INFOPATH:-}";
+    MANPATH = "${brewPrefix}/share/man\${MANPATH+:$MANPATH}:";
   };
 
   homebrew = {
