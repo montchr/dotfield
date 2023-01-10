@@ -24,6 +24,9 @@ in {
   imports = [./extra-packages.nix];
 
   home.sessionVariables = {
+    # <https://github.com/plexus/chemacs2#example-emacs-as-daemon>
+    EDITOR = "emacsclient -c -s ${defaultProfile} -a emacs";
+
     # EMACSDIR = emacsDir;
     CHEMACS_PROFILE = defaultProfile;
     DOOMDIR = doomProfileDir;
