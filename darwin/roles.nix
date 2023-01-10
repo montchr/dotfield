@@ -12,7 +12,7 @@
     ])
     ++ (with darwinProfiles; [
       bitwarden
-      emacs
+      emacs-plus
       graphical
       system-defaults
       virtualisation.containers
