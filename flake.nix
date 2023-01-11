@@ -135,6 +135,7 @@
       # (functions "hosts")
       # (functions "compat")
 
+      ##: darwin
       (data "constants")
 
       ###: === INTERNAL ===
