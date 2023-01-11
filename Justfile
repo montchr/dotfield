@@ -159,23 +159,6 @@ set-system-appearance mode="toggle":
   {{ if mode == "dark" { "just _mac-dark-mode 'true'" } else if mode == "light" { "just _mac-dark-mode 'false'" } else { "just _mac-dark-mode 'not dark mode'" } }}
 
 
-###: UPDATES ===================================================================
-
-update-all: update-flake-inputs update-doom
-
-# <- Update the flake inputs
-update-flake-inputs:
-  @echo 'Updating flake inputs...'
-  nix flake update --verbose
-  @echo {{msg-done}}
-
-# <- Update Doom Emacs
-update-doom:
-  @echo 'Updating Doom Emacs...'
-  doom upgrade
-  @echo {{msg-done}}
-
-
 ###: LICENSING =================================================================
 
 # <- Add the project default license header to the specified files
