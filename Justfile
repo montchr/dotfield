@@ -73,11 +73,13 @@ deadnix action +FILES=prj-root:
 # <- Diff the current + next system generations.
 diff-next-sys: (system "build")
   nix-diff "{{sys-gen-path}}" "{{prj-root}}/result"
+  @echo {{msg-done}}
 
 # <- Diff the current + next home generations.
 diff-next-home:
   nix-diff {{hm-gen-path}} \
     `nix build --print-out-paths {{prj-root}}#homeConfigurations.{{hm-fragment}}.activationPackage`
+  @echo {{msg-done}}
 
 
 ###: SYSTEM ====================================================================
@@ -93,6 +95,7 @@ system subcommand *ARGS='':
   {{cachix-exec}} {{sys-cmd}} {{subcommand}} -- \
     {{ARGS}} --flake "{{prj-root}}" --verbose
   @echo {{msg-done}}
+
 
 ###: HOME-MANAGER ==============================================================
 
@@ -125,6 +128,7 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 # <- Set the theme for all applications
 theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
   DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
+  @echo {{msg-done}}
 
 # <- Use the 'light' theme for all applications
 light: (theme "light")
