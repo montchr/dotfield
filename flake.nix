@@ -172,12 +172,16 @@
     perSystem = {
       system,
       inputs',
+      self',
       ...
     }: {
-      _module.args.primaryUser = primaryUser;
-      _module.args.pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
+      _module.args = {
+        inherit (self') cells;
+        inherit primaryUser;
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
       };
       formatter = inputs'.nixpkgs.legacyPackages.alejandra;
     };

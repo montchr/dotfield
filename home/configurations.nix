@@ -86,7 +86,11 @@ in {
     );
   };
 
-  perSystem = ctx @ {inputs', ...}: {
+  perSystem = ctx @ {
+    inputs',
+    cells,
+    ...
+  }: {
     homeConfigurations = let
       makeHomeConfiguration = username: hmArgs: let
         inherit (pkgs.stdenv) hostPlatform;
@@ -101,11 +105,13 @@ in {
             (moduleArgs: {
               home.username = username;
               home.homeDirectory = "${homePrefix}/${username}";
-              _module.args.inputs' = inputs';
-              _module.args.isNixos =
-                (moduleArgs.nixosConfig ? hardware)
-                # We only care if the option exists -- its value doesn't matter.
-                && (moduleArgs.nixosConfig.hardware.enableRedistributableFirmware -> true);
+              _module.args = {
+                inherit cells inputs';
+                isNixos =
+                  (moduleArgs.nixosConfig ? hardware)
+                  # We only care if the option exists -- its value doesn't matter.
+                  && (moduleArgs.nixosConfig.hardware.enableRedistributableFirmware -> true);
+              };
             })
           ]
           ++ (hmArgs.modules or []);

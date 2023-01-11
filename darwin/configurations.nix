@@ -41,6 +41,7 @@
       ctx @ {
         inputs',
         packages,
+        cells,
         pkgs,
         ...
       }:
@@ -57,6 +58,7 @@
               {
                 _module.args = {
                   inherit inputs' peers primaryUser;
+                  inherit cells;
                   inherit (ctx.config) packages;
                   isNixos = false;
                 };

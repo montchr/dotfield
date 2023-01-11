@@ -41,6 +41,7 @@
     withSystem system (
       {
         inputs',
+        cells,
         pkgs,
         packages,
         ...
@@ -56,7 +57,13 @@
               nixosMachines.${hostname}
               {
                 _module.args = {
-                  inherit inputs' packages peers primaryUser;
+                  inherit
+                    cells
+                    inputs'
+                    packages
+                    peers
+                    primaryUser
+                    ;
                   isNixos = true;
                 };
                 nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
