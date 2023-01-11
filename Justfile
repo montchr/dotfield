@@ -4,7 +4,7 @@
 ###: https://just.systems/man/en/
 
 default:
-  @just --list --unsorted --color=always | rg -v "    default"
+  @just --list --unsorted --color=always | rg -v "\s*default"
 
 ##: feedback
 icon-ok := '✔'
