@@ -161,9 +161,6 @@ set-system-appearance mode="toggle":
 
 ###: LICENSING =================================================================
 
-# <- Add the project default license header to the specified files
-alias license := license-gpl
-
 # <- Validate the project's licensing and copyright info
 license-check:
   reuse lint
