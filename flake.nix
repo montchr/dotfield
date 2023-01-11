@@ -129,10 +129,11 @@
       (installables "packages")
 
       ##: hosts
-      (data "modules")
-      (data "profiles")
-      (data "hosts")
-      (data "compat")
+      # TODO: these don't yet exist...
+      # (functions "modules")
+      # (functions "profiles")
+      # (functions "hosts")
+      # (functions "compat")
 
       (data "constants")
 
