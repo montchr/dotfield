@@ -170,12 +170,12 @@ license-check:
 
 # <- Add a GPL-3.0-or-later license header to the specified files
 license-gpl +FILES:
-  reuse addheader -l {{default-license}} -c '{{copyright}}' {{FILES}}
+  reuse annotate -l {{default-license}} -c '{{copyright}}' {{FILES}}
 
 # <- Add a CC-BY-SA-4.0 license header to the specified files
 license-cc +FILES:
-  reuse addheader -l {{docs-license}} -c '{{copyright}}' {{FILES}}
+  reuse annotate -l {{docs-license}} -c '{{copyright}}' {{FILES}}
 
 # <- Add a public domain CC0-1.0 license header to the specified files
 license-public-domain +FILES:
-  reuse addheader -l {{public-domain-license}} -c '{{copyright}}' {{FILES}}
+  reuse annotate -l {{public-domain-license}} -c '{{copyright}}' {{FILES}}
