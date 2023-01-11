@@ -120,6 +120,8 @@
     systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
     std.grow.cellsFrom = ./cells;
     std.grow.cellBlocks = with inputs.std.blockTypes; [
+      ###: === PUBLIC ===
+
       ##: lib
       (functions "dev")
       (functions "functions")
@@ -132,9 +134,13 @@
       (data "hosts")
       (data "compat")
 
-      ##: automation
       (data "constants")
-      (data "devshellProfiles")
+
+      ###: === INTERNAL ===
+
+      ##: _automation
+      (data "constants")
+      (functions "devshellProfiles")
       (devshells "devshells")
       (nixago "nixago")
       (installables "packages")
