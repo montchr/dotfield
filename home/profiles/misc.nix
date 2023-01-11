@@ -30,7 +30,6 @@
 
     # TODO: use hm module
     mpv
-    youtube-dl
 
     ## === Data Sync ===
 

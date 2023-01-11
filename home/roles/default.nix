@@ -37,6 +37,7 @@ with profiles; let
     mpv
     theme
     vscode
+    yt-dlp
   ];
 
   personalised = [
