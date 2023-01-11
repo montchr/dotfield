@@ -103,6 +103,21 @@ home subcommand name=hm-fragment *ARGS='--impure':
   @echo {{msg-done}}
 
 
+###: EMACS =====================================================================
+
+emacs-profile-default := env_var('CHEMACS_PROFILE')
+emacs-load-theme-dark := "(load-theme 'modus-vivendi-tinted t)"
+emacs-load-theme-light := "(load-theme 'modus-operandi-tinted t)"
+
+# <- Evaluate elisp via `emacsclient`
+emacs-eval elisp server=emacs-profile-default:
+  emacsclient --socket-name={{server}} --no-wait --eval "{{elisp}}" >/dev/null
+
+# Toggle the current Emacs theme between light<->dark
+[private]
+set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-dark } else { emacs-load-theme-light } )
+
+
 ###: THEME =====================================================================
 
 # TODO: <- Toggle all application themes between light<->dark
@@ -125,19 +140,6 @@ set-kitty-theme mode='dark':
   @echo "Setting kitty {{mode}} theme"
   kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{mode}}.conf
   @echo {{msg-done}}
-
-##: --- emacs ---
-
-emacs-dark := "(modus-themes-load-vivendi)"
-emacs-light := "(modus-themes-load-operandi)"
-
-# FIXME: server not reachable, but should otherwise work
-# <- Toggle the current Emacs theme between light<->dark
-[private]
-set-emacs-theme mode='dark':
-  just _emacs-cmd {{ quote( if mode == 'dark' { emacs-dark } else { emacs-light } ) }}
-_emacs-cmd eval:
-  emacsclient --no-wait --eval "{{eval}}" >/dev/null
 
 
 ##: --- macOS ---
