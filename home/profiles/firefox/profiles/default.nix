@@ -95,6 +95,14 @@ hmArgs @ {
     default = "Kagi";
     engines = {
       "Kagi" = {urls = [{template = "https://kagi.com/search?q={searchTerms}";}];};
+      "Bundlephobia" = {
+        urls = [{template = "https://bundlephobia.com/packages/{searchTerms}";}];
+        definedAliases = ["@bp"];
+      };
+      "npm" = {
+        urls = [{template = "https://www.npmjs.com/search?q={searchTerms}";}];
+        definedAliases = ["@npm"];
+      };
       "Nix Packages" = import ./search/nix-packages.nix {inherit pkgs;};
       "NixOS Wiki" = import ./search/nixos-wiki.nix;
     };
