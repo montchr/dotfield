@@ -47,8 +47,8 @@ in {
     (("default" . ((user-emacs-directory . "${profilesBasePath}/${defaultProfile}")))
      ("doom" . ((user-emacs-directory . "${doomSourceDir}")
                 (server-name . "doom")))
-     ("cmachs" . ((user-emacs-directory . "${xdg.configHome}/cmachs")
-                   (server-name . "cmachs")))
+     ("ceamx" . ((user-emacs-directory . "${xdg.configHome}/ceamx")
+                   (server-name . "ceamx")))
      ("xtallos" . ((user-emacs-directory . "${profilesBasePath}/xtallos")
                    (server-name . "xtallos"))))
   '';
