@@ -12,6 +12,7 @@
         "with-mailutils"
         "with-native-comp"
         "with-modern-papirus-icon"
+        "with-poll"
       ];
       start_service = true;
       restart_service = true;
