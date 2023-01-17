@@ -1,4 +1,3 @@
-# FIXME: needs tree-sitter installed via brew...
 {
   homebrew.taps = ["d12frosted/emacs-plus"];
   homebrew.brews = [
@@ -6,7 +5,7 @@
     # <https://github.com/d12frosted/homebrew-emacs-plus/issues/527>
     "tree-sitter"
     {
-      name = "emacs-plus@30";
+      name = "emacs-plus@29";
       args = [
         "with-debug"
         "with-imagemagick"

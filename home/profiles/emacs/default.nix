@@ -72,7 +72,8 @@ in {
 
   programs.emacs = {
     # darwin emacs packages result in app bundles, which hm does not handle
-    # well. nix-darwin currently does a (slightly) better job of it.
+    # well. nix-darwin currently does a (slightly) better job of it. but
+    # emacs-plus via homebrew wins.
     enable = !isDarwin;
     package = emacsGit; # bleeding edge from emacs-overlay
     extraPackages = epkgs: with epkgs; [vterm];
