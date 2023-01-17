@@ -3,9 +3,9 @@
   pkgs,
   inputs,
   inputs',
+  packages,
   ...
 }: let
-  inherit (inputs'.emacs-overlay.packages) emacsGit;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) xdg;
   inherit (config.lib.dag) entryAfter;
@@ -71,10 +71,11 @@ in {
     '';
 
   programs.emacs = {
-    # darwin emacs packages result in app bundles, which hm does not handle
-    # well. nix-darwin currently does a (slightly) better job of it.
-    enable = !isDarwin;
-    package = emacsGit; # bleeding edge from emacs-overlay
+    enable = true;
+    package =
+      if isDarwin
+      then packages.emacs-plus-edge
+      else inputs'.emacs-overlay.packages.emacsGit;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
