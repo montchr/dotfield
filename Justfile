@@ -92,7 +92,7 @@ switch *ARGS='': (system "switch" ARGS)
 
 # <- Rebuild a host and push any new derivations to the binary cache
 system subcommand *ARGS='':
-  {{cachix-exec}} {{sys-cmd}} {{subcommand}} -- \
+  {{sys-cmd}} {{subcommand}} \
     {{ARGS}} --flake "{{prj-root}}" --verbose
   @echo {{msg-done}}
 
@@ -101,7 +101,7 @@ system subcommand *ARGS='':
 
 # <- Rebuild a home configuration and push to the binary cache
 home subcommand name=hm-fragment *ARGS='--impure':
-  {{cachix-exec}} home-manager {{subcommand}} -- \
+  home-manager {{subcommand}} \
     {{ARGS}} --flake "{{prj-root}}" --verbose
   @echo {{msg-done}}
 
