@@ -32,6 +32,7 @@ in {
 
     # EMACSDIR = emacsDir;
     CHEMACS_PROFILE = defaultProfile;
+    EMACS_STATE_DIR = "${xdg.cacheHome}/${defaultProfile}";
     DOOMDIR = doomProfileDir;
 
     ##: lsp-mode: use plists instead of hashtables for performance improvement
