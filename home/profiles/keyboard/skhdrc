@@ -64,7 +64,7 @@ app     < escape    ; default
 #           -- open a new instance of emacs in background
 #              TODO: tell yabai about this window specifically
 #              FIXME: use default profile, whichever that is based on config
-app     < e : emacs --with-profile doom &; \
+app     < e : emacs --with-profile default &; \
               skhd -k 'escape'
 #           -- open a new frame for the existing emacs instance
 app     < shift - e : emacsclient -cn; \
