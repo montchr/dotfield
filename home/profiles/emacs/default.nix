@@ -18,8 +18,11 @@
   doomSourceDir = "${xdg.dataHome}/doomemacs";
   doomProfileDir = "${profilesBasePath}/doom";
 
-  # emacsDir = "${xdg.configHome}/emacs";
-  defaultProfile = "doom";
+  defaultProfile = "ceamx";
+  defaultProfilePath =
+    if defaultProfile == "ceamx"
+    then "${xdg.configHome}/${defaultProfile}"
+    else "${profilesBasePath}/${defaultProfile}";
 in {
   imports = [./extra-packages.nix];
 
@@ -44,7 +47,8 @@ in {
   };
 
   xdg.configFile."chemacs/profiles.el".text = ''
-    (("default" . ((user-emacs-directory . "${profilesBasePath}/${defaultProfile}")))
+    (("default" . ((user-emacs-directory . "${defaultProfilePath}")
+                   (server-name . "default")))
      ("doom" . ((user-emacs-directory . "${doomSourceDir}")
                 (server-name . "doom")))
      ("ceamx" . ((user-emacs-directory . "${xdg.configHome}/ceamx")
