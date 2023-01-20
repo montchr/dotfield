@@ -112,7 +112,7 @@ sys     < s : skhd -r ; \
               skhd -k 'escape'
 
 # Restart yabai
-sys     < y : launchctl kickstart -k "gui/$EUID/org.nixos.yabai" ; \
+sys     < y : yabai-relaunch ; \
               skhd -k 'escape'
 
 

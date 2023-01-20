@@ -154,7 +154,13 @@
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
 in {
   environment.systemPackages =
-    [yabaiPackage]
+    [
+      yabaiPackage
+
+      (pkgs.writeShellScriptBin "yabai-relaunch" ''
+        launchctl kickstart -k "gui/$EUID/org.nixos.yabai"
+      '')
+    ]
     ++ (map (key: builtins.getAttr key scripts) (builtins.attrNames scripts));
 
   environment.variables = {
