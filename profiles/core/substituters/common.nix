@@ -1,6 +1,7 @@
 {
   imports = [
     ./dotfield.nix
+    ./garnix.nix
     ./nix-community.nix
   ];
   nix.settings = {
