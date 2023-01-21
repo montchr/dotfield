@@ -1,15 +1,11 @@
-{
-  self,
-  peers,
-  ...
-}: let
+{self, ...}: let
   inherit (self) inputs systems;
   l = inputs.nixpkgs.lib // builtins;
 
   lib = l.makeExtensible (lself: let
     callLibs = file:
       import file {
-        inherit l inputs peers;
+        inherit l inputs;
         lib = lself;
         supportedSystems = systems;
       };
@@ -21,7 +17,6 @@
     attrs = callLibs ./attrs.nix;
     modules = callLibs ./modules.nix;
     options = callLibs ./options.nix;
-    peers = callLibs ./peers.nix;
 
     typography = callLibs ./typography.nix;
 

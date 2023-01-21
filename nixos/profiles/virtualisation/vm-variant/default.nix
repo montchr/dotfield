@@ -8,25 +8,23 @@
 #
 # https://github.com/Mic92/nixos-shell/blob/55de7d4d449ff30cdde8b8fe484a86eef477245e/share/modules/nixos-shell-config.nix
 {
+  inputs,
   config,
-  lib,
   primaryUser,
-  self,
+  peers,
   ...
 }: let
+  inherit (config.networking) hostName;
+  l = inputs.nixpkgs.lib // builtins;
   cfg = config.nixos-vm;
-  mkVMDefault = lib.mkOverride 900;
+  mkVMDefault = l.mkOverride 900;
 in {
   environment.variables = {
     NIXOS_VM_DATA_HOME = cfg.dataHome;
     NIXOS_VM_HOSTNAME = cfg.hostName;
   };
 
-  virtualisation.vmVariant = {
-    lib,
-    pkgs,
-    ...
-  }: {
+  virtualisation.vmVariant = {pkgs, ...}: {
     imports = [
       ./vm-filesystems.nix
       # TODO: nothing here yet
@@ -38,8 +36,8 @@ in {
 
     # Preserve most of the host machine's peer config but override networking.
     nixos-vm.peerConfig =
-      lib.mkDefault
-      ((self.lib.peers.getHost config.networking.hostName)
+      l.mkDefault
+      ((peers.hosts.${hostName})
         // {
           network = "local";
           tailscale = null;
@@ -55,7 +53,7 @@ in {
     # For example, while Syncthing would (likely) be able to distinguish between
     # each node with a UUID, it would be confusing and chaotic to have multiple
     # nodes default to the same name.
-    networking.hostName = lib.mkVMOverride cfg.hostName;
+    networking.hostName = l.mkVMOverride cfg.hostName;
 
     networking.firewall.enable = mkVMDefault false;
     services.openssh.enable = mkVMDefault true;
@@ -63,10 +61,10 @@ in {
     users.mutableUsers = false;
 
     # Allow the user to login as root without password.
-    users.extraUsers.root.initialHashedPassword = lib.mkVMOverride "";
-    users.users.root.openssh.authorizedKeys.keys = lib.mkVMOverride primaryUser.authorizedKeys;
+    users.extraUsers.root.initialHashedPassword = l.mkVMOverride "";
+    users.users.root.openssh.authorizedKeys.keys = l.mkVMOverride primaryUser.authorizedKeys;
 
-    services.getty.helpLine = lib.mkVMOverride ''
+    services.getty.helpLine = l.mkVMOverride ''
       Log in as "root" with an empty password.
       If you are connected via serial console:
       Type Ctrl-a c to switch to the qemu console
