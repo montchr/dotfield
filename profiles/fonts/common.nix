@@ -14,7 +14,13 @@ in {
   fonts.fontDir.enable = true;
   fonts.fonts =
     (with pkgs; [
+      # <https://software.sil.org/charis/>
+      # <https://practicaltypography.com/charter.html>
+      charis-sil
+
       emacs-all-the-icons-fonts
+      # <https://bboxtype.com/typefaces/FiraSans/>
+      fira
       ibm-plex
       inter
       (nerdfonts.override {
