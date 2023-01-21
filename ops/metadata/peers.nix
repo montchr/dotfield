@@ -1,5 +1,4 @@
-# TODO: use dhall
-let
-  hosts = builtins.fromTOML (builtins.readFile ./hosts.toml);
-  networks = builtins.fromTOML (builtins.readFile ./networks.toml);
-in {inherit hosts networks;}
+{
+  hosts = import ./hosts.nix;
+  networks = import ./networks.nix;
+}
