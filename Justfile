@@ -37,6 +37,17 @@ sys-cmd := if os() == "linux" {
 } else { "nix build" }
 
 
+###: UTILITIES =================================================================
+
+# <- Convert a JSON file to a Nix expression
+json2nix file:
+  nix eval --expr 'builtins.fromJSON (builtins.readFile {{file}})' --impure
+
+# <- Convert a TOML file to a Nix expression
+toml2nix file:
+  nix eval --expr 'builtins.fromTOML (builtins.readFile {{file}})' --impure
+
+
 ###: LINTING/FORMATTING ========================================================
 
 # <- Lint files
