@@ -28,6 +28,7 @@ in {
   ];
 
   homebrew.casks = [
+    "airfoil"
     "alfred"
     "appcleaner"
     "bartender"
@@ -58,6 +59,6 @@ in {
     "Drafts" = 1435957248;
     "Paprika Recipe Manager" = 1303222628;
     "Reeder" = 1529448980;
-    # "Tailscale" = 1475387142;
+    "Tailscale" = 1475387142;
   };
 }
