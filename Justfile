@@ -96,7 +96,10 @@ diff-next-home:
 ###: SYSTEM ====================================================================
 
 # <- Rebuild the system and provide a summary of the changes
-build *ARGS='': (system "build" ARGS)
+build *ARGS='': 
+  {{cachix-exec}} {{sys-cmd}} build -- \
+    {{ARGS}} --flake "{{prj-root}}" --verbose
+  @echo {{msg-done}}
 
 # <- Rebuild the system and switch to the next generation
 switch *ARGS='': (system "switch" ARGS)
