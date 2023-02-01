@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# group: file templates
-# contributor: Chris Montgomery
-# --
-{inputs, ...}: let
-  l = inputs.nixpkgs.lib // builtins;
-in {
-  $0
-}

@@ -96,7 +96,7 @@ diff-next-home:
 ###: SYSTEM ====================================================================
 
 # <- Rebuild the system and provide a summary of the changes
-build *ARGS='': 
+build *ARGS='':
   {{cachix-exec}} {{sys-cmd}} build -- \
     {{ARGS}} --flake "{{prj-root}}" --verbose
   @echo {{msg-done}}
@@ -122,13 +122,12 @@ home subcommand name=hm-fragment *ARGS='--impure':
 
 ###: EMACS =====================================================================
 
-emacs-profile-default := env_var('CHEMACS_PROFILE')
 emacs-load-theme-dark := "(load-theme 'modus-vivendi-tinted t)"
 emacs-load-theme-light := "(load-theme 'modus-operandi-tinted t)"
 
 # <- Evaluate elisp via `emacsclient`
-emacs-eval elisp server=emacs-profile-default:
-  emacsclient --socket-name={{server}} --no-wait --eval "{{elisp}}" >/dev/null
+emacs-eval elisp:
+  emacsclient --no-wait --eval "{{elisp}}" >/dev/null
 
 # Toggle the current Emacs theme between light<->dark
 [private]

@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: nix let block
-# uuid: nix-let-block
-# key: letin
-# condition: t
-# --
-let
-  $0
-in
