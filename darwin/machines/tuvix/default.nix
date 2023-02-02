@@ -1,5 +1,6 @@
 # FIXME: make reusable -- duplicated as seadoom@hodgepodge
 {
+  inputs,
   self,
   config,
   lib,
@@ -8,6 +9,7 @@
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
   inherit (lib) optional;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   username = "cdom";
 
@@ -15,10 +17,10 @@
   # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
   ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
 in {
-  dotfield.users = {
-    cdom = {
-    };
-  };
+  # FIXME: needs some tweaking upstream to account for nix-darwin...
+  # imports = [inputs.klein-infra.darwinModules."aarch64-darwin".ssh-known-hosts];
+
+  dotfield.users.cdom = {};
   dotfield.hosts.tuvix = {
     owner = config.dotfield.users.cdom;
   };
@@ -37,7 +39,8 @@ in {
   home-manager.users.${username} = hmArgs: {
     imports =
       (with hmArgs.roles; workstation)
-      ++ (with ownProfiles; [work]);
+      ++ (with ownProfiles; [work])
+      ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
     home.stateVersion = "22.05";
   };
 

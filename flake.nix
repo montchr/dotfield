@@ -70,6 +70,14 @@
     ##: sources
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
+    ##: work
+    klein-infra = {
+      url = "github:kleinweb/infra";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.std.follows = "std";
+      inputs.dmerge.follows = "std/dmerge";
+    };
+
     ##: universal
     deadnix.url = "github:astro/deadnix";
     devshell.url = "github:numtide/devshell";
