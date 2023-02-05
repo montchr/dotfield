@@ -30,7 +30,7 @@ in {
 
     services.gpg-agent = {
       enable = true;
-      enableSshSupport = true;
+      enableSshSupport = false;
       pinentryFlavor = l.mkIf isDarwin "mac";
       sshKeys = [pgpPublicKey];
     };
