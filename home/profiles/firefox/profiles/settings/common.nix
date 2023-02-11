@@ -8,7 +8,7 @@
   l = inputs.nixpkgs.lib // builtins;
   hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
 in {
-  # "browser.bookmarks.showMobileBookmarks" = true;
+  "browser.bookmarks.showMobileBookmarks" = true;
   "browser.contentblocking.category" = "strict";
   "browser.ctrlTab.recentlyUsedOrder" = false;
   "browser.display.os-zoom-behavior" = 1;
@@ -19,14 +19,10 @@ in {
   # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
   "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
 
-  "browser.safebrowsing.appRepURL" = "";
-  "browser.safebrowsing.malware.enabled" = false;
-
   "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
   "browser.search.region" = "US";
   "browser.search.suggest.enabled" = true;
 
-  "browser.send_pings" = false;
   "browser.startup.page" = 3;
 
   # Whether we should draw the tabs on top of the titlebar.
@@ -43,12 +39,6 @@ in {
 
   "devtools.theme" = "auto";
   # "devtools.cache.disabled" = true;
-
-  "dom.security.https_only_mode" = true;
-
-  "experiments.activeExperiment" = false;
-  "experiments.enabled" = false;
-  "experiments.supported" = false;
 
   # Allow extensions to run on Mozilla domains.
   # Required for Tridactyl and Dark Reader support on those pages.
@@ -72,18 +62,10 @@ in {
 
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
-  "network.allow-experiments" = false;
-  "network.dns.disablePrefetch" = true;
-  "network.http.referer.XOriginPolicy" = 2;
-  "network.http.referer.XOriginTrimmingPolicy" = 2;
-  "network.http.referer.trimmingPolicy" = 1;
-  "network.prefetch-next" = false;
-
   "permissions.default.shortcuts" = 2;
 
   "privacy.donottrackheader.enabled" = true;
   "privacy.donottrackheader.value" = 1;
-  # "privacy.firstparty.isolate" = true;
   "privacy.trackingprotection.enabled" = true;
   "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
   "privacy.trackingprotection.socialtracking.enabled" = true;
