@@ -32,7 +32,6 @@ in {
     "alfred"
     "appcleaner"
     "bartender"
-    "calibre"
     "caprine"
     "eloston-chromium" #          <- aka "ungoogled-chromium" in nixpkgs
     "dropbox"
@@ -50,6 +49,7 @@ in {
     "spotify"
     "steermouse" # <- for input device mapping
     "vlc"
+    "visual-studio-code"
     "vscodium"
     "zoom"
   ];

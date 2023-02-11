@@ -65,7 +65,9 @@
     "hoverlens.debounceUpdate" = 1000;
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "magit.forge-enabled" = true;
+    "markdown.experimental.editor.pasteLinks.enabled" = false;
     "markdown.preview.fontFamily" = "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif";
+    "markdown.preview.typographer" = true;
     "material-icon-theme.saturation" = 0.5;
     "nix.enableLanguageServer" = true;
     "nix.serverPath" = "/etc/profiles/per-user/cdom/bin/nil";
