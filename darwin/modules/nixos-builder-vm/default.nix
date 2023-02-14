@@ -48,12 +48,10 @@ in {
     };
     useSubstitutes = mkOption {
       type = t.bool;
-      default = true;
+      default = false;
       description = ''
-        Whether the guest builder should use substitutes during builds.
-
+        Whether the guest builder should use substitutes during all builds.
         This will reduce the amount of storage required by the guest machine.
-
         Results in adding `builders-use-substitues = true` to `/etc/nix/nix.conf.`
       '';
     };
@@ -66,6 +64,10 @@ in {
         })
       ];
       distributedBuilds = true;
+      # FIXME: when the guest builder is available, it will output warnings for
+      # any host-platform-targeted builds run on the host. maybe ensure the
+      # guest builder is only used explicitly? i rarely need to build for
+      # `aarch64-linux` anyway.
       extraOptions = ''
         builders-use-substitutes = true
       '';

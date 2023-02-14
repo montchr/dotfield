@@ -7,7 +7,7 @@
   l = inputs.nixpkgs.lib // builtins;
 in {
   imports = [
-    ./builders/nixbuild-net.nix
+    # ./builders/nixbuild-net.nix
     ./homebrew.nix
   ];
 
@@ -19,11 +19,11 @@ in {
   # Administrative users on Darwin systems are part of the admin group.
   nix.settings.trusted-users = ["@admin"];
 
-  nix.distributedBuilds = l.mkDefault true;
+  nix.distributedBuilds = l.mkDefault false;
 
   # FIXME: currently requires running `nix run nixpkgs#darwin.builder`
   # manually in a separate shell session
-  nix.nixos-builder-vm.enable = true;
+  # nix.nixos-builder-vm.enable = true;
 
   # FIXME: needs flake-compat
   # nix.nixPath = mkBefore ["darwin-config=${self}"];
