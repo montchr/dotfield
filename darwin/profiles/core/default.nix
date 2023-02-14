@@ -9,6 +9,7 @@ in {
   imports = [
     # ./builders/nixbuild-net.nix
     ./homebrew.nix
+    ./nix-optimizations-darwin.nix
   ];
 
   # These should (must?) be enabled in any recent multi-user Nix installation,

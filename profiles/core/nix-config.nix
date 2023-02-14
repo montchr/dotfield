@@ -38,7 +38,9 @@ in {
     ];
     registry = l.mapAttrs (_: flake: {inherit flake;}) inputFlakes;
     settings = {
-      auto-optimise-store = true;
+      # Builds have recently become unusably interrupted on Darwin
+      # <https://github.com/NixOS/nix/issues/7273>
+      auto-optimise-store = !isDarwin;
       experimental-features = ["nix-command" "flakes"];
       sandbox = l.mkDefault (!isDarwin);
       allowed-users = ["*"];
