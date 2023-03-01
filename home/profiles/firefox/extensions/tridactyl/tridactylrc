@@ -6,42 +6,9 @@
 
 " === Keybindings ==============================================================
 
-" Comment toggler for Reddit, Hacker News and Lobste.rs
-bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
-
-" Git{Hub,Lab} git clone via SSH yank
-bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
-
-" make d take you to the left (I find it much less confusing)
-bind d composite tabprev; tabclose #
-bind D tabclose
-
-" make t open the selection with tabopen
-bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
-
-" Make gu take you back to subreddit from comments
-bindurl reddit.com gu urlparent 4
-
-" Allow Ctrl-a to select all in the commandline
-" unbind --mode=ex <C-a>
-
-" Allow Ctrl-c to copy in the commandline
-unbind --mode=ex <C-c>
-
 " Handy multiwindow/multitasking binds
 bind gd tabdetach
 bind gD composite tabduplicate; tabdetach
-
-" Stupid workaround to let hint -; be used with composite which steals semi-colons
-command hint_focus hint -;
-
-" Open right click menu on links
-" TODO: does this work on macOS?
-" bind ;C composite hint_focus; !s xdotool key Menu
-
-" Suspend / "discard" all tabs - handy for stretching out battery life
-command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts.map(t=>t.id)))
-
 
 " === Misc settings ============================================================
 
@@ -49,11 +16,7 @@ command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts
 set hintfiltermode vimperator-reflow
 set hintnames short
 
-set hintdelay 100 " default => 300ms
-
-" Make quickmarks for the sane Tridactyl issue view
-" TODO: read up on `quickmark`
-" quickmark t https://github.com/tridactyl/tridactyl/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+
+set hintdelay 100
 
 " Add some URLs to the disallow list
 blacklistadd https://app.terrastruct.com
@@ -68,10 +31,6 @@ blacklistadd https://outlook.office.com
 " Isolate Facebook in its own container
 " set auconcreatecontainer true
 " autocontain facebook\.com facebook
-
-" Load my preferred color scheme.
-" colors base16-grayscale-dark
-
 
 " === Search ===================================================================
 
