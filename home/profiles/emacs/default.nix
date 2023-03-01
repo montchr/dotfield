@@ -36,10 +36,7 @@ in {
   # };
 
   home.packages = [
-    # FIXME: avoid regressions by tracking stable version until
-    # <https://github.com/oxalica/nil/issues/56> is resolved
-    # inputs'.nil-lsp.packages.nil
-    pkgs.nil
+    inputs'.nil-lsp.packages.nil
     inputs'.rnix-lsp.packages.rnix-lsp
   ];
 }
