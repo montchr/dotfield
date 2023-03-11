@@ -60,7 +60,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     std = {
-      url = "github:divnix/std";
+      # FIXME: <https://github.com/divnix/std/pull/276>
+      url = "github:montchr/std?ref=fix/flake-module-types-scope";
+      # url = "github:divnix/std";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
