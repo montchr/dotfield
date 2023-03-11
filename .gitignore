@@ -67,3 +67,4 @@ statix.toml
 treefmt.toml
 lefthook.yml
 .prettierrc.json
+.idea
