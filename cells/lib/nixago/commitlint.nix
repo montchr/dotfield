@@ -7,7 +7,7 @@
 }: let
   pkgs' = inputs.nixpkgs;
 in {
-  configData = {};
+  data = {};
   output = ".commitlintrc.json";
   format = "json";
   packages = [pkgs'.commitlint];

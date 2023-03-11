@@ -6,6 +6,6 @@
 }: {
   output = "statix.toml";
   format = "toml";
-  configData = {};
+  data = {};
   packages = [inputs.nixpkgs.statix];
 }

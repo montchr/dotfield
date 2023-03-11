@@ -6,6 +6,6 @@
 }: {
   output = ".lintstagedrc.json";
   format = "json";
-  configData = {};
+  data = {};
   # packages = [cell.packages.lint-staged];
 }

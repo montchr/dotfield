@@ -28,7 +28,7 @@ in
         (presets.nixago.prettier {})
         (presets.nixago.treefmt {})
         (presets.nixago.statix {
-          configData = {
+          data = {
             disabled = ["useless_parens"];
           };
         })

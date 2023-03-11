@@ -6,6 +6,6 @@
 }: {
   output = "stylua.toml";
   format = "toml";
-  configData = {};
+  data = {};
   packages = [inputs.nixpkgs.stylua];
 }

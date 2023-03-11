@@ -5,6 +5,6 @@
   cell,
 }: {
   output = "garnix.yaml";
-  configData = {};
+  data = {};
   format = "yaml";
 }

@@ -11,25 +11,25 @@
   l = inputs.nixpkgs.lib // builtins;
 in {
   commitlint = lib.nixago.commitlint {
-    configData = import ./nixago/commitlint.nix;
+    data = import ./nixago/commitlint.nix;
   };
   editorconfig = std.nixago.editorconfig {
-    configData = import ./nixago/editorconfig.nix;
+    data = import ./nixago/editorconfig.nix;
   };
   lefthook = std.nixago.lefthook {
-    configData = import ./nixago/lefthook.nix;
+    data = import ./nixago/lefthook.nix;
   };
   prettier = lib.nixago.prettier {
-    configData = import ./nixago/prettier.nix;
+    data = import ./nixago/prettier.nix;
   };
   statix = lib.nixago.statix {
-    configData = import ./nixago/statix.nix;
+    data = import ./nixago/statix.nix;
   };
   stylua = lib.nixago.stylua {
-    configData = import ./nixago/stylua.nix;
+    data = import ./nixago/stylua.nix;
   };
   treefmt = std.nixago.treefmt {
-    configData = import ./nixago/treefmt.nix;
+    data = import ./nixago/treefmt.nix;
     packages = [
       nixpkgs.alejandra
       nixpkgs.deadnix
