@@ -4,18 +4,22 @@ hmArgs @ {
   pkgs,
   packages,
   self,
+  inputs',
   ...
 }: let
   inherit (inputs.digga.lib) rakeLeaves;
   inherit (self.lib.colors) withHexPrefixes;
   inherit (self.lib.apps.firefox) evalSettings;
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux system;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
   mixins = rakeLeaves ./mixins;
+
+  addons = inputs'.firefox-addons.packages;
+  extensions = import ./extensions/common.nix {inherit addons;};
 
   imp = s: s + " !important";
 
@@ -24,8 +28,9 @@ hmArgs @ {
 
   makeSettings = {modules ? []}:
     evalSettings {
-      inherit theme;
+      inherit system theme;
       modules = [./settings/common.nix] ++ modules;
+      hmConfig = config;
       osConfig = hmArgs.osConfig or null;
     };
   makeSettings' = module: (makeSettings {modules = [module];}).config;
@@ -110,16 +115,20 @@ hmArgs @ {
   };
 in {
   programs.firefox.profiles.home = {
-    inherit userChrome userContent search;
+    inherit extensions userChrome userContent search;
     id = 0;
     settings = makeSettings' {
-      imports = [./settings/browser-toolbox.nix];
+      imports = [
+        ./settings/browser-toolbox.nix
+        # FIXME: fix or remove in favor of vimium
+        # ./extensions/tridactyl
+      ];
       "browser.startup.homepage" = "https://lobste.rs";
     };
   };
 
   programs.firefox.profiles.work = {
-    inherit userContent search;
+    inherit extensions userContent search;
     id = 1;
     settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";

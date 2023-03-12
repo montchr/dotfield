@@ -1,11 +1,15 @@
-{self, ...}: let
+{
+  self,
+  withSystem,
+  ...
+}: let
   inherit (self) inputs systems;
   l = inputs.nixpkgs.lib // builtins;
 
   lib = l.makeExtensible (lself: let
     callLibs = file:
       import file {
-        inherit l inputs;
+        inherit l inputs withSystem;
         lib = lself;
         supportedSystems = systems;
       };

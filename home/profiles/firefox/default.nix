@@ -8,12 +8,7 @@ hmArgs @ {
   inherit (config.dotfield.features) hasWayland;
   hasGnomeConnector = hmArgs.osConfig.services.gnome.gnome-browser-connector.enable or false;
 in {
-  imports = [
-    ./extensions/common.nix
-    ./extensions/tridactyl
-    ./profiles
-  ];
-
+  imports = [./profiles.nix];
   programs.firefox = {
     enable = true;
     package =
