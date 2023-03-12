@@ -1,9 +1,16 @@
 {
   e = "$EDITOR";
 
+  # Make life a bit less stressful.
+  mv = "mv -i";
+  cp = "cp -i";
+  rm = "rm -I";
+
+  # Make dir what I mean.
   mkdir = "mkdir -pv";
 
   # Use Kitty terminal"s ssh helper kitten
+  # TODO: move to kitty profile
   # FIXME: mirror `ssh` completions... or: override `ssh` directly?
   sshk = "kitty +kitten ssh";
   # Display an image in kitty
