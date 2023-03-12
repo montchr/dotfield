@@ -21,6 +21,7 @@ with profiles; let
   developer =
     base
     ++ [
+      shells.bash.blesh
       difftools.delta
       emacs
       just
