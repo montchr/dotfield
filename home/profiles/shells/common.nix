@@ -6,18 +6,17 @@
   l = inputs.nixpkgs.lib // builtins;
   shellAbbrs = import ./abbrs.nix;
 in {
+  imports = [
+    ./bash
+    ./readline.nix
+  ];
+
   home.extraOutputsToInstall =
     ["/share/bash-completion"]
     ++ (l.optional config.programs.fish.enable "/share/fish")
     ++ (l.optional config.programs.zsh.enable "/share/zsh");
-  home.shellAliases = import ./aliases.nix;
 
-  programs.bash = {
-    enable = true;
-    sessionVariables = {
-      BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
-    };
-  };
+  home.shellAliases = import ./aliases.nix;
 
   programs.bash.shellAliases = shellAbbrs;
   programs.zsh.shellAliases = shellAbbrs;
