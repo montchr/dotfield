@@ -18,6 +18,7 @@
     gnutar
     grc
     jq
+    jql
     less
     moreutils
     openssh
@@ -53,11 +54,8 @@
 
     ## === Files ===
 
-    entr #     <- Run arbitrary commands when files change
     du-dust #  <- like du but more intuitive
     file #     <- a program that shows the type of files
-    glow #     <- charmbracelet's markdown cli renderer
-    hexyl #    <- command-line hex viewer
     unzip #    <- *.zip archive extraction utility
   ];
 }

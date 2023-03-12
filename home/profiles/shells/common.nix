@@ -22,9 +22,12 @@ in {
   programs.zsh.shellAliases = shellAbbrs;
   programs.fish = {inherit shellAbbrs;};
 
+  programs.bat.enable = true;
   programs.bottom.enable = true;
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
+  programs.info.enable = l.mkDefault true;
   programs.less.enable = true;
+  programs.lesspipe.enable = l.mkDefault true;
   programs.zoxide.enable = true;
 }
