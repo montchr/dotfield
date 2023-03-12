@@ -128,32 +128,13 @@
     systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
     std.grow.cellsFrom = ./cells;
     std.grow.cellBlocks = with inputs.std.blockTypes; [
-      ###: === PUBLIC ===
-
-      ##: lib
-      (functions "dev")
-      (functions "functions")
-      (nixago "nixago")
-      (installables "packages")
-
-      ##: hosts
-      # TODO: these don't yet exist...
-      # (functions "modules")
-      # (functions "profiles")
-      # (functions "hosts")
-      # (functions "compat")
-
-      ##: darwin
       (data "constants")
-
-      ###: === INTERNAL ===
-
-      ##: _automation
-      (data "constants")
-      (functions "devshellProfiles")
       (devshells "devshells")
-      (nixago "nixago")
+      (functions "dev")
+      (functions "devshellProfiles")
+      (functions "functions")
       (installables "packages")
+      (nixago "cfg")
     ];
     std.harvest = {
       devShells = [

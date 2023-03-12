@@ -5,31 +5,30 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (inputs.std) std;
+  inherit (inputs) nixpkgs std;
   inherit (inputs.cells) lib;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  commitlint = lib.nixago.commitlint {
-    data = import ./nixago/commitlint.nix;
+  commitlint = lib.cfg.commitlint {
+    data = import ./cfg/commitlint.nix;
   };
-  editorconfig = std.nixago.editorconfig {
-    data = import ./nixago/editorconfig.nix;
+  editorconfig = std.lib.cfg.editorconfig {
+    data = import ./cfg/editorconfig.nix;
   };
-  lefthook = std.nixago.lefthook {
-    data = import ./nixago/lefthook.nix;
+  lefthook = std.lib.cfg.lefthook {
+    data = import ./cfg/lefthook.nix;
   };
-  prettier = lib.nixago.prettier {
-    data = import ./nixago/prettier.nix;
+  prettier = lib.cfg.prettier {
+    data = import ./cfg/prettier.nix;
   };
-  statix = lib.nixago.statix {
-    data = import ./nixago/statix.nix;
+  statix = lib.cfg.statix {
+    data = import ./cfg/statix.nix;
   };
-  stylua = lib.nixago.stylua {
-    data = import ./nixago/stylua.nix;
+  stylua = lib.cfg.stylua {
+    data = import ./cfg/stylua.nix;
   };
-  treefmt = std.nixago.treefmt {
-    data = import ./nixago/treefmt.nix;
+  treefmt = std.lib.cfg.treefmt {
+    data = import ./cfg/treefmt.nix;
     packages = [
       nixpkgs.alejandra
       nixpkgs.deadnix

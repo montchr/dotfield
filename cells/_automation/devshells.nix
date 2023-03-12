@@ -19,20 +19,20 @@ in
         cell.devshellProfiles.default
       ];
       nixago = [
-        (presets.nixago.commitlint {})
-        (presets.nixago.editorconfig {})
-        (cell.nixago.garnix {
+        (presets.cfg.commitlint {})
+        (presets.cfg.editorconfig {})
+        (cell.cfg.garnix {
           hook.mode = "copy";
         })
-        (presets.nixago.lefthook {})
-        (presets.nixago.prettier {})
-        (presets.nixago.treefmt {})
-        (presets.nixago.statix {
+        (presets.cfg.lefthook {})
+        (presets.cfg.prettier {})
+        (presets.cfg.treefmt {})
+        (presets.cfg.statix {
           data = {
             disabled = ["useless_parens"];
           };
         })
-        (presets.nixago.stylua {})
+        (presets.cfg.stylua {})
       ];
       packages = [
         nixpkgs.deadnix
