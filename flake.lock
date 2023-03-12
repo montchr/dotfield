@@ -2421,16 +2421,15 @@
         "yants": "yants"
       },
       "locked": {
-        "lastModified": 1678554152,
-        "narHash": "sha256-KekFTnh67aB77rqZLeC6zRlxM2vD0c+wb9DCLYLMcy4=",
-        "owner": "montchr",
+        "lastModified": 1678594870,
+        "narHash": "sha256-nVj1q5IzIvfPln3P5LIqP0x1i9XemBFHXGMswJdjgI4=",
+        "owner": "divnix",
         "repo": "std",
-        "rev": "631b551e096e6e24266a1b64837476c593f0ff74",
+        "rev": "c8425e9ed7bd03cc7552f37690ba1ea54a875bb7",
         "type": "github"
       },
       "original": {
-        "owner": "montchr",
-        "ref": "fix/flake-module-types-scope",
+        "owner": "divnix",
         "repo": "std",
         "type": "github"
       }
