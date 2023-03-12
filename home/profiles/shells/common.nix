@@ -24,6 +24,7 @@ in {
 
   programs.bat.enable = true;
   programs.bottom.enable = true;
+  programs.dircolors.enable = l.mkDefault true;
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
   programs.info.enable = l.mkDefault true;
