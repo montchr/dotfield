@@ -51,10 +51,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixago = {
-      url = "github:nix-community/nixago";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
