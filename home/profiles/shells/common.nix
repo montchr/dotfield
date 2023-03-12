@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  packages,
   ...
 }: let
   l = inputs.nixpkgs.lib // builtins;
