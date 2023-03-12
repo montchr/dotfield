@@ -48,6 +48,10 @@ in {
       signByDefault = true;
     };
 
+    aliases = {
+      snapshot = ''!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'';
+    };
+
     ignores = [
       # OS or Editor files
       "._*"
