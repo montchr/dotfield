@@ -13,7 +13,8 @@ in {
   imports = [./extra-packages.nix];
 
   home.sessionVariables = {
-    EDITOR = "emacsclient -c -a emacs";
+    # TODO: disabled as $EDITOR until we have something more lightweight for immediate cli usage
+    # EDITOR = "emacsclient -c -a emacs";
 
     ##: lsp-mode: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
