@@ -68,3 +68,4 @@ treefmt.toml
 lefthook.yml
 .prettierrc.json
 .idea
+.scratch
