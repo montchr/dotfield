@@ -22,7 +22,12 @@
   fgrep = "fgrep --color=auto";
   egrep = "egrep --color=auto";
 
-  xat = "hexyl";
+  # Hashing.
+  h256 = "sha256sum";
+  h512 = "sha512sum";
+
+  # Runs bat without line numbers and wrapping.
+  rat = "bat --style=plain --wrap=never";
 
   ".." = "cd ..";
   "..." = "cd ../..";
