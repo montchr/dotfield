@@ -4,6 +4,7 @@
   mkdir = "mkdir -pv";
 
   # Use Kitty terminal"s ssh helper kitten
+  # FIXME: mirror `ssh` completions... or: override `ssh` directly?
   sshk = "kitty +kitten ssh";
   # Display an image in kitty
   icat = "kitty +kitten icat";
@@ -28,6 +29,7 @@
   # IPs/DNS
   getip = "curl ifconfig.me";
   localip = "ipconfig getifaddr en1";
+  # FIXME: this command is darwin-only
   flushdns = "dscacheutil -flushcache";
 
   ##: --- nix ------------------------------------------------------------------

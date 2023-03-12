@@ -90,7 +90,8 @@ with profiles; let
       ++ trusted
       ++ webdev
       ++ [
-        vhs
+        # FIXME: fails to build on aarch64-darwin due to chromium dependency
+        # vhs
         yubikey
       ];
   };
