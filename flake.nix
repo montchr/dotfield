@@ -61,7 +61,7 @@
     };
 
     ##: forks
-    agenix.url = "github:montchr/agenix/darwin-support";
+    agenix.url = "github:ryantm/agenix";
 
     ##: sources
     iosevka-xtal.url = "github:montchr/iosevka-xtal";
