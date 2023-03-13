@@ -101,6 +101,8 @@
     firefox-addons.url = "github:seadome/firefox-addons";
 
     ##: zsh plugins
+    zsh-autocomplete.url = "github:marlonrichert/zsh-autocomplete";
+    zsh-autocomplete.flake = false;
     zsh-autopair.url = "github:hlissner/zsh-autopair";
     zsh-autopair.flake = false;
     zsh-completions.url = "github:zsh-users/zsh-completions";

@@ -1,4 +1,6 @@
-### $DOTFIELD_USER_ZDOTDIR/functions.zsh :: custom functions and hooks
+#!/usr/bin/env zsh
+
+### $DOTFIELD_USER_ZDOTDIR/rc.d/07-commands.zsh :: Commands, Functions, Hooks, Aliases...
 
 autoload -Uz add-zsh-hook zmv
 
@@ -11,8 +13,8 @@ chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
 ##: Start new sessions from most recent dir
-#: https://wiki.archlinux.org/title/zsh#cdr
-#: FIXME: doesn't work, but no visible errors
+#   <https://wiki.archlinux.org/title/zsh#cdr>
+# FIXME: doesn't work, but no visible errors
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 

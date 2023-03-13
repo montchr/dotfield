@@ -2097,6 +2097,7 @@
         "rnix-lsp": "rnix-lsp",
         "sops-nix": "sops-nix",
         "std": "std",
+        "zsh-autocomplete": "zsh-autocomplete",
         "zsh-autopair": "zsh-autopair",
         "zsh-completions": "zsh-completions",
         "zsh-fast-syntax-highlighting": "zsh-fast-syntax-highlighting"
@@ -2368,6 +2369,22 @@
       "original": {
         "owner": "divnix",
         "repo": "yants",
+        "type": "github"
+      }
+    },
+    "zsh-autocomplete": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675626778,
+        "narHash": "sha256-+w9+d7cYmPBdnqWgooh+OmscavB9JL7dVqOQyj8jJ7E=",
+        "owner": "marlonrichert",
+        "repo": "zsh-autocomplete",
+        "rev": "5cc9da132e7535a540fb1235ce27fd5a233d4f0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "marlonrichert",
+        "repo": "zsh-autocomplete",
         "type": "github"
       }
     },

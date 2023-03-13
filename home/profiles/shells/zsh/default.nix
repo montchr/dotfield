@@ -19,16 +19,17 @@ in {
 
   home.packages = [
     packages.yabai-zsh-completions
-    (pkgs.zsh-completions.overrideAttrs (_o: {
-      version = inputs.zsh-completions.rev;
-      src = inputs.zsh-completions;
-    }))
+    packages.zsh-completions
   ];
 
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    enableCompletion = true;
+    # zsh-autosuggestions is loaded manually below to insure proper load order.
+    enableAutosuggestions = false;
+    # zsh-autocomplete requires removal of any calls to compinit in zsh config.
+    enableCompletion = false;
+    enableSyntaxHighlighting = true;
     enableVteIntegration = true;
     autocd = true;
 
@@ -37,17 +38,35 @@ in {
       "$" = " ";
     };
 
-    # use zdharma-continuum/fast-syntax-highlighting instead
-    enableSyntaxHighlighting = false;
-    # zsh-autosuggestions is loaded manually below to insure proper load order
-    # after fzf-tab.
-    enableAutosuggestions = false;
-
     defaultKeymap = "emacs";
 
     initExtraFirst = ''
       # Initialise the builtin profiler -- run `zprof` to read results
       zmodload zsh/zprof
+
+      ###: --- zsh-autocomplete ---
+
+      ##: Early Settings -- Must be set before sourcing.
+
+      # TODO: 'yes'
+      zstyle ':autocomplete:*' fzf-completion no
+      # no:  Tab uses Zsh's completion system only. [Default]
+      # yes: Tab first tries Fzf's completion, then falls back to Zsh's.
+
+      zstyle ':autocomplete:recent-dirs' backend zoxide
+      # cdr:  Use Zsh's `cdr` function to show recent directories as completions. [Default]
+      # no:   Don't show recent directories.
+      # zsh-z|zoxide|z.lua|z.sh|autojump|fasd: Use this instead (if installed).
+
+      zstyle ':autocomplete:*' widget-style menu-select
+      # complete-word: (Shift-)Tab inserts the top (bottom) completion. [Default]
+      # menu-complete: Press again to cycle to next (previous) completion.
+      # menu-select:   Same as `menu-complete`, but updates selection in menu.
+
+      ##: Load zsh-autocomplete
+
+      # Must be loaded as early as possible, before any calls to `compdef`
+      source "${packages.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
     '';
 
     history.path = "${xdg.dataHome}/zsh/history";
@@ -63,9 +82,6 @@ in {
     historySubstringSearch.searchUpKey = "^p";
     historySubstringSearch.searchDownKey = "^n";
 
-    # initExtraBeforeCompInit = ''
-    # '';
-
     plugins = [
       # NOTE: `fzf-tab` requires a very-specific load order -- *after*
       # `compinit` but *before* other plugins defining zle widgets. With
@@ -74,31 +90,28 @@ in {
       # related option, which the `fzf-tab` docs explicitly warn against. So
       # instead, we disable `enableAutosuggestions` and load zsh-autosuggestions
       # manually after fzf-tab. https://github.com/Aloxaf/fzf-tab
-      {
-        name = "fzf-tab";
-        inherit (pkgs.zsh-fzf-tab) src;
-      }
+      #
+      # TODO: consider upstreaming this as an option due to its specific load-order needs
+      # TODO: remove -- disabled so as not to conflict with `zsh-autocomplete`
+      #
+      # {
+      #   name = "fzf-tab";
+      #   inherit (pkgs.zsh-fzf-tab) src;
+      # }
+
       # See above note -- `zsh-autosuggestions` *MUST* be loaded after
       # `fzf-tab`, but will not do so when enabled via `enableAutosuggestions`.
       {
         name = "zsh-autosuggestions";
         inherit (pkgs.zsh-autosuggestions) src;
       }
+
       {
         name = "zsh-autopair";
         # The version in nixpkgs is over a year old because it's pinned to the
         # plugin's only tag release (as of 2022-11-21). The author has made some
         # changes since the most recent release.
         src = inputs.zsh-autopair;
-      }
-      # The `enableSyntaxHighlighting` uses the older and arguably inferior
-      # `zsh-users/zsh-syntax-hightlighting` plugin, not the
-      # more-commonly-recommended `zdharma-continuum/fast-syntax-highlighting`.
-      # The Readme for the latter plugin provides a comparison of the two
-      # plugins, demonstrating the improvements made in `fast-syntax-highlighting`.
-      {
-        name = "fast-syntax-highlighting";
-        src = inputs.zsh-fast-syntax-highlighting;
       }
     ];
 

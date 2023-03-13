@@ -1,5 +1,7 @@
-### $DOTFIELD_USER_ZDOTDIR/keybinds.zsh :: custom keybindings
-#
+#!/usr/bin/env zsh
+
+### $DOTFIELD_USER_ZDOTDIR/rc.d/06-keybinds.zsh :: Keybindings
+
 ###: REFERENCE
 #
 # - https://wiki.archlinux.org/title/zsh#Key_bindings

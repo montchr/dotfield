@@ -1,8 +1,51 @@
-### $DOTFIELD_USER_ZDOTDIR/completions.zsh :: completions-specific settings
+#!/usr/bin/env zsh
+
+### $DOTFIELD_USER_ZDOTDIR/rc.d/04-completions.zsh :: Completions Settings
+
+### === ZSH-AUTOCOMPLETE ===========================================================================
+
+zstyle ':autocomplete:*' default-context ''
+# '': Start each new command line with normal autocompletion.
+# history-incremental-search-backward: Start in live history search mode.
+
+# Wait this many seconds for typing to stop, before showing completions.
+zstyle ':autocomplete:*' min-delay 0.05  # seconds (float)
+
+# Wait until this many characters have been typed, before showing completions.
+zstyle ':autocomplete:*' min-input 2  # <- characters (int)
+
+zstyle ':autocomplete:*' ignored-input '' # <- extended glob pattern
+# '':     Always show completions.
+# '..##': Don't show completions for the current word, if it consists of two
+#         or more dots.
+
+# If there are fewer than this many lines below the prompt, move the prompt up
+# to make room for showing this many lines of completions (approximately).
+zstyle ':autocomplete:*' list-lines 16  # <- int
+
+# Show this many history lines when pressing ↑.
+zstyle ':autocomplete:history-search:*' list-lines 16  # <- int
+
+# Show this many history lines when pressing ⌃R or ⌃S.
+zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # <- int
+
+zstyle ':autocomplete:*' insert-unambiguous no
+# no:  Tab inserts the top completion.
+# yes: Tab first inserts a substring common to all listed completions, if any.
+
+# Add a space after these completions:
+zstyle ':autocomplete:*' add-space \
+    executables aliases functions builtins reserved-words commands
+
+
+### === ZSH-AUTOSUGGEST ============================================================================
 
 ##: Defer to atuin/C-r/fzf/history-substring-search for history completion
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
+
+
+### === COMPLETION CANDIDATES ======================================================================
 
 # Expand partial paths, e.g. cd f/b/z == cd foo/bar/baz (assuming no ambiguity)
 zstyle ':completion:*:paths' path-completion yes

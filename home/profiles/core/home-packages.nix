@@ -13,6 +13,7 @@
     pkgs.glow #      <- charmbracelet's markdown cli renderer
     pkgs.grex #      <- generate regexps from user-provided test cases
     pkgs.hexyl #     <- command-line hex viewer
+    pkgs.lf #        <- yet another ranger-like file manager tui   => <https://github.com/gokcehan/lf/wiki/>
     pkgs.pastel #    <- generate, analyze, convert and manipulate colors
     pkgs.treefmt #   <- one cli to format the code tree
     pkgs.moreutils # <- almost core utils

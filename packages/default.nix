@@ -16,6 +16,15 @@ in {
       fre = pkgs.callPackage ./tools/misc/fre {};
       kitty-get-window-by-platform-id = pkgs.callPackage ./applications/kitty/get-window-by-platform-id {};
       sf-pro = pkgs.callPackage ./fonts/sf-pro.nix {};
+
+      zsh-autocomplete = pkgs.zsh-autocomplete.overrideAttrs (_o: {
+        version = inputs.zsh-autocomplete.rev;
+        src = inputs.zsh-autocomplete;
+      });
+      zsh-completions = pkgs.zsh-completions.overrideAttrs (_o: {
+        version = inputs.zsh-completions.rev;
+        src = inputs.zsh-completions;
+      });
     });
   };
 }
