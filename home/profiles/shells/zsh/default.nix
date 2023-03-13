@@ -1,21 +1,27 @@
+##: References:
+# - <https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org>
 {
   config,
   pkgs,
   inputs,
+  packages,
   ...
 }: let
   inherit (config) xdg;
-
-  zsh-completions-latest = pkgs.zsh-completions.overrideAttrs (_o: {
-    version = inputs.zsh-completions.rev;
-    src = inputs.zsh-completions;
-  });
 in {
   imports = [../common.nix];
 
-  home.extraOutputsToInstall = ["/share/zsh"];
+  home.extraOutputsToInstall = [
+    "/share/zsh"
+    # TODO: is this already implied by `/share/zsh`?
+    "/share/zsh/site-functions"
+  ];
+
   home.packages = [
-    zsh-completions-latest
+    (pkgs.zsh-completions.overrideAttrs (_o: {
+      version = inputs.zsh-completions.rev;
+      src = inputs.zsh-completions;
+    }))
   ];
 
   programs.zsh = {
@@ -56,11 +62,8 @@ in {
     historySubstringSearch.searchUpKey = "^p";
     historySubstringSearch.searchDownKey = "^n";
 
-    initExtraBeforeCompInit = ''
-      # Normal plugin load happens too late for `zsh-users/zsh-completions`
-      # because of its non-standard source path in `/src/`.
-      fpath+=${zsh-completions-latest}/src
-    '';
+    # initExtraBeforeCompInit = ''
+    # '';
 
     plugins = [
       # NOTE: `fzf-tab` requires a very-specific load order -- *after*
