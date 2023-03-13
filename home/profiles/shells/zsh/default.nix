@@ -18,6 +18,7 @@ in {
   ];
 
   home.packages = [
+    packages.yabai-zsh-completions
     (pkgs.zsh-completions.overrideAttrs (_o: {
       version = inputs.zsh-completions.rev;
       src = inputs.zsh-completions;
