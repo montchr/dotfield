@@ -151,11 +151,10 @@ dark: (theme "dark")
 
 ##: --- kitty ---
 
-# <- Toggle the current kitty theme between light<->dark
-[private]
-set-kitty-theme mode='dark':
-  @echo "Setting kitty {{mode}} theme"
-  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{mode}}.conf
+# <- Switch the current kitty theme
+set-kitty-theme name='dark':
+  @echo "Setting kitty '{{name}}' theme"
+  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
   @echo {{msg-done}}
 
 
