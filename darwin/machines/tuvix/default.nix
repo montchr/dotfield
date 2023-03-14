@@ -39,9 +39,9 @@ in {
   home-manager.users.${username} = hmArgs: {
     imports =
       (with hmArgs.roles; workstation)
-      ++ (with ownProfiles; [work])
-      # FIXME: incorrect hosts ip configuration!
-      ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
+      ++ (with ownProfiles; [work]);
+    # FIXME: incorrect hosts ip configuration!
+    # ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
     home.stateVersion = "22.05";
   };
 
