@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "732d2400f2af6a07556eaaf8c2391dd7",
+    "content-hash": "4ad0ea84a617b485ec4232d96e4e60d6",
     "packages": [],
     "packages-dev": [
         {
@@ -612,16 +612,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.6.x-dev",
+            "version": "1.10.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "87e21d59a0b17ca7fba5ae67971c4a1518e5ca99"
+                "reference": "fa97dcfa45a2abf1e6f83cb2302e6f16bb87ff64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/87e21d59a0b17ca7fba5ae67971c4a1518e5ca99",
-                "reference": "87e21d59a0b17ca7fba5ae67971c4a1518e5ca99",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fa97dcfa45a2abf1e6f83cb2302e6f16bb87ff64",
+                "reference": "fa97dcfa45a2abf1e6f83cb2302e6f16bb87ff64",
                 "shasum": ""
             },
             "require": {
@@ -646,9 +646,16 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
             "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.6.x"
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
             },
             "funding": [
                 {
@@ -660,15 +667,11 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-12T15:22:02+00:00"
+            "time": "2023-03-16T17:44:54+00:00"
         },
         {
             "name": "psr/cache",
@@ -2336,12 +2339,11 @@
     "stability-flags": {
         "friendsofphp/php-cs-fixer": 20,
         "szepeviktor/phpstan-wordpress": 20,
-        "phpstan/phpstan": 20,
         "phpstan/extension-installer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
