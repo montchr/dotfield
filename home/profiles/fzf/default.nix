@@ -9,10 +9,8 @@
   inherit (config) theme;
   l = inputs.nixpkgs.lib // builtins;
 
-  # procSub = s: "<(${s})";
-
+  ## TODO: outfactor these to lib?
   packageCommand = pkg: args: (l.getExe pkg) + " " + (l.cli.toGNUCommandLineShell {} args);
-
   find = packageCommand pkgs.fd;
   findFiles = args: find (args // {type = "f";});
   findDirs = args: find (args // {type = "d";});
@@ -20,11 +18,10 @@
 
   dirPreviewCommand = l.getExe pkgs.exa + " --tree {} | head -n 200";
 in {
-  home.packages = [packages.fre packages.igr];
+  home.packages = [packages.igr];
 
   programs.fzf = {
     enable = true;
-    # defaultCommand = "${findFiles {}} 2>/dev/null";
     defaultOptions =
       ["--ansi" "--reverse" "--border" "--inline-info"]
       ++ (l.optional theme.enable "--color=16");
