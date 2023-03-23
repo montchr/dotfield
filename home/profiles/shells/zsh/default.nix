@@ -1,3 +1,4 @@
+# FIXME: startup time has slowed to a crawl since refactor to use rc.d
 ##: References:
 # - <https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org>
 {
@@ -35,6 +36,7 @@ in {
 
     shellAliases = {
       # Make it easy to copy/paste script commands verbatim
+      # FIXME: don't use <space> -- this results in excluding the command from history
       "$" = " ";
     };
 

@@ -33,6 +33,7 @@ in {
       follow = true;
       exclude = [".git" ".devenv" ".direnv" ".std" "node_modules" "vendor"];
     };
+    # TODO: use `bat` -- see `igr` package source for example (doesn't include `head`-like tho)
     fileWidgetOptions = ["--preview 'head {}'"];
 
     ##: --- directories ---
