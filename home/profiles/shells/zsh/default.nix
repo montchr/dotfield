@@ -128,7 +128,7 @@ in {
     initExtra = ''
       export DOTFIELD_USER_ZDOTDIR="$DOTFIELD_DIR/home/users/cdom/config/zsh"
 
-      source $DOTFIELD_USER_ZDOTDIR/main.zsh
+      . $DOTFIELD_USER_ZDOTDIR/main.zsh
     '';
 
     sessionVariables = {
