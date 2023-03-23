@@ -42,7 +42,16 @@ in {
 
     defaultKeymap = "emacs";
 
-    initExtraFirst = ''
+    initExtraFirst = let
+      fzfCompletionBackend =
+        if config.programs.fzf.enable
+        then "fzf"
+        else "no";
+      recentDirsBackend =
+        if config.programs.zoxide.enable
+        then "zoxide"
+        else "cdr";
+    in ''
       # Initialise the builtin profiler -- run `zprof` to read results
       zmodload zsh/zprof
 
@@ -50,12 +59,11 @@ in {
 
       ##: Early Settings -- Must be set before sourcing.
 
-      # TODO: 'yes'
-      zstyle ':autocomplete:*' fzf-completion no
+      zstyle ':autocomplete:*' fzf-completion ${fzfCompletionBackend}
       # no:  Tab uses Zsh's completion system only. [Default]
       # yes: Tab first tries Fzf's completion, then falls back to Zsh's.
 
-      zstyle ':autocomplete:recent-dirs' backend zoxide
+      zstyle ':autocomplete:recent-dirs' backend ${recentDirsBackend}
       # cdr:  Use Zsh's `cdr` function to show recent directories as completions. [Default]
       # no:   Don't show recent directories.
       # zsh-z|zoxide|z.lua|z.sh|autojump|fasd: Use this instead (if installed).

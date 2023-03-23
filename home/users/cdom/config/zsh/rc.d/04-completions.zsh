@@ -9,10 +9,10 @@ zstyle ':autocomplete:*' default-context ''
 # history-incremental-search-backward: Start in live history search mode.
 
 # Wait this many seconds for typing to stop, before showing completions.
-zstyle ':autocomplete:*' min-delay 0.05  # seconds (float)
+zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
 
 # Wait until this many characters have been typed, before showing completions.
-zstyle ':autocomplete:*' min-input 2  # <- characters (int)
+zstyle ':autocomplete:*' min-input 3  # <- characters (int)
 
 zstyle ':autocomplete:*' ignored-input '' # <- extended glob pattern
 # '':     Always show completions.
@@ -29,7 +29,7 @@ zstyle ':autocomplete:history-search:*' list-lines 16  # <- int
 # Show this many history lines when pressing ⌃R or ⌃S.
 zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # <- int
 
-zstyle ':autocomplete:*' insert-unambiguous no
+zstyle ':autocomplete:*' insert-unambiguous yes
 # no:  Tab inserts the top completion.
 # yes: Tab first inserts a substring common to all listed completions, if any.
 
