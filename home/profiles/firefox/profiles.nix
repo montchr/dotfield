@@ -2,11 +2,11 @@ hmArgs @ {
   config,
   inputs,
   pkgs,
-  packages,
   self,
   inputs',
   ...
 }: let
+  inherit (inputs) dmerge;
   inherit (inputs.digga.lib) rakeLeaves;
   inherit (self.lib.colors) withHexPrefixes;
   inherit (self.lib.apps.firefox) evalSettings;
@@ -128,8 +128,11 @@ in {
   };
 
   programs.firefox.profiles.work = {
-    inherit extensions userContent search;
+    inherit extensions userContent;
     id = 1;
+    search = dmerge.merge search {
+      engines.lucideIcons = import ./search/lucide-icons.nix;
+    };
     settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";
     };

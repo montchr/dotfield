@@ -77,6 +77,7 @@
     ##: universal
     deadnix.url = "github:astro/deadnix";
     devshell.url = "github:numtide/devshell";
+    dmerge.follows = "std/dmerge";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     gitignore.url = "github:hercules-ci/gitignore.nix";
