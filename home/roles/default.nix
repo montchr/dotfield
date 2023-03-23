@@ -22,7 +22,8 @@ with profiles; let
     base
     ++ [
       # shells.bash.blesh
-      difftools.delta
+      # difftools.delta
+      difftools.difftastic
       emacs
       just
       python
