@@ -15,6 +15,7 @@
       emacs-plus
       graphical
       keyboard.atreus
+      # keyboard.skhd
       system-defaults
       virtualisation.containers
       yabai

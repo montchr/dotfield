@@ -19,7 +19,6 @@ in {
   ];
 
   home.packages = [
-    packages.yabai-zsh-completions
     packages.zsh-completions
   ];
 

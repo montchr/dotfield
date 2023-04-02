@@ -120,7 +120,7 @@ in {
     settings = makeSettings' {
       imports = [
         ./settings/browser-toolbox.nix
-        # FIXME: fix or remove in favor of vimium
+        # FIXME
         # ./extensions/tridactyl
       ];
       "browser.startup.homepage" = "https://lobste.rs";
