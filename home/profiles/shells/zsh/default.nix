@@ -6,8 +6,10 @@
   pkgs,
   inputs,
   packages,
+  self,
   ...
 }: let
+  inherit (self.lib.booleans) boolToYesNoString;
   inherit (config) xdg;
 in {
   imports = [../common.nix];
@@ -42,10 +44,7 @@ in {
     defaultKeymap = "emacs";
 
     initExtraFirst = let
-      fzfCompletionBackend =
-        if config.programs.fzf.enable
-        then "fzf"
-        else "no";
+      fzfCompletionBackend = boolToYesNoString config.programs.fzf.enable;
       recentDirsBackend =
         if config.programs.zoxide.enable
         then "zoxide"
