@@ -1,3 +1,4 @@
+# TODO: investigate whether <https://github.com/nix-community/haumea> can help out here
 {
   self,
   withSystem,
@@ -34,6 +35,7 @@
       firefox = callLibs ./apps/firefox;
       fzf = callLibs ./apps/fzf;
       kitty = callLibs ./apps/kitty;
+      yabai = callLibs ./apps/yabai;
     };
 
     net = {
