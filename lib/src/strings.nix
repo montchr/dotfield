@@ -2,16 +2,6 @@
   l = inputs.nixpkgs.lib // builtins;
 in rec {
   /*
-  Convert a boolean to a "yes" or "no" string.
-
-  Type: boolToYesNo :: boolean -> string
-  */
-  boolToYesNo = value:
-    if value
-    then "yes"
-    else "no";
-
-  /*
   Test whether a value matches a provided regex pattern exactly.
 
   Type: test :: string<regexp> -> any -> bool

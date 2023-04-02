@@ -14,14 +14,20 @@
         supportedSystems = systems;
       };
   in {
+    #: primitives
+    booleans = callLibs ./booleans.nix;
     nums = callLibs ./nums.nix;
     strings = callLibs ./strings.nix;
-    systems = callLibs ./systems.nix;
 
+    #: complex
+    systems = callLibs ./systems.nix;
     attrs = callLibs ./attrs.nix;
+
+    #: module system
     modules = callLibs ./modules.nix;
     options = callLibs ./options.nix;
 
+    #: themeing
     typography = callLibs ./typography.nix;
 
     apps = {
