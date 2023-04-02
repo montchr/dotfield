@@ -20,11 +20,11 @@
   '';
 
   mkRule = app: args: ''
-    yabai -m rule --add ${toArgsString (args // {inherit app;})}
+    yabai -m rule --add app='${app}' ${toArgsString args}
   '';
 
   mkSignal = event: action: args: ''
-    yabai -m signal --add ${toArgsString (args // {inherit event action;})}
+    yabai -m signal --add event='${event}' action='${action}' ${toArgsString args}
   '';
 in {
   inherit toArgsString mkRule mkSetting mkSignal;
@@ -40,14 +40,6 @@ in {
   @partial
   */
   mkSignals = l.concatMapStrings mkSignal;
-
-  /*
-  @partial
-  */
-  defineSpaces = spaces:
-    l.concatLines (l.imap1
-      (i: v: ''yabai -m space ${l.toString i} --label "${v}"'')
-      spaces);
 
   toYabaiConfig = opts: l.concatLines (l.mapAttrsToList mkSetting opts);
 }

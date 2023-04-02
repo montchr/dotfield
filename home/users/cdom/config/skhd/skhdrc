@@ -106,13 +106,7 @@ sys     < escape    ; default
 sys     < p : espanso restart ; \
               skhd -k 'escape'
 
-# Reload skhd config
-# FIXME: this might not work...
-sys     < s : skhd -r ; \
-              skhd -k 'escape'
-
 # Restart yabai
-# FIXME: deleted recently, but this is useful
 sys     < y : yabai-relaunch ; \
               skhd -k 'escape'
 
