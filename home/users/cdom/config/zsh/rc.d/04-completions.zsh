@@ -29,7 +29,7 @@ zstyle ':autocomplete:history-search:*' list-lines 16  # <- int
 # Show this many history lines when pressing ⌃R or ⌃S.
 zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # <- int
 
-zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*' insert-unambiguous no
 # no:  Tab inserts the top completion.
 # yes: Tab first inserts a substring common to all listed completions, if any.
 
