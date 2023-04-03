@@ -20,6 +20,7 @@ in {
     cursor_beam_thickness = "1.5";
     cursor_underline_thickness = "2.0";
     cursor_blink_interval = "-1";
+    macos_custom_beam_cursor = "yes";
 
     ##: --- scrollback ---
 
