@@ -1,4 +1,9 @@
 {
+  "Host Platform from stdenv": {
+    "scope": "nix",
+    "prefix": "envis",
+    "body": "inherit (pkgs.stdenv.hostPlatform) $1;$0"
+  },
   "llibb": {
     "scope": "nix",
     "prefix": "llibb",
