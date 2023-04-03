@@ -39,7 +39,6 @@ in {
   home-manager.users.${username} = hmArgs: {
     imports =
       (with hmArgs.roles; workstation)
-      ++ (with hmArgs.profiles; [os-specific.darwin.yabai])
       ++ (with ownProfiles; [work]);
     # FIXME: incorrect hosts ip configuration!
     # ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
