@@ -8,7 +8,10 @@ hmArgs @ {
   inherit (config.dotfield.features) hasWayland;
   hasGnomeConnector = hmArgs.osConfig.services.gnome.gnome-browser-connector.enable or false;
 in {
-  imports = [./profiles.nix];
+  imports = [
+    ./profiles.nix
+    ../os-specific/darwin/firefox-profile-hack.nix
+  ];
   programs.firefox = {
     enable = true;
     package =
