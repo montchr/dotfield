@@ -10,7 +10,7 @@
   lib = l.makeExtensible (lself: let
     callLibs = file:
       import file {
-        inherit l inputs withSystem;
+        inherit callLibs l inputs withSystem;
         lib = lself;
         supportedSystems = systems;
       };
@@ -36,6 +36,7 @@
       fzf = callLibs ./apps/fzf;
       kitty = callLibs ./apps/kitty;
       yabai = callLibs ./apps/yabai;
+      youtube-dl = callLibs ./apps/youtube-dl;
     };
 
     net = {
