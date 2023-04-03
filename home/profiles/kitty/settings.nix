@@ -32,7 +32,7 @@ in {
 
     strip_trailing_spaces = "always";
 
-    ##: --- window layout ---
+    ##: --- frames ---
 
     ##: sizing/spacing
     remember_window_size = true;
@@ -44,6 +44,10 @@ in {
     draw_minimal_borders = true;
     hide_window_decorations = true;
     confirm_os_window_close = "0";
+    # linux/wayland: set the titlebar background color to that of the currently-active window
+    wayland_titlebar_color = "background";
+
+    ##: --- windows ---
 
     ##: layouts (preferred order)
     #
@@ -64,7 +68,7 @@ in {
       "stack"
     ];
 
-    ##: --- tab bar ---
+    ##: --- tabs ---
 
     tab_bar_edge = "bottom";
     tab_bar_style = "fade";
@@ -72,7 +76,14 @@ in {
     inactive_tab_font_style = "normal";
     tab_activity_symbol = "";
 
-    ##: --- advanced ---
+    ##: --- keyboard ---
+
+    kitty_mod = "ctrl+shift"; # default
+    # macOS: make keyboard shortcuts usable again
+    # https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.macos_option_as_alt
+    macos_option_as_alt = "left"; # => "left" | "right" | "both" | false;
+
+    ##: --- sessions ---
 
     allow_remote_control = true;
     listen_on = "unix:/tmp/kitty-socket";
@@ -80,29 +91,13 @@ in {
     # FIXME: why not?
     # startup_session = "session";
 
-    ##: --- keyboard shortcuts ---
-
-    kitty_mod = "ctrl+shift"; # default
-
-    ##: --- performance ---
+    ##: --- misc ---
 
     # Prevent input latency.
     sync_to_monitor = false;
 
-    ##: --- terminal bell ---
-
+    ##: bell
     enable_audio_bell = false;
     visual_bell_duration = "0.3";
-
-    ##: --- os-specific tweaks ---
-
-    ##: macOS
-    # make keyboard shortcuts usable again
-    # https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.macos_option_as_alt
-    macos_option_as_alt = "left"; # => "left" | "right" | "both" | false;
-
-    ##: linux
-    # set the titlebar background color to that of the currently-active window
-    wayland_titlebar_color = "background";
   };
 }
