@@ -42,13 +42,6 @@ in {
     # prefmanager
   ];
 
-  networking.dns = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-  ];
-
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
   # $ darwin-rebuild changelog
