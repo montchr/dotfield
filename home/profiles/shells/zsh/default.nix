@@ -9,9 +9,10 @@
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
 
   zshDir = "$HOME/" + cfg.dotDir;
+  zgenSrcDir = "${xdg.dataHome}/zgenom";
+  zgenCacheDir = "${xdg.cacheHome}/zgenom";
 
   DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/home/users/cdom/config/zsh";
-  ZGEN_DIR = "${xdg.dataHome}/zgenom";
   ZSH_CACHE = "${xdg.cacheHome}/zsh";
   ZSH_DATA = "${xdg.dataHome}/zsh";
 in {
@@ -28,7 +29,7 @@ in {
     $DRY_RUN_CMD rm -f $VERBOSE_ARG \
       ${zshDir}/*.zwc
     $DRY_RUN_CMD rm -f $VERBOSE_ARG \
-      ${ZGEN_DIR}/init.zsh{,.zwc}
+      ${zgenCacheDir}/init.zsh{,.zwc}
     $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
       ${ZSH_CACHE}
   '';
@@ -61,13 +62,13 @@ in {
       zmodload zsh/zprof
 
       ##: Ensure zgenom is available
-      if ! [[ -d $ZGEN_DIR ]]; then
+      if ! [[ -d $ZGEN_SOURCE ]]; then
         echo "Installing jandamm/zgenom"
-        git clone --depth 1 https://github.com/jandamm/zgenom.git $ZGEN_DIR
+        git clone --depth 1 https://github.com/jandamm/zgenom.git $ZGEN_SOURCE
       fi
 
       ##: Initialise zgenom
-      . $ZGEN_DIR/zgenom.zsh
+      . $ZGEN_SOURCE/zgenom.zsh
 
       ##: Check for plugin and zgenom updates (default: every week).
       zgenom autoupdate
@@ -103,12 +104,9 @@ in {
     '';
 
     sessionVariables = {
-      inherit
-        DOTFIELD_USER_ZDOTDIR
-        ZGEN_DIR
-        ZSH_CACHE
-        ZSH_DATA
-        ;
+      inherit DOTFIELD_USER_ZDOTDIR ZSH_CACHE ZSH_DATA;
+      ZGEN_DIR = zgenCacheDir;
+      ZGEN_SOURCE = zgenSrcDir;
     };
   };
 }
