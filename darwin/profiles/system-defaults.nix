@@ -189,7 +189,7 @@ in {
   system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   # Whether to use F1, F2, etc. keys as standard function keys.
-  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = false;
+  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.nonUS.remapTilde = false;
