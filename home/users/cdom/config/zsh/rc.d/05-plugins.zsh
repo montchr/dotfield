@@ -11,10 +11,8 @@ if ! zgenom saved; then
   zgenom compdef
 
   # NOTE: Be extra careful about plugin load order, or subtle breakage can emerge.
-  # zgenom load junegunn/fzf shell
-  # zgenom load jeffreytse/zsh-vi-mode
-  # zgenom load zdharma-continuum/fast-syntax-highlighting
-  # TODO: confirm order
+  #       fzf-tab, for example, must be loaded before any widgets.
+  zgenom load Aloxaf/fzf-tab
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-completions src
   zgenom load zsh-users/zsh-autosuggestions
