@@ -4,9 +4,9 @@
 
 if ! zgenom saved; then
   echo "Initialising zgenom"
-  # TODO: originally also had `$ZGEN_INIT.zwc` but this seems dubious
   rm -f $ZDOTDIR/*.zwc(N) \
-        $XDG_CACHE_HOME/zsh/*(N)
+        $XDG_CACHE_HOME/zsh/*(N) \
+        $ZGEN_INIT.zwc
 
   zgenom compdef
 
