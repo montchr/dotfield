@@ -2,15 +2,14 @@
 
 ### :: COMPLETIONS ::
 
-# Expand partial paths, e.g. cd f/b/z == cd foo/bar/baz (assuming no ambiguity)
-zstyle ':completion:*:paths' path-completion yes
+# Disable sort for `git checkout` candidates
+zstyle ':completion:*:git-checkout:*' sort false
 
-# Omit parent and current directories from completion results when they are
-# already named in the input.
-zstyle ':completion:*:*:cd:*' ignore-parents parent pwd
+# Enable candidate group support
+zstyle ':completion:*:descriptions' format '[%d]'
 
-# Merge multiple, consecutive slashes in paths
-zstyle ':completion:*' squeeze-slashes true
+# Enable filename colorisation
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Exclude internal/fake envvars
 zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
@@ -34,14 +33,24 @@ zstyle '*' single-ignored show
 zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
 zstyle ':completion:*:rm:*' file-patterns '*:all-files'
 
-# PID completion for kill
+# Expand partial paths, e.g. cd f/b/z == cd foo/bar/baz (assuming no ambiguity)
+zstyle ':completion:*:paths' path-completion yes
+
+# Omit parent and current directories from completion results when they are
+# already named in the input.
+zstyle ':completion:*:*:cd:*' ignore-parents parent pwd
+
+# Merge multiple, consecutive slashes in paths
+zstyle ':completion:*' squeeze-slashes true
+
+##: process ids
 zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -o pid,user,command -w'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01'
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*' insert-ids single
 
-##: man
+##: man pages
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
 
