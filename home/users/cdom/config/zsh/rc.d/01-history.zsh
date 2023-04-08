@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/rc.d/01-history.zsh :: History Settings
+### :: HISTORY ::
 
 ##: Reference
 #

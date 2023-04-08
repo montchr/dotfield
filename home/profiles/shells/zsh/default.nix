@@ -9,7 +9,6 @@
   self,
   ...
 }: let
-  inherit (self.lib.booleans) boolToYesNoString;
   inherit (config) xdg;
 in {
   imports = [../common.nix];
@@ -24,6 +23,16 @@ in {
     packages.zsh-completions
   ];
 
+  # Initialized manually to support p10k instant prompt.
+  # <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
+  programs.direnv.enableZshIntegration = false;
+
+  # Starship is notoriously slow.
+  # <https://github.com/romkatv/zsh-bench/#prompt>
+  # Use a zsh-only prompt instead.
+  programs.starship.enableZshIntegration = false;
+
+  # TODO: disable starship -- it's extremely slow --
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -31,8 +40,6 @@ in {
     enableAutosuggestions = false;
     # zsh-autocomplete requires removal of any calls to compinit in zsh config.
     enableCompletion = false;
-    enableSyntaxHighlighting = true;
-    enableVteIntegration = true;
     autocd = true;
 
     shellAliases = {
@@ -43,38 +50,35 @@ in {
 
     defaultKeymap = "emacs";
 
-    initExtraFirst = let
-      fzfCompletionBackend = boolToYesNoString config.programs.fzf.enable;
-      recentDirsBackend =
-        if config.programs.zoxide.enable
-        then "zoxide"
-        else "cdr";
-    in ''
-      # Initialise the builtin profiler -- run `zprof` to read results
+    initExtraFirst = ''
+      ##: Initialise the builtin profiler -- run `zprof` to read results
       zmodload zsh/zprof
 
-      ###: --- zsh-autocomplete ---
+      ##: Ensure zgenom is available
+      if ! [[ -d $ZGEN_DIR ]]; then
+        echo "Installing jandamm/zgenom"
+        git clone --depth 1 https://github.com/jandamm/zgenom.git $ZGEN_DIR
+      fi
 
-      ##: Early Settings -- Must be set before sourcing.
+      ##: Initialise zgenom
+      . $ZGEN_DIR/zgenom.zsh
+      # Check for plugin and zgenom updates every 7 days
+      # This does not increase the startup time.
+      zgenom autoupdate
 
-      zstyle ':autocomplete:*' fzf-completion ${fzfCompletionBackend}
-      # no:  Tab uses Zsh's completion system only. [Default]
-      # yes: Tab first tries Fzf's completion, then falls back to Zsh's.
+      ##: Initialise prompt and direnv
+      # - <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
 
-      zstyle ':autocomplete:recent-dirs' backend ${recentDirsBackend}
-      # cdr:  Use Zsh's `cdr` function to show recent directories as completions. [Default]
-      # no:   Don't show recent directories.
-      # zsh-z|zoxide|z.lua|z.sh|autojump|fasd: Use this instead (if installed).
+      emulate zsh -c "$(direnv export zsh)"
 
-      zstyle ':autocomplete:*' widget-style menu-select
-      # complete-word: (Shift-)Tab inserts the top (bottom) completion. [Default]
-      # menu-complete: Press again to cycle to next (previous) completion.
-      # menu-select:   Same as `menu-complete`, but updates selection in menu.
+      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+      # Initialization code that may require console input (password prompts, [y/n]
+      # confirmations, etc.) must go above this block; everything else may go below.
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
 
-      ##: Load zsh-autocomplete
-
-      # Must be loaded as early as possible, before any calls to `compdef`
-      source "${packages.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+      emulate zsh -c "$(direnv hook zsh)"
     '';
 
     history.path = "${xdg.dataHome}/zsh/history";
@@ -86,50 +90,16 @@ in {
     history.share = true;
     history.size = 10000;
 
-    historySubstringSearch.enable = true;
-    historySubstringSearch.searchUpKey = "^p";
-    historySubstringSearch.searchDownKey = "^n";
-
-    plugins = [
-      # NOTE: `fzf-tab` requires a very-specific load order -- *after*
-      # `compinit` but *before* other plugins defining zle widgets. With
-      # `enableAutosuggestions` enabled, even with `fzf-tab` as the first plugin
-      # in this list, it will load after `zsh-autosuggestions` as enabled by the
-      # related option, which the `fzf-tab` docs explicitly warn against. So
-      # instead, we disable `enableAutosuggestions` and load zsh-autosuggestions
-      # manually after fzf-tab. https://github.com/Aloxaf/fzf-tab
-      #
-      # TODO: consider upstreaming this as an option due to its specific load-order needs
-      # TODO: remove -- disabled so as not to conflict with `zsh-autocomplete`
-      #
-      # {
-      #   name = "fzf-tab";
-      #   inherit (pkgs.zsh-fzf-tab) src;
-      # }
-
-      # See above note -- `zsh-autosuggestions` *MUST* be loaded after
-      # `fzf-tab`, but will not do so when enabled via `enableAutosuggestions`.
-      {
-        name = "zsh-autosuggestions";
-        inherit (pkgs.zsh-autosuggestions) src;
-      }
-
-      {
-        name = "zsh-autopair";
-        # The version in nixpkgs is over a year old because it's pinned to the
-        # plugin's only tag release (as of 2022-11-21). The author has made some
-        # changes since the most recent release.
-        src = inputs.zsh-autopair;
-      }
-    ];
-
     initExtra = ''
       export DOTFIELD_USER_ZDOTDIR="$DOTFIELD_DIR/home/users/cdom/config/zsh"
-
       . $DOTFIELD_USER_ZDOTDIR/main.zsh
+
+      [[ -f ''${DOTFIELD_USER_ZDOTDIR:-$ZDOTDIR}/.p10k.zsh ]] \
+        && source ''${DOTFIELD_USER_ZDOTDIR:-$ZDOTDIR}/.p10k.zsh
     '';
 
     sessionVariables = {
+      ZGEN_DIR = "$XDG_DATA_HOME/zgenom";
       ZSH_CACHE = "${xdg.cacheHome}/zsh";
       ZSH_DATA = "${xdg.dataHome}/zsh";
     };

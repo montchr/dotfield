@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/rc.d/06-keybinds.zsh :: Keybindings
+### :: KEYBINDINGS ::
 
-###: REFERENCE
+##: Reference
 #
 # - https://wiki.archlinux.org/title/zsh#Key_bindings
 # - https://sgeb.io/posts/zsh-zle-custom-widgets/
@@ -31,4 +31,11 @@ Keys[Shift-Tab]="${terminfo[kcbt]}"
 bindkey -M viins '^A' beginning-of-line
 bindkey -M viins '^E' end-of-line
 bindkey -M viins '^D' push-line-or-edit
+
+
+##: --- plugins ---
+
+# <zsh-users/zsh-history-substring-search>
+bindkey "^P" history-substring-search-up
+bindkey "^N" history-substring-search-down
 

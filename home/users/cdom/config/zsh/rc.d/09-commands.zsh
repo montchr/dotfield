@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/rc.d/07-commands.zsh :: Commands, Functions, Hooks, Aliases...
+### :: COMMANDS :: and functions, hooks, aliases...
 
 autoload -Uz add-zsh-hook zmv
 

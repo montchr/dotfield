@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/main.zsh :: entrypoint for user-specific zsh config
-
 # Handle $0 according to the ZSH Plugin Standard:
 # https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
@@ -16,7 +14,6 @@
   # - `<-9>`  => matches any integer <= 9
   # - `<1-9>` => matches any integer that's >= 1 and <= 9
   local file=
-  # FIXME: for some reason, ${0:h} does not work here?
   for file in ${DOTFIELD_USER_ZDOTDIR}/rc.d/<->-*.zsh(n); do
     # shellcheck source=/dev/null
     . $file   # `.` is like `source`, but doesn't search your $path.

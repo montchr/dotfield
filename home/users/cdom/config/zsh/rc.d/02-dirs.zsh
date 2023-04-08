@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/rc.d/02-dirs.zsh :: Directory Settings
+### :: DIRECTORIES ::
 
 ##: Reference
 #

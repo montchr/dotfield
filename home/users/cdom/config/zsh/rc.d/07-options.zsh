@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-### $DOTFIELD_USER_ZDOTDIR/rc.d/05-options.zsh :: Options
+### :: OPTIONS ::
 
 ###: GENERAL ===================================================================
 
