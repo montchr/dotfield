@@ -7,8 +7,8 @@ if ! zgenom saved; then
 
   # Purge compiled and cached files
   rm -f $ZDOTDIR/*.zwc(N) \
-        $XDG_CACHE_HOME/zsh/*(N) \
-        $ZGEN_INIT.zwc
+        $ZSH_CACHE/*(N) \
+        $ZGEN_DIR/init.zwc
 
   zgenom compdef
 

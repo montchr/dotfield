@@ -1,11 +1,19 @@
-##: References:
-# - <https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org>
 {
   config,
-  packages,
+  pkgs,
   ...
 }: let
-  inherit (config) xdg;
+  inherit (config) lib xdg;
+  inherit (config.xdg) cacheHome;
+  cfg = config.programs.zsh;
+  dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
+
+  zshDir = "$HOME/" + cfg.dotDir;
+
+  DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/home/users/cdom/config/zsh";
+  ZGEN_DIR = "${xdg.dataHome}/zgenom";
+  ZSH_CACHE = "${xdg.cacheHome}/zsh";
+  ZSH_DATA = "${xdg.dataHome}/zsh";
 in {
   imports = [../common.nix];
 
@@ -15,7 +23,17 @@ in {
     "/share/zsh/site-functions"
   ];
 
-  # Disable some integrations to support p10k prompt.
+  # Clear cached/compiled files on activation.
+  home.activation.zshPurgeCaches = lib.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD rm -f $VERBOSE_ARG \
+      ${zshDir}/*.zwc
+    $DRY_RUN_CMD rm -f $VERBOSE_ARG \
+      ${ZGEN_DIR}/init.zsh{,.zwc}
+    $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
+      ${ZSH_CACHE}
+  '';
+
+  ##: Disable some integrations to support p10k prompt.
   # <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
   programs.direnv.enableZshIntegration = false;
   # <https://github.com/romkatv/zsh-bench/#prompt>
@@ -50,8 +68,8 @@ in {
 
       ##: Initialise zgenom
       . $ZGEN_DIR/zgenom.zsh
-      # Check for plugin and zgenom updates every 7 days
-      # This does not increase the startup time.
+
+      ##: Check for plugin and zgenom updates (default: every week).
       zgenom autoupdate
 
       ##: Initialise prompt and direnv
@@ -62,14 +80,14 @@ in {
       # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
       # Initialization code that may require console input (password prompts, [y/n]
       # confirmations, etc.) must go above this block; everything else may go below.
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      if [[ -r "${cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "${cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
 
       emulate zsh -c "$(direnv hook zsh)"
     '';
 
-    history.path = "${xdg.dataHome}/zsh/history";
+    history.path = "${ZSH_DATA}/history";
     history.expireDuplicatesFirst = true;
     history.extended = true;
     history.ignoreDups = true;
@@ -79,17 +97,21 @@ in {
     history.size = 10000;
 
     initExtra = ''
-      export DOTFIELD_USER_ZDOTDIR="$DOTFIELD_DIR/home/users/cdom/config/zsh"
-      . $DOTFIELD_USER_ZDOTDIR/main.zsh
-
-      [[ -f ''${DOTFIELD_USER_ZDOTDIR:-$ZDOTDIR}/.p10k.zsh ]] \
-        && source ''${DOTFIELD_USER_ZDOTDIR:-$ZDOTDIR}/.p10k.zsh
+      . ${DOTFIELD_USER_ZDOTDIR}/main.zsh
+      [[ -f ${DOTFIELD_USER_ZDOTDIR}/.p10k.zsh ]] \
+        && source ${DOTFIELD_USER_ZDOTDIR}/.p10k.zsh
     '';
 
     sessionVariables = {
-      ZGEN_DIR = "$XDG_DATA_HOME/zgenom";
-      ZSH_CACHE = "${xdg.cacheHome}/zsh";
-      ZSH_DATA = "${xdg.dataHome}/zsh";
+      inherit
+        DOTFIELD_USER_ZDOTDIR
+        ZGEN_DIR
+        ZSH_CACHE
+        ZSH_DATA
+        ;
     };
   };
 }
+##: References:
+# - <https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org>
+
