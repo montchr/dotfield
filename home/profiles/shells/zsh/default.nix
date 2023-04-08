@@ -1,12 +1,8 @@
-# FIXME: startup time has slowed to a crawl since refactor to use rc.d
 ##: References:
 # - <https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org>
 {
   config,
-  pkgs,
-  inputs,
   packages,
-  self,
   ...
 }: let
   inherit (config) xdg;
@@ -19,20 +15,12 @@ in {
     "/share/zsh/site-functions"
   ];
 
-  home.packages = [
-    packages.zsh-completions
-  ];
-
-  # Initialized manually to support p10k instant prompt.
+  # Disable some integrations to support p10k prompt.
   # <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
   programs.direnv.enableZshIntegration = false;
-
-  # Starship is notoriously slow.
   # <https://github.com/romkatv/zsh-bench/#prompt>
-  # Use a zsh-only prompt instead.
   programs.starship.enableZshIntegration = false;
 
-  # TODO: disable starship -- it's extremely slow --
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
