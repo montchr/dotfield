@@ -4,6 +4,8 @@
 
 if ! zgenom saved; then
   echo "Initialising zgenom"
+
+  # Purge compiled and cached files
   rm -f $ZDOTDIR/*.zwc(N) \
         $XDG_CACHE_HOME/zsh/*(N) \
         $ZGEN_INIT.zwc
@@ -23,9 +25,3 @@ if ! zgenom saved; then
   zgenom save
   zgenom compile $ZDOTDIR
 fi
-
-###: Configuration
-
-##: Defer to atuin/C-r/fzf/history-substring-search for history completion
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
