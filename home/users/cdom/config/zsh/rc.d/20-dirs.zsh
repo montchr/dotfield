@@ -12,6 +12,8 @@ hash -d zsh=$ZDOTDIR
 # `hash -d <name>=<path>` makes ~<name> a shortcut for <path>.
 # You can use this ~name anywhere you would specify a dir, not just with `cd`!
 
+AUTO_LS_COMMANDS="exa --oneline"
+AUTO_LS_NEWLINE=false
 DIRSTACKSIZE=9
 
 setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.

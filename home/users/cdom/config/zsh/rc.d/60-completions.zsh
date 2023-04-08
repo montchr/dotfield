@@ -2,8 +2,15 @@
 
 ### :: COMPLETIONS ::
 
-# Disable sort for `git checkout` candidates
-zstyle ':completion:*:git-checkout:*' sort false
+setopt ALWAYS_TO_END     # Move cursor to the end of a completed word.
+setopt AUTO_LIST         # Automatically list choices on ambiguous completion.
+setopt AUTO_MENU         # Show completion menu on a successive tab press.
+setopt AUTO_PARAM_SLASH  # If completed parameter is a directory, add a trailing slash.
+setopt COMPLETE_IN_WORD  # Complete from both ends of a word.
+setopt PATH_DIRS         # Perform path search even on command names with slashes.
+
+unsetopt COMPLETE_ALIASES  # Disable completion of aliases
+unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 
 # Enable candidate group support
 zstyle ':completion:*:descriptions' format '[%d]'
@@ -11,11 +18,17 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # Enable filename colorisation
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+# Merge multiple, consecutive slashes in paths
+zstyle ':completion:*' squeeze-slashes true
+
 # Exclude internal/fake envvars
 zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
 
 # Sort array completion candidates
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# Disable sort for `git checkout` candidates
+zstyle ':completion:*:git-checkout:*' sort false
 
 # Don't complete uninteresting users
 zstyle ':completion:*:users' ignored-patterns \
@@ -39,9 +52,6 @@ zstyle ':completion:*:paths' path-completion yes
 # Omit parent and current directories from completion results when they are
 # already named in the input.
 zstyle ':completion:*:*:cd:*' ignore-parents parent pwd
-
-# Merge multiple, consecutive slashes in paths
-zstyle ':completion:*' squeeze-slashes true
 
 ##: process ids
 zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -o pid,user,command -w'
