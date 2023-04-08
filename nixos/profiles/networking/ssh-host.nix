@@ -5,8 +5,8 @@
 }: {
   services.openssh = {
     enable = lib.mkForce true;
-    passwordAuthentication = false;
-    permitRootLogin = lib.mkDefault "no";
+    settings.passwordAuthentication = false;
+    settings.permitRootLogin = lib.mkDefault "no";
   };
 
   # Passwordless sudo when SSH'ing with keys

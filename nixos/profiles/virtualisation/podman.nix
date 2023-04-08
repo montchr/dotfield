@@ -13,13 +13,7 @@
 ##: Sources
 # - https://docs.hercules-ci.com/arion/#_nixos
 # - https://github.com/hercules-ci/arion/issues/122
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.dotfield) guardian;
-in {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     arion
 
@@ -31,7 +25,6 @@ in {
   virtualisation.docker.enable = false;
   virtualisation.podman = {
     enable = true;
-    defaultNetwork.dnsname.enable = true;
     # NOTE: This only creates a shell alias mapping `docker` to `podman`.
     dockerCompat = true;
     dockerSocket.enable = true;

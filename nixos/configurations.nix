@@ -125,9 +125,7 @@ in {
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       system = x86_64-linux;
-      modules =
-        (with roles; gnome ++ graphical ++ office ++ tangible ++ workstation)
-        ++ (with nixosProfiles; [hardware.hidpi]);
+      modules = with roles; gnome ++ graphical ++ office ++ tangible ++ workstation;
     };
 
     hierophant = makeNixosSystem "hierophant" {

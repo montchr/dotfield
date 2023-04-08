@@ -34,8 +34,8 @@
   ];
 
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = true;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.settings.passwordAuthentication = true;
+  services.openssh.settings.permitRootLogin = "yes";
 
   users.users.root.initialPassword = "root";
   networking.firewall.enable = false;

@@ -32,5 +32,5 @@
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
-  services.openssh.permitRootLogin = "prohibit-password";
+  services.openssh.settings.permitRootLogin = "prohibit-password";
 }

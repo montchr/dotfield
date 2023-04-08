@@ -47,8 +47,8 @@ in {
     # For rage encryption, all hosts need a ssh key pair
     enable = lib.mkForce true;
     openFirewall = true;
-    passwordAuthentication = false;
-    permitRootLogin = "prohibit-password";
+    settings.passwordAuthentication = false;
+    settings.permitRootLogin = "prohibit-password";
   };
 
   services.openssh.hostKeys = [
