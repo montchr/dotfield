@@ -1,9 +1,9 @@
 {
   pkgs,
-  self,
+  inputs,
   ...
 }: let
-  inherit (self.lib.apps.youtube-dl) maxRatio;
+  inherit (inputs.flib.lib.apps.youtube-dl) maxRatio;
 in {
   programs.yt-dlp = {
     enable = true;

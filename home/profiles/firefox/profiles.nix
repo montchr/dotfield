@@ -2,15 +2,14 @@ hmArgs @ {
   config,
   inputs,
   pkgs,
-  self,
   inputs',
   ...
 }: let
   inherit (inputs) dmerge;
   inherit (inputs.digga.lib) rakeLeaves;
-  inherit (self.lib.colors) withHexPrefixes;
-  inherit (self.lib.apps.firefox) evalSettings;
-  inherit (pkgs.stdenv.hostPlatform) isLinux system;
+  inherit (inputs.flib.lib.apps.firefox) evalSettings;
+  inherit (inputs.flib.lib.colors) withHexPrefixes;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
@@ -28,7 +27,7 @@ hmArgs @ {
 
   makeSettings = {modules ? []}:
     evalSettings {
-      inherit system theme;
+      inherit theme;
       modules = [./settings/common.nix] ++ modules;
       hmConfig = config;
       osConfig = hmArgs.osConfig or null;

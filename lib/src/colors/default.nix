@@ -1,9 +1,6 @@
-{
-  l,
-  inputs,
-  ...
-}: let
+{inputs, ...}: let
   inherit (inputs.nix-colors) colorSchemes;
+  inherit (inputs.flib.lib.colors) withHexPrefixes;
 
   /*
   Returns a library color scheme specification.
@@ -15,43 +12,14 @@
   /*
   Returns a set of prefixed hex color values for a library color scheme.
 
+  TODO: IIRC this feature is now in upstream.
+
   Type: getColorScheme :: string -> AttrSet
   */
   getColorScheme' = name: withHexPrefixes (getColorScheme name).colors;
-
-  /*
-  Prefix each value in an attrset of strings with a hashmark to represent a set
-  of color values.
-
-  Type: withHexPrefixes :: (string, string) -> (string, string)
-  @partial
-  */
-  withHexPrefixes = let
-    applyPrefix = _: v:
-      if (l.hasPrefix "#" v)
-      then v
-      else ("#" + v);
-  in
-    l.mapAttrs applyPrefix;
 in {
   inherit
     getColorScheme
     getColorScheme'
-    withHexPrefixes
     ;
-
-  /*
-  Mapping of common semantic usages to Base16 color values.
-
-  Type: semanticAliases :: AttrSet -> AttrSet
-  @partial
-  */
-  semanticAliases = import ./aliases.nix;
-
-  inverseSchemeType = type:
-    if ("dark" == type)
-    then "light"
-    else if ("light" == type)
-    then "dark"
-    else throw "Unsupported color scheme type '${type}' specified.";
 }

@@ -1,14 +1,13 @@
 {
-  self,
   config,
-  pkgs,
+  inputs,
   ...
 }: let
-  inherit (self.lib.colors) inverseSchemeType;
+  inherit (inputs.flib.lib.colors) reversePolarity;
 in {
   programs.git.difftastic = {
     enable = true;
-    background = inverseSchemeType config.theme.colors.active.kind;
+    background = reversePolarity config.theme.colors.active.kind;
     display = "inline";
   };
 }

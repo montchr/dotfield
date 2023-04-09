@@ -1,10 +1,9 @@
 {
   pkgs,
-  self,
   inputs,
   ...
 }: let
-  inherit (self.lib.apps.yabai) mkSetting;
+  inherit (inputs.flib.lib.apps.yabai) mkSetting;
 
   l = inputs.nixpkgs.lib // builtins;
 

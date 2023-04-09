@@ -7,6 +7,10 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
+    flib.url = "sourcehut:~montchr/flib";
+    flib.inputs.nix-colors.follows = "nix-colors";
+    haumea.follows = "flib/haumea";
+
     ##: iosevka-bin versions
     #
     # Reduce churn by tracking various identically-named sources while waiting
@@ -113,7 +117,6 @@
   };
 
   outputs = {
-    self,
     flake-parts,
     nixpkgs,
     digga,

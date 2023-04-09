@@ -6,7 +6,7 @@ moduleArgs @ {
   ...
 }: let
   inherit (l.types) str int;
-  inherit (self.lib.options) mkOpt;
+  inherit (inputs.flib.lib.options) mkOpt;
   inherit (self.lib.colors) getColorScheme;
   inherit (l) types;
   l = inputs.nixpkgs.lib // builtins;

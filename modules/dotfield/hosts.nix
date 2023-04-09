@@ -1,10 +1,9 @@
 {
   inputs,
-  self,
   config,
   ...
 }: let
-  inherit (self.lib.types) host;
+  inherit (inputs.flib.lib.types) host;
   l = inputs.nixpkgs.lib // builtins;
   t = l.types;
   cfg = config.dotfield;
