@@ -64,7 +64,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ##: forks
     agenix.url = "github:ryantm/agenix";
 
     ##: sources
