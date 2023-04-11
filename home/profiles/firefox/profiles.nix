@@ -5,7 +5,6 @@ hmArgs @ {
   inputs',
   ...
 }: let
-  inherit (inputs) dmerge;
   inherit (inputs.digga.lib) rakeLeaves;
   inherit (inputs.flib.lib.apps.firefox) evalSettings;
   inherit (inputs.flib.lib.colors) withHexPrefixes;
@@ -113,25 +112,25 @@ hmArgs @ {
     force = true;
   };
 in {
+  imports = [./extensions/tridactyl];
+
   programs.firefox.profiles.home = {
-    inherit extensions userChrome userContent search;
+    inherit userChrome userContent search;
     id = 0;
+    extensions = extensions ++ [addons.tridactyl];
     settings = makeSettings' {
-      imports = [
-        ./settings/browser-toolbox.nix
-        # FIXME
-        # ./extensions/tridactyl
-      ];
+      imports = [./settings/browser-toolbox.nix];
       "browser.startup.homepage" = "https://lobste.rs";
     };
   };
 
   programs.firefox.profiles.work = {
-    inherit extensions userContent;
+    inherit userContent;
     id = 1;
-    search = dmerge.merge search {
-      engines.lucideIcons = import ./search/lucide-icons.nix;
-    };
+    extensions = extensions ++ [addons.tridactyl];
+    # search = dmerge.merge search {
+    #   engines.lucideIcons = import ./search/lucide-icons.nix;
+    # };
     settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";
     };
