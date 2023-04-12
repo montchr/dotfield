@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (inputs.flib.lib.types) user;
+  inherit (inputs.apparat.lib.types) user;
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.dotfield;
 in {

@@ -7,7 +7,7 @@
 }: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit
-    (inputs.flib.lib.apps.yabai)
+    (inputs.apparat.lib.apps.yabai)
     toYabaiConfig
     mkSetting
     mkSignal

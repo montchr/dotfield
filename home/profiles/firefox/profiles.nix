@@ -6,8 +6,8 @@ hmArgs @ {
   ...
 }: let
   inherit (inputs.digga.lib) rakeLeaves;
-  inherit (inputs.flib.lib.apps.firefox) evalSettings;
-  inherit (inputs.flib.lib.colors) withHexPrefixes;
+  inherit (inputs.apparat.lib.apps.firefox) evalSettings;
+  inherit (inputs.apparat.lib.colors) withHexPrefixes;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;

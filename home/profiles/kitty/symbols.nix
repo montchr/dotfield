@@ -1,5 +1,5 @@
 {inputs, ...}: let
-  inherit (inputs.flib.lib.apps.kitty) makeConf makeSymbolsMap;
+  inherit (inputs.apparat.lib.apps.kitty) makeConf makeSymbolsMap;
   l = inputs.nixpkgs.lib // builtins;
   fontName = "Symbols Nerd Font";
   glyphSets = import ./nerdfont-glyph-sets.nix;

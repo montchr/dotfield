@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.flib.lib.colors) reversePolarity;
+  inherit (inputs.apparat.lib.colors) reversePolarity;
 in {
   programs.git.difftastic = {
     enable = true;

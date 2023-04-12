@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.flib.lib.apps.yabai) mkSetting;
+  inherit (inputs.apparat.lib.apps.yabai) mkSetting;
 
   l = inputs.nixpkgs.lib // builtins;
 

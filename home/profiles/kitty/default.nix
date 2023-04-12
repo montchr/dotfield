@@ -8,7 +8,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) theme xdg;
-  inherit (inputs.flib.lib.apps.kitty) makeConf makeThemeAttrs;
+  inherit (inputs.apparat.lib.apps.kitty) makeConf makeThemeAttrs;
   l = inputs.nixpkgs.lib // builtins;
   colorScheme =
     if theme.colors.active != null

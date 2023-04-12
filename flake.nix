@@ -7,9 +7,9 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
-    flib.url = "sourcehut:~montchr/flib";
-    flib.inputs.nix-colors.follows = "nix-colors";
-    haumea.follows = "flib/haumea";
+    apparat.url = "sourcehut:~montchr/apparat";
+    apparat.inputs.nix-colors.follows = "nix-colors";
+    haumea.follows = "apparat/haumea";
 
     ##: iosevka-bin versions
     #
