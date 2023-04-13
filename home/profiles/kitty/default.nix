@@ -32,6 +32,11 @@ in {
     enable = true;
     darwinLaunchOptions = l.mkIf isDarwin ["--single-instance"];
     settings = makeThemeAttrs colorScheme;
+    keybindings = {
+      # Open new tabs+windows from the current session's working directory.
+      "kitty_mod+t" = "new_tab_with_cwd";
+      "kitty_mod+enter" = "new_window_with_cwd";
+    };
   };
 
   xdg.configFile = {
