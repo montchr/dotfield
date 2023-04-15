@@ -35,6 +35,7 @@ in {
   system.defaults.NSGlobalDomain.AppleMetricUnits = 1;
   system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
   system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Fahrenheit";
+  system.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
 
   ###: UPDATES/SECURITY/FIREWALL ================================================================
 
