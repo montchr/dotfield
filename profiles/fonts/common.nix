@@ -23,6 +23,7 @@ in {
       fira
       ibm-plex
       inter
+      jetbrains-mono
       (nerdfonts.override {
         fonts = [
           "Iosevka"

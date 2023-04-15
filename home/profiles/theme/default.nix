@@ -16,7 +16,9 @@
       if (envColors != "")
       then (colors.${envColors} or (getColorScheme envColors))
       else colors.dark;
-    dark = getColorScheme "black-metal-khold";
+    dark = getColorScheme "classic-dark";
+    # dark = getColorScheme "da-one-gray";
+    # dark = getColorScheme "black-metal-khold";
     light = getColorScheme "one-light";
   };
 

@@ -5,6 +5,7 @@
   config,
   lib,
   pkgs,
+  darwinProfiles,
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
@@ -17,6 +18,7 @@
   # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
   ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
 in {
+  imports = [darwinProfiles.builders.vm-guest];
   # FIXME: needs some tweaking upstream to account for nix-darwin...
   # imports = [inputs.klein-infra.darwinModules."aarch64-darwin".ssh-known-hosts];
 
