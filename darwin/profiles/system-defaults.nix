@@ -194,8 +194,9 @@ in {
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.nonUS.remapTilde = false;
-  system.keyboard.remapCapsLockToControl = true;
-  system.keyboard.remapCapsLockToEscape = false;
+  system.keyboard.remapCapsLockToControl = false;
+  system.keyboard.remapCapsLockToEscape = true;
+
   system.keyboard.swapLeftCommandAndLeftAlt = false;
 
   ###: PROCESSES / ACTIVITY MONITOR ========================================================
