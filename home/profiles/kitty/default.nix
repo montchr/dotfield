@@ -40,17 +40,7 @@ in {
   };
 
   xdg.configFile = {
-    "kitty/theme-dark.conf".text =
-      makeConf (makeThemeAttrs theme.colors.dark);
-    "kitty/theme-light.conf".text =
-      makeConf (makeThemeAttrs theme.colors.light);
-
-    # FIXME: does not appear to have an effect?
-    "kitty/session".text = ''
-      # Start new sessions in the previous working directory
-      # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
-      # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
-      launch --cwd=current
-    '';
+    "kitty/theme-dark.conf".text = makeConf (makeThemeAttrs theme.colors.dark);
+    "kitty/theme-light.conf".text = makeConf (makeThemeAttrs theme.colors.light);
   };
 }
