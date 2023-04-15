@@ -11,10 +11,10 @@ in {
   "browser.bookmarks.showMobileBookmarks" = true;
   "browser.contentblocking.category" = "strict";
   "browser.ctrlTab.recentlyUsedOrder" = false;
-  "browser.display.os-zoom-behavior" = 1;
-  # "browser.fullscreen.exit_on_escape" = false;
+  # TODO: add documentation for values
+  # "browser.display.os-zoom-behavior" = 1;
   "browser.proton.enabled" = true;
-  "browser.newtabpage.enabled" = true;
+  # "browser.newtabpage.enabled" = true;
 
   # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
   "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
@@ -23,6 +23,7 @@ in {
   "browser.search.region" = "US";
   "browser.search.suggest.enabled" = true;
 
+  # TODO: add documentation for values
   "browser.startup.page" = 3;
 
   # Whether we should draw the tabs on top of the titlebar.
@@ -30,6 +31,7 @@ in {
   # <https://searchfox.org/mozilla-release/rev/b6792379492929d65f5b61a3caa0a9b19bbd7078/modules/libpref/init/StaticPrefList.yaml#1565-1571>
   "browser.tabs.inTitlebar" = 1;
 
+  # TODO: add documentation for values
   "browser.uidensity" = 1; # Dense.
   "browser.urlbar.placeholderName" = "…";
   "browser.urlbar.showSearchSuggestionsFirst" = false;
@@ -38,19 +40,19 @@ in {
   "browser.urlbar.suggest.history" = true;
 
   "devtools.theme" = "auto";
-  # "devtools.cache.disabled" = true;
+  "devtools.cache.disabled" = true;
 
   # Allow extensions to run on Mozilla domains.
   # Required for Tridactyl and Dark Reader support on those pages.
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "extensions.webextensions.restrictedDomains" = "";
 
-  "font.default.x-western" = fonts.sans.family;
-  "font.name.monospace.x-western" = fonts.mono.family;
-  "font.name.sans-serif.x-western" = fonts.sans.family;
-  "font.name.serif.x-western" = fonts.serif.family;
+  # "font.default.x-western" = fonts.sans.family;
+  # "font.name.monospace.x-western" = fonts.mono.family;
+  # "font.name.sans-serif.x-western" = fonts.sans.family;
+  # "font.name.serif.x-western" = fonts.serif.family;
 
-  "font.size.monospace.x-western" = fonts.mono.size;
+  # "font.size.monospace.x-western" = fonts.mono.size;
 
   "identity.fxaccounts.account.device.name" = hostName;
 
@@ -58,10 +60,12 @@ in {
   "layout.css.backdrop-filter.enabled" = true;
 
   # Follow system color theme.
+  # TODO: add documentation for values
   "layout.css.prefers-color-scheme.content-override" = 2;
 
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
+  # TODO: add documentation for values
   "permissions.default.shortcuts" = 2;
 
   "privacy.donottrackheader.enabled" = true;
@@ -84,7 +88,7 @@ in {
   # Enable custom stylesheets.
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
-  "ui.textScaleFactor" = 100;
+  # "ui.textScaleFactor" = 100;
 
   # Fully disable Pocket. See
   # https://www.reddit.com/r/linux/comments/zabm2a.
