@@ -8,7 +8,6 @@
 builtins.mapAttrs (_: inputs.std.lib.dev.mkNixago) {
   commitlint = import ./cfg/commitlint.nix cellArgs;
   garnix = import ./cfg/garnix.nix cellArgs;
-  # lint-staged = import ./cfg/lint-staged.nix cellArgs;
   prettier = import ./cfg/prettier.nix cellArgs;
   statix = import ./cfg/statix.nix cellArgs;
   stylua = import ./cfg/stylua.nix cellArgs;
