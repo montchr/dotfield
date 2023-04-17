@@ -58,7 +58,7 @@ in {
 
   environment.systemPackages =
     [
-      (pkgs.firefox.override {wayland = hasWayland;})
+      pkgs.firefox
       pkgs.signal-desktop
     ]
     ++ (l.optional hasWayland pkgs.wl-clipboard);
