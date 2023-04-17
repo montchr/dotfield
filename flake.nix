@@ -144,9 +144,6 @@
         ["secrets" "devshells"]
       ];
     };
-    # FIXME: this is required, but shouldn't be -- needs upstream fix
-    # https://github.com/divnix/std/issues/235
-    std.grow.nixpkgsConfig = {allowUnfree = true;};
     imports = [
       inputs.std.flakeModule
 
