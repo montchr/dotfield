@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   inputs,
   self,
@@ -13,7 +12,7 @@
 in {
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
-  imports = [(inputs.home-manager-pr-2964 + "/modules/services/gpg-agent.nix")];
+  imports = [(inputs.home-manager-gpg-agent-darwin + "/modules/services/gpg-agent.nix")];
   disabledModules = ["services/gpg-agent.nix"];
 
   config = l.mkIf ("" != pgpPublicKey) {

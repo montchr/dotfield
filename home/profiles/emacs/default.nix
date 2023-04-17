@@ -38,6 +38,5 @@ in {
 
   home.packages = [
     inputs'.nil-lsp.packages.nil
-    inputs'.rnix-lsp.packages.rnix-lsp
   ];
 }

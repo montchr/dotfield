@@ -1,120 +1,6 @@
 {
   description = "Dotfield";
 
-  inputs = {
-    nixpkgs.follows = "nixos-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-
-    apparat.url = "sourcehut:~montchr/apparat";
-    apparat.inputs.nix-colors.follows = "nix-colors";
-    haumea.follows = "apparat/haumea";
-
-    ##: iosevka-bin versions
-    #
-    # Reduce churn by tracking various identically-named sources while waiting
-    # for upstream versions to become available.
-    nixpkgs-update-iosevka-bin.follows = "nixos-unstable";
-    # nixpkgs-update-iosevka-bin.url = "github:montchr/nixpkgs/update-iosevka-bin";
-    # nixpkgs-update-iosevka-bin.url = "github:r-ryantm/nixpkgs?ref=auto-update/iosevka-bin";
-
-    nixpkgs-fork-add-lint-staged.url = "github:montchr/nixpkgs/add-lint-staged";
-
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    digga = {
-      url = "github:divnix/digga/home-manager-22.11";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-pr-2964 = {
-      url = "github:montchr/home-manager/gpg-agent-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-colors = {
-      url = "github:Misterio77/nix-colors";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    nix-dram = {
-      url = "github:dramforever/nix-dram";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    std = {
-      url = "github:divnix/std";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agenix.url = "github:ryantm/agenix";
-
-    ##: sources
-    iosevka-xtal.url = "github:montchr/iosevka-xtal";
-
-    ##: work
-    klein-infra = {
-      url = "github:kleinweb/infra";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.std.follows = "std";
-      inputs.dmerge.follows = "std/dmerge";
-    };
-
-    ##: universal
-    deadnix.url = "github:astro/deadnix";
-    devshell.url = "github:numtide/devshell";
-    dmerge.follows = "std/dmerge";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
-    gitignore.url = "github:hercules-ci/gitignore.nix";
-    nix-std.url = "github:chessai/nix-std";
-    sops-nix.url = "github:Mic92/sops-nix";
-    nil-lsp.url = "github:oxalica/nil";
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
-
-    ##: darwin
-    prefmanager.url = "github:malob/prefmanager";
-
-    ##: linux
-    deploy-rs.url = "github:serokell/deploy-rs";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-
-    ##: emacs
-    chemacs.url = "github:plexus/chemacs2";
-    chemacs.flake = false;
-
-    ##: firefox
-    firefox-addons.url = "github:seadome/firefox-addons";
-
-    ##: zsh plugins
-    zsh-autocomplete.url = "github:marlonrichert/zsh-autocomplete";
-    zsh-autocomplete.flake = false;
-    zsh-autopair.url = "github:hlissner/zsh-autopair";
-    zsh-autopair.flake = false;
-    zsh-completions.url = "github:zsh-users/zsh-completions";
-    zsh-completions.flake = false;
-    zsh-fast-syntax-highlighting.url = "github:zdharma-continuum/fast-syntax-highlighting";
-    zsh-fast-syntax-highlighting.flake = false;
-  };
-
   outputs = {
     flake-parts,
     nixpkgs,
@@ -181,12 +67,76 @@
       formatter = inputs'.nixpkgs.legacyPackages.alejandra;
     };
     flake = {
-      # shared importables :: may be used within system configurations for any
-      # supported operating system (e.g. nixos, nix-darwin).
+      # shared importables
+      # :: may be used within system configurations for any
+      #    supported operating system (e.g. nixos, nix-darwin).
       sharedModules = flattenTree (rakeLeaves ./modules);
       sharedProfiles = rakeLeaves ./profiles;
     };
   });
+
+  ##: channels
+  inputs.nixpkgs.follows = "nixos-unstable";
+  inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+  inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+
+  ##: core modules+libraries
+  inputs.apparat.url = "sourcehut:~montchr/apparat";
+  inputs.apparat.inputs.nix-colors.follows = "nix-colors";
+  inputs.haumea.follows = "apparat/haumea";
+  inputs.darwin.url = "github:LnL7/nix-darwin";
+  inputs.devshell.url = "github:numtide/devshell";
+  inputs.digga.url = "github:divnix/digga/home-manager-22.11";
+  inputs.dmerge.follows = "std/dmerge";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
+  inputs.nix-std.url = "github:chessai/nix-std";
+  inputs.std.url = "github:divnix/std";
+
+  ##: customisation
+  inputs.firefox-addons.url = "github:seadome/firefox-addons";
+  inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
+  inputs.nix-colors.url = "github:Misterio77/nix-colors";
+
+  ##: work
+  inputs.klein-infra.url = "github:kleinweb/infra";
+
+  ##: universal
+  inputs.agenix.url = "github:ryantm/agenix";
+  inputs.deadnix.url = "github:astro/deadnix";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.nil-lsp.url = "github:oxalica/nil";
+
+  ##: darwin-specific
+  inputs.prefmanager.url = "github:malob/prefmanager";
+
+  ##: linux-specific
+  inputs.deploy-rs.url = "github:serokell/deploy-rs";
+  inputs.microvm.url = "github:astro/microvm.nix";
+  inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
+  inputs.nixos-generators.url = "github:nix-community/nixos-generators";
+  inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
+  ##: emacs
+  inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+  ##: et cetera
+  inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.digga.inputs.home-manager.follows = "home-manager";
+  inputs.digga.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.klein-infra.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.klein-infra.inputs.dmerge.follows = "std/dmerge";
+  inputs.klein-infra.inputs.std.follows = "std";
+  inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
+  inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.std.inputs.nixpkgs.follows = "nixpkgs";
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes";
