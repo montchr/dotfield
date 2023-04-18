@@ -65,11 +65,15 @@
       ;
   };
 
-  settingsModule = moduleWithSystem ({pkgs, ...}: osArgs: let
+  settingsModule = moduleWithSystem ({
+    cells,
+    pkgs,
+    ...
+  }: osArgs: let
     inherit ((osArgs.pkgs or pkgs).stdenv) hostPlatform;
   in {
     home-manager = {
-      extraSpecialArgs = platformSpecialArgs hostPlatform;
+      extraSpecialArgs = (platformSpecialArgs hostPlatform) // {inherit cells;};
       sharedModules = defaultModules;
       useGlobalPkgs = true;
       useUserPackages = true;
