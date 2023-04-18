@@ -77,11 +77,11 @@
         "std": "std"
       },
       "locked": {
-        "lastModified": 1681360035,
-        "narHash": "sha256-d7q9DGtnyhpuS3jHolwzAwR/OIxbOpFWwA/Rs6wf2k8=",
+        "lastModified": 1681778776,
+        "narHash": "sha256-OWAHKUseFAO+HG6bi4WPrE8KGtTC9vDkTLDrMxTRHk0=",
         "owner": "~montchr",
         "repo": "apparat",
-        "rev": "53b3afee78c8e5231fb4e4deb94c1eb65517ea39",
+        "rev": "10a227a42c74f749e432daeecb049ecb77e58a21",
         "type": "sourcehut"
       },
       "original": {
