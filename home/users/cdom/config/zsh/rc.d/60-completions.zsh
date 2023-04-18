@@ -15,7 +15,7 @@ unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 # Enable candidate group support
 # See: <https://github.com/Aloxaf/fzf-tab/issues/24>
 zstyle -d ':completion:*' format
-zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:descriptions' format '[%d]'
 
 # Enable filename colorisation
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
