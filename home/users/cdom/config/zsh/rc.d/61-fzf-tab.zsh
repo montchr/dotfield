@@ -13,3 +13,11 @@ fi
 
 # Switch completion group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+
+
+##: === KEYBINDINGS ================================================================================
+
+# <space> to accept candidate
+zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
+
+
