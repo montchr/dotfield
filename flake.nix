@@ -16,6 +16,7 @@
     std.grow.cellsFrom = ./cells;
     std.grow.cellBlocks = with inputs.std.blockTypes; [
       (data "constants")
+      (data "data")
       (devshells "devshells")
       (functions "dev")
       (functions "devshellProfiles")
