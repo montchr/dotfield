@@ -1,12 +1,9 @@
 {
-  config,
   pkgs,
   packages,
   inputs,
-  self,
   ...
 }: let
-  inherit (config) theme;
   l = inputs.nixpkgs.lib // builtins;
 
   ## TODO: outfactor these to lib?
@@ -22,9 +19,7 @@ in {
 
   programs.fzf = {
     enable = true;
-    defaultOptions =
-      ["--ansi" "--reverse" "--border" "--inline-info"]
-      ++ (l.optional theme.enable "--color=16");
+    defaultOptions = ["--ansi" "--reverse" "--border" "--inline-info" "--color=16"];
 
     ##: --- files ---
 
