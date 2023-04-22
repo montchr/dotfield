@@ -1,3 +1,5 @@
+# FIXME: consider restoring the simpler name-only approach to avoid the hard
+#        dependency on a color library even if the module is not enabled.
 {
   config,
   lib,
