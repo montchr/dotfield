@@ -2,13 +2,10 @@ moduleArgs @ {
   options,
   config,
   inputs,
-  self,
   ...
 }: let
   inherit (l.types) str int;
   inherit (inputs.apparat.lib.options) mkOpt;
-  inherit (self.lib.colors) getColorScheme;
-  inherit (l) types;
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
 
@@ -24,28 +21,23 @@ moduleArgs @ {
   in
     l.mapAttrs (_: l.head) fonts;
 
-  colorSchemeType = l.types.submodule {options = options.colorScheme;};
-  mkColorSchemeOption = default:
-    l.mkOption {
-      inherit default;
-      type = colorSchemeType;
-    };
-
   normalWeight = 400;
 in {
   options = {
     theme = {
       enable = l.mkEnableOption "Whether to enable the theme module.";
-      colors = {
-        active = l.mkOption {
-          type = with types; nullOr colorSchemeType;
-          default = cfg.colors.dark;
-          description = ''
-            Currently-active color scheme, defaulting to the value of the dark theme.
-          '';
+      colors = l.mkOption {
+        type = l.types.submoduleWith {
+          modules = [
+            ./options-colors.nix
+            {
+              _module.args = {
+                inherit (inputs.nix-colors) colorSchemes;
+                colorSchemeOptions = options.colorScheme;
+              };
+            }
+          ];
         };
-        dark = mkColorSchemeOption (getColorScheme "default-dark");
-        light = mkColorSchemeOption (getColorScheme "default-light");
       };
       fonts = {
         mono = {
