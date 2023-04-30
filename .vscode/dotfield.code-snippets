@@ -1,4 +1,12 @@
 {
+  "SPDX Default Header": {
+    "prefix": "spdx",
+    "body": [
+      "$LINE_COMMENT SPDX-FileCopyrightText: $CURRENT_YEAR Chris Montgomery <chris@cdom.io>",
+      "$LINE_COMMENT SPDX-License-Identifier: GPL-3.0-or-later"
+    ],
+    "description": "Default SPDX header for new project files"
+  },
   "Host Platform from stdenv": {
     "scope": "nix",
     "prefix": "envis",
