@@ -3,6 +3,7 @@ with profiles; let
   base = [
     core
     atuin
+    development.nix-tools
     direnv
     fzf
     git

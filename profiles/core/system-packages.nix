@@ -55,5 +55,9 @@
     du-dust #  <- like du but more intuitive
     file #     <- a program that shows the type of files
     unzip #    <- *.zip archive extraction utility
+
+    ## === Nix Helpers ===
+
+    comma #    <- "run software without installing it"
   ];
 }
