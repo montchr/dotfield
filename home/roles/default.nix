@@ -2,11 +2,11 @@
 with profiles; let
   base = [
     core
-    # atuin
-    mcfly
+    atuin
     direnv
     fzf
     git
+    # mcfly
     navi
     nnn
     nvim
