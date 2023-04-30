@@ -47,12 +47,11 @@ in {
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "extensions.webextensions.restrictedDomains" = "";
 
-  # "font.default.x-western" = fonts.sans.family;
-  # "font.name.monospace.x-western" = fonts.mono.family;
-  # "font.name.sans-serif.x-western" = fonts.sans.family;
-  # "font.name.serif.x-western" = fonts.serif.family;
-
-  # "font.size.monospace.x-western" = fonts.mono.size;
+  "font.default.x-western" = fonts.sans.family;
+  "font.name.monospace.x-western" = fonts.mono.family;
+  "font.name.sans-serif.x-western" = fonts.sans.family;
+  "font.name.serif.x-western" = fonts.serif.family;
+  "font.size.monospace.x-western" = fonts.mono.size;
 
   "identity.fxaccounts.account.device.name" = hostName;
 
@@ -65,8 +64,8 @@ in {
 
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
-  # TODO: add documentation for values
-  "permissions.default.shortcuts" = 2;
+  # WARNING: changing this may break keyboard shortcuts.
+  "permissions.default.shortcuts" = 0; # :: default => 0
 
   "privacy.donottrackheader.enabled" = true;
   "privacy.donottrackheader.value" = 1;
