@@ -6,6 +6,9 @@
     bat
     cacert
     coreutils
+    curl
+    dig
+    dnsutils
     exa
     fd
     findutils
@@ -21,6 +24,7 @@
     jql
     less
     moreutils
+    nmap
     openssh
     openssl
     (ripgrep.override {withPCRE2 = true;})
@@ -28,8 +32,9 @@
     screen
     sd
     tealdeer
-    tmux
-    vim
+    vim # TODO: replace with neovim?
+    wget
+    whois
 
     (
       if stdenv.hostPlatform.isDarwin
@@ -38,13 +43,6 @@
     )
 
     ## === Network ===
-
-    curl
-    dig
-    dnsutils
-    nmap
-    wget
-    whois
 
     ## === Monitoring ===
 

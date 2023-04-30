@@ -27,6 +27,7 @@ with profiles; let
       emacs
       just
       python
+      zellij
     ];
 
   graphical = [
