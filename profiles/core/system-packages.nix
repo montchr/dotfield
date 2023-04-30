@@ -25,6 +25,7 @@
     less
     moreutils
     nmap
+    nushell
     openssh
     openssl
     (ripgrep.override {withPCRE2 = true;})
