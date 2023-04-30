@@ -1,6 +1,7 @@
 keybinds {
-    unbind "Ctrl g"
-    locked {
-        bind "Ctrl g" { SwitchToMode "normal"; }
-    }
+    // FIXME: define a replacement binding
+    // unbind "Ctrl g"
+    // locked {
+    //     bind "Ctrl g" { SwitchToMode "normal"; }
+    // }
 }

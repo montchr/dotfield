@@ -1,7 +1,7 @@
 {config, ...}: let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  configsDir = config.dotfield.paths.userDirs.configs;
+  inherit (config.dotfield.paths.userDirs) configsPath;
 in {
   programs.zellij.enable = true;
-  xdg.configFile."zellij".source = mkOutOfStoreSymlink "${configsDir}/zellij";
+  xdg.configFile."zellij".source = mkOutOfStoreSymlink "${configsPath}/zellij";
 }
