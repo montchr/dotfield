@@ -83,13 +83,13 @@
   inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
   ##: core modules+libraries
-  inputs.apparat.url = "sourcehut:~montchr/apparat";
+  inputs.apparat.url = "sourcehut:~montchr/apparat/mitosis";
   inputs.apparat.inputs.nix-colors.follows = "nix-colors";
   inputs.haumea.follows = "apparat/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.digga.url = "github:divnix/digga/home-manager-22.11";
-  inputs.dmerge.follows = "std/dmerge";
+  inputs.dmerge.follows = "apparat/dmerge";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
@@ -125,6 +125,7 @@
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
 
   ##: et cetera
+  inputs.apparat.inputs.std.follows = "std";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.digga.inputs.home-manager.follows = "home-manager";
   inputs.digga.inputs.nixpkgs.follows = "nixpkgs";

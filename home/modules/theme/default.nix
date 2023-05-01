@@ -5,7 +5,8 @@ moduleArgs @ {
   ...
 }: let
   inherit (l.types) str int;
-  inherit (inputs.apparat.lib.options) mkOpt;
+  inherit (inputs.apparat.lib) mkOpt;
+
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
 

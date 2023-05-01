@@ -1,6 +1,6 @@
 {inputs, ...}: let
   inherit (inputs.nix-colors) colorSchemes;
-  inherit (inputs.apparat.lib.colors) withHexPrefixes;
+  inherit (inputs.apparat.lib) withHexPrefixes;
 
   /*
   Returns a library color scheme specification.

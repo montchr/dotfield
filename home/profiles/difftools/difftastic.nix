@@ -2,9 +2,11 @@
   config,
   inputs,
   ...
-}: let
-  inherit (inputs.apparat.lib.colors) reversePolarity;
-in {
+}:
+# let
+#   inherit (inputs.apparat.lib.color) reversePolarity;
+# in
+{
   programs.git.difftastic = {
     enable = true;
     # FIXME: this shouldn't be necessary (why not base16?)

@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (config) theme;
-  inherit (inputs.apparat.lib.apps.kitty) makeConf makeThemeAttrs;
+  inherit (inputs.apparat.lib.kitty) makeConf makeThemeAttrs;
   colorScheme =
     if theme.colors.active != null
     then theme.colors.active

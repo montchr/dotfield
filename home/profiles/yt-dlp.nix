@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.apparat.lib.apps.youtube-dl) maxRatio;
+  inherit (inputs.apparat.lib.yt-dl) maxRatio;
 in {
   programs.yt-dlp = {
     enable = true;
