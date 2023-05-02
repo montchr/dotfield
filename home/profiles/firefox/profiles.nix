@@ -5,16 +5,15 @@ hmArgs @ {
   inputs',
   ...
 }: let
-  inherit (inputs.digga.lib) rakeLeaves;
   inherit (inputs.apparat.lib.firefox) evalSettings;
-  inherit (inputs.apparat.lib.color) withHexPrefixes;
+  inherit (inputs.apparat.lib) rake withHexPrefixes;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
-  mixins = rakeLeaves ./mixins;
+  mixins = rake ./mixins;
 
   addons = inputs'.firefox-addons.packages;
   extensions = import ./extensions/common.nix {inherit addons;};

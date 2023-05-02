@@ -1,12 +1,7 @@
-{
-  inputs,
-  inputs',
-  ...
-}: let
+{inputs, ...}: let
   l = inputs.nixpkgs.lib // builtins;
 in {
   imports = [
-    ./bat.nix
     ./home-packages.nix
     ./nixpkgs-config.nix
     ./tealdeer.nix

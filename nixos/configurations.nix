@@ -13,28 +13,26 @@
     sharedProfiles
     ;
   inherit (self.nixosModules) homeManagerSettings;
-  inherit
-    (inputs.digga.lib)
-    flattenTree
-    rakeLeaves
-    ;
+  inherit (inputs.apparat.lib) flatten rake;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
   l = inputs.nixpkgs.lib // builtins;
 
   roles = import ./roles {inherit sharedProfiles nixosProfiles;};
 
-  nixosModules = rakeLeaves ./modules;
-  nixosMachines = rakeLeaves ./machines;
-  nixosProfiles = rakeLeaves ./profiles;
+  nixosModules = rake ./modules;
+  nixosProfiles = rake ./profiles;
 
   defaultModules = [
-    sharedProfiles.core
     homeManagerSettings
-    nixosProfiles.core
-    nixosProfiles.boot.common
+
+    inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
-    inputs.agenix.nixosModules.age
+
+    nixosProfiles.core
+    nixosProfiles.boot.common
+
+    (sharedProfiles."core/default")
   ];
 
   makeNixosSystem = hostname: nixosArgs @ {system, ...}:
@@ -51,10 +49,11 @@
           modules =
             defaultModules
             ++ (l.attrValues sharedModules)
-            ++ (l.attrValues (flattenTree nixosModules))
+            ++ (l.attrValues (flatten nixosModules))
             ++ (nixosArgs.modules or [])
             ++ [
-              nixosMachines.${hostname}
+              # (./machines + "/${hostname}/configuration.nix")
+              ./machines/${hostname}/configuration.nix
               {
                 _module.args = {
                   inherit
@@ -119,7 +118,7 @@ in {
           # login.greetd
           # FIXME: `lib.mkForce` fails
           # hardware.nvidia
-          virtualisation.vm-variant
+          # virtualisation.vm-variant
         ]);
     };
 

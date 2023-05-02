@@ -1,8 +1,6 @@
 # SPDX-FileCopyrightText: Copyright (C) 2022-2023 Chris Montgomery
-# SPDX-License-Identifier: GPL-3.0-or-later
-#
-# Copyright (C) 2019-2022 Divnix and the Digga contributors
-# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (C) 2019-2022 Divnix and the Digga contributors
+# SPDX-License-Identifier: GPL-3.0-or-later AND MIT
 #
 ##: Sources
 # - https://github.com/divnix/digga/blob/main/src/mkFlake/outputs-builder.nix

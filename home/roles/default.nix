@@ -1,8 +1,9 @@
 {profiles}:
 with profiles; let
   base = [
-    core
+    core.default
     atuin
+    bat
     development.nix-tools
     direnv
     fzf
@@ -10,7 +11,7 @@ with profiles; let
     # mcfly
     navi
     nnn
-    nvim
+    nvim.common
     shells.prompts.starship
     shells.zsh
     ssh
@@ -25,7 +26,7 @@ with profiles; let
       # shells.bash.blesh
       # difftools.delta
       difftools.difftastic
-      emacs
+      emacs.default
       just
       python
       zellij
@@ -34,14 +35,15 @@ with profiles; let
   graphical = [
     chromium
     desktop.common
-    firefox
-    keyboard
-    kitty
+    firefox.default
+    kitty.default
     misc
     mpv
     theme
     vscode
     yt-dlp
+    # TODO: empty
+    # keyboard
   ];
 
   personalised = [

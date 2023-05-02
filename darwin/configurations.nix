@@ -13,22 +13,18 @@
     sharedProfiles
     ;
   inherit (self.nixosModules) homeManagerSettings;
-  inherit
-    (inputs.digga.lib)
-    flattenTree
-    rakeLeaves
-    ;
+  inherit (inputs.apparat.lib) tree;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin;
   l = inputs.nixpkgs.lib // builtins;
 
   roles = import ./roles.nix {inherit sharedProfiles darwinProfiles;};
 
-  darwinModules = rakeLeaves ./modules;
-  darwinMachines = rakeLeaves ./machines;
-  darwinProfiles = rakeLeaves ./profiles;
+  darwinModules = tree.rake ./modules;
+  darwinMachines = tree.rake ./machines;
+  darwinProfiles = tree.rake ./profiles;
 
   defaultModules = [
-    sharedProfiles.core
+    (sharedProfiles."core/default")
     homeManagerSettings
     darwinProfiles.core
     inputs.home-manager.darwinModules.home-manager
@@ -51,7 +47,7 @@
           modules =
             defaultModules
             ++ (l.attrValues sharedModules)
-            ++ (l.attrValues (flattenTree darwinModules))
+            ++ (l.attrValues (tree.flatten darwinModules))
             ++ (darwinArgs.modules or [])
             ++ roles.workstation
             ++ [

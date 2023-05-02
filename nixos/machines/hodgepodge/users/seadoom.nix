@@ -2,15 +2,14 @@
 {
   self,
   config,
-  lib,
   primaryUser,
   ...
 }: let
-  inherit (self.inputs.digga.lib) rakeLeaves;
+  inherit (self.inputs.apparat.lib) rake;
 
   username = "seadoom";
 
-  ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
+  ownProfiles = rake (self + "/home/users/cdom/profiles");
 in {
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 

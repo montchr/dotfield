@@ -4,10 +4,11 @@
   outputs = {
     flake-parts,
     nixpkgs,
-    digga,
+    apparat,
+    flake-utils,
     ...
   } @ inputs: let
-    inherit (digga.lib) flattenTree rakeLeaves;
+    inherit (apparat.lib) tree;
     peers = import ./ops/metadata/peers.nix;
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
@@ -71,8 +72,14 @@
       # shared importables
       # :: may be used within system configurations for any
       #    supported operating system (e.g. nixos, nix-darwin).
-      sharedModules = flattenTree (rakeLeaves ./modules);
-      sharedProfiles = rakeLeaves ./profiles;
+      sharedModules = tree.flatten (inputs.haumea.lib.load {
+        src = ./modules;
+        loader = inputs.haumea.lib.loaders.path;
+      });
+      sharedProfiles = tree.flatten (inputs.haumea.lib.load {
+        src = ./profiles;
+        loader = inputs.haumea.lib.loaders.path;
+      });
     };
   });
 
@@ -89,7 +96,6 @@
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.digga.url = "github:divnix/digga/home-manager-22.11";
-  inputs.dmerge.follows = "apparat/dmerge";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";

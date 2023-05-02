@@ -3,13 +3,13 @@
   darwinProfiles,
 }: let
   workstation =
-    (with sharedProfiles; [
-      one-password
-      fonts.common
-      fonts.iosevka-variants
+    [
+      sharedProfiles.one-password
+      (sharedProfiles."fonts/common")
+      (sharedProfiles."fonts/iosevka-variants")
       # secrets
       # networking.tailscale
-    ])
+    ]
     ++ (with darwinProfiles; [
       bitwarden
       emacs-plus

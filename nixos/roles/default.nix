@@ -3,11 +3,11 @@
   nixosProfiles,
 }: let
   graphical =
-    (with sharedProfiles; [
-      fonts.common
-      fonts.fontconfig
-      fonts.iosevka-variants
-    ])
+    [
+      (sharedProfiles."fonts/common")
+      (sharedProfiles."fonts/fontconfig")
+      (sharedProfiles."fonts/iosevka-variants")
+    ]
     ++ (with nixosProfiles; [
       boot.systemd-boot
       desktop.common

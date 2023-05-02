@@ -1,6 +1,5 @@
 {
   self,
-  lib,
   moduleWithSystem,
   # DEPRECATED:
   peers,
@@ -13,17 +12,13 @@
     nixosConfigurations
     darwinConfigurations
     ;
-  inherit (inputs.nix-std.lib.bool) ifThenElse;
-  inherit
-    (inputs.digga.lib)
-    flattenTree
-    mkHomeConfigurations
-    rakeLeaves
-    ;
+  inherit (inputs.apparat.lib) tern;
+  inherit (inputs.apparat.lib.tree) flatten rake;
+  inherit (inputs.digga.lib) mkHomeConfigurations;
   l = inputs.nixpkgs.lib // builtins;
 
-  homeModules = flattenTree (rakeLeaves ./modules);
-  profiles = rakeLeaves ./profiles;
+  homeModules = flatten (rake ./modules);
+  profiles = rake ./profiles;
   roles = import ./roles {inherit profiles;};
 
   defaultModules =
@@ -100,7 +95,7 @@ in {
         inherit (pkgs.stdenv) hostPlatform;
         inherit (hostPlatform) isDarwin;
         pkgs = hmArgs.pkgs or ctx.pkgs;
-        homePrefix = ifThenElse isDarwin "/Users" "/home";
+        homePrefix = tern isDarwin "/Users" "/home";
       in (inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules =

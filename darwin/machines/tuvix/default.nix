@@ -8,7 +8,7 @@
   darwinProfiles,
   ...
 }: let
-  inherit (self.inputs.digga.lib) rakeLeaves;
+  inherit (self.inputs.apparat.lib.tree) rake;
   inherit (lib) optional;
   inherit (pkgs.stdenv.hostPlatform) system;
 
@@ -16,7 +16,8 @@
 
   hmCfg = config.home-manager.users.${username};
   # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
-  ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
+
+  ownProfiles = rake (self + "/home/users/cdom/profiles");
 in {
   imports = [darwinProfiles.builders.vm-guest];
   # FIXME: needs some tweaking upstream to account for nix-darwin...
