@@ -89,7 +89,6 @@
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.digga.url = "github:divnix/digga/home-manager-22.11";
-  inputs.dmerge.follows = "apparat/dmerge";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
