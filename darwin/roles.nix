@@ -15,6 +15,7 @@
       emacs-plus
       graphical
       keyboard.atreus
+      rclone
       system-defaults
       virtualisation.containers
     ]);

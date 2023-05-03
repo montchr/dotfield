@@ -25,10 +25,6 @@
 
     # TODO: use hm module
     mpv
-
-    ## === Data Sync ===
-
-    rclone
   ];
 
   # TODO: check these out
