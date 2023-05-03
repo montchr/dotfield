@@ -4,13 +4,13 @@
 }: let
   workstation =
     (with sharedProfiles; [
-      one-password
       fonts.common
       fonts.iosevka-variants
       # secrets
       # networking.tailscale
     ])
     ++ (with darwinProfiles; [
+      one-password
       bitwarden
       emacs-plus
       graphical

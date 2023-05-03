@@ -42,11 +42,9 @@
   ];
 
   workstation =
-    (with sharedProfiles; [
-      one-password
-      secrets
-    ])
+    (with sharedProfiles; [secrets])
     ++ (with nixosProfiles; [
+      one-password
       bitwarden
       boot.systemd-boot
       hardware.yubikey
