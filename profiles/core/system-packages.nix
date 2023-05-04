@@ -1,15 +1,10 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ## === Essentials ===
 
     bashInteractive
     bat
     cacert
-    clang
     coreutils
     curl
     dig
@@ -24,7 +19,6 @@
     gnupg
     gnused
     gnutar
-    gcc
     grc
     jq
     jql
@@ -42,6 +36,14 @@
     vim # TODO: replace with neovim?
     wget
     whois
+
+    (
+      if stdenv.hostPlatform.isDarwin
+      then clang
+      else gcc
+    )
+
+    ## === Network ===
 
     ## === Monitoring ===
 
