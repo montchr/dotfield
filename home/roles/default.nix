@@ -40,7 +40,8 @@ with profiles; let
     misc
     mpv
     theme
-    vscode
+    # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)
+    # vscode
     yt-dlp
   ];
 

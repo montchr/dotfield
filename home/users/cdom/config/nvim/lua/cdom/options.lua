@@ -42,8 +42,10 @@ vim.opt.splitright = true
 
 -- [ typography ] --
 
+-- FIXME: consider removal? <https://stackoverflow.com/a/35550626>
+-- FIXME: font name format inconsistent across different OS? see: <https://github.com/vim/vim/blob/e4098457ab9c94225b1b0e3c5e06b82b75587971/runtime/doc/gui.txt#L1108-L1122>
 -- TODO: name format for Berkeley Mono Variable?
-vim.opt.guifont = "Iosevka:h15"
+-- vim.opt.guifont = "Iosevka:h15"
 
 -- [ performance ] --
 

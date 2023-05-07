@@ -34,7 +34,11 @@ in {
     inherit colors;
     fonts = {
       mono = {
-        family = "Berkeley Mono Variable";
+        family = "Berkeley Mono";
+        # FIXME: variable font doesn't seem to be compatible with normal weight
+        #        handling in Firefox or TextEdit on macOS. firefox, for example,
+        #        renders *everything* in bold
+        # family = "Berkeley Mono Variable";
         size = 13;
       };
       term = {inherit (cfg.fonts.mono) family;};
@@ -68,11 +72,15 @@ in {
     };
     extraConfig = let
       # $ kitty +list-fonts --psnames | grep <font-name>
-      psName = "BerkeleyMonoVariable";
+      psName = "BerkeleyMono";
+      # Berkeley Mono Regular (BerkeleyMono-Regular)
+      # Berkeley Mono Italic (BerkeleyMono-Italic)
+      # Berkeley Mono Bold (BerkeleyMono-Bold)
+      # Berkeley Mono Bold Italic (BerkeleyMono-BoldItalic)
+      # Berkeley Mono Variable Regular (BerkeleyMonoVariable-Regular)
+      # Berkeley Mono Variable Italic (BerkeleyMonoVariable-Italic)
       # Berkeley Mono Variable Bold (BerkeleyMonoVariable-Bold)
       # Berkeley Mono Variable Bold Italic (BerkeleyMonoVariableItalic-BoldItalic)
-      # Berkeley Mono Variable Italic (BerkeleyMonoVariable-Italic)
-      # Berkeley Mono Variable Regular (BerkeleyMonoVariable-Regular)
     in ''
       font_features ${psName}             -calt +dlig
       font_features ${psName}-Bold        -calt +dlig
