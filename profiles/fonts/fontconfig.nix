@@ -14,7 +14,7 @@ in {
     defaultFonts = {
       monospace = mkDefault ["Iosevka"];
       serif = mkDefault ["IBM Plex Serif"];
-      sansSerif = mkDefault ["IBM Plex Sans"];
+      sansSerif = mkDefault ["Inter"];
     };
   };
 }

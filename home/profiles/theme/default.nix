@@ -39,7 +39,7 @@ in {
       };
       term = {inherit (cfg.fonts.mono) family;};
       sans = {
-        family = "IBM Plex Sans";
+        family = "Inter";
         size = 13;
       };
       serif = {
