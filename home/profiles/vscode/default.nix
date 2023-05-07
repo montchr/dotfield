@@ -1,10 +1,9 @@
 # SPDX-FileCopyrightText Copyright (c) 2022-2023 Chris Montgomery
 # SPDX-LicenseIdentifier: GPL-3.0-or-later
-{pkgs, ...}: {
+{
   imports = [./user-settings.nix];
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
     enableExtensionUpdateCheck = true;
     enableUpdateCheck = true;
     keybindings = import ./keybindings.nix;
