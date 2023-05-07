@@ -1,18 +1,7 @@
-{
-  inputs,
-  config,
-  ...
-}: let
-  inherit (config.theme) fonts;
-  inherit (inputs.apparat.lib) toFloat;
+{inputs, ...}: let
   l = inputs.nixpkgs.lib // builtins;
 in {
   programs.kitty.settings = {
-    ##: --- fonts ---
-
-    font_family = fonts.term.family;
-    font_size = l.toString (toFloat fonts.term.size);
-
     ##: --- cursor customization ---
 
     cursor_shape = "beam";

@@ -1,16 +1,15 @@
 # FIXME: make reusable -- duplicated as seadoom@hodgepodge
 {
-  inputs,
   self,
   config,
   lib,
   pkgs,
   darwinProfiles,
+  sharedProfiles,
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
   inherit (lib) optional;
-  inherit (pkgs.stdenv.hostPlatform) system;
 
   username = "cdom";
 
@@ -18,7 +17,10 @@
   # hmApps = apps:  map (n: (optional hmCfg.programs.${n}.enable hmCfg.programs.${n}.package));
   ownProfiles = rakeLeaves (self + "/home/users/cdom/profiles");
 in {
-  imports = [darwinProfiles.builders.vm-guest];
+  imports = [
+    darwinProfiles.builders.vm-guest
+    sharedProfiles.fonts.berkeley-mono
+  ];
   # FIXME: needs some tweaking upstream to account for nix-darwin...
   # imports = [inputs.klein-infra.darwinModules."aarch64-darwin".ssh-known-hosts];
 

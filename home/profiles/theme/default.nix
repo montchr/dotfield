@@ -34,12 +34,10 @@ in {
     inherit colors;
     fonts = {
       mono = {
-        family = "Iosevka";
+        family = "Berkeley Mono Variable";
         size = 13;
       };
-      term = {
-        family = "Iosevka Term";
-      };
+      term = {inherit (cfg.fonts.mono) family;};
       sans = {
         family = "IBM Plex Sans";
         size = 13;
@@ -59,19 +57,27 @@ in {
   programs.zsh = {inherit sessionVariables;};
 
   programs.kitty = {
-    settings = rec {
-      font_family = "Iosevka Term";
-      bold_font = "${font_family} Semibold";
+    settings = let
+      font_family = cfg.fonts.term.family;
+      font_size = cfg.fonts.term.size;
+    in {
+      inherit font_family font_size;
+      bold_font = "${font_family} Bold";
       italic_font = "${font_family} Italic";
-      bold_italic_font = "${font_family} Semibold Italic";
+      bold_italic_font = "${font_family} Bold Italic";
     };
     extraConfig = let
-      psName = "Iosevka-Term";
+      # $ kitty +list-fonts --psnames | grep <font-name>
+      psName = "BerkeleyMonoVariable";
+      # Berkeley Mono Variable Bold (BerkeleyMonoVariable-Bold)
+      # Berkeley Mono Variable Bold Italic (BerkeleyMonoVariableItalic-BoldItalic)
+      # Berkeley Mono Variable Italic (BerkeleyMonoVariable-Italic)
+      # Berkeley Mono Variable Regular (BerkeleyMonoVariable-Regular)
     in ''
-      font_features ${psName}                  -calt +dlig
-      font_features ${psName}-Semibold         -calt +dlig
-      font_features ${psName}-Italic           -calt +dlig
-      font_features ${psName}-Semibold-Italic  -calt +dlig
+      font_features ${psName}             -calt +dlig
+      font_features ${psName}-Bold        -calt +dlig
+      font_features ${psName}-Italic      -calt +dlig
+      font_features ${psName}-BoldItalic  -calt +dlig
     '';
   };
 

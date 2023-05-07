@@ -42,6 +42,7 @@ vim.opt.splitright = true
 
 -- [ typography ] --
 
+-- TODO: name format for Berkeley Mono Variable?
 vim.opt.guifont = "Iosevka:h15"
 
 -- [ performance ] --

@@ -1,3 +1,4 @@
+# FIXME: use or lose (not used currently)
 {
   programs.vscode.userSettings = {
     "[javascript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};

@@ -8,6 +8,7 @@ in {
   }: {
     _module.args.packages = ctx.config.packages;
     packages = filterPackages system (flattenTree {
+      berkeley-mono = pkgs.callPackage ./fonts/berkeley-mono.nix {};
       cod = pkgs.callPackage ./tools/misc/cod/cod.nix {};
       epson-201212w = pkgs.callPackage ./drivers/epson_201212w {};
       ddi = pkgs.callPackage ./tools/ddi.nix {};

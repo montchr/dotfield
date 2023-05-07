@@ -1,15 +1,12 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+{config, ...}: let
+  themeCfg = config.theme;
+in {
   programs.foot = {
     enable = true;
     server.enable = true;
     settings = {
       main = {
-        font = "Iosevka Term:size=13";
+        font = "${themeCfg.fonts.term.family}:size=${themeCfg.fonts.term.size}";
         dpi-aware = true;
       };
       cursor.blink = true;
