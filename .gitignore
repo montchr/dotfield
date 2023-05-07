@@ -60,6 +60,13 @@ yarn-error.log*
 
 
 # nixago: ignore-linked-files
+/stylua.toml
+/statix.toml
+/.prettierrc.json
+/lefthook.yml
+/.editorconfig
+/.commitlintrc.json
+/treefmt.toml
 stylua.toml
 .editorconfig
 statix.toml
