@@ -44,8 +44,11 @@ hmArgs @ {
   ffTerm = (fontStack' [fonts.term fonts.mono]) + "monospace";
 
   userChrome = let
+    inherit (mixins.common) themeSettings;
     inherit (mixins.userChrome) autoHideTabs;
   in ''
+    ${themeSettings {inherit colors fonts;}}
+
     * {
       font-family: ${imp ffTerm};
     }
@@ -60,8 +63,10 @@ hmArgs @ {
     }
   '';
   userContent = let
+    inherit (mixins.common) themeSettings;
     inherit (mixins.userContent) monospaceText;
   in ''
+    ${themeSettings {inherit colors fonts;}}
 
     ${monospaceText ''
       font-family: ${imp ffMono};

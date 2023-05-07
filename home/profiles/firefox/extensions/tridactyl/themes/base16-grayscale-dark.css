@@ -1,12 +1,12 @@
 :root {
-  /* Grayscale-dark by Chris Kempson (http://chriskempson.com) */
+  /* Based on `grayscale-dark` by Chris Kempson (http://chriskempson.com) */
 
-  /* custom from cdom */
-  --tridactyl-font-family: 'Iosevka' !important;
-  --tridactyl-cmdl-font-family: 'Iosevka' !important;
-  --tridactyl-status-font-family: 'Iosevka' !important;
-  --tridactyl-cmplt-font-family: 'Iosevka' !important;
-  --tridactyl-hintspan-font-family: 'Iosevka' !important;
+  --tridactyl-font-family: var(--dotfield--font--mono-family) !important;
+
+  --tridactyl-cmdl-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-status-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-cmplt-font-family: var(--tridactyl-font-family) !important;
+  --tridactyl-hintspan-font-family: var(--tridactyl-font-family) !important;
 
   --base00: #101010;
   --base01: #252525;
@@ -91,7 +91,6 @@
   order: 2;
 }
 
-/* Olie doesn't know how CSS inheritance works */
 #completions .HistoryCompletionSource {
   max-height: unset;
   min-height: unset;
@@ -104,7 +103,6 @@
   table-layout: fixed;
 }
 
-/* redundancy 2: redundancy 2: more redundancy */
 #completions .BmarkCompletionSource {
   max-height: unset;
   min-height: unset;
