@@ -1,4 +1,4 @@
-rules: ''
+_: rules: ''
   code,
   kbd,
   pre,

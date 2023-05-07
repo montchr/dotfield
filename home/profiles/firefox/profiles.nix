@@ -5,16 +5,19 @@ hmArgs @ {
   inputs',
   ...
 }: let
-  inherit (inputs.digga.lib) rakeLeaves;
-  inherit (inputs.apparat.lib.firefox) evalSettings;
-  inherit (inputs.apparat.lib.color) withHexPrefixes;
+  inherit (inputs) apparat haumea;
+  inherit (apparat.lib.color) withHexPrefixes;
+  inherit (apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
-  mixins = rakeLeaves ./mixins;
+  mixins = haumea.lib.load {
+    src = ./mixins;
+    inputs = {inherit l;};
+  };
 
   addons = inputs'.firefox-addons.packages;
   extensions = import ./extensions/common.nix {inherit addons;};
@@ -40,22 +43,27 @@ hmArgs @ {
   ffMono = fontStack' fonts.mono + "monospace";
   ffTerm = (fontStack' [fonts.term fonts.mono]) + "monospace";
 
-  userChrome = with mixins.userChrome; ''
+  userChrome = let
+    inherit (mixins.userChrome) autoHideTabs;
+  in ''
     * {
       font-family: ${imp ffTerm};
     }
 
     /*
     FIXME: auto-hiding tabs is difficult to use...
-    ${import autoHideTabs}
+    ${autoHideTabs}
     */
 
     #sidebar-header {
       display: none;
     }
   '';
-  userContent = with mixins.userContent; ''
-    ${import monospaceText ''
+  userContent = let
+    inherit (mixins.userContent) monospaceText;
+  in ''
+
+    ${monospaceText ''
       font-family: ${imp ffMono};
       font-size: 1em !important;
       line-height: 1.2 !important;
