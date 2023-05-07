@@ -83,7 +83,7 @@
   inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
   ##: core modules+libraries
-  inputs.apparat.url = "sourcehut:~montchr/apparat/mitosis";
+  inputs.apparat.url = "sourcehut:~montchr/apparat";
   inputs.apparat.inputs.nix-colors.follows = "nix-colors";
   inputs.haumea.follows = "apparat/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";

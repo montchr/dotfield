@@ -73,16 +73,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1682997349,
-        "narHash": "sha256-khsxrwXr/NnOFDWkZuniTcv5lRw0FkaaL6TxmF+81oM=",
+        "lastModified": 1683477909,
+        "narHash": "sha256-P4ASKkXaJkPKaOe5VhfIoRTaDSWgBE9H3xMEOxqzGZo=",
         "owner": "~montchr",
         "repo": "apparat",
-        "rev": "c30949737eb66f41cafade99b3b41a03ee4b21ec",
+        "rev": "fbd5e1d6f2143139510e5995500dc69eaf50b682",
         "type": "sourcehut"
       },
       "original": {
         "owner": "~montchr",
-        "ref": "mitosis",
         "repo": "apparat",
         "type": "sourcehut"
       }
