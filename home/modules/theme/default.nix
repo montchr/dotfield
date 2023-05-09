@@ -5,7 +5,8 @@ moduleArgs @ {
   ...
 }: let
   inherit (l.types) str int;
-  inherit (inputs.apparat.lib) mkOpt;
+  inherit (inputs) apparat nix-colors;
+  inherit (apparat.lib) mkOpt;
 
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
@@ -27,18 +28,24 @@ in {
   options = {
     theme = {
       enable = l.mkEnableOption "Whether to enable the theme module.";
-      colors = l.mkOption {
-        type = l.types.submoduleWith {
-          modules = [
-            ./options-colors.nix
-            {
-              _module.args = {
-                inherit (inputs.nix-colors) colorSchemes;
-                colorSchemeOptions = options.colorScheme;
-              };
-            }
-          ];
+      colors = let
+        colorSchemeOptions = options.colorScheme;
+        colorSchemeType = l.types.submodule {options = colorSchemeOptions;};
+        mkColorSchemeOption = kind:
+          l.mkOption {
+            default = nix-colors.colorSchemes."default-${kind}";
+            type = colorSchemeType;
+          };
+      in {
+        active = l.mkOption {
+          type = l.types.nullOr colorSchemeType;
+          default = null;
+          description = ''
+            Currently-active color scheme.
+          '';
         };
+        dark = mkColorSchemeOption "dark";
+        light = mkColorSchemeOption "light";
       };
       fonts = {
         mono = {
@@ -68,6 +75,9 @@ in {
   };
 
   config = l.mkIf cfg.enable {
-    colorScheme = cfg.colors.active;
+    colorScheme =
+      if (cfg.colors.active != null)
+      then cfg.colors.active
+      else cfg.colors.dark;
   };
 }

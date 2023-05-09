@@ -1,25 +1,18 @@
 {inputs, ...}: let
-  inherit (inputs.nix-colors) colorSchemes;
   inherit (inputs.apparat.lib) withHexPrefixes;
-
   /*
   Returns a library color scheme specification.
 
-  Type: getColorScheme :: string -> AttrSet
+  Type: String -> { ${n} :: T, ...; colors :: { ${base} :: String }; }
   */
-  getColorScheme = name: colorSchemes.${name};
+  getColorScheme = name: inputs.nix-colors.colorSchemes.${name};
+in {
+  inherit getColorScheme;
 
   /*
   Returns a set of prefixed hex color values for a library color scheme.
 
-  TODO: IIRC this feature is now in upstream.
-
-  Type: getColorScheme :: string -> AttrSet
+  Type: String -> { ${base} :: String }
   */
   getColorScheme' = name: withHexPrefixes (getColorScheme name).colors;
-in {
-  inherit
-    getColorScheme
-    getColorScheme'
-    ;
 }

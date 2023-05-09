@@ -6,21 +6,11 @@
 }: let
   inherit (self.lib.colors) getColorScheme;
   l = inputs.nixpkgs.lib // builtins;
+
   cfg = config.theme;
 
   #: NOTE: Requires `--impure` flag.
   envColors = l.getEnv "DOTFIELD_COLORS";
-
-  colors = {
-    active =
-      if (envColors != "")
-      then (colors.${envColors} or (getColorScheme envColors))
-      else colors.dark;
-    dark = getColorScheme "classic-dark";
-    # dark = getColorScheme "da-one-gray";
-    # dark = getColorScheme "black-metal-khold";
-    light = getColorScheme "one-light";
-  };
 
   sessionVariables = {
     # DOTFIELD_THEME_MODE = cfg.colors.active.kind;
@@ -31,7 +21,16 @@
 in {
   theme = {
     enable = true;
-    inherit colors;
+    colors = {
+      active =
+        if (envColors != "")
+        then (cfg.colors.${envColors} or (getColorScheme envColors))
+        else cfg.colors.dark;
+      dark = getColorScheme "classic-dark";
+      # dark = getColorScheme "da-one-gray";
+      # dark = getColorScheme "black-metal-khold";
+      light = getColorScheme "one-light";
+    };
     fonts = {
       mono = {
         family = "Berkeley Mono";
