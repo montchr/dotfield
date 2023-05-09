@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = [
+    pkgs.alejandra
     pkgs.nix-init #   <- generate nix package expressions from url
   ];
 
