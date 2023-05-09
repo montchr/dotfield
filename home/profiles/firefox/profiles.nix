@@ -70,8 +70,8 @@ hmArgs @ {
 
     ${monospaceText ''
       font-family: ${imp ffMono};
-      font-size: 1em !important;
-      line-height: 1.2 !important;
+      font-size: 0.875em !important;
+      line-height: 1.1 !important;
     ''}
 
     /* GitHub: supplemental text */

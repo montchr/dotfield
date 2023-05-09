@@ -39,7 +39,7 @@ in {
         #        handling in Firefox or TextEdit on macOS. firefox, for example,
         #        renders *everything* in bold
         # family = "Berkeley Mono Variable";
-        size = 13;
+        size = 12;
       };
       term = {inherit (cfg.fonts.mono) family;};
       sans = {
