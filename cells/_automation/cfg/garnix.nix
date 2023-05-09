@@ -7,7 +7,6 @@
       # matchers only match three-place matchers. '*' is the wildcard.
       include = [
         "*.x86_64-linux.*"
-        # "*.aarch64-linux.*"
         "packages.x86_64-linux.*"
         "packages.aarch64-linux.*"
         "devShells.x86_64-linux.*"
@@ -19,6 +18,8 @@
       # `include` and the `exclude`, it will be excluded.
       exclude = [
         "darwinConfigurations.*"
+        # Requires proprietary dependencies -- for local installation only.
+        "packages.*.berkeley-mono"
         "*.aarch64-darwin.*"
         "*.x86_64-darwin.*"
       ];

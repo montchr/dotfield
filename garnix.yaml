@@ -2,6 +2,7 @@ builds:
   default:
     exclude:
     - darwinConfigurations.*
+    - packages.*.berkeley-mono
     - '*.aarch64-darwin.*'
     - '*.x86_64-darwin.*'
     include:
