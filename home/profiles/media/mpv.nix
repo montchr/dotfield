@@ -13,12 +13,8 @@ in {
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       }
-      (lib.mkIf hasNvidia {
-        hwdec = "vdpau";
-      })
-      (lib.mkIf hasWayland {
-        gpu-context = "wayland";
-      })
+      (lib.mkIf hasNvidia {hwdec = "vdpau";})
+      (lib.mkIf hasWayland {gpu-context = "wayland";})
     ];
   };
 

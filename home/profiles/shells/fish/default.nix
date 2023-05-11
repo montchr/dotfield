@@ -6,8 +6,6 @@
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  imports = [../common.nix];
-
   programs.fish = {
     enable = true;
     plugins = with pkgs.fishPlugins; [

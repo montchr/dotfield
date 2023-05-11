@@ -20,6 +20,8 @@
   #
   # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
   # https://nixos.org/manual/nix/stable/#idm140737322046656
+  #
+  # FIXME: don't hardcode identity!
   xdg.configFile."npm/npmrc".text = ''
     email=chris@cdom.io
     init-author-name="Chris Montgomery"

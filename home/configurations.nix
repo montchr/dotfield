@@ -1,6 +1,5 @@
 {
   self,
-  lib,
   moduleWithSystem,
   # DEPRECATED:
   peers,
@@ -13,6 +12,7 @@
     nixosConfigurations
     darwinConfigurations
     ;
+  inherit (inputs.haumea.lib) load loaders transformers;
   inherit (inputs.nix-std.lib.bool) ifThenElse;
   inherit
     (inputs.digga.lib)
@@ -23,8 +23,15 @@
   l = inputs.nixpkgs.lib // builtins;
 
   homeModules = flattenTree (rakeLeaves ./modules);
-  profiles = rakeLeaves ./profiles;
-  roles = import ./roles {inherit profiles;};
+  # profiles = rakeLeaves ./profiles;
+
+  profiles = load {
+    src = ./profiles;
+    loader = loaders.path;
+    # transformer = [transformers.liftDefault];
+  };
+
+  roles = import ./roles.nix {inherit profiles;};
 
   defaultModules =
     (l.attrValues homeModules)

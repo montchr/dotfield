@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   inputs,
   self,
   ...
@@ -33,11 +34,11 @@ in {
     };
     fonts = {
       mono = {
+        # NOTE: variable font doesn't seem to be compatible with normal weight
+        #       handling in Firefox on macOS. firefox, for example,
+        #       renders *everything* in bold. not sure whether it's the
+        #       font or the application.
         family = "Berkeley Mono";
-        # FIXME: variable font doesn't seem to be compatible with normal weight
-        #        handling in Firefox or TextEdit on macOS. firefox, for example,
-        #        renders *everything* in bold
-        # family = "Berkeley Mono Variable";
         size = 12;
       };
       term = {inherit (cfg.fonts.mono) family;};
@@ -55,40 +56,31 @@ in {
     };
   };
 
-  home = {inherit sessionVariables;};
+  # NOTE: as of <2023-05-11>, `programs.fish` doesn't declare `sessionVariables`.
+  home.sessionVariables = sessionVariables;
   programs.bash = {inherit sessionVariables;};
   programs.zsh = {inherit sessionVariables;};
 
-  programs.kitty = {
-    settings = let
-      font_family = cfg.fonts.term.family;
-      font_size = cfg.fonts.term.size;
-    in {
-      inherit font_family font_size;
-      bold_font = "${font_family} Bold";
-      italic_font = "${font_family} Italic";
-      bold_italic_font = "${font_family} Bold Italic";
-    };
-    extraConfig = let
-      # $ kitty +list-fonts --psnames | grep <font-name>
-      psName = "BerkeleyMono";
-      # Berkeley Mono Regular (BerkeleyMono-Regular)
-      # Berkeley Mono Italic (BerkeleyMono-Italic)
-      # Berkeley Mono Bold (BerkeleyMono-Bold)
-      # Berkeley Mono Bold Italic (BerkeleyMono-BoldItalic)
-      # Berkeley Mono Variable Regular (BerkeleyMonoVariable-Regular)
-      # Berkeley Mono Variable Italic (BerkeleyMonoVariable-Italic)
-      # Berkeley Mono Variable Bold (BerkeleyMonoVariable-Bold)
-      # Berkeley Mono Variable Bold Italic (BerkeleyMonoVariableItalic-BoldItalic)
-    in ''
-      font_features ${psName}             -calt +dlig
-      font_features ${psName}-Bold        -calt +dlig
-      font_features ${psName}-Italic      -calt +dlig
-      font_features ${psName}-BoldItalic  -calt +dlig
-    '';
-  };
+  home.packages = [
+    ##: color utils
+    pkgs.colorpanes #  <- print panes in the 8 bright terminal colors with shadows of the respective darker color
+    pkgs.sanctity #    <- ruSt ANsi16 Color Test utIliTY
+    pkgs.pastel #      <- generate, analyze, convert and manipulate colors
+    (pkgs.writeShellApplication {
+      name = "color-panic";
+      runtimeInputs = [pkgs.colorpanes];
+      text = ''
+        colorpanes --captions --height 38 --width 24
+      '';
+    })
+  ];
 
-  # FIXME: The option `home-manager.users.cdom.specialization.dark.configuration._module.args.name' is defined multiple times.
+  # FIXME: The option
+  # `home-manager.users.cdom.specialization.dark.configuration._module.args.name'
+  # is defined multiple times.
+  #        My guess is that this is due to calling evalModules twice? How else
+  #        would we get multiple definitions?
+
   # Definition values:
   # - In `/nix/store/na16w66xsip7lzbvy4qlagfi3dz66cs9-source/modules/misc/specialization.nix': "cdom"
   # - In `<unknown-file>': "configuration"

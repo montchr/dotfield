@@ -33,6 +33,7 @@
     };
     imports = [
       inputs.std.flakeModule
+      # inputs.dream2nix.flakeModuleBeta
 
       {_module.args = {inherit inputs peers primaryUser;};}
 
@@ -104,12 +105,14 @@
   ##: work
   inputs.klein-infra.url = "github:kleinweb/infra";
 
-  ##: universal
+  ##: universal utilities
   inputs.agenix.url = "github:ryantm/agenix";
   inputs.deadnix.url = "github:astro/deadnix";
+  inputs.dream2nix.url = "github:nix-community/dream2nix";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.nil-lsp.url = "github:oxalica/nil";
+  inputs.namaka.    url = "github:nix-community/namaka/v0.1.1";
 
   ##: darwin-specific
   inputs.prefmanager.url = "github:malob/prefmanager";
@@ -136,6 +139,8 @@
   inputs.klein-infra.inputs.dmerge.follows = "std/dmerge";
   inputs.klein-infra.inputs.std.follows = "std";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.namaka.inputs.haumea.follows = "haumea";
+  inputs.namaka.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
   inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
   inputs.std.inputs.nixpkgs.follows = "nixpkgs";

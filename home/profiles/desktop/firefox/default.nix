@@ -3,8 +3,8 @@ hmArgs @ {pkgs, ...}: let
   hasGnomeConnector = hmArgs.osConfig.services.gnome.gnome-browser-connector.enable or false;
 in {
   imports = [
-    ./profiles.nix
-    ../os-specific/darwin/firefox-profile-hack.nix
+    ./__profiles.nix
+    ./__darwin-profile-env.nix
   ];
   programs.firefox = {
     enable = true;

@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}:
+{...}:
 # let
 #   inherit (inputs.apparat.lib.color) reversePolarity;
 # in

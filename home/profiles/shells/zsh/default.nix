@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   inherit (config) lib xdg;
   inherit (config.xdg) cacheHome;
   cfg = config.programs.zsh;
@@ -16,8 +12,6 @@
   ZSH_CACHE = "${xdg.cacheHome}/zsh";
   ZSH_DATA = "${xdg.dataHome}/zsh";
 in {
-  imports = [../common.nix];
-
   home.extraOutputsToInstall = [
     "/share/zsh"
     # TODO: is this already implied by `/share/zsh`?
