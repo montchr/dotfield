@@ -56,10 +56,11 @@
       inputs',
       self',
       ...
-    }: {
+    } @ ctx: {
       _module.args = {
         inherit (self') cells;
         inherit primaryUser;
+        packages = ctx.config.packages;
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
