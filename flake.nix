@@ -40,8 +40,8 @@
       ./flake-modules/sharedModules.nix
       ./flake-modules/sharedProfiles.nix
 
-      ./lib
       ./packages
+      ./lib.nix
 
       ./nixos/configurations.nix
       ./nixos/checks.nix
