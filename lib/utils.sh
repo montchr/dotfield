@@ -542,7 +542,7 @@ function repo::is_repo {
 #   Forge name or shortname (e.g. github or gh).
 function repo::qualify_url {
   local identifier=$1
-  local forge=${2:-}
+  local forge=${2-}
 
   if [[ ${identifier} == "https://"* || ${identifier} == "git@"* ]]; then
     echo "${identifier}"
