@@ -1,3 +1,4 @@
+# TODO: add docs for all "magical" numeric values
 {
   inputs,
   theme,
@@ -47,7 +48,8 @@ in {
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "extensions.webextensions.restrictedDomains" = "";
 
-  "font.default.x-western" = fonts.sans.family;
+  # Default font should be a generic, either 'serif' or 'sans-serif'.
+  "font.default.x-western" = "sans-serif";
   "font.name.monospace.x-western" = fonts.mono.family;
   "font.name.sans-serif.x-western" = fonts.sans.family;
   "font.name.serif.x-western" = fonts.serif.family;
@@ -59,7 +61,7 @@ in {
   "layout.css.backdrop-filter.enabled" = true;
 
   # Follow system color theme.
-  # TODO: add documentation for values
+  # TODO: add documentation for values (where is it? who knows?)
   "layout.css.prefers-color-scheme.content-override" = 2;
 
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
@@ -68,6 +70,7 @@ in {
   "permissions.default.shortcuts" = 0; # :: default => 0
 
   "privacy.donottrackheader.enabled" = true;
+  # TODO: add docs for values
   "privacy.donottrackheader.value" = 1;
   "privacy.trackingprotection.enabled" = true;
   "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
