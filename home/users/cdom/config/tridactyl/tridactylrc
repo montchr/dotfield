@@ -3,6 +3,13 @@
 " https://github.com/tridactyl/tridactyl/blob/master/.tridactylrc
 " May require the latest beta builds.
 
+" clean all previous configurations
+" sanitise tridactylsync
+" sanitise tridactyllocal
+
+" colorscheme cdom
+" set theme cdom
+
 
 " === Keybindings ==============================================================
 
@@ -34,11 +41,14 @@ blacklistadd https://outlook.office.com
 
 " === Search ===================================================================
 
+" TODO: devdocs, mdn, youtube, kagi, ddg, reddit, archwiki, awesomelists
+
 set searchurls.alt2 https://alternativeto.net/browse/search/?q=
 set searchurls.caniuse https://caniuse.com/?search=
 set searchurls.gh https://github.com/search?q=
-set searchurls.ghnix https://cs.github.com/?scopeName=All+repos&scope=&q=language%3Anix+
-set searchurls.nixopts https://search.nixos.org/options?query=
-set searchurls.nixpkgs https://search.nixos.org/packages?query=
+set searchurls.opts https://search.nixos.org/options?query=
+set searchurls.pkgs https://search.nixos.org/packages?query=
+" TODO: github search in <nixos/nixpkgs> repo
+" set searchurls.nixpkgs
 set searchurls.nixwiki https://nixos.wiki/index.php?search=
 set searchurls.npm https://bundlephobia.com/package/%s

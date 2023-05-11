@@ -34,6 +34,7 @@ in {
 
   config.dotfield.paths = {
     userDirs = {
+      # FIXME: broken?!
       basePath = "${fsPath}/home/users/${username}";
       configsPath = "${cfg.userDirs.basePath}/config";
       profilesPath = "${cfg.userDirs.basePath}/profiles";

@@ -36,47 +36,56 @@ hmArgs @ {
     };
   makeSettings' = module: (makeSettings {modules = [module];}).config;
 
-  fontStack = l.concatMapStrings (y: ''"${y}", '');
-  fontStack' = x: fontStack (l.map (y: y.family) (l.toList x));
-
-  ffSans = fontStack' fonts.sans + "sans-serif";
-  ffMono = fontStack' fonts.mono + "monospace";
-  ffTerm = (fontStack' [fonts.term fonts.mono]) + "monospace";
-
   userChrome = let
     inherit (mixins.common) themeSettings;
-    inherit (mixins.userChrome) autoHideTabs;
   in ''
-    ${themeSettings {inherit colors fonts;}}
+    @charset "UTF-8";
+    @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+    @namespace html "http://www.w3.org/1999/xhtml";
 
-    * {
-      font-family: ${imp ffTerm};
+    :root {
+      ${themeSettings {inherit colors fonts;}}
     }
 
-    /*
-    FIXME: auto-hiding tabs is difficult to use...
-    ${autoHideTabs}
-    */
+    * {
+      font-family: var(--dotfield--font--mono, monospace) !important;
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    moz-input-box,
+    #urlbar-input-container {
+      font-size: 12px;
+    }
 
     #sidebar-header {
       display: none;
     }
   '';
+
+  # FIXME: userContent.css does not appear to be loading in browser
   userContent = let
     inherit (mixins.common) themeSettings;
     inherit (mixins.userContent) monospaceText;
   in ''
-    ${themeSettings {inherit colors fonts;}}
+    @charset "UTF-8";
+    @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+    @namespace html "http://www.w3.org/1999/xhtml";
+
+    :host,
+    :root {
+      ${themeSettings {inherit colors fonts;}}
+    }
 
     ${monospaceText ''
-      font-family: ${imp ffMono};
+      font-family: var(--dotfield--font--mono, monospace) !important;
       font-size: 0.875em !important;
       line-height: 1.1 !important;
     ''}
 
     /* GitHub: supplemental text */
     .text-mono {
-      font-family: ${imp ffMono};
+      font-family: var(--dotfield--font--mono, monospace) !important;
     }
 
     body,
@@ -84,7 +93,7 @@ hmArgs @ {
     .markdown-body,
     .hx_text-body {
       /* Very politely encourage use of our preferred body font family. */
-      font-family: ${ffSans};
+      font-family: var(--dotfield--font--sans, sans-serif);
     }
 
     @-moz-document url(about:home), url(about:newtab) {
@@ -125,7 +134,7 @@ hmArgs @ {
     force = true;
   };
 in {
-  imports = [./extensions/tridactyl];
+  imports = [./extensions/tridactyl.nix];
 
   programs.firefox.profiles.home = {
     inherit userChrome userContent search;

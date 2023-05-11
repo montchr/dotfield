@@ -1,0 +1,148 @@
+:root {
+  /* Generic */
+  --tridactyl-font-family: var(--dotfield--font--mono, monospace);
+  --tridactyl-font-family-sans: var(--dotfield--font--sans, sans-serif);
+  --tridactyl-fg: var(--dotfield--color--base05);
+  --tridactyl-bg: var(--dotfield--color--base00);
+  --tridactyl-scrollbar-color: auto;
+
+  /* NOTE: the original value is in points, for some reason */
+  --tridactyl-font-size: 10px;
+  --tridactyl-small-font-size: 8px;
+
+  --tridactyl-cmdl-font-family: var(--tridactyl-font-family);
+  --tridactyl-status-font-family: var(--tridactyl-font-family);
+  --tridactyl-cmplt-font-family: var(--tridactyl-font-family);
+  --tridactyl-hintspan-font-family: var(--tridactyl-font-family);
+
+  --tridactyl-highlight-box-bg: var(--dotfield--color--base0B);
+  --tridactyl-highlight-box-fg: var(--dotfield--color--base00);
+
+  /* Hint character tags */
+  --tridactyl-hintspan-fg: var(--dotfield--color--base00);
+  --tridactyl-hintspan-bg: var(--dotfield--color--base0A);
+
+  /* Element Highlights */
+  /* --tridactyl-hint-active-fg: none;
+  --tridactyl-hint-active-bg: none;
+  --tridactyl-hint-active-outline: none;
+  --tridactyl-hint-bg: none;
+  --tridactyl-hint-outline: none; */
+
+  /* Hint character tags */
+
+  /* Mode indicator */
+  --tridactyl-status-font-family: var(--tridactyl-font-family);
+  --tridactyl-status-font-size: var(--tridactyl-small-font-size);
+  --tridactyl-status-bg: var(--tridactyl-bg);
+  --tridactyl-status-fg: var(--tridactyl-fg);
+  --tridactyl-status-border: 1px lightgray solid;
+  --tridactyl-status-border-radius: 2px;
+
+  /* Search highlight */
+  /* --tridactyl-search-highlight-color: yellow; */
+  --tridactyl-search-highlight-color: var(--dotfield--color--base03);
+
+  /* Hinting */
+
+  /* Hint character tags */
+  --tridactyl-hintspan-font-family: var(--tridactyl-font-family-sans);
+  --tridactyl-hintspan-font-size: var(--tridactyl-small-font-size);
+  --tridactyl-hintspan-font-weight: bold;
+  --tridactyl-hintspan-fg: var(--dotfield--color--base00);
+  --tridactyl-hintspan-bg: var(--dotfield--color--base0A);
+  --tridactyl-hintspan-border-color: ButtonShadow;
+  --tridactyl-hintspan-border-width: 0px;
+  --tridactyl-hintspan-border-style: solid;
+  --tridactyl-hintspan-js-background: hsla(0, 0%, 65%);
+
+  /* Element highlights */
+  --tridactyl-hint-active-fg: var(--tridactyl-fg);
+  /* --tridactyl-hint-active-bg: #88ff00; */
+  --tridactyl-hint-active-bg: var(--dotfield--color--base0B);
+  /* --tridactyl-hint-active-outline: 1px solid #cc0000; */
+  --tridactyl-hint-active-outline: 1px solid var(--dotfield--color--base09);
+
+  /* --tridactyl-hint-bg: rgba(255, 255, 0, 0.25); */
+  --tridactyl-hint-bg: color-mix(
+    in srgb,
+    var(--dotfield--color--base0B),
+    transparent 25%
+  );
+  /* --tridactyl-hint-outline: 1px solid #8f5902; */
+  --tridactyl-hint-outline: 1px solid var(--dotfield--color--base01);
+
+  /* :viewsource */
+  --tridactyl-vs-bg: var(--tridactyl-bg);
+  --tridactyl-vs-fg: var(--tridactyl-fg);
+  --tridactyl-vs-font-family: var(--tridactyl-font-family);
+
+  /*commandline*/
+
+  --tridactyl-cmdl-bg: var(--tridactyl-bg);
+  --tridactyl-cmdl-fg: var(--tridactyl-fg);
+  --tridactyl-cmdl-line-height: 1.5;
+  --tridactyl-cmdl-font-family: var(--dotfield--font--mono);
+  --tridactyl-cmdl-font-size: var(--tridactyl-small-font-size);
+
+  /*completions*/
+
+  --tridactyl-cmplt-option-height: 1.4em;
+  --tridactyl-cmplt-fg: var(--tridactyl-fg);
+  --tridactyl-cmplt-bg: var(--tridactyl-bg);
+  --tridactyl-cmplt-font-size: var(--tridactyl-font-size);
+  --tridactyl-cmplt-font-family: var(--tridactyl-font-family);
+  /* --tridactyl-cmplt-border-top: 1px solid grey; */
+  --tridactyl-cmplt-border-top: 1px solid var(--dotfield--color--base00);
+
+  /* need a better way for naming variables
+     *
+        - .Properties for .HistoryCompletionSource table
+        - .Properties for .BmarkCompletionSource table
+
+    */
+
+  /*sectionHeader*/
+
+  --tridactyl-header-first-bg: LightGray;
+  --tridactyl-header-second-bg: #ddd;
+  --tridactyl-header-third-bg: LightGray;
+
+  /* eg. What if I dont want liner-gradient as bg?
+     *
+     * :root .sectionHeader { background: blue; }
+     *
+     * ????
+     */
+
+  --tridactyl-header-font-size: inherit;
+  --tridactyl-header-font-weight: bold;
+  /* FIXME: huh? */
+  /* --tridactyl-header-border-bottom: 1px solid bottom; */
+
+  /*url style*/
+  --tridactyl-url-fg: var(--dotfield--color--base08);
+  --tridactyl-url-bg: var(--dotfield--color--base00);
+  --tridactyl-url-text-decoration: none;
+  --tridactyl-url-cursor: pointer;
+
+  /*option focused*/
+
+  --tridactyl-of-fg: var(--tridactyl-fg);
+  --tridactyl-of-bg: #ffec8b;
+
+  /*new tab spoiler box*/
+  --tridactyl-highlight-box-bg: rgba(0, 0, 0, 0.07);
+  --tridactyl-highlight-box-fg: var(--tridactyl-fg);
+
+  --tridactyl-container-color-blue: #37adff;
+  --tridactyl-container-color-turquoise: #00c79a;
+  --tridactyl-container-color-green: #51cd00;
+  --tridactyl-container-color-yellow: #ffcb00;
+  --tridactyl-container-color-orange: #ff9f00;
+  --tridactyl-container-color-red: #ff613d;
+  --tridactyl-container-color-pink: #ff4bda;
+  --tridactyl-container-color-purple: #af51f5;
+
+  --tridactyl-externaledit-bg: var(--tridactyl-logo) no-repeat center;
+}
