@@ -5,6 +5,7 @@
     ...
   }: {
     packages = inputs.flake-utils.lib.filterPackages system {
+      ast-grep = pkgs.callPackage ./development/tools/misc/ast-grep {};
       berkeley-mono = pkgs.callPackage ./data/fonts/berkeley-mono/default.nix {};
       cod = pkgs.callPackage ./shells/cod {};
       epson-201212w = pkgs.callPackage ./misc/drivers/epson_201212w {};
