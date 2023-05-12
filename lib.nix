@@ -1,7 +1,7 @@
 {inputs, ...}: let
   inherit (inputs) haumea;
   lib = haumea.lib.load {
-    src = ./lib/src;
+    src = ./lib;
     inputs = {inherit inputs;};
     transformer = haumea.lib.transformers.liftDefault;
   };
