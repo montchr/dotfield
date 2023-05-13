@@ -2,12 +2,11 @@
   description = "Dotfield";
 
   outputs = {
-    flake-parts,
     nixpkgs,
-    digga,
+    flake-parts,
     ...
   } @ inputs: let
-    inherit (digga.lib) flattenTree rakeLeaves;
+    inherit (inputs.digga.lib) flattenTree rakeLeaves;
     peers = import ./ops/metadata/peers.nix;
     # FIXME: move to guardian
     primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;

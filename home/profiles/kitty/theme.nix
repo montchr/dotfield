@@ -10,10 +10,10 @@
     then theme.colors.active
     else theme.colors.dark;
 in {
-  programs.kitty.settings = makeThemeAttrs colorScheme;
+  programs.kitty.settings = makeThemeAttrs colorScheme.colors;
 
   xdg.configFile = {
-    "kitty/theme-dark.conf".text = makeConf (makeThemeAttrs theme.colors.dark);
-    "kitty/theme-light.conf".text = makeConf (makeThemeAttrs theme.colors.light);
+    "kitty/theme-dark.conf".text = makeConf (makeThemeAttrs theme.colors.dark.colors);
+    "kitty/theme-light.conf".text = makeConf (makeThemeAttrs theme.colors.light.colors);
   };
 }
