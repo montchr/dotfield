@@ -6,6 +6,7 @@
   pkgs,
   darwinProfiles,
   sharedProfiles,
+  packages,
   ...
 }: let
   inherit (self.inputs.digga.lib) rakeLeaves;
@@ -42,11 +43,13 @@ in {
 
   home-manager.users.${username} = hmArgs: {
     imports =
-      (with hmArgs.roles; workstation)
-      ++ (with ownProfiles; [work]);
+      hmArgs.roles.workstation
+      ++ [ownProfiles.work];
     # FIXME: incorrect hosts ip configuration!
     # ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
     home.stateVersion = "22.05";
+    # FIXME: temporarily to avoid merge conflict
+    home.packages = [hmArgs.packages.ast-grep];
   };
 
   system.stateVersion = 4;

@@ -11,6 +11,7 @@
 in
   l.mkMerge [
     {
+      theme.enable = true;
       home.packages = with pkgs; [
         mediainfo
       ];

@@ -2,7 +2,6 @@
 {
   self,
   config,
-  lib,
   primaryUser,
   ...
 }: let
@@ -31,8 +30,8 @@ in {
 
   home-manager.users.${username} = hmArgs: {
     imports =
-      (with hmArgs.roles; workstation)
-      ++ (with ownProfiles; [work]);
+      hmArgs.roles.workstation
+      ++ [ownProfiles.work];
     home.stateVersion = "22.05";
   };
 }

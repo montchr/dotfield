@@ -3,20 +3,20 @@
   darwinProfiles,
 }: let
   workstation =
-    (with sharedProfiles; [
-      fonts.common
-      fonts.iosevka-variants
-      # secrets
-      # networking.tailscale
-    ])
-    ++ (with darwinProfiles; [
-      one-password
-      bitwarden
-      emacs-plus
-      graphical
-      keyboard.atreus
-      rclone
-      system-defaults
-      virtualisation.containers
-    ]);
+    [
+      sharedProfiles.fonts.common
+      sharedProfiles.fonts.iosevka-variants
+      # sharedProfiles.secrets
+      # sharedProfiles.networking.tailscale
+    ]
+    ++ [
+      darwinProfiles.one-password
+      darwinProfiles.bitwarden
+      darwinProfiles.emacs-plus
+      darwinProfiles.graphical
+      darwinProfiles.keyboard.atreus
+      darwinProfiles.rclone
+      darwinProfiles.system-defaults
+      darwinProfiles.virtualisation.containers
+    ];
 in {inherit workstation;}

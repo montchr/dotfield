@@ -3,54 +3,57 @@
   nixosProfiles,
 }: let
   graphical =
-    (with sharedProfiles; [
-      fonts.common
-      fonts.fontconfig
-      fonts.iosevka-variants
-    ])
-    ++ (with nixosProfiles; [
-      boot.systemd-boot
-      desktop.common
-    ]);
+    [
+      sharedProfiles.fonts.common
+      sharedProfiles.fonts.fontconfig
+      sharedProfiles.fonts.iosevka-variants
+    ]
+    ++ [
+      nixosProfiles.boot.systemd-boot
+      nixosProfiles.desktop.common
+    ];
 
-  gnome = with nixosProfiles; [
-    desktop.gnome-desktop
-    login.gdm
+  gnome = [
+    nixosProfiles.desktop.gnome-desktop
+    nixosProfiles.login.gdm
   ];
 
-  office = with nixosProfiles; [
-    desktop.zoom-us
-    hardware.printers-scanners
+  office = [
+    nixosProfiles.desktop.zoom-us
+    nixosProfiles.hardware.printers-scanners
   ];
 
-  server = with nixosProfiles; [
-    networking.common
-    networking.ssh-host
+  server = [
+    nixosProfiles.networking.common
+    nixosProfiles.networking.ssh-host
   ];
 
-  tangible = with nixosProfiles; [
-    hardware.keyboard
-    networking.common
+  tangible = [
+    nixosProfiles.hardware.keyboard
+    nixosProfiles.networking.common
   ];
 
-  webdev = with nixosProfiles; [
-    virtualisation.libvirt
-    virtualisation.microvm-host
-    virtualisation.podman
-    virtualisation.vagrant
-    virtualisation.virt-manager
+  # FIXME: too many things! don't really need all of these all the time
+  webdev = [
+    nixosProfiles.virtualisation.libvirt
+    nixosProfiles.virtualisation.microvm-host
+    nixosProfiles.virtualisation.podman
+    nixosProfiles.virtualisation.vagrant
+    nixosProfiles.virtualisation.virt-manager
   ];
 
   workstation =
-    (with sharedProfiles; [secrets])
-    ++ (with nixosProfiles; [
-      one-password
-      bitwarden
-      boot.systemd-boot
-      hardware.yubikey
-      networking.common
-      networking.ssh-host
-    ]);
+    [
+      sharedProfiles.secrets
+    ]
+    ++ [
+      nixosProfiles.one-password
+      nixosProfiles.bitwarden
+      nixosProfiles.boot.systemd-boot
+      nixosProfiles.hardware.yubikey
+      nixosProfiles.networking.common
+      nixosProfiles.networking.ssh-host
+    ];
 in {
   inherit
     gnome

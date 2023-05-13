@@ -6,5 +6,5 @@
     extraGroups = ["wheel"];
   };
 
-  home-manager.users.nixos = hmArgs: {imports = with hmArgs.roles; gui;};
+  home-manager.users.nixos = hmArgs: {imports = hmArgs.roles.gui;};
 }

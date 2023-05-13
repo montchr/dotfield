@@ -7,7 +7,7 @@ moduleArgs @ {
 }: let
   inherit (builtins) add;
   inherit (inputs.nix-std.lib.num) toFloat;
-  themeCfg = config.theme;
+  inherit (config) theme;
 in {
   imports = [../common.nix];
 
@@ -20,15 +20,16 @@ in {
       else pkgs.sway;
     systemdIntegration = true; # default
     config = {
+      # FIXME: don't assume terminal
       terminal = "kitty";
       fonts = {
         # NOTE: the order is important: icon font must go before normal text font.
         names = [
-          themeCfg.fonts.symbols.family
-          themeCfg.fonts.mono.family
+          theme.fonts.symbols.family
+          theme.fonts.mono.family
         ];
         # Window titles should be slightly larger than the normal text size.
-        size = toFloat (add themeCfg.fonts.mono.size 2);
+        size = toFloat (add theme.fonts.mono.size 2);
         # style = "Bold";
       };
       modifier = "Mod4";

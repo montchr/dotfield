@@ -1,40 +1,32 @@
 {
   self,
+  inputs,
   moduleWithSystem,
   # DEPRECATED:
   peers,
   primaryUser,
   ...
 }: let
-  inherit
-    (self)
-    inputs
-    nixosConfigurations
-    darwinConfigurations
-    ;
-  inherit (inputs.haumea.lib) load loaders transformers;
-  inherit (inputs.nix-std.lib.bool) ifThenElse;
-  inherit
-    (inputs.digga.lib)
-    flattenTree
-    mkHomeConfigurations
-    rakeLeaves
-    ;
+  inherit (self) nixosConfigurations darwinConfigurations;
+  inherit (inputs.apparat.lib) flattenTree homePrefix;
+  inherit (inputs.haumea.lib) load loaders;
+  inherit (inputs.digga.lib) mkHomeConfigurations;
   l = inputs.nixpkgs.lib // builtins;
 
-  homeModules = flattenTree (rakeLeaves ./modules);
-  # profiles = rakeLeaves ./profiles;
+  homeModules = load {
+    src = ./modules;
+    loader = loaders.path;
+  };
 
   profiles = load {
     src = ./profiles;
     loader = loaders.path;
-    # transformer = [transformers.liftDefault];
   };
 
   roles = import ./roles.nix {inherit profiles;};
 
   defaultModules =
-    (l.attrValues homeModules)
+    (l.attrValues (flattenTree homeModules))
     ++ roles.base
     ++ [
       inputs.nix-colors.homeManagerModule
@@ -84,6 +76,8 @@
       sharedModules = defaultModules;
       useGlobalPkgs = true;
       useUserPackages = true;
+      # TODO
+      # backupFileExtension = "bak";
     };
   });
 in {
@@ -91,23 +85,21 @@ in {
     inherit homeModules;
     nixosModules.homeManagerSettings = settingsModule;
     darwinModules.homeManagerSettings = settingsModule;
-    homeConfigurations = l.mkBefore (
+    homeConfigurations =
       (mkHomeConfigurations nixosConfigurations)
-      // (mkHomeConfigurations darwinConfigurations)
-    );
+      // (mkHomeConfigurations darwinConfigurations);
   };
 
   perSystem = ctx @ {
     inputs',
     cells,
+    system,
     ...
   }: {
     homeConfigurations = let
       makeHomeConfiguration = username: hmArgs: let
         inherit (pkgs.stdenv) hostPlatform;
-        inherit (hostPlatform) isDarwin;
         pkgs = hmArgs.pkgs or ctx.pkgs;
-        homePrefix = ifThenElse isDarwin "/Users" "/home";
       in (inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules =
@@ -115,7 +107,7 @@ in {
           ++ [
             (moduleArgs: {
               home.username = username;
-              home.homeDirectory = "${homePrefix}/${username}";
+              home.homeDirectory = "${homePrefix system}/${username}";
               _module.args = {
                 inherit cells inputs';
                 isNixos =
@@ -130,7 +122,7 @@ in {
       });
 
       traveller = makeHomeConfiguration "cdom" {
-        modules = with roles; remote ++ webdev;
+        modules = roles.remote ++ roles.webdev;
       };
     in {
       inherit traveller;

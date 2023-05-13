@@ -11,7 +11,10 @@
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
   };
   home-manager.users.seadoom = hmArgs: {
-    imports = with hmArgs.roles; remote ++ dev ++ trusted;
+    imports =
+      hmArgs.roles.remote
+      ++ hmArgs.roles.dev
+      ++ hmArgs.roles.trusted;
 
     home.stateVersion = "21.11";
   };

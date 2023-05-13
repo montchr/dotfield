@@ -1,12 +1,14 @@
 moduleArgs @ {
-  options,
   config,
   inputs,
+  self,
   ...
 }: let
-  inherit (l.types) str int;
-  inherit (inputs) apparat nix-colors;
-  inherit (apparat.lib) mkOpt;
+  inherit (l.types) nullOr str int;
+  # inherit (inputs) apparat nix-colors;
+  inherit (self.lib.colors) getColorScheme;
+
+  # colorSchemeModule = apparat.homeManagerModules.colorScheme;
 
   l = inputs.nixpkgs.lib // builtins;
   cfg = config.theme;
@@ -19,65 +21,96 @@ moduleArgs @ {
         monospace = ["DejaVu Sans Mono"];
         sansSerif = ["DejaVu Sans"];
         serif = ["DejaVu Serif"];
+        emoji = ["Noto Color Emoji"];
       };
   in
     l.mapAttrs (_: l.head) fonts;
 
-  normalWeight = 400;
+  fontOptionSubmodule = {...}: {
+    family = l.mkOption {
+      type = str;
+    };
+    weight = l.mkOption {
+      type = int;
+      default = 400;
+    };
+    size = l.mkOption {
+      type = int;
+      default = 14;
+    };
+  };
 in {
-  options = {
-    theme = {
-      enable = l.mkEnableOption "Whether to enable the theme module.";
-      colors = let
-        colorSchemeOptions = options.colorScheme;
-        colorSchemeType = l.types.submodule {options = colorSchemeOptions;};
-        mkColorSchemeOption = kind:
-          l.mkOption {
-            default = nix-colors.colorSchemes."default-${kind}";
-            type = colorSchemeType;
-          };
-      in {
-        active = l.mkOption {
-          type = l.types.nullOr colorSchemeType;
-          default = null;
-          description = ''
-            Currently-active color scheme.
-          '';
-        };
-        dark = mkColorSchemeOption "dark";
-        light = mkColorSchemeOption "light";
+  options.theme = {
+    enable = l.mkEnableOption "Whether to enable the theme module.";
+    colors = {
+      active = l.mkOption {
+        description = "Active color scheme.";
+        # type = l.types.submodule colorSchemeModule;
+        type = l.types.str;
       };
-      fonts = {
-        mono = {
-          family = mkOpt str defaultFonts.monospace;
-          weight = mkOpt int normalWeight;
-          size = mkOpt int 13;
+      dark = l.mkOption {
+        default = "default-dark";
+        description = "Dark color scheme.";
+        type = l.types.str;
+      };
+      light = l.mkOption {
+        default = "default-light";
+        description = "Light color scheme.";
+        type = l.types.str;
+      };
+    };
+    fonts = {
+      mono = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = defaultFonts.monospace;
+          size = 12;
         };
-        term = with cfg.fonts; {
-          family = mkOpt str mono.family;
-          weight = mkOpt int mono.weight;
-          size = mkOpt int mono.size;
+      };
+      term = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = defaultFonts.monospace;
+          size = 12;
         };
-        sans = {
-          family = mkOpt str defaultFonts.sansSerif;
-          weight = mkOpt int normalWeight;
-          size = mkOpt int 10;
+      };
+      sans = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = defaultFonts.sansSerif;
         };
-        serif = {
-          family = mkOpt str defaultFonts.serif;
-          weight = mkOpt int normalWeight;
-          size = mkOpt int cfg.fonts.sans.size;
+      };
+      serif = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = defaultFonts.serif;
+          size = 14;
         };
-        emoji.family = mkOpt str "";
-        symbols.family = mkOpt str "";
+      };
+      emoji = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = defaultFonts.emoji;
+        };
+      };
+      symbols = l.mkOption {
+        type = l.types.submodule fontOptionSubmodule;
+        default = {
+          family = "Symbols Nerd Font Mono";
+        };
       };
     };
   };
 
   config = l.mkIf cfg.enable {
-    colorScheme =
-      if (cfg.colors.active != null)
-      then cfg.colors.active
-      else cfg.colors.dark;
+    theme.colors.active = l.mkDefault cfg.colors.dark;
+    # theme.colors.active = l.mkDefault (let
+    #   #: NOTE: Requires `--impure` flag.
+    #   envColors = l.getEnv "DOTFIELD_COLORS";
+    # in
+    #   if (envColors != "")
+    #   then (cfg.colors.${envColors} or (getColorScheme envColors))
+    #   else cfg.colors.dark);
+    colorScheme = getColorScheme cfg.colors.active;
   };
 }

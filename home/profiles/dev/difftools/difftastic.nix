@@ -1,13 +1,20 @@
-{...}:
-# let
-#   inherit (inputs.apparat.lib.color) reversePolarity;
-# in
 {
+  config,
+  lib,
+  inputs,
+  self,
+  ...
+}: let
+  inherit (inputs.apparat.lib.color) reversePolarity;
+  inherit (self.lib.colors) getColorScheme;
+  inherit (config) theme;
+in {
   programs.git.difftastic = {
     enable = true;
-    # FIXME: this shouldn't be necessary (why not base16?)
-    # FIXME: should only use this value on desktop!
-    # background = reversePolarity config.theme.colors.active.kind;
+    background = lib.mkIf theme.enable (reversePolarity
+      (getColorScheme
+        config.theme.colors.active)
+      .kind);
     display = "inline";
   };
 }

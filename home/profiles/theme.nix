@@ -1,59 +1,35 @@
 {
   config,
   pkgs,
-  inputs,
   self,
   ...
 }: let
-  inherit (self.lib.colors) getColorScheme;
-  l = inputs.nixpkgs.lib // builtins;
-
   cfg = config.theme;
-
-  #: NOTE: Requires `--impure` flag.
-  envColors = l.getEnv "DOTFIELD_COLORS";
-
   sessionVariables = {
-    # DOTFIELD_THEME_MODE = cfg.colors.active.kind;
-    DOTFIELD_COLORS = cfg.colors.active.slug;
-    DOTFIELD_COLORS_DARK = cfg.colors.dark.slug;
-    DOTFIELD_COLORS_LIGHT = cfg.colors.light.slug;
+    DOTFIELD_COLORS = cfg.colors.active;
+    DOTFIELD_COLORS_DARK = cfg.colors.dark;
+    DOTFIELD_COLORS_LIGHT = cfg.colors.light;
   };
 in {
-  theme = {
-    enable = true;
-    colors = {
-      active =
-        if (envColors != "")
-        then (cfg.colors.${envColors} or (getColorScheme envColors))
-        else cfg.colors.dark;
-      dark = getColorScheme "classic-dark";
-      # dark = getColorScheme "da-one-gray";
-      # dark = getColorScheme "black-metal-khold";
-      light = getColorScheme "one-light";
-    };
-    fonts = {
-      mono = {
-        # NOTE: variable font doesn't seem to be compatible with normal weight
-        #       handling in Firefox on macOS. firefox, for example,
-        #       renders *everything* in bold. not sure whether it's the
-        #       font or the application.
-        family = "Berkeley Mono";
-        size = 12;
-      };
-      term = {inherit (cfg.fonts.mono) family;};
-      sans = {
-        family = "Inter";
-        size = 13;
-      };
-      serif = {
-        family = "IBM Plex Serif";
-        size = 13;
-      };
-      symbols = {
-        family = "Symbols Nerd Font Mono";
-      };
-    };
+  theme.colors = {
+    dark = "classic-dark";
+    # dark = getColorScheme "da-one-gray";
+    # dark = getColorScheme "black-metal-khold";
+    light = "default-light";
+    # FIXME: has some pretty unreadable contrast, esp. yellow on white
+    # light = getColorScheme "one-light";
+  };
+
+  theme.fonts = {
+    # NOTE: variable font doesn't seem to be compatible with normal weight
+    #       handling in Firefox on macOS. firefox, for example,
+    #       renders *everything* in bold. not sure whether it's the
+    #       font or the application.
+    mono.family = "Berkeley Mono";
+    term = cfg.fonts.mono;
+    sans.family = "Inter";
+    serif.family = "IBM Plex Serif";
+    symbols.family = "Symbols Nerd Font Mono";
   };
 
   # NOTE: as of <2023-05-11>, `programs.fish` doesn't declare `sessionVariables`.

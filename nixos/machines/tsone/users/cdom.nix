@@ -15,7 +15,7 @@ in {
     openssh.authorizedKeys.keys = authorizedKeys;
   };
   home-manager.users.cdom = hmArgs: {
-    imports = with hmArgs.roles; remote;
+    imports = hmArgs.roles.remote;
     home.stateVersion = "22.05";
   };
 }

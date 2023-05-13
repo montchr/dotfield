@@ -1,4 +1,5 @@
 hmArgs @ {
+  self,
   config,
   inputs,
   pkgs,
@@ -6,6 +7,7 @@ hmArgs @ {
   ...
 }: let
   inherit (inputs) apparat haumea;
+  inherit (self.lib.colors) getColorScheme;
   inherit (apparat.lib.color) withHexPrefixes;
   inherit (apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -24,7 +26,7 @@ hmArgs @ {
 
   imp = s: s + " !important";
 
-  colors = withHexPrefixes theme.colors.active.colors;
+  colors = withHexPrefixes (getColorScheme theme.colors.active);
   colorsI = l.mapAttrs (_: imp) colors;
 
   makeSettings = {modules ? []}:
