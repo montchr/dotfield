@@ -1,18 +1,8 @@
 {
+  cells,
   sharedProfiles,
   nixosProfiles,
 }: let
-  graphical =
-    (with sharedProfiles; [
-      fonts.common
-      fonts.fontconfig
-      fonts.iosevka-variants
-    ])
-    ++ (with nixosProfiles; [
-      boot.systemd-boot
-      desktop.common
-    ]);
-
   gnome = with nixosProfiles; [
     desktop.gnome-desktop
     login.gdm

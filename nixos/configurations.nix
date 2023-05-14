@@ -58,7 +58,6 @@
               {
                 _module.args = {
                   inherit
-                    cells
                     inputs'
                     packages
                     peers
@@ -74,6 +73,7 @@
           specialArgs = {
             inherit
               self
+              cells
               inputs
               nixosProfiles
               sharedProfiles
@@ -87,67 +87,67 @@
 in {
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
-    bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
-      system = x86_64-linux;
-      modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
-    };
-
-    freundix = makeNixosSystem "freundix" {
-      system = x86_64-linux;
-      modules = with roles; gnome ++ graphical;
-    };
+    # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
+    #   system = x86_64-linux;
+    #   modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
+    # };
 
     ryosuke = makeNixosSystem "ryosuke" {
       system = x86_64-linux;
-      modules =
-        (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
-        ++ (with nixosProfiles; [
-          hardware.amd
-          # login.greetd
-          # virtualisation.vm-variant
-        ]);
+      modules = [
+        nixosProfiles.hardware.amd
+        nixosProfiles.login.greetd
+        nixosProfiles.virtualisation.vm-variant
+        ({
+          cells,
+          roles,
+          ...
+        }: {
+          imports =
+            (with roles; gnome ++ office ++ tangible ++ webdev ++ workstation)
+            ++ [cells.graphical.default];
+        })
+      ];
     };
 
     boschic = makeNixosSystem "boschic" {
       system = x86_64-linux;
-      modules =
-        (with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
-        ++ (with nixosProfiles; [
-          boot.refind
-          desktop.flatpak
-          hardware.amd
-          # login.greetd
-          # FIXME: `lib.mkForce` fails
-          # hardware.nvidia
-          virtualisation.vm-variant
-        ]);
+      modules = [
+        ({roles, ...}: {imports = with roles; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation;})
+        nixosProfiles.boot.refind
+        nixosProfiles.desktop.flatpak
+        nixosProfiles.hardware.amd
+        nixosProfiles.virtualisation.vm-variant
+        # nixosProfiles.login.greetd
+        # FIXME: `lib.mkForce` fails
+        # nixosProfiles.hardware.nvidia
+      ];
     };
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       system = x86_64-linux;
-      modules = with roles; gnome ++ graphical ++ office ++ tangible ++ workstation;
+      modules = [
+        ({roles, ...}: {imports = with roles; gnome ++ graphical ++ office ++ tangible ++ workstation;})
+      ];
     };
 
     hierophant = makeNixosSystem "hierophant" {
       system = x86_64-linux;
-      modules =
-        (with roles; server)
-        ++ (with nixosProfiles; [
-          environments.hetzner-cloud
-        ]);
+      modules = [
+        ({roles, ...}: {imports = with roles; server;})
+        nixosProfiles.environments.hetzner-cloud
+      ];
     };
 
     tsone = makeNixosSystem "tsone" {
       system = x86_64-linux;
-      modules =
-        (with roles; server)
-        ++ (with nixosProfiles; [
-          hardware.amd
-
-          # This host has Hetzner Online UEFI boot enabled in BIOS.
-          # Normally Hetzner Online would require booting with GRUB.
-          boot.systemd-boot
-        ]);
+      modules = [
+        ({roles, ...}: {imports = with roles; server;})
+        nixosProfiles.hardware.amd
+        # This host has Hetzner Online UEFI boot enabled in BIOS.
+        # Normally Hetzner Online would require booting with GRUB.
+        nixosProfiles.boot.systemd-boot
+      ];
     };
   };
 }

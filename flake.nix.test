@@ -2,110 +2,58 @@
   description = "Dotfield";
 
   outputs = {
-    self,
-    nixpkgs,
-    flake-parts,
     hive,
     std,
+    self,
     ...
   } @ inputs: let
-    inherit (inputs.digga.lib) flattenTree rakeLeaves;
     collect = hive.collect // {renamer = cell: target: "${target}";};
-    peers = import ./ops/metadata/peers.nix;
-    # FIXME: move to guardian
-    primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
-  in (flake-parts.lib.mkFlake {inherit inputs;} {
-    systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-    std.grow.cellsFrom = ./cells;
-    std.grow.cellBlocks =
-      (with std.blockTypes; [
-        ##: modules + profiles
-        (functions "modules")
-        (functions "profiles")
-        (functions "darwinModules")
-        (functions "darwinProfiles")
-        (functions "homeModules")
-        (functions "homeProfiles")
-        (functions "nixosModules")
-        (functions "nixosProfiles")
+  in
+    std.growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      cellBlocks =
+        (with std.blockTypes; [
+          ##: modules + profiles
+          (functions "darwinModules")
+          (functions "darwinProfiles")
+          (functions "homeModules")
+          (functions "homeProfiles")
+          (functions "nixosModules")
+          (functions "nixosProfiles")
 
-        ##: devshell
-        (devshells "devshells")
-        (functions "devshellProfiles")
+          ##: devshell
+          (devshells "devshells")
+          (functions "devshellProfiles")
 
-        ##: library functions
-        (functions "dev")
-        (functions "functions")
+          ##: library functions
+          (functions "dev")
+          (functions "functions")
 
-        ##: packages
-        (installables "packages")
+          ##: packages
+          (installables "packages")
 
-        ##: serde
-        (data "constants")
-        (data "data")
-        (nixago "cfg")
-      ])
-      ++ (with hive.blockTypes; [
-        diskoConfigurations
-        homeConfigurations
-        nixosConfigurations
-        # FIXME: <https://github.com/divnix/hive/pull/9>
-        # (darwinConfigurations "darwinConfigurations")
-      ]);
-    std.harvest = {
-      devShells = [
+          ##: serde
+          (data "constants")
+          (data "data")
+          (nixago "cfg")
+        ])
+        ++ (with hive.blockTypes; [
+          diskoConfigurations
+          homeConfigurations
+          nixosConfigurations
+          # FIXME: <https://github.com/divnix/hive/pull/9>
+          # (darwinConfigurations "darwinConfigurations")
+        ]);
+    }
+    {
+      devShells = std.harvest self [
         ["dotfield" "devshells"]
         ["_automation" "devshells"]
         ["secrets" "devshells"]
       ];
-    };
-    imports = [
-      inputs.std.flakeModule
-
-      {_module.args = {inherit inputs peers primaryUser;};}
-
-      ./flake-modules/homeConfigurations.nix
-      ./flake-modules/sharedModules.nix
-      ./flake-modules/sharedProfiles.nix
-
-      ./packages
-      ./lib.nix
-
-      ./nixos/configurations.nix
-      ./nixos/checks.nix
-
-      ./home/configurations.nix
-
-      ./darwin/configurations.nix
-      ./darwin/packages
-    ];
-    perSystem = {
-      system,
-      inputs',
-      self',
-      ...
-    } @ ctx: {
-      _module.args = {
-        inherit (self') cells;
-        inherit primaryUser;
-        packages = ctx.config.packages;
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
-      formatter = inputs'.nixpkgs.legacyPackages.alejandra;
-    };
-    flake = {
-      nixosConfigurations = collect self "nixosConfigurations";
-
-      # shared importables
-      # :: may be used within system configurations for any
-      #    supported operating system (e.g. nixos, nix-darwin).
-      sharedModules = flattenTree (rakeLeaves ./modules);
-      sharedProfiles = rakeLeaves ./profiles;
-    };
-  });
+    }
+    {nixosConfigurations = collect self "nixosConfigurations";};
 
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";

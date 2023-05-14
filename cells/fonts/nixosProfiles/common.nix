@@ -7,10 +7,6 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
   l = inputs.nixpkgs.lib // builtins;
 in {
-  imports = [
-    ./iosevka-variants.nix
-    ./iosevka-xtal.nix
-  ];
   fonts.fontDir.enable = true;
   fonts.fonts =
     (with pkgs; [
