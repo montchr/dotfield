@@ -1,12 +1,9 @@
 builds:
-  default:
-    exclude:
-    - darwinConfigurations.*
-    - packages.*.berkeley-mono
-    - '*.aarch64-darwin.*'
-    - '*.x86_64-darwin.*'
-    include:
-    - '*.x86_64-linux.*'
-    - packages.x86_64-linux.*
-    - packages.aarch64-linux.*
-    - devShells.x86_64-linux.*
+  exclude:
+  - packages.*.berkeley-mono
+  include:
+  - '*.x86_64-linux.*'
+  - '*.aarch64-linux.*'
+  - devShells.x86_64-linux.*
+  - devShells.aarch64-linux.*
+  - nixosConfigurations.*
