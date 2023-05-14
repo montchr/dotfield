@@ -6,7 +6,7 @@ with addons; [
   auto-tab-discard
   bitwarden
   browserpass
-  cookie-autodelete
+  consent-o-matic
   copy-selection-as-markdown
   darkreader
   # firefox-color
@@ -20,12 +20,10 @@ with addons; [
   reddit-enhancement-suite
   reduxdevtools
   refined-github
-  single-file
   tab-session-manager
   temporary-containers
-  # tree-style-tab
-  # tst-search
-  vimium-ff
+  tree-style-tab
+  tst-search
 ]
 # FIXME: access to outer hm scope
 # ++ (l.optional config.programs.browserpass.enable firefox-addons.browserpass);
