@@ -44,7 +44,7 @@ in {
       }
       {
         name = "DOTFIELD_HOME_DRV";
-        eval = "/nix/var/nix/profiles/per-user/$USER/home-manager";
+        eval = "\${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/home-manager";
       }
     ];
     packages = [
