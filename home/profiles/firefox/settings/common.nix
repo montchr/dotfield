@@ -3,6 +3,7 @@
   inputs,
   theme,
   osConfig,
+  lib,
   ...
 }: let
   inherit (theme) fonts;
@@ -30,7 +31,7 @@ in {
   # Whether we should draw the tabs on top of the titlebar.
   # no (0), yes (1), or default (2), which is true everywhere except Linux.
   # <https://searchfox.org/mozilla-release/rev/b6792379492929d65f5b61a3caa0a9b19bbd7078/modules/libpref/init/StaticPrefList.yaml#1565-1571>
-  "browser.tabs.inTitlebar" = 1;
+  "browser.tabs.inTitlebar" = lib.mkDefault 0;
 
   # TODO: add documentation for values
   "browser.uidensity" = 1; # Dense.

@@ -1,7 +1,7 @@
 hmArgs @ {
   config,
-  inputs,
   pkgs,
+  inputs,
   inputs',
   packages,
   ...
@@ -156,13 +156,16 @@ in {
       @import url("css/leptonChrome.css");
     '';
     id = 1;
+
     # search = dmerge.merge search {
     #   engines.lucideIcons = import ./search/lucide-icons.nix;
     # };
+
     # FIXME: distinguish appearance from other profile
     settings = makeSettings' {
       imports = [./settings/lepton.nix];
       "browser.startup.homepage" = "about:blank";
+      "userChrome.theme.monospace" = false;
     };
   };
 

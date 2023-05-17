@@ -1,4 +1,10 @@
-{
+##: Notes
+#
+# - If you want to disable or change a setting, it MUST be set explicitly.
+#   E.G. To disable a setting currently set to `true`, it must be set to `false`.
+#   This is because the settings will be kept in browser preferences state.
+#   Alternatively, you can go to `about:config` and reset the setting to its default.
+{lib, ...}: {
   ###: === userChrome ==========================================================
   # ** Theme Default Options ****************************************************
   # userchrome.css usercontent.css activate
@@ -29,7 +35,9 @@
   "layout.css.prefers-color-scheme.content-override" = 3;
 
   # ** Theme Related Options ****************************************************
+
   # == Theme Distribution Settings ==============================================
+
   # The rows that are located continuously must be changed `true`/`false` explicitly because there is a collision.
   # https://github.com/black7375/Firefox-UI-Fix/wiki/Options#important
   "userChrome.tab.connect_to_window" = true; # Original, Photon
@@ -63,21 +71,23 @@
   # "userChrome.compatibility.covered_header_image" = true;
   # "userChrome.compatibility.panel_cutoff" =         true;
   # "userChrome.compatibility.navbar_top_border" =    true;
-  # "userChrome.compatibility.dynamic_separator" =    true; # Need dynamic_separator
+  "userChrome.compatibility.dynamic_separator" = true; # Need dynamic_separator
 
   # "userChrome.compatibility.os.linux_non_native_titlebar_button" = true;
   # "userChrome.compatibility.os.windows_maximized" = true;
   # "userChrome.compatibility.os.win11" =             true;
 
   # == Theme Custom Settings ====================================================
+
   # -- User Chrome --------------------------------------------------------------
-  # "userChrome.theme.proton_color.dark_blue_accent" = true;
-  "userChrome.theme.monospace" = true;
+
+  "userChrome.theme.proton_color.dark_blue_accent" = true;
+  "userChrome.theme.monospace" = lib.mkDefault true;
 
   # "userChrome.decoration.disable_panel_animate" =    true;
   # "userChrome.decoration.disable_sidebar_animate" =  true;
   # "userChrome.decoration.panel_button_separator" =   true;
-  # "userChrome.decoration.panel_arrow" =              true;
+  "userChrome.decoration.panel_arrow" = true;
 
   # "userChrome.autohide.tab" =                        true;
   # "userChrome.autohide.tab.opacity" =                true;
@@ -85,25 +95,25 @@
   "userChrome.autohide.tabbar" = true;
   # "userChrome.autohide.navbar" =                     true;
   "userChrome.autohide.bookmarkbar" = true;
-  "userChrome.autohide.sidebar" = true;
+  "userChrome.autohide.sidebar" = false;
   # "userChrome.autohide.fill_urlbar" =                true;
-  # "userChrome.autohide.back_button" =                true;
-  # "userChrome.autohide.forward_button" =             true;
+  "userChrome.autohide.back_button" = true;
+  "userChrome.autohide.forward_button" = true;
   # "userChrome.autohide.page_action" =                true;
-  # "userChrome.autohide.toolbar_overlap" =            true;
+  "userChrome.autohide.toolbar_overlap" = true;
   # "userChrome.autohide.toolbar_overlap.allow_layout_shift" = true;
 
   # "userChrome.hidden.tab_icon" =                     true;
   # "userChrome.hidden.tab_icon.always" =              true;
-  # "userChrome.hidden.tabbar" =                       true;
+  "userChrome.hidden.tabbar" = false;
   # "userChrome.hidden.navbar" =                       true;
   # "userChrome.hidden.titlebar_container" =           true;
   "userChrome.hidden.sidebar_header" = true;
   # "userChrome.hidden.sidebar_header.vertical_tab_only" = true;
   # "userChrome.hidden.urlbar_iconbox" =               true;
   # "userChrome.hidden.urlbar_iconbox.label_only" =    true;
-  # "userChrome.hidden.bookmarkbar_icon" =             true;
-  # "userChrome.hidden.bookmarkbar_label" =            true;
+  "userChrome.hidden.bookmarkbar_icon" = false;
+  "userChrome.hidden.bookmarkbar_label" = true;
   # "userChrome.hidden.disabled_menu" =                true;
 
   # "userChrome.centered.tab" =                        true;
@@ -114,11 +124,11 @@
   # "userChrome.counter.tab" =                         true;
   # "userChrome.counter.bookmark_menu" =               true;
 
-  # "userChrome.combined.nav_button" =                 true;
-  # "userChrome.combined.nav_button.home_button" =     true;
+  "userChrome.combined.nav_button" = true;
+  "userChrome.combined.nav_button.home_button" = true;
   # "userChrome.combined.urlbar.nav_button" =          true;
   # "userChrome.combined.urlbar.home_button" =         true;
-  # "userChrome.combined.urlbar.reload_button" =       true;
+  "userChrome.combined.urlbar.reload_button" = true;
   # "userChrome.combined.sub_button.none_background" = true;
   # "userChrome.combined.sub_button.as_normal" =       true;
 
@@ -139,12 +149,12 @@
   # "userChrome.padding.drag_space" =                  true;
   # "userChrome.padding.drag_space.maximized" =        true;
 
-  "userChrome.padding.toolbar_button.compact" = true;
-  "userChrome.padding.menu_compact" = true;
-  "userChrome.padding.bookmark_menu.compact" = true;
+  "userChrome.padding.toolbar_button.compact" = false;
+  "userChrome.padding.menu_compact" = false;
+  "userChrome.padding.bookmark_menu.compact" = false;
   "userChrome.padding.urlView_expanding" = true;
-  # "userChrome.padding.urlView_result" =              true;
-  # "userChrome.padding.panel_header" =                true;
+  "userChrome.padding.urlView_result" = true;
+  "userChrome.padding.panel_header" = false;
 
   # "userChrome.urlbar.iconbox_with_separator" =       true;
 
@@ -153,7 +163,7 @@
   # "userChrome.urlView.always_show_page_actions" =    true;
   # "userChrome.urlView.move_icon_to_left" =           true;
   # "userChrome.urlView.go_button_when_typing" =       true;
-  # "userChrome.urlView.focus_item_border" =           true;
+  "userChrome.urlView.focus_item_border" = true;
 
   "userChrome.tabbar.as_titlebar" = false;
   # "userChrome.tabbar.fill_width" =                   true;
@@ -175,16 +185,16 @@
   # "userChrome.tab.bottom_rounded_corner.chrome_legacy" = true;
   # "userChrome.tab.bottom_rounded_corner.wave" =      true;
   # "userChrome.tab.always_show_tab_icon" =            true;
-  # "userChrome.tab.close_button_at_pinned" =          true;
+  "userChrome.tab.close_button_at_pinned" = true;
   # "userChrome.tab.close_button_at_pinned.always" =   true;
-  # "userChrome.tab.close_button_at_pinned.background" = true;
+  "userChrome.tab.close_button_at_pinned.background" = true;
   # "userChrome.tab.close_button_at_hover.always" =    true; # Need close_button_at_hover
   # "userChrome.tab.close_button_at_hover.with_selected" = true;  # Need close_button_at_hover
   # "userChrome.tab.sound_show_label" =                true; # Need remove sound_hide_label
 
   # "userChrome.navbar.as_sidebar" =                   true;
 
-  "userChrome.bookmarkbar.multi_row" = true;
+  "userChrome.bookmarkbar.multi_row" = false;
 
   # "userChrome.findbar.floating_on_top" =             true;
 
@@ -192,25 +202,29 @@
   # "userChrome.panel.full_width_separator" =          true;
   # "userChrome.panel.full_width_padding" =            true;
 
-  # "userChrome.sidebar.overlap" =                     true;
+  # Not recommended with TST.
+  "userChrome.sidebar.overlap" = lib.mkDefault false;
 
   # "userChrome.icon.disabled" =                       true;
   # "userChrome.icon.account_image_to_right" =         true;
   # "userChrome.icon.account_label_to_right" =         true;
-  # "userChrome.icon.menu.full" =                      true;
+  "userChrome.icon.menu.full" = true;
   # "userChrome.icon.global_menu.mac" =                true;
 
-  # -- User Content -------------------------------------------------------------
+  # -- userContent -------------------------------------------------------------
+
   # "userContent.player.ui.twoline" =                  true;
 
   # "userContent.newTab.hidden_logo" =                 true;
 
-  # "userContent.page.proton_color.dark_blue_accent" = true;
+  "userContent.page.proton_color.dark_blue_accent" = true;
   "userContent.page.proton_color.system_accent" = true;
-  # "userContent.page.monospace" =                     true;
+  "userContent.page.monospace" = true;
 
   # == Theme Default Settings ===================================================
-  # -- User Chrome --------------------------------------------------------------
+
+  # -- userChrome --------------------------------------------------------------
+
   "userChrome.compatibility.theme" = true;
   "userChrome.compatibility.os" = true;
 
@@ -259,7 +273,8 @@
   "userChrome.icon.global_menu" = true;
   "userChrome.icon.global_menubar" = true;
 
-  # -- User Content -------------------------------------------------------------
+  # -- userContent -------------------------------------------------------------
+
   "userContent.player.ui" = true;
   "userContent.player.icon" = true;
   "userContent.player.noaudio" = true;
@@ -279,6 +294,7 @@
   "userContent.page.proton" = true; # Need proton_color
 
   # ** Useful Options ***********************************************************
+
   # Integrated calculator at urlbar
   "browser.urlbar.suggest.calculator" = true;
 
@@ -286,65 +302,6 @@
   "browser.urlbar.unitConversion.enabled" = true;
 
   # Draw in Titlebar
-  "browser.tabs.drawInTitlebar" = false;
+  "browser.tabs.drawInTitlebar" = true;
   "browser.tabs.inTitlebar" = 1; # Nightly, 96 Above
-
-  # ** Scrolling Settings *******************************************************
-  # == Only Sharpen Scrolling ===================================================
-  #         Pref                                             Value      Original
-  /*
-  "mousewheel.min_line_scroll_amount" =                 10; #        5
-  "general.smoothScroll.mouseWheel.durationMinMS" =     80; #       50
-  "general.smoothScroll.currentVelocityWeighting" = "0.15"; #   "0.25"
-  "general.smoothScroll.stopDecelerationWeighting" = "0.6"; #    "0.4"
-  */
-
-  # == Smooth Scrolling ==========================================================
-  # ** Scrolling Options ********************************************************
-  # based on natural smooth scrolling v2 by aveyo
-  # this preset will reset couple extra variables for consistency
-  #         Pref                                              Value                 Original
-  /*
-  "apz.allow_zooming" =                               true;            /#     true
-  "apz.force_disable_desktop_zooming_scrollbars" =   false;            /#    false
-  "apz.paint_skipping.enabled" =                      true;            /#     true
-  "apz.windows.use_direct_manipulation" =             true;            /#     true
-  "dom.event.wheel-deltaMode-lines.always-disabled" = true;            /#    false
-  "general.smoothScroll.currentVelocityWeighting" = "0.12";            /#   "0.25" <- 1. If scroll too slow, set to "0.15"
-  "general.smoothScroll.durationToIntervalRatio" =    1000;            /#      200
-  "general.smoothScroll.lines.durationMaxMS" =         100;            /#      150
-  "general.smoothScroll.lines.durationMinMS" =           0;            /#      150
-  "general.smoothScroll.mouseWheel.durationMaxMS" =    100;            /#      200
-  "general.smoothScroll.mouseWheel.durationMinMS" =      0;            /#       50
-  "general.smoothScroll.mouseWheel.migrationPercent" = 100;            /#      100
-  "general.smoothScroll.msdPhysics.continuousMotionMaxDeltaMS" = 12;   /#      120
-  "general.smoothScroll.msdPhysics.enabled" =                  true;   /#    false
-  "general.smoothScroll.msdPhysics.motionBeginSpringConstant" = 200;   /#     1250
-  "general.smoothScroll.msdPhysics.regularSpringConstant" =     200;   /#     1000
-  "general.smoothScroll.msdPhysics.slowdownMinDeltaMS" =         10;   /#       12
-  "general.smoothScroll.msdPhysics.slowdownMinDeltaRatio" =  "1.20";   /#    "1.3"
-  "general.smoothScroll.msdPhysics.slowdownSpringConstant" =   1000;   /#     2000
-  "general.smoothScroll.other.durationMaxMS" =         100;            /#      150
-  "general.smoothScroll.other.durationMinMS" =           0;            /#      150
-  "general.smoothScroll.pages.durationMaxMS" =         100;            /#      150
-  "general.smoothScroll.pages.durationMinMS" =           0;            /#      150
-  "general.smoothScroll.pixels.durationMaxMS" =        100;            /#      150
-  "general.smoothScroll.pixels.durationMinMS" =          0;            /#      150
-  "general.smoothScroll.scrollbars.durationMaxMS" =    100;            /#      150
-  "general.smoothScroll.scrollbars.durationMinMS" =      0;            /#      150
-  "general.smoothScroll.stopDecelerationWeighting" = "0.6";            /#    "0.4"
-  "layers.async-pan-zoom.enabled" =                   true;            /#     true
-  "layout.css.scroll-behavior.spring-constant" =   "250.0";            /#   "250.0"
-  "mousewheel.acceleration.factor" =                     3;            /#       10
-  "mousewheel.acceleration.start" =                     -1;            /#       -1
-  "mousewheel.default.delta_multiplier_x" =            100;            /#      100
-  "mousewheel.default.delta_multiplier_y" =            100;            /#      100
-  "mousewheel.default.delta_multiplier_z" =            100;            /#      100
-  "mousewheel.min_line_scroll_amount" =                  0;            /#        5
-  "mousewheel.system_scroll_override.enabled" =       true;            /#     true <- 2. If scroll too fast, set to false
-  "mousewheel.system_scroll_override_on_root_content.enabled" = false; /#     true
-  "mousewheel.transaction.timeout" =                  1500;            /#     1500
-  "toolkit.scrollbox.horizontalScrollDistance" =         4;            /#        5
-  "toolkit.scrollbox.verticalScrollDistance" =           3;            /#        3
-  */
 }
