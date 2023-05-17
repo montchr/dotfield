@@ -35,8 +35,10 @@ hmArgs @ {
     evalSettings {
       inherit theme;
       modules = [./settings/common.nix] ++ modules;
-      hmConfig = config;
-      osConfig = hmArgs.osConfig or null;
+      extraArgs = {
+        hmConfig = config;
+        osConfig = hmArgs.osConfig or null;
+      };
     };
   makeSettings' = module: (makeSettings {modules = [module];}).config;
 
