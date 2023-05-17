@@ -137,9 +137,8 @@ in {
   imports = [./extensions/tridactyl.nix];
 
   programs.firefox.profiles.home = {
-    inherit userChrome userContent search;
+    inherit extensions userChrome userContent search;
     id = 0;
-    extensions = extensions ++ [addons.tridactyl];
     settings = makeSettings' {
       imports = [./settings/browser-toolbox.nix];
       "browser.startup.homepage" = "https://lobste.rs";
@@ -147,9 +146,8 @@ in {
   };
 
   programs.firefox.profiles.work = {
-    inherit userContent;
+    inherit extensions userContent;
     id = 1;
-    extensions = extensions ++ [addons.tridactyl];
     # search = dmerge.merge search {
     #   engines.lucideIcons = import ./search/lucide-icons.nix;
     # };

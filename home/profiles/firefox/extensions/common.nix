@@ -23,6 +23,7 @@ with addons; [
   tab-session-manager
   temporary-containers
   tree-style-tab
+  tridactyl
   tst-search
 ]
 # FIXME: access to outer hm scope
