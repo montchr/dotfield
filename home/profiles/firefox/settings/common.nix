@@ -61,8 +61,9 @@ in {
   "layout.css.backdrop-filter.enabled" = true;
 
   # Follow system color theme.
+  # FIXME: this value doesn't work on macOS (Linux unverified)
   # TODO: add documentation for values (where is it? who knows?)
-  "layout.css.prefers-color-scheme.content-override" = 2;
+  # "layout.css.prefers-color-scheme.content-override" = 2;
 
   "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
@@ -89,8 +90,6 @@ in {
 
   # Enable custom stylesheets.
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-
-  # "ui.textScaleFactor" = 100;
 
   # Fully disable Pocket. See
   # https://www.reddit.com/r/linux/comments/zabm2a.

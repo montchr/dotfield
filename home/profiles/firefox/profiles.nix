@@ -3,15 +3,19 @@ hmArgs @ {
   inputs,
   pkgs,
   inputs',
+  packages,
   ...
 }: let
   inherit (inputs) apparat haumea;
   inherit (apparat.lib.color) withHexPrefixes;
-  inherit (apparat.lib.firefox) evalSettings;
+  inherit (apparat.lib.firefox) evalSettings paths;
+  inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   inherit (config.theme) fonts;
   l = inputs.nixpkgs.lib // builtins;
+
+  profilesPath = (paths hostPlatform).profiles;
 
   cfg = config.programs.firefox;
   mixins = haumea.lib.load {
@@ -39,9 +43,7 @@ hmArgs @ {
   userChrome = let
     inherit (mixins.common) themeSettings;
   in ''
-    @charset "UTF-8";
-    @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-    @namespace html "http://www.w3.org/1999/xhtml";
+    @import url("css/leptonChrome.css");
 
     :root {
       ${themeSettings {inherit colors fonts;}}
@@ -68,9 +70,7 @@ hmArgs @ {
     inherit (mixins.common) themeSettings;
     inherit (mixins.userContent) monospaceText;
   in ''
-    @charset "UTF-8";
-    @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-    @namespace html "http://www.w3.org/1999/xhtml";
+    @import url("css/leptonContent.css");
 
     :host,
     :root {
@@ -140,18 +140,26 @@ in {
     inherit extensions userChrome userContent search;
     id = 0;
     settings = makeSettings' {
-      imports = [./settings/browser-toolbox.nix];
+      imports = [
+        ./settings/browser-toolbox.nix
+        ./settings/lepton.nix
+      ];
       "browser.startup.homepage" = "https://lobste.rs";
     };
   };
 
   programs.firefox.profiles.work = {
     inherit extensions userContent;
+    userChrome = ''
+      @import url("css/leptonChrome.css");
+    '';
     id = 1;
     # search = dmerge.merge search {
     #   engines.lucideIcons = import ./search/lucide-icons.nix;
     # };
+    # FIXME: distinguish appearance from other profile
     settings = makeSettings' {
+      imports = [./settings/lepton.nix];
       "browser.startup.homepage" = "about:blank";
     };
   };
@@ -165,9 +173,11 @@ in {
     categories = ["Application" "Network" "WebBrowser"];
   });
 
-  # home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
-  #   profileDir = "${profilesPath}/${profile.path}";
-  # in {
-  #   "${profileDir}/chrome/content-overrides.css".source = ./userContent.css;
-  # }));
+  # TODO: extract to function
+  home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
+    profileDir = "${profilesPath}/${profile.path}";
+  in {
+    "${profileDir}/chrome/css".source = "${packages.firefox-ui-fix}/chrome/css";
+    "${profileDir}/chrome/icons".source = "${packages.firefox-ui-fix}/chrome/icons";
+  }));
 }

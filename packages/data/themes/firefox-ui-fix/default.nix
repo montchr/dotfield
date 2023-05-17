@@ -5,19 +5,19 @@
 }:
 stdenv.mkDerivation rec {
   pname = "firefox-ui-fix";
-  version = "6.5.2";
+  version = "7.3.0";
 
   src = fetchFromGitHub {
     owner = "black7375";
     repo = "Firefox-UI-Fix";
     rev = "v${version}";
-    sha256 = "sha256-CpyJnAgoJPcDfggPoxFspcOpYNlZaEqlSKSZ+ziih2E=";
+    sha256 = "sha256-hzUlPf9tGpfZ6I4u4W8j0Gp9XATSAUQN61G9c14mOq4=";
   };
 
   installPhase = ''
     mkdir -p $out/chrome
     cp -t $out/ CREDITS LICENSE user.js
-    cp -R ./{css,icons} $out/chrome
+    cp -R ./{css,icons} $out/chrome/
   '';
 
   meta = with lib; {
@@ -27,6 +27,5 @@ stdenv.mkDerivation rec {
     # '';
     license = with licenses; [mpl20];
     maintainers = with maintainers; [montchr];
-    platforms = platforms.all;
   };
 }
