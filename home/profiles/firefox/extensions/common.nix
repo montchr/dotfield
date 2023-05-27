@@ -9,7 +9,6 @@ with addons; [
   consent-o-matic
   copy-selection-as-markdown
   darkreader
-  # firefox-color
   link-cleaner
   multi-account-containers
   offline-qr-code-generator
@@ -20,10 +19,14 @@ with addons; [
   reddit-enhancement-suite
   reduxdevtools
   refined-github
+  stylus
   tab-session-manager
   temporary-containers
-  tree-style-tab
   tridactyl
+  violentmonkey #                     <- <https://github.com/violentmonkey/violentmonkey>
+
+  ##: TST + Extensions
+  tree-style-tab
   tst-search
 ]
 # FIXME: access to outer hm scope
