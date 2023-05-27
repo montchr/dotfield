@@ -63,6 +63,10 @@
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          # FIXME(2023-06-06): builds fail without this exemption
+          config.permittedInsecurePackages = [
+            "openssl-1.1.1t"
+          ];
         };
       };
       formatter = inputs'.nixpkgs.legacyPackages.alejandra;
