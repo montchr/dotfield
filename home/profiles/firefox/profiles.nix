@@ -67,7 +67,8 @@ hmArgs @ {
     }
   '';
 
-  # FIXME: userContent.css does not appear to be loading in browser
+  # FIXME: userContent.css is only for mozilla pages! e.g. about:config
+  #        most of this should be moved to something like Stylus
   userContent = let
     inherit (mixins.common) themeSettings;
     inherit (mixins.userContent) monospaceText;
