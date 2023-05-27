@@ -71,7 +71,7 @@
   # "userChrome.compatibility.covered_header_image" = true;
   # "userChrome.compatibility.panel_cutoff" =         true;
   # "userChrome.compatibility.navbar_top_border" =    true;
-  "userChrome.compatibility.dynamic_separator" = true; # Need dynamic_separator
+  # "userChrome.compatibility.dynamic_separator" = false; # Need dynamic_separator
 
   # "userChrome.compatibility.os.linux_non_native_titlebar_button" = true;
   # "userChrome.compatibility.os.windows_maximized" = true;
@@ -87,33 +87,33 @@
   # "userChrome.decoration.disable_panel_animate" =    true;
   # "userChrome.decoration.disable_sidebar_animate" =  true;
   # "userChrome.decoration.panel_button_separator" =   true;
-  "userChrome.decoration.panel_arrow" = true;
+  "userChrome.decoration.panel_arrow" = false;
 
-  # "userChrome.autohide.tab" =                        true;
+  "userChrome.autohide.tab" = false;
   # "userChrome.autohide.tab.opacity" =                true;
   # "userChrome.autohide.tab.blur" =                   true;
-  "userChrome.autohide.tabbar" = true;
-  # "userChrome.autohide.navbar" =                     true;
-  "userChrome.autohide.bookmarkbar" = true;
+  "userChrome.autohide.tabbar" = false;
+  "userChrome.autohide.navbar" = false;
+  "userChrome.autohide.bookmarkbar" = false;
   "userChrome.autohide.sidebar" = false;
-  # "userChrome.autohide.fill_urlbar" =                true;
-  "userChrome.autohide.back_button" = true;
-  "userChrome.autohide.forward_button" = true;
-  # "userChrome.autohide.page_action" =                true;
-  "userChrome.autohide.toolbar_overlap" = true;
-  # "userChrome.autohide.toolbar_overlap.allow_layout_shift" = true;
+  "userChrome.autohide.fill_urlbar" = false;
+  "userChrome.autohide.back_button" = false;
+  "userChrome.autohide.forward_button" = false;
+  "userChrome.autohide.page_action" = false;
+  "userChrome.autohide.toolbar_overlap" = false;
+  "userChrome.autohide.toolbar_overlap.allow_layout_shift" = false;
 
   # "userChrome.hidden.tab_icon" =                     true;
   # "userChrome.hidden.tab_icon.always" =              true;
   "userChrome.hidden.tabbar" = false;
-  # "userChrome.hidden.navbar" =                       true;
+  "userChrome.hidden.navbar" = false;
   # "userChrome.hidden.titlebar_container" =           true;
   "userChrome.hidden.sidebar_header" = true;
   # "userChrome.hidden.sidebar_header.vertical_tab_only" = true;
   # "userChrome.hidden.urlbar_iconbox" =               true;
   # "userChrome.hidden.urlbar_iconbox.label_only" =    true;
   "userChrome.hidden.bookmarkbar_icon" = false;
-  "userChrome.hidden.bookmarkbar_label" = true;
+  "userChrome.hidden.bookmarkbar_label" = false;
   # "userChrome.hidden.disabled_menu" =                true;
 
   # "userChrome.centered.tab" =                        true;
@@ -124,32 +124,32 @@
   # "userChrome.counter.tab" =                         true;
   # "userChrome.counter.bookmark_menu" =               true;
 
-  "userChrome.combined.nav_button" = true;
-  "userChrome.combined.nav_button.home_button" = true;
-  # "userChrome.combined.urlbar.nav_button" =          true;
-  # "userChrome.combined.urlbar.home_button" =         true;
-  "userChrome.combined.urlbar.reload_button" = true;
+  "userChrome.combined.nav_button" = false;
+  "userChrome.combined.nav_button.home_button" = false;
+  "userChrome.combined.urlbar.nav_button" = false;
+  "userChrome.combined.urlbar.home_button" = false;
+  "userChrome.combined.urlbar.reload_button" = false;
   # "userChrome.combined.sub_button.none_background" = true;
   # "userChrome.combined.sub_button.as_normal" =       true;
 
-  # "userChrome.rounding.square_button" =              true;
-  # "userChrome.rounding.square_dialog" =              true;
-  # "userChrome.rounding.square_panel" =               true;
-  # "userChrome.rounding.square_panelitem" =           true;
-  # "userChrome.rounding.square_menupopup" =           true;
-  # "userChrome.rounding.square_menuitem" =            true;
-  # "userChrome.rounding.square_infobox" =             true;
-  # "userChrome.rounding.square_toolbar" =             true;
-  # "userChrome.rounding.square_field" =               true;
-  # "userChrome.rounding.square_urlView_item" =        true;
-  # "userChrome.rounding.square_checklabel" =          true;
+  "userChrome.rounding.square_button" = true;
+  "userChrome.rounding.square_dialog" = true;
+  "userChrome.rounding.square_panel" = true;
+  "userChrome.rounding.square_panelitem" = true;
+  "userChrome.rounding.square_menupopup" = true;
+  "userChrome.rounding.square_menuitem" = true;
+  "userChrome.rounding.square_infobox" = true;
+  "userChrome.rounding.square_toolbar" = true;
+  "userChrome.rounding.square_field" = true;
+  "userChrome.rounding.square_urlView_item" = true;
+  "userChrome.rounding.square_checklabel" = true;
 
   # "userChrome.padding.first_tab" =                   true;
   # "userChrome.padding.first_tab.always" =            true;
   # "userChrome.padding.drag_space" =                  true;
   # "userChrome.padding.drag_space.maximized" =        true;
 
-  "userChrome.padding.toolbar_button.compact" = false;
+  "userChrome.padding.toolbar_button.compact" = true;
   "userChrome.padding.menu_compact" = false;
   "userChrome.padding.bookmark_menu.compact" = false;
   "userChrome.padding.urlView_expanding" = true;
@@ -160,13 +160,13 @@
 
   # "userChrome.urlView.as_commandbar" =               true;
   # "userChrome.urlView.full_width_padding" =          true;
-  # "userChrome.urlView.always_show_page_actions" =    true;
+  "userChrome.urlView.always_show_page_actions" = false;
   # "userChrome.urlView.move_icon_to_left" =           true;
   # "userChrome.urlView.go_button_when_typing" =       true;
   "userChrome.urlView.focus_item_border" = true;
 
-  "userChrome.tabbar.as_titlebar" = false;
-  # "userChrome.tabbar.fill_width" =                   true;
+  "userChrome.tabbar.as_titlebar" = false; # <- safari-like. not recommended.
+  "userChrome.tabbar.fill_width" = false;
   # "userChrome.tabbar.multi_row" =                    true;
   # "userChrome.tabbar.unscroll" =                     true;
   # "userChrome.tabbar.on_bottom" =                    true;
@@ -185,9 +185,9 @@
   # "userChrome.tab.bottom_rounded_corner.chrome_legacy" = true;
   # "userChrome.tab.bottom_rounded_corner.wave" =      true;
   # "userChrome.tab.always_show_tab_icon" =            true;
-  "userChrome.tab.close_button_at_pinned" = true;
+  "userChrome.tab.close_button_at_pinned" = false; # <- enabled is rather unusable
   # "userChrome.tab.close_button_at_pinned.always" =   true;
-  "userChrome.tab.close_button_at_pinned.background" = true;
+  "userChrome.tab.close_button_at_pinned.background" = false;
   # "userChrome.tab.close_button_at_hover.always" =    true; # Need close_button_at_hover
   # "userChrome.tab.close_button_at_hover.with_selected" = true;  # Need close_button_at_hover
   # "userChrome.tab.sound_show_label" =                true; # Need remove sound_hide_label
