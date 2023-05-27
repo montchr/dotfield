@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    php80
-    php80Packages.composer
+    php
+    phpPackages.composer
   ];
 
   home.sessionVariables = {
