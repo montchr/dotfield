@@ -150,7 +150,7 @@ btrfs subvolume create /mnt/@persist
 btrfs subvolume create /mnt/@postgres
 
 # Create a read-only snapshot of the `@root` subvolume for impermanace.
-btrfs subvolume snapshot -r /mnt /@root-blank
+btrfs subvolume snapshot -r /mnt/@root /@root-blank
 
 btrfs subvolume list -a /mnt
 umount /mnt
