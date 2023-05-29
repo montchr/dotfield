@@ -11,7 +11,7 @@ apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parte
 
 ###: CONFIGURATION =======================================================
 
-export MY_HOSTNAME=tsone
+export NEW_HOSTNAME=tsone
 
 ##: --- Networking ---
 
@@ -262,21 +262,16 @@ nix-channel --update
 
 nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
 
+
 ###: PREPARE NIXOS CONFIGURATION ===============================================
 
-# Installation fails without this.
-mkdir -p /mnt/tmp
-
 mkdir -p /mnt/etc/nixos
-git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/nixos
+git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/dotfield
+ln -s /mnt/etc/dotfield /mnt/etc/nixos
 
 nixos-generate-config --root /mnt
-# Pre-flight check to prevent issues with missing files during install.
-# https://discourse.nixos.org/t/nixos-21-05-installation-failed-installing-from-an-existing-distro/13627/3
-# https://github.com/NixOS/nixpkgs/issues/126141#issuecomment-861720372
-nix-build '<nixpkgs/nixos>' -A config.system.build.toplevel -I nixos-config=/mnt/etc/nixos/configuration.nix
 
-nix build '/mnt/etc/nixos#nixosConfigurations.tsone.config.system.build.toplevel'
+nix build "/mnt/etc/nixos#nixosConfigurations.${NEW_HOSTNAME}.config.system.build.toplevel"
 
 # Install NixOS
 PATH="$PATH" "$(command -v nixos-install)" \
