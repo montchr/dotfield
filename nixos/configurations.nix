@@ -12,6 +12,7 @@
     sharedModules
     sharedProfiles
     ;
+  inherit (inputs) srvos;
   inherit (self.nixosModules) homeManagerSettings;
   inherit
     (inputs.digga.lib)
@@ -106,6 +107,22 @@ in {
           # login.greetd
           # virtualisation.vm-variant
         ]);
+    };
+
+    moraine-dev = makeNixosSystem "moraine-dev" {
+      system = x86_64-linux;
+      modules =
+        roles.server
+        ++ [
+          srvos.nixosModules.server
+          srvos.nixosModules.hardware-hetzner-cloud
+          srvos.nixosModules.mixins-nginx
+          srvos.nixosModules.mixins-terminfo
+          srvos.nixosModules.mixins-tracing
+          srvos.nixosModules.mixins-trusted-nix-caches
+          # TODO: needs additional config
+          # srvos.nixosModules.mixins-telegraf
+        ];
     };
 
     boschic = makeNixosSystem "boschic" {
