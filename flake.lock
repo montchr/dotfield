@@ -539,7 +539,7 @@
     },
     "fenix_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_19",
+        "nixpkgs": "nixpkgs_20",
         "rust-analyzer-src": "rust-analyzer-src_2"
       },
       "locked": {
@@ -1862,16 +1862,16 @@
     },
     "nixpkgs_19": {
       "locked": {
-        "lastModified": 1677063315,
-        "narHash": "sha256-qiB4ajTeAOVnVSAwCNEEkoybrAlA+cpeiBxLobHndE8=",
-        "owner": "nixos",
+        "lastModified": 1684338390,
+        "narHash": "sha256-pXqkEPSTa7IUg37eECjrcy89+pIMZaqlcEHUvaycALU=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "988cc958c57ce4350ec248d2d53087777f9e1949",
+        "rev": "84c6233abda34e66cd15957f7372d8f6677e5be4",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1887,6 +1887,22 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_20": {
+      "locked": {
+        "lastModified": 1677063315,
+        "narHash": "sha256-qiB4ajTeAOVnVSAwCNEEkoybrAlA+cpeiBxLobHndE8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "988cc958c57ce4350ec248d2d53087777f9e1949",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -2199,6 +2215,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",
         "sops-nix": "sops-nix",
+        "srvos": "srvos_2",
         "std": "std"
       }
     },
@@ -2319,6 +2336,24 @@
         "owner": "numtide",
         "repo": "srvos",
         "rev": "d494d87d80474312eca0a0c3ebe36f69a0bd9173",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "srvos",
+        "type": "github"
+      }
+    },
+    "srvos_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_19"
+      },
+      "locked": {
+        "lastModified": 1685380899,
+        "narHash": "sha256-Rl5hzn6oBNmN2BsIqJPITrfLlIkQf6g4LidLYaMdrpo=",
+        "owner": "numtide",
+        "repo": "srvos",
+        "rev": "dded21554fecbc424821805ed1e21e7748f959e0",
         "type": "github"
       },
       "original": {

@@ -93,6 +93,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
   inputs.nix-std.url = "github:chessai/nix-std";
+  inputs.srvos.url = "github:numtide/srvos";
   inputs.std.url = "github:divnix/std";
 
   ##: customisation
