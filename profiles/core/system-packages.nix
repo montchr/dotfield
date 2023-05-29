@@ -33,7 +33,7 @@
     screen
     sd
     tealdeer
-    vim # TODO: replace with neovim?
+    vim
     wget
     whois
 

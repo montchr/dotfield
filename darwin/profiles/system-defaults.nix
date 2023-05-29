@@ -36,6 +36,8 @@ in {
   system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
   system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Fahrenheit";
   system.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
+  system.defaults.menuExtraClock.Show24Hour = true;
+  system.defaults.menuExtraClock.ShowAMPM = false;
 
   ###: UPDATES/SECURITY/FIREWALL ================================================================
 
@@ -93,15 +95,20 @@ in {
 
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.AppleShowAllFiles = true;
+
   # Whether to display icons on the desktop.
   system.defaults.finder.CreateDesktop = false;
+
   system.defaults.finder.FXDefaultSearchScope = null;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
+
+  # Finder layout style
   # "icnv" => Icon view
   # "Nlsv" => List view
   # "clmv" => Column View
   # "Flwv" => Gallery View
-  system.defaults.finder.FXPreferredViewStyle = "clmv";
+  system.defaults.finder.FXPreferredViewStyle = "Nlsv";
+
   system.defaults.finder.QuitMenuItem = false;
   system.defaults.finder.ShowPathbar = true;
   system.defaults.finder.ShowStatusBar = true;
@@ -110,18 +117,24 @@ in {
   system.defaults.NSGlobalDomain.NSDocumentSaveNewDocumentsToCloud = false;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode2 = true;
+
   # Set the size of the finder sidebar icons
   # 1 => small; 2 => medium; 3 => large
   system.defaults.NSGlobalDomain.NSTableViewDefaultSizeMode = 1;
+
   system.defaults.NSGlobalDomain.NSTextShowsControlCharacters = true;
+
   # Disable the over-the-top focus ring animation
   system.defaults.NSGlobalDomain.NSUseAnimatedFocusRing = false;
+
   system.defaults.NSGlobalDomain.NSWindowResizeTime = 0.001;
   system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint = true;
   system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint2 = true;
   system.defaults.NSGlobalDomain._HIHideMenuBar = l.mkDefault false;
+
   # Set the spring loading delay for directories. The default is the float `1.0`.
   system.defaults.NSGlobalDomain."com.apple.springing.delay" = 0.1;
+
   # Enable spring loading (expose) for directories.
   system.defaults.NSGlobalDomain."com.apple.springing.enabled" = true;
 
