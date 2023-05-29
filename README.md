@@ -169,6 +169,19 @@ The Ryzen 9 5900X processor and mini-ITX Teenage Engineering Computer-1 case are
 This is my primary computer. I carry it up and down three flights of stairs
 every day. I've also used it in the office as a "laptop".
 
+### `moraine`
+
+Hetzner AX52 (+ ECC) (+ 2x16TB HDD)
+
+For backups, remote builds, mass storage, pretty much everything that needs to
+be accessible remotely.
+
+#### Name Origin
+
+[Moraine - Official Outer Wilds Wiki](https://outerwilds.fandom.com/wiki/Moraine)
+
+> **Moraine** is a [Hearthian](https://outerwilds.fandom.com/wiki/Hearthian 'Hearthian') who enjoys using the [Signalscope](https://outerwilds.fandom.com/wiki/Signalscope 'Signalscope'), especially to listen to the [travelers](https://outerwilds.fandom.com/wiki/Travelers 'Travelers') music from across the [Solar system](https://outerwilds.fandom.com/wiki/Solar_system 'Solar system'). They are found on a platform atop the tallest tree in [The Village](https://outerwilds.fandom.com/wiki/The_Village 'The Village'), so they will have a better view of the planets.
+
 ### `boschic`
 
 A beast lurking in the shadows of my living room.

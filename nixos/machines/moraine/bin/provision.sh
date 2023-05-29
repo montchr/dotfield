@@ -6,10 +6,8 @@ IFS=$'\n\t'
 # Provisions NixOS on a customised Hetzner AX52 server, wiping the server.
 #
 # CPU:      AMD Ryzen™ 7 7700
-# RAM:      64 GB DDR5 ECC
-# Storage:
-#   - 2 x 1TB NVMe SSD
-#   - 2 x 16TB HDD
+# RAM:      64 GB DDR5 (+ECC)
+# Storage:  2 x 1TB NVMe SSD (+ 2 x 16TB HDD)
 
 export LC_ALL=C
 
@@ -19,7 +17,7 @@ apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parte
 
 ###: CONFIGURATION =======================================================
 
-export NEW_HOSTNAME=tsoup
+export NEW_HOSTNAME=moraine
 
 ##: --- Networking ---
 
@@ -238,8 +236,16 @@ mkdir -p /etc/nix
 echo "build-users-group =" >/etc/nix/nix.conf
 
 curl -L https://nixos.org/nix/install | sh
-set +u +x # sourcing this may refer to unset variables that we have no control over
-. $HOME/.nix-profile/etc/profile.d/nix.sh
+
+# Make Nix available for immediate usage.
+#
+# As this is a third-party script, sourcing may refer to unset variables, so
+# loosen up "strict mode".
+#
+# TODO: is it really necessary to set `+x`?
+set +u +x
+# shellcheck disable=SC1091
+. "$HOME/.nix-profile/etc/profile.d/nix.sh"
 set -u -x
 
 echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
