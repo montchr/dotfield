@@ -48,9 +48,7 @@ as the initial manual formatting process has always been a bit of a hurdle for m
 
 TODO
 
-Only home-manager support is possible here. These profiles may be deployable
-with `deploy-rs`. That feature alone makes `deploy-rs` stand out from the rest
-of the Nix-centric deployment tools available as of this writing.
+Only home-manager support is possible here.
 
 ### macOS/Darwin
 

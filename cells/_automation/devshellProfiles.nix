@@ -31,7 +31,6 @@
   ];
 
   linuxCommands = l.optionals isLinux [
-    (dotfield inputs.deploy-rs.packages.deploy-rs)
     (dotfield inputs.nixos-generators.packages.nixos-generate)
   ];
 in {
