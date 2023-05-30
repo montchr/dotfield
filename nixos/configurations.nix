@@ -88,10 +88,10 @@
 in {
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
-    bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
-      system = x86_64-linux;
-      modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
-    };
+    # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
+    #   system = x86_64-linux;
+    #   modules = with roles; gnome ++ graphical ++ tangible ++ workstation;
+    # };
 
     freundix = makeNixosSystem "freundix" {
       system = x86_64-linux;
