@@ -17,7 +17,6 @@ in {
       # identitiesOnly = true;
       user = "git";
     };
-    matchBlocks."tsone".hostname = hosts.tsone.ipv4.address;
 
     matchBlocks."eu.nixbuild.net" = {
       identityFile = "${homeDirectory}/.ssh/id_ed25519_nixbuildnet";

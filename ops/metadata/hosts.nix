@@ -37,6 +37,20 @@
     tailscale = "100.71.240.35";
     users.seadoom.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"];
   };
+  moraine-dev = {
+    # age = "";
+    ipv4 = {
+      address = "37.27.17.58";
+      # gateway = "";
+      # prefixLength = 26;
+    };
+    ipv6 = {
+      addresses = ["2a01:4f9:c010:ecae"];
+      prefixLength = 64;
+    };
+    # keys = ["" ""];
+    network = "cubegarden";
+  };
   ryosuke = {
     age = "age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak";
     ipv4.address = "192.168.1.217";
@@ -51,23 +65,6 @@
   synoxyn = {
     ipv4.address = "192.168.1.197";
     network = "home";
-  };
-  tsone = {
-    age = "age1rza57uagvpnmsu6kras64ajpl48f3wcugyydvvf3g5acj0mulyasw4u665";
-    ipv4 = {
-      address = "94.130.220.154";
-      gateway = "94.130.220.129";
-      prefixLength = 26;
-    };
-    ipv6 = {
-      addresses = ["2a01:4f8:13b:17ac::1"];
-      gateway = "fe80::1";
-      prefixLength = 64;
-      subnet = "2a01:4f8:13b:17ac";
-    };
-    keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGu6JFX4J6H3NgeQyuvCA2z2xh01um119P+tz5ZPWwO root@tsone" "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXREGzvnOtPeSGlRz+Bktw5ls6qyLoKPiEvVOcdPTFUpb/0m3qjI5eNraLfdG4tQ081DRllIgTaQ41gwYxpWKQVmlEOSRjsWrG/XVtVmXpcGPkvGCqNGjgugLLeC+qhEC+BbruhMh5LVb5pDe3ATzJ4BftOK8P8AD4cu7n+oID/MxMm8ZjDJqGccSPhtteHKTot29ofhL2Ra9CYgitQEHHO3/+nl+8C0jErNFINveAeidgDbtEsFYR93DPXQDp454Pqh9S3NdT4DbbwhhsMuVla3eFcFEb+WrjPcSrE6wf2MXYu1agL9Pic89uYMV4kypArAfJW6Su0uxWJkZWboKb71Yan/wwCekEtJyTcvL4443YPb8+gdpGSXAj41ZuWyebEHOyQ5XQNPfqgmQ+TjEb9extYif32HPu47MEoAxAtDOahsTiGABqc2CqBbzVCZfXea/bDBjMpuCfRENmsGDDRO72nqKk3Q+8g2nzkzueftkWggjxTkM1Q78TfN96EzP2WvcBqeaQlMDJSKrG/1WT5o9UENCJ0iAbWLyZ5pnryJSoU0hqEVsKvd6J1W8ljrgXRm5tIs/IAIASbE9QR6bnyCOa54dsfMogleQ3+a3JWk0yGBt/Sp0QKt7aQI/rh2RvzMrJtF4UWoQcVh2fdA8dgz2JgLdZlii57RyEg1wEAw== root@tsone"];
-    network = "cubegarden";
-    users.cdom.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzpSe7IG82Fl/djgmhclz1QPtduts0JOm9ZEOt075le cdom@tsone"];
   };
   tuvix = {
     age = "";

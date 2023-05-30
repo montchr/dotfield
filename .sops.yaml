@@ -10,12 +10,10 @@ keys:
   - &hierophant age1nl8de4w4vlke0nls38jykhlygf3aenr6prkvu6ap5m9a6pd80q8sr9sk00
   - &hodgepodge age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w
   - &ryosuke age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak
-  - &tsone age1rza57uagvpnmsu6kras64ajpl48f3wcugyydvvf3g5acj0mulyasw4u665
 
 # Creation rules are evaluated sequentially. The first match wins.
 # https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
 creation_rules:
-
   ##: nixos machines
   - path_regex: nixos/machines/boschic/secrets/[^/]+\.yaml$
     key_groups:
@@ -37,11 +35,6 @@ creation_rules:
       - age:
           - *cdom_age
           - *ryosuke
-  - path_regex: nixos/machines/tsone/secrets/[^/]+\.yaml$
-    key_groups:
-      - age:
-          - *cdom_age
-          - *tsone
 
   ##: darwin machines
   - path_regex: darwin/machines/tuvix/secrets/[^/]+\.yaml$
@@ -60,8 +53,6 @@ creation_rules:
           - *hierophant
           - *hodgepodge
           - *ryosuke
-          - *tsone
-
 ## Reference:
 # https://github.com/Mic92/sops-nix
 # https://github.com/mozilla/sops

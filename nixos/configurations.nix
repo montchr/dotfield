@@ -153,18 +153,5 @@ in {
           environments.hetzner-cloud
         ]);
     };
-
-    tsone = makeNixosSystem "tsone" {
-      system = x86_64-linux;
-      modules =
-        (with roles; server)
-        ++ (with nixosProfiles; [
-          hardware.amd
-
-          # This host has Hetzner Online UEFI boot enabled in BIOS.
-          # Normally Hetzner Online would require booting with GRUB.
-          boot.systemd-boot
-        ]);
-    };
   };
 }

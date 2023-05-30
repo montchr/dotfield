@@ -5,8 +5,7 @@ let
   trustedUsers = import ./authorized-keys.nix;
 
   # servers = with hostKeys;
-  #   hierophant
-  #   ++ tsone;
+  #   hierophant;
 
   workstations = with hostKeys;
     boschic

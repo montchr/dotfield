@@ -213,18 +213,6 @@ impossibly slow, even with the binary cache and `ryosuke` as build host.
 
 ### Incubation
 
-#### "`tsone`" (working title)
-
-Hetzner SX134.
-
-For backups, remote builds, mass storage, pretty much everything that needs to
-be accessible remotely.
-
-##### Planned
-
-- BorgBackup archive storage from other hosts
-- Some sort of fast "cloud" storage for everyday use (notes and document sync, recent photos, etc.)
-
 #### `sommoch` [damaged+misplaced]
 
 Dead but dreaming.
