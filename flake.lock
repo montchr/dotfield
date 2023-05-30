@@ -148,6 +148,21 @@
         "type": "github"
       }
     },
+    "colmena": {
+      "locked": {
+        "lastModified": 1625557891,
+        "narHash": "sha256-O8/MWsPBGhhyPoPLHZAuoZiiHo9q6FLlEeIDEXuj6T4=",
+        "owner": "divnix",
+        "repo": "blank",
+        "rev": "5a5d2684073d9f563072ed07c871d577a6c614a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "blank",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": "flake-compat_6",
@@ -487,7 +502,7 @@
     },
     "dmerge": {
       "inputs": {
-        "haumea": "haumea_2",
+        "haumea": "haumea_3",
         "namaka": "namaka",
         "nixlib": [
           "std",
@@ -1044,6 +1059,28 @@
     "haumea_2": {
       "inputs": {
         "nixpkgs": [
+          "hive",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1681873442,
+        "narHash": "sha256-wsOEGbDKf+M/THE7JZi43s4szXTuIaiQNBxlb5Lnxs0=",
+        "owner": "nix-community",
+        "repo": "haumea",
+        "rev": "85038436851caf5bbf652a2fedf38b2b28e38caf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "v0.2.1",
+        "repo": "haumea",
+        "type": "github"
+      }
+    },
+    "haumea_3": {
+      "inputs": {
+        "nixpkgs": [
           "std",
           "dmerge",
           "nixlib"
@@ -1060,6 +1097,39 @@
       "original": {
         "owner": "nix-community",
         "repo": "haumea",
+        "type": "github"
+      }
+    },
+    "hive": {
+      "inputs": {
+        "colmena": "colmena",
+        "disko": [
+          "disko"
+        ],
+        "haumea": "haumea_2",
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixos-generators": "nixos-generators",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "paisano": [
+          "std",
+          "paisano"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682269418,
+        "narHash": "sha256-0fdUrQMkXMuK1/6D1Y+gbGXIWChiIRnlbYvo4dmNfVE=",
+        "owner": "divnix",
+        "repo": "hive",
+        "rev": "669cdfcf61823d33f11a4fe5ee1f3c34903f4eaa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "hive",
         "type": "github"
       }
     },
@@ -1499,6 +1569,21 @@
       }
     },
     "nixos-generators": {
+      "locked": {
+        "lastModified": 1625557891,
+        "narHash": "sha256-O8/MWsPBGhhyPoPLHZAuoZiiHo9q6FLlEeIDEXuj6T4=",
+        "owner": "divnix",
+        "repo": "blank",
+        "rev": "5a5d2684073d9f563072ed07c871d577a6c614a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "blank",
+        "type": "github"
+      }
+    },
+    "nixos-generators_2": {
       "inputs": {
         "nixlib": "nixlib_2",
         "nixpkgs": "nixpkgs_15"
@@ -2217,6 +2302,7 @@
           "apparat",
           "haumea"
         ],
+        "hive": "hive",
         "home-manager": "home-manager_2",
         "home-manager-gpg-agent-darwin": "home-manager-gpg-agent-darwin",
         "iosevka-xtal": "iosevka-xtal",
@@ -2225,7 +2311,7 @@
         "nil-lsp": "nil-lsp",
         "nix-colors": "nix-colors",
         "nix-std": "nix-std",
-        "nixos-generators": "nixos-generators",
+        "nixos-generators": "nixos-generators_2",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable_2",

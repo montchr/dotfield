@@ -82,6 +82,16 @@
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
+  inputs.hive = {
+    url = "github:divnix/hive";
+    inputs.disko.follows = "disko";
+    inputs.home-manager.follows = "home-manager";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.paisano.follows = "std/paisano";
+    # TODO: should exist?
+    # inputs.darwin.follows = "darwin";
+  };
+
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";
   inputs.apparat.inputs.nix-colors.follows = "nix-colors";
