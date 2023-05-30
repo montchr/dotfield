@@ -84,6 +84,7 @@
 
   inputs.hive = {
     url = "github:divnix/hive";
+    inputs.colmena.follows = "colmena";
     inputs.disko.follows = "disko";
     inputs.home-manager.follows = "home-manager";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -125,7 +126,7 @@
   inputs.prefmanager.url = "github:malob/prefmanager";
 
   ##: linux-specific
-  inputs.deploy-rs.url = "github:serokell/deploy-rs";
+  inputs.colmena.url = "github:zhaofengli/colmena";
   inputs.disko.url = "github:nix-community/disko";
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
