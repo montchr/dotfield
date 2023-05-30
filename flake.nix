@@ -116,6 +116,7 @@
 
   ##: linux-specific
   inputs.deploy-rs.url = "github:serokell/deploy-rs";
+  inputs.disko.url = "github:nix-community/disko";
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
@@ -129,6 +130,7 @@
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.digga.inputs.home-manager.follows = "home-manager";
   inputs.digga.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
