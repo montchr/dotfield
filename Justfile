@@ -136,10 +136,8 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 
 ###: THEME =====================================================================
 
-# TODO: <- Toggle all application themes between light<->dark
-
 # <- Set the theme for all applications
-theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
+theme colors='dark': && (set-system-appearance colors) (set-emacs-theme colors)
   DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
   @echo {{msg-done}}
 
@@ -151,11 +149,12 @@ dark: (theme "dark")
 
 ##: --- kitty ---
 
+# FIXME: need to re-symlink files
 # <- Switch the current kitty theme
-set-kitty-theme name='dark':
-  @echo "Setting kitty '{{name}}' theme"
-  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
-  @echo {{msg-done}}
+# set-kitty-theme name='dark':
+#   @echo "Setting kitty '{{name}}' theme"
+#   kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
+#   @echo {{msg-done}}
 
 
 ##: --- macOS ---
