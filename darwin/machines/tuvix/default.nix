@@ -34,7 +34,7 @@ in {
     (optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package)
     ++ (optional hmCfg.programs.emacs.enable hmCfg.programs.emacs.package);
 
-  homebrew.casks = ["onedrive"];
+  homebrew.casks = ["microsoft-teams" "onedrive"];
 
   users.users.${username} = {
     home = "/Users/${username}";
