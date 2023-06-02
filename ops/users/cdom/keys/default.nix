@@ -5,7 +5,7 @@
 }: let
   inherit (metadata) hosts;
 in
-  [keys.ssh."0x135EEDD0F71934F3"]
+  [(keys.ssh."0x135EEDD0F71934F3")]
   ++ (with hosts;
     hierophant.keys
     ++ hierophant.users.hierophant.keys

@@ -4,13 +4,16 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    haumea,
+    namaka,
+    std,
     ...
   } @ inputs: let
-    ops = import ./ops {inherit (inputs) haumea;};
+    ops = import ./ops {inherit haumea;};
   in (flake-parts.lib.mkFlake {inherit inputs;} {
     systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
     std.grow.cellsFrom = ./cells;
-    std.grow.cellBlocks = with inputs.std.blockTypes; [
+    std.grow.cellBlocks = with std.blockTypes; [
       (data "constants")
       (data "data")
       (devshells "devshells")
@@ -28,7 +31,7 @@
       ];
     };
     imports = [
-      inputs.std.flakeModule
+      std.flakeModule
 
       {_module.args = {inherit ops;};}
 
@@ -41,6 +44,12 @@
       ./machines/nixosConfigurations.nix
       ./users/homeConfigurations.nix
     ];
+    flake.checks = namaka.lib.load {
+      src = ./tests;
+      inputs = {
+        inherit ops;
+      };
+    };
     perSystem = {
       system,
       inputs',
@@ -90,6 +99,15 @@
   inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
   inputs.firefox-addons.url = "github:seadome/firefox-addons";
   inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
+
+  ##: tests
+  inputs.namaka = {
+    url = "github:nix-community/namaka/v0.1.1";
+    inputs = {
+      haumea.follows = "haumea";
+      nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   ##: work
   inputs.klein-infra.url = "github:kleinweb/infra";

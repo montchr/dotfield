@@ -2,9 +2,9 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
+  inherit (inputs) home-manager nixos-generators nixpkgs namaka;
   inherit (inputs.cells.lib.dev) pkgWithCategory;
-  inherit (nixpkgs.stdenv) isLinux;
+  inherit (inputs.nixpkgs.stdenv) isLinux;
 
   l = inputs.nixpkgs.lib // builtins;
   cats = cell.constants.devshellCategories;
@@ -13,12 +13,12 @@
   maintenance = pkgWithCategory cats.maintenance;
   utils = pkgWithCategory cats.utils;
 
-  home-manager = inputs.home-manager.packages.default;
-
   commonCommands = [
+    (dotfield home-manager.packages.default)
+    (dotfield namaka.packages.default)
+    (dotfield nixpkgs.just)
+
     (utils nixpkgs.cachix)
-    (utils home-manager)
-    (utils nixpkgs.just)
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
@@ -31,7 +31,7 @@
   ];
 
   linuxCommands = l.optionals isLinux [
-    (dotfield inputs.nixos-generators.packages.nixos-generate)
+    (dotfield nixos-generators.packages.nixos-generate)
   ];
 in {
   default = _: {
