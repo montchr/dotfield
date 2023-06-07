@@ -64,6 +64,8 @@
   /*
   Reshape a Base16 color scheme from its canonical form into the shape expected by our theme module.
 
+  FIXME: `name` should be the yaml basename
+
   ## Types
 
   mkColorScheme :: { ${n} :: String } -> {

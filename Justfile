@@ -136,9 +136,13 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 
 ###: THEME =====================================================================
 
+# <https://nix-community.github.io/home-manager/options.html#opt-specialization>
+# This is safe to use even with a dirty working tree because the themes are
+# activated by way of the current generation's specialization activation scripts.
+
 # <- Set the theme for all applications
-theme colors='dark': && (set-system-appearance colors) (set-emacs-theme colors)
-  DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
+theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
+  {{ hm-gen-path }}/specialization/{{ colors }}/activate
   @echo {{msg-done}}
 
 # <- Use the 'light' theme for all applications
@@ -149,12 +153,11 @@ dark: (theme "dark")
 
 ##: --- kitty ---
 
-# FIXME: need to re-symlink files
 # <- Switch the current kitty theme
-# set-kitty-theme name='dark':
-#   @echo "Setting kitty '{{name}}' theme"
-#   kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
-#   @echo {{msg-done}}
+set-kitty-theme name='dark':
+  @echo "Setting kitty '{{name}}' theme"
+  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
+  @echo {{msg-done}}
 
 
 ##: --- macOS ---

@@ -6,6 +6,7 @@
   lib,
   ...
 }: let
+  # FIXME: only do theme stuff if theme enabled for user
   inherit (theme) fonts;
   l = flake.inputs.nixpkgs.lib // builtins;
   hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");

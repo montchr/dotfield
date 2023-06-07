@@ -12,7 +12,6 @@ in {
   imports = [
     ./settings.nix
     ./symbols.nix
-    ./theme.nix
   ];
 
   home.packages = [

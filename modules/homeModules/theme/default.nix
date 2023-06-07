@@ -1,6 +1,7 @@
 moduleArgs @ {
   flake,
   config,
+  lib,
   ...
 }: let
   inherit (flake.inputs) apparat base16-schemes;
@@ -24,19 +25,24 @@ moduleArgs @ {
   in
     l.mapAttrs (_: l.head) fonts;
 
+  # TODO: get this from apparat constant
   normalWeight = 400;
 
   colorSchemeModule = import ./__colorScheme.nix {inherit flake;};
+
+  # TODO: add description and example
+  mkColorSchemeOption = default:
+    l.mkOption {
+      inherit default;
+      type = with l.types; (submodule colorSchemeModule);
+    };
 in {
   options.theme = {
     enable = l.mkEnableOption "Whether to enable the theme module.";
-    color.schemes = l.mkOption {
-      type = with l.types; attrsOf (submodule colorSchemeModule);
-      default = {
-        default = mkColorScheme schemes.default-dark;
-        dark = mkColorScheme schemes.default-dark;
-        light = mkColorScheme schemes.default-light;
-      };
+    color.schemes = {
+      default = mkColorSchemeOption cfg.color.schemes.dark;
+      dark = mkColorSchemeOption (mkColorScheme schemes.default-dark);
+      light = mkColorSchemeOption (mkColorScheme schemes.default-light);
     };
     fonts = {
       monospace = {
@@ -45,7 +51,7 @@ in {
         size = mkOpt int 13;
       };
       terminal = with cfg.fonts; {
-        name = mkOpt str monospace.family;
+        name = mkOpt str monospace.name;
         weight = mkOpt int monospace.weight;
         size = mkOpt int monospace.size;
       };
@@ -63,4 +69,30 @@ in {
       symbols.name = mkOpt str "";
     };
   };
+
+  config = lib.mkIf cfg.enable (let
+    colorSchemes = cfg.color.schemes;
+    sessionVariables = {
+      #: current
+      DOTFIELD_COLORS = colorSchemes.default.name;
+      DOTFIELD_THEME_MODE = colorSchemes.default.kind;
+
+      #: alternatives
+      DOTFIELD_COLORS_DARK = colorSchemes.dark.name;
+      DOTFIELD_COLORS_LIGHT = colorSchemes.light.name;
+    };
+  in {
+    home = {inherit sessionVariables;};
+    programs.bash = {inherit sessionVariables;};
+    programs.zsh = {inherit sessionVariables;};
+
+    specialization = {
+      dark.configuration = {
+        theme.color.schemes.default = colorSchemes.dark;
+      };
+      light.configuration = {
+        theme.color.schemes.default = colorSchemes.light;
+      };
+    };
+  });
 }

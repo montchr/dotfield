@@ -1,3 +1,4 @@
+# TODO: do theme stuff in theme profile / only if theme enabled
 hmArgs @ {
   config,
   pkgs,

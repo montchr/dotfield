@@ -1,3 +1,5 @@
+# TODO: ensure Symbols Nerd Font is installed
+# TODO: give option to override, for patched fonts
 {flake, ...}: let
   inherit (flake.inputs.apparat.lib.kitty) makeConf makeSymbolsMap;
   l = flake.inputs.nixpkgs.lib // builtins;

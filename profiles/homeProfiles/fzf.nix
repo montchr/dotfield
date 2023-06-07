@@ -23,6 +23,7 @@ in {
       "--reverse"
       "--border"
       "--inline-info"
+      "--color=16"
     ];
 
     ##: --- files ---
