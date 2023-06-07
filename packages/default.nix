@@ -16,10 +16,10 @@ in {
       berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix {};
       cod = callPackage ./shells/cod {};
       emacs-plus = callPackage ./applications/editors/emacs/emacs-plus.nix {
-        inherit (emacs-overlay.packages) emacsUnstable;
+        inherit (emacs-overlay.packages) emacs-unstable;
       };
       emacs-plus-edge = callPackage ./applications/editors/emacs/emacs-plus-edge.nix {
-        inherit (emacs-overlay.packages) emacsGit;
+        inherit (emacs-overlay.packages) emacs-git;
       };
       epson-201212w = callPackage ./misc/drivers/epson_201212w {};
       ddi = callPackage ./tools/system/dd/ddi.nix {};

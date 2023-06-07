@@ -22,7 +22,7 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = emacs-overlay.packages.emacsGit;
+    package = emacs-overlay.packages.emacs-git;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 

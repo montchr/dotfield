@@ -1,6 +1,6 @@
 {
   lib,
-  emacsUnstable,
+  emacs-unstable,
   fetchFromGitHub,
   ##: options
   withTitleBar ? true,
@@ -8,16 +8,16 @@
   withFrameRefocus ? true,
   icon ? null,
 }: let
-  emacsPlus = fetchFromGitHub {
+  emacs-plus = fetchFromGitHub {
     owner = "d12frosted";
     repo = "homebrew-emacs-plus";
     rev = "85c84fd60418aaed3be3972728380ab890311dd3";
     sha256 = "sha256-IdnQm1i+jgxSa/8P6BX020waXrXEDbOKLI+bjq3RaxM=";
   };
-  patchesDir = emacsPlus + "/patches/emacs-28";
+  patchesDir = emacs-plus + "/patches/emacs-28";
 in
-  emacsUnstable.overrideAttrs (o: {
-    pname = "emacsPlusNativeComp";
+  emacs-unstable.overrideAttrs (o: {
+    pname = "emacs-plus";
 
     patches =
       lib.optional (!withTitleBar && withRoundCorners) "${patchesDir}/no-titlebar-and-round-corners.patch"
@@ -32,7 +32,7 @@ in
     postPatch =
       o.postPatch
       + lib.optionalString (icon != null) ''
-        cp -f ${emacsPlus}/icons/${icon}.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
+        cp -f ${emacs-plus}/icons/${icon}.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
       '';
 
     # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L27-L29
