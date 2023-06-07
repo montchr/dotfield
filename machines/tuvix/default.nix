@@ -38,8 +38,14 @@ in {
     shell = pkgs.zsh;
   };
 
-  home-manager.users.${username} = hmArgs: {
-    imports = hmArgs.roles.workstation;
+  home-manager.users.${username} = {
+    profiles,
+    roles,
+    ...
+  }: {
+    imports =
+      roles.workstation
+      ++ [profiles.theme.fonts.berkeley-mono];
     # FIXME: incorrect hosts ip configuration!
     # ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
     home.stateVersion = "22.05";

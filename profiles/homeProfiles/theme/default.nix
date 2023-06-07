@@ -1,6 +1,3 @@
-# FIXME: need a berkeley mono profile
-# FIXME: ensure firefox respects berkeley mono when it's not default
-# FIXME: ensure kitty respects berkeley mono when it's not default
 {flake, ...}: let
   inherit (flake.inputs.base16-schemes.lib) schemes;
   inherit (flake.self.lib.theme) mkColorScheme;

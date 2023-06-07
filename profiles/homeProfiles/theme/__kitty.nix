@@ -24,6 +24,7 @@ in
     };
   in {
     programs.kitty.settings = colorSettings // fontSettings;
+
     # FIXME: should not hard-code non-default + proprietary font
     #        consider some lib mapping of known fonts to postscript names
     programs.kitty.extraConfig = let
