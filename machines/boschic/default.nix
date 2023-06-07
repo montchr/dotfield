@@ -13,6 +13,8 @@ in {
     ./users
   ];
 
+  time.timeZone = "America/New_York";
+
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;

@@ -5,6 +5,8 @@ _: {
     ./users
   ];
 
+  time.timeZone = "America/New_York";
+
   boot.loader.efi.canTouchEfiVariables = true;
   services.printing.enable = true;
   hardware.facetimehd.enable = true;

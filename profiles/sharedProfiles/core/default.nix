@@ -12,7 +12,8 @@ in {
     ./system-packages.nix
   ];
 
-  time.timeZone = l.mkDefault "America/New_York";
+  # The only sane default. Servers should usually keep this as is.
+  time.timeZone = l.mkDefault "UTC";
 
   environment.variables = {
     EDITOR = "vim";

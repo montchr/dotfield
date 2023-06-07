@@ -5,6 +5,8 @@
 }: let
   inherit (config.homebrew) brewPrefix;
 in {
+  time.timeZone = "America/New_York";
+
   security.pam.enableSudoTouchIdAuth = true;
 
   # kitty terminfo must be applied on the system level
