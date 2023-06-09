@@ -5,10 +5,12 @@
 autoload -Uz add-zsh-hook zmv
 
 ##: Create a new directory via `mkdir -p` and move into it.
+# FIXME: no longer cd-ing...
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 ##: List directory contents on arrival.
+# FIXME: this isn't working either...?
 chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
