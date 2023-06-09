@@ -1,3 +1,4 @@
+# TODO: replace with <github:numtide/srvos> profile
 {
   config,
   lib,
@@ -32,5 +33,5 @@
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
-  services.openssh.settings.permitRootLogin = "prohibit-password";
+  services.openssh.settings.PermitRootLogin = "prohibit-password";
 }
