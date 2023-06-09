@@ -27,7 +27,7 @@ prj-root := env_var('PRJ_ROOT')
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
-hm-gen-path := env_var('DOTFIELD_HOME_DRV')
+hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
 sys-cmd := if os() == "linux" {
@@ -114,9 +114,8 @@ system subcommand *ARGS='':
 ###: HOME-MANAGER ==============================================================
 
 # <- Rebuild a home configuration and push to the binary cache
-home subcommand name=hm-fragment *ARGS='--impure':
-  home-manager {{subcommand}} \
-    {{ARGS}} --flake "{{prj-root}}" --verbose
+home subcommand *ARGS:
+  home-manager {{subcommand}} --flake "{{prj-root}}" --verbose {{ARGS}}
   @echo {{msg-done}}
 
 
