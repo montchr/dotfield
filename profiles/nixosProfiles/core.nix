@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  ops,
   ...
 }: let
   inherit (config.dotfield.paths) storageBase;
@@ -44,27 +45,31 @@ in {
   programs.mtr.enable = true;
 
   services.openssh = {
-    # For rage encryption, all hosts need a ssh key pair
-    enable = lib.mkForce true;
-    openFirewall = true;
-    settings.passwordAuthentication = false;
-    settings.permitRootLogin = "prohibit-password";
+    # For age encryption, all hosts need a ssh key pair.
+    enable = true;
+    # If, for some reason, a machine should not be accessible by SSH,
+    # then restrict access through firewall rather than disabling SSH entirely.
+    openFirewall = lib.mkDefault true;
+    settings.PasswordAuthentication = false;
+    settings.PermitRootLogin = lib.mkDefault "prohibit-password";
+    hostKeys = [
+      {
+        bits = 4096;
+        path = "${sshHostPath}/ssh_host_rsa_key";
+        type = "rsa";
+      }
+      {
+        path = "${sshHostPath}/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
   };
 
-  services.openssh.hostKeys = [
-    {
-      bits = 4096;
-      path = "${sshHostPath}/ssh_host_rsa_key";
-      type = "rsa";
-    }
-    {
-      path = "${sshHostPath}/ssh_host_ed25519_key";
-      type = "ed25519";
-    }
-  ];
-
-  # Allow passwordless sudo within an SSH session.
+  # Passwordless sudo when SSH'ing with keys
   security.pam.enableSSHAgentAuth = true;
+
+  # FIXME: too open!!! set per-host explicitly.
+  users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 }

@@ -23,7 +23,6 @@
 
   server = [
     nixosProfiles.networking.common
-    nixosProfiles.networking.ssh-host
   ];
 
   tangible = [
@@ -47,6 +46,5 @@
     nixosProfiles.boot.systemd-boot
     nixosProfiles.hardware.yubikey
     nixosProfiles.networking.common
-    nixosProfiles.networking.ssh-host
   ];
 }
