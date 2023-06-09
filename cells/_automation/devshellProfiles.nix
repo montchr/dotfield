@@ -23,6 +23,7 @@
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
+    (utils' "nom" nixpkgs.nix-output-monitor)
 
     (maintenance nixpkgs.alejandra)
     (maintenance nixpkgs.deadnix)
