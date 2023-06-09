@@ -7,4 +7,6 @@
   home.sessionVariables = {
     COMPOSER_HOME = "$XDG_STATE_HOME/composer";
   };
+
+  home.shellAliases."c" = "composer";
 }
