@@ -2,26 +2,28 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-  inherit (inputs.cells.lib.dev) pkgWithCategory;
+  inherit (inputs) apparat home-manager nixos-generators nixpkgs namaka;
+  inherit (apparat.lib.devshell) pkg pkg';
   inherit (nixpkgs.stdenv) isLinux;
 
   l = inputs.nixpkgs.lib // builtins;
   cats = cell.constants.devshellCategories;
 
-  dotfield = pkgWithCategory cats.dotfield;
-  maintenance = pkgWithCategory cats.maintenance;
-  utils = pkgWithCategory cats.utils;
-
-  home-manager = inputs.home-manager.packages.default;
+  dotfield = pkg cats.dotfield;
+  maintenance = pkg cats.maintenance;
+  utils = pkg cats.utils;
+  utils' = pkg' cats.utils;
 
   commonCommands = [
+    (dotfield home-manager.packages.default)
+    (dotfield namaka.packages.default)
+    (dotfield nixpkgs.just)
+
     (utils nixpkgs.cachix)
-    (utils home-manager)
-    (utils nixpkgs.just)
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
+    (utils' "nom" nixpkgs.nix-output-monitor)
 
     (maintenance nixpkgs.alejandra)
     (maintenance nixpkgs.deadnix)
@@ -31,7 +33,7 @@
   ];
 
   linuxCommands = l.optionals isLinux [
-    (dotfield inputs.nixos-generators.packages.nixos-generate)
+    (dotfield nixos-generators.packages.nixos-generate)
   ];
 in {
   default = _: {
@@ -43,6 +45,7 @@ in {
       }
       {
         name = "DOTFIELD_HOME_DRV";
+        # alternatively: `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
         eval = "\${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/home-manager";
       }
     ];

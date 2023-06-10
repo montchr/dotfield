@@ -27,7 +27,8 @@ prj-root := env_var('PRJ_ROOT')
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
-hm-gen-path := env_var('DOTFIELD_HOME_DRV')
+hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+hm-specialisation-path := hm-gen-path / "specializations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
 sys-cmd := if os() == "linux" {
@@ -81,6 +82,10 @@ deadnix action +FILES=prj-root:
 
 ###: INTROSPECTION =============================================================
 
+check *ARGS:
+    nix flake check --log-format internal-json --verbose {{ ARGS }} \
+    |& nom --json
+
 # <- Diff the current + next system generations.
 diff-next-sys: (system "build")
   nix-diff "{{sys-gen-path}}" "{{prj-root}}/result"
@@ -98,7 +103,8 @@ diff-next-home:
 # <- Rebuild the system and provide a summary of the changes
 build *ARGS='':
   {{cachix-exec}} {{sys-cmd}} build -- \
-    {{ARGS}} --flake "{{prj-root}}" --verbose
+    {{ARGS}} --flake "{{prj-root}}" --verbose \
+    |& nom
   @echo {{msg-done}}
 
 # <- Rebuild the system and switch to the next generation
@@ -107,17 +113,22 @@ switch *ARGS='': (system "switch" ARGS)
 # <- Rebuild a host and push any new derivations to the binary cache
 system subcommand *ARGS='':
   {{sys-cmd}} {{subcommand}} \
-    {{ARGS}} --flake "{{prj-root}}" --verbose
+    {{ARGS}} --flake "{{prj-root}}" --verbose \
+    |& nom
   @echo {{msg-done}}
 
 
 ###: HOME-MANAGER ==============================================================
 
 # <- Rebuild a home configuration and push to the binary cache
-home subcommand name=hm-fragment *ARGS='--impure':
-  home-manager {{subcommand}} \
-    {{ARGS}} --flake "{{prj-root}}" --verbose
+home subcommand *ARGS:
+  home-manager {{subcommand}} --flake "{{prj-root}}" --verbose {{ARGS}} \
+  |& nom
   @echo {{msg-done}}
+
+home-specialise name:
+  {{ hm-gen-path }}/specialization/{{ name }}/activate \
+  |& nom
 
 
 ###: EMACS =====================================================================
@@ -136,12 +147,13 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 
 ###: THEME =====================================================================
 
-# TODO: <- Toggle all application themes between light<->dark
+# <https://nix-community.github.io/home-manager/options.html#opt-specialization>
+# This is safe to use even with a dirty working tree because the themes are
+# activated by way of the current generation's specialization activation scripts.
 
+# FIXME: specialization not available within a specialization -- <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
-theme colors='dark': && (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
-  DOTFIELD_COLORS="{{colors}}" home-manager switch --impure --flake "{{prj-root}}"
-  @echo {{msg-done}}
+theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
 
 # <- Use the 'light' theme for all applications
 light: (theme "light")

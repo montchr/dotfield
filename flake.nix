@@ -4,16 +4,16 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    haumea,
+    namaka,
+    std,
     ...
   } @ inputs: let
-    inherit (inputs.digga.lib) flattenTree rakeLeaves;
-    peers = import ./ops/metadata/peers.nix;
-    # FIXME: move to guardian
-    primaryUser.authorizedKeys = import ./secrets/authorized-keys.nix;
+    ops = import ./ops {inherit haumea;};
   in (flake-parts.lib.mkFlake {inherit inputs;} {
     systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
     std.grow.cellsFrom = ./cells;
-    std.grow.cellBlocks = with inputs.std.blockTypes; [
+    std.grow.cellBlocks = with std.blockTypes; [
       (data "constants")
       (data "data")
       (devshells "devshells")
@@ -31,48 +31,38 @@
       ];
     };
     imports = [
-      inputs.std.flakeModule
+      std.flakeModule
 
-      {_module.args = {inherit inputs peers primaryUser;};}
+      {_module.args = {inherit ops;};}
 
       ./flake-modules/homeConfigurations.nix
-      ./flake-modules/sharedModules.nix
-      ./flake-modules/sharedProfiles.nix
 
+      ./lib
       ./packages
-      ./lib.nix
 
-      ./nixos/configurations.nix
-      ./nixos/checks.nix
-
-      ./home/configurations.nix
-
-      ./darwin/configurations.nix
-      ./darwin/packages
+      ./machines/darwinConfigurations.nix
+      ./machines/nixosConfigurations.nix
+      ./users/homeConfigurations.nix
     ];
+    flake.checks = namaka.lib.load {
+      src = ./tests;
+      inputs = {
+        inherit ops;
+      };
+    };
     perSystem = {
       system,
       inputs',
-      self',
       ...
-    } @ ctx: {
+    }: {
       _module.args = {
-        inherit (self') cells;
-        inherit primaryUser;
-        packages = ctx.config.packages;
+        inherit ops;
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
       };
       formatter = inputs'.nixpkgs.legacyPackages.alejandra;
-    };
-    flake = {
-      # shared importables
-      # :: may be used within system configurations for any
-      #    supported operating system (e.g. nixos, nix-darwin).
-      sharedModules = flattenTree (rakeLeaves ./modules);
-      sharedProfiles = rakeLeaves ./profiles;
     };
   });
 
@@ -95,11 +85,9 @@
 
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";
-  inputs.apparat.inputs.nix-colors.follows = "nix-colors";
   inputs.haumea.follows = "apparat/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
-  inputs.digga.url = "github:divnix/digga/home-manager-22.11";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
@@ -108,9 +96,18 @@
   inputs.std.url = "github:divnix/std";
 
   ##: customisation
+  inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
   inputs.firefox-addons.url = "github:seadome/firefox-addons";
   inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
-  inputs.nix-colors.url = "github:Misterio77/nix-colors";
+
+  ##: tests
+  inputs.namaka = {
+    url = "github:nix-community/namaka/v0.1.1";
+    inputs = {
+      haumea.follows = "haumea";
+      nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   ##: work
   inputs.klein-infra.url = "github:kleinweb/infra";
@@ -139,8 +136,6 @@
   ##: et cetera
   inputs.apparat.inputs.std.follows = "std";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.digga.inputs.home-manager.follows = "home-manager";
-  inputs.digga.inputs.nixpkgs.follows = "nixpkgs";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -149,7 +144,8 @@
   inputs.klein-infra.inputs.dmerge.follows = "std/dmerge";
   inputs.klein-infra.inputs.std.follows = "std";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
+  inputs.base16-schemes.inputs.std.follows = "std";
+  inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
   inputs.std.inputs.nixpkgs.follows = "nixpkgs";
 

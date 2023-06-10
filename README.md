@@ -91,14 +91,6 @@ I still don't know what I'm doing.
 Maybe one day I will have enough of an idea that I can write it down with any amount of coherence.
 Or maybe I'm doing it all backwards…?
 
-## Vertebrae
-
-- [hercules-ci/flake-parts][flake-parts] :: a framework for flake modules
-- [divnix/digga][digga] :: helpful lib functions and examples
-
-[flake-parts]: https://github.com/hercules-ci/flake-parts
-[digga]: https://github.com/divnix/digga
-
 ## Grafts
 
 Generally in order of [frecency][frecency], along with an optional description

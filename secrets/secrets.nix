@@ -1,6 +1,5 @@
 let
-  inherit (peers) hosts;
-  peers = import ../ops/metadata/peers.nix;
+  inherit ((import ../ops).metadata) hosts;
   hostKeys = builtins.mapAttrs (_n: v: v.keys) hosts;
   trustedUsers = import ./authorized-keys.nix;
 

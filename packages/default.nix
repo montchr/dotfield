@@ -1,21 +1,32 @@
-{inputs, ...}: {
+{self, ...}: let
+  inherit (self.inputs.flake-utils.lib) filterPackages;
+in {
   perSystem = {
+    inputs',
     pkgs,
     system,
     ...
-  }: {
-    packages = inputs.flake-utils.lib.filterPackages system {
-      ast-grep = pkgs.callPackage ./development/tools/misc/ast-grep {};
-      berkeley-mono = pkgs.callPackage ./data/fonts/berkeley-mono/default.nix {};
-      cod = pkgs.callPackage ./shells/cod {};
-      epson-201212w = pkgs.callPackage ./misc/drivers/epson_201212w {};
-      ddi = pkgs.callPackage ./tools/system/dd/ddi.nix {};
-      firefox-ui-fix = pkgs.callPackage ./data/themes/firefox-ui-fix {};
-      igr = pkgs.callPackage ./tools/text/igr {};
-      kitty-get-window-by-platform-id =
-        pkgs.callPackage
-        ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
-      sf-pro = pkgs.callPackage ./data/fonts/sf-pro {};
+  }: let
+    inherit (inputs') emacs-overlay;
+    inherit (pkgs) callPackage;
+  in {
+    packages = filterPackages system {
+      ast-grep = callPackage ./development/tools/misc/ast-grep {};
+      base16-schemes = callPackage ./data/themes/base16-schemes {};
+      berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix {};
+      cod = callPackage ./shells/cod {};
+      emacs-plus = callPackage ./applications/editors/emacs/emacs-plus.nix {
+        inherit (emacs-overlay.packages) emacs-unstable;
+      };
+      emacs-plus-edge = callPackage ./applications/editors/emacs/emacs-plus-edge.nix {
+        inherit (emacs-overlay.packages) emacs-git;
+      };
+      epson-201212w = callPackage ./misc/drivers/epson_201212w {};
+      ddi = callPackage ./tools/system/dd/ddi.nix {};
+      firefox-ui-fix = callPackage ./data/themes/firefox-ui-fix {};
+      igr = callPackage ./tools/text/igr {};
+      kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
+      sf-pro = callPackage ./data/fonts/sf-pro {};
     };
   };
 }

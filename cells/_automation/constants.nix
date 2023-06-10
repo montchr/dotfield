@@ -4,7 +4,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs.cells.lib.functions) enumAttrs;
+  inherit (inputs.apparat.lib) enumAttrs;
 in {
   devshellCategories = enumAttrs [
     "dotfield"
