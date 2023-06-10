@@ -12,6 +12,8 @@ in {
     serverAliveInterval = 300;
 
     matchBlocks."hierophant".hostname = hosts.hierophant.ipv4.address;
+    # TODO: once provisioned:
+    matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
     matchBlocks."github.com" = {
       # inherit identityFile;
       # identitiesOnly = true;

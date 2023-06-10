@@ -75,19 +75,19 @@ in {
         ]);
     };
 
-    moraine-dev = makeNixosSystem "moraine-dev" {
+    moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
       modules =
         nixosSuites.server
         ++ [
           srvos.nixosModules.server
-          srvos.nixosModules.hardware-hetzner-cloud
+          srvos.nixosModules.hardware-hetzner-online-amd
           srvos.nixosModules.mixins-nginx
           srvos.nixosModules.mixins-terminfo
           srvos.nixosModules.mixins-tracing
           srvos.nixosModules.mixins-trusted-nix-caches
           # TODO: needs additional config
-          # srvos.nixosModules.mixins-telegraf
+          srvos.nixosModules.mixins-telegraf
         ];
     };
 

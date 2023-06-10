@@ -1,6 +1,6 @@
-{...}: {
-  imports = [./cdom.nix];
+{
+  imports = [./anomich.nix];
   dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cdom";
+  dotfield.guardian.username = "anomich";
   users.mutableUsers = false;
 }
