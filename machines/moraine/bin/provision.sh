@@ -83,18 +83,18 @@ parted_nice() {
 ###: FORMAT/PARTITION/MOUNT =======================================================
 
 # NOTE: untested!
-function mountSubvol() {
-  local name="$1"
+# function mountSubvol() {
+#   local name="$1"
 
-  local target="${prefix}${path}"
-  local opts="subvol=@${name},ssd,${FSOPTS}"
+#   local target="${prefix}${path}"
+#   local opts="subvol=@${name},ssd,${FSOPTS}"
 
-  if [[ "/" == "$path" ]]; then
-    target="${prefix}"
-  fi
+#   if [[ "/" == "$path" ]]; then
+#     target="${prefix}"
+#   fi
 
-  mount -t btrfs -o "${opts}" LABEL="nixos" "${target}"
-}
+#   mount -t btrfs -o "${opts}" LABEL="nixos" "${target}"
+# }
 
 # Inspect existing disks
 lsblk
@@ -199,7 +199,7 @@ mount "${NVME01}-part${BIOS_PART}" /mnt/boot
 
 mkfs.btrfs --force \
   --label local \
-  --data raid1 \
+  --data raid0 \
   --metadata raid1 \
   "${HDD01}-part1" \
   "${HDD02}-part1"
@@ -210,23 +210,26 @@ btrfs device scan
 mkdir -p "${LOCAL_PREFIX}"
 mount -t btrfs LABEL=local "${LOCAL_PREFIX}"
 btrfs subvolume create "${LOCAL_PREFIX}/@backups"
-btrfs subvolume create "${LOCAL_PREFIX}/@downloads-completed"
+btrfs subvolume create "${LOCAL_PREFIX}/@completed"
 btrfs subvolume create "${LOCAL_PREFIX}/@music"
 btrfs subvolume create "${LOCAL_PREFIX}/@movies"
+btrfs subvolume create "${LOCAL_PREFIX}/@oddities"
 btrfs subvolume create "${LOCAL_PREFIX}/@tv-shows"
 btrfs subvolume list -a "${LOCAL_PREFIX}"
 umount "${LOCAL_PREFIX}"
 
 mount -t btrfs -o "subvol=@backups,${FSOPTS}" LABEL="local" \
   "${LOCAL_PREFIX}/backups"
-mount -t btrfs -o "subvol=@downloads-completed,${FSOPTS}" LABEL="local" \
+mount -t btrfs -o "subvol=@completed,${FSOPTS}" LABEL="local" \
   "${LOCAL_PREFIX}/downloads/completed"
 mount -t btrfs -o "subvol=@music,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/music"
+  "${LOCAL_PREFIX}/Media/Music"
 mount -t btrfs -o "subvol=@movies,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/movies"
+  "${LOCAL_PREFIX}/Media/Movies"
+mount -t btrfs -o "subvol=@oddities,${FSOPTS}" LABEL="local" \
+  "${LOCAL_PREFIX}/Media/Oddities"
 mount -t btrfs -o "subvol=@tv-shows,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/tv-shows"
+  "${LOCAL_PREFIX}/Media/TV"
 
 
 ###: INSTALL NIX ===============================================================
@@ -250,12 +253,10 @@ set -u -x
 
 echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
 
-# NOTE: 23.05 is scheduled for release <2023-05-31>
 nix-channel --add https://nixos.org/channels/nixos-23.05 nixpkgs
 nix-channel --update
 
 # Open a Nix shell with the NixOS installation dependencies.
-# TODO: use `nix profile install`?
 nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages git ]"
 
 
