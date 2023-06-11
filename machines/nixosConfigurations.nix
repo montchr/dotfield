@@ -30,7 +30,7 @@
   makeNixosSystem = hostName: nixosArgs @ {system, ...}:
     withSystem system (
       {pkgs, ...}:
-        l.makeOverridable l.nixosSystem {
+        l.nixosSystem {
           inherit system;
           specialArgs = {
             inherit nixosProfiles sharedProfiles;
