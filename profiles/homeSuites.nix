@@ -10,6 +10,7 @@
     homeProfiles.nnn
     homeProfiles.nvim.default
     homeProfiles.shells.prompts.starship.default
+    homeProfiles.shells.fish.default
     homeProfiles.shells.zsh.default
     homeProfiles.ssh
   ];
