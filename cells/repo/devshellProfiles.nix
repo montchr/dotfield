@@ -10,6 +10,7 @@
   cats = cell.constants.devshellCategories;
 
   dotfield = pkg cats.dotfield;
+  dotfield' = pkg' cats.dotfield;
   maintenance = pkg cats.maintenance;
   utils = pkg cats.utils;
   utils' = pkg' cats.utils;
@@ -18,6 +19,7 @@
     (dotfield home-manager.packages.default)
     (dotfield namaka.packages.default)
     (dotfield nixpkgs.just)
+    (dotfield' "deps" nixpkgs.nix-melt)
 
     (utils nixpkgs.cachix)
     (utils nixpkgs.nix-diff)
