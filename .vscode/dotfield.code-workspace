@@ -3,6 +3,46 @@
     {
       "name": "dotfield",
       "path": ".."
+    },
+    {
+      "name": "cells",
+      "path": "../cells"
+    },
+    {
+      "name": "modules",
+      "path": "../modules"
+    },
+    {
+      "name": "ops",
+      "path": "../ops"
+    },
+    {
+      "name": "packages",
+      "path": "../packages"
+    },
+    {
+      "name": "profiles/darwin",
+      "path": "../profiles/darwinProfiles"
+    },
+    {
+      "name": "profiles/home",
+      "path": "../profiles/homeProfiles"
+    },
+    {
+      "name": "profiles/nixos",
+      "path": "../profiles/nixosProfiles"
+    },
+    {
+      "name": "profiles/shared",
+      "path": "../profiles/sharedProfiles"
+    },
+    {
+      "name": "machines",
+      "path": "../machines"
+    },
+    {
+      "name": "lib",
+      "path": "../lib"
     }
   ],
   "settings": {}
