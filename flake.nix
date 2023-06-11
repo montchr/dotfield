@@ -25,8 +25,7 @@
     ];
     std.harvest = {
       devShells = [
-        ["dotfield" "devshells"]
-        ["_automation" "devshells"]
+        ["repo" "devshells"]
         ["secrets" "devshells"]
       ];
     };
