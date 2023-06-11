@@ -12,6 +12,7 @@
   dotfield = pkg cats.dotfield;
   dotfield' = pkg' cats.dotfield;
   maintenance = pkg cats.maintenance;
+  packaging = pkg cats.packaging;
   utils = pkg cats.utils;
   utils' = pkg' cats.utils;
 
@@ -26,6 +27,8 @@
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
     (utils' "nom" nixpkgs.nix-output-monitor)
+
+    (packaging nixpkgs.nix-init)
 
     (maintenance nixpkgs.alejandra)
     (maintenance nixpkgs.deadnix)
