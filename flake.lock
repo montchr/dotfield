@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686431101,
-        "narHash": "sha256-xmACF75nv5IV/i/dZq7gHEfo4fknlC2k+XuvWIeI310=",
+        "lastModified": 1686493211,
+        "narHash": "sha256-JB6qPwqFQ+WrPooZOK2eNxK+v4PXSGSi6cdmkkJ1rzE=",
         "ref": "refs/heads/main",
-        "rev": "9cf61599a0b5ae92a9f618b4debe98a053d48de4",
-        "revCount": 79,
+        "rev": "3d4c105728ed47facbcaee0d15eb4e346da9a49a",
+        "revCount": 80,
         "type": "git",
         "url": "https://git.sr.ht/~montchr/apparat"
       },
