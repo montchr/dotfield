@@ -20,7 +20,7 @@
 
   defaultModules = [
     sharedProfiles.core.default
-    nixosProfiles.core
+    nixosProfiles.core.common
     nixosProfiles.boot.common
     inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
