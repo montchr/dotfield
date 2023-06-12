@@ -88,6 +88,10 @@ in {
           srvos.nixosModules.mixins-trusted-nix-caches
           # TODO: needs additional config
           srvos.nixosModules.mixins-telegraf
+
+          # FIXME: needs security before enable
+          # nixosProfiles.monitoring.prometheus
+          # nixosProfiles.monitoring.telegraf
         ];
     };
 
