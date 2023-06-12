@@ -2,23 +2,42 @@
 
 ### :: COMMANDS :: and functions, hooks, aliases...
 
+# TODO: explain this!
 autoload -Uz add-zsh-hook zmv
 
 ##: Create a new directory via `mkdir -p` and move into it.
-# FIXME: no longer cd-ing...
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 ##: List directory contents on arrival.
-# FIXME: this isn't working either...?
 chpwd_ls() { exa --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
-##: Start new sessions from most recent dir
-#   <https://wiki.archlinux.org/title/zsh#cdr>
-# FIXME: doesn't work, but no visible errors
+##: Start new sessions from most recent dir (<https://wiki.archlinux.org/title/zsh#cdr>)
+# NOTE: doesn't work in kitty, maybe others?
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
+
+
+#=====================================
+#: Grep raw zsh config state for pattern.
+#
+# Example usage: finding the source of an unknown alias.
+#
+# via <https://superuser.com/a/1097586>
+#
+# Usage:
+#   zcfgrep <pattern> [<args>...]
+# Parameters:
+#   ripgrep args
+# Outputs:
+#   ripgrep output
+#=====================================
+function zcfgrep() {
+  local expr="$1"
+  shift
+  PS4='+%x:%I>' zsh -i -x -c '' |& rg "$expr" "$@"
+}
 
 
 #=====================================
