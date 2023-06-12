@@ -48,8 +48,9 @@ function zcfgrep() {
 # Parameters:
 #   Search query.
 #=====================================
-function zman {
-  PAGER="less -g -I -s '+/^       "$1"'" man zshall;
+function zman() {
+  PAGER="less -g -I -s '+/^       "$1"'" \
+    man zshall
 }
 
 
