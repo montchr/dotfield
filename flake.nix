@@ -84,7 +84,7 @@
   };
 
   ##: core modules+libraries
-  inputs.apparat.url = "git+https://git.sr.ht/~montchr/apparat";
+  inputs.apparat.url = "sourcehut:~montchr/apparat";
   inputs.haumea.follows = "apparat/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
@@ -94,10 +94,6 @@
   inputs.nix-std.url = "github:chessai/nix-std";
   inputs.srvos.url = "github:numtide/srvos";
   inputs.std.url = "github:divnix/std";
-  inputs.flake-compat = {
-    url = "github:edolstra/flake-compat";
-    flake = false;
-  };
 
   ##: customisation
   inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
