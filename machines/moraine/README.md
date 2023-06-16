@@ -23,63 +23,50 @@ Network data:
 
 ### Filesystems
 
-```console
-root@rescue ~ # mkfs.btrfs --force \
-  --label nixos \
-  --data single \
-  "${NVME01}p${ROOT_PART}" \
-  "${NVME02}p${ROOT_PART}"
-btrfs-progs v5.10.1
-See http://btrfs.wiki.kernel.org for more information.
+```txt
+$ sudo lsblk --fs
 
-Label:              nixos
-UUID:               8063fc96-b895-4d2a-a70b-c9475f6613f2
-Node size:          16384
-Sector size:        4096
-Filesystem size:    1.86TiB
-Block group profiles:
-  Data:             single            8.00MiB
-  Metadata:         RAID1             1.00GiB
-  System:           RAID1             8.00MiB
-SSD detected:       yes
-Incompat features:  extref, skinny-metadata
-Runtime features:
-Checksum:           crc32c
-Number of devices:  2
-Devices:
-   ID        SIZE  PATH
-    1   951.86GiB  /dev/nvme0n1p3
-    2   951.86GiB  /dev/nvme1n1p3
+NAME        FSTYPE FSVER LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sda
+└─sda1      btrfs        local  3977e543-92a3-492d-92cc-20e79bf14654   29.1T     0% /mnt/local/downloads/torrents
+                                                                                    /mnt/local/backups
+                                                                                    /mnt/local/downloads/completed
+                                                                                    /mnt/local/Media
+sdb
+└─sdb1      btrfs        local  3977e543-92a3-492d-92cc-20e79bf14654
+nvme0n1
+├─nvme0n1p1
+├─nvme0n1p2 vfat   FAT32 boot   64F0-05C1
+                972.7M     5% /boot
+└─nvme0n1p3 btrfs        nixos  19574e5d-7a98-4182-8215-4632a7a82f77    1.9T     0% /home
+                                                                                    /nix/store
+                                                                                    /var/log
+                                                                                    /nix
+                                                                                    /persist
+                                                                                    /
+nvme1n1
+├─nvme1n1p1
+├─nvme1n1p2 vfat   FAT32 boot-2 66FE-10AC
+└─nvme1n1p3 btrfs        nixos  19574e5d-7a98-4182-8215-4632a7a82f77
 ```
 
-```console
-root@rescue ~ # mkfs.btrfs --force \
-  --label local \
-  --data raid0 \
-  --metadata raid1 \
-  "${HDD01}1" \
-  "${HDD02}1"
-btrfs-progs v5.10.1
-See http://btrfs.wiki.kernel.org for more information.
+#### Subvolumes
 
-Label:              local
-UUID:               7548a4b1-600c-4840-b68f-8c314cbfa99b
-Node size:          16384
-Sector size:        4096
-Filesystem size:    29.10TiB
-Block group profiles:
-  Data:             RAID0             2.00GiB
-  Metadata:         RAID1             1.00GiB
-  System:           RAID1             8.00MiB
-SSD detected:       no
-Incompat features:  extref, skinny-metadata
-Runtime features:
-Checksum:           crc32c
-Number of devices:  2
-Devices:
-   ID        SIZE  PATH
-    1    14.55TiB  /dev/sda1
-    2    14.55TiB  /dev/sdb1
+```sh-session
+$ sudo btrfs subvolume list /
+
+ID 256 gen 14116 top level 5 path @root
+ID 258 gen 12635 top level 5 path @store
+ID 259 gen 14116 top level 5 path @log
+ID 260 gen 14116 top level 5 path @home
+ID 261 gen 10 top level 5 path @persist
+ID 262 gen 11 top level 5 path @mysql
+ID 263 gen 12 top level 5 path @postgres
+ID 264 gen 13 top level 5 path @root-blank
+ID 269 gen 29 top level 256 path srv
+ID 270 gen 30 top level 256 path var/lib/portables
+ID 271 gen 31 top level 256 path var/lib/machines
+ID 272 gen 14094 top level 256 path tmp
 ```
 
 ## Errata
