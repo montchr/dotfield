@@ -20,7 +20,7 @@
 
   defaultModules = [
     sharedProfiles.core.default
-    nixosProfiles.core
+    nixosProfiles.core.common
     nixosProfiles.boot.common
     inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
@@ -30,7 +30,7 @@
   makeNixosSystem = hostName: nixosArgs @ {system, ...}:
     withSystem system (
       {pkgs, ...}:
-        l.makeOverridable l.nixosSystem {
+        l.nixosSystem {
           inherit system;
           specialArgs = {
             inherit nixosProfiles sharedProfiles;
@@ -75,19 +75,23 @@ in {
         ]);
     };
 
-    moraine-dev = makeNixosSystem "moraine-dev" {
+    moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
       modules =
         nixosSuites.server
         ++ [
           srvos.nixosModules.server
-          srvos.nixosModules.hardware-hetzner-cloud
+          srvos.nixosModules.hardware-hetzner-online-amd
           srvos.nixosModules.mixins-nginx
           srvos.nixosModules.mixins-terminfo
           srvos.nixosModules.mixins-tracing
           srvos.nixosModules.mixins-trusted-nix-caches
           # TODO: needs additional config
-          # srvos.nixosModules.mixins-telegraf
+          srvos.nixosModules.mixins-telegraf
+
+          # FIXME: needs security before enable
+          # nixosProfiles.monitoring.prometheus
+          # nixosProfiles.monitoring.telegraf
         ];
     };
 

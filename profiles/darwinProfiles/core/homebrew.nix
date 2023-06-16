@@ -1,6 +1,12 @@
-{flake, ...}: let
-  inherit (flake.perSystem.cells.darwin.constants) brewPrefix;
+{
+  pkgs,
+  flake,
+  ...
+}: let
+  inherit (flake.inputs.apparat.lib.darwin) platformBrewPrefix;
   l = flake.inputs.nixpkgs.lib // builtins;
+
+  brewPrefix = platformBrewPrefix pkgs.stdenv.hostPlatform;
 in {
   # <https://github.com/LnL7/nix-darwin/issues/596>
   #

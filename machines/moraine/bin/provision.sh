@@ -13,47 +13,28 @@ export LC_ALL=C
 
 apt update -y
 apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parted
-
+apt install -y kitty-terminfo
 
 ###: CONFIGURATION =======================================================
 
 export NEW_HOSTNAME=moraine
-
-##: --- Networking ---
-
-export IPV4_ADDR=""
-export IPV4_CIDR=""
-export IPV4_GATEWAY=""
-
-export IPV6_ADDR=""
-export IPV6_SUBNET=""
-export IPV6_CIDR=""
-export IPV6_GATEWAY=""
-
-# FIXME
-printf "You need to set the networking vars!\n" && return 1
-
-# Cloudflare nameservers.
-export NSV4="1.1.1.1" # also 1.0.0.1
-export NSV6="2606:4700:4700::1111"
 
 ##: --- Devices ---
 
 export FSOPTS="defaults,x-mount.mkdir,noatime"
 export BTRFSOPTS="${FSOPTS},compress=zstd"
 
-export LOCAL_PREFIX="/mnt/local"
+# Preserve the Cloudbox/Saltbox `/mnt/local/` structure for easier reference.
+# Mounting a non-root fs under `/mnt` also seems like best practice.
+export LOCAL_PREFIX="/mnt/mnt/local"
 
 # boot/root
-export NVME01=""
-export NVME02=""
+export NVME01="/dev/nvme0n1"
+export NVME02="/dev/nvme1n1"
 
 # local data
-export HDD01=""
-export HDD02=""
-
-# FIXME
-printf "You need to set the device names!\n" && return 1
+export HDD01="/dev/sda"
+export HDD02="/dev/sdb"
 
 export NVMEXX=(
   "$NVME01"
@@ -69,6 +50,8 @@ export BIOS_PART=1
 export EFI_PART=2
 export ROOT_PART=3
 
+export BOOT_DEV="${NVME01}p${EFI_PART}"
+
 ##: --- Helper Functions ---
 
 # Wrapper for parted >= 3.3 that does not exit 1 when it cannot inform
@@ -82,20 +65,6 @@ parted_nice() {
 
 ###: FORMAT/PARTITION/MOUNT =======================================================
 
-# NOTE: untested!
-function mountSubvol() {
-  local name="$1"
-
-  local target="${prefix}${path}"
-  local opts="subvol=@${name},ssd,${FSOPTS}"
-
-  if [[ "/" == "$path" ]]; then
-    target="${prefix}"
-  fi
-
-  mount -t btrfs -o "${opts}" LABEL="nixos" "${target}"
-}
-
 # Inspect existing disks
 lsblk
 ls /dev/disk/by-id
@@ -103,7 +72,9 @@ ls /dev/disk/by-id
 vgchange -an || true
 
 # Stop all mdadm arrays that the boot may have activated.
-mdadm --stop --scan
+# FIXME: `--stop` does not seem to exist? has no effect
+# mdadm --stop --scan
+mdadm --manage /dev/md0 --stop
 
 # Prevent mdadm from auto-assembling arrays.
 #
@@ -116,40 +87,59 @@ mdadm --stop --scan
 # We use `>` because the file may already contain some detected RAID arrays,
 # which would take precedence over our `<ignore>`.
 echo 'AUTO -all
-ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' >/etc/mdadm/mdadm.conf
+ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' \
+  >/etc/mdadm/mdadm.conf
 
+##: --- PRIMARY LAYOUT --------------------------------------------------------
 
-##: --- VOLUME: 'NIXOS' ---------------------------------------------------------
+# FIXME: use sfdisk
+function mkPrimaryLayout() {
+  local nvme=$1
 
-for nvme in "${NVMEXX[@]}"; do
-  # N.B. untested/aspirational!
   sgdisk --zap-all "$nvme"
   parted_nice --script "$nvme" mklabel gpt
   # Wipe any previous RAID/ZFS signatures
   wipefs --all --force "$nvme"
 
-  sgdisk -n1:0:+4M -t1:EF02 "$nvme"  # bios
-  sgdisk -n2:0:+2G -t2:EF00 "$nvme"  # efi/esp
-  sgdisk -n3:0:0 -t3:8300 "$nvme"    # root
+  sgdisk -n1:0:+2M -t1:EF02 "$nvme" #  bios
+  sgdisk -n2:0:+1G -t2:EF00 "$nvme" #  boot (efi)
+  sgdisk -n3:0:0 -t3:8300 "$nvme"   #  root
 
   partprobe
 
-  mkfs.fat -F 32 -n EFI "${nvme}-part${EFI_PART}"
+  # Wait for all required devices to exist
+  udevadm settle --timeout=5 --exit-if-exists="${nvme}p2"
+  udevadm settle --timeout=5 --exit-if-exists="${nvme}p3"
+}
+
+for nvme in "${NVMEXX[@]}"; do
+  mkPrimaryLayout "${nvme}"
 done
 
-# NOTE: `--metadata` was originally `single` but the default `raid1` would be preferable,
-#       as long as it doesn't interfere with boot.
+mkfs.fat -F 32 -n boot "$BOOT_DEV"
+
+# No real practical use except to match partition layout.
+mkfs.fat -F 32 -n boot-2 "${NVME02}p${EFI_PART}"
+
+# NOTE: The actual filesystem will be mounted just prior to NixOS installation.
+mkdir -p /mnt/boot
+
+##: --- 3: NixOS ---
+
 mkfs.btrfs --force \
   --label nixos \
   --data single \
-  "${NVME01}-part${ROOT_PART}" \
-  "${NVME02}-part${ROOT_PART}"
+  --metadata raid1 \
+  "${NVME01}p3" \
+  "${NVME02}p3"
 
 btrfs device scan
 
 mkdir -p /mnt
 mount -t btrfs LABEL=nixos /mnt
 
+# Subvolume basename should begin with `@` to distinguish it from a normal path.
+# <https://askubuntu.com/questions/987104/why-the-in-btrfs-subvolume-names>
 btrfs subvolume create /mnt/@root
 btrfs subvolume create /mnt/@store
 btrfs subvolume create /mnt/@log
@@ -159,7 +149,7 @@ btrfs subvolume create /mnt/@mysql
 btrfs subvolume create /mnt/@postgres
 
 # Create a read-only snapshot of the `@root` subvolume for impermanace.
-btrfs subvolume snapshot -r /mnt/@root /@root-blank
+btrfs subvolume snapshot -r /mnt/@root /mnt/@root-blank
 
 btrfs subvolume list -a /mnt
 umount /mnt
@@ -191,18 +181,38 @@ mount -t btrfs -o "subvol=@postgres,ssd,${FSOPTS}" LABEL="nixos" \
 # See https://github.com/NixOS/nixpkgs/issues/62444
 udevadm trigger
 
-mkdir -p /mnt/boot
-mount "${NVME01}-part${BIOS_PART}" /mnt/boot
+btrfs subvolume list -a /mnt
 
+##: --- SECONDARY LAYOUT -------------------------------------------------------
 
-##: --- VOLUME: 'LOCAL' ----------------------------------------------------------
+function mkSecondaryLayout() {
+  local hdd=$1
+
+  sgdisk --zap-all "$hdd"
+  parted_nice --script "$hdd" mklabel gpt
+  # Wipe any previous RAID/ZFS signatures
+  wipefs --all --force "$hdd"
+
+  sgdisk -n1:0:0 -t1:8300 "$hdd"
+
+  partprobe
+
+  # Wait for all devices to exist
+  udevadm settle --timeout=5 --exit-if-exists="${hdd}1"
+}
+
+for hdd in "${HDDXX[@]}"; do
+  mkSecondaryLayout "$hdd"
+done
+
+lsblk
 
 mkfs.btrfs --force \
   --label local \
-  --data raid1 \
+  --data raid0 \
   --metadata raid1 \
-  "${HDD01}-part1" \
-  "${HDD02}-part1"
+  "${HDD01}1" \
+  "${HDD02}1"
 
 udevadm trigger
 btrfs device scan
@@ -210,24 +220,24 @@ btrfs device scan
 mkdir -p "${LOCAL_PREFIX}"
 mount -t btrfs LABEL=local "${LOCAL_PREFIX}"
 btrfs subvolume create "${LOCAL_PREFIX}/@backups"
-btrfs subvolume create "${LOCAL_PREFIX}/@downloads-completed"
-btrfs subvolume create "${LOCAL_PREFIX}/@music"
-btrfs subvolume create "${LOCAL_PREFIX}/@movies"
-btrfs subvolume create "${LOCAL_PREFIX}/@tv-shows"
+btrfs subvolume create "${LOCAL_PREFIX}/@completed"
+btrfs subvolume create "${LOCAL_PREFIX}/@torrents"
+btrfs subvolume create "${LOCAL_PREFIX}/@media"
 btrfs subvolume list -a "${LOCAL_PREFIX}"
 umount "${LOCAL_PREFIX}"
 
 mount -t btrfs -o "subvol=@backups,${FSOPTS}" LABEL="local" \
   "${LOCAL_PREFIX}/backups"
-mount -t btrfs -o "subvol=@downloads-completed,${FSOPTS}" LABEL="local" \
+mount -t btrfs -o "subvol=@completed,${FSOPTS}" LABEL="local" \
   "${LOCAL_PREFIX}/downloads/completed"
-mount -t btrfs -o "subvol=@music,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/music"
-mount -t btrfs -o "subvol=@movies,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/movies"
-mount -t btrfs -o "subvol=@tv-shows,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/media/tv-shows"
+mount -t btrfs -o "subvol=@torrents,${FSOPTS}" LABEL="local" \
+  "${LOCAL_PREFIX}/downloads/torrents"
+mount -t btrfs -o "subvol=@media,${FSOPTS}" LABEL="local" \
+  "${LOCAL_PREFIX}/Media"
 
+# Repeat mkdir since `/mnt` has since been umounted.
+mkdir -p /mnt/boot
+mount "$BOOT_DEV" /mnt/boot
 
 ###: INSTALL NIX ===============================================================
 
@@ -248,27 +258,38 @@ set +u +x
 . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 set -u -x
 
-echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
 
-# NOTE: 23.05 is scheduled for release <2023-05-31>
 nix-channel --add https://nixos.org/channels/nixos-23.05 nixpkgs
+nix-channel --add https://nixos.org/channels/nixos-23.05 nixos
 nix-channel --update
 
 # Open a Nix shell with the NixOS installation dependencies.
-# TODO: use `nix profile install`?
-nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages git ]"
-
+nix-env -f '<nixpkgs>' -iA nixos-install-tools
 
 ###: PREPARE NIXOS CONFIGURATION ===============================================
 
-git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/dotfield
-ln -s /mnt/etc/dotfield /mnt/etc/nixos
+git clone https://git.sr.ht/~montchr/dotfield /mnt/etc/nixos \
+  -b add-moraine
+ln -s /mnt/etc/nixos /mnt/etc/dotfield
 
 nixos-generate-config --root /mnt
 
 nix build "/mnt/etc/nixos#nixosConfigurations.${NEW_HOSTNAME}.config.system.build.toplevel"
 
-PATH="$PATH" "$(command -v nixos-install)" \
+export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels
+
+# FIXME: it seems `--flake` fails when installed by this method
+# > /nix/var/nix/profiles/system/sw/bin/bash: line 10: umount: command not found
+# not only in the above example, but several other missing mount/umount errors
+# PATH="$PATH:/usr/sbin:/sbin" NIX_PATH="$NIX_PATH" "$(which nixos-install)" \
+#   --no-root-passwd \
+#   --root /mnt \
+#   --flake "/mnt/etc/nixos#${NEW_HOSTNAME}" \
+#   --max-jobs "$(nproc)" \
+#   --impure
+
+PATH="$PATH:/usr/sbin:/sbin" NIX_PATH="$NIX_PATH" "$(which nixos-install)" \
   --no-root-passwd \
   --root /mnt \
   --max-jobs "$(nproc)"

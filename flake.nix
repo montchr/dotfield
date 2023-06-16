@@ -25,8 +25,7 @@
     ];
     std.harvest = {
       devShells = [
-        ["dotfield" "devshells"]
-        ["_automation" "devshells"]
+        ["repo" "devshells"]
         ["secrets" "devshells"]
       ];
     };
@@ -40,6 +39,7 @@
       ./lib
       ./packages
 
+      ./machines/colmenaConfigurations.nix
       ./machines/darwinConfigurations.nix
       ./machines/nixosConfigurations.nix
       ./users/homeConfigurations.nix

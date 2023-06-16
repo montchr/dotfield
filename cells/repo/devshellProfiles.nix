@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) apparat home-manager nixos-generators nixpkgs namaka;
+  inherit (inputs) apparat colmena home-manager nixos-generators nixpkgs namaka;
   inherit (apparat.lib.devshell) pkg pkg';
   inherit (nixpkgs.stdenv) isLinux;
 
@@ -10,20 +10,26 @@
   cats = cell.constants.devshellCategories;
 
   dotfield = pkg cats.dotfield;
+  dotfield' = pkg' cats.dotfield;
   maintenance = pkg cats.maintenance;
+  packaging = pkg cats.packaging;
   utils = pkg cats.utils;
   utils' = pkg' cats.utils;
 
   commonCommands = [
+    (dotfield colmena.packages.colmena)
     (dotfield home-manager.packages.default)
     (dotfield namaka.packages.default)
     (dotfield nixpkgs.just)
+    (dotfield' "deps" nixpkgs.nix-melt)
 
     (utils nixpkgs.cachix)
     (utils nixpkgs.nix-diff)
     (utils nixpkgs.nix-tree)
     (utils nixpkgs.nvd)
     (utils' "nom" nixpkgs.nix-output-monitor)
+
+    (packaging nixpkgs.nix-init)
 
     (maintenance nixpkgs.alejandra)
     (maintenance nixpkgs.deadnix)

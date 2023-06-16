@@ -1,3 +1,4 @@
+# FIXME: unused, possibly not feasible as of [2023-06-10]: <https://github.com/nix-community/disko/issues/261>
 # Source: <https://github.com/srid/nixos-config/blob/afc22aafdeb69cee50e3a2ec2542ed1fb90f72f2/systems/hetzner/disko/two-raids-on-two-disks.nix>
 {lib, ...}: {
   disk =
@@ -12,19 +13,20 @@
           {
             name = "boot";
             start = "0";
-            end = "1M";
+            end = "2M";
             part-type = "primary";
             flags = ["bios_grub"];
           }
           {
             name = "ESP";
-            start = "1M";
+            start = "2M";
             end = "1GiB";
             fs-type = "fat32";
             bootable = true;
             content = {
-              type = "mdraid";
-              name = "boot";
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
             };
           }
           {
@@ -32,32 +34,32 @@
             start = "1GiB";
             end = "100%";
             content = {
-              type = "mdraid";
+              type = "btrfs";
               name = "nixos";
             };
           }
         ];
       };
     });
-  mdadm = {
-    boot = {
-      type = "mdadm";
-      level = 1;
-      metadata = "1.0";
-      content = {
-        type = "filesystem";
-        format = "vfat";
-        mountpoint = "/boot";
-      };
-    };
-    nixos = {
-      type = "mdadm";
-      level = 1;
-      content = {
-        type = "filesystem";
-        format = "ext4";
-        mountpoint = "/";
-      };
-    };
-  };
+  # mdadm = {
+  #   boot = {
+  #     type = "mdadm";
+  #     level = 1;
+  #     metadata = "1.0";
+  #     content = {
+  #       type = "filesystem";
+  #       format = "vfat";
+  #       mountpoint = "/boot";
+  #     };
+  #   };
+  #   nixos = {
+  #     type = "mdadm";
+  #     level = 1;
+  #     content = {
+  #       type = "filesystem";
+  #       format = "ext4";
+  #       mountpoint = "/";
+  #     };
+  #   };
+  # };
 }

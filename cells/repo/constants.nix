@@ -11,6 +11,7 @@ in {
     "general"
     "legal"
     "maintenance"
+    "packaging"
     "utils"
   ];
 }

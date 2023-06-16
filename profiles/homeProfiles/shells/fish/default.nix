@@ -10,10 +10,13 @@ in {
 
   programs.fish = {
     enable = true;
-    plugins = with pkgs.fishPlugins; [
-      done
-      forgit
-    ];
+    # FIXME: building the system configuration...
+    # error: The option `home-manager.users.anomich.programs.fish.plugins."[definition 1-entry 1]".__ignoreNulls' does not exist. Definition values:
+    #       - In `/nix/store/lyjq6l79hwahj10mdjgw1pw56ib8fwfi-source/profiles/homeProfiles/shells/fish/default.nix': true
+    # plugins = with pkgs.fishPlugins; [
+    #   done
+    #   forgit
+    # ];
 
     # Workaround for clobbered `$PATH` with nix-darwin
     # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1030877541

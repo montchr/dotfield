@@ -37,19 +37,19 @@
     tailscale = "100.71.240.35";
     users.seadoom.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"];
   };
-  moraine-dev = {
-    # age = "";
-    ipv4 = {
-      address = "37.27.17.58";
-      # gateway = "";
-      # prefixLength = 26;
-    };
+  moraine = {
     ipv6 = {
-      addresses = ["2a01:4f9:c010:ecae"];
+      address = "2a01:4f8:200:5047";
+      # TODO: gateway+prefix should be a "default" somewhere...
+      gateway = "fe80::1";
       prefixLength = 64;
     };
-    # keys = ["" ""];
+    keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1hnnVzNQ1JJ1TOTOWuxztbCV6EZ4F8xZBrEfOwROVX root@moraine"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCu56Rvtpdr8oPtKT+dru8t/GrqwVtngVIAGGjSRMmg4GBbi8OVx5TkKCNFypJKwx1oCUnIb5f11HVdHukpe/TAjxKlF1kQlXJpaCLszQD5Gdf9SBH8gKrNtoqlsnalaU7faWnbfGoPmMPrd6hNVByslAzrC1OHFiI1vqAmnwh5XdU7Y4r8brScPsG4NoRQ9P3bTNMs4Sk1s0UxMAgziHltG/jlcupQxHx5Zdm2of3wXAWdvrRT3k69aPd6PHs+rQOqZkzuY9vRloKxFSINyTnXnJDlCZis0NzoSoeAdfuWj5xfk795NztCJaazkRSp/4Mg7/hkoWfGvVve5WV+kwOEKpLOWpYHNHUgyABLb7QxZ+Yx/9UGZT91kWVX1KxpSEG7S/Azs327flI+lw3b9kBwYyPIV7A2UztfvCmJmKKKyn1rppUDbICCCQb6ADmwSSvqYsRwDXU0QGyns3sUpNjq0F73QJOIGTTE47+lbEVwYYt3JyXSzl1RaUe7Bw5+mpD1z71EkFuO2Y3BtDaqIbqvjY6rKKT5h+8fw0u+WHcSmZIczncZGLp18qR1PSc4nAlFh0inGMbUQbuqIMYsqmmGkWs71/7rHtvBGBEHq90KYfXXGT3bhzv/Xj0gtUr1XXBEHIV+KAM/4mVBdOowCJiVuRzLyQ7cUYJl+INwi3XZIw== root@moraine"
+    ];
     network = "cubegarden";
+    users.anomich.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUGLeqyzAYXvrFCTSqumXiJ7xWOCclO0eRf0vlP2eya anomich@moraine"];
   };
   ryosuke = {
     age = "age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak";
@@ -73,7 +73,10 @@
     network = "home";
     users.cdom = {
       age = "age18yqe2svh9ck0san5uzthh6m774r2450hhz4ustguza2l8nttk30qxvtpf4";
-      keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"];
+      keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDczCHJl9sJxhB7uy4tqWGYUy1cV3r6dfj777kXsIVyTgT16rDYN0ySVHL2qPUycNv5Xe1Fsv526vJpJEMX3W28mh7n9Kfp2U6WcMPZTtnOxoXrd9CAv8XjtkMEPzoaRQl37WwAkNT1zD5Qx9pFFS8Q5tipquSECH/iA/xBQ51g6FYIT+VVhVsVjWegQR5YB44e0GnYZdSbcOPP42C1Itxyr4hRHitjWWf+lKoNy0eP5KNVNH1MGGVnpriWohHhXPpOjKO7Fs7RI0TEiNJP8+MuI52c26mc3n1c8yla7/li9GStlxEhaZSPveQ0bnUYgXI5aqPT0oCmsXNVH+Ph1oTCYaqIGVvpidvrN/dJsg0psGfl7l0HSlaYBcebvlM+jorS6EVNBx+pILhXFX+YrDrp5rmMiUFAWdvcxTb1gmeFr27fwZV75G01aZvLQhlt3mTzH0yOpEEZQRlsczL8RH+8DTOqQSyM8j62wxGaNDRSTwka54/Wkn4O9e2ZJ88Xi58= cdom@tuvix"
+      ];
     };
   };
 }

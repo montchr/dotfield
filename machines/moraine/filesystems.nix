@@ -48,64 +48,47 @@ in {
     options = commonOpts ++ ["subvol=@postgres" "ssd" "nofail"];
   };
 
-  fileSystems."/local/backups" = {
+  fileSystems."/mnt/local/backups" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
     options = commonOpts ++ ["subvol=@backups" "nofail"];
   };
 
-  fileSystems."/local/downloads/completed" = {
+  fileSystems."/mnt/local/downloads/completed" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@downloads-completed" "nofail"];
+    options = commonOpts ++ ["subvol=@completed" "nofail"];
   };
 
-  fileSystems."/local/media/music" = {
+  fileSystems."/mnt/local/downloads/torrents" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@music" "nofail"];
+    options = commonOpts ++ ["subvol=@torrents" "nofail"];
   };
 
-  fileSystems."/local/media/movies" = {
+  fileSystems."/mnt/local/Media" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@movies" "nofail"];
-  };
-
-  fileSystems."/local/media/tv-shows" = {
-    device = "/dev/disk/by-label/local";
-    fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@tv-shows" "nofail"];
+    options = commonOpts ++ ["subvol=@media" "nofail"];
   };
 
   fileSystems."/boot" = {
-    # FIXME: uuid
-    # device = "/dev/disk/by-uuid/CA0D-4891";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
-    # options = ["nofail" "X-mount.mkdir"];
   };
-
-  # FIXME: still necessary?
-  # fileSystems."/boot-fallback" = {
-  #   device = "/dev/disk/by-uuid/FF5D-559E";
-  #   fsType = "vfat";
-  #   # Continue booting regardless of the availability of the mirrored boot
-  #   # partitions. We don't need both.
-  #   options = ["nofail" "X-mount.mkdir"];
-  # };
 
   # Note that `/dev/disk/by-uuid` is not compatible with `randomEncryption`
   # because the UUID will change on every boot.
   # https://github.com/NixOS/nixpkgs/blob/c06d5fa9c605d143b15cafdbbb61c7c95388d76e/nixos/modules/config/swap.nix#L24-L26
   # FIXME: update uuids
-  swapDevices = [
-    {
-      # device = "/dev/disk/by-uuid/5881331f-7c23-452b-8562-c9103098dce8";
-      # randomEncryption.enable = true;
-    }
-    {
-      # device = "/dev/disk/by-uuid/80b1fe3d-96f0-45c6-9787-80de4570906c";
-      # randomEncryption.enable = true;
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     # device = "/dev/disk/by-uuid/5881331f-7c23-452b-8562-c9103098dce8";
+  #     # randomEncryption.enable = true;
+  #   }
+  #   {
+  #     # device = "/dev/disk/by-uuid/80b1fe3d-96f0-45c6-9787-80de4570906c";
+  #     # randomEncryption.enable = true;
+  #   }
+  # ];
 }

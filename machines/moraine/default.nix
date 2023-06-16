@@ -1,20 +1,28 @@
-{lib, ...}: {
+{
+  pkgs,
+  ops,
+  ...
+}: let
+  inherit (ops.metadata) hosts;
+in {
   imports = [
-    ./boot.nix
     ./filesystems.nix
-    # ./network.nix
+    ./network.nix
     ./profiles/sops.nix
-    ./users/cdom.nix
+    ./users
   ];
 
-  disko.devices = import ./disk-config.nix {inherit lib;};
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.useDHCP = true;
+  environment.systemPackages = [
+    pkgs.borgbackup
+  ];
 
-  # environment.systemPackages = with pkgs; [
-  #   tor
-  #   borgbackup
-  # ];
+  users.users.root.openssh.authorizedKeys.keys =
+    hosts.boschic.users.seadoom.keys
+    ++ hosts.tuvix.users.cdom.keys
+    ++ hosts.ryosuke.users.cdom.keys;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

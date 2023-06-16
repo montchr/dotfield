@@ -30,7 +30,7 @@
   makeDarwinSystem = hostName: darwinArgs @ {system, ...}:
     withSystem system (
       {pkgs, ...}:
-        l.makeOverridable darwin.lib.darwinSystem {
+        darwin.lib.darwinSystem {
           inherit system;
           specialArgs = {
             inherit darwinProfiles sharedProfiles;
