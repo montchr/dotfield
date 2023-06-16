@@ -1,8 +1,24 @@
 {
   "folders": [
     {
-      "name": "dotfield",
-      "path": ".."
+      "name": "machines",
+      "path": "../machines"
+    },
+    {
+      "name": "profiles/nixos",
+      "path": "../profiles/nixosProfiles"
+    },
+    {
+      "name": "profiles/home",
+      "path": "../profiles/homeProfiles"
+    },
+    {
+      "name": "profiles/shared",
+      "path": "../profiles/sharedProfiles"
+    },
+    {
+      "name": "profiles/darwin",
+      "path": "../profiles/darwinProfiles"
     },
     {
       "name": "cells",
@@ -21,28 +37,12 @@
       "path": "../packages"
     },
     {
-      "name": "profiles/darwin",
-      "path": "../profiles/darwinProfiles"
-    },
-    {
-      "name": "profiles/home",
-      "path": "../profiles/homeProfiles"
-    },
-    {
-      "name": "profiles/nixos",
-      "path": "../profiles/nixosProfiles"
-    },
-    {
-      "name": "profiles/shared",
-      "path": "../profiles/sharedProfiles"
-    },
-    {
-      "name": "machines",
-      "path": "../machines"
-    },
-    {
       "name": "lib",
       "path": "../lib"
+    },
+    {
+      "name": "[repo]",
+      "path": ".."
     }
   ],
   "settings": {}
