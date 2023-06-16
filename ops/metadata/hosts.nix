@@ -20,13 +20,13 @@
   };
   brakhage.users.blink.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBWeCycDkYAqyXcgGOiy8cgnKDy8QL6F8lO+Jh7ZpLk blink@brakhage"];
   hierophant = {
-    age = "age1nl8de4w4vlke0nls38jykhlygf3aenr6prkvu6ap5m9a6pd80q8sr9sk00";
-    ipv4.address = "100.68.129.15";
-    keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden"];
+    age = "";
+    ipv6.address = "2a01:4ff:f0:4717";
+    keys = [];
     network = "seadome";
-    users.hierophant = {
-      age = "age18ngk35h7qycc9kzjc4fy788nvnvlce8gvjahkvkkjxlahd5r54vqhmq9y2";
-      keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rvq4vlUFFXH hierophant@loop.garden"];
+    users.cdom = {
+      age = "";
+      keys = [];
     };
   };
   hodgepodge = {

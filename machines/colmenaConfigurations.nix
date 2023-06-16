@@ -25,6 +25,24 @@ in {
       };
     }
     // {
+      hierophant =
+        (nodes.hierophant.extendModules {
+          modules = [
+            colmena.nixosModules.deploymentOptions
+            {
+              deployment = {
+                buildOnTarget = true;
+                tags = ["@seadome" "@hetznerCloud" "@us-east"];
+                targetHost = ops.metadata.hosts.hierophant.ipv6.address;
+                targetUser = "cdom";
+              };
+              deployment.keys."cdom-passphrase".keyCommand = ["pass" "show" "hosts/hierophant/cdom-passphrase"];
+            }
+          ];
+        })
+        ._module
+        .args
+        .modules;
       moraine =
         (nodes.moraine.extendModules {
           modules = [
