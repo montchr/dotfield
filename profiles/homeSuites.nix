@@ -21,6 +21,7 @@
   developer =
     base
     ++ [
+      # FIXME: restore delta
       # homeProfiles.difftools.delta
       homeProfiles.difftools.difftastic
       homeProfiles.emacs.default
