@@ -11,6 +11,7 @@ rec {
   local.domain = "test";
   loopgarden.domain = "loop.garden";
   seadome = {
+    contact = "ops@seadome.net";
     domain = "seadome.net";
     tailnet.fqdn = "link.${seadome.domain}";
     tailnet.server.url = "https://${seadome.tailnet.fqdn}";

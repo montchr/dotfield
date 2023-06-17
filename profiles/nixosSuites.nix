@@ -23,6 +23,7 @@
 
   server = [
     nixosProfiles.networking.common
+    nixosProfiles.server.acme
   ];
 
   tangible = [
