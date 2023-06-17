@@ -4,7 +4,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata) hosts networks;
+  inherit (ops.metadata) dns hosts networks;
   inherit (config.networking) hostName;
   l = flake.inputs.nixpkgs.lib // builtins;
 
@@ -13,11 +13,5 @@
   hostDomain = networks.${hostNet}.domain or null;
 in {
   networking.domain = l.mkIf (hostDomain != null) hostDomain;
-  # TODO: use quad9 - <https://www.quad9.net/>
-  networking.nameservers = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-  ];
+  networking.nameservers = dns.ns.quad9;
 }
