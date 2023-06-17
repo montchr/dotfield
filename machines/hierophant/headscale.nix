@@ -14,7 +14,7 @@
   inherit (networks.seadome) tailnet;
   cfg = config.services.headscale;
 in {
-  # environment.systemPackages = [cfg.package];
+  environment.systemPackages = [cfg.package];
 
   services.headscale = {
     enable = true;
