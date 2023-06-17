@@ -29,6 +29,10 @@ in {
     "Thunderbolt Bridge"
   ];
 
+  homebrew.brews = [
+    "tailscale"
+  ];
+
   homebrew.casks = [
     "airfoil"
     "alfred"
@@ -62,7 +66,6 @@ in {
     "Moom" = 419330170;
     "Paprika Recipe Manager" = 1303222628;
     "Reeder" = 1529448980;
-    "Tailscale" = 1475387142;
     "Xcode" = 497799835;
   };
 }
