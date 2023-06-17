@@ -11,7 +11,7 @@ in {
     forwardAgent = false;
     serverAliveInterval = 300;
 
-    matchBlocks."hierophant".hostname = hosts.hierophant.ipv4.address;
+    # matchBlocks."hierophant".hostname = hosts.hierophant.ipv4.address;
     matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
     matchBlocks."github.com" = {
       # inherit identityFile;

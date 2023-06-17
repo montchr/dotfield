@@ -1,7 +1,8 @@
 {...}: {
   imports = [
     # ./profiles/sops.nix
-    ./users
+    ./users.nix
+    ./hardware-configuration.nix
   ];
 
   # fileSystems."/nix" = {
