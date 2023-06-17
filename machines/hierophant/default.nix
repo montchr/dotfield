@@ -1,8 +1,9 @@
-{lib, ...}: {
+{
   imports = [
+    ./boot.nix
+    ./filesystems.nix
     ./headscale.nix
     ./users.nix
-    ./hardware-configuration.nix
   ];
 
   security.acme = {
