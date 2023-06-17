@@ -22,6 +22,8 @@
   hierophant = {
     age = "";
     ipv6.address = "2a01:4ff:f0:4717";
+    gateway = "fe80::1";
+    ipv6.prefixLength = 64;
     keys = [];
     network = "seadome";
     users.cdom = {

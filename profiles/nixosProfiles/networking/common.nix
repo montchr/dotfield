@@ -13,6 +13,7 @@
   hostDomain = networks.${hostNet}.domain or null;
 in {
   networking.domain = l.mkIf (hostDomain != null) hostDomain;
+  # TODO: use quad9 - <https://www.quad9.net/>
   networking.nameservers = [
     "1.1.1.1"
     "1.0.0.1"

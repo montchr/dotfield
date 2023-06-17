@@ -1,4 +1,8 @@
-{ops, ...}: {
+{
+  config,
+  ops,
+  ...
+}: {
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
@@ -9,7 +13,7 @@
 
   users.users.cdom = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" config.services.headscale.group];
     passwordFile = "/run/keys/cdom-passphrase";
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };

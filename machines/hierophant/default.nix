@@ -1,16 +1,20 @@
-{...}: {
+{lib, ...}: {
   imports = [
-    # ./profiles/sops.nix
+    ./headscale.nix
     ./users.nix
     ./hardware-configuration.nix
   ];
 
-  # fileSystems."/nix" = {
-  #   device = "/dev/disk/by-id/scsi-0HC_Volume_19315958";
-  #   fsType = "ext4";
-  #   neededForBoot = true;
-  #   options = ["noatime"];
-  # };
+  security.acme = {
+    # TODO: move to central location
+    defaults.email = "ops@seadome.net";
+    acceptTerms = true;
+  };
+
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = lib.mkDefault "client";
+  };
 
   system.stateVersion = "23.05";
 }
