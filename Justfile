@@ -122,7 +122,7 @@ system subcommand *ARGS='':
 
 # <- Rebuild a home configuration and push to the binary cache
 home subcommand *ARGS:
-  home-manager {{subcommand}} --flake "{{prj-root}}" --verbose {{ARGS}} \
+  home-manager {{subcommand}} --flake "{{prj-root}}" {{ARGS}} \
   |& nom
   @echo {{msg-done}}
 
