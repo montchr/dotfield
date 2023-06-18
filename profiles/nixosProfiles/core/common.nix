@@ -30,6 +30,8 @@ in {
     util-linux
   ];
 
+  networking.nameservers = lib.mkDefault ops.metadata.dns.ns.quad9;
+
   users.defaultUserShell = pkgs.fish;
   programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
 

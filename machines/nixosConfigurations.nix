@@ -22,7 +22,6 @@
     sharedProfiles.core.default
     nixosProfiles.core.common
     nixosProfiles.boot.common
-    nixosProfiles.networking.common
     nixosProfiles.networking.tailscale
     inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager

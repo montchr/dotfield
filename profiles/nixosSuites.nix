@@ -22,13 +22,11 @@
   ];
 
   server = [
-    nixosProfiles.networking.common
     nixosProfiles.server.acme
   ];
 
   tangible = [
     nixosProfiles.hardware.keyboard
-    nixosProfiles.networking.common
   ];
 
   # FIXME: pare these down, also they don't really have anything to do with 'webdev'
@@ -46,6 +44,5 @@
     nixosProfiles.bitwarden
     nixosProfiles.boot.systemd-boot
     nixosProfiles.hardware.yubikey
-    nixosProfiles.networking.common
   ];
 }
