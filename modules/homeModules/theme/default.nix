@@ -86,7 +86,7 @@ in {
     programs.bash = {inherit sessionVariables;};
     programs.zsh = {inherit sessionVariables;};
 
-    specialization = {
+    specialisation = {
       dark.configuration = {
         theme.color.schemes.default = colorSchemes.dark;
       };

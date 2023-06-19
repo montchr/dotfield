@@ -28,7 +28,7 @@ export PATH := "./node_modules/.bin:" + env_var('PATH')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
 hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
-hm-specialisation-path := hm-gen-path / "specializations"
+hm-specialisation-path := hm-gen-path / "specialisations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
 sys-cmd := if os() == "linux" {
@@ -127,7 +127,7 @@ home subcommand *ARGS:
   @echo {{msg-done}}
 
 home-specialise name:
-  {{ hm-gen-path }}/specialization/{{ name }}/activate \
+  {{ hm-gen-path }}/specialisation/{{ name }}/activate \
   |& nom
 
 
@@ -147,11 +147,11 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 
 ###: THEME =====================================================================
 
-# <https://nix-community.github.io/home-manager/options.html#opt-specialization>
+# <https://nix-community.github.io/home-manager/options.html#opt-specialisation>
 # This is safe to use even with a dirty working tree because the themes are
-# activated by way of the current generation's specialization activation scripts.
+# activated by way of the current generation's specialisation activation scripts.
 
-# FIXME: specialization not available within a specialization -- <https://github.com/nix-community/home-manager/issues/4073>
+# FIXME: specialisation not available within a specialisation -- <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
 theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
 
