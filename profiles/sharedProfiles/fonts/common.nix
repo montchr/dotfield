@@ -21,6 +21,7 @@ in {
       emacs-all-the-icons-fonts
       # <https://bboxtype.com/typefaces/FiraSans/>
       fira
+      ia-writer-duospace
       ibm-plex
       inter
       jetbrains-mono
