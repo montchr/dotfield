@@ -6,6 +6,7 @@
   inherit (ops.metadata) hosts;
 in {
   imports = [
+    ./auth.nix
     ./filesystems.nix
     ./network.nix
     ./profiles/sops.nix

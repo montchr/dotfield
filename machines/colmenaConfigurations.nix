@@ -54,6 +54,12 @@ in {
                 targetHost = ops.metadata.hosts.moraine.ipv6.address;
                 targetUser = "anomich";
               };
+              deployment.keys."oauth2-proxy-env" = {
+                keyCommand = ["pass" "show" "hosts/moraine/oauth2-proxy-env"];
+                owner = "oauth2_proxy";
+                group = "oauth2_proxy";
+                permissions = "0440";
+              };
             }
           ];
         })
