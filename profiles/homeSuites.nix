@@ -20,9 +20,7 @@
   developer =
     base
     ++ [
-      # FIXME: restore delta
-      # homeProfiles.difftools.delta
-      homeProfiles.difftools.difftastic
+      homeProfiles.difftools.delta
       homeProfiles.emacs.default
       homeProfiles.just
       homeProfiles.python

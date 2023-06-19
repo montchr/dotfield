@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   programs.git.delta = {
     enable = true;
     options = {
