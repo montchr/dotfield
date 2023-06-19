@@ -28,6 +28,7 @@ in {
       (nerdfonts.override {
         fonts = [
           "Iosevka"
+          "JetBrainsMono"
           "NerdFontsSymbolsOnly"
         ];
       })
