@@ -16,7 +16,6 @@ in {
 
   ##: shells
   programs.bash.enable = true;
-  programs.fish.enable = l.mkDefault false;
   programs.zsh.enable = l.mkDefault true;
 
   ##: essential tools
