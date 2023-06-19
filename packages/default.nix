@@ -15,7 +15,7 @@ in {
       base16-schemes = callPackage ./data/themes/base16-schemes {};
       berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix {};
       cod = callPackage ./shells/cod {};
-      emacs-plus = callPackage ./applications/editors/emacs/emacs-plus.nix {
+      emacs-plus-29 = callPackage ./applications/editors/emacs/emacs-plus-29.nix {
         inherit (emacs-overlay.packages) emacs-unstable;
       };
       emacs-plus-edge = callPackage ./applications/editors/emacs/emacs-plus-edge.nix {

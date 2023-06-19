@@ -1,18 +1,16 @@
-{
+moduleArgs @ {
+  pkgs,
   config,
   flake,
   ...
 }: let
-  inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+  inherit (flake.perSystem.inputs') nil-lsp;
   inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in {
   imports = [./extra-packages.nix];
 
   home.sessionVariables = {
-    # TODO: disabled as $EDITOR until we have something more lightweight for immediate cli usage
-    # EDITOR = "emacsclient -c -a emacs";
-
     ##: lsp-mode: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
     LSP_USE_PLISTS = "true";
@@ -22,7 +20,10 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = emacs-overlay.packages.emacs-git;
+    package =
+      moduleArgs.osConfig.programs.emacs.package
+      or moduleArgs.osConfig.services.emacs.package
+      or pkgs.emacs29;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 

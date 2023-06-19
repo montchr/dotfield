@@ -26,9 +26,7 @@ in {
   };
 
   # Allow nix-darwin to install the specified programs as applications.
-  environment.systemPackages =
-    (optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package)
-    ++ (optional hmCfg.programs.emacs.enable hmCfg.programs.emacs.package);
+  environment.systemPackages = optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package;
 
   homebrew.casks = ["microsoft-teams" "onedrive"];
 

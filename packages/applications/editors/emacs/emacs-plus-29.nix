@@ -11,13 +11,13 @@
   emacs-plus = fetchFromGitHub {
     owner = "d12frosted";
     repo = "homebrew-emacs-plus";
-    rev = "85c84fd60418aaed3be3972728380ab890311dd3";
-    sha256 = "sha256-IdnQm1i+jgxSa/8P6BX020waXrXEDbOKLI+bjq3RaxM=";
+    rev = "b926ff102067d3864ff4cb8060962ec4d46510ef";
+    sha256 = "sha256-WAGKPYOphID1HJHk/pyDxv/fvWUNqUjL6KL/7eyyC0A=";
   };
-  patchesDir = emacs-plus + "/patches/emacs-28";
+  patchesDir = emacs-plus + "/patches/emacs-29";
 in
   emacs-unstable.overrideAttrs (o: {
-    pname = "emacs-plus";
+    pname = "emacs-plus-${o.version}";
 
     patches =
       lib.optional (!withTitleBar && withRoundCorners) "${patchesDir}/no-titlebar-and-round-corners.patch"

@@ -8,7 +8,8 @@
 
     darwinProfiles.one-password
     darwinProfiles.bitwarden
-    darwinProfiles.emacs-plus
+    darwinProfiles.emacs.default
+    # darwinProfiles.emacs.emacs-plus
     darwinProfiles.desktop.common
     darwinProfiles.keyboard.atreus
     darwinProfiles.rclone
