@@ -61,18 +61,6 @@ in {
       ##: Initialise the builtin profiler -- run `zprof` to read results
       zmodload zsh/zprof
 
-      ##: Ensure zgenom is available
-      if ! [[ -d $ZGEN_SOURCE ]]; then
-        echo "Installing jandamm/zgenom"
-        git clone --depth 1 https://github.com/jandamm/zgenom.git $ZGEN_SOURCE
-      fi
-
-      ##: Initialise zgenom
-      . $ZGEN_SOURCE/zgenom.zsh
-
-      ##: Check for plugin and zgenom updates (default: every week).
-      zgenom autoupdate
-
       ##: Initialise prompt and direnv
       # - <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
 
@@ -86,6 +74,18 @@ in {
       fi
 
       emulate zsh -c "$(direnv hook zsh)"
+
+      ##: Ensure zgenom is available
+      if ! [[ -d $ZGEN_SOURCE ]]; then
+        echo "Installing jandamm/zgenom"
+        git clone --depth 1 https://github.com/jandamm/zgenom.git $ZGEN_SOURCE
+      fi
+
+      ##: Initialise zgenom
+      . $ZGEN_SOURCE/zgenom.zsh
+
+      ##: Check for plugin and zgenom updates (default: every week).
+      zgenom autoupdate
     '';
 
     history.path = "${ZSH_DATA}/history";
