@@ -41,6 +41,7 @@
     # vscode
   ];
 
+  # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
     homeProfiles.apple-music
     homeProfiles.espanso.default
@@ -50,6 +51,9 @@
     homeProfiles.rclone
     homeProfiles.spotify
     homeProfiles.sync
+    homeProfiles.theme.fonts.monospace.jetbrains-mono
+    homeProfiles.theme.fonts.sans-serif.inter
+    homeProfiles.theme.fonts.serif.ibm-plex-serif
     homeProfiles.zotero
   ];
 

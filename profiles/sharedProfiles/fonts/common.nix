@@ -14,6 +14,8 @@ in {
   fonts.fontDir.enable = true;
   fonts.fonts =
     (with pkgs; [
+      dejavu_fonts
+
       # <https://software.sil.org/charis/>
       # <https://practicaltypography.com/charter.html>
       charis-sil
@@ -25,18 +27,11 @@ in {
       ibm-plex
       inter
       jetbrains-mono
-      (nerdfonts.override {
-        fonts = [
-          "Iosevka"
-          "JetBrainsMono"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ])
     ++ (l.optionals isLinux (with pkgs; [
       bakoma_ttf
       corefonts # broken on aarch64-darwin
-      dejavu_fonts
       gentium
       liberation_ttf
       terminus_font # broken on aarch64-darwin

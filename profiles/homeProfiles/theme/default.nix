@@ -1,7 +1,11 @@
-{flake, ...}: let
+{
+  lib,
+  pkgs,
+  flake,
+  ...
+}: let
   inherit (flake.inputs.base16-schemes.lib) schemes;
   inherit (flake.self.lib.theme) mkColorScheme;
-  l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [
     ./__difftastic.nix
@@ -12,17 +16,17 @@ in {
   theme.color.schemes.dark = mkColorScheme schemes.tokyo-city-terminal-dark;
   theme.color.schemes.light = mkColorScheme schemes.tokyo-city-terminal-light;
   theme.fonts = {
-    monospace = l.mkDefault {
-      name = "Iosevka Term";
-      # package = pkgs.iosevka-bin;
+    monospace = lib.mkDefault {
+      name = "JetBrains Mono";
+      package = pkgs.jetbrains-mono;
     };
-    sansSerif = l.mkDefault {
+    sansSerif = lib.mkDefault {
       name = "Inter";
-      # package = pkgs.inter;
+      package = pkgs.inter;
     };
-    serif = l.mkDefault {
+    serif = lib.mkDefault {
       name = "IBM Plex Serif";
-      # package = pkgs.ibm-plex;
+      package = pkgs.ibm-plex;
     };
   };
 }

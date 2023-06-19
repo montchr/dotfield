@@ -43,9 +43,7 @@ in {
   }: {
     imports =
       roles.workstation
-      ++ [profiles.theme.fonts.berkeley-mono];
-    # FIXME: incorrect hosts ip configuration!
-    # ++ [inputs.klein-infra.homeManagerModules.${system}.ssh-config];
+      ++ [profiles.theme.fonts.monospace.jetbrains-mono];
     home.stateVersion = "22.05";
   };
 

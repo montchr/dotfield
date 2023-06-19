@@ -2,6 +2,7 @@ moduleArgs @ {
   flake,
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (flake.inputs) apparat base16-schemes;
@@ -36,6 +37,8 @@ moduleArgs @ {
       inherit default;
       type = with l.types; (submodule colorSchemeModule);
     };
+
+  mkPackageOption = type: l.mkPackageOption pkgs "${type} font" {default = null;};
 in {
   options.theme = {
     enable = l.mkEnableOption "Whether to enable the theme module.";
@@ -49,24 +52,40 @@ in {
         name = mkOpt str defaultFonts.monospace;
         weight = mkOpt int normalWeight;
         size = mkOpt int 13;
+        package = mkPackageOption "monospace";
+        psNamespace = mkOpt str "";
       };
       terminal = with cfg.fonts; {
         name = mkOpt str monospace.name;
         weight = mkOpt int monospace.weight;
         size = mkOpt int monospace.size;
+        package = mkPackageOption "terminal";
+        psNamespace = mkOpt str "";
       };
       sansSerif = {
         name = mkOpt str defaultFonts.sansSerif;
         weight = mkOpt int normalWeight;
         size = mkOpt int 10;
+        package = mkPackageOption "sans-serif";
+        psNamespace = mkOpt str "";
       };
       serif = {
         name = mkOpt str defaultFonts.serif;
         weight = mkOpt int normalWeight;
         size = mkOpt int cfg.fonts.sansSerif.size;
+        package = mkPackageOption "serif";
+        psNamespace = mkOpt str "";
       };
-      emoji.name = mkOpt str "";
-      symbols.name = mkOpt str "";
+      emoji = {
+        name = mkOpt str "";
+        package = mkPackageOption "emoji";
+        psNamespace = mkOpt str "";
+      };
+      symbols = {
+        name = mkOpt str "";
+        package = mkPackageOption "symbols";
+        psNamespace = mkOpt str "";
+      };
     };
   };
 

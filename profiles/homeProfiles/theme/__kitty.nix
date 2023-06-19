@@ -25,18 +25,6 @@ in
   in {
     programs.kitty.settings = colorSettings // fontSettings;
 
-    # FIXME: should not hard-code non-default + proprietary font
-    #        consider some lib mapping of known fonts to postscript names
-    programs.kitty.extraConfig = let
-      # $ kitty +list-fonts --psnames | grep <font-name>
-      psName = "BerkeleyMono";
-    in ''
-      font_features ${psName}             -calt +dlig
-      font_features ${psName}-Bold        -calt +dlig
-      font_features ${psName}-Italic      -calt +dlig
-      font_features ${psName}-BoldItalic  -calt +dlig
-    '';
-
     xdg.configFile = {
       "kitty/theme-dark.conf".text =
         makeConf (makeThemeAttrs
