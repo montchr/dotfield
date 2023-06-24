@@ -12,7 +12,7 @@
     ipv4.address = "192.168.1.214";
     keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILieF9RIyF4rnqOyse7+3RMYQGH8IrBkTOuMb3O4oDXU root@boschic" "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC55brzXJiHpeY6ivYPshjG664jx87m7qLLv6ur8r5i9eWjQK9MIW4OB4Bfc4LKjNNSgeZ9Exs9L2V5ci3hFsBUUiANUuKNWrplO8CjHmAYndo1fQ+NlOqwTug+NOIjAjc4tZ2QxO1QLxBrRieF7UTBm52C4v3fIingi38UYGQje9JedFdxhuUWQW4a+VBpjYX7r6QjSd3+yO29u97fi9HxK54aVCW41ylsAOp75ty6HYoOi4cuqsZipFm+u4lTxj9XtEyernVX0dqIJLuKSB1WnZNeTe3U41+VeZG8H5eEiChJGbfWaAXRjYLiU15Akz/PVDXmkD19F7oqeqsU0VkaUi2y3vpADlMEi4jXaLsaX0xNkGvUyTLGr1TKBBlEDspr4ptN5EyvAzUFOwSAyEnsfjL9QaLs4kNgiJjzMYXr8w7CHfXgI7tw3ERryOS9FpfCo92KqHMkkQ8psqI/DOvxREY+uCeU4VPuiXLH2Q9w0TJuN3MC6V6cr3qiaMTZwaM6dLRb9FGHTk2XycP+EgJywM3zsc2MPijb4B9PXWlUIi20mnEQTVsGhiN738QwVTAWIlAPk4GnWcJLtrdRaOXUyEe/HAWks6vXeMAduKM1vF8MzgHKz4QJVsbcaPrOxAnS9i70UeA0qNjn3n9d2C9cATJEVS9OD2GoTbkMWWQ5uw== root@boschic"];
     network = "home";
-    tailscale = "100.112.94.38";
+    networks.ts = "100.112.94.38";
     users.seadoom = {
       age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4";
       keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"];
@@ -36,7 +36,7 @@
     ipv4.address = "192.168.1.152";
     keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPRS3UkaJeMQm58v+ggR5e0hVeUbFZkhyQJwEC0LK5YS"];
     network = "home";
-    tailscale = "100.71.240.35";
+    networks.ts = "100.71.240.35";
     users.seadoom.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"];
   };
   moraine = {
@@ -51,7 +51,7 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCu56Rvtpdr8oPtKT+dru8t/GrqwVtngVIAGGjSRMmg4GBbi8OVx5TkKCNFypJKwx1oCUnIb5f11HVdHukpe/TAjxKlF1kQlXJpaCLszQD5Gdf9SBH8gKrNtoqlsnalaU7faWnbfGoPmMPrd6hNVByslAzrC1OHFiI1vqAmnwh5XdU7Y4r8brScPsG4NoRQ9P3bTNMs4Sk1s0UxMAgziHltG/jlcupQxHx5Zdm2of3wXAWdvrRT3k69aPd6PHs+rQOqZkzuY9vRloKxFSINyTnXnJDlCZis0NzoSoeAdfuWj5xfk795NztCJaazkRSp/4Mg7/hkoWfGvVve5WV+kwOEKpLOWpYHNHUgyABLb7QxZ+Yx/9UGZT91kWVX1KxpSEG7S/Azs327flI+lw3b9kBwYyPIV7A2UztfvCmJmKKKyn1rppUDbICCCQb6ADmwSSvqYsRwDXU0QGyns3sUpNjq0F73QJOIGTTE47+lbEVwYYt3JyXSzl1RaUe7Bw5+mpD1z71EkFuO2Y3BtDaqIbqvjY6rKKT5h+8fw0u+WHcSmZIczncZGLp18qR1PSc4nAlFh0inGMbUQbuqIMYsqmmGkWs71/7rHtvBGBEHq90KYfXXGT3bhzv/Xj0gtUr1XXBEHIV+KAM/4mVBdOowCJiVuRzLyQ7cUYJl+INwi3XZIw== root@moraine"
     ];
     network = "cubegarden";
-    networks.tailscale = {
+    networks.ts = {
       ipv4.address = "100.101.74.89";
       ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:6265:4a59";
     };
@@ -62,7 +62,7 @@
     ipv4.address = "192.168.1.217";
     keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPhDD8yaBeZNP0Qv2b4DAx2QUlu+YX41zSod8k8dS8b root@ryosuke" "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfa+BY8CbQBAYXZGRz+x7FxG2QxQCOqnRgg6D9jsUpZjI2So0KIX0h1xxdCiGRr0ZKgKqn+dVln/eAnbPkcIg7QfJjYdMNDgZef89lU+EbDXp4n4kfH1tyRZq273rR6pu6PthKyD6GxCnfMPZmTe9kR3ndDWEz++pS0ChMFRQsUy+zTnTxj/b8O6eTHRRQDYoCvETc1kKfoH/O852/U2hXcQPYR0qpH1TF1nzJhC5sStLWiAws2g2I+53e7XAluBCyqQBPjPlENwVTPH+riTTvUNEg5p7KmZodK3grD1FylvxA/E1iR6PQJT++PkczQyguI51SjMHng9rSFHDn24jT3/g8u2tHuBfKZV8cV6JvX07tUF8Fn1Mmo6Pas0WjJmvx7aFBt2LI/jJ0CYMqcsND84Z6qZQ3f18mQG/pS3N4yNmsVW6XDvMQ+sIU1tJgGlZrbT6ITJDvD4MEyC7UeT1Oy9yS1+IyJfSX48RqHxdeoWXARm58m/rzemx7m7q2UQXhzLlL1jdZwcDsXXa5AOuNWCsmZi6gIr7mVEaVIrXl7S08NGtU8QRmZFE0XA+bbCJP6iL0Gjos6HZvaqRk221coX1idMP8+uFSQhpzDYexF8CHM5j+anO6J/dpUjsy0cgvITnF1gkbv1YkYGSeIC2rrbQPhUJ99Pp6jfN9/5UxFw== root@ryosuke"];
     network = "home";
-    tailscale = "100.123.41.68";
+    networks.ts = "100.123.41.68";
     users.cdom = {
       age = "age19une89quzx4jt36hndrdp5ghr43845dndctfta206f7ts5ucsyjqt0l3pm";
       keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"];
@@ -77,7 +77,7 @@
     ipv4.address = "192.168.1.155";
     keys = [];
     network = "home";
-    networks.tailscale = {
+    networks.ts = {
       ipv4.address = "100.88.155.140";
       ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:6258:9b8c";
     };

@@ -16,6 +16,6 @@ rec {
     tailnet.fqdn = "link.${seadome.domain}";
     tailnet.server.url = "https://${seadome.tailnet.fqdn}";
   };
-  tailscale.domain = "rat-vimba.ts.net";
+  ts.domain = "rat-vimba.ts.net";
   tusecurewireless.domain = "temple.edu";
 }
