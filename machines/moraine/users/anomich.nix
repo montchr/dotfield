@@ -5,7 +5,7 @@ in {
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["wheel"];
-    openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
+    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
   home-manager.users.${username} = hmArgs: {
     imports = hmArgs.roles.remote;
