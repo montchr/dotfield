@@ -30,6 +30,8 @@ in {
 
   homebrew.casks = ["microsoft-teams" "onedrive"];
 
+  programs.fish.enable = true;
+
   users.users.${username} = {
     home = "/Users/${username}";
     isHidden = false;
@@ -43,7 +45,10 @@ in {
   }: {
     imports =
       roles.workstation
-      ++ [profiles.theme.fonts.monospace.jetbrains-mono];
+      ++ [
+        profiles.shells.fish.default
+        profiles.theme.fonts.monospace.jetbrains-mono
+      ];
     home.stateVersion = "22.05";
   };
 
