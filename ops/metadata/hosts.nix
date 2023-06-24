@@ -77,6 +77,10 @@
     ipv4.address = "192.168.1.155";
     keys = [];
     network = "home";
+    networks.tailscale = {
+      ipv4.address = "100.88.155.140";
+      ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:6258:9b8c";
+    };
     users.cdom = {
       age = "age18yqe2svh9ck0san5uzthh6m774r2450hhz4ustguza2l8nttk30qxvtpf4";
       keys = [
