@@ -11,6 +11,7 @@
     ## === Data and Documents ===
 
     tidy-viewer # Pretty-print CSV files
+    xlsx2csv # Convert xslx to csv => <https://github.com/dilshod/xlsx2csv>
     xsv # A fast CSV command line toolkit
     # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
     python3Packages.yq
