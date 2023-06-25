@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "firefox-ui-fix";
-  version = "7.3.1";
+  version = "7.4.0";
 
   src = fetchFromGitHub {
     owner = "black7375";
     repo = "Firefox-UI-Fix";
     rev = "v${version}";
-    sha256 = "sha256-zyW/nZPoee/S0f4KLH1sveeYjuWJetlChpwCfeSXomM=";
+    sha256 = "sha256-YmAxhPMcs2GZPZiq4b60G/qddk7o9UHz3xjBtepKSAs=";
   };
 
   installPhase = ''
@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    # FIXME: come up with a decent description because the project doesn't seem
-    # to provide anything usable...
+    # TODO: project does not have a defined description anywhere
     # description = ''
     # '';
     license = with licenses; [mpl20];
