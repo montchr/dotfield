@@ -7,13 +7,13 @@
 }:
 buildGoModule rec {
   pname = "cod";
-  version = "unstable-2023-01-23";
+  version = "unstable-2023-05-26";
 
   src = fetchFromGitHub {
     owner = "dim-an";
     repo = "cod";
-    rev = "387acc605a80b53f935e3b9bad40ace06ddae5e6";
-    hash = "sha256-QgnnBnAvMRga9PZCJ9YnxWC01BXrNj1pt32ilB4oV4o=";
+    rev = "fdbe85afb8790821de1e48a3c8645ca0118ab4b9";
+    hash = "sha256-OlVYHOOSnwhoiy7bnhROGA3SI+6jaK6JZDzekRKOm3c=";
   };
 
   vendorHash = "sha256-bJdyRFW8bPoweI2V5n/WBUEqlQ33QT4FqLTQtiKHYic=";
