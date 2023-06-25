@@ -1,3 +1,4 @@
+# WARNING: conflicts with home-manager module when extra packages are specified
 {
   flake,
   config,
