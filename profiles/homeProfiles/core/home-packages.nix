@@ -23,9 +23,11 @@
       '';
     })
 
+    ##: [evaluating]
+    pkgs.joshuto # <- yet ANOTHER ranger-like file manager tui => <https://github.com/kamiyaa/joshuto>
+
     ##: [lukewarm]
     pkgs.grex #      <- generate regexps from user-provided test cases
-    pkgs.lf #        <- yet another ranger-like file manager tui          => <https://github.com/gokcehan/lf/wiki/>
 
     ##: [TODO]
     pkgs.doggo #     <- command-line DNS client for humans                => <https://github.com/mr-karan/doggo>
