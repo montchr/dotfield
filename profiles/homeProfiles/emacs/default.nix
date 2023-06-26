@@ -4,7 +4,7 @@
   flake,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (flake.perSystem.inputs') nil-lsp;
   inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -21,19 +21,16 @@ in {
   xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
 
   programs.emacs = {
-    enable = true;
-    package =
-      if isDarwin
-      then flake.perSystem.packages.emacs-plus-29
-      else pkgs.emacs29;
+    enable = isLinux;
+    package = pkgs.emacs29;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-    socketActivation.enable = isLinux;
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   defaultEditor = true;
+  #   socketActivation.enable = isLinux;
+  # };
 
   home.packages = [
     nil-lsp.packages.nil
