@@ -117,18 +117,7 @@ in relevant files.
 - <https://github.com/ahmedelgabri/dotfiles>
 - <https://github.com/cmacrae/config> :: nix-darwin, nixos, emacs
 
-### Emacs
-
-- [elken's doom configs][elken-doom] :: doom, php, corfu
-- [gagbo's doom configs][gagbo-doom] :: doom, corfu, apheleia
-- [tecosaur's doom configs][tecosaur-doom] :: doom, aesthetics
-- [d12frosted's emacs configs][d12frosted-emacs]
-
 [frecency]: https://en.wikipedia.org/wiki/Frecency
-[elken-doom]: https://github.com/elken/doom
-[gagbo-doom]: https://git.sr.ht/~gagbo/doom-config
-[tecosaur-doom]: https://tecosaur.github.io/emacs-config/config.html
-[d12frosted-emacs]: https://github.com/d12frosted/environment/tree/master/emacs
 
 ## Systems
 
@@ -163,8 +152,7 @@ every day. I've also used it in the office as a "laptop".
 
 Hetzner AX52 (+ ECC) (+ 2x16TB HDD)
 
-For backups, remote builds, mass storage, pretty much everything that needs to
-be accessible remotely.
+Media server. Work in progress.
 
 #### Name Origin
 
@@ -174,7 +162,7 @@ be accessible remotely.
 
 ### `boschic`
 
-A beast lurking in the shadows of my living room.
+A towering beast lurking in the shadows of my living room.
 
 Originally built in 2015, recently revamped.
 
@@ -214,4 +202,48 @@ Still works, but unusable without external display.
 
 Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
 
-Currently lost somewhere in the meat ether.
+Currently lost somewhere in the meat ether. According to "Find My Devices",
+someone may have accidentally left it at an Airbnb in Massachusetts. But I've
+never been to Massachusetts.
+
+## Notes
+
+### macOS GUI Applications via Nix: Don't Bother
+
+I oscillate between using emacs-plus via homebrew, nix-darwin's
+`services.emacs`, and home-manager's `programs.emacs`, only to switch back to
+brew-installed emacs-plus.
+
+Unfortunately my experience with installing macOS GUI applications with Nix has
+been consistently terrible. Though that is not at all the fault of the Nix
+community -- we can point all fingers at Apple for making things difficult
+outside of their intended usages.
+
+So I write this as a reminder to my future self to err on the side of not
+wasting the time trying to make macOS GUI apps work with Nix.
+
+#### Emacs
+
+Avoid using GUI Emacs installed via home-manager. In my experience, it crashes
+any time I interact with the mouse or use the menubar. This one is probably
+worth reporting upstream, but admittedly I am rolling a weird custom patched
+version of Emacs 29 from the community overlay with the emacs-plus patches
+included, so that might make it hard for others to repro.
+
+nix-darwin Emacs doesn't have GUI crashes, but the launchd service never seems
+to work, breaking `emacsclient` functionality.
+
+Unverified, but I suspect that the home-manager-managed Emacs GUI crashes
+because macOS doesn't like the `emacs-with-packages` wrapper from
+`programs.emacs.finalPackage`.
+
+#### yabai
+
+I miss using yabai, a lot. I uninstalled it when I upgraded to Ventura because
+there were some pretty significant issues causing it to crash constantly. I
+think those may have been fixed since I last tried.
+
+But this is another example: just save yourself the anguish and time-suck and
+just use the official Homebrew installation. yabai is brilliantly hacky (in a
+good way) enough on its own, and when it's broken, the system becomes literally
+unusable (thanks again, Apple).
