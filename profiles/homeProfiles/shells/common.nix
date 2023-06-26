@@ -19,6 +19,7 @@ in {
   home.shellAliases = import ./aliases.nix;
 
   programs.bash.shellAliases = shellAbbrs;
+  programs.nushell.shellAliases = shellAbbrs;
   programs.zsh.shellAliases = shellAbbrs;
   programs.fish = {inherit shellAbbrs;};
 
