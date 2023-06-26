@@ -35,7 +35,7 @@ in {
   users.users.${username} = {
     home = "/Users/${username}";
     isHidden = false;
-    shell = pkgs.zsh;
+    shell = pkgs.bashInteractive;
   };
 
   home-manager.users.${username} = {
@@ -47,6 +47,7 @@ in {
       roles.workstation
       ++ [
         profiles.shells.fish.default
+        profiles.shells.fish.via-bash-init
         profiles.theme.fonts.monospace.jetbrains-mono
       ];
     home.stateVersion = "22.05";
