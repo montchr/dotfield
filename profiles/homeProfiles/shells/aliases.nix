@@ -1,18 +1,19 @@
-{
+{pkgs}: {
+  ".." = "cd ..";
+  "..." = "cd ../..";
+
   e = "$EDITOR";
 
-  # Make life a bit less stressful.
-  mv = "mv -i";
-  cp = "cp -i";
-  rm = "rm -I";
-
-  # Make dir what I mean.
-  mkdir = "mkdir -pv";
+  cp = "${pkgs.coreutils}/bin/cp -ir";
+  # TODO: override `l` or `ll` from exa module
+  le = "${pkgs.exa}/bin/exa -bl --git --icons --time-style long-iso --group-directories-first";
+  mkdir = "${pkgs.coreutils}/bin/mkdir -pv";
+  mv = "${pkgs.coreutils}/bin/mv -i";
+  rm = "${pkgs.coreutils}/bin/rm -I";
 
   # Use Kitty terminal"s ssh helper kitten
   # TODO: move to kitty profile
-  # FIXME: mirror `ssh` completions... or: override `ssh` directly?
-  sshk = "kitty +kitten ssh";
+  ssh = "kitty +kitten ssh";
   # Display an image in kitty
   icat = "kitty +kitten icat";
 
@@ -29,10 +30,7 @@
   # Runs bat without line numbers and wrapping.
   rat = "bat --style=plain --wrap=never";
 
-  ".." = "cd ..";
-  "..." = "cd ../..";
-
-  top = "btm";
+  top = "htop";
   tree = "exa --tree";
 
   # IPs/DNS
@@ -51,6 +49,7 @@
   nbn = "nix build nixpkgs#";
   nf = "nix flake";
 
+  ndr = "darwin-rebuild --flake .";
   nr = "nixos-rebuild --flake .";
   nrs = "nixos-rebuild --flake . switch";
   snr = "sudo nixos-rebuild --flake .";

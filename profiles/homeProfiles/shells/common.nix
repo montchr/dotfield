@@ -1,10 +1,11 @@
 {
   flake,
   config,
+  pkgs,
   ...
 }: let
   l = flake.inputs.nixpkgs.lib // builtins;
-  shellAbbrs = import ./abbrs.nix;
+  shellAbbrs = import ./abbrs.nix {inherit pkgs;};
 in {
   imports = [
     ./bash
@@ -16,7 +17,7 @@ in {
     ++ (l.optional config.programs.fish.enable "/share/fish")
     ++ (l.optional config.programs.zsh.enable "/share/zsh");
 
-  home.shellAliases = import ./aliases.nix;
+  home.shellAliases = import ./aliases.nix {inherit pkgs;};
 
   programs.bash.shellAliases = shellAbbrs;
   programs.nushell.shellAliases = shellAbbrs;

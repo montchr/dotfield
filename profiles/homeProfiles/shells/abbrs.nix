@@ -1,4 +1,4 @@
-{
+{pkgs}: {
   t = "tail -f";
 
   q = "exit";
@@ -58,18 +58,4 @@
   # submodule
   # Magical fix for all submodule issues.
   gsumo = "git submodule update --init --recursive";
-
-  # -------------------------------------
-  #  NPM
-  # -------------------------------------
-
-  nrb = "npm run build";
-  nrd = "npm run dev";
-
-  # -------------------------------------
-  #  VAGRANT
-  # -------------------------------------
-
-  vup = "vagrant up";
-  vre = "vagrant reload";
 }
