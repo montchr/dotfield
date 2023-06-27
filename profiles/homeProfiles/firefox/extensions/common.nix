@@ -19,6 +19,7 @@ with addons; [
   reddit-enhancement-suite
   reduxdevtools
   refined-github
+  simple-tab-groups
   stylus
   tab-session-manager
   temporary-containers
