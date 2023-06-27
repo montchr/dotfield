@@ -32,6 +32,6 @@ in {
     '';
   };
 
-  programs.fzf.enableFishIntegration = true;
+  programs.fzf.enableFishIntegration = l.mkDefault true;
   programs.neovim.plugins = with pkgs.vimPlugins; [vim-fish];
 }

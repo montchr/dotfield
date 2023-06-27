@@ -47,6 +47,7 @@ in {
       roles.workstation
       ++ [
         profiles.shells.fish.default
+        profiles.shells.fish.fzf-integration
         profiles.shells.fish.via-bash-init
         profiles.theme.fonts.monospace.jetbrains-mono
       ];
