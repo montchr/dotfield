@@ -49,16 +49,28 @@ blacklistadd https://outlook.office.com
 
 " === Search ===================================================================
 
-" TODO: devdocs, mdn, youtube, kagi, ddg, reddit, archwiki, awesomelists
+" TODO: devdocs, kagi, ddg, awesomelists
+" devdocs may need more care, as it's most useful with docset-scoped searches
 
+" Reset existing `searchurls`
+" Should work, but does not: `js tri.config.set("searchurls", {})`
+" For now, this: <https://github.com/tridactyl/tridactyl/issues/2327>
+unset searchurls
+
+set searchurls.arch https://wiki.archlinux.org/index.php?search=%s
 set searchurls.alt2 https://alternativeto.net/browse/search/?q=
 set searchurls.caniuse https://caniuse.com/?search=
 set searchurls.gh https://github.com/search?q=
+set searchurls.mdn https://developer.mozilla.org/en-US/search?q=%s
+set searchurls.nix https://noogle.dev/?term=%22%s%22
 set searchurls.nixpkgs https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20%s
 set searchurls.nixwiki https://nixos.wiki/index.php?search=
 set searchurls.npm https://bundlephobia.com/package/%s
 set searchurls.opts https://search.nixos.org/options?query=
 set searchurls.pkgs https://search.nixos.org/packages?query=
+" TODO: verify `old` works
+set searchurls.r https://old.reddit.com/r/%s/
+set searchurls.yt https://www.youtube.com/results?search_query=%s
 
 
 " === Tree-Style Tab ===========================================================
@@ -121,3 +133,7 @@ bind zk ttfocus prevSibling
 "       so might consider z>,z< or similar:
 bind << ttoutdent_recursively current
 bind >> ttindent_recursively current
+
+" Local Variables:
+" mode: vimrc
+" End:
