@@ -29,3 +29,8 @@ matches:
     replace: '×'
   - trigger: ':s.null'
     replace: '∅'
+
+  # Emoji
+  # => :s.
+  - trigger: ':s.hrug'
+    replace: '¯\_(ツ)_/¯'

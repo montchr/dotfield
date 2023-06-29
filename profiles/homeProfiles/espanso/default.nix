@@ -9,11 +9,13 @@
 # one idea for a workaround: a proxy config file could be written to the config
 # directory, containing only an import directive. but all that said, there's
 # probably a much simpler way.
-{flake, ...}: let
-  configBasePath = flake.self + "/home/users/cdom/config";
+{config, ...}: let
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
 in {
-  xdg.configFile."espanso" = {
-    source = "${configBasePath}/espanso";
-    recursive = true;
-  };
+  # FIXME: just use gnu stow i guess........
+  # xdg.configFile."espanso" = {
+  #   source = mkOutOfStoreSymlink "${dotfieldDir}/users/cdom/config/espanso";
+  #   recursive = true;
+  # };
 }

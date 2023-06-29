@@ -1,0 +1,5 @@
+matches:
+  - trigger: 'phila'
+    replace: 'philadelphia'
+    word: true
+    propagate_case: true
