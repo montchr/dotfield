@@ -9,4 +9,6 @@
   };
 
   home.shellAliases."c" = "composer";
+  home.shellAliases."cl" = "composer lint";
+  home.shellAliases."cf" = "composer fix";
 }
