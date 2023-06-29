@@ -18,17 +18,24 @@ in {
       # forgit
     ]);
 
-    # Workaround for clobbered `$PATH` with nix-darwin
-    # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1030877541
     loginShellInit = l.mkIf isDarwin ''
-      fish_add_path --move --prepend --path \
-        $HOME/.nix-profile/bin \
-        /run/wrappers/bin \
-        /etc/profiles/per-user/$USER/bin \
-        /nix/var/nix/profiles/default/bin \
-        /run/current-system/sw/bin \
-        /opt/homebrew/bin \
-        /opt/homebrew/sbin
+      # Essential workaround for clobbered `$PATH` with nix-darwin.
+      # Without this, both Nix and Homebrew paths are forced to the end of $PATH.
+      # <https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219>
+      # <https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1030877541>
+      #
+      # A previous version of this snippet also included:
+      #   - /run/wrappers/bin
+      #   - /etc/profiles/per-user/$USER/bin
+      #
+      if test (uname) = Darwin
+          fish_add_path --prepend --global \
+            "$HOME/.nix-profile/bin" \
+            /nix/var/nix/profiles/default/bin \
+            /run/current-system/sw/bin \
+            /opt/homebrew/bin \
+            /opt/homebrew/sbin
+      end
     '';
   };
 

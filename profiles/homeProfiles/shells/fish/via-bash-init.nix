@@ -11,8 +11,11 @@
   # allowing bash to run normally when invoked directly.
   #
   # <https://wiki.archlinux.org/title/Fish#Modify_.bashrc_to_drop_into_fish>
+  #
+  # FIXME: does not work on darwin -- args don't work w/darwin `ps` + $PPID not set
+  # if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
   programs.bash.initExtra = lib.mkAfter ''
-    if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+    if [[ -z ''${BASH_EXECUTION_STRING} ]]
     then
     	shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
       exec ${config.programs.fish.package}/bin/fish $LOGIN_OPTION
