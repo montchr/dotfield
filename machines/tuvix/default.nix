@@ -15,6 +15,7 @@ in {
   imports = [
     darwinProfiles.builders.vm-guest.default
     sharedProfiles.fonts.berkeley-mono
+    sharedProfiles.secrets.default
   ];
 
   # FIXME: needs some tweaking upstream to account for nix-darwin...

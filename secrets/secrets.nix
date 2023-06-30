@@ -13,7 +13,4 @@ let
   # allMachines = servers ++ workstations;
 in {
   "espanso/personal.yml.age".publicKeys = workstations ++ trustedUsers;
-
-  # FIXME
-  # "espanso/work.yml.age".publicKeys = workstations ++ trustedUsers;
 }

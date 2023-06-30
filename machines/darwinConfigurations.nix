@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs lib;
-  inherit (inputs) apparat darwin haumea;
+  inherit (inputs) apparat darwin haumea home-manager;
   inherit (apparat.lib) flattenTree;
   l = inputs.nixpkgs.lib // builtins;
 
@@ -21,10 +21,7 @@
   defaultModules = [
     sharedProfiles.core.default
     darwinProfiles.core.default
-    inputs.agenix.nixosModules.age
-    inputs.home-manager.darwinModules.home-manager
-    # TODO: darwin support yet?
-    # inputs.sops-nix.darwinModules.sops
+    home-manager.darwinModules.home-manager
   ];
 
   makeDarwinSystem = hostName: darwinArgs @ {system, ...}:

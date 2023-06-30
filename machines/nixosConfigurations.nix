@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs lib;
-  inherit (inputs) apparat haumea srvos;
+  inherit (inputs) apparat haumea home-manager srvos;
   inherit (apparat.lib) flattenTree;
   l = inputs.nixpkgs.lib // builtins;
 
@@ -20,12 +20,11 @@
 
   defaultModules = [
     sharedProfiles.core.default
+    sharedProfiles.secrets.default
     nixosProfiles.core.common
     nixosProfiles.boot.common
     nixosProfiles.networking.tailscale
-    inputs.agenix.nixosModules.age
-    inputs.home-manager.nixosModules.home-manager
-    inputs.sops-nix.nixosModules.sops
+    home-manager.nixosModules.home-manager
   ];
 
   makeNixosSystem = hostName: nixosArgs @ {system, ...}:

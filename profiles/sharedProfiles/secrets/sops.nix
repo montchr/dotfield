@@ -1,12 +1,16 @@
 {
+  flake,
   config,
   lib,
   pkgs,
   ...
 }: let
+  inherit (flake.inputs) sops-nix;
   inherit (config.dotfield.paths) storageBase;
   sshPath = "${storageBase}/etc/ssh";
 in {
+  imports = [sops-nix.nixosModules.sops];
+
   home-manager.sharedModules = [
     {
       # Allow running sops as a normal user without sudo.

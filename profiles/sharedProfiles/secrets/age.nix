@@ -1,12 +1,18 @@
 {
-  config,
+  flake,
+  # config,
   pkgs,
   lib,
   ...
 }: let
-  cfg = config.age;
-  secretsDir = ../secrets;
+  inherit (flake.inputs) agenix;
+  # cfg = config.age;
+  # secretsDir = ../secrets;
 in {
+  imports = [
+    agenix.nixosModules.default
+  ];
+
   home-manager.sharedModules = [
     {
       home.sessionVariables = {
