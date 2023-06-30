@@ -102,7 +102,7 @@
 
   ##: tests
   inputs.namaka = {
-    url = "github:nix-community/namaka/v0.1.1";
+    url = "github:nix-community/namaka";
     inputs = {
       haumea.follows = "haumea";
       nixpkgs.follows = "nixpkgs";
