@@ -69,9 +69,22 @@
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";
   inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+  # inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
+  ##: core modules+libraries
+  inputs.apparat.url = "sourcehut:~montchr/apparat";
+  inputs.haumea.follows = "apparat/haumea";
+  inputs.darwin.url = "github:LnL7/nix-darwin";
+  inputs.devshell.url = "github:numtide/devshell";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
+  inputs.nix-std.url = "github:chessai/nix-std";
+  inputs.srvos.url = "github:numtide/srvos";
+  inputs.std.url = "github:divnix/std";
   inputs.hive = {
     url = "github:divnix/hive";
     inputs.colmena.follows = "colmena";
@@ -83,24 +96,10 @@
     # inputs.darwin.follows = "darwin";
   };
 
-  ##: core modules+libraries
-  inputs.apparat.url = "sourcehut:~montchr/apparat";
-  inputs.haumea.follows = "apparat/haumea";
-  inputs.darwin.url = "github:LnL7/nix-darwin";
-  inputs.devshell.url = "github:numtide/devshell";
-  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
-  inputs.home-manager.url = "github:nix-community/home-manager";
-  inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
-  inputs.nix-std.url = "github:chessai/nix-std";
-  inputs.srvos.url = "github:numtide/srvos";
-  inputs.std.url = "github:divnix/std";
-
-  ##: customisation
-  inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
-  inputs.firefox-addons.url = "github:seadome/firefox-addons";
-  inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
-
-  ##: tests
+  ##: ops
+  inputs.agenix.url = "github:ryantm/agenix";
+  inputs.colmena.url = "github:zhaofengli/colmena";
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.namaka = {
     url = "github:nix-community/namaka";
     inputs = {
@@ -109,31 +108,30 @@
     };
   };
 
+  ##: customisation
+  inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
+  inputs.firefox-addons.url = "github:seadome/firefox-addons";
+  inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
+
+  ##: apps/tools
+  inputs.deadnix.url = "github:astro/deadnix";
+  inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
+  inputs.nil-lsp.url = "github:oxalica/nil";
+
   ##: work
   inputs.klein-infra.url = "github:kleinweb/infra";
 
-  ##: universal
-  inputs.agenix.url = "github:ryantm/agenix";
-  inputs.deadnix.url = "github:astro/deadnix";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.sops-nix.url = "github:Mic92/sops-nix";
-  inputs.nil-lsp.url = "github:oxalica/nil";
-
-  ##: darwin-specific
+  ##: darwin-only
   inputs.prefmanager.url = "github:malob/prefmanager";
 
-  ##: linux-specific
-  inputs.colmena.url = "github:zhaofengli/colmena";
+  ##: linux-only
   inputs.disko.url = "github:nix-community/disko";
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
-  ##: emacs
-  inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-  ##: et cetera
+  ##: et cetera ad infinitum
   inputs.apparat.inputs.std.follows = "std";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
