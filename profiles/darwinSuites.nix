@@ -5,6 +5,8 @@
   workstation = [
     sharedProfiles.fonts.common
     sharedProfiles.fonts.iosevka-variants
+    sharedProfiles.secrets.age
+    # sharedProfiles.secrets.sops
 
     darwinProfiles.one-password
     darwinProfiles.bitwarden

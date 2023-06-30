@@ -39,7 +39,9 @@
   ];
 
   workstation = [
-    sharedProfiles.secrets
+    sharedProfiles.secrets.age
+    sharedProfiles.secrets.sops
+
     nixosProfiles.one-password
     nixosProfiles.bitwarden
     nixosProfiles.boot.systemd-boot
