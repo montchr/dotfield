@@ -1,6 +1,9 @@
 name: 'Build & Cachix'
+
 on:
+  pull_request:
   push:
+
 jobs:
   check:
     runs-on: ${{ matrix.os }}
@@ -14,6 +17,7 @@ jobs:
           - os: ubuntu-latest
             type: nixos
             hostname: ci-ubuntu
+
     steps:
       - uses: actions/checkout@v3
 
@@ -25,14 +29,13 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v20
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            allow-import-from-derivation = true
+        uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Set up binary cache
-        uses: cachix/cachix-action@v12
+      - name: Set up GitHub Actions cache for Nix builds
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Set up Nix binary cache (Cachix)
+        uses: cachix/cachix-action@master
         with:
           name: dotfield
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
