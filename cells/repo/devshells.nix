@@ -1,22 +1,26 @@
 # SPDX-FileCopyrightText: 2022-2023 Chris Montgomery <chris@cdom.io>
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
 {
   inputs,
   cell,
 }: let
   inherit (inputs) nixpkgs std;
-  inherit (inputs.cells) lib presets;
+  inherit (inputs.cells) presets secrets;
   l = inputs.nixpkgs.lib // builtins;
   pkgs = inputs.nixpkgs;
   name = "dotfield";
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
+    # FIXME: something about this devshell causes git commits in magit to hang for a while during hooks
+    #        it might be my emacs config, but i haven't paid much attention to this devshell for a while
     default = {...}: {
       inherit name;
       imports = [
-        std.std.devshellProfiles.default
         cell.devshellProfiles.default
+        secrets.devshellProfiles.default
+
+        ##: external
+        std.std.devshellProfiles.default
       ];
       nixago = [
         (presets.cfg.commitlint {})

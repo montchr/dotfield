@@ -5,20 +5,13 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) agenix nixpkgs sops-nix std;
+  inherit (inputs) nixpkgs sops-nix std;
   l = inputs.nixpkgs.lib // builtins;
-  category = "secrets";
-  cmd = package: {inherit package category;};
 in {
   secrets = std.lib.dev.mkShell (_: {
+    imports = [cell.devshellProfiles.default];
     name = "dotfield-secrets";
     commands = [
-      (cmd agenix.packages.agenix)
-      (cmd nixpkgs.age-plugin-yubikey)
-      (cmd nixpkgs.rage)
-      (cmd nixpkgs.sops)
-      (cmd nixpkgs.ssh-to-age)
-      (cmd nixpkgs.yubikey-manager)
       {
         name = "install-age-key";
         category = "secrets";
@@ -62,14 +55,6 @@ in {
     ];
 
     env = [
-      {
-        name = "SOPS_AGE_KEY_DIR";
-        eval = "$XDG_CONFIG_HOME/sops/age";
-      }
-      {
-        name = "SOPS_AGE_KEY_FILE";
-        eval = "$XDG_CONFIG_HOME/sops/age/keys";
-      }
       {
         name = "AGENIX_ROOT";
         eval = "$PRJ_ROOT";
