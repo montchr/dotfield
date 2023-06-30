@@ -68,10 +68,9 @@
 
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";
-  inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-  # inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+  # inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+  # inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";

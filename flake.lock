@@ -1399,22 +1399,6 @@
         "type": "github"
       }
     },
-    "nixos-stable": {
-      "locked": {
-        "lastModified": 1687482344,
-        "narHash": "sha256-ZKsH8Cpb97Zbozaz26XkLv7Swa5uk3G1Vmy34MVt1ro=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3612945be80f916cde80537433ec0a4a0e6b3d3b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-22.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos-unstable": {
       "locked": {
         "lastModified": 1687502512,
@@ -1560,22 +1544,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "release-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-trunk": {
-      "locked": {
-        "lastModified": 1687712243,
-        "narHash": "sha256-KPuGP2DkBRAJeAUEA0aO1SHtg6m9rbK9pLJ6EJjomZc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "420e1df79c490d55000da346716b59bf687b0562",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -2125,12 +2093,10 @@
         "nil-lsp": "nil-lsp",
         "nixos-generators": "nixos-generators_2",
         "nixos-hardware": "nixos-hardware",
-        "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable_2",
         "nixpkgs": [
           "nixos-unstable"
         ],
-        "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "prefmanager": "prefmanager",
         "sops-nix": "sops-nix",
