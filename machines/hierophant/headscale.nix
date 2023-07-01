@@ -11,7 +11,7 @@
   flake,
   ...
 }: let
-  inherit (flake.inputs.apparat.networking.constants) dns;
+  inherit (flake.inputs.apparat.constants.networking) dns;
   inherit (ops.metadata) networks;
   inherit (networks.seadome) tailnet;
   cfg = config.services.headscale;

@@ -6,7 +6,7 @@
   flake,
   ...
 }: let
-  inherit (flake.inputs.apparat.networking.constants) dns;
+  inherit (flake.inputs.apparat.constants.networking) dns;
   inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
