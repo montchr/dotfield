@@ -25,9 +25,6 @@ in
       nixago = [
         (presets.cfg.commitlint {})
         (presets.cfg.editorconfig {})
-        (cell.cfg.garnix {
-          hook.mode = "copy";
-        })
         (presets.cfg.lefthook {})
         (presets.cfg.prettier {})
         (presets.cfg.treefmt {})
