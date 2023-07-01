@@ -29,10 +29,6 @@
       "path": "../modules"
     },
     {
-      "name": "ops",
-      "path": "../ops"
-    },
-    {
       "name": "packages",
       "path": "../packages"
     },

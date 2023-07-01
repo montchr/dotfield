@@ -29,11 +29,10 @@ vendor/
 *.local
 .env*.local
 *.pem
-/ops/keys/ssh/*
-!/ops/keys/ssh/*.pub
+ops/keys/ssh/*
+!ops/keys/ssh/*.pub
 
 ##: cache/state files
-.eslintcache/
 .direnv/
 
 ##: terraform
