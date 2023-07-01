@@ -33,7 +33,7 @@
     indent_style = "space";
   };
 
-  "**/keys/*.{asc,pub,txt}" = {
+  "*.{pub,txt}" = {
     indent_size = "unset";
     insert_final_newline = false;
   };
