@@ -33,6 +33,11 @@
     indent_style = "space";
   };
 
+  "**/keys/*.{asc,pub,txt}" = {
+    indent_size = "unset";
+    insert_final_newline = false;
+  };
+
   "{LICENSES/**,LICENSE,secrets/**}" = {
     charset = "unset";
     end_of_line = "unset";
