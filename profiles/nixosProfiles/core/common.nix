@@ -3,8 +3,10 @@
   lib,
   pkgs,
   ops,
+  flake,
   ...
 }: let
+  inherit (flake.inputs.apparat.networking.constants) dns;
   inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
@@ -30,7 +32,7 @@ in {
     util-linux
   ];
 
-  networking.nameservers = lib.mkDefault ops.metadata.dns.ns.quad9;
+  networking.nameservers = lib.mkDefault dns.nameservers.quad9;
 
   programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
 

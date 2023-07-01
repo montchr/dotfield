@@ -8,9 +8,11 @@
 {
   ops,
   config,
+  flake,
   ...
 }: let
-  inherit (ops.metadata) dns networks;
+  inherit (flake.inputs.apparat.networking.constants) dns;
+  inherit (ops.metadata) networks;
   inherit (networks.seadome) tailnet;
   cfg = config.services.headscale;
 in {
@@ -25,7 +27,7 @@ in {
         base_domain = tailnet.fqdn;
         # domains = [tailnet.fqdn];
         magic_dns = true;
-        nameservers = dns.ns.quad9;
+        nameservers = dns.nameservers.quad9;
         override_local_dns = true;
       };
       server_url = tailnet.server.url;
