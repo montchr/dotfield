@@ -8,7 +8,7 @@ in {
   imports = [
     ./filesystems.nix
     ./network.nix
-    ./sops.nix
+    ./secrets/sops.nix
     ./users
   ];
 
