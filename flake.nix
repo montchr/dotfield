@@ -7,64 +7,68 @@
     haumea,
     namaka,
     std,
+    self,
     ...
-  } @ inputs: let
-    ops = import ./ops {inherit haumea;};
-  in (flake-parts.lib.mkFlake {inherit inputs;} {
-    systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-    std.grow.cellsFrom = ./cells;
-    std.grow.cellBlocks = with std.blockTypes; [
-      (data "constants")
-      (data "data")
-      (devshells "devshells")
-      (functions "dev")
-      (functions "devshellProfiles")
-      (functions "functions")
-      (installables "packages")
-      (nixago "cfg")
-    ];
-    std.harvest = {
-      devShells = [
+  } @ inputs:
+    std.growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      cellBlocks = with std.blockTypes; [
+        (data "constants")
+        (data "data")
+        (devshells "devshells")
+        (functions "dev")
+        (functions "devshellProfiles")
+        (functions "functions")
+        (installables "packages")
+        (nixago "cfg")
+      ];
+    }
+    {
+      devShells = std.harvest self [
         ["repo" "devshells"]
         ["secrets" "devshells"]
       ];
-    };
-    imports = [
-      std.flakeModule
+    }
+    (let
+      ops = import ./ops {inherit haumea;};
+    in
+      flake-parts.lib.mkFlake {inherit inputs;} {
+        systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+        imports = [
+          {_module.args = {inherit ops;};}
 
-      {_module.args = {inherit ops;};}
+          ./flake-modules/homeConfigurations.nix
 
-      ./flake-modules/homeConfigurations.nix
+          ./lib
+          ./packages
 
-      ./lib
-      ./packages
-
-      ./machines/colmenaConfigurations.nix
-      ./machines/darwinConfigurations.nix
-      ./machines/nixosConfigurations.nix
-      ./users/homeConfigurations.nix
-    ];
-    flake.checks = namaka.lib.load {
-      src = ./tests;
-      inputs = {
-        inherit ops;
-      };
-    };
-    perSystem = {
-      system,
-      inputs',
-      ...
-    }: {
-      _module.args = {
-        inherit ops;
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+          ./machines/colmenaConfigurations.nix
+          ./machines/darwinConfigurations.nix
+          ./machines/nixosConfigurations.nix
+          ./users/homeConfigurations.nix
+        ];
+        flake.checks = namaka.lib.load {
+          src = ./tests;
+          inputs = {
+            inherit ops;
+          };
         };
-      };
-      formatter = inputs'.nixpkgs.legacyPackages.alejandra;
-    };
-  });
+        perSystem = {
+          system,
+          inputs',
+          ...
+        }: {
+          _module.args = {
+            inherit ops;
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          };
+          formatter = inputs'.nixpkgs.legacyPackages.alejandra;
+        };
+      });
 
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";
