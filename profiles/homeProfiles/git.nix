@@ -9,13 +9,13 @@
     email
     fullName
     githubUserName
-    pgpPublicKey
+    pgp
     ;
 
   enableSigning =
     config.programs.gpg.enable
     && config.services.gpg-agent.enable
-    && "" != pgpPublicKey;
+    && "" != pgp;
 in {
   home.packages =
     (with pkgs.gitAndTools; [
@@ -44,7 +44,7 @@ in {
     userName = fullName;
 
     signing = lib.mkIf enableSigning {
-      key = pgpPublicKey;
+      key = pgp;
       signByDefault = true;
     };
 

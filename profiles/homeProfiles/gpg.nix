@@ -2,20 +2,20 @@
   config,
   pkgs,
   flake,
+  ops,
   ...
 }: let
-  inherit (config.dotfield.whoami) pgpPublicKey;
+  key = (config.dotfield.whoami).pgp;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = flake.inputs.nixpkgs.lib // builtins;
-  keysDir = flake.self + "/ops/keys/pgp";
 in {
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
   imports = [(flake.inputs.home-manager-gpg-agent-darwin + "/modules/services/gpg-agent.nix")];
   disabledModules = ["services/gpg-agent.nix"];
 
-  config = l.mkIf ("" != pgpPublicKey) {
-    home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
+  config = l.mkIf ("" != key) {
+    home.sessionVariables.DOTFIELD_PGP_KEY = key;
 
     home.packages = with pkgs; [
       gnupg
@@ -30,7 +30,7 @@ in {
       enable = true;
       enableSshSupport = false;
       pinentryFlavor = l.mkIf isDarwin "mac";
-      sshKeys = [pgpPublicKey];
+      sshKeys = [key];
     };
 
     programs.gpg = {
@@ -39,11 +39,11 @@ in {
       mutableTrust = false;
       publicKeys = [
         {
-          source = keysDir + "/${pgpPublicKey}.asc";
+          text = ops.keys.pgp.asc.${key};
           trust = "ultimate";
         }
         {
-          source = keysDir + "/0xF0B8FB42A7498482.asc";
+          text = ops.keys.pgp.asc."0xF0B8FB42A7498482";
           trust = "ultimate";
         }
       ];
@@ -53,6 +53,7 @@ in {
       # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
       settings = {
         # Keyserver URL
+        # TODO: some of these might be dead
         keyserver = "hkps://keys.openpgp.org";
         # keyserver hkps://keyserver.ubuntu.com:443
         # keyserver hkps://hkps.pool.sks-keyservers.net

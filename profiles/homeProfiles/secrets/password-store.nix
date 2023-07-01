@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config.dotfield.whoami) pgpPublicKey;
+  key = (config.dotfield.whoami).pgp;
   inherit (config.lib.dag) entryAfter;
 
   passwordStorePath = config.xdg.dataHome + "/pass";
@@ -22,7 +22,7 @@ in
         ]);
       settings = {
         PASSWORD_STORE_DIR = passwordStorePath;
-        PASSWORD_STORE_KEY = pgpPublicKey;
+        PASSWORD_STORE_KEY = key;
       };
     };
     programs.browserpass.enable = true;

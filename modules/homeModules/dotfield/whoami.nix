@@ -25,7 +25,7 @@ in {
       type = nullOr str;
       default = null;
     };
-    pgpPublicKey = mkOption {
+    pgp = mkOption {
       type = nullOr str;
       default = null;
     };
@@ -38,7 +38,7 @@ in {
       lastName = "Montgomery";
       email = "chris@cdom.io";
       githubUserName = "montchr";
-      pgpPublicKey = "0x135EEDD0F71934F3";
+      pgp = "0x135EEDD0F71934F3";
     };
   };
 }
