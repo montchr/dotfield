@@ -24,7 +24,4 @@ in {
   environment.systemPackages = [pkgs.sops];
 
   sops.age.sshKeyPaths = ["${sshPath}/ssh_host_ed25519_key"];
-
-  # This can be overridden per-host for localised secrets.
-  sops.defaultSopsFile = lib.mkDefault ../secrets/global.secrets.yaml;
 }
