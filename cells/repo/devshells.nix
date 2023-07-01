@@ -11,7 +11,8 @@
   name = "dotfield";
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
-    # FIXME: something about this devshell causes git commits in magit to hang for a while during hooks
+    # FIXME: git commits in magit to hang for a while during hooks
+    #        affects both dotfield and apparat
     #        it might be my emacs config, but i haven't paid much attention to this devshell for a while
     default = {...}: {
       inherit name;

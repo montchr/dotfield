@@ -59,6 +59,7 @@ yarn-error.log*
 
 
 # nixago: ignore-linked-files
+/.sops.yaml
 /stylua.toml
 /statix.toml
 /.prettierrc.json

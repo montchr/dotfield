@@ -15,6 +15,9 @@ in {
       (cmd nixpkgs.ssh-to-age)
       (cmd nixpkgs.yubikey-manager)
     ];
+    nixago = [
+      (cell.cfg.sops {})
+    ];
     env = [
       {
         name = "AGENIX_ROOT";
