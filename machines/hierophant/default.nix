@@ -3,6 +3,7 @@
     ./boot.nix
     ./filesystems.nix
     ./headscale.nix
+    ./sops.nix
     ./users.nix
   ];
 

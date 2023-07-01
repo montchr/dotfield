@@ -36,7 +36,6 @@ in {
                 targetHost = ops.metadata.hosts.hierophant.ipv6.address;
                 targetUser = "cdom";
               };
-              deployment.keys."cdom-passphrase".keyCommand = ["pass" "show" "hosts/hierophant/cdom-passphrase"];
             }
           ];
         })
