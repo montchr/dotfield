@@ -8,6 +8,7 @@
 
     ./acme.nix
     ./grafana.nix
+    ./prometheus.nix
   ];
 
   system.stateVersion = "23.05";
