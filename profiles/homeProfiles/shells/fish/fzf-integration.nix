@@ -14,6 +14,9 @@ in {
     # `$ fzf_configure_bindings --help` for explainer
     fzf_configure_bindings \
       ${lib.optionalString hasHistoryService "--history="}
+
+    # Emulate default behavior of <Aloxaf/fzf-tab>
+    set fzf_complete_opts --cycle --reverse --height=50%
   '';
 
   programs.fish.plugins = lib.singleton {
