@@ -7,7 +7,6 @@
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [
-    # ./builders/nixbuild-net.nix
     ./homebrew.nix
     ./nix-optimizations-darwin.nix
   ];

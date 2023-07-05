@@ -13,8 +13,10 @@
   hmCfg = config.home-manager.users.${username};
 in {
   imports = [
-    darwinProfiles.builders.vm-guest.default
     sharedProfiles.fonts.berkeley-mono
+    # FIXME: build failure on latest nixos-unstable as of [2023-07-05]
+    # darwinProfiles.builders.vm-guest.default
+
     sharedProfiles.secrets.default
   ];
 
