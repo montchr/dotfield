@@ -72,6 +72,7 @@
 
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";
+  inputs.nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
   # inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
@@ -86,23 +87,25 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
+  inputs.nixago.url = "github:nix-community/nixago";
   inputs.srvos.url = "github:numtide/srvos";
   inputs.std = {
     url = "github:divnix/std";
-    inputs.devshell.url = "github:numtide/devshell";
-    inputs.nixago.url = "github:nix-community/nixago";
+    inputs.devshell.follows = "devshell";
+    inputs.nixago.follows = "nixago";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  inputs.hive = {
-    url = "github:divnix/hive";
-    inputs.colmena.follows = "colmena";
-    inputs.disko.follows = "disko";
-    inputs.home-manager.follows = "home-manager";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.paisano.follows = "std/paisano";
-    # TODO: should exist?
-    # inputs.darwin.follows = "darwin";
-  };
+
+  # inputs.hive = {
+  #   url = "github:divnix/hive";
+  #   inputs.colmena.follows = "colmena";
+  #   inputs.disko.follows = "disko";
+  #   inputs.home-manager.follows = "home-manager";
+  #   inputs.nixpkgs.follows = "nixpkgs";
+  #   # inputs.paisano.follows = "std/paisano";
+  #   # TODO: should exist?
+  #   # inputs.darwin.follows = "darwin";
+  # };
 
   ##: ops
   inputs.agenix.url = "github:ryantm/agenix";
@@ -141,11 +144,11 @@
   inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
   ##: et cetera ad infinitum
-  inputs.apparat.inputs.std.follows = "std";
+  # inputs.apparat.inputs.std.follows = "std";
   inputs.attic.inputs.flake-utils.follows = "flake-utils";
   inputs.attic.inputs.nixpkgs.follows = "nixpkgs";
   inputs.attic.inputs.nixpkgs-stable.follows = "nixos-stable";
-  inputs.base16-schemes.inputs.std.follows = "std";
+  # inputs.base16-schemes.inputs.std.follows = "std";
   inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
