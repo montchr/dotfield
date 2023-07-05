@@ -39,6 +39,7 @@
   # TODO: should automate this somehow
   hosts = [
     "boschic"
+    "gossan"
     "hierophant"
     "hodgepodge"
     "moraine"
