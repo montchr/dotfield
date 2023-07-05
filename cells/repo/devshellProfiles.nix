@@ -41,6 +41,8 @@
   linuxCommands = l.optionals isLinux [
     (dotfield nixos-generators.packages.nixos-generate)
   ];
+
+  pre-commit-hooks = import ./devshellProfiles/pre-commit-hooks.nix {inherit inputs cell;};
 in {
   default = _: {
     commands = commonCommands ++ linuxCommands;
@@ -63,4 +65,5 @@ in {
       nixpkgs.nodePackages.yarn
     ];
   };
+  pre-commit-hooks = l.id pre-commit-hooks;
 }

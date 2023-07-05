@@ -20,13 +20,16 @@ in
         cell.devshellProfiles.default
         secrets.devshellProfiles.default
 
+        # TODO: unusable in its current state
+        # cell.devshellProfiles.pre-commit-hooks
+
         ##: external
         std.std.devshellProfiles.default
       ];
       nixago = [
         (presets.cfg.commitlint {})
         (presets.cfg.editorconfig {})
-        (presets.cfg.lefthook {})
+        # (presets.cfg.lefthook {})
         (presets.cfg.prettier {})
         (presets.cfg.treefmt {})
         (presets.cfg.statix {

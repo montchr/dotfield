@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022-2023 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
 # FIXME: remove all linters b/c out of scope and complicated
+# FIXME: format only
 {
   global.excludes = [
     "*generated*"

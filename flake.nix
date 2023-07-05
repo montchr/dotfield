@@ -124,6 +124,7 @@
   inputs.deadnix.url = "github:astro/deadnix";
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.nil-lsp.url = "github:oxalica/nil";
+  inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: work
   inputs.klein-infra.url = "github:kleinweb/infra";
@@ -140,6 +141,8 @@
 
   ##: et cetera ad infinitum
   inputs.apparat.inputs.std.follows = "std";
+  inputs.base16-schemes.inputs.std.follows = "std";
+  inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -149,20 +152,19 @@
   inputs.klein-infra.inputs.dmerge.follows = "std/dmerge";
   inputs.klein-infra.inputs.std.follows = "std";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.base16-schemes.inputs.std.follows = "std";
-  inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
   inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes";
     extra-substituters = [
       "https://dotfield.cachix.org"
-      "https://iosevka-xtal.cachix.org"
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
-      "iosevka-xtal.cachix.org-1:5d7Is01fs3imwU9w5dom2PcSskJNwtJGbfjRxunuOcw="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };

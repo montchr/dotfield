@@ -1,4 +1,4 @@
-{...}: rec {
+_: rec {
   cubegarden.domain = "cube.garden";
   home = {
     domain = "home.arpa";
