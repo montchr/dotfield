@@ -31,18 +31,84 @@ notes for stuff I always forget.
 
 ### NixOS
 
-TODO
+#### Setup
 
-Mostly self-explanatory following the manual, but the initial setup process can
-be a bit circuitous, especially when you are only starting with a macOS system
-like I did. Fortunately, things have improved quite a lot since then, as QEMU
-now supports running NixOS VMs on `aarch64-darwin`.
+```sh
+nix-env -f '<nixpkgs>' -iA nixos-install-tools git bat fd ripgrep tealdeer vim
+alias nix="nix --extra-experimental-features 'nix-command flakes'"
+export NEW_HOSTNAME=<your-hostname>
+export GIT_BRANCH="add-${NEW_HOSTNAME}"
+```
 
-Next time I need to provision a fresh system from scratch,
-I plan on checking out [nix-community/disko][disko-repo],
-as the initial manual formatting process has always been a bit of a hurdle for me.
+#### Partitioning and formatting
 
-[disko-repo]: https://github.com/nix-community/disko
+<details>
+<summary><b>Option 1: Disko</b></summary>
+
+```sh
+curl "https://raw.githubusercontent.com/montchr/dotfield/${GIT_BRANCH}/machines/${NEW_HOSTNAME}/disk-config.nix" -o /tmp/disk-config.nix
+nix run github:nix-community/disko -- --mode disko /tmp/disk-config.nix
+# to verify:
+mount | grep /mnt
+```
+
+</details>
+
+<details>
+<summary><b>Option 2: Manually</b></summary>
+
+TODO: copy rough commands from moraine provisioning script
+
+</details>
+
+#### Configurate
+
+```sh
+git clone https://github.com/montchr/dotfield.git -b "${GIT_BRANCH}" /mnt/etc/nixos
+# absolute paths from `/mnt` would break once booted into the system
+cd /mnt/etc && ln -s nixos dotfield && cd nixos
+nixos-generate-config --no-filesystems --root /mnt
+```
+
+Integrate any missing configuration from the generator locally, push to remote, and pull on the host.
+
+#### Install
+
+```sh
+nixos-install --flake ".#${NEW_HOSTNAME}"
+```
+
+After rebooting, edit `~/.ssh/known_hosts` on your local machine to remove the initial entries since the host keys have been reset after installation.
+
+#### Record Public Keys
+
+```sh
+export KEYS_DIR="$PRJ_ROOT/cells/ops/data/keys"
+export NEW_HOSTNAME=<...>
+export NEW_HOSTIP=<...>
+
+ssh root@$NEW_HOSTIP -t 'cat /etc/ssh/ssh_host_ed25519_key.pub' \
+> "$KEYS_DIR/ssh/$NEW_HOSTNAME.pub"
+
+ssh root@$NEW_HOSTIP -t 'cat /etc/ssh/ssh_host_rsa_key.pub' \
+> "$KEYS_DIR/ssh/$NEW_HOSTNAME-rsa.pub"
+
+nix run nixpkgs#ssh-to-age -- -i "$KEYS_DIR/ssh/$NEW_HOSTNAME.pub" \
+| tr --delete '\n' \
+> "$KEYS_DIR/age/$NEW_HOSTNAME.txt"
+
+git add $KEYS_DIR
+```
+
+#### Update Secret Recipients
+
+Add the host to `//cells/secrets/cfg/sops.nix`, then:
+
+```sh
+direnv reload
+grep "$NEW_HOSTNAME" $PRJ_ROOT/.sops.yaml --before-context=10
+sops updatekeys secrets/global.secrets.yaml
+```
 
 ### Generic Linux
 

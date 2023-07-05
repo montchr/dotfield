@@ -131,5 +131,21 @@ in {
           srvos.nixosModules.mixins-telegraf
         ];
     };
+
+    gossan = makeNixosSystem "gossan" {
+      system = "aarch64-linux";
+      modules =
+        nixosSuites.server
+        ++ [
+          srvos.nixosModules.server
+          srvos.nixosModules.hardware-hetzner-cloud
+          # srvos.nixosModules.roles-nix-remote-builder
+          srvos.nixosModules.mixins-systemd-boot
+          srvos.nixosModules.mixins-terminfo
+          srvos.nixosModules.mixins-trusted-nix-caches
+          # TODO: needs additional config
+          # srvos.nixosModules.mixins-telegraf
+        ];
+    };
   };
 }
