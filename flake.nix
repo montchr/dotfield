@@ -78,6 +78,7 @@
 
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";
+  inputs.attic.url = "github:zhaofengli/attic";
   inputs.haumea.follows = "apparat/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
@@ -141,6 +142,9 @@
 
   ##: et cetera ad infinitum
   inputs.apparat.inputs.std.follows = "std";
+  inputs.attic.inputs.flake-utils.follows = "flake-utils";
+  inputs.attic.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.attic.inputs.nixpkgs-stable.follows = "nixos-stable";
   inputs.base16-schemes.inputs.std.follows = "std";
   inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";

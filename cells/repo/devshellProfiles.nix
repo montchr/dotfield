@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) apparat colmena home-manager nixos-generators nixpkgs namaka;
+  inherit (inputs) apparat attic colmena home-manager nixos-generators nixpkgs namaka;
   inherit (apparat.lib.devshell) pkg pkg';
   inherit (nixpkgs.stdenv) isLinux;
 
@@ -22,6 +22,7 @@
     (dotfield namaka.packages.default)
     (dotfield nixpkgs.just)
     (dotfield' "deps" nixpkgs.nix-melt)
+    (dotfield attic.packages.attic)
 
     (utils nixpkgs.cachix)
     (utils nixpkgs.nix-diff)

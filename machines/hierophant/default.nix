@@ -7,6 +7,7 @@
     ./users.nix
 
     ./acme.nix
+    ./atticd.nix
     ./grafana.nix
     ./prometheus.nix
   ];
