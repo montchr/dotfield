@@ -1,21 +1,20 @@
 # SPDX-FileCopyrightText: 2022-2023 Chris Montgomery <chris@cdom.io>
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
 {
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs std;
+  inherit (inputs) nixpkgs;
   inherit (inputs.cells) lib;
   l = inputs.nixpkgs.lib // builtins;
 in {
   commitlint = lib.cfg.commitlint {
     data = import ./cfg/commitlint.nix;
   };
-  editorconfig = std.lib.cfg.editorconfig {
+  editorconfig = lib.cfg.editorconfig {
     data = import ./cfg/editorconfig.nix;
   };
-  lefthook = std.lib.cfg.lefthook {
+  lefthook = lib.cfg.lefthook {
     data = import ./cfg/lefthook.nix;
   };
   prettier = lib.cfg.prettier {
@@ -27,7 +26,7 @@ in {
   stylua = lib.cfg.stylua {
     data = import ./cfg/stylua.nix;
   };
-  treefmt = std.lib.cfg.treefmt {
+  treefmt = lib.cfg.treefmt {
     data = import ./cfg/treefmt.nix;
     packages = [
       nixpkgs.alejandra
