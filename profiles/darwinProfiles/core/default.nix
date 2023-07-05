@@ -22,10 +22,6 @@ in {
 
   nix.distributedBuilds = l.mkDefault false;
 
-  # FIXME: currently requires running `nix run nixpkgs#darwin.builder`
-  # manually in a separate shell session
-  # nix.nixos-builder-vm.enable = true;
-
   # FIXME: needs flake-compat
   # nix.nixPath = mkBefore ["darwin-config=${self}"];
 
