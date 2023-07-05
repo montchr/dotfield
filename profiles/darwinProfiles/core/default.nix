@@ -19,7 +19,7 @@ in {
   # Administrative users on Darwin systems are part of the admin group.
   nix.settings.trusted-users = ["@admin"];
 
-  nix.distributedBuilds = l.mkDefault false;
+  nix.distributedBuilds = l.mkDefault true;
 
   # FIXME: needs flake-compat
   # nix.nixPath = mkBefore ["darwin-config=${self}"];
