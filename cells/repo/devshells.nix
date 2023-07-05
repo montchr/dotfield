@@ -11,9 +11,6 @@
   name = "dotfield";
 in
   l.mapAttrs (_: std.lib.dev.mkShell) {
-    # FIXME: git commits in magit to hang for a while during hooks
-    #        affects both dotfield and apparat
-    #        it might be my emacs config, but i haven't paid much attention to this devshell for a while
     default = {...}: {
       inherit name;
       imports = [
@@ -29,7 +26,6 @@ in
       nixago = [
         (presets.cfg.commitlint {})
         (presets.cfg.editorconfig {})
-        # (presets.cfg.lefthook {})
         (presets.cfg.prettier {})
         (presets.cfg.treefmt {})
         (presets.cfg.statix {
@@ -38,6 +34,10 @@ in
           };
         })
         (presets.cfg.stylua {})
+
+        # FIXME: git commits in magit to hang for a while during hooks
+        #        possibly related: <https://github.com/evilmartians/lefthook/issues/510>
+        # (presets.cfg.lefthook {})
       ];
       packages = [
         nixpkgs.deadnix
