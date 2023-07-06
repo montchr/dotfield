@@ -20,6 +20,7 @@
         (functions "dev")
         (functions "devshellProfiles")
         (functions "functions")
+        (functions "lib")
         (installables "packages")
         (nixago "cfg")
       ];
