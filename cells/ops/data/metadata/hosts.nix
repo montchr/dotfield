@@ -1,4 +1,10 @@
-{keys, ...}: {
+{keys, ...}: let
+  hetznerIp6 = address: {
+    inherit address;
+    gateway = "fe80::1";
+    prefixLength = 64;
+  };
+in {
   aerattum = {
     network = "seadome";
     users = {
@@ -21,9 +27,7 @@
   brakhage.users.blink.keys = [keys.ssh.blink-at-brakhage];
   hierophant = {
     age = keys.age.hierophant;
-    ipv6.address = "2a01:4ff:f0:4717";
-    gateway = "fe80::1";
-    ipv6.prefixLength = 64;
+    ipv6 = hetznerIp6 "2a01:4ff:f0:4717";
     keys = [keys.ssh.hierophant keys.ssh.hierophant-rsa];
     network = "seadome";
     users.cdom = {
@@ -41,12 +45,7 @@
   };
   moraine = {
     age = keys.age.moraine;
-    ipv6 = {
-      address = "2a01:4f8:200:5047";
-      # TODO: gateway+prefix should be a "default" somewhere...
-      gateway = "fe80::1";
-      prefixLength = 64;
-    };
+    ipv6 = hetznerIp6 "2a01:4f8:200:5047";
     keys = [keys.ssh.moraine keys.ssh.moraine-rsa];
     network = "cubegarden";
     networks.ts = {
