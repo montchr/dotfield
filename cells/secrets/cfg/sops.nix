@@ -16,7 +16,7 @@
   };
 
   defaultPathPattern = "secrets/[^/]+\.yaml$";
-  prefixedPathPattern = s: "${s}/${defaultPathPattern}";
+  prefixedPathPattern = s: "machines/${s}/${defaultPathPattern}";
 
   mkHostRule = hostName: {
     path_regex = prefixedPathPattern hostName;
