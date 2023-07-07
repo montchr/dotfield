@@ -24,6 +24,7 @@ in {
       epson-201212w = callPackage ./misc/drivers/epson_201212w {};
       ddi = callPackage ./tools/system/dd/ddi.nix {};
       firefox-ui-fix = callPackage ./data/themes/firefox-ui-fix {};
+      fd = callPackage ./tools/misc/fd {};
       igr = callPackage ./tools/text/igr {};
       kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
       sf-pro = callPackage ./data/fonts/sf-pro {};
