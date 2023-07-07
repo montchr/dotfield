@@ -43,7 +43,7 @@
     sharedProfiles.secrets.sops
 
     nixosProfiles.one-password
-    nixosProfiles.bitwarden
+    # nixosProfiles.bitwarden
     nixosProfiles.boot.systemd-boot
     nixosProfiles.hardware.yubikey
   ];

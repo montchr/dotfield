@@ -7,10 +7,8 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
-  imports = [
-    ./iosevka-variants.nix
-    ./iosevka-xtal.nix
-  ];
+  imports = [./iosevka-variants.nix];
+
   fonts.fontDir.enable = true;
   fonts.fonts =
     (with pkgs; [

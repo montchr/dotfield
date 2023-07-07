@@ -96,4 +96,12 @@ in {
       ];
     };
   };
+  tuvok = {
+    age = keys.age.tuvok;
+    keys = [keys.ssh.tuvok keys.ssh.tuvok-rsa];
+    users.cdom = {
+      age = keys.age.cdom-at-tuvok;
+      keys = [keys.ssh.cdom-at-tuvok];
+    };
+  };
 }

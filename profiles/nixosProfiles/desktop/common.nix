@@ -17,6 +17,7 @@ in {
 
   xdg.portal.enable = true;
 
+  # TODO: make opt-in: default to disabled on asahi
   sound.enable = true;
   hardware.pulseaudio.enable = false; # required for pipewire
   services.pipewire = {
@@ -30,6 +31,8 @@ in {
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
+
+  # TODO: make opt-in: default to disabled on asahi
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -50,16 +53,17 @@ in {
   systemd.services.NetworkManager-wait-online.enable = false;
 
   environment.variables = {
-    MOZ_ENABLE_WAYLAND = l.optionalString hasWayland "1";
+    # MOZ_ENABLE_WAYLAND = l.optionalString hasWayland "1";
     # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
     # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
-    MOZ_USE_XINPUT2 = "1";
+    # MOZ_USE_XINPUT2 = "1";
   };
 
   environment.systemPackages =
     [
       pkgs.firefox
-      pkgs.signal-desktop
+      # FIXME: broken on aarch64-linux
+      # pkgs.signal-desktop
     ]
     ++ (l.optional hasWayland pkgs.wl-clipboard);
 }
