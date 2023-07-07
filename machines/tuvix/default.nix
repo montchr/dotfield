@@ -13,10 +13,12 @@
   hmCfg = config.home-manager.users.${username};
 in {
   imports = [
+    darwinProfiles.builders.nixbuild-net
+    sharedProfiles.core.substituters.nixbuild-net
+    sharedProfiles.secrets.default
+
     # FIXME: build failure on latest nixos-unstable as of [2023-07-05]
     # darwinProfiles.builders.vm-guest.default
-
-    sharedProfiles.secrets.default
   ];
 
   # FIXME: needs some tweaking upstream to account for nix-darwin...

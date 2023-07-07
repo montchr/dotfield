@@ -1,4 +1,6 @@
-{
+{sharedProfiles, ...}: {
+  imports = [sharedProfiles.core.builders.nixbuild-net];
+
   environment.etc."ssh/ssh_config.d/nixbuild-net".text = ''
     Host eu.nixbuild.net
       PubkeyAcceptedKeyTypes ssh-ed25519
