@@ -5,6 +5,7 @@
 
 ##: nix
 .std
+.data
 
 ##: build artifacts
 build
