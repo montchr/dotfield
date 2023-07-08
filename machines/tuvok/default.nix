@@ -1,20 +1,21 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ flake, config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      
-      # Include the necessary packages and configuration for Apple Silicon support.
-      flake.inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+  flake,
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-     ./users
+    # Include the necessary packages and configuration for Apple Silicon support.
+    flake.inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
 
-    ];
+    ./users
+  ];
 
   # TODO: consider edge mesa... but what does it mean to "rebuild the world" i wonder...
   hardware.asahi.addEdgeKernelConfig = true;
@@ -29,7 +30,7 @@
   networking.hostName = "tuvok"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -52,12 +53,11 @@
   services.xserver.displayManager.gdm.enable = true;
   services.gnome.core-developer-tools.enable = true;
 
-nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = ["cdom"];
-  
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -80,22 +80,33 @@ nixpkgs.config.allowUnfree = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.cdom = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "secrets" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "secrets"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       firefox
       tree
-   git tealdeer fd ripgrep vim bat curl 
-   wezterm     
-];
+      git
+      tealdeer
+      fd
+      ripgrep
+      vim
+      bat
+      curl
+      wezterm
+    ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-git curl tree ripgrep fd bat 
-   wget
-  htop
+    git
+    curl
+    tree
+    ripgrep
+    fd
+    bat
+    wget
+    htop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -129,6 +140,4 @@ git curl tree ripgrep fd bat
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-
