@@ -26,8 +26,8 @@ in {
     enable = true;
     darwinLaunchOptions = l.mkIf isDarwin ["--single-instance"];
     keybindings = {
-      # Open new tabs+windows from the current session's working directory.
-      "kitty_mod+t" = "new_tab_with_cwd";
+      # Open new windows from the current session's working directory.
+      # Tabs are intentionally left alone, to allow for choosing either behavior.
       "kitty_mod+enter" = "new_window_with_cwd";
     };
   };
