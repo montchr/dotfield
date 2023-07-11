@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2023 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
+# TODO: https://github.com/ncfavier/config/blob/667516e2ea95a0f6604290f1c27f3bd79bc909bd/modules/nix.nix#L11-L15
 {
   config,
   lib,
