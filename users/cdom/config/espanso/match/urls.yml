@@ -1,5 +1,5 @@
 matches:
-  - regex: ":gh\\((?P<repo>.*)\\)"
+  - regex: ";gh\\((?P<repo>.*)\\)"
     replace: '[{{repo}}](https://github.com/{{repo}})'
-  - regex: ":j<(?P<id>\\d+)>"
+  - regex: ";j<(?P<id>\\d+)>"
     replace: 'https://kleinweb.atlassian.net/browse/KWG-{{id}}'
