@@ -56,6 +56,7 @@ in {
     "steermouse" # <- for input device mapping
     "vlc"
     "visual-studio-code"
+    "wezterm"
     "zoom"
   ];
 
