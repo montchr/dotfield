@@ -123,7 +123,10 @@ in {
         ./settings/browser-toolbox.nix
         ./settings/lepton.nix
       ];
-      "browser.startup.homepage" = "https://lobste.rs";
+      "browser.startup.homepage" = l.concatStringsSep "|" [
+        "https://lobste.rs"
+        "https://www.dailymail.co.uk/sciencetech/index.html"
+      ];
     };
   };
 
