@@ -153,7 +153,7 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 
 # FIXME: specialisation not available within a specialisation -- <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
-theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-kitty-theme colors) (set-emacs-theme colors)
+theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-emacs-theme colors)
 
 # <- Use the 'light' theme for all applications
 light: (theme "light")
