@@ -170,11 +170,24 @@ set-kitty-theme name='dark':
   @echo {{msg-done}}
 
 
+##: --- gtk ---
+
+_gtk-ui-mode value:
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-{{ value }}'
+
+# <- Switch the current GTK theme between light<->dark
+[private]
+[linux]
+set-system-appearance mode="toggle":
+  {{ if mode != "toggle" { "just _gtk-ui-mode {{ mode }}" } else { "just _gtk-ui-mode 'dark'" } }}
+
+
 ##: --- macOS ---
 
 applescript-dark-mode := 'tell app "System Events" to tell appearance preferences to set dark mode to '
 _mac-dark-mode value:
   osascript -e {{ quote( applescript-dark-mode + value ) }}
+
 
 # <- Toggle the current system theme between light<->dark
 [private]
