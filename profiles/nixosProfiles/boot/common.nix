@@ -1,10 +1,7 @@
 {lib, ...}: {
-  boot = {
-    consoleLogLevel = lib.mkDefault 3;
+  boot.consoleLogLevel = lib.mkDefault 3;
+  boot.tmp.cleanOnBoot = true;
 
-
-    tmp.cleanOnBoot = lib.mkDefault true;
-  };
   # Enable all Magic SysRq functions via ALT-PrtSc-<command key>
   # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
   # FIXME: GNOME overrides the default Magic SysRq binding to take a screenshot.
