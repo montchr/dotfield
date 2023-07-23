@@ -94,6 +94,7 @@ in {
         ++ nixosSuites.graphical
         ++ nixosSuites.tangible
         ++ nixosSuites.workstation
+        ++ nixosSuites.office
         ++ [nixosProfiles.hardware.asahi];
     });
 
