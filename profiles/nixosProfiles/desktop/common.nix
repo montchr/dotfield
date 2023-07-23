@@ -53,7 +53,12 @@ in {
 
   environment.systemPackages =
     [
+      # We always need a browser on desktop.
       pkgs.firefox
+
+      # Provide a minimal and sensible default terminal emulator as a fallback
+      # in case the desktop environment doesn't bundle its own application.
+      pkgs.foot
     ]
     ++ (l.optional (!isAarch64) pkgs.signal-desktop) # <- broken
     ++ (l.optional hasWayland pkgs.wl-clipboard);
