@@ -8,6 +8,8 @@
 in {
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  services.gnome.core-developer-tools.enable = true;
   services.gnome.games.enable = true;
   services.gnome.sushi.enable = true;
   # FIXME: has no effect, prob cos gpg-agent is configured in home-manager?
