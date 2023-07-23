@@ -5,12 +5,11 @@
 }: let
   username = "cdom";
 in {
-  # sops.secrets."users/${username}/passphrase".neededForUsers = true;
+  sops.secrets."user-${username}-password".neededForUsers = true;
 
   users.users.${username} = {
     isNormalUser = true;
-    # passwordFile = config.sops.secrets."users/${username}/passphrase".path;
-    password = "veryconfusing";
+    passwordFile = config.sops.secrets."user-${username}-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 

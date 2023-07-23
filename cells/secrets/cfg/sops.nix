@@ -36,7 +36,7 @@
     };
   };
 
-  # TODO: should automate this somehow
+  # TODO: for all hosts automatically (except iso and vms etc.)
   hosts = [
     "boschic"
     "gossan"
@@ -44,6 +44,7 @@
     "hodgepodge"
     "moraine"
     "ryosuke"
+    "tuvok"
   ];
 in {
   # NOTE: The top-level `keys` map referenced in sops-nix documentation is not important here.

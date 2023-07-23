@@ -8,13 +8,12 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
+    ./users/cdom.nix
+    ./secrets/sops.nix
     ./hardware-configuration.nix
 
     # Include the necessary packages and configuration for Apple Silicon support.
     flake.inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
-
-    ./users
   ];
 
   # TODO: consider edge mesa... but what does it mean to "rebuild the world" i wonder...
@@ -38,6 +37,7 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  users.mutableUsers = false;
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
@@ -77,24 +77,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.cdom = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "secrets"]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-      git
-      tealdeer
-      fd
-      ripgrep
-      vim
-      bat
-      curl
-      wezterm
-    ];
-  };
-
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "cdom";
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
