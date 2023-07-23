@@ -51,13 +51,6 @@ in {
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  environment.variables = {
-    # MOZ_ENABLE_WAYLAND = l.optionalString hasWayland "1";
-    # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
-    # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
-    # MOZ_USE_XINPUT2 = "1";
-  };
-
   environment.systemPackages =
     [
       pkgs.firefox
