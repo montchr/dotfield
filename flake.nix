@@ -111,7 +111,6 @@
   # };
 
   ##: ops
-  inputs.agenix.url = "github:ryantm/agenix";
   inputs.colmena.url = "github:zhaofengli/colmena";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.namaka = {
