@@ -82,16 +82,19 @@ in {
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [nixos-apple-silicon.overlays.default (final: prev: {fd = self.packages.${final.stdenv.system}.fd;})];
-      };
-      modules = with nixosSuites;
-        gnome
-        ++ graphical
-        ++ tangible
-        ++ workstation
-        ++ [
-          nixos-apple-silicon.nixosModules.apple-silicon-support
+        overlays = [
+          nixos-apple-silicon.overlays.default
+          (final: prev: {
+            fd = self.packages.${final.stdenv.system}.fd;
+          })
         ];
+      };
+      modules =
+        nixosSuites.gnome
+        ++ nixosSuites.graphical
+        ++ nixosSuites.tangible
+        ++ nixosSuites.workstation
+        ++ [nixosProfiles.hardware.asahi];
     });
 
     moraine = makeNixosSystem "moraine" {

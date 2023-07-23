@@ -17,7 +17,6 @@ in {
 
   xdg.portal.enable = true;
 
-  # TODO: make opt-in: default to disabled on asahi
   sound.enable = true;
   hardware.pulseaudio.enable = false; # required for pipewire
   services.pipewire = {
@@ -32,7 +31,6 @@ in {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
 
-  # TODO: make opt-in: default to disabled on asahi
   hardware.opengl = {
     enable = true;
     driSupport = true;

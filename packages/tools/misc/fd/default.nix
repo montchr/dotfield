@@ -28,6 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   # Asahi Linux 16k page compatibility.
   # <https://github.com/sharkdp/fd/issues/1085>
+  # <https://github.com/NixOS/nixpkgs/issues/202863>
   JEMALLOC_SYS_WITH_LG_PAGE = 16;
 
   postInstall = ''
