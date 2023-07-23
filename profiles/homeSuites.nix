@@ -43,15 +43,13 @@
 
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
-    # FIXME: broken on aarch64-linux
-    # homeProfiles.apple-music
+    homeProfiles.apple-music
     homeProfiles.espanso.default
     homeProfiles.misc
     homeProfiles.newsboat
     homeProfiles.obs-studio
     homeProfiles.rclone
-    # FIXME: broken on aarch64-linux
-    # homeProfiles.spotify
+    homeProfiles.spotify
     homeProfiles.sync
     homeProfiles.theme.fonts.monospace.jetbrains-mono
     homeProfiles.theme.fonts.sans-serif.inter

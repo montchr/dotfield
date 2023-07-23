@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
+  inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [./nixpkgs-wayland.nix];
@@ -60,8 +61,7 @@ in {
   environment.systemPackages =
     [
       pkgs.firefox
-      # FIXME: broken on aarch64-linux
-      # pkgs.signal-desktop
     ]
+    ++ (l.optional (!isAarch64) pkgs.signal-desktop) # <- broken
     ++ (l.optional hasWayland pkgs.wl-clipboard);
 }

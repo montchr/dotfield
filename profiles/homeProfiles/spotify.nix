@@ -1,11 +1,13 @@
 {
-  lib,
   pkgs,
+  flake,
   ...
-}:
-lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-  home.packages = with pkgs; [
-    spotify
-    spotify-tui
+}: let
+  inherit (pkgs.stdenv.hostPlatform) isAarch64 isLinux;
+  l = flake.inputs.nixpkgs.lib // builtins;
+in {
+  home.packages = l.optionals (isLinux && !isAarch64) [
+    pkgs.spotify
+    pkgs.spotify-tui
   ];
 }
