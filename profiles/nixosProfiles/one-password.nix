@@ -3,16 +3,19 @@
   lib,
   ...
 }: let
-  inherit (lib) singleton mkIf;
   isGraphical = config.services.xserver.enable;
 in {
-  home-manager.sharedModules = singleton ({pkgs, ...}: {
+  home-manager.sharedModules = lib.singleton ({pkgs, ...}: {
     home.packages = [pkgs._1password];
   });
+
   programs._1password.enable = true;
-  programs._1password-gui = mkIf isGraphical {
+
+  programs._1password-gui = lib.mkIf isGraphical {
     enable = true;
-    # FIXME: broken if guardian user not set
-    polkitPolicyOwners = [config.dotfield.guardian.username];
+    polkitPolicyOwners =
+      lib.optional
+      config.dotfield.guardian.enable
+      config.dotfield.guardian.username;
   };
 }
