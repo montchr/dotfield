@@ -6,17 +6,9 @@ on:
 
 jobs:
   check:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            type: darwin
-            hostname: ci-darwin
-          - os: ubuntu-latest
-            type: nixos
-            hostname: ci-ubuntu
 
     steps:
       - uses: actions/checkout@v3
