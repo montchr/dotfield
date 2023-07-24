@@ -22,6 +22,8 @@ bind gD composite tabduplicate; tabdetach
 " Flip the prev/next bindings, esp. for TST
 " bind J tabnext_gt
 " bind K tabprev
+bind J tabprev
+bind K tabnext_gt
 
 
 " === Misc settings ============================================================
