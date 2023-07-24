@@ -1,4 +1,4 @@
-name: 'Build & Cachix'
+name: 'Run flake checks'
 
 on:
   pull_request:
