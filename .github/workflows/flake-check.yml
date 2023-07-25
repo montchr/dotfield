@@ -22,9 +22,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Set up GitHub Actions cache for Nix builds
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
       - name: Set up Nix binary cache (Cachix)
         uses: cachix/cachix-action@master
         with:
