@@ -20,7 +20,7 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/nix-installer-action@v3
 
       - name: Set up Nix binary cache (Cachix)
         uses: cachix/cachix-action@master
