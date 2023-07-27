@@ -43,6 +43,7 @@
     "hodgepodge"
     "moraine"
     "ryosuke"
+    "tuvok"
   ];
 in {
   # NOTE: The top-level `keys` map referenced in sops-nix documentation is not important here.
