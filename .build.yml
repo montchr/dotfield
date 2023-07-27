@@ -9,5 +9,5 @@ secrets:
 tasks:
   - check: |
       cd dotfield
-      nix flake show --show-trace --print-build-logs
-      nix flake check --show-trace --print-build-logs
+      nix flake show --show-trace --print-build-logs --accept-flake-config
+      nix flake check --show-trace --print-build-logs --accept-flake-config
