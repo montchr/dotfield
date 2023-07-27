@@ -25,13 +25,6 @@ in {
     };
   };
   brakhage.users.blink.keys = [keys.ssh.blink-at-brakhage];
-  gossan = {
-    age = keys.age.gossan;
-    ipv4.address = "128.140.81.128";
-    ipv6 = hetznerIp6 "2a01:4f8:c17:a3c3";
-    keys = [keys.ssh.gossan keys.ssh.gossan-rsa];
-    network = "seadome";
-  };
   hierophant = {
     age = keys.age.hierophant;
     ipv6 = hetznerIp6 "2a01:4ff:f0:4717";

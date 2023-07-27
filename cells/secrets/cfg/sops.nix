@@ -39,7 +39,6 @@
   # TODO: for all hosts automatically (except iso and vms etc.)
   hosts = [
     "boschic"
-    "gossan"
     "hierophant"
     "hodgepodge"
     "moraine"

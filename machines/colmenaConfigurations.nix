@@ -18,9 +18,6 @@
     // (metaFor (l.intersectAttrs nodes configurations));
 in {
   flake.colmena = mkHive {
-    gossan = {
-      tags = ["@seadome" "@hetznerCloud" "@fsn"];
-    };
     hierophant = {
       tags = ["@seadome" "@hetznerCloud" "@us-east"];
     };

@@ -12,7 +12,6 @@ in {
     serverAliveInterval = 300;
 
     matchBlocks."hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-    matchBlocks."gossan".hostname = "${hosts.gossan.ipv6.address}::1";
     # TODO: why is this one different??? does not appear to be in the file.
     #       some difference between hetzner cloud and hetzner online?
     matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
