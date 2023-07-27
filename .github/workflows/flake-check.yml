@@ -19,8 +19,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v3
+      - uses: cachix/install-nix-action@v22
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Nix binary cache (Cachix)
         uses: cachix/cachix-action@master
