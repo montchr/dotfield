@@ -10,6 +10,10 @@ in {
     ./network.nix
     ./secrets/sops.nix
     ./users
+
+    # ./profiles/transmission/default.nix
+    ./profiles/ombi/default.nix
+    # ./profiles/prowlarr/default.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
