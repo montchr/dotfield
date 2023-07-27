@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs lib;
-  inherit (inputs) apparat haumea home-manager nixos-apple-silicon nixpkgs srvos;
+  inherit (inputs) apparat haumea home-manager srvos;
   inherit (apparat.lib) flattenTree;
   l = inputs.nixpkgs.lib // builtins;
 
@@ -74,29 +74,6 @@ in {
           # virtualisation.vm-variant
         ]);
     };
-
-    # tuvok = makeNixosSystem "tuvok" (let
-    #   system = "aarch64-linux";
-    # in {
-    #   inherit system;
-    #   pkgs = import nixpkgs {
-    #     inherit system;
-    #     config.allowUnfree = true;
-    #     overlays = [
-    #       nixos-apple-silicon.overlays.default
-    #       (final: prev: {
-    #         fd = self.packages.${final.stdenv.system}.fd;
-    #       })
-    #     ];
-    #   };
-    #   modules =
-    #     nixosSuites.gnome
-    #     ++ nixosSuites.graphical
-    #     ++ nixosSuites.tangible
-    #     ++ nixosSuites.workstation
-    #     ++ nixosSuites.office
-    #     ++ [nixosProfiles.hardware.asahi];
-    # });
 
     moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
