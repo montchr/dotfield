@@ -1,9 +1,7 @@
 builds:
   exclude:
-  - packages.*.berkeley-mono
+    - packages.*.berkeley-mono
   include:
-  - '*.x86_64-linux.*'
-  - '*.aarch64-linux.*'
-  - devShells.x86_64-linux.*
-  - devShells.aarch64-linux.*
-  - nixosConfigurations.*
+    - '*.x86_64-linux.*'
+    - '*.aarch64-linux.*'
+    - nixosConfigurations.*
