@@ -1,5 +1,5 @@
 matches:
-  - trigger: ':#spdx'
+  - trigger: ';#spdx'
     replace: |-
       # SPDX-FileCopyrightText: {{year}} {{form.author}}
       # SPDX-License-Identifier: {{form.license}}

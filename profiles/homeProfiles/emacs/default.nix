@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (flake.perSystem.inputs') nil-lsp;
+  inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
   inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in {
@@ -22,7 +22,7 @@ in {
 
   programs.emacs = {
     enable = isLinux;
-    package = pkgs.emacs29;
+    package = emacs-overlay.packages.emacs-unstable-pgtk;
     extraPackages = epkgs: with epkgs; [vterm];
   };
 

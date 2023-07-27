@@ -10,11 +10,11 @@ global_vars:
 
 matches:
   # Short date
-  - trigger: ':d.dd'
+  - trigger: ';d;dd'
     replace: '{{date}}'
 
   # Friendly date for humans
-  - trigger: ':d.df'
+  - trigger: ';d.df'
     replace: '{{dateFriendly}}'
     vars:
       - name: dateFriendly
@@ -23,15 +23,15 @@ matches:
           format: '%B %e, %Y'
 
   # Time
-  - trigger: ':d.tt'
+  - trigger: ';d;tt'
     replace: '{{time}}'
 
   # Date + Time
-  - trigger: ':d.dt'
+  - trigger: ';d.dt'
     replace: '{{date}} {{time}}'
 
   # Datetime ID
-  - trigger: ':d.id'
+  - trigger: ';d;id'
     replace: '{{id}}'
     vars:
       - name: id

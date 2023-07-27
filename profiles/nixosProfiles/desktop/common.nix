@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
+  inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [./nixpkgs-wayland.nix];
@@ -30,6 +31,7 @@ in {
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -49,17 +51,15 @@ in {
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  environment.variables = {
-    MOZ_ENABLE_WAYLAND = l.optionalString hasWayland "1";
-    # Enable macOS-like smooth scrolling instead of the weird scroll-wheel emulation.
-    # https://wiki.archlinux.org/title/Firefox/Tweaks#Pixel-perfect_trackpad_scrolling
-    MOZ_USE_XINPUT2 = "1";
-  };
-
   environment.systemPackages =
     [
+      # We always need a browser on desktop.
       pkgs.firefox
-      pkgs.signal-desktop
+
+      # Provide a minimal and sensible default terminal emulator as a fallback
+      # in case the desktop environment doesn't bundle its own application.
+      pkgs.foot
     ]
+    ++ (l.optional (!isAarch64) pkgs.signal-desktop) # <- broken
     ++ (l.optional hasWayland pkgs.wl-clipboard);
 }

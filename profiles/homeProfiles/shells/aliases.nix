@@ -12,8 +12,7 @@
   rm = "${pkgs.coreutils}/bin/rm -I";
 
   # Use Kitty terminal"s ssh helper kitten
-  # TODO: move to kitty profile
-  ssh = "kitty +kitten ssh";
+  sshk = "kitty +kitten ssh";
   # Display an image in kitty
   icat = "kitty +kitten icat";
 

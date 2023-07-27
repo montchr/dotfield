@@ -2,13 +2,12 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) agenix apparat nixpkgs;
+  inherit (inputs) apparat nixpkgs;
   inherit (apparat.lib.devshell) pkg;
   cmd = pkg "secrets";
 in {
   default = _: {
     commands = [
-      (cmd agenix.packages.agenix)
       (cmd nixpkgs.age-plugin-yubikey)
       (cmd nixpkgs.rage)
       (cmd nixpkgs.sops)
@@ -17,12 +16,6 @@ in {
     ];
     nixago = [
       (cell.cfg.sops {})
-    ];
-    env = [
-      {
-        name = "AGENIX_ROOT";
-        eval = "$PRJ_ROOT";
-      }
     ];
     packages = [];
   };

@@ -39,7 +39,7 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = lib.mkForce true;
-  services.openssh.settings.PermitRootLogin = true;
+  services.openssh.settings.PermitRootLogin = "yes";
 
   users.users.root.initialPassword = "root";
 

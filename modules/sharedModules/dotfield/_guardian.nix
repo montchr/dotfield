@@ -58,7 +58,6 @@ in {
     users.users.${cfg.username}.extraGroups =
       [
         "seadome"
-        "secrets" # agenix
         "keys" # sops-nix
       ]
       ++ (optional config.networking.networkmanager.enable "networkmanager")

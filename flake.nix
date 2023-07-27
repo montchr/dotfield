@@ -88,6 +88,8 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
+  inputs.nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
+  inputs.asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
   inputs.nixago.url = "github:nix-community/nixago";
   inputs.srvos.url = "github:numtide/srvos";
   inputs.std = {
@@ -109,7 +111,6 @@
   # };
 
   ##: ops
-  inputs.agenix.url = "github:ryantm/agenix";
   inputs.colmena.url = "github:zhaofengli/colmena";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.namaka = {

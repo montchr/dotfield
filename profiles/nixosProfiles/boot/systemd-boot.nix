@@ -1,14 +1,12 @@
 {lib, ...}: {
-  boot.loader = {
-    grub.enable = false;
-    systemd-boot = {
-      enable = true;
-      consoleMode = "auto";
-      # This number is super low -- it can safely be bumped higher, but be
-      # careful otherwise you may fill up a boot partition pretty quickly in
-      # relation to increased frequency of rebuilds/generations.
-      configurationLimit = lib.mkDefault 24;
-      editor = false;
-    };
+  boot.loader.systemd-boot = {
+    enable = true;
+    consoleMode = lib.mkDefault "auto";
+    configurationLimit = lib.mkDefault 10;
+    # NixOS manual recommends setting this to false, as it allows gaining root
+    # access by passing `init=/bin/sh` as a kernel parameter. It's enabled by
+    # default for back-compat.
+    editor = false;
   };
+  boot.loader.timeout = lib.mkDefault 3;
 }

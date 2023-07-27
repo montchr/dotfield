@@ -5,11 +5,12 @@
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
+  inherit (pkgs.stdenv.hostPlatform) isAarch64;
 in {
-  environment.systemPackages = with pkgs; [zoom-us];
+  environment.systemPackages = lib.optional (!isAarch64) pkgs.zoom-us; # <- broken
   home-manager.sharedModules = [
     {
-      # FIXME: does this prevent the gui from managing preferences?
+      # TODO: does this prevent the gui from managing preferences?
       xdg.configFile."zoomus.conf".text = ''
         ${lib.optionalString hasWayland "enableWaylandShare=true"}
       '';

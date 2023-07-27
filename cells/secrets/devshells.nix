@@ -53,12 +53,5 @@ in {
       # error: 1 dependencies of derivation '/nix/store/67l5lbha5rvdpvcz8g3d6is81pvsxyy3-sops-init-gpg-key.drv' failed to build
       # sops-nix.packages.sops-init-gpg-key
     ];
-
-    env = [
-      {
-        name = "AGENIX_ROOT";
-        eval = "$PRJ_ROOT";
-      }
-    ];
   });
 }

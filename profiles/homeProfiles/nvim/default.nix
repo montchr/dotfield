@@ -52,12 +52,12 @@ in {
       pkgs.git
       pkgs.glow # for glow-nvim
       pkgs.ripgrep
-      pkgs.sumneko-lua-language-server
+      # FIXME: build fails on `aarch64-darwin` when included in `extraPackages`,
+      #        but builds fine on its own
+      # pkgs.sumneko-lua-language-server
     ];
 
     plugins = [
-      ###: --- required --------------------------------------------------------
-
       ##: impatient-nvim :: compile and cache lua modules
       # (lib.makeLuaPlugin' vimPlugins.impatient-nvim ''
       #   require("impatient")

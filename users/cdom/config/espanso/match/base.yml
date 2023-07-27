@@ -1,36 +1,36 @@
 matches:
   # Common macOS symbols
   # => :s.
-  - trigger: ':s.cmd'
+  - trigger: ';s;cmd'
     replace: '⌘'
-  - trigger: ':s.shift'
+  - trigger: ';s;shift'
     replace: '⇧'
-  - trigger: ':s.ctrl'
+  - trigger: ';s;ctrl'
     replace: '⌃'
-  - trigger: ':s.opt'
+  - trigger: ';s;opt'
     replace: '⌥'
-  - trigger: ':s.esc'
+  - trigger: ';s;esc'
     replace: '⎋'
 
   # Arrows
   # => :s.aa
-  - trigger: ':s.aal'
+  - trigger: ';s;aal'
     replace: '←'
-  - trigger: ':s.aar'
+  - trigger: ';s;aar'
     replace: '→'
-  - trigger: ':s.aau'
+  - trigger: ';s;aau'
     replace: '↑'
-  - trigger: ':s.aad'
+  - trigger: ';s;aad'
     replace: '↓'
 
   # Math
   # => :s.
-  - trigger: ':s.mult'
+  - trigger: ';s;mult'
     replace: '×'
-  - trigger: ':s.null'
+  - trigger: ';s;null'
     replace: '∅'
 
   # Emoji
   # => :s.
-  - trigger: ':s.hrug'
+  - trigger: ';s;hrug'
     replace: '¯\_(ツ)_/¯'
