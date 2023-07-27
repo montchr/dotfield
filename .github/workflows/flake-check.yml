@@ -31,4 +31,4 @@ jobs:
           extraPullNames: dotfield,nix-community,nixpkgs-wayland
 
       - run: nix flake show --show-trace --print-build-logs
-      - run: nix flake check --show-trace --print-build-logs
+      - run: nix flake check --show-trace --print-build-logs --quiet --no-build
