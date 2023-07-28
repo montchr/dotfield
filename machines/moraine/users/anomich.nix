@@ -13,7 +13,6 @@ in {
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
   home-manager.users.${username} = hmArgs: {
-    imports = hmArgs.roles.remote;
     home.stateVersion = "23.05";
   };
 }

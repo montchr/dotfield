@@ -23,8 +23,7 @@ in {
     homeConfigurations = {
       traveller = makeHomeConfiguration "cdom" {
         modules =
-          homeSuites.remote
-          ++ homeSuites.webdev
+          homeSuites.webdev
           ++ [{_module.args = {inherit ops;};}];
       };
     };

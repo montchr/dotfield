@@ -9,17 +9,12 @@
     homeProfiles.navi
     homeProfiles.nnn
     homeProfiles.nvim.default
+    homeProfiles.rclone
     homeProfiles.shells.prompts.starship.default
     homeProfiles.shells.zsh.default
     homeProfiles.ssh
+    homeProfiles.zellij
   ];
-
-  remote =
-    base
-    ++ [
-      homeProfiles.rclone
-      homeProfiles.zellij
-    ];
 
   # TODO: dissolve into workstation?
   developer =
@@ -87,7 +82,6 @@
       developer
       graphical
       personalised
-      remote
       trusted
       webdev
       ;
