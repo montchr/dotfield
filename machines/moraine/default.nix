@@ -9,7 +9,7 @@ in {
     ./filesystems.nix
     ./network.nix
     ./secrets/sops.nix
-    ./users
+    ./users/anomich.nix
 
     # ./profiles/transmission/default.nix
     ./profiles/ombi/default.nix
@@ -23,6 +23,9 @@ in {
     pkgs.borgbackup
   ];
 
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "anomich";
+  users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys =
     hosts.boschic.users.seadoom.keys
     ++ hosts.tuvix.users.cdom.keys
