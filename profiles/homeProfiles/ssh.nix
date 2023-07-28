@@ -12,9 +12,8 @@ in {
     serverAliveInterval = 300;
 
     matchBlocks."hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-    # TODO: why is this one different??? does not appear to be in the file.
-    #       some difference between hetzner cloud and hetzner online?
-    matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
+    # FIXME: machine is unreachable via IPv6 -- opened a ticket with hetzner
+    # matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
 
     matchBlocks."github.com" = {
       # inherit identityFile;
