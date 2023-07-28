@@ -7,7 +7,11 @@
   l = flake.inputs.nixpkgs.lib // builtins;
   plugin = pkg: {inherit (pkg) name src;};
 in {
-  imports = [../common.nix];
+  imports = [
+    ../common.nix
+    ./fzf-integration.nix
+    ./via-bash-init.nix
+  ];
 
   programs.fish = {
     enable = true;
