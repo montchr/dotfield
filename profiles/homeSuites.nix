@@ -14,7 +14,12 @@
     homeProfiles.ssh
   ];
 
-  remote = base;
+  remote =
+    base
+    ++ [
+      homeProfiles.rclone
+      homeProfiles.zellij
+    ];
 
   # TODO: dissolve into workstation?
   developer =

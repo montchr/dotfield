@@ -29,6 +29,7 @@
     openssh
     openssl
     (ripgrep.override {withPCRE2 = true;})
+    rclone
     rsync
     screen
     sd
@@ -36,6 +37,7 @@
     vim
     wget
     whois
+    zellij
 
     (
       if stdenv.hostPlatform.isDarwin
