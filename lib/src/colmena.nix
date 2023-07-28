@@ -1,5 +1,4 @@
 {
-  ops,
   flake,
   withSystem,
   ...
@@ -9,16 +8,9 @@ in {
   mkNode = evaled: hostname: settings: let
     evaledModules = evaled._module.args.modules;
     settings' = {deployment = settings;};
-    meta = ops.metadata.hosts.${hostname};
     defaults = {
       deployment = {
         buildOnTarget = l.mkDefault true;
-        targetHost = l.mkDefault (
-          if (meta ? "ipv6")
-          then "${meta.ipv6.address}::1"
-          else meta.ipv4.address
-        );
-        targetUser = l.mkDefault "cdom";
       };
     };
   in {imports = evaledModules ++ [settings' defaults];};
