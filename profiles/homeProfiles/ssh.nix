@@ -12,8 +12,7 @@ in {
     serverAliveInterval = 300;
 
     matchBlocks."hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-    # FIXME: machine is unreachable via IPv6 -- opened a ticket with hetzner
-    # matchBlocks."moraine".hostname = hosts.moraine.ipv6.address;
+    matchBlocks."moraine".hostname = "${hosts.moraine.ipv6.address}::1";
 
     matchBlocks."github.com" = {
       # inherit identityFile;
