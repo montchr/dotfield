@@ -9,7 +9,10 @@
     ./acme.nix
     # ./atticd.nix
     ./seadome-dot-net.nix
+
+    #: applications
     ./grafana.nix
+    ./matrix/synapse.nix
     ./prometheus.nix
   ];
 
