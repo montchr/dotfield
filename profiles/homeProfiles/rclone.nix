@@ -12,6 +12,6 @@
     )
   ];
   home.sessionVariables = {
-    NNN_RCLONE = "rclone mount --read-only --no-checksum --fast-list";
+    NNN_RCLONE = "rclone mount --fast-list";
   };
 }
