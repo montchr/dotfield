@@ -97,4 +97,8 @@ in {
       keys = [keys.ssh.cdom-at-tuvok];
     };
   };
+  tso = {
+    keys = [keys.ssh.tso keys.ssh.tso-rsa];
+    users.seed.keys = [keys.ssh.seed-at-tso];
+  };
 }
