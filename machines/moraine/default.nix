@@ -11,9 +11,9 @@ in {
     ./secrets/sops.nix
     ./users/anomich.nix
 
-    # ./profiles/transmission/default.nix
-    ./profiles/ombi/default.nix
-    # ./profiles/prowlarr/default.nix
+    #./profiles/lidarr.nix
+    #./profiles/ombi.nix
+    # ./profiles/prowlarr.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
