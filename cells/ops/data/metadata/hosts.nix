@@ -1,4 +1,9 @@
-{keys, ...}: let
+{
+  super,
+  keys,
+  ...
+}: let
+  inherit (super) networks;
   hetznerIp6 = address: {
     inherit address;
     gateway = "fe80::1";
@@ -27,6 +32,7 @@ in {
   brakhage.users.blink.keys = [keys.ssh.blink-at-brakhage];
   hierophant = {
     age = keys.age.hierophant;
+    domain = networks.seadome.domain;
     ipv6 = hetznerIp6 "2a01:4ff:f0:4717";
     keys = [keys.ssh.hierophant keys.ssh.hierophant-rsa];
     network = "seadome";

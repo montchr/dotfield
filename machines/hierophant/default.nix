@@ -8,6 +8,7 @@
 
     ./acme.nix
     ./atticd.nix
+    ./seadome-dot-net.nix
     ./grafana.nix
     ./prometheus.nix
   ];
