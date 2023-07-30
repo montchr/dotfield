@@ -167,15 +167,16 @@
   inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
   inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-  nixConfig = {
-    extra-experimental-features = "nix-command flakes";
-    extra-substituters = [
-      "https://dotfield.cachix.org"
-      "https://nix-community.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
+  # NOTE: Retained for provisioning purposes, but normally unnecessary.
+  # nixConfig = {
+  #   extra-experimental-features = "nix-command flakes";
+  #   extra-substituters = [
+  #     "https://dotfield.cachix.org"
+  #     "https://nix-community.cachix.org"
+  #   ];
+  #   extra-trusted-public-keys = [
+  #     "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #   ];
+  # };
 }
