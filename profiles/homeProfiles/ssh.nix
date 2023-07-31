@@ -11,6 +11,7 @@ in {
     forwardAgent = false;
     serverAliveInterval = 300;
 
+    matchBlocks."gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
     matchBlocks."hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
     matchBlocks."moraine".hostname = "${hosts.moraine.ipv6.address}::1";
 

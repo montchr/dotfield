@@ -139,6 +139,22 @@ in {
       modules = with nixosSuites; gnome ++ graphical ++ office ++ tangible ++ workstation;
     };
 
+    gabbro = makeNixosSystem "gabbro" {
+      system = "x86_64-linux";
+      modules =
+        nixosSuites.server
+        ++ [
+          srvos.nixosModules.server
+          srvos.nixosModules.hardware-hetzner-cloud
+          srvos.nixosModules.mixins-nginx
+          srvos.nixosModules.mixins-terminfo
+          srvos.nixosModules.mixins-tracing
+          srvos.nixosModules.mixins-trusted-nix-caches
+          # TODO: needs additional config
+          srvos.nixosModules.mixins-telegraf
+        ];
+    };
+
     hierophant = makeNixosSystem "hierophant" {
       system = "x86_64-linux";
       modules =

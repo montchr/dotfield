@@ -30,6 +30,16 @@ in {
     };
   };
   brakhage.users.blink.keys = [keys.ssh.blink-at-brakhage];
+  gabbro = {
+    age = keys.age.gabbro;
+    domain = networks.loopgarden.domain;
+    ipv6 = hetznerIp6 "2a01:4f8:c17:a3c3";
+    keys = [keys.ssh.gabbro keys.ssh.gabbro-rsa];
+    # users.cdom = {
+    #   age = keys.age.cdom-at-hierophant;
+    #   keys = [keys.ssh.cdom-at-hierophant];
+    # };
+  };
   hierophant = {
     age = keys.age.hierophant;
     domain = networks.seadome.domain;
