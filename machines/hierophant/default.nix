@@ -7,7 +7,7 @@
     ./users.nix
 
     ./acme.nix
-    ./atticd.nix
+    # ./atticd.nix
     ./seadome-dot-net.nix
     ./grafana.nix
     ./prometheus.nix

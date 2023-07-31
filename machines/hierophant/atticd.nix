@@ -16,7 +16,8 @@ in {
   services.atticd.credentialsFile = config.sops.secrets.attic-server-token.path;
   services.atticd.settings = {
     allowed-hosts = [];
-    api-endpoint = "https://${fqdn}/";
+    # FIXME: wrong! takes over domain
+    # api-endpoint = "https://${fqdn}/";
     listen = "[::]:${listenPort'}";
     require-proof-of-possession = true;
 
