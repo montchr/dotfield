@@ -81,11 +81,6 @@
     };
   };
 in {
-  home.packages = with pkgs; [
-    isync
-    mu
-  ];
-
   programs.mbsync.enable = true;
   programs.mu.enable = true;
   programs.msmtp.enable = true;
@@ -110,12 +105,6 @@ in {
           msmtp.enable = true;
         };
     };
-  };
-
-  programs.emacs = {
-    extraPackages = _epkgs: [
-      pkgs.mu
-    ];
   };
 }
 ## References:

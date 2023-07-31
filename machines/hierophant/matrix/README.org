@@ -1,0 +1,11 @@
+* Loop Garden Matrix Homeserver
+
+** Tasks
+
+*** FIXME configure email via gabbro
+
+- <https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html?highlight=smtp#email>
+
+** Sources
+
+- <https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse>
