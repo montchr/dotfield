@@ -15,8 +15,13 @@
     shell = pkgs.bashInteractive;
   };
 
-  home-manager.users.cdom = hmArgs: {
-    imports = [hmArgs.profiles.shells.fish.default];
+  home-manager.users.cdom = {profiles, ...}: {
+    imports = [
+      # Include common mail profile for testing purposes.
+      profiles.mail.default
+
+      profiles.shells.fish.default
+    ];
     home.stateVersion = "23.05";
   };
 }
