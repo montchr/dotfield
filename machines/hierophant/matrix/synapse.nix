@@ -1,5 +1,3 @@
-###: Sources:
-# - <https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse>
 {
   pkgs,
   config,
