@@ -1,11 +1,16 @@
-{flake, ...}: let
+{
+  pkgs,
+  flake,
+  ...
+}: let
   inherit (flake.inputs) disko nixpkgs;
 in {
   imports = [
     disko.nixosModules.disko
     ./boot.nix
     ./networking.nix
-    ./mailserver
+    ./mailserver/default.nix
+    ./mailserver/roundcube.nix
     ./secrets
     ./users
   ];
