@@ -3,7 +3,6 @@
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
-  users.mutableUsers = false;
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;

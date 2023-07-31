@@ -144,9 +144,10 @@ in {
       modules =
         nixosSuites.server
         ++ [
-          srvos.nixosModules.server
+          # TODO: verify whether these conflict with operations, esp. non-mutable users?
+          # srvos.nixosModules.server
+          # srvos.nixosModules.mixins-nginx
           srvos.nixosModules.hardware-hetzner-cloud
-          srvos.nixosModules.mixins-nginx
           srvos.nixosModules.mixins-terminfo
           srvos.nixosModules.mixins-tracing
           srvos.nixosModules.mixins-trusted-nix-caches
