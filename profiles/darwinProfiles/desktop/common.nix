@@ -64,7 +64,6 @@ in {
     "DaisyDisk" = 411643860;
     "Drafts" = 1435957248;
     "Magnet" = 441258766;
-    "Moom" = 419330170;
     "Paprika Recipe Manager" = 1303222628;
     "Reeder" = 1529448980;
     "Xcode" = 497799835;

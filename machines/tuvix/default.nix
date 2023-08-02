@@ -14,6 +14,8 @@
 in {
   imports = [
     darwinProfiles.builders.nixbuild-net
+    darwinProfiles.yabai
+
     sharedProfiles.core.substituters.nixbuild-net
     sharedProfiles.secrets.default
 
@@ -50,6 +52,7 @@ in {
     imports =
       roles.workstation
       ++ [
+        profiles.os-specific.darwin.yabai
         profiles.shells.fish.default
         profiles.theme.fonts.monospace.jetbrains-mono
       ];

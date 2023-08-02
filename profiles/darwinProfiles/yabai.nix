@@ -9,7 +9,18 @@
   defaultPadding = "6";
 in {
   homebrew.taps = ["koekeishiya/formulae"];
-  homebrew.brews = ["skhd" "yabai"];
+  homebrew.brews = [
+    {
+      name = "skhd";
+      args = [];
+      restart_service = true;
+    }
+    {
+      name = "yabai";
+      args = [];
+      restart_service = true;
+    }
+  ];
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "yabai-relaunch" ''brew services restart yabai'')
@@ -23,46 +34,44 @@ in {
         "window_gap"
       ]}
     '')
-    (pkgs.writeShellScriptBin "yabai-focus-direction" ''
+    (pkgs.writeShellScriptBin "yabai-window-focus" ''
+      #!/usr/bin/env bash
+
+      # yabai-window-focus
+      # via <https://github.com/d12frosted/environment/blob/48774588094fd2b1a10cf721eaaf5697f5f7a3d7/bin/yabai-window-focus>
       #
       # Focus a window in the specified direction.
       #
       # Usage:
-      #   yabai-focus-direction ( north | south | east | west ) [--displays]
+      #   yabai-window-focus ( north | south | east | west )
       #
       # FIXME: When switching spaces, focus the closest window to the entry direction.
       #        E.G. `yabai -m space --focus next`, then: focus the western-most window.
       #        E.G. `yabai -m space --focus prev`, then: focus the eastern-most window.
       #
 
-      DIRECTION=$1
-      shift
+      direction="$1"
 
-      yabai -m window --focus "$DIRECTION" \
-        && return 0
-
-      for arg in "$@"; do
-        case "$arg" in
-          --displays)
-            yabai -m display --focus "$DIRECTION" \
-              && return 0
-            ;;
-          *) : ;;
-        esac
-      done
-
-      case "$DIRECTION" in
-        north)
-          yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+      case $direction in
+        prev)
+          yabai -m query --spaces \
+            | jq -re '.[] | select(."is-visible").index' \
+            | xargs -I{} yabai -m query --windows --space {} \
+            | jq -sre 'add | map(select(."is-hidden" == false) | select(."is-minimized" == false)) | sort_by(.display, .frame.x, .frame.y, ."stack-index", .id) | reverse | nth(index(map(select(."has-focus"))) - 1).id' \
+            | xargs -I{} yabai -m window --focus {}
           ;;
-        south)
-          yabai -m window --focus stack.next || yabai -m window --focus stack.first
+        next)
+          yabai -m query --spaces \
+            | jq -re '.[] | select(."is-visible").index' \
+            | xargs -I{} yabai -m query --windows --space {} \
+            | jq -sre 'add | map(select(."is-hidden" == false) | select(."is-minimized" == false)) | sort_by(.display, .frame.x, .frame.y, ."stack-index", .id) | nth(index(map(select(."has-focus"))) - 1).id' \
+            | xargs -I{} yabai -m window --focus {}
           ;;
-        east)
-          yabai -m space --focus next
-          ;;
-        west)
-          yabai -m space --focus prev
+        north) yabai -m window --focus "$direction" ;;
+        south) yabai -m window --focus "$direction" ;;
+        *)
+          echo "unknown direction '$direction'"
+          exit 1
           ;;
       esac
     '')
