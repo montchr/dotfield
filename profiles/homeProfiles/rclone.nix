@@ -29,12 +29,7 @@
   '');
 in {
   home.packages = [
-    # FIXME: <https://github.com/montchr/dotfield/issues/92>
-    (
-      if pkgs.stdenv.hostPlatform.isDarwin
-      then flake.perSystem.inputs'.nixos-stable.legacyPackages.rclone
-      else pkgs.rclone
-    )
+    pkgs.rclone
     (rclone-start-mount {})
   ];
   home.sessionVariables = {
