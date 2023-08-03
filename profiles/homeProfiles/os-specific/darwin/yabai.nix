@@ -30,9 +30,10 @@ in
       # Ensure the scripting addition is loaded.
       loadScriptingAddition
       (mkSignal' "dock_did_restart" loadScriptingAddition)
+
       (toYabaiConfig {
         layout = "bsp";
-        # window_placement = "second_child";
+        window_placement = "second_child";
         auto_balance = "off";
         split_ratio = 0.5;
 

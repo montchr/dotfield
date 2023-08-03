@@ -154,28 +154,43 @@ focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --m
 # display, then, as a last resort, try paging through a window stack.
 #
 
-focus         < k : yabai-window-focus north
-focus         < j : yabai-window-focus south
-focus         < h : yabai-window-focus prev
-focus         < l : yabai-window-focus next
+# focus window
+default         < alt - h : yabai-window-focus prev
+default         < alt - l : yabai-window-focus next
+# FIXME: conflicts with emacs magit!
+# default         < alt - k : yabai-window-focus north
+# default         < alt - j : yabai-window-focus south
 
-default         < meh - k : yabai-window-focus north
-default         < meh - j : yabai-window-focus south
-default         < meh - h : yabai-window-focus prev
-default         < meh - l : yabai-window-focus next
+# focus window (alternative):
+default         < meh - k : yabai-focus-direction north
+default         < meh - j : yabai-focus-direction south
+default         < meh - h : yabai-focus-direction prev
+default         < meh - l : yabai-focus-direction next
 
+# focus space prev/next
+default         < alt + shift - h : yabai -m space --focus prev
+default         < alt + shift - l : yabai -m space --focus next
+
+# focus space by id
 default < alt - 1 : yabai -m space --focus 1
 default < alt - 2 : yabai -m space --focus 2
 default < alt - 3 : yabai -m space --focus 3
 default < alt - 4 : yabai -m space --focus 4
 default < alt - 5 : yabai -m space --focus 5
 default < alt - 6 : yabai -m space --focus 6
-default < hyper - 1 : yabai -m space --focus 1
-default < hyper - 2 : yabai -m space --focus 2
-default < hyper - 3 : yabai -m space --focus 3
-default < hyper - 4 : yabai -m space --focus 4
-default < hyper - 5 : yabai -m space --focus 5
-default < hyper - 6 : yabai -m space --focus 6
+
+# move+follow window to space
+default < shift + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
+default < shift + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+default < shift + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
+default < shift + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
+default < shift + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
+default < shift + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
+
+focus         < k : yabai-window-focus north
+focus         < j : yabai-window-focus south
+focus         < h : yabai-window-focus prev
+focus         < l : yabai-window-focus next
 
 # Change the window focused in the current stack, cycling around to the beginning/end.
 focus           < shift - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last

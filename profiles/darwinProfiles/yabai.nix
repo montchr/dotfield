@@ -9,18 +9,7 @@
   defaultPadding = "6";
 in {
   homebrew.taps = ["koekeishiya/formulae"];
-  homebrew.brews = [
-    {
-      name = "skhd";
-      args = [];
-      restart_service = true;
-    }
-    {
-      name = "yabai";
-      args = [];
-      restart_service = true;
-    }
-  ];
+  homebrew.brews = ["skhd" "yabai"];
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "yabai-relaunch" ''brew services restart yabai'')
@@ -38,16 +27,13 @@ in {
       #!/usr/bin/env bash
 
       # yabai-window-focus
-      # via <https://github.com/d12frosted/environment/blob/48774588094fd2b1a10cf721eaaf5697f5f7a3d7/bin/yabai-window-focus>
+      #
+      # Source: <https://github.com/d12frosted/environment/blob/48774588094fd2b1a10cf721eaaf5697f5f7a3d7/bin/yabai-window-focus>
       #
       # Focus a window in the specified direction.
       #
       # Usage:
       #   yabai-window-focus ( north | south | east | west )
-      #
-      # FIXME: When switching spaces, focus the closest window to the entry direction.
-      #        E.G. `yabai -m space --focus next`, then: focus the western-most window.
-      #        E.G. `yabai -m space --focus prev`, then: focus the eastern-most window.
       #
 
       direction="$1"
@@ -74,6 +60,24 @@ in {
           exit 1
           ;;
       esac
+    '')
+    (pkgs.writeShellScriptBin "yabai-focus-direction" ''
+      #
+      # Focus a window in the specified direction.
+      #
+      # Usage:
+      #   yabai-focus-direction ( north | south | east | west | next | prev )
+      #
+      # TODO: When switching spaces, focus the closest window to the entry direction.
+      #        E.G. `yabai -m space --focus next`, then: focus the western-most window.
+      #        E.G. `yabai -m space --focus prev`, then: focus the eastern-most window.
+      #
+
+      DIRECTION=$1
+
+      yabai -m window --focus "$DIRECTION" \
+        || yabai -m space --focus "$DIRECTION" \
+        || yabai -m display --focus "$DIRECTION"
     '')
   ];
 }
