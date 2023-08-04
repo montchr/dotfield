@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (ops.metadata.networks.loopgarden) domain;
-  fqdn = "synapse.${domain}";
+  fqdn = "matrix.${domain}";
   clientConfig."m.homeserver".base_url = "https://${fqdn}";
   serverConfig."m.server" = "${fqdn}:443";
   mkWellKnown = data: ''

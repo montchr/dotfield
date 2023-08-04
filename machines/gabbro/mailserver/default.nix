@@ -1,5 +1,4 @@
 # TODO: backups <https://nixos-mailserver.readthedocs.io/en/latest/options.html#mailserver-borgbackup>
-# TODO: newsletter list config e.g. List-Unsubscribe headers
 {
   flake,
   ops,
@@ -7,32 +6,55 @@
   ...
 }: let
   inherit (flake.inputs) simple-nixos-mailserver;
-  inherit (ops.metadata.networks) loopgarden seadome;
+  inherit (ops.metadata.networks) seadome;
   inherit (config.sops) secrets;
+  inherit (ops.metadata.networks.loopgarden) domain;
+  matrixFqdn = "matrix.${domain}";
 in {
   imports = [simple-nixos-mailserver.nixosModules.default];
 
   mailserver = {
     enable = true;
-    fqdn = "mail.${loopgarden.domain}";
-    domains = [loopgarden.domain];
+    fqdn = "mail.${domain}";
+    domains = [domain matrixFqdn];
 
-    loginAccounts."hierophant@loop.garden" = {
-      hashedPasswordFile = secrets."mailserver/accounts/hierophant/hashed-password".path;
-      aliases = ["postmaster@loop.garden" "abuse@loop.garden"];
+    ##: loop.garden
+    loginAccounts."hierophant@${domain}" = {
+      hashedPasswordFile = secrets."accounts/hierophant/hashed-password".path;
+      catchAll = [domain];
     };
-    loginAccounts."dmarc@loop.garden".hashedPasswordFile = secrets."mailserver/accounts/dmarc/hashed-password".path;
+    loginAccounts."dmarc@${domain}".hashedPasswordFile = secrets."accounts/dmarc/hashed-password".path;
+
+    ##: matrix.loop.garden
+    loginAccounts."notifications@${matrixFqdn}" = {
+      hashedPasswordFile = secrets."accounts/matrix/notifications/hashed-password".path;
+      sendOnly = true;
+    };
+    loginAccounts."support@${matrixFqdn}" = {
+      hashedPasswordFile = secrets."accounts/matrix/support/hashed-password".path;
+      catchAll = [matrixFqdn];
+    };
 
     certificateScheme = "acme-nginx";
     # hierarchySeparator = "/";
     dmarcReporting.enable = true;
-    dmarcReporting.domain = loopgarden.domain;
+    dmarcReporting.domain = domain;
     dmarcReporting.organizationName = "Seadome Systems";
+
+    extraVirtualAliases = {
+      "postmaster@${domain}" = "hierophant@${domain}";
+      "abuse@${domain}" = "hierophant@${domain}";
+      "postmaster@${matrixFqdn}" = "support@${matrixFqdn}";
+      "abuse@${matrixFqdn}" = "support@${matrixFqdn}";
+    };
   };
 
   # Mailserver accounts correspond to system user accounts.
-  sops.secrets."mailserver/accounts/hierophant/hashed-password".neededForUsers = true;
-  sops.secrets."mailserver/accounts/dmarc/hashed-password".neededForUsers = true;
+  sops.secrets."accounts/hierophant/hashed-password".neededForUsers = true;
+  sops.secrets."accounts/dmarc/hashed-password".neededForUsers = true;
+
+  sops.secrets."accounts/matrix/notifications/hashed-password".neededForUsers = true;
+  sops.secrets."accounts/matrix/support/hashed-password".neededForUsers = true;
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = seadome.contact;
