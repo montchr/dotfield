@@ -20,7 +20,6 @@ in {
       hashedPasswordFile = secrets."mailserver/accounts/hierophant/hashed-password".path;
       aliases = ["postmaster@loop.garden" "abuse@loop.garden"];
     };
-    loginAccounts."testacct@loop.garden".hashedPasswordFile = secrets."mailserver/accounts/testacct/hashed-password".path;
     certificateScheme = "acme-nginx";
     # hierarchySeparator = "/";
     dmarcReporting.enable = true;
