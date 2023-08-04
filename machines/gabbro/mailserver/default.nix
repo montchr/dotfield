@@ -16,10 +16,13 @@ in {
     enable = true;
     fqdn = "mail.${loopgarden.domain}";
     domains = [loopgarden.domain];
+
     loginAccounts."hierophant@loop.garden" = {
       hashedPasswordFile = secrets."mailserver/accounts/hierophant/hashed-password".path;
       aliases = ["postmaster@loop.garden" "abuse@loop.garden"];
     };
+    loginAccounts."dmarc@loop.garden".hashedPasswordFile = secrets."mailserver/accounts/dmarc/hashed-password".path;
+
     certificateScheme = "acme-nginx";
     # hierarchySeparator = "/";
     dmarcReporting.enable = true;
@@ -29,7 +32,7 @@ in {
 
   # Mailserver accounts correspond to system user accounts.
   sops.secrets."mailserver/accounts/hierophant/hashed-password".neededForUsers = true;
-  sops.secrets."mailserver/accounts/testacct/hashed-password".neededForUsers = true;
+  sops.secrets."mailserver/accounts/dmarc/hashed-password".neededForUsers = true;
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = seadome.contact;
