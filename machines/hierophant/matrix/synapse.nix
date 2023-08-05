@@ -7,7 +7,8 @@
   inherit (ops.metadata.networks.loopgarden) domain;
   fqdn = "matrix.${domain}";
   elementFqdn = "element.${domain}";
-  clientConfig."m.homeserver".base_url = "https://${fqdn}";
+  baseUrl = "https://${fqdn}";
+  clientConfig."m.homeserver".base_url = baseUrl;
   serverConfig."m.server" = "${fqdn}:443";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
@@ -25,6 +26,7 @@ in {
     enable = true;
     settings = {
       server_name = domain;
+      public_baseurl = baseUrl;
       enable_registration = true;
       enable_registration_captcha = true;
       registrations_require_3pid = ["email"];
