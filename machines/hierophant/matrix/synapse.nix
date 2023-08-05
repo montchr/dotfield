@@ -30,6 +30,10 @@ in {
       registrations_require_3pid = ["email"];
       registration_requires_token = true;
       recaptcha_public_key = "6LcdyoAnAAAAADxF-7vQjWoF8jp0U0pkf3wgGrkD";
+      admin_contact = "support@matrix.loop.garden";
+      auto_join_rooms = [
+        "#general:loop.garden"
+      ];
       listeners = [
         {
           port = 8008;
