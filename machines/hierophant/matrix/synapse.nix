@@ -67,6 +67,8 @@ in {
     root = pkgs.element-web.override {
       conf = {
         default_server_config = clientConfig;
+        default_country_code = "US";
+        show_labs_settings = true;
       };
     };
   };
