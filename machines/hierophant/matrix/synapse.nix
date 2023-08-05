@@ -29,7 +29,6 @@ in {
       enable_registration_captcha = true;
       registrations_require_3pid = ["email"];
       registration_requires_token = true;
-      default_identity_server = domain;
       recaptcha_public_key = "6LcdyoAnAAAAADxF-7vQjWoF8jp0U0pkf3wgGrkD";
       listeners = [
         {
