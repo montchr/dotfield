@@ -48,27 +48,7 @@ in {
             }
           ];
         }
-        # FIXME: when this is active, error due to no resources
-        #   stderr) error: The option `services.matrix-synapse.settings.listeners."[definition 1-entry 2]".resources' is used but not defined.
-        # {
-        #   port = 8009;
-        #   type = "metrics";
-        #   bind_addresses = ["::1" "127.0.0.1"];
-        # }
       ];
-      # oidc_providers = [
-      #   {
-      #     idp_id = "auth0";
-      #     idp_name = "Auth0";
-      #     issuer = "https://seadome.us.auth0.com";
-      #     client_id = "HD7lKslGjMx7EEZqobkOAqPEztPFSkY9";
-      #     scopes = ["openid" "profile"];
-      #     user_mapping_provider.config = {
-      #       localpart_template = "{{ user.preferred_username }}";
-      #       display_name_template = "{{ user.name }}";
-      #     };
-      #   }
-      # ];
     };
   };
 
@@ -78,8 +58,6 @@ in {
 
     # FIXME: needs update after domain change
     # (config.sops.secrets."matrix-synapse/recaptcha-private-key-yaml".path)
-    # FIXME: this does not correspond to a real settings -- must be in oidc providers, not top-level
-    # (config.sops.secrets."matrix-synapse/client-secret-yaml".path)
   ];
 
   # NOTE: Database created manually.
