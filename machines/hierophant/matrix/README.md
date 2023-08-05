@@ -21,13 +21,13 @@ hidden away inside the encrypted files.
 
 ```yaml
 email:
-smtp_host: mail.loop.garden
-smtp_pass: *********
-require_transport_security: true
-enable_true: true
-notif_from: "%(app)s <notifications@matrix.loop.garden>"
-app_name: "loop.garden"
-invite_client_location: "https://chat.loop.garden"
+  smtp_host: mail.loop.garden
+  smtp_pass: *************
+  smtp_port: 587
+  force_tls: true
+  notif_from: "%(app)s <notifications@matrix.loop.garden>"
+  app_name: "loop.garden"
+  invite_client_location: "https://chat.loop.garden"
 ```
 
 ## Sources
