@@ -6,6 +6,7 @@
 }: let
   inherit (ops.metadata.networks.loopgarden) domain;
   fqdn = "matrix.${domain}";
+  elementFqdn = "element.${domain}";
   clientConfig."m.homeserver".base_url = "https://${fqdn}";
   serverConfig."m.server" = "${fqdn}:443";
   mkWellKnown = data: ''
@@ -16,8 +17,8 @@
 in {
   imports = [
     ./__secrets.nix
-    # Provides required well-known data.
-    # ../seadome-dot-net.nix
+    # ./__idp-oidc.nix
+    # ./__metrics.nix
   ];
 
   services.matrix-synapse = {
@@ -72,9 +73,11 @@ in {
   };
 
   services.matrix-synapse.extraConfigFiles = [
+    (config.sops.secrets."matrix-synapse/registration-shared-secret-yaml".path)
+    (config.sops.secrets."matrix-synapse/email-config-yaml".path)
+
     # FIXME: needs update after domain change
     # (config.sops.secrets."matrix-synapse/recaptcha-private-key-yaml".path)
-    (config.sops.secrets."matrix-synapse/registration-shared-secret-yaml".path)
     # FIXME: this does not correspond to a real settings -- must be in oidc providers, not top-level
     # (config.sops.secrets."matrix-synapse/client-secret-yaml".path)
   ];
@@ -82,12 +85,10 @@ in {
   # NOTE: Database created manually.
   services.postgresql.enable = true;
 
-  services.nginx.virtualHosts."element.${domain}" = {
+  services.nginx.virtualHosts.${elementFqdn} = {
     enableACME = true;
     forceSSL = true;
-    serverAliases = [
-      "chat.${domain}"
-    ];
+    serverAliases = ["chat.${domain}"];
 
     root = pkgs.element-web.override {
       conf = {
