@@ -30,6 +30,14 @@ in {
     };
   };
   brakhage.users.blink.keys = [keys.ssh.blink-at-brakhage];
+  chert = {
+    domain = networks.loopgarden.domain;
+    ipv6 = hetznerIp6 "2a01:4f8:c012:6d05";
+    keys = [
+      # keys.ssh.gabbro
+      # keys.ssh.gabbro-rsa
+    ];
+  };
   gabbro = {
     age = keys.age.gabbro;
     domain = networks.loopgarden.domain;
