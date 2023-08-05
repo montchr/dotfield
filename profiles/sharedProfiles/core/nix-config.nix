@@ -29,7 +29,6 @@ in {
 
   environment.etc = inputsToPaths inputs;
   nix = {
-    package = pkgs.nix;
     nixPath = [
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
