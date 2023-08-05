@@ -25,15 +25,12 @@ in {
     enable = true;
     settings = {
       server_name = domain;
-      # enable_registration = true;
-      # enable_registration_captcha = true;
-      # FIXME: enable! needs smtp config. tho auth0 should be able to handle this...
-      # registrations_require_3pid = ["email"];
-      # FIXME: enable! disabled for testing.
-      # if you, a visitor, managed to register, congrats, but i'm deleting your account.
+      enable_registration = true;
+      enable_registration_captcha = true;
+      registrations_require_3pid = ["email"];
       registration_requires_token = true;
-      # recaptcha_public_key = "6Ld3EGsnAAAAAHNqASQIhCuTkzazE0DqfwBBc3PD";
       default_identity_server = domain;
+      recaptcha_public_key = "6LcdyoAnAAAAADxF-7vQjWoF8jp0U0pkf3wgGrkD";
       listeners = [
         {
           port = 8008;
