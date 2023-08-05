@@ -22,7 +22,7 @@ in {
       tags = ["@seadome" "@loopgarden" "@hetznerCloud" "@fsn-1"];
     };
     hierophant = {
-      tags = ["@seadome" "@hetznerCloud" "@us-east"];
+      tags = ["@seadome" "@loopgarden" "@hetznerCloud" "@us-east"];
     };
     moraine = {
       tags = ["@seadome" "@tso"];
