@@ -28,6 +28,7 @@ in {
       igr = callPackage ./tools/text/igr {};
       kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
       sf-pro = callPackage ./data/fonts/sf-pro {};
+      synadm = callPackage ./development/tools/misc/synadm {};
     };
   };
 }

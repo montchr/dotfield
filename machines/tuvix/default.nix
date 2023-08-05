@@ -1,4 +1,5 @@
 {
+  flake,
   config,
   lib,
   pkgs,
@@ -6,6 +7,7 @@
   sharedProfiles,
   ...
 }: let
+  inherit (flake.perSystem) packages;
   inherit (lib) optional;
 
   username = "cdom";
@@ -32,7 +34,11 @@ in {
   };
 
   # Allow nix-darwin to install the specified programs as applications.
-  environment.systemPackages = optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package;
+  environment.systemPackages =
+    optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package
+    ++ [
+      packages.synadm
+    ];
 
   homebrew.casks = ["microsoft-teams" "onedrive"];
 

@@ -1,10 +1,12 @@
 {
+  flake,
   pkgs,
   config,
   ops,
   ...
 }: let
   inherit (ops.metadata.networks.loopgarden) domain;
+  inherit (flake.perSystem) packages;
   fqdn = "matrix.${domain}";
   elementFqdn = "element.${domain}";
   baseUrl = "https://${fqdn}";
@@ -21,6 +23,8 @@ in {
     # ./__idp-oidc.nix
     # ./__metrics.nix
   ];
+
+  environment.systemPackages = [packages.synadm];
 
   services.matrix-synapse = {
     enable = true;
