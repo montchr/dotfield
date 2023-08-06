@@ -10,6 +10,8 @@
     # ./atticd.nix
     ./seadome-dot-net.nix
 
+    ./lldap.nix
+
     #: applications
     ./grafana.nix
     ./matrix/synapse.nix
