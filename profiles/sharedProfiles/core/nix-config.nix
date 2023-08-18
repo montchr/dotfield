@@ -8,6 +8,7 @@
 #
 # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a/LICENSE
 {
+  config,
   lib,
   pkgs,
   flake,
@@ -28,7 +29,10 @@ in {
   ];
 
   environment.etc = inputsToPaths inputs;
+  environment.systemPackages = [config.nix.package];
+
   nix = {
+    package = pkgs.nixVersions.stable;
     nixPath = [
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
