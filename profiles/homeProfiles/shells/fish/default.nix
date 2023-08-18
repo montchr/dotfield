@@ -28,6 +28,10 @@ in {
       # <https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219>
       # <https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1030877541>
       #
+      # nix-darwin creates the default profile `/nix/var/nix/profiles/default/bin`
+      # upon initial installation and thus should be lowest in priority.
+      # <https://github.com/LnL7/nix-darwin/issues/655#issuecomment-1551771624>
+      #
       # A previous version of this snippet also included:
       #   - /run/wrappers/bin
       #   - /etc/profiles/per-user/$USER/bin
@@ -35,8 +39,8 @@ in {
       if test (uname) = Darwin
           fish_add_path --prepend --global \
             "$HOME/.nix-profile/bin" \
-            /nix/var/nix/profiles/default/bin \
             /run/current-system/sw/bin \
+            /nix/var/nix/profiles/default/bin \
             /opt/homebrew/bin \
             /opt/homebrew/sbin
       end
