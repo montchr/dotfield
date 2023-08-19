@@ -7,16 +7,16 @@
     ./users.nix
 
     ./acme.nix
-    # ./atticd.nix
     ./seadome-dot-net.nix
 
-    #: applications
-    ./grafana.nix
-    ./matrix/synapse.nix
-    ./prometheus.nix
-
+    # ./atticd.nix
+    ./monitoring/grafana.nix
     ./monitoring/loki.nix
+    ./monitoring/prometheus.nix
     ./monitoring/promtail.nix
+
+    #: applications
+    ./matrix/synapse.nix
   ];
 
   system.stateVersion = "23.05";
