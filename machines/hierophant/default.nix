@@ -11,6 +11,7 @@
     # ./atticd.nix
 
     ./monitoring/grafana/default.nix
+    ./monitoring/grafana/oauth.nix
     ./monitoring/loki.nix
     ./monitoring/prometheus.nix
     ./monitoring/promtail.nix
