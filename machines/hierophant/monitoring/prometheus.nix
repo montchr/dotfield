@@ -1,5 +1,13 @@
 {config, ...}: let
   cfg = config.services.prometheus;
+  scrape = exporter: {
+    job_name = exporter;
+    static_configs = [
+      {
+        targets = ["127.0.0.1:${toString cfg.exporters.${exporter}.port}"];
+      }
+    ];
+  };
 in {
   services.prometheus = {
     enable = true;
@@ -15,6 +23,9 @@ in {
         }
       ];
     }
+    (scrape "nginx")
+    (scrape "nginxlog")
+    (scrape "postgres")
   ];
 
   services.prometheus.exporters = {
@@ -22,13 +33,15 @@ in {
       enable = true;
       # <https://github.com/prometheus/node_exporter#collectors>
       enabledCollectors = ["processes" "systemd"];
-      port = 9002;
     };
 
-    # TODO: configure
-    # nginx = {
-    #   enable = true;
-    #   port = 9003;
-    # };
+    nginx.enable = true;
+    nginxlog.enable = true;
+
+    postgres.enable = true;
+    postgres.runAsLocalSuperUser = true;
+    postgres.extraFlags = ["--auto-discover-databases"];
   };
+
+  services.nginx.statusPage = true;
 }
