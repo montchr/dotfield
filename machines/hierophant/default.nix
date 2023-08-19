@@ -14,6 +14,9 @@
     ./grafana.nix
     ./matrix/synapse.nix
     ./prometheus.nix
+
+    ./monitoring/loki.nix
+    ./monitoring/promtail.nix
   ];
 
   system.stateVersion = "23.05";
