@@ -8,9 +8,9 @@
 
     ./acme.nix
     ./seadome-dot-net.nix
-
     # ./atticd.nix
-    ./monitoring/grafana.nix
+
+    ./monitoring/grafana/default.nix
     ./monitoring/loki.nix
     ./monitoring/prometheus.nix
     ./monitoring/promtail.nix
