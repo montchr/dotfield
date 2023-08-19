@@ -7,6 +7,7 @@
 }: let
   inherit (ops.metadata.networks.loopgarden) domain;
   inherit (flake.perSystem) packages;
+  l = flake.inputs.nixpkgs.lib // builtins;
   fqdn = "matrix.${domain}";
   elementFqdn = "element.${domain}";
   baseUrl = "https://${fqdn}";
@@ -19,9 +20,9 @@
   '';
 in {
   imports = [
+    ./__metrics.nix
     ./__secrets.nix
     # ./__idp-oidc.nix
-    # ./__metrics.nix
   ];
 
   environment.systemPackages = [packages.synadm];
@@ -40,21 +41,17 @@ in {
       auto_join_rooms = [
         "#general:loop.garden"
       ];
-      listeners = [
-        {
-          port = 8008;
-          bind_addresses = ["::1"];
-          type = "http";
-          tls = false;
-          x_forwarded = true;
-          resources = [
-            {
-              names = ["client" "federation"];
-              compress = true;
-            }
-          ];
-        }
-      ];
+      listeners = l.singleton {
+        port = 8008;
+        bind_addresses = ["::1" "127.0.0.1"];
+        type = "http";
+        tls = false;
+        x_forwarded = true;
+        resources = l.singleton {
+          names = ["client" "federation"];
+          compress = false;
+        };
+      };
     };
   };
 

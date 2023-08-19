@@ -15,17 +15,6 @@ in {
         }
       ];
     }
-    # {
-    #   job_name = "matrix-synapse";
-    #   scrape_interval = "15s";
-    #   metrics_path = "/_synapse/metrics";
-    #   static_configs = [
-    #     {
-    #       # TODO: use definition. currently, port lives inside an attrset inside a list.
-    #       targets = ["127.0.0.1:8009"];
-    #     }
-    #   ];
-    # }
   ];
 
   services.prometheus.exporters = {
