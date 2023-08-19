@@ -16,6 +16,7 @@
     ./monitoring/promtail.nix
 
     #: applications
+    ./keycloak.nix
     ./matrix/synapse.nix
   ];
 
