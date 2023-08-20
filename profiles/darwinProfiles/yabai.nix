@@ -12,7 +12,6 @@ in {
   homebrew.brews = ["skhd" "yabai"];
 
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "yabai-relaunch" ''brew services restart yabai'')
     (pkgs.writeShellScriptBin "yabai-set-padding" ''
       PADDING="''${1:-''${YABAI_PADDING_DEFAULT:-${defaultPadding}}}"
       ${l.concatMapStrings (v: mkSetting v "$PADDING") [
@@ -23,6 +22,7 @@ in {
         "window_gap"
       ]}
     '')
+
     (pkgs.writeShellScriptBin "yabai-window-focus" ''
       #!/usr/bin/env bash
 
@@ -61,6 +61,7 @@ in {
           ;;
       esac
     '')
+
     (pkgs.writeShellScriptBin "yabai-focus-direction" ''
       #
       # Focus a window in the specified direction.

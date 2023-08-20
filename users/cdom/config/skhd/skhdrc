@@ -96,8 +96,12 @@ app     < shift - f : open -n -a "/Applications/Firefox Developer Edition.app/Co
 sys     < hyper - q ; default
 sys     < escape    ; default
 
-# Restart yabai
-sys     < y : yabai-relaunch ; \
+sys     < s : skhd --restart-service ; \
+              skhd -k 'escape'
+sys     < y : yabai --restart-service ; \
+              skhd -k 'escape'
+sys     < shift - y : skhd --restart-service ; \
+              yabai --restart-service ; \
               skhd -k 'escape'
 
 
