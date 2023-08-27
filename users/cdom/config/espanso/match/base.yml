@@ -13,11 +13,15 @@ matches:
     replace: '⎋'
 
   # Arrows
-  # => ;s;a;
+  # => ;s;aa?;
   - triggers: [';s;a;ll', ';s;a;ww']
     replace: '←'
   - triggers: [';s;a;rr', ';s;a;ee']
     replace: '→'
+  - triggers: [';s;aa;rr']
+    replace: '⇒'
+  - triggers: [';s;aa;ll']
+    replace: '⇐'
   - triggers: [';s;a;uu', ';s;a;nn']
     replace: '↑'
   - triggers: [';s;a;dd', ';s;a;ss']
