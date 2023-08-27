@@ -10,9 +10,6 @@
   inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
-  # If this were enabled, rebuilds will take... a very long time.
-  documentation.info.enable = false;
-
   nix = {
     settings = {
       system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
@@ -20,6 +17,9 @@ in {
     gc.dates = "weekly";
     optimise.automatic = true;
   };
+
+  # NOTE: Manpage cache generation may add significant time to builds.
+  documentation.man.generateCaches = lib.mkDefault true;
 
   environment.systemPackages = with pkgs; [
     dosfstools

@@ -12,6 +12,9 @@ in {
     ./system-packages.nix
   ];
 
+  documentation.info.enable = l.mkDefault true;
+  documentation.man.enable = l.mkDefault true;
+
   # The only sane default. Servers should usually keep this as is.
   time.timeZone = l.mkDefault "UTC";
 
