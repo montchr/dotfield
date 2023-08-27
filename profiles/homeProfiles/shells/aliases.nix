@@ -4,17 +4,13 @@
 
   e = "$EDITOR";
 
-  cp = "${pkgs.coreutils}/bin/cp -ir";
-  # TODO: override `l` or `ll` from exa module
-  le = "${pkgs.exa}/bin/exa -bl --git --icons --time-style long-iso --group-directories-first";
-  mkdir = "${pkgs.coreutils}/bin/mkdir -pv";
-  mv = "${pkgs.coreutils}/bin/mv -i";
-  rm = "${pkgs.coreutils}/bin/rm -I";
+  l = "${pkgs.exa}/bin/exa -bl --git --icons --time-style long-iso --group-directories-first";
 
+  # FIXME: only when kitty is primary terminal
   # Use Kitty terminal"s ssh helper kitten
-  sshk = "kitty +kitten ssh";
+  # sshk = "kitty +kitten ssh";
   # Display an image in kitty
-  icat = "kitty +kitten icat";
+  # icat = "kitty +kitten icat";
 
   # Always enable colored `grep` output
   # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
