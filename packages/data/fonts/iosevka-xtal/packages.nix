@@ -12,7 +12,7 @@
   in
     mkFontFamily (defaults // args);
 in {
-  default = mkFontFamily {};
-  term = mkVariant {spacing = "term";};
-  fixed = mkVariant {spacing = "fixed";};
+  iosevka-xtal = mkFontFamily {};
+  iosevka-xtal-term = mkVariant {spacing = "term";};
+  iosevka-xtal-fixed = mkVariant {spacing = "fixed";};
 }
