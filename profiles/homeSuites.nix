@@ -6,6 +6,7 @@
     homeProfiles.direnv
     homeProfiles.fzf
     homeProfiles.git
+    homeProfiles.helix
     homeProfiles.navi
     homeProfiles.nnn
     homeProfiles.nvim.default
