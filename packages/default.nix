@@ -1,5 +1,7 @@
 {self, ...}: let
-  inherit (self.inputs.flake-utils.lib) filterPackages;
+  inherit (self.inputs) apparat flake-utils;
+  inherit (apparat.lib.typography) fontWeights;
+  inherit (flake-utils.lib) filterPackages;
 in {
   perSystem = {
     inputs',
@@ -9,11 +11,11 @@ in {
   }: let
     inherit (inputs') emacs-overlay;
     inherit (pkgs) callPackage;
+    makeIosevkaXtalPackage = import ./data/fonts/iosevka-xtal/package.nix {inherit fontWeights;};
   in {
     packages = filterPackages system {
       ast-grep = callPackage ./development/tools/misc/ast-grep {};
       base16-schemes = callPackage ./data/themes/base16-schemes {};
-      berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix {};
       cod = callPackage ./shells/cod {};
       emacs-plus-29 = callPackage ./applications/editors/emacs/emacs-plus-29.nix {
         inherit (emacs-overlay.packages) emacs-unstable;
@@ -27,8 +29,18 @@ in {
       fd = callPackage ./tools/misc/fd {};
       igr = callPackage ./tools/text/igr {};
       kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
-      sf-pro = callPackage ./data/fonts/sf-pro {};
       synadm = callPackage ./development/tools/misc/synadm {};
+
+      ##: fonts
+      berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix {};
+      iosevka-xtal = callPackage (makeIosevkaXtalPackage {}) {};
+      iosevka-xtal-term = callPackage (makeIosevkaXtalPackage {
+        familySuffix = "Term";
+        spacing = "term";
+        slopes = ["italic"];
+        weights = ["light" "regular" "semibold" "bold"];
+      }) {};
+      sf-pro = callPackage ./data/fonts/sf-pro {};
     };
   };
 }
