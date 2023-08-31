@@ -28,11 +28,9 @@
   # pull / push
   gpl = "git pull";
   gplo = "git pull origin";
-  gpls = "git pull; gsumo";
   gps = "git push";
   gpsu = "git push -u";
   gpso = "git push origin";
-  gpss = "git push; gsumo";
 
   # status / diff / difftool
   gs = "git status";
