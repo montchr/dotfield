@@ -8,8 +8,7 @@ in {
     compression = "zstd";
     compressionLevel = 11;
   };
-  # TODO
-  # services.borgbackup.jobs.services-backup.paths = [cfg.location];
+  services.borgbackup.jobs."services-backup".paths = [cfg.location];
 }
 ## References:
 #

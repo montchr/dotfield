@@ -8,6 +8,7 @@
   inherit (ops.metadata.networks.loopgarden) domain;
   inherit (flake.perSystem) packages;
   l = flake.inputs.nixpkgs.lib // builtins;
+  cfg = config.services.matrix-synapse;
   fqdn = "matrix.${domain}";
   elementFqdn = "element.${domain}";
   baseUrl = "https://${fqdn}";
@@ -26,6 +27,8 @@ in {
   ];
 
   environment.systemPackages = [packages.synadm];
+
+  services.borgbackup.jobs."services-backup".paths = [cfg.dataDir];
 
   services.matrix-synapse = {
     enable = true;
