@@ -61,6 +61,7 @@ in {
         profiles.os-specific.darwin.yabai
         profiles.shells.fish.default
         profiles.theme.fonts.monospace.jetbrains-mono
+        profiles.shells.nushell.default
       ];
     home.stateVersion = "22.05";
   };
