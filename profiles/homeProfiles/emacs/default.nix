@@ -18,7 +18,7 @@ in {
     LSP_USE_PLISTS = "true";
   };
 
-  xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
+  # xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
 
   programs.emacs = {
     enable = isLinux;
