@@ -1,2 +1,0 @@
-{ops}:
-ops.keys
