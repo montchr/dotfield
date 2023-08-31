@@ -4,20 +4,21 @@
 #: $ kitty +list-fonts --psnames | grep Iosevka
 {
   config,
-  pkgs,
+  flake,
   ...
 }: let
+  inherit (flake.perSystem.packages) iosevka-xtal iosevka-xtal-term;
   cfg = config.theme.fonts;
 in {
   theme.fonts.monospace = {
-    name = "Iosevka SS08";
-    package = pkgs.iosevka-bin;
-    psNamespace = "Iosevka-SS08";
+    name = "Iosevka Xtal";
+    package = iosevka-xtal;
+    psNamespace = "Iosevka-Xtal";
   };
   theme.fonts.terminal = {
-    name = "Iosevka Term SS08";
-    package = pkgs.iosevka-bin;
-    psNamespace = "Iosevka-Term-SS08";
+    name = "Iosevka Xtal Term";
+    package = iosevka-xtal-term;
+    psNamespace = "Iosevka-Xtal-Term";
   };
 
   programs.kitty.extraConfig = let

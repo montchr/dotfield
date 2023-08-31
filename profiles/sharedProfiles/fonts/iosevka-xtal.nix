@@ -1,14 +1,16 @@
 {flake, ...}: let
+  # inherit
+  #   (flake.perSystem.inputs'.iosevka-xtal.packages)
+  #   iosevka-xtal
+  #   iosevka-xtal-term
+  #   ;
   inherit
-    (flake.perSystem.inputs'.iosevka-xtal.packages)
+    (flake.perSystem.packages)
     iosevka-xtal
     iosevka-xtal-term
     ;
 in {
-  fonts.fonts = [
-    iosevka-xtal
-    iosevka-xtal-term
-  ];
+  fonts.fonts = [iosevka-xtal iosevka-xtal-term];
   nix.settings = {
     substituters = ["https://iosevka-xtal.cachix.org"];
     trusted-substituters = ["https://iosevka-xtal.cachix.org"];

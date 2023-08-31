@@ -52,7 +52,8 @@
     homeProfiles.rclone
     homeProfiles.spotify
     homeProfiles.sync
-    homeProfiles.theme.fonts.monospace.jetbrains-mono
+    # FIXME: conflicts with iosevka-xtal font profile
+    # homeProfiles.theme.fonts.monospace.jetbrains-mono
     homeProfiles.theme.fonts.sans-serif.inter
     homeProfiles.theme.fonts.serif.ibm-plex-serif
     homeProfiles.zotero
