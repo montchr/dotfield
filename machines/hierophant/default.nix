@@ -2,6 +2,7 @@
   imports = [
     ./boot.nix
     ./filesystems.nix
+    ./postgresql.nix
     ./networking.nix
     ./secrets/sops.nix
     ./users.nix
