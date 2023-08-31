@@ -13,7 +13,8 @@ in {
   ];
 
   documentation.info.enable = l.mkDefault true;
-  documentation.man.enable = l.mkDefault true;
+  # NOTE: Force override <numtide/srvos>.
+  documentation.man.enable = l.mkForce true;
 
   # The only sane default. Servers should usually keep this as is.
   time.timeZone = l.mkDefault "UTC";
