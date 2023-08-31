@@ -62,7 +62,8 @@ in {
         profiles.shells.fish.default
         profiles.shells.nushell.default
         # profiles.theme.fonts.monospace.jetbrains-mono
-        profiles.theme.fonts.monospace.iosevka-xtal
+        # profiles.theme.fonts.monospace.iosevka-xtal
+        profiles.theme.fonts.monospace.iosevka-comfy
       ];
     home.stateVersion = "22.05";
   };

@@ -8,8 +8,8 @@
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [
-    ./iosevka-xtal.nix
     ./iosevka-variants.nix
+    ./iosevka-xtal.nix
   ];
 
   fonts.fontDir.enable = true;

@@ -1,7 +1,5 @@
-#: SS08 => PragmataPro style
-#
 #: Find PostScript font name for use in kitty terminal:
-#: $ kitty +list-fonts --psnames | grep Iosevka
+#: $ kitty +list-fonts --psnames | grep Iosevka Xtal
 {
   config,
   flake,
