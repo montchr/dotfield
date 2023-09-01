@@ -28,7 +28,7 @@ in
         createDirectories = true;
         extraConfig = {
           XDG_PROJECTS_DIR = homeDirectory + "/Developer";
-          XDG_MAIL_DIR = "$HOME/${maildirBasePath}";
+          XDG_MAIL_DIR = "${homeDirectory}/${maildirBasePath}";
         };
       };
 

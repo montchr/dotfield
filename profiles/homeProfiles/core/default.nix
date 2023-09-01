@@ -1,4 +1,9 @@
-{flake, ...}: let
+{
+  config,
+  flake,
+  ...
+}: let
+  inherit (config) xdg;
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [
@@ -34,27 +39,27 @@ in {
   ##: --- environment ---
 
   home.sessionVariables = {
-    LESSHISTFILE = "$XDG_STATE_HOME/lesshst";
-    Z_DATA = "$XDG_DATA_HOME/z";
+    LESSHISTFILE = "${xdg.stateHome}/lesshst";
+    Z_DATA = "${xdg.dataHome}/z";
 
     # Docker
     # NOTE: disabled so as not to interfere with overriding "docker" with other providers
     # TODO: move this to a docker-specific profile if ever needed.
-    # DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
-    # MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker-machine";
+    # DOCKER_CONFIG = "${xdg.configHome}/docker";
+    # MACHINE_STORAGE_PATH = "${xdg.dataHome}/docker-machine";
 
     # Go
-    GOPATH = "$XDG_DATA_HOME/go";
+    GOPATH = "${xdg.dataHome}/go";
 
     # Rust
-    CARGO_HOME = "$XDG_DATA_HOME/cargo";
-    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+    CARGO_HOME = "${xdg.dataHome}/cargo";
+    RUSTUP_HOME = "${xdg.dataHome}/rustup";
 
     # GNU screen
-    SCREENRC = "$XDG_CONFIG_HOME/screen/screenrc";
+    SCREENRC = "${xdg.configHome}/screen/screenrc";
 
     # wd
     # https://github.com/mfaerevaag/wd
-    WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
+    WD_CONFIG = "${xdg.configHome}/wd/warprc";
   };
 }
