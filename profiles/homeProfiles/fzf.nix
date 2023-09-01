@@ -6,7 +6,11 @@
   l = flake.inputs.nixpkgs.lib // builtins;
 
   ## TODO: outfactor these to lib?
-  packageCommand = pkg: args: (l.getExe pkg) + " " + (l.cli.toGNUCommandLineShell {} args);
+  packageCommand = pkg: args:
+    l.concatStringsSep " " [
+      (l.getExe pkg)
+      (l.toString (l.cli.toGNUCommandLine {} args))
+    ];
   find = packageCommand pkgs.fd;
   findFiles = args: find (args // {type = "f";});
   findDirs = args: find (args // {type = "d";});
