@@ -19,6 +19,7 @@ in {
       ["/share/bash-completion"]
       ++ (l.optional config.programs.fish.enable "/share/fish")
       ++ (l.optional config.programs.zsh.enable "/share/zsh");
+    packages = [pkgs.carapace];
   };
 
   programs.bash.shellAliases = shellAbbrs;
