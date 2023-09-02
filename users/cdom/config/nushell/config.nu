@@ -139,9 +139,40 @@ let light_theme = {
     shape_vardecl: purple
 }
 
-let carapace_completer = {|spans|
-    carapace $spans.0 nushell $spans | from json
+# NOTE: includes workaround for upstream bug
+#       <https://www.nushell.sh/cookbook/external_completers.html#err-unknown-shorthand-flag-using-carapace>
+let carapace_completer = {|spans: list<string>|
+    carapace $spans.0 nushell $spans
+    | from json
+    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
+
+let fish_completer = {|spans|
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | $"value(char tab)description(char newline)" + $in
+    | from tsv --flexible --no-infer
+}
+
+# Default to carapace, with optional command-specific overrides to fish completions.
+# via <https://www.nushell.sh/cookbook/external_completers.html#putting-it-all-together>
+let external_completers = {|spans|
+
+    # Workaround for lack of alias completion (via manual: <https://www.nushell.sh/cookbook/external_completers.html#alias-completions>)
+    # TODO(<https://github.com/nushell/nushell/issues/8483>): remove
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+    let spans = (if $expanded_alias != null  {
+        $spans | skip 1 | prepend ($expanded_alias | split words)
+    } else { $spans })
+
+    {
+        # carapace completions are incorrect for nu
+        nu: $fish_completer
+        # fish completes commits and branch names in a nicer way
+        git: $fish_completer
+    } | get -i $spans.0 | default $carapace_completer | do $in $spans
+
+}
+
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
@@ -218,14 +249,14 @@ $env.config = {
     }
 
     completions: {
-        case_sensitive: false # set to true to enable case-sensitive completions
+        case_sensitive: false
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
         algorithm: "prefix"    # prefix or fuzzy
         external: {
-            enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
+            enable: true
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: $carapace_completer # check 'carapace_completer' above as an example
+            completer: $external_completers
         }
     }
 
@@ -240,6 +271,7 @@ $env.config = {
         vi_normal: blink_block # block, underscore, line, blink_block, blink_underscore, blink_line (underscore is the default)
     }
 
+    # FIXME: use OS appearance
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
     use_grid_icons: true
     footer_mode: "25" # always, never, number_of_rows, auto
