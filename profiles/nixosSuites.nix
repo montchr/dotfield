@@ -39,8 +39,7 @@
   ];
 
   workstation = [
-    sharedProfiles.secrets.age
-    sharedProfiles.secrets.sops
+    sharedProfiles.secrets.default
 
     nixosProfiles.one-password
     nixosProfiles.bitwarden

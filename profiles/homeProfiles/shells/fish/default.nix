@@ -10,7 +10,7 @@ in {
   imports = [
     ../common.nix
     ./fzf-integration.nix
-    ./via-bash-init.nix
+    #    ./trampoline.nix
   ];
 
   programs.fish = {
