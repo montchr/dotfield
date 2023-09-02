@@ -43,10 +43,6 @@
 in {
   imports = [../common.nix];
 
-  # Handle manually.
-  programs.direnv.enableNushellIntegration = false;
-  # FIXME: broken? zoxide not found. $PATH incomplete
-  programs.zoxide.enableNushellIntegration = false;
   programs.nushell = {
     enable = true;
     extraConfig = ''
@@ -55,10 +51,8 @@ in {
     extraEnv = ''
       source ${userConfigDir}/env.nu
     '';
-    # configFile.source = ./config.nu;
-    # envFile.source = ./env.nu;
-    # extraConfig = builtins.readFile ./config.nu;
   };
+
   xdg.configFile."nushell/home.nu".source = pkgs.writeText "home.nu" ''
     ${attrsToEnvDecls sessionVariables}
   '';

@@ -15,6 +15,7 @@
     homeProfiles.shells.zsh.default
     homeProfiles.ssh
     homeProfiles.zellij
+    homeProfiles.zoxide
   ];
 
   # TODO: dissolve into workstation?

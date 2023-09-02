@@ -38,5 +38,4 @@ in {
   programs.info.enable = l.mkDefault true;
   programs.less.enable = true;
   programs.lesspipe.enable = l.mkDefault true;
-  programs.zoxide.enable = true;
 }
