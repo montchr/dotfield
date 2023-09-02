@@ -165,18 +165,20 @@ in relevant files.
 
 ### NixOS/nix-darwin/home-manager
 
+- <https://github.com/lovesegfault/nix-config> :: nixos
+- <https://github.com/oddlama/nix-config> :: nixos, sso, good docs, microvms
+- <https://git.sr.ht/~misterio/nix-config/> :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
 - <https://github.com/Mic92/dotfiles> :: nixos, flake-parts, extensive, fleets, networking, structure, secrets management
 - <https://github.com/srid/nixos-config> :: nixos, nix-darwin, vms, simple, nixos-shell
 - <https://github.com/viperML/dotfiles> :: nixos, flake-parts, structure
-- <https://git.sr.ht/~misterio/nix-config/> :: nixos, desktops, similar goals, simplicity and clarity, aesthetics
 - <https://github.com/TLATER/dotfiles> :: home-manager, structure
 - <https://github.com/d12frosted/environment> :: nixos, nix-darwin, world-building, emacs, docs
-- <https://github.com/hlissner/dotfiles> :: nixos, libs, original, structure, homes w/o home-manager
 - <https://github.com/colemickens/nixcfg> :: nixos, extensive, fun
 - <https://github.com/cole-h/nixos-config/> :: nixos, media server
 - <https://github.com/kclejeune/system> :: nixos, home-manager
 - <https://github.com/Xe/nixos-configs> :: networking, extensive
 - <https://github.com/sei40kr/dotfiles>
+- <https://github.com/hlissner/dotfiles> :: nixos, libs, original, structure, homes w/o home-manager
 - <https://github.com/malob/nixpkgs> :: nix-darwin, docs
 - <https://github.com/ahmedelgabri/dotfiles>
 - <https://github.com/cmacrae/config> :: nix-darwin, nixos, emacs
