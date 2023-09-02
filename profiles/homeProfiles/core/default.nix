@@ -40,7 +40,6 @@ in {
 
   home.sessionVariables = {
     LESSHISTFILE = "${xdg.stateHome}/lesshst";
-    Z_DATA = "${xdg.dataHome}/z";
 
     # Docker
     # NOTE: disabled so as not to interfere with overriding "docker" with other providers
