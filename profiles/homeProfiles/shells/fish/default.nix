@@ -9,7 +9,7 @@
 in {
   imports = [
     ../common.nix
-    ./fzf-integration.nix
+    ./__fzf-integration.nix
     #    ./trampoline.nix
   ];
 
