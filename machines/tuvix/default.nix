@@ -61,6 +61,7 @@ in {
         profiles.os-specific.darwin.yabai
         profiles.shells.fish.default
         profiles.shells.nushell.default
+        profiles.shells.nushell.trampoline
         # profiles.theme.fonts.monospace.jetbrains-mono
         # profiles.theme.fonts.monospace.iosevka-xtal
         profiles.theme.fonts.monospace.iosevka-comfy

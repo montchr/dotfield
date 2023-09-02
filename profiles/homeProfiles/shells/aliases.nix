@@ -2,7 +2,8 @@
   ".." = "cd ..";
   "..." = "cd ../..";
 
-  e = "$EDITOR";
+  # FIXME: needs workaround for nushell
+  # e = "$EDITOR";
 
   l = "${pkgs.exa}/bin/exa -bl --git --icons --time-style long-iso --group-directories-first";
 
@@ -29,8 +30,10 @@
   tree = "exa --tree";
 
   # IPs/DNS
+  # FIXME: broken...? Quad9?
   getip = "curl ifconfig.me";
-  localip = "ipconfig getifaddr en1";
+  # FIXME: depends on iface name
+  # localip = "ipconfig getifaddr en1";
   # FIXME: this command is darwin-only
   flushdns = "dscacheutil -flushcache";
 
