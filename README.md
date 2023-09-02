@@ -26,8 +26,8 @@ If you have questions or feedback, feel free to reach out in the issues or discu
 
 ## Bootstrapping
 
-This section is incomplete and fragmented, but contains important reference
-notes for stuff I always forget.
+This section is incomplete, fragmented, and I don't remember writing it.
+However, it seems to contain important reference notes for stuff I always forget.
 
 ### NixOS
 
@@ -113,8 +113,6 @@ sops updatekeys secrets/global.secrets.yaml
 ### Generic Linux
 
 TODO
-
-Only home-manager support is possible here.
 
 ### macOS/Darwin
 
@@ -257,7 +255,7 @@ impossibly slow, even with the binary cache and `ryosuke` as build host.
 
 ### Incubation
 
-#### `sommoch` [damaged+misplaced]
+#### `sommoch`
 
 Dead but dreaming.
 
@@ -265,51 +263,33 @@ Laid to indefinite rest when one of the cats, seeking human attention, chewed
 through the LCD screen. We did not speak for a week.
 
 Still works, but unusable without external display.
-
-Suffers from congenital Butterfly Keyboard Syndrome. Runs macOS.
-
-Currently lost somewhere in the meat ether. According to "Find My Devices",
-someone may have accidentally left it at an Airbnb in Massachusetts. But I've
-never been to Massachusetts.
+Suffers from congenital Butterfly Keyboard Syndrome.
+Runs macOS.
 
 ## Notes
 
-### macOS GUI Applications via Nix: Don't Bother
+### macOS GUI Applications via Nix
 
-I oscillate between using emacs-plus via homebrew, nix-darwin's
-`services.emacs`, and home-manager's `programs.emacs`, only to switch back to
-brew-installed emacs-plus.
-
-Unfortunately my experience with installing macOS GUI applications with Nix has
-been consistently terrible. Though that is not at all the fault of the Nix
-community -- we can point all fingers at Apple for making things difficult
-outside of their intended usages.
-
-So I write this as a reminder to my future self to err on the side of not
-wasting the time trying to make macOS GUI apps work with Nix.
+**UPDATE: `emacs29-macport` works amazingly!**
+Thanks to `@tnytown` for their hard work in
+https://github.com/NixOS/nixpkgs/issues/127902
+and https://github.com/NixOS/nixpkgs/pull/252244.
 
 #### Emacs
 
-Avoid using GUI Emacs installed via home-manager. In my experience, it crashes
-any time I interact with the mouse or use the menubar. This one is probably
-worth reporting upstream, but admittedly I am rolling a weird custom patched
-version of Emacs 29 from the community overlay with the emacs-plus patches
-included, so that might make it hard for others to repro.
+The package `emacs29-macport` works well.
+It's based on [Mitsuharu Yamamoto’s excellent macOS port][emacs-macport] of GNU Emacs.
+The Nix package used to have issues with GUI crashes,
+but AFAIK those are no longer an issue.
 
-nix-darwin Emacs doesn't have GUI crashes, but the launchd service never seems
-to work, breaking `emacsclient` functionality.
+- Install `emacs29-macport` via `environment.systemPackages` (from nix-darwin)
+- Open it from a terminal shell session via `/usr/bin/open -a '/Applications/Nix Apps/Emacs.app'`
 
-Unverified, but I suspect that the home-manager-managed Emacs GUI crashes
-because macOS doesn't like the `emacs-with-packages` wrapper from
-`programs.emacs.finalPackage`.
+Still, nix-darwin `launchd` service never seems to work, breaking `emacsclient` functionality.
+I have not yet confirmed whether this is still an issue with `emacs29-macport`.
+
+[emacs-macport]: https://bitbucket.org/mituharu/emacs-mac/src/master/
 
 #### yabai
 
-I miss using yabai, a lot. I uninstalled it when I upgraded to Ventura because
-there were some pretty significant issues causing it to crash constantly. I
-think those may have been fixed since I last tried.
-
-But this is another example: just save yourself the anguish and time-suck and
-just use the official Homebrew installation. yabai is brilliantly hacky (in a
-good way) enough on its own, and when it's broken, the system becomes literally
-unusable (thanks again, Apple).
+Just use the official package released via `brew`, unless you prefer pain.
