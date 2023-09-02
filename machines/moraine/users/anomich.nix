@@ -19,7 +19,7 @@ in {
 
   home-manager.users.${username} = hmArgs: {
     imports = [
-      hmArgs.profiles.shells.fish.default
+      hmArgs.profiles.shells.fish.trampoline
     ];
     home.stateVersion = "23.05";
   };
