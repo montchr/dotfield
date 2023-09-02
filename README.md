@@ -287,6 +287,15 @@ but AFAIK those are no longer an issue.
 
 Still, nix-darwin `launchd` service never seems to work, breaking `emacsclient` functionality.
 I have not yet confirmed whether this is still an issue with `emacs29-macport`.
+The following quote from the manual seems to indicate that such
+functionality remains a mystery:
+
+> The Mac port doesn't support multi-tty with GUI. The developer has
+> no idea how to detach Emacs as a GUI application from Window Server or
+> Dock without separating a GUI process (not thread) from the main Emacs
+> (Lisp evaluator) process. TTY-only multi-tty is supposed to work.
+
+[mituharu / emacs-mac / README-mac — Bitbucket](https://bitbucket.org/mituharu/emacs-mac/src/master/README-mac)
 
 [emacs-macport]: https://bitbucket.org/mituharu/emacs-mac/src/master/
 
