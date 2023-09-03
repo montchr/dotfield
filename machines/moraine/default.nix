@@ -11,6 +11,9 @@ in {
     ./secrets/sops.nix
     ./users/anomich.nix
 
+    ./profiles/deluged.nix
+    ./profiles/deluged-web.nix
+
     #./profiles/lidarr.nix
     #./profiles/ombi.nix
     # ./profiles/prowlarr.nix

@@ -21,6 +21,9 @@ in {
     imports = [
       hmArgs.profiles.shells.fish.trampoline
     ];
+    home.packages = [
+      pkgs.jesec-rtorrent
+    ];
     home.stateVersion = "23.05";
   };
 }

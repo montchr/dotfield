@@ -17,5 +17,9 @@ _: rec {
     tailnet.server.url = "https://${seadome.tailnet.fqdn}";
   };
   ts.domain = "rat-vimba.ts.net";
+  tso = {
+    contact = "ops@seadome.net";
+    domain = "storm.observer";
+  };
   tusecurewireless.domain = "temple.edu";
 }
