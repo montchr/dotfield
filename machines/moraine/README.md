@@ -1,5 +1,59 @@
 # moraine
 
+## Layout
+
+Loosely based on TRaSH's advice [link](https://trash-guides.info/Hardlinks/How-to-setup-for/
+
+```shell-session
+sudo chown -R $USER:$USER /data
+sudo chmod -R a=,a+rX,u+w,g+w /data
+```
+
+```txt
+.
+├── mnt                 #  │  │  │  │  │  │
+│  └── silo             #  │  │  │  │  │ [5] rclone mount of storage box
+└── srv                 #  │  │  │  │  │  │
+   └── data             #  │  │  │  │  │  │
+      ├── media         #  │  │  │  │  │  │
+      │  ├── incoming   #  │  │  │  │ [4] queued for starr processing
+      │  └── library    #  │  │  │  │  │ [5] symlink: /mnt/silo/data (tbd: unionfs)
+      │     ├── movies  #  │  │  │  │  │ [5] target for radarr
+      │     ├── music   #  │  │  │  │  │ [5] target for lidarr
+      │     ├── other   #  │  │  │  │  │ [5] tbd (archival, oddities)
+      │     └── tv      #  │  │  │  │  │ [5] target for sonarr
+      └── torrents      #  │  │  │  │  │  │
+         ├── complete   #  │  │  │ [3] │  │
+         ├── incoming   #  │ [1] │  │  │  │
+         ├── metadata   #  │  │ [2] meta-info files for active torrents
+         └── watch      # [0] torrent meta-info file intake
+```
+
+### `/mnt`
+
+[FHS: 3.12. /mnt : Mount point for a temporarily mounted filesystem](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s12.html)
+
+> This directory is provided so that the system administrator may
+> temporarily mount a filesystem as needed. The content of this
+> directory is a local issue and should not affect the manner in which
+> any program is run.
+>
+> This directory must not be used by installation programs: a suitable
+> temporary directory not in use by the system must be used instead.
+
+### `/srv`
+
+[FHS: 3.17. /srv : Data for services provided by this system](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s17.html)
+
+> This main purpose of specifying this is so that users may find the
+> location of the data files for a particular service, and so that
+> services which require a single tree for readonly data, writable
+> data and scripts (such as cgi scripts) can be reasonably placed.
+> Data that is only of interest to a specific user should go in that
+> users' home directory. If the directory and file structure of the
+> data is not exposed to consumers, it should go in `/var/lib`.
+
+
 ## Hardware Data
 
 ### Overview
@@ -70,6 +124,10 @@ ID 272 gen 14094 top level 256 path tmp
 ```
 
 ## Errata
+
+### References
+
+- [TRaSH-Guides](https://trash-guides.info/)
 
 ### Potential issues with RealTek r8169 NIC
 

@@ -71,7 +71,7 @@ in {
     age = keys.age.moraine;
     ipv6 = hetznerIp6 "2a01:4f8:200:5047";
     keys = [keys.ssh.moraine keys.ssh.moraine-rsa];
-    network = "cubegarden";
+    network = "tso";
     networks.ts = {
       ipv4.address = "100.101.74.89";
       ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:6265:4a59";

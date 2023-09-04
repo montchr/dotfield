@@ -41,6 +41,14 @@ in {
           then "$HOME/.config/dotfield"
           else "/etc/dotfield";
       };
+      persistence = l.mkOption {
+        type = l.types.str;
+        default = "/persist";
+        description = ''
+          Absolute path to non-ephemeral file storage.
+        '';
+      };
+      # FIXME: replace with explicit usage of `dotfield.paths.persistence`
       storageBase = l.mkOption {
         type = l.types.str;
         default =
@@ -56,6 +64,7 @@ in {
   };
   config = {
     dotfield = {
+      # FIXME: make submodule
       features = {
         inherit hasImpermanence;
 
@@ -80,6 +89,7 @@ in {
         hasSway = hmConfig.wayland.windowManager.sway.enable;
       in {
         options.dotfield.features = featuresOpt;
+        # FIXME: make submodule
         config.dotfield.features = {
           inherit hasSway;
           hasWayland = osCfg.hasWayland or hasSway;

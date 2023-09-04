@@ -21,6 +21,7 @@ in {
     imports = [
       hmArgs.profiles.shells.fish.trampoline
     ];
+    home.packages = [];
     home.stateVersion = "23.05";
   };
 }

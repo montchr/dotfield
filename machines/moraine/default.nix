@@ -11,9 +11,12 @@ in {
     ./secrets/sops.nix
     ./users/anomich.nix
 
-    #./profiles/lidarr.nix
-    #./profiles/ombi.nix
-    # ./profiles/prowlarr.nix
+    ./services/deluge/daemon.nix
+    ./services/deluge/web-ui.nix
+
+    #./services/lidarr.nix
+    #./services/ombi.nix
+    #./services/prowlarr.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

@@ -1,8 +1,9 @@
 {super, ...}: let
   inherit (super) networks;
-  fqdn = "auth.${networks.seadome.domain}";
 in {
-  keycloak = {
+  keycloak = let
+    fqdn = "auth.${networks.seadome.domain}";
+  in {
     inherit fqdn;
     realms.default = rec {
       name = "master";

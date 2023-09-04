@@ -47,6 +47,7 @@ in {
   home.packages = [
     pkgs.carapace # general-purpose completion provider
     pkgs.fish # for its completion engine, nothing more
+    pkgs.jc
   ];
 
   programs.nushell = {

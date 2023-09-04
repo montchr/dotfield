@@ -73,6 +73,15 @@ in {
         };
       }
 
+      ##: network secrets
+      {
+        path_regex = "secrets\/storm\.observer\.secrets\.yaml$";
+        key_groups = l.singleton {
+          age = [keys.age.moraine] ++ adminKeys.age;
+          pgp = [] ++ adminKeys.pgp;
+        };
+      }
+
       ##: common secrets
       {
         path_regex = defaultPathPattern;

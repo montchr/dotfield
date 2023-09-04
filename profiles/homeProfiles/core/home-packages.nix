@@ -4,12 +4,12 @@
   ...
 }: {
   home.packages = [
-    pkgs.fx #        <- interactive terminal json viewer                  => <https://github.com/antonmedv/fx>
-    pkgs.glow #      <- charmbracelet's markdown cli renderer
-    pkgs.moreutils # <- almost core utils
-    pkgs.ouch #      <- Obvious Unified Compression Helper                => <https://github.com/ouch-org/ouch>
-    pkgs.treefmt #   <- one cli to format the code tree
-    pkgs.watchexec # <- run commands when files change
+    pkgs.fx #          <- interactive terminal json viewer                  => <https://github.com/antonmedv/fx>
+    pkgs.glow #        <- charmbracelet's markdown cli renderer
+    pkgs.moreutils #   <- almost core utils
+    pkgs.ouch #        <- Obvious Unified Compression Helper                => <https://github.com/ouch-org/ouch>
+    pkgs.treefmt #     <- one cli to format the code tree
+    pkgs.watchexec #   <- run commands when files change
 
     ##: color utils
     pkgs.colorpanes #  <- print panes in the 8 bright terminal colors with shadows of the respective darker color
@@ -24,10 +24,11 @@
     })
 
     ##: [evaluating]
-    pkgs.joshuto # <- yet ANOTHER ranger-like file manager tui => <https://github.com/kamiyaa/joshuto>
+    pkgs.joshuto #     <- yet ANOTHER ranger-like file manager tui => <https://github.com/kamiyaa/joshuto>
+    pkgs.skim #        <- like fzf... but... written in rust...
 
     ##: [lukewarm]
-    pkgs.grex #      <- generate regexps from user-provided test cases
+    pkgs.grex #        <- generate regexps from user-provided test cases
 
     ##: [TODO]
     pkgs.doggo #     <- command-line DNS client for humans                => <https://github.com/mr-karan/doggo>
