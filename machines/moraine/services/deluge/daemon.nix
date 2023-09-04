@@ -15,7 +15,6 @@ in {
     # deluged will try to enforce this mode.
     # <https://git.deluge-torrent.org/deluge/tree/deluge/common.py#n1208>
     mode = "0400";
-    # TODO: verify whether this path is necessary
     path = "${cfg.dataDir}/auth-file";
     restartUnits = ["deluged.service" "delugeweb.service"];
   };
@@ -27,8 +26,8 @@ in {
     declarative = true;
     openFirewall = true;
     # NOTE: auth file requires `localclient:<password>:10`, at least on first run
-    # TODO: this should be fixed in the upstream NixOS module,
-    #       though there is very little evidence explaining this requirement.
+    # TODO: this should be fixed or noted in the upstream NixOS module,
+    #       though there is very little evidence explaining this requirement/oddity.
     authFile = secrets."services/deluge/auth-file".path;
 
     # TRaSH-Guides: <https://trash-guides.info/Downloaders/Deluge/Basic-Setup/>:
@@ -49,10 +48,10 @@ in {
         # Enable watch directory support.
         "AutoAdd"
         "Execute"
-        # TODO: configure
-        # NOTE(TRaSH): Essential for optimal performance.
+        # High-volume libtorrent optimisations.
         # <https://trash-guides.info/Downloaders/Deluge/Tips/#ltconfig>
         # <https://forum.deluge-torrent.org/viewtopic.php?p=235653#p235653>
+        # TODO: configure
         "ItConfig"
         "Label"
       ];
@@ -71,17 +70,8 @@ in {
       enc_level = 2; #       "Full Stream"
 
       ##: network (extras)
-      #
-      # NOTE(TRaSH):
-      #
-      # > UPnP and NAT-PMP should be both disabled in your router, as
-      # > well as in Deluge, as they can pose security risks.
       upnp = false;
       natpmp = false;
-      # > Public trackers can benefit from having settings like DHT
-      # > (Distributed Hash Table) and Peer Exchange (PEX) enabled. These
-      # > protocols rely on sources besides the trackers to get peers.
-      # > **The following settings are recommended ONLY for public trackers.**
       dht = false;
       lsd = false;
       utpex = false;
@@ -105,7 +95,7 @@ in {
       ##: queue
       dont_count_slow_torrents = true;
       queue_new_to_top = false;
-      max_active_downloading = 8; # <- personal preference
+      max_active_downloading = 8;
       # do not enforce tracker-hampering seed caps
       max_active_limit = -1;
       max_active_seeding = -1;
@@ -118,8 +108,6 @@ in {
       daemon_port = 58846;
 
       ##: miscellaneous
-      # TODO: what is this?
-      auto_managed = true; # default: true
       # disable sending analytics to deluge devs
       send_info = false;
       new_release_check = false;
