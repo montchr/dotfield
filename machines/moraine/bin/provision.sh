@@ -24,9 +24,7 @@ export NEW_HOSTNAME=moraine
 export FSOPTS="defaults,x-mount.mkdir,noatime"
 export BTRFSOPTS="${FSOPTS},compress=zstd"
 
-# Preserve the Cloudbox/Saltbox `/mnt/local/` structure for easier reference.
-# Mounting a non-root fs under `/mnt` also seems like best practice.
-export LOCAL_PREFIX="/mnt/mnt/local"
+export LOCAL_PREFIX="/mnt/srv/"
 
 # boot/root
 export NVME01="/dev/nvme0n1"
@@ -220,20 +218,35 @@ btrfs device scan
 mkdir -p "${LOCAL_PREFIX}"
 mount -t btrfs LABEL=local "${LOCAL_PREFIX}"
 btrfs subvolume create "${LOCAL_PREFIX}/@backups"
-btrfs subvolume create "${LOCAL_PREFIX}/@completed"
-btrfs subvolume create "${LOCAL_PREFIX}/@torrents"
-btrfs subvolume create "${LOCAL_PREFIX}/@media"
+btrfs subvolume create "${LOCAL_PREFIX}/@bt-completed"
+btrfs subvolume create "${LOCAL_PREFIX}/@bt-incoming"
+btrfs subvolume create "${LOCAL_PREFIX}/@bt-metadata"
+btrfs subvolume create "${LOCAL_PREFIX}/@bt-watch"
+btrfs subvolume create "${LOCAL_PREFIX}/@media-incoming"
+btrfs subvolume create "${LOCAL_PREFIX}/@media-outgoing"
 btrfs subvolume list -a "${LOCAL_PREFIX}"
 umount "${LOCAL_PREFIX}"
 
-mount -t btrfs -o "subvol=@backups,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/backups"
-mount -t btrfs -o "subvol=@completed,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/downloads/completed"
-mount -t btrfs -o "subvol=@torrents,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/downloads/torrents"
-mount -t btrfs -o "subvol=@media,${FSOPTS}" LABEL="local" \
-  "${LOCAL_PREFIX}/Media"
+mount -t btrfs -o "subvol=@backups,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/backups"
+
+mount -t btrfs -o "subvol=@bt-completed,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/data/torrents/completed"
+
+mount -t btrfs -o "subvol=@bt-incoming,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/data/torrents/incoming"
+
+mount -t btrfs -o "subvol=@bt-metadata,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/data/torrents/metadata"
+
+mount -t btrfs -o "subvol=@bt-watch,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/data/torrents/watch"
+
+mount -t btrfs -o "subvol=@media-incoming,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/media/incoming"
+
+mount -t btrfs -o "subvol=@media-outgoing,${BTRFSOPTS}" LABEL="local" \
+      "${LOCAL_PREFIX}/media/outgoing"
 
 # Repeat mkdir since `/mnt` has since been umounted.
 mkdir -p /mnt/boot

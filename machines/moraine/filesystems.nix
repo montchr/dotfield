@@ -45,31 +45,49 @@ in {
   fileSystems."/var/lib/postgres" = {
     device = "/dev/disk-by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@postgres" "ssd" "nofail"];
+    options = commonOpts ++ ["subvol=@postgres" "ssd"];
   };
 
-  fileSystems."/mnt/local/backups" = {
+  fileSystems."/srv/backups" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
     options = commonOpts ++ ["subvol=@backups" "nofail"];
   };
 
-  fileSystems."/mnt/local/downloads/completed" = {
+  fileSystems."/srv/data/torrents/completed" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@completed" "nofail"];
+    options = commonOpts ++ ["subvol=@bt-completed"];
   };
 
-  fileSystems."/mnt/local/downloads/torrents" = {
+  fileSystems."/srv/data/torrents/incoming" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@torrents" "nofail"];
+    options = commonOpts ++ ["subvol=@bt-incoming"];
   };
 
-  fileSystems."/mnt/local/Media" = {
+  fileSystems."/srv/data/torrents/metadata" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@media" "nofail"];
+    options = commonOpts ++ ["subvol=@bt-metadata"];
+  };
+
+  fileSystems."/srv/data/torrents/watch" = {
+    device = "/dev/disk/by-label/local";
+    fsType = "btrfs";
+    options = commonOpts ++ ["subvol=@bt-watch"];
+  };
+
+  fileSystems."/srv/media/incoming" = {
+    device = "/dev/disk/by-label/local";
+    fsType = "btrfs";
+    options = commonOpts ++ ["subvol=@media-incoming"];
+  };
+
+  fileSystems."/srv/media/outgoing" = {
+    device = "/dev/disk/by-label/local";
+    fsType = "btrfs";
+    options = commonOpts ++ ["subvol=@media-outgoing"];
   };
 
   fileSystems."/boot" = {
