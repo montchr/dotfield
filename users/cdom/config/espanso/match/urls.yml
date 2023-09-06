@@ -1,4 +1,10 @@
+---
 matches:
+  - trigger: "@@gh"
+    replace: "https://github.com/"
+  - trigger: "@@j"
+    replace: "https://kleinweb.atlassian.net/browse/KWG-"
+
   - regex: ";gh\\((?P<repo>.*)\\)"
     replace: '[{{repo}}](https://github.com/{{repo}})'
   - regex: ";j<(?P<id>\\d+)>"
