@@ -2,50 +2,28 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) apparat colmena home-manager nixos-generators nixpkgs namaka;
+  inherit (inputs) apparat colmena home-manager nixpkgs namaka;
   inherit (apparat.lib.devshell) pkg pkg';
-  inherit (nixpkgs.stdenv) isLinux;
 
   l = inputs.nixpkgs.lib // builtins;
   cats = cell.constants.devshellCategories;
 
   dotfield = pkg cats.dotfield;
-  dotfield' = pkg' cats.dotfield;
   maintenance = pkg cats.maintenance;
-  packaging = pkg cats.packaging;
-  utils = pkg cats.utils;
   utils' = pkg' cats.utils;
-
-  commonCommands = [
-    (dotfield colmena.packages.colmena)
-    (dotfield home-manager.packages.default)
-    (dotfield namaka.packages.default)
-    (dotfield nixpkgs.just)
-    (dotfield' "deps" nixpkgs.nix-melt)
-
-    (utils nixpkgs.cachix)
-    (utils nixpkgs.nix-diff)
-    (utils nixpkgs.nix-tree)
-    (utils nixpkgs.nvd)
-    (utils' "nom" nixpkgs.nix-output-monitor)
-
-    (packaging nixpkgs.nix-init)
-
-    (maintenance nixpkgs.alejandra)
-    (maintenance nixpkgs.deadnix)
-    (maintenance nixpkgs.nodePackages.prettier)
-    (maintenance nixpkgs.statix)
-    (maintenance nixpkgs.treefmt)
-  ];
-
-  linuxCommands = l.optionals isLinux [
-    (dotfield nixos-generators.packages.nixos-generate)
-  ];
 
   pre-commit-hooks = import ./devshellProfiles/pre-commit-hooks.nix {inherit inputs cell;};
 in {
   default = _: {
-    commands = commonCommands ++ linuxCommands;
+    commands = [
+      (dotfield colmena.packages.colmena)
+      (dotfield home-manager.packages.default)
+      (dotfield namaka.packages.default)
+      (dotfield nixpkgs.just)
+      # (utils' "nom" nixpkgs.nix-output-monitor)
+      (dotfield nixpkgs.treefmt)
+      # (maintenance nixpkgs.treefmt)
+    ];
     env = [
       {
         name = "DOTFIELD_SYS_DRV";
@@ -58,11 +36,18 @@ in {
       }
     ];
     packages = [
+      nixpkgs.alejandra
       nixpkgs.cachix
+      nixpkgs.deadnix
       nixpkgs.editorconfig-checker
+      nixpkgs.gh
+      nixpkgs.nix-diff
+      nixpkgs.nix-output-monitor
+      nixpkgs.nodePackages.prettier
+      nixpkgs.reuse
       nixpkgs.shellcheck
-      nixpkgs.nodejs
-      nixpkgs.nodePackages.yarn
+      nixpkgs.statix
+      nixpkgs.treefmt
     ];
   };
   pre-commit-hooks = l.id pre-commit-hooks;

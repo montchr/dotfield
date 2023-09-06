@@ -15,7 +15,6 @@ in
       inherit name;
       imports = [
         cell.devshellProfiles.default
-        secrets.devshellProfiles.default
 
         # TODO: unusable in its current state
         # cell.devshellProfiles.pre-commit-hooks
@@ -35,16 +34,11 @@ in
         })
         (presets.cfg.stylua {})
 
+        (secrets.cfg.sops {})
+
         # FIXME: git commits in magit to hang for a while during hooks
         #        possibly related: <https://github.com/evilmartians/lefthook/issues/510>
         # (presets.cfg.lefthook {})
-      ];
-      packages = [
-        nixpkgs.deadnix
-        nixpkgs.gh
-        nixpkgs.reuse
-        nixpkgs.statix
-        nixpkgs.treefmt
       ];
     };
     ci = _: {
