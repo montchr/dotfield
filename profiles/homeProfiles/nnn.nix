@@ -20,7 +20,7 @@ moduleArgs @ {
   previewDeps = with pkgs;
     [
       bat
-      exa
+      eza
       file
       man
       mediainfo

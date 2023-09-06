@@ -5,7 +5,7 @@
   # FIXME: needs workaround for nushell
   # e = "$EDITOR";
 
-  l = "${pkgs.exa}/bin/exa -bl --git --icons --time-style long-iso --group-directories-first";
+  l = "${pkgs.eza}/bin/eza -bl --git --icons --time-style long-iso --group-directories-first";
 
   # FIXME: only when kitty is primary terminal
   # Use Kitty terminal"s ssh helper kitten
@@ -27,7 +27,7 @@
   rat = "bat --style=plain --wrap=never";
 
   top = "htop";
-  tree = "exa --tree";
+  tree = "eza --tree";
 
   # IPs/DNS
   # FIXME: broken...? Quad9?

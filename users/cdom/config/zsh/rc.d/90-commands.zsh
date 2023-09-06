@@ -10,7 +10,7 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 ##: List directory contents on arrival.
-chpwd_ls() { exa --group-directories-first; }
+chpwd_ls() { eza --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
 ##: Start new sessions from most recent dir (<https://wiki.archlinux.org/title/zsh#cdr>)

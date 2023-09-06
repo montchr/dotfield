@@ -9,7 +9,7 @@
     curl
     dig
     dnsutils
-    exa
+    eza
     fd
     findutils
     fish

@@ -14,9 +14,9 @@
   find = packageCommand pkgs.fd;
   findFiles = args: find (args // {type = "f";});
   findDirs = args: find (args // {type = "d";});
-  # list = packageCommand pkgs.exa;
+  # list = packageCommand pkgs.eza;
 
-  dirPreviewCommand = l.getExe pkgs.exa + " --tree {} | head -n 200";
+  dirPreviewCommand = l.getExe pkgs.eza + " --tree {} | head -n 200";
 in {
   home.packages = [flake.perSystem.packages.igr];
 

@@ -12,7 +12,7 @@ hash -d zsh=$ZDOTDIR
 # `hash -d <name>=<path>` makes ~<name> a shortcut for <path>.
 # You can use this ~name anywhere you would specify a dir, not just with `cd`!
 
-AUTO_LS_COMMANDS="exa --oneline"
+AUTO_LS_COMMANDS="eza --oneline"
 AUTO_LS_NEWLINE=false
 DIRSTACKSIZE=9
 

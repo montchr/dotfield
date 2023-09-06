@@ -29,7 +29,7 @@ zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
 ##: === CANDIDATE PREVIEWS  ========================================================================
 
 # Preview directory contents
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Show systemd unit status.
 # <https://github.com/Aloxaf/fzf-tab/wiki/Preview#show-systemd-unit-status>
