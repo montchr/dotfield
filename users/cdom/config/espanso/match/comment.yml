@@ -1,4 +1,21 @@
+---
+global_vars:
+  - name: clip
+    type: clipboard
+
 matches:
+  - trigger: "# <"
+    replace: "# <{{clipped}}>"
+    vars:
+      - name: clipped
+        type: shell
+        depends_on: ["clip"]
+        params:
+          cmd: |
+            echo "$ESPANSO_CLIP" \
+            | grep '^https://' || [[ $? == 1 ]]
+
+
   - trigger: ';#spdx'
     replace: |-
       # SPDX-FileCopyrightText: {{year}} {{form.author}}
