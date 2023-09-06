@@ -8,16 +8,24 @@
   inherit (config.home) username sessionVariables;
   l = flake.inputs.nixpkgs.lib // builtins;
 
-  # FIXME: hardcoded
+  exaCfg = config.programs.exa;
+
+  # FIXME: hardcoded -- note also that we can't rely on variable expansion to resolve paths in env.nu
   userConfigDir = "~/.config/dotfield/users/${username}/config/nushell";
 
   /*
+  @partial
   replaceVars :: [String] -> (String -> String)
   */
   replaceVars = names:
     l.replaceStrings
     (l.map (v: "$" + v) names)
     (l.map (v: "$env.${v}") names);
+
+  /*
+  replaceVars' :: String -> String
+  */
+  replaceVars' = replaceVars commonNames;
 
   commonNames = [
     "HOME"
@@ -37,7 +45,7 @@
     lib.concatStringsSep "\n"
     (lib.mapAttrsToList
       (name: value: let
-        value' = replaceVars commonNames value;
+        value' = replaceVars' value;
       in "$env.${name} = `${value'}`")
       attrs);
 in {
@@ -63,4 +71,14 @@ in {
   xdg.configFile."nushell/home.nu".source = pkgs.writeText "home.nu" ''
     ${attrsToEnvDecls sessionVariables}
   '';
+
+  # FIXME: needs PR to upstream `exa` module for fix to use
+  # `home.shellAliases`, not shell-specific options
+  home.shellAliases = lib.mkIf (exaCfg.enable && exaCfg.shellAliases.enable) {
+    ls = "exa";
+    ll = "exa -l";
+    la = "exa -a";
+    lt = "exa --tree";
+    lla = "exa -la";
+  };
 }
