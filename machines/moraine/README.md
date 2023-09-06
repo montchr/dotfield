@@ -2,7 +2,7 @@
 
 ## Layout
 
-Loosely based on TRaSH's advice [link](https://trash-guides.info/Hardlinks/How-to-setup-for/
+Loosely based on TRaSH's advice [link](https://trash-guides.info/Hardlinks/How-to-setup-for/)
 
 ```shell-session
 sudo chown -R $USER:$USER /data
@@ -11,22 +11,25 @@ sudo chmod -R a=,a+rX,u+w,g+w /data
 
 ```txt
 .
-├── mnt                 #  │  │  │  │  │  │
-│  └── silo             #  │  │  │  │  │ [5] rclone mount of storage box
-└── srv                 #  │  │  │  │  │  │
-   └── data             #  │  │  │  │  │  │
-      ├── media         #  │  │  │  │  │  │
-      │  ├── incoming   #  │  │  │  │ [4] queued for starr processing
-      │  └── library    #  │  │  │  │  │ [5] symlink: /mnt/silo/data (tbd: unionfs)
-      │     ├── movies  #  │  │  │  │  │ [5] target for radarr
-      │     ├── music   #  │  │  │  │  │ [5] target for lidarr
-      │     ├── other   #  │  │  │  │  │ [5] tbd (archival, oddities)
-      │     └── tv      #  │  │  │  │  │ [5] target for sonarr
-      └── torrents      #  │  │  │  │  │  │
-         ├── complete   #  │  │  │ [3] │  │
-         ├── incoming   #  │ [1] │  │  │  │
-         ├── metadata   #  │  │ [2] meta-info files for active torrents
-         └── watch      # [0] torrent meta-info file intake
+├── mnt
+│  └── silo             #  │  │  │  │  │ [5] │
+└── srv                 #  │  │  │  │  │  │  │
+   └── data             #  │  │  │  │  │  │  │
+      ├── media         #  │  │  │  │  │  │  │
+      │  ├── incoming   #  │  │  │ [3] │  │  │
+      │  ├── library    #  │  │  │  │  │ [5] │
+      │  │  ├── movies  #  │  │  │  │  │ [5] │
+      │  │  ├── music   #  │  │  │  │  │ [5] │
+      │  │  ├── other   #  │  │  │  │  │ [5] │
+      │  │  └── tv      #  │  │  │  │  │ [5] │
+      │  └── outgoing   #  │  │  │  │ [4] │  │
+      └── torrents      #  │  │  │  │  │  │  │
+         ├── complete   #  │  │ [2] │  │  │  │
+         ├── incoming   #  │ [1] │  │  │  │  │
+         ├── metadata   #  │ [1] │  │  │  │  │
+         └── watch      # [0] │  │  │  │  │  │
+            ├── load    # [0] │  │  │  │  │  │
+            └── start   # [0] │  │  │  │  │  │
 ```
 
 ### `/mnt`
