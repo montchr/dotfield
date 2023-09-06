@@ -1,7 +1,9 @@
+---
 # espanso configuration
 
 search_trigger: ';;snip'
 
 # Valid hotkey values listed here:
-# https://github.com/federico-terzi/espanso/blob/283b85818b6cc27f1d545337b99effa847b380eb/espanso-detect/src/hotkey/keys.rs#L221-L302
-search_shortcut: 'META+CTRL+ALT+SHIFT+S'
+# <https://espanso.org/docs/configuration/options/#customizing-the-search-shortcut>
+# <https://github.com/federico-terzi/espanso/blob/283b85818b6cc27f1d545337b99effa847b380eb/espanso-detect/src/hotkey/keys.rs#L221-L302>
+search_shortcut: 'ALT+CMD+SPACE'
