@@ -49,10 +49,12 @@ in {
 
   home.sessionVariables = {
     NNN_PREVIEWDIR = "${config.xdg.cacheHome}/nnn/previews";
+    # TODO: please enable previews! why is this disabled?
     # USE_PISTOL = lib.optionalString enablePreviews "1";
   };
 
   programs.bash = {inherit shellAliases;};
   programs.fish = {inherit shellAliases;};
+  programs.nushell = {inherit shellAliases;};
   programs.zsh = {inherit shellAliases;};
 }
