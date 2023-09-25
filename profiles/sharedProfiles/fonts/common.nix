@@ -9,7 +9,6 @@
 in {
   imports = [
     ./iosevka-variants.nix
-    ./iosevka-xtal.nix
   ];
 
   fonts.fontDir.enable = true;
