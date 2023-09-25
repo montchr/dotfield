@@ -10,7 +10,6 @@ in {
   imports = [
     ../common.nix
     ./__fzf-integration.nix
-    #    ./trampoline.nix
   ];
 
   programs.fish = {
