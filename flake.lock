@@ -418,11 +418,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1694435990,
-        "narHash": "sha256-yLQPD2eZGepu3yvdwABXrR3GhAqWRWTj9rn3a4knYuk=",
+        "lastModified": 1695195896,
+        "narHash": "sha256-pq9q7YsGXnQzJFkR5284TmxrLNFc0wo4NQ/a5E93CQU=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "f6aec2e8b1cdddcab10ce7fc2eac66886e3deaad",
+        "rev": "05d40d17bf3459606316e3e9ec683b784ff28f16",
         "type": "github"
       },
       "original": {
@@ -607,11 +607,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1694462492,
-        "narHash": "sha256-dfgl/nmj8uQ4DxMxgN0nHro5OOSeU63qNrRNLaGPCWw=",
+        "lastModified": 1695667786,
+        "narHash": "sha256-1YrTqOXH4ATYWCD1+ZRcjW6qyEO0H/wjKd2/SIViHFw=",
         "owner": "seadome",
         "repo": "firefox-addons",
-        "rev": "b84cbe0dd7f9033912ff13bb55bf72538304394d",
+        "rev": "870b5a13785c379b4c6855beac8ad63fdbeb8351",
         "type": "github"
       },
       "original": {
