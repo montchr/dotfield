@@ -118,13 +118,14 @@ in
         yabai -m rule --add app="^PhpStorm$" manage=off
 
         # NOTE: `mkRule` cannot handle negation
+        # FIXME: expand on the above comment -- what is "handle" and "negation"?
         yabai -m rule --add app="^Emacs$" title!='^$' manage=on
 
-        yabai -m rule --add app="^zoom\.us$" opacity='1.0'
+        ##: Opacity and telepresence have a correlating relationship.
         yabai -m rule --add app="^Microsoft Teams$" opacity='1.0'
+        yabai -m rule --add app="^zoom\.us$" opacity='1.0'
 
-        # move some apps automatically to specific spaces
-        yabai -m rule --add app="^Firefox$" space=1
+        ##: Move some apps automatically to specific spaces.
         yabai -m rule --add app="^(Google )?Chrom(e|ium)$" space=2
         yabai -m rule --add app="^Safari$" space=2
         yabai -m rule --add app="^(Visual Studio )?Code$" space=2
@@ -132,6 +133,12 @@ in
         yabai -m rule --add app="^Spotify$" space=5
         yabai -m rule --add app="^Signal$" space=6
         yabai -m rule --add app="^Messages$" space=6
+        # NOTE: This rule *intentionally* does not target Firefox variants (e.g. ESR, Nightly, etc.)
+        #       I tend to use Firefox Developer Edition for webdev tasks,
+        #       and when doing webdev I tend to move windows around a lot.
+        yabai -m rule --add app="^Firefox$" space=1
+        # NOTE: Conversely, this rule applies to *all* Firefox variants.
+        yabai -m rule --add app="^Firefox" title="^Extension:"
 
         ###: SIGNALS ===============================================================================
 
