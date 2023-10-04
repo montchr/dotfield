@@ -59,8 +59,8 @@ in {
       roles.workstation
       ++ [
         profiles.os-specific.darwin.yabai
-        profiles.shells.fish.trampoline
-        profiles.shells.nushell.default
+        profiles.shells.nushell.trampoline
+        profiles.shells.fish.default
         # profiles.theme.fonts.monospace.jetbrains-mono
         # profiles.theme.fonts.monospace.iosevka-xtal
         profiles.theme.fonts.monospace.iosevka-comfy
