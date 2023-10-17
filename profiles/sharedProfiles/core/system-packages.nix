@@ -36,7 +36,8 @@
     tealdeer
     vim
     wget
-    whois
+    # FIXME: <https://github.com/NixOS/nixpkgs/issues/260552>
+    # whois
     zellij
 
     (
