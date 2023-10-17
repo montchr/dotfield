@@ -19,7 +19,8 @@ public-domain-license := 'CC0-1.0'
 
 ##: binary cache
 cachix-cache-name := 'dotfield'
-cachix-exec := "cachix watch-exec --jobs 2 " + cachix-cache-name
+cachix-jobs := '4'
+cachix-exec := "cachix watch-exec " + cachix-cache-name + " --jobs " + cachix-jobs
 
 ##: directories/paths
 prj-root := env_var('PRJ_ROOT')
