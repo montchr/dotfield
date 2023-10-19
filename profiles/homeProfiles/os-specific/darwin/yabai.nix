@@ -52,7 +52,6 @@ in
         # focus_follows_mouse = "off"; # <- "autoraise" | "autofocus" | "off"
 
         #: window modifications
-        # window_topmost = "off";
         # window_shadow = "float";
 
         #: opacity
