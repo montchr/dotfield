@@ -38,7 +38,8 @@ in
       fi
     '';
 
-    services.password-store-sync.enable = !isDarwin;
+    # FIXME: option removed -- use git-sync instead
+    # services.password-store-sync.enable = !isDarwin;
 
     # FIXME: needs further configuration... does not play well with 1password,
     # for example
