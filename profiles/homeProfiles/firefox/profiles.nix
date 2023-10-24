@@ -3,6 +3,7 @@ hmArgs @ {
   config,
   pkgs,
   flake,
+  lib,
   ...
 }: let
   inherit (flake.inputs) apparat haumea;
@@ -95,21 +96,25 @@ hmArgs @ {
     }
   '';
 
+  engine = template: {urls = lib.singleton {inherit template;};};
+  withAlias = s: attrs: attrs // {definedAliases = lib.singleton s;};
+  engine' = alias: template: withAlias "@${alias}" (engine template);
+  # TODO: provide link to docs on supported metadata (somewhere in mozilla source code prob)
   search = {
     default = "Kagi";
     engines = {
-      "Kagi" = {urls = [{template = "https://kagi.com/search?q={searchTerms}";}];};
-      "Bundlephobia" = {
-        urls = [{template = "https://bundlephobia.com/packages/{searchTerms}";}];
-        definedAliases = ["@bp"];
-      };
-      "npm" = {
-        urls = [{template = "https://www.npmjs.com/search?q={searchTerms}";}];
-        definedAliases = ["@npm"];
-      };
+      "home-manager options" = engine' "hm" "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
+      "Kagi" = engine "https://kagi.com/search?q={searchTerms}";
+      "Marginalia" = engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
+      "npm" = engine' "npm" "https://www.npmjs.com/search?q={searchTerms}";
       "Nix Packages" = import ./search/nix-packages.nix {inherit pkgs;};
       "NixOS Wiki" = import ./search/nixos-wiki.nix;
+      "Noogle" = engine' "nl" "https://noogle.dev/?term=%22{searchTerms}%22";
+      # searxng often go down or become unusable due to api blocking from the major search engines
+      # this is a meta-searx instance, however...
+      "searx" = engine' "s" "https://searx.neocities.org/#q={searchTerms}&category_general=on";
     };
+    # required to be effective; disabled by default to prevent unintentional data loss
     force = true;
   };
 in {
