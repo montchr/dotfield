@@ -152,7 +152,10 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 # This is safe to use even with a dirty working tree because the themes are
 # activated by way of the current generation's specialisation activation scripts.
 
-# FIXME: specialisation not available within a specialisation -- <https://github.com/nix-community/home-manager/issues/4073>
+# NOTE: Requires re-activating a base generation before loading a specialization.
+#       A specialisation is not available within a specialisation.
+#       This is an upstream limitation:
+#       <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
 theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-emacs-theme colors)
 
