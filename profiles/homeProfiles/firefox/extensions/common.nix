@@ -14,6 +14,7 @@ with addons; [
   offline-qr-code-generator
   old-reddit-redirect
   org-capture
+  proton-pass
   raindropio
   react-devtools
   reddit-enhancement-suite
@@ -41,4 +42,3 @@ with addons; [
 ]
 # FIXME: access to outer hm scope
 # ++ (l.optional config.programs.browserpass.enable firefox-addons.browserpass);
-
