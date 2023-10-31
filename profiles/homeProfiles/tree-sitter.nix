@@ -1,0 +1,55 @@
+{pkgs, ...}: let
+  ts-grammars = with pkgs.tree-sitter-grammars; [
+    tree-sitter-bash
+    tree-sitter-cmake
+    tree-sitter-comment
+    tree-sitter-commonlisp
+    tree-sitter-css
+    tree-sitter-dockerfile
+    tree-sitter-elisp
+    tree-sitter-elm
+    tree-sitter-fennel
+    tree-sitter-fish
+    tree-sitter-go
+    tree-sitter-gomod
+    tree-sitter-graphql
+    tree-sitter-haskell
+    tree-sitter-hcl
+    tree-sitter-hjson
+    tree-sitter-html
+    tree-sitter-http
+    tree-sitter-javascript
+    tree-sitter-jsdoc
+    tree-sitter-json
+    tree-sitter-json5
+    tree-sitter-jsonnet
+    tree-sitter-kotlin
+    tree-sitter-ledger
+    tree-sitter-lua
+    tree-sitter-make
+    tree-sitter-markdown
+    tree-sitter-markdown-inline
+    tree-sitter-nickel
+    tree-sitter-nix
+    tree-sitter-nu
+    tree-sitter-org-nvim
+    tree-sitter-php
+    tree-sitter-python
+    tree-sitter-query
+    tree-sitter-regex
+    tree-sitter-ruby
+    tree-sitter-rust
+    tree-sitter-scheme
+    tree-sitter-scss
+    tree-sitter-sql
+    tree-sitter-supercollider
+    tree-sitter-svelte
+    tree-sitter-toml
+    tree-sitter-tsx
+    tree-sitter-typescript
+    tree-sitter-vim
+    tree-sitter-yaml
+  ];
+in {
+  home.packages = ts-grammars;
+}

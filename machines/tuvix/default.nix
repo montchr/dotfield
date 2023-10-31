@@ -58,9 +58,12 @@ in {
     imports =
       roles.workstation
       ++ [
+        profiles.os-specific.darwin.app-launcher-trampoline
         profiles.os-specific.darwin.yabai
+
         profiles.shells.nushell.trampoline
         profiles.shells.fish.default
+
         # profiles.theme.fonts.monospace.jetbrains-mono
         # profiles.theme.fonts.monospace.iosevka-xtal
         profiles.theme.fonts.monospace.iosevka-comfy
