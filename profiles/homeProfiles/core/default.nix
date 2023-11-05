@@ -1,10 +1,19 @@
 {
+  lib,
   config,
-  flake,
   ...
 }: let
   inherit (config) xdg;
-  l = flake.inputs.nixpkgs.lib // builtins;
+
+  # Although it points to a commonly-used path for user-owned executables,
+  # $XDG_BIN_HOME is a non-standard environment variable. It is not part of
+  # the XDG Base Directory Specification.
+  #
+  # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+  #
+  # NOTE: This may also be set at the system level -- it is included again here
+  # for standalone installation parity.
+  binHome = "$HOME/.local/bin";
 in {
   imports = [
     ./bat.nix
@@ -13,30 +22,29 @@ in {
     ./tealdeer.nix
   ];
 
-  ##: --- home-manager setup ---
-
+  ### home-manager setup
   programs.home-manager.enable = true;
   manual.json.enable = true;
   news.display = "show";
   xdg.enable = true;
 
-  ##: --- shells ---
-
+  ### shells
   programs.bash.enable = true;
-  programs.zsh.enable = l.mkDefault true;
+  programs.zsh.enable = lib.mkDefault true;
 
-  ##: --- essential tools ---
-
+  ### essential tools
   programs.jq.enable = true;
   programs.man.enable = true;
   # N.B. This can slow down builds, but enables more manpage integrations
   # across various tools. See the home-manager manual for more info.
-  programs.man.generateCaches = l.mkDefault true;
+  programs.man.generateCaches = lib.mkDefault true;
 
   # Modern replacement for `command-not-found` with fish-shell support.
   programs.nix-index.enable = true;
 
-  ##: --- environment ---
+  # User-defined executables should always be prioritized in $PATH.
+  # TODO: double-check
+  home.sessionPath = lib.mkBefore (lib.singleton binHome);
 
   home.sessionVariables = {
     LESSHISTFILE = "${xdg.stateHome}/lesshst";
@@ -60,5 +68,7 @@ in {
     # wd
     # https://github.com/mfaerevaag/wd
     WD_CONFIG = "${xdg.configHome}/wd/warprc";
+
+    XDG_BIN_HOME = binHome;
   };
 }
