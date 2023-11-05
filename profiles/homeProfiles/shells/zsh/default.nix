@@ -12,7 +12,7 @@
   zgenSrcDir = "${xdg.dataHome}/zgenom";
   zgenCacheDir = "${xdg.cacheHome}/zgenom";
 
-  DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/home/users/cdom/config/zsh";
+  DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/users/cdom/config/zsh";
   ZSH_CACHE = "${xdg.cacheHome}/zsh";
   ZSH_DATA = "${xdg.dataHome}/zsh";
 in {
