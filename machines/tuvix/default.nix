@@ -58,10 +58,10 @@ in {
     imports =
       roles.workstation
       ++ [
+        # TODO: add to default profiles but darwin only
         profiles.os-specific.darwin.app-launcher-trampoline
         profiles.os-specific.darwin.yabai
 
-        profiles.shells.nushell.trampoline
         profiles.shells.fish.default
 
         # profiles.theme.fonts.monospace.jetbrains-mono
