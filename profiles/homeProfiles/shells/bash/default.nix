@@ -17,8 +17,8 @@ in {
     historyControl = ["erasedups" "ignorespace"];
     historyIgnore = ["l" "x" "exit" "bg" "fg" "history" "poweroff" "ls" "cd" ".." "..."];
 
-    # Need to be after starship init since it overwrites PROMPT_COMMAND.
     initExtra = l.mkAfter ''
+      # Needs to be after prompt init since it overwrites PROMPT_COMMAND.
       ${l.optionalString (!config.programs.mcfly.enable) ''
         PROMPT_COMMAND="''${PROMPT_COMMAND:+''${PROMPT_COMMAND/%;*( )};}history -a"
         HISTTIMEFORMAT='%F %T '

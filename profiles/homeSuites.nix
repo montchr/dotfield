@@ -11,7 +11,8 @@
     homeProfiles.nnn
     homeProfiles.nvim.default
     homeProfiles.rclone
-    homeProfiles.shells.prompts.starship.default
+    # homeProfiles.shells.prompts.starship.default
+    homeProfiles.shells.prompts.liquidprompt
     homeProfiles.shells.zsh.default
     homeProfiles.ssh
     homeProfiles.zellij
