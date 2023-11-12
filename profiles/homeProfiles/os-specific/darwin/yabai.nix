@@ -77,7 +77,11 @@ in
         function setup_space {
           local idx="$1"
           local name="$2"
+          shift 2
+          local rest=$@
+
           local space=
+
           echo "setup space $idx : $name"
 
           space=$(yabai -m query --spaces --space "$idx")
@@ -91,6 +95,7 @@ in
         ###: SPACES =================================================================================
 
         # Restrict the maximum number of spaces, destroying extra spaces.
+        # TODO: accept variable (why 6/7?)
         for _ in $(yabai -m query --spaces | jq '.[].index | select(. > 6)'); do
           yabai -m space --destroy 7
         done
@@ -125,11 +130,11 @@ in
         yabai -m rule --add app="^zoom\.us$" opacity='1.0'
 
         ##: Move some apps automatically to specific spaces.
-        yabai -m rule --add app="^(Google )?Chrom(e|ium)$" space=2
-        yabai -m rule --add app="^Safari$" space=2
+        # yabai -m rule --add app="^(Google )?Chrom(e|ium)$" space=2
+        # yabai -m rule --add app="^Safari$" space=2
         yabai -m rule --add app="^(Visual Studio )?Code$" space=2
         yabai -m rule --add app="^Music$" space=5
-        yabai -m rule --add app="^Spotify$" space=5
+        yabai -m rule --add app="^Spotify$" space=5 manage=off
         yabai -m rule --add app="^Signal$" space=6
         yabai -m rule --add app="^Messages$" space=6
         # NOTE: This rule *intentionally* does not target Firefox variants (e.g. ESR, Nightly, etc.)
