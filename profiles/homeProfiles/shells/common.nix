@@ -8,10 +8,7 @@
   shellAliases = import ./aliases.nix {inherit pkgs;};
   shellAbbrs = import ./abbrs.nix {inherit pkgs;};
 in {
-  imports = [
-    ./bash
-    ./readline.nix
-  ];
+  imports = [./bash];
 
   home = {
     inherit shellAliases;
