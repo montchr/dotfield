@@ -1,3 +1,4 @@
+# FIXME: split apart
 {pkgs, ...}: {
   home.packages = with pkgs; [
     gnutls
@@ -33,33 +34,49 @@
 
     #: docker
     nodePackages.dockerfile-language-server-nodejs
+
     #: terraform
     terraform
     terraform-ls
+
     #: css
     nodePackages.vscode-css-languageserver-bin
+
     #: js
     nodePackages.eslint
     nodePackages.typescript-language-server
+
     #: json
     nodePackages.vscode-json-languageserver
+
     #: ledger
     # FIXME: marked as broken upstream
     # ledger
+
     #: markdown
     nodePackages.unified-language-server
+
     #: php
     nodePackages.intelephense
+
     #: ruby
     rubyPackages.solargraph
+
     #: rust +lsp
     rust-analyzer
+
+    #: rst
+    rst2pdf
+
     #: sh
     nodePackages.bash-language-server
+
     #: tailwindcss
     nodePackages.tailwindcss
+
     #: toml
     taplo-lsp
+
     #: web-mode
     nodePackages.js-beautify
     nodePackages.stylelint
