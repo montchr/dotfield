@@ -47,7 +47,7 @@ in {
   users.users.${username} = {
     home = "/Users/${username}";
     isHidden = false;
-    shell = pkgs.bashInteractive;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.${username} = {

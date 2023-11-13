@@ -14,6 +14,7 @@
     # homeProfiles.shells.prompts.starship.default
     homeProfiles.shells.prompts.liquidprompt
     homeProfiles.shells.zsh.default
+    homeProfiles.shells.zsh.with-grml
     homeProfiles.ssh
     homeProfiles.zellij
     homeProfiles.zoxide
