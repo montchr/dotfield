@@ -39,7 +39,7 @@ in {
     # TODO: prob need a custom generator via lib.generators.toKeyValue
     # xdg.configFile."liquidpromptrc".text = lib.toShellVars cfg.settings;
 
-    programs.bash.initExtra = shellInit;
-    programs.zsh.initExtra = shellInit;
+    programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration shellInit;
+    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration shellInit;
   };
 }
