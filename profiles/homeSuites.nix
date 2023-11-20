@@ -73,15 +73,11 @@
     homeProfiles.gpg
     homeProfiles.secrets.password-store
     homeProfiles.secrets.rbw
-
-    # FIXME: upstream bug? `mu` is hardcoded, not a reference to `pkgs.mu`
-    # > Activating runMuInit
-    # > /nix/store/crf1jbfp5zs9l4xrpfck5lh4sk5d5rlx-home-manager-generation/activate: line 290: mu: command not found
-    # mail
   ];
 
   webdev = [
-    homeProfiles.aws
+    # FIXME: aws cli broken in nixpkgs
+    # homeProfiles.aws
     homeProfiles.nodejs
     homeProfiles.development.javascript
     homeProfiles.development.php

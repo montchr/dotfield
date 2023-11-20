@@ -1,3 +1,5 @@
+# FIXME: these are totally wrong with iosevka-comfy, maybe other iosevka.
+#        symbols should be based on font capabilities
 {
   programs.starship.settings = {
     aws.symbol = " ";
