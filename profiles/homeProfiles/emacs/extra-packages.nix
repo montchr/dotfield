@@ -1,16 +1,13 @@
 # FIXME: split apart
+# FIXME: add these tools as necessary in other profiles
 {pkgs, ...}: {
   home.packages = with pkgs; [
     gnutls
     (ripgrep.override {withPCRE2 = true;})
+    fd
 
-    fd # faster projectile indexing
     imagemagick # for image-dired
-    zstd # for undo-fu-session/undo-tree compression
-
-    #: org
-    graphviz
-    sqlite
+    zstd # for compression in supported contexts
 
     editorconfig-core-c
 
@@ -24,9 +21,6 @@
       ]))
     languagetool
 
-    #: lookup +docsets
-    wordnet
-
     ##: === lang/lsp ===
 
     # typescript is a required peer dependency for many language servers.
@@ -34,10 +28,6 @@
 
     #: docker
     nodePackages.dockerfile-language-server-nodejs
-
-    #: terraform
-    terraform
-    terraform-ls
 
     #: css
     nodePackages.vscode-css-languageserver-bin
@@ -48,10 +38,6 @@
 
     #: json
     nodePackages.vscode-json-languageserver
-
-    #: ledger
-    # FIXME: marked as broken upstream
-    # ledger
 
     #: markdown
     nodePackages.unified-language-server

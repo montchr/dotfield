@@ -4,6 +4,7 @@ epkgs:
 with epkgs; [
   # FIXME: "undefined variable"
   # org-modern-indent
+
   ace-window
   all-the-icons
   annalist
@@ -34,13 +35,13 @@ with epkgs; [
   doom-modeline
   drag-stuff
   dumb-jump
-  editorconfig
+  editorconfig #req: editorconfig-c
   elisp-demos
   elisp-refs
   embark
   embark-consult
   embrace
-  envrc
+  envrc # req: direnv
   epl
   evil
   evil-anzu
@@ -52,6 +53,7 @@ with epkgs; [
   evil-goggles
   evil-indent-plus
   evil-lion
+  evil-markdown
   evil-matchit
   evil-nerd-commenter
   evil-numbers
@@ -71,7 +73,7 @@ with epkgs; [
   helpful
   hierarchy
   hl-todo
-  hledger-mode
+  hledger-mode # req: hledger
   ht
   htmlize
   hydra
@@ -91,12 +93,12 @@ with epkgs; [
   lsp-ui
   lua-mode
   lv
-  magit
+  magit # req: git
   magit-section
   marginalia
   markdown-mode
   modus-themes
-  nerd-icons
+  nerd-icons # FIXME: only for graphical
   nix-mode
   no-littering
   nushell-mode
@@ -107,9 +109,9 @@ with epkgs; [
   org-modern
   org-rich-yank
   page-break-lines
-  pandoc-mode
+  pandoc-mode # req: pandoc
   pfuture
-  php-mode
+  php-mode # req: php
   pkg-info
   popon
   popper
@@ -136,7 +138,7 @@ with epkgs; [
   treemacs
   treemacs-magit
   treemacs-projectile
-  undo-fu
+  undo-fu # rec: zstd
   undo-fu-session
   use-package
   use-package-hydra
@@ -144,12 +146,9 @@ with epkgs; [
   vimrc-mode
   vundo
   web-mode
-  wgrep
+  wgrep # req: coreutils, ripgrep
   which-key
   with-editor
   yaml-mode
   zoutline
-
-  # installing as a test for its availability -- not yet supported
-  org-super-agenda
 ]
