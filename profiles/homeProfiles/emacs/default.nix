@@ -6,17 +6,17 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
-  inherit (config) xdg;
-  inherit (config.lib.file) mkOutOfStoreSymlink;
+  # inherit (config) xdg;
+  # inherit (config.lib.file) mkOutOfStoreSymlink;
 in {
   imports = [
+    # TODO: consolidate all extra non-elisp packages
     ./extra-packages.nix
   ];
 
   home.sessionVariables = {
     ##: lsp-mode: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
-    # TODO: confirm that this variable is passed through to emacs, esp. on darwin
     LSP_USE_PLISTS = "true";
   };
 
@@ -46,17 +46,16 @@ in {
         # => ⛔ Warning (treesit): Cannot activate tree-sitter, because language grammar for toml is unavailable (not-found): (libtree-sitter-toml.so libtree-sitter-toml.so.0 libtree-sitter-toml.so.0.0 libtree-sitter-toml.dylib libtree-sitter-toml.dylib.0 libtree-sitter-toml.dylib.0.0) No such file or directory
         #
         # installing manually with M-x treesit-install-language-grammar works though
-        epkgs.tree-sitter
-        (epkgs.tree-sitter-langs.withPlugins (p:
-          epkgs.tree-sitter-langs.plugins
-          ++ [
-            p.tree-sitter-markdown
-            p.tree-sitter-elisp
-            p.tree-sitter-make
-            p.tree-sitter-toml
-          ]))
-
-        epkgs.org
+        # FIXME: restore; temporarily disabled to reduce noise in load-path
+        # epkgs.tree-sitter
+        # (epkgs.tree-sitter-langs.withPlugins (p:
+        #   epkgs.tree-sitter-langs.plugins
+        #   ++ [
+        #     p.tree-sitter-markdown
+        #     p.tree-sitter-elisp
+        #     p.tree-sitter-make
+        #     p.tree-sitter-toml
+        #   ]))
       ];
   };
 

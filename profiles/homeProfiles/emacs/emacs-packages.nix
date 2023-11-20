@@ -2,151 +2,154 @@
 #       `use-package` declarations at the time of writing.
 epkgs:
 with epkgs; [
-  use-package
-  s
-  dash
-  f
-  ht
-  llama
-  no-littering
-  exec-path-from-shell
-  inheritenv
-  envrc
-  magit-section
-  popon
-  hydra
-  use-package-hydra
-  pretty-hydra
-  avy
-  spacious-padding
-  circadian
-  modus-themes
-  fontaine
-  ligature
-  all-the-icons
-  nerd-icons
-  svg-lib
-  kind-icon
-  blackout
-  compat
-  lv
-  doom-modeline
-  treemacs
-  which-key
-  evil
-  shrink-path
+  # FIXME: "undefined variable"
+  # org-modern-indent
   ace-window
-  pfuture
+  all-the-icons
+  annalist
+  anzu
+  apache-mode
+  async
+  avy
+  blackout
+  browse-at-remote
+  burly
+  cape
   cfrs
-  posframe
-  goto-chg
-  evil-collection
-  evil-nerd-commenter
-  evil-matchit
-  evil-surround
+  circadian
+  compat
+  consult
+  consult-lsp
+  consult-notes
+  corfu
+  csv-mode
+  dash
+  denote
+  denote-menu
+  devdocs
+  diff-hl
+  diredfl
+  dirvish
+  doct
+  doom-modeline
+  drag-stuff
+  dumb-jump
+  editorconfig
+  elisp-demos
+  elisp-refs
+  embark
+  embark-consult
   embrace
+  envrc
+  epl
+  evil
+  evil-anzu
+  evil-args
+  evil-collection
   evil-embrace
   evil-escape
   evil-exchange
-  evil-quickscope
-  evil-visualstar
-  exato
-  anzu
-  evil-anzu
-  evil-numbers
+  evil-goggles
   evil-indent-plus
   evil-lion
-  evil-args
+  evil-matchit
+  evil-nerd-commenter
+  evil-numbers
+  evil-quickscope
+  evil-surround
   evil-traces
-  evil-goggles
-  olivetti
-  popper
-  link-hint
+  evil-visualstar
+  exato
+  exec-path-from-shell
   expand-region
-  scratch
-  page-break-lines
-  rainbow-mode
-  undo-fu
-  undo-fu-session
-  vundo
-  vertico
-  annalist
-  orderless
-  marginalia
-  consult
-  embark-consult
-  corfu
-  cape
-  helpful
-  elisp-demos
-  embark
-  wgrep
-  editorconfig
-  snap-indent
-  reformatter
-  smartparens
-  hl-todo
-  rainbow-delimiters
-  drag-stuff
-  dirvish
-  diredfl
-  diff-hl
-  magit
-  treemacs-magit
+  f
+  flycheck
+  fontaine
+  git-commit
   git-timemachine
-  browse-at-remote
-  tempel
-  tempel-collection
-  projectile
-  treemacs-projectile
-  burly
-  org
-  doct
-  org-modern
-  # FIXME: "undefined variable"
-  # org-modern-indent
-  org-cliplink
-  org-rich-yank
-  consult-notes
-  denote
-  denote-menu
+  goto-chg
+  helpful
+  hierarchy
+  hl-todo
+  hledger-mode
+  ht
+  htmlize
+  hydra
+  iedit
+  inheritenv
+  ivy
+  json-navigator
+  just-mode
+  kind-icon
+  ligature
+  link-hint
   lispy
   lispyville
-  dumb-jump
+  llama
+  loop
   lsp-mode
   lsp-ui
-  consult-lsp
-  csv-mode
-  suggest
-  web-mode
-  json-navigator
   lua-mode
-  nix-mode
-  php-mode
-  yaml-mode
-  apache-mode
-  just-mode
-  robots-txt-mode
-  vimrc-mode
-  nushell-mode
-  flycheck
-  devdocs
-  hledger-mode
-  elisp-refs
-  git-commit
-  with-editor
-  iedit
-  swiper
-  zoutline
-  ivy
-  popup
-  spinner
+  lv
+  magit
+  magit-section
+  marginalia
   markdown-mode
-  loop
-  hierarchy
-  pkg-info
-  epl
-  async
-  htmlize
+  modus-themes
+  nerd-icons
+  nix-mode
+  no-littering
+  nushell-mode
+  olivetti
+  orderless
+  org
+  org-cliplink
+  org-modern
+  org-rich-yank
+  page-break-lines
   pandoc-mode
+  pfuture
+  php-mode
+  pkg-info
+  popon
+  popper
+  popup
+  posframe
+  pretty-hydra
+  projectile
+  rainbow-delimiters
+  rainbow-mode
+  reformatter
+  robots-txt-mode
+  s
+  scratch
+  shrink-path
+  smartparens
+  snap-indent
+  spacious-padding
+  spinner
+  suggest
+  svg-lib
+  swiper
+  tempel
+  tempel-collection
+  treemacs
+  treemacs-magit
+  treemacs-projectile
+  undo-fu
+  undo-fu-session
+  use-package
+  use-package-hydra
+  vertico
+  vimrc-mode
+  vundo
+  web-mode
+  wgrep
+  which-key
+  with-editor
+  yaml-mode
+  zoutline
+
+  # installing as a test for its availability -- not yet supported
+  org-super-agenda
 ]

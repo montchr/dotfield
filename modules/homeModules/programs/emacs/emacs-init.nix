@@ -557,17 +557,16 @@ in {
       })
     ];
 
-    # TODO: not yet
-    # home.file = {
-    #   ".emacs.d/early-init.el".text = ''
-    #     (require 'hm-early-init)
-    #     (provide 'early-init)
-    #   '';
+    xdg.configFile = {
+      "emacs/dotfield-early-init.el".text = ''
+        (require 'hm-early-init)
+        (provide 'dotfield-early-init)
+      '';
 
-    #   ".emacs.d/init.el".text = ''
-    #     (require 'hm-init)
-    #     (provide 'init)
-    #   '';
-    # };
+      "emacs/dotfield-init.el".text = ''
+        (require 'hm-init)
+        (provide 'dotfield-init)
+      '';
+    };
   };
 }
