@@ -20,12 +20,12 @@
     homeProfiles.zoxide
   ];
 
-  # TODO: dissolve into workstation?
   developer =
     base
     ++ [
       homeProfiles.difftools.delta
       homeProfiles.emacs.default
+      homeProfiles.git-sync
       homeProfiles.just
       homeProfiles.python
       homeProfiles.zellij

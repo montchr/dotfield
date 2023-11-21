@@ -27,6 +27,7 @@ in
         enable = true;
         createDirectories = true;
         extraConfig = {
+          # TODO: somehow share this value with home-manager git-sync?
           XDG_PROJECTS_DIR = homeDirectory + "/Developer";
           XDG_MAIL_DIR = "${homeDirectory}/${maildirBasePath}";
         };
