@@ -25,23 +25,21 @@ in
         PASSWORD_STORE_KEY = key;
       };
     };
+
     programs.browserpass.enable = true;
     programs.browserpass.browsers = ["firefox"];
 
     # Ensure the password store exists.
-    #
-    # Initially, I tried using `services.git-sync` to clone this automatically
-    # but that didn't work -- perhaps I misunderstood its usage.
     home.activation.ensurePasswordStore = entryAfter ["writeBoundary"] ''
       if [[ ! -d "${passwordStorePath}" ]]; then
         $DRY_RUN_CMD ${pkgs.git}/bin/git clone ${passwordStoreRemoteUrl} ${passwordStorePath}
       fi
     '';
 
-    # FIXME: option removed -- use git-sync instead
-    # services.password-store-sync.enable = !isDarwin;
-
-    # FIXME: needs further configuration... does not play well with 1password,
-    # for example
-    # services.pass-secret-service.enable = true;
+    # Sync changes to remote.
+    services.git-sync.repositories."password-store" = {
+      uri = passwordStoreRemoteUrl;
+      path = passwordStorePath;
+      interval = 300;
+    };
   }

@@ -12,11 +12,14 @@
       path = "${mirrors}/${path}";
     };
   gh = path: repo path "git@github.com:${path}.git";
+  srht = path: repo path "git@git.sr.ht:~${path}";
 in {
   services.git-sync.repositories = lib.listToAttrs [
     (gh "doomemacs/doomemacs")
     (gh "purcell/emacs.d")
     (gh "bbatsov/prelude")
     (gh "noctuid/general.el")
+    # TODO: remove (just here as test)
+    (srht "montchr/password-store")
   ];
 }
