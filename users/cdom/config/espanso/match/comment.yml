@@ -4,8 +4,31 @@ global_vars:
     type: clipboard
 
 matches:
+  # TODO: generalize this for other comment syntaxes like lisps `;;`
   - trigger: "# <"
     replace: "# <{{clipped}}>"
+    vars:
+      - name: clipped
+        type: shell
+        depends_on: ["clip"]
+        params:
+          cmd: |
+            echo "$ESPANSO_CLIP" \
+            | grep '^https://' || [[ $? == 1 ]]
+  # TODO: generalize this
+  - trigger: ";; <"
+    replace: ";; <{{clipped}}>"
+    vars:
+      - name: clipped
+        type: shell
+        depends_on: ["clip"]
+        params:
+          cmd: |
+            echo "$ESPANSO_CLIP" \
+            | grep '^https://' || [[ $? == 1 ]]
+  # TODO: generalize this
+  - trigger: "' :: <"
+    replace: "' :: <{{clipped}}>"
     vars:
       - name: clipped
         type: shell
