@@ -111,7 +111,6 @@ with epkgs; [
   page-break-lines
   pandoc-mode # req: pandoc
   pfuture
-  php-mode # req: php
   pkg-info
   popon
   popper
@@ -151,4 +150,7 @@ with epkgs; [
   with-editor
   yaml-mode
   zoutline
+
+  #: init-lang-php
+  php-mode # req: php
 ]
