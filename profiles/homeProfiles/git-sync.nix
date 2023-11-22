@@ -19,6 +19,9 @@ in {
     (gh "purcell/emacs.d")
     (gh "bbatsov/prelude")
     (gh "noctuid/general.el")
+    # TODO: reduce interval
+    (gh "nixos/nixpkgs")
+    (gh "nix-community/home-manager")
     # TODO: remove (just here as test)
     (srht "montchr/password-store")
   ];
