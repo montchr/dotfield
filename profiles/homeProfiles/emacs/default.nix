@@ -33,6 +33,8 @@ in {
       (import ./emacs-packages.nix epkgs)
       ++ [
         ##: tree-sitter
+        epkgs.treesit-grammars.with-all-grammars
+        epkgs.treesit-auto
         # via <https://github.com/pimeys/nixos/blob/cc608789192a1c33a6cdb598b59e1543c91f6fb7/desktop/emacs/default.nix>
         # referred from <https://github.com/NixOS/nixpkgs/pull/150239>
         #
