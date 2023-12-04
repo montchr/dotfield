@@ -159,4 +159,7 @@ with epkgs; [
   typescript-mode
   js2-refactor
 
+  #: init-treesit
+  treesit-auto
+  treesit-grammars.with-all-grammars
 ]
