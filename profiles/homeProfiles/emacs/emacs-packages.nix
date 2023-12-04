@@ -153,4 +153,10 @@ with epkgs; [
 
   #: init-lang-php
   php-mode # req: php
+
+  #: init-lang-js
+  rjsx-mode
+  typescript-mode
+  js2-refactor
+
 ]
