@@ -58,12 +58,6 @@ in {
       ];
   };
 
-  # services.emacs = {
-  #   enable = true;
-  #   defaultEditor = true;
-  #   socketActivation.enable = isLinux;
-  # };
-
   home.packages = [
     pkgs.fd
     pkgs.ripgrep
