@@ -84,8 +84,7 @@ deadnix action +FILES=prj-root:
 ###: INTROSPECTION =============================================================
 
 check *ARGS:
-    nix flake check --log-format internal-json --verbose {{ ARGS }} \
-    |& nom --json
+    nix flake check --verbose {{ ARGS }}
 
 # <- Diff the current + next system generations.
 diff-next-sys: (system "build")
@@ -104,8 +103,7 @@ diff-next-home:
 # <- Rebuild the system and provide a summary of the changes
 build *ARGS='':
   {{cachix-exec}} {{sys-cmd}} build -- \
-    {{ARGS}} --flake "{{prj-root}}" --verbose \
-    |& nom
+    {{ARGS}} --flake "{{prj-root}}"
   @echo {{msg-done}}
 
 # <- Rebuild the system and switch to the next generation
@@ -114,22 +112,19 @@ switch *ARGS='': (system "switch" ARGS)
 # <- Rebuild a host and push any new derivations to the binary cache
 system subcommand *ARGS='':
   {{sys-cmd}} {{subcommand}} \
-    {{ARGS}} --flake "{{prj-root}}" --verbose \
-    |& nom
+    {{ARGS}} --flake "{{prj-root}}"
   @echo {{msg-done}}
 
 
 ###: HOME-MANAGER ==============================================================
 
-# <- Rebuild a home configuration and push to the binary cache
 home subcommand *ARGS:
-  home-manager {{subcommand}} --flake "{{prj-root}}" {{ARGS}} \
-  |& nom
+# <- Run the home-manager CLI for the project flake.
+  home-manager {{subcommand}} --flake "{{prj-root}}" {{ARGS}}
   @echo {{msg-done}}
 
 home-specialise name:
-  {{ hm-gen-path }}/specialisation/{{ name }}/activate \
-  |& nom
+  {{ hm-gen-path }}/specialisation/{{ name }}/activate
 
 
 ###: EMACS =====================================================================
