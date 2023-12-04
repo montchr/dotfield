@@ -110,7 +110,7 @@ build *ARGS='':
 switch *ARGS='': (system "switch" ARGS)
 
 # <- Rebuild a host and push any new derivations to the binary cache
-system subcommand *ARGS='':
+system subcommand='build' *ARGS='':
   {{sys-cmd}} {{subcommand}} \
     {{ARGS}} --flake "{{prj-root}}"
   @echo {{msg-done}}
@@ -118,8 +118,8 @@ system subcommand *ARGS='':
 
 ###: HOME-MANAGER ==============================================================
 
-home subcommand *ARGS:
 # <- Run the home-manager CLI for the project flake.
+home subcommand='build' *ARGS='':
   home-manager {{subcommand}} --flake "{{prj-root}}" {{ARGS}}
   @echo {{msg-done}}
 
