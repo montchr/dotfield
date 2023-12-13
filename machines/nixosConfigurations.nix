@@ -127,8 +127,7 @@ in {
           desktop.flatpak
           hardware.amd
           # login.greetd
-          # FIXME: `lib.mkForce` fails
-          # hardware.nvidia
+          hardware.nvidia
           # FIXME: remove
           # virtualisation.vm-variant
         ]);
