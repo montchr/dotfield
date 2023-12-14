@@ -10,24 +10,23 @@ My worlds and systems, a nutrient-rich collection of typos feeding the hungry
 heads of a talking planet, "oriented toward an experimentation in contact with
 the real".
 
-
 ```
-<!-- # all records of prior decision motivation regularly wiped -->
-<!-- # upon stepping into the sun, birdsongs irradiating -->
-<!-- # scattered dream fragments dragged down hallways, -->
-<!-- # the central motif of some one of many ghosts' nightly roams -->
-<!-- # mindlessly down to hell. -->
-<!-- # -->
-<!-- # a declarative and functional tape loop magnetically -->
-<!-- # engraved in lead paint by an adamantine lathe, -->
-<!-- # melting off the walls, -->
-<!-- # maddening speed of river tides creeping ever closer to -->
-<!-- # this house i dare to call my own, -->
-<!-- # a crucial delusion suppressed for safe passage. -->
-<!-- # -->
-<!-- # do not resist the birds, they know you all too well. -->
-<!-- # time to call the sound sweep again -->
-<!-- # i'm ready for my fifteen-minute closeup --> <!--  -->
+all records of prior decision motivation regularly wiped
+upon stepping into the sun, birdsongs irradiating
+scattered dream fragments dragged down hallways,
+the central motif of some one of many ghosts' nightly roams
+mindlessly down to hell.
+
+a declarative and functional tape loop magnetically
+engraved in lead paint by an adamantine lathe,
+melting off the walls,
+maddening speed of river tides creeping ever closer to
+this house i dare to call my own,
+a crucial delusion suppressed for safe passage.
+
+do not resist the birds, they know you all too well.
+time to call the sound sweep again;
+they say i'm ready for my fifteen-minute closeup
 ```
 
 ## Disclaimerisms
