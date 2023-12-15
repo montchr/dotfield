@@ -28,7 +28,10 @@ prj-root := env_var('PRJ_ROOT')
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
-hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+# FIXME: works on darwin, broken on linux due to stray backslashes before slashes
+# hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+# TODO: does this work on darwin? it *should*, because we *should not* use different grep commands...
+hm-gen-path := `home-manager generations | head -1 | grep -Eo '/nix/store.+$'`
 hm-specialisation-path := hm-gen-path / "specialisations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
