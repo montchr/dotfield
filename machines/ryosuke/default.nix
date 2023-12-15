@@ -2,7 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
-    ./users
+    ./users/cdom.nix
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;

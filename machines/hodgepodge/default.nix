@@ -1,8 +1,8 @@
-_: {
+{config, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
-    ./users
+    ./users/seadoom.nix
   ];
 
   time.timeZone = "America/New_York";
@@ -19,6 +19,10 @@ _: {
   # diagIn = 15;
   # ppi = diagPx / diagIn;        => 226.415547169
   services.xserver.dpi = 226;
+
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "seadoom";
+  users.mutableUsers = false;
 
   system.stateVersion = "21.11"; # Did you read the comment?
 }
