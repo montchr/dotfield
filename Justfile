@@ -30,6 +30,9 @@ export PATH := "./node_modules/.bin:" + env_var('PATH')
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
 # FIXME: works on darwin, broken on linux due to stray backslashes before slashes
 # hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+#
+# FIXME: when running just with sudo, no generations available:
+# ls: cannot access 'home-manager-*-link': No such file or directory
 # TODO: does this work on darwin? it *should*, because we *should not* use different grep commands...
 hm-gen-path := `home-manager generations | head -1 | grep -Eo '/nix/store.+$'`
 hm-specialisation-path := hm-gen-path / "specialisations"
@@ -109,6 +112,7 @@ build *ARGS='':
     {{ARGS}} --flake "{{prj-root}}"
   @echo {{msg-done}}
 
+# FIXME: fails on nixos without sudo
 # <- Rebuild the system and switch to the next generation
 switch *ARGS='': (system "switch" ARGS)
 

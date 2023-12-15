@@ -11,8 +11,9 @@
     homeProfiles.nnn
     homeProfiles.nvim.default
     homeProfiles.rclone
+    # FIXME: what do with these?
     # homeProfiles.shells.prompts.starship.default
-    homeProfiles.shells.prompts.liquidprompt
+    # homeProfiles.shells.prompts.liquidprompt
     homeProfiles.shells.zsh.default
     homeProfiles.shells.zsh.with-grml
     homeProfiles.ssh
