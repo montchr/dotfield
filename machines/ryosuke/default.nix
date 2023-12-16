@@ -1,9 +1,14 @@
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
+    ./game.nix
+    ./media.nix
     ./profiles/sops.nix
     ./users/cdom.nix
   ];
+
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "cdom";
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = ["btrfs"];

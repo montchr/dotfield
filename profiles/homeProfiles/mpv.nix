@@ -10,16 +10,15 @@ moduleArgs @ {
 in {
   programs.mpv = {
     enable = true;
-
     scripts = with pkgs.mpvScripts;
       [
         autoload # autoload playlist entries before/after current file
         thumbnail # show thumbnail in seekbar
         mpv-playlistmanager
       ]
+      # TODO: source?
       # prevent screen blanking in GNOME
       ++ lib.optional isGnomeDesktop inhibit-gnome;
-
     config = lib.mkMerge [
       {
         # FIXME: doesn't belong here...?
