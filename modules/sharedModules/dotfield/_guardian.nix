@@ -18,7 +18,12 @@
   cfg = config.dotfield.guardian;
 in {
   options.dotfield.guardian = {
-    enable = mkEnableOption "Whether to designate a guardian user for this system.";
+    enable = mkOption {
+      default = true;
+      type = types.bool;
+      description = "Whether to designate a guardian user for this system.";
+    };
+
     username = mkOption {
       type = with types; nullOr str;
       default = null;
