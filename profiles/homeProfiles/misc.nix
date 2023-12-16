@@ -21,11 +21,6 @@
     shfmt
     shellcheck
     yamllint
-
-    ## === Media Tools ===
-
-    # TODO: use hm module
-    mpv
   ];
 
   # TODO: check these out

@@ -8,5 +8,5 @@
     # default for back-compat.
     editor = false;
   };
-  boot.loader.timeout = lib.mkDefault 3;
+  # boot.loader.timeout = lib.mkDefault 3;
 }

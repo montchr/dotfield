@@ -12,7 +12,6 @@ in {
     lib.optional (packages ? "epson-201212w") packages.epson-201212w
     # <- EPSON WF-3520
     ;
-  nixpkgs.config.allowUnfree = l.mkForce true;
   networking.extraHosts = ''
     192.168.1.192 EPSON08CB87.local
   '';

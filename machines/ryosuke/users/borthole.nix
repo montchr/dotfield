@@ -3,7 +3,7 @@
   ops,
   ...
 }: let
-  username = "cdom";
+  username = "borthole";
 in {
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 
@@ -11,7 +11,8 @@ in {
     uid = 1000;
     isNormalUser = true;
     passwordFile = config.sops.secrets."users/${username}/passphrase".path;
-    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    # TODO: generate
+    # openssh.authorizedKeys.keys = ops.users.borthole.keys.default;
   };
 
   services.xserver.displayManager.autoLogin.enable = true;
@@ -25,12 +26,10 @@ in {
     imports =
       roles.workstation
       ++ [
-        profiles.emacs.emacs-init
-        profiles.shells.fish.default
-
-        # profiles.theme.fonts.monospace.jetbrains-mono
-        # profiles.theme.fonts.monospace.iosevka-xtal
+        profiles.spotify
         profiles.theme.fonts.monospace.iosevka-comfy
+        profiles.theme.fonts.sans-serif.inter
+        profiles.theme.fonts.serif.ibm-plex-serif
       ];
     home.stateVersion = "22.05";
   };

@@ -1,6 +1,7 @@
 moduleArgs @ {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (config.dotfield.features) hasWayland;
@@ -8,6 +9,13 @@ moduleArgs @ {
 in {
   programs.mpv = {
     enable = true;
+    package = pkgs.mpv.override {
+      scripts = with pkgs.mpvScripts; [
+        mpv-playlistmanager
+        thumbfast
+        uosc
+      ];
+    };
     config = lib.mkMerge [
       {
         ytdl-format = "bestvideo+bestaudio";

@@ -100,17 +100,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  # inputs.hive = {
-  #   url = "github:divnix/hive";
-  #   inputs.colmena.follows = "colmena";
-  #   inputs.disko.follows = "disko";
-  #   inputs.home-manager.follows = "home-manager";
-  #   inputs.nixpkgs.follows = "nixpkgs";
-  #   # inputs.paisano.follows = "std/paisano";
-  #   # TODO: should exist?
-  #   # inputs.darwin.follows = "darwin";
-  # };
-
   ##: ops
   inputs.colmena.url = "github:zhaofengli/colmena";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
@@ -134,8 +123,6 @@
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: work
-  inputs.klein-infra.url = "github:kleinweb/infra";
-
   ##: darwin-only
   inputs.prefmanager.url = "github:malob/prefmanager";
 
@@ -159,9 +146,6 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.klein-infra.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.klein-infra.inputs.dmerge.follows = "std/dmerge";
-  inputs.klein-infra.inputs.std.follows = "std";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
   inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
