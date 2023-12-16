@@ -7,8 +7,11 @@
     ./users/cdom.nix
   ];
 
+  # FIXME: it is too easy to mess this up and render a system unusable
+  #        source: it happened.
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
+  users.mutableUsers = false;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = ["btrfs"];
