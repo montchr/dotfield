@@ -21,6 +21,7 @@ with epkgs; [
   compat
   consult
   consult-lsp
+  consult-gh
   consult-notes
   corfu
   csv-mode
