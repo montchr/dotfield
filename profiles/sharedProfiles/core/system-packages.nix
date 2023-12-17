@@ -46,13 +46,11 @@
       else gcc
     )
 
-    ## === Network ===
+    ## === System Monitoring ===
 
-    ## === Monitoring ===
-
-    dua #      <- learn about the disk usage of directories, fast!
-    lnav #     <- log file navigator
-    procs #    <- a "modern" replacement for ps
+    dua #        <- learn about the disk usage of directories, fast!
+    lnav #       <- log file navigator
+    procs #      <- a "modern" replacement for ps
 
     ## === Files ===
 
