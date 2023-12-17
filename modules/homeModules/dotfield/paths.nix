@@ -10,7 +10,8 @@
   inherit (lib.types) str;
   inherit (config.home) username;
   cfg = config.dotfield.paths;
-  # FIXME: this will break! needs an `or`... but therein lies a rabbit hole...
+  # FIXME: this will break in standalone configs.
+  #        needs an `or`... but therein lies a rabbit hole... (why?)
   fsPath = moduleArgs.osConfig.dotfield.paths.fsPath;
   userDirsSubmodule = {options, ...}: {
     options = {

@@ -1,3 +1,4 @@
+# TODO: <https://github.com/oddlama/nix-config/blob/9f6f3de5e35c673bda4fd7f6b0a6627a69c7d583/users/modules/config/htop.nix>
 # Beware! This file is rewritten by htop when settings are changed in the interface.
 # The parser is also very primitive, and not human-friendly.
 htop_version=3.2.2

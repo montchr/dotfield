@@ -135,7 +135,12 @@ in {
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       system = "x86_64-linux";
-      modules = with nixosSuites; gnome ++ graphical ++ office ++ tangible ++ workstation;
+      modules =
+        nixosSuites.gnome
+        ++ nixosSuites.graphical
+        ++ nixosSuites.office
+        ++ nixosSuites.tangible
+        ++ nixosSuites.workstation;
     };
 
     chert = makeNixosSystem "chert" {

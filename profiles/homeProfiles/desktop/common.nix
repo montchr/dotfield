@@ -18,9 +18,9 @@ in
     (l.mkIf isLinux {
       # imports = [./dconf.settings.nix];
 
-      home.packages = with pkgs; [
-        # https://github.com/gvolpe/dconf2nix
-        dconf2nix
+      home.packages = [
+        # TODO: only on gnome?
+        pkgs.dconf2nix #: <https://github.com/gvolpe/dconf2nix>
       ];
 
       xdg.userDirs = {

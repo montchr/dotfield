@@ -181,6 +181,7 @@ set-kitty-theme name='dark':
 _gtk-ui-mode value:
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-{{ value }}'
 
+# FIXME: error: Justfile does not contain recipes `mode` or `}}`.
 # <- Switch the current GTK theme between light<->dark
 [private]
 [linux]

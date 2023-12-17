@@ -14,11 +14,15 @@
   networking.usePredictableInterfaceNames = false;
   networking.firewall.enable = true;
 
+  # FIXME: unfortunately, this does not lead to great results
+  #        -- UI is still far too small
+  #
   # diag = w: h: sqrt(w^2 + h^2);
   # diagPx = diag 2880 1800;      => 3396.23320754
   # diagIn = 15;
   # ppi = diagPx / diagIn;        => 226.415547169
-  services.xserver.dpi = 226;
+  #
+  # services.xserver.dpi = 226;
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "seadoom";
