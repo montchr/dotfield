@@ -12,8 +12,6 @@ in {
 
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  # TODO: tap-dance: esc
-  services.xserver.xkbOptions = "caps:ctrl_modifier";
   dotfield.guardian.user.extraGroups = ["audio" "video"];
 
   xdg.portal.enable = true;
