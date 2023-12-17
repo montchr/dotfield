@@ -28,6 +28,7 @@ in {
     gptfdisk
     inetutils
     iputils
+    lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
     pciutils
     sysstat
     usbutils
