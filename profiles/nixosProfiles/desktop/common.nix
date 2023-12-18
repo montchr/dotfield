@@ -28,7 +28,12 @@ in {
   };
 
   hardware.bluetooth.enable = true;
-  hardware.opengl.enable = true;
+  hardware.bluetooth.package = pkgs.bluez;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+  };
 
   security.sudo.wheelNeedsPassword = false;
 
