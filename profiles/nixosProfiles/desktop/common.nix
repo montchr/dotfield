@@ -8,27 +8,18 @@
   inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
-  imports = [./nixpkgs-wayland.nix];
+  imports = [
+    ./audio.nix
+    ./bluetooth.nix
+    ./nixpkgs-wayland.nix
+  ];
 
   services.xserver.enable = true;
   services.xserver.layout = "us";
+  # FIXME: none of this shit works, destroy destroy destroy!
   dotfield.guardian.user.extraGroups = ["audio" "video"];
 
   xdg.portal.enable = true;
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = false; # required for pipewire
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-    pulse.enable = true;
-  };
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluez;
 
   hardware.opengl = {
     enable = true;

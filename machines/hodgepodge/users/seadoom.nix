@@ -5,7 +5,12 @@
   ...
 }: let
   username = "seadoom";
+  maybeGroups = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in {
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "seadoom";
+  users.mutableUsers = false;
+
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 
   users.users.${username} = {
@@ -14,6 +19,10 @@ in {
     passwordFile = config.sops.secrets."users/${username}/passphrase".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
     shell = pkgs.zsh;
+    extraGroups = [
+      "audio"
+      "video"
+    ];
   };
 
   services.xserver.displayManager.autoLogin.enable = true;
