@@ -77,3 +77,4 @@ lefthook.yml
 .prettierrc.json
 .idea
 .scratch
+/.dir-locals.el
