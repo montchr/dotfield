@@ -37,7 +37,7 @@ in {
     util-linux
   ];
 
-  networking.nameservers = lib.mkDefault dns.nameservers.quad9;
+  networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;
 
   # TODO: why forced?
   programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
