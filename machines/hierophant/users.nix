@@ -14,7 +14,7 @@
   users.users.cdom = {
     isNormalUser = true;
     extraGroups = ["wheel" config.services.headscale.group];
-    passwordFile = config.sops.secrets.user-cdom-password.path;
+    hashedPasswordFile = config.sops.secrets.user-cdom-password.path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 

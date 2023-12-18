@@ -12,7 +12,7 @@ in {
   ];
 
   fonts.fontDir.enable = true;
-  fonts.fonts =
+  fonts.packages =
     (with pkgs; [
       dejavu_fonts
 

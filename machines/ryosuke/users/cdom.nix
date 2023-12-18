@@ -14,7 +14,7 @@ in {
   users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
-    passwordFile = config.sops.secrets."users/${username}/passphrase".path;
+    hashedPasswordFile = config.sops.secrets."users/${username}/passphrase".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 

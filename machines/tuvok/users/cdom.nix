@@ -9,7 +9,7 @@ in {
 
   users.users.${username} = {
     isNormalUser = true;
-    passwordFile = config.sops.secrets."user-${username}-password".path;
+    hashedPasswordFile = config.sops.secrets."user-${username}-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 

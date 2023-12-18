@@ -3,7 +3,7 @@
   users.users.zortflower = {
     uid = 1001;
     isNormalUser = true;
-    passwordFile = config.sops.secrets."users/zortflower/passphrase".path;
+    hashedPasswordFile = config.sops.secrets."users/zortflower/passphrase".path;
     extraGroups = [
       "video"
       "networkmanager"

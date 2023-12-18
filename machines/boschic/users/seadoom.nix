@@ -7,7 +7,7 @@
   users.users.seadoom = {
     uid = 1000;
     isNormalUser = true;
-    passwordFile = config.sops.secrets."users/seadoom/passphrase".path;
+    hashedPasswordFile = config.sops.secrets."users/seadoom/passphrase".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
   home-manager.users.seadoom = hmArgs: {

@@ -13,16 +13,18 @@
   sshHostPath = "${storageBase}/etc/ssh";
 in {
   nix = {
-    settings = {
-      system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-    };
+    # TODO: always appropriate??
+    settings.system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     gc.dates = "weekly";
     optimise.automatic = true;
   };
 
   # NOTE: Manpage cache generation may add significant time to builds.
+  # FIXME: cannot set to false without conflict! even with mkDefault
   documentation.man.generateCaches = lib.mkDefault true;
 
+  # TODO: audit these -- the list originally came from linode's recommended
+  # tools for their support staff
   environment.systemPackages = with pkgs; [
     dosfstools
     gptfdisk
@@ -37,6 +39,7 @@ in {
 
   networking.nameservers = lib.mkDefault dns.nameservers.quad9;
 
+  # TODO: why forced?
   programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
 
   programs.git.enable = true;
@@ -74,7 +77,7 @@ in {
   # Passwordless sudo when SSH'ing with keys
   security.pam.enableSSHAgentAuth = true;
 
-  # FIXME: too open!!! set per-host explicitly.
+  # TODO: reduce number of keys with access
   users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;

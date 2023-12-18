@@ -9,7 +9,7 @@
   users.users.cdom = {
     isNormalUser = true;
     extraGroups = ["wheel"];
-    passwordFile = config.sops.secrets."user-cdom-password".path;
+    hashedPasswordFile = config.sops.secrets."user-cdom-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
     # Loads fish shell on interactive init.
     shell = pkgs.bashInteractive;
