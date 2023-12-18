@@ -75,7 +75,7 @@
   inputs.nixpkgs.follows = "nixos-unstable";
   inputs.nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+  inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
   # inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
   ##: core modules+libraries
