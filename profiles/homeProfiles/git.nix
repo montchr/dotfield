@@ -18,21 +18,20 @@
     && "" != pgp;
 in {
   home.packages =
-    (with pkgs.gitAndTools; [
-      hub
-      gh
-      tig
-    ])
-    ++ (with pkgs; [
-      difftastic #   <- syntax-aware structural diff tool
-      exiftool #     <- EXIF diff handler
-      git-cliff #    <- flexible changelog generator
+    [
+      pkgs.difftastic #   <- syntax-aware structural diff tool
+      pkgs.exiftool #     <- EXIF diff handler
+      pkgs.hut #          <- a sourcehut CLI (unofficial)
+
+      pkgs.gitAndTools.hub
+      pkgs.gitAndTools.gh
+      pkgs.gitAndTools.tig
 
       ##: --- for occasional-use ---
 
       # git-filter-repo # :: history-rewrite toolkit + repo analysis + alternative
       # to `git filter-branch` recommended *in the git manual itself*
-    ]);
+    ];
 
   programs.lazygit.enable = true;
 
