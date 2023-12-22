@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  l = lib // builtins;
-in {
+}: {
   imports = [
     ./home-manager.nix
     ./nix-config.nix
@@ -13,12 +11,12 @@ in {
     ./upgrade-diff.nix
   ];
 
-  documentation.info.enable = l.mkDefault true;
+  documentation.info.enable = lib.mkDefault true;
   # NOTE: Force override <numtide/srvos>.
-  documentation.man.enable = l.mkForce true;
+  documentation.man.enable = lib.mkForce true;
 
   # The only sane default. Servers should usually keep this as is.
-  time.timeZone = l.mkDefault "UTC";
+  time.timeZone = lib.mkDefault "UTC";
 
   environment.variables = {
     EDITOR = "vim";
@@ -36,31 +34,31 @@ in {
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
-  environment.shells = with pkgs; [
-    bashInteractive
-    fish
-    zsh
+  environment.shells = [
+    pkgs.bashInteractive
+    pkgs.fish
+    pkgs.zsh
   ];
 
   # Install completions for system packages.
   environment.pathsToLink =
     ["/share/bash-completion"]
-    ++ (l.optional config.programs.fish.enable "/share/fish")
-    ++ (l.optional config.programs.zsh.enable "/share/zsh");
+    ++ (lib.optional config.programs.fish.enable "/share/fish")
+    ++ (lib.optional config.programs.zsh.enable "/share/zsh");
 
   programs.zsh = {
-    enable = l.mkDefault true;
-    shellInit = l.mkDefault "";
-    loginShellInit = l.mkDefault "";
-    interactiveShellInit = l.mkDefault "";
+    enable = lib.mkDefault true;
+    shellInit = lib.mkDefault "";
+    loginShellInit = lib.mkDefault "";
+    interactiveShellInit = lib.mkDefault "";
 
     # Prompts/completions/widgets should never be initialised at the
     # system-level because it will need to be initialised a second time once the
     # user's zsh configs load.
-    promptInit = l.mkForce "";
-    enableCompletion = l.mkForce false;
-    enableBashCompletion = l.mkForce false;
+    promptInit = lib.mkForce "";
+    enableCompletion = lib.mkForce false;
+    enableBashCompletion = lib.mkForce false;
   };
 
-  programs.fish.enable = l.mkDefault true;
+  programs.fish.enable = lib.mkDefault true;
 }
