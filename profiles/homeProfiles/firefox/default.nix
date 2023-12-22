@@ -1,6 +1,5 @@
 hmArgs @ {pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  hasGnomeConnector = hmArgs.osConfig.services.gnome.gnome-browser-connector.enable or false;
 in {
   imports = [
     ./profiles.nix
@@ -9,14 +8,11 @@ in {
   programs.firefox = {
     enable = true;
     package =
+      # TODO: darwin workaround might no longer be necessary since home-manager apps are usable on darwin now
       if isDarwin
       then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
-      else
-        pkgs.firefox.override {
-          cfg = {
-            enableGnomeExtensions = hasGnomeConnector;
-            enableTridactylNative = true;
-          };
-        };
+      else if (hmArgs.osConfig.programs.firefox.enable or false)
+      then (hmArgs.osConfig.programs.firefox.package or pkgs.firefox)
+      else pkgs.firefox;
   };
 }
