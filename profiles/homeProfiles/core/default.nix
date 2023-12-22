@@ -1,8 +1,10 @@
 {
   lib,
   config,
+  flake,
   ...
 }: let
+  inherit (flake.inputs) nix-index-database;
   inherit (config) xdg;
 
   # Although it points to a commonly-used path for user-owned executables,
@@ -16,6 +18,8 @@
   binHome = "$HOME/.local/bin";
 in {
   imports = [
+    nix-index-database.hmModules.nix-index
+
     ./bat.nix
     ./home-packages.nix
     ./nixpkgs-config.nix
@@ -39,36 +43,27 @@ in {
   # across various tools. See the home-manager manual for more info.
   programs.man.generateCaches = lib.mkDefault true;
 
-  # Modern replacement for `command-not-found` with fish-shell support.
+  # Nix-oriented package search tool and `command-not-found` replacement.
+  #
+  # `nix-index` is useful in itself, but fish shell *needs* it, as
+  # `command-not-found` simply spits out errors.
+  #
+  # <https://github.com/nix-community/nix-index>
+  #
+  programs.command-not-found.enable = false;
+  # FIXME: the shell integration script for nix-index is probably sourced twice
+  # when home-manager is loaded as a system module
   programs.nix-index.enable = true;
+  programs.nix-index.symlinkToCacheHome = true;
+  programs.nix-index-database.comma.enable = true;
 
   # User-defined executables should always be prioritized in $PATH.
   # TODO: double-check
+  # FIXME: prob duplicated on nix-darwin
   home.sessionPath = lib.mkBefore (lib.singleton binHome);
 
   home.sessionVariables = {
     LESSHISTFILE = "${xdg.stateHome}/lesshst";
-
-    # Docker
-    # NOTE: disabled so as not to interfere with overriding "docker" with other providers
-    # TODO: move this to a docker-specific profile if ever needed.
-    # DOCKER_CONFIG = "${xdg.configHome}/docker";
-    # MACHINE_STORAGE_PATH = "${xdg.dataHome}/docker-machine";
-
-    # Go
-    GOPATH = "${xdg.dataHome}/go";
-
-    # Rust
-    CARGO_HOME = "${xdg.dataHome}/cargo";
-    RUSTUP_HOME = "${xdg.dataHome}/rustup";
-
-    # GNU screen
-    SCREENRC = "${xdg.configHome}/screen/screenrc";
-
-    # wd
-    # https://github.com/mfaerevaag/wd
-    WD_CONFIG = "${xdg.configHome}/wd/warprc";
-
     XDG_BIN_HOME = binHome;
   };
 }

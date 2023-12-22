@@ -12,29 +12,9 @@
   inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
 in {
-  nix = {
-    # TODO: always appropriate??
-    settings.system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-    gc.dates = "weekly";
-    optimise.automatic = true;
-  };
-
-  # NOTE: Manpage cache generation may add significant time to builds.
-  # FIXME: cannot set to false without conflict! even with mkDefault
-  documentation.man.generateCaches = lib.mkDefault true;
-
-  # TODO: audit these -- the list originally came from linode's recommended
-  # tools for their support staff
-  environment.systemPackages = with pkgs; [
-    dosfstools
-    gptfdisk
-    inetutils
-    iputils
-    lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
-    pciutils
-    sysstat
-    usbutils
-    util-linux
+  imports = [
+    ./nix-config.nix
+    ./system-tools.nix
   ];
 
   networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;
@@ -45,13 +25,12 @@ in {
   programs.git.enable = true;
   programs.git.config = {
     safe.directory = [
+      # owner should be root:wheel but i cheat and make my own user the owner
+      # in some ideal situation, maybe i would deploy the configuration from $XDG_CONFIG_DIR/dotfield
       "/etc/nixos"
       "/etc/dotfield"
     ];
   };
-
-  programs.htop.enable = true;
-  programs.mtr.enable = true;
 
   services.openssh = {
     # For age encryption, all hosts need a ssh key pair.

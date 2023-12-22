@@ -135,6 +135,7 @@
   inputs.deadnix.url = "github:astro/deadnix";
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.nil-lsp.url = "github:oxalica/nil";
+  inputs.nix-index-database.url = "github:Mic92/nix-index-database";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: darwin-only
@@ -161,6 +162,7 @@
   inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
   inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";

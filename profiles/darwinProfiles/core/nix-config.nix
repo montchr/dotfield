@@ -3,9 +3,15 @@
 # <https://github.com/dxmh/system-config/commit/9713b5b39ae8c3394584e10132796df2dd497702>
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
+  nix.distributedBuilds = lib.mkDefault true;
+
+  # FIXME: needs flake-compat
+  # nix.nixPath = mkBefore ["darwin-config=${self}"];
+
   nix.settings.auto-optimise-store = false;
   # While it’s possible to set `auto-optimise-store` in `nix.conf`, it sometimes causes problems
   # on Darwin.  Run a job periodically to optimise the store.
