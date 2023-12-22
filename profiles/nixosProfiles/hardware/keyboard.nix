@@ -9,8 +9,19 @@
   services.keyd.keyboards.default = {
     ids = ["*"];
     settings = {
+      # based on recommended config <https://github.com/rvaiya/keyd#recommended-config>
+      # FIXME: something here causes super to not work?
       main = {
+        # FIXME: not work?
+        # shift = "oneshot(shift)";
+        # meta = "oneshot(meta)";
+        # control = "oneshot(control)";
+
+        # leftalt = "oneshot(alt)";
+        # rightalt = "oneshot(altgr)"; # TODO: do we want this?
+
         capslock = "overload(control, esc)";
+        # insert = "S-insert";
       };
     };
   };
