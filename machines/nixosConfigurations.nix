@@ -1,3 +1,4 @@
+# FIXME: no more haumea-compiled profiles/suites! import directly and simply!
 {
   self,
   withSystem,
@@ -56,7 +57,7 @@ in {
   flake.nixosConfigurations = {
     # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
     #   system = x86_64-linux;
-    #   modules = with nixosSuites; gnome ++ graphical ++ tangible ++ workstation;
+    #   modules = with nixosSuites; desktop ++ gnome ++ workstation;
     # };
 
     freundix = makeNixosSystem "freundix" {
@@ -67,7 +68,7 @@ in {
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
       modules =
-        (with nixosSuites; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
+        (with nixosSuites; desktop ++ gnome ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
           # login.greetd
@@ -91,10 +92,8 @@ in {
       };
       modules =
         nixosSuites.gnome
-        ++ nixosSuites.graphical
-        ++ nixosSuites.tangible
+        ++ nixosSuites.desktop
         ++ nixosSuites.workstation
-        ++ nixosSuites.office
         ++ [nixosProfiles.hardware.asahi];
     });
 
@@ -121,7 +120,7 @@ in {
     boschic = makeNixosSystem "boschic" {
       system = "x86_64-linux";
       modules =
-        (with nixosSuites; gnome ++ graphical ++ office ++ tangible ++ webdev ++ workstation)
+        (with nixosSuites; gnome ++ desktop ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           boot.refind
           desktop.flatpak
@@ -137,9 +136,7 @@ in {
       system = "x86_64-linux";
       modules =
         nixosSuites.gnome
-        ++ nixosSuites.graphical
-        ++ nixosSuites.office
-        ++ nixosSuites.tangible
+        ++ nixosSuites.desktop
         ++ nixosSuites.workstation;
     };
 

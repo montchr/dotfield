@@ -9,13 +9,13 @@
   l = flake.inputs.nixpkgs.lib // builtins;
 in {
   imports = [
-    ./audio.nix
-    ./bluetooth.nix
+    ./firefox.nix
     ./nixpkgs-wayland.nix
   ];
 
   services.xserver.enable = true;
   services.xserver.layout = "us";
+
   # FIXME: none of this shit works, destroy destroy destroy!
   dotfield.guardian.user.extraGroups = ["audio" "video"];
 
@@ -42,13 +42,12 @@ in {
 
   environment.systemPackages =
     [
-      # We always need a browser on desktop.
-      pkgs.firefox
-
       # Provide a minimal and sensible default terminal emulator as a fallback
-      # in case the desktop environment doesn't bundle its own application.
+      # in case the desktop environment doesn't bundle its own application or
+      # the user config doesn't specify one.
       pkgs.foot
+
+      pkgs.wl-clipboard
     ]
-    ++ (l.optional (!isAarch64) pkgs.signal-desktop) # <- broken
-    ++ (l.optional hasWayland pkgs.wl-clipboard);
+    ++ (l.optional (!isAarch64) pkgs.signal-desktop); # <- broken
 }

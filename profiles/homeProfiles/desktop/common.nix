@@ -7,53 +7,52 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.home) homeDirectory;
   inherit (config.accounts.email) maildirBasePath;
-  l = lib // builtins;
-in
-  l.mkMerge [
-    {
-      home.packages = with pkgs; [
-        mediainfo
-      ];
-    }
-    (l.mkIf isLinux {
-      # imports = [./dconf.settings.nix];
+in {
+  imports = [
+    ./clipboard.nix
 
-      home.packages = [
-        # TODO: only on gnome?
-        pkgs.dconf2nix #: <https://github.com/gvolpe/dconf2nix>
-      ];
+    # ./dconf.settings.nix
+  ];
 
-      xdg.userDirs = {
-        enable = true;
-        createDirectories = true;
-        extraConfig = {
-          # TODO: somehow share this value with home-manager git-sync?
-          XDG_PROJECTS_DIR = homeDirectory + "/Developer";
-          XDG_MAIL_DIR = "${homeDirectory}/${maildirBasePath}";
-        };
-      };
+  home.packages =
+    [
+      pkgs.mediainfo
+    ]
+    ++ lib.optionals isLinux [
+      # TODO: only on gnome? or does gtk use it too?
+      pkgs.dconf2nix #: <https://github.com/gvolpe/dconf2nix>
+    ];
 
-      fonts.fontconfig.enable = true;
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    extraConfig = {
+      # TODO: somehow share this value with home-manager git-sync?
+      XDG_PROJECTS_DIR = homeDirectory + "/Developer";
+      XDG_MAIL_DIR = "${homeDirectory}/${maildirBasePath}";
+    };
+  };
 
-      # TODO: configure gtk settings
-      # gtk.enable = true;
-      # TODO: set these based on color scheme
-      # gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-      # gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+  fonts.fontconfig.enable = true;
 
-      qt.enable = true;
-      qt.platformTheme = "gnome";
-      qt.style.package = pkgs.adwaita-qt;
-      qt.style.name = "adwaita";
+  # TODO: configure gtk settings
+  # gtk.enable = true;
+  # TODO: set these based on color scheme
+  # gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+  # gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
 
-      # https://github.com/NixOS/nixpkgs/issues/174099
-      services.gnome-keyring.enable = false;
+  qt.enable = true;
+  qt.platformTheme = "gnome";
+  qt.style.package = pkgs.adwaita-qt;
+  qt.style.name = "adwaita";
 
-      programs.zathura.enable = true;
+  # https://github.com/NixOS/nixpkgs/issues/174099
+  services.gnome-keyring.enable = false;
 
-      # TODO
-      # xdg.desktopEntries = ...
-      # xdg.mime = ...
-      # xdg.mimeApps = ...
-    })
-  ]
+  programs.zathura.enable = true;
+
+  # TODO
+  # xdg.desktopEntries = ...
+  # xdg.mime = ...
+  # xdg.mimeApps = ...
+}
