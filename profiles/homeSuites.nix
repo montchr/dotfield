@@ -104,6 +104,7 @@
       ++ webdev
       ++ writing
       ++ [
+        homeProfiles.kitty.default
         homeProfiles.vhs
         homeProfiles.yubikey
       ];
