@@ -10,6 +10,7 @@ in {
     ./home-manager.nix
     ./nix-config.nix
     ./system-packages.nix
+    ./upgrade-diff.nix
   ];
 
   documentation.info.enable = l.mkDefault true;
