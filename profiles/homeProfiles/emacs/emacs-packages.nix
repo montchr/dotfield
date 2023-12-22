@@ -1,5 +1,7 @@
-# NOTE: These are perhaps conveniently in order of their corresponding
-#       `use-package` declarations at the time of writing.
+# NOTE: in some cases, the nixpkgs emacs package might still be preferable when
+#       it has some exotic setup/integration required
+#       <https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/applications/editors/emacs/elisp-packages/manual-packages>
+# FIXME: should use versions from emacs-overlay but without overlay
 epkgs:
 with epkgs; [
   # FIXME: "undefined variable"
@@ -68,6 +70,7 @@ with epkgs; [
   f
   flycheck
   fontaine
+  fullframe
   git-commit
   git-timemachine
   goto-chg
