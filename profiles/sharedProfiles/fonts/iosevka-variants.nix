@@ -3,7 +3,7 @@
   makeIosevkaVariant = variant: iosevka-bin.override {inherit variant;};
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";
 in {
-  fonts.fonts = [
+  fonts.packages = [
     iosevka-bin
     iosevka-comfy.comfy
     iosevka-comfy.comfy-motion
