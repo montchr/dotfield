@@ -94,12 +94,12 @@ check *ARGS:
 
 # <- Diff the current + next system generations.
 diff-next-sys: (system "build")
-  nix-diff "{{sys-gen-path}}" "{{prj-root}}/result"
+  nvd diff "{{sys-gen-path}}" "{{prj-root}}/result"
   @echo {{msg-done}}
 
 # <- Diff the current + next home generations.
 diff-next-home:
-  nix-diff {{hm-gen-path}} \
+  nvd diff {{hm-gen-path}} \
     `nix build --print-out-paths {{prj-root}}#homeConfigurations.{{hm-fragment}}.activationPackage`
   @echo {{msg-done}}
 
@@ -124,6 +124,8 @@ system subcommand='build' *ARGS='':
 
 
 ###: HOME-MANAGER ==============================================================
+
+# FIXME: it seems that running just home switch does nothing on nixos?
 
 # <- Run the home-manager CLI for the project flake.
 home subcommand='build' *ARGS='':
