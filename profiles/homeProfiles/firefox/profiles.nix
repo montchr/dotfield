@@ -130,7 +130,6 @@ in {
       ];
       "browser.startup.homepage" = l.concatStringsSep "|" [
         "https://lobste.rs"
-        "https://www.dailymail.co.uk/sciencetech/index.html"
       ];
     };
   };
