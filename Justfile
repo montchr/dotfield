@@ -156,12 +156,12 @@ set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-da
 # This is safe to use even with a dirty working tree because the themes are
 # activated by way of the current generation's specialisation activation scripts.
 
-# NOTE: Requires re-activating a base generation before loading a specialization.
+# NOTE: home-manager requires re-activating a base generation before loading a specialization.
 #       A specialisation is not available within a specialisation.
 #       This is an upstream limitation:
 #       <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
-theme colors='dark': && (home-specialise colors) (set-system-appearance colors) (set-emacs-theme colors)
+theme kind='dark': && (home-specialise kind) (set-system-appearance kind) (set-emacs-theme kind)
 
 # <- Use the 'light' theme for all applications
 light: (theme "light")
@@ -172,28 +172,32 @@ dark: (theme "dark")
 ##: --- kitty ---
 
 # <- Switch the current kitty theme
-set-kitty-theme name='dark':
-  @echo "Setting kitty '{{name}}' theme"
-  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{name}}.conf
-  @echo {{msg-done}}
+set-kitty-theme kind='dark':
+  @echo "Setting kitty '{{ kind }}' theme"
+  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{ kind }}.conf
+  @echo {{ msg-done }}
 
 
 ##: --- gtk ---
 
-_gtk-ui-mode value:
-  gsettings set org.gnome.desktop.interface color-scheme 'prefer-{{ value }}'
+gtk-ui-schema := "org.gnome.desktop.interface"
 
-# FIXME: error: Justfile does not contain recipes `mode` or `}}`.
-# <- Switch the current GTK theme between light<->dark
+[linux]
+colors-gtk command='get' kind='':
+  gsettings {{ command }} {{ gtk-ui-schema }} color-scheme \
+    {{ if command == 'set' { "prefer-" + kind } else { '' } }}
+
+# FIXME: rename -- gtk is not a "system" - it's a ui framework
+# <- Switch the current GTK theme kind (default: dark)
 [private]
 [linux]
-set-system-appearance mode="toggle":
-  {{ if mode != "toggle" { "just _gtk-ui-mode {{ mode }}" } else { "just _gtk-ui-mode 'dark'" } }}
+set-system-appearance kind="dark": (colors-gtk "set" kind)
 
 
 ##: --- macOS ---
 
 applescript-dark-mode := 'tell app "System Events" to tell appearance preferences to set dark mode to '
+
 _mac-dark-mode value:
   osascript -e {{ quote( applescript-dark-mode + value ) }}
 
