@@ -47,6 +47,11 @@ sys-cmd := if os() == "linux" {
 
 ###: UTILITIES =================================================================
 
+# TODO: allow raw input (needs multiline string format but it works in repl):
+# builtins.fromJSON ''
+#  {"foo": "bar"}
+# ''
+
 # <- Convert a JSON file to a Nix expression
 json2nix file:
   nix eval --expr 'builtins.fromJSON (builtins.readFile {{file}})' --impure

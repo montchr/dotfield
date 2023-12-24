@@ -127,6 +127,8 @@ in {
       imports = [
         ./settings/browser-toolbox.nix
         ./settings/lepton.nix
+        # TODO: dogfood for a while
+        ./settings/ui-state.nix
       ];
       "browser.startup.homepage" = l.concatStringsSep "|" [
         "https://lobste.rs"
