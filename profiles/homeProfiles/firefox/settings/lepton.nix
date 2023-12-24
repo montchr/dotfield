@@ -1,11 +1,16 @@
 ##: Notes
 #
-# - If you want to disable or change a setting, it MUST be set explicitly.
-#   E.G. To disable a setting currently set to `true`, it must be set to `false`.
-#   This is because the settings will be kept in browser preferences state.
-#   Alternatively, you can go to `about:config` and reset the setting to its default.
+# - If you want to disable or change a setting you have set previously, it MUST
+#   be set explicitly.
+#
+#   E.G. To disable a setting currently set to `true`, it must be set to
+#   `false`. *Do not simply delete the setting from this file!*.
+#
+#   This happens because the settings will be kept in browser preferences state.
+#
+#   Alternatively, you can go to `about:config` and reset the setting.
 {lib, ...}: {
-  ###: === userChrome ==========================================================
+  ### === userChrome ==========================================================
   # ** Theme Default Options ****************************************************
   # userchrome.css usercontent.css activate
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -191,6 +196,7 @@
   # "userChrome.tab.close_button_at_hover.always" =    true; # Need close_button_at_hover
   # "userChrome.tab.close_button_at_hover.with_selected" = true;  # Need close_button_at_hover
   # "userChrome.tab.sound_show_label" =                true; # Need remove sound_hide_label
+  "userChrome.tab.blue_accent" = true; # Lepton v8.5.1+
 
   # "userChrome.navbar.as_sidebar" =                   true;
 
@@ -202,8 +208,9 @@
   # "userChrome.panel.full_width_separator" =          true;
   # "userChrome.panel.full_width_padding" =            true;
 
-  # Not recommended with TST.
-  "userChrome.sidebar.overlap" = lib.mkDefault false;
+  # NOTE: Not recommended with TST.
+  # TODO: how to make this depend on extension?
+  "userChrome.sidebar.overlap" = lib.mkDefault true;
 
   # "userChrome.icon.disabled" =                       true;
   # "userChrome.icon.account_image_to_right" =         true;
