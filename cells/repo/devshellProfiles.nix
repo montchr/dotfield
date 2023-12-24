@@ -22,6 +22,10 @@ in {
       (dotfield nixpkgs.just)
       # (utils' "nom" nixpkgs.nix-output-monitor)
       (dotfield nixpkgs.treefmt)
+      (maintenance nixpkgs.nix-init)
+      (maintenance nixpkgs.nix-prefetch)
+      (maintenance nixpkgs.nix-tree)
+      (maintenance nixpkgs.nurl)
       # (maintenance nixpkgs.treefmt)
     ];
     env = [
