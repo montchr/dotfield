@@ -291,10 +291,9 @@ Runs macOS.
 
 ### macOS GUI Applications via Nix
 
-**UPDATE: `emacs29-macport` works amazingly!**
-Thanks to `@tnytown` for their hard work in
-https://github.com/NixOS/nixpkgs/issues/127902
-and https://github.com/NixOS/nixpkgs/pull/252244.
+**UPDATE: `emacs29-macport` works amazingly!** Thanks to `@tnytown` for their
+hard work in https://github.com/NixOS/nixpkgs/issues/127902 and
+https://github.com/NixOS/nixpkgs/pull/252244.
 
 #### Emacs
 
@@ -323,3 +322,73 @@ functionality remains a mystery:
 #### yabai
 
 Just use the official package released via `brew`, unless you prefer pain.
+
+## Shitlist
+
+Mostly opinions and rants, which will likely be removed in time.
+
+### GNOME Desktop
+
+It's been the default desktop environment for my graphical NixOS configurations,
+but only because it "just works". In actuality, while it "works", it **just**
+works. Its primary method of configuration is based on the state of
+user-selected options in GUIs, hiding the configuration behind opaque UX
+
+There is, I'm sure, a specific term for this particular application design
+fallacy, perhaps best summarized by WordPress' infamous "decisions not options"
+aphorism and embodied in Apple software and hardware. While it looks pretty and
+looks like it has "good UX", like macOS (and Apple software in general), it has
+so much useless clutter and ends up breaking in weird ways.
+
+#### Definitions + Resources
+
+`gsettings` is a command-line interface for `dconf` schema introspection. It's
+useful for getting/setting the current value of a setting and for scripting
+necessarily-stateful settings like theme appearance variants.
+
+`dconf` is the underlying backend, a database store.
+
+"dconf Editor" is a GUI application for quick and direct interaction with
+available settings, similar to Firefox's `about:config` page.
+
+#### Configuring GNOME via `home-manager`
+
+[gvolpe/dconf2nix: :feet: Convert Dconf files (e.g. Gnome Shell) to Nix, as expected by Home Manager](https://github.com/gvolpe/dconf2nix)
+in combination with
+[home-manager/modules/misc/dconf.nix at master · nix-community/home-manager](https://github.com/nix-community/home-manager/blob/master/modules/misc/dconf.nix)
+
+I tried this once before and I remember it being unmanageable/breaking stuff,
+but maybe it's better now...
+
+#### Firefox
+
+I am considering migrating off Firefox. as Mozilla seems to be enshittifying
+itself, favoring business interests and flashy posturing as competition to
+Chrome and other browsers. I am losing the energy to keep up with it.
+
+Firefox on Android crashes constantly and I literally can't use any version of
+it anymore, so I've already ditched it on my phone in favor of Vanadium
+(Chromium-based). Therefore Firefox Sync no longer matters to me as a feature.
+
+The only clear benefit to using Firefox is its (decreasingly) deep
+customizability but it has always felt like a bad way to spend my time.
+
+I really do want a browser to "just work", but with the option to configure
+frustrating things like... keyboard shortcuts... which Firefox does not support.
+The question is: do any browsers? I am not yet sure.
+
+##### Customizing keyboard shortcuts
+
+TL;DR Nope, forget it.
+
+<https://support.mozilla.org/bm/questions/1381773>
+
+there is no way to customize internal keyboard shortcuts. this should be
+considered a bug, not a feature request. but it's considered an "idea" in a
+community feedback forum, with no indication as to whether it matters to Mozilla
+or not.
+
+i wonder whether the community forum is intended to act as a buffer zone /
+feedback echo chamber to keep users out of the internal bug trackers. Mozilla
+has to actually consider and prioritize user feedback from this forum, otherwise
+why does it exist? Is there any evidence of such a process?
