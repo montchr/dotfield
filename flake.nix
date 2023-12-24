@@ -150,9 +150,6 @@
 
   ##: et cetera ad infinitum
   # inputs.apparat.inputs.std.follows = "std";
-  inputs.attic.inputs.flake-utils.follows = "flake-utils";
-  inputs.attic.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.attic.inputs.nixpkgs-stable.follows = "nixos-stable";
   inputs.apparat.inputs.std.follows = "std";
   # inputs.base16-schemes.inputs.std.follows = "std";
   inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
