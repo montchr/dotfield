@@ -17,8 +17,8 @@ moduleArgs @ {
   # Single-item list format follows the NixOS options.
   defaultFonts = let
     fonts =
-      moduleArgs.osConfig.fonts.fontconfig.defaultFonts
-      or {
+      # moduleArgs.osConfig.fonts.fontconfig.defaultFonts or
+      {
         monospace = ["DejaVu Sans Mono"];
         sansSerif = ["DejaVu Sans"];
         serif = ["DejaVu Serif"];
@@ -111,6 +111,20 @@ in {
       };
       light.configuration = {
         theme.color.schemes.default = colorSchemes.light;
+      };
+    };
+
+    dconf.settings = {
+      # TODO: other font styles?
+      "org/gnome/desktop/interface" = let
+        # TODO: add to lib
+        fontname = font: lib.concatStringsSep " " [font.name (builtins.toString font.size)];
+        sans = fontname cfg.fonts.sansSerif;
+        serif = fontname cfg.fonts.serif;
+        mono = fontname cfg.fonts.monospace;
+      in {
+        document-font-name = sans;
+        monospace-font-name = mono;
       };
     };
   });

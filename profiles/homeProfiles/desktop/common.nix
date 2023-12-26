@@ -10,6 +10,7 @@
 in {
   imports = [
     ./clipboard.nix
+    ./input-devices.nix
 
     # ./dconf.settings.nix
   ];

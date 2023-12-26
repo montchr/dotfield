@@ -16,6 +16,10 @@ in {
   # Prefer webmail or other (better) mail clients.
   environment.gnome.excludePackages = [pkgs.gnome.geary];
 
+  home-manager.sharedModules = lib.singleton {
+    imports = lib.singleton ../../homeProfiles/desktop/gnome/common.nix;
+  };
+
   # Prevent GNOME session crashes when auto-login is enabled.
   # <https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229>
   systemd.services."getty@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);

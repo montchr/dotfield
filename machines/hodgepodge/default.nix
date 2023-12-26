@@ -1,4 +1,4 @@
-{config, ...}: {
+{lib, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
@@ -9,7 +9,16 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
   services.printing.enable = true;
+
+  # Hardware oddities specific to this machine.
   hardware.facetimehd.enable = true;
+  home-manager.sharedModules = lib.singleton {
+    dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
+      # Trackpad physical button is unresponsive. Without tap-to-click, it would
+      # not possible to use the trackpad.
+      tap-to-click = lib.mkForce true;
+    };
+  };
 
   networking.usePredictableInterfaceNames = false;
   networking.firewall.enable = true;
