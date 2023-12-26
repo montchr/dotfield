@@ -10,7 +10,7 @@
     iosevka-xtal-term
     ;
 in {
-  fonts.fonts = [iosevka-xtal iosevka-xtal-term];
+  fonts.packages = [iosevka-xtal iosevka-xtal-term];
   nix.settings = {
     substituters = ["https://iosevka-xtal.cachix.org"];
     trusted-substituters = ["https://iosevka-xtal.cachix.org"];
