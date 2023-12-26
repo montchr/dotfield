@@ -9,15 +9,14 @@
 
   cfg = config.programs.neovim;
 
-  configSrcBasePath = "${xdg.configHome}/dotfield/home/users/cdom/config";
+  userNamespace = "cdom";
+  configSrcBasePath = "${xdg.configHome}/dotfield/users/${userNamespace}/config";
   dataPath = "${xdg.dataHome}/nvim";
   cachePath = "${xdg.cacheHome}/nvim";
 
-  userNamespace = config.home.username;
-
   initContent = ''
     -- Load custom configuration module
-    require("${userNamespace}")
+    -- require("${userNamespace}")
   '';
 in {
   imports = [./plugins.nix];
