@@ -20,13 +20,11 @@ in {
       (dotfield home-manager.packages.default)
       (dotfield namaka.packages.default)
       (dotfield nixpkgs.just)
-      # (utils' "nom" nixpkgs.nix-output-monitor)
       (dotfield nixpkgs.treefmt)
       (maintenance nixpkgs.nix-init)
       (maintenance nixpkgs.nix-prefetch)
       (maintenance nixpkgs.nix-tree)
       (maintenance nixpkgs.nurl)
-      # (maintenance nixpkgs.treefmt)
     ];
     env = [
       {
@@ -35,7 +33,17 @@ in {
       }
       {
         name = "DOTFIELD_HOME_DRV";
-        # alternatively: `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
+        # FIXME: cannot switch to specialisations twice -- needs a full rebuild
+        # before another specialization can be loaded.
+        #
+        # alternatively: `home-manager generations | head -1 | grep -Eo
+        # '\/nix\/store.+$'` (this points to the same profile, however)
+        #
+        # note that the command above will only act on the most recent
+        # generation (`head -1`) -- the issue then is that switching to a
+        # specialisation creates a new generation, thus making that generation
+        # the most recent. so then we need to determine whether a generation is
+        # a "full" generation or merely a specialisation generation.
         eval = "\${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/home-manager";
       }
     ];
