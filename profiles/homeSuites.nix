@@ -39,7 +39,7 @@
     homeProfiles.keyboard.default
     homeProfiles.kitty.default
     homeProfiles.misc
-    homeProfiles.mpv
+    homeProfiles.media-client
     homeProfiles.theme.default
     homeProfiles.yt-dlp
     # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)

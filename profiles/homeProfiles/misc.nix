@@ -21,11 +21,6 @@
     shfmt
     shellcheck
     yamllint
-
-    ## === Media Tools ===
-
-    # TODO: use hm module
-    mpv
   ];
 
   # TODO: check these out
@@ -33,5 +28,4 @@
   # services.etebase.sync = {};
   # services.flameshot = {};
   # services.hound = ...
-  # programs.ncspot = {}; # spotify thingy
 }
