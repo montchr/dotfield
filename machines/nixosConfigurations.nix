@@ -94,7 +94,10 @@ in {
         nixosSuites.gnome
         ++ nixosSuites.desktop
         ++ nixosSuites.workstation
-        ++ [nixosProfiles.hardware.asahi];
+        ++ [
+          nixosProfiles.hardware.asahi
+          nixosProfiles.hardware.laptop
+        ];
     });
 
     moraine = makeNixosSystem "moraine" {
@@ -137,7 +140,10 @@ in {
       modules =
         nixosSuites.gnome
         ++ nixosSuites.desktop
-        ++ nixosSuites.workstation;
+        ++ nixosSuites.workstation
+        ++ [
+          nixosProfiles.hardware.laptop
+        ];
     };
 
     chert = makeNixosSystem "chert" {
