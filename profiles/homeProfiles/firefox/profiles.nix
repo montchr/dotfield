@@ -32,6 +32,7 @@ hmArgs @ {
       inherit theme;
       modules = [./settings/common.nix] ++ modules;
       extraArgs = {
+        inherit (hostPlatform) isDarwin isLinux;
         hmConfig = config;
         osConfig = hmArgs.osConfig or null;
       };

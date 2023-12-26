@@ -10,6 +10,8 @@
 #
 #   Alternatively, you can go to `about:config` and reset the setting.
 {lib, ...}: {
+  imports = [./lepton-linux.nix];
+
   ### === userChrome ==========================================================
   # ** Theme Default Options ****************************************************
   # userchrome.css usercontent.css activate
@@ -121,6 +123,11 @@
   "userChrome.hidden.bookmarkbar_label" = false;
   # "userChrome.hidden.disabled_menu" =                true;
 
+  ##: Private Browsing
+  # Use purple color in private mode.
+  "userChrome.theme.private" = true;
+  "userChrome.hidden.private_indicator" = true;
+
   # "userChrome.centered.tab" =                        true;
   # "userChrome.centered.tab.label" =                  true;
   # "userChrome.centered.urlbar" =                     true;
@@ -155,6 +162,7 @@
   # "userChrome.padding.drag_space.maximized" =        true;
 
   "userChrome.padding.toolbar_button.compact" = true;
+  # FIXME: not respected?
   "userChrome.padding.menu_compact" = false;
   "userChrome.padding.bookmark_menu.compact" = false;
   "userChrome.padding.urlView_expanding" = true;
@@ -183,6 +191,7 @@
   "userChrome.tabbar.one_liner.tabbar_first" = false; # Need one_liner
   "userChrome.tabbar.one_liner.responsive" = false; # Need one_liner
 
+  "userChrome.tab.blue_accent" = true; # Lepton v8.5.1+
   # "userChrome.tab.bottom_rounded_corner.all" =       true;
   # "userChrome.tab.bottom_rounded_corner.australis" = true;
   # "userChrome.tab.bottom_rounded_corner.edge" =      true;
@@ -195,8 +204,8 @@
   "userChrome.tab.close_button_at_pinned.background" = false;
   # "userChrome.tab.close_button_at_hover.always" =    true; # Need close_button_at_hover
   # "userChrome.tab.close_button_at_hover.with_selected" = true;  # Need close_button_at_hover
+  "userChrome.tab.selected_bold" = true;
   # "userChrome.tab.sound_show_label" =                true; # Need remove sound_hide_label
-  "userChrome.tab.blue_accent" = true; # Lepton v8.5.1+
 
   # "userChrome.navbar.as_sidebar" =                   true;
 
@@ -227,6 +236,8 @@
   "userContent.page.proton_color.dark_blue_accent" = true;
   "userContent.page.proton_color.system_accent" = true;
   "userContent.page.monospace" = true;
+  # TODO: does this force dark mode or respect system?
+  "userContent.page.dark_mode.pdf" = true;
 
   # == Theme Default Settings ===================================================
 
@@ -241,6 +252,10 @@
   "userChrome.theme.proton_chrome" = true; # Need proton_color
   "userChrome.theme.fully_color" = true; # Need proton_color
   "userChrome.theme.fully_dark" = true; # Need proton_color
+
+  "userChrome.theme.transparent.frame" = lib.mkDefault false;
+  "userChrome.theme.transparent.menu" = lib.mkDefault false;
+  "userChrome.theme.transparent.panel" = lib.mkDefault false;
 
   "userChrome.decoration.cursor" = true;
   "userChrome.decoration.field_border" = true;
@@ -264,10 +279,12 @@
   "userChrome.tab.unloaded" = true;
   "userChrome.tab.letters_cleary" = true;
   "userChrome.tab.close_button_at_hover" = true;
-  "userChrome.tab.sound_hide_label" = true;
+  "userChrome.tab.sound_hide_label" = lib.mkDefault true;
   "userChrome.tab.sound_with_favicons" = true;
+  "userChrome.tab.sound_with_favicons.on_center" = lib.mkDefault false;
   "userChrome.tab.pip" = true;
   "userChrome.tab.container" = true;
+  "userChrome.tab.container.on_top" = true;
   "userChrome.tab.crashed" = true;
 
   "userChrome.fullscreen.overlap" = true;
