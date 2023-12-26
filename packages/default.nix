@@ -30,6 +30,7 @@ in {
         fd = callPackage ./tools/misc/fd {};
         igr = callPackage ./tools/text/igr {};
         kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
+        kitty-grab = callPackage ./tools/misc/kitty-grab/package.nix {};
         synadm = callPackage ./development/tools/misc/synadm {};
 
         ##: fonts
