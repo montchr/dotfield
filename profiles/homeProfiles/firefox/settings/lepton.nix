@@ -9,9 +9,11 @@
 #   This happens because the settings will be kept in browser preferences state.
 #
 #   Alternatively, you can go to `about:config` and reset the setting.
-{lib, ...}: {
-  imports = [./lepton-linux.nix];
-
+{
+  lib,
+  isLinux,
+  ...
+}: {
   ### === userChrome ==========================================================
   # ** Theme Default Options ****************************************************
   # userchrome.css usercontent.css activate
@@ -83,6 +85,10 @@
   # "userChrome.compatibility.os.linux_non_native_titlebar_button" = true;
   # "userChrome.compatibility.os.windows_maximized" = true;
   # "userChrome.compatibility.os.win11" =             true;
+
+  ##: Linux
+  "userChrome.compatibility.os.linux_non_native_titlebar_button" = isLinux;
+  "userChrome.theme.non_native_menu" = isLinux;
 
   # == Theme Custom Settings ====================================================
 
@@ -225,7 +231,7 @@
   # "userChrome.icon.account_image_to_right" =         true;
   # "userChrome.icon.account_label_to_right" =         true;
   "userChrome.icon.menu.full" = true;
-  # "userChrome.icon.global_menu.mac" =                true;
+  # "userChrome.icon.global_menu.mac" =                isDarwin;
 
   # -- userContent -------------------------------------------------------------
 
