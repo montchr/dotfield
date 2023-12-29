@@ -1,5 +1,11 @@
+# FIXME: determine some approach to grouping/naming these collections of
+# profiles in a way that i don't find them confusing or redundant a couple
+# months later
+#
 # FIXME: avoid these inherited loose variables! they will make builds take
 # longer because their contents must be evaluated
+#
+# also, just, no more haumea imports for managing systems, it's way too much mental overhead
 {
   sharedProfiles,
   nixosProfiles,
@@ -19,7 +25,7 @@
 
     # TODO: this should be in some baseline profile since it's used repeatedly
     # and should generally be a default (is there any system where it is _not_
-    # used?)
+    # used?) ... also, like, what does this have to do with GUIs?
     nixosProfiles.boot.systemd-boot
   ];
 
