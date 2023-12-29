@@ -81,28 +81,6 @@ set searchurls.yt https://www.youtube.com/results?search_query=%s
 
 " --- Commands -----------------------------------------------------------------
 
-" Expand/collapse specified tab
-command ttcollapse js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'collapse-tree', tab: JS_ARGS[1]})€
-command ttcollapse_recursively js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'collapse-tree', tab: JS_ARGS[1], recursively: true})€
-command ttexpand js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'expand-tree', tab: JS_ARGS[1]})€
-command ttexpand_recursively js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'expand-tree', tab: JS_ARGS[1], recursively: true})€
-
-" Collapse current tab if expanded, otherwise collapse its parent
-command ttcollapse_current_or_parent js browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'get-tree-structure', tab: 'current'}).then(struct => browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'collapse-tree', tab: struct[0].collapsed ? 'parent' : 'current'}))
-
-" Move to parent/root and between siblings while jumping over subtrees
-command ttfocus js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'focus', tab: JS_ARGS[1]})€
-
-" Indent/outdent tabs
-command ttindent js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'indent', tab: JS_ARGS[1]})€
-command ttoutdent js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'outdent', tab: JS_ARGS[1]})€
-" Indent/outdent subtree
-command ttindent_recursively js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'indent', tab: JS_ARGS[1], followChildren: true})€
-command ttoutdent_recursively js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'outdent', tab: JS_ARGS[1], followChildren: true})€
-
-" Outdent children, promoting them to siblings
-" <https://github.com/tridactyl/tridactyl/issues/377#issuecomment-1002276244>
-command ttoutdent_children js -d€ browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'get-tree', tab: JS_ARGS[1]}).then(cur => console.log(cur.children.forEach(child => browser.runtime.sendMessage("treestyletab@piro.sakura.ne.jp", {type: 'outdent', tab: child.id}))))€
 
 " --- Bindings -----------------------------------------------------------------
 
