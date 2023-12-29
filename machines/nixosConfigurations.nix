@@ -143,6 +143,7 @@ in {
         ++ nixosSuites.workstation
         ++ [
           nixosProfiles.hardware.laptop
+          nixosProfiles.virtualisation.quickemu
         ];
     };
 
