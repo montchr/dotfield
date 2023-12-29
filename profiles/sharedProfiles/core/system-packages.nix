@@ -20,8 +20,8 @@
     gnused
     gnutar
     grc
+    ijq # <- interactive jq :: <https://git.sr.ht/~gpanders/ijq>
     jq
-    jql
     less
     moreutils
     nmap
