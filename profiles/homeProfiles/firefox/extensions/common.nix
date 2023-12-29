@@ -12,7 +12,6 @@ with addons; [
   link-cleaner
   multi-account-containers
   offline-qr-code-generator
-  old-reddit-redirect
   org-capture
   proton-pass
   raindropio
@@ -24,21 +23,9 @@ with addons; [
   tab-session-manager
   temporary-containers
   tridactyl
-  violentmonkey #                     <- <https://github.com/violentmonkey/violentmonkey>
-
-  ##: Simple Tab Groups + Extensions
-  simple-tab-groups
-  stg-plugin-create-new-group
-  stg-plugin-create-new-tab
-  stg-plugin-create-temp-tab
-  stg-plugin-del-current-group
-  stg-plugin-group-notes
-  stg-plugin-load-custom-group
-  stg-plugin-manage-groups
+  violentmonkey # <- <https://github.com/violentmonkey/violentmonkey>
 
   ##: TST + Extensions
-  tree-style-tab
-  tst-search
+  # tree-style-tab
+  # tst-search
 ]
-# FIXME: access to outer hm scope
-# ++ (l.optional config.programs.browserpass.enable firefox-addons.browserpass);
