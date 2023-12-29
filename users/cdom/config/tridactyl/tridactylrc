@@ -70,8 +70,6 @@ set searchurls.nixwiki https://nixos.wiki/index.php?search=
 set searchurls.npm https://bundlephobia.com/package/%s
 set searchurls.opts https://search.nixos.org/options?query=
 set searchurls.pkgs https://search.nixos.org/packages?query=
-" TODO: verify `old` works
-set searchurls.r https://old.reddit.com/r/%s/
 set searchurls.yt https://www.youtube.com/results?search_query=%s
 
 
