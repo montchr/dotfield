@@ -124,6 +124,7 @@ in {
         mono = fontname cfg.fonts.monospace;
       in {
         document-font-name = sans;
+        color-scheme = lib.mkDefault "prefer-dark";
         monospace-font-name = mono;
       };
     };
