@@ -5,7 +5,7 @@ with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/desktop/session" = {
       # TODO: longer for home theater, which are the primary gnome users
-      idle-delay = lib.mkDefault mkUint32 600;
+      idle-delay = lib.mkDefault (mkUint32 600);
     };
 
     "org/gnome/desktop/privacy" = {
