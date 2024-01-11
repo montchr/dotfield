@@ -18,7 +18,7 @@ in {
     ##: lsp-mode: use plists instead of hashtables for performance improvement
     # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
     # FIXME: broken since... recent update... (at least with nil-lsp for nix)
-    # LSP_USE_PLISTS = "true";
+    LSP_USE_PLISTS = "true";
   };
 
   # xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
@@ -28,10 +28,11 @@ in {
     package =
       if isDarwin
       then pkgs.emacs29-macport
-      else emacs-overlay.packages.emacs-unstable-pgtk;
+      # else pkgs.emacs-pgtk; # from master via emacs-overlay
+      # else pkgs.emacs29-pgtk;
+      else emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
     extraPackages = epkgs:
-      (import ./emacs-packages.nix epkgs)
-      ++ [
+      [
         ##: tree-sitter
         epkgs.treesit-grammars.with-all-grammars
         epkgs.treesit-auto
