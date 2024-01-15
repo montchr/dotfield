@@ -18,7 +18,6 @@ in {
     commands = [
       (dotfield colmena.packages.colmena)
       (dotfield home-manager.packages.default)
-      (dotfield namaka.packages.default)
       (dotfield nixpkgs.just)
       (dotfield nixpkgs.treefmt)
       (maintenance nixpkgs.nix-init)
