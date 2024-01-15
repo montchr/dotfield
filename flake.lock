@@ -1141,27 +1141,6 @@
         "type": "github"
       }
     },
-    "home-manager-gpg-agent-darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1681757448,
-        "narHash": "sha256-DcLtxE9a9CDpeAmm4ilOfkOoFsw2LZakQrKYlLtrUPI=",
-        "owner": "montchr",
-        "repo": "home-manager",
-        "rev": "3ec20d0b1565188547d90d2c53aa199f016e2b44",
-        "type": "github"
-      },
-      "original": {
-        "owner": "montchr",
-        "ref": "gpg-agent-darwin",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "incl": {
       "inputs": {
         "nixlib": [
@@ -2510,7 +2489,6 @@
           "haumea"
         ],
         "home-manager": "home-manager",
-        "home-manager-gpg-agent-darwin": "home-manager-gpg-agent-darwin",
         "iosevka-xtal": "iosevka-xtal",
         "microvm": "microvm",
         "namaka": "namaka_2",
