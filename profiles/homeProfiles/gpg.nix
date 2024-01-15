@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   flake,
   ops,
@@ -7,14 +8,13 @@
 }: let
   key = (config.dotfield.whoami).pgp;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  l = flake.inputs.nixpkgs.lib // builtins;
 in {
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
-  imports = [(flake.inputs.home-manager-gpg-agent-darwin + "/modules/services/gpg-agent.nix")];
-  disabledModules = ["services/gpg-agent.nix"];
+  #  imports = [(flake.inputs.home-manager-gpg-agent-darwin + "/modules/services/gpg-agent.nix")];
+  # disabledModules = ["services/gpg-agent.nix"];
 
-  config = l.mkIf ("" != key) {
+  config = lib.mkIf ("" != key) {
     home.sessionVariables.DOTFIELD_PGP_KEY = key;
 
     home.packages = with pkgs; [
@@ -29,7 +29,10 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = false;
-      pinentryFlavor = l.mkIf isDarwin "mac";
+      pinentryFlavor =
+        if isDarwin
+        then "mac"
+        else "gtk2";
       sshKeys = [key];
     };
 
@@ -54,6 +57,7 @@ in {
       settings = {
         # Keyserver URL
         # TODO: some of these might be dead
+        # TODO: there's a new and better one
         keyserver = "hkps://keys.openpgp.org";
         # keyserver hkps://keyserver.ubuntu.com:443
         # keyserver hkps://hkps.pool.sks-keyservers.net

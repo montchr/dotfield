@@ -68,7 +68,22 @@
               # FIXME: only for systems with emacs enabled, otherwise this will be evaluated always
               #        it does not appear to be possible to use these packages outside of the overlay.
               #        this in itself is probably the biggest reason to avoid using nix for emacs dependencies...
-              overlays = [inputs.emacs-overlay.overlays.default];
+              overlays = [
+                inputs.emacs-overlay.overlays.default
+
+                (final: prev: {
+                  inherit
+                    (inputs.nixpkgs-trunk.legacyPackages.${prev.stdenv.hostPlatform.system})
+                    pinentry
+                    pinentry-gtk2
+                    pinentry-emacs
+                    pinentry-curses
+                    pinentry-qt
+                    pinentry-rofi
+                    pinentry-gnome
+                    ;
+                })
+              ];
             };
           };
           formatter = inputs'.nixpkgs.legacyPackages.alejandra;
@@ -80,7 +95,7 @@
   inputs.nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
   inputs.nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-  # inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+  inputs.nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";
