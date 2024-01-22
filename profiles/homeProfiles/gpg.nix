@@ -32,7 +32,7 @@ in {
       pinentryFlavor =
         if isDarwin
         then "mac"
-        else "gtk2";
+        else "gnome3";
       sshKeys = [key];
     };
 
