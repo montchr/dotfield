@@ -1,8 +1,11 @@
+##: MacBookPro11,3 Core i7 2.3GHz 15in. (Late 2013) (Dual-Graphics)
+# <https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-dual-graphics-late-2013-retina-display-specs.html>
 {lib, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./profiles/sops.nix
     ./users/seadoom.nix
+    ./graphics.nix
   ];
 
   time.timeZone = "America/New_York";
@@ -23,16 +26,6 @@
 
   networking.usePredictableInterfaceNames = false;
   networking.firewall.enable = true;
-
-  # FIXME: unfortunately, this does not lead to great results
-  #        -- UI is still far too small
-  #
-  # diag = w: h: sqrt(w^2 + h^2);
-  # diagPx = diag 2880 1800;      => 3396.23320754
-  # diagIn = 15;
-  # ppi = diagPx / diagIn;        => 226.415547169
-  #
-  # services.xserver.dpi = 226;
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "seadoom";
