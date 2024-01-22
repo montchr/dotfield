@@ -230,8 +230,8 @@ Ryosuke is a "ghost of the circuit", a denizen of Kairo, LoBE.
 
 The Ryzen 9 5900X processor and mini-ITX Teenage Engineering Computer-1 case are the stars here.
 
-This is my primary computer. I carry it up and down three flights of stairs
-every day. I've also used it in the office as a "laptop".
+Currently (as of 2024-01-22), Ryosuke is serving as a living room HTPC. I've
+also used it in the office as a "laptop".
 
 ### `moraine`
 
@@ -269,10 +269,14 @@ Originally built in 2015, recently revamped.
 
 ### `HodgePodge` aka the "Sacred Chao"
 
-An early-2014 15-inch MacBook Pro who has seen quite the life. Mostly unused for
-the past several years due to the availability of more portable work laptops. It
-is now living out its life in a declarative retirement home. `nixos-rebuild` is
-impossibly slow, even with the binary cache and `ryosuke` as build host.
+An early-2014 15-inch MacBook Pro who has seen quite the life. ~Mostly unused
+for the past several years due to the availability of more portable work
+laptops. It is now living out its life in a declarative retirement home.~
+
+**Update [2024-01-22]:** This laptop has recently become my primary computer.
+
+`nixos-rebuild` is impossibly slow, even with the binary cache and `ryosuke` as
+build host.
 
 #### Specifications
 
