@@ -36,6 +36,7 @@ in {
     inetutils
     iputils
     lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
+    lshw # <- "Provide detailed information on the hardware configuration of the machine" <https://ezix.org/project/wiki/HardwareLiSter>
     pciutils
     sysstat
     usbutils
