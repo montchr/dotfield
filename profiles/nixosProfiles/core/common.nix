@@ -54,7 +54,7 @@ in {
   };
 
   # Passwordless sudo when SSH'ing with keys
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
 
   # TODO: reduce number of keys with access
   users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
