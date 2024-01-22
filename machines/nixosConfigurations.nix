@@ -142,7 +142,7 @@ in {
         ++ nixosSuites.desktop
         ++ nixosSuites.workstation
         ++ [
-          nixosProfiles.hardware.laptop
+          nixosProfiles.hardware.macbookpro-11-3
           nixosProfiles.virtualisation.quickemu
         ];
     };
