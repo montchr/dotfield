@@ -274,6 +274,22 @@ the past several years due to the availability of more portable work laptops. It
 is now living out its life in a declarative retirement home. `nixos-rebuild` is
 impossibly slow, even with the binary cache and `ryosuke` as build host.
 
+#### Specifications
+
+MacBookPro11,3 (Late 2013) (Dual-Graphics Retina Display)
+
+| Type                   | Item                                                                  |
+|:-----------------------|:----------------------------------------------------------------------|
+| **CPU**                | Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz (4-core)                    |
+| **Network Controller** | Broadcom BCM4360 802.11ac Dual Band Wireless Network Adapter (rev 03) |
+| **Video**              | NVIDIA Corporation GK107M [GeForce GT 750M Mac Edition] (rev a1)      |
+| **Video**              | TODO: some Intel integrated graphics                                                                      |
+| **Camera**             | Broadcom 720p FaceTime HD Camera                                      |
+| **Audio**              | Intel 8 Series / C220 Series HDAC                                     |
+| **Audio**              | NVIDIA GK107 HDMI Audio Controller                                    |
+| **SATA**               | Samsung S4LN053X01 AHCI SSD Controller (Apple slot)                   |
+
+
 ### Incubation
 
 #### `sommoch`

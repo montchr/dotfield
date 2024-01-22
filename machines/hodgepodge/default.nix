@@ -10,12 +10,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
   services.printing.enable = true;
 
-  # Hardware oddities specific to this machine.
+  ## Hardware oddities specific to this machine
+  # FIXME: quality is terrible -- linux-specific or just because this thing is old?
   hardware.facetimehd.enable = true;
   home-manager.sharedModules = lib.singleton {
     dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
-      # Trackpad physical button is unresponsive. Without tap-to-click, it would
-      # not possible to use the trackpad.
+      # NOTE: This machine's trackpad physical button is physically broken.
+      # Without tap-to-click, it would not possible to use the trackpad.
       tap-to-click = lib.mkForce true;
     };
   };
