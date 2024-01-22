@@ -283,11 +283,29 @@ MacBookPro11,3 (Late 2013) (Dual-Graphics Retina Display)
 | **CPU**                | Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz (4-core)                    |
 | **Network Controller** | Broadcom BCM4360 802.11ac Dual Band Wireless Network Adapter (rev 03) |
 | **Video**              | NVIDIA Corporation GK107M [GeForce GT 750M Mac Edition] (rev a1)      |
-| **Video**              | TODO: some Intel integrated graphics                                                                      |
 | **Camera**             | Broadcom 720p FaceTime HD Camera                                      |
 | **Audio**              | Intel 8 Series / C220 Series HDAC                                     |
 | **Audio**              | NVIDIA GK107 HDMI Audio Controller                                    |
 | **SATA**               | Samsung S4LN053X01 AHCI SSD Controller (Apple slot)                   |
+
+##### "Dual-Graphics"
+
+Technically, there is also an integrated Intel graphics card in addition to the
+discrete NVIDIA card. However, Apple decided to force the integrated Intel GPU
+to be disabled unless running macOS. There are ways around that (apparently
+rEFInd can help), but I don't think it's worth the extra effort.
+
+This issue was originally reported on the grub-devel mailing list, but it
+doesn't look like the patch was ever merged (but I don't yet understand how
+these mailing list workflows operate so it's pretty unclear to me what the
+actual "status" is).
+
+<https://lists.gnu.org/archive/html/grub-devel/2013-12/msg00442.html>
+
+For more info:
+
+- <https://gist.github.com/stefanocoding/c6dbf4489f330021bd9335d655c9fbbf>
+- <https://github.com/0xbb/apple_set_os.efi>
 
 
 ### Incubation
