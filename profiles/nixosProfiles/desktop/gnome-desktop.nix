@@ -16,12 +16,17 @@ in {
   # Prefer webmail or other (better) mail clients.
   environment.gnome.excludePackages = [pkgs.gnome.geary];
 
+  environment.systemPackages = with pkgs.gnomeExtensions; [
+    clipboard-history # <https://github.com/SUPERCILEX/gnome-clipboard-history>
+  ];
+
   home-manager.sharedModules = lib.singleton {
     imports = lib.singleton ../../homeProfiles/desktop/gnome/common.nix;
   };
 
   # Prevent GNOME session crashes when auto-login is enabled.
   # <https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229>
+  # TODO: should not be "default", should be normal
   systemd.services."getty@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
   systemd.services."autovt@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
 
