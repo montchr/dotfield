@@ -17,7 +17,8 @@ in {
   environment.gnome.excludePackages = [pkgs.gnome.geary];
 
   environment.systemPackages = with pkgs.gnomeExtensions; [
-    clipboard-history # <https://github.com/SUPERCILEX/gnome-clipboard-history>
+    clipboard-history
+    impatience # speed up gnome-shell animations
   ];
 
   home-manager.sharedModules = lib.singleton {
