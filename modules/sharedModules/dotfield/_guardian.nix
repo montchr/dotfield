@@ -51,6 +51,7 @@ in {
         "keys" # sops-nix
       ]
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
+      ++ (lib.optional config.services.keyd.enable "keyd")
       ++ (lib.optional config.services.mysql.enable "mysql")
       ++ (lib.optional config.virtualisation.docker.enable "docker");
   };
