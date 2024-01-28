@@ -20,9 +20,11 @@ in {
       (dotfield home-manager.packages.default)
       (dotfield nixpkgs.just)
       (dotfield nixpkgs.treefmt)
+
       (maintenance nixpkgs.nix-init)
       (maintenance nixpkgs.nix-prefetch)
       (maintenance nixpkgs.nix-tree)
+      (maintenance nixpkgs.nixdoc)
       (maintenance nixpkgs.nurl)
     ];
     env = [
