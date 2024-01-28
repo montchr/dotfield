@@ -38,10 +38,10 @@ in {
   programs.gh.settings.git_protocol = "ssh";
   programs.gh.extensions = [
     packages.gh-repo-explore
+    packages.gh-s
 
     pkgs.gh-dash
     pkgs.gh-eco
-    pkgs.gh-s
   ];
 
   programs.lazygit.enable = true;

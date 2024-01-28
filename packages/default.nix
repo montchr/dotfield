@@ -30,6 +30,7 @@ in {
         # FIXME: rename to indicate this package's distinction from upstream `fd`
         fd = callPackage ./tools/misc/fd {};
         gh-repo-explore = callPackage ./by-name/gh/gh-repo-explore/package.nix {};
+        gh-s = callPackage ./by-name/gh/gh-s/package.nix {};
         igr = callPackage ./tools/text/igr {};
         kitty-get-window-by-platform-id = callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix {};
         kitty-grab = callPackage ./tools/misc/kitty-grab/package.nix {};
