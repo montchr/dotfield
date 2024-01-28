@@ -2,8 +2,10 @@
   config,
   lib,
   pkgs,
+  flake,
   ...
 }: let
+  inherit (flake.perSystem) packages;
   inherit
     (config.dotfield.whoami)
     email
@@ -34,11 +36,12 @@ in {
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
-  programs.gh.extensions = with pkgs; [
-    gh-dash
-    gh-eco
-    gh-repo-explore
-    gh-s
+  programs.gh.extensions = [
+    packages.gh-repo-explore
+
+    pkgs.gh-dash
+    pkgs.gh-eco
+    pkgs.gh-s
   ];
 
   programs.lazygit.enable = true;
