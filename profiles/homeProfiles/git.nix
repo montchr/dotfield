@@ -17,21 +17,29 @@
     && config.services.gpg-agent.enable
     && "" != pgp;
 in {
-  home.packages =
-    [
-      pkgs.difftastic #   <- syntax-aware structural diff tool
-      pkgs.exiftool #     <- EXIF diff handler
-      pkgs.hut #          <- a sourcehut CLI (unofficial)
+  home.packages = [
+    pkgs.difftastic #   <- syntax-aware structural diff tool
+    pkgs.exiftool #     <- EXIF diff handler
+    pkgs.hut #          <- a sourcehut CLI (unofficial)
 
-      pkgs.gitAndTools.hub
-      pkgs.gitAndTools.gh
-      pkgs.gitAndTools.tig
+    pkgs.gitAndTools.hub
+    pkgs.gitAndTools.gh
+    pkgs.gitAndTools.tig
 
-      ##: --- for occasional-use ---
+    ##: --- for occasional-use ---
 
-      # git-filter-repo # :: history-rewrite toolkit + repo analysis + alternative
-      # to `git filter-branch` recommended *in the git manual itself*
-    ];
+    # git-filter-repo # :: history-rewrite toolkit + repo analysis + alternative
+    # to `git filter-branch` recommended *in the git manual itself*
+  ];
+
+  programs.gh.enable = true;
+  programs.gh.settings.git_protocol = "ssh";
+  programs.gh.extensions = with pkgs; [
+    gh-dash
+    gh-eco
+    gh-repo-explore
+    gh-s
+  ];
 
   programs.lazygit.enable = true;
 
@@ -116,7 +124,4 @@ in {
       }
     ];
   };
-
-  programs.gh.enable = true;
-  programs.gh.settings.git_protocol = "ssh";
 }
