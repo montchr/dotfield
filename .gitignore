@@ -11,35 +11,21 @@
 build
 result
 
-##: yarn/npm/etc.
-node_modules/
-.npm/
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
-##: php/composer/etc.
-.composer/
-vendor/
-
 ##: private/local files
 *.local
-.env*.local
+*.log
 *.pem
+.env*.local
 ops/keys/ssh/*
 !ops/keys/ssh/*.pub
+.scratch
+
+##: editors
+.dir-locals.el
+.idea
 
 ##: cache/state files
 .direnv/
-
-##: terraform
-*.tfstate*
-*.tfvars
-.terraform/
 
 ##: virtual machine images
 *.qcow2
@@ -75,6 +61,3 @@ statix.toml
 treefmt.toml
 lefthook.yml
 .prettierrc.json
-.idea
-.scratch
-/.dir-locals.el
