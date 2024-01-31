@@ -4,37 +4,44 @@ moduleArgs @ {
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isMacOS;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
 
-  cfg = config.programs.nnn;
+  sessionVariables = {
+    NNN_FIFO = "/tmp/nnn.fifo";
+    NNN_ICONLOOKUP = "1";
+    NNN_PISTOL = "1";
+    NNN_PREVIEWDIR = "${config.xdg.cacheHome}/nnn/previews";
+  };
 
   kittyCfg = config.programs.kitty;
 
   isGraphical = isMacOS || (moduleArgs.osConfig.services.xserver.enable or false);
+
+  # TODO: add wezterm support; and whatabout zellij?
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
 
-  shellAliases = {
-    nnn = "${cfg.package}/bin/nnn -a";
-  };
-
-  previewDeps = with pkgs;
+  previewDeps =
     [
-      bat
-      eza
-      file
-      man
-      mediainfo
-      pistol
-      unzip
+      pkgs.bat
+      pkgs.eza
+      pkgs.file
+      pkgs.glow
+      pkgs.man
+      pkgs.mediainfo
+      pkgs.pistol
+      pkgs.unzip
     ]
-    ++ (lib.optionals (isGraphical && !isMacOS) [
-      imagemagick
-      ffmpeg
-      ffmpegthumbnailer
-      fontpreview
-      poppler # pdf rendering
-      viu
-      w3m # text-mode web browser
+    ++ (lib.optionals isGraphical [
+      pkgs.imagemagick
+      pkgs.ffmpeg
+      pkgs.ffmpegthumbnailer
+      pkgs.fontpreview
+      pkgs.poppler # pdf rendering
+      pkgs.viu
+      pkgs.w3m # text-mode web browser
+    ])
+    ++ (lib.optionals (isGraphical && isLinux) [
+      pkgs.gnome-epub-thumbnailer
     ]);
 in {
   programs.nnn = {
@@ -47,14 +54,10 @@ in {
       lib.optionals enablePreviews previewDeps;
   };
 
-  home.sessionVariables = {
-    NNN_PREVIEWDIR = "${config.xdg.cacheHome}/nnn/previews";
-    # TODO: please enable previews! why is this disabled?
-    # USE_PISTOL = lib.optionalString enablePreviews "1";
-  };
-
-  programs.bash = {inherit shellAliases;};
-  programs.fish = {inherit shellAliases;};
-  programs.nushell = {inherit shellAliases;};
-  programs.zsh = {inherit shellAliases;};
+  home = {inherit sessionVariables;};
+  programs.bash = {inherit sessionVariables;};
+  programs.zsh = {inherit sessionVariables;};
+  # FIXME: unsupported
+  # programs.fish = {inherit sessionVariables;};
+  # programs.nushell = {inherit sessionVariables;};
 }
