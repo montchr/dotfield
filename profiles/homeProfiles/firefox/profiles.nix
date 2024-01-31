@@ -42,7 +42,7 @@ hmArgs @ {
   userChrome = let
     inherit (mixins.common) themeSettings;
   in ''
-    @import url("css/leptonChrome.css");
+    /* @import url("css/leptonChrome.css"); */
 
     :root {
       ${themeSettings {inherit (theme) fonts;}}
@@ -70,7 +70,7 @@ hmArgs @ {
     inherit (mixins.common) themeSettings;
     inherit (mixins.userContent) monospaceText;
   in ''
-    @import url("css/leptonContent.css");
+    /* @import url("css/leptonContent.css"); */
 
     :host,
     :root {
@@ -127,7 +127,7 @@ in {
     settings = makeSettings' {
       imports = [
         ./settings/browser-toolbox.nix
-        ./settings/lepton.nix
+        # ./settings/lepton.nix
         # TODO: dogfood for a while
         ./settings/ui-state.nix
       ];
@@ -140,7 +140,7 @@ in {
   programs.firefox.profiles.work = {
     inherit extensions userContent;
     userChrome = ''
-      @import url("css/leptonChrome.css");
+      /* @import url("css/leptonChrome.css"); */
     '';
     id = 1;
 
@@ -150,12 +150,13 @@ in {
 
     # FIXME: distinguish appearance from other profile
     settings = makeSettings' {
-      imports = [./settings/lepton.nix];
+      #       imports = [./settings/lepton.nix];
       "browser.startup.homepage" = "about:blank";
       "userChrome.theme.monospace" = false;
     };
   };
 
+  # TODO: make this an optional package for per-machine usage
   home.packages = l.optional isLinux (pkgs.makeDesktopItem {
     name = "firefox-work-profile";
     desktopName = "Firefox (Work)";
@@ -166,10 +167,10 @@ in {
   });
 
   # TODO: extract to function
-  home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
-    profileDir = "${profilesPath}/${profile.path}";
-  in {
-    "${profileDir}/chrome/css".source = "${firefox-ui-fix}/chrome/css";
-    "${profileDir}/chrome/icons".source = "${firefox-ui-fix}/chrome/icons";
-  }));
+  # home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
+  #   profileDir = "${profilesPath}/${profile.path}";
+  # in {
+  #   "${profileDir}/chrome/css".source = "${firefox-ui-fix}/chrome/css";
+  #   "${profileDir}/chrome/icons".source = "${firefox-ui-fix}/chrome/icons";
+  # }));
 }
