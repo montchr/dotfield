@@ -10,3 +10,8 @@ function list_all() {
     eza --all --group-directories-first --grid
 }
 chpwd_functions=(${chpwd_functions[@]} "list_all")
+
+# Support for Emacs EAT package
+# <https://codeberg.org/akib/emacs-eat>
+[[ -n "$EAT_SHELL_INTEGRATION_DIR" ]] && \
+  source "$EAT_SHELL_INTEGRATION_DIR"
