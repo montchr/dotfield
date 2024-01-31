@@ -4,3 +4,9 @@
 # if the glob doesn't match anything, then just run the thing verbatim, duh come one come on
 # <https://github.com/ohmyzsh/ohmyzsh/issues/449#issuecomment-6973425>
 unsetopt nomatch
+
+function list_all() {
+    emulate -L zsh
+    eza --all --group-directories-first --grid
+}
+chpwd_functions=(${chpwd_functions[@]} "list_all")
