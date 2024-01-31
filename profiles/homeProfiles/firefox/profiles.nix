@@ -111,9 +111,8 @@ hmArgs @ {
       "Nix Packages" = import ./search/nix-packages.nix {inherit pkgs;};
       "NixOS Wiki" = import ./search/nixos-wiki.nix;
       "Noogle" = engine' "nl" "https://noogle.dev/?term=%22{searchTerms}%22";
-      # searxng often go down or become unusable due to api blocking from the major search engines
-      # this is a meta-searx instance, however...
-      "searx" = engine' "s" "https://searx.neocities.org/#q={searchTerms}&category_general=on";
+      # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
+      "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
     };
     # required to be effective; disabled by default to prevent unintentional data loss
     force = true;
