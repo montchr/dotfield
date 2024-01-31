@@ -28,12 +28,13 @@
     nushell
     openssh
     openssl
-    (ripgrep.override {withPCRE2 = true;})
     rclone
+    (ripgrep.override {withPCRE2 = true;})
     rsync
     screen
     sd
     tealdeer
+    ugrep
     vim
     wget
     # FIXME: <https://github.com/NixOS/nixpkgs/issues/260552>
