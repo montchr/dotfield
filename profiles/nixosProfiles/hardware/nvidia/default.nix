@@ -1,0 +1,3 @@
+{
+  imports = [./stable-release.nix];
+}

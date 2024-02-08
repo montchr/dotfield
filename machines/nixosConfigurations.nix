@@ -133,7 +133,7 @@ in {
           hardware.focusrite-scarlett-18i20-mk1
           # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
           #       (same goes for intel/amd cpu but i don't bother with intel cpus)
-          hardware.nvidia
+          hardware.nvidia.beta-release
           hardware.razer
         ]);
     };

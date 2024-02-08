@@ -65,6 +65,10 @@
             pkgs = import nixpkgs {
               inherit system;
               config.allowUnfree = true;
+
+              # FIXME: per-system!
+              # config.nvidia.acceptLicense = true;
+
               # FIXME: only for systems with emacs enabled, otherwise this will be evaluated always
               #        it does not appear to be possible to use these packages outside of the overlay.
               #        this in itself is probably the biggest reason to avoid using nix for emacs dependencies...
