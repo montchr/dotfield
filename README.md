@@ -292,6 +292,8 @@ MacBookPro11,3 (Late 2013) (Dual-Graphics Retina Display)
 | **Audio**              | NVIDIA GK107 HDMI Audio Controller                                    |
 | **SATA**               | Samsung S4LN053X01 AHCI SSD Controller (Apple slot)                   |
 
+**Tip:** to determine Apple model within Linux, run `grep -h . /sys/devices/virtual/dmi/id/board_v*`.
+
 ##### "Dual-Graphics"
 
 Technically, there is also an integrated Intel graphics card in addition to the
@@ -311,6 +313,27 @@ For more info:
 - <https://gist.github.com/stefanocoding/c6dbf4489f330021bd9335d655c9fbbf>
 - <https://github.com/0xbb/apple_set_os.efi>
 
+##### Display flickering
+
+[Flickering with gnome 3.22.2-1 + gdm on macbook pro / Applications & Desktop Environments / Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=219442)
+
+Start the machine with the power adapter unplugged (either boot or wake).
+
+> Whenever I've had the flicker today I've fixed it by: Unplug power cable, shut
+> the lid, allow it to suspend (wait for the apple logo light to go out), open
+> the lid, re-plug power cable. This process has removed the flicker the two
+> times I've had it today.
+
+Note that this is **not** specific to GNOME, but affects KDE Plasma and SDDM too
+(according to one user's report).
+
+The discussion resulted in a chain of bug reports leading here:
+
+<https://gitlab.freedesktop.org/drm/amd/-/issues/759>
+
+The discussion and bug report also pertain to AMD graphics, which doesn't apply
+to the MacBookPro11,3 model. And yet the power adapter workaround still seems to
+help resolve the issue with this machine's NVIDIA graphics...
 
 ### Incubation
 
