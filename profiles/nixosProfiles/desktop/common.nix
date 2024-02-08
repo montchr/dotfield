@@ -14,7 +14,7 @@ in {
   ];
 
   services.xserver.enable = true;
-  services.xserver.layout = "us";
+  services.xserver.xkb.layout = "us";
 
   # FIXME: none of this shit works, destroy destroy destroy!
   dotfield.guardian.user.extraGroups = ["audio" "video"];
