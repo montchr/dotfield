@@ -14,7 +14,7 @@ in {
       description = "Whether to designate a guardian user for this system.";
     };
 
-    username = mkOption {
+    username = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
       description = ''
