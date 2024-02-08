@@ -20,6 +20,8 @@ moduleArgs @ {
   # TODO: add wezterm support; and whatabout zellij?
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
 
+  # FIXME: make sure the wrapped package can access these
+  #        currently no syntax highlighting in previews
   previewDeps =
     [
       pkgs.bat
