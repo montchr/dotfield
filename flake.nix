@@ -153,15 +153,13 @@
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
-  ##: darwin-only
-  inputs.prefmanager.url = "github:malob/prefmanager";
-
-  ##: linux-only
+  ##: system
   inputs.disko.url = "github:nix-community/disko";
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+  inputs.prefmanager.url = "github:malob/prefmanager";
 
   ##: et cetera ad infinitum
   # inputs.apparat.inputs.std.follows = "std";
