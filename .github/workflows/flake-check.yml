@@ -14,7 +14,7 @@ jobs:
 
       # Required for accessing private repos with an authorised key.
       - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2.5.1
+        uses: shimataro/ssh-key-action@v2.7.0
         with:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
