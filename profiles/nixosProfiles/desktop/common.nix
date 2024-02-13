@@ -26,6 +26,9 @@ in {
     driSupport = true;
   };
 
+  # Always support GTK applications.
+  # programs.dconf.enable = true;
+
   security.sudo.wheelNeedsPassword = false;
 
   # Hide cursor upon keystroke.
