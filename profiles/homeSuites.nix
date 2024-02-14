@@ -105,6 +105,7 @@
       ++ writing
       ++ [
         homeProfiles.kitty.default
+        homeProfiles.ledger
         homeProfiles.vhs
         homeProfiles.yubikey
       ];
