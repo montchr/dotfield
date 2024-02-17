@@ -43,8 +43,11 @@
   # Install completions for system packages.
   environment.pathsToLink =
     ["/share/bash-completion"]
-    ++ (lib.optional config.programs.fish.enable "/share/fish")
+    # FIXME: figure out how to enable this without making all system rebuilds take forever
+    # ++ (lib.optional config.programs.fish.enable "/share/fish")
     ++ (lib.optional config.programs.zsh.enable "/share/zsh");
+
+  programs.fish.enable = lib.mkDefault true;
 
   programs.zsh = {
     enable = lib.mkDefault true;
@@ -59,6 +62,4 @@
     enableCompletion = lib.mkForce false;
     enableBashCompletion = lib.mkForce false;
   };
-
-  programs.fish.enable = lib.mkDefault true;
 }
