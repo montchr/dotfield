@@ -16,7 +16,7 @@ in {
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
 
-  # FIXME: none of this shit works, destroy destroy destroy!
+  # FIXME: guardian should set these automatically, be very careful
   dotfield.guardian.user.extraGroups = ["audio" "video"];
 
   xdg.portal.enable = true;
