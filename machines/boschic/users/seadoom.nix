@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   ops,
   ...
@@ -9,6 +10,7 @@
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/seadoom/passphrase".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    shell = pkgs.zsh;
   };
   home-manager.users.seadoom = hmArgs: {
     imports = with hmArgs.roles; workstation;

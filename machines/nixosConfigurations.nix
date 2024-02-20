@@ -127,8 +127,11 @@ in {
         ++ (with nixosProfiles; [
           boot.refind
           desktop.flatpak
+          # FIXME: clarify that this means an amd cpu, NOT gpu
           hardware.amd
           # login.greetd
+          # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
+          #       (same goes for intel/amd cpu but i don't bother with intel cpus)
           hardware.nvidia
           # FIXME: remove
           # virtualisation.vm-variant

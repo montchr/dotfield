@@ -11,10 +11,11 @@
     ./parallels-guest.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "prl-tools"
-    ];
+  # FIXME: must be set when insantiating nixpkgs
+  # nixpkgs.config.allowUnfreePredicate = pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "prl-tools"
+  #   ];
 
   hardware.parallels = {
     enable = true;
