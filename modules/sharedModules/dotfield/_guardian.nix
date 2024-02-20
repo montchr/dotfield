@@ -58,6 +58,7 @@ in {
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
       ++ (lib.optional config.services.keyd.enable "keyd")
       ++ (lib.optional config.services.mysql.enable "mysql")
+      ++ (lib.optional config.hardware.openrazer.enable "openrazer")
       ++ (lib.optional config.virtualisation.docker.enable "docker");
   };
 }

@@ -71,6 +71,7 @@ in {
         (with nixosSuites; desktop ++ gnome ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
+          hardware.razer
           # login.greetd
           # virtualisation.vm-variant
         ]);
@@ -133,6 +134,7 @@ in {
           # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
           #       (same goes for intel/amd cpu but i don't bother with intel cpus)
           hardware.nvidia
+          hardware.razer
           # FIXME: remove
           # virtualisation.vm-variant
         ]);
