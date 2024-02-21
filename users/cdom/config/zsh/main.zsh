@@ -5,11 +5,11 @@
 # <https://github.com/ohmyzsh/ohmyzsh/issues/449#issuecomment-6973425>
 unsetopt nomatch
 
-function list_all() {
+function chpwd-list-all() {
     emulate -L zsh
     eza --all --group-directories-first --grid
 }
-chpwd_functions=(${chpwd_functions[@]} "list_all")
+add-zsh-hook -Uz chpwd chpwd-list-all
 
 # Support for Emacs EAT package
 # <https://codeberg.org/akib/emacs-eat>
