@@ -22,7 +22,6 @@ in {
 
     ./bat.nix
     ./home-packages.nix
-    ./nixpkgs-config.nix
     ./tealdeer.nix
   ];
 
