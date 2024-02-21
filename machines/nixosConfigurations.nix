@@ -130,13 +130,11 @@ in {
           desktop.flatpak
           # FIXME: clarify that this means an amd cpu, NOT gpu
           hardware.amd
-          # login.greetd
+          hardware.focusrite-scarlett-18i20-mk1
           # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
           #       (same goes for intel/amd cpu but i don't bother with intel cpus)
           hardware.nvidia
           hardware.razer
-          # FIXME: remove
-          # virtualisation.vm-variant
         ]);
     };
 

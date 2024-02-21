@@ -156,6 +156,7 @@
   ##: system
   inputs.disko.url = "github:nix-community/disko";
   inputs.microvm.url = "github:astro/microvm.nix";
+  inputs.musnix.url = "github:musnix/musnix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";

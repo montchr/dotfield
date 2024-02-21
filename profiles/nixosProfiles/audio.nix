@@ -8,6 +8,7 @@
   environment.systemPackages = [
     # TODO: maybe on non-gnome
     # pkgs.pwvucontrol
+
   ];
 
   hardware.pulseaudio.enable = false;
@@ -17,5 +18,8 @@
     alsa.support32Bit = true;
     jack.enable = true;
     pulse.enable = true;
+    # "Modular session / policy manager for PipeWire"
+    wireplumber.enable = true;
   };
+
 }

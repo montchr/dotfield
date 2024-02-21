@@ -267,6 +267,90 @@ Originally built in 2015, recently revamped.
 | **Power Supply**             | [Corsair AX 760 W 80+ Platinum Certified Fully Modular ATX Power Supply](https://pcpartpicker.com/product/Yhbp99/corsair-power-supply-ax760)                                            |
 | **Wireless Network Adapter** | [TP-Link Archer T5E 802.11a/b/g/n/ac PCIe x1 Wi-Fi Adapter](https://pcpartpicker.com/product/XdcRsY/tp-link-archer-t5e-pcie-x1-80211abgnac-wi-fi-adapter-archer-t5e)                    |
 
+#### Audio/Video Input/Output
+
+Workstation desk has the following devices:
+
+- Audio in/out: Focusrite Scarlett 18i20 [Gen 1] Audio Interface/Mixer
+- Video in, Audio (mic) in: Logitech Brio 501 Webcam
+
+```console
+seadoom@boschic ~ % dmesg | grep -i -B 3 focusrite
+[    1.567008] usb 5-1: New USB device found, idVendor=1235, idProduct=800c, bcdDevice= 4.4c
+[    1.567011] usb 5-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    1.567012] usb 5-1: Product: Scarlett 18i20 USB
+[    1.567013] usb 5-1: Manufacturer: Focusrite
+
+seadoom@boschic ~ % pw-dump | grep node.name | grep alsa
+        "node.name": "alsa_input.usb-046d_Brio_501_2235LZ52HK58-02.analog-stereo",
+        "node.name": "alsa_output.pci-0000_0c_00.4.iec958-stereo",
+        "node.name": "alsa_input.pci-0000_0c_00.4.analog-stereo",
+        "node.name": "alsa_output.pci-0000_0a_00.1.hdmi-stereo",
+        "node.name": "alsa_output.usb-Focusrite_Scarlett_18i20_USB-00.multichannel-output",
+        "node.name": "alsa_input.usb-Focusrite_Scarlett_18i20_USB-00.multichannel-input",
+
+seadoom@boschic ~ % lspci | grep -i audio
+0a:00.1 Audio device: NVIDIA Corporation GA102 High Definition Audio Controller (rev a1)
+0c:00.4 Audio device: Advanced Micro Devices, Inc. [AMD] Starship/Matisse HD Audio Controller
+
+seadoom@boschic ~ % lsusb | grep -i scarlett
+Bus 005 Device 008: ID 1235:800c Focusrite-Novation Scarlett 18i20
+```
+
+The 18i20 is connected to KRK Rokit 5 studio monitors via the interface's
+L/R monitor output channels. Unfortunately, ALSA resets the monitor output level
+to muted status each time the device is reconnected.
+
+See `/var/lib/alsa/asound.state` for the state of ALSA settings as of last boot.
+According to
+<https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_and_systemd>,
+updated values will be written on shutdown.
+
+Possible culprits for the mute status:
+
+(note that this one is not the 18i20, which is USB):
+
+```
+State.Generic {
+...
+	control.18 {
+		iface MIXER
+		name 'Auto-Mute Mode'
+		value Enabled
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Disabled
+			item.1 Enabled
+		}
+	}
+...
+}
+```
+
+And for the 18i20 itself:
+
+```
+State.USB {
+...
+	control.9 {
+		iface MIXER
+		name 'Master 1 (Monitor) Playback Switch'
+		value.0 false
+		value.1 false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 2
+		}
+	}
+...
+}
+```
+
+Source should be PCM 1
+
 ### `HodgePodge` aka the "Sacred Chao"
 
 An early-2014 15-inch MacBook Pro who has seen quite the life. ~Mostly unused
