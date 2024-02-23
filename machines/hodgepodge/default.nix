@@ -22,6 +22,12 @@
       # Without tap-to-click, it would not possible to use the trackpad.
       tap-to-click = lib.mkForce true;
     };
+
+    # The keyboard is also starting to go... but a super-thorough deep clean
+    # might help...
+    dconf.settings."org/gnome/desktop/a11y/applications" = {
+      screen-keyboard-enabled = lib.mkDefault true;
+    };
   };
 
   networking.usePredictableInterfaceNames = false;
