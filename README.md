@@ -502,8 +502,35 @@ available settings, similar to Firefox's `about:config` page.
 in combination with
 [home-manager/modules/misc/dconf.nix at master · nix-community/home-manager](https://github.com/nix-community/home-manager/blob/master/modules/misc/dconf.nix)
 
-I tried this once before and I remember it being unmanageable/breaking stuff,
-but maybe it's better now...
+#### Seahorse / `gnome-keyring-daemon`
+
+Unreliable and clunky.
+
+##### Default keyring lockouts
+
+On multiple occasions, I've gotten locked out of the default keyring,
+which is supposed to be the same as the login password. Deleting a couple files
+resets it:
+
+```sh
+rm ~/.local/share/keyrings/{login.keyring,user.keystore}
+```
+
+<https://github.com/NixOS/nixpkgs/issues/174099>
+
+##### Undismissible modal prompt
+
+When I first activated the Nextcloud Client application on boschic, I was
+prompted to unlock the `default` keyring. But because I was locked out, I needed
+to dismiss the prompt. The prompt immediately reappeared.
+
+Because the GNOME prompts are "accessible", there is no way to escape focus
+other than pressing cancel. That means that a process can spam request a prompt
+indefinitely, with no way to kill the process from within the GNOME session. I
+had to resort to C-M-F1 to switch to the virtual console / getty.
+
+On that note, considering that I've disabled getty@tty1 when autologin is
+enabled (due to a NixOS issue), switching tty might not work in those scenarios...
 
 #### Firefox
 
