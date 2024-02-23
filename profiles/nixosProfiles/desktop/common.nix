@@ -32,10 +32,11 @@ in {
   security.sudo.wheelNeedsPassword = false;
 
   # Hide cursor upon keystroke.
-  services.unclutter = {
-    enable = true;
-    keystroke = true;
-  };
+  # FIXME: "could not open display"
+  # services.unclutter = {
+  #   enable = true;
+  #   keystroke = true;
+  # };
 
   # Prevent stupid boot delays waiting for internet.
   # FIXME: this doesn't really seem to help much. dhcp still delays boot.
