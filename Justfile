@@ -133,7 +133,7 @@ system subcommand='build' *ARGS='':
 
 # <- Run the home-manager CLI for the project flake.
 home subcommand='build' *ARGS='':
-  home-manager {{subcommand}} --flake "{{prj-root}}" {{ARGS}}
+  home-manager {{subcommand}} --flake '{{prj-root}}' {{ARGS}}
   @echo {{msg-done}}
 
 home-specialise name:
