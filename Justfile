@@ -24,8 +24,7 @@ cachix-exec := "cachix watch-exec " + cachix-cache-name + " --jobs " + cachix-jo
 
 ##: directories/paths
 prj-root := env_var('PRJ_ROOT')
-# `package.json` runnables
-export PATH := "./node_modules/.bin:" + env_var('PATH')
+prj-data := env_var('PRJ_DATA_HOME')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
 # FIXME: works on darwin, broken on linux due to stray backslashes before slashes
