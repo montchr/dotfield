@@ -4,8 +4,8 @@
   lib,
   pkgs,
   ...
-}:
-with lib.hm.gvariant; {
+}: let
+in {
   dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     "org/gnome/calculator" = {
       accuracy = 9;
@@ -59,9 +59,6 @@ with lib.hm.gvariant; {
       ];
       favorite-apps = [
         "firefox.desktop"
-        "kitty.desktop"
-        "emacs.desktop"
-        "org.gnome.Nautilus.desktop"
       ];
       remember-mount-password = false;
     };
@@ -91,25 +88,12 @@ with lib.hm.gvariant; {
     #   name = "";
     # };
 
-    # "org/gnome/shell/world-clocks" = {
-    #   locations = "@av []";
-    # };
-
     # "org/gtk/settings/color-chooser" = {
     #   selected-color = mkTuple [ true 0.8705882352941177 ];
     # };
 
-    "org/gtk/settings/file-chooser" = {
-      # FIXME: which format?
-      date-format = "regular";
-      location-mode = "path-bar";
-      show-hidden = true;
-      show-size-column = true;
-      show-type-column = true;
-      sort-column = "name";
-      sort-directories-first = true;
-      sort-order = "ascending";
-      type-format = "category";
+    "org/gnome/system/location" = {
+      enabled = true;
     };
   };
 }
