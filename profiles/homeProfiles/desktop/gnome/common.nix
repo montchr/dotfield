@@ -1,5 +1,18 @@
-{lib, ...}:
-with lib.hm.gvariant; {
+{lib, ...}: let
+  inherit (lib.hm.gvariant) mkUint32 mkTuple;
+
+  fileChooserDefaults = {
+    date-format = "regular";
+    location-mode = "path-bar";
+    show-hidden = true;
+    show-size-column = true;
+    show-type-column = true;
+    sort-column = "name";
+    sort-directories-first = true;
+    sort-order = "ascending";
+    type-format = "category";
+  };
+in {
   imports = [../gtk/dconf-settings.nix];
 
   dconf.settings = {
@@ -19,12 +32,49 @@ with lib.hm.gvariant; {
       # toolkit-accessibility = false;
     };
 
+    "org/gnome/desktop/search-providers" = {
+      sort-order = [
+        "org.gnome.Nautilus.desktop"
+        "org.gnome.Documents.desktop"
+      ];
+    };
+
     "org/gnome/desktop/session" = {
       # TODO: longer for home theater, which are the primary gnome users
       idle-delay = lib.mkDefault (mkUint32 600);
     };
+    "org/gnome/settings-daemon/plugins/power" = {
+      power-button-action = "suspend";
+      sleep-inactive-ac-type = "nothing";
+    };
+
+    "org/gnome/shell/app-switcher" = {
+      current-workspace-only = false;
+    };
+
+    "org/gnome/mutter" = {
+      # Prevent annoying inability to exit eternal recurrence of this modal existence.
+      attach-modal-dialogs = true;
+      dynamic-workspaces = true;
+      edge-tiling = true;
+      # focus-change-on-pointer-rest = true;
+      # workspaces-only-on-primary = true;
+    };
+
+    "org/gnome/desktop/wm/preferences" = {
+      auto-raise = true;
+      # FIXME: want maximimize/toggle
+      button-layout = "appmenu:minimize,close";
+      focus-mode = "click";
+      num-workspaces = 2;
+      # FIXME: no hardcode
+      # titlebar-font = "Iosevka Comfy 10";
+      # workspace-names = [ "sys" "talk" "web" "edit" "run" ];
+    };
 
     "org/gnome/desktop/privacy" = {
+      disable-camera = true;
+      disable-microphone = true;
       old-files-age = mkUint32 30;
       recent-files-max-age = -1;
     };
@@ -44,5 +94,11 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/peripherals/keyboard" = {
       repeat = true;
     };
+
+    "org/gtk/gtk4/settings/file-chooser" =
+      fileChooserDefaults // {};
+
+    "org/gtk/settings/file-chooser" =
+      fileChooserDefaults // {};
   };
 }
