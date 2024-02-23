@@ -51,6 +51,7 @@ in {
     packages = [
       nixpkgs.alejandra
       nixpkgs.cachix
+      nixpkgs.crudini # CRUD for ini files -- for dconf dump manipulation
       nixpkgs.deadnix
       nixpkgs.editorconfig-checker
       nixpkgs.gh

@@ -139,6 +139,27 @@ home subcommand='build' *ARGS='':
 home-specialise name:
   {{ hm-gen-path }}/specialisation/{{ name }}/activate
 
+###: GNOME/GTK =================================================================
+
+# NOTE: dconf2nix is currently unable to parse some of the settings due to
+# unexpected characters. For this reason, we must delete some of the settings from
+# the dump file before passing to dconf2nix. See the usage of `crudini` for CRUD
+# operations on the INI-like dump format.
+#
+# <https://github.com/pixelb/crudini>
+
+# <- Export current dconf/GNOME/GTK/gsettings as INI and Nix files
+dconf-export out=prj-data:
+  dconf dump / > {{out}}/dconf.settings
+  crudini --del {{out}}/dconf.settings 'org/gnome/shell' 'app-picker-layout'
+  dconf2nix \
+    -i {{out}}/dconf.settings \
+    -o {{out}}/dconf.settings.nix
+  bat --style=plain --paging=never \
+    {{out}}/dconf.settings.nix
+  @echo 'Exported to {{out}}'
+  @echo {{msg-done}}
+
 
 ###: EMACS =====================================================================
 
