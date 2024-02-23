@@ -4,6 +4,4 @@
   ];
 
   home.packages = [pkgs.jellyfin-media-player];
-
-  services.jellyfin-mpv-shim.enable = true;
 }
