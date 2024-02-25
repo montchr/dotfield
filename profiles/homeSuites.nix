@@ -67,7 +67,6 @@
     # homeProfiles.theme.fonts.monospace.jetbrains-mono
     homeProfiles.theme.fonts.sans-serif.inter
     homeProfiles.theme.fonts.serif.ibm-plex-serif
-    homeProfiles.zotero
   ];
 
   trusted = [
