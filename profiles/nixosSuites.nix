@@ -66,6 +66,7 @@ in {
     nixosProfiles.boot.systemd-boot
     nixosProfiles.desktop.zoom-us
     nixosProfiles.hardware.printers-scanners.common
+    nixosProfiles.hardware.printers-scanners.epson-wf-3520
     nixosProfiles.hardware.yubikey
   ];
 }
