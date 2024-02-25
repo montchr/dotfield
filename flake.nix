@@ -147,7 +147,7 @@
 
   ##: customisation
   inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
-  inputs.firefox-addons.url = "github:seadome/firefox-addons";
+  inputs.firefox-addons.url = "sourcehut:~montchr/firefox-addons";
   inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
 
   ##: apps/tools
