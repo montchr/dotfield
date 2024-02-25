@@ -33,6 +33,11 @@
     indent_style = "space";
   };
 
+  "*.org" = {
+    indent_size = 8;
+    indent_style = "space";
+  };
+
   "*.{pub,txt}" = {
     indent_size = "unset";
     insert_final_newline = false;
