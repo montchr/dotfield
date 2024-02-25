@@ -86,9 +86,6 @@ in {
         config.allowUnfree = true;
         overlays = [
           nixos-apple-silicon.overlays.default
-          (final: prev: {
-            fd = self.packages.${final.stdenv.system}.fd;
-          })
         ];
       };
       modules =
