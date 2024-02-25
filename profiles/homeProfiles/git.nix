@@ -54,9 +54,10 @@ in {
     userEmail = email;
     userName = fullName;
 
-    signing = lib.mkIf enableSigning {
+    signing = {
       key = pgp;
-      signByDefault = true;
+      # opt-in to reduce low-gain hoop-jumping
+      signByDefault = lib.mkDefault false;
     };
 
     aliases = {
