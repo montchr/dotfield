@@ -11,7 +11,6 @@
   time.timeZone = "America/New_York";
 
   boot.loader.efi.canTouchEfiVariables = true;
-  services.printing.enable = true;
 
   ## Hardware oddities specific to this machine
   # FIXME: quality is terrible -- linux-specific or just because this thing is old?

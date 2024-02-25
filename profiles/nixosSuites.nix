@@ -32,19 +32,12 @@
   tangible = [
     nixosProfiles.hardware.keyboard
   ];
-
-  # TODO: merge into desktop
-  office = [
-    nixosProfiles.desktop.zoom-us
-    nixosProfiles.hardware.printers-scanners
-  ];
 in {
-  inherit audio graphical office tangible;
+  inherit audio graphical tangible;
 
   desktop =
     graphical
     ++ audio
-    ++ office
     ++ tangible;
 
   gnome = [
@@ -71,6 +64,8 @@ in {
     nixosProfiles.one-password
     nixosProfiles.bitwarden
     nixosProfiles.boot.systemd-boot
+    nixosProfiles.desktop.zoom-us
+    nixosProfiles.hardware.printers-scanners.common
     nixosProfiles.hardware.yubikey
   ];
 }

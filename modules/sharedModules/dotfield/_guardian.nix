@@ -55,6 +55,8 @@ in {
         "seadome"
         "keys" # sops-nix
       ]
+      ++ (lib.optionals config.services.printing.enable ["cups" "lp"])
+      ++ (lib.optionals config.hardware.sane.enable ["scanner" "lp"])
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
       ++ (lib.optional config.services.keyd.enable "keyd")
       ++ (lib.optional config.services.mysql.enable "mysql")
