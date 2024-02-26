@@ -5,7 +5,7 @@
     homeProfiles.development.nix-tools
     homeProfiles.direnv
     homeProfiles.fzf
-    homeProfiles.git
+    homeProfiles.git.default
     homeProfiles.helix
     homeProfiles.navi
     homeProfiles.nnn
