@@ -12,8 +12,12 @@
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
     shell = pkgs.zsh;
   };
-  home-manager.users.seadoom = hmArgs: {
-    imports = with hmArgs.roles; workstation;
+  home-manager.users.seadoom = {
+    profiles,
+    roles,
+    ...
+  }: {
+    imports = roles.workstation ++ [profiles.browsers.nyxt];
     home.stateVersion = "21.11";
   };
 }
