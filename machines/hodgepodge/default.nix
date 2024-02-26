@@ -13,8 +13,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   ## Hardware oddities specific to this machine
-  # FIXME: quality is terrible -- linux-specific or just because this thing is old?
-  hardware.facetimehd.enable = true;
   home-manager.sharedModules = lib.singleton {
     dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
       # NOTE: This machine's trackpad physical button is physically broken.

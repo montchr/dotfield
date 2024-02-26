@@ -18,7 +18,7 @@ in {
   hardware.asahi.peripheralFirmwareDirectory = lib.mkDefault firmwareInput.packages.default;
   hardware.asahi.addEdgeKernelConfig = lib.mkDefault true;
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
-  boot.extraModprobeConfig = ''
-    options hid_apple iso_layout=0
-  '';
+
+  hardware.facetimehd.enable = lib.mkForce false;
+  services.mbpfan.enable = lib.mkForce false;
 }

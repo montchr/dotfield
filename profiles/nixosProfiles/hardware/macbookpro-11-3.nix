@@ -1,3 +1,0 @@
-{...}: {
-  imports = [./macbookpro.nix];
-}

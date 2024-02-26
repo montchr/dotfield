@@ -93,7 +93,7 @@ in {
         ++ nixosSuites.desktop
         ++ nixosSuites.workstation
         ++ [
-          nixosProfiles.hardware.asahi
+          nixosProfiles.hardware.apple.macbook-14-2
           nixosProfiles.hardware.laptop
         ];
     });
@@ -142,7 +142,7 @@ in {
         ++ nixosSuites.desktop
         ++ nixosSuites.workstation
         ++ [
-          nixosProfiles.hardware.macbookpro-11-3
+          nixosProfiles.hardware.apple.macbookpro-11-3
           nixosProfiles.virtualisation.quickemu
         ];
     };
