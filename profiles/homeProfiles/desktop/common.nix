@@ -17,6 +17,7 @@ in {
 
   home.packages =
     [
+      pkgs.gimp-with-plugins
       pkgs.mediainfo
     ]
     ++ lib.optionals isLinux [
