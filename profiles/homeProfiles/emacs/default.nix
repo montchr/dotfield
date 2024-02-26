@@ -14,13 +14,6 @@ in {
     ./extra-packages.nix
   ];
 
-  home.sessionVariables = {
-    ##: lsp-mode: use plists instead of hashtables for performance improvement
-    # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
-    # FIXME: broken since... recent update... (at least with nil-lsp for nix)
-    LSP_USE_PLISTS = "true";
-  };
-
   # xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
 
   programs.emacs = {
