@@ -26,31 +26,8 @@ in {
       else emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
     extraPackages = epkgs:
       [
-        ##: tree-sitter
         epkgs.treesit-grammars.with-all-grammars
         epkgs.treesit-auto
-        # via <https://github.com/pimeys/nixos/blob/cc608789192a1c33a6cdb598b59e1543c91f6fb7/desktop/emacs/default.nix>
-        # referred from <https://github.com/NixOS/nixpkgs/pull/150239>
-        #
-        # FIXME: not working in Emacs yet
-        #
-        # (treesit-language-available-p 'toml)
-        # => nil
-        #
-        # M-x toml-ts-mode
-        # => ⛔ Warning (treesit): Cannot activate tree-sitter, because language grammar for toml is unavailable (not-found): (libtree-sitter-toml.so libtree-sitter-toml.so.0 libtree-sitter-toml.so.0.0 libtree-sitter-toml.dylib libtree-sitter-toml.dylib.0 libtree-sitter-toml.dylib.0.0) No such file or directory
-        #
-        # installing manually with M-x treesit-install-language-grammar works though
-        # FIXME: restore; temporarily disabled to reduce noise in load-path
-        # epkgs.tree-sitter
-        # (epkgs.tree-sitter-langs.withPlugins (p:
-        #   epkgs.tree-sitter-langs.plugins
-        #   ++ [
-        #     p.tree-sitter-markdown
-        #     p.tree-sitter-elisp
-        #     p.tree-sitter-make
-        #     p.tree-sitter-toml
-        #   ]))
       ];
   };
 
