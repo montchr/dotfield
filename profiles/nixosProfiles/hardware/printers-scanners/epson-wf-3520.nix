@@ -9,6 +9,9 @@
 # No additional configuration or packages required.
 # Not supported by Gutenprint.
 #
+# Current settings (with non-default: one-sided and reverse):
+# copies=1 device-uri=dnssd://EPSON%20WF-3520%20Series._ipp._tcp.local/?uuid=7c47f900-67ff-11d4-9a7f-b0e89208cb87 finishings=3 job-cancel-after=10800 job-hold-until=no-hold job-priority=50 job-sheets=confidential,none marker-change-time=0 number-up=1 outputorder=reverse print-color-mode=color printer-commands=none printer-info='EPSON WF-3520 Series' printer-is-accepting-jobs=true printer-is-shared=false printer-is-temporary=false printer-location='Labortatory 1' printer-make-and-model='Epson WF-3520 Series - epson-inkjet-printer 1.0.0-1lsb3.2 (Seiko Epson Corporation LSB 3.2)' printer-state=3 printer-state-change-time=1708968150 printer-state-reasons=none printer-type=2273308 printer-uri-supported=ipp://localhost/printers/LABORTTY sides=one-sided
+#
 ##: Scanning:
 #
 # <http://www.sane-project.org/man/sane-epson2.5.html>
