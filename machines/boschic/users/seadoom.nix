@@ -17,7 +17,12 @@
     roles,
     ...
   }: {
-    imports = roles.workstation ++ [profiles.browsers.nyxt];
+    imports =
+      roles.workstation
+      ++ [
+        profiles.browsers.nyxt
+        profiles.git.with-pgp-signing
+      ];
     home.stateVersion = "21.11";
   };
 }
