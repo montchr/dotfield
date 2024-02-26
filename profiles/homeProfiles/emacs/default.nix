@@ -26,6 +26,7 @@ in {
       else emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
     extraPackages = epkgs:
       [
+        epkgs.pdf-tools
         epkgs.treesit-grammars.with-all-grammars
         epkgs.treesit-auto
       ];
