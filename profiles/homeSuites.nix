@@ -103,6 +103,7 @@
       ++ webdev
       ++ writing
       ++ [
+        homeProfiles.git.with-pgp-signing
         homeProfiles.kitty.default
         homeProfiles.ledger
         homeProfiles.vhs

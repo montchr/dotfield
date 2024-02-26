@@ -11,13 +11,7 @@
     email
     fullName
     githubUserName
-    pgp
     ;
-
-  enableSigning =
-    config.programs.gpg.enable
-    && config.services.gpg-agent.enable
-    && "" != pgp;
 in {
   home.packages = [
     pkgs.difftastic #   <- syntax-aware structural diff tool
@@ -53,12 +47,6 @@ in {
 
     userEmail = email;
     userName = fullName;
-
-    signing = {
-      key = pgp;
-      # opt-in to reduce low-gain hoop-jumping
-      signByDefault = lib.mkDefault false;
-    };
 
     aliases = {
       snapshot = ''!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'';
