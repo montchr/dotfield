@@ -1,6 +1,7 @@
 {
   config,
   ops,
+  pkgs,
   ...
 }: let
   username = "cdom";
@@ -11,6 +12,7 @@ in {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."user-${username}-hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    shell = pkgs.zsh;
   };
 
   services.xserver.displayManager.autoLogin.enable = true;
