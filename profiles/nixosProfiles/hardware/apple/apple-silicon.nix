@@ -16,7 +16,6 @@ in {
   ];
 
   hardware.asahi.peripheralFirmwareDirectory = lib.mkDefault firmwareInput.packages.default;
-  hardware.asahi.addEdgeKernelConfig = lib.mkDefault true;
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   hardware.facetimehd.enable = lib.mkForce false;
