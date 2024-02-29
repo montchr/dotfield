@@ -5,18 +5,13 @@
   ...
 }: let
   inherit (self) inputs lib;
-  inherit (inputs) apparat darwin haumea home-manager;
-  inherit (apparat.lib) flattenTree;
-  l = inputs.nixpkgs.lib // builtins;
+  inherit (inputs) darwin haumea home-manager;
 
-  darwinModules = import ../modules/darwinModules.nix;
+  darwinModules = import ../darwin/modules-list.nix;
   darwinProfiles = import ../profiles/darwinProfiles.nix {inherit haumea;};
   darwinSuites = import ../profiles/darwinSuites.nix {inherit sharedProfiles darwinProfiles;};
-  sharedModules = import ../modules/sharedModules.nix {inherit haumea;};
+  sharedModules = import ../common/modules-list.nix;
   sharedProfiles = import ../profiles/sharedProfiles.nix {inherit haumea;};
-
-  darwinModules' = flattenTree darwinModules;
-  sharedModules' = flattenTree sharedModules;
 
   defaultModules = [
     sharedProfiles.core.default
@@ -36,8 +31,8 @@
           pkgs = darwinArgs.pkgs or pkgs;
           modules =
             defaultModules
-            ++ (l.attrValues sharedModules')
-            ++ (l.attrValues darwinModules')
+            sharedModules
+            ++ darwinModules
             ++ (darwinArgs.modules or [])
             ++ darwinSuites.workstation
             ++ [
@@ -51,7 +46,8 @@
         }
     );
 in {
-  flake.darwinModules = darwinModules';
+  # FIXME: re-expose with haumea?
+  # flake.darwinModules = darwinModules';
   flake.darwinConfigurations = {
     tuvix = makeDarwinSystem "tuvix" {
       system = "aarch64-darwin";

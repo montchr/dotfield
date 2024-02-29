@@ -10,14 +10,12 @@
   inherit (apparat.lib) flattenTree;
   l = inputs.nixpkgs.lib // builtins;
 
-  nixosModules = import ../modules/nixosModules.nix;
+  commonModules = import ../common/modules-list.nix;
+  nixosModules = import ../nixos/modules-list.nix;
+
   nixosProfiles = import ../profiles/nixosProfiles.nix {inherit haumea;};
   nixosSuites = import ../profiles/nixosSuites.nix {inherit sharedProfiles nixosProfiles;};
-  sharedModules = import ../modules/sharedModules.nix {inherit haumea;};
   sharedProfiles = import ../profiles/sharedProfiles.nix {inherit haumea;};
-
-  nixosModules' = flattenTree nixosModules;
-  sharedModules' = flattenTree sharedModules;
 
   defaultModules = [
     sharedProfiles.core.default
@@ -39,8 +37,8 @@
           };
           modules =
             defaultModules
-            ++ (l.attrValues sharedModules')
-            ++ (l.attrValues nixosModules')
+            ++ commonModules
+            ++ nixosModules
             ++ (nixosArgs.modules or [])
             ++ [
               ./${hostName}
