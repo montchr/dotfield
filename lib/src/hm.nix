@@ -9,10 +9,9 @@
   inherit (flake.inputs) apparat haumea home-manager;
   inherit (apparat.lib) homePrefix;
 
-  # TODO: is `outPath` necessary? added it during debugging
-  homeModules = import "${flake.self.outPath}/home/modules-list.nix";
-  homeProfiles = import "${flake.self.outPath}/profiles/homeProfiles.nix" {inherit haumea;};
-  homeSuites = import "${flake.self.outPath}/profiles/homeSuites.nix" {inherit homeProfiles;};
+  homeModules = import "${flake.self}/home/modules-list.nix";
+  homeProfiles = import "${flake.self}/profiles/homeProfiles.nix" {inherit haumea;};
+  homeSuites = import "${flake.self}/profiles/homeSuites.nix" {inherit homeProfiles;};
 
   specialArgs = {
     flake = flakeSpecialArgs;

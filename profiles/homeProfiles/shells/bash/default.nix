@@ -33,7 +33,7 @@ in {
       export IGNOREEOF=2
 
       # fzf tab completion interface
-      source ${fzf-tab-completion.outPath}/share/bash/fzf-bash-completion.sh
+      source ${fzf-tab-completion}/share/bash/fzf-bash-completion.sh
       bind -x '"\t": fzf_bash_completion'
     '';
   };
