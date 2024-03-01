@@ -21,7 +21,6 @@ ops/keys/ssh/*
 .scratch
 
 ##: editors
-.dir-locals.el
 .idea
 
 ##: cache/state files
