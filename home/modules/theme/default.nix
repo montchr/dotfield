@@ -105,14 +105,16 @@ in {
     programs.bash = {inherit sessionVariables;};
     programs.zsh = {inherit sessionVariables;};
 
-    specialisation = {
-      dark.configuration = {
-        theme.color.schemes.default = colorSchemes.dark;
-      };
-      light.configuration = {
-        theme.color.schemes.default = colorSchemes.light;
-      };
-    };
+    # FIXME: do themes some other way -- this barely works, and it makes all
+    # builds take 5ever
+    # specialisation = {
+    #   dark.configuration = {
+    #     theme.color.schemes.default = colorSchemes.dark;
+    #   };
+    #   light.configuration = {
+    #     theme.color.schemes.default = colorSchemes.light;
+    #   };
+    # };
 
     dconf.settings = {
       # TODO: other font styles?
