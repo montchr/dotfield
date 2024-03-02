@@ -1,9 +1,13 @@
 {
+  flake,
   lib,
   config,
   pkgs,
   ...
 }: let
+  homeProfiles = import "${flake.self}/home/profiles.nix" {
+    inherit (flake.inputs) haumea;
+  };
   isAutoLoginEnabled = config.services.xserver.displayManager.autoLogin.enable;
 in {
   services.xserver.enable = true;
@@ -22,7 +26,7 @@ in {
   ];
 
   home-manager.sharedModules = lib.singleton {
-    imports = lib.singleton ../../homeProfiles/desktop/gnome/common.nix;
+    imports = lib.singleton homeProfiles.desktop.gnome.common;
   };
 
   # Prevent GNOME session crashes when auto-login is enabled.

@@ -10,7 +10,7 @@
     ];
   };
   home-manager.users.zortflower = hmArgs: {
-    imports = with hmArgs.roles; graphical;
+    imports = with hmArgs.features; graphical;
     home.stateVersion = "22.05";
   };
 }

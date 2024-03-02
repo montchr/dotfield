@@ -52,11 +52,11 @@ in {
 
   home-manager.users.${username} = {
     profiles,
-    roles,
+    features,
     ...
   }: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         # TODO: add to default profiles but darwin only
         profiles.os-specific.darwin.app-launcher-trampoline

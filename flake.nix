@@ -43,11 +43,11 @@
 
           ./lib
           ./packages
+          ./nixos
+          ./home
+          ./darwin
 
-          ./machines/colmenaConfigurations.nix
-          ./machines/darwinConfigurations.nix
-          ./machines/nixosConfigurations.nix
-          ./users/homeConfigurations.nix
+          ./hive.nix
         ];
         flake.checks = namaka.lib.load {
           src = ./tests;

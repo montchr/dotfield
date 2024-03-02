@@ -1,21 +1,28 @@
-# FIXME: no more haumea-compiled profiles/suites! import directly and simply!
 {
+  lib,
   self,
   withSystem,
   ops,
   ...
 }: let
-  inherit (self) inputs lib;
-  inherit (inputs) apparat haumea home-manager nixos-apple-silicon nixpkgs srvos;
-  inherit (apparat.lib) flattenTree;
-  l = inputs.nixpkgs.lib // builtins;
+  inherit
+    (self.inputs)
+    haumea
+    home-manager
+    nixos-apple-silicon
+    nixpkgs
+    srvos
+    ;
+
+  lib' = self.lib;
 
   commonModules = import ../common/modules-list.nix;
   nixosModules = import ../nixos/modules-list.nix;
 
-  nixosProfiles = import ../profiles/nixosProfiles.nix {inherit haumea;};
-  nixosSuites = import ../profiles/nixosSuites.nix {inherit sharedProfiles nixosProfiles;};
-  sharedProfiles = import ../profiles/sharedProfiles.nix {inherit haumea;};
+  sharedProfiles = import ../common/profiles.nix {inherit haumea;};
+  nixosProfiles = import ./profiles.nix {inherit haumea;};
+
+  features = import ./features.nix {inherit sharedProfiles nixosProfiles;};
 
   defaultModules = [
     sharedProfiles.core.default
@@ -29,11 +36,11 @@
   makeNixosSystem = hostName: nixosArgs @ {system, ...}:
     withSystem system (
       {pkgs, ...}:
-        l.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit nixosProfiles sharedProfiles;
-            flake = lib.modules.flakeSpecialArgs' system;
+            flake = lib'.modules.flakeSpecialArgs' system;
           };
           modules =
             defaultModules
@@ -41,7 +48,7 @@
             ++ nixosModules
             ++ (nixosArgs.modules or [])
             ++ [
-              ./${hostName}
+              ../machines/${hostName}
               {
                 _module.args = {inherit ops;};
                 nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
@@ -51,22 +58,23 @@
         }
     );
 in {
+  # FIXME: remove (empty)
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
     # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
     #   system = x86_64-linux;
-    #   modules = with nixosSuites; desktop ++ gnome ++ workstation;
+    #   modules = with features; desktop ++ gnome ++ workstation;
     # };
 
     freundix = makeNixosSystem "freundix" {
       system = "x86_64-linux";
-      modules = with nixosSuites; gnome ++ graphical;
+      modules = with features; gnome ++ graphical;
     };
 
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
       modules =
-        (with nixosSuites; desktop ++ gnome ++ webdev ++ workstation)
+        (with features; desktop ++ gnome ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           hardware.amd
           hardware.razer
@@ -87,9 +95,9 @@ in {
         ];
       };
       modules =
-        nixosSuites.gnome
-        ++ nixosSuites.desktop
-        ++ nixosSuites.workstation
+        features.gnome
+        ++ features.desktop
+        ++ features.workstation
         ++ [
           nixosProfiles.hardware.apple.macbook-14-2
           nixosProfiles.hardware.laptop
@@ -99,7 +107,7 @@ in {
     moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
       modules =
-        nixosSuites.server
+        features.server
         ++ [
           srvos.nixosModules.server
           srvos.nixosModules.hardware-hetzner-online-amd
@@ -119,7 +127,7 @@ in {
     boschic = makeNixosSystem "boschic" {
       system = "x86_64-linux";
       modules =
-        (with nixosSuites; gnome ++ desktop ++ webdev ++ workstation)
+        (with features; gnome ++ desktop ++ webdev ++ workstation)
         ++ (with nixosProfiles; [
           boot.refind
           desktop.flatpak
@@ -136,9 +144,9 @@ in {
     hodgepodge = makeNixosSystem "hodgepodge" {
       system = "x86_64-linux";
       modules =
-        nixosSuites.gnome
-        ++ nixosSuites.desktop
-        ++ nixosSuites.workstation
+        features.gnome
+        ++ features.desktop
+        ++ features.workstation
         ++ [
           nixosProfiles.hardware.apple.macbookpro-11-3
           nixosProfiles.virtualisation.quickemu
@@ -148,7 +156,7 @@ in {
     chert = makeNixosSystem "chert" {
       system = "x86_64-linux";
       modules =
-        nixosSuites.server
+        features.server
         ++ [
           # TODO: verify whether these conflict with operations, esp. non-mutable users?
           # srvos.nixosModules.server
@@ -165,7 +173,7 @@ in {
     gabbro = makeNixosSystem "gabbro" {
       system = "x86_64-linux";
       modules =
-        nixosSuites.server
+        features.server
         ++ [
           # TODO: verify whether these conflict with operations, esp. non-mutable users?
           # srvos.nixosModules.server
@@ -182,7 +190,7 @@ in {
     hierophant = makeNixosSystem "hierophant" {
       system = "x86_64-linux";
       modules =
-        nixosSuites.server
+        features.server
         ++ [
           srvos.nixosModules.server
           srvos.nixosModules.hardware-hetzner-cloud

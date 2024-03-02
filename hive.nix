@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2023 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Ref: <https://github.com/zhaofengli/colmena/issues/60#issuecomment-1510496861>
+#
+# TODO: make sure this does not confuse the `colmena` CLI, which might give
+# //hive.nix special treatment.
 {
   self,
   inputs,

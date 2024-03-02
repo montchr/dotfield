@@ -10,7 +10,7 @@ _: {
   };
 
   home-manager.users.nixos = hmArgs: {
-    imports = with hmArgs.roles; graphical ++ developer;
+    imports = with hmArgs.features; graphical ++ developer;
     home.stateVersion = "22.11";
   };
 

@@ -22,12 +22,12 @@ in {
   services.xserver.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} = {
-    roles,
+    features,
     profiles,
     ...
   }: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         profiles.emacs.emacs-init
         # TODO: consider renaming these -- "default" is a little confusing

@@ -18,9 +18,9 @@ in {
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} = {roles, ...}: {
+  home-manager.users.${username} = {features, ...}: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         {
           # The trackpad on this device is huge, and I always end up touching

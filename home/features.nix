@@ -84,7 +84,7 @@
     homeProfiles.development.wordpress
   ];
 
-  roles = {
+  features = {
     inherit
       base
       developer
@@ -111,4 +111,4 @@
       ];
   };
 in
-  roles
+  features

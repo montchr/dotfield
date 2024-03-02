@@ -7,11 +7,13 @@
   inherit (self) inputs lib;
   inherit (inputs) darwin haumea home-manager;
 
-  darwinModules = import ../darwin/modules-list.nix;
-  darwinProfiles = import ../profiles/darwinProfiles.nix {inherit haumea;};
-  darwinSuites = import ../profiles/darwinSuites.nix {inherit sharedProfiles darwinProfiles;};
   sharedModules = import ../common/modules-list.nix;
-  sharedProfiles = import ../profiles/sharedProfiles.nix {inherit haumea;};
+  sharedProfiles = import ../common/profiles.nix {inherit haumea;};
+
+  darwinModules = import ./modules-list.nix;
+  darwinProfiles = import ./profiles.nix {inherit haumea;};
+
+  features = import ./features.nix {inherit sharedProfiles darwinProfiles;};
 
   defaultModules = [
     sharedProfiles.core.default
@@ -34,7 +36,7 @@
             sharedModules
             ++ darwinModules
             ++ (darwinArgs.modules or [])
-            ++ darwinSuites.workstation
+            ++ features.workstation
             ++ [
               ./${hostName}
               {

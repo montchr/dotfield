@@ -30,11 +30,11 @@ in {
 
   home-manager.users.${username} = {
     profiles,
-    roles,
+    features,
     ...
   }: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         profiles.emacs.emacs-init
         profiles.shells.fish.default

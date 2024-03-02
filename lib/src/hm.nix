@@ -10,13 +10,12 @@
   inherit (apparat.lib) homePrefix;
 
   homeModules = import "${flake.self}/home/modules-list.nix";
-  homeProfiles = import "${flake.self}/profiles/homeProfiles.nix" {inherit haumea;};
-  homeSuites = import "${flake.self}/profiles/homeSuites.nix" {inherit homeProfiles;};
+  profiles = import "${flake.self}/home/profiles.nix" {inherit haumea;};
+  features = import "${flake.self}/home/features.nix" {homeProfiles = profiles;};
 
   specialArgs = {
+    inherit features profiles;
     flake = flakeSpecialArgs;
-    profiles = homeProfiles;
-    roles = homeSuites;
   };
   specialArgs' = system: specialArgs // {flake = flakeSpecialArgs' system;};
 
@@ -30,7 +29,7 @@
 
   defaultModules =
     homeModules
-    ++ homeSuites.base
+    ++ features.base
     ++ [{_module.args = {inherit ops;};}];
 in {
   inherit defaultModules settings settings';

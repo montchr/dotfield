@@ -19,12 +19,12 @@ in {
   services.xserver.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} = {
-    roles,
+    features,
     profiles,
     ...
   }: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         profiles.spotify
         profiles.theme.fonts.monospace.iosevka-comfy

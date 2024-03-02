@@ -14,11 +14,11 @@
   };
   home-manager.users.seadoom = {
     profiles,
-    roles,
+    features,
     ...
   }: {
     imports =
-      roles.workstation
+      features.workstation
       ++ [
         profiles.browsers.nyxt
         profiles.git.with-pgp-signing
