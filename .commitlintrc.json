@@ -1,0 +1,126 @@
+{
+  "prompt": {
+    "questions": {
+      "body": {
+        "description": "Provide a longer description of the change\n"
+      },
+      "breaking": {
+        "description": "Describe the breaking changes\n"
+      },
+      "breakingBody": {
+        "description": "A BREAKING CHANGE commit requires a body.\nPlease enter a longer description of the commit itself.\n"
+      },
+      "isBreaking": {
+        "description": "Are there any breaking changes?\n"
+      },
+      "isIssueAffected": {
+        "description": "Does this change affect any open issues?\n"
+      },
+      "issues": {
+        "description": "Add issue references (e.g. \\\"fix #123\\\", \\\"re #123\\\".)\n"
+      },
+      "issuesBody": {
+        "description": "If issues are closed, the commit requires a body.\nPlease enter a longer description of the commit itself.\n"
+      },
+      "scope": {
+        "description": "What is the scope of this change (e.g. component or file name?\n"
+      },
+      "subject": {
+        "description": "Write a short, imperative tense description of the change\n"
+      },
+      "type": {
+        "description": "Select the type of change that you're committing\n",
+        "enum": {
+          "builds": {
+            "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)\n",
+            "emoji": "",
+            "title": "Builds"
+          },
+          "chore": {
+            "description": "Other changes that don't modify src or test files\n",
+            "emoji": "屢",
+            "title": "Chores"
+          },
+          "ci": {
+            "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)\n",
+            "emoji": "⚙️",
+            "title": "Continuous Integrations"
+          },
+          "docs": {
+            "description": "Documentation-only changes\n",
+            "emoji": "�",
+            "title": "Documentation"
+          },
+          "feat": {
+            "description": "A new feature\n",
+            "emoji": "",
+            "title": "Features"
+          },
+          "fix": {
+            "description": "A bug fix\n",
+            "emoji": "�",
+            "title": "Bug Fixes"
+          },
+          "format": {
+            "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)\n",
+            "emoji": "�",
+            "title": "Formatting"
+          },
+          "perf": {
+            "description": "A code change that improves performance\n",
+            "emoji": "�",
+            "title": "Performance Improvements"
+          },
+          "refactor": {
+            "description": "A code change that neither fixes a bug nor adds a feature\n",
+            "emoji": "�",
+            "title": "Code Refactoring"
+          },
+          "revert": {
+            "description": "Reverts a previous commit\n",
+            "emoji": "�",
+            "title": "Reverts"
+          },
+          "tests": {
+            "description": "Adding missing tests or correcting existing tests\n",
+            "emoji": "�",
+            "title": "Tests"
+          }
+        }
+      }
+    }
+  },
+  "rules": {
+    "body-leading-blank": [1, "always"],
+    "body-max-line-length": [2, "always", 80],
+    "footer-leading-blank": [1, "always"],
+    "footer-max-line-length": [2, "always", 80],
+    "header-max-length": [2, "always", 80],
+    "subject-case": [
+      2,
+      "never",
+      ["sentence-case", "start-case", "pascal-case", "upper-case"]
+    ],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "type-case": [2, "always", "lower-case"],
+    "type-empty": [2, "never"],
+    "type-enum": [
+      2,
+      "always",
+      [
+        "builds",
+        "chore",
+        "ci",
+        "docs",
+        "feat",
+        "fix",
+        "format",
+        "perf",
+        "refactor",
+        "revert",
+        "tests"
+      ]
+    ]
+  }
+}

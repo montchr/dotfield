@@ -22,7 +22,6 @@
         (functions "functions")
         (functions "lib")
         (installables "packages")
-        (nixago "cfg")
       ];
     }
     {
@@ -114,12 +113,10 @@
   inputs.nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
   inputs.asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
-  inputs.nixago.url = "github:nix-community/nixago";
   inputs.srvos.url = "github:numtide/srvos";
   inputs.std = {
     url = "github:divnix/std";
     inputs.devshell.follows = "devshell";
-    inputs.nixago.follows = "nixago";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

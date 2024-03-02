@@ -1,0 +1,29 @@
+[formatter]
+[formatter.js]
+command = "sh"
+includes = ["*.cjs", "*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx"]
+options = ["-eucx", "prettier --write \"$@\"\neslint \"$@\"\n", "--"]
+
+[formatter.lua]
+command = "stylua"
+includes = ["*.lua"]
+
+[formatter.nix]
+command = "sh"
+excludes = ["home/modules/syncthing.nix"]
+includes = ["*.nix"]
+options = ["-euc", "just statix check \"$@\"\njust deadnix check \"$@\"\nalejandra \"$@\"\n", "--"]
+
+[formatter.prettier]
+command = "prettier"
+excludes = ["dark-reader.json", "devdocs.json", "karabiner.json"]
+includes = ["*.css", "*.html", "*.json", "*.md", "*.mdx", "*.scss", "*.toml", "*.yaml", "*.yml"]
+options = ["--plugin", "prettier-plugin-toml", "--write"]
+
+[formatter.shell]
+command = "shfmt"
+includes = ["*.sh", "*.bash"]
+options = ["--simplify", "--write"]
+
+[global]
+excludes = ["*generated*", "*secrets.yaml", "*secrets.yml", "treefmt.toml", "statix.toml", "stylua.toml", ".sops.yaml"]

@@ -13,7 +13,7 @@ in {
       (cmd nixpkgs.sops)
       (cmd nixpkgs.ssh-to-age)
       (cmd nixpkgs.yubikey-manager)
-      ({
+      {
         category = "secrets";
         name = "sops-update-all-keys";
         help = "Sync all sops secrets files with configuration keys";
@@ -21,10 +21,7 @@ in {
           fd 'secrets\.(yaml|yml)$' \
             -x sops updatekeys
         '';
-      })
-    ];
-    nixago = [
-      (cell.cfg.sops {})
+      }
     ];
     packages = [];
   };

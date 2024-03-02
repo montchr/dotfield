@@ -36,27 +36,3 @@ ops/keys/ssh/*
 ##: temporary files
 *.tmp
 tmp/
-
-##: javascript/typescript
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.tsbuildinfo
-
-
-# nixago: ignore-linked-files
-/.sops.yaml
-/stylua.toml
-/statix.toml
-/.prettierrc.json
-/lefthook.yml
-/.editorconfig
-/.commitlintrc.json
-/treefmt.toml
-stylua.toml
-.editorconfig
-statix.toml
-.commitlintrc.json
-treefmt.toml
-lefthook.yml
-.prettierrc.json

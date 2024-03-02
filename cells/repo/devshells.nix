@@ -22,24 +22,6 @@ in
         ##: external
         std.std.devshellProfiles.default
       ];
-      nixago = [
-        (presets.cfg.commitlint {})
-        (presets.cfg.editorconfig {})
-        (presets.cfg.prettier {})
-        (presets.cfg.treefmt {})
-        (presets.cfg.statix {
-          data = {
-            disabled = ["useless_parens"];
-          };
-        })
-        (presets.cfg.stylua {})
-
-        (secrets.cfg.sops {})
-
-        # FIXME: git commits in magit to hang for a while during hooks
-        #        possibly related: <https://github.com/evilmartians/lefthook/issues/510>
-        # (presets.cfg.lefthook {})
-      ];
     };
     ci = _: {
       name = "dotfield-ci";
