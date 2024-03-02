@@ -4,7 +4,7 @@
 ((nil . ((eglot-workspace-configuration
           . (:nil
              (:nix
-              (:maxMemoryMB nil
+              (;; :maxMemoryMB nil ; FIXME: needs a reasonable limit!
                             :flake (:autoArchive nil
                                                  ;; FIXME: errors when trying to
                                                  ;; eval private asahi
