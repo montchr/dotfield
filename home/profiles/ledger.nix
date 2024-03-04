@@ -30,9 +30,8 @@ in {
 
   home.sessionVariables."DOTFIELD_LEDGER_DIR" = ledgerDir;
 
-  # TODO: init
-  # services.git-sync.repositories = lib.singleton {
-  #   uri = "git@git.sr.ht:~montchr/ledger";
-  #   path = ledgerDir;
-  # };
+  services.git-sync.repositories."montchr__ledger" = {
+    uri = "git@git.sr.ht:~montchr/ledger";
+    path = ledgerDir;
+  };
 }
