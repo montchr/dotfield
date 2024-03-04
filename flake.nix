@@ -14,20 +14,11 @@
       inherit inputs;
       cellsFrom = ./cells;
       cellBlocks = with std.blockTypes; [
-        (data "constants")
         (data "data")
-        (devshells "devshells")
         (functions "dev")
-        (functions "devshellProfiles")
         (functions "functions")
         (functions "lib")
         (installables "packages")
-      ];
-    }
-    {
-      devShells = std.harvest self [
-        ["repo" "devshells"]
-        ["secrets" "devshells"]
       ];
     }
     (let
@@ -36,6 +27,8 @@
       flake-parts.lib.mkFlake {inherit inputs;} {
         systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
         imports = [
+          inputs.devshell.flakeModule
+
           {_module.args = {inherit ops;};}
 
           ./flake-modules/homeConfigurations.nix
@@ -45,6 +38,8 @@
           ./nixos
           ./home
           ./darwin
+
+          ./ops/devshells
 
           ./hive.nix
         ];
