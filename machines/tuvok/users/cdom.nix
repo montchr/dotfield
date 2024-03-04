@@ -25,7 +25,7 @@ in {
         {
           # The trackpad on this device is huge, and I always end up touching
           # its corner with my palm, which is very disruptive.
-          dconf.settings."org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
+          dconf.settings."org/gnome/desktop/peripherals/touchpad".tap-to-click = false;
         }
       ];
     home.stateVersion = "23.05";
