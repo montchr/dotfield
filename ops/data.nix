@@ -1,23 +1,20 @@
 # SPDX-FileCopyrightText: 2023 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
-{
-  inputs,
-  cell,
-}: let
-  inherit (inputs.haumea.lib) load matchers;
+{self, ...}: let
+  inherit (self.inputs.haumea.lib) load matchers;
 
   keys = load {
-    src = ./data/keys;
+    src = ./keys;
     loader = [(matchers.always (_: builtins.readFile))];
   };
 
   metadata = load {
-    src = ./data/metadata;
+    src = ./metadata;
     inputs = {inherit keys;};
   };
 
   users = load {
-    src = ./data/users;
+    src = ./users;
     inputs = {inherit keys metadata;};
   };
 in {inherit keys metadata users;}

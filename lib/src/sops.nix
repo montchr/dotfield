@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2022-2023 Chris Montgomery <chris@cdom.io>
 # SPDX-License-Identifier: GPL-3.0-or-later
+# FIXME: update for new location / needs nixago or whatever
 {
   inputs,
   cell,

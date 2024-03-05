@@ -102,7 +102,7 @@ After rebooting, edit `~/.ssh/known_hosts` on your local machine to remove the i
 #### Record Public Keys
 
 ```sh
-export KEYS_DIR="$PRJ_ROOT/cells/ops/data/keys"
+export KEYS_DIR="$PRJ_ROOT/ops/keys"
 export NEW_HOSTNAME=<...>
 export NEW_HOSTIP=<...>
 
@@ -121,7 +121,7 @@ git add $KEYS_DIR
 
 #### Update Secret Recipients
 
-Add the host to `//cells/secrets/cfg/sops.nix`, then:
+Add the host to `//.sops.yaml`, then:
 
 ```sh
 direnv reload
