@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (config.home) homeDirectory;
-  inherit (ops.metadata) hosts;
+  inherit (ops) hosts;
 in {
   programs.ssh = {
     enable = true;

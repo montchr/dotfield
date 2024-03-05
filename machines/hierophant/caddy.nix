@@ -3,7 +3,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata) networks;
+  inherit (ops) networks;
   cfg = config.services.caddy;
 in {
   services.caddy.enable = true;

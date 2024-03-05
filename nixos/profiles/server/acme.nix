@@ -3,7 +3,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata) hosts networks;
+  inherit (ops) hosts networks;
   inherit (config.networking) hostName;
 
   # FIXME: find a better way. a module? still, it's nice to have this as jsonable data.

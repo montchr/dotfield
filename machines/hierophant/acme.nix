@@ -1,4 +1,4 @@
 {ops, ...}: {
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = ops.metadata.networks.seadome.contact;
+  security.acme.defaults.email = ops.networks.seadome.contact;
 }

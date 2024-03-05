@@ -1,5 +1,5 @@
-{super, ...}: let
-  inherit (super) networks;
+{root, ...}: let
+  inherit (root) networks;
 in {
   keycloak = let
     fqdn = "auth.${networks.seadome.domain}";

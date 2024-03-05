@@ -4,7 +4,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata) hosts networks;
+  inherit (ops) hosts networks;
   inherit (config.networking) hostName;
 in {
   imports = [

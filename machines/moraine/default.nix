@@ -3,7 +3,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata) hosts;
+  inherit (ops) hosts;
 in {
   imports = [
     ./filesystems.nix

@@ -1,9 +1,6 @@
-{
-  keys,
-  metadata,
-  ...
-}: let
-  inherit (metadata) hosts;
+# FIXME: add tuvok and ryosuke... or make this not so obscure...
+{root, ...}: let
+  inherit (root) hosts keys;
 in
   [
     keys.ssh."0x135EEDD0F71934F3"

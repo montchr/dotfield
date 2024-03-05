@@ -6,9 +6,9 @@
   ...
 }: let
   inherit (flake.inputs) simple-nixos-mailserver;
-  inherit (ops.metadata.networks) seadome;
+  inherit (ops.networks) seadome;
   inherit (config.sops) secrets;
-  inherit (ops.metadata.networks.loopgarden) domain;
+  inherit (ops.networks.loopgarden) domain;
   matrixFqdn = "matrix.${domain}";
 in {
   imports = [simple-nixos-mailserver.nixosModules.default];

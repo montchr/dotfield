@@ -1,9 +1,5 @@
-{
-  super,
-  keys,
-  ...
-}: let
-  inherit (super) networks;
+{root, ...}: let
+  inherit (root) keys networks;
   hetznerIp6 = address: {
     inherit address;
     gateway = "fe80::1";

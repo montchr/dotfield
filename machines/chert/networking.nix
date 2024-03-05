@@ -5,5 +5,5 @@
 }: let
   inherit (config.networking) hostName;
 in {
-  networking.domain = ops.metadata.hosts.${hostName}.domain;
+  networking.domain = ops.hosts.${hostName}.domain;
 }

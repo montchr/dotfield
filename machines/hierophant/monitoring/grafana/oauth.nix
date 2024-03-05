@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (ops.metadata.services.keycloak.realms.default) urls;
+  inherit (ops.services.keycloak.realms.default) urls;
   inherit (config.sops) secrets;
 in {
   # <https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/keycloak/>

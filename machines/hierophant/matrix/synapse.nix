@@ -5,7 +5,7 @@
   ops,
   ...
 }: let
-  inherit (ops.metadata.networks.loopgarden) domain;
+  inherit (ops.networks.loopgarden) domain;
   inherit (flake.perSystem) packages;
   l = flake.inputs.nixpkgs.lib // builtins;
   cfg = config.services.matrix-synapse;

@@ -4,10 +4,11 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    haumea,
     namaka,
     ...
   } @ inputs: (let
-    ops = import ./ops/data.nix;
+    ops = import ./ops/data.nix {inherit haumea;};
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
@@ -83,7 +84,7 @@
   ##: core modules+libraries
   inputs.apparat.url = "sourcehut:~montchr/apparat";
   inputs.attic.url = "github:zhaofengli/attic";
-  inputs.haumea.follows = "apparat/haumea";
+  inputs.haumea.url = "github:nix-community/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";

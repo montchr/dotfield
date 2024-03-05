@@ -8,7 +8,7 @@
     enable = true;
     # NOTE: This does not necessarily need to be the same FQDN as the mailserver.
     #       But for convenience and discoverability, it is a sensible default.
-    hostName = "mail.${ops.metadata.networks.loopgarden.domain}";
+    hostName = "mail.${ops.networks.loopgarden.domain}";
     extraConfig = ''
       # STARTTLS is needed for authn, so the FQDN must match the certificate.
       $config['smtp_server'] = "tls://${config.mailserver.fqdn}";
