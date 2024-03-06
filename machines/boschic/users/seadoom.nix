@@ -20,8 +20,9 @@
     imports =
       features.workstation
       ++ [
-        profiles.browsers.nyxt
         profiles.git.with-pgp-signing
+        # XXX: nyxt build failure
+        # profiles.browsers.nyxt
       ];
     home.stateVersion = "21.11";
   };
