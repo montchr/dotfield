@@ -122,14 +122,14 @@ switch *ARGS='': (system "switch" ARGS)
 
 # <- Rebuild a host and push any new derivations to the binary cache
 system subcommand='build' *ARGS='':
-  {{sys-cmd}} {{subcommand}} \
+  sudo {{sys-cmd}} {{subcommand}} \
     {{ARGS}} --flake "{{prj-root}}"
   @echo {{msg-done}}
 
 
 ###: HOME-MANAGER ==============================================================
 
-# FIXME: it seems that running just home switch does nothing on nixos?
+# FIXME: broken on nixos
 
 # <- Run the home-manager CLI for the project flake.
 home subcommand='build' *ARGS='':
