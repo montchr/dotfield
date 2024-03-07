@@ -3,12 +3,14 @@
   config,
   flake,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
-  # inherit (config) xdg;
-  # inherit (config.lib.file) mkOutOfStoreSymlink;
-in {
+in
+# inherit (config) xdg;
+# inherit (config.lib.file) mkOutOfStoreSymlink;
+{
   imports = [
     # TODO: consolidate all extra non-elisp packages
     ./extra-packages.nix
@@ -19,17 +21,17 @@ in {
   programs.emacs = {
     enable = true;
     package =
-      if isDarwin
-      then pkgs.emacs29-macport
+      if isDarwin then
+        pkgs.emacs29-macport
       # else pkgs.emacs-pgtk; # from master via emacs-overlay
       # else pkgs.emacs29-pgtk;
-      else emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
-    extraPackages = epkgs:
-      [
-        epkgs.pdf-tools
-        epkgs.treesit-grammars.with-all-grammars
-        epkgs.treesit-auto
-      ];
+      else
+        emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
+    extraPackages = epkgs: [
+      epkgs.pdf-tools
+      epkgs.treesit-grammars.with-all-grammars
+      epkgs.treesit-auto
+    ];
   };
 
   home.packages = [

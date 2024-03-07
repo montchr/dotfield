@@ -1,10 +1,8 @@
 # FIXME: determine some approach to grouping/naming these collections of
 # profiles in a way that i don't find them confusing or redundant a couple
 # months later
-{
-  sharedProfiles,
-  nixosProfiles,
-}: let
+{ sharedProfiles, nixosProfiles }:
+let
   audio = [
     nixosProfiles.audio
     nixosProfiles.bluetooth
@@ -24,25 +22,19 @@
     nixosProfiles.boot.systemd-boot
   ];
 
-  tangible = [
-    nixosProfiles.hardware.keyboard
-  ];
-in {
+  tangible = [ nixosProfiles.hardware.keyboard ];
+in
+{
   inherit audio graphical tangible;
 
-  desktop =
-    graphical
-    ++ audio
-    ++ tangible;
+  desktop = graphical ++ audio ++ tangible;
 
   gnome = [
     nixosProfiles.desktop.gnome-desktop
     nixosProfiles.login.gdm
   ];
 
-  server = [
-    nixosProfiles.server.acme
-  ];
+  server = [ nixosProfiles.server.acme ];
 
   # FIXME: pare these down, also they don't really have anything to do with 'webdev'
   webdev = [

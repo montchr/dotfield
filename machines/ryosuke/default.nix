@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ./game.nix
@@ -14,8 +15,8 @@
   users.mutableUsers = false;
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.supportedFilesystems = ["btrfs"];
-  boot.supportedFilesystems = ["btrfs"];
+  boot.initrd.supportedFilesystems = [ "btrfs" ];
+  boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   virtualisation.vmVariant = {

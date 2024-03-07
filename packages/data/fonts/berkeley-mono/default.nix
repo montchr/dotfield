@@ -23,9 +23,12 @@ stdenv.mkDerivation {
     '';
   };
 
-  buildInputs = [unzip];
-  phases = ["unpackPhase" "installPhase"];
-  pathsToLink = ["/share/fonts/truetype/"];
+  buildInputs = [ unzip ];
+  phases = [
+    "unpackPhase"
+    "installPhase"
+  ];
+  pathsToLink = [ "/share/fonts/truetype/" ];
   sourceRoot = ".";
   installPhase = ''
     install_path=$out/share/fonts/truetype

@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   cfg = config.services.ombi;
-in {
+in
+{
   services.ombi = {
     enable = true;
     openFirewall = true;

@@ -1,5 +1,5 @@
 {
-  imports = [../laptop.nix];
+  imports = [ ../laptop.nix ];
 
   # <https://wiki.archlinux.org/title/Apple_Keyboard#hid_apple_module_options>
   boot.kernelParams = [

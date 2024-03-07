@@ -4,15 +4,11 @@ command = "sh"
 includes = ["*.cjs", "*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx"]
 options = ["-eucx", "prettier --write \"$@\"\neslint \"$@\"\n", "--"]
 
-[formatter.lua]
-command = "stylua"
-includes = ["*.lua"]
-
 [formatter.nix]
 command = "sh"
 excludes = ["home/modules/syncthing.nix"]
 includes = ["*.nix"]
-options = ["-euc", "just statix check \"$@\"\njust deadnix check \"$@\"\nalejandra \"$@\"\n", "--"]
+options = ["-euc", "just statix check \"$@\"\njust deadnix check \"$@\"\nnixfmt \"$@\"\n", "--"]
 
 [formatter.prettier]
 command = "prettier"

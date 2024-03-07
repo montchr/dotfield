@@ -3,10 +3,12 @@
   pkgs,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.inputs.base16-schemes.lib) schemes;
   inherit (flake.self.lib.theme) mkColorScheme;
-in {
+in
+{
   imports = [
     ./__difftastic.nix
     ./__kitty.nix

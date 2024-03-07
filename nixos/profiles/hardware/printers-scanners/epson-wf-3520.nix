@@ -55,10 +55,12 @@
 # - utsushi (usb/scsi only)
 #
 # I have not tested USB scanning but I'm sure it's much more straightforward.
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   ip = "192.168.1.192";
-in {
-  imports = [./common.nix];
+in
+{
+  imports = [ ./common.nix ];
 
   hardware.sane.extraBackends = [
     pkgs.epkowa

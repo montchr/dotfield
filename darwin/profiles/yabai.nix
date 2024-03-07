@@ -1,15 +1,16 @@
-{
-  pkgs,
-  flake,
-  ...
-}: let
+{ pkgs, flake, ... }:
+let
   inherit (flake.inputs.apparat.lib.yabai) mkSetting;
   l = flake.inputs.nixpkgs.lib // builtins;
 
   defaultPadding = "6";
-in {
-  homebrew.taps = ["koekeishiya/formulae"];
-  homebrew.brews = ["skhd" "yabai"];
+in
+{
+  homebrew.taps = [ "koekeishiya/formulae" ];
+  homebrew.brews = [
+    "skhd"
+    "yabai"
+  ];
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "yabai-set-padding" ''

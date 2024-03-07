@@ -1,4 +1,5 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [flyctl];
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [ flyctl ];
   home.shellAliases.fly = "flyctl";
 }

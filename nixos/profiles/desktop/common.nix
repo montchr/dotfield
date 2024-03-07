@@ -3,11 +3,13 @@
   flake,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.dotfield.features) hasWayland;
   inherit (pkgs.stdenv.hostPlatform) isAarch64;
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
+in
+{
   imports = [
     ./firefox.nix
     ./nixpkgs-wayland.nix
@@ -17,7 +19,10 @@ in {
   services.xserver.xkb.layout = "us";
 
   # FIXME: guardian should set these automatically, be very careful
-  dotfield.guardian.user.extraGroups = ["audio" "video"];
+  dotfield.guardian.user.extraGroups = [
+    "audio"
+    "video"
+  ];
 
   xdg.portal.enable = true;
 
@@ -44,14 +49,12 @@ in {
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  environment.systemPackages =
-    [
-      # Provide a minimal and sensible default terminal emulator as a fallback
-      # in case the desktop environment doesn't bundle its own application or
-      # the user config doesn't specify one.
-      pkgs.foot
+  environment.systemPackages = [
+    # Provide a minimal and sensible default terminal emulator as a fallback
+    # in case the desktop environment doesn't bundle its own application or
+    # the user config doesn't specify one.
+    pkgs.foot
 
-      pkgs.wl-clipboard
-    ]
-    ++ (l.optional (!isAarch64) pkgs.signal-desktop); # <- broken
+    pkgs.wl-clipboard
+  ] ++ (l.optional (!isAarch64) pkgs.signal-desktop); # <- broken
 }

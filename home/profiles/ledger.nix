@@ -7,10 +7,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.home) homeDirectory;
   ledgerDir = "${homeDirectory}/Documents/ledger";
-in {
+in
+{
   # TODO:
   # - <https://github.com/siddhantac/puffin>
   # - <https://github.com/olimorris/hledger-forecast>

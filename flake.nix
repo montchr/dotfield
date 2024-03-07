@@ -1,78 +1,90 @@
 {
   description = "Dotfield";
 
-  outputs = {
-    nixpkgs,
-    flake-parts,
-    haumea,
-    namaka,
-    ...
-  } @ inputs: (let
-    ops = import ./ops/data.nix {inherit haumea;};
-  in
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-      imports = [
-        inputs.devshell.flakeModule
+  outputs =
+    {
+      nixpkgs,
+      flake-parts,
+      haumea,
+      namaka,
+      ...
+    }@inputs:
+    (
+      let
+        ops = import ./ops/data.nix { inherit haumea; };
+      in
+      flake-parts.lib.mkFlake { inherit inputs; } {
+        systems = [
+          "aarch64-darwin"
+          "aarch64-linux"
+          "x86_64-darwin"
+          "x86_64-linux"
+        ];
+        imports = [
+          inputs.devshell.flakeModule
 
-        {_module.args = {inherit ops;};}
+          {
+            _module.args = {
+              inherit ops;
+            };
+          }
 
-        ./flake-modules/homeConfigurations.nix
+          ./flake-modules/homeConfigurations.nix
 
-        ./lib
-        ./packages
-        ./nixos
-        ./home
-        ./darwin
+          ./lib
+          ./packages
+          ./nixos
+          ./home
+          ./darwin
 
-        ./ops/devshells
+          ./ops/devshells
 
-        ./hive.nix
-      ];
-      flake.checks = namaka.lib.load {
-        src = ./tests;
-        inputs = {
-          inherit ops;
-        };
-      };
-      perSystem = {
-        system,
-        inputs',
-        ...
-      }: {
-        _module.args = {
-          inherit ops;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
+          ./hive.nix
+        ];
 
-            # FIXME: per-system!
-            # config.nvidia.acceptLicense = true;
-
-            # FIXME: only for systems with emacs enabled, otherwise this will be evaluated always
-            #        it does not appear to be possible to use these packages outside of the overlay.
-            #        this in itself is probably the biggest reason to avoid using nix for emacs dependencies...
-            overlays = [
-              inputs.emacs-overlay.overlays.default
-
-              (final: prev: {
-                inherit
-                  (inputs.nixpkgs-trunk.legacyPackages.${prev.stdenv.hostPlatform.system})
-                  pinentry
-                  pinentry-gtk2
-                  pinentry-emacs
-                  pinentry-curses
-                  pinentry-qt
-                  pinentry-rofi
-                  pinentry-gnome
-                  ;
-              })
-            ];
+        flake.checks = namaka.lib.load {
+          src = ./tests;
+          inputs = {
+            inherit ops;
           };
         };
-        formatter = inputs'.nixpkgs.legacyPackages.alejandra;
-      };
-    });
+
+        perSystem =
+          { system, inputs', ... }:
+          {
+            _module.args = {
+              inherit ops;
+              pkgs = import nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+
+                # FIXME: per-system!
+                # config.nvidia.acceptLicense = true;
+
+                # FIXME: only for systems with emacs enabled, otherwise this will be evaluated always
+                #        it does not appear to be possible to use these packages outside of the overlay.
+                #        this in itself is probably the biggest reason to avoid using nix for emacs dependencies...
+                overlays = [
+                  inputs.emacs-overlay.overlays.default
+
+                  (final: prev: {
+                    inherit (inputs.nixpkgs-trunk.legacyPackages.${prev.stdenv.hostPlatform.system})
+                      pinentry
+                      pinentry-gtk2
+                      pinentry-emacs
+                      pinentry-curses
+                      pinentry-qt
+                      pinentry-rofi
+                      pinentry-gnome
+                      ;
+                  })
+                ];
+              };
+            };
+            # formatter = inputs'.nixfmt-rfc101-style.packages.default;
+          };
+      }
+    );
 
   ##: channels
   inputs.nixpkgs.follows = "nixos-unstable";
@@ -117,6 +129,7 @@
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.nil-lsp.url = "github:oxalica/nil";
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
+  inputs.nixfmt-rfc101-style.url = "github:piegamesde/nixfmt/rfc101-style";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: system

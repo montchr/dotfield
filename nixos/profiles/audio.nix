@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # According to its description in the NixOS manual:
   # > PulseAudio server uses this to acquire realtime priority.
   security.rtkit.enable = true;
@@ -8,7 +9,6 @@
   environment.systemPackages = [
     # TODO: maybe on non-gnome
     # pkgs.pwvucontrol
-
   ];
 
   hardware.pulseaudio.enable = false;
@@ -21,5 +21,4 @@
     # "Modular session / policy manager for PipeWire"
     wireplumber.enable = true;
   };
-
 }

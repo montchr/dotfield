@@ -25,62 +25,57 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # Copyright (c) 2022-2023 Luc Perkins <lucperkins@gmail.com>
-{
-  l,
-  pkgs,
-}: let
+{ l, pkgs }:
+let
   darwinSystem = pkgs.stdenv.hostPlatform.system;
-  linuxSystem = l.replaceStrings ["darwin"] ["linux"] darwinSystem;
+  linuxSystem = l.replaceStrings [ "darwin" ] [ "linux" ] darwinSystem;
   dataDir = "/var/lib/nixos-builder";
   port = 31022;
-in rec {
+in
+rec {
   inherit dataDir port;
   logPath = "/var/log/linux-builder.log";
 
   builder =
     (import "${pkgs.path}/nixos" {
       system = linuxSystem; # {x86_64|aarch64}-linux
-      configuration = {
-        modulesPath,
-        lib,
-        ...
-      }: {
-        imports = ["${modulesPath}/profiles/macos-builder.nix"];
-        virtualisation = {
-          host.pkgs = pkgs;
-          forwardPorts = lib.mkForce [
-            {
-              from = "host";
-              host.address = "127.0.0.1";
-              host.port = port;
-              guest.port = 22;
-            }
-          ];
+      configuration =
+        { modulesPath, lib, ... }:
+        {
+          imports = [ "${modulesPath}/profiles/macos-builder.nix" ];
+          virtualisation = {
+            host.pkgs = pkgs;
+            forwardPorts = lib.mkForce [
+              {
+                from = "host";
+                host.address = "127.0.0.1";
+                host.port = port;
+                guest.port = 22;
+              }
+            ];
+          };
         };
-      };
-    })
-    .config
-    .system
-    .build
-    .macos-builder-installer;
+    }).config.system.build.macos-builder-installer;
 
   builderMachine = {
     hostName = "ssh://linux-builder";
     maxJobs = 4;
     # This is cheating: KVM isn't actually available (?) but QEMU falls back to "slow mode" in this case
-    supportedFeatures = ["kvm"];
+    supportedFeatures = [ "kvm" ];
     system = linuxSystem; # {x86_64|aarch64}-linux
   };
 
-  script = let
-    name = "run-linux-builder";
-    bin = pkgs.writeShellScriptBin name ''
-      set -uo pipefail
-      trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
-      IFS=$'\n\t'
-      mkdir -p "${dataDir}"
-      cd "${dataDir}"
-      ${builder}/bin/create-builder
-    '';
-  in "${bin}/bin/${name}";
+  script =
+    let
+      name = "run-linux-builder";
+      bin = pkgs.writeShellScriptBin name ''
+        set -uo pipefail
+        trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+        IFS=$'\n\t'
+        mkdir -p "${dataDir}"
+        cd "${dataDir}"
+        ${builder}/bin/create-builder
+      '';
+    in
+    "${bin}/bin/${name}";
 }

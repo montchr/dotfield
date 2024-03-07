@@ -1,6 +1,8 @@
-{flake, ...}: let
+{ flake, ... }:
+let
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
+in
+{
   programs.kitty.settings = {
     ##: --- cursor customization ---
 

@@ -4,19 +4,16 @@
   pkgs,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.perSystem) packages;
-  inherit
-    (config.dotfield.whoami)
-    email
-    fullName
-    githubUserName
-    ;
-in {
+  inherit (config.dotfield.whoami) email fullName githubUserName;
+in
+{
   home.packages = [
-    pkgs.difftastic #   <- syntax-aware structural diff tool
-    pkgs.exiftool #     <- EXIF diff handler
-    pkgs.hut #          <- a sourcehut CLI (unofficial)
+    pkgs.difftastic # <- syntax-aware structural diff tool
+    pkgs.exiftool # <- EXIF diff handler
+    pkgs.hut # <- a sourcehut CLI (unofficial)
 
     pkgs.gitAndTools.hub
     pkgs.gitAndTools.gh

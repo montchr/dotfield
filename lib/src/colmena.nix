@@ -1,19 +1,27 @@
-{
-  flake,
-  withSystem,
-  ...
-}: let
+{ flake, withSystem, ... }:
+let
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
-  mkNode = evaled: hostname: settings: let
-    evaledModules = evaled._module.args.modules;
-    settings' = {deployment = settings;};
-    defaults = {
-      deployment = {
-        buildOnTarget = l.mkDefault true;
+in
+{
+  mkNode =
+    evaled: hostname: settings:
+    let
+      evaledModules = evaled._module.args.modules;
+      settings' = {
+        deployment = settings;
       };
+      defaults = {
+        deployment = {
+          buildOnTarget = l.mkDefault true;
+        };
+      };
+    in
+    {
+      imports = evaledModules ++ [
+        settings'
+        defaults
+      ];
     };
-  in {imports = evaledModules ++ [settings' defaults];};
 
   metaFor = evaled: {
     meta = {

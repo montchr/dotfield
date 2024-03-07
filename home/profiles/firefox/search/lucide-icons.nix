@@ -1,5 +1,1 @@
-{
-  urls = [
-    {template = "https://lucide.dev/?search={searchTerms}";}
-  ];
-}
+{ urls = [ { template = "https://lucide.dev/?search={searchTerms}"; } ]; }

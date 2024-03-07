@@ -1,15 +1,11 @@
-{
-  pkgs,
-  flake,
-  ...
-}: let
+{ pkgs, flake, ... }:
+let
   inherit (flake.perSystem) packages;
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
-  imports = [
-    ./iosevka-variants.nix
-  ];
+in
+{
+  imports = [ ./iosevka-variants.nix ];
 
   fonts.fontDir.enable = true;
   fonts.packages =
@@ -27,14 +23,17 @@ in {
       ibm-plex
       inter
       jetbrains-mono
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ])
-    ++ (l.optionals isLinux (with pkgs; [
-      bakoma_ttf
-      corefonts # broken on aarch64-darwin
-      gentium
-      liberation_ttf
-      terminus_font # broken on aarch64-darwin
-    ]))
+    ++ (l.optionals isLinux (
+      with pkgs;
+      [
+        bakoma_ttf
+        corefonts # broken on aarch64-darwin
+        gentium
+        liberation_ttf
+        terminus_font # broken on aarch64-darwin
+      ]
+    ))
     ++ (l.optional isMacOS packages.sf-pro);
 }

@@ -1,11 +1,9 @@
-{
-  ops,
-  config,
-  ...
-}: let
+{ ops, config, ... }:
+let
   inherit (ops.services.keycloak.realms.default) urls;
   inherit (config.sops) secrets;
-in {
+in
+{
   # <https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/keycloak/>
   # <https://github.com/NixOS/nixpkgs/pull/191768#discussion_r1002901711>
   services.grafana.settings."auth.generic_oauth" = {
@@ -26,5 +24,5 @@ in {
   # Provide client secret by environment variable.
   # <https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables>
   systemd.services.grafana.serviceConfig.EnvironmentFile = secrets."grafana/env-vars".path;
-  sops.secrets."grafana/env-vars".restartUnits = ["grafana.service"];
+  sops.secrets."grafana/env-vars".restartUnits = [ "grafana.service" ];
 }

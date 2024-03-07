@@ -6,7 +6,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   nix.distributedBuilds = lib.mkDefault true;
 
   # FIXME: needs flake-compat

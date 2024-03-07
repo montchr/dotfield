@@ -5,12 +5,10 @@
 ##-----------------------------------------------------------------------------
 ## Basic settings
 
-
 ## The following setting specifies the input encoding. Currently only "UTF-8"
 ## and "C" is available.
 
 #bleopt input_encoding=UTF-8
-
 
 ## The following setting specifies the pager used by ble.sh.  This is used to
 ## show the help of commands (f1).
@@ -24,7 +22,6 @@
 
 #bleopt editor=vim
 
-
 ## The following settings sets the behavior of visible bells (vbell).
 ## "vbell_duration" sets the time duration to show the vbell. "vbell_align"
 ## controls the position of vbell. The value "left" (default) specifies that
@@ -36,10 +33,8 @@
 #bleopt vbell_duration=2000
 #bleopt vbell_align=right
 
-
 ##-----------------------------------------------------------------------------
 ## Line editor settings
-
 
 ## The following settings turns on/off the audible bells and visible bells for
 ## errors while user edit. The non-empty value turns on the bells.
@@ -47,19 +42,16 @@
 #bleopt edit_abell=1
 #bleopt edit_vbell=
 
-
 ## The following setting turns on the delayed load of history when an non-empty
 ## value is set.
 
 #bleopt history_lazyload=1
-
 
 ## The following setting turns on the delete selection mode when an non-empty
 ## value is set. When the mode is turned on the selection is removed when a
 ## user inserts a character.
 
 #bleopt delete_selection_mode=1
-
 
 ## The following settings control the indentation. "indent_offset" sets the
 ## indent width. "indent_tabs" controls if tabs can be used for indentation or
@@ -69,7 +61,6 @@
 #bleopt indent_offset=4
 #bleopt indent_tabs=1
 
-
 ## "undo_point" controls the cursor position after "undo". When "beg" or "end"
 ## is specified, the cursor will be moved to the beginning or the end of the
 ## dirty section, respectively. When other values are specified, the original
@@ -77,14 +68,12 @@
 
 #bleopt undo_point=end
 
-
 ## The following setting controls forced layout calculations before graphical
 ## operations. When a non-empty value is specified, the forced calculations are
 ## enabled. When an empty string is set, the operations are switched to logical
 ## ones.
 
 #bleopt edit_forced_textmap=1
-
 
 ## The following option controls the interpretation of lines when going to the
 ## beginning or the end of the current line.  When the value `logical` is
@@ -95,13 +84,11 @@
 
 #bleopt edit_line_type=graphical
 
-
 ## The following option specifies the set of expansions performed by
 ## magic-space with a colon-separated list of expansion types. "history",
 ## "sabbrev", and "alias" can be specified.
 
 #bleopt edit_magic_expand=history:sabbrev
-
 
 ## This option configures the detailed behavior of the widget "magic-space"
 ## with a colon-separated list.  If the field "inline-sabbrev-no-insert" is
@@ -110,7 +97,6 @@
 
 #bleopt edit_magic_opts=
 
-
 ## The following option controls the position of the info pane where completion
 ## menu, mode names, and other information are shown.  When the value "top" is
 ## specified, the info pane is shown just below the command line.  When the
@@ -118,7 +104,6 @@
 ## terminal.  The default is "top".
 
 #bleopt info_display=top
-
 
 ## The following settings controls the prompt after the cursor left the command
 ## line.  "prompt_ps1_final" contains a prompt string.  "prompt_ps1_transient"
@@ -134,7 +119,6 @@
 #bleopt prompt_ps1_final=
 #bleopt prompt_ps1_transient=trim
 
-
 ## The following settings controls the right prompt. "prompt_rps1" specifies
 ## the contents of the right prompt in the format of PS1.  When the cursor
 ## leaves the current command line, the right prompt is replaced by
@@ -144,7 +128,6 @@
 #bleopt prompt_rps1='\w'
 #bleopt prompt_rps1_final=
 #bleopt prompt_rps1_transient=''
-
 
 ## The following settings specify the content of terminal titles and status
 ## lines.  "prompt_xterm_title" specifies the terminal title which can be set
@@ -161,7 +144,6 @@
 #bleopt prompt_screen_title=
 #bleopt prompt_term_status=
 
-
 ## The following settings control the status line.  "prompt_status_line"
 ## specifies the content of the status line.  If its value is empty, the status
 ## line is not shown.  "prompt_status_align" controls the position of the
@@ -170,13 +152,11 @@
 #bleopt prompt_status_line=
 #bleopt prompt_status_align=left
 
-
 ## "prompt_eol_mark" specifies the contents of the mark used to indicate the
 ## command output is not ended with newlines. The value can contain ANSI escape
 ## sequences.
 
 #bleopt prompt_eol_mark=$'\e[94m[ble: EOF]\e[m'
-
 
 ## "prompt_ruler" specifies the ruler between the previous command and the
 ## prompt (like powerlevel10k
@@ -190,7 +170,6 @@
 #bleopt prompt_ruler=empty-line  # empty line
 #bleopt prompt_ruler=$'\e[94m-'  # blue line
 
-
 ## "prompt_command_changes_layout" specifies whether the commands called from
 ## the blehook PRECMD or the variable PROMPT_COMMAND output texts to the
 ## terminal and changes the layout.  When a non-empty value is specified,
@@ -203,7 +182,6 @@
 #bleopt prompt_command_changes_layout=   # PRECMD/PROMPT_COMMAND not output
 #bleopt prompt_command_changes_layout=1  # PRECMD/PROMPT_COMMAND may output
 
-
 ## "exec_restore_pipestatus" controls whether ble.sh restores PIPESTATUS of the
 ## previous user command.  When this option is set to a non-empty value,
 ## PIPESTATUS is restored.  This feature is turned off by default because it
@@ -212,7 +190,6 @@
 ## regardless of this setting.
 
 #bleopt exec_restore_pipestatus=1  # restores PIPESTATUS
-
 
 ## "edit_marker" and "edit_marker_error" define the default styles of the
 ## markers [ble: ...] used by ble.sh.  "edit_marker" is used for the normal
@@ -225,13 +202,11 @@
 #bleopt edit_marker=$'\e[94m[ble: %s]\e[m'
 #bleopt edit_marker_error=$'\e[91m[ble: %s]\e[m'
 
-
 ## "exec_errexit_mark" specifies the format of the mark to show the exit status
 ## of the command when it is non-zero.  If this setting is an empty string, the
 ## exit status will not be shown.  The value can contain ANSI escape sequences.
 
 #bleopt exec_errexit_mark=$'\e[91m[ble: exit %d]\e[m'
-
 
 ## "exec_elapsed_mark" specifies the format of the command execution time
 ## report.  It takes two arguments: the first is the string that explains the
@@ -251,12 +226,10 @@
 #bleopt exec_elapsed_mark=$'\e[94m[ble: elapsed %s (CPU %s%%)]\e[m'
 #bleopt exec_elapsed_enabled='usr+sys>=10000'
 
-
 ## "exec_exit_mark" specifies the marker printed when the bash session ends.
 ## When an empty string is specified, the marker is disabled.
 
 #bleopt exec_exit_mark=$'\e[94m[ble: exit]\e[m'
-
 
 ## The following setting controls the exit when jobs are remaining. When an
 ## empty string is set, the shell will never exit with remaining jobs through
@@ -264,7 +237,6 @@
 ## attempted twice consecutively.
 
 #bleopt allow_exit_with_jobs=
-
 
 ## The following setting controls the cursor position after the move to other
 ## history entries. When non-empty values are specified, the offset of the
@@ -274,14 +246,12 @@
 
 #bleopt history_preserve_point=
 
-
 ## The following setting controls the history sharing. If it has non-empty
 ## value, the history sharing is enabled. With the history sharing, the command
 ## history is shared with the other Bash ble.sh sessions with the history
 ## sharing turned on.
 
 #bleopt history_share=
-
 
 ## This option controls the target range in the command history for
 ## "erasedups", which is performed when it is specified in "HISTCONTROL".  When
@@ -298,7 +268,6 @@
 #bleopt history_erasedups_limit=-1000  # new items and 1000 prev-session items
 #bleopt history_erasedups_limit=1000   # last 1000 items
 
-
 ## The following setting controls the behavior of the widget
 ## "accept-single-line-or-newline" in the single-line editing mode. The value
 ## is a subject of arithmetic evaluation. When it evaluates to negative
@@ -309,7 +278,6 @@
 ## user inputs.
 
 #bleopt accept_line_threshold=5
-
 
 ## The following option controls the behavior when the number of characters
 ## exceeds the capacity specified by `line_limit_length`.  The value `none`
@@ -322,13 +290,11 @@
 
 #bleopt line_limit_type=none
 
-
 ## The following option specifies the capacity of the command line in the
 ## number of characters.  The number 0 or negative numbers means the unlimited
 ## capacity.
 
 #bleopt line_limit_length=10000
-
 
 ## The following option specifies the maximal number of characters which can be
 ## appended into the history.  When this option has a positive value, commands
@@ -338,10 +304,8 @@
 
 #bleopt history_limit_length=10000
 
-
 ##-----------------------------------------------------------------------------
 ## Terminal state control
-
 
 ## The following setting specifies the cursor type when commands are executed.
 ## The cursor type is specified by the argument of the control function
@@ -349,14 +313,12 @@
 
 #bleopt term_cursor_external=0
 
-
 ## The following settings, external and internal, specify the "modifyOtherKeys"
 ## states [the control function SM(>4)] when commands are executed and when
 ## ble.sh has control, respectively.
 
 #bleopt term_modifyOtherKeys_external=auto
 #bleopt term_modifyOtherKeys_internal=auto
-
 
 ## The following setting controls whether the kitty-keyboard-protocol sequences
 ## should pass-through the terminal multiplexers when the outermost terminal is
@@ -379,12 +341,10 @@
 ##-----------------------------------------------------------------------------
 ## Rendering options
 
-
 ## "tab_width" specifies the width of TAB on the command line. When an empty
 ## value is specified, the width in terminfo (tput it) is used.
 
 #bleopt tab_width=
-
 
 ## "char_width_mode" specifies the width of East_Asian_Width=A characters.
 ## When the value "east" is specified, the width is 2. When the value "west" is
@@ -397,7 +357,6 @@
 
 #bleopt char_width_mode=auto
 
-
 ## "char_width_version" specifies the Unicode version that char width
 ## determination bases on.  When "auto" is specified, ble.sh automatically
 ## tests the behavior of the terminal on startup and try to determine the
@@ -407,19 +366,16 @@
 
 #bleopt char_width_version=auto
 
-
 ## "emoji_width" specifies the width of emoji characters.  If an empty value is
 ## specified, special treatment of emoji is disabled.
 
 #bleopt emoji_width=2
-
 
 ## "emoji_version" specifies the version of Unicode Emoji.  Available values
 ## are 0.6, 0.7, 1.0, 2.0, 3.0, 4.0, 5.0, 11.0, 12.0, 12.1, 13.0, 13.1, 14.0,
 ## 15.0, and 15.1.
 
 #bleopt emoji_version=13.1
-
 
 ## "emoji_opts" is a colon-separated list that represents the terminal
 ## capability for emojis.  When "tpvs" and "epvs" are specified, TPVS and EPVS
@@ -432,14 +388,12 @@
 
 #bleopt emoji_opts=ri
 
-
 ## This option specifies the type of the supported grapheme cluster of the
 ## terminal.  The empty string indicates that the terminal does not support the
 ## grapheme clusters.  The values "extended" and "legacy" indicate that the
 ## terminal supports the extended and legacy grapheme clusters, respectively.
 
 #bleopt grapheme_cluster=extended
-
 
 ## This option controls the behavior when ble.sh receives SIGWINCH.
 ## * When the value "redraw-safe" is specified, ble.sh redraws the new prompt
@@ -473,7 +427,6 @@
 
 #bleopt default_keymap=auto
 
-
 ## The following setting controls the treatment of isolated ESCs.  The value
 ## "esc" indicates that it should be treated as ESC.  The value "meta"
 ## indicates that it should be treated as Meta modifier.  The value "auto"
@@ -482,12 +435,10 @@
 
 #bleopt decode_isolated_esc=esc
 
-
 ## The following setting specifies the byte code used to abort the currently
 ## processed inputs. The default value 28 corresponds to "C-\".
 
 #bleopt decode_abort_char=28
-
 
 ## The following settings sets up the behavior for errors while user input
 ## decoding. "error_char" is the decoding error for the current character
@@ -508,12 +459,10 @@
 #bleopt decode_error_kseq_vbell=1
 #bleopt decode_error_kseq_discard=1
 
-
 ## This variable sets the limit to the count of recursive calls of keyboard
 ## macros.
 
 #bleopt decode_macro_limit=1024
-
 
 ## When a non-empty value is specified to this settings, the terminal's
 ## Bracketed Paste Mode (DEC mode 2004) is enabled.  This setting is
@@ -524,7 +473,6 @@
 ##-----------------------------------------------------------------------------
 ## Settings for completion
 
-
 ## The following settings turn on/off the corresponding functionalities. When
 ## non-empty strings are set, the functionality is enabled. Otherwise, the
 ## functionality is inactive.
@@ -533,25 +481,21 @@
 #bleopt complete_menu_complete=1
 #bleopt complete_menu_filter=1
 
-
 ## If "complete_ambiguous" has non-empty values, ambiguous completion
 ## candidates are generated for completion.
 
 #bleopt complete_ambiguous=1
-
 
 ## If "complete_contract_function_names" has non-empty values, the function
 ## name candidates are grouped by prefixes of the directory-like form "*/".
 
 #bleopt complete_contract_function_names=1
 
-
 ## By default, ble.sh does not allow rewriting the existing text if non-unique
 ## candidates does not contain the existing text.  If this setting has
 ## non-empty values, ble.sh rewrites the existing text.
 
 #bleopt complete_allow_reduction=1
-
 
 ## This option specifies the threshold to simplify the quotation type of the
 ## inserted word.  This option is evaluated as an arithmetic expression.  When
@@ -563,25 +507,21 @@
 
 #bleopt complete_requote_threshold=0
 
-
 ## If "complete_auto_history" has non-empty values, auto-complete searches
 ## matching command lines from history.
 
 #bleopt complete_auto_history=1
-
 
 ## The following setting controls the delay of auto-complete after the last
 ## user input. The unit is millisecond.
 
 #bleopt complete_auto_delay=100
 
-
 ## The setting "complete_auto_wordbreaks" is used as the delimiters for
 ## identifying words for M-right (auto-complete/insert-word).  The default
 ## value is $' \t\n'.  If the empty value is set, the default value is used.
 
 #bleopt complete_auto_wordbreaks=$' \t\n/'
-
 
 ## The setting "complete_auto_complete_opts" is a colon-separated list of
 ## options:
@@ -593,7 +533,6 @@
 
 #bleopt complete_auto_complete_opts=suppress-after-complete
 
-
 ## The setting "complete_auto_menu" controls the delay of "auto-menu".  When a
 ## non-empty string is set, auto-menu is enabled.  The string is evaluated as
 ## an arithmetic expression to give the delay in milliseconds.  ble.sh will
@@ -602,14 +541,12 @@
 
 #bleopt complete_auto_menu=500
 
-
 ## When there are user inputs while generating completion candidates, the
 ## candidates generation will be canceled to process the user inputs. The
 ## following setting controls the interval of checking user inputs while
 ## generating completion candidates.
 
 #bleopt complete_polling_cycle=50
-
 
 ## A hint on the maximum acceptable size of any data structure generated during
 ## the completion process, beyond which the completion may be prematurely
@@ -623,7 +560,6 @@
 #bleopt complete_limit_auto=200
 #bleopt complete_limit_auto_menu=100
 
-
 ## The following setting controls the timeout for the pathname expansions
 ## performed in auto-complete.  When the word contains a glob pattern that
 ## takes a long time to evaluate the pathname expansion, auto-complete based on
@@ -633,7 +569,6 @@
 
 #bleopt complete_timeout_auto=5000
 
-
 ## The following setting controls the timeout for the pathname expansions to
 ## prepare COMP_WORDS and COMP_LINE for progcomp.  When the word contains a
 ## glob pattern that takes a long time to evaluate, the pathname expansion is
@@ -642,7 +577,6 @@
 ## When the value is empty, the timeout is disabled.
 
 #bleopt complete_timeout_compvar=200
-
 
 ## The following setting specifies the style of the menu to show completion
 ## candidates. The value "dense" and "dense-nowrap" shows candidates separated
@@ -656,13 +590,11 @@
 
 #bleopt complete_menu_style=align-nowrap
 
-
 ## When a non-empty value is specified to this setting, the matching text on
 ## the right of the cursor is removed on the insertion of the completion.  This
 ## setting is synchronized with the readline variable "skip-completed-text".
 
 #bleopt complete_skip_matched=on
-
 
 ## The following setting controls the detailed behavior of menu-complete with a
 ## colon-separated list of options:
@@ -672,13 +604,11 @@
 
 #bleopt complete_menu_complete_opts=insert-selection
 
-
 ## When a non-empty value is specified to this setting, the highlighting of the
 ## menu items is enabled.  This setting is synchronized with the readline
 ## variable "colored-stats".
 
 #bleopt complete_menu_color=on
-
 
 ## When a non-empty value is specified to this setting, the part of the menu
 ## items matching with the already input text is highlighted.  This setting is
@@ -686,20 +616,17 @@
 
 #bleopt complete_menu_color_match=on
 
-
 ## The following settings specify the maximal and minimal align widths for
 ## complete_menu_style="align" and "align-nowrap".
 
 #bleopt menu_align_min=4
 #bleopt menu_align_max=20
 
-
 ## The following setting specifies the maximal height of the menu.  When this
 ## value is evaluated to be a positive integer, the maximal line number of the
 ## menu is limited to that value.
 
 #bleopt complete_menu_maxlines=10
-
 
 ## The following settings specify the prefix of the menu items.  "menu_prefix"
 ## specifies the default prefix for any menu-style.
@@ -715,19 +642,16 @@
 #bleopt menu_linewise_prefix='\e[1;36m%d:\e[m '
 #bleopt menu_dense_prefix='\e[1;32m>\e[m '
 
-
 ## The following setting specifies the minimum column width for the multicolumn
 ## description for `complete_menu_style=desc'.  When the empty value is
 ## specified, the multicolumn mode is disabled.
 
 #bleopt menu_desc_multicolumn_width=65
 
-
 ## When this Readline setting is enabled, the cases of alphabets are ignored on
 ## completion generation.
 
 #bind 'set completion-ignore-case off'
-
 
 ## When this Readline setting is turned on, suffixes are added to the filename
 ## completions in the menu.  The characters "@", "/" and "*" are added to
@@ -735,24 +659,20 @@
 
 #bind 'set visible-stats off'
 
-
 ## When this Readline setting is turned on, the suffix "/" is inserted after
 ## the insertion of directory names.
 
 #bind 'set mark-directories on'
-
 
 ## When this Readline setting is turned on, the suffix "/" is inserted after
 ## symbolic links pointing to directories.
 
 #bind 'set mark-symlinked-directories on'
 
-
 ## When this Readline setting is turned on, the filenames starting with "." is
 ## also generated as possible completions.
 
 #bind 'set match-hidden-files on'
-
 
 ## By default, when filenames of the form "dir/file*" is shown in the menu, the
 ## part of the directory name "dir/" is omitted.  When this Readline setting is
@@ -760,12 +680,10 @@
 
 #bind 'set menu-complete-display-prefix off'
 
-
 ## This option specifies a colon-separated list of glob patterns of sabbrev
 ## names ignored in generating the sabbrev completion candidates.
 
 #bleopt complete_source_sabbrev_ignore=
-
 
 ## This is a colon-separated list of options.  When the field
 ## `no-empty-completion` is specified, the sabbrev completion candidates are
@@ -790,7 +708,6 @@
 
 #bleopt term_index_colors=256
 
-
 ## The setting "term_true_colors" specifies the format of 24-bit color escape
 ## sequences supported by your terminal.  The value "semicolon" indicates the
 ## format "CSI 3 8 ; 2 ; R ; G ; B m".  The value "colon" indicates the format
@@ -801,12 +718,10 @@
 
 #bleopt term_true_colors=semicolon
 
-
 ## The setting "filename_ls_colors" can be used to import the filename coloring
 ## scheme by the environment variable LS_COLORS.
 
 #bleopt filename_ls_colors="$LS_COLORS"
-
 
 ## The following settings enable or disable the syntax highlighting.  When the
 ## setting "highlight_syntax" has a non-empty value, the syntax highlighting is
@@ -820,7 +735,6 @@
 #bleopt highlight_syntax=
 #bleopt highlight_filename=
 #bleopt highlight_variable=
-
 
 ## The following settings control the timeout and user-input cancellation of
 ## the pathname expansions performed in the syntax highlighting.  When the word
@@ -839,7 +753,6 @@
 #bleopt highlight_timeout_sync=500
 #bleopt highlight_timeout_async=5000
 #bleopt syntax_eval_polling_interval=50
-
 
 ## The following settings specify graphic styles of each faces.
 
@@ -915,13 +828,11 @@
 ##-----------------------------------------------------------------------------
 ## Keybindings
 
-
 ## The default mapping of <SP> in ble.sh is magic-space which performs history
 ## and sabbrev expansion before inserting a space.  If you want to insert just
 ## a space without expansions as Bash's default, use the following setting:
 
 #ble-bind -f 'SP' 'self-insert'
-
 
 ## The default mapping of `/' (<slash>) in ble.sh is magic-slash which performs
 ## sabbrev expansions of the name ` ~*'.  If you want to insert just a slash
@@ -929,20 +840,17 @@
 
 #ble-bind -f '/' 'self-insert'
 
-
 ## If you want to search the already input string using <up> and <down> keys,
 ## use the following setting:
 
 #ble-bind -f up 'history-search-backward'
 #ble-bind -f down 'history-search-forward'
 
-
 ## If you want to immediately run the matched command by RET, you can specify
 ## the option "immediate-accept" to nsearch widgets:
 
 #ble-bind -f up 'history-search-backward immediate-accept'
 #ble-bind -f down 'history-search-forward immediate-accept'
-
 
 ## If you want to kill/copy words including the spaces preceding them, you can
 ## use the following keybindings:
@@ -961,7 +869,6 @@ function blerc/emacs-load-hook {
   ## the info line as a prompt sequence.
 
   #bleopt prompt_emacs_mode_indicator='\q{keymap:emacs/mode-indicator}'
-
 
   ## The following option specifies the multiline mode name used in the prompt
   ## sequence \q{keymap:emacs/mode-indicator} in the multiline editing mode.
@@ -982,7 +889,6 @@ function blerc/emacs-load-hook {
   #ble-bind -f 'C-m' accept-line
   #ble-bind -f 'RET' accept-line
 
-
   ## With the following settings, M-backspace (whose actual key sequence
   ## depends on your terminal) will kill the backward word as in the default
   ## readline.
@@ -1000,7 +906,7 @@ blehook/eval-after-load keymap_emacs blerc/emacs-load-hook
 ## Settings for Vim mode
 
 function blerc/vim-load-hook {
-  ((_ble_bash>=40300)) && builtin bind 'set keyseq-timeout 1'
+  ((_ble_bash >= 40300)) && builtin bind 'set keyseq-timeout 1'
 
   #----------------------------------------------------------------------------
   # Settings for the mode indicator
@@ -1010,7 +916,6 @@ function blerc/vim-load-hook {
 
   #bleopt prompt_vi_mode_indicator='\q{keymap:vi/mode-indicator}'
 
-
   ## The following option controls whether the prompt sequence
   ## \q{keymap:vi/mode-indicator} is activated.  When this option has a
   ## non-empty value, \q{keymap:vi/mode-indicator} is expanded to the mode
@@ -1018,7 +923,6 @@ function blerc/vim-load-hook {
   ## empty string.
 
   #bleopt keymap_vi_mode_show=1
-
 
   ## The following options specify the name of modes in
   ## \q{keymap:vi/mode-indicator}.
@@ -1031,13 +935,11 @@ function blerc/vim-load-hook {
   #bleopt keymap_vi_mode_name_linewise=LINE
   #bleopt keymap_vi_mode_name_blockwise=BLOCK
 
-
   ## This option specifies the result of \q{keymap:vi/mode-indicator} in the
   ## normal mode.  For example, if you want to show an explicit name of the
   ## normal mode like in other modes, please use the following setting:
 
   #bleopt keymap_vi_mode_string_nmap:=$'\e[1m-- NORMAL --\e[m'
-
 
   ## This option specifies that all the prompts should be recalculated on the
   ## mode change.  When this option has a non-empty value, the prompt will be
@@ -1069,7 +971,6 @@ function blerc/vim-load-hook {
   #ble-bind -m vi_imap -f 'M-C-h' kill-backward-cword
   #ble-bind -m vi_imap -f 'M-BS'  kill-backward-cword
 
-
   ## The default mapping of RET and C-m in the insert mode inserts newline with
   ## multiline commands or incomplete commands.  They moves the cursor position
   ## to the next line in the normal mode.  Instead, with the following setting,
@@ -1081,19 +982,16 @@ function blerc/vim-load-hook {
   #ble-bind -m vi_nmap -f 'C-m' accept-line
   #ble-bind -m vi_nmap -f 'RET' accept-line
 
-
   ## The default mapping of C-o is vi_imap/single-command-mode.  If you want to
   ## execute the current command line and load the next history entry with
   ## <C-o>, use the following setting:
 
   #ble-bind -m vi_imap -f 'C-o' 'accept-and-next'
 
-
   ## The default mapping of C-k is kill-forward-line.  If you want to input
   ## digraphs with <C-k>{char1}{char2}, use the following setting:
 
   #ble-bind -m vi_imap -f 'C-k' 'vi_imap/insert-digraph'
-
 
   ## The default mapping of C-c is vi_imap/normal-mode-without-insert-leave
   ## (imap), vi-command/cancel (nmap).  If you instead want to discard the
@@ -1101,7 +999,6 @@ function blerc/vim-load-hook {
 
   #ble-bind -m vi_imap -f 'C-c' discard-line
   #ble-bind -m vi_nmap -f 'C-c' discard-line
-
 
   ## The default mapping of 'g g' and G moves the current position in the
   ## command history.  If you would like to move the cursor position in the
@@ -1113,7 +1010,6 @@ function blerc/vim-load-hook {
   #ble-bind -m vi_nmap -f 'G' vi-command/last-line
   #ble-bind -m vi_omap -f 'G' vi-command/last-line
   #ble-bind -m vi_xmap -f 'G' vi-command/last-line
-
 
   ## The default mapping of 'C-r' in the normal mode is "vi_nmap/redo".  If you
   ## want to use the incremental search mode from Emacs in the Vim mode (as in
@@ -1157,26 +1053,22 @@ function blerc/vim-load-hook {
 
   #bleopt keymap_vi_imap_undo=
 
-
   ## This option controls the behavior of motion in select mode.  The value is
   ## a list of words separated by commas.  When the word "stopsel" is contained
   ## in this option, ble.sh exits the select mode with a motion in select mode.
 
   #bleopt keymap_vi_keymodel=
 
-
   ## This option sets the upper limit of the maximal depth of recurrence of
 
   ## replaying keyboard macros.
   #bleopt keymap_vi_macro_depth=64
-
 
   ## This option specifies the operator name when the user input "g@" in normal
   ## mode.  The function "ble/keymap:vi/operator:$value", where "$value" is the
   ## value of this setting, is used as the implementation of the operator.
 
   #bleopt keymap_vi_operatorfunc=
-
 
   ## When this option has a non-empty value, "/", "?", "n", "N" search the word
   ## on the current position.  When this option has the empty value, these keys
@@ -1229,18 +1121,15 @@ blehook/eval-after-load keymap_vi blerc/vim-load-hook
 
 #bleopt idle_interval='ble_util_idle_elapsed>600000?500:(ble_util_idle_elapsed>60000?200:(ble_util_idle_elapsed>5000?100:20))'
 
-
 ## This option specifies a colon-separated list of custom search paths of "ble-import".
 
 #bleopt import_path="${XDG_DATA_HOME:-$HOME/.local/share}/blesh/local"
-
 
 ## When a non-empty value is specified to this option, displays the internal
 ## syntax analysis information and the syntax tree.  This is only effective in
 ## devel versions.
 
 #bleopt syntax_debug=
-
 
 ## When the option "debug_xtrace" contains a non-empty value, xtrace (set -x)
 ## is enabled for the internal processing of ble.sh.  The value is used for the
@@ -1252,12 +1141,10 @@ blehook/eval-after-load keymap_vi blerc/vim-load-hook
 #bleopt debug_xtrace=~/blesh.xtrace
 #bleopt debug_xtrace_ps4='+ '
 
-
 ## When the option "debug_idle" contains a non-empty value, the background
 ## tasks currently running are shown in the info panel.
 
 #bleopt debug_idle=1
-
 
 ## [The setting "openat_base" needs to be set before ble.sh is loaded or
 ## specified in the source options.  Therefore the value should be assigned
@@ -1274,7 +1161,6 @@ blehook/eval-after-load keymap_vi blerc/vim-load-hook
 
 # echo "usage: e.g. source out/ble.sh -o openat_base=30"
 
-
 ## It specifies the context of the command execution.  The value "gexec"
 ## specifies that the user command is evaluated in global contexts.  The value
 ## "exec" (ble-0.3 and before) specified that the user command is evaluated in
@@ -1283,19 +1169,16 @@ blehook/eval-after-load keymap_vi blerc/vim-load-hook
 
 #bleopt internal_exec_type=gexec
 
-
 ## This option sets the message that Bash outputs when "C-d" is input by user.
 ## This value is used to detect that the user inputs "C-d" in Bash 3.
 
 #bleopt internal_ignoreeof_trap='Use "exit" to leave the shell.'
-
 
 ## This option controls the output of stack dump when assertion is failed in
 ## ble.sh.  When the value is evaluated to be non-zero, the stack dump is
 ## printed for assertion failures.
 
 #bleopt internal_stackdump_enabled=0
-
 
 ## When a non-empty value is specified to this option, the standard output and
 ## standard error from Bash is not output to the terminal.  When the value is

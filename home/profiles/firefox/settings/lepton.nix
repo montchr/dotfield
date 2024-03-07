@@ -9,11 +9,8 @@
 #   This happens because the settings will be kept in browser preferences state.
 #
 #   Alternatively, you can go to `about:config` and reset the setting.
+{ lib, isLinux, ... }:
 {
-  lib,
-  isLinux,
-  ...
-}: {
   ### === userChrome ==========================================================
   # ** Theme Default Options ****************************************************
   # userchrome.css usercontent.css activate

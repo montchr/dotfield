@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     # TODO: project does not have a defined description anywhere
     # description = ''
     # '';
-    license = with licenses; [mpl20];
-    maintainers = with maintainers; [montchr];
+    license = with licenses; [ mpl20 ];
+    maintainers = with maintainers; [ montchr ];
   };
 }

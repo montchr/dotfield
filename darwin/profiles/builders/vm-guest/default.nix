@@ -25,14 +25,12 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # Copyright (c) 2022-2023 Luc Perkins <lucperkins@gmail.com>
-{
-  flake,
-  pkgs,
-  ...
-}: let
+{ flake, pkgs, ... }:
+let
   l = flake.inputs.nixpkgs.lib // builtins;
-  linuxBuilder = import ./machine.nix {inherit l pkgs;};
-in {
+  linuxBuilder = import ./machine.nix { inherit l pkgs; };
+in
+{
   environment.etc."nix/ssh_config".text = ''
     Host linux-builder
       User builder
@@ -48,7 +46,11 @@ in {
 
   launchd.daemons.linux-builder = {
     command = linuxBuilder.script;
-    path = with pkgs; ["/usr/bin" coreutils nix];
+    path = with pkgs; [
+      "/usr/bin"
+      coreutils
+      nix
+    ];
     serviceConfig = {
       KeepAlive = true;
       RunAtLoad = true;
@@ -58,9 +60,11 @@ in {
   };
 
   nix = {
-    buildMachines = [linuxBuilder.builderMachine];
+    buildMachines = [ linuxBuilder.builderMachine ];
     distributedBuilds = true;
-    envVars = {NIX_SSHOPTS = "-F /etc/nix/ssh_config";}; # See the config above
+    envVars = {
+      NIX_SSHOPTS = "-F /etc/nix/ssh_config";
+    }; # See the config above
   };
 
   # Make sure that the Nix daemon is enabled in the nix-darwin config

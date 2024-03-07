@@ -4,7 +4,8 @@
   lib,
   flake,
   ...
-}: let
+}:
+let
   inherit (config.home) username sessionVariables;
   l = flake.inputs.nixpkgs.lib // builtins;
 
@@ -14,17 +15,12 @@
   userConfigDir = "~/.config/dotfield/users/${username}/config/nushell";
 
   /*
-  @partial
-  replaceVars :: [String] -> (String -> String)
+    @partial
+    replaceVars :: [String] -> (String -> String)
   */
-  replaceVars = names:
-    l.replaceStrings
-    (l.map (v: "$" + v) names)
-    (l.map (v: "$env.${v}") names);
+  replaceVars = names: l.replaceStrings (l.map (v: "$" + v) names) (l.map (v: "$env.${v}") names);
 
-  /*
-  replaceVars' :: String -> String
-  */
+  # replaceVars' :: String -> String
   replaceVars' = replaceVars commonNames;
 
   commonNames = [
@@ -38,18 +34,21 @@
     "XDG_BIN_HOME"
   ];
 
-  /*
-  attrsToEnvDecls :: { n :: String } -> String
-  */
-  attrsToEnvDecls = attrs:
-    lib.concatStringsSep "\n"
-    (lib.mapAttrsToList
-      (name: value: let
-        value' = replaceVars' value;
-      in "$env.${name} = `${value'}`")
-      attrs);
-in {
-  imports = [../common.nix];
+  # attrsToEnvDecls :: { n :: String } -> String
+  attrsToEnvDecls =
+    attrs:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        name: value:
+        let
+          value' = replaceVars' value;
+        in
+        "$env.${name} = `${value'}`"
+      ) attrs
+    );
+in
+{
+  imports = [ ../common.nix ];
 
   # TODO: install these via module flags (needs dev)
   home.packages = [

@@ -1,11 +1,9 @@
-moduleArgs @ {
-  config,
-  lib,
-  ...
-}: let
+moduleArgs@{ config, lib, ... }:
+let
   inherit (config.dotfield.features) hasWayland;
   hasNvidia = moduleArgs.osConfig.dotfield.features.hasNvidia or false;
-in {
+in
+{
   # https://aur.archlinux.org/packages/plex-htpc#comment-854436
   xdg.dataFile."plex/mpv.conf".text = ''
     cache-default=4000000

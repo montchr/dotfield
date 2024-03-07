@@ -1,2 +1,1 @@
-{ops}:
-ops.keys.age
+{ ops }: ops.keys.age

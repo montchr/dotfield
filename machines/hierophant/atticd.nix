@@ -1,21 +1,19 @@
 # FIXME: fails with non-local storage backend
-{
-  config,
-  flake,
-  ...
-}: let
+{ config, flake, ... }:
+let
   listenPort = 8080;
   listenPort' = builtins.toString listenPort;
   fqdn = "cache.seadome.net";
-in {
-  imports = [flake.inputs.attic.nixosModules.atticd];
+in
+{
+  imports = [ flake.inputs.attic.nixosModules.atticd ];
 
-  sops.secrets.attic-server-token = {};
+  sops.secrets.attic-server-token = { };
 
   services.atticd.enable = true;
   services.atticd.credentialsFile = config.sops.secrets.attic-server-token.path;
   services.atticd.settings = {
-    allowed-hosts = [];
+    allowed-hosts = [ ];
     # FIXME: wrong! takes over domain
     # api-endpoint = "https://${fqdn}/";
     listen = "[::]:${listenPort'}";

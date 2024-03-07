@@ -1,4 +1,5 @@
-{homeProfiles}: let
+{ homeProfiles }:
+let
   base = [
     homeProfiles.core.default
     homeProfiles.atuin
@@ -21,16 +22,14 @@
     homeProfiles.zoxide
   ];
 
-  developer =
-    base
-    ++ [
-      homeProfiles.difftools.delta
-      homeProfiles.emacs.default
-      homeProfiles.git-sync
-      homeProfiles.just
-      homeProfiles.python
-      homeProfiles.zellij
-    ];
+  developer = base ++ [
+    homeProfiles.difftools.delta
+    homeProfiles.emacs.default
+    homeProfiles.git-sync
+    homeProfiles.just
+    homeProfiles.python
+    homeProfiles.zellij
+  ];
 
   graphical = [
     homeProfiles.chromium
@@ -111,4 +110,4 @@
       ];
   };
 in
-  features
+features

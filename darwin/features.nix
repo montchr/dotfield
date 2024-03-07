@@ -1,7 +1,5 @@
-{
-  sharedProfiles,
-  darwinProfiles,
-}: let
+{ sharedProfiles, darwinProfiles }:
+let
   workstation = [
     sharedProfiles.fonts.common
     sharedProfiles.fonts.iosevka-variants
@@ -17,4 +15,7 @@
     darwinProfiles.system-defaults
     darwinProfiles.virtualisation.containers
   ];
-in {inherit workstation;}
+in
+{
+  inherit workstation;
+}

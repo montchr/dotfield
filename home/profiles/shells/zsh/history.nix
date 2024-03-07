@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   ZSH_DATA = "${config.xdg.dataHome}/zsh";
-in {
+in
+{
   programs.zsh = {
     history.path = "${ZSH_DATA}/history";
     history.expireDuplicatesFirst = true;

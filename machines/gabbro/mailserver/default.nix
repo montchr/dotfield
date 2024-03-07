@@ -4,24 +4,29 @@
   ops,
   config,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) simple-nixos-mailserver;
   inherit (ops.networks) seadome;
   inherit (config.sops) secrets;
   inherit (ops.networks.loopgarden) domain;
   matrixFqdn = "matrix.${domain}";
-in {
-  imports = [simple-nixos-mailserver.nixosModules.default];
+in
+{
+  imports = [ simple-nixos-mailserver.nixosModules.default ];
 
   mailserver = {
     enable = true;
     fqdn = "mail.${domain}";
-    domains = [domain matrixFqdn];
+    domains = [
+      domain
+      matrixFqdn
+    ];
 
     ##: loop.garden
     loginAccounts."hierophant@${domain}" = {
       hashedPasswordFile = secrets."accounts/hierophant/hashed-password".path;
-      catchAll = [domain];
+      catchAll = [ domain ];
     };
     loginAccounts."dmarc@${domain}".hashedPasswordFile = secrets."accounts/dmarc/hashed-password".path;
 
@@ -32,7 +37,7 @@ in {
     };
     loginAccounts."support@${matrixFqdn}" = {
       hashedPasswordFile = secrets."accounts/matrix/support/hashed-password".path;
-      catchAll = [matrixFqdn];
+      catchAll = [ matrixFqdn ];
     };
 
     certificateScheme = "acme-nginx";

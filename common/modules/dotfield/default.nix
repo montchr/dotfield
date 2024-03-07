@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = lib // builtins;
 
@@ -11,7 +12,7 @@
 
   featuresOpt = l.mkOption {
     type = l.types.attrsOf l.types.unspecified;
-    default = {};
+    default = { };
   };
 
   # Whether Impermanence aka "ephemeral root storage" aka "darling erasure"
@@ -21,7 +22,8 @@
   # for the time being, we use the setting to prepare for impermanence prior
   # to implementation.
   hasImpermanence = false;
-in {
+in
+{
   imports = [
     ./_guardian.nix
     ./_hosts.nix
@@ -36,10 +38,7 @@ in {
     paths = {
       fsPath = l.mkOption {
         type = l.types.str;
-        default =
-          if isDarwin
-          then "$HOME/.config/dotfield"
-          else "/etc/dotfield";
+        default = if isDarwin then "$HOME/.config/dotfield" else "/etc/dotfield";
       };
       persistence = l.mkOption {
         type = l.types.str;
@@ -51,10 +50,7 @@ in {
       # FIXME: replace with explicit usage of `dotfield.paths.persistence`
       storageBase = l.mkOption {
         type = l.types.str;
-        default =
-          if hasImpermanence
-          then "/persist"
-          else "";
+        default = if hasImpermanence then "/persist" else "";
         description = ''
           Absolute path to the root directory for non-ephemeral file storage,
           taking impermanence settings into account.
@@ -76,25 +72,27 @@ in {
 
         # Whether the system has any features indicating a Wayland session.
         hasWayland =
-          config.services.xserver.displayManager.gdm.wayland
-          or config.programs.sway.enable
-          or false;
+          config.services.xserver.displayManager.gdm.wayland or config.programs.sway.enable or false;
       };
     };
 
     home-manager.sharedModules = [
-      {home.sessionVariables."DOTFIELD_DIR" = osCfg.paths.fsPath;}
-      (hmArgs: let
-        hmConfig = hmArgs.config;
-        hasSway = hmConfig.wayland.windowManager.sway.enable;
-      in {
-        options.dotfield.features = featuresOpt;
-        # FIXME: make submodule
-        config.dotfield.features = {
-          inherit hasSway;
-          hasWayland = osCfg.hasWayland or hasSway;
-        };
-      })
+      { home.sessionVariables."DOTFIELD_DIR" = osCfg.paths.fsPath; }
+      (
+        hmArgs:
+        let
+          hmConfig = hmArgs.config;
+          hasSway = hmConfig.wayland.windowManager.sway.enable;
+        in
+        {
+          options.dotfield.features = featuresOpt;
+          # FIXME: make submodule
+          config.dotfield.features = {
+            inherit hasSway;
+            hasWayland = osCfg.hasWayland or hasSway;
+          };
+        }
+      )
     ];
   };
 }

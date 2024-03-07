@@ -1,10 +1,8 @@
-{
-  pkgs,
-  flake,
-  ...
-}: let
+{ pkgs, flake, ... }:
+let
   inherit (flake.inputs) disko nixpkgs;
-in {
+in
+{
   imports = [
     disko.nixosModules.disko
     ./boot.nix
@@ -15,9 +13,7 @@ in {
     # ./users
   ];
 
-  disko.devices = import ./disk-config.nix {
-    inherit (nixpkgs) lib;
-  };
+  disko.devices = import ./disk-config.nix { inherit (nixpkgs) lib; };
 
   system.stateVersion = "23.05";
 }

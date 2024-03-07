@@ -11,11 +11,12 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # Required when using `gnome3`. The package will be included automatically
   # when using the GNOME desktop environment, but if not, the package must be
   # added manually.
-  services.dbus.packages = [pkgs.gcr];
+  services.dbus.packages = [ pkgs.gcr ];
 
   services.pcscd.enable = true;
 
@@ -26,7 +27,7 @@
     pkgs.pcscliteWithPolkit.out
   ];
 
-  services.udev.packages = [pkgs.yubikey-personalization];
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 
   home-manager.sharedModules = lib.singleton {
     home.packages = [

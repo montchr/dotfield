@@ -1,9 +1,4 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
-  config = lib.mkIf (pkgs.hostPlatform.isLinux) {
-    home.packages = [pkgs.nyxt];
-  };
+  config = lib.mkIf (pkgs.hostPlatform.isLinux) { home.packages = [ pkgs.nyxt ]; };
 }

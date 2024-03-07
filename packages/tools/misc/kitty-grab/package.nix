@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Keyboard-driven screen grabber for Kitty";
     homepage = "https://github.com/yurikhan/kitty_grab";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "kitty-grab";
     platforms = platforms.all;
   };

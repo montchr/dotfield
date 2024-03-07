@@ -1,13 +1,36 @@
 # FIXME: use or lose (not used currently)
 {
   programs.vscode.userSettings = {
-    "[javascript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "[json]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "[jsonc]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "[markdown]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "[typescript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "[typescriptreact]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
-    "colorize.languages" = ["javascript" "css" "sass" "scss" "less" "postcss" "sss" "stylus" "xml" "svg"];
+    "[javascript]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "[json]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "[jsonc]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "[markdown]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "[typescript]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "[typescriptreact]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
+    "colorize.languages" = [
+      "javascript"
+      "css"
+      "sass"
+      "scss"
+      "less"
+      "postcss"
+      "sss"
+      "stylus"
+      "xml"
+      "svg"
+    ];
     "css.format.spaceAroundSelectorSeparator" = true;
     "debug.console.fontFamily" = "'Iosevka Nerd Font Mono'";
     "debug.javascript.codelens.npmScripts" = "never";
@@ -26,7 +49,9 @@
     "editor.minimap.enabled" = false;
     "editor.occurrencesHighlight" = false;
     "editor.parameterHints.cycle" = true;
-    "editor.quickSuggestions" = {strings = "on";};
+    "editor.quickSuggestions" = {
+      strings = "on";
+    };
     "editor.renderLineHighlightOnlyWhenFocus" = true;
     "editor.scrollBeyondLastLine" = false;
     "editor.tabSize" = 2;
@@ -43,7 +68,9 @@
     "explorer.confirmDragAndDrop" = false;
     "explorer.excludeGitIgnore" = true;
     "extensions.closeExtensionDetailsOnViewChange" = true;
-    "files.associations" = {dep5 = "debian-copyright";};
+    "files.associations" = {
+      dep5 = "debian-copyright";
+    };
     "files.autoGuessEncoding" = true;
     "files.insertFinalNewline" = true;
     "git.autoStash" = true;
@@ -52,7 +79,11 @@
     "git.enableCommitSigning" = true;
     "git.fetchOnPull" = true;
     "git.repositoryScanMaxDepth" = 2;
-    "git.scanRepositories" = ["~/Developer/work" "~/Developer/sources" "~/Developer/contrib"];
+    "git.scanRepositories" = [
+      "~/Developer/work"
+      "~/Developer/sources"
+      "~/Developer/contrib"
+    ];
     "git.smartCommitChanges" = "tracked";
     "git.suggestSmartCommit" = false;
     "github.gitProtocol" = "ssh";
@@ -78,7 +109,9 @@
     "rewrap.autoWrap.enabled" = true;
     "scm.diffDecorations" = "gutter";
     "scm.inputFontFamily" = "editor";
-    "search.exclude" = {"**/vendor" = true;};
+    "search.exclude" = {
+      "**/vendor" = true;
+    };
     "search.smartCase" = true;
     "search.useGlobalIgnoreFiles" = true;
     "tailwindCSS.emmetCompletions" = true;

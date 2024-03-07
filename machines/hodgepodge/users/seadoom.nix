@@ -3,10 +3,12 @@
   pkgs,
   ops,
   ...
-}: let
+}:
+let
   username = "seadoom";
   maybeGroups = builtins.filter (group: builtins.hasAttr group config.users.groups);
-in {
+in
+{
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "seadoom";
   users.mutableUsers = false;
@@ -28,20 +30,16 @@ in {
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} = {
-    profiles,
-    features,
-    ...
-  }: {
-    imports =
-      features.workstation
-      ++ [
+  home-manager.users.${username} =
+    { profiles, features, ... }:
+    {
+      imports = features.workstation ++ [
         profiles.emacs.emacs-init
         profiles.shells.fish.default
         profiles.spotify
         profiles.theme.fonts.monospace.iosevka-comfy
         profiles.qutebrowser
       ];
-    home.stateVersion = "21.11";
-  };
+      home.stateVersion = "21.11";
+    };
 }

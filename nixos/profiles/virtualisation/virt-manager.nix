@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [./libvirt.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./libvirt.nix ];
   programs.dconf.enable = true;
-  environment.systemPackages = with pkgs; [virt-manager];
+  environment.systemPackages = with pkgs; [ virt-manager ];
 }

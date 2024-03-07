@@ -1,26 +1,18 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkOption;
   inherit (lib.types) str nullOr;
   cfg = config.dotfield.whoami;
-in {
+in
+{
   options.dotfield.whoami = {
-    firstName = mkOption {
-      type = str;
-    };
-    lastName = mkOption {
-      type = str;
-    };
+    firstName = mkOption { type = str; };
+    lastName = mkOption { type = str; };
     fullName = mkOption {
       type = str;
       default = "${cfg.firstName} ${cfg.lastName}";
     };
-    email = mkOption {
-      type = str;
-    };
+    email = mkOption { type = str; };
     githubUserName = mkOption {
       type = nullOr str;
       default = null;

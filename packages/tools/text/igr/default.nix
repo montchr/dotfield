@@ -6,9 +6,14 @@
   bat,
   fzf,
   ripgrep,
-}: (writeShellApplication {
+}:
+(writeShellApplication {
   name = "igr";
-  runtimeInputs = [bat fzf ripgrep];
+  runtimeInputs = [
+    bat
+    fzf
+    ripgrep
+  ];
   text = ''
     declare query="$1"
     declare preview='bat --color=always --style=header,numbers -H {2} {1} | grep -C3 {q}'

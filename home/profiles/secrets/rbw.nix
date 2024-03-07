@@ -1,11 +1,9 @@
-{
-  flake,
-  pkgs,
-  ...
-}: let
+{ flake, pkgs, ... }:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
+in
+{
   home.packages = l.optional isDarwin pkgs.pinentry_mac;
   programs.rbw = {
     enable = true;

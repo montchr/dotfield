@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) optional;
   inherit (config.dotfield.features) hasNvidia;
-in {
-  imports = [../common.nix];
+in
+{
+  imports = [ ../common.nix ];
 
   programs.sway = {
     enable = true;
@@ -19,7 +21,7 @@ in {
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     '';
   };
-  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   xdg.portal.wlr.enable = true;
   environment.systemPackages = with pkgs; [
     ##: core

@@ -6,14 +6,16 @@
   darwinProfiles,
   sharedProfiles,
   ...
-}: let
+}:
+let
   inherit (flake.perSystem) packages;
   inherit (lib) optional;
 
   username = "cdom";
 
   hmCfg = config.home-manager.users.${username};
-in {
+in
+{
   imports = [
     darwinProfiles.builders.nixbuild-net
     darwinProfiles.yabai
@@ -28,19 +30,20 @@ in {
   # FIXME: needs some tweaking upstream to account for nix-darwin...
   # imports = [inputs.klein-infra.darwinModules."aarch64-darwin".ssh-known-hosts];
 
-  dotfield.users.cdom = {};
+  dotfield.users.cdom = { };
   dotfield.hosts.tuvix = {
     owner = config.dotfield.users.cdom;
   };
 
   # Allow nix-darwin to install the specified programs as applications.
-  environment.systemPackages =
-    optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package
-    ++ [
-      packages.synadm
-    ];
+  environment.systemPackages = optional hmCfg.programs.kitty.enable hmCfg.programs.kitty.package ++ [
+    packages.synadm
+  ];
 
-  homebrew.casks = ["microsoft-teams" "onedrive"];
+  homebrew.casks = [
+    "microsoft-teams"
+    "onedrive"
+  ];
 
   programs.fish.enable = true;
 
@@ -50,14 +53,10 @@ in {
     shell = pkgs.zsh;
   };
 
-  home-manager.users.${username} = {
-    profiles,
-    features,
-    ...
-  }: {
-    imports =
-      features.workstation
-      ++ [
+  home-manager.users.${username} =
+    { profiles, features, ... }:
+    {
+      imports = features.workstation ++ [
         # TODO: add to default profiles but darwin only
         profiles.os-specific.darwin.app-launcher-trampoline
         profiles.os-specific.darwin.yabai
@@ -69,8 +68,8 @@ in {
         # profiles.theme.fonts.monospace.iosevka-xtal
         profiles.theme.fonts.monospace.iosevka-comfy
       ];
-    home.stateVersion = "22.05";
-  };
+      home.stateVersion = "22.05";
+    };
 
   system.stateVersion = 4;
 }

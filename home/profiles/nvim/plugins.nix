@@ -1,6 +1,8 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs) vimPlugins;
-in {
+in
+{
   programs.neovim.plugins = [
     # vimPlugins.vim-commentary #      <- "comment stuff out"
     # vimPlugins.vim-dispatch #        <- async build and test dispatcher
@@ -30,7 +32,7 @@ in {
     vimPlugins.nvim-lsputils
 
     ##: nav
-    vimPlugins.leap-nvim #         <- a clairvoyant interface for on-screen jumps (successor to lightspeed.vim)
+    vimPlugins.leap-nvim # <- a clairvoyant interface for on-screen jumps (successor to lightspeed.vim)
     # vimPlugins.vim-argumentative # <- helpers for function args
     # vimPlugins.vim-unimpaired #    <- "pairs of handy bracket mappings"
     vimPlugins.which-key-nvim

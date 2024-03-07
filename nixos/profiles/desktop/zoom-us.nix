@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.dotfield.features) hasWayland;
   inherit (pkgs.stdenv.hostPlatform) isAarch64;
-in {
+in
+{
   environment.systemPackages = lib.optional (!isAarch64) pkgs.zoom-us; # <- broken
   home-manager.sharedModules = [
     {

@@ -1,11 +1,9 @@
-{
-  ops,
-  config,
-  ...
-}: let
+{ ops, config, ... }:
+let
   inherit (config.home) homeDirectory;
   inherit (ops) hosts;
-in {
+in
+{
   programs.ssh = {
     enable = true;
     forwardAgent = false;
@@ -26,6 +24,6 @@ in {
       identitiesOnly = true;
     };
 
-    includes = ["~/.config/ssh/config.local"];
+    includes = [ "~/.config/ssh/config.local" ];
   };
 }

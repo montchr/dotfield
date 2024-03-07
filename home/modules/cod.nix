@@ -3,10 +3,17 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkOption mkEnableOption types mkIf;
+}:
+let
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    types
+    mkIf
+    ;
   cfg = config.services.cod;
-in {
+in
+{
   options = {
     services.cod = {
       enable = mkEnableOption "Whether to enable the cod shell completion daemon.";
@@ -44,7 +51,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
     programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
       source <(${cfg.package}/bin/cod init $$ bash)
     '';

@@ -1,9 +1,6 @@
 # via <https://nixos-mailserver.readthedocs.io/en/latest/add-roundcube.html>
+{ ops, config, ... }:
 {
-  ops,
-  config,
-  ...
-}: {
   services.roundcube = {
     enable = true;
     # NOTE: This does not necessarily need to be the same FQDN as the mailserver.
@@ -19,5 +16,8 @@
 
   # TODO: replace with srvos nginx mixin
   services.nginx.enable = true;
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

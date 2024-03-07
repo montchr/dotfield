@@ -1,10 +1,1 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-lib.mkMerge [
-  {
-    home.packages = with pkgs; [];
-  }
-]
+{ lib, pkgs, ... }: lib.mkMerge [ { home.packages = with pkgs; [ ]; } ]

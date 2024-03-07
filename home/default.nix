@@ -3,14 +3,16 @@
   self,
   ops,
   ...
-}: let
+}:
+let
   inherit (self) inputs;
   inherit (self.lib.hm) makeHomeConfiguration;
   inherit (inputs.apparat.lib.hm) mkHomeConfigurations;
 
-  homeProfiles = import ./profiles.nix {inherit (inputs) haumea;};
-  features = import ./features.nix {inherit homeProfiles;};
-in {
+  homeProfiles = import ./profiles.nix { inherit (inputs) haumea; };
+  features = import ./features.nix { inherit homeProfiles; };
+in
+{
   flake = {
     # FIXME: invert this approach -- make system configs import pre-defined home
     # configs or something like that. see ~misterio77/nixos-config
@@ -24,9 +26,13 @@ in {
   perSystem = _perSystem: {
     homeConfigurations = {
       traveller = makeHomeConfiguration "cdom" {
-        modules =
-          features.webdev
-          ++ [{_module.args = {inherit ops;};}];
+        modules = features.webdev ++ [
+          {
+            _module.args = {
+              inherit ops;
+            };
+          }
+        ];
       };
     };
   };

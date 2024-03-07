@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.sops) secrets;
   inherit (config.users) users groups;
 
@@ -6,8 +7,9 @@
 
   user = users.${cfg.user};
   baseDir = "/srv/data/torrents";
-in {
-  users.users.${cfg.user}.extraGroups = [groups."keys".name];
+in
+{
+  users.users.${cfg.user}.extraGroups = [ groups."keys".name ];
 
   sops.secrets."services/deluge/auth-file" = {
     owner = user.name;
@@ -16,10 +18,13 @@ in {
     # <https://git.deluge-torrent.org/deluge/tree/deluge/common.py#n1208>
     mode = "0400";
     path = "${cfg.dataDir}/auth-file";
-    restartUnits = ["deluged.service" "delugeweb.service"];
+    restartUnits = [
+      "deluged.service"
+      "delugeweb.service"
+    ];
   };
 
-  networking.firewall.allowedTCPPorts = [cfg.config.daemon_port];
+  networking.firewall.allowedTCPPorts = [ cfg.config.daemon_port ];
 
   services.deluge = {
     enable = true;
@@ -57,17 +62,23 @@ in {
       ];
 
       ##: network (incoming aka "listening")
-      listen_ports = [58112 58112];
+      listen_ports = [
+        58112
+        58112
+      ];
       random_port = false;
 
       ##: network (outgoing)
-      outgoing_ports = [0 0];
+      outgoing_ports = [
+        0
+        0
+      ];
       random_outgoing_ports = true;
 
       ##: network (encryption)
-      enc_in_policy = 1; #   "Enabled"
-      enc_out_policy = 1; #  "Enabled"
-      enc_level = 2; #       "Full Stream"
+      enc_in_policy = 1; # "Enabled"
+      enc_out_policy = 1; # "Enabled"
+      enc_level = 2; # "Full Stream"
 
       ##: network (extras)
       upnp = false;

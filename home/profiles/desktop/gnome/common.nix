@@ -1,4 +1,5 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib.hm.gvariant) mkUint32 mkTuple;
 
   fileChooserDefaults = {
@@ -12,8 +13,9 @@
     sort-order = "ascending";
     type-format = "category";
   };
-in {
-  imports = [../gtk/dconf-settings.nix];
+in
+{
+  imports = [ ../gtk/dconf-settings.nix ];
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -95,10 +97,8 @@ in {
       repeat = true;
     };
 
-    "org/gtk/gtk4/settings/file-chooser" =
-      fileChooserDefaults // {};
+    "org/gtk/gtk4/settings/file-chooser" = fileChooserDefaults // { };
 
-    "org/gtk/settings/file-chooser" =
-      fileChooserDefaults // {};
+    "org/gtk/settings/file-chooser" = fileChooserDefaults // { };
   };
 }

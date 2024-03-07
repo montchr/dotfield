@@ -1,15 +1,21 @@
 # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1716147796
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   home.activation = {
-    trampolineApps = let
-      apps = pkgs.buildEnv {
-        name = "home-manager-applications";
-        paths = config.home.packages;
-        pathsToLink = "/Applications";
-      };
-    in
-      lib.hm.dag.entryAfter ["writeBoundary"] ''
+    trampolineApps =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+      in
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         toDir="$HOME/Applications/HMApps"
         fromDir="${apps}/Applications"
         rm -rf "$toDir"

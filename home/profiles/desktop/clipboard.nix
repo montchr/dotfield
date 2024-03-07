@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-in {
+in
+{
   # FIXME: only on wlroots
   # services.cliphist.enable = true;
 

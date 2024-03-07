@@ -13,7 +13,8 @@
 ##: Sources
 # - https://docs.hercules-ci.com/arion/#_nixos
 # - https://github.com/hercules-ci/arion/issues/122
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     arion
 
@@ -33,5 +34,5 @@
   # containers will need to be added to this group. However, note that this
   # essentially gives container `root` users access to the host system via the
   # socket.
-  dotfield.guardian.user.extraGroups = ["podman"];
+  dotfield.guardian.user.extraGroups = [ "podman" ];
 }

@@ -1,37 +1,64 @@
 # FIXME: use device labels for interop
-{lib, ...}: {
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+{ lib, ... }:
+{
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
     fsType = "btrfs";
-    options = ["subvol=root" "compress=zstd" "noatime"];
+    options = [
+      "subvol=root"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
     fsType = "btrfs";
-    options = ["subvol=home" "compress=zstd"];
+    options = [
+      "subvol=home"
+      "compress=zstd"
+    ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
     fsType = "btrfs";
-    options = ["subvol=nix" "compress=zstd" "noatime"];
+    options = [
+      "subvol=nix"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   fileSystems."/persist" = {
     device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
     fsType = "btrfs";
-    options = ["subvol=persist" "compress=zstd" "noatime"];
+    options = [
+      "subvol=persist"
+      "compress=zstd"
+      "noatime"
+    ];
   };
 
   fileSystems."/var/log" = {
     device = "/dev/disk/by-uuid/cba89c2c-fb8a-4335-8ca1-8518808e32eb";
     fsType = "btrfs";
-    options = ["subvol=log" "compress=zstd" "noatime"];
+    options = [
+      "subvol=log"
+      "compress=zstd"
+      "noatime"
+    ];
     neededForBoot = true;
   };
 

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   programs.helix.enable = true;
   programs.helix.defaultEditor = lib.mkDefault false;
   programs.helix.settings = {

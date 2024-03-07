@@ -4,9 +4,9 @@
   withSystem,
   ops,
   ...
-}: let
-  inherit
-    (self.inputs)
+}:
+let
+  inherit (self.inputs)
     haumea
     home-manager
     nixos-apple-silicon
@@ -19,10 +19,10 @@
   commonModules = import ../common/modules-list.nix;
   nixosModules = import ../nixos/modules-list.nix;
 
-  sharedProfiles = import ../common/profiles.nix {inherit haumea;};
-  nixosProfiles = import ./profiles.nix {inherit haumea;};
+  sharedProfiles = import ../common/profiles.nix { inherit haumea; };
+  nixosProfiles = import ./profiles.nix { inherit haumea; };
 
-  features = import ./features.nix {inherit sharedProfiles nixosProfiles;};
+  features = import ./features.nix { inherit sharedProfiles nixosProfiles; };
 
   defaultModules = [
     sharedProfiles.core.default
@@ -33,31 +33,36 @@
     home-manager.nixosModules.home-manager
   ];
 
-  makeNixosSystem = hostName: nixosArgs @ {system, ...}:
+  makeNixosSystem =
+    hostName:
+    nixosArgs@{ system, ... }:
     withSystem system (
-      {pkgs, ...}:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit nixosProfiles sharedProfiles;
-            flake = lib'.modules.flakeSpecialArgs' system;
-          };
-          modules =
-            defaultModules
-            ++ commonModules
-            ++ nixosModules
-            ++ (nixosArgs.modules or [])
-            ++ [
-              ../machines/${hostName}
-              {
-                _module.args = {inherit ops;};
-                nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
-                networking.hostName = hostName;
-              }
-            ];
-        }
+      { pkgs, ... }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit nixosProfiles sharedProfiles;
+          flake = lib'.modules.flakeSpecialArgs' system;
+        };
+        modules =
+          defaultModules
+          ++ commonModules
+          ++ nixosModules
+          ++ (nixosArgs.modules or [ ])
+          ++ [
+            ../machines/${hostName}
+            {
+              _module.args = {
+                inherit ops;
+              };
+              nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
+              networking.hostName = hostName;
+            }
+          ];
+      }
     );
-in {
+in
+{
   # FIXME: remove (empty)
   flake.nixosModules = nixosModules;
   flake.nixosConfigurations = {
@@ -83,45 +88,44 @@ in {
         ]);
     };
 
-    tuvok = makeNixosSystem "tuvok" (let
-      system = "aarch64-linux";
-    in {
-      inherit system;
-      pkgs = import nixpkgs {
+    tuvok = makeNixosSystem "tuvok" (
+      let
+        system = "aarch64-linux";
+      in
+      {
         inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          nixos-apple-silicon.overlays.default
-        ];
-      };
-      modules =
-        features.gnome
-        ++ features.desktop
-        ++ features.workstation
-        ++ [
-          nixosProfiles.hardware.apple.macbook-14-2
-          nixosProfiles.hardware.laptop
-        ];
-    });
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ nixos-apple-silicon.overlays.default ];
+        };
+        modules =
+          features.gnome
+          ++ features.desktop
+          ++ features.workstation
+          ++ [
+            nixosProfiles.hardware.apple.macbook-14-2
+            nixosProfiles.hardware.laptop
+          ];
+      }
+    );
 
     moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
-      modules =
-        features.server
-        ++ [
-          srvos.nixosModules.server
-          srvos.nixosModules.hardware-hetzner-online-amd
-          srvos.nixosModules.mixins-nginx
-          srvos.nixosModules.mixins-terminfo
-          srvos.nixosModules.mixins-tracing
-          srvos.nixosModules.mixins-trusted-nix-caches
-          # TODO: needs additional config
-          srvos.nixosModules.mixins-telegraf
+      modules = features.server ++ [
+        srvos.nixosModules.server
+        srvos.nixosModules.hardware-hetzner-online-amd
+        srvos.nixosModules.mixins-nginx
+        srvos.nixosModules.mixins-terminfo
+        srvos.nixosModules.mixins-tracing
+        srvos.nixosModules.mixins-trusted-nix-caches
+        # TODO: needs additional config
+        srvos.nixosModules.mixins-telegraf
 
-          # FIXME: needs security before enable
-          # nixosProfiles.monitoring.prometheus
-          # nixosProfiles.monitoring.telegraf
-        ];
+        # FIXME: needs security before enable
+        # nixosProfiles.monitoring.prometheus
+        # nixosProfiles.monitoring.telegraf
+      ];
     };
 
     boschic = makeNixosSystem "boschic" {
@@ -155,52 +159,46 @@ in {
 
     chert = makeNixosSystem "chert" {
       system = "x86_64-linux";
-      modules =
-        features.server
-        ++ [
-          # TODO: verify whether these conflict with operations, esp. non-mutable users?
-          # srvos.nixosModules.server
-          # srvos.nixosModules.mixins-nginx
-          srvos.nixosModules.hardware-hetzner-cloud
-          srvos.nixosModules.mixins-terminfo
-          srvos.nixosModules.mixins-tracing
-          srvos.nixosModules.mixins-trusted-nix-caches
-          # TODO: needs additional config
-          srvos.nixosModules.mixins-telegraf
-        ];
+      modules = features.server ++ [
+        # TODO: verify whether these conflict with operations, esp. non-mutable users?
+        # srvos.nixosModules.server
+        # srvos.nixosModules.mixins-nginx
+        srvos.nixosModules.hardware-hetzner-cloud
+        srvos.nixosModules.mixins-terminfo
+        srvos.nixosModules.mixins-tracing
+        srvos.nixosModules.mixins-trusted-nix-caches
+        # TODO: needs additional config
+        srvos.nixosModules.mixins-telegraf
+      ];
     };
 
     gabbro = makeNixosSystem "gabbro" {
       system = "x86_64-linux";
-      modules =
-        features.server
-        ++ [
-          # TODO: verify whether these conflict with operations, esp. non-mutable users?
-          # srvos.nixosModules.server
-          # srvos.nixosModules.mixins-nginx
-          srvos.nixosModules.hardware-hetzner-cloud
-          srvos.nixosModules.mixins-terminfo
-          srvos.nixosModules.mixins-tracing
-          srvos.nixosModules.mixins-trusted-nix-caches
-          # TODO: needs additional config
-          srvos.nixosModules.mixins-telegraf
-        ];
+      modules = features.server ++ [
+        # TODO: verify whether these conflict with operations, esp. non-mutable users?
+        # srvos.nixosModules.server
+        # srvos.nixosModules.mixins-nginx
+        srvos.nixosModules.hardware-hetzner-cloud
+        srvos.nixosModules.mixins-terminfo
+        srvos.nixosModules.mixins-tracing
+        srvos.nixosModules.mixins-trusted-nix-caches
+        # TODO: needs additional config
+        srvos.nixosModules.mixins-telegraf
+      ];
     };
 
     hierophant = makeNixosSystem "hierophant" {
       system = "x86_64-linux";
-      modules =
-        features.server
-        ++ [
-          srvos.nixosModules.server
-          srvos.nixosModules.hardware-hetzner-cloud
-          srvos.nixosModules.mixins-nginx
-          srvos.nixosModules.mixins-terminfo
-          srvos.nixosModules.mixins-tracing
-          srvos.nixosModules.mixins-trusted-nix-caches
-          # TODO: needs additional config
-          srvos.nixosModules.mixins-telegraf
-        ];
+      modules = features.server ++ [
+        srvos.nixosModules.server
+        srvos.nixosModules.hardware-hetzner-cloud
+        srvos.nixosModules.mixins-nginx
+        srvos.nixosModules.mixins-terminfo
+        srvos.nixosModules.mixins-tracing
+        srvos.nixosModules.mixins-trusted-nix-caches
+        # TODO: needs additional config
+        srvos.nixosModules.mixins-telegraf
+      ];
     };
   };
 }

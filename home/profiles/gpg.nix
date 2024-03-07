@@ -5,10 +5,12 @@
   flake,
   ops,
   ...
-}: let
+}:
+let
   key = (config.dotfield.whoami).pgp;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in {
+in
+{
   # Use our fork of these modules while still pending upstream changes.
   # FIXME: https://github.com/nix-community/home-manager/pull/2964
   #  imports = [(flake.inputs.home-manager-gpg-agent-darwin + "/modules/services/gpg-agent.nix")];
@@ -29,11 +31,8 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = false;
-      pinentryFlavor =
-        if isDarwin
-        then "mac"
-        else "gnome3";
-      sshKeys = [key];
+      pinentryFlavor = if isDarwin then "mac" else "gnome3";
+      sshKeys = [ key ];
     };
 
     programs.gpg = {

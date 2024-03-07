@@ -1,9 +1,7 @@
-{
-  config,
-  ops,
-  ...
-}: let
+{ config, ops, ... }:
+let
   inherit (config.networking) hostName;
-in {
+in
+{
   networking.domain = ops.hosts.${hostName}.domain;
 }

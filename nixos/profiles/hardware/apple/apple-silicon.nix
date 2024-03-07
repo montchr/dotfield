@@ -4,12 +4,14 @@
   nixosProfiles,
   flake,
   ...
-}: let
+}:
+let
   inherit (config.networking) hostName;
   inherit (flake.inputs) nixos-apple-silicon;
   firmwareInputName = "asahi-${hostName}-firmware";
   firmwareInput = flake.perSystem.inputs'.${firmwareInputName};
-in {
+in
+{
   imports = [
     nixosProfiles.boot.systemd-boot
     nixos-apple-silicon.nixosModules.apple-silicon-support

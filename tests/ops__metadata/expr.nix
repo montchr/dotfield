@@ -1,2 +1,1 @@
-{ops}:
-ops.metadata
+{ ops }: ops.metadata

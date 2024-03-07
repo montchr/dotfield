@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = [
     pkgs.aerc
     pkgs.isync
@@ -6,7 +7,5 @@
     pkgs.mutt
   ];
 
-  programs.emacs.extraPackages = _epkgs: [
-    pkgs.mu
-  ];
+  programs.emacs.extraPackages = _epkgs: [ pkgs.mu ];
 }

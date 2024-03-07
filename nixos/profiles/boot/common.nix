@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   boot.consoleLogLevel = lib.mkDefault 3;
   boot.tmp.cleanOnBoot = true;
 

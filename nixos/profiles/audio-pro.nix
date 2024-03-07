@@ -2,18 +2,15 @@
 # <https://wiki.archlinux.org/index.php/Pro_Audio>
 # <https://nixos.wiki/wiki/PipeWire>
 # possible conflict with musnix rt kernel + nvidia proprietary driver: <https://github.com/musnix/musnix/issues/127>
+{ flake, pkgs, ... }:
 {
-  flake,
-  pkgs,
-  ...
-}: {
   imports = [
     ./audio.nix
 
     flake.inputs.musnix.nixosModules.musnix
   ];
 
-  environment.systemPackages = [];
+  environment.systemPackages = [ ];
 
   # Optimizations for real-time audio support.
   #

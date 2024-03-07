@@ -1,10 +1,8 @@
-{
-  config,
-  ops,
-  ...
-}: let
+{ config, ops, ... }:
+let
   username = "cdom";
-in {
+in
+{
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
@@ -21,14 +19,10 @@ in {
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} = {
-    features,
-    profiles,
-    ...
-  }: {
-    imports =
-      features.workstation
-      ++ [
+  home-manager.users.${username} =
+    { features, profiles, ... }:
+    {
+      imports = features.workstation ++ [
         profiles.emacs.emacs-init
         # TODO: consider renaming these -- "default" is a little confusing
         # sometimes, e.g. in this case it could be interpreted as the default
@@ -37,6 +31,6 @@ in {
         profiles.shells.fish.default
         profiles.theme.fonts.monospace.iosevka-comfy
       ];
-    home.stateVersion = "22.05";
-  };
+      home.stateVersion = "22.05";
+    };
 }

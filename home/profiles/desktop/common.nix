@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.home) homeDirectory;
   inherit (config.accounts.email) maildirBasePath;
-in {
+in
+{
   imports = [
     ./clipboard.nix
     ./input-devices.nix
@@ -22,7 +24,7 @@ in {
     ]
     ++ lib.optionals isLinux [
       # TODO: only on gnome? or does gtk use it too?
-      pkgs.dconf2nix #: <https://github.com/gvolpe/dconf2nix>
+      pkgs.dconf2nix # : <https://github.com/gvolpe/dconf2nix>
     ];
 
   xdg.userDirs = {

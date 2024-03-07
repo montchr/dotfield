@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./home-manager.nix
     ./nix-config.nix
@@ -42,7 +43,7 @@
 
   # Install completions for system packages.
   environment.pathsToLink =
-    ["/share/bash-completion"]
+    [ "/share/bash-completion" ]
     # FIXME: figure out how to enable this without making all system rebuilds take forever
     # ++ (lib.optional config.programs.fish.enable "/share/fish")
     ++ (lib.optional config.programs.zsh.enable "/share/zsh");

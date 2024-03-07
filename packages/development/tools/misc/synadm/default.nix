@@ -24,12 +24,12 @@ python3.pkgs.buildPythonApplication rec {
     tabulate
   ];
 
-  pythonImportsCheck = ["synadm"];
+  pythonImportsCheck = [ "synadm" ];
 
   meta = with lib; {
     description = "Command line admin tool for Synapse (the Matrix reference homeserver";
     homepage = "https://github.com/JOJ0/synadm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
   };
 }

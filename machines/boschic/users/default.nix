@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./seadoom.nix
     ./zortflower.nix

@@ -2,8 +2,7 @@
 #       it has some exotic setup/integration required
 #       <https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/applications/editors/emacs/elisp-packages/manual-packages>
 # FIXME: should use versions from emacs-overlay but without overlay
-epkgs:
-with epkgs; [
+epkgs: with epkgs; [
   # FIXME: "undefined variable"
   # org-modern-indent
 
@@ -38,7 +37,7 @@ with epkgs; [
   doom-modeline
   drag-stuff
   dumb-jump
-  editorconfig #req: editorconfig-c
+  editorconfig # req: editorconfig-c
   elisp-demos
   elisp-refs
   embark

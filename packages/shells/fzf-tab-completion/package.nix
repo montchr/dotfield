@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Tab completion using fzf";
     homepage = "https://github.com/lincheney/fzf-tab-completion";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "fzf-tab-completion";
     platforms = platforms.all;
   };

@@ -1,8 +1,10 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs) iosevka-bin iosevka-comfy;
-  makeIosevkaVariant = variant: iosevka-bin.override {inherit variant;};
+  makeIosevkaVariant = variant: iosevka-bin.override { inherit variant; };
   makeIosevkaSgrVariant = variant: makeIosevkaVariant "sgr-iosevka-${variant}";
-in {
+in
+{
   fonts.packages = [
     iosevka-bin
     iosevka-comfy.comfy

@@ -4,22 +4,29 @@
   lib,
   modulesPath,
   ...
-}: {
-  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
+}:
+{
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.devices = ["/dev/sda"];
+  boot.loader.grub.devices = [ "/dev/sda" ];
 
-  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = [];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "xhci_pci"
+    "virtio_pci"
+    "sd_mod"
+    "sr_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
 
-  swapDevices = [];
+  swapDevices = [ ];
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   fileSystems."/" = {

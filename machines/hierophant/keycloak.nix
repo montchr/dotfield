@@ -1,14 +1,12 @@
-{
-  flake,
-  config,
-  ...
-}: let
+{ flake, config, ... }:
+let
   inherit (config.sops) secrets;
   l = flake.inputs.nixpkgs.lib // builtins;
   cfg = config.services.keycloak;
   hostname = "auth.seadome.net";
   httpUrl = "http://${cfg.settings.http-host}:${builtins.toString cfg.settings.http-port}";
-in {
+in
+{
   services.keycloak = {
     enable = true;
     database.passwordFile = secrets."keycloak/db-password".path;
@@ -33,9 +31,9 @@ in {
     sslCertificateKey = secrets."keycloak/cert-key".path;
   };
 
-  sops.secrets."keycloak/cert" = {};
-  sops.secrets."keycloak/cert-key" = {};
-  sops.secrets."keycloak/db-password".restartUnits = ["keycloak.service"];
+  sops.secrets."keycloak/cert" = { };
+  sops.secrets."keycloak/cert-key" = { };
+  sops.secrets."keycloak/db-password".restartUnits = [ "keycloak.service" ];
 
   services.nginx.virtualHosts."${hostname}" = {
     enableACME = true;

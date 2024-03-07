@@ -1,10 +1,8 @@
-{
-  flake,
-  ops,
-  ...
-}: let
+{ flake, ops, ... }:
+let
   inherit (flake.inputs.apparat.constants.networking) dns;
-in {
+in
+{
   networking.domain = ops.hosts.hierophant.domain;
   networking.nameservers = dns.nameservers.cloudflare;
 

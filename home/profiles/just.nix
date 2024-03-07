@@ -1,4 +1,5 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.just];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.just ];
   home.shellAliases."j" = "just";
 }

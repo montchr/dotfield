@@ -14,8 +14,11 @@ stdenv.mkDerivation {
     hash = "sha256-mAXExj8n8gFHq19HfGy4UOJYKVGPYgarGd/04kUIqX4=";
   };
 
-  phases = ["unpackPhase" "installPhase"];
-  pathsToLink = ["/share/fonts/opentype/"];
+  phases = [
+    "unpackPhase"
+    "installPhase"
+  ];
+  pathsToLink = [ "/share/fonts/opentype/" ];
   sourceRoot = ".";
   installPhase = ''
     install_path=$out/share/fonts/opentype

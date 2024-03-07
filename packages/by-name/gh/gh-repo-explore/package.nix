@@ -16,13 +16,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-YTIRzKOjG21YeYYNLtjqQhEuDxbmTtx6+FUtf9zMyhQ=";
 
-  ldflags = ["-s" "-w"];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "GitHub CLI extension to interactively explore a repo without cloning";
     homepage = "https://github.com/samcoe/gh-repo-explore";
     license = licenses.mit;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "gh-repo-explore";
   };
 }

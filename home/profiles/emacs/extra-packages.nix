@@ -1,9 +1,10 @@
 # FIXME: split apart
 # FIXME: add these tools as necessary in other profiles
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     gnutls
-    (ripgrep.override {withPCRE2 = true;})
+    (ripgrep.override { withPCRE2 = true; })
     fd
 
     imagemagick # for image-dired
@@ -13,12 +14,13 @@
 
     ##: === writing ===
 
-    (aspellWithDicts (ds:
-      with ds; [
+    (aspellWithDicts (
+      ds: with ds; [
         en
         en-computers
         en-science
-      ]))
+      ]
+    ))
     languagetool
 
     ##: === lang/lsp ===

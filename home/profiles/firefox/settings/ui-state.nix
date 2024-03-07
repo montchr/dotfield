@@ -7,7 +7,8 @@
 # TODO: hide the stuff we don't care about so that only stuff like "nav-bar" and
 # "unified-extensions-area" are accessible. all settings likely still need to be
 # present in order to prevent config corruption
-{lib, ...}: let
+{ lib, ... }:
+let
   navbarItems = [
     "back-button"
     "forward-button"
@@ -66,21 +67,29 @@
     # Copy Selection As Markdown
     "_db9a72da-7bc5-4805-bcea-da3cb1a15316_-browser-action"
   ];
-in {
+in
+{
   # TODO: determine whether the order of keys matters...
   "browser.uiCustomization.state" = builtins.toJSON {
     currentVersion = 20;
-    dirtyAreaCache = ["nav-bar" "PersonalToolbar" "toolbar-menubar" "TabsToolbar" "widget-overflow-fixed-list" "unified-extensions-area"];
+    dirtyAreaCache = [
+      "nav-bar"
+      "PersonalToolbar"
+      "toolbar-menubar"
+      "TabsToolbar"
+      "widget-overflow-fixed-list"
+      "unified-extensions-area"
+    ];
     newElementCount = 6;
     placements = {
       # Bookmarks Bar -- but the name makes it seem like there could be other items?
-      PersonalToolbar = ["personal-bookmarks"];
+      PersonalToolbar = [ "personal-bookmarks" ];
       TabsToolbar = tabsToolbarItems;
       nav-bar = navbarItems;
       # Indication that the toolbar menu flyout is the same as the menubar items.
-      toolbar-menubar = ["menubar-items"];
+      toolbar-menubar = [ "menubar-items" ];
       unified-extensions-area = extensionsFlyoutItems;
-      widget-overflow-fixed-list = ["fxa-toolbar-menu-button"];
+      widget-overflow-fixed-list = [ "fxa-toolbar-menu-button" ];
     };
     # TODO: determine how much these matter -- firefox will likely want this
     # updated any time a new extension is added...

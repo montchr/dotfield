@@ -1,13 +1,11 @@
 ##: NOTE: The source module is currently forked to prevent activation failure
 #         during NixOS boot.
 #
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (config) xdg;
-in {
+in
+{
   programs.tealdeer.enable = true;
   programs.tealdeer.settings = {
     display = {

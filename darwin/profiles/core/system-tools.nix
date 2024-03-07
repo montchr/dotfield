@@ -3,10 +3,12 @@
   pkgs,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) nix-index-database;
-in {
-  imports = [nix-index-database.darwinModules.nix-index];
+in
+{
+  imports = [ nix-index-database.darwinModules.nix-index ];
 
   environment.systemPackages = [
     pkgs.m-cli

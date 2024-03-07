@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.firefox.enable = true;
 
   # TODO: only include these when some home-manager user needs them (see apparat lib function)

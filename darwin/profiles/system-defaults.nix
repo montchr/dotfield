@@ -1,10 +1,8 @@
-{
-  config,
-  flake,
-  ...
-}: let
+{ config, flake, ... }:
+let
   l = flake.inputs.nixpkgs.lib // builtins;
-in {
+in
+{
   ##: Hostname
   system.defaults.smb.NetBIOSName = config.networking.hostName;
   system.defaults.smb.ServerDescription = config.networking.hostName;
@@ -127,7 +125,7 @@ in {
   # Disable the over-the-top focus ring animation
   system.defaults.NSGlobalDomain.NSUseAnimatedFocusRing = false;
 
-  system.defaults.NSGlobalDomain.NSWindowResizeTime = 0.001;
+  system.defaults.NSGlobalDomain.NSWindowResizeTime = 1.0e-3;
   system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint = true;
   system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint2 = true;
   system.defaults.NSGlobalDomain._HIHideMenuBar = l.mkDefault false;
@@ -239,8 +237,8 @@ in {
 
   ###: MISC ====================================================================
 
-  system.defaults.CustomSystemPreferences = {};
-  system.defaults.CustomUserPreferences = {};
+  system.defaults.CustomSystemPreferences = { };
+  system.defaults.CustomUserPreferences = { };
 
   system.defaults.screencapture.disable-shadow = false;
   # The filesystem path to which screencaptures should be written.

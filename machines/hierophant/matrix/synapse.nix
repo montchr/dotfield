@@ -4,7 +4,8 @@
   config,
   ops,
   ...
-}: let
+}:
+let
   inherit (ops.networks.loopgarden) domain;
   inherit (flake.perSystem) packages;
   l = flake.inputs.nixpkgs.lib // builtins;
@@ -19,16 +20,17 @@
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
-in {
+in
+{
   imports = [
     ./__metrics.nix
     ./__secrets.nix
     # ./__idp-oidc.nix
   ];
 
-  environment.systemPackages = [packages.synadm];
+  environment.systemPackages = [ packages.synadm ];
 
-  services.borgbackup.jobs."services-backup".paths = [cfg.dataDir];
+  services.borgbackup.jobs."services-backup".paths = [ cfg.dataDir ];
 
   services.matrix-synapse = {
     enable = true;
@@ -37,21 +39,25 @@ in {
       public_baseurl = baseUrl;
       enable_registration = true;
       enable_registration_captcha = true;
-      registrations_require_3pid = ["email"];
+      registrations_require_3pid = [ "email" ];
       registration_requires_token = true;
       recaptcha_public_key = "6LcdyoAnAAAAADxF-7vQjWoF8jp0U0pkf3wgGrkD";
       admin_contact = "support@matrix.loop.garden";
-      auto_join_rooms = [
-        "#general:loop.garden"
-      ];
+      auto_join_rooms = [ "#general:loop.garden" ];
       listeners = l.singleton {
         port = 8008;
-        bind_addresses = ["::1" "127.0.0.1"];
+        bind_addresses = [
+          "::1"
+          "127.0.0.1"
+        ];
         type = "http";
         tls = false;
         x_forwarded = true;
         resources = l.singleton {
-          names = ["client" "federation"];
+          names = [
+            "client"
+            "federation"
+          ];
           compress = false;
         };
       };
@@ -70,7 +76,7 @@ in {
   services.nginx.virtualHosts.${elementFqdn} = {
     enableACME = true;
     forceSSL = true;
-    serverAliases = ["chat.${domain}"];
+    serverAliases = [ "chat.${domain}" ];
 
     root = pkgs.element-web.override {
       conf = {

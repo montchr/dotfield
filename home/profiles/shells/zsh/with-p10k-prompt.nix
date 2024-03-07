@@ -1,15 +1,13 @@
 # <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (config.xdg) cacheHome;
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
   DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/users/cdom/config/zsh";
-  l = import ./lib.nix {inherit lib;};
-in {
-  imports = [./custom-prompt.nix];
+  l = import ./lib.nix { inherit lib; };
+in
+{
+  imports = [ ./custom-prompt.nix ];
 
   programs.direnv.enableZshIntegration = false;
 

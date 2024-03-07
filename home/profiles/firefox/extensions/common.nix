@@ -1,5 +1,6 @@
-{addons}:
-with addons; [
+{ addons }:
+with addons;
+[
   onepassword-password-manager
   a11ycss
   anchors-reveal

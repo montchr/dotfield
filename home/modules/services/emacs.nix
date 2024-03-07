@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit
-    (lib)
+}:
+let
+  inherit (lib)
     concatStringsSep
     escapeShellArg
     escapeShellArgs
@@ -31,20 +31,14 @@
   emacsBinPath = "${cfg.package}/bin";
   emacsVersion = getVersion cfg.package;
 
-  clientWMClass =
-    if versionAtLeast emacsVersion "28"
-    then "Emacsd"
-    else "Emacs";
+  clientWMClass = if versionAtLeast emacsVersion "28" then "Emacsd" else "Emacs";
 
   # Adapted from upstream emacs.desktop
-  clientDesktopItem =
-    pkgs.writeTextDir "share/applications/emacsclient.desktop"
-    (generators.toINI {} {
+  clientDesktopItem = pkgs.writeTextDir "share/applications/emacsclient.desktop" (
+    generators.toINI { } {
       "Desktop Entry" = {
         Type = "Application";
-        Exec = "${emacsBinPath}/emacsclient ${
-          concatStringsSep " " cfg.client.arguments
-        } %F";
+        Exec = "${emacsBinPath}/emacsclient ${concatStringsSep " " cfg.client.arguments} %F";
         Terminal = false;
         Name = "Emacs Client";
         Icon = "emacs";
@@ -55,7 +49,8 @@
         Keywords = "Text;Editor;";
         StartupWMClass = clientWMClass;
       };
-    });
+    }
+  );
 
   # Match the default socket path for the Emacs version so emacsclient continues
   # to work without wrapping it.
@@ -68,30 +63,37 @@
   # import the user environment.
   daemonCmdParts = [
     "${emacsBinPath}/emacs"
-    ("--fg-daemon"
+    (
+      "--fg-daemon"
       # In case the user sets 'server-directory' or 'server-name' in
       # their Emacs config, we want to specify the socket path explicitly
       # so launching 'emacs.service' manually doesn't break emacsclient
       # when using socket activation.
-      + optionalString cfg.socketActivation.enable "=${escapeShellArg socketPath}")
+      + optionalString cfg.socketActivation.enable "=${escapeShellArg socketPath}"
+    )
     "${escapeShellArgs cfg.extraOptions}"
   ];
-  execCmdParts = [pkgs.runtimeShell "-l" "-c"];
-in {
+  execCmdParts = [
+    pkgs.runtimeShell
+    "-l"
+    "-c"
+  ];
+in
+{
   # Disable the upstream module.
-  disabledModules = ["services/emacs.nix"];
+  disabledModules = [ "services/emacs.nix" ];
 
-  meta.maintainers = [maintainers.tadfisher maintainers.montchr];
+  meta.maintainers = [
+    maintainers.tadfisher
+    maintainers.montchr
+  ];
 
   options.services.emacs = {
     enable = mkEnableOption "the Emacs daemon";
 
     package = mkOption {
       type = types.package;
-      default =
-        if emacsCfg.enable
-        then emacsCfg.finalPackage
-        else pkgs.emacs;
+      default = if emacsCfg.enable then emacsCfg.finalPackage else pkgs.emacs;
       defaultText = literalExpression ''
         if config.programs.emacs.enable then config.programs.emacs.finalPackage
         else pkgs.emacs
@@ -101,8 +103,11 @@ in {
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [];
-      example = ["-f" "exwm-enable"];
+      default = [ ];
+      example = [
+        "-f"
+        "exwm-enable"
+      ];
       description = ''
         Extra command-line arguments to pass to <command>emacs</command>.
       '';
@@ -112,7 +117,7 @@ in {
       enable = mkEnableOption "generation of Emacs client desktop file";
       arguments = mkOption {
         type = with types; listOf str;
-        default = ["-c"];
+        default = [ "-c" ];
         description = ''
           Command-line arguments to pass to <command>emacsclient</command>.
         '';
@@ -127,10 +132,9 @@ in {
     };
 
     startWithUserSession = mkOption {
-      type = with types; either bool (enum ["graphical"]);
+      type = with types; either bool (enum [ "graphical" ]);
       default = !cfg.socketActivation.enable;
-      defaultText =
-        literalExpression "!config.services.emacs.socketActivation.enable";
+      defaultText = literalExpression "!config.services.emacs.socketActivation.enable";
       example = "graphical";
       description = ''
         Whether to launch Emacs service with the systemd user session. If it is
@@ -169,12 +173,8 @@ in {
               Description = "Emacs text editor";
               Documentation = "info:emacs man:emacs(1) https://gnu.org/software/emacs/";
 
-              After =
-                optional (cfg.startWithUserSession == "graphical")
-                "graphical-session.target";
-              PartOf =
-                optional (cfg.startWithUserSession == "graphical")
-                "graphical-session.target";
+              After = optional (cfg.startWithUserSession == "graphical") "graphical-session.target";
+              PartOf = optional (cfg.startWithUserSession == "graphical") "graphical-session.target";
 
               # Avoid killing the Emacs session, which may be full of
               # unsaved buffers.
@@ -212,11 +212,7 @@ in {
         // optionalAttrs (cfg.startWithUserSession != false) {
           Install = {
             WantedBy = [
-              (
-                if cfg.startWithUserSession == true
-                then "default.target"
-                else "graphical-session.target"
-              )
+              (if cfg.startWithUserSession == true then "default.target" else "graphical-session.target")
             ];
           };
         };
@@ -224,16 +220,17 @@ in {
 
     {
       home.sessionVariables = mkIf cfg.defaultEditor {
-        EDITOR = getBin (pkgs.writeShellScript "editor" ''
-          exec ${getBin cfg.package}/bin/emacsclient "''${@:---create-frame}"
-        '');
+        EDITOR = getBin (
+          pkgs.writeShellScript "editor" ''
+            exec ${getBin cfg.package}/bin/emacsclient "''${@:---create-frame}"
+          ''
+        );
       };
     }
 
     (mkIf cfg.client.enable {
       assertions = [
-        (lib.hm.assertions.assertPlatform "services.emacs.client.enable" pkgs
-          lib.platforms.linux)
+        (lib.hm.assertions.assertPlatform "services.emacs.client.enable" pkgs lib.platforms.linux)
       ];
 
       home.packages = optional cfg.client.enable (hiPrio clientDesktopItem);
@@ -241,8 +238,7 @@ in {
 
     (mkIf cfg.socketActivation.enable {
       assertions = [
-        (lib.hm.assertions.assertPlatform "services.emacs.socketActivation" pkgs
-          lib.platforms.linux)
+        (lib.hm.assertions.assertPlatform "services.emacs.socketActivation" pkgs lib.platforms.linux)
       ];
 
       systemd.user.sockets.emacs = {
@@ -258,7 +254,9 @@ in {
           DirectoryMode = "0700";
         };
 
-        Install = {WantedBy = ["sockets.target"];};
+        Install = {
+          WantedBy = [ "sockets.target" ];
+        };
       };
     })
   ]);

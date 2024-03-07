@@ -1,14 +1,8 @@
 ;;; Directory Local Variables            -*- no-byte-compile: t -*-
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((nil . ((eglot-workspace-configuration
-          . (:nil
-             (:nix
-              (;; :maxMemoryMB nil ; FIXME: needs a reasonable limit!
-                            :flake (:autoArchive nil
-                                                 ;; FIXME: errors when trying to
-                                                 ;; eval private asahi
-                                                 ;; firmware repo
-                                                 ;; :autoEvalInputs t
-                                                 )))))))
- (nix-ts-mode . ((apheleia-formatter . alejandra))))
+((nil . ((eglot-workspace-configuration . (:nil
+                                           (:nix
+                                            (:flake
+                                             (:autoArchive nil)))))))
+ (nix-ts-mode . ((apheleia-formatter . nixfmt))))

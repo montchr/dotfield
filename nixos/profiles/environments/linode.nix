@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # LISH compatibility
-  boot.kernelParams = ["console=ttyS0,19200n8"];
+  boot.kernelParams = [ "console=ttyS0,19200n8" ];
   boot.loader.timeout = 10;
   boot.loader.grub.forceInstall = true;
   boot.loader.grub.device = "nodev";

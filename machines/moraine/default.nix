@@ -1,10 +1,8 @@
-{
-  pkgs,
-  ops,
-  ...
-}: let
+{ pkgs, ops, ... }:
+let
   inherit (ops) hosts;
-in {
+in
+{
   imports = [
     ./filesystems.nix
     ./network.nix
@@ -22,17 +20,13 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.systemPackages = [
-    pkgs.borgbackup
-  ];
+  environment.systemPackages = [ pkgs.borgbackup ];
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "anomich";
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys =
-    hosts.boschic.users.seadoom.keys
-    ++ hosts.tuvix.users.cdom.keys
-    ++ hosts.ryosuke.users.cdom.keys;
+    hosts.boschic.users.seadoom.keys ++ hosts.tuvix.users.cdom.keys ++ hosts.ryosuke.users.cdom.keys;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

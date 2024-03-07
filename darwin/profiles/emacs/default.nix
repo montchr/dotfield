@@ -4,9 +4,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.emacs;
-in {
+in
+{
   # services.emacs.enable = true;
   services.emacs.package = pkgs.emacs29-macport;
   # environment.systemPackages = [cfg.package];

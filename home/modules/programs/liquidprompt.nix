@@ -7,7 +7,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) types;
   # TODO: consider as global module args?
   l = flake.inputs.apparat.lib;
@@ -17,19 +18,27 @@
       source ${cfg.package}/bin/liquidprompt
     fi
   '';
-in {
+in
+{
   options.programs.liquidprompt = {
     enable = lib.mkEnableOption "liquidprompt";
 
-    package = lib.mkPackageOption pkgs "liquidprompt" {};
+    package = lib.mkPackageOption pkgs "liquidprompt" { };
 
     enableBashIntegration = l.mkDisableOption "Bash integration";
     enableZshIntegration = l.mkDisableOption "Zsh integration";
 
     # FIXME: does nothing, needs processing for config file output (see config below)
     settings = lib.mkOption {
-      type = with types; attrsOf (oneOf [bool int path str]);
-      default = {};
+      type =
+        with types;
+        attrsOf (oneOf [
+          bool
+          int
+          path
+          str
+        ]);
+      default = { };
     };
   };
 

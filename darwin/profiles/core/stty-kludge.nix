@@ -1,5 +1,6 @@
-{lib, ...}: {
-  environment.systemPath = lib.mkBefore ["$HOME/.local/bin"];
+{ lib, ... }:
+{
+  environment.systemPath = lib.mkBefore [ "$HOME/.local/bin" ];
 
   # Link native /bin/stty to user bin directory
   # In some rare cases, GNU coreutils stty causes issues on Darwin.

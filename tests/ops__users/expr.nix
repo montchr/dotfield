@@ -1,2 +1,1 @@
-{ops}:
-ops.users
+{ ops }: ops.users

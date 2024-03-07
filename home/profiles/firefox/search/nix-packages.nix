@@ -1,4 +1,5 @@
-{pkgs}: {
+{ pkgs }:
+{
   urls = [
     {
       template = "https://search.nixos.org/packages";
@@ -15,5 +16,8 @@
     }
   ];
   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-  definedAliases = ["@np" "@nixpkgs"];
+  definedAliases = [
+    "@np"
+    "@nixpkgs"
+  ];
 }

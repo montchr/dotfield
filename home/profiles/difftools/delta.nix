@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   themePolarity = config.theme.color.schemes.default.kind;
-in {
+in
+{
   programs.git.delta = {
     enable = true;
     options = {

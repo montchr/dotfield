@@ -1,10 +1,8 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs, config, ... }:
+let
   inherit (config.homebrew) brewPrefix;
-in {
+in
+{
   time.timeZone = "America/New_York";
 
   security.pam.enableSudoTouchIdAuth = true;
@@ -12,7 +10,7 @@ in {
   # kitty terminfo must be applied on the system level
   # https://github.com/nix-community/home-manager/issues/423
   environment.variables = {
-    TERMINFO_DIRS = ["${pkgs.kitty.terminfo}/share/terminfo"];
+    TERMINFO_DIRS = [ "${pkgs.kitty.terminfo}/share/terminfo" ];
   };
 
   # Allow for usage of `brew` CLI without adding to `PATH`
@@ -29,9 +27,7 @@ in {
     "Thunderbolt Bridge"
   ];
 
-  homebrew.brews = [
-    "tailscale"
-  ];
+  homebrew.brews = [ "tailscale" ];
 
   homebrew.casks = [
     "airfoil"
@@ -39,10 +35,10 @@ in {
     "appcleaner"
     "bartender"
     "caprine"
-    "eloston-chromium" #          <- aka "ungoogled-chromium" in nixpkgs
+    "eloston-chromium" # <- aka "ungoogled-chromium" in nixpkgs
     "dropbox"
     "fantastical"
-    "firefox" #                   <- "home" browser
+    "firefox" # <- "home" browser
     "firefox-developer-edition" # <- "work" browser
     "flameshot"
     "karabiner-elements"

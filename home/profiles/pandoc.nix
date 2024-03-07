@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   cfg = config.programs.pandoc;
-in {
+in
+{
   programs.pandoc.enable = true;
-  home.packages = [cfg.finalPackage];
+  home.packages = [ cfg.finalPackage ];
 }

@@ -4,10 +4,12 @@
   pkgs,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) nix-index-database;
-in {
-  imports = [nix-index-database.nixosModules.nix-index];
+in
+{
+  imports = [ nix-index-database.nixosModules.nix-index ];
 
   # NOTE: Manpage cache generation may add significant time to builds.
   # FIXME: cannot set to false without conflict! even with mkDefault

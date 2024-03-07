@@ -3,7 +3,8 @@
   config,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) nix-index-database;
   inherit (config) xdg;
 
@@ -16,7 +17,8 @@
   # NOTE: This may also be set at the system level -- it is included again here
   # for standalone installation parity.
   binHome = "$HOME/.local/bin";
-in {
+in
+{
   imports = [
     nix-index-database.hmModules.nix-index
 

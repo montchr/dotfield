@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://ast-grep.github.io/";
     changelog = "https://github.com/ast-grep/ast-grep/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
   };
 }

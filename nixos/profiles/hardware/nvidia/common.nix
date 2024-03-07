@@ -1,17 +1,14 @@
 # <https://nixos.wiki/wiki/Nvidia#Modifying_NixOS_Configuration>
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # TODO: remind self about nature of vaapiVdpau (related to video decoding, but
   # why this package?) -- this may very likely relate to issues with Steam
   # Remote Play encountered whilst trying to run Baldur's Gate 3 on ryosuke as
   # client machine (host was DORE (mswin), which is the same machine as boschic,
   # and thus nvidia)...
-  hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
+  hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ];
 
   # Required for Wayland support.
   hardware.nvidia.modesetting.enable = true;

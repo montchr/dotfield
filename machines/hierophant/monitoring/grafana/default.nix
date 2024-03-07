@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (cfg.settings) server;
   cfg = config.services.grafana;
-in {
+in
+{
   services.grafana.enable = true;
   services.grafana.settings = {
     server = {

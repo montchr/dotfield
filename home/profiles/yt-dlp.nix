@@ -1,10 +1,8 @@
-{
-  pkgs,
-  flake,
-  ...
-}: let
+{ pkgs, flake, ... }:
+let
   inherit (flake.inputs.apparat.lib.yt-dl) maxRatio;
-in {
+in
+{
   programs.yt-dlp = {
     enable = true;
     package = pkgs.yt-dlp.override {
@@ -34,4 +32,3 @@ in {
 ###: Sources:
 # - <https://git.sr.ht/~rycee/configurations/tree/fc2cf950844a23d09580b86e45d16a9dc39d9c5e/item/user/common.nix#L11-14>
 # - <https://git.sr.ht/~rycee/configurations/tree/fc2cf950844a23d09580b86e45d16a9dc39d9c5e/item/user/common.nix#L538-549>
-

@@ -1,12 +1,10 @@
 #: Find PostScript font name for use in kitty terminal:
 #: $ kitty +list-fonts --psnames | grep <font-name>
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   cfg = config.theme.fonts;
-in {
+in
+{
   theme.fonts.monospace = {
     name = "JetBrains Mono";
     package = pkgs.jetbrains-mono;
@@ -14,12 +12,14 @@ in {
   };
   theme.fonts.terminal = cfg.monospace;
 
-  programs.kitty.extraConfig = let
-    inherit (cfg.terminal) psNamespace;
-  in ''
-    font_features ${psNamespace}-Regular     -calt +dlig
-    font_features ${psNamespace}-Bold        -calt +dlig
-    font_features ${psNamespace}-Italic      -calt +dlig
-    font_features ${psNamespace}-BoldItalic  -calt +dlig
-  '';
+  programs.kitty.extraConfig =
+    let
+      inherit (cfg.terminal) psNamespace;
+    in
+    ''
+      font_features ${psNamespace}-Regular     -calt +dlig
+      font_features ${psNamespace}-Bold        -calt +dlig
+      font_features ${psNamespace}-Italic      -calt +dlig
+      font_features ${psNamespace}-BoldItalic  -calt +dlig
+    '';
 }

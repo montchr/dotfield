@@ -13,23 +13,27 @@
   pkgs,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake) inputs;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = lib // builtins;
   inputFlakes = l.filterAttrs (_: v: v ? outputs) inputs;
-  inputsToPaths = l.mapAttrs' (n: v: {
-    name = "nix/inputs/${n}";
-    value.source = v.outPath;
-  });
-in {
+  inputsToPaths = l.mapAttrs' (
+    n: v: {
+      name = "nix/inputs/${n}";
+      value.source = v.outPath;
+    }
+  );
+in
+{
   imports = [
     ./substituters/common.nix
     ./substituters/nixpkgs-update.nix
   ];
 
   environment.etc = inputsToPaths inputs;
-  environment.systemPackages = [config.nix.package];
+  environment.systemPackages = [ config.nix.package ];
 
   nix = {
     package = pkgs.nixVersions.stable;
@@ -39,16 +43,22 @@ in {
       "darwin=${inputs.darwin}"
       "/etc/nix/inputs"
     ];
-    registry = l.mapAttrs (_: input: {flake = input;}) inputFlakes;
+    registry = l.mapAttrs (_: input: { flake = input; }) inputFlakes;
     settings = {
       # Builds have recently become unusably interrupted on Darwin
       # <https://github.com/NixOS/nix/issues/7273>
       auto-optimise-store = !isDarwin;
       builders-use-substitutes = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       sandbox = l.mkDefault (!isDarwin);
-      allowed-users = ["*"];
-      trusted-users = ["root" "@wheel"];
+      allowed-users = [ "*" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
 
     gc.automatic = true;

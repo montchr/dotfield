@@ -6,21 +6,43 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.programs.bash;
   inherit (flake.perSystem.packages) fzf-tab-completion;
-in {
+in
+{
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    shellOptions = lib.mkOptionDefault ["cdspell" "dirspell" "histreedit" "histverify"];
+    shellOptions = lib.mkOptionDefault [
+      "cdspell"
+      "dirspell"
+      "histreedit"
+      "histverify"
+    ];
     sessionVariables = {
       BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
     };
     historyFileSize = 100000;
     historySize = 100000;
-    historyControl = ["erasedups" "ignorespace"];
-    historyIgnore = ["l" "x" "exit" "bg" "fg" "history" "poweroff" "ls" "cd" ".." "..."];
+    historyControl = [
+      "erasedups"
+      "ignorespace"
+    ];
+    historyIgnore = [
+      "l"
+      "x"
+      "exit"
+      "bg"
+      "fg"
+      "history"
+      "poweroff"
+      "ls"
+      "cd"
+      ".."
+      "..."
+    ];
 
     initExtra = lib.mkAfter ''
       # Needs to be after prompt init since it overwrites PROMPT_COMMAND.

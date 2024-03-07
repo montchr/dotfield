@@ -1,6 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.deluge.enable = true;
-  environment.systemPackages = [
-    pkgs.jellyfin-media-player
-  ];
+  environment.systemPackages = [ pkgs.jellyfin-media-player ];
 }

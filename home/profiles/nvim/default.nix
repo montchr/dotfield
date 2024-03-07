@@ -1,8 +1,5 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   inherit (config) xdg;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (pkgs) vimPlugins;
@@ -18,12 +15,12 @@
     -- Load custom configuration module
     -- require("${userNamespace}")
   '';
-in {
-  imports = [./plugins.nix];
+in
+{
+  imports = [ ./plugins.nix ];
 
   xdg.configFile."nvim/init.lua".text = (cfg.generatedConfigs.lua or "") + initContent;
-  xdg.configFile."nvim/lua/${userNamespace}".source =
-    mkOutOfStoreSymlink "${configSrcBasePath}/nvim/lua/${userNamespace}";
+  xdg.configFile."nvim/lua/${userNamespace}".source = mkOutOfStoreSymlink "${configSrcBasePath}/nvim/lua/${userNamespace}";
 
   home.packages = [
     (pkgs.writeShellScriptBin "nvim-purge-state" ''

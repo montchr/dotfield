@@ -1,75 +1,114 @@
 let
-  commonOpts = ["noatime" "x-mount.mkdir" "compress=zstd"];
-in {
-  boot.supportedFilesystems = ["btrfs"];
+  commonOpts = [
+    "noatime"
+    "x-mount.mkdir"
+    "compress=zstd"
+  ];
+in
+{
+  boot.supportedFilesystems = [ "btrfs" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@root" "ssd"];
+    options = commonOpts ++ [
+      "subvol=@root"
+      "ssd"
+    ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@store" "ssd"];
+    options = commonOpts ++ [
+      "subvol=@store"
+      "ssd"
+    ];
   };
 
   fileSystems."/var/log" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options =
-      commonOpts ++ ["subvol=@log" "ssd"];
+    options = commonOpts ++ [
+      "subvol=@log"
+      "ssd"
+    ];
     neededForBoot = true;
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@home" "ssd"];
+    options = commonOpts ++ [
+      "subvol=@home"
+      "ssd"
+    ];
   };
 
   fileSystems."/persist" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@persist" "ssd"];
+    options = commonOpts ++ [
+      "subvol=@persist"
+      "ssd"
+    ];
     neededForBoot = true;
   };
 
   fileSystems."/var/lib/mysql" = {
     device = "/dev/disk-by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@mysql" "ssd" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@mysql"
+      "ssd"
+      "nofail"
+    ];
   };
 
   fileSystems."/var/lib/postgres" = {
     device = "/dev/disk-by-label/nixos";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@postgres" "ssd" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@postgres"
+      "ssd"
+      "nofail"
+    ];
   };
 
   fileSystems."/mnt/local/backups" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@backups" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@backups"
+      "nofail"
+    ];
   };
 
   fileSystems."/mnt/local/downloads/completed" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@completed" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@completed"
+      "nofail"
+    ];
   };
 
   fileSystems."/mnt/local/downloads/torrents" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@torrents" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@torrents"
+      "nofail"
+    ];
   };
 
   fileSystems."/mnt/local/Media" = {
     device = "/dev/disk/by-label/local";
     fsType = "btrfs";
-    options = commonOpts ++ ["subvol=@media" "nofail"];
+    options = commonOpts ++ [
+      "subvol=@media"
+      "nofail"
+    ];
   };
 
   fileSystems."/boot" = {

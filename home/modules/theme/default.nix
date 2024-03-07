@@ -1,10 +1,11 @@
-moduleArgs @ {
+moduleArgs@{
   flake,
   config,
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) apparat base16-schemes;
   inherit (flake.self.lib.theme) mkColorScheme;
   inherit (apparat.lib) mkOpt;
@@ -15,31 +16,34 @@ moduleArgs @ {
   cfg = config.theme;
 
   # Single-item list format follows the NixOS options.
-  defaultFonts = let
-    fonts =
-      # moduleArgs.osConfig.fonts.fontconfig.defaultFonts or
-      {
-        monospace = ["DejaVu Sans Mono"];
-        sansSerif = ["DejaVu Sans"];
-        serif = ["DejaVu Serif"];
-      };
-  in
+  defaultFonts =
+    let
+      fonts =
+        # moduleArgs.osConfig.fonts.fontconfig.defaultFonts or
+        {
+          monospace = [ "DejaVu Sans Mono" ];
+          sansSerif = [ "DejaVu Sans" ];
+          serif = [ "DejaVu Serif" ];
+        };
+    in
     l.mapAttrs (_: l.head) fonts;
 
   # TODO: get this from apparat constant
   normalWeight = 400;
 
-  colorSchemeModule = import ./__colorScheme.nix {inherit flake;};
+  colorSchemeModule = import ./__colorScheme.nix { inherit flake; };
 
   # TODO: add description and example
-  mkColorSchemeOption = default:
+  mkColorSchemeOption =
+    default:
     l.mkOption {
       inherit default;
       type = with l.types; (submodule colorSchemeModule);
     };
 
-  mkPackageOption = type: l.mkPackageOption pkgs "${type} font" {default = null;};
-in {
+  mkPackageOption = type: l.mkPackageOption pkgs "${type} font" { default = null; };
+in
+{
   options.theme = {
     enable = l.mkEnableOption "Whether to enable the theme module.";
     color.schemes = {
@@ -89,46 +93,62 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (let
-    colorSchemes = cfg.color.schemes;
-    sessionVariables = {
-      #: current
-      DOTFIELD_COLORS = colorSchemes.default.name;
-      DOTFIELD_THEME_MODE = colorSchemes.default.kind;
+  config = lib.mkIf cfg.enable (
+    let
+      colorSchemes = cfg.color.schemes;
+      sessionVariables = {
+        #: current
+        DOTFIELD_COLORS = colorSchemes.default.name;
+        DOTFIELD_THEME_MODE = colorSchemes.default.kind;
 
-      #: alternatives
-      DOTFIELD_COLORS_DARK = colorSchemes.dark.name;
-      DOTFIELD_COLORS_LIGHT = colorSchemes.light.name;
-    };
-  in {
-    home = {inherit sessionVariables;};
-    programs.bash = {inherit sessionVariables;};
-    programs.zsh = {inherit sessionVariables;};
-
-    # FIXME: do themes some other way -- this barely works, and it makes all
-    # builds take 5ever
-    # specialisation = {
-    #   dark.configuration = {
-    #     theme.color.schemes.default = colorSchemes.dark;
-    #   };
-    #   light.configuration = {
-    #     theme.color.schemes.default = colorSchemes.light;
-    #   };
-    # };
-
-    dconf.settings = {
-      # TODO: other font styles?
-      "org/gnome/desktop/interface" = let
-        # TODO: add to lib
-        fontname = font: lib.concatStringsSep " " [font.name (builtins.toString font.size)];
-        sans = fontname cfg.fonts.sansSerif;
-        serif = fontname cfg.fonts.serif;
-        mono = fontname cfg.fonts.monospace;
-      in {
-        document-font-name = sans;
-        color-scheme = lib.mkDefault "prefer-dark";
-        monospace-font-name = mono;
+        #: alternatives
+        DOTFIELD_COLORS_DARK = colorSchemes.dark.name;
+        DOTFIELD_COLORS_LIGHT = colorSchemes.light.name;
       };
-    };
-  });
+    in
+    {
+      home = {
+        inherit sessionVariables;
+      };
+      programs.bash = {
+        inherit sessionVariables;
+      };
+      programs.zsh = {
+        inherit sessionVariables;
+      };
+
+      # FIXME: do themes some other way -- this barely works, and it makes all
+      # builds take 5ever
+      # specialisation = {
+      #   dark.configuration = {
+      #     theme.color.schemes.default = colorSchemes.dark;
+      #   };
+      #   light.configuration = {
+      #     theme.color.schemes.default = colorSchemes.light;
+      #   };
+      # };
+
+      dconf.settings = {
+        # TODO: other font styles?
+        "org/gnome/desktop/interface" =
+          let
+            # TODO: add to lib
+            fontname =
+              font:
+              lib.concatStringsSep " " [
+                font.name
+                (builtins.toString font.size)
+              ];
+            sans = fontname cfg.fonts.sansSerif;
+            serif = fontname cfg.fonts.serif;
+            mono = fontname cfg.fonts.monospace;
+          in
+          {
+            document-font-name = sans;
+            color-scheme = lib.mkDefault "prefer-dark";
+            monospace-font-name = mono;
+          };
+      };
+    }
+  );
 }

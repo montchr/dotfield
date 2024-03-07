@@ -1,7 +1,6 @@
-{pkgs, ...}: {
-  imports = [
-    ./mpv.nix
-  ];
+{ pkgs, ... }:
+{
+  imports = [ ./mpv.nix ];
 
-  home.packages = [pkgs.jellyfin-media-player];
+  home.packages = [ pkgs.jellyfin-media-player ];
 }

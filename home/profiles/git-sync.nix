@@ -1,19 +1,18 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (config.home) homeDirectory;
   base = "${homeDirectory}/Developer";
   mirrors = "${base}/mirrors";
-  repo = path: uri:
+  repo =
+    path: uri:
     lib.nameValuePair path {
       inherit uri;
       path = "${mirrors}/${path}";
     };
   gh = path: repo path "git@github.com:${path}.git";
   srht = path: repo path "git@git.sr.ht:~${path}";
-in {
+in
+{
   services.git-sync.enable = true;
   services.git-sync.repositories = lib.listToAttrs [
     (gh "doomemacs/doomemacs")

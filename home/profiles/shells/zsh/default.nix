@@ -1,12 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (config) xdg;
   hmLib = config.lib;
   cfg = config.programs.zsh;
-  l = import ./lib.nix {inherit lib;};
+  l = import ./lib.nix { inherit lib; };
 
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
 
@@ -14,13 +11,14 @@
   DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/users/cdom/config/zsh";
   ZSH_CACHE = "${xdg.cacheHome}/zsh";
   ZSH_DATA = "${xdg.dataHome}/zsh";
-in {
-  imports = [../common.nix];
+in
+{
+  imports = [ ../common.nix ];
 
-  home.extraOutputsToInstall = ["/share/zsh"];
+  home.extraOutputsToInstall = [ "/share/zsh" ];
 
   # Clear cached/compiled files on activation.
-  home.activation.zshPurgeCaches = hmLib.dag.entryAfter ["writeBoundary"] ''
+  home.activation.zshPurgeCaches = hmLib.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD rm -f $VERBOSE_ARG \
       ${zshDir}/*.zwc
     $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
@@ -47,11 +45,7 @@ in {
     '';
 
     sessionVariables = {
-      inherit
-        DOTFIELD_USER_ZDOTDIR
-        ZSH_CACHE
-        ZSH_DATA
-        ;
+      inherit DOTFIELD_USER_ZDOTDIR ZSH_CACHE ZSH_DATA;
     };
   };
 }

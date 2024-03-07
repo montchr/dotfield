@@ -1,8 +1,5 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
   imports = [
     ../laptop.nix
     ./macbook.nix

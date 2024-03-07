@@ -1,6 +1,8 @@
-hmArgs @ {pkgs, ...}: let
+hmArgs@{ pkgs, ... }:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in {
+in
+{
   imports = [
     ./profiles.nix
     ../os-specific/darwin/firefox-profile-hack.nix
@@ -9,10 +11,11 @@ in {
     enable = true;
     package =
       # TODO: darwin workaround might no longer be necessary since home-manager apps are usable on darwin now
-      if isDarwin
-      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
-      else if (hmArgs.osConfig.programs.firefox.enable or false)
-      then (hmArgs.osConfig.programs.firefox.package or pkgs.firefox)
-      else pkgs.firefox;
+      if isDarwin then
+        pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
+      else if (hmArgs.osConfig.programs.firefox.enable or false) then
+        (hmArgs.osConfig.programs.firefox.package or pkgs.firefox)
+      else
+        pkgs.firefox;
   };
 }

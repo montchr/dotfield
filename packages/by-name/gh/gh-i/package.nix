@@ -16,13 +16,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-TSl+7N3W3BeW8UWxUdTv3cob2P7eLvO+80BLqcbhanQ=";
 
-  ldflags = ["-s" "-w"];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Search your github issues interactively";
     homepage = "https://github.com/gennaro-tedesco/gh-i";
     license = licenses.asl20;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "gh-i";
   };
 }

@@ -2,18 +2,18 @@
   iosevka,
   lib,
   fontWeights,
-}: let
+}:
+let
   inherit (builtins) replaceStrings;
-  mkBuildPlan = import ./mkBuildPlan.nix {inherit lib fontWeights;};
+  mkBuildPlan = import ./mkBuildPlan.nix { inherit lib fontWeights; };
 in
-  args: let
-    privateBuildPlan = mkBuildPlan args;
-    set = lib.pipe privateBuildPlan.family [
-      (replaceStrings ["Iosevka "] [""])
-      (replaceStrings [" "] ["-"])
-      lib.toLower
-    ];
-  in
-    iosevka.override {
-      inherit set privateBuildPlan;
-    }
+args:
+let
+  privateBuildPlan = mkBuildPlan args;
+  set = lib.pipe privateBuildPlan.family [
+    (replaceStrings [ "Iosevka " ] [ "" ])
+    (replaceStrings [ " " ] [ "-" ])
+    lib.toLower
+  ];
+in
+iosevka.override { inherit set privateBuildPlan; }

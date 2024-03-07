@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.users) users;
   inherit (config.sops) secrets;
 
@@ -6,7 +7,8 @@
   nginxUser = users.${nginxCfg.user}.name;
   nginxGroup = users.${nginxCfg.user}.group;
   cfg = config.services.deluge;
-in {
+in
+{
   services.deluge.web.enable = true;
   # Keep firewall closed -- use reverse proxy.
   services.deluge.web.openFirewall = false;

@@ -12,10 +12,12 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   prl-tools = config.hardware.parallels.package;
   aarch64 = pkgs.stdenv.hostPlatform.system == "aarch64-linux";
-in {
+in
+{
   options = {
     hardware.parallels = {
       enable = mkOption {
@@ -52,9 +54,9 @@ in {
 
   config = mkIf config.hardware.parallels.enable {
     services.xserver = {
-      videoDrivers = ["prlvideo"];
+      videoDrivers = [ "prlvideo" ];
 
-      modules = [prl-tools];
+      modules = [ prl-tools ];
 
       config = ''
         Section "InputClass"
@@ -75,25 +77,35 @@ in {
       libsOnly = true;
       kernel = null;
     };
-    hardware.opengl.extraPackages = [pkgs.mesa.drivers];
-    hardware.opengl.extraPackages32 = [pkg.pkgsi686Linux.mesa.drivers];
+    hardware.opengl.extraPackages = [ pkgs.mesa.drivers ];
+    hardware.opengl.extraPackages32 = [ pkg.pkgsi686Linux.mesa.drivers ];
 
-    services.udev.packages = [prl-tools];
+    services.udev.packages = [ prl-tools ];
 
-    environment.systemPackages = [prl-tools];
+    environment.systemPackages = [ prl-tools ];
 
-    boot.extraModulePackages = [prl-tools];
+    boot.extraModulePackages = [ prl-tools ];
 
     boot.kernelModules =
-      if aarch64
-      then ["prl_fs" "prl_fs_freeze" "prl_notifier" "prl_tg"]
-      else ["prl_fs" "prl_fs_freeze" "prl_tg"];
+      if aarch64 then
+        [
+          "prl_fs"
+          "prl_fs_freeze"
+          "prl_notifier"
+          "prl_tg"
+        ]
+      else
+        [
+          "prl_fs"
+          "prl_fs_freeze"
+          "prl_tg"
+        ];
 
     services.timesyncd.enable = false;
 
     systemd.services.prltoolsd = {
       description = "Parallels Tools' service";
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${prl-tools}/bin/prltoolsd -f";
         PIDFile = "/var/run/prltoolsd.pid";
@@ -102,7 +114,7 @@ in {
 
     systemd.services.prlfsmountd = mkIf config.hardware.parallels.autoMountShares {
       description = "Parallels Shared Folders Daemon";
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = rec {
         ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
@@ -113,8 +125,8 @@ in {
 
     systemd.services.prlshprint = {
       description = "Parallels Shared Printer Tool";
-      wantedBy = ["multi-user.target"];
-      bindsTo = ["cups.service"];
+      wantedBy = [ "multi-user.target" ];
+      bindsTo = [ "cups.service" ];
       serviceConfig = {
         Type = "forking";
         ExecStart = "${prl-tools}/bin/prlshprint";
@@ -124,35 +136,35 @@ in {
     systemd.user.services = {
       prlcc = {
         description = "Parallels Control Center";
-        wantedBy = ["graphical-session.target"];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlcc";
         };
       };
       prldnd = {
         description = "Parallels Control Center";
-        wantedBy = ["graphical-session.target"];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prldnd";
         };
       };
       prlcp = {
         description = "Parallels CopyPaste Tool";
-        wantedBy = ["graphical-session.target"];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlcp";
         };
       };
       prlsga = {
         description = "Parallels Shared Guest Applications Tool";
-        wantedBy = ["graphical-session.target"];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlsga";
         };
       };
       prlshprof = {
         description = "Parallels Shared Profile Tool";
-        wantedBy = ["graphical-session.target"];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlshprof";
         };

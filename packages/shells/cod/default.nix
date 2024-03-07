@@ -18,9 +18,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-bJdyRFW8bPoweI2V5n/WBUEqlQ33QT4FqLTQtiKHYic=";
 
-  ldflags = ["-s" "-w" "-X main.GitSha=${src.rev}"];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.GitSha=${src.rev}"
+  ];
 
-  nativeCheckInputs = [python3];
+  nativeCheckInputs = [ python3 ];
 
   preCheck = ''
     pushd test/binaries/
@@ -37,6 +41,9 @@ buildGoModule rec {
     description = "Tool for generating Bash/Fish/Zsh autocompletions based on `--help` output";
     homepage = "https://github.com/dim-an/cod/";
     license = licenses.asl20;
-    maintainers = with maintainers; [SuperSandro2000 montchr];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      montchr
+    ];
   };
 }

@@ -5,12 +5,14 @@
   osConfig,
   lib,
   ...
-}: let
+}:
+let
   # FIXME: only do theme stuff if theme enabled for user
   inherit (theme) fonts;
   l = flake.inputs.nixpkgs.lib // builtins;
   hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
-in {
+in
+{
   "browser.bookmarks.showMobileBookmarks" = true;
   "browser.contentblocking.category" = "strict";
   "browser.ctrlTab.recentlyUsedOrder" = false;
@@ -104,11 +106,9 @@ in {
   "extensions.pocket.showHome" = false;
   "extensions.pocket.site" = "0.0.0.0";
   "browser.newtabpage.activity-stream.pocketCta" = "";
-  "browser.newtabpage.activity-stream.section.highlights.includePocket" =
-    false;
+  "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
   "services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket" =
     false;
 }
 ##: Sources:
 # - https://git.sr.ht/~rycee/configurations/tree/5ef3e3b2bd400841be7ec641812b8006191bb7fc/item/user/firefox.nix
-

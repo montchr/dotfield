@@ -1,8 +1,5 @@
+{ config, ops, ... }:
 {
-  config,
-  ops,
-  ...
-}: {
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
@@ -13,12 +10,13 @@
 
   users.users.cdom = {
     isNormalUser = true;
-    extraGroups = ["wheel" config.services.headscale.group];
+    extraGroups = [
+      "wheel"
+      config.services.headscale.group
+    ];
     hashedPasswordFile = config.sops.secrets.user-cdom-password.path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  home-manager.users.cdom = hmArgs: {
-    home.stateVersion = "23.05";
-  };
+  home-manager.users.cdom = hmArgs: { home.stateVersion = "23.05"; };
 }

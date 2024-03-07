@@ -5,13 +5,15 @@
   ops,
   flake,
   ...
-}: let
+}:
+let
   inherit (flake.inputs.apparat.constants.networking) dns;
   # FIXME: idk, i don't like the idea that this well-known directory
   #        would be located at `/persist/etc/ssh/` instead of `/etc/ssh/`...
   inherit (config.dotfield.paths) storageBase;
   sshHostPath = "${storageBase}/etc/ssh";
-in {
+in
+{
   imports = [
     ./nix-config.nix
     ./system-tools.nix

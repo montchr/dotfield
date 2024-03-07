@@ -44,7 +44,7 @@
 # - Check "USB Active" LED
 # - Check alsamixer channel mute status
 {
-  imports = [../audio-pro.nix];
+  imports = [ ../audio-pro.nix ];
 
   # TODO:
   # musnix.soundcardPciId = "";

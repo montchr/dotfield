@@ -4,12 +4,12 @@
   config,
   pkgs,
   ...
-}: let
-  homeProfiles = import "${flake.self}/home/profiles.nix" {
-    inherit (flake.inputs) haumea;
-  };
+}:
+let
+  homeProfiles = import "${flake.self}/home/profiles.nix" { inherit (flake.inputs) haumea; };
   isAutoLoginEnabled = config.services.xserver.displayManager.autoLogin.enable;
-in {
+in
+{
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
@@ -18,7 +18,7 @@ in {
   services.gnome.gnome-browser-connector.enable = true;
 
   # Prefer webmail or other (better) mail clients.
-  environment.gnome.excludePackages = [pkgs.gnome.geary];
+  environment.gnome.excludePackages = [ pkgs.gnome.geary ];
 
   environment.systemPackages = with pkgs.gnomeExtensions; [
     clipboard-history

@@ -5,11 +5,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config) lib xdg;
   inherit (config.xdg) cacheHome;
 
-  l = import ./lib.nix {inherit lib;};
+  l = import ./lib.nix { inherit lib; };
 
   cfg = config.programs.zsh;
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
@@ -21,7 +22,8 @@
   DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/users/cdom/config/zsh";
   ZSH_CACHE = "${xdg.cacheHome}/zsh";
   ZSH_DATA = "${xdg.dataHome}/zsh";
-in {
+in
+{
   imports = [
     ../common.nix
 
@@ -30,7 +32,7 @@ in {
   ];
 
   # Clear compiled/generated zgenom files on activation.
-  home.activation.zgenomPurgeCaches = lib.dag.entryAfter ["writeBoundary"] ''
+  home.activation.zgenomPurgeCaches = lib.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD rm -f $VERBOSE_ARG \
       ${zgenCacheDir}/init.zsh{,.zwc}
   '';

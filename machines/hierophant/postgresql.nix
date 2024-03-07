@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   cfg = config.services.postgresqlBackup;
-in {
+in
+{
   services.postgresql.enable = true;
   services.postgresqlBackup = {
     enable = true;
@@ -8,7 +10,7 @@ in {
     compression = "zstd";
     compressionLevel = 11;
   };
-  services.borgbackup.jobs."services-backup".paths = [cfg.location];
+  services.borgbackup.jobs."services-backup".paths = [ cfg.location ];
 }
 ## References:
 #

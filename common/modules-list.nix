@@ -1,3 +1,1 @@
-[
-  ./modules/dotfield/default.nix
-]
+[ ./modules/dotfield/default.nix ]

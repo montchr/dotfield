@@ -1,3 +1,1 @@
-{
-  imports = [./macbook-intel.nix];
-}
+{ imports = [ ./macbook-intel.nix ]; }

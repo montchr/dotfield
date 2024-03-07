@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   disk."/dev/sda" = {
     device = "/dev/sda";
     type = "disk";
@@ -11,7 +12,7 @@
           start = "0";
           end = "1M";
           part-type = "primary";
-          flags = ["bios_grub"];
+          flags = [ "bios_grub" ];
         }
         {
           name = "ESP";
@@ -59,9 +60,7 @@
             type = "filesystem";
             format = "ext4";
             mountpoint = "/";
-            mountOptions = [
-              "defaults"
-            ];
+            mountOptions = [ "defaults" ];
           };
         };
       };

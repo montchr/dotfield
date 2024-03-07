@@ -1,4 +1,5 @@
-{pkgs}: {
+{ pkgs }:
+{
   t = "tail -f";
 
   q = "exit";

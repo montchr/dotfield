@@ -1,10 +1,8 @@
-{
-  config,
-  ops,
-  ...
-}: let
+{ config, ops, ... }:
+let
   username = "borthole";
-in {
+in
+{
   sops.secrets."users/${username}/passphrase".neededForUsers = true;
 
   users.users.${username} = {
@@ -18,19 +16,15 @@ in {
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} = {
-    features,
-    profiles,
-    ...
-  }: {
-    imports =
-      features.workstation
-      ++ [
+  home-manager.users.${username} =
+    { features, profiles, ... }:
+    {
+      imports = features.workstation ++ [
         profiles.spotify
         profiles.theme.fonts.monospace.iosevka-comfy
         profiles.theme.fonts.sans-serif.inter
         profiles.theme.fonts.serif.ibm-plex-serif
       ];
-    home.stateVersion = "22.05";
-  };
+      home.stateVersion = "22.05";
+    };
 }

@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.yubikey-manager];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.yubikey-manager ];
 
   programs.gpg.scdaemonSettings = {
     disable-ccid = true;

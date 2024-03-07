@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (builtins) hasAttr;
 
   cfg = config.dotfield.guardian;
-in {
+in
+{
   options.dotfield.guardian = {
     enable = lib.mkOption {
       default = true;
@@ -21,13 +19,11 @@ in {
         Name of the guardian user. Must be an existing non-system user.
       '';
     };
-    user = lib.mkOption {
-      readOnly = true;
-    };
+    user = lib.mkOption { readOnly = true; };
     keys = {
       all = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [];
+        default = [ ];
       };
     };
     autoLogin = lib.mkEnableOption "Whether to log the guardian user in automatically.";
@@ -49,14 +45,20 @@ in {
     ];
 
     dotfield.guardian.user = lib.mkAliasDefinitions config.users.users.${cfg.username};
-    users.groups."wheel".members = [cfg.username];
+    users.groups."wheel".members = [ cfg.username ];
     users.users.${cfg.username}.extraGroups =
       [
         "seadome"
         "keys" # sops-nix
       ]
-      ++ (lib.optionals config.services.printing.enable ["cups" "lp"])
-      ++ (lib.optionals config.hardware.sane.enable ["scanner" "lp"])
+      ++ (lib.optionals config.services.printing.enable [
+        "cups"
+        "lp"
+      ])
+      ++ (lib.optionals config.hardware.sane.enable [
+        "scanner"
+        "lp"
+      ])
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
       ++ (lib.optional config.services.keyd.enable "keyd")
       ++ (lib.optional config.services.mysql.enable "mysql")

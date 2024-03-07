@@ -1,14 +1,12 @@
-{config, ...}: let
+{ config, ... }:
+let
   cfg = config.services.prometheus;
   scrape = exporter: {
     job_name = exporter;
-    static_configs = [
-      {
-        targets = ["127.0.0.1:${toString cfg.exporters.${exporter}.port}"];
-      }
-    ];
+    static_configs = [ { targets = [ "127.0.0.1:${toString cfg.exporters.${exporter}.port}" ]; } ];
   };
-in {
+in
+{
   services.prometheus = {
     enable = true;
     port = 9001;
@@ -17,11 +15,7 @@ in {
   services.prometheus.scrapeConfigs = [
     {
       job_name = config.networking.hostName;
-      static_configs = [
-        {
-          targets = ["127.0.0.1:${toString cfg.exporters.node.port}"];
-        }
-      ];
+      static_configs = [ { targets = [ "127.0.0.1:${toString cfg.exporters.node.port}" ]; } ];
     }
     (scrape "nginx")
     (scrape "nginxlog")
@@ -32,7 +26,10 @@ in {
     node = {
       enable = true;
       # <https://github.com/prometheus/node_exporter#collectors>
-      enabledCollectors = ["processes" "systemd"];
+      enabledCollectors = [
+        "processes"
+        "systemd"
+      ];
     };
 
     nginx.enable = true;
@@ -40,7 +37,7 @@ in {
 
     postgres.enable = true;
     postgres.runAsLocalSuperUser = true;
-    postgres.extraFlags = ["--auto-discover-databases"];
+    postgres.extraFlags = [ "--auto-discover-databases" ];
   };
 
   services.nginx.statusPage = true;

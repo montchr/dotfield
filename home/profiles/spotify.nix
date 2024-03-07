@@ -1,11 +1,9 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (pkgs.stdenv.hostPlatform) isAarch64 isLinux;
-  tomlFormat = pkgs.formats.toml {};
-in {
+  tomlFormat = pkgs.formats.toml { };
+in
+{
   home.packages = lib.optionals (isLinux && !isAarch64) [
     pkgs.spotify
     pkgs.spotify-player
@@ -19,7 +17,5 @@ in {
       # Must match the callback URL specified in Spotify API configuration.
       client_port = 8080;
     }
-    // (lib.optionalAttrs isLinux {
-      copy_command = "${pkgs.wl-clipboard}/bin/wl-copy";
-    });
+    // (lib.optionalAttrs isLinux { copy_command = "${pkgs.wl-clipboard}/bin/wl-copy"; });
 }

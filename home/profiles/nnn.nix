@@ -1,9 +1,10 @@
-moduleArgs @ {
+moduleArgs@{
   config,
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
 
   sessionVariables = {
@@ -42,23 +43,27 @@ moduleArgs @ {
       pkgs.viu
       pkgs.w3m # text-mode web browser
     ])
-    ++ (lib.optionals (isGraphical && isLinux) [
-      pkgs.gnome-epub-thumbnailer
-    ]);
-in {
+    ++ (lib.optionals (isGraphical && isLinux) [ pkgs.gnome-epub-thumbnailer ]);
+in
+{
   programs.nnn = {
     enable = true;
     plugins.src = "${pkgs.nnn.src}/plugins";
     plugins.mappings = {
       p = "preview-tui";
     };
-    extraPackages =
-      lib.optionals enablePreviews previewDeps;
+    extraPackages = lib.optionals enablePreviews previewDeps;
   };
 
-  home = {inherit sessionVariables;};
-  programs.bash = {inherit sessionVariables;};
-  programs.zsh = {inherit sessionVariables;};
+  home = {
+    inherit sessionVariables;
+  };
+  programs.bash = {
+    inherit sessionVariables;
+  };
+  programs.zsh = {
+    inherit sessionVariables;
+  };
   # FIXME: unsupported
   # programs.fish = {inherit sessionVariables;};
   # programs.nushell = {inherit sessionVariables;};

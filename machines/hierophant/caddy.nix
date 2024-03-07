@@ -1,11 +1,9 @@
-{
-  config,
-  ops,
-  ...
-}: let
+{ config, ops, ... }:
+let
   inherit (ops) networks;
   cfg = config.services.caddy;
-in {
+in
+{
   services.caddy.enable = true;
   services.caddy.email = networks.seadome.contact;
 

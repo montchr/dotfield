@@ -7,7 +7,9 @@
     ./secrets.nix
   ];
 
-  perSystem = {config, ...}: {
-    # devshells.default = config.devshells.dotfield;
-  };
+  perSystem =
+    { config, ... }:
+    {
+      # devshells.default = config.devshells.dotfield;
+    };
 }

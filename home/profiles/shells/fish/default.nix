@@ -1,12 +1,10 @@
-{
-  flake,
-  pkgs,
-  ...
-}: let
+{ flake, pkgs, ... }:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = flake.inputs.nixpkgs.lib // builtins;
-  plugin = pkg: {inherit (pkg) name src;};
-in {
+  plugin = pkg: { inherit (pkg) name src; };
+in
+{
   imports = [
     ../common.nix
     ./__fzf-integration.nix
@@ -14,12 +12,15 @@ in {
 
   programs.fish = {
     enable = true;
-    plugins = l.map plugin (with pkgs.fishPlugins; [
-      autopair
-      done
-      # TODO: will conflict with our shell aliases, needs configuration
-      # forgit
-    ]);
+    plugins = l.map plugin (
+      with pkgs.fishPlugins;
+      [
+        autopair
+        done
+        # TODO: will conflict with our shell aliases, needs configuration
+        # forgit
+      ]
+    );
 
     loginShellInit = l.mkIf isDarwin ''
       # Essential workaround for clobbered `$PATH` with nix-darwin.
@@ -47,5 +48,5 @@ in {
   };
 
   programs.fzf.enableFishIntegration = l.mkDefault true;
-  programs.neovim.plugins = with pkgs.vimPlugins; [vim-fish];
+  programs.neovim.plugins = with pkgs.vimPlugins; [ vim-fish ];
 }

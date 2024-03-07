@@ -4,12 +4,14 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (flake.inputs) sops-nix;
   inherit (config.dotfield.paths) storageBase;
   sshPath = "${storageBase}/etc/ssh";
-in {
-  imports = [sops-nix.nixosModules.sops];
+in
+{
+  imports = [ sops-nix.nixosModules.sops ];
 
   home-manager.sharedModules = lib.singleton {
     # Allow running sops as a normal user without sudo.
@@ -26,5 +28,5 @@ in {
     pkgs.sops
   ];
 
-  sops.age.sshKeyPaths = ["${sshPath}/ssh_host_ed25519_key"];
+  sops.age.sshKeyPaths = [ "${sshPath}/ssh_host_ed25519_key" ];
 }

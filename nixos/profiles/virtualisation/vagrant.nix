@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [vagrant];
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [ vagrant ];
 
   # https://nixos.wiki/wiki/Vagrant#Using_NFS_mounts
   # TODO: necessary or?

@@ -1,2 +1,1 @@
-{ops}:
-ops.keys.ssh
+{ ops }: ops.keys.ssh

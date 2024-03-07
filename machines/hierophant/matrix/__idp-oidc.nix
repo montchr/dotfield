@@ -1,11 +1,15 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.matrix-synapse.settings.oidc_providers = [
     {
       idp_id = "auth0";
       idp_name = "Auth0";
       issuer = "https://seadome.us.auth0.com";
       client_id = "HD7lKslGjMx7EEZqobkOAqPEztPFSkY9";
-      scopes = ["openid" "profile"];
+      scopes = [
+        "openid"
+        "profile"
+      ];
       user_mapping_provider.config = {
         localpart_template = "{{ user.preferred_username }}";
         display_name_template = "{{ user.name }}";

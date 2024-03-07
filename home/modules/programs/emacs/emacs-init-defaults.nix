@@ -1,12 +1,11 @@
 # A collection of "uncontroversial" configurations for selected packages.
 # Source: <https://git.sr.ht/~rycee/nur-expressions/tree/master/item/hm-modules>
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
   programs.emacs.init.usePackage = {
-    all-the-icons = {extraPackages = [pkgs.emacs-all-the-icons-fonts];};
+    all-the-icons = {
+      extraPackages = [ pkgs.emacs-all-the-icons-fonts ];
+    };
 
     cmake-mode.mode = [
       ''"\\.cmake\\'"'' # \
@@ -31,24 +30,25 @@
       '';
     };
 
-    csharp-mode.mode = [''"\\.cs\\'"''];
+    csharp-mode.mode = [ ''"\\.cs\\'"'' ];
 
     csharp-ts-mode = {
-      mode = [''"\\.cs\\'"''];
+      mode = [ ''"\\.cs\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(csharp-mode . csharp-ts-mode))
       '';
     };
 
     css-ts-mode = {
-      mode = [''"\\.css\\'"''];
+      mode = [ ''"\\.css\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(css-mode . css-ts-mode))
       '';
     };
 
     cue-mode = {
-      package = epkgs:
+      package =
+        epkgs:
         epkgs.trivialBuild {
           pname = "cue-mode.el";
           src = pkgs.fetchurl {
@@ -59,9 +59,9 @@
           preferLocalBuild = true;
           allowSubstitutes = true;
         };
-      command = ["cue-mode"];
-      mode = [''"\\.cue\\'"''];
-      hook = ["(cue-mode . subword-mode)"];
+      command = [ "cue-mode" ];
+      mode = [ ''"\\.cue\\'"'' ];
+      hook = [ "(cue-mode . subword-mode)" ];
     };
 
     dap-lldb = {
@@ -76,13 +76,13 @@
       '';
     };
 
-    dhall-mode.mode = [''"\\.dhall\\'"''];
+    dhall-mode.mode = [ ''"\\.dhall\\'"'' ];
 
-    dockerfile-mode.mode = [''"Dockerfile\\'"''];
+    dockerfile-mode.mode = [ ''"Dockerfile\\'"'' ];
 
-    dockerfile-ts-mode.mode = [''"Dockerfile\\'"''];
+    dockerfile-ts-mode.mode = [ ''"Dockerfile\\'"'' ];
 
-    elm-mode.mode = [''"\\.elm\\'"''];
+    elm-mode.mode = [ ''"\\.elm\\'"'' ];
 
     emacsql-sqlite3 = {
       defer = lib.mkDefault true;
@@ -98,21 +98,21 @@
     };
 
     idris-mode = {
-      mode = [''"\\.idr\\'"''];
+      mode = [ ''"\\.idr\\'"'' ];
       config = ''
         (setq idris-interpreter-path "${pkgs.idris}/bin/idris")
       '';
     };
 
     java-ts-mode = {
-      mode = [''"\\.java\\'"''];
+      mode = [ ''"\\.java\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(java-mode . java-ts-mode))
       '';
     };
 
     js-ts-mode = {
-      mode = [''"\\.js\\'"''];
+      mode = [ ''"\\.js\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(js2-mode . js-ts-mode))
         (add-to-list 'major-mode-remap-alist '(js-mode . js-ts-mode))
@@ -121,18 +121,18 @@
     };
 
     json-ts-mode = {
-      mode = [''"\\.json\\'"''];
+      mode = [ ''"\\.json\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
       '';
     };
 
     kotlin-mode = {
-      mode = [''"\\.kts?\\'"''];
-      hook = ["(kotlin-mode . subword-mode)"];
+      mode = [ ''"\\.kts?\\'"'' ];
+      hook = [ "(kotlin-mode . subword-mode)" ];
     };
 
-    latex.mode = [''("\\.tex\\'" . latex-mode)''];
+    latex.mode = [ ''("\\.tex\\'" . latex-mode)'' ];
 
     lsp-clangd = {
       config = ''
@@ -174,10 +174,14 @@
     };
 
     markdown-mode = {
-      mode = [''"\\.mdwn\\'"'' ''"\\.markdown\\'"'' ''"\\.md\\'"''];
+      mode = [
+        ''"\\.mdwn\\'"''
+        ''"\\.markdown\\'"''
+        ''"\\.md\\'"''
+      ];
     };
 
-    nix-mode.mode = [''"\\.nix\\'"''];
+    nix-mode.mode = [ ''"\\.nix\\'"'' ];
 
     notmuch = {
       package = epkgs: lib.getOutput "emacs" pkgs.notmuch;
@@ -186,7 +190,7 @@
       '';
     };
 
-    octave.mode = [''("\\.m\\'" . octave-mode)''];
+    octave.mode = [ ''("\\.m\\'" . octave-mode)'' ];
 
     ob-plantuml = {
       config = ''
@@ -195,7 +199,7 @@
     };
 
     org-roam = {
-      defines = ["org-roam-graph-executable"];
+      defines = [ "org-roam-graph-executable" ];
       config = ''
         (setq org-roam-graph-executable "${pkgs.graphviz}/bin/dot")
       '';
@@ -207,22 +211,22 @@
       '';
     };
 
-    php-mode.mode = [''"\\.php\\'"''];
+    php-mode.mode = [ ''"\\.php\\'"'' ];
 
     plantuml-mode = {
-      mode = [''"\\.puml\\'"''];
+      mode = [ ''"\\.puml\\'"'' ];
       config = ''
         (setq plantuml-default-exec-mode 'executable
               plantuml-executable-path "${pkgs.plantuml}/bin/plantuml")
       '';
     };
 
-    protobuf-mode.mode = [''"\\.proto\\'"''];
+    protobuf-mode.mode = [ ''"\\.proto\\'"'' ];
 
-    purescript-mode.mode = [''"\\.purs\\'"''];
+    purescript-mode.mode = [ ''"\\.purs\\'"'' ];
 
     python-ts-mode = {
-      mode = [''"\\.py\\'"''];
+      mode = [ ''"\\.py\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
       '';
@@ -234,35 +238,35 @@
       '';
     };
 
-    rust-mode.mode = [''"\\.rs\\'"''];
+    rust-mode.mode = [ ''"\\.rs\\'"'' ];
 
     rust-ts-mode = {
-      mode = [''"\\.rs\\'"''];
+      mode = [ ''"\\.rs\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(rust-mode . rust-ts-mode))
       '';
     };
 
-    terraform-mode.mode = [''"\\.tf\\(vars\\)?\\'"''];
+    terraform-mode.mode = [ ''"\\.tf\\(vars\\)?\\'"'' ];
 
     toml-ts-mode = {
-      mode = [''"\\.toml\\'"''];
+      mode = [ ''"\\.toml\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(conf-toml-mode . toml-ts-mode))
       '';
     };
 
     tsx-ts-mode = {
-      mode = [''"\\.[jt]sx\\'"''];
+      mode = [ ''"\\.[jt]sx\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(js-jsx-mode . tsx-ts-mode))
       '';
     };
 
-    yaml-mode.mode = [''"\\.\\(e?ya?\\|ra\\)ml\\'"''];
+    yaml-mode.mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ];
 
     yaml-ts-mode = {
-      mode = [''"\\.\\(e?ya?\\|ra\\)ml\\'"''];
+      mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
       '';

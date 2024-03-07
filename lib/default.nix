@@ -5,14 +5,20 @@
   withSystem,
   ops,
   ...
-}: let
+}:
+let
   haumea = inputs.haumea.lib;
 
   lib = haumea.load {
     src = ./src;
     inputs = {
       inherit ops withSystem;
-      flake = {inherit self inputs config;};
+      flake = {
+        inherit self inputs config;
+      };
     };
   };
-in {flake.lib = lib;}
+in
+{
+  flake.lib = lib;
+}

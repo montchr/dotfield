@@ -1,12 +1,14 @@
-moduleArgs @ {
+moduleArgs@{
   config,
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.dotfield.features) hasWayland;
   hasNvidia = moduleArgs.osConfig.dotfield.features.hasNvidia or false;
-in {
+in
+{
   imports = [
     ./mpv.nix
     ./jellyfin-client.nix

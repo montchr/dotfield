@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   ts-grammars = with pkgs.tree-sitter-grammars; [
     tree-sitter-bash
     tree-sitter-cmake
@@ -50,6 +51,7 @@
     tree-sitter-vim
     tree-sitter-yaml
   ];
-in {
+in
+{
   home.packages = ts-grammars;
 }

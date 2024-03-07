@@ -1,11 +1,9 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   cfg = config.programs.bash.trampoline;
   inherit (lib) types;
-in {
+in
+{
   options.programs.bash.trampoline = {
     enable = lib.mkOption {
       default = false;

@@ -1,3 +1,1 @@
-{
-  imports = [./stable-release.nix];
-}
+{ imports = [ ./stable-release.nix ]; }

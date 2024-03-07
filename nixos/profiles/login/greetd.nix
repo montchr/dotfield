@@ -6,7 +6,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.dotfield.features) hasNvidia;
 
   swayFlags = lib.optionalString hasNvidia "--unsupported-gpu";
@@ -19,8 +20,7 @@
   # that means there's no way to select them...
   sway-kiosk = command: ''
     ${pkgs.sway}/bin/sway ${swayFlags} --config \
-      ${pkgs.writeText "kiosk.config"
-      ''
+      ${pkgs.writeText "kiosk.config" ''
         output * bg #000000 solid_color
         exec "${command}; ${pkgs.sway}/bin/swaymsg exit"
 
@@ -36,17 +36,15 @@
   swaySession = mkSession "sway" ''
     ${pkgs.sway}/bin/sway ${swayFlags}
   '';
-in {
+in
+{
   environment.systemPackages = [
     pkgs.bashInteractive
     pkgs.fish
     swaySession
   ];
 
-  environment.etc."greetd/environments".text =
-    "${swaySession.name}\n"
-    + "fish\n"
-    + "bash\n";
+  environment.etc."greetd/environments".text = "${swaySession.name}\n" + "fish\n" + "bash\n";
 
   services.greetd = {
     enable = true;
@@ -54,21 +52,22 @@ in {
       default_session = {
         command = greeterSession;
       };
-      initial_session =
-        lib.mkIf config.dotfield.guardian.enable
-        (let
+      initial_session = lib.mkIf config.dotfield.guardian.enable (
+        let
           user = config.dotfield.guardian.username;
           hmConfig = config.home-manager.users.${user};
-        in {
+        in
+        {
           inherit user;
           command =
-            if (hmConfig.wayland.windowManager.sway.enable)
-            then swaySession.name
-            else "${pkgs.fish}/bin/fish -l";
-        });
+            if (hmConfig.wayland.windowManager.sway.enable) then
+              swaySession.name
+            else
+              "${pkgs.fish}/bin/fish -l";
+        }
+      );
     };
   };
 }
 ##: Sources
 # - https://git.sr.ht/~misterio/nix-config/tree/e2b8e924cfb7bb9f5d71e4e3e1fe92c181d46a65/item/hosts/common/optional/misterio-greetd.nix
-

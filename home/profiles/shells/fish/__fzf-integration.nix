@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   hasHistoryService = config.programs.atuin.enable && config.programs.atuin.enableFishIntegration;
-in {
+in
+{
   # <https://github.com/PatrickF1/fzf.fish#installation>
   programs.fzf.enableFishIntegration = false;
 
