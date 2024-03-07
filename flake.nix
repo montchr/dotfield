@@ -81,6 +81,9 @@
                 ];
               };
             };
+            # FIXME: currently results in cross-compiling due to haskell's IFD!
+            #        must wait for this to arrive in a binary cache in order to
+            #        use `nix fmt`
             # formatter = inputs'.nixfmt-rfc101-style.packages.default;
           };
       }
