@@ -55,6 +55,7 @@ in
     # the user config doesn't specify one.
     pkgs.foot
 
+    pkgs.signal-desktop
     pkgs.wl-clipboard
-  ] ++ (l.optional (!isAarch64) pkgs.signal-desktop); # <- broken
+  ];
 }
