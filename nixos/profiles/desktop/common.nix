@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./firefox.nix
+    ./gnome-services.nix
     ./nixpkgs-wayland.nix
   ];
 
