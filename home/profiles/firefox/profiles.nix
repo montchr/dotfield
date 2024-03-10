@@ -123,6 +123,7 @@ let
       "Noogle" = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
       # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
       "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
+      "Power Thesaurus" = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
     };
     # required to be effective; disabled by default to prevent unintentional data loss
     force = true;
