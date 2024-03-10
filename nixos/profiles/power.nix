@@ -1,0 +1,20 @@
+{ lib, ... }:
+{
+  services = {
+    logind.extraConfig = ''
+      HandlePowerKey=suspend
+    '';
+
+    power-profiles-daemon.enable = true;
+  };
+
+  home-manager.sharedModules = [
+    {
+      "org/gnome/settings-daemon/plugins/power" = {
+        power-button-action = "suspend";
+        # FIXME: this isn't great, should suspend after a while
+        sleep-inactive-ac-type = lib.mkDefault "nothing";
+      };
+    }
+  ];
+}

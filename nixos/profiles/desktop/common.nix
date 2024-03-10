@@ -14,6 +14,8 @@ in
     ./firefox.nix
     ./gnome-services.nix
     ./nixpkgs-wayland.nix
+
+    ../power.nix
   ];
 
   services.xserver.enable = true;

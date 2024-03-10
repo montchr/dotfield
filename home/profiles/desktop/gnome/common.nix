@@ -45,10 +45,6 @@ in
       # TODO: longer for home theater, which are the primary gnome users
       idle-delay = lib.mkDefault (mkUint32 600);
     };
-    "org/gnome/settings-daemon/plugins/power" = {
-      power-button-action = "suspend";
-      sleep-inactive-ac-type = "nothing";
-    };
 
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = false;
