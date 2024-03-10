@@ -107,27 +107,7 @@ let
       }
     '';
 
-  engine = template: { urls = lib.singleton { inherit template; }; };
-  withAlias = s: attrs: attrs // { definedAliases = lib.singleton s; };
-  engine' = alias: template: withAlias "@${alias}" (engine template);
-  # TODO: provide link to docs on supported metadata (somewhere in mozilla source code prob)
-  search = {
-    default = "Kagi";
-    engines = {
-      "home-manager options" = engine' "hm" "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
-      "Kagi" = engine "https://kagi.com/search?q={searchTerms}";
-      "Marginalia" = engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
-      "npm" = engine' "npm" "https://www.npmjs.com/search?q={searchTerms}";
-      "Nix Packages" = import ./search/nix-packages.nix { inherit pkgs; };
-      "NixOS Wiki" = import ./search/nixos-wiki.nix;
-      "Noogle" = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
-      # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
-      "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
-      "Power Thesaurus" = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
-    };
-    # required to be effective; disabled by default to prevent unintentional data loss
-    force = true;
-  };
+  search = import ./search/default.nix { inherit lib pkgs; };
 in
 {
   imports = [ ./extensions/tridactyl.nix ];
@@ -135,9 +115,9 @@ in
   programs.firefox.profiles.home = {
     inherit
       extensions
+      search
       userChrome
       userContent
-      search
       ;
     id = 0;
     settings = makeSettings' {
@@ -152,19 +132,14 @@ in
   };
 
   programs.firefox.profiles.work = {
-    inherit extensions userContent;
+    inherit extensions search userContent;
     userChrome = ''
       /* @import url("css/leptonChrome.css"); */
     '';
     id = 1;
 
-    # search = dmerge.merge search {
-    #   engines.lucideIcons = import ./search/lucide-icons.nix;
-    # };
-
     # FIXME: distinguish appearance from other profile
     settings = makeSettings' {
-      #       imports = [./settings/lepton.nix];
       "browser.startup.homepage" = "about:blank";
       "userChrome.theme.monospace" = false;
     };
