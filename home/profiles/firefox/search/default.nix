@@ -23,6 +23,11 @@ in
 
     "home-manager options" = engine' "hm" "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
     "Nix Packages" = {
+      definedAliases = [
+        "@nixpkgs"
+        "@pkgs"
+      ];
+
       urls = [
         {
           template = "https://search.nixos.org/packages";
@@ -39,17 +44,46 @@ in
         }
       ];
       icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+    };
+    "NixOS Options" = {
       definedAliases = [
-        "@np"
-        "@nixpkgs"
+        "@nixos"
+        "@opts"
       ];
+
+      urls = [
+        {
+          # Example: https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=gnome
+          template = "https://search.nixos.org/options";
+          params = [
+            # {
+            #   name = "type";
+            #   # Yes, even for Options search (though I don't think it's required)
+            #   value = "packages";
+            # }
+            {
+              name = "channel";
+              value = "unstable";
+            }
+            {
+              name = "query";
+              value = "{searchTerms}";
+            }
+            {
+              name = "sort";
+              value = "relevance";
+            }
+          ];
+        }
+      ];
+      icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
     };
     "NixOS Wiki" = {
       urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
       iconUpdateURL = "https://nixos.wiki/favicon.png";
       # TODO: why?
       updateInterval = 24 * 60 * 60 * 1000; # every day
-      definedAliases = [ "@nw" ];
+      definedAliases = [ "@nwiki" ];
     };
     "Noogle" = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
   };
