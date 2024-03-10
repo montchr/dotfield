@@ -120,7 +120,7 @@ let
       "npm" = engine' "npm" "https://www.npmjs.com/search?q={searchTerms}";
       "Nix Packages" = import ./search/nix-packages.nix { inherit pkgs; };
       "NixOS Wiki" = import ./search/nixos-wiki.nix;
-      "Noogle" = engine' "nl" "https://noogle.dev/?term=%22{searchTerms}%22";
+      "Noogle" = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
       # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
       "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
     };
