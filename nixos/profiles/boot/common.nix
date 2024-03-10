@@ -1,3 +1,4 @@
+# TODO: look into `boot.initrd.systemd`, a new option
 { lib, ... }:
 {
   boot.consoleLogLevel = lib.mkDefault 3;

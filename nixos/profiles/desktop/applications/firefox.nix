@@ -6,9 +6,6 @@
   programs.firefox.nativeMessagingHosts.packages = [
     pkgs.bukubrow
     pkgs.tridactyl-native
-
-    # TODO: pick one? <https://github.com/passff/passff/issues/394>
-    pkgs.browserpass
     pkgs.passff-host
   ];
 }

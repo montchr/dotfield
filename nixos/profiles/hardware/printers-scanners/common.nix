@@ -1,13 +1,11 @@
 {
+  imports = [ ../../networking/avahi.nix ];
+
   services.printing.enable = true;
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  services.avahi.openFirewall = true;
 
-  # For scanner support.
+  # scanner support
   hardware.sane = {
     enable = true;
     openFirewall = true;

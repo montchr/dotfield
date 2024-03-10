@@ -14,23 +14,43 @@ let
     sharedProfiles.fonts.fontconfig
     sharedProfiles.fonts.iosevka-variants
 
-    nixosProfiles.desktop.common
-
-    # TODO: this should be in some baseline profile since it's used repeatedly
-    # and should generally be a default (is there any system where it is _not_
-    # used?) ... also, like, what does this have to do with GUIs?
+    # FIXME: find a more appropriate "feature" to file systemd-boot under
+    #        it is not universal -- there's also rEFInd but i haven't used that
+    #        in a while. consider singularity.
     nixosProfiles.boot.systemd-boot
+    nixosProfiles.desktop.applications.default
+    nixosProfiles.desktop.common
+  ];
+
+  desktop =
+    graphical
+    ++ audio
+    ++ tangible
+    ++ [
+      nixosProfiles.power
+      nixosProfiles.desktop.gnome-services
+      nixosProfiles.networking.avahi
+    ];
+
+  wlroots = desktop ++ [
+    nixosProfiles.desktop.kde-services
+    nixosProfiles.networking.networkmanager
   ];
 
   tangible = [ nixosProfiles.hardware.keyboard ];
 in
 {
-  inherit audio graphical tangible;
+  inherit
+    audio
+    desktop
+    graphical
+    tangible
+    wlroots
+    ;
 
-  desktop = graphical ++ audio ++ tangible;
-
-  gnome = [
+  gnome = desktop ++ [
     nixosProfiles.desktop.gnome-desktop
+    nixosProfiles.desktop.nixpkgs-wayland
     nixosProfiles.login.gdm
   ];
 
@@ -45,13 +65,13 @@ in
     nixosProfiles.virtualisation.virt-manager
   ];
 
-  workstation = [
+  workstation = desktop ++ [
     sharedProfiles.secrets.default
 
     nixosProfiles.one-password
     nixosProfiles.bitwarden
     nixosProfiles.boot.systemd-boot
-    nixosProfiles.desktop.zoom-us
+    nixosProfiles.desktop.applications.zoom-us
     nixosProfiles.hardware.printers-scanners.common
     nixosProfiles.hardware.printers-scanners.epson-wf-3520
     nixosProfiles.hardware.yubikey

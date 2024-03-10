@@ -11,21 +11,18 @@ let
 in
 {
   imports = [
-    ./clipboard.nix
-    ./input-devices.nix
+    ../hardware/mouse.nix
 
-    # ./dconf.settings.nix
+    ./__clipboard.nix
+    ./gtk.nix
+    ./qt.nix
   ];
 
-  home.packages =
-    [
-      pkgs.gimp-with-plugins
-      pkgs.mediainfo
-    ]
-    ++ lib.optionals isLinux [
-      # TODO: only on gnome? or does gtk use it too?
-      pkgs.dconf2nix # : <https://github.com/gvolpe/dconf2nix>
-    ];
+  home.packages = [
+    pkgs.dconf2nix # <https://github.com/gvolpe/dconf2nix>
+    pkgs.gimp-with-plugins
+    pkgs.mediainfo
+  ];
 
   xdg.userDirs = {
     enable = true;
@@ -38,11 +35,6 @@ in
   };
 
   fonts.fontconfig.enable = true;
-
-  # TODO: configure gtk settings
-  # gtk.enable = true;
-
-  qt.enable = true;
 
   # gnome-keyring-daemon has issues as a user service
   # <https://github.com/NixOS/nixpkgs/issues/174099>

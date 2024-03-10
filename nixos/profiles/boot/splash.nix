@@ -1,0 +1,1 @@
+{ boot.plymouth.enable = true; }

@@ -6,5 +6,5 @@ in
   # battery info
   services.upower.enable = true;
 
-  home-manager.sharedModules = lib.singleton homeProfiles.laptop;
+  home-manager.sharedModules = lib.singleton homeProfiles.hardware.laptop;
 }

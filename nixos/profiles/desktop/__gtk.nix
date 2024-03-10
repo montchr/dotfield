@@ -1,8 +1,17 @@
-{ flake, pkgs, ... }:
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  isGnomeDesktop = config.services.xserver.desktopManager.gnome.enable;
+in
 {
   programs.dconf.enable = true;
+  environment.systemPackages = [ pkgs.gnome.dconf-editor ];
+  xdg.portal.extraPortals = lib.optional (!isGnomeDesktop) pkgs.xdg-desktop-portal-gtk;
 
-  environment.systemPackages = [ pkgs.dconf-editor ];
-
-  home-manager.sharedModules = [ "${flake.self}/home/profiles/desktop/gtk/common.nix" ];
+  home-manager.sharedModules = [ "${flake.self}/home/profiles/desktop/gtk.nix" ];
 }

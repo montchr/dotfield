@@ -1,18 +1,18 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./__gtk.nix
     ./__qt.nix
-
-    ./firefox.nix
-    ./gnome-services.nix
-    ./nixpkgs-wayland.nix
-
-    ../power.nix
+    ./__wallpaper.nix
+    ./__xdg.nix
   ];
 
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
+
+  # # "broker" is a modern and backwards-compatible re-implementation of the
+  # # legacy dbus implementation.
+  # services.dbus.implementation = "broker";
 
   # FIXME: guardian should set these automatically, be very careful
   dotfield.guardian.user.extraGroups = [
@@ -20,13 +20,12 @@
     "video"
   ];
 
-  xdg.portal.enable = true;
-
   hardware.opengl = {
     enable = true;
     driSupport = true;
   };
 
+  security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
   # Hide cursor upon keystroke.
@@ -42,13 +41,12 @@
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  environment.systemPackages = [
-    # Provide a minimal and sensible default terminal emulator as a fallback
-    # in case the desktop environment doesn't bundle its own application or
-    # the user config doesn't specify one.
-    pkgs.foot
+  # # "Symlinks and syncs browser profile dirs to RAM thus reducing HDD/SDD calls
+  # # and speeding-up browsers."
+  # # <https://github.com/graysky2/profile-sync-daemon>
+  # # <https://wiki.archlinux.org/title/Profile-sync-daemon>
+  # services.psd.enable = true;
+  # services.psd.resyncTimer = lib.mkDefault "10m";
 
-    pkgs.signal-desktop
-    pkgs.wl-clipboard
-  ];
+  environment.systemPackages = [ pkgs.wl-clipboard ];
 }
