@@ -15,7 +15,7 @@ let
   };
 in
 {
-  imports = [ ../gtk/dconf-settings.nix ];
+  imports = [ ../gtk/common.nix ];
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {

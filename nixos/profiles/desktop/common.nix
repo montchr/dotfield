@@ -1,16 +1,9 @@
-{
-  config,
-  flake,
-  pkgs,
-  ...
-}:
-let
-  inherit (config.dotfield.features) hasWayland;
-  inherit (pkgs.stdenv.hostPlatform) isAarch64;
-  l = flake.inputs.nixpkgs.lib // builtins;
-in
+{ pkgs, ... }:
 {
   imports = [
+    ./__gtk.nix
+    ./__qt.nix
+
     ./firefox.nix
     ./gnome-services.nix
     ./nixpkgs-wayland.nix
@@ -33,9 +26,6 @@ in
     enable = true;
     driSupport = true;
   };
-
-  # Always support GTK applications.
-  # programs.dconf.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 

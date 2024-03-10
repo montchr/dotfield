@@ -41,14 +41,8 @@ in
 
   # TODO: configure gtk settings
   # gtk.enable = true;
-  # TODO: set these based on color scheme
-  # gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-  # gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
 
   qt.enable = true;
-  qt.platformTheme = "gnome";
-  qt.style.package = pkgs.adwaita-qt;
-  qt.style.name = "adwaita";
 
   # gnome-keyring-daemon has issues as a user service
   # <https://github.com/NixOS/nixpkgs/issues/174099>
