@@ -15,7 +15,7 @@ let
   };
 in
 {
-  imports = [ ../gtk.nix ];
+  imports = [ ../../gtk.nix ];
 
   # The package loaded by the "gnome" setting is obsolete.
   qt.platformTheme = "gtk3";
