@@ -26,7 +26,7 @@ in
   ];
 
   home-manager.sharedModules = lib.singleton {
-    imports = lib.singleton homeProfiles.desktop.gnome.common;
+    imports = lib.singleton homeProfiles.desktop.sessions.gnome.common;
   };
 
   # Prevent GNOME session crashes when auto-login is enabled.
