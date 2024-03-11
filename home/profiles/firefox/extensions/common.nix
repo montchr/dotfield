@@ -6,7 +6,6 @@ with addons;
   anchors-reveal
   auto-tab-discard
   bitwarden
-  browserpass
   consent-o-matic
   copy-selection-as-markdown
   darkreader
@@ -14,6 +13,7 @@ with addons;
   multi-account-containers
   offline-qr-code-generator
   org-capture
+  passff
   proton-pass
   raindropio
   react-devtools
