@@ -18,6 +18,7 @@
   home.packages = [
     pkgs.gimp-with-plugins
     pkgs.mediainfo
+    pkgs.ydotool # command-line automation tool
   ];
 
   fonts.fontconfig.enable = true;
