@@ -13,6 +13,8 @@
 
     ./gtk.nix
     ./qt.nix
+
+    ./applications/zathura.nix
   ];
 
   home.packages = [
@@ -27,6 +29,4 @@
   # <https://github.com/NixOS/nixpkgs/issues/174099>
   # <https://github.com/nix-community/home-manager/issues/1454>
   services.gnome-keyring.enable = false;
-
-  programs.zathura.enable = true;
 }
