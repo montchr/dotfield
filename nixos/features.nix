@@ -68,13 +68,16 @@ in
   workstation = desktop ++ [
     sharedProfiles.secrets.default
 
+    nixosProfiles.boot.systemd-boot
+    nixosProfiles.location
+
     nixosProfiles.one-password
     nixosProfiles.bitwarden
-    nixosProfiles.boot.systemd-boot
     nixosProfiles.desktop.applications.zoom-us
+
+    nixosProfiles.hardware.android-devices.common
     nixosProfiles.hardware.printers-scanners.common
     nixosProfiles.hardware.printers-scanners.epson-wf-3520
     nixosProfiles.hardware.yubikey
-    nixosProfiles.location
   ];
 }
