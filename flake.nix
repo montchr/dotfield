@@ -126,6 +126,7 @@
   inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
   inputs.firefox-addons.url = "sourcehut:~montchr/firefox-addons";
   inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
+  inputs.seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
 
   ##: apps/tools
   inputs.deadnix.url = "github:astro/deadnix";
