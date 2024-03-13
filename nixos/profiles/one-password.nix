@@ -14,6 +14,6 @@ in
 
   programs._1password-gui = lib.mkIf isGraphical {
     enable = true;
-    polkitPolicyOwners = lib.optional config.dotfield.guardian.enable config.dotfield.guardian.username;
+    polkitPolicyOwners = config.users.groups.wheel.members;
   };
 }
