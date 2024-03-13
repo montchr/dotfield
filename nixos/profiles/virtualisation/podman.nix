@@ -23,16 +23,19 @@
     # `podman-compose`.
     docker-client
   ];
+
   virtualisation.docker.enable = false;
+
   virtualisation.podman = {
     enable = true;
     # NOTE: This only creates a shell alias mapping `docker` to `podman`.
     dockerCompat = true;
     dockerSocket.enable = true;
   };
+
   # Any other user who needs to be able to run Docker-compatible Podman
   # containers will need to be added to this group. However, note that this
   # essentially gives container `root` users access to the host system via the
   # socket.
-  dotfield.guardian.user.extraGroups = [ "podman" ];
+  dotfield.guardian.extraGroups = [ "podman" ];
 }

@@ -14,8 +14,7 @@
   # # legacy dbus implementation.
   # services.dbus.implementation = "broker";
 
-  # FIXME: guardian should set these automatically, be very careful
-  dotfield.guardian.user.extraGroups = [
+  dotfield.guardian.extraGroups = [
     "audio"
     "video"
   ];

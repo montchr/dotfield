@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   inherit (builtins) hasAttr;
+  inherit (lib) types;
 
   cfg = config.dotfield.guardian;
 in
@@ -8,21 +9,29 @@ in
   options.dotfield.guardian = {
     enable = lib.mkOption {
       default = true;
-      type = lib.types.bool;
+      type = types.bool;
       description = "Whether to designate a guardian user for this system.";
     };
 
     username = lib.mkOption {
-      type = with lib.types; nullOr str;
+      type = with types; nullOr str;
       default = null;
       description = ''
         Name of the guardian user. Must be an existing non-system user.
       '';
     };
-    user = lib.mkOption { readOnly = true; };
+
+    extraGroups = lib.mkOption {
+      type = with types; listOf str;
+      default = [ ];
+      description = ''
+        Auxilliary groups for the guardian user.
+      '';
+    };
+
     keys = {
       all = lib.mkOption {
-        type = with lib.types; listOf str;
+        type = with types; listOf str;
         default = [ ];
       };
     };
@@ -44,14 +53,8 @@ in
       }
     ];
 
-    dotfield.guardian.user = lib.mkAliasDefinitions config.users.users.${cfg.username};
-    users.groups."wheel".members = [ cfg.username ];
-    users.users.${cfg.username}.extraGroups =
-      [
-        "seadome"
-        "keys" # sops-nix
-      ]
-      ++ (lib.optionals config.services.printing.enable [
+    dotfield.guardian.extraGroups =
+      (lib.optionals config.services.printing.enable [
         "cups"
         "lp"
       ])
@@ -64,5 +67,11 @@ in
       ++ (lib.optional config.services.mysql.enable "mysql")
       ++ (lib.optional config.hardware.openrazer.enable "openrazer")
       ++ (lib.optional config.virtualisation.docker.enable "docker");
+
+    users.groups."wheel".members = [ cfg.username ];
+    users.users.${cfg.username}.extraGroups = [
+      "seadome"
+      "keys" # sops-nix
+    ] ++ cfg.extraGroups;
   };
 }
