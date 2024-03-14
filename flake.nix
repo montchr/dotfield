@@ -84,7 +84,7 @@
             # FIXME: currently results in cross-compiling due to haskell's IFD!
             #        must wait for this to arrive in a binary cache in order to
             #        use `nix fmt`
-            # formatter = inputs'.nixfmt-rfc101-style.packages.default;
+            # formatter = inputs'.nixfmt.packages.default;
           };
       }
     );
@@ -133,7 +133,7 @@
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.nil-lsp.url = "github:oxalica/nil";
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
-  inputs.nixfmt-rfc101-style.url = "github:piegamesde/nixfmt/rfc101-style";
+  inputs.nixfmt.url = "github:NixOS/nixfmt";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: system

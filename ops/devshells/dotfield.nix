@@ -13,7 +13,7 @@ in
       ...
     }:
     let
-      inherit (inputs') colmena home-manager nixfmt-rfc101-style;
+      inherit (inputs') colmena home-manager nixfmt;
 
       cats = enumAttrs [
         "dotfield"
@@ -51,7 +51,7 @@ in
           (dotfield pkgs.just)
           (dotfield pkgs.treefmt)
 
-          (maintenance nixfmt-rfc101-style.packages.default)
+          (maintenance nixfmt.packages.default)
           (maintenance pkgs.nix-init)
           (maintenance pkgs.nix-prefetch)
           (maintenance pkgs.nix-tree)

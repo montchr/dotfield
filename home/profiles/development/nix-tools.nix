@@ -1,10 +1,10 @@
 { flake, pkgs, ... }:
 let
-  inherit (flake.perSystem.inputs') nixfmt-rfc101-style;
+  inherit (flake.perSystem.inputs') nixfmt;
 in
 {
   home.packages = [
-    nixfmt-rfc101-style.packages.default
+    nixfmt.packages.default
 
     pkgs.alejandra
     pkgs.nix-init # <- generate nix package expressions from url

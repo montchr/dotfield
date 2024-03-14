@@ -489,7 +489,7 @@
     "devshell_5": {
       "inputs": {
         "flake-utils": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -497,7 +497,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -627,7 +627,7 @@
     "dmerge_3": {
       "inputs": {
         "nixlib": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -635,7 +635,7 @@
           "nixpkgs"
         ],
         "yants": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -1572,7 +1572,7 @@
         "hydra": "hydra",
         "iserv-proxy": "iserv-proxy",
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "nixpkgs-unstable"
@@ -1764,7 +1764,7 @@
       "inputs": {
         "nix": "nix",
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "hydra",
@@ -1832,7 +1832,7 @@
     "incl_3": {
       "inputs": {
         "nixlib": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2046,7 +2046,7 @@
     "n2c_2": {
       "inputs": {
         "flake-utils": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2054,7 +2054,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2259,7 +2259,7 @@
       "inputs": {
         "flake-compat": "flake-compat_9",
         "flake-utils": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2268,14 +2268,14 @@
         ],
         "gomod2nix": "gomod2nix",
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
           "nixpkgs"
         ],
         "nixpkgs-lib": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2494,7 +2494,7 @@
     "nixago_5": {
       "inputs": {
         "flake-utils": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2502,7 +2502,7 @@
           "flake-utils"
         ],
         "nixago-exts": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2510,7 +2510,7 @@
           "blank"
         ],
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -2532,7 +2532,7 @@
         "type": "github"
       }
     },
-    "nixfmt-rfc101-style": {
+    "nixfmt": {
       "inputs": {
         "flake-compat": "flake-compat_5",
         "flake-utils": "flake-utils_18",
@@ -2540,16 +2540,15 @@
         "serokell-nix": "serokell-nix"
       },
       "locked": {
-        "lastModified": 1710374038,
-        "narHash": "sha256-/BZRfQcKyAHPfaCmgAGNtwcnF8YT8kJ6JcERtIxzMbY=",
-        "owner": "piegamesde",
+        "lastModified": 1710446683,
+        "narHash": "sha256-EC5d2/6Ei8IOlZH4tu5yv+hWHNfyFCVVTIstxc+FldY=",
+        "owner": "NixOS",
         "repo": "nixfmt",
-        "rev": "8411ce4e2830f628c838d96d9b948e9131626688",
+        "rev": "b265f30b1d99d124d66276f798eb8957c89c7a30",
         "type": "github"
       },
       "original": {
-        "owner": "piegamesde",
-        "ref": "rfc101-style",
+        "owner": "NixOS",
         "repo": "nixfmt",
         "type": "github"
       }
@@ -3834,7 +3833,7 @@
         "namaka": "namaka_2",
         "nil-lsp": "nil-lsp",
         "nix-index-database": "nix-index-database",
-        "nixfmt-rfc101-style": "nixfmt-rfc101-style",
+        "nixfmt": "nixfmt",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
@@ -3971,7 +3970,7 @@
         "haskell-nix": "haskell-nix",
         "nix": "nix_2",
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "nixpkgs"
         ]
       },
@@ -4203,7 +4202,7 @@
     "std_3": {
       "inputs": {
         "arion": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -4216,7 +4215,7 @@
         "flake-utils": "flake-utils_22",
         "incl": "incl_3",
         "makes": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -4224,7 +4223,7 @@
           "blank"
         ],
         "microvm": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
@@ -4473,7 +4472,7 @@
         "nix-nomad": "nix-nomad",
         "nix2container": "nix2container",
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "nixpkgs"
@@ -4604,7 +4603,7 @@
     "yants_3": {
       "inputs": {
         "nixpkgs": [
-          "nixfmt-rfc101-style",
+          "nixfmt",
           "serokell-nix",
           "haskell-nix",
           "tullia",
