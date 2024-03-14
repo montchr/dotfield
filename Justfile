@@ -62,34 +62,26 @@ toml2nix file:
 
 ###: LINTING/FORMATTING ========================================================
 
+deadnix-params := '--no-underscore'
+
 # <- Lint files
-lint *FILES=prj-root: (deadnix "check" FILES) (statix "check" FILES)
+lint: (deadnix '--fail')
+  statix check
+
+# <- Write linter fixes to files
+fix: (deadnix "--edit")
+  statix fix
 
 # <- Lint and format files
 fmt *FILES=prj-root:
   treefmt --no-cache {{FILES}}
 
-# <- Write automatic linter fixes to files
-fix *FILES=prj-root: (deadnix "fix" FILES) (statix "fix" FILES)
-
-# <- Run `statix`
 [private]
-statix action +FILES=prj-root:
-  @ # Note that stderr is silenced due to an upstream bug
-  @ # https://github.com/nerdypepper/statix/issues/59
-  @ for f in {{FILES}}; do \
-    statix {{action}} -- "$f" 2>/dev/null; \
-  done
-
-# <- Run `deadnix` with sane options
-[private]
-deadnix action +FILES=prj-root:
-  @deadnix \
-    {{ if action == "fix" { "--edit" } else { "--fail" } }} \
-    --no-underscore \
-    --no-lambda-pattern-names \
-    {{FILES}}
-
+deadnix ARGS='--fail':
+  fd -t f -e nix --exclude='packages/**/*.nix' --exec-batch \
+    deadnix {{ARGS}} {{deadnix-params}}
+  fd -t f -e nix . packages --exec-batch \
+    deadnix {{ARGS}} --no-lambda-pattern-names {{deadnix-params}}
 
 ###: INTROSPECTION =============================================================
 
