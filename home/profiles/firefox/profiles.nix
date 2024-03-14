@@ -9,16 +9,13 @@ hmArgs@{
 let
   inherit (flake.inputs) apparat haumea;
   inherit (flake.perSystem.inputs') firefox-addons;
-  inherit (flake.perSystem.packages) firefox-ui-fix;
-  inherit (apparat.lib.firefox) evalSettings paths;
+  inherit (apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
   l = flake.inputs.nixpkgs.lib // builtins;
 
   cfg = config.programs.firefox;
-
-  profilesPath = (paths hostPlatform).profiles;
 
   mixins = haumea.lib.load {
     src = ./mixins;

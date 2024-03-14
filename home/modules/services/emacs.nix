@@ -180,7 +180,7 @@ in
               # unsaved buffers.
               X-RestartIfChanged = false;
             }
-            // optionalAttrs (cfg.socketActivation.enable) {
+            // optionalAttrs cfg.socketActivation.enable {
               # Emacs deletes its socket when shutting down, which systemd doesn't
               # handle, resulting in a server without a socket.
               # See https://github.com/nix-community/home-manager/issues/2018
@@ -202,17 +202,17 @@ in
 
               Restart = "on-failure";
             }
-            // optionalAttrs (cfg.socketActivation.enable) {
+            // optionalAttrs cfg.socketActivation.enable {
               # Use read-only directory permissions to prevent emacs from
               # deleting systemd's socket file before exiting.
               ExecStartPost = "${pkgs.coreutils}/bin/chmod --changes -w ${socketDir}";
               ExecStopPost = "${pkgs.coreutils}/bin/chmod --changes +w ${socketDir}";
             };
         }
-        // optionalAttrs (cfg.startWithUserSession != false) {
+        // optionalAttrs cfg.startWithUserSession {
           Install = {
             WantedBy = [
-              (if cfg.startWithUserSession == true then "default.target" else "graphical-session.target")
+              (if cfg.startWithUserSession then "default.target" else "graphical-session.target")
             ];
           };
         };

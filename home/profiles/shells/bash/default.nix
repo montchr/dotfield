@@ -8,7 +8,6 @@
   ...
 }:
 let
-  cfg = config.programs.bash;
   inherit (flake.perSystem.packages) fzf-tab-completion;
 in
 {

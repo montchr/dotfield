@@ -7,7 +7,6 @@ in
 {
   perSystem =
     {
-      system,
       inputs',
       pkgs,
       ...

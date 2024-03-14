@@ -49,7 +49,7 @@ in
       # FIXME: should be hostPlatform?
       inherit (pkgs.stdenv) system;
     in
-    (withSystem system (
+    withSystem system (
       { pkgs, ... }:
       (home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -64,5 +64,5 @@ in
             }
           ];
       })
-    ));
+    );
 }

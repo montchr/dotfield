@@ -1,11 +1,10 @@
 {
   pkgs,
-  config,
   flake,
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
 in
 # inherit (config) xdg;

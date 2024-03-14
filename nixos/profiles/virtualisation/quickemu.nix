@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let
-  pipewireSupport = config.services.pipewire.enable;
-in
+_:
 {
   # services.samba.enable = true;
   # services.samba.shares = [];

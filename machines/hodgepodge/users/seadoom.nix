@@ -6,7 +6,6 @@
 }:
 let
   username = "seadoom";
-  maybeGroups = builtins.filter (group: builtins.hasAttr group config.users.groups);
 in
 {
   dotfield.guardian.enable = true;

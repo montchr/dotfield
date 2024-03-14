@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   disk."/dev/sda" = {
     device = "/dev/sda";

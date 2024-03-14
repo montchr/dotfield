@@ -2,12 +2,11 @@
   config,
   lib,
   pkgs,
-  flake,
   ops,
   ...
 }:
 let
-  key = (config.dotfield.whoami).pgp;
+  key = config.dotfield.whoami.pgp;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
 {

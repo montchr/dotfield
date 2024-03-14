@@ -32,7 +32,7 @@ in
   };
   brakhage.users.blink.keys = [ keys.ssh.blink-at-brakhage ];
   chert = {
-    domain = networks.loopgarden.domain;
+    inherit (networks.loopgarden) domain;
     ipv6 = hetznerIp6 "2a01:4f8:c012:6d05";
     keys = [
       # keys.ssh.gabbro
@@ -41,7 +41,7 @@ in
   };
   gabbro = {
     age = keys.age.gabbro;
-    domain = networks.loopgarden.domain;
+    inherit (networks.loopgarden) domain;
     ipv6 = hetznerIp6 "2a01:4f8:c17:a3c3";
     keys = [
       keys.ssh.gabbro
@@ -54,7 +54,7 @@ in
   };
   hierophant = {
     age = keys.age.hierophant;
-    domain = networks.seadome.domain;
+    inherit (networks.seadome) domain;
     ipv6 = hetznerIp6 "2a01:4ff:f0:4717";
     keys = [
       keys.ssh.hierophant

@@ -13,7 +13,7 @@ in
 
   sops.secrets."services/deluge/auth-file" = {
     owner = user.name;
-    group = user.group;
+    inherit (user) group;
     # deluged will try to enforce this mode.
     # <https://git.deluge-torrent.org/deluge/tree/deluge/common.py#n1208>
     mode = "0400";

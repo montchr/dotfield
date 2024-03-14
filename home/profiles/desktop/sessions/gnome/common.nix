@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib.hm.gvariant) mkUint32 mkTuple;
+  inherit (lib.hm.gvariant) mkUint32;
 
   fileChooserDefaults = {
     date-format = "regular";

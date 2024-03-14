@@ -4,7 +4,7 @@ let
 in
 {
   mkNode =
-    evaled: hostname: settings:
+    evaled: _hostname: settings:
     let
       evaledModules = evaled._module.args.modules;
       settings' = {

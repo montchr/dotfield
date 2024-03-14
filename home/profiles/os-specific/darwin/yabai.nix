@@ -9,9 +9,7 @@ let
   inherit (flake.inputs.apparat.lib.yabai)
     toYabaiConfig
     mkSetting
-    mkSignal
     mkSignal'
-    mkRules
     ;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = flake.inputs.nixpkgs.lib // builtins;

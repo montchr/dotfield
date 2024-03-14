@@ -8,7 +8,7 @@
   ];
 
   perSystem =
-    { config, ... }:
+    _:
     {
       # devshells.default = config.devshells.dotfield;
     };

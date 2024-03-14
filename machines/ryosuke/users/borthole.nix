@@ -1,4 +1,4 @@
-{ config, ops, ... }:
+{ config, ... }:
 let
   username = "borthole";
 in

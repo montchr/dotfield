@@ -16,7 +16,7 @@
 # support for these drivers.
 #
 # So I don't use those drivers, despite crashes with current drivers.
-{ pkgs, ... }:
+_:
 {
   # FIXME: unfortunately, this does not lead to great results
   #        -- UI is still far too small

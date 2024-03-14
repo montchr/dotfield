@@ -29,7 +29,7 @@ let
     #       Reference: <https://github.com/getsops/sops#214key-groups>
     key_groups = l.singleton {
       age = [ keys.age.${hostName} ] ++ adminKeys.age;
-      pgp = [ ] ++ adminKeys.pgp;
+      inherit (adminKeys) pgp;
     };
   };
 
@@ -63,7 +63,7 @@ in
           keys.age.tuvix
           keys.age.cdom-at-tuvix
         ] ++ adminKeys.age;
-        pgp = [ ] ++ adminKeys.pgp;
+        inherit (adminKeys) pgp;
       };
     }
 
@@ -72,7 +72,7 @@ in
       path_regex = "secrets\/storm\.observer\.secrets\.yaml$";
       key_groups = l.singleton {
         age = [ keys.age.moraine ] ++ adminKeys.age;
-        pgp = [ ] ++ adminKeys.pgp;
+        inherit (adminKeys) pgp;
       };
     }
 
@@ -80,8 +80,8 @@ in
     {
       path_regex = defaultPathPattern;
       key_groups = l.singleton {
-        age = [ ] ++ (l.map (v: keys.age.${v}) hosts) ++ adminKeys.age;
-        pgp = [ ] ++ adminKeys.pgp;
+        age = (l.map (v: keys.age.${v}) hosts) ++ adminKeys.age;
+        inherit (adminKeys) pgp;
       };
     }
   ];

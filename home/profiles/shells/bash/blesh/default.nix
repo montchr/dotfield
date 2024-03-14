@@ -1,12 +1,8 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }:
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
 {
   home.packages = [ pkgs.blesh ];
 

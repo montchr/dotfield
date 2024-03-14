@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+_:
 {
   # According to its description in the NixOS manual:
   # > PulseAudio server uses this to acquire realtime priority.

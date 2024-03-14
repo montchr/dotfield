@@ -60,7 +60,7 @@ in
         {
           inherit user;
           command =
-            if (hmConfig.wayland.windowManager.sway.enable) then
+            if hmConfig.wayland.windowManager.sway.enable then
               swaySession.name
             else
               "${pkgs.fish}/bin/fish -l";

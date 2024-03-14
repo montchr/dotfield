@@ -50,7 +50,7 @@
         };
 
         perSystem =
-          { system, inputs', ... }:
+          { system, ... }:
           {
             _module.args = {
               inherit ops;
@@ -67,7 +67,7 @@
                 overlays = [
                   inputs.emacs-overlay.overlays.default
 
-                  (final: prev: {
+                  (_final: prev: {
                     inherit (inputs.nixpkgs-trunk.legacyPackages.${prev.stdenv.hostPlatform.system})
                       pinentry
                       pinentry-gtk2

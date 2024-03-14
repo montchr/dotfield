@@ -5,8 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  key = (config.dotfield.whoami).pgp;
+  key = config.dotfield.whoami.pgp;
   inherit (config.lib.dag) entryAfter;
 
   passwordStorePath = config.xdg.dataHome + "/pass";

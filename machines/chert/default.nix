@@ -1,4 +1,4 @@
-{ pkgs, flake, ... }:
+{ flake, ... }:
 let
   inherit (flake.inputs) disko nixpkgs;
 in

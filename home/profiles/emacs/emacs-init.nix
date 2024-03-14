@@ -1,4 +1,4 @@
-{ config, ... }:
+_:
 {
   programs.emacs.init.enable = true;
 }

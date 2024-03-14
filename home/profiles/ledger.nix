@@ -4,7 +4,6 @@
 # - <https://github.com/edkedk99/awesome-hledger/tree/master/contrib-resources>
 {
   config,
-  lib,
   pkgs,
   ...
 }:

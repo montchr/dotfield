@@ -272,10 +272,10 @@ let
   );
 
   # TODO: unused binding?
-  usePackageStr = name: pkgConfStr: ''
-    (use-package ${name}
-      ${pkgConfStr})
-  '';
+  # usePackageStr = name: pkgConfStr: ''
+  #   (use-package ${name}
+  #     ${pkgConfStr})
+  # '';
 
   mkRecommendedOption =
     type: extraDescription:
@@ -534,7 +534,7 @@ in
           else
             optional (lib.isString v && lib.hasAttr v epkgs) epkgs.${v};
 
-        packages = lib.concatMap (v: getPkg (v.package)) (
+        packages = lib.concatMap (v: getPkg v.package) (
           lib.filter (lib.getAttr "enable") (builtins.attrValues cfg.usePackage)
         );
       in

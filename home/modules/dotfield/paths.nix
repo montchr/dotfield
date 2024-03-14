@@ -9,6 +9,7 @@ let
   cfg = config.dotfield.paths;
   # FIXME: this will break in standalone configs.
   #        needs an `or`... but therein lies a rabbit hole... (why?)
+  # deadnix: skip
   fsPath = moduleArgs.osConfig.dotfield.paths.fsPath;
   userDirsSubmodule =
     { options, ... }:

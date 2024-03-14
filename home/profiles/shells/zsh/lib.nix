@@ -8,7 +8,7 @@ let
   rcPreset = 620;
   pluginManager = 630;
   user = 640;
-  prompt = 690;
+  # prompt = 690;
 
   mkInitProfiler = lib.mkOrder profiler;
   # mkBeforeInstantPrompt = lib.mkOrder beforeInstantPrompt;
@@ -16,8 +16,8 @@ let
   # mkAfterInstantPrompt = lib.mkOrder afterInstantPrompt;
   mkInitConfigPreset = lib.mkOrder rcPreset;
   mkInitPluginManager = lib.mkOrder pluginManager;
+  # mkInitPrompt = lib.mkOrder prompt;
   mkInitUserConfig = lib.mkOrder user;
-  mkInitPrompt = lib.mkOrder prompt;
 in
 {
   inherit

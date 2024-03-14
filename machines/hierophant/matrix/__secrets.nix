@@ -5,28 +5,28 @@ in
 {
   sops.secrets."matrix-synapse/client-secret-yaml" = {
     owner = users.matrix-synapse.name;
-    group = users.matrix-synapse.group;
+    inherit (users.matrix-synapse) group;
     mode = "0440";
     restartUnits = [ "matrix-synapse.service" ];
   };
 
   sops.secrets."matrix-synapse/email-config-yaml" = {
     owner = users.matrix-synapse.name;
-    group = users.matrix-synapse.group;
+    inherit (users.matrix-synapse) group;
     mode = "0440";
     restartUnits = [ "matrix-synapse.service" ];
   };
 
   sops.secrets."matrix-synapse/recaptcha-private-key-yaml" = {
     owner = users.matrix-synapse.name;
-    group = users.matrix-synapse.group;
+    inherit (users.matrix-synapse) group;
     mode = "0440";
     restartUnits = [ "matrix-synapse.service" ];
   };
 
   sops.secrets."matrix-synapse/registration-shared-secret-yaml" = {
     owner = users.matrix-synapse.name;
-    group = users.matrix-synapse.group;
+    inherit (users.matrix-synapse) group;
     mode = "0440";
     restartUnits = [ "matrix-synapse.service" ];
   };

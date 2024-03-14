@@ -1,4 +1,4 @@
-moduleArgs@{
+{
   flake,
   config,
   lib,
@@ -140,7 +140,7 @@ in
                 (builtins.toString font.size)
               ];
             sans = fontname cfg.fonts.sansSerif;
-            serif = fontname cfg.fonts.serif;
+            # serif = fontname cfg.fonts.serif;
             mono = fontname cfg.fonts.monospace;
           in
           {

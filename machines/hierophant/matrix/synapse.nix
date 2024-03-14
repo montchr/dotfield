@@ -65,9 +65,9 @@ in
   };
 
   services.matrix-synapse.extraConfigFiles = [
-    (config.sops.secrets."matrix-synapse/email-config-yaml".path)
-    (config.sops.secrets."matrix-synapse/recaptcha-private-key-yaml".path)
-    (config.sops.secrets."matrix-synapse/registration-shared-secret-yaml".path)
+    config.sops.secrets."matrix-synapse/email-config-yaml".path
+    config.sops.secrets."matrix-synapse/recaptcha-private-key-yaml".path
+    config.sops.secrets."matrix-synapse/registration-shared-secret-yaml".path
   ];
 
   # NOTE: Database created manually.
