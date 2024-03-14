@@ -35,5 +35,5 @@ in
   systemd.services."getty@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
   systemd.services."autovt@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
 
-  programs.gnupg.agent.pinentryFlavor = "gnome3";
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
 }
