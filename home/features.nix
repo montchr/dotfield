@@ -89,6 +89,7 @@ let
       ++ trusted
       ++ webdev
       ++ [
+        homeProfiles.desktop.applications.xournal
         homeProfiles.emacs.default
         homeProfiles.git.with-pgp-signing
         homeProfiles.kitty.default
