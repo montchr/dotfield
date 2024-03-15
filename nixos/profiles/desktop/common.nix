@@ -10,10 +10,6 @@
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
 
-  # # "broker" is a modern and backwards-compatible re-implementation of the
-  # # legacy dbus implementation.
-  # services.dbus.implementation = "broker";
-
   dotfield.guardian.extraGroups = [
     "audio"
     "video"
