@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   flake,
   ...
@@ -38,4 +39,8 @@ in
     pkgs.ripgrep
     nil-lsp.packages.nil
   ];
+
+  xdg.mimeApps.defaultApplications = {
+    "text/csv" = lib.singleton "emacs.desktop";
+  };
 }
