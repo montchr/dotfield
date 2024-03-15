@@ -21,7 +21,7 @@ in
 
     ## === Nix Reference ===
 
-    "home-manager options" = engine' "hm" "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
+    "home-manager options" = engine' "hm" "https://home-manager-options.extranix.com/?query={searchTerms}";
     "Nix Packages" = {
       definedAliases = [
         "@nixpkgs"
