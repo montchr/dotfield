@@ -10,8 +10,10 @@
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
 
+  # <https://wiki.archlinux.org/title/Users_and_groups#Pre-systemd_groups>
   dotfield.guardian.extraGroups = [
     "audio"
+    "input"
     "video"
   ];
 
