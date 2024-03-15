@@ -29,7 +29,6 @@ in
         # user shell.
         #
         profiles.shells.fish.default
-        profiles.theme.fonts.monospace.iosevka-comfy
       ];
       home.stateVersion = "22.05";
     };

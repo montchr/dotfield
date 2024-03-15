@@ -63,10 +63,6 @@ in
 
         profiles.emacs.emacs-init
         profiles.shells.fish.default
-
-        # profiles.theme.fonts.monospace.jetbrains-mono
-        # profiles.theme.fonts.monospace.iosevka-xtal
-        profiles.theme.fonts.monospace.iosevka-comfy
       ];
       home.stateVersion = "22.05";
     };

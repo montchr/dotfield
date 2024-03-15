@@ -36,7 +36,6 @@ in
         profiles.emacs.emacs-init
         profiles.shells.fish.default
         profiles.spotify
-        profiles.theme.fonts.monospace.iosevka-comfy
         profiles.qutebrowser
       ];
       home.stateVersion = "21.11";

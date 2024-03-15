@@ -19,12 +19,7 @@ in
   home-manager.users.${username} =
     { features, profiles, ... }:
     {
-      imports = features.workstation ++ [
-        profiles.spotify
-        profiles.theme.fonts.monospace.iosevka-comfy
-        profiles.theme.fonts.sans-serif.inter
-        profiles.theme.fonts.serif.ibm-plex-serif
-      ];
+      imports = features.workstation ++ [ profiles.spotify ];
       home.stateVersion = "22.05";
     };
 }
