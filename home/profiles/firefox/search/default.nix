@@ -48,7 +48,7 @@ in
     "NixOS Options" = {
       definedAliases = [
         "@nixos"
-        "@opts"
+        "@nixopts"
       ];
 
       urls = [
