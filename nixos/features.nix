@@ -76,6 +76,7 @@ in
     nixosProfiles.desktop.applications.zoom-us
 
     nixosProfiles.hardware.android-devices.common
+    nixosProfiles.hardware.android-devices.supernote-a5x
     nixosProfiles.hardware.printers-scanners.common
     nixosProfiles.hardware.printers-scanners.epson-wf-3520
     nixosProfiles.hardware.yubikey
