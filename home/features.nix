@@ -45,13 +45,6 @@ let
     # vscode
   ];
 
-  writing = [
-    homeProfiles.emacs.default
-    homeProfiles.pandoc
-    homeProfiles.rclone
-    homeProfiles.sync
-  ];
-
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
     homeProfiles.apple-music
@@ -87,7 +80,6 @@ let
       personalised
       trusted
       webdev
-      writing
       ;
 
     workstation =
@@ -96,11 +88,14 @@ let
       ++ personalised
       ++ trusted
       ++ webdev
-      ++ writing
       ++ [
+        homeProfiles.emacs.default
         homeProfiles.git.with-pgp-signing
         homeProfiles.kitty.default
         homeProfiles.ledger
+        homeProfiles.pandoc
+        homeProfiles.rclone
+        homeProfiles.sync
         homeProfiles.vhs
         homeProfiles.yubikey
       ];
