@@ -21,4 +21,9 @@ in
   theme.enable = true;
   theme.color.schemes.dark = mkColorScheme schemes.tokyo-city-terminal-dark;
   theme.color.schemes.light = mkColorScheme schemes.tokyo-city-terminal-light;
+
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.gnome.gnome-themes-extra;
+  };
 }
