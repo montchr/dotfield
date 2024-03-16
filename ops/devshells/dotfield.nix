@@ -8,6 +8,7 @@ in
   perSystem =
     {
       inputs',
+      config,
       pkgs,
       ...
     }:
@@ -31,6 +32,8 @@ in
       devshells.default = {
         devshell.name = "dotfield";
         devshell.packages = [
+          config.packages.tomlfmt
+
           pkgs.cachix
           pkgs.crudini # CRUD for ini files -- for dconf dump manipulation
           pkgs.deadnix
@@ -51,6 +54,7 @@ in
           (dotfield pkgs.treefmt)
 
           (maintenance nixfmt.packages.default)
+
           (maintenance pkgs.nix-init)
           (maintenance pkgs.nix-prefetch)
           (maintenance pkgs.nix-tree)
