@@ -4,7 +4,10 @@ excludes = ["*generated*", "*secrets.yaml", "*secrets.yml"]
 [formatter.js]
 command = "sh"
 includes = ["*.cjs", "*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx"]
-options = ["-eucx", "prettier --write \"$@\"\neslint \"$@\"\n", "--"]
+options = ["-eucx", """
+    prettier --write "$@"
+    eslint "$@"
+  """, "--"]
 
 [formatter.nix]
 command = "sh"
@@ -15,8 +18,22 @@ options = ["-euc", "just statix check \"$@\"\njust deadnix check \"$@\"\nnixfmt 
 [formatter.prettier]
 command = "prettier"
 excludes = ["dark-reader.json", "devdocs.json", "karabiner.json"]
-includes = ["*.css", "*.html", "*.json", "*.md", "*.mdx", "*.scss", "*.toml", "*.yaml", "*.yml"]
-options = ["--plugin", "prettier-plugin-toml", "--write"]
+includes = [
+  "*.css",
+  "*.html",
+  "*.json",
+  "*.md",
+  "*.mdx",
+  "*.scss",
+  "*.yaml",
+  "*.yml",
+]
+options = ["--write"]
+
+[formatter.toml]
+command = "tomlfmt"
+includes = ["*toml"]
+options = ["--write"]
 
 [formatter.shell]
 command = "shfmt"
