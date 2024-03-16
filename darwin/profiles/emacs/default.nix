@@ -1,8 +1,5 @@
 # WARNING: conflicts with home-manager module when extra packages are specified
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   # services.emacs.enable = true;
   services.emacs.package = pkgs.emacs29-macport;

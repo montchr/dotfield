@@ -1,8 +1,4 @@
-{
-  pkgs,
-  flake,
-  ...
-}:
+{ pkgs, flake, ... }:
 let
   inherit (flake.inputs) nix-index-database;
 in

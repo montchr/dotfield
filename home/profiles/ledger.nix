@@ -2,11 +2,7 @@
 # - <https://memo.barrucadu.co.uk/personal-finance.html>
 # - <https://github.com/edkedk99/awesome-hledger?tab=readme-ov-file>
 # - <https://github.com/edkedk99/awesome-hledger/tree/master/contrib-resources>
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
   inherit (config.home) homeDirectory;
   ledgerDir = "${homeDirectory}/Documents/ledger";

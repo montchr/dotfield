@@ -367,7 +367,7 @@ build host.
 MacBookPro11,3 (Late 2013) (Dual-Graphics Retina Display)
 
 | Type                   | Item                                                                  |
-|:-----------------------|:----------------------------------------------------------------------|
+| :--------------------- | :-------------------------------------------------------------------- |
 | **CPU**                | Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz (4-core)                    |
 | **Network Controller** | Broadcom BCM4360 802.11ac Dual Band Wireless Network Adapter (rev 03) |
 | **Video**              | NVIDIA Corporation GK107M [GeForce GT 750M Mac Edition] (rev a1)      |

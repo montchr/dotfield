@@ -53,7 +53,6 @@ sudo chmod -R a=,a+rX,u+w,g+w /data
 > users' home directory. If the directory and file structure of the
 > data is not exposed to consumers, it should go in `/var/lib`.
 
-
 ## Hardware Data
 
 ### Overview

@@ -211,9 +211,7 @@ in
         }
         // optionalAttrs cfg.startWithUserSession {
           Install = {
-            WantedBy = [
-              (if cfg.startWithUserSession then "default.target" else "graphical-session.target")
-            ];
+            WantedBy = [ (if cfg.startWithUserSession then "default.target" else "graphical-session.target") ];
           };
         };
     }

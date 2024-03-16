@@ -1,4 +1,1 @@
-_:
-{
-  programs.emacs.init.enable = true;
-}
+_: { programs.emacs.init.enable = true; }

@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = true;

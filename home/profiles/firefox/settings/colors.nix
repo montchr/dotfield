@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # "browser.active_color" = "#EE0000";
   # "browser.active_color.dark" = "#FF6666";
   # "browser.display.background_color" = "#FFFFFF";

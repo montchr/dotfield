@@ -40,8 +40,7 @@ in
 
           igr = callPackage ./tools/text/igr { };
           kitty-get-window-by-platform-id =
-            callPackage
-              ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix
+            callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix
               { };
           kitty-grab = callPackage ./tools/misc/kitty-grab/package.nix { };
           tomlfmt = callPackage ./by-name/to/tomlfmt/package.nix { };
@@ -51,9 +50,7 @@ in
           berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix { };
           sf-pro = callPackage ./data/fonts/sf-pro { };
         }
-        // (callPackages ./data/fonts/iosevka-xtal/packages.nix {
-          inherit fontWeights;
-        })
+        // (callPackages ./data/fonts/iosevka-xtal/packages.nix { inherit fontWeights; })
       );
     };
 }

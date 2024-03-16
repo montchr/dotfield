@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # services.samba.enable = true;
   # services.samba.shares = [];
   environment.systemPackages = [

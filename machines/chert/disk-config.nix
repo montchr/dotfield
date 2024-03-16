@@ -1,5 +1,4 @@
-_:
-{
+_: {
   disk."/dev/sda" = {
     device = "/dev/sda";
     type = "disk";

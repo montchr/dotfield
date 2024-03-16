@@ -6,11 +6,7 @@
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  inherit (flake.inputs.apparat.lib.yabai)
-    toYabaiConfig
-    mkSetting
-    mkSignal'
-    ;
+  inherit (flake.inputs.apparat.lib.yabai) toYabaiConfig mkSetting mkSignal';
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   l = flake.inputs.nixpkgs.lib // builtins;
   configSrcBasePath = "${config.xdg.configHome}/dotfield/users/cdom/config";

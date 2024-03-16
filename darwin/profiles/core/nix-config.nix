@@ -1,11 +1,7 @@
 # <https://github.com/NixOS/nix/issues/7273>
 # <https://github.com/reckenrode/nixos-configs/blob/221fab620c8750a2fd506e9a3fb388c925fe322c/common/darwin/nix-optimizations-darwin.nix>
 # <https://github.com/dxmh/system-config/commit/9713b5b39ae8c3394584e10132796df2dd497702>
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 {
   nix.distributedBuilds = lib.mkDefault true;
 
