@@ -13,7 +13,9 @@ options = ["-eucx", """
 command = "sh"
 excludes = ["home/modules/syncthing.nix"]
 includes = ["*.nix"]
-options = ["-euc", "just statix check \"$@\"\njust deadnix check \"$@\"\nnixfmt \"$@\"\n", "--"]
+options = ["-eucx", """
+    nixfmt "$@"
+  """, "--"]
 
 [formatter.prettier]
 command = "prettier"
