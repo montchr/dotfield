@@ -1,3 +1,5 @@
+# FIXME: still has the 1m30s timer for a predictable interface enpXXXXX on every
+# boot despite predictable interface names disabled
 { pkgs, ... }:
 {
   imports = [

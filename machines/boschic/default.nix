@@ -1,8 +1,4 @@
-{
-  config,
-  ops,
-  ...
-}:
+{ config, ops, ... }:
 let
   inherit (ops) hosts networks;
   inherit (config.networking) hostName;
@@ -30,6 +26,8 @@ in
 
   ### === networking ===========================================================
 
+  # FIXME: no connection on boot -- i need to disable internet and re-enable
+  # every time despite indication of a wired connection in GNOME status bar
   networking =
     let
       host = hosts.${hostName};
