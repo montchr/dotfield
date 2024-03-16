@@ -133,7 +133,7 @@
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.nil-lsp.url = "github:oxalica/nil";
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
-  inputs.nixfmt.url = "github:NixOS/nixfmt";
+  inputs.nixfmt.url = "github:NixOS/nixfmt/master";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   ##: system
