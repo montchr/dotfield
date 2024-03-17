@@ -31,7 +31,6 @@
   time.timeZone = "America/New_York";
 
   networking.firewall.enable = true;
-  networking.usePredictableInterfaceNames = false;
 
   ##: wake on lan
   # TODO: no idea if this works
