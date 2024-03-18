@@ -31,7 +31,7 @@ in
     history.path = "${ZSH_DATA}/history";
 
     # zsh-autosuggestions is loaded manually below to ensure proper load order.
-    enableAutosuggestions = false;
+    autosuggestion.enable = false;
     # zsh-autocomplete requires removal of any calls to compinit in zsh config.
     enableCompletion = false;
 
