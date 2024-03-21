@@ -1,8 +1,8 @@
+## <https://github.com/rvaiya/keyd>
 { config, pkgs, ... }:
 {
   assertions = [
     {
-      # FIXME: probably needs an `or`, incase the option is missing altogether
       assertion = !(config.services.kmonad.enable);
       message = "kmonad conflicts with keyd";
     }
@@ -16,21 +16,18 @@
   services.keyd.keyboards.default = {
     ids = [ "*" ];
     settings = {
+
+      global = {
+        # Ignore the tap behaviour of an overloaded key if it is held for the
+        # given number of miliseconds.
+        overload_tap_timeout = 500;
+      };
+
       # based on recommended config <https://github.com/rvaiya/keyd#recommended-config>
-      # FIXME: something here causes super to not work? possibly related to
-      # apple keyboard on hodgepodge?
       main = {
-        # FIXME: not work?
-        # shift = "oneshot(shift)";
-        # meta = "oneshot(meta)";
         # control = "oneshot(control)";
 
-        # leftalt = "oneshot(alt)";
-        # rightalt = "oneshot(altgr)"; # TODO: do we want this?
-
         capslock = "overload(control, esc)";
-
-        # insert = "S-insert";
       };
     };
   };

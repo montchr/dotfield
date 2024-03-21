@@ -105,7 +105,12 @@ in
           features.gnome
           ++ features.desktop
           ++ features.workstation
-          ++ [ nixosProfiles.hardware.apple.macbook-14-2 ];
+          ++ [
+            nixosProfiles.hardware.apple.macbook-14-2
+            nixosProfiles.hardware.keyboard.keyd
+            # BROKEN: <https://github.com/kmonad/kmonad/issues/828>
+            # nixosProfiles.hardware.keyboard.kmonad.default
+          ];
       }
     );
 

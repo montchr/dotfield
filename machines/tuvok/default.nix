@@ -13,7 +13,6 @@
   dotfield.guardian.username = "cdom";
 
   services.kmonad.keyboards."default" = {
-    name = "Apple internal keyboard";
     device = "/dev/input/by-path/platform-24eb30000.input-event-kbd";
   };
 
