@@ -138,6 +138,7 @@
 
   ##: system
   inputs.disko.url = "github:nix-community/disko";
+  inputs.kmonad.url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.musnix.url = "github:musnix/musnix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";

@@ -9,6 +9,7 @@ let
   inherit (self.inputs)
     haumea
     home-manager
+    kmonad
     nixos-apple-silicon
     nixpkgs
     srvos
@@ -31,6 +32,7 @@ let
     nixosProfiles.boot.common
     nixosProfiles.networking.tailscale
     home-manager.nixosModules.home-manager
+    kmonad.nixosModules.default
   ];
 
   makeNixosSystem =
