@@ -45,5 +45,8 @@
   # services.psd.enable = true;
   # services.psd.resyncTimer = lib.mkDefault "10m";
 
-  environment.systemPackages = [ pkgs.wl-clipboard ];
+  environment.systemPackages = [
+    pkgs.wev # the Wayland Event Viewer
+    pkgs.wl-clipboard
+  ];
 }
