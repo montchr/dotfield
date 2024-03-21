@@ -105,10 +105,7 @@ in
           features.gnome
           ++ features.desktop
           ++ features.workstation
-          ++ [
-            nixosProfiles.hardware.apple.macbook-14-2
-            nixosProfiles.hardware.laptop
-          ];
+          ++ [ nixosProfiles.hardware.apple.macbook-14-2 ];
       }
     );
 
