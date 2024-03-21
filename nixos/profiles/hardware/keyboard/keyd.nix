@@ -1,9 +1,15 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  hardware.keyboard.zsa.enable = true;
+  assertions = [
+    {
+      # FIXME: probably needs an `or`, incase the option is missing altogether
+      assertion = !(config.services.kmonad.enable);
+      message = "kmonad conflicts with keyd";
+    }
+  ];
+
   environment.systemPackages = [
     pkgs.keyd # services.keyd module has no package option
-    pkgs.wally-cli
   ];
 
   services.keyd.enable = true;

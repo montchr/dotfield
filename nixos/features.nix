@@ -22,6 +22,7 @@ let
     nixosProfiles.desktop.common
   ];
 
+  # A tangible machine that is not a laptop.
   desktop =
     graphical
     ++ audio
@@ -32,12 +33,14 @@ let
       nixosProfiles.networking.avahi
     ];
 
+  # wlroots-based Wayland compositors
   wlroots = desktop ++ [
     nixosProfiles.desktop.kde-services
     nixosProfiles.networking.networkmanager
   ];
 
-  tangible = [ nixosProfiles.hardware.keyboard ];
+  # Machines I can physically touch.
+  tangible = [ nixosProfiles.hardware.keyboard.default ];
 in
 {
   inherit
