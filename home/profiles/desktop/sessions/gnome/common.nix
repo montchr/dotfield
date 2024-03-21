@@ -18,6 +18,7 @@ in
   imports = [ ../../gtk.nix ];
 
   # The package loaded by the "gnome" setting is obsolete.
+  # TODO: gtk4?
   qt.platformTheme = "gtk3";
 
   dconf.settings = {
@@ -35,6 +36,10 @@ in
 
       # text-scaling-factor = 1.0;
       # toolkit-accessibility = false;
+    };
+
+    "org/gnome/desktop/media-handling" = {
+      autorun-never = true;
     };
 
     "org/gnome/desktop/search-providers" = {
