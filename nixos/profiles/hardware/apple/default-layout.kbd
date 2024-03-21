@@ -1,0 +1,63 @@
+;; <https://github.com/kmonad/kmonad/blob/70a5e97518c87ff52be4b403d774e88c5c61e3c1/keymap/template/apple.kbd>
+
+;; BROKEN: <https://github.com/kmonad/kmonad/issues/828>
+
+;; Note that the `lmet'/`rmet' and `lalt'/`ralt' keys are swapped from the
+;; default Apple layout.  This is because we perform that swap via the kernel
+;; option:  "hid_apple.swap_opt_cmd=1"
+(defsrc
+ esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+ grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+ tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+ caps a    s    d    f    g    h    j    k    l    ;    '    ret
+ lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+ fn   lctl lmet lalt           spc            ralt rmet left down rght
+ )
+
+;; Use `around' to compose `layer-toggle' with `fn' (instead of using
+;; `layer-toggle' directly) so that the `fn' keypress actually gets
+;; emitted. This matters when using an application that can use `fn' as a
+;; modifier (like Emacs).
+
+(defalias fn (around (layer-toggle apple) fn))
+
+(deflayer default
+          _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+          _    _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _
+          @fn  _    _    _              _              _    _    _    _    _
+          )
+
+;; Layer: `apple'
+;;
+;; Derived from the "apple.kbd" template, with some alterations for Linux.
+;;
+;; Watch out, because some of the defaults are... strange.
+;;
+;; `find' is a guess... it doesn't even show up as a key event in wev
+;; or GNOME Shell, but still causes GNOME Shell to display the Search UI. and
+;; yet, I do not even have Search bound to any keys.
+;;
+;; The key layered with F6 has a crescent moon icon, which in Apple language
+;; means "Do Not Disturb". But in GNOME Shell, this key puts the device to
+;; sleep or locks the screen. I am unable to determine anything more, because my
+;; user session is immediately locked. I will disable this for now, because it
+;;is too disruptive.
+
+(defalias
+  ;; or, specifically: "XF86LaunchA"
+  dsh dashboard
+  ;; XF86AudioRecord
+  rec record
+  )
+
+(deflayer apple
+          _    brdn brup @dsh find @rec XX   prev pp   next mute vold volu
+          _    _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _              _              _    _    _    _    _
+          )

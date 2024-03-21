@@ -4,4 +4,10 @@
     ./apple-silicon.nix
     ./macbook.nix
   ];
+
+  # Machine-specific configurations can be appended to this initial
+  # hardware-specific configuration.
+  services.kmonad.keyboards."default".config = ''
+    ${builtins.readFile ./default-layout.kbd}
+  '';
 }
