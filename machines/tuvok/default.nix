@@ -12,6 +12,11 @@
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
 
+  services.kmonad.keyboards."default" = {
+    name = "Apple internal keyboard";
+    device = "/dev/input/by-path/platform-24eb30000.input-event-kbd";
+  };
+
   # Not yet: <https://asahilinux.org/2024/01/fedora-asahi-new/#can-we-run-steam>
   # programs.steam.enable = true;
 
