@@ -40,7 +40,9 @@ in
     nil-lsp.packages.nil
   ];
 
+  # TODO: there are definitely more filetypes...
   xdg.mimeApps.defaultApplications = {
     "text/csv" = lib.singleton "emacs.desktop";
+    "text/org" = lib.singleton "emacs.desktop";
   };
 }
