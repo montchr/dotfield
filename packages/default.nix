@@ -38,6 +38,7 @@ in
           gh-repo-explore = callPackage ./by-name/gh/gh-repo-explore/package.nix { };
           gh-s = callPackage ./by-name/gh/gh-s/package.nix { };
 
+          git-repo-manager = callPackage ./git-repo-manager/package.nix { };
           igr = callPackage ./tools/text/igr { };
           kitty-get-window-by-platform-id =
             callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix
