@@ -45,4 +45,6 @@ in
     "text/csv" = lib.singleton "emacs.desktop";
     "text/org" = lib.singleton "emacs.desktop";
   };
+
+  nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
 }
