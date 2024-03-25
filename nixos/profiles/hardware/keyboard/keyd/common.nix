@@ -17,6 +17,7 @@
   users.groups.keyd = { };
   systemd.services.keyd.serviceConfig.CapabilityBoundingSet = [ "CAP_SETGID" ];
 
+  dotfield.guardian.extraGroups = [ "keyd" ];
 
   services.keyd.enable = true;
 
