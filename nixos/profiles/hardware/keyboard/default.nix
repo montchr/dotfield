@@ -1,1 +1,6 @@
-{ imports = [ ./zsa.nix ]; }
+{
+  imports = [
+    ./keyd/common.nix
+    ./zsa.nix
+  ];
+}

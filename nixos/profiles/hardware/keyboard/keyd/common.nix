@@ -44,14 +44,8 @@
         overload_tap_timeout = 500;
       };
 
-      # based on recommended config <https://github.com/rvaiya/keyd#recommended-config>
       main = {
-        # control = "oneshot(control)";
-
         capslock = "overload(control, esc)";
-        enter = "overload(control, enter)";
-        semicolon = "overload(hyper, semicolon)";
-        tab = "overload(meh, tab)";
       };
 
       # Composite modifier aliases should be defined as "layers".
