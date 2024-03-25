@@ -5,6 +5,13 @@
     ./macbook.nix
   ];
 
+  services.keyd.keyboards."apple-mtp-keyboard" = {
+    # NOTE: The `k` is important here, because the touchpad has the same
+    # hardware ID! See `keyd (1)` for more info.
+    ids = [ "k:0fac:0ade" ];
+    settings.main = { };
+  };
+
   # Machine-specific configurations can be appended to this initial
   # hardware-specific configuration.
   services.kmonad.keyboards."default".config = ''
