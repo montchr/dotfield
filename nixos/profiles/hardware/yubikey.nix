@@ -17,4 +17,12 @@
       pkgs.yubikey-manager
     ];
   };
+
+  # TODO: possible to use a wildcard in place of the product id to catch all
+  #       from Yubico vendor?  manpage says nothing on this one way or the
+  #       other.
+  # keyd: exclude yubikeys
+  services.keyd.keyboards.default.ids = [
+    "-1050:0407" # Yubico YubiKey OTP+FIDO+CCID
+  ];
 }
