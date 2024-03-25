@@ -1,5 +1,6 @@
-## <https://github.com/rvaiya/keyd>
 { config, pkgs, ... }:
+# <https://github.com/rvaiya/keyd>
+# <https://github.com/NixOS/nixpkgs/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+keyd>
 {
   assertions = [
     {
@@ -11,6 +12,11 @@
   environment.systemPackages = [
     pkgs.keyd # services.keyd module has no package option
   ];
+  # XXX: <https://github.com/NixOS/nixpkgs/issues/290161>
+  #      <https://github.com/NixOS/nixpkgs/issues/284797>
+  users.groups.keyd = { };
+  systemd.services.keyd.serviceConfig.CapabilityBoundingSet = [ "CAP_SETGID" ];
+
 
   services.keyd.enable = true;
 
