@@ -1,6 +1,8 @@
 # <https://github.com/kmonad/kmonad/blob/master/doc/installation.md#configurationnix>
 { ... }:
 {
+  # Required: allow kernel-level input event interception
+  # <https://wiki.archlinux.org/title/Input_remap_utilities>
   dotfield.guardian.extraGroups = [
     "input"
     "uinput"
