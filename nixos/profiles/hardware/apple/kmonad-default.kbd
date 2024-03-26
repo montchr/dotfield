@@ -1,10 +1,11 @@
-;; <https://github.com/kmonad/kmonad/blob/70a5e97518c87ff52be4b403d774e88c5c61e3c1/keymap/template/apple.kbd>
-
+;; - Copied from the KMonad sample configuration for the Apple keyboard:
+;;   <https://github.com/kmonad/kmonad/blob/70a5e97518c87ff52be4b403d774e88c5c61e3c1/keymap/template/apple.kbd>
+;;
 ;; BROKEN: <https://github.com/kmonad/kmonad/issues/828>
-
-;; Note that the `lmet'/`rmet' and `lalt'/`ralt' keys are swapped from the
-;; default Apple layout.  This is because we perform that swap via the kernel
-;; option:  "hid_apple.swap_opt_cmd=1"
+;;
+;; - `lmet'/`rmet' and `lalt'/`ralt' keys are swapped from the default Apple
+;; layout.  This is because we perform that swap via the kernel option:
+;; "hid_apple.swap_opt_cmd=1"
 (defsrc
  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc

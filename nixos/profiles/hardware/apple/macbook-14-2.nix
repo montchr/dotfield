@@ -1,6 +1,17 @@
 ##: MacBook14,2 (A2681) -- <https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m2-8-core-cpu-8-core-gpu-13-2022-specs.html>
+{
+  config,
+  # lib,
+  # pkgs,
+  ...
+}:
 let
   inherit (builtins) readFile;
+  kbdComment = ''
+    ;; Machine-specific configurations can be appended to this initial
+    ;; hardware-specific configuration, provided that each configuration share
+    ;; the same `defsrc` block.
+  '';
 in
 {
   imports = [
@@ -15,9 +26,22 @@ in
     settings.main = { };
   };
 
+  services.kanata.keyboards = {
+    "default".config = ''
+      ${kbdComment}
+      ${readFile ./kanata-default.kbd}
+    '';
+
+    # NOTE: should not be enabled at the same time as Default! there will be a
+    # warning explaining that a race condition may result.
+    # "apple-mtp-keyboard".config = ''
+    #   ${kbdComment}
+    #   ${readFile ./kanata-default.kbd}
+    # '';
+  };
+
   services.kmonad.keyboards."default".config = ''
-    ;; Machine-specific configurations can be appended to this initial
-    ;; hardware-specific configuration.
+    ${kbdComment}
     ${builtins.readFile ./kmonad-default.kbd}
   '';
 }

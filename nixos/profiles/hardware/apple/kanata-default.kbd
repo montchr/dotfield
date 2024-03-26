@@ -1,0 +1,122 @@
+;;; Resources:
+
+;; - All keys: <https://github.com/jtroo/kanata/blob/71a22e0d9283c55345ee042866b1c335291e5b44/cfg_samples/all_keys_in_defsrc.kbd>
+;; - Key details: <https://github.com/jtroo/kanata/blob/main/parser/src/keys/mod.rs#LL279>
+
+;;; Notes:
+
+;; - Copied from the KMonad sample configuration for the Apple keyboard:
+;;   <https://github.com/kmonad/kmonad/blob/70a5e97518c87ff52be4b403d774e88c5c61e3c1/keymap/template/apple.kbd>
+;;
+;; - `lmet'/`rmet' and `lalt'/`ralt' keys are swapped from the
+;; default Apple layout.  This is because we perform that swap via the kernel
+;; option:  "hid_apple.swap_opt_cmd=1"
+;;
+;; - `ret' is used as this `defsrc' block was copied from the sample kmonad
+;; configuration for the Apple keyboard, which uses the Apple
+;; terminology.  kanata accepts either `ret' or `ent' (among others) as aliases
+;; for the same key.
+;;
+;; - `fn' is unsupported on linux!  kmonad does this too.  i should open a bug
+;;   report regardless, if there are no other mentions of asahi in the kanata tracker.
+;;
+
+;;; Source Definition
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+       lctl lmet lalt           spc            ralt rmet left down rght
+  )
+
+;;;; Layer Template
+
+;; (deflayer <TEMPLATE>
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;        _    _    _              _              _    _    _    _    _
+;;   )
+
+;;; Settings
+
+(defvar tap-timeout 200
+  tt $tap-timeout)
+
+(defvar hold-timeout 200
+  ht $hold-timeout)
+
+;;; Aliases
+
+;;;; Layers
+
+(defalias @0 (layer-switch qwerty))
+
+(defalias @1h (layer-while-held media))
+
+;;; Layer 0: ~qwerty~
+
+(defalias
+  tx1 (tap-hold $tt $ht esc @@1h)
+  txc (tap-hold $tt $ht esc lctl)
+  trc (tap-hold $tt $ht ret lctl))
+
+(deflayer qwerty
+  @@1h f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @txc a    s    d    f    g    h    j    k    l    ;    '    @trc
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+       lctl lmet lalt           spc            ralt rmet left down rght
+  )
+
+;;; Layer 1: ~media~
+
+;; Derived from the "apple.kbd" template, with some alterations for Linux.
+
+;; Watch out, because some of the defaults are... strange.
+;;
+;; Fn+F4: in kmonad, i guessed `find'... it doesn't even show up as a key event
+;; in wev or GNOME Shell, but still causes GNOME Shell to display the Search UI.
+;; and yet, I do not even have Search bound to any keys.
+;;
+;; Fn+F6: has a crescent moon icon, which in Apple language means "Do Not
+;; Disturb".  But in GNOME Shell, this key puts the device to sleep or locks the
+;; screen.  I am unable to determine anything more, because my user session is
+;; immediately locked.  I will disable this for now, because it is too
+;; disruptive.
+
+(defalias
+  ;; FIXME: not yet supported? maybe needs raw code?
+  ;; xkb: XF86AudioRecord
+  ;; Fn+F5
+  ;; rec record
+
+  ;; FIXME: Fn+F3: no idea about this weird key on asahi mbp
+  ;; dsh 🎛
+  )
+
+(deflayer media
+  _    brdn brup home XX   XX   XX   prev pp   next mute vold volu
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+       _    _    _              _              _    _    _    _    _
+  )
+
+;;; Layer n?: Chords
+
+;; (deflayer chords
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _              _              _    _    _    _    _
+;;   )

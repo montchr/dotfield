@@ -5,6 +5,10 @@
 {
   assertions = [
     {
+      assertion = !(config.services.kanata.enable);
+      message = "kanata conflicts with keyd";
+    }
+    {
       assertion = !(config.services.kmonad.enable);
       message = "kmonad conflicts with keyd";
     }

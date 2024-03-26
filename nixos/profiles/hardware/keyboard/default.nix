@@ -1,6 +1,6 @@
 {
   imports = [
-    ./keyd/common.nix
+    ./kanata/default.nix
     ./zsa.nix
   ];
 }

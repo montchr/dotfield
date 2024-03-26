@@ -18,6 +18,13 @@
     ];
   };
 
+  # kanata: exclude yubikeys
+  services.kanata.keyboards."default".extraDefCfg = ''
+    linux-dev-names-exclude (
+      "Yubico YubiKey OTP+FIDO+CCID"
+    )
+  '';
+
   # TODO: possible to use a wildcard in place of the product id to catch all
   #       from Yubico vendor?  manpage says nothing on this one way or the
   #       other.
