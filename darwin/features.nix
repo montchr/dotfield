@@ -1,19 +1,19 @@
-{ sharedProfiles, darwinProfiles }:
+{ sharedProfiles, profiles }:
 let
   workstation = [
     sharedProfiles.fonts.common
     sharedProfiles.fonts.iosevka-variants
     sharedProfiles.secrets.default
 
-    darwinProfiles.one-password
-    darwinProfiles.bitwarden
-    darwinProfiles.emacs.default
-    # darwinProfiles.emacs.emacs-plus
-    darwinProfiles.desktop.common
-    darwinProfiles.keyboard.atreus
-    darwinProfiles.rclone
-    darwinProfiles.system-defaults
-    darwinProfiles.virtualisation.containers
+    profiles.one-password
+    profiles.bitwarden
+    profiles.emacs.default
+    # profiles.emacs.emacs-plus
+    profiles.desktop.common
+    profiles.keyboard.atreus
+    profiles.rclone
+    profiles.system-defaults
+    profiles.virtualisation.containers
   ];
 in
 {

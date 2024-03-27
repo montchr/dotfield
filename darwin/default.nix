@@ -12,13 +12,13 @@ let
   sharedProfiles = import ../common/profiles.nix { inherit haumea; };
 
   darwinModules = import ./modules-list.nix;
-  darwinProfiles = import ./profiles.nix { inherit haumea; };
+  profiles = import ./profiles.nix { inherit haumea; };
 
-  features = import ./features.nix { inherit sharedProfiles darwinProfiles; };
+  features = import ./features.nix { inherit sharedProfiles profiles; };
 
   defaultModules = [
     sharedProfiles.core.default
-    darwinProfiles.core.default
+    profiles.core.default
     home-manager.darwinModules.home-manager
   ];
 
@@ -30,7 +30,7 @@ let
       darwin.lib.darwinSystem {
         inherit system;
         specialArgs = {
-          inherit darwinProfiles sharedProfiles;
+          inherit sharedProfiles profiles;
           flake = lib.modules.flakeSpecialArgs' system;
         };
         pkgs = darwinArgs.pkgs or pkgs;

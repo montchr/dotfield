@@ -3,7 +3,7 @@
   config,
   lib,
   pkgs,
-  darwinProfiles,
+  profiles,
   sharedProfiles,
   ...
 }:
@@ -17,8 +17,8 @@ let
 in
 {
   imports = [
-    darwinProfiles.builders.nixbuild-net
-    darwinProfiles.yabai
+    profiles.builders.nixbuild-net
+    profiles.yabai
 
     sharedProfiles.core.substituters.nixbuild-net
     sharedProfiles.secrets.default

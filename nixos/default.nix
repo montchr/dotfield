@@ -21,16 +21,16 @@ let
   nixosModules = import ../nixos/modules-list.nix;
 
   sharedProfiles = import ../common/profiles.nix { inherit haumea; };
-  nixosProfiles = import ./profiles.nix { inherit haumea; };
+  profiles = import ./profiles.nix { inherit haumea; };
 
-  features = import ./features.nix { inherit sharedProfiles nixosProfiles; };
+  features = import ./features.nix { inherit sharedProfiles profiles; };
 
   defaultModules = [
     sharedProfiles.core.default
     sharedProfiles.secrets.default
-    nixosProfiles.core.common
-    nixosProfiles.boot.common
-    nixosProfiles.networking.tailscale
+    profiles.core.common
+    profiles.boot.common
+    profiles.networking.tailscale
     home-manager.nixosModules.home-manager
     kmonad.nixosModules.default
   ];
@@ -43,7 +43,7 @@ let
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit nixosProfiles sharedProfiles;
+          inherit sharedProfiles profiles;
           flake = lib'.modules.flakeSpecialArgs' system;
         };
         modules =
@@ -65,8 +65,8 @@ let
     );
 in
 {
-  # FIXME: remove (empty)
   flake.nixosModules = nixosModules;
+
   flake.nixosConfigurations = {
     # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
     #   system = x86_64-linux;
@@ -82,7 +82,7 @@ in
       system = "x86_64-linux";
       modules =
         (with features; desktop ++ gnome ++ webdev ++ workstation)
-        ++ (with nixosProfiles; [
+        ++ (with profiles; [
           hardware.amd
           hardware.razer
           # login.greetd
@@ -105,7 +105,7 @@ in
           features.gnome
           ++ features.desktop
           ++ features.workstation
-          ++ [ nixosProfiles.hardware.apple.macbook-14-2 ];
+          ++ [ profiles.hardware.apple.macbook-14-2 ];
       }
     );
 
@@ -122,8 +122,8 @@ in
         srvos.nixosModules.mixins-telegraf
 
         # FIXME: needs security before enable
-        # nixosProfiles.monitoring.prometheus
-        # nixosProfiles.monitoring.telegraf
+        # profiles.monitoring.prometheus
+        # profiles.monitoring.telegraf
       ];
     };
 
@@ -131,7 +131,7 @@ in
       system = "x86_64-linux";
       modules =
         (with features; gnome ++ desktop ++ webdev ++ workstation)
-        ++ (with nixosProfiles; [
+        ++ (with profiles; [
           boot.refind
           desktop.flatpak
           # FIXME: clarify that this means an amd cpu, NOT gpu
@@ -151,8 +151,8 @@ in
         ++ features.desktop
         ++ features.workstation
         ++ [
-          nixosProfiles.hardware.apple.macbookpro-11-3
-          nixosProfiles.virtualisation.quickemu
+          profiles.hardware.apple.macbookpro-11-3
+          profiles.virtualisation.quickemu
         ];
     };
 

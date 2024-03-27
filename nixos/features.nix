@@ -1,12 +1,9 @@
-# FIXME: determine some approach to grouping/naming these collections of
-# profiles in a way that i don't find them confusing or redundant a couple
-# months later
-{ sharedProfiles, nixosProfiles }:
+{ sharedProfiles, profiles }:
 let
   audio = [
-    nixosProfiles.audio
-    nixosProfiles.bluetooth
-    nixosProfiles.hardware.bluetooth-headset
+    profiles.audio
+    profiles.bluetooth
+    profiles.hardware.bluetooth-headset
   ];
 
   graphical = [
@@ -17,9 +14,9 @@ let
     # FIXME: find a more appropriate "feature" to file systemd-boot under
     #        it is not universal -- there's also rEFInd but i haven't used that
     #        in a while. consider singularity.
-    nixosProfiles.boot.systemd-boot
-    nixosProfiles.desktop.applications.default
-    nixosProfiles.desktop.common
+    profiles.boot.systemd-boot
+    profiles.desktop.applications.default
+    profiles.desktop.common
   ];
 
   # A tangible machine that is not a laptop.
@@ -28,19 +25,19 @@ let
     ++ audio
     ++ tangible
     ++ [
-      nixosProfiles.power
-      nixosProfiles.desktop.gnome-services
-      nixosProfiles.networking.avahi
+      profiles.power
+      profiles.desktop.gnome-services
+      profiles.networking.avahi
     ];
 
   # wlroots-based Wayland compositors
   wlroots = desktop ++ [
-    nixosProfiles.desktop.kde-services
-    nixosProfiles.networking.networkmanager
+    profiles.desktop.kde-services
+    profiles.networking.networkmanager
   ];
 
   # Machines I can physically touch.
-  tangible = [ nixosProfiles.hardware.keyboard.default ];
+  tangible = [ profiles.hardware.keyboard.default ];
 in
 {
   inherit
@@ -52,36 +49,36 @@ in
     ;
 
   gnome = desktop ++ [
-    nixosProfiles.desktop.gnome-desktop
-    nixosProfiles.desktop.nixpkgs-wayland
-    nixosProfiles.login.gdm
+    profiles.desktop.gnome-desktop
+    profiles.desktop.nixpkgs-wayland
+    profiles.login.gdm
   ];
 
-  server = [ nixosProfiles.server.acme ];
+  server = [ profiles.server.acme ];
 
   # FIXME: pare these down, also they don't really have anything to do with 'webdev'
   webdev = [
-    nixosProfiles.virtualisation.libvirt
-    nixosProfiles.virtualisation.microvm-host
-    nixosProfiles.virtualisation.podman
-    nixosProfiles.virtualisation.vagrant
-    nixosProfiles.virtualisation.virt-manager
+    profiles.virtualisation.libvirt
+    profiles.virtualisation.microvm-host
+    profiles.virtualisation.podman
+    profiles.virtualisation.vagrant
+    profiles.virtualisation.virt-manager
   ];
 
   workstation = desktop ++ [
     sharedProfiles.secrets.default
 
-    nixosProfiles.boot.systemd-boot
-    nixosProfiles.location
+    profiles.boot.systemd-boot
+    profiles.location
 
-    nixosProfiles.one-password
-    nixosProfiles.bitwarden
-    nixosProfiles.desktop.applications.zoom-us
+    profiles.one-password
+    profiles.bitwarden
+    profiles.desktop.applications.zoom-us
 
-    nixosProfiles.hardware.android-devices.common
-    nixosProfiles.hardware.android-devices.supernote-a5x
-    nixosProfiles.hardware.printers-scanners.common
-    nixosProfiles.hardware.printers-scanners.epson-wf-3520
-    nixosProfiles.hardware.yubikey
+    profiles.hardware.android-devices.common
+    profiles.hardware.android-devices.supernote-a5x
+    profiles.hardware.printers-scanners.common
+    profiles.hardware.printers-scanners.epson-wf-3520
+    profiles.hardware.yubikey
   ];
 }
