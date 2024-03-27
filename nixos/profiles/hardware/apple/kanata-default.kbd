@@ -45,10 +45,12 @@
 
 ;;; Settings
 
-(defvar tap-timeout 200
+(defvar
+  tap-timeout 200
   tt $tap-timeout)
 
-(defvar hold-timeout 200
+(defvar
+  hold-timeout 200
   ht $hold-timeout)
 
 ;;; Aliases
@@ -57,17 +59,17 @@
 
 (defalias @0 (layer-switch qwerty))
 
-(defalias @1h (layer-while-held media))
+(defalias @1 (layer-while-held media))
 
 ;;; Layer 0: ~qwerty~
 
 (defalias
-  tx1 (tap-hold $tt $ht esc @@1h)
-  txc (tap-hold $tt $ht esc lctl)
+  te1 (tap-hold $tt $ht esc @@1)
+  tec (tap-hold $tt $ht esc lctl)
   trc (tap-hold $tt $ht ret lctl))
 
 (deflayer qwerty
-  @@1h f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  @te1 f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @txc a    s    d    f    g    h    j    k    l    ;    '    @trc
