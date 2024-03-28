@@ -61,13 +61,13 @@
 (defalias
   ;; left side
   aa (tap-hold $tt $ht a lmet)
-  ss (tap-hold $tt $ht s lsft)
-  dd (tap-hold $tt $ht d lalt)
+  ss (tap-hold $tt $ht s lalt)
+  dd (tap-hold $tt $ht d lsft)
   ff (tap-hold $tt $ht f lctl)
   ;; right side
   jj (tap-hold $tt $ht j lctl)
-  kk (tap-hold $tt $ht k lalt)
-  ll (tap-hold $tt $ht l lsft)
+  kk (tap-hold $tt $ht k lsft)
+  ll (tap-hold $tt $ht l lalt)
   ;g (tap-hold $tt $ht ; ralt))
 
 ;;; Layer 0: ~qwerty~
