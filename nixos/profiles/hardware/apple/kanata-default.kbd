@@ -61,16 +61,16 @@
 (defalias
   ;; left side
   am (tap-hold $tt $ht a lmet)
-  ;; sa (tap-hold $tt $ht s lalt) ;; miryoku
+  sa (tap-hold $tt $ht s lalt) ;; miryoku
   ss (tap-hold $tt $ht s lsft)
-  ;; ds (tap-hold $tt $ht d lsft) ;; miryoku
+  ds (tap-hold $tt $ht d lsft) ;; miryoku
   da (tap-hold $tt $ht d lalt)
   fc (tap-hold $tt $ht f lctl)
   ;; right side
   jc (tap-hold $tt $ht j lctl)
-  ;; ks (tap-hold $tt $ht k lsft) ;; miryoku
+  ks (tap-hold $tt $ht k lsft) ;; miryoku
   ka (tap-hold $tt $ht k lalt)
-  ;; la (tap-hold $tt $ht l lalt) ;; miryoku
+  la (tap-hold $tt $ht l lalt) ;; miryoku
   ls (tap-hold $tt $ht l lsft)
   ;g (tap-hold $tt $ht ; ralt))
 
@@ -84,8 +84,8 @@
   @mda f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  ;; @tec @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @;g  '    @trc
-  @tec @am  @ss  @da  @fc  g    h    @jc  @ka  @ls  @;g  '    @trc
+  @tec @am  @sa  @ds  @fc  g    h    @jc  @ks  @la  @;g  '    @trc
+  ;; @tec @am  @ss  @da  @fc  g    h    @jc  @ka  @ls  @;g  '    @trc
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
        lctl lmet @sft           @nav           @sym rmet left down rght
   )
