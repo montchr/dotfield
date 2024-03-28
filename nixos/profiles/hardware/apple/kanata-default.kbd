@@ -6,7 +6,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-            lmet lalt           spc            ralt rmet left down rght
+       lctl lmet lalt           spc            ralt rmet left down rght
   )
 
 ;; (defsrc
@@ -36,7 +36,7 @@
   tt $tap-timeout)
 
 (defvar
-  hold-timeout 300
+  hold-timeout 200
   ht $hold-timeout)
 
 ;;; Aliases
@@ -60,14 +60,18 @@
 
 (defalias
   ;; left side
-  aa (tap-hold $tt $ht a lmet)
-  ss (tap-hold $tt $ht s lalt)
-  dd (tap-hold $tt $ht d lsft)
-  ff (tap-hold $tt $ht f lctl)
+  am (tap-hold $tt $ht a lmet)
+  ;; sa (tap-hold $tt $ht s lalt) ;; miryoku
+  ss (tap-hold $tt $ht s lsft)
+  ;; ds (tap-hold $tt $ht d lsft) ;; miryoku
+  da (tap-hold $tt $ht d lalt)
+  fc (tap-hold $tt $ht f lctl)
   ;; right side
-  jj (tap-hold $tt $ht j lctl)
-  kk (tap-hold $tt $ht k lsft)
-  ll (tap-hold $tt $ht l lalt)
+  jc (tap-hold $tt $ht j lctl)
+  ;; ks (tap-hold $tt $ht k lsft) ;; miryoku
+  ka (tap-hold $tt $ht k lalt)
+  ;; la (tap-hold $tt $ht l lalt) ;; miryoku
+  ls (tap-hold $tt $ht l lsft)
   ;g (tap-hold $tt $ht ; ralt))
 
 ;;; Layer 0: ~qwerty~
@@ -80,22 +84,13 @@
   @mda f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @tec @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @;g  '    @trc
+  ;; @tec @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @;g  '    @trc
+  @tec @am  @ss  @da  @fc  g    h    @jc  @ka  @ls  @;g  '    @trc
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-            lmet @sft           @nav           @sym rmet left down rght
+       lctl lmet @sft           @nav           @sym rmet left down rght
   )
 
 ;;; Layer 1: ~media~
-
-(defalias
-  ;; FIXME: not yet supported? maybe needs raw code?
-  ;; xkb: XF86AudioRecord
-  ;; Fn+F5
-  ;; rec record
-
-  ;; FIXME: Fn+F3: no idea about this weird key on asahi mbp
-  ;; dsh 🎛
-  )
 
 (deflayer media
   _    brdn brup home XX   XX   XX   prev pp   next mute vold volu
@@ -103,7 +98,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-            _    _              _              _    _    _    _    _
+       _    _    _              _              _    _    _    _    _
   )
 
 ;;; Layer 2: ~numnav~
@@ -114,10 +109,21 @@
   XX   tab  home up   end  pgup  /    7    8    9    XX   XX   XX   XX
   XX   C-a  lft  down rght pgdn  -    4    5    6    0    XX   XX
   XX   C-z  C-x  C-c  C-v  S-tab ,    1    2    3    .    XX   XX
-            XX   del             _              esc  XX   XX   XX   XX
+       _    XX   del             _              esc  XX   XX   XX   XX
   )
 
 ;;; Layer 3: ~symbols~
+
+;; TODO: this layout does not make much sense to me...
+
+(deflayer symbols
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX
+  _    @_@  @_<  @_>  @_$  @_%   @_^  @_&  @_*  '    grv  XX   XX   XX
+  _    @_{  S-9  S-0  @_}  =     \    @_+  -    /    S-'  XX   XX
+  _    @_~  [    ]    @__  @_#   @_|  @_!  ;    @_:  @_?  XX   XX
+       _    XX   bspc            spc            _    XX   XX   XX   XX
+  )
 
 (defalias
   _< S-,
@@ -137,18 +143,7 @@
   _{ S-[
   _} S-]
   _? S-/
-  _: S-;
-  )
-
-
-(deflayer symbols
-  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX
-  _    @_@  @_<  @_>  @_$  @_%   @_^  @_&  @_*  '    grv  XX   XX   XX
-  _    @_{  S-9  S-0  @_}  =     \    @_+  -    /    S-'  XX   XX
-  _    @_~  [    ]    @__  @_#   @_|  @_!  ;    @_:  @_? XX   XX
-  XX   bspc            spc            _    XX   XX   XX   XX
-  )
+  _: S-;)
 
 ;;; Resources:
 
