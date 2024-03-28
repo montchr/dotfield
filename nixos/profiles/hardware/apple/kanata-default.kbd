@@ -1,3 +1,155 @@
+;;; Source Definition
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+            lmet lalt           spc            ralt rmet left down rght
+  )
+
+;; (defsrc
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =
+;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]
+;;   caps a    s    d    f    g    h    j    k    l    ;    '    ret
+;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft
+;;             lmet lalt           spc            ralt rmet
+;;   )
+
+;;;; Layer Template
+
+;; (deflayer <TEMPLATE>
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;             _    _              _              _    _    _    _    _
+;;   )
+
+;;; Settings
+
+(defvar
+  tap-timeout 200
+  tt $tap-timeout)
+
+(defvar
+  hold-timeout 300
+  ht $hold-timeout)
+
+;;; Aliases
+
+;;;; Layers
+
+(defalias
+  qty (layer-switch qwerty)
+
+  ;; esc / ~media~
+  mda (tap-hold-press $tt $ht esc (layer-while-held media))
+  ;; space / ~numnav~
+  nav (tap-hold $tt $ht spc (layer-while-held numnav))
+  ;; backspace / shift
+  sft (tap-hold-press $tt $ht bspc lsft)
+  ;; return / ~symbols~
+  sym (tap-hold-press $tt $ht ret (layer-while-held symbols))
+  )
+
+;;;; Home-row mods
+
+(defalias
+  ;; left side
+  aa (tap-hold $tt $ht a lmet)
+  ss (tap-hold $tt $ht s lsft)
+  dd (tap-hold $tt $ht d lalt)
+  ff (tap-hold $tt $ht f lctl)
+  ;; right side
+  jj (tap-hold $tt $ht j lctl)
+  kk (tap-hold $tt $ht k lalt)
+  ll (tap-hold $tt $ht l lsft)
+  ;g (tap-hold $tt $ht ; ralt))
+
+;;; Layer 0: ~qwerty~
+
+(defalias
+  tec (tap-hold $tt $ht esc lctl)
+  trc (tap-hold $tt $ht ret lctl))
+
+(deflayer qwerty
+  @mda f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @tec @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @;g  '    @trc
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+            lmet @sft           @nav           @sym rmet left down rght
+  )
+
+;;; Layer 1: ~media~
+
+(defalias
+  ;; FIXME: not yet supported? maybe needs raw code?
+  ;; xkb: XF86AudioRecord
+  ;; Fn+F5
+  ;; rec record
+
+  ;; FIXME: Fn+F3: no idea about this weird key on asahi mbp
+  ;; dsh 🎛
+  )
+
+(deflayer media
+  _    brdn brup home XX   XX   XX   prev pp   next mute vold volu
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _              _              _    _    _    _    _
+  )
+
+;;; Layer 2: ~numnav~
+
+(deflayer numnav
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX
+  XX   tab  home up   end  pgup  /    7    8    9    XX   XX   XX   XX
+  XX   C-a  lft  down rght pgdn  -    4    5    6    0    XX   XX
+  XX   C-z  C-x  C-c  C-v  S-tab ,    1    2    3    .    XX   XX
+            XX   del             _              esc  XX   XX   XX   XX
+  )
+
+;;; Layer 3: ~symbols~
+
+(defalias
+  _< S-,
+  _> S-.
+  _! S-1
+  _@  S-2
+  _# S-3
+  _$ S-4
+  _% S-5
+  _^ S-6
+  _& S-7
+  _* S-8
+  _~ S-grv
+  __ S--
+  _| S-\
+  _+ S-=
+  _{ S-[
+  _} S-]
+  _? S-/
+  _: S-;
+  )
+
+
+(deflayer symbols
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX
+  _    @_@  @_<  @_>  @_$  @_%   @_^  @_&  @_*  '    grv  XX   XX   XX
+  _    @_{  S-9  S-0  @_}  =     \    @_+  -    /    S-'  XX   XX
+  _    @_~  [    ]    @__  @_#   @_|  @_!  ;    @_:  @_? XX   XX
+  XX   bspc            spc            _    XX   XX   XX   XX
+  )
+
 ;;; Resources:
 
 ;; - All keys: <https://github.com/jtroo/kanata/blob/71a22e0d9283c55345ee042866b1c335291e5b44/cfg_samples/all_keys_in_defsrc.kbd>
@@ -20,105 +172,12 @@
 ;; - `fn' is unsupported on linux!  kmonad does this too.  i should open a bug
 ;;   report regardless, if there are no other mentions of asahi in the kanata tracker.
 ;;
-
-;;; Source Definition
-
-(defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-       lctl lmet lalt           spc            ralt rmet left down rght
-  )
-
-;;;; Layer Template
-
-;; (deflayer <TEMPLATE>
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;        _    _    _              _              _    _    _    _    _
-;;   )
-
-;;; Settings
-
-(defvar
-  tap-timeout 200
-  tt $tap-timeout)
-
-(defvar
-  hold-timeout 200
-  ht $hold-timeout)
-
-;;; Aliases
-
-;;;; Layers
-
-(defalias @0 (layer-switch qwerty))
-
-(defalias @1 (layer-while-held media))
-
-;;; Layer 0: ~qwerty~
-
-(defalias
-  te1 (tap-hold $tt $ht esc @@1)
-  tec (tap-hold $tt $ht esc lctl)
-  trc (tap-hold $tt $ht ret lctl))
-
-(deflayer qwerty
-  @te1 f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @tec a    s    d    f    g    h    j    k    l    ;    '    @trc
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-       lctl lmet lalt           spc            ralt rmet left down rght
-  )
-
-;;; Layer 1: ~media~
-
-;; Derived from the "apple.kbd" template, with some alterations for Linux.
-
-;; Watch out, because some of the defaults are... strange.
-;;
-;; Fn+F4: in kmonad, i guessed `find'... it doesn't even show up as a key event
+;; - Fn+F4: in kmonad, i guessed `find'... it doesn't even show up as a key event
 ;; in wev or GNOME Shell, but still causes GNOME Shell to display the Search UI.
 ;; and yet, I do not even have Search bound to any keys.
 ;;
-;; Fn+F6: has a crescent moon icon, which in Apple language means "Do Not
+;; - Fn+F6: has a crescent moon icon, which in Apple language means "Do Not
 ;; Disturb".  But in GNOME Shell, this key puts the device to sleep or locks the
 ;; screen.  I am unable to determine anything more, because my user session is
 ;; immediately locked.  I will disable this for now, because it is too
 ;; disruptive.
-
-(defalias
-  ;; FIXME: not yet supported? maybe needs raw code?
-  ;; xkb: XF86AudioRecord
-  ;; Fn+F5
-  ;; rec record
-
-  ;; FIXME: Fn+F3: no idea about this weird key on asahi mbp
-  ;; dsh 🎛
-  )
-
-(deflayer media
-  _    brdn brup home XX   XX   XX   prev pp   next mute vold volu
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-       _    _    _              _              _    _    _    _    _
-  )
-
-;;; Layer n?: Chords
-
-;; (deflayer chords
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _              _              _    _    _    _    _
-;;   )

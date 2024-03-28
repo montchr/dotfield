@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (builtins) readFile;
+  cfg = config.services.kanata;
 in
 {
   config =
@@ -22,22 +23,19 @@ in
         ];
 
         # Required: allow kernel-level input event interception
+        # <https://github.com/jtroo/kanata/blob/v1.5.0/docs/avoid-sudo-linux.md>
         # <https://wiki.archlinux.org/title/Input_remap_utilities>
         dotfield.guardian.extraGroups = [
           "input"
           "uinput"
         ];
 
+        # The NixOS module does not automatically make the package available.
+        environment.systemPackages = [ cfg.package ];
+
         services.kanata = {
           enable = true;
 
-          # FIXME: remove
-          # extraArgs = [
-          #   "--log-level"
-          #   "debug"
-          # ];
-
-          # NOTE: The device path is intentionally omitted.
           keyboards."default" = {
             # config =
             #   ''
