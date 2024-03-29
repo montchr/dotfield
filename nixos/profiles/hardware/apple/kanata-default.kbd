@@ -36,6 +36,8 @@
 
 (deflocalkeys-linux
   ;; Fn :: XF86Fn
+  ;; FIXME: might not be possible (or desirable?) to remap. does not work as
+  ;; tap-hold at least...
   fn 472
 
   ;; Fn+F3 :: XF86LaunchA
@@ -123,6 +125,10 @@
   )
 
 ;;; Layer 1: ~media~
+
+(defalias
+  ;; FIXME: no effect...
+  tpt (fork tp1 tp0 (lsft lctl)))
 
 (deflayer media
   _    brdn brup home lau  srx  XX   prev pp   next mute vold volu
