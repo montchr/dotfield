@@ -125,7 +125,7 @@
 ;;; Layer 1: ~media~
 
 (deflayer media
-  _    brdn brup home XX   XX   XX   prev pp   next mute vold volu
+  _    brdn brup home lau  srx  XX   prev pp   next mute vold volu
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
