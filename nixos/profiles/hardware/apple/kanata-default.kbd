@@ -6,7 +6,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-       lctl lmet lalt           spc            ralt rmet left down rght
+  fn   lctl lmet lalt           spc            ralt rmet left down rght
   )
 
 ;; (defsrc
@@ -28,6 +28,31 @@
 ;;   _    _    _    _    _    _    _    _    _    _    _    _    _
 ;;             _    _              _              _    _    _    _    _
 ;;   )
+
+;;; Local Key Definitions
+
+;; explore:
+;; $ wev -f wl_keyboard -M ./wev-xkb-keymap-dump.txt
+
+(deflocalkeys-linux
+  ;; Fn :: XF86Fn
+  fn 472
+
+  ;; Fn+F3 :: XF86LaunchA
+  lau 128
+  ;; Fn+F4 :: XF86Search
+  srx 225
+  ;; Fn+F5 :: XF86AudioRecord
+  rec 175
+  ;; Fn+F6 :: XF86Sleep
+  ;; FIXME: already exists, can prob remove
+  ;; zzz 150
+
+  ;; touchpad enable/disable (0/1)
+  tp0 201
+  tp1 200
+
+  )
 
 ;;; Settings
 
@@ -94,7 +119,7 @@
   ;; @tec @am  @sa  @ds  @fc  g    h    @jc  @ks  @la  @;g  '    @trc
   @tec @am  @ss  @da  @fc  g    h    @jc  @ka  @ls  @;g  '    @trc
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-       lctl lmet @alt           @nav           @sym rmet left down rght
+  fn   lctl lmet @alt           @nav           @sym rmet left down rght
   )
 
 ;;; Layer 1: ~media~
@@ -105,7 +130,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-       _    _    _              _              _    _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
   )
 
 ;;; Layer 2: ~numnav~
@@ -116,7 +141,7 @@
   XX   tab  home up   end  pgup  /    7    8    9    XX   XX   XX   XX
   XX   C-a  lft  down rght pgdn  -    4    5    6    0    XX   XX
   XX   C-z  C-x  C-c  C-v  S-tab ,    1    2    3    .    XX   XX
-       _    XX   del             _              esc  XX   XX   XX   XX
+  XX   _    XX   del             _              esc  XX   XX   XX   XX
   )
 
 ;;; Layer 3: ~symbols~
@@ -129,7 +154,7 @@
   _    @_@  @_<  @_>  @_$  @_%   @_^  @_&  @_*  '    grv  XX   XX   XX
   _    @_{  S-9  S-0  @_}  =     \    @_+  -    /    S-'  XX   XX
   _    @_~  [    ]    @__  @_#   @_|  @_!  ;    @_:  @_?  XX   XX
-       _    XX   bspc            spc            _    XX   XX   XX   XX
+  XX   _    XX   bspc            spc            _    XX   XX   XX   XX
   )
 
 (defalias
