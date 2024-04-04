@@ -30,7 +30,7 @@
 ;;; Settings
 
 (defvar
-  tap-timeout 200
+  tap-timeout 100
   tt $tap-timeout)
 
 (defvar
