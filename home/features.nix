@@ -37,6 +37,7 @@ let
     homeProfiles.firefox.default
     homeProfiles.keyboard.default
     homeProfiles.kitty.default
+    homeProfiles.foot
     homeProfiles.misc
     homeProfiles.media-client
     homeProfiles.theme.default
