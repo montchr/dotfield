@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   flake,
@@ -7,16 +8,34 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+  cfg = config.programs.emacs;
+  sessionVariables = {
+    # via <https://github.com/nix-community/home-manager/blob/80546b220e95a575c66c213af1b09fe255299438/modules/services/emacs.nix#L186C1-L191C11>
+    EDITOR = lib.getBin (
+      pkgs.writeShellScript "editor" ''
+        exec ${lib.getBin cfg.package}/bin/emacsclient \
+          "''${@:---create-frame}"
+      ''
+    );
+  };
 in
-# inherit (config) xdg;
-# inherit (config.lib.file) mkOutOfStoreSymlink;
 {
   imports = [
     # TODO: consolidate all extra non-elisp packages
     ./extra-packages.nix
   ];
 
-  # xdg.configFile."emacs".source = mkOutOfStoreSymlink "${xdg.configHome}/ceamx";
+  nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
+
+  home = {
+    inherit sessionVariables;
+  };
+  programs.bash = {
+    inherit sessionVariables;
+  };
+  programs.zsh = {
+    inherit sessionVariables;
+  };
 
   programs.emacs = {
     enable = true;
@@ -26,7 +45,7 @@ in
       # else pkgs.emacs-pgtk; # from master via emacs-overlay
       # else pkgs.emacs29-pgtk;
       else
-        emacs-overlay.packages.emacs-unstable-pgtk; # 29.1.90
+        emacs-overlay.packages.emacs-unstable-pgtk;
     extraPackages = epkgs: [
       epkgs.pdf-tools
       epkgs.treesit-grammars.with-all-grammars
@@ -79,6 +98,4 @@ in
       ];
     in
     lib.genAttrs mimetypes (_: lib.singleton "emacsclient.desktop");
-
-  nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
 }
