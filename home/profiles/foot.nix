@@ -26,7 +26,7 @@ in
           # TODO: set `initial-window-size-pixels` based on display
           initial-window-size-chars = "100x30";
           initial-window-mode = "windowed";
-          pad = "8x8";
+          pad = "10x8";
         };
 
         bell = {
