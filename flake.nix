@@ -79,14 +79,19 @@
   inputs.attic.url = "github:zhaofengli/attic";
   inputs.haumea.url = "github:nix-community/haumea";
   inputs.darwin.url = "github:LnL7/nix-darwin";
+  inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
+  inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
   inputs.asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
+  # FIXME: remove -- will break due to branch pinning above
+  inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixos-stable";
   inputs.srvos.url = "github:numtide/srvos";
 
   ##: ops
@@ -102,6 +107,7 @@
 
   ##: customisation
   inputs.base16-schemes.url = "github:montchr/nix-base16-schemes";
+  inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
   inputs.firefox-addons.url = "sourcehut:~montchr/firefox-addons";
   inputs.iosevka-xtal.url = "github:montchr/iosevka-xtal";
   inputs.seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
@@ -109,35 +115,28 @@
   ##: apps/tools
   inputs.deadnix.url = "github:astro/deadnix";
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
+  inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nil-lsp.url = "github:oxalica/nil";
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
+  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixfmt.url = "github:NixOS/nixfmt/master";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+  inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
 
   ##: system
   inputs.disko.url = "github:nix-community/disko";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   inputs.kmonad.url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
   inputs.microvm.url = "github:astro/microvm.nix";
+  inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
   inputs.musnix.url = "github:musnix/musnix";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-  inputs.prefmanager.url = "github:malob/prefmanager";
-
-  ##: et cetera ad infinitum
-  inputs.base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
-  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
   inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixos-stable";
+  inputs.prefmanager.url = "github:malob/prefmanager";
 
   # NOTE: Retained for provisioning purposes, but normally unnecessary.
   # nixConfig = {
