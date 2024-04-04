@@ -1,5 +1,1 @@
-{
-  sops.secrets.user-cdom-password.neededForUsers = true;
-
-  sops.defaultSopsFile = ./secrets.yaml;
-}
+{ sops.defaultSopsFile = ./secrets.yaml; }

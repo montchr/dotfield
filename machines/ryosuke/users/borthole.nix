@@ -3,12 +3,12 @@ let
   username = "borthole";
 in
 {
-  sops.secrets."users/${username}/passphrase".neededForUsers = true;
+  sops.secrets."users/${username}/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
-    passwordFile = config.sops.secrets."users/${username}/passphrase".path;
+    hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     # TODO: generate
     # openssh.authorizedKeys.keys = ops.users.borthole.keys.default;
   };

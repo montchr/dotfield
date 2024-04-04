@@ -12,12 +12,12 @@ in
   dotfield.guardian.username = "seadoom";
   users.mutableUsers = false;
 
-  sops.secrets."users/${username}/passphrase".neededForUsers = true;
+  sops.secrets."users/${username}/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets."users/${username}/passphrase".path;
+    hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
     shell = pkgs.zsh;
     extraGroups = [

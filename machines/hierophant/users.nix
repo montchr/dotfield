@@ -8,13 +8,15 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  sops.secrets."users/cdom/hashed-password".neededForUsers = true;
+
   users.users.cdom = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       config.services.headscale.group
     ];
-    hashedPasswordFile = config.sops.secrets.user-cdom-password.path;
+    hashedPasswordFile = config.sops.secrets."users/cdom/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
