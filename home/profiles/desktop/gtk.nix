@@ -11,8 +11,7 @@
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      color-scheme = config.theme.color.schemes.default.kind;
-
+      color-scheme = lib.mkDefault "prefer-dark";
       font-antialiasing = lib.mkDefault "rgba";
       font-hinting = lib.mkDefault "slight";
     };
