@@ -29,6 +29,7 @@ in
   services.kanata.keyboards = {
     "default".config = ''
       ${kbdComment}
+      ${readFile ./kanata-defsrc-macbook.kbd}
       ${readFile ./kanata-default.kbd}
     '';
 
