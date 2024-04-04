@@ -7,7 +7,6 @@ in
   theme.fonts.monospace = {
     name = "Berkeley Mono";
     package = berkeley-mono;
-    # $ kitty +list-fonts --psnames | grep Berkeley
     psNamespace = "BerkeleyMono";
   };
   theme.fonts.terminal = cfg.monospace;

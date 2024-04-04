@@ -1,3 +1,5 @@
+# FIXME: don't use config values as defaults for options! it does not make
+# sense, and will likely cause issues in non-ideal circumstances.
 {
   flake,
   config,
@@ -41,6 +43,7 @@ let
       type = with l.types; (submodule colorSchemeModule);
     };
 
+  # FIXME: this is dumb
   mkPackageOption = type: l.mkPackageOption pkgs "${type} font" { default = null; };
 in
 {
@@ -55,28 +58,28 @@ in
       monospace = {
         name = mkOpt str defaultFonts.monospace;
         weight = mkOpt int normalWeight;
-        size = mkOpt int 13;
+        size = mkOpt int 11;
         package = mkPackageOption "monospace";
         psNamespace = mkOpt str "";
       };
-      terminal = with cfg.fonts; {
-        name = mkOpt str monospace.name;
-        weight = mkOpt int monospace.weight;
-        size = mkOpt int monospace.size;
+      terminal = {
+        name = mkOpt str defaultFonts.monospace;
+        weight = mkOpt int normalWeight;
+        size = mkOpt int 11;
         package = mkPackageOption "terminal";
         psNamespace = mkOpt str "";
       };
       sansSerif = {
         name = mkOpt str defaultFonts.sansSerif;
         weight = mkOpt int normalWeight;
-        size = mkOpt int 10;
+        size = mkOpt int 11;
         package = mkPackageOption "sans-serif";
         psNamespace = mkOpt str "";
       };
       serif = {
         name = mkOpt str defaultFonts.serif;
         weight = mkOpt int normalWeight;
-        size = mkOpt int cfg.fonts.sansSerif.size;
+        size = mkOpt int 11;
         package = mkPackageOption "serif";
         psNamespace = mkOpt str "";
       };

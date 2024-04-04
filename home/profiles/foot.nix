@@ -21,7 +21,7 @@ in
           # FIXME: does not accept an array
           # include = [ "${pkgs.foot.themes}/modus-operandi" ];
 
-          font = "${themeFont.name}:size=10";
+          font = "${themeFont.name}:size=${builtins.toString themeFont.size}";
           dpi-aware = true;
           # TODO: set `initial-window-size-pixels` based on display
           initial-window-size-chars = "100x30";
