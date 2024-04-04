@@ -128,27 +128,29 @@ in
       #   };
       # };
 
-      dconf.settings = {
-        # TODO: other font styles?
-        "org/gnome/desktop/interface" =
-          let
-            # TODO: add to lib
-            fontname =
-              font:
-              lib.concatStringsSep " " [
-                font.name
-                (builtins.toString font.size)
-              ];
-            sans = fontname cfg.fonts.sansSerif;
-            # serif = fontname cfg.fonts.serif;
-            mono = fontname cfg.fonts.monospace;
-          in
-          {
+      dconf.settings =
+        let
+          fontspecFor =
+            font:
+            lib.concatStringsSep " " [
+              font.name
+              (builtins.toString font.size)
+            ];
+          sans = fontspecFor cfg.fonts.sansSerif;
+          # serif = fontname cfg.fonts.serif;
+          mono = fontspecFor cfg.fonts.monospace;
+        in
+        {
+          "org/gnome/desktop/interface" = {
             document-font-name = sans;
             color-scheme = lib.mkDefault "prefer-dark";
+            font-name = sans; # default font
             monospace-font-name = mono;
           };
-      };
+          "org/gnome/desktop/wm/preferences" = {
+            titlebar-uses-system-font = true;
+          };
+        };
     }
   );
 }
