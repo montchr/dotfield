@@ -143,8 +143,8 @@ in
         {
           "org/gnome/desktop/interface" = {
             document-font-name = sans;
-            color-scheme = lib.mkDefault "prefer-dark";
             font-name = sans; # default font
+            color-scheme = "prefer-" + cfg.color.schemes.default.kind;
             monospace-font-name = mono;
           };
           "org/gnome/desktop/wm/preferences" = {
