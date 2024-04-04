@@ -5,18 +5,6 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.sansSerif = {
-    name = "Iosevka Comfy Wide Duo";
-    package = pkgs.iosevka-comfy.comfy-wide-duo;
-    # TODO: might be wrong
-    psNamespace = "Iosevka-Comfy-Wide-Duo";
-  };
-  theme.fonts.serif = {
-    name = "Iosevka Comfy Wide Motion Duo";
-    package = pkgs.iosevka-comfy.comfy-wide-motion-duo;
-    # TODO: might be wrong
-    psNamespace = "Iosevka-Comfy-Wide-Motion-Duo";
-  };
   theme.fonts.monospace = {
     name = "Iosevka Comfy";
     package = pkgs.iosevka-comfy.comfy;

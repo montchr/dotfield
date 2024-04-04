@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
-  theme.fonts.serif = lib.mkDefault {
+  theme.fonts.serif = {
     name = "IBM Plex Serif";
     package = pkgs.ibm-plex;
   };
