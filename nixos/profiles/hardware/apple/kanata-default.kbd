@@ -81,8 +81,8 @@
 ;;; Layer 0: ~qwerty~
 
 (defalias
-  tec (tap-hold $tt $ht esc lctl)
-  trc (tap-hold $tt $ht ret lctl))
+  tec (tap-hold-press $tt $ht esc lctl)
+  trc (tap-hold-press $tt $ht ret lctl))
 
 (deflayer qwerty
   @mda f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
