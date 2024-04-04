@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
-  theme.fonts.sansSerif = lib.mkDefault {
+  theme.fonts.sansSerif = {
     name = "Inter";
     package = pkgs.inter;
   };
