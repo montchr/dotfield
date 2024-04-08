@@ -72,7 +72,9 @@
     ##: channels
     nixpkgs.follows = "nixos-unstable";
     nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # FIXME: <https://github.com/NixOS/nixpkgs/issues/301380>
+    # nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
