@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config.home) homeDirectory;
-  base = "${homeDirectory}/Developer";
+  base = "${homeDirectory}/Projects";
   mirrors = "${base}/mirrors";
   repo =
     path: uri:

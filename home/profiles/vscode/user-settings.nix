@@ -75,14 +75,14 @@
     "files.insertFinalNewline" = true;
     "git.autoStash" = true;
     "git.closeDiffOnOperation" = true;
-    "git.defaultCloneDirectory" = "~/Developer/scratch";
+    "git.defaultCloneDirectory" = "~/Projects/scratch";
     "git.enableCommitSigning" = true;
     "git.fetchOnPull" = true;
     "git.repositoryScanMaxDepth" = 2;
     "git.scanRepositories" = [
-      "~/Developer/work"
-      "~/Developer/sources"
-      "~/Developer/contrib"
+      "~/Projects/work"
+      "~/Projects/sources"
+      "~/Projects/contrib"
     ];
     "git.smartCommitChanges" = "tracked";
     "git.suggestSmartCommit" = false;
