@@ -18,6 +18,7 @@ in
     # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
     "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
     "Power Thesaurus" = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
+    "TVDB" = engine' "tvdb" "https://thetvdb.com/search?query={searchTerms}";
 
     ## === Nix Reference ===
 
