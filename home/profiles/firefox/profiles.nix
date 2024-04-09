@@ -142,9 +142,11 @@ in
     };
   };
 
-  # TODO: make this an optional package for per-machine usage
-  home.packages = l.optional isLinux (
-    pkgs.makeDesktopItem {
+  # FIXME: the generic Firefox desktop item does not open the `home` profile by
+  # default, hence the definition of the additional `firefox-home-profile`
+  home.packages = l.optionals isLinux [
+    # TODO: make this an optional package for per-machine usage
+    (pkgs.makeDesktopItem {
       name = "firefox-work-profile";
       desktopName = "Firefox (Work)";
       genericName = "Open a Firefox window scoped to the Work profile.";
@@ -155,8 +157,20 @@ in
         "Network"
         "WebBrowser"
       ];
-    }
-  );
+    })
+    (pkgs.makeDesktopItem {
+      name = "firefox-home-profile";
+      desktopName = "Firefox (Home)";
+      genericName = "Open a Firefox window scoped to the Home profile.";
+      icon = "firefox";
+      exec = "${cfg.package}/bin/firefox -P ${cfg.profiles.home.path}";
+      categories = [
+        "Application"
+        "Network"
+        "WebBrowser"
+      ];
+    })
+  ];
 
   # TODO: extract to function
   # home.file = l.mkMerge (l.flip l.mapAttrsToList cfg.profiles (_: profile: let
