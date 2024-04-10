@@ -93,6 +93,7 @@ let
         homeProfiles.desktop.applications.okular
         homeProfiles.desktop.applications.xournal
         homeProfiles.emacs.default
+        homeProfiles.emacs.org-protocol
         homeProfiles.git.repo-manager
         homeProfiles.git.with-pgp-signing
         homeProfiles.kitty.default
