@@ -8,15 +8,17 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+
   cfg = config.programs.emacs;
+
+  editorPkg = pkgs.writeShellScript "editor" ''
+    exec ${lib.getBin cfg.package}/bin/emacsclient \
+      "''${@:---create-frame}"
+  '';
+
   sessionVariables = {
     # via <https://github.com/nix-community/home-manager/blob/80546b220e95a575c66c213af1b09fe255299438/modules/services/emacs.nix#L186C1-L191C11>
-    EDITOR = lib.getBin (
-      pkgs.writeShellScript "editor" ''
-        exec ${lib.getBin cfg.package}/bin/emacsclient \
-          "''${@:---create-frame}"
-      ''
-    );
+    EDITOR = lib.getBin (editorPkg);
   };
 in
 {
@@ -54,9 +56,12 @@ in
   };
 
   home.packages = [
+    nil-lsp.packages.nil
+
     pkgs.fd
     pkgs.ripgrep
-    nil-lsp.packages.nil
+
+    editorPkg
   ];
 
   # <https://mimetype.io/all-types>
