@@ -21,9 +21,11 @@ in
   services.xserver.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} =
-    { features, ... }:
+    { profiles, features, ... }:
     {
       imports = features.workstation ++ [
+        profiles.desktop.applications.microsoft-teams
+
         {
           # The trackpad on this device is huge, and I always end up touching
           # its corner with my palm, which is very disruptive.
