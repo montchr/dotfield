@@ -204,26 +204,26 @@ I'm doing it all backwards...?
 :CUSTOM_ID: grafts
 :END:
 
+- Note taken on [2024-04-10 Wed 20:39] \\
+  I began the process of converting some of these items to Org headings with tags.
+
 Generally in order of [[https://en.wikipedia.org/wiki/Frecency][frecency]], along with an optional description of reasons
 for inclusion.
 
 More recently, I've aimed to reference sources with comments and SPDX
 headings in relevant files.
 
-*** TODO Headings with tags
+** [[https://github.com/edmundmiller/dotfiles][github:edmundmiller/dotfiles]] :email:emacs:
 
-*** NixOS/nix-darwin/home-manager
-:PROPERTIES:
-:CUSTOM_ID: nixosnix-darwinhome-manager
-:END:
+** [[https://github.com/oddlama/nix-config][github:oddlama/nix-config]] :sso:good_docs:microvms:
+
+** [[https://m7.rs/git/nix-config/][m7.rs/git/nix-config]] :desktop:
+
+** [[https://github.com/Mic92/dotfiles][github:Mic92/dotfiles]] :networking:secrets_management:
+
+** TODO Headings with tags
 
 - [[https://github.com/lovesegfault/nix-config]] :: nixos
-- [[https://github.com/oddlama/nix-config]] :: nixos, sso, good docs,
-  microvms
-- [[https://git.sr.ht/~misterio/nix-config/]] :: nixos, desktops,
-  similar goals, simplicity and clarity, aesthetics
-- [[https://github.com/Mic92/dotfiles]] :: nixos, flake-parts,
-  extensive, fleets, networking, structure, secrets management
 - [[https://github.com/srid/nixos-config]] :: nixos, nix-darwin, vms,
   simple, nixos-shell
 - [[https://github.com/viperML/dotfiles]] :: nixos, flake-parts,
