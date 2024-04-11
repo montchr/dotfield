@@ -19,7 +19,7 @@ in
       exec = "emacsclient -- %u";
       terminal = false;
       icon = "emacs";
-      categories = [ "Other" ];
+      categories = [ "Office" ];
     })
   ];
 
