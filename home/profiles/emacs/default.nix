@@ -11,7 +11,7 @@ let
 
   cfg = config.programs.emacs;
 
-  editorPkg = pkgs.writeShellScript "editor" ''
+  editorPkg = pkgs.writeShellScriptBin "editor" ''
     exec ${lib.getBin cfg.package}/bin/emacsclient \
       "''${@:---create-frame}"
   '';
