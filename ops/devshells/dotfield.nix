@@ -13,7 +13,12 @@ in
       ...
     }:
     let
-      inherit (inputs') colmena home-manager nixfmt;
+      inherit (inputs')
+        colmena
+        home-manager
+        nix-inspect
+        nixfmt
+        ;
 
       cats = enumAttrs [
         "dotfield"
@@ -34,6 +39,8 @@ in
         devshell.packages = [
           config.packages.tomlfmt
 
+          nix-inspect.packages.default
+
           pkgs.cachix
           pkgs.crudini # CRUD for ini files -- for dconf dump manipulation
           pkgs.deadnix
@@ -52,6 +59,8 @@ in
           (dotfield home-manager.packages.default)
           (dotfield pkgs.just)
           (dotfield pkgs.treefmt)
+
+          # (maintenance (nix-inspect.packages.default.overrideAttrs { meta.description = "test"; }))
 
           (maintenance nixfmt.packages.default)
 
