@@ -13,4 +13,6 @@
     enable = lib.mkDefault true;
     provider = lib.mkDefault "keyd";
   };
+
+  hardware.keyboard.keyboardio.enable = true;
 }
