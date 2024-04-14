@@ -1,12 +1,10 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     # Enabled with `dotfield.hardware.keyboard.remapping`
     ./__keyd
     ./__kmonad
     ./__kanata
-
-    ./zsa.nix
   ];
 
   dotfield.hardware.keyboard.remapping = {
@@ -15,4 +13,9 @@
   };
 
   hardware.keyboard.keyboardio.enable = true;
+
+  hardware.keyboard.zsa.enable = true;
+  environment.systemPackages = [
+    pkgs.wally-cli
+  ];
 }
