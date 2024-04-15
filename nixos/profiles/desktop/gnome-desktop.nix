@@ -7,7 +7,7 @@
 }:
 let
   homeProfiles = import "${flake.self}/home/profiles.nix" { inherit (flake.inputs) haumea; };
-  isAutoLoginEnabled = config.services.xserver.displayManager.autoLogin.enable;
+  isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {
   services.xserver.enable = true;

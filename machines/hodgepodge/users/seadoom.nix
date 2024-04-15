@@ -26,8 +26,8 @@ in
     ];
   };
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = username;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} =
     { profiles, features, ... }:

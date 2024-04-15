@@ -16,8 +16,8 @@ in
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = username;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} =
     { features, profiles, ... }:
