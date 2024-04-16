@@ -59,9 +59,7 @@ in
   # FIXME: pare these down, also they don't really have anything to do with 'webdev'
   webdev = [
     profiles.virtualisation.libvirt
-    profiles.virtualisation.microvm-host
     profiles.virtualisation.podman
-    profiles.virtualisation.vagrant
     profiles.virtualisation.virt-manager
   ];
 
