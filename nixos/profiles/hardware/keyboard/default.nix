@@ -12,6 +12,9 @@
     provider = lib.mkDefault "keyd";
   };
 
+  # Required to support flashing firmware.
+  dotfield.guardian.extraGroups = [ "plugdev" ];
+
   hardware.keyboard.keyboardio.enable = true;
 
   hardware.keyboard.zsa.enable = true;
