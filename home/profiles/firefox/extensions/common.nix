@@ -7,6 +7,7 @@ with addons;
   auto-tab-discard
   bitwarden
   consent-o-matic
+  copy-as-org-mode
   copy-selection-as-markdown
   darkreader
   link-cleaner
