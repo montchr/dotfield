@@ -1,16 +1,16 @@
 { config, ... }:
 let
-  username = "borthole";
+  username = "median";
 in
 {
   sops.secrets."users/${username}/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
-    uid = 1000;
+    uid = 1001;
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     # TODO: generate
-    # openssh.authorizedKeys.keys = ops.users.borthole.keys.default;
+    # openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
   };
 
   services.displayManager.autoLogin.enable = true;
@@ -19,7 +19,7 @@ in
   home-manager.users.${username} =
     { features, profiles, ... }:
     {
-      imports = features.workstation ++ [ profiles.spotify ];
-      home.stateVersion = "22.05";
+      imports = features.graphical ++ [ ];
+      home.stateVersion = "24.05";
     };
 }

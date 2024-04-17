@@ -1,20 +1,18 @@
-# FIXME: still has the 1m30s timer for a predictable interface enpXXXXX on every
-# boot despite predictable interface names disabled
 { pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ./game.nix
     ./media.nix
-    ./profiles/sops.nix
     ./users/cdom.nix
+    ./users/median.nix
   ];
 
-  # FIXME: it is too easy to mess this up and render a system unusable
-  #        source: it happened.
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
+
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = [ "btrfs" ];

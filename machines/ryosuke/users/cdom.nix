@@ -3,10 +3,6 @@ let
   username = "cdom";
 in
 {
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cdom";
-  users.mutableUsers = false;
-
   sops.secrets."users/${username}/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
@@ -15,9 +11,6 @@ in
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
-
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
 
   home-manager.users.${username} =
     { features, profiles, ... }:
