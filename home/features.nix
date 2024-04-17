@@ -40,6 +40,7 @@ let
     homeProfiles.foot
     homeProfiles.misc
     homeProfiles.media-client
+    homeProfiles.spotify
     homeProfiles.theme.default
     homeProfiles.yt-dlp
     # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)
