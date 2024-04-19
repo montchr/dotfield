@@ -3,8 +3,9 @@
     ./users/cdom.nix
     ./secrets/sops.nix
 
-    ./hardware-configuration.nix
     ./keyboard.nix
+
+    ./hardware-configuration.nix
   ];
 
   time.timeZone = "America/New_York";
@@ -13,6 +14,11 @@
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
+
+  # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
+  # support DP-Alt display output.  DP-Alt output is required for true HDMI or
+  # DP output via one of this machine's two USB-C ports and zero HDMI/DP ports.
+  services.xserver.videoDrivers = [ "displaylink" ];
 
   # Not yet: <https://asahilinux.org/2024/01/fedora-asahi-new/#can-we-run-steam>
   # programs.steam.enable = true;
