@@ -19,6 +19,10 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ ] ++ (lib.optionals cfg.chrysalis-gui.enable [ pkgs.chrysalis ]);
 
+    users.groups.plugdev = { };
+
+    dotfield.guardian.extraGroups = [ "plugdev" ];
+
     services.udev.packages = [
       (pkgs.writeTextFile {
         name = "keyboardio-udev-rules";
