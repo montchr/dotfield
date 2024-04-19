@@ -11,5 +11,8 @@
         "image/webp"
       ];
     in
-    lib.genAttrs imageTypes (_: [ "org.gnome.Loupe.desktop" ]);
+    (lib.genAttrs imageTypes (_: [ "org.gnome.Loupe.desktop" ]))
+    // {
+      "application/zip" = [ "org.gnome.FileRoller.desktop" ];
+    };
 }
