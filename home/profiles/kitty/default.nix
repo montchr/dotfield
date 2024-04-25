@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   flake,
   ...
@@ -8,7 +9,13 @@ let
   inherit (flake.perSystem) packages;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) xdg;
-  l = flake.inputs.nixpkgs.lib // builtins;
+
+  shellAliases = {
+    # Use Kitty terminal"s ssh helper kitten
+    sshk = "kitty +kitten ssh";
+    # Display an image in kitty
+    icat = "kitty +kitten icat";
+  };
 in
 {
   imports = [
@@ -16,15 +23,16 @@ in
     ./symbols.nix
   ];
 
-  home.packages = [ packages.kitty-get-window-by-platform-id ];
-
-  home.sessionVariables = {
-    KITTY_CONFIG_DIRECTORY = "${xdg.configHome}/kitty";
+  home = {
+    packages = [ packages.kitty-get-window-by-platform-id ];
+    sessionVariables."KITTY_CONFIG_DIRECTORY" = "${xdg.configHome}/kitty";
+    inherit shellAliases;
   };
 
   programs.kitty = {
     enable = true;
-    darwinLaunchOptions = l.mkIf isDarwin [ "--single-instance" ];
+    # TODO: prob don't need the conditional
+    darwinLaunchOptions = lib.mkIf isDarwin [ "--single-instance" ];
     keybindings = {
       # Open new windows from the current session's working directory.
       # Tabs are intentionally left alone, to allow for choosing either behavior.

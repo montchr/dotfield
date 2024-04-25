@@ -8,12 +8,6 @@
 
   l = "${pkgs.eza}/bin/eza -bl --git --icons --time-style long-iso --group-directories-first";
 
-  # FIXME: only when kitty is primary terminal
-  # Use Kitty terminal"s ssh helper kitten
-  # sshk = "kitty +kitten ssh";
-  # Display an image in kitty
-  # icat = "kitty +kitten icat";
-
   # Always enable colored `grep` output
   # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
   grep = "grep --color=auto";
