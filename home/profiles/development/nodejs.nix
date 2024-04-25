@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
+let
+  inherit (config.dotfield) whoami;
+in
 {
-  home.packages = with pkgs; [
-    nodejs
-    yarn
+  home.packages = [
+    pkgs.nodejs
+    pkgs.yarn
   ];
 
   home.sessionVariables = {
@@ -18,8 +21,8 @@
   # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
   # https://nixos.org/manual/nix/stable/#idm140737322046656
   xdg.configFile."npm/npmrc".text = ''
-    email=chris@cdom.io
-    init-author-name="Chris Montgomery"
+    email="${whoami.email}"
+    init-author-name="${whoami.fullName}"
     init-version=0.0.1
     cache=''${XDG_CACHE_HOME}/npm
   '';

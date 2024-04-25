@@ -12,9 +12,6 @@ let
     homeProfiles.nnn
     homeProfiles.nvim.default
     homeProfiles.rclone
-    # FIXME: what do with these?
-    # homeProfiles.shells.prompts.starship.default
-    # homeProfiles.shells.prompts.liquidprompt
     homeProfiles.shells.zsh.default
     homeProfiles.shells.zsh.with-grml
     homeProfiles.ssh
@@ -65,15 +62,6 @@ let
     homeProfiles.secrets.rbw
   ];
 
-  webdev = [
-    # FIXME: aws cli broken in nixpkgs
-    # homeProfiles.aws
-    homeProfiles.nodejs
-    homeProfiles.development.javascript
-    homeProfiles.development.php
-    homeProfiles.development.wordpress
-  ];
-
   features = {
     inherit
       base
@@ -81,7 +69,6 @@ let
       graphical
       personalised
       trusted
-      webdev
       ;
 
     workstation =
@@ -89,10 +76,10 @@ let
       ++ graphical
       ++ personalised
       ++ trusted
-      ++ webdev
       ++ [
         homeProfiles.desktop.applications.okular
         homeProfiles.desktop.applications.xournal
+        homeProfiles.development.common
         homeProfiles.emacs.default
         homeProfiles.emacs.org-protocol
         homeProfiles.git.repo-manager
@@ -100,7 +87,6 @@ let
         homeProfiles.kitty.default
         homeProfiles.ledger
         homeProfiles.pandoc
-        homeProfiles.rclone
         homeProfiles.sync
         homeProfiles.vhs
         homeProfiles.yubikey

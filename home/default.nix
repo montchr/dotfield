@@ -9,8 +9,8 @@ let
   inherit (self.lib.hm) makeHomeConfiguration;
   inherit (inputs.apparat.lib.hm) mkHomeConfigurations;
 
-  homeProfiles = import ./profiles.nix { inherit (inputs) haumea; };
-  features = import ./features.nix { inherit homeProfiles; };
+  # features = import ./features.nix { homeProfiles = profiles; };
+  profiles = import ./profiles.nix { inherit (inputs) haumea; };
 in
 {
   flake = {
@@ -26,7 +26,9 @@ in
   perSystem = _perSystem: {
     homeConfigurations = {
       traveller = makeHomeConfiguration "cdom" {
-        modules = features.webdev ++ [
+        modules = [
+          profiles.development.work
+
           {
             _module.args = {
               inherit ops;
