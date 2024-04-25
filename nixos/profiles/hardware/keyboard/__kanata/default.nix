@@ -33,6 +33,14 @@ in
 
         # TODO: exclude atreus + moonlander
         extraDefCfg = ''
+          ;; NOTE: `process-unmapped-keys' may cause issues with some keys.  But
+          ;;       without it, all `defsrc' definitions would need to contain
+          ;;       all available keys else some actions will not work properly.
+          ;;       Most notably `tap-hold-release' will not react to the
+          ;;       unmapped keys.
+          ;;       <https://github.com/jtroo/kanata/blob/v1.6.0/docs/config.adoc#process-unmapped-keys>
+          process-unmapped-keys yes
+
           linux-dev-names-exclude (
             "Yubico YubiKey OTP+FIDO+CCID"
           )
