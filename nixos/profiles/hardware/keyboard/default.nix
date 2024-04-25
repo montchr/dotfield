@@ -1,16 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    # Enabled with `dotfield.hardware.keyboard.remapping`
-    ./__keyd
-    ./__kmonad
-    ./__kanata
-  ];
-
-  dotfield.hardware.keyboard.remapping = {
-    enable = lib.mkDefault true;
-    provider = lib.mkDefault "keyd";
-  };
+  imports = [ ./__kanata ];
 
   # Required to support flashing firmware.
   dotfield.guardian.extraGroups = [ "plugdev" ];

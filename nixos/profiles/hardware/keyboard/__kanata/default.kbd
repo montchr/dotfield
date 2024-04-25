@@ -1,0 +1,43 @@
+;;; Settings
+
+(defvar
+  tap-timeout 100
+  tt $tap-timeout)
+
+(defvar
+  hold-timeout 200
+  ht $hold-timeout)
+
+;;; Aliases
+
+(defalias tec (tap-hold-press $tt $ht esc lctl))
+
+(defalias
+  ;; left side
+  am (tap-hold $tt $ht a lmet)
+  sa (tap-hold $tt $ht s lalt)
+  dc (tap-hold $tt $ht d lctl)
+  fs (tap-hold $tt $ht f lsft)
+  ;; right side
+  js (tap-hold $tt $ht j lsft)
+  kc (tap-hold $tt $ht k lctl)
+  la (tap-hold $tt $ht l lalt)
+  ;m (tap-hold $tt $ht ; rmet))
+
+;;; Source Definition
+
+(defsrc
+  tab  q    w    e    r    t    y    u    i    o    p
+  caps a    s    d    f    g    h    j    k    l    ;
+  lsft z    x    c    v    b    n    m    ,    .    /
+       lalt           spc            ralt
+  )
+
+;;; Layers
+
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    _
+  @tec @am  @sa  @dc  @fs  _    _    @js  @kc  @la  @;m
+  _    _    _    _    _    _    _    _    _    _    _
+       _              _              _
+  )
