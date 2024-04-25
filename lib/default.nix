@@ -20,5 +20,7 @@ let
   };
 in
 {
-  flake.lib = lib;
+  flake.lib = lib // {
+    inherit ops;
+  };
 }
