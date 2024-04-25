@@ -3,6 +3,7 @@
     ./users/cdom.nix
     ./secrets/sops.nix
 
+    ./webdev.nix
     ./keyboard.nix
 
     ./hardware-configuration.nix
