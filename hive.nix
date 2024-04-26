@@ -9,10 +9,7 @@ let
   inherit (self.lib.colmena) mkNode metaFor;
   l = inputs.nixpkgs.lib // builtins;
 
-  configurations = l.removeAttrs self.nixosConfigurations [
-    "bootstrap-graphical"
-    "freundix"
-  ];
+  configurations = l.removeAttrs self.nixosConfigurations [ "bootstrap-graphical" ];
 
   mkNode' = n: mkNode configurations.${n} n;
 

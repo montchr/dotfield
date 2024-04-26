@@ -73,11 +73,6 @@ in
     #   modules = with features; desktop ++ gnome ++ workstation;
     # };
 
-    freundix = makeNixosSystem "freundix" {
-      system = "x86_64-linux";
-      modules = with features; gnome ++ graphical;
-    };
-
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
       modules =
