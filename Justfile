@@ -59,6 +59,9 @@ json2nix file:
 toml2nix file:
   nix eval --expr 'builtins.fromTOML (builtins.readFile {{file}})' --impure
 
+# <- Generate a hashed password compatible with the NixOS options
+generate-hashed-password:
+  mkpasswd -m sha-512
 
 ###: LINTING/FORMATTING ========================================================
 
