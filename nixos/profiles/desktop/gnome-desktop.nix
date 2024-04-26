@@ -31,9 +31,8 @@ in
 
   # Prevent GNOME session crashes when auto-login is enabled.
   # <https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229>
-  # TODO: should not be "default", should be normal
-  systemd.services."getty@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
-  systemd.services."autovt@tty1".enable = lib.mkDefault (!isAutoLoginEnabled);
+  systemd.services."getty@tty1".enable = (!isAutoLoginEnabled);
+  systemd.services."autovt@tty1".enable = (!isAutoLoginEnabled);
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
 }
