@@ -10,6 +10,10 @@
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
+
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "median";
+
   users.mutableUsers = false;
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
