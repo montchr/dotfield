@@ -50,7 +50,7 @@
         };
 
         perSystem =
-          { system, ... }:
+          { system, pkgs, ... }:
           {
             _module.args = {
               inherit ops;
@@ -59,10 +59,7 @@
                 config.allowUnfree = true;
               };
             };
-            # FIXME: currently results in cross-compiling due to haskell's IFD!
-            #        must wait for this to arrive in a binary cache in order to
-            #        use `nix fmt`
-            # formatter = inputs'.nixfmt.packages.default;
+            formatter = pkgs.nixfmt-rfc-style;
           };
       }
     );
@@ -122,7 +119,6 @@
     nil-lsp.url = "github:oxalica/nil";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    nixfmt.url = "github:NixOS/nixfmt/master";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";

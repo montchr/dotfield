@@ -18,7 +18,6 @@ in
         home-manager
         namaka
         nix-inspect
-        nixfmt
         ;
 
       cats = enumAttrs [
@@ -64,12 +63,12 @@ in
           # (maintenance (nix-inspect.packages.default.overrideAttrs { meta.description = "test"; }))
 
           (maintenance namaka.packages.default)
-          (maintenance nixfmt.packages.default)
 
           (maintenance pkgs.nix-init)
           (maintenance pkgs.nix-prefetch)
           (maintenance pkgs.nix-tree)
           (maintenance pkgs.nixdoc)
+          (maintenance pkgs.nixfmt-rfc-style)
           (maintenance pkgs.nurl)
         ];
         env = [
