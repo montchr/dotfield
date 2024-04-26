@@ -12,7 +12,7 @@
   dotfield.guardian.username = "cdom";
 
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "median";
+  services.displayManager.autoLogin.user = "cdom";
 
   users.mutableUsers = false;
 
