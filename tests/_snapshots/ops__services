@@ -1,0 +1,15 @@
+#pretty
+{
+  keycloak = {
+    fqdn = "auth.seadome.net";
+    realms = {
+      default = {
+        name = "master";
+        urls = {
+          base = "https://auth.seadome.net/realms/master";
+          oidc = "https://auth.seadome.net/realms/master/protocol/openid-connect";
+        };
+      };
+    };
+  };
+}

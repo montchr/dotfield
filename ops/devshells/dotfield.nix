@@ -16,6 +16,7 @@ in
       inherit (inputs')
         colmena
         home-manager
+        namaka
         nix-inspect
         nixfmt
         ;
@@ -62,6 +63,7 @@ in
 
           # (maintenance (nix-inspect.packages.default.overrideAttrs { meta.description = "test"; }))
 
+          (maintenance namaka.packages.default)
           (maintenance nixfmt.packages.default)
 
           (maintenance pkgs.nix-init)

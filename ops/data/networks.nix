@@ -21,5 +21,4 @@ _: rec {
     contact = "ops@seadome.net";
     domain = "storm.observer";
   };
-  tusecurewireless.domain = "temple.edu";
 }
