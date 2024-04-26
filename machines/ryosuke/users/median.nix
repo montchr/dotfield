@@ -3,7 +3,7 @@ let
   username = "median";
 in
 {
-  sops.secrets."users/median/hashed-password".neededForUsers = true;
+  sops.secrets."users/median/hashed-password".neededForBoot = true;
 
   users.users.${username} = {
     uid = 1001;

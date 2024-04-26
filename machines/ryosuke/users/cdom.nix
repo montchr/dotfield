@@ -3,7 +3,7 @@ let
   username = "cdom";
 in
 {
-  sops.secrets."users/cdom/hashed-password".neededForUsers = true;
+  sops.secrets."users/cdom/hashed-password".neededForBoot = true;
 
   users.users.${username} = {
     uid = 1000;
