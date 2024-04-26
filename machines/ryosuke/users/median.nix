@@ -3,12 +3,12 @@ let
   username = "median";
 in
 {
-  sops.secrets."users/${username}/hashed-password".neededForUsers = true;
+  sops.secrets."users/median/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
     uid = 1001;
     isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
+    hashedPasswordFile = config.sops.secrets."users/median/hashed-password".path;
     # TODO: generate
     # openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
   };

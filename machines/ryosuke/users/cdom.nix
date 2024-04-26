@@ -3,12 +3,12 @@ let
   username = "cdom";
 in
 {
-  sops.secrets."users/${username}/hashed-password".neededForUsers = true;
+  sops.secrets."users/cdom/hashed-password".neededForUsers = true;
 
   users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
+    hashedPasswordFile = config.sops.secrets."users/cdom/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
