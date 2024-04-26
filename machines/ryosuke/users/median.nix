@@ -13,9 +13,6 @@ in
     # openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
   };
 
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
-
   home-manager.users.${username} =
     { features, profiles, ... }:
     {
