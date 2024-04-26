@@ -1,4 +1,5 @@
 {
+  flake,
   config,
   lib,
   pkgs,
@@ -6,10 +7,11 @@
 }:
 {
   imports = [
+    (flake.inputs.srvos + "/nixos/common/upgrade-diff.nix")
+
     ./home-manager.nix
     ./nix-config.nix
     ./system-packages.nix
-    ./upgrade-diff.nix
   ];
 
   documentation.info.enable = lib.mkDefault true;
