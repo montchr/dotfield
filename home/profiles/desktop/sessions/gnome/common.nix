@@ -23,7 +23,7 @@ in
 
   # The package loaded by the "gnome" setting is obsolete.
   # TODO: gtk4?
-  qt.platformTheme = "gtk3";
+  qt.platformTheme.name = "gtk3";
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
