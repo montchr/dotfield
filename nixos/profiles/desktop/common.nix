@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./__gtk.nix
@@ -6,6 +6,10 @@
     ./__wallpaper.nix
     ./__xdg.nix
   ];
+
+  documentation.info.enable = true;
+  # NOTE: Force override <numtide/srvos>.
+  documentation.man.enable = lib.mkForce true;
 
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";

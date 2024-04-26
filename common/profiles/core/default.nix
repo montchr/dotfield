@@ -14,10 +14,6 @@
     ./system-packages.nix
   ];
 
-  documentation.info.enable = lib.mkDefault true;
-  # NOTE: Force override <numtide/srvos>.
-  documentation.man.enable = lib.mkForce true;
-
   # The only sane default. Servers should usually keep this as is.
   time.timeZone = lib.mkDefault "UTC";
 
