@@ -112,7 +112,6 @@
     base16-schemes.url = "github:montchr/nix-base16-schemes";
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "sourcehut:~montchr/firefox-addons";
-    iosevka-xtal.url = "github:montchr/iosevka-xtal";
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
 
     ##: apps/tools
