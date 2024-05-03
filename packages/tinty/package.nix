@@ -1,6 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+# FIXME: failing tests (possibly due to attempting to write files?)
+
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
