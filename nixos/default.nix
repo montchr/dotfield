@@ -156,6 +156,7 @@ in
     };
 
     chert = makeNixosSystem "chert" {
+      channel = "stable";
       system = "x86_64-linux";
       modules = features.server ++ [
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
