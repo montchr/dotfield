@@ -61,6 +61,7 @@ in
 
     pkgs.emacs-lsp-booster
     pkgs.fd
+    pkgs.nixd
     pkgs.ripgrep
 
     editorPkg
