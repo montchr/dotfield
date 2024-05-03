@@ -11,6 +11,8 @@
     #        don't think that is the case.
     # pkgs.php
     # pkgs.phpPackages.composer
+
+    pkgs.phpactor
     pkgs.wp-cli
   ];
 
