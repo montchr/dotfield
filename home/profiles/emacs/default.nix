@@ -11,6 +11,7 @@ let
 
   cfg = config.programs.emacs;
 
+  # FIXME: doesn't work as $EDITOR
   editorPkg = pkgs.writeShellScriptBin "editor" ''
     exec ${lib.getBin cfg.package}/bin/emacsclient \
       "''${@:---create-frame}"
@@ -58,6 +59,7 @@ in
   home.packages = [
     nil-lsp.packages.nil
 
+    pkgs.emacs-lsp-booster
     pkgs.fd
     pkgs.ripgrep
 
