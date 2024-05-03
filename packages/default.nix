@@ -1,56 +1,31 @@
-{ self, ... }:
-let
-  inherit (self.inputs) apparat flake-utils;
-  inherit (apparat.lib.typography) fontWeights;
-  inherit (flake-utils.lib) filterPackages;
-in
+{ inputs, ... }:
 {
   perSystem =
-    {
-      inputs',
-      pkgs,
-      system,
-      ...
-    }:
+    { pkgs, system, ... }:
     let
-      inherit (inputs') emacs-overlay;
-      inherit (pkgs) callPackage callPackages;
+      inherit (pkgs) callPackage;
     in
     {
-      packages = filterPackages system ({
-        ast-grep = callPackage ./development/tools/misc/ast-grep { };
-        base16-schemes = callPackage ./data/themes/base16-schemes { };
-        cod = callPackage ./shells/cod { };
-        emacs-plus-29 = callPackage ./applications/editors/emacs/emacs-plus-29.nix {
-          inherit (emacs-overlay.packages) emacs-unstable;
-        };
-        emacs-plus-edge = callPackage ./applications/editors/emacs/emacs-plus-edge.nix {
-          inherit (emacs-overlay.packages) emacs-git;
-        };
-        epson-201212w = callPackage ./misc/drivers/epson_201212w { };
-        ddi = callPackage ./tools/system/dd/ddi.nix { };
-        firefox-ui-fix = callPackage ./data/themes/firefox-ui-fix { };
-        fzf-tab-completion = callPackage ./shells/fzf-tab-completion/package.nix { };
+      packages = inputs.flake-utils.lib.filterPackages system ({
+        base16-schemes = callPackage ./base16-schemes/package.nix { };
+        ddi = callPackage ./ddi/package.nix { };
+        fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
+        git-repo-manager = callPackage ./git-repo-manager/package.nix { };
+        igr = callPackage ./igr/package.nix { };
+        tinty = callPackage ./tinty/package.nix { };
+        tomlfmt = callPackage ./tomlfmt/package.nix { };
+
+        # TODO: not ready
+        # wp-cli = callPackage ./wp-cli/package.nix { };
 
         ##: gh cli extensions
-        gh-i = callPackage ./by-name/gh/gh-i/package.nix { };
-        gh-repo-explore = callPackage ./by-name/gh/gh-repo-explore/package.nix { };
-        gh-s = callPackage ./by-name/gh/gh-s/package.nix { };
-
-        git-repo-manager = callPackage ./git-repo-manager/package.nix { };
-        igr = callPackage ./tools/text/igr { };
-        kitty-get-window-by-platform-id =
-          callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix
-            { };
-        kitty-grab = callPackage ./tools/misc/kitty-grab/package.nix { };
-        tinty = callPackage ./tinty/package.nix { };
-        tomlfmt = callPackage ./by-name/to/tomlfmt/package.nix { };
-        synadm = callPackage ./development/tools/misc/synadm { };
-        wp-cli = callPackage ./wp-cli/package.nix { };
+        gh-i = callPackage ./gh/gh-i/package.nix { };
+        gh-repo-explore = callPackage ./gh/gh-repo-explore/package.nix { };
+        gh-s = callPackage ./gh/gh-s/package.nix { };
 
         ##: fonts
-        berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix { };
-        sf-pro = callPackage ./data/fonts/sf-pro { };
+        berkeley-mono = callPackage ./berkeley-mono/package.nix { };
+        sf-pro = callPackage ./sf-pro/package.nix { };
       });
     };
 }
