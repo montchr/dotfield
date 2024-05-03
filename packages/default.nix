@@ -43,6 +43,7 @@ in
           callPackage ./applications/terminal-emulators/kitty/get-window-by-platform-id.nix
             { };
         kitty-grab = callPackage ./tools/misc/kitty-grab/package.nix { };
+        tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./by-name/to/tomlfmt/package.nix { };
         synadm = callPackage ./development/tools/misc/synadm { };
 
