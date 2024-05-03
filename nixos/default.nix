@@ -1,11 +1,11 @@
 {
-  lib,
   self,
   withSystem,
   ops,
   ...
 }:
 let
+  inherit (self) inputs;
   inherit (self.inputs)
     haumea
     home-manager
@@ -37,10 +37,14 @@ let
 
   makeNixosSystem =
     hostName:
-    nixosArgs@{ system, ... }:
+    nixosArgs@{
+      channel ? "unstable",
+      system,
+      ...
+    }:
     withSystem system (
       { pkgs, ... }:
-      nixpkgs.lib.nixosSystem {
+      inputs."nixos-${channel}".lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit sharedProfiles profiles;
