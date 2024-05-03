@@ -55,7 +55,15 @@ in
   };
 
   # Passwordless sudo when SSH'ing with keys
-  security.pam.sshAgentAuth.enable = true;
+  # NOTE: Specifying user-writeable files will result in an insecure
+  #       configuration.
+  #       A malicious process can then edit such an authorized_keys file and
+  #       bypass the ssh-agent-based authentication.  See NixOS/nixpkgs#31611
+  security.pam.sshAgentAuth = {
+    enable = true;
+    # Matches new default from nixpkgs#31611
+    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+  };
 
   # TODO: reduce number of keys with access
   users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
