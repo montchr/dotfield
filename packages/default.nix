@@ -46,6 +46,7 @@ in
         tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./by-name/to/tomlfmt/package.nix { };
         synadm = callPackage ./development/tools/misc/synadm { };
+        wp-cli = callPackage ./wp-cli/package.nix { };
 
         ##: fonts
         berkeley-mono = callPackage ./data/fonts/berkeley-mono/default.nix { };
