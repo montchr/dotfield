@@ -53,9 +53,6 @@
     #: rust +lsp
     rust-analyzer
 
-    #: rst
-    rst2pdf
-
     #: sh
     nodePackages.bash-language-server
 
