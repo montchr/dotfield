@@ -50,6 +50,7 @@ in
       else
         emacs-overlay.packages.emacs-unstable-pgtk;
     extraPackages = epkgs: [
+      epkgs.jinx
       epkgs.pdf-tools
       epkgs.treesit-grammars.with-all-grammars
       epkgs.treesit-auto
