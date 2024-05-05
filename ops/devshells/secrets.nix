@@ -42,7 +42,8 @@ in
           (cmd pkgs.rage)
           (cmd pkgs.sops)
           (cmd pkgs.ssh-to-age)
-          (cmd pkgs.yubikey-manager)
+          # FIXME: broken on nixos-unstable 2024-05-05
+          # (cmd pkgs.yubikey-manager)
           {
             inherit category;
             name = "sops-update-all-keys";

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.yubikey-manager ];
+  # FIXME: broken on nixos-unstable 2024-05-05
+  # home.packages = [ pkgs.yubikey-manager ];
 
   programs.gpg.scdaemonSettings = {
     disable-ccid = true;
