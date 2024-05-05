@@ -24,7 +24,6 @@ in
   ];
 
   home = {
-    packages = [ packages.kitty-get-window-by-platform-id ];
     sessionVariables."KITTY_CONFIG_DIRECTORY" = "${xdg.configHome}/kitty";
     inherit shellAliases;
   };
