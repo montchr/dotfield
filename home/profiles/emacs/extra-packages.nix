@@ -3,17 +3,15 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    gnutls
     (ripgrep.override { withPCRE2 = true; })
-    fd
 
     imagemagick # for image-dired
     zstd # for compression in supported contexts
 
     editorconfig-core-c
 
-    ##: === writing ===
-
+    ##: writing
+    languagetool
     (aspellWithDicts (
       ds: with ds; [
         en
@@ -21,54 +19,21 @@
         en-science
       ]
     ))
-    languagetool
 
-    ##: === lang/lsp ===
+    # the typescript executable is a required peer dependency for many
+    # nodejs-based language servers
+    # TODO: hopefully remove this
+    # nodePackages.typescript
 
-    # typescript is a required peer dependency for many language servers.
-    nodePackages.typescript
-
-    #: docker
-    nodePackages.dockerfile-language-server-nodejs
-
-    #: css
-    nodePackages.vscode-css-languageserver-bin
-
-    #: js
-    nodePackages.eslint
-    nodePackages.typescript-language-server
-
-    #: json
-    nodePackages.vscode-json-languageserver
-
-    #: markdown
-    nodePackages.unified-language-server
-
-    #: php
-    nodePackages.intelephense
-
-    #: ruby
-    rubyPackages.solargraph
-
-    #: rust +lsp
-    rust-analyzer
-
-    #: sh
     nodePackages.bash-language-server
-
-    #: tailwindcss
-    nodePackages.tailwindcss
-
-    #: toml
-    taplo-lsp
-
-    #: web-mode
-    nodePackages.js-beautify
-    nodePackages.stylelint
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.typescript-language-server
+    nodePackages.vscode-css-languageserver-bin
     nodePackages.vscode-html-languageserver-bin
-    #: yaml
+    nodePackages.vscode-json-languageserver
     nodePackages.yaml-language-server
-    #: vimrc
-    nodePackages.vim-language-server
+    taplo-lsp # toml
+
+    # nodePackages.intelephense # php (unfree)
   ];
 }
