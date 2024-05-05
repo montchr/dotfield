@@ -50,7 +50,6 @@ in
 
   gnome = desktop ++ [
     profiles.desktop.gnome-desktop
-    profiles.desktop.nixpkgs-wayland
     profiles.login.gdm
   ];
 
