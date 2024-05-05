@@ -3,8 +3,6 @@ let
   inherit (lib) mkDefault;
 in
 {
-  environment.systemPackages = with pkgs; [ font-manager ];
-
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
