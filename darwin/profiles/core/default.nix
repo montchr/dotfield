@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ./__home-manager.nix
     ./homebrew.nix
     ./nix-config.nix
     ./stty-kludge.nix
