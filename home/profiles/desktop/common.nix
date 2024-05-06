@@ -13,8 +13,10 @@
   ];
 
   home.packages = [
-    # HACK: The `gap` plugin is broken upstream, and I have no intent on using it anyway.
-    # FIXME: Remove the override when merged: <https://github.com/NixOS/nixpkgs/pull/295257>
+    # HACK: The `gap` plugin requires building from source due to continual
+    # breakages and security issues, and I have no intent on using it anyway.
+    # <https://github.com/NixOS/nixpkgs/pull/295257>
+    # TODO: save as custom package elsewhere
     (pkgs.gimp-with-plugins.override {
       plugins =
         let
