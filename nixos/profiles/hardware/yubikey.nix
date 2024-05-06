@@ -1,13 +1,11 @@
 { lib, pkgs, ... }:
 {
-  services.pcscd.enable = true;
+  # using this requires use of `disable-ccid` in scdaemon.conf,
+  # and even still, it may be the cause of breaking pinentry for me 2024-05-05?
+  # <https://github.com/colemickens/nixcfg/blob/9baee703ddbba93250ef2feb74b25fb3625cbc12/mixins/gpg-agent.nix>
+  services.pcscd.enable = false;
 
   hardware.gpgSmartcards.enable = true;
-
-  environment.systemPackages = [
-    # FIXME: <https://github.com/NixOS/nixpkgs/issues/280826>
-    pkgs.pcscliteWithPolkit.out
-  ];
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
