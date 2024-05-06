@@ -25,6 +25,8 @@ in
   # TODO: gtk4?
   qt.platformTheme.name = "gtk3";
 
+  services.gnome-keyring.enable = true;
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       clock-show-seconds = lib.mkDefault false;
