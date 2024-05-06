@@ -14,7 +14,7 @@ in
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    shell = pkgs.zsh;
+    shell = pkgs.bashInteractive;
   };
 
   home-manager.users.${username} =
@@ -23,6 +23,7 @@ in
       imports = features.workstation ++ [
         profiles.desktop.applications.microsoft-teams
         profiles.development.work.default
+        profiles.shells.fish.trampoline
 
         {
           # The trackpad on this device is huge, and I always end up touching
