@@ -1,18 +1,15 @@
-{ flake, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  l = flake.inputs.nixpkgs.lib // builtins;
+
   plugin = pkg: { inherit (pkg) name src; };
 in
 {
-  imports = [
-    ../common.nix
-    ./__fzf-integration.nix
-  ];
+  imports = [ ../common.nix ];
 
   programs.fish = {
     enable = true;
-    plugins = l.map plugin (
+    plugins = builtins.map plugin (
       with pkgs.fishPlugins;
       [
         autopair
@@ -23,6 +20,6 @@ in
     );
   };
 
-  programs.fzf.enableFishIntegration = l.mkDefault true;
+  programs.fzf.enableFishIntegration = lib.mkDefault true;
   programs.neovim.plugins = with pkgs.vimPlugins; [ vim-fish ];
 }
