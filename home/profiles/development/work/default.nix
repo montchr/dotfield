@@ -1,8 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
-    ./aws.nix
-    ./common.nix
+    ../common.nix
+    ../aws.nix
+
+    ./ssh.nix
   ];
 
   home.packages = [

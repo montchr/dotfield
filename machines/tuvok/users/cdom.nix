@@ -25,7 +25,7 @@ in
     {
       imports = features.workstation ++ [
         profiles.desktop.applications.microsoft-teams
-        profiles.development.work
+        profiles.development.work.default
 
         {
           # The trackpad on this device is huge, and I always end up touching
