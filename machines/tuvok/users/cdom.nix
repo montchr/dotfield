@@ -23,6 +23,7 @@ in
       imports = features.workstation ++ [
         profiles.desktop.applications.microsoft-teams
         profiles.development.work.default
+        profiles.gpg.with-ssh-support
         profiles.shells.fish.trampoline
         profiles.shells.prompts.starship.default
 

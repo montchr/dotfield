@@ -24,7 +24,7 @@ in
 
     services.gpg-agent = {
       enable = true;
-      enableSshSupport = false;
+      enableSshSupport = lib.mkDefault false;
       pinentryPackage = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry-gnome3;
       sshKeys = [ key ];
     };
