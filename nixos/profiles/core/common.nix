@@ -16,6 +16,7 @@ in
   imports = [
     ./nix-config.nix
     ./system-tools.nix
+    ./__nh.nix
   ];
 
   networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;

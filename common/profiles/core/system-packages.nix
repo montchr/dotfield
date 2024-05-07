@@ -25,6 +25,7 @@
     jq
     less
     moreutils
+    nh # yet another nix cli helper :: <https://github.com/viperML/nh>
     nmap
     nushell
     openssh
