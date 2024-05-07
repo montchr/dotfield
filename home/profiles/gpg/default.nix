@@ -48,13 +48,9 @@ in
       # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
       # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
       settings = {
-        # Keyserver URL
-        # TODO: some of these might be dead
-        # TODO: there's a new and better one
         keyserver = "hkps://keys.openpgp.org";
-        # keyserver hkps://keyserver.ubuntu.com:443
-        # keyserver hkps://hkps.pool.sks-keyservers.net
-        # keyserver hkps://pgp.ocf.berkeley.edu
+        # keyserver = "hkps://keys.mailvelope.com";
+        # keyserver = "hkps://keyserver.ubuntu.com";
       };
     };
   };
