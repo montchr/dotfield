@@ -57,7 +57,7 @@ let
   ];
 
   trusted = [
-    homeProfiles.gpg
+    homeProfiles.gpg.default
     homeProfiles.secrets.password-store
     homeProfiles.secrets.rbw
   ];
