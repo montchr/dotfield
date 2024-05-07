@@ -24,6 +24,7 @@ in
         profiles.desktop.applications.microsoft-teams
         profiles.development.work.default
         profiles.shells.fish.trampoline
+        profiles.shells.prompts.starship.default
 
         {
           # The trackpad on this device is huge, and I always end up touching
