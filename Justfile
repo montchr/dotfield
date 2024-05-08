@@ -6,13 +6,8 @@
 default:
   @just --choose
 
-##: feedback
-icon-ok := '✔'
-msg-ok := icon-ok + " OK"
-msg-done := icon-ok + " Done"
-
 ##: legal/reuse
-copyright := 'Chris Montgomery <chris@cdom.io>'
+copyright := 'Chris Montgomery <chmont@proton.me>'
 default-license := 'GPL-3.0-or-later'
 docs-license := 'CC-BY-SA-4.0'
 public-domain-license := 'CC0-1.0'
@@ -27,161 +22,91 @@ prj-root := env_var('PRJ_ROOT')
 prj-data := env_var('PRJ_DATA_HOME')
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
-# FIXME: works on darwin, broken on linux due to stray backslashes before slashes
-# hm-gen-path := `home-manager generations | head -1 | grep -Eo '\/nix\/store.+$'`
-#
-# FIXME: when running just with sudo, no generations available:
-# ls: cannot access 'home-manager-*-link': No such file or directory
-# TODO: does this work on darwin? it *should*, because we *should not* use different grep commands...
+
 hm-gen-path := `home-manager generations | head -1 | grep -Eo '/nix/store.+$'`
 hm-specialisation-path := hm-gen-path / "specialisations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
-sys-cmd := if os() == "linux" {
-  "nixos-rebuild"
-} else if os() == "macos" {
-  "darwin-rebuild"
-} else { "nix build" }
+# <- Rebuild the system and provide a summary of the changes
+build *ARGS='':
+  {{cachix-exec}} nh -- os build "{{prj-root}}" {{ARGS}}
 
+# <- Rebuild the system and switch to the next generation
+switch *ARGS='':
+  {{cachix-exec}} nh -- os switch "{{prj-root}}" {{ARGS}}
 
-###: UTILITIES =================================================================
+home args:
+  {{cachix-exec}} nh -- home {{prj-root}} {{args}}
 
-# TODO: allow raw input (needs multiline string format but it works in repl):
-# builtins.fromJSON ''
-#  {"foo": "bar"}
-# ''
+home-specialise name:
+  nh home switch {{prj-root}} -s {{name}}
 
-# <- Convert a JSON file to a Nix expression
-json2nix file:
-  nix eval --expr 'builtins.fromJSON (builtins.readFile {{file}})' --impure
+# <- Run flake checks
+check *ARGS:
+    nix flake check --verbose {{ ARGS }}
 
-# <- Convert a TOML file to a Nix expression
-toml2nix file:
-  nix eval --expr 'builtins.fromTOML (builtins.readFile {{file}})' --impure
-
-# <- Generate a hashed password compatible with the NixOS options
-generate-hashed-password:
-  mkpasswd -m sha-512
-
-###: LINTING/FORMATTING ========================================================
-
-deadnix-params := '--no-underscore'
+# <- Inspect flake outputs
+inspect:
+  nix-inspect
 
 # <- Lint files
-lint: (deadnix '--fail')
+lint: (_deadnix '--fail')
   statix check
 
 # <- Write linter fixes to files
-fix: (deadnix "--edit")
+fix: (_deadnix "--edit")
   statix fix
 
 # <- Lint and format files
 fmt *FILES=prj-root:
   treefmt --no-cache {{FILES}}
 
-[private]
-deadnix ARGS='--fail':
+_deadnix method='--fail' *ARGS='--no-underscore':
   fd -t f -e nix --exclude='packages/**/*.nix' --exec-batch \
-    deadnix {{ARGS}} {{deadnix-params}}
+    deadnix {{method}} {{ARGS}}
   fd -t f -e nix . packages --exec-batch \
-    deadnix {{ARGS}} --no-lambda-pattern-names {{deadnix-params}}
+    deadnix {{method}} --no-lambda-pattern-names {{ARGS}}
 
-###: INTROSPECTION =============================================================
+###: GENERATE/CONVERT =================================================================
 
-check *ARGS:
-    nix flake check --verbose {{ ARGS }}
+# <- Generate a hashed password compatible with the NixOS options
+generate-hashed-password:
+  mkpasswd -m sha-512
 
-# <- Diff the current + next system generations.
-diff-next-sys: (system "build")
-  nvd diff "{{sys-gen-path}}" "{{prj-root}}/result"
-  @echo {{msg-done}}
+# TODO: allow raw input (needs multiline string format but it works in repl):
+# builtins.fromJSON ''
+#  {"foo": "bar"}
+# ''
+# <- Convert a JSON file to a Nix expression
+nixify-json file:
+  nix eval --expr 'builtins.fromJSON (builtins.readFile {{file}})' --impure
 
-# <- Diff the current + next home generations.
-diff-next-home:
-  nvd diff {{hm-gen-path}} \
-    `nix build --print-out-paths {{prj-root}}#homeConfigurations.{{hm-fragment}}.activationPackage`
-  @echo {{msg-done}}
+# <- Convert a TOML file to a Nix expression
+nixify-toml file:
+  nix eval --expr 'builtins.fromTOML (builtins.readFile {{file}})' --impure
 
-
-###: SYSTEM ====================================================================
-
-# <- Rebuild the system and provide a summary of the changes
-build *ARGS='':
-  {{cachix-exec}} {{sys-cmd}} build -- \
-    {{ARGS}} --flake "{{prj-root}}"
-  @echo {{msg-done}}
-
-# FIXME: fails on nixos without sudo
-# <- Rebuild the system and switch to the next generation
-switch *ARGS='': (system "switch" ARGS)
-
-# <- Rebuild a host and push any new derivations to the binary cache
-system subcommand='build' *ARGS='':
-  sudo {{sys-cmd}} {{subcommand}} \
-    {{ARGS}} --flake "{{prj-root}}"
-  @echo {{msg-done}}
-
-
-###: HOME-MANAGER ==============================================================
-
-# FIXME: broken on nixos
-
-# <- Run the home-manager CLI for the project flake.
-home subcommand='build' *ARGS='':
-  home-manager {{subcommand}} --flake '{{prj-root}}' {{ARGS}}
-  @echo {{msg-done}}
-
-home-specialise name:
-  {{ hm-gen-path }}/specialisation/{{ name }}/activate
-
-###: GNOME/GTK =================================================================
-
-# NOTE: dconf2nix is currently unable to parse some of the settings due to
-# unexpected characters. For this reason, we must delete some of the settings from
-# the dump file before passing to dconf2nix. See the usage of `crudini` for CRUD
-# operations on the INI-like dump format.
-#
-# <https://github.com/pixelb/crudini>
-
+# <https://github.com/nix-community/dconf2nix>
 # <- Export current dconf/GNOME/GTK/gsettings as INI and Nix files
-dconf-export out=prj-data:
+nixify-dconf out=prj-data:
   dconf dump / > {{out}}/dconf.settings
-  crudini --del {{out}}/dconf.settings 'org/gnome/shell' 'app-picker-layout'
   dconf2nix \
     -i {{out}}/dconf.settings \
     -o {{out}}/dconf.settings.nix
   bat --style=plain --paging=never \
     {{out}}/dconf.settings.nix
   @echo 'Exported to {{out}}'
-  @echo {{msg-done}}
-
-
-###: EMACS =====================================================================
-
-emacs-load-theme-dark := "(load-theme 'modus-vivendi-tinted t)"
-emacs-load-theme-light := "(load-theme 'modus-operandi-tinted t)"
-
-# <- Evaluate elisp via `emacsclient`
-emacs-eval elisp:
-  emacsclient --no-wait --eval "{{elisp}}" >/dev/null
-
-# Toggle the current Emacs theme between light<->dark
-[private]
-set-emacs-theme mode='dark': (emacs-eval if mode == 'dark' { emacs-load-theme-dark } else { emacs-load-theme-light } )
-
 
 ###: THEME =====================================================================
 
-# <https://nix-community.github.io/home-manager/options.html#opt-specialisation>
-# This is safe to use even with a dirty working tree because the themes are
-# activated by way of the current generation's specialisation activation scripts.
+emacs-eval-cmd := "emacsclient --no-wait --eval"
+kitty-set-colors-cmd := "kitty @set-colors -a -c"
+gtk-ui-schema := "org.gnome.desktop.interface"
 
-# NOTE: home-manager requires re-activating a base generation before loading a specialization.
-#       A specialisation is not available within a specialisation.
-#       This is an upstream limitation:
-#       <https://github.com/nix-community/home-manager/issues/4073>
 # <- Set the theme for all applications
-theme kind='dark': && (home-specialise kind) (set-system-appearance kind) (set-emacs-theme kind)
+[linux]
+theme kind='dark': && (wm-set-theme kind) (kitty-set-theme kind)
+  nh home switch {{prj-root}} -s {{kind}}
+  {{emacs-eval-cmd}} '(ceamx/load-{{kind}}-theme)'
 
 # <- Use the 'light' theme for all applications
 light: (theme "light")
@@ -189,45 +114,35 @@ light: (theme "light")
 # <- Use the 'dark' theme for all applications
 dark: (theme "dark")
 
-##: --- kitty ---
-
 # <- Switch the current kitty theme
-set-kitty-theme kind='dark':
+kitty-set-theme kind='dark':
   @echo "Setting kitty '{{ kind }}' theme"
-  kitty @set-colors -a -c $KITTY_CONFIG_DIRECTORY/theme-{{ kind }}.conf
-  @echo {{ msg-done }}
+  {{kitty-set-colors-cmd}} $KITTY_CONFIG_DIRECTORY/theme-{{ kind }}.conf
 
-
-##: --- gtk ---
-
-gtk-ui-schema := "org.gnome.desktop.interface"
-
+[private]
 [linux]
-colors-gtk command='get' kind='':
+gtk-theme command='get' kind='':
   gsettings {{ command }} {{ gtk-ui-schema }} color-scheme \
     {{ if command == 'set' { "prefer-" + kind } else { '' } }}
 
-# FIXME: rename -- gtk is not a "system" - it's a ui framework
-# <- Switch the current GTK theme kind (default: dark)
+# <- Switch the current GTK theme kind [default: dark]
 [private]
 [linux]
-set-system-appearance kind="dark": (colors-gtk "set" kind)
-
+wm-set-theme kind="dark": (gtk-theme "set" kind)
 
 ##: --- macOS ---
 
 applescript-dark-mode := 'tell app "System Events" to tell appearance preferences to set dark mode to '
 
+[macos]
 _mac-dark-mode value:
   osascript -e {{ quote( applescript-dark-mode + value ) }}
-
 
 # <- Toggle the current system theme between light<->dark
 [private]
 [macos]
-set-system-appearance mode="toggle":
-  {{ if mode == "dark" { "just _mac-dark-mode 'true'" } else if mode == "light" { "just _mac-dark-mode 'false'" } else { "just _mac-dark-mode 'not dark mode'" } }}
-
+wm-set-theme kind='dark':
+  {{ if kind == "dark" { "just _mac-dark-mode 'true'" } else if kind == "light" { "just _mac-dark-mode 'false'" } else { "just _mac-dark-mode 'not dark mode'" } }}
 
 ###: LICENSING =================================================================
 
