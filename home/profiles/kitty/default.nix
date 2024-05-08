@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (flake.perSystem) packages;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) xdg;
 
@@ -19,8 +18,8 @@ let
 in
 {
   imports = [
-    ./settings.nix
-    ./symbols.nix
+    ./__settings.nix
+    ./__symbols.nix
   ];
 
   home = {
