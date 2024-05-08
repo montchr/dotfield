@@ -39,9 +39,8 @@ in
     nixPath = [
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
-      "darwin=${inputs.darwin}"
       "/etc/nix/inputs"
-    ];
+    ] ++ (lib.optionals isDarwin [ "darwin=${inputs.darwin}" ]);
     registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
     settings = {
       # Builds have recently become unusably interrupted on Darwin
