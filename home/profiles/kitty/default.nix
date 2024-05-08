@@ -27,13 +27,22 @@ in
     inherit shellAliases;
   };
 
+  # TODO: ugh
+  # xdg.configFile = {
+  #   "kitty/themes" = {
+  #     source = flake.outPath + "/config/"
+  #   };
+  #   };
+
   programs.kitty = {
     enable = true;
     # TODO: prob don't need the conditional
     darwinLaunchOptions = lib.mkIf isDarwin [ "--single-instance" ];
     keybindings = {
       # Open new windows from the current session's working directory.
-      # Tabs are intentionally left alone, to allow for choosing either behavior.
+      # Tabs are intentionally left alone, to allow for choosing either
+      # behavior.
+      # FIXME: does not work well with ssh sessions
       "kitty_mod+enter" = "new_window_with_cwd";
     };
   };
