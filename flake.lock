@@ -12,11 +12,11 @@
         "std": "std"
       },
       "locked": {
-        "lastModified": 1713794664,
-        "narHash": "sha256-Hjv9I5kuBOoKT5soV7ji4B9ckXNUIN3d82QpIdkVoWA=",
+        "lastModified": 1715185037,
+        "narHash": "sha256-uZX5+Mxa+YnkgV00ERuH2HE2zPHh7vBEI3jJd9YlBog=",
         "owner": "~montchr",
         "repo": "apparat",
-        "rev": "71a95bccbdcb6ff4833facbca3a93cc46ce06d95",
+        "rev": "42049dd36f62f342be3f21bee5052f13c6ab3810",
         "type": "sourcehut"
       },
       "original": {
