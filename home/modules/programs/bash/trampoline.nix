@@ -1,7 +1,14 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  cfg = config.programs.bash.trampoline;
   inherit (lib) types;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+
+  cfg = config.programs.bash.trampoline;
 in
 {
   options.programs.bash.trampoline = {
@@ -32,14 +39,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # FIXME: does not work on darwin -- args don't work w/darwin `ps` + $PPID not set
-    # if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-    programs.bash.initExtra = lib.mkAfter ''
-      if [[ -z ''${BASH_EXECUTION_STRING} ]]
-      then
-      	shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${lib.getExe cfg.shell.package} $LOGIN_OPTION
-      fi
-    '';
+    programs.bash.initExtra =
+      let
+        shell = cfg.shell.package.pname;
+        shouldLaunch =
+          (lib.optionalString isLinux "$(ps --no-header --pid=$PPID --format=comm) != ${shell} && ")
+          + ''-z ''${BASH_EXECUTION_STRING}'';
+      in
+      lib.mkAfter ''
+        if [[ ${shouldLaunch} ]]
+        then
+            shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+            exec ${shell} $LOGIN_OPTION
+        fi
+      '';
   };
 }
