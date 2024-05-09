@@ -1,5 +1,10 @@
 {
   programs.ssh.matchBlocks = {
+    "kw-ispr" = {
+      user = "isprsite";
+      hostname = "35.236.219.140";
+      port = 24919;
+    };
     "kw-www" = {
       hostname = "67.225.164.90";
       port = 5623;
