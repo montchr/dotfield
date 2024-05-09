@@ -11,15 +11,13 @@ let
 
   cfg = config.programs.emacs;
 
-  # FIXME: doesn't work as $EDITOR
+  # via <https://github.com/nix-community/home-manager/blob/80546b220e95a575c66c213af1b09fe255299438/modules/services/emacs.nix#L186C1-L191C11>
   editorPkg = pkgs.writeShellScriptBin "editor" ''
-    exec ${lib.getBin cfg.package}/bin/emacsclient \
-      "''${@:---create-frame}"
+    exec ${lib.getBin cfg.package}/bin/emacsclient "''${@:---create-frame}"
   '';
 
   sessionVariables = {
-    # via <https://github.com/nix-community/home-manager/blob/80546b220e95a575c66c213af1b09fe255299438/modules/services/emacs.nix#L186C1-L191C11>
-    EDITOR = lib.getBin (editorPkg);
+    EDITOR = lib.getExe editorPkg;
   };
 in
 {
