@@ -1,5 +1,6 @@
 [
   ./modules/cod.nix
+  # FIXME: update!!! or, better, remove!
   ./modules/syncthing.nix
 
   ./modules/dotfield/paths.nix
@@ -12,6 +13,4 @@
   ./modules/programs/emacs/emacs-notmuch.nix
   ./modules/programs/liquidprompt.nix
   ./modules/programs/tealdeer.nix
-
-  ./modules/services/emacs.nix
 ]
