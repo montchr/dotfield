@@ -2,8 +2,7 @@
 #+author: Chris Montgomery <chmont@proton.me>
 #+language: en
 
-[[https://builtwithnix.org][[[https://builtwithnix.org/badge.svg]]]]
-
+[[https://builtwithnix.org][https://builtwithnix.org/badge.svg]]
 
 #+begin_quote
 The map is open and connectable in all of its dimensions; it is
