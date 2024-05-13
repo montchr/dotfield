@@ -33,7 +33,6 @@ in
     { profiles, features, ... }:
     {
       imports = features.workstation ++ [
-        profiles.emacs.emacs-init
         profiles.shells.fish.default
         profiles.spotify
         profiles.qutebrowser

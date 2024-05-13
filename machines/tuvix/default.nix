@@ -61,7 +61,6 @@ in
         profiles.os-specific.darwin.app-launcher-trampoline
         profiles.os-specific.darwin.yabai
 
-        profiles.emacs.emacs-init
         profiles.shells.fish.default
       ];
       home.stateVersion = "22.05";

@@ -16,7 +16,6 @@ in
     { features, profiles, ... }:
     {
       imports = features.workstation ++ [
-        profiles.emacs.emacs-init
         # TODO: consider renaming these -- "default" is a little confusing
         # sometimes, e.g. in this case it could be interpreted as the default
         # user shell.
