@@ -14,13 +14,19 @@ let
 in
 {
   flake = {
-    # FIXME: invert this approach -- make system configs import pre-defined home
+    # TODO: invert this approach -- make system configs import pre-defined home
     # configs or something like that. see ~misterio77/nixos-config
     homeConfigurations =
       (mkHomeConfigurations config.flake.nixosConfigurations)
       // (mkHomeConfigurations config.flake.darwinConfigurations);
-    # FIXME: re-expose with haumea?
-    # inherit homeModules;
+
+    homeModules = {
+      "theme" = import ./modules/theme/default.nix;
+      "whoami" = import ./modules/dotfield/whoami.nix;
+      "programs/bash/trampoline" = import ./modules/programs/bash/trampoline.nix;
+      "programs/cod" = import ./modules/programs/cod.nix;
+      "programs/liquidprompt" = import ./modules/programs/liquidprompt.nix;
+    };
   };
 
   perSystem = _perSystem: {
