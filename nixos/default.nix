@@ -69,7 +69,9 @@ let
     );
 in
 {
-  flake.nixosModules = nixosModules;
+  flake.nixosModules = {
+    "hardware/keyboard/keyboardio" = import ./modules/hardware/keyboard/keyboardio;
+  };
 
   flake.nixosConfigurations = {
     # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
