@@ -1,1 +1,1 @@
-[ ./modules/hardware/keyboard/keyboardio/module.nix ]
+[ ./modules/hardware/keyboard/keyboardio/default.nix ]
