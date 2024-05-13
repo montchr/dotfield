@@ -1,5 +1,4 @@
 [
-  ./modules/cod.nix
   # FIXME: update!!! or, better, remove!
   ./modules/syncthing.nix
 
@@ -8,6 +7,7 @@
   ./modules/theme/default.nix
 
   ./modules/programs/bash/trampoline.nix
+  ./modules/programs/cod.nix
   ./modules/programs/liquidprompt.nix
   ./modules/programs/tealdeer.nix
 ]
