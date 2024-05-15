@@ -6,12 +6,12 @@
   ];
 
   home.packages = [
-    # TODO: add as flycheck/flymake check
-    pkgs.dotenv-linter # <https://dotenv-linter.github.io/#/?id=dotenv-linter>
-
+    pkgs.asciinema
+    pkgs.dotenv-linter
     pkgs.nodePackages.prettier
-
-    # TODO: disabled because i don't remember why i added it
-    # pkgs.nodePackages.terser
+    pkgs.shfmt
+    pkgs.shellcheck
+    pkgs.universal-ctags
+    pkgs.yamllint
   ];
 }

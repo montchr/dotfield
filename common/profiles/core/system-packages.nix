@@ -10,8 +10,11 @@
     curl
     dig
     dnsutils
+    du-dust
+    dua
     eza
     fd
+    file
     findutils
     fish
     gawk
@@ -24,12 +27,14 @@
     ijq # <- interactive jq :: <https://git.sr.ht/~gpanders/ijq>
     jq
     less
+    lnav
     moreutils
     nh # yet another nix cli helper :: <https://github.com/viperML/nh>
     nmap
     nushell
     openssh
     openssl
+    procs
     rclone
     (ripgrep.override { withPCRE2 = true; })
     rsync
@@ -37,28 +42,13 @@
     sd
     tealdeer
     ugrep
+    unzip
     vim
     wget
-    # FIXME: <https://github.com/NixOS/nixpkgs/issues/260552>
-    # whois
+    whois
+    yq
     zellij
 
     (if stdenv.hostPlatform.isDarwin then clang else gcc)
-
-    ## === System Monitoring ===
-
-    dua # <- learn about the disk usage of directories, fast!
-    lnav # <- log file navigator
-    procs # <- a "modern" replacement for ps
-
-    ## === Files ===
-
-    du-dust # <- like du but more intuitive
-    file # <- a program that shows the type of files
-    unzip # <- *.zip archive extraction utility
-
-    ## === Nix Helpers ===
-
-    comma # <- "run software without installing it"
   ];
 }

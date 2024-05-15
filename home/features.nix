@@ -35,7 +35,6 @@ let
     homeProfiles.keyboard.default
     homeProfiles.kitty.default
     homeProfiles.foot
-    homeProfiles.misc
     homeProfiles.media-client
     homeProfiles.spotify
     homeProfiles.theme.default
@@ -48,7 +47,6 @@ let
   personalised = [
     homeProfiles.apple-music
     homeProfiles.espanso.default
-    homeProfiles.misc
     homeProfiles.newsboat
     homeProfiles.obs-studio
     homeProfiles.rclone
@@ -80,6 +78,7 @@ let
         homeProfiles.desktop.applications.okular
         homeProfiles.desktop.applications.xournal
         homeProfiles.development.common
+        homeProfiles.development.data-wrangling
         homeProfiles.emacs.default
         homeProfiles.emacs.org-protocol
         homeProfiles.git.repo-manager

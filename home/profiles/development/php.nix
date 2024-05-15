@@ -7,9 +7,9 @@
     # pkgs.php
     # pkgs.phpPackages.composer
 
-    pkgs.php-cs-fixer
     pkgs.phpactor
-    pkgs.psysh
+    pkgs.phpPackages.php-cs-fixer
+    pkgs.phpPackages.psysh
     pkgs.wp-cli
 
     # Provides DAP connection to Xdebug for editor support
