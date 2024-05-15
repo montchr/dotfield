@@ -22,6 +22,7 @@
         ];
         imports = [
           inputs.devshell.flakeModule
+          inputs.pre-commit-hooks.flakeModule
 
           {
             _module.args = {
@@ -38,6 +39,7 @@
           ./darwin
 
           ./ops/devshells
+          ./ops/git-hooks.nix
 
           ./hive.nix
         ];
