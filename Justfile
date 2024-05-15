@@ -73,6 +73,14 @@ _deadnix method='--fail' *ARGS='--no-underscore':
 generate-hashed-password:
   mkpasswd -m sha-512
 
+# <- Convert a YAML file to a Nix expression
+nixify-yaml file:
+  just nixify-json <(yq '.' {{file}})
+
+# or, without recursive just:
+# nixify-yaml file: && (nixify-json prj-data / file_stem(file) + ".json")
+#   yq '.' '{{file}}' > {{prj-data / file_stem(file)}}.json
+
 # TODO: allow raw input (needs multiline string format but it works in repl):
 # builtins.fromJSON ''
 #  {"foo": "bar"}
