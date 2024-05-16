@@ -5,10 +5,15 @@
       hostname = "35.236.219.140";
       port = 24919;
     };
-    "kwg-tutv" = {
+    "kwg-tutv-prod" = {
       user = "templetv";
       hostname = "35.236.219.140";
       port = 38736;
+    };
+    "kwg-tutv-staging" = {
+      user = "templetv";
+      hostname = "35.236.219.140";
+      port = 59770;
     };
     "kwg-www" = {
       hostname = "67.225.164.90";
