@@ -67,6 +67,12 @@ _deadnix method='--fail' *ARGS='--no-underscore':
   fd -t f -e nix . packages --exec-batch \
     deadnix {{method}} --no-lambda-pattern-names {{ARGS}}
 
+# <- Generate a Nix package expression from a URL
+init-package pname url:
+  nix-init --url {{url}} packages/{{pname}}/package.nix
+  @echo "Add this to packages/default.nix:"
+  @echo '{{pname}} = callPackage ./{{pname}}/package.nix { };'
+
 ###: GENERATE/CONVERT =================================================================
 
 # <- Generate a hashed password compatible with the NixOS options
