@@ -5,7 +5,7 @@
       # FIXME: must be added to devshell but numtide/devshell is inflexible
       pre-commit = {
         check.enable = true;
-        settings = {
+        settings.hooks = {
           # Lint GitHub Actions workflow files.
           actionlint.enable = true;
           check-added-large-files.enable = true;
