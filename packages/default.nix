@@ -20,6 +20,9 @@
 
         vscode-php-debug = callPackage ./vscode-php-debug/package.nix { };
 
+        ##: fish shell plugins
+        fish-plugin-fifc = callPackage ./fish-plugin-fifc/package.nix { };
+
         ##: gh cli extensions
         gh-i = callPackage ./gh/gh-i/package.nix { };
         gh-repo-explore = callPackage ./gh/gh-repo-explore/package.nix { };

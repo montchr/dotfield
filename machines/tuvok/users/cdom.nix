@@ -25,6 +25,7 @@ in
         profiles.development.work.default
         profiles.gpg.with-ssh-support
         profiles.shells.fish.trampoline
+        profiles.shells.fish.with-fifc-completion
         profiles.shells.prompts.starship.default
 
         {
