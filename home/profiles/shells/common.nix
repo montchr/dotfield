@@ -18,7 +18,6 @@ in
       [ "/share/bash-completion" ]
       ++ (l.optional config.programs.fish.enable "/share/fish")
       ++ (l.optional config.programs.zsh.enable "/share/zsh");
-    packages = [ pkgs.carapace ];
   };
 
   programs.bash.shellAliases = shellAbbrs;
@@ -32,9 +31,11 @@ in
   #        but aliases don't come with.
   programs.nushell.shellAliases = shellAbbrs // shellAliases;
 
+  programs.dircolors.enable = l.mkDefault true;
+  programs.carapace.enable = true;
+
   programs.bat.enable = true;
   programs.bottom.enable = true;
-  programs.dircolors.enable = l.mkDefault true;
   programs.eza.enable = true;
   programs.info.enable = l.mkDefault true;
   programs.less.enable = true;
