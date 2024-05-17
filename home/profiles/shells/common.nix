@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
   shellAliases = import ./aliases.nix { inherit pkgs; };
   shellAbbrs = import ./abbrs.nix { inherit pkgs; };
@@ -26,7 +21,6 @@ in
   programs.nushell.shellAliases = shellAbbrs // shellAliases;
 
   programs.dircolors.enable = lib.mkDefault true;
-  programs.carapace.enable = true;
 
   programs.bat.enable = true;
   programs.bottom.enable = true;
