@@ -18,6 +18,5 @@ jobs:
 
       - name: Update flake packages
         uses: selfuryon/nix-update-action@v1
-
         with:
-          # blacklist: 'teku,lighthouse'
+          blacklist: 'sf-pro,tomlfmt'
