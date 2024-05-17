@@ -14,10 +14,6 @@ in
 
   home = {
     inherit shellAliases;
-    extraOutputsToInstall =
-      [ "/share/bash-completion" ]
-      ++ (l.optional config.programs.fish.enable "/share/fish")
-      ++ (l.optional config.programs.zsh.enable "/share/zsh");
   };
 
   programs.bash.shellAliases = shellAbbrs;
@@ -25,19 +21,17 @@ in
   programs.fish = {
     inherit shellAbbrs;
   };
-  # FIXME: does not inherit these or sessionVariables.
-  #        we get by without the sessionVariables
+  # FIXME: `home.shellAliases` and `home.sessionVariables` are not propagated
+  #        into the nushell session.  we get by without `home.sessionVariables`
   #        thanks to the trampoline.
-  #        but aliases don't come with.
   programs.nushell.shellAliases = shellAbbrs // shellAliases;
 
-  programs.dircolors.enable = l.mkDefault true;
+  programs.dircolors.enable = lib.mkDefault true;
   programs.carapace.enable = true;
 
   programs.bat.enable = true;
   programs.bottom.enable = true;
   programs.eza.enable = true;
-  programs.info.enable = l.mkDefault true;
+  programs.info.enable = true;
   programs.less.enable = true;
-  programs.lesspipe.enable = l.mkDefault true;
 }

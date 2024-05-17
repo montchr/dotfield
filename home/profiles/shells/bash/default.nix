@@ -11,6 +11,8 @@ let
   inherit (flake.perSystem.packages) fzf-tab-completion;
 in
 {
+  home.extraOutputsToInstall = [ "/share/bash-completion" ];
+
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -21,7 +23,7 @@ in
       "histverify"
     ];
     sessionVariables = {
-      BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
+      "BASH_COMPLETION_USER_FILE" = "${config.xdg.dataHome}/bash/completion";
     };
     historyFileSize = 100000;
     historySize = 100000;
@@ -44,12 +46,6 @@ in
     ];
 
     initExtra = lib.mkAfter ''
-      # Needs to be after prompt init since it overwrites PROMPT_COMMAND.
-      ${lib.optionalString (!config.programs.mcfly.enable) ''
-        PROMPT_COMMAND="''${PROMPT_COMMAND:+''${PROMPT_COMMAND/%;*( )};}history -a"
-        HISTTIMEFORMAT='%F %T '
-      ''}
-
       # Must C-d at least thrice to close shell.
       export IGNOREEOF=2
 

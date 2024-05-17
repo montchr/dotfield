@@ -20,6 +20,9 @@ in
     );
   };
 
+  # Install package-supplied completions.
+  home.extraOutputsToInstall = [ "/share/fish" ];
+
   programs.fzf.enableFishIntegration = lib.mkDefault true;
   programs.neovim.plugins = with pkgs.vimPlugins; [ vim-fish ];
 }
