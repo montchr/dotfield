@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chris@cdom.io>
+# SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: Copyright (c) 2019-2023 Robert Helgesson
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
 # Source: <https://gitlab.com/rycee/nur-expressions/-/blob/e62185746f8758e11a2fbca1e08e025f2b57e726/hm-modules/theme-base16/default.nix>

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 Chris Montgomery <chris@cdom.io>
+# SPDX-FileCopyrightText: 2023 Chris Montgomery <chmont@proton.me>
 # SPDX-License-Identifier: GPL-3.0-or-later
 { haumea }:
 let

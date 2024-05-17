@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 Chris Montgomery <chris@cdom.io>
+# SPDX-FileCopyrightText: 2023 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: 2022-2023 Luc Perkins <lucperkins@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-or-later OR MPL-2.0
 #
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see http://www.gnu.org/licenses/.
 #
-# Copyright (c) 2023 Chris Montgomery <chris@cdom.io>
+# Copyright (c) 2023 Chris Montgomery <chmont@proton.me>
 #
 # This file incorporates work covered by the following copyright and
 # permission notice:

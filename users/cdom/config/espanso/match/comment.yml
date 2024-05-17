@@ -51,7 +51,7 @@ matches:
             license: [[license]]
           fields:
             author:
-              default: Chris Montgomery <chris@cdom.io>
+              default: Chris Montgomery <chmont@proton.me>
             license:
               type: choice
               default: GPL-3.0-or-later

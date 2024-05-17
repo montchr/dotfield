@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chris@cdom.io>
+# SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: Copyright (c) 2019 Robert Helgesson
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
 { flake, ... }:
