@@ -1,11 +1,10 @@
 {
-  flake,
   config,
+  lib,
   pkgs,
   ...
 }:
 let
-  l = flake.inputs.nixpkgs.lib // builtins;
   shellAliases = import ./aliases.nix { inherit pkgs; };
   shellAbbrs = import ./abbrs.nix { inherit pkgs; };
 in
