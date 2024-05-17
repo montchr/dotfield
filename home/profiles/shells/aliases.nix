@@ -4,7 +4,7 @@
   "..." = "cd ../..";
 
   # FIXME: needs workaround for nushell
-  # e = "$EDITOR";
+  e = "$EDITOR";
 
   l = "${pkgs.eza}/bin/eza -bl --git --icons --time-style long-iso --group-directories-first";
 
