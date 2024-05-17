@@ -1,0 +1,23 @@
+---
+name: 'Update Flake Packages ❄️'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 0' # https://crontab.guru/#0_10_*_*_0
+
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update flake packages
+        uses: selfuryon/nix-update-action@v1
+
+        with:
+          # blacklist: 'teku,lighthouse'
