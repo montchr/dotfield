@@ -107,7 +107,7 @@
     ##: customisation
     base16-schemes.url = "github:montchr/nix-base16-schemes";
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
-    firefox-addons.url = "sourcehut:~montchr/firefox-addons";
+    firefox-addons.url = "github:seadome/firefox-addons";
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
 
     ##: apps/tools
