@@ -86,8 +86,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager-gpg-agent-darwin.url = "github:montchr/home-manager/gpg-agent-darwin";
-    home-manager-gpg-agent-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
