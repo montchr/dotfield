@@ -19,7 +19,7 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup binary cache
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v15
         with:
           name: dotfield
           extraPullNames: dotfield,nix-community,nixpkgs-wayland,seadome
