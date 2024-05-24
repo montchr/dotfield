@@ -21,6 +21,16 @@
 
         vscode-php-debug = callPackage ./vscode-php-debug/package.nix { };
 
+        aspell-with-dicts = (
+          pkgs.aspellWithDicts (
+            ds: with ds; [
+              en
+              en-computers
+              en-science
+            ]
+          )
+        );
+
         ##: fish shell plugins
         fish-plugin-fifc = callPackage ./fish-plugin-fifc/package.nix { };
 

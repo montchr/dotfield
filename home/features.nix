@@ -88,6 +88,7 @@ let
         homeProfiles.pandoc
         homeProfiles.sync
         homeProfiles.vhs
+        homeProfiles.writing
         homeProfiles.yubikey
       ];
   };

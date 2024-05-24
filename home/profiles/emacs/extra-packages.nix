@@ -10,21 +10,6 @@
 
     editorconfig-core-c
 
-    ##: writing
-    languagetool
-    (aspellWithDicts (
-      ds: with ds; [
-        en
-        en-computers
-        en-science
-      ]
-    ))
-
-    # the typescript executable is a required peer dependency for many
-    # nodejs-based language servers
-    # TODO: hopefully remove this
-    # nodePackages.typescript
-
     nodePackages.bash-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.typescript-language-server

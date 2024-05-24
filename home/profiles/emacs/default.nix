@@ -24,6 +24,8 @@ in
   imports = [
     # TODO: consolidate all extra non-elisp packages
     ./extra-packages.nix
+
+    ../writing.nix
   ];
 
   nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
@@ -48,7 +50,7 @@ in
       else
         emacs-overlay.packages.emacs-unstable-pgtk;
     extraPackages = epkgs: [
-      epkgs.jinx
+      (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
       epkgs.treesit-grammars.with-all-grammars
       epkgs.treesit-auto
@@ -58,8 +60,9 @@ in
   home.packages = [
     nil-lsp.packages.nil
 
-    pkgs.emacs-lsp-booster
     pkgs.fd
+    pkgs.emacs-lsp-booster
+    pkgs.enchant
     pkgs.nixd
     pkgs.ripgrep
 
