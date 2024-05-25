@@ -108,8 +108,6 @@ in
           exif.textconv = "${pkgs.exiftool}/bin/exiftool";
           colorMoved = "dimmed-zebra";
           tool = "ediff";
-          # `plutil` is a darwin utility
-          plist.textconv = "plutil -convert xml1 -o -";
         };
       }
     ];

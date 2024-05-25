@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config) xdg;
 
   shellAliases = {
@@ -36,8 +35,6 @@ in
 
   programs.kitty = {
     enable = true;
-    # TODO: prob don't need the conditional
-    darwinLaunchOptions = lib.mkIf isDarwin [ "--single-instance" ];
     keybindings = {
       # Open new windows from the current session's working directory.
       # Tabs are intentionally left alone, to allow for choosing either

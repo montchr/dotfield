@@ -41,7 +41,6 @@
 
         ##: fonts
         berkeley-mono = callPackage ./berkeley-mono/package.nix { };
-        sf-pro = callPackage ./sf-pro/package.nix { };
       });
     };
 }

@@ -5,7 +5,7 @@ moduleArgs@{
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   sessionVariables = {
     NNN_FIFO = "/tmp/nnn.fifo";
@@ -16,7 +16,8 @@ let
 
   kittyCfg = config.programs.kitty;
 
-  isGraphical = isMacOS || (moduleArgs.osConfig.services.xserver.enable or false);
+  # FIXME: false negative depending on osConfig
+  isGraphical = (moduleArgs.osConfig.services.xserver.enable or false);
 
   # TODO: add wezterm support; and whatabout zellij?
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;

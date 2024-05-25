@@ -16,7 +16,6 @@
 }:
 let
   inherit (flake) inputs;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inputFlakes = lib.filterAttrs (_: v: v ? outputs) inputs;
   inputsToPaths = lib.mapAttrs' (
     n: v: {
@@ -40,18 +39,16 @@ in
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
       "/etc/nix/inputs"
-    ] ++ (lib.optionals isDarwin [ "darwin=${inputs.darwin}" ]);
+    ];
     registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
     settings = {
-      # Builds have recently become unusably interrupted on Darwin
-      # <https://github.com/NixOS/nix/issues/7273>
-      auto-optimise-store = !isDarwin;
+      auto-optimise-store = lib.mkDefault true;
       builders-use-substitutes = true;
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      sandbox = lib.mkDefault (!isDarwin);
+      sandbox = lib.mkDefault true;
       allowed-users = [ "*" ];
       trusted-users = [
         "root"

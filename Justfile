@@ -144,20 +144,6 @@ gtk-theme command='get' kind='':
 [linux]
 wm-set-theme kind="dark": (gtk-theme "set" kind)
 
-##: --- macOS ---
-
-applescript-dark-mode := 'tell app "System Events" to tell appearance preferences to set dark mode to '
-
-[macos]
-_mac-dark-mode value:
-  osascript -e {{ quote( applescript-dark-mode + value ) }}
-
-# <- Toggle the current system theme between light<->dark
-[private]
-[macos]
-wm-set-theme kind='dark':
-  {{ if kind == "dark" { "just _mac-dark-mode 'true'" } else if kind == "light" { "just _mac-dark-mode 'false'" } else { "just _mac-dark-mode 'not dark mode'" } }}
-
 ###: LICENSING =================================================================
 
 # <- Validate the project's licensing and copyright info

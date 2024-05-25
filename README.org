@@ -145,30 +145,6 @@ sops updatekeys secrets/global.secrets.yaml
 :END:
 
 
-** macOS/Darwin
-:PROPERTIES:
-:CUSTOM_ID: macosdarwin
-:END:
-
-Something along these lines:
-
-- =sudo xcode-select --install=
-- Install Homebrew
-- =brew install git bash zsh ripgrep fd tealdeer bat coreutils=
-- Add Homebrew =PATH= entries to =~/.zprofile= as directed
-- Install Nix
-- Generate SSH keys for your user and add them to GitHub/Sourcehut.
-- =mkdir -p ~/.config=
-- =git clone git@github.com:montchr/dotfield.git ~/.config/dotfield=
-- Create a basic config for the new host in
-  =./darwin/machines/<hostname>/default.nix=
-- Add the new host to =flake.darwinConfigurations.<hostname>= in
-  =./darwin/configurations.nix=
-- =nix build .#darwinConfigurations.<hostname>.system --verbose=
-- =./result/sw/bin/darwin-rebuild switch --flake .#<hostname>= (assuming
-  that the desired hostname has not yet been set -- otherwise,
-  =... --flake .= should suffice)
-
 ** Secrets
 :PROPERTIES:
 :CUSTOM_ID: secrets
@@ -534,59 +510,9 @@ congenital Butterfly Keyboard Syndrome.
 :CUSTOM_ID: notes
 :END:
 
-** macOS GUI Applications via Nix
-:PROPERTIES:
-:CUSTOM_ID: macos-gui-applications-via-nix
-:END:
+Mostly opinions and rants, some of which will likely be removed in time.
 
-*UPDATE: =emacs29-macport= works amazingly!* Thanks to =@tnytown= for their hard
-work in https://github.com/NixOS/nixpkgs/issues/127902 and
-https://github.com/NixOS/nixpkgs/pull/252244.
-
-*** Emacs
-:PROPERTIES:
-:CUSTOM_ID: emacs
-:END:
-
-The package =emacs29-macport= works well. It's based on [[https://bitbucket.org/mituharu/emacs-mac/src/master/][Mitsuharu Yamamoto's
-excellent macOS port]] of GNU Emacs. The Nix package used to have issues with GUI
-crashes, but AFAIK those are no longer an issue.
-
-- Install =emacs29-macport= via =environment.systemPackages= (from
-  nix-darwin)
-- Open it from a terminal shell session via
-  =/usr/bin/open -a '/Applications/Nix Apps/Emacs.app'=
-
-Still, nix-darwin =launchd= service never seems to work, breaking
-=emacsclient= functionality. I have not yet confirmed whether this is
-still an issue with =emacs29-macport=. The following quote from the
-manual seems to indicate that such functionality remains a mystery:
-
-#+begin_quote
-The Mac port doesn't support multi-tty with GUI. The developer has no idea how
-to detach Emacs as a GUI application from Window Server or Dock without
-separating a GUI process (not thread) from the main Emacs (Lisp evaluator)
-process. TTY-only multi-tty is supposed to work.
-#+end_quote
-
-[[https://bitbucket.org/mituharu/emacs-mac/src/master/README-mac][mituharu / emacs-mac / README-mac --- Bitbucket]]
-
-*** yabai
-:PROPERTIES:
-:CUSTOM_ID: yabai
-:END:
-
-Just use the official package released via =brew=, unless you prefer
-pain.
-
-** Shitlist
-:PROPERTIES:
-:CUSTOM_ID: shitlist
-:END:
-
-Mostly opinions and rants, which will likely be removed in time.
-
-*** GNOME Desktop
+** GNOME Desktop
 :PROPERTIES:
 :CUSTOM_ID: gnome-desktop
 :END:
@@ -604,7 +530,7 @@ hardware. While it looks pretty and looks like it has "good UX", like
 macOS (and Apple software in general), it has so much useless clutter
 and ends up breaking in weird ways.
 
-**** Definitions + Resources
+*** Definitions + Resources
 :PROPERTIES:
 :CUSTOM_ID: definitions-resources
 :END:
@@ -619,7 +545,7 @@ appearance variants.
 "dconf Editor" is a GUI application for quick and direct interaction
 with available settings, similar to Firefox's =about:config= page.
 
-**** Configuring GNOME via =home-manager=
+*** Configuring GNOME via =home-manager=
 :PROPERTIES:
 :CUSTOM_ID: configuring-gnome-via-home-manager
 :END:
@@ -630,14 +556,14 @@ Dconf files (e.g. Gnome Shell) to Nix, as expected by Home Manager]] in
 combination with [[https://github.com/nix-community/home-manager/blob/master/modules/misc/dconf.nix][home-manager/modules/misc/dconf.nix at master ·
 nix-community/home-manager]]
 
-**** Seahorse / =gnome-keyring-daemon=
+*** Seahorse / =gnome-keyring-daemon=
 :PROPERTIES:
 :CUSTOM_ID: seahorse-gnome-keyring-daemon
 :END:
 
 Unreliable and clunky.
 
-***** Default keyring lockouts
+**** Default keyring lockouts
 :PROPERTIES:
 :CUSTOM_ID: default-keyring-lockouts
 :END:
@@ -652,7 +578,7 @@ rm ~/.local/share/keyrings/{login.keyring,user.keystore}
 
 [[https://github.com/NixOS/nixpkgs/issues/174099]]
 
-***** Undismissible modal prompt
+**** Undismissible modal prompt
 :PROPERTIES:
 :CUSTOM_ID: undismissible-modal-prompt
 :END:
@@ -671,7 +597,7 @@ On that note, considering that I've disabled getty@tty1 when autologin
 is enabled (due to a NixOS issue), switching tty might not work in those
 scenarios...
 
-**** Firefox
+** Firefox
 :PROPERTIES:
 :CUSTOM_ID: firefox
 :END:
@@ -680,7 +606,7 @@ I really do want a browser to "just work", but with the option to
 configure frustrating things like... keyboard shortcuts... which Firefox
 does not support. The question is: do any browsers? I am not yet sure.
 
-***** Customizing keyboard shortcuts
+*** Customizing keyboard shortcuts
 :PROPERTIES:
 :CUSTOM_ID: customizing-keyboard-shortcuts
 :END:

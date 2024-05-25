@@ -87,7 +87,7 @@ in
   programs.mbsync.enable = true;
   programs.mu.enable = true;
   programs.msmtp.enable = true;
-  services.mbsync = lib.mkIf (!isDarwin) {
+  services.mbsync = {
     enable = false;
     frequency = "*:0/5";
     # TODO: might need to be told about password store dir

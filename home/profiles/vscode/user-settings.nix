@@ -143,8 +143,6 @@
     "vim.useSystemClipboard" = true;
     "vim.visualstar" = true;
     "vscode-neovim.mouseSelectionStartVisualMode" = true;
-    "vscode-neovim.neovimExecutablePaths.darwin" = "/etc/profiles/per-user/cdom/bin/nvim";
-    "vscode-neovim.neovimExecutablePaths.linux" = "/etc/profiles/per-user/cdom/bin/nvim";
     "vsicons.dontShowNewVersionMessage" = true;
     "window.autoDetectColorScheme" = true;
     "window.dialogStyle" = "custom";

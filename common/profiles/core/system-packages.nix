@@ -18,6 +18,7 @@
     findutils
     fish
     gawk
+    gcc
     git
     gnumake
     gnupg
@@ -48,7 +49,5 @@
     whois
     yq
     zellij
-
-    (if stdenv.hostPlatform.isDarwin then clang else gcc)
   ];
 }

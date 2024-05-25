@@ -16,9 +16,7 @@ in
   flake = {
     # TODO: invert this approach -- make system configs import pre-defined home
     # configs or something like that. see ~misterio77/nixos-config
-    homeConfigurations =
-      (mkHomeConfigurations config.flake.nixosConfigurations)
-      // (mkHomeConfigurations config.flake.darwinConfigurations);
+    homeConfigurations = (mkHomeConfigurations config.flake.nixosConfigurations);
 
     homeModules = {
       "theme" = import ./modules/theme/default.nix;
