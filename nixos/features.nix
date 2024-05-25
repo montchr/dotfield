@@ -1,4 +1,4 @@
-{ sharedProfiles, profiles }:
+{ profiles }:
 let
   audio = [
     profiles.audio
@@ -7,18 +7,15 @@ let
   ];
 
   graphical = [
-    sharedProfiles.fonts.common
-    sharedProfiles.fonts.fontconfig
-    sharedProfiles.fonts.iosevka-variants
+    profiles.desktop.common
 
     # FIXME: find a more appropriate "feature" to file systemd-boot under
     #        it is not universal -- there's also rEFInd but i haven't used that
     #        in a while. consider singularity.
     profiles.boot.systemd-boot
-    profiles.desktop.applications.default
-    profiles.desktop.common
   ];
 
+  # FIXME: why?
   # A tangible machine that is not a laptop.
   desktop =
     graphical
@@ -64,14 +61,11 @@ in
   ];
 
   workstation = desktop ++ [
-    sharedProfiles.secrets.default
-
     profiles.boot.systemd-boot
     profiles.location
 
     profiles.one-password
     profiles.bitwarden
-    profiles.desktop.applications.zoom-us
 
     profiles.hardware.android-devices.common
     profiles.hardware.android-devices.supernote-a5x

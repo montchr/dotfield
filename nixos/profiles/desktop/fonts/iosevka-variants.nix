@@ -6,12 +6,6 @@ let
 in
 {
   fonts.packages = [
-    iosevka-bin
-    iosevka-comfy.comfy
-    iosevka-comfy.comfy-motion
-    iosevka-comfy.comfy-wide-duo
-    iosevka-comfy.comfy-wide-motion-duo
-
     ##: width variants
     (makeIosevkaSgrVariant "Fixed")
     (makeIosevkaSgrVariant "Term")

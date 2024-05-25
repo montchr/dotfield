@@ -11,26 +11,23 @@ let
     home-manager
     nixos-apple-silicon
     nixpkgs
+    sops-nix
     srvos
     ;
 
   lib' = self.lib;
 
-  commonModules = import ../common/modules-list.nix;
-  nixosModules = import ../nixos/modules-list.nix;
-
-  sharedProfiles = import ../common/profiles.nix { inherit haumea; };
+  modules = import ./modules-list.nix;
   profiles = import ./profiles.nix { inherit haumea; };
-
-  features = import ./features.nix { inherit sharedProfiles profiles; };
+  features = import ./features.nix { inherit profiles; };
 
   defaultModules = [
-    sharedProfiles.core.default
-    sharedProfiles.secrets.default
-    profiles.core.common
+    home-manager.nixosModules.home-manager
+    sops-nix.nixosModules.sops
+
+    profiles.core.default
     profiles.boot.common
     profiles.networking.tailscale
-    home-manager.nixosModules.home-manager
   ];
 
   makeNixosSystem =
@@ -45,13 +42,12 @@ let
       inputs."nixos-${channel}".lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit sharedProfiles profiles;
+          inherit profiles;
           flake = lib'.modules.flakeSpecialArgs' system;
         };
         modules =
           defaultModules
-          ++ commonModules
-          ++ nixosModules
+          ++ modules
           ++ (nixosArgs.modules or [ ])
           ++ [
             ../machines/${hostName}

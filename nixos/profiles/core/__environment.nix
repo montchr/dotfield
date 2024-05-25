@@ -1,22 +1,10 @@
 {
-  flake,
   config,
   lib,
   pkgs,
   ...
 }:
 {
-  imports = [
-    (flake.inputs.srvos + "/nixos/common/upgrade-diff.nix")
-
-    ./home-manager.nix
-    ./nix-config.nix
-    ./system-packages.nix
-  ];
-
-  # The only sane default. Servers should usually keep this as is.
-  time.timeZone = lib.mkDefault "UTC";
-
   environment.variables = {
     EDITOR = "vim";
     LANG = "en_US.UTF-8";
@@ -45,20 +33,4 @@
     # FIXME: figure out how to enable this without making all system rebuilds take forever
     # ++ (lib.optional config.programs.fish.enable "/share/fish")
     ++ (lib.optional config.programs.zsh.enable "/share/zsh");
-
-  programs.fish.enable = lib.mkDefault true;
-
-  programs.zsh = {
-    enable = lib.mkDefault true;
-    shellInit = lib.mkDefault "";
-    loginShellInit = lib.mkDefault "";
-    interactiveShellInit = lib.mkDefault "";
-
-    # Prompts/completions/widgets should never be initialised at the
-    # system-level because it will need to be initialised a second time once the
-    # user's zsh configs load.
-    promptInit = lib.mkForce "";
-    enableCompletion = lib.mkForce false;
-    enableBashCompletion = lib.mkForce false;
-  };
 }

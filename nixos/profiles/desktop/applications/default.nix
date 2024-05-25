@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./firefox.nix ];
+  imports = [
+    ./firefox.nix
+    ./zoom-us.nix
+  ];
 
   environment.systemPackages = [
     # Provide a minimal and sensible default terminal emulator as a fallback

@@ -11,6 +11,7 @@
 
   home-manager.sharedModules = lib.singleton {
     home.packages = [
+      pkgs.age-plugin-yubikey
       pkgs.yubikey-personalization
       # FIXME: broken on nixos-unstable 2024-05-05
       # pkgs.yubikey-manager

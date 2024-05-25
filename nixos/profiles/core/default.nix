@@ -2,6 +2,7 @@
   config,
   lib,
   ops,
+  pkgs,
   flake,
   ...
 }:
@@ -14,15 +15,37 @@ let
 in
 {
   imports = [
-    ./nix-config.nix
-    ./system-tools.nix
+    ./nix-config
+
+    ./__environment.nix
+    ./__home-manager.nix
     ./__nh.nix
+    ./__nix-index.nix
+    ./__secrets.nix
+    ./__system-packages.nix
   ];
 
-  networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;
+  # The only sane default. Servers should usually keep this as is.
+  time.timeZone = lib.mkDefault "UTC";
 
-  # TODO: why forced?
-  programs.zsh.syntaxHighlighting.enable = lib.mkForce false;
+  programs.fish.enable = lib.mkDefault true;
+
+  programs.zsh = {
+    enable = lib.mkDefault true;
+    shellInit = lib.mkDefault "";
+    loginShellInit = lib.mkDefault "";
+    interactiveShellInit = lib.mkDefault "";
+
+    # Prompts/completions/widgets should never be initialised at the
+    # system-level because it will need to be initialised a second time once the
+    # user's zsh configs load.
+    enableCompletion = lib.mkForce false;
+    enableBashCompletion = lib.mkForce false;
+    promptInit = lib.mkForce "";
+    syntaxHighlighting.enable = lib.mkForce false;
+  };
+
+  networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;
 
   programs.git.enable = true;
   programs.git.config = {

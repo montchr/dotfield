@@ -1,20 +1,19 @@
 {
-  flake,
   config,
   lib,
   pkgs,
   ...
 }:
 let
-  inherit (flake.inputs) sops-nix;
   inherit (config.dotfield.paths) storageBase;
   sshPath = "${storageBase}/etc/ssh";
 in
 {
-  imports = [ sops-nix.nixosModules.sops ];
+  # TODO: what about rsa keys?
+  sops.age.sshKeyPaths = [ "${sshPath}/ssh_host_ed25519_key" ];
 
   home-manager.sharedModules = lib.singleton {
-    # Allow running sops as a normal user without sudo.
+    # Allow normal users to use sops.
     home.sessionVariables = {
       "AGE_KEY_DIR" = lib.mkDefault "$HOME/.age";
       "SOPS_AGE_KEY_DIR" = lib.mkDefault "$XDG_CONFIG_HOME/sops/age";
@@ -23,10 +22,7 @@ in
   };
 
   environment.systemPackages = [
-    pkgs.age-plugin-yubikey
     pkgs.rage
     pkgs.sops
   ];
-
-  sops.age.sshKeyPaths = [ "${sshPath}/ssh_host_ed25519_key" ];
 }

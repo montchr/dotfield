@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
 {
   imports = [
+    ./applications/default.nix
+    ./fonts/default.nix
+
     ./__gtk.nix
     ./__qt.nix
     ./__wallpaper.nix
