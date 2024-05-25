@@ -71,14 +71,12 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    # nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
     attic.url = "github:zhaofengli/attic";
     haumea.url = "github:nix-community/haumea";
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
@@ -123,19 +121,11 @@
     ##: system
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-    # TODO: remove (unused)
-    kmonad.url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
     microvm.url = "github:astro/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     musnix.url = "github:musnix/musnix";
-    # TODO: remove (unused)
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    # TODO: remove (unused)
-    nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-    # TODO: remove (unused)
-    prefmanager.url = "github:malob/prefmanager";
   };
 
   # NOTE: Retained for provisioning purposes, but normally unnecessary.
