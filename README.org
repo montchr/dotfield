@@ -212,13 +212,13 @@ for inclusion.
 More recently, I've aimed to reference sources with comments and SPDX
 headings in relevant files.
 
-** [[https://github.com/edmundmiller/dotfiles][github:edmundmiller/dotfiles]] :email:emacs:
-
-** [[https://github.com/oddlama/nix-config][github:oddlama/nix-config]] :sso:good_docs:microvms:
-
 ** [[https://m7.rs/git/nix-config/][m7.rs/git/nix-config]] :desktop:
 
 ** [[https://github.com/Mic92/dotfiles][github:Mic92/dotfiles]] :networking:secrets_management:
+
+** [[https://github.com/oddlama/nix-config][github:oddlama/nix-config]] :sso:good_docs:microvms:
+
+** [[https://github.com/edmundmiller/dotfiles][github:edmundmiller/dotfiles]] :email:emacs:
 
 ** TODO Headings with tags
 
@@ -246,13 +246,18 @@ headings in relevant files.
 :CUSTOM_ID: systems
 :END:
 
-** =tuvix= [MacBook Air M2]
+** =tuvok= (NixOS) / =tuvix= (macOS) [MacBook Air M2]
 :PROPERTIES:
 :CUSTOM_ID: tuvix-macbook-air-m2
 :END:
 
-Work computer running macOS. It's fresh. It's sleek. But it's still a
-Mac...
+Work laptop running NixOS via [[https://github.com/tpwrules/nixos-apple-silicon/][github:tpwrules/nixos-apple-silicon]] via Asahi
+Linux kernel.  It's amazing.  10/10 would recommend.  Daily driver.
+
+I would give it 11/10 but I have issues with audio input/output on video calls,
+and I had to get a DisplayLink hub to use an external display monitor.  Those
+aren't dealbreaking issues because I know that the Asahi Linux people are
+working on improving those things and I have workarounds for the time being.
 
 ** =ryosuke= [Teenage Engineering Computer-1]
 :PROPERTIES:
