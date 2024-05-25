@@ -17,8 +17,10 @@
     java.symbol = " ";
     julia.symbol = " ";
     lua.symbol = " ";
-    meson.symbol = "喝 ";
-    nim.symbol = " ";
+    # FIXME
+    # meson.symbol = "喝 ";
+    # FIXME
+    # nim.symbol = " ";
     os.symbols = {
       Alpine = " ";
       Amazon = " ";
@@ -31,10 +33,13 @@
       EndeavourOS = " ";
       Fedora = " ";
       FreeBSD = " ";
-      Garuda = "﯑ ";
+      # FIXME
+      # Garuda = "﯑ ";
       Gentoo = " ";
-      HardenedBSD = "ﲊ ";
-      Illumos = " ";
+      # FIXME
+      # HardenedBSD = "ﲊ ";
+      # FIXME
+      # Illumos = " ";
       Linux = " ";
       Macos = " ";
       Manjaro = " ";
@@ -43,8 +48,10 @@
       Mint = " ";
       NetBSD = " ";
       NixOS = " ";
-      OpenBSD = " ";
-      OracleLinux = " ";
+      # FIXME
+      # OpenBSD = " ";
+      # FIXME
+      # OracleLinux = " ";
       Pop = " ";
       Raspbian = " ";
       RedHatEnterprise = " ";
@@ -54,7 +61,8 @@
       Solus = "ﴱ ";
       Ubuntu = " ";
       Unknown = " ";
-      Windows = " ";
+      # FIXME
+      # Windows = " ";
       openSUSE = " ";
     };
     rlang.symbol = "ﳒ ";
