@@ -86,9 +86,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # FIXME: unpin once i do the thing from macOS:
-    # <https://github.com/tpwrules/nixos-apple-silicon/blob/release-2024-05-23/docs/release-notes.md#2024-05-23>
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-05-17";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-05-23";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
     # FIXME: remove -- will break due to branch pinning above
@@ -127,14 +125,18 @@
     ##: system
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    # TODO: remove (unused)
     kmonad.url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
     microvm.url = "github:astro/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     musnix.url = "github:musnix/musnix";
+    # TODO: remove (unused)
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    # TODO: remove (unused)
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    # TODO: remove (unused)
     prefmanager.url = "github:malob/prefmanager";
   };
 
