@@ -1893,6 +1893,7 @@
       },
       "original": {
         "owner": "tpwrules",
+        "ref": "release-2024-05-17",
         "repo": "nixos-apple-silicon",
         "type": "github"
       }
