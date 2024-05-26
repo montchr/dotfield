@@ -11,7 +11,6 @@ let
   inherit (apparat.lib) homePrefix;
 
   homeModules = import "${flake.self}/home/modules-list.nix";
-  profiles = import "${flake.self}/home/profiles.nix" { inherit haumea; };
 
   specialArgs = {
     inherit features profiles;
@@ -37,7 +36,8 @@ let
         };
       }
     ];
-  features = import "${flake.self}/home/features.nix" { inherit profiles; };
+  features = import ../../home/features.nix { inherit profiles; };
+  profiles = import ../../home/profiles.nix { inherit haumea; };
 in
 {
   inherit defaultModules settings settings';
