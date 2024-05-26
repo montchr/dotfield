@@ -17,20 +17,16 @@ let
 
   lib' = self.lib;
 
-  modules = import ./modules-list.nix;
   profiles = import ./profiles.nix { inherit haumea; };
   features = import ./features.nix { inherit profiles; };
 
-  defaultModules = [
-    home-manager.nixosModules.home-manager
-    sops-nix.nixosModules.sops
-  ];
-
+  # TODO: only optional args in `nixosArgs` i.e. hostName -> system -> nixosArgs
   makeNixosSystem =
     hostName:
     nixosArgs@{
-      channel ? "unstable",
       system,
+      channel ? "unstable",
+      modules ? [ ],
       ...
     }:
     withSystem system (
@@ -42,12 +38,15 @@ let
           flake = lib'.modules.flakeSpecialArgs' system;
         };
         modules =
-          defaultModules
-          ++ modules
-          ++ (nixosArgs.modules or [ ])
+          modules
           ++ features.base
+          ++ (import ./modules-list.nix)
           ++ [
             ../machines/${hostName}
+
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+
             {
               _module.args = {
                 inherit ops;
