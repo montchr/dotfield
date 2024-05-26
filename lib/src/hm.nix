@@ -12,7 +12,6 @@ let
 
   homeModules = import "${flake.self}/home/modules-list.nix";
   profiles = import "${flake.self}/home/profiles.nix" { inherit haumea; };
-  features = import "${flake.self}/home/features.nix" { homeProfiles = profiles; };
 
   specialArgs = {
     inherit features profiles;
@@ -38,6 +37,7 @@ let
         };
       }
     ];
+  features = import "${flake.self}/home/features.nix" { inherit profiles; };
 in
 {
   inherit defaultModules settings settings';

@@ -1,63 +1,63 @@
-{ homeProfiles }:
+{ profiles }:
 let
   base = [
-    homeProfiles.core.default
-    homeProfiles.atuin
-    homeProfiles.development.nix-tools
-    homeProfiles.direnv
-    homeProfiles.fzf
-    homeProfiles.git.default
-    homeProfiles.helix
-    homeProfiles.navi
-    homeProfiles.nnn
-    homeProfiles.nvim.default
-    homeProfiles.rclone
-    homeProfiles.shells.zsh.default
-    homeProfiles.shells.zsh.with-grml
-    homeProfiles.ssh
-    homeProfiles.zellij
-    homeProfiles.zoxide
+    profiles.core.default
+    profiles.atuin
+    profiles.development.nix-tools
+    profiles.direnv
+    profiles.fzf
+    profiles.git.default
+    profiles.helix
+    profiles.navi
+    profiles.nnn
+    profiles.nvim.default
+    profiles.rclone
+    profiles.shells.zsh.default
+    profiles.shells.zsh.with-grml
+    profiles.ssh
+    profiles.zellij
+    profiles.zoxide
   ];
 
   developer = base ++ [
-    homeProfiles.difftools.delta
-    homeProfiles.emacs.default
-    homeProfiles.git-sync
-    homeProfiles.just
-    homeProfiles.python
-    homeProfiles.zellij
+    profiles.difftools.delta
+    profiles.emacs.default
+    profiles.git-sync
+    profiles.just
+    profiles.python
+    profiles.zellij
   ];
 
   graphical = [
-    homeProfiles.chromium
-    homeProfiles.desktop.common
-    homeProfiles.firefox.default
-    homeProfiles.keyboard.default
-    homeProfiles.kitty.default
-    homeProfiles.foot
-    homeProfiles.media-client
-    homeProfiles.spotify
-    homeProfiles.theme.default
-    homeProfiles.yt-dlp
+    profiles.chromium
+    profiles.desktop.common
+    profiles.firefox.default
+    profiles.keyboard.default
+    profiles.kitty.default
+    profiles.foot
+    profiles.media-client
+    profiles.spotify
+    profiles.theme.default
+    profiles.yt-dlp
     # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)
     # vscode
   ];
 
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
-    homeProfiles.apple-music
-    homeProfiles.espanso.default
-    homeProfiles.newsboat
-    homeProfiles.obs-studio
-    homeProfiles.rclone
-    homeProfiles.spotify
-    homeProfiles.sync
+    profiles.apple-music
+    profiles.espanso.default
+    profiles.newsboat
+    profiles.obs-studio
+    profiles.rclone
+    profiles.spotify
+    profiles.sync
   ];
 
   trusted = [
-    homeProfiles.gpg.default
-    homeProfiles.secrets.password-store
-    homeProfiles.secrets.rbw
+    profiles.gpg.default
+    profiles.secrets.password-store
+    profiles.secrets.rbw
   ];
 
   features = {
@@ -75,21 +75,21 @@ let
       ++ personalised
       ++ trusted
       ++ [
-        homeProfiles.desktop.applications.okular
-        homeProfiles.desktop.applications.xournal
-        homeProfiles.development.common
-        homeProfiles.development.data-wrangling
-        homeProfiles.emacs.default
-        homeProfiles.emacs.org-protocol
-        homeProfiles.git.repo-manager
-        homeProfiles.git.with-pgp-signing
-        homeProfiles.kitty.default
-        homeProfiles.ledger
-        homeProfiles.pandoc
-        homeProfiles.sync
-        homeProfiles.vhs
-        homeProfiles.writing
-        homeProfiles.yubikey
+        profiles.desktop.applications.okular
+        profiles.desktop.applications.xournal
+        profiles.development.common
+        profiles.development.data-wrangling
+        profiles.emacs.default
+        profiles.emacs.org-protocol
+        profiles.git.repo-manager
+        profiles.git.with-pgp-signing
+        profiles.kitty.default
+        profiles.ledger
+        profiles.pandoc
+        profiles.sync
+        profiles.vhs
+        profiles.writing
+        profiles.yubikey
       ];
   };
 in
