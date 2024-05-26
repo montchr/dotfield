@@ -1,5 +1,11 @@
 { profiles }:
 let
+  base = [
+    profiles.core.default
+    profiles.boot.common
+    profiles.networking.tailscale
+  ];
+
   audio = [
     profiles.audio
     profiles.bluetooth
@@ -38,6 +44,7 @@ let
 in
 {
   inherit
+    base
     audio
     desktop
     graphical

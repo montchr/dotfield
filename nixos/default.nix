@@ -24,10 +24,6 @@ let
   defaultModules = [
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops
-
-    profiles.core.default
-    profiles.boot.common
-    profiles.networking.tailscale
   ];
 
   makeNixosSystem =
@@ -49,6 +45,7 @@ let
           defaultModules
           ++ modules
           ++ (nixosArgs.modules or [ ])
+          ++ features.base
           ++ [
             ../machines/${hostName}
             {
