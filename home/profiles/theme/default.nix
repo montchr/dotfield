@@ -6,7 +6,7 @@
 }:
 let
   inherit (flake.inputs.base16-schemes.lib) schemes;
-  inherit (flake.self.lib.theme) mkColorScheme;
+  inherit (flake.lib.theme) mkColorScheme;
 in
 {
   imports = [

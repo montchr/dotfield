@@ -6,7 +6,7 @@
 }:
 let
   inherit (flake.inputs.apparat.lib.kitty) makeConf makeThemeAttrs;
-  inherit (flake.self.lib.theme) asHexStrings;
+  inherit (flake.lib.theme) asHexStrings;
   inherit (config) theme;
   cfg = config.programs.kitty;
 in

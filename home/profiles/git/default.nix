@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (flake.perSystem) packages;
+  inherit (flake) packages;
   inherit (config.dotfield.whoami) email fullName githubUserName;
 in
 {

@@ -9,7 +9,7 @@
 }:
 let
   inherit (flake.inputs) apparat base16-schemes;
-  inherit (flake.self.lib.theme) mkColorScheme;
+  inherit (flake.lib.theme) mkColorScheme;
   inherit (apparat.lib) mkOpt;
   inherit (base16-schemes.lib) schemes;
   inherit (l.types) str int;

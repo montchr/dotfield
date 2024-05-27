@@ -8,7 +8,7 @@
   ...
 }:
 let
-  inherit (flake.perSystem.packages) fzf-tab-completion;
+  inherit (flake.packages) fzf-tab-completion;
 in
 {
   home.extraOutputsToInstall = [ "/share/bash-completion" ];

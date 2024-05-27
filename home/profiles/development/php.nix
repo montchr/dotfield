@@ -16,7 +16,7 @@
     pkgs.wp-cli
 
     # Provides DAP connection to Xdebug for editor support
-    flake.perSystem.packages.vscode-php-debug
+    flake.packages.vscode-php-debug
   ];
 
   home.sessionVariables = {

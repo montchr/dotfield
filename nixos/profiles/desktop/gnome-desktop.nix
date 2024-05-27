@@ -6,7 +6,7 @@
   ...
 }:
 let
-  homeProfiles = import "${flake.self}/home/profiles.nix" { inherit (flake.inputs) haumea; };
+  homeProfiles = import "${flake.path}/home/profiles.nix" { inherit (flake.inputs) haumea; };
   isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {

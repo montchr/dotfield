@@ -1,6 +1,6 @@
 { config, flake, ... }:
 let
-  inherit (flake.perSystem.packages) berkeley-mono;
+  inherit (flake.packages) berkeley-mono;
   cfg = config.theme.fonts;
 in
 {
