@@ -69,8 +69,7 @@ in
     #   modules = with features; desktop ++ gnome ++ workstation;
     # };
 
-    ryosuke = makeNixosSystem "ryosuke" {
-      system = "x86_64-linux";
+    ryosuke = makeNixosSystem "ryosuke" "x86_64-linux" {
       modules =
         (with features; desktop ++ gnome ++ webdev ++ workstation)
         ++ (with profiles; [
@@ -81,27 +80,16 @@ in
         ]);
     };
 
-    tuvok = makeNixosSystem "tuvok" (
-      let
-        system = "aarch64-linux";
-      in
-      {
-        inherit system;
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [ nixos-apple-silicon.overlays.default ];
-        };
-        modules =
-          features.gnome
-          ++ features.desktop
-          ++ features.workstation
-          ++ [ profiles.hardware.apple.macbook-14-2 ];
-      }
-    );
+    tuvok = makeNixosSystem "tuvok" "aarch64-linux" ({
+      overlays = [ nixos-apple-silicon.overlays.default ];
+      modules =
+        features.gnome
+        ++ features.desktop
+        ++ features.workstation
+        ++ [ profiles.hardware.apple.macbook-14-2 ];
+    });
 
-    moraine = makeNixosSystem "moraine" {
-      system = "x86_64-linux";
+    moraine = makeNixosSystem "moraine" "x86_64-linux" {
       modules = features.server ++ [
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-online-amd
@@ -118,8 +106,7 @@ in
       ];
     };
 
-    boschic = makeNixosSystem "boschic" {
-      system = "x86_64-linux";
+    boschic = makeNixosSystem "boschic" "x86_64-linux" {
       modules =
         (with features; gnome ++ desktop ++ webdev ++ workstation)
         ++ (with profiles; [
@@ -135,8 +122,7 @@ in
         ]);
     };
 
-    hodgepodge = makeNixosSystem "hodgepodge" {
-      system = "x86_64-linux";
+    hodgepodge = makeNixosSystem "hodgepodge" "x86_64-linux" {
       modules =
         features.gnome
         ++ features.desktop
@@ -147,9 +133,8 @@ in
         ];
     };
 
-    chert = makeNixosSystem "chert" {
+    chert = makeNixosSystem "chert" "x86_64-linux" {
       channel = "stable";
-      system = "x86_64-linux";
       modules = features.server ++ [
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
@@ -163,8 +148,7 @@ in
       ];
     };
 
-    gabbro = makeNixosSystem "gabbro" {
-      system = "x86_64-linux";
+    gabbro = makeNixosSystem "gabbro" "x86_64-linux" {
       modules = features.server ++ [
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
@@ -178,8 +162,7 @@ in
       ];
     };
 
-    hierophant = makeNixosSystem "hierophant" {
-      system = "x86_64-linux";
+    hierophant = makeNixosSystem "hierophant" "x86_64-linux" {
       modules = features.server ++ [
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-cloud
