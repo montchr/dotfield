@@ -1,18 +1,42 @@
 {
-  config,
   self,
+  withSystem,
   ops,
+  flake-parts-lib,
   ...
 }:
 let
   inherit (self) inputs;
-  inherit (self.lib.hm) makeHomeConfiguration;
+  inherit (inputs) haumea home-manager;
+  inherit (flake-parts-lib) importApply;
 
-  # features = import ./features.nix { homeProfiles = profiles; };
-  profiles = import ./profiles.nix { inherit (inputs) haumea; };
+  specialArgsFor = import ../lib/special-args.nix { inherit self withSystem; };
+
+  makeHomeConfiguration =
+    username: system:
+    {
+      modules ? [ ],
+      overlays ? [ ],
+    }:
+    (home-manager.lib.homeManagerConfiguration {
+      modules = modules ++ [ (import ./baseline.nix { inherit username system; }) ];
+      extraSpecialArgs = specialArgsFor system;
+      pkgs = import inputs.nixpkgs {
+        inherit system overlays;
+        nixpkgs.config = {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
+      };
+    });
 in
 {
   flake = {
+    homeConfigurations = {
+      "cdom@tuvok" = makeHomeConfiguration "cdom" "aarch64-linux" {
+        modules = [ ../users/cdom/at-tuvok.nix ];
+      };
+    };
 
     homeModules = {
       "theme" = import ./modules/theme/default.nix;

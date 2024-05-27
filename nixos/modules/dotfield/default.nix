@@ -85,6 +85,8 @@ in
           hasSway = hmConfig.wayland.windowManager.sway.enable;
         in
         {
+          # FIXME: failing build because this yes, does need to be less
+          # half-assed (more fully-assed?)
           options.dotfield.features = featuresOpt;
           # FIXME: make submodule
           config.dotfield.features = {

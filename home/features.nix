@@ -1,68 +1,47 @@
-{ profiles }:
 let
-  base = [
-    profiles.core.default
-    profiles.atuin
-    profiles.development.nix-tools
-    profiles.direnv
-    profiles.fzf
-    profiles.git.default
-    profiles.helix
-    profiles.navi
-    profiles.nnn
-    profiles.nvim.default
-    profiles.rclone
-    profiles.shells.zsh.default
-    profiles.shells.zsh.with-grml
-    profiles.ssh
-    profiles.zellij
-    profiles.zoxide
-  ];
-
-  developer = base ++ [
-    profiles.difftools.delta
-    profiles.emacs.default
-    profiles.git-sync
-    profiles.just
-    profiles.python
-    profiles.zellij
+  developer = [
+    ./profiles/difftools/delta.nix
+    ./profiles/emacs/default.nix
+    ./profiles/git-sync.nix
+    ./profiles/just.nix
+    ./profiles/python.nix
+    ./profiles/zellij.nix
   ];
 
   graphical = [
-    profiles.chromium
-    profiles.desktop.common
-    profiles.firefox.default
-    profiles.keyboard.default
-    profiles.kitty.default
-    profiles.foot
-    profiles.media-client
-    profiles.spotify
-    profiles.theme.default
-    profiles.yt-dlp
+    ./profiles/chromium.nix
+    ./profiles/desktop/common.nix
+    ./profiles/firefox/default.nix
+    ./profiles/keyboard/default.nix
+    ./profiles/kitty/default.nix
+    ./profiles/foot.nix
+    ./profiles/media-client.nix
+    ./profiles/spotify.nix
+    ./profiles/theme/default.nix
+    ./profiles/yt-dlp.nix
     # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)
     # vscode
   ];
 
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
-    profiles.apple-music
-    profiles.espanso.default
-    profiles.newsboat
-    profiles.obs-studio
-    profiles.rclone
-    profiles.spotify
-    profiles.sync
+    ./profiles/apple-music.nix
+    ./profiles/espanso/default.nix
+    ./profiles/newsboat.nix
+    ./profiles/obs-studio.nix
+    ./profiles/rclone.nix
+    ./profiles/spotify.nix
+    ./profiles/sync.nix
   ];
 
   trusted = [
-    profiles.gpg.default
-    profiles.secrets.password-store
-    profiles.secrets.rbw
+    ./profiles/gpg/default.nix
+    ./profiles/secrets/password-store.nix
+    ./profiles/secrets/rbw.nix
   ];
 
   features = {
     inherit
-      base
       developer
       graphical
       personalised
@@ -75,21 +54,21 @@ let
       ++ personalised
       ++ trusted
       ++ [
-        profiles.desktop.applications.okular
-        profiles.desktop.applications.xournal
-        profiles.development.common
-        profiles.development.data-wrangling
-        profiles.emacs.default
-        profiles.emacs.org-protocol
-        profiles.git.repo-manager
-        profiles.git.with-pgp-signing
-        profiles.kitty.default
-        profiles.ledger
-        profiles.pandoc
-        profiles.sync
-        profiles.vhs
-        profiles.writing
-        profiles.yubikey
+        ./profiles/desktop/applications/okular.nix
+        ./profiles/desktop/applications/xournal.nix
+        ./profiles/development/common.nix
+        ./profiles/development/data-wrangling.nix
+        ./profiles/emacs/default.nix
+        ./profiles/emacs/org-protocol.nix
+        ./profiles/git/repo-manager.nix
+        ./profiles/git/with-pgp-signing.nix
+        ./profiles/kitty/default.nix
+        ./profiles/ledger.nix
+        ./profiles/pandoc.nix
+        ./profiles/sync.nix
+        ./profiles/vhs.nix
+        ./profiles/writing.nix
+        ./profiles/yubikey.nix
       ];
   };
 in

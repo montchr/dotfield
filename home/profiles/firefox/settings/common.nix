@@ -1,6 +1,5 @@
 # TODO: add docs for all "magical" numeric values
 {
-  flake,
   theme,
   osConfig,
   lib,
@@ -9,8 +8,7 @@
 let
   # FIXME: only do theme stuff if theme enabled for user
   inherit (theme) fonts;
-  l = flake.inputs.nixpkgs.lib // builtins;
-  hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
+  hostName = osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
 in
 {
   "browser.bookmarks.showMobileBookmarks" = true;

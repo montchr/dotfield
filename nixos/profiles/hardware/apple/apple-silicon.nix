@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  profiles,
   flake,
   ...
 }:
@@ -13,7 +12,8 @@ let
 in
 {
   imports = [
-    profiles.boot.systemd-boot
+    ../../boot/systemd-boot.nix
+
     nixos-apple-silicon.nixosModules.apple-silicon-support
   ];
 
