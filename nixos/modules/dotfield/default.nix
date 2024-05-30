@@ -6,12 +6,12 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  l = lib // builtins;
+  inherit (lib) mkOption types;
 
   osCfg = config.dotfield;
 
-  featuresOpt = l.mkOption {
-    type = l.types.attrsOf l.types.unspecified;
+  featuresOpt = mkOption {
+    type = types.attrsOf types.unspecified;
     default = { };
   };
 
@@ -30,26 +30,26 @@ in
     ./_users.nix
   ];
   options.dotfield = {
-    enable = l.mkOption {
+    enable = mkOption {
       default = true;
-      type = l.types.bool;
+      type = types.bool;
     };
     features = featuresOpt;
     paths = {
-      fsPath = l.mkOption {
-        type = l.types.str;
+      fsPath = mkOption {
+        type = types.str;
         default = if isDarwin then "$HOME/.config/dotfield" else "/etc/dotfield";
       };
-      persistence = l.mkOption {
-        type = l.types.str;
+      persistence = mkOption {
+        type = types.str;
         default = "/persist";
         description = ''
           Absolute path to non-ephemeral file storage.
         '';
       };
       # FIXME: replace with explicit usage of `dotfield.paths.persistence`
-      storageBase = l.mkOption {
-        type = l.types.str;
+      storageBase = mkOption {
+        type = types.str;
         default = if hasImpermanence then "/persist" else "";
         description = ''
           Absolute path to the root directory for non-ephemeral file storage,
