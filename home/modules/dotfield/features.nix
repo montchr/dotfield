@@ -1,11 +1,13 @@
-{ lib, ... }:
+moduleArgs@{ config, ... }:
+let
+  inherit (config.home) homeDirectory;
+  osCfg = moduleArgs.osConfig.dotfield or false;
+  fsPath = osCfg.paths.fsPath or "${homeDirectory}/.config/dotfield";
+in
 {
-  options.dotfield.features = lib.mkOption {
-    type = lib.types.attrsOf lib.types.unspecified;
-    default = { };
-  };
+  options.dotfield.features = { };
 
-  config.dotfield.features = {
-    hasWayland = lib.mkDefault true;
+  config = {
+    home.sessionVariables."DOTFIELD_DIR" = fsPath;
   };
 }

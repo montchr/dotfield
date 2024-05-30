@@ -1,17 +1,11 @@
 {
-  config,
   lib,
   ops,
-  pkgs,
   flake,
   ...
 }:
 let
   inherit (flake.inputs.apparat.constants.networking) dns;
-  # FIXME: idk, i don't like the idea that this well-known directory
-  #        would be located at `/persist/etc/ssh/` instead of `/etc/ssh/`...
-  inherit (config.dotfield.paths) storageBase;
-  sshHostPath = "${storageBase}/etc/ssh";
 in
 {
   imports = [
@@ -67,11 +61,11 @@ in
     hostKeys = [
       {
         bits = 4096;
-        path = "${sshHostPath}/ssh_host_rsa_key";
+        path = "/etc/ssh/ssh_host_rsa_key";
         type = "rsa";
       }
       {
-        path = "${sshHostPath}/ssh_host_ed25519_key";
+        path = "/etc/ssh/ssh_host_ed25519_key";
         type = "ed25519";
       }
     ];

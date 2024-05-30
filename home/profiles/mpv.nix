@@ -1,11 +1,5 @@
-moduleArgs@{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+moduleArgs@{ lib, pkgs, ... }:
 let
-  inherit (config.dotfield.features) hasWayland;
   hasNvidia = moduleArgs.osConfig.dotfield.features.hasNvidia or false;
 in
 {
@@ -18,12 +12,12 @@ in
     ];
     config = lib.mkMerge [
       {
+        gpu-context = "wayland";
         # FIXME: doesn't belong here...?
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       }
       (lib.optionalAttrs hasNvidia { hwdec = "vdpau"; })
-      (lib.optionalAttrs hasWayland { gpu-context = "wayland"; })
     ];
   };
 }
