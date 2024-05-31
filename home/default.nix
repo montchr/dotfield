@@ -1,33 +1,44 @@
 {
   self,
-  withSystem,
-  ops,
+  inputs,
   flake-parts-lib,
+  withSystem,
   ...
 }:
 let
-  inherit (self) inputs;
-  inherit (inputs) haumea home-manager;
+  inherit (inputs) home-manager;
   inherit (flake-parts-lib) importApply;
 
-  specialArgsFor = import ../lib/special-args.nix { inherit self withSystem; };
+  initUserModule =
+    { username }:
+    { lib, ... }:
+    {
+      # TODO: imports = [ ../users/${username}/identity.nix ];
+
+      home.username = username;
+      home.homeDirectory = lib.mkDefault "/home/${username}";
+    };
+
+  initNixpkgsModule = importApply ../packages/nixpkgs-config.nix;
 
   makeHomeConfiguration =
     username: system:
     {
       modules ? [ ],
       overlays ? [ ],
+      allowUnfree ? false,
     }:
     (home-manager.lib.homeManagerConfiguration {
-      modules = modules ++ [ (import ./baseline.nix { inherit username system; }) ];
-      extraSpecialArgs = specialArgsFor system;
-      pkgs = import inputs.nixpkgs {
-        inherit system overlays;
-        nixpkgs.config = {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
-      };
+      pkgs = withSystem system (ctx: ctx.pkgs);
+      modules =
+        modules
+        ++ (import ./modules-list.nix)
+        ++ (import ./baseline.nix)
+        ++ [
+          (initUserModule { inherit username; })
+          (initNixpkgsModule { inherit allowUnfree overlays; })
+        ];
+      extraSpecialArgs = self.lib.specialArgsFor system;
     });
 in
 {
