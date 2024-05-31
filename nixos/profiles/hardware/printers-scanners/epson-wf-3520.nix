@@ -55,12 +55,14 @@
 # - utsushi (usb/scsi only)
 #
 # I have not tested USB scanning but I'm sure it's much more straightforward.
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   ip = "192.168.1.192";
 in
 {
   imports = [ ./common.nix ];
+
+  nixpkgs.config.allowlistedLicenses = [ lib.licenses.epson ];
 
   hardware.sane.extraBackends = [
     pkgs.epkowa

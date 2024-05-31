@@ -3,6 +3,11 @@ let
   isGraphical = config.services.xserver.enable;
 in
 {
+  dotfield.nixpkgs.allowedUnfreePackages = [
+    "1password-cli"
+    "1password"
+  ];
+
   home-manager.sharedModules = lib.singleton (
     { pkgs, ... }:
     {
