@@ -46,6 +46,7 @@ in
           pkgs.deadnix
           pkgs.editorconfig-checker
           pkgs.gh
+          pkgs.nh
           pkgs.nix-diff
           pkgs.nix-output-monitor
           pkgs.nodePackages.prettier
