@@ -48,7 +48,7 @@ in
       # else pkgs.emacs-pgtk; # from master via emacs-overlay
       # else pkgs.emacs29-pgtk;
       else
-        emacs-overlay.packages.emacs-unstable-pgtk;
+        emacs-overlay.packages.emacs-pgtk;
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
