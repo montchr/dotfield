@@ -7,6 +7,7 @@
 
   home.packages = [
     pkgs.asciinema
+    pkgs.ast-grep
     pkgs.universal-ctags
 
     # {{{ checkers & formatters
