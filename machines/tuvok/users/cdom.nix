@@ -14,7 +14,7 @@ in
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    shell = pkgs.bashInteractive;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.${username} =
@@ -25,8 +25,6 @@ in
         profiles.development.work.default
         profiles.editors.jetbrains
         profiles.gpg.with-ssh-support
-        profiles.shells.fish.trampoline
-        profiles.shells.fish.with-fifc-completion
         profiles.shells.prompts.starship.default
 
         {
