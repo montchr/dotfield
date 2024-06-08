@@ -31,6 +31,10 @@ hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 build *ARGS='':
   {{cachix-exec}} nh -- os build "{{prj-root}}" {{ARGS}}
 
+# <- Build the system for activation next boot
+boot *ARGS='':
+  {{cachix-exec}} nh -- os boot "{{prj-root}}" {{ARGS}}
+
 # <- Rebuild the system and switch to the next generation
 switch *ARGS='':
   {{cachix-exec}} nh -- os switch "{{prj-root}}" {{ARGS}}
