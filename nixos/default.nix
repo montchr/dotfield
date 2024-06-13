@@ -127,7 +127,6 @@ in
       modules =
         (with features; gnome ++ desktop ++ webdev ++ workstation)
         ++ (with profiles; [
-          boot.refind
           desktop.flatpak
           # FIXME: clarify that this means an amd cpu, NOT gpu
           hardware.amd
