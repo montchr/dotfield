@@ -14,10 +14,13 @@
         ops = import ./ops/data.nix { inherit haumea; };
       in
       flake-parts.lib.mkFlake { inherit inputs; } {
+        debug = true;
+
         systems = [
           "aarch64-linux"
           "x86_64-linux"
         ];
+
         imports = [
           inputs.devshell.flakeModule
           inputs.pre-commit-hooks.flakeModule
