@@ -73,10 +73,14 @@ in
     # };
 
     ryosuke = makeNixosSystem "ryosuke" "x86_64-linux" {
-      modules = (with features; desktop ++ gnome ++ webdev ++ workstation) ++ [
-        ./profiles/hardware/amd.nix
-        ./profiles/hardware/razer.nix
-      ];
+      modules =
+        features.desktop
+        ++ features.gnome
+        ++ features.workstation
+        ++ [
+          ./profiles/hardware/amd.nix
+          ./profiles/hardware/razer.nix
+        ];
     };
 
     tuvok = makeNixosSystem "tuvok" "aarch64-linux" ({
@@ -106,17 +110,21 @@ in
     };
 
     boschic = makeNixosSystem "boschic" "x86_64-linux" {
-      modules = (with features; gnome ++ desktop ++ webdev ++ workstation) ++ [
-        ./profiles/boot/refind.nix
-        ./profiles/desktop/flatpak.nix
-        # FIXME: clarify that this means an amd cpu, NOT gpu
-        ./profiles/hardware/amd.nix
-        ./profiles/hardware/focusrite-scarlett-18i20-mk1.nix
-        # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
-        #       (same goes for intel/amd cpu but i don't bother with intel cpus)
-        ./profiles/hardware/nvidia/stable-release.nix
-        ./profiles/hardware/razer.nix
-      ];
+      modules =
+        features.desktop
+        ++ features.gnome
+        ++ features.workstation
+        ++ [
+          ./profiles/boot/refind.nix
+          ./profiles/desktop/flatpak.nix
+          # FIXME: clarify that this means an amd cpu, NOT gpu
+          ./profiles/hardware/amd.nix
+          ./profiles/hardware/focusrite-scarlett-18i20-mk1.nix
+          # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
+          #       (same goes for intel/amd cpu but i don't bother with intel cpus)
+          ./profiles/hardware/nvidia/stable-release.nix
+          ./profiles/hardware/razer.nix
+        ];
     };
 
     hodgepodge = makeNixosSystem "hodgepodge" "x86_64-linux" {
