@@ -9,6 +9,7 @@
 
   hardware.keyboard.keyboardio.enable = true;
 
+  dotfield.nixpkgs.allowedUnfreePackages = [ "keymapp" ];
   hardware.keyboard.zsa.enable = true;
   environment.systemPackages = [
     pkgs.keymapp

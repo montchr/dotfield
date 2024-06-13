@@ -18,6 +18,7 @@
   # support DP-Alt display output.  DP-Alt output is required for true HDMI or
   # DP output via one of this machine's two USB-C ports and zero HDMI/DP ports.
   services.xserver.videoDrivers = [ "displaylink" ];
+  dotfield.nixpkgs.allowedUnfreePackages = [ "displaylink" ];
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

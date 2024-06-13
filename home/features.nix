@@ -1,68 +1,47 @@
-{ homeProfiles }:
 let
-  base = [
-    homeProfiles.core.default
-    homeProfiles.atuin
-    homeProfiles.development.nix-tools
-    homeProfiles.direnv
-    homeProfiles.fzf
-    homeProfiles.git.default
-    homeProfiles.helix
-    homeProfiles.navi
-    homeProfiles.nnn
-    homeProfiles.nvim.default
-    homeProfiles.rclone
-    homeProfiles.shells.zsh.default
-    homeProfiles.shells.zsh.with-grml
-    homeProfiles.ssh
-    homeProfiles.zellij
-    homeProfiles.zoxide
-  ];
-
-  developer = base ++ [
-    homeProfiles.difftools.delta
-    homeProfiles.emacs.default
-    homeProfiles.git-sync
-    homeProfiles.just
-    homeProfiles.python
-    homeProfiles.zellij
+  developer = [
+    ./profiles/difftools/delta.nix
+    ./profiles/emacs/default.nix
+    ./profiles/git-sync.nix
+    ./profiles/just.nix
+    ./profiles/python.nix
+    ./profiles/zellij.nix
   ];
 
   graphical = [
-    homeProfiles.chromium
-    homeProfiles.desktop.common
-    homeProfiles.firefox.default
-    homeProfiles.keyboard.default
-    homeProfiles.kitty.default
-    homeProfiles.foot
-    homeProfiles.media-client
-    homeProfiles.spotify
-    homeProfiles.theme.default
-    homeProfiles.yt-dlp
+    ./profiles/chromium.nix
+    ./profiles/desktop/common.nix
+    ./profiles/firefox/default.nix
+    ./profiles/keyboard/default.nix
+    ./profiles/kitty/default.nix
+    ./profiles/foot.nix
+    ./profiles/media-client.nix
+    ./profiles/spotify.nix
+    ./profiles/theme/default.nix
+    ./profiles/yt-dlp.nix
     # FIXME: nix-managed preferences don't work well with stateful changes (e.g. font size, theme, etc.)
     # vscode
   ];
 
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
-    homeProfiles.apple-music
-    homeProfiles.espanso.default
-    homeProfiles.newsboat
-    homeProfiles.obs-studio
-    homeProfiles.rclone
-    homeProfiles.spotify
-    homeProfiles.sync
+    ./profiles/apple-music.nix
+    ./profiles/espanso/default.nix
+    ./profiles/newsboat.nix
+    ./profiles/obs-studio.nix
+    ./profiles/rclone.nix
+    ./profiles/spotify.nix
+    ./profiles/sync.nix
   ];
 
   trusted = [
-    homeProfiles.gpg.default
-    homeProfiles.secrets.password-store
-    homeProfiles.secrets.rbw
+    ./profiles/gpg/default.nix
+    ./profiles/secrets/password-store.nix
+    ./profiles/secrets/rbw.nix
   ];
 
   features = {
     inherit
-      base
       developer
       graphical
       personalised
@@ -75,21 +54,21 @@ let
       ++ personalised
       ++ trusted
       ++ [
-        homeProfiles.desktop.applications.okular
-        homeProfiles.desktop.applications.xournal
-        homeProfiles.development.common
-        homeProfiles.development.data-wrangling
-        homeProfiles.emacs.default
-        homeProfiles.emacs.org-protocol
-        homeProfiles.git.repo-manager
-        homeProfiles.git.with-pgp-signing
-        homeProfiles.kitty.default
-        homeProfiles.ledger
-        homeProfiles.pandoc
-        homeProfiles.sync
-        homeProfiles.vhs
-        homeProfiles.writing
-        homeProfiles.yubikey
+        ./profiles/desktop/applications/okular.nix
+        ./profiles/desktop/applications/xournal.nix
+        ./profiles/development/common.nix
+        ./profiles/development/data-wrangling.nix
+        ./profiles/emacs/default.nix
+        ./profiles/emacs/org-protocol.nix
+        ./profiles/git/repo-manager.nix
+        ./profiles/git/with-pgp-signing.nix
+        ./profiles/kitty/default.nix
+        ./profiles/ledger.nix
+        ./profiles/pandoc.nix
+        ./profiles/sync.nix
+        ./profiles/vhs.nix
+        ./profiles/writing.nix
+        ./profiles/yubikey.nix
       ];
   };
 in

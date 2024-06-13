@@ -17,7 +17,7 @@ let
   dirPreviewCommand = l.getExe pkgs.eza + " --tree {} | head -n 200";
 in
 {
-  home.packages = [ flake.perSystem.packages.igr ];
+  home.packages = [ flake.packages.igr ];
 
   programs.fzf = {
     enable = true;

@@ -1,26 +1,46 @@
 {
-  inputs,
+  lib,
   self,
-  config,
   withSystem,
   ops,
   ...
 }:
 let
-  haumea = inputs.haumea.lib;
+  inherit (self.inputs) apparat haumea;
 
-  lib = haumea.load {
+  lib' = haumea.lib.load {
     src = ./src;
     inputs = {
-      inherit ops withSystem;
-      flake = {
-        inherit self inputs config;
-      };
+      inherit apparat lib ops;
     };
   };
 in
 {
-  flake.lib = lib // {
-    inherit ops;
+  flake.lib = lib' // {
+    # FIXME: remove
+    # inherit ops;
+
+    specialArgsFor =
+      system:
+      withSystem system (
+        {
+          inputs',
+          config,
+          pkgs,
+          ...
+        }:
+        {
+          # FIXME: remove
+          inherit ops;
+
+          flake = {
+            inherit (self) inputs;
+            inherit inputs' ops;
+            lib = lib';
+            inherit (config) packages;
+            path = self.outPath;
+          };
+        }
+      );
   };
 }

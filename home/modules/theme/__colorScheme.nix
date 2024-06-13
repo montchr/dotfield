@@ -5,7 +5,7 @@
 { flake }:
 { config, ... }:
 let
-  inherit (flake.self.lib.theme) derivePolarity;
+  inherit (flake.lib.theme) derivePolarity;
   inherit (flake.inputs) apparat;
   inherit (apparat.lib.color) fromHex toHex2;
   inherit (apparat.types.color) rgbChannelDec rgbChannelHex rgbHex;

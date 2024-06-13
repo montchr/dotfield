@@ -1,6 +1,6 @@
-{ flake, withSystem, ... }:
+{ lib, withSystem, ... }:
 let
-  l = flake.inputs.nixpkgs.lib // builtins;
+  inherit (builtins) mapAttrs;
 in
 {
   mkNode =
@@ -12,7 +12,7 @@ in
       };
       defaults = {
         deployment = {
-          buildOnTarget = l.mkDefault true;
+          buildOnTarget = lib.mkDefault true;
         };
       };
     in
@@ -30,8 +30,8 @@ in
       # In the end, this setting gets overridden on a per-host basis.
       nixpkgs = withSystem "x86_64-linux" (ctx: ctx.pkgs);
       description = "my personal machines";
-      nodeNixpkgs = l.mapAttrs (_: v: v.pkgs) evaled;
-      nodeSpecialArgs = l.mapAttrs (_: v: v._module.specialArgs) evaled;
+      nodeNixpkgs = mapAttrs (_: v: v.pkgs) evaled;
+      nodeSpecialArgs = mapAttrs (_: v: v._module.specialArgs) evaled;
     };
   };
 }

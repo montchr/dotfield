@@ -1,6 +1,6 @@
 { flake, lib, ... }:
 let
-  homeProfiles = import "${flake.self}/home/profiles.nix" { inherit (flake.inputs) haumea; };
+  homeProfiles = import "${flake.path}/home/profiles.nix" { inherit (flake.inputs) haumea; };
 in
 {
   # battery info

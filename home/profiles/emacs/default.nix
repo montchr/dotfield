@@ -7,7 +7,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+  inherit (flake.inputs') emacs-overlay nil-lsp;
 
   cfg = config.programs.emacs;
 

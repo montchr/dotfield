@@ -13,5 +13,5 @@ in
   environment.systemPackages = [ pkgs.gnome.dconf-editor ];
   xdg.portal.extraPortals = lib.optional (!isGnomeDesktop) pkgs.xdg-desktop-portal-gtk;
 
-  home-manager.sharedModules = [ "${flake.self}/home/profiles/desktop/gtk.nix" ];
+  home-manager.sharedModules = [ "${flake.path}/home/profiles/desktop/gtk.nix" ];
 }

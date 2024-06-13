@@ -1,66 +1,65 @@
 {
   self,
-  withSystem,
-  ops,
+  inputs,
+  lib,
+  flake-parts-lib,
   ...
 }:
 let
-  inherit (self) inputs;
-  inherit (self.inputs)
-    haumea
+  inherit (inputs)
     home-manager
     nixos-apple-silicon
-    nixpkgs
     sops-nix
     srvos
     ;
+  inherit (flake-parts-lib) importApply;
 
-  lib' = self.lib;
+  features = import ./features.nix;
 
-  modules = import ./modules-list.nix;
-  profiles = import ./profiles.nix { inherit haumea; };
-  features = import ./features.nix { inherit profiles; };
+  initSystemModule =
+    { hostName }:
+    {
+      imports = [ ../machines/${hostName} ];
+      networking.hostName = hostName;
+    };
 
-  defaultModules = [
-    home-manager.nixosModules.home-manager
-    sops-nix.nixosModules.sops
-
-    profiles.core.default
-    profiles.boot.common
-    profiles.networking.tailscale
-  ];
+  initNixpkgsModule = importApply ../packages/nixpkgs-config.nix;
 
   makeNixosSystem =
-    hostName:
-    nixosArgs@{
+    hostName: system:
+    {
       channel ? "unstable",
-      system,
-      ...
+      modules ? [ ],
+      overlays ? [ ],
+      allowUnfree ? false,
     }:
-    withSystem system (
-      { pkgs, ... }:
-      inputs."nixos-${channel}".lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit profiles;
-          flake = lib'.modules.flakeSpecialArgs' system;
-        };
-        modules =
-          defaultModules
-          ++ modules
-          ++ (nixosArgs.modules or [ ])
-          ++ [
-            ../machines/${hostName}
-            {
-              _module.args = {
-                inherit ops;
-              };
-              nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
-              networking.hostName = hostName;
-            }
-          ];
-      }
-    );
+    let
+      channelInput = "nixos-${channel}";
+      specialArgs = self.lib.specialArgsFor system;
+    in
+    inputs.${channelInput}.lib.nixosSystem {
+      inherit system specialArgs;
+      modules =
+        modules
+        ++ (import ./modules-list.nix)
+        ++ (import ./baseline.nix)
+        ++ [
+          home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
+
+          (initSystemModule { inherit hostName; })
+          (initNixpkgsModule { inherit allowUnfree overlays; })
+
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = (import ../home/modules-list.nix) ++ (import ../home/baseline.nix);
+              extraSpecialArgs = specialArgs;
+            };
+          }
+        ];
+    };
 in
 {
   flake.nixosModules = {
@@ -73,39 +72,27 @@ in
     #   modules = with features; desktop ++ gnome ++ workstation;
     # };
 
-    ryosuke = makeNixosSystem "ryosuke" {
-      system = "x86_64-linux";
+    ryosuke = makeNixosSystem "ryosuke" "x86_64-linux" {
       modules =
-        (with features; desktop ++ gnome ++ webdev ++ workstation)
-        ++ (with profiles; [
-          hardware.amd
-          hardware.razer
-          # login.greetd
-          # virtualisation.vm-variant
-        ]);
+        features.desktop
+        ++ features.gnome
+        ++ features.workstation
+        ++ [
+          ./profiles/hardware/amd.nix
+          ./profiles/hardware/razer.nix
+        ];
     };
 
-    tuvok = makeNixosSystem "tuvok" (
-      let
-        system = "aarch64-linux";
-      in
-      {
-        inherit system;
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [ nixos-apple-silicon.overlays.default ];
-        };
-        modules =
-          features.gnome
-          ++ features.desktop
-          ++ features.workstation
-          ++ [ profiles.hardware.apple.macbook-14-2 ];
-      }
-    );
+    tuvok = makeNixosSystem "tuvok" "aarch64-linux" ({
+      overlays = [ nixos-apple-silicon.overlays.default ];
+      modules =
+        features.gnome
+        ++ features.desktop
+        ++ features.workstation
+        ++ [ ./profiles/hardware/apple/macbook-14-2.nix ];
+    });
 
-    moraine = makeNixosSystem "moraine" {
-      system = "x86_64-linux";
+    moraine = makeNixosSystem "moraine" "x86_64-linux" {
       modules = features.server ++ [
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-online-amd
@@ -122,38 +109,37 @@ in
       ];
     };
 
-    boschic = makeNixosSystem "boschic" {
-      system = "x86_64-linux";
+    boschic = makeNixosSystem "boschic" "x86_64-linux" {
       modules =
-        (with features; gnome ++ desktop ++ webdev ++ workstation)
-        ++ (with profiles; [
-          boot.refind
-          desktop.flatpak
+        features.desktop
+        ++ features.gnome
+        ++ features.workstation
+        ++ [
+          ./profiles/boot/refind.nix
+          ./profiles/desktop/flatpak.nix
           # FIXME: clarify that this means an amd cpu, NOT gpu
-          hardware.amd
-          hardware.focusrite-scarlett-18i20-mk1
+          ./profiles/hardware/amd.nix
+          ./profiles/hardware/focusrite-scarlett-18i20-mk1.nix
           # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
           #       (same goes for intel/amd cpu but i don't bother with intel cpus)
-          hardware.nvidia.stable-release
-          hardware.razer
-        ]);
+          ./profiles/hardware/nvidia/stable-release.nix
+          ./profiles/hardware/razer.nix
+        ];
     };
 
-    hodgepodge = makeNixosSystem "hodgepodge" {
-      system = "x86_64-linux";
+    hodgepodge = makeNixosSystem "hodgepodge" "x86_64-linux" {
       modules =
         features.gnome
         ++ features.desktop
         ++ features.workstation
         ++ [
-          profiles.hardware.apple.macbookpro-11-3
-          profiles.virtualisation.quickemu
+          ./profiles/hardware/apple/macbookpro-11-3.nix
+          ./profiles/virtualisation/quickemu.nix
         ];
     };
 
-    chert = makeNixosSystem "chert" {
+    chert = makeNixosSystem "chert" "x86_64-linux" {
       channel = "stable";
-      system = "x86_64-linux";
       modules = features.server ++ [
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
@@ -167,8 +153,7 @@ in
       ];
     };
 
-    gabbro = makeNixosSystem "gabbro" {
-      system = "x86_64-linux";
+    gabbro = makeNixosSystem "gabbro" "x86_64-linux" {
       modules = features.server ++ [
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
@@ -182,8 +167,7 @@ in
       ];
     };
 
-    hierophant = makeNixosSystem "hierophant" {
-      system = "x86_64-linux";
+    hierophant = makeNixosSystem "hierophant" "x86_64-linux" {
       modules = features.server ++ [
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-cloud

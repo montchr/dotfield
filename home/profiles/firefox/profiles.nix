@@ -8,7 +8,7 @@ hmArgs@{
 }:
 let
   inherit (flake.inputs) apparat haumea;
-  inherit (flake.perSystem.inputs') firefox-addons;
+  inherit (flake.inputs') firefox-addons;
   inherit (apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux;

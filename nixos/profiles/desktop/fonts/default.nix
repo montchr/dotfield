@@ -19,7 +19,6 @@
       # <https://software.sil.org/charis/>
       # <https://practicaltypography.com/charter.html>
       charis-sil
-      corefonts
       dejavu_fonts
       fira
       gentium

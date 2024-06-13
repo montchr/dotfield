@@ -15,7 +15,6 @@ in
   imports = [
     ./mpv.nix
     ./jellyfin-client.nix
-    ./plex-client.nix
   ];
 
   xdg.mimeApps.defaultApplications =
