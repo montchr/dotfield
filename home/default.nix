@@ -38,7 +38,10 @@ let
           (initUserModule { inherit username; })
           (initNixpkgsModule { inherit allowUnfree overlays; })
         ];
-      extraSpecialArgs = self.lib.specialArgsFor system;
+      extraSpecialArgs = (self.lib.specialArgsFor system) // {
+        scoped.modulesPath = builtins.toString ./modules;
+        scoped.profilesPath = builtins.toString ./profiles;
+      };
     });
 in
 {
