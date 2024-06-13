@@ -23,7 +23,6 @@ let
     ++ tangible
     ++ [
       profiles.power
-      profiles.desktop.gnome-services
       profiles.networking.avahi
     ];
 

@@ -4,6 +4,7 @@
     ./applications/default.nix
     ./fonts/default.nix
 
+    ./__gnome-services.nix
     ./__gtk.nix
     ./__qt.nix
     ./__wallpaper.nix
