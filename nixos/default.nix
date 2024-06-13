@@ -127,7 +127,6 @@ in
       modules =
         (with features; gnome ++ desktop ++ webdev ++ workstation)
         ++ (with profiles; [
-          desktop.flatpak
           # FIXME: clarify that this means an amd cpu, NOT gpu
           hardware.amd
           hardware.focusrite-scarlett-18i20-mk1
