@@ -13,7 +13,6 @@ let
   srht = path: repo path "git@git.sr.ht:~${path}";
 in
 {
-  services.git-sync.enable = true;
   services.git-sync.repositories = lib.listToAttrs [
     (gh "doomemacs/doomemacs")
     (gh "purcell/emacs.d")

@@ -1,7 +1,7 @@
-{ flake, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
-  l = flake.inputs.nixpkgs.lib // builtins;
-  # FIXME: not available...?
+  # TODO: source?
+  # FIXME: move to lib
   rclone-start-mount =
     {
       readonly ? true,
@@ -10,7 +10,7 @@ let
     }:
     (pkgs.writeShellScriptBin "rclone-start-mount" ''
       ${pkgs.rclone}/bin/rclone ${
-        l.cli.toGNUCommandLineShell { } {
+        lib.cli.toGNUCommandLineShell { } {
           vfs-read-chunk-size = "64M";
           vfs-read-chunk-size-limit = "2048M";
           vfs-cache-mode = mode;

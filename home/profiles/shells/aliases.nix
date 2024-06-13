@@ -5,6 +5,7 @@
 
   # FIXME: needs workaround for nushell
   e = "$EDITOR";
+  d = "direnv";
 
   l = "${pkgs.eza}/bin/eza -bl --git --icons --time-style long-iso --group-directories-first";
 

@@ -7,4 +7,5 @@
   ./modules/programs/bash/trampoline.nix
   ./modules/programs/cod.nix
   ./modules/programs/liquidprompt.nix
+  ./modules/programs/zsh/grml.nix
 ]

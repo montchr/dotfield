@@ -1,4 +1,5 @@
 {
+  flake,
   config,
   ops,
   pkgs,
@@ -17,5 +18,5 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager.users.cdom = import ../../../users/cdom/at-tuvok.nix;
+  home-manager.users.cdom = import "${flake.path}/users/cdom/at-tuvok.nix";
 }

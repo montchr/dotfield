@@ -1,17 +1,17 @@
 # <https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt>
-{ config, lib, ... }:
+{ flake, config, ... }:
 let
   inherit (config.xdg) cacheHome;
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
   DOTFIELD_USER_ZDOTDIR = "${dotfieldDir}/users/cdom/config/zsh";
-  l = import ./lib.nix { inherit lib; };
+  lib' = flake.lib.zsh;
 in
 {
   imports = [ ./custom-prompt.nix ];
 
   programs.direnv.enableZshIntegration = false;
 
-  programs.zsh.initExtraFirst = l.mkInitInstantPrompt ''
+  programs.zsh.initExtraFirst = lib'.mkInitInstantPrompt ''
     emulate zsh -c "$(direnv export zsh)"
 
     # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -24,7 +24,7 @@ in
     emulate zsh -c "$(direnv hook zsh)"
   '';
 
-  programs.zsh.initExtra = l.mkInitPrompt ''
+  programs.zsh.initExtra = lib'.mkInitPrompt ''
     [[ -f ${DOTFIELD_USER_ZDOTDIR}/.p10k.zsh ]] \
       && source ${DOTFIELD_USER_ZDOTDIR}/.p10k.zsh
   '';

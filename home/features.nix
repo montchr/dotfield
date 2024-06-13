@@ -1,11 +1,11 @@
 let
   developer = [
-    ./profiles/difftools/delta.nix
-    ./profiles/emacs/default.nix
-    ./profiles/git-sync.nix
-    ./profiles/just.nix
-    ./profiles/python.nix
-    ./profiles/zellij.nix
+    # ./profiles/difftools/delta.nix
+    # ./profiles/emacs/default.nix
+    # ./profiles/git-sync.nix
+    # ./profiles/just.nix
+    # ./profiles/python.nix
+    # ./profiles/zellij.nix
   ];
 
   graphical = [

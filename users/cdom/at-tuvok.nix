@@ -2,9 +2,8 @@
   imports = (import ../../home/features.nix).workstation ++ [
     ../../home/profiles/desktop/applications/microsoft-teams.nix
     ../../home/profiles/development/work/default.nix
+    ../../home/profiles/editors/jetbrains.nix
     ../../home/profiles/gpg/with-ssh-support.nix
-    ../../home/profiles/shells/fish/trampoline.nix
-    ../../home/profiles/shells/fish/with-fifc-completion.nix
     ../../home/profiles/shells/prompts/starship/default.nix
 
     {

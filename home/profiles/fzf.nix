@@ -1,20 +1,26 @@
-{ pkgs, flake, ... }:
+{
+  lib,
+  pkgs,
+  flake,
+  ...
+}:
 let
-  l = flake.inputs.nixpkgs.lib // builtins;
+  inherit (builtins) concatStringsSep toString;
 
   ## TODO: outfactor these to lib?
   packageCommand =
     pkg: args:
-    l.concatStringsSep " " [
-      (l.getExe pkg)
-      (l.toString (l.cli.toGNUCommandLine { } args))
+    concatStringsSep " " [
+      (lib.getExe pkg)
+      (toString (lib.cli.toGNUCommandLine { } args))
     ];
+
   find = packageCommand pkgs.fd;
   findFiles = args: find (args // { type = "f"; });
   findDirs = args: find (args // { type = "d"; });
   # list = packageCommand pkgs.eza;
 
-  dirPreviewCommand = l.getExe pkgs.eza + " --tree {} | head -n 200";
+  dirPreviewCommand = lib.getExe pkgs.eza + " --tree {} | head -n 200";
 in
 {
   home.packages = [ flake.packages.igr ];

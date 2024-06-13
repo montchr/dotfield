@@ -1,5 +1,5 @@
 # <https://github.com/NixOS/nixpkgs/blob/3620d64912f35e984fb5a1ce61b6c29fb48072d8/lib/modules.nix#L1017-L1>
-{ lib }:
+{ lib, ... }:
 let
   profiler = 601;
   # beforeInstantPrompt = instantPrompt - 1;

@@ -1,6 +1,8 @@
-{
-  programs.atuin.enable = true;
-
+{ lib, config, ... }:
+let
+  cfg = config.programs.atuin;
+in
+lib.mkIf cfg.enable {
   ##: <https://atuin.sh/docs/config/>
   programs.atuin.settings = {
     dialect = "us";

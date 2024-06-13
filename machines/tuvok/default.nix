@@ -1,12 +1,11 @@
 {
   imports = [
     ./users/cdom.nix
-    ./secrets/sops.nix
-
     ./keyboard.nix
-
     ./hardware-configuration.nix
   ];
+
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
 
   time.timeZone = "America/New_York";
 

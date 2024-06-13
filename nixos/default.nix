@@ -38,7 +38,11 @@ let
       specialArgs = self.lib.specialArgsFor system;
     in
     inputs.${channelInput}.lib.nixosSystem {
-      inherit system specialArgs;
+      inherit system;
+      specialArgs = specialArgs // {
+        scoped.modulesPath = builtins.toString ./modules;
+        scoped.profilesPath = builtins.toString ./profiles;
+      };
       modules =
         modules
         ++ (import ./modules-list.nix)
@@ -55,7 +59,10 @@ let
               useGlobalPkgs = true;
               useUserPackages = true;
               sharedModules = (import ../home/modules-list.nix) ++ (import ../home/baseline.nix);
-              extraSpecialArgs = specialArgs;
+              extraSpecialArgs = specialArgs // {
+                scoped.modulesPath = builtins.toString ../home/modules;
+                scoped.profilesPath = builtins.toString ../home/profiles;
+              };
             };
           }
         ];

@@ -1,12 +1,5 @@
-{
-  flake,
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
-  homeProfiles = import "${flake.path}/home/profiles.nix" { inherit (flake.inputs) haumea; };
   isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {
@@ -25,9 +18,9 @@ in
     impatience # speed up gnome-shell animations
   ];
 
-  home-manager.sharedModules = lib.singleton {
-    imports = lib.singleton homeProfiles.desktop.sessions.gnome.common;
-  };
+  # home-manager.sharedModules = lib.singleton {
+  #   imports = lib.singleton homeProfiles.desktop.sessions.gnome.common;
+  # };
 
   # Prevent GNOME session crashes when auto-login is enabled.
   # <https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229>

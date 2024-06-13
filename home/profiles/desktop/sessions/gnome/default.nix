@@ -1,6 +1,8 @@
-{ lib, ... }:
+{ flake, lib, ... }:
 let
   inherit (lib.hm.gvariant) mkUint32;
+
+  profilesPath = flake.path + "/home/profiles";
 
   fileChooserDefaults = {
     date-format = "regular";
@@ -15,17 +17,29 @@ let
   };
 in
 {
-  imports = [
-    ./mimeapps.nix
-
-    ../../gtk.nix
-  ];
+  imports = [ (profilesPath + "/desktop/common.nix") ];
 
   # The package loaded by the "gnome" setting is obsolete.
   # TODO: gtk4?
   qt.platformTheme.name = "gtk3";
 
   services.gnome-keyring.enable = true;
+
+  xdg.mimeApps.defaultApplications =
+    let
+      imageTypes = [
+        "image/gif"
+        "image/jpeg"
+        "image/png"
+        # "image/svg+xml"
+        "image/tiff"
+        "image/webp"
+      ];
+    in
+    (lib.genAttrs imageTypes (_: [ "org.gnome.Loupe.desktop" ]))
+    // {
+      "application/zip" = [ "org.gnome.FileRoller.desktop" ];
+    };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
