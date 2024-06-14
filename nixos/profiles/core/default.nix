@@ -15,12 +15,11 @@ let
 in
 {
   imports = [
-    ./nix-config
-
     ./__environment.nix
     ./__home-manager.nix
     ./__nh.nix
     ./__nix-index.nix
+    ./__nix-config.nix
     ./__secrets.nix
     ./__system-packages.nix
   ];
