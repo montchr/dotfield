@@ -10,6 +10,8 @@ let
   isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {
+  imports = [ ./common.nix ];
+
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
@@ -26,7 +28,7 @@ in
   ];
 
   home-manager.sharedModules = lib.singleton {
-    imports = lib.singleton homeProfiles.desktop.sessions.gnome.common;
+    imports = lib.singleton homeProfiles.graphical.sessions.gnome.common;
   };
 
   # Prevent GNOME session crashes when auto-login is enabled.

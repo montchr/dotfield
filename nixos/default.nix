@@ -19,7 +19,6 @@ let
 
   modules = import ./modules-list.nix;
   profiles = import ./profiles.nix { inherit haumea; };
-  features = import ./features.nix { inherit profiles; };
 
   defaultModules = [
     home-manager.nixosModules.home-manager
@@ -75,14 +74,14 @@ in
 
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
-      modules =
-        (with features; desktop ++ gnome ++ webdev ++ workstation)
-        ++ (with profiles; [
-          hardware.amd
-          hardware.razer
-          # login.greetd
-          # virtualisation.vm-variant
-        ]);
+      modules = [
+        ./mixins/gnome.nix
+        ./mixins/workstation.nix
+        ./mixins/webdev.nix
+
+        ./profiles/hardware/amd.nix
+        ./profiles/hardware/razer.nix
+      ];
     };
 
     tuvok = makeNixosSystem "tuvok" (
@@ -96,17 +95,20 @@ in
           config.allowUnfree = true;
           overlays = [ nixos-apple-silicon.overlays.default ];
         };
-        modules =
-          features.gnome
-          ++ features.desktop
-          ++ features.workstation
-          ++ [ profiles.hardware.apple.macbook-14-2 ];
+        modules = [
+          ./mixins/gnome.nix
+          ./mixins/workstation.nix
+
+          ./profiles/hardware/apple/macbook-14-2.nix
+        ];
       }
     );
 
     moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";
-      modules = features.server ++ [
+      modules = [
+        ./mixins/server.nix
+
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-online-amd
         srvos.nixosModules.mixins-nginx
@@ -124,35 +126,41 @@ in
 
     boschic = makeNixosSystem "boschic" {
       system = "x86_64-linux";
-      modules =
-        (with features; gnome ++ desktop ++ webdev ++ workstation)
-        ++ (with profiles; [
-          # FIXME: clarify that this means an amd cpu, NOT gpu
-          hardware.amd
-          hardware.focusrite-scarlett-18i20-mk1
-          # TODO: rename to note that this is gpu, making it mutually exclusive with an AMD GPU
-          #       (same goes for intel/amd cpu but i don't bother with intel cpus)
-          hardware.nvidia.stable-release
-          hardware.razer
-        ]);
+      modules = [
+        ./mixins/gnome.nix
+        ./mixins/webdev.nix
+        ./mixins/workstation.nix
+
+        # FIXME: clarify that this means an amd cpu, NOT gpu
+        ./profiles/hardware/amd.nix
+
+        ./profiles/hardware/focusrite-scarlett-18i20-mk1.nix
+
+        # TODO: rename to note that this is gpu, making it mutually exclusive
+        #       with an AMD GPU (same goes for intel/amd cpu but i don't bother
+        #       with intel cpus)
+        ./profiles/hardware/nvidia/stable-release.nix
+        ./profiles/hardware/razer.nix
+      ];
     };
 
     hodgepodge = makeNixosSystem "hodgepodge" {
       system = "x86_64-linux";
-      modules =
-        features.gnome
-        ++ features.desktop
-        ++ features.workstation
-        ++ [
-          profiles.hardware.apple.macbookpro-11-3
-          profiles.virtualisation.quickemu
-        ];
+      modules = [
+        ./mixins/gnome.nix
+        ./mixins/workstation.nix
+
+        ./profiles/hardware/apple/macbookpro-11-3.nix
+        ./profiles/virtualisation/quickemu.nix
+      ];
     };
 
     chert = makeNixosSystem "chert" {
       channel = "stable";
       system = "x86_64-linux";
-      modules = features.server ++ [
+      modules = [
+        ./mixins/server.nix
+
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
         # srvos.nixosModules.mixins-nginx
@@ -167,7 +175,9 @@ in
 
     gabbro = makeNixosSystem "gabbro" {
       system = "x86_64-linux";
-      modules = features.server ++ [
+      modules = [
+        ./mixins/server.nix
+
         # TODO: verify whether these conflict with operations, esp. non-mutable users?
         # srvos.nixosModules.server
         # srvos.nixosModules.mixins-nginx
@@ -182,7 +192,9 @@ in
 
     hierophant = makeNixosSystem "hierophant" {
       system = "x86_64-linux";
-      modules = features.server ++ [
+      modules = [
+        ./mixins/server.nix
+
         srvos.nixosModules.server
         srvos.nixosModules.hardware-hetzner-cloud
         srvos.nixosModules.mixins-nginx

@@ -13,9 +13,8 @@ let
 in
 {
   imports = [
+    ./applications/jellyfin-client.nix
     ./mpv.nix
-    ./jellyfin-client.nix
-    ./plex-client.nix
   ];
 
   xdg.mimeApps.defaultApplications =

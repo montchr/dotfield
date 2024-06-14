@@ -1,14 +1,20 @@
-{ lib, pkgs, ... }:
+{
+  flake,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
-    ./applications/default.nix
-    ./fonts/default.nix
+    ./applications
+    ./fonts
 
     ./__gnome-services.nix
     ./__gtk.nix
-    ./__qt.nix
+    ./__nixpkgs-wayland.nix
     ./__wallpaper.nix
-    ./__xdg.nix
+
+    ../boot/systemd-boot.nix
   ];
 
   documentation.info.enable = true;
@@ -29,6 +35,8 @@
     enable = true;
     driSupport = true;
   };
+
+  qt.enable = true;
 
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
@@ -53,8 +61,16 @@
   # services.psd.enable = true;
   # services.psd.resyncTimer = lib.mkDefault "10m";
 
+  xdg = {
+    mime.enable = true;
+    icons.enable = true;
+    portal.enable = true;
+  };
+
   environment.systemPackages = [
     pkgs.wev # the Wayland Event Viewer
     pkgs.wl-clipboard
   ];
+
+  home-manager.sharedModules = [ "${flake.self}/home/profiles/graphical/qt.nix" ];
 }

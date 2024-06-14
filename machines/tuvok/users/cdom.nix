@@ -21,10 +21,10 @@ in
     { profiles, features, ... }:
     {
       imports = features.workstation ++ [
-        profiles.desktop.applications.microsoft-teams
         profiles.development.work.default
-        profiles.editors.jetbrains
         profiles.gpg.with-ssh-support
+        profiles.graphical.applications.jetbrains
+        profiles.graphical.applications.microsoft-teams
         profiles.shells.prompts.starship.default
 
         {

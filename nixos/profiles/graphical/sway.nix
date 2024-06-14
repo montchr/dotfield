@@ -9,7 +9,10 @@ let
   inherit (config.dotfield.features) hasNvidia;
 in
 {
-  imports = [ ../common.nix ];
+  imports = [
+    ./common.nix
+    ./wlroots.nix
+  ];
 
   programs.sway = {
     enable = true;

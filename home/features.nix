@@ -8,9 +8,8 @@ let
     homeProfiles.fzf
     homeProfiles.git.default
     homeProfiles.helix
-    homeProfiles.navi
+    homeProfiles.neovim.default
     homeProfiles.nnn
-    homeProfiles.nvim.default
     homeProfiles.rclone
     homeProfiles.shells.zsh.default
     homeProfiles.shells.zsh.with-grml
@@ -20,22 +19,21 @@ let
   ];
 
   developer = base ++ [
-    homeProfiles.difftools.delta
+    homeProfiles.development.difftools.delta
     homeProfiles.emacs.default
     homeProfiles.git-sync
     homeProfiles.just
-    homeProfiles.python
-    homeProfiles.zellij
   ];
 
   graphical = [
-    homeProfiles.chromium
-    homeProfiles.desktop.common
-    homeProfiles.firefox.default
-    homeProfiles.keyboard.default
-    homeProfiles.kitty.default
-    homeProfiles.foot
-    homeProfiles.media-client
+    homeProfiles.graphical.applications.chromium
+    homeProfiles.graphical.applications.firefox.default
+    homeProfiles.graphical.applications.foot
+    homeProfiles.graphical.applications.kitty.default
+    homeProfiles.graphical.common
+    homeProfiles.graphical.media-client
+
+    homeProfiles.hardware.keyboard.default
     homeProfiles.spotify
     homeProfiles.theme.default
     homeProfiles.yt-dlp
@@ -45,10 +43,8 @@ let
 
   # TODO: move to user-specific dir -- "personalisation" depends on preference anyway
   personalised = [
-    homeProfiles.apple-music
-    homeProfiles.espanso.default
-    homeProfiles.newsboat
-    homeProfiles.obs-studio
+    homeProfiles.graphical.applications.obs-studio
+    homeProfiles.graphical.espanso
     homeProfiles.rclone
     homeProfiles.spotify
     homeProfiles.sync
@@ -56,7 +52,7 @@ let
 
   trusted = [
     homeProfiles.gpg.default
-    homeProfiles.secrets.password-store
+    homeProfiles.password-store
   ];
 
   features = {
@@ -74,15 +70,15 @@ let
       ++ personalised
       ++ trusted
       ++ [
-        homeProfiles.desktop.applications.okular
-        homeProfiles.desktop.applications.xournal
+        homeProfiles.graphical.applications.kitty.default
+        homeProfiles.graphical.applications.okular
+        homeProfiles.graphical.applications.xournal
         homeProfiles.development.common
         homeProfiles.development.data-wrangling
         homeProfiles.emacs.default
         homeProfiles.emacs.org-protocol
         homeProfiles.git.repo-manager
         homeProfiles.git.with-pgp-signing
-        homeProfiles.kitty.default
         homeProfiles.ledger
         homeProfiles.pandoc
         homeProfiles.sync
