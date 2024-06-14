@@ -5,7 +5,6 @@ with addons;
   a11ycss
   anchors-reveal
   auto-tab-discard
-  bitwarden
   consent-o-matic
   copy-as-org-mode
   copy-selection-as-markdown

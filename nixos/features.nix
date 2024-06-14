@@ -64,7 +64,6 @@ in
     profiles.location
 
     profiles.one-password
-    profiles.bitwarden
 
     profiles.hardware.android-devices.common
     profiles.hardware.android-devices.supernote-a5x

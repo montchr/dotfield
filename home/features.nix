@@ -57,7 +57,6 @@ let
   trusted = [
     homeProfiles.gpg.default
     homeProfiles.secrets.password-store
-    homeProfiles.secrets.rbw
   ];
 
   features = {
