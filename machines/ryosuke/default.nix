@@ -17,6 +17,8 @@
   users.mutableUsers = false;
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
+  # Never remove old secrets (attempt to fix lockouts).
+  sops.keepGenerations = 0;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = [ "btrfs" ];
