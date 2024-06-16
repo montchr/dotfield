@@ -6,11 +6,11 @@
       pkgs.imagemagick # for image-dired
       pkgs.zstd # for compression in supported contexts
 
+      pkgs.bash-language-server
       pkgs.editorconfig-core-c
       pkgs.taplo-lsp # toml language server
     ]
     ++ (with pkgs.nodePackages; [
-      bash-language-server
       dockerfile-language-server-nodejs
       typescript-language-server
       vscode-css-languageserver-bin
