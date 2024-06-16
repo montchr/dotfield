@@ -4,6 +4,7 @@
     ./secrets/sops.nix
 
     ./keyboard.nix
+    ./work/default.nix
 
     ./hardware-configuration.nix
   ];

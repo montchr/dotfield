@@ -17,20 +17,25 @@
 {
   environment.systemPackages = with pkgs; [
     arion
+    dive # inspect image layers
+    podman-tui
 
     # Allow the Docker CLI to talk to Podman, as we are going for full
     # compatibility in this scenario. This replaces the need for
     # `podman-compose`.
     docker-client
+    docker-compose
   ];
 
+  virtualisation.containers.enable = true;
   virtualisation.docker.enable = false;
-
   virtualisation.podman = {
     enable = true;
     # NOTE: This only creates a shell alias mapping `docker` to `podman`.
     dockerCompat = true;
     dockerSocket.enable = true;
+    # Required for containers under podman-compose to be able to talk to each other.
+    defaultNetwork.settings.dns_enabled = true;
   };
 
   # Any other user who needs to be able to run Docker-compatible Podman

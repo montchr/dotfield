@@ -100,6 +100,7 @@ in
           ./mixins/workstation.nix
 
           ./profiles/hardware/apple/macbook-14-2.nix
+          ./profiles/virtualisation/ddev.nix
         ];
       }
     );
