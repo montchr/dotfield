@@ -24,9 +24,6 @@ in
     ./__system-packages.nix
   ];
 
-  # The only sane default. Servers should usually keep this as is.
-  time.timeZone = lib.mkDefault "UTC";
-
   programs.fish.enable = true;
 
   programs.zsh = {
