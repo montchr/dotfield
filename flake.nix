@@ -70,7 +70,8 @@
     nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+
     # nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
     ##: core modules+libraries
@@ -84,9 +85,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-05-23";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
+    # FIXME: update
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
-    # FIXME: remove -- will break due to branch pinning above
-    simple-nixos-mailserver.inputs.nixpkgs.follows = "nixos-stable";
+    simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     srvos.url = "github:numtide/srvos";
 
     ##: ops
