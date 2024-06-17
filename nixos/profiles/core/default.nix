@@ -41,7 +41,7 @@ in
     syntaxHighlighting.enable = lib.mkForce false;
   };
 
-  networking.nameservers = lib.mkDefault dns.nameservers.cloudflare;
+  networking.nameservers = dns.nameservers.quad9;
 
   programs.git.enable = true;
   programs.git.config = {
