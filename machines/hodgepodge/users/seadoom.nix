@@ -29,14 +29,5 @@ in
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} =
-    { profiles, features, ... }:
-    {
-      imports = features.workstation ++ [
-        profiles.shells.fish.default
-        profiles.spotify
-        profiles.qutebrowser
-      ];
-      home.stateVersion = "21.11";
-    };
+  home-manager.users.${username} = import ../../../users/cdom/seadoom-at-hodgepodge.nix;
 }

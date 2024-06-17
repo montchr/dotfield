@@ -20,5 +20,5 @@
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  home-manager.users.cdom = _hmArgs: { home.stateVersion = "23.05"; };
+  home-manager.users.cdom = import ../../users/cdom/cdom-at-hierophant.nix;
 }

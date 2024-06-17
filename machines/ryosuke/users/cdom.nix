@@ -12,16 +12,5 @@ in
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  home-manager.users.${username} =
-    { features, profiles, ... }:
-    {
-      imports = features.workstation ++ [
-        # TODO: consider renaming these -- "default" is a little confusing
-        # sometimes, e.g. in this case it could be interpreted as the default
-        # user shell.
-        #
-        profiles.shells.fish.default
-      ];
-      home.stateVersion = "22.05";
-    };
+  home-manager.users.${username} = import ../../../users/cdom/cdom-at-ryosuke.nix;
 }

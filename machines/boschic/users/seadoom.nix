@@ -15,14 +15,5 @@
     shell = pkgs.zsh;
   };
 
-  home-manager.users.seadoom =
-    { profiles, features, ... }:
-    {
-      imports = features.workstation ++ [
-        profiles.git.with-pgp-signing
-        # XXX: nyxt build failure
-        # profiles.browsers.nyxt
-      ];
-      home.stateVersion = "21.11";
-    };
+  home-manager.users.seadoom = import ../../../users/cdom/seadoom-at-boschic.nix;
 }
