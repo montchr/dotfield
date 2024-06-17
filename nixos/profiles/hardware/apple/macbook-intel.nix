@@ -5,6 +5,6 @@
     ./macbook.nix
   ];
 
-  hardware.facetimehd.enable = lib.mkDefault true;
+  hardware.facetimehd.enable = true;
   services.mbpfan.enable = true;
 }

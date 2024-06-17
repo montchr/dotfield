@@ -5,6 +5,6 @@ in
 {
   programs.git.signing = {
     key = whoami.pgp;
-    signByDefault = lib.mkDefault true;
+    signByDefault = true;
   };
 }

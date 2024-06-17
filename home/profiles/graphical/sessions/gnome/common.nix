@@ -29,8 +29,8 @@ in
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      clock-show-seconds = lib.mkDefault false;
-      clock-show-weekday = lib.mkDefault true;
+      clock-show-seconds = false;
+      clock-show-weekday = true;
 
       # FIXME: too aggressive, need CUA-like also -- macOS keys are actually
       # pretty nice as a weird combination of Emacs and CUA with cmd/ctrl swap
@@ -57,7 +57,7 @@ in
 
     "org/gnome/desktop/session" = {
       # TODO: longer for home theater, which are the primary gnome users
-      idle-delay = lib.mkDefault (mkUint32 600);
+      idle-delay = (mkUint32 600);
     };
 
     "org/gnome/shell/app-switcher" = {

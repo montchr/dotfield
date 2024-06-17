@@ -17,9 +17,12 @@ in
     ../../boot/systemd-boot.nix
   ];
 
-  hardware.asahi.peripheralFirmwareDirectory = lib.mkDefault firmwareInput.packages.default;
+  hardware.asahi.peripheralFirmwareDirectory = firmwareInput.packages.default;
+
+  boot.loader.systemd-boot.consoleMode = lib.mkForce "0";
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
+  # Mutually exclusive legacy Apple hardware.
   hardware.facetimehd.enable = lib.mkForce false;
   services.mbpfan.enable = lib.mkForce false;
 }

@@ -37,13 +37,13 @@ in
         "root"
         "@wheel"
       ];
-      auto-optimise-store = lib.mkDefault true;
+      auto-optimise-store = true;
       builders-use-substitutes = true;
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      sandbox = lib.mkDefault true;
+      sandbox = true;
       # TODO: always appropriate??
       system-features = [
         "nixos-test"
@@ -70,7 +70,7 @@ in
 
     gc.dates = "weekly";
     optimise.automatic = true;
-    gc.automatic = lib.mkDefault (!config.programs.nh.clean.enable);
+    gc.automatic = (!config.programs.nh.clean.enable);
 
     extraOptions = ''
       warn-dirty = false

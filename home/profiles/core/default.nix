@@ -35,14 +35,14 @@ in
 
   ### shells
   programs.bash.enable = true;
-  programs.zsh.enable = lib.mkDefault true;
+  programs.zsh.enable = true;
 
   ### essential tools
   programs.jq.enable = true;
   programs.man.enable = true;
   # N.B. This can slow down builds, but enables more manpage integrations
-  # across various tools. See the home-manager manual for more info.
-  programs.man.generateCaches = lib.mkDefault true;
+  # across various tools.  See the home-manager manual for more info.
+  programs.man.generateCaches = true;
 
   # Nix-oriented package search tool and `command-not-found` replacement.
   #

@@ -17,6 +17,6 @@
   # Install package-supplied completions.
   home.extraOutputsToInstall = [ "/share/fish" ];
 
-  programs.fzf.enableFishIntegration = lib.mkDefault true;
+  programs.fzf.enableFishIntegration = true;
   programs.neovim.plugins = [ pkgs.vimPlugins.vim-fish ];
 }

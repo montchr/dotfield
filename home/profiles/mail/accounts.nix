@@ -103,7 +103,7 @@ in
           domain = "cdom.io";
         }
         // {
-          primary = lib.mkDefault true;
+          primary = true;
           msmtp.enable = true;
         };
     };

@@ -1,5 +1,5 @@
 { lib, ... }:
 {
   qt.enable = true;
-  qt.platformTheme.name = lib.mkDefault "gtk3";
+  qt.platformTheme.name = "gtk3";
 }

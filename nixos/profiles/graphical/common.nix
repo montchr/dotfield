@@ -59,7 +59,7 @@
   # # <https://github.com/graysky2/profile-sync-daemon>
   # # <https://wiki.archlinux.org/title/Profile-sync-daemon>
   # services.psd.enable = true;
-  # services.psd.resyncTimer = lib.mkDefault "10m";
+  # services.psd.resyncTimer = "10m";
 
   xdg = {
     mime.enable = true;

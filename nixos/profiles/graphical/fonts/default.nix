@@ -5,9 +5,9 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = lib.mkDefault [ "Iosevka" ];
-      serif = lib.mkDefault [ "IBM Plex Serif" ];
-      sansSerif = lib.mkDefault [ "Inter" ];
+      monospace = [ "Iosevka" ];
+      serif = [ "IBM Plex Serif" ];
+      sansSerif = [ "Inter" ];
     };
   };
 

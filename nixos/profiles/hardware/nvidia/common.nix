@@ -17,7 +17,7 @@
   # FIXME(docs): provide evidence/source
   # Probably does other important things too. We don't want the GPU to break...
   # NOTE: This is an experimental setting. Consider avoiding.
-  hardware.nvidia.powerManagement.enable = lib.mkDefault true;
+  hardware.nvidia.powerManagement.enable = true;
 
   # Enable the Nvidia settings menu,
   # accessible via `nvidia-settings`.

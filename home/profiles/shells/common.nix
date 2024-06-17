@@ -20,7 +20,7 @@ in
   #        thanks to the trampoline.
   programs.nushell.shellAliases = shellAbbrs // shellAliases;
 
-  programs.dircolors.enable = lib.mkDefault true;
+  programs.dircolors.enable = true;
 
   programs.bat.enable = true;
   programs.bottom.enable = true;

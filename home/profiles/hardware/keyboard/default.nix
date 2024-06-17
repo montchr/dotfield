@@ -3,7 +3,7 @@ let
   inherit (lib.hm.gvariant) mkTuple;
 in
 {
-  home.keyboard.options = lib.mkDefault [ "compose:ralt" ];
+  home.keyboard.options = [ "compose:ralt" ];
 
   dconf.settings."org/gnome/desktop/input-sources" = {
     sources = lib.singleton (mkTuple [

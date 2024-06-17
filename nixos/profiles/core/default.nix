@@ -27,13 +27,13 @@ in
   # The only sane default. Servers should usually keep this as is.
   time.timeZone = lib.mkDefault "UTC";
 
-  programs.fish.enable = lib.mkDefault true;
+  programs.fish.enable = true;
 
   programs.zsh = {
-    enable = lib.mkDefault true;
-    shellInit = lib.mkDefault "";
-    loginShellInit = lib.mkDefault "";
-    interactiveShellInit = lib.mkDefault "";
+    enable = true;
+    shellInit = "";
+    loginShellInit = "";
+    interactiveShellInit = "";
 
     # Prompts/completions/widgets should never be initialised at the
     # system-level because it will need to be initialised a second time once the
@@ -61,9 +61,9 @@ in
     enable = true;
     # If, for some reason, a machine should not be accessible by SSH,
     # then restrict access through firewall rather than disabling SSH entirely.
-    openFirewall = lib.mkDefault true;
+    openFirewall = true;
     settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = lib.mkDefault "prohibit-password";
+    settings.PermitRootLogin = "prohibit-password";
     hostKeys = [
       {
         bits = 4096;
@@ -91,5 +91,5 @@ in
   # TODO: reduce number of keys with access
   users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
 
-  hardware.enableRedistributableFirmware = lib.mkDefault true;
+  hardware.enableRedistributableFirmware = true;
 }

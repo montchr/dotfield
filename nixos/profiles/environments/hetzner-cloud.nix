@@ -27,7 +27,7 @@
   networking.interfaces.enp1s0.useDHCP = true;
 
   swapDevices = [ ];
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
 
   fileSystems."/" = {
     # N.B. While nixos-generate-config will set this to a UUID by default, the

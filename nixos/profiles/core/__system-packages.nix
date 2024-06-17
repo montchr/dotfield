@@ -2,7 +2,7 @@
 {
   # FIXME: cannot set to false without srvos conflict! even with mkDefault
   # NOTE: Manpage cache generation may add significant time to builds.
-  documentation.man.generateCaches = lib.mkDefault true;
+  documentation.man.generateCaches = true;
 
   programs.htop.enable = true;
   programs.mtr.enable = true;
