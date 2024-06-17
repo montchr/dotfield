@@ -13,10 +13,8 @@ in
     # openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
   };
 
-  home-manager.users.${username} =
-    { features, profiles, ... }:
-    {
-      imports = features.graphical ++ [ ];
-      home.stateVersion = "24.05";
-    };
+  home-manager.users.${username} = _: {
+    imports = [ ../../../home/mixins/graphical.nix ];
+    home.stateVersion = "24.05";
+  };
 }

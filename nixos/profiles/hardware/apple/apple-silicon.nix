@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  profiles,
   flake,
   ...
 }:
@@ -13,8 +12,9 @@ let
 in
 {
   imports = [
-    profiles.boot.systemd-boot
     nixos-apple-silicon.nixosModules.apple-silicon-support
+
+    ../../boot/systemd-boot.nix
   ];
 
   hardware.asahi.peripheralFirmwareDirectory = lib.mkDefault firmwareInput.packages.default;

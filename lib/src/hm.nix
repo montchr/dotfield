@@ -7,15 +7,12 @@
 }:
 let
   inherit (super.modules) flakeSpecialArgs flakeSpecialArgs';
-  inherit (flake.inputs) apparat haumea home-manager;
+  inherit (flake.inputs) apparat home-manager;
   inherit (apparat.lib) homePrefix;
 
   homeModules = import "${flake.self}/home/modules-list.nix";
-  profiles = import "${flake.self}/home/profiles.nix" { inherit haumea; };
-  features = import "${flake.self}/home/features.nix" { homeProfiles = profiles; };
 
   specialArgs = {
-    inherit features profiles;
     flake = flakeSpecialArgs;
   };
   specialArgs' = system: specialArgs // { flake = flakeSpecialArgs' system; };
@@ -28,16 +25,29 @@ let
   };
   settings' = system: settings // { extraSpecialArgs = specialArgs' system; };
 
-  defaultModules =
-    homeModules
-    ++ features.base
-    ++ [
-      {
-        _module.args = {
-          inherit ops;
-        };
-      }
-    ];
+  defaultModules = homeModules ++ [
+    ../../home/profiles/core/default.nix
+    ../../home/profiles/atuin.nix
+    ../../home/profiles/development/nix-tools.nix
+    ../../home/profiles/direnv.nix
+    ../../home/profiles/fzf.nix
+    ../../home/profiles/git/default.nix
+    ../../home/profiles/helix.nix
+    ../../home/profiles/neovim/default.nix
+    ../../home/profiles/nnn.nix
+    ../../home/profiles/rclone.nix
+    ../../home/profiles/shells/zsh/default.nix
+    ../../home/profiles/shells/zsh/with-grml.nix
+    ../../home/profiles/ssh.nix
+    ../../home/profiles/zellij.nix
+    ../../home/profiles/zoxide.nix
+
+    {
+      _module.args = {
+        inherit ops;
+      };
+    }
+  ];
 in
 {
   inherit defaultModules settings settings';

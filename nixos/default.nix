@@ -7,7 +7,6 @@
 let
   inherit (self) inputs;
   inherit (self.inputs)
-    haumea
     home-manager
     nixos-apple-silicon
     nixpkgs
@@ -18,15 +17,14 @@ let
   lib' = self.lib;
 
   modules = import ./modules-list.nix;
-  profiles = import ./profiles.nix { inherit haumea; };
 
   defaultModules = [
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops
 
-    profiles.core.default
-    profiles.boot.common
-    profiles.networking.tailscale
+    ./profiles/core/default.nix
+    ./profiles/boot/common.nix
+    ./profiles/networking/tailscale.nix
   ];
 
   makeNixosSystem =
@@ -41,7 +39,6 @@ let
       inputs."nixos-${channel}".lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit profiles;
           flake = lib'.modules.flakeSpecialArgs' system;
         };
         modules =

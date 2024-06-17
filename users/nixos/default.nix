@@ -7,5 +7,7 @@
     extraGroups = [ "wheel" ];
   };
 
-  home-manager.users.nixos = hmArgs: { imports = with hmArgs.features; graphical; };
+  home-manager.users.nixos = _: {
+    imports = [ ../../../home/mixins/graphical.nix ];
+  };
 }

@@ -12,7 +12,11 @@ _: {
   };
 
   home-manager.users.nixos = hmArgs: {
-    imports = with hmArgs.features; graphical ++ developer;
+    imports = [
+      ../../home/mixins/graphical.nix
+      ../../home/mixins/developer.nix
+    ];
+
     home.stateVersion = "22.11";
   };
 

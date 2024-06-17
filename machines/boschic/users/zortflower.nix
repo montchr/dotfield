@@ -12,8 +12,8 @@
     ];
   };
 
-  home-manager.users.zortflower = hmArgs: {
-    imports = with hmArgs.features; graphical;
+  home-manager.users.zortflower = _: {
+    imports = [ ../../../home/mixins/graphical.nix ];
     home.stateVersion = "22.05";
   };
 }
