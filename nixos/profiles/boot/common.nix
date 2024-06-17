@@ -1,8 +1,9 @@
-# TODO: look into `boot.initrd.systemd`, a new option
 { lib, ... }:
 {
   boot.consoleLogLevel = lib.mkDefault 3;
   boot.tmp.cleanOnBoot = true;
+
+  boot.initrd.systemd.enable = true;
 
   # Enable all Magic SysRq functions via ALT-PrtSc-<command key>
   # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
