@@ -48,7 +48,10 @@ in
       # else pkgs.emacs-pgtk; # from master via emacs-overlay
       # else pkgs.emacs29-pgtk;
       else
-        emacs-overlay.packages.emacs-pgtk;
+        (emacs-overlay.packages.emacs-pgtk.overrideAttrs (
+          # XXX: https://lists.gnu.org/archive/html/bug-gnu-emacs/2024-06/msg01024.html
+          _final: prev: { patches = prev.patches ++ [ ./fix-php-ts-mode-font-lock-regex.patch ]; }
+        ));
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
