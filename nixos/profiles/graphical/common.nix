@@ -17,13 +17,6 @@
     ../boot/systemd-boot.nix
   ];
 
-  documentation.info.enable = true;
-  # NOTE: Force override <numtide/srvos>.
-  documentation.man.enable = lib.mkForce true;
-
-  services.xserver.enable = true;
-  services.xserver.xkb.layout = "us";
-
   # <https://wiki.archlinux.org/title/Users_and_groups#Pre-systemd_groups>
   dotfield.guardian.extraGroups = [
     "audio"
@@ -31,11 +24,13 @@
     "video"
   ];
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-  };
+  documentation.info.enable = true;
+  # NOTE: Force override <numtide/srvos>.
+  documentation.man.enable = lib.mkForce true;
 
+  services.xserver.enable = true;
+  services.xserver.xkb.layout = "us";
+  hardware.graphics.enable = true;
   qt.enable = true;
 
   security.rtkit.enable = true;
