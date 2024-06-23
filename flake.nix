@@ -83,7 +83,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-05-23";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-06-16";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     # FIXME: update
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
