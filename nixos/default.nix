@@ -149,7 +149,6 @@ in
         ./mixins/workstation.nix
 
         ./profiles/hardware/apple/macbookpro-11-3.nix
-        ./profiles/virtualisation/quickemu.nix
       ];
     };
 
