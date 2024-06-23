@@ -28,6 +28,7 @@ in
     ../writing.nix
   ];
 
+  # XXX: no effect!  <https://github.com/nix-community/home-manager/issues/2954#issuecomment-2185326566>
   nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
 
   home = {
@@ -42,16 +43,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package =
-      if isDarwin then
-        pkgs.emacs29-macport
-      # else pkgs.emacs-pgtk; # from master via emacs-overlay
-      # else pkgs.emacs29-pgtk;
-      else
-        (emacs-overlay.packages.emacs-pgtk.overrideAttrs (
-          # XXX: https://lists.gnu.org/archive/html/bug-gnu-emacs/2024-06/msg01024.html
-          _final: prev: { patches = prev.patches ++ [ ./fix-php-ts-mode-font-lock-regex.patch ]; }
-        ));
+    package = if isDarwin then pkgs.emacs29-macport else emacs-overlay.packages.emacs-pgtk;
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
