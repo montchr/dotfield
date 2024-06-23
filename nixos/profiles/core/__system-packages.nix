@@ -40,6 +40,7 @@
     lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
     lnav
     lshw # <- "Provide detailed information on the hardware configuration of the machine" <https://ezix.org/project/wiki/HardwareLiSter>
+    lynx
     moreutils
     nh # yet another nix cli helper :: <https://github.com/viperML/nh>
     nmap
