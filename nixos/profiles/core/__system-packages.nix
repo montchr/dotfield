@@ -1,4 +1,7 @@
-{ lib, pkgs, ... }:
+{ flake, pkgs, ... }:
+let
+  inherit (flake.perSystem) packages;
+in
 {
   # FIXME: cannot set to false without srvos conflict! even with mkDefault
   # NOTE: Manpage cache generation may add significant time to builds.
@@ -54,6 +57,8 @@
     rsync
     screen
     sd
+    # XXX: not in nixpkgs, unable to build, needs release of <https://github.com/shell-pool/shpool/commit/fef785abbf17dc4e4507dea7273cf52f95d92563>
+    # packages.shpool # <- "think tmux, then aim... lower" :: <https://github.com/shell-pool/shpool>
     sysstat
     tealdeer
     ugrep
