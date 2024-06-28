@@ -87,7 +87,8 @@ in
       in
       {
         inherit system;
-        pkgs = import nixpkgs {
+        # XXX: <https://github.com/NixOS/nixpkgs/pull/317292>
+        pkgs = import inputs.nixos-unstable-tuvok {
           inherit system;
           config.allowUnfree = true;
           overlays = [ nixos-apple-silicon.overlays.default ];

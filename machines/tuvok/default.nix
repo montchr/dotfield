@@ -1,3 +1,4 @@
+{ lib, flake, ... }:
 {
   imports = [
     ./users/cdom.nix
@@ -18,7 +19,11 @@
   # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
   # support DP-Alt display output.  DP-Alt output is required for true HDMI or
   # DP output via one of this machine's two USB-C ports and zero HDMI/DP ports.
-  services.xserver.videoDrivers = [ "displaylink" ];
+  # For details on update procedure, see <https://wiki.nixos.org/wiki/Displaylink>.
+  services.xserver.videoDrivers = [
+    "displaylink"
+    "modesetting"
+  ];
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }
