@@ -66,7 +66,7 @@ set searchurls.gh https://github.com/search?q=
 set searchurls.mdn https://developer.mozilla.org/en-US/search?q=%s
 set searchurls.nix https://noogle.dev/?term=%22%s%22
 set searchurls.nixpkgs https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20%s
-set searchurls.nixwiki https://nixos.wiki/index.php?search=
+set searchurls.nixoswiki https://wiki.nixos.org/w/index.php?search=
 set searchurls.npm https://bundlephobia.com/package/%s
 set searchurls.opts https://search.nixos.org/options?query=
 set searchurls.pkgs https://search.nixos.org/packages?query=
