@@ -22,8 +22,11 @@ in
     };
 
     matchBlocks."eu.nixbuild.net" = {
-      identityFile = "${homeDirectory}/.ssh/id_ed25519_nixbuildnet";
+      identityFile = "${homeDirectory}/.ssh/id_ed25519_seadome_nixbuild_net";
       identitiesOnly = true;
+      extraOptions = {
+        PubkeyAcceptedKeyTypes = "ssh-ed25519";
+      };
     };
 
     includes = [ "~/.config/ssh/config.local" ];
