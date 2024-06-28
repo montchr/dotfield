@@ -1,3 +1,39 @@
+{ config, lib, ... }:
+let
+  # inherit (builtins)
+  #   concatStringsSep
+  #   isBool
+  #   isList
+  #   replaceStrings
+  #   toString
+  #   ;
+  # inherit (lib)
+  #   boolToString
+  #   mapAttrs'
+  #   mkValueStringDefault
+  #   nameValuePair
+  #   toUpper
+  #   ;
+
+  # settings = {
+  #   inherit (config.nix.settings) substituters trusted-public-keys;
+  #   keep-builds-running = true;
+  # };
+  # mkVarName = name: ("NIXBUILDNET_" + (toUpper (replaceStrings [ "-" ] [ "_" ] name)));
+  # mkVarValue = k: v: ["${mkVarName k}=${mkValueStringDefault {} v}"];
+  # value:
+  # if isBool value then
+  #   boolToString value
+  # else if isList value then
+  #   (concatStringsSep " " value)
+  # else
+  #   toString value;
+  # mkList = k: v: concatMap (mkVarValue k);
+  # mkVars = name: value: nameValuePair (mkVarName name) (mkVarValue value);
+  # settings' = mapAttrs' mkVars settings;
+  # env = ;
+
+in
 {
   programs.ssh = {
     extraConfig = ''
