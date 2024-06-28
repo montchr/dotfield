@@ -64,6 +64,9 @@ in
     ugrep
     unzip
     usbutils
+    # TODO: what does this provide?  even after reading
+    # <https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/about/>
+    # i still do not know... remove?
     util-linux
     vim
     wget
