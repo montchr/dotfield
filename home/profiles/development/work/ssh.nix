@@ -1,30 +1,24 @@
+let
+  mkKinstaHost = user: port: {
+    inherit user port;
+    hostname = "35.236.219.140";
+  };
+in
 {
   programs.ssh.matchBlocks = {
-    "kwg-ispr" = {
-      user = "isprsite";
-      hostname = "35.236.219.140";
-      port = 24919;
-    };
-    "kwg-tutv-prod" = {
-      user = "templetv";
-      hostname = "35.236.219.140";
-      port = 38736;
-    };
-    "kwg-tutv-staging" = {
-      user = "templetv";
-      hostname = "35.236.219.140";
-      port = 59770;
-    };
-    "kwg-www" = {
+    "kleinweb-ispr-prod" = mkKinstaHost "isprsite" 24919;
+    "kleinweb-forms-prod" = mkKinstaHost "kleinforms" 46032;
+    "kleinweb-forms-dev" = mkKinstaHost "kleinforms" 19154;
+    "kleinweb-tutv-prod" = mkKinstaHost "templetv" 38736;
+    "kleinweb-tutv-dev" = mkKinstaHost "templetv" 59770;
+
+    "kleinweb-hostone" = {
       hostname = "67.225.164.90";
       port = 5623;
     };
-    "kwg-db" = {
+    "kleinweb-db" = {
       hostname = "67.225.164.91";
       port = 522;
-    };
-    "kwg-dev" = {
-      hostname = "67.43.11.196";
     };
   };
 }
