@@ -30,6 +30,7 @@ in
       "home-manager=${inputs.home-manager}"
       "/etc/nix/inputs"
     ];
+    distributedBuilds = true;
     registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
     settings = {
       allowed-users = [ "*" ];
