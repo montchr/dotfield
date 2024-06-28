@@ -54,6 +54,7 @@ in
     procs
     rclone
     (ripgrep.override { withPCRE2 = true; })
+    rlwrap # no more "^[[D" in limited shells (a readline wrapper) :: <https://github.com/hanslub42/rlwrap>
     rsync
     screen
     # XXX: not in nixpkgs, unable to build, needs release of <https://github.com/shell-pool/shpool/commit/fef785abbf17dc4e4507dea7273cf52f95d92563>
