@@ -56,7 +56,6 @@ in
     (ripgrep.override { withPCRE2 = true; })
     rsync
     screen
-    sd
     # XXX: not in nixpkgs, unable to build, needs release of <https://github.com/shell-pool/shpool/commit/fef785abbf17dc4e4507dea7273cf52f95d92563>
     # packages.shpool # <- "think tmux, then aim... lower" :: <https://github.com/shell-pool/shpool>
     sysstat
