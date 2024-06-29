@@ -14,8 +14,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "cdom";
 
-  users.mutableUsers = false;
-
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   # Never remove old secrets (attempt to fix lockouts).
   sops.keepGenerations = 0;
