@@ -85,6 +85,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-06-16";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
     simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";

@@ -9,7 +9,7 @@ let
   inherit (self.inputs)
     home-manager
     nixos-apple-silicon
-    nixpkgs
+    nixos-hardware
     sops-nix
     srvos
     ;
@@ -72,11 +72,14 @@ in
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
       modules = [
+        nixos-hardware.nixosModules.common-cpu-amd
+        nixos-hardware.nixosModules.common-cpu-amd-pstate
+        nixos-hardware.nixosModules.common-gpu-amd
+
         ./mixins/gnome.nix
         ./mixins/workstation.nix
         ./mixins/webdev.nix
 
-        ./profiles/hardware/amd.nix
         ./profiles/hardware/razer.nix
       ];
     };
