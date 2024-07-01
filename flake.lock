@@ -1814,22 +1814,6 @@
         "type": "github"
       }
     },
-    "nixos-unstable-tuvok": {
-      "locked": {
-        "lastModified": 1719494480,
-        "narHash": "sha256-Ye3TCxmbVAaKyWnv8aR62mjVsKuuqxPtN6l/hStu/Lo=",
-        "owner": "montchr",
-        "repo": "nixpkgs",
-        "rev": "f84fbebb9e7d47f2bac6d34f4664ccbacd94d1ec",
-        "type": "github"
-      },
-      "original": {
-        "owner": "montchr",
-        "ref": "nixos-unstable-tuvok",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos-unstable_2": {
       "locked": {
         "lastModified": 1719506693,
@@ -2738,7 +2722,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable_2",
-        "nixos-unstable-tuvok": "nixos-unstable-tuvok",
         "nixpkgs": [
           "nixos-unstable"
         ],

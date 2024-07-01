@@ -69,7 +69,6 @@
     nixpkgs.follows = "nixos-unstable";
     nixpkgs.inputs.nixpkgs.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-unstable-tuvok.url = "github:montchr/nixpkgs/nixos-unstable-tuvok";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     # nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
