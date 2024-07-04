@@ -22,7 +22,6 @@ in
 
   environment.systemPackages = with pkgs.gnomeExtensions; [
     clipboard-history
-    impatience # speed up gnome-shell animations
   ];
 
   home-manager.sharedModules = lib.singleton {
