@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ../profiles/graphical/common.nix
@@ -23,4 +23,12 @@
 
   location.provider = "geoclue2";
   services.geoclue2.enable = true;
+
+  services.dictd.enable = true;
+  services.dictd.DBs = with pkgs.dictdDBs; [
+    deu2eng
+    eng2deu
+    wiktionary
+    wordnet
+  ];
 }
