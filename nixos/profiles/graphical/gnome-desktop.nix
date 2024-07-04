@@ -20,8 +20,10 @@ in
   # Prefer webmail or other (better) mail clients.
   environment.gnome.excludePackages = [ pkgs.gnome.geary ];
 
+  # Add GNOME Extensions:
   environment.systemPackages = with pkgs.gnomeExtensions; [
-    clipboard-history
+    clipboard-history # https://extensions.gnome.org/extension/4839/clipboard-history/
+    just-perfection # https://gitlab.gnome.org/jrahmatzadeh/just-perfection
   ];
 
   home-manager.sharedModules = lib.singleton {
