@@ -33,6 +33,7 @@ in
     gnupg
     gnused
     gnutar
+    # TODO: installer/rescue only?
     gptfdisk
     grc
     ijq # <- interactive jq :: <https://git.sr.ht/~gpanders/ijq>

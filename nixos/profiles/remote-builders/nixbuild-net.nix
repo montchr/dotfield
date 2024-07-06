@@ -1,5 +1,6 @@
 {
   programs.ssh = {
+    # TODO: how to use these settings automatically if a user also configures?
     extraConfig = ''
       Host eu.nixbuild.net
         PubkeyAcceptedKeyTypes ssh-ed25519
