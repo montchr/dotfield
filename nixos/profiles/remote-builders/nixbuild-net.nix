@@ -18,7 +18,6 @@
   };
 
   nix = {
-    distributedBuilds = true;
     buildMachines = [
       {
         hostName = "eu.nixbuild.net";
