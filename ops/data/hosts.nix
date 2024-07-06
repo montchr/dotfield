@@ -144,6 +144,10 @@ in
       keys.ssh.tuvok
       keys.ssh.tuvok-rsa
     ];
+    networks.ts = {
+      ipv4 = "100.89.80.26";
+      ipv6 = "fd7a:115c:a1e0::1c01:501a";
+    };
     users.cdom = {
       age = keys.age.cdom-at-tuvok;
       keys = [ keys.ssh.cdom-at-tuvok ];
