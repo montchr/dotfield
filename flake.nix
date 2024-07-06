@@ -71,7 +71,7 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
-    # nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";

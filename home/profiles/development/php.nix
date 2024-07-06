@@ -10,7 +10,7 @@
     # unfree, but the alternatives are in a sad state
     pkgs.nodePackages.intelephense
 
-    pkgs.phpactor
+    flake.perSystem.inputs'.nixpkgs-trunk.legacyPackages.phpactor
     pkgs.phpPackages.php-cs-fixer
     pkgs.phpPackages.psysh
     pkgs.wp-cli

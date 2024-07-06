@@ -1997,6 +1997,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-trunk": {
+      "locked": {
+        "lastModified": 1720216925,
+        "narHash": "sha256-SZfKxqWtuj6IjH+FOqjVmoAT/+I4fbYuIO3bbuZSUMo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "776961b48d892a46fce6851bbe5569188f580bde",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-wayland": {
       "inputs": {
         "flake-compat": "flake-compat_6",
@@ -2725,6 +2741,7 @@
         "nixpkgs": [
           "nixos-unstable"
         ],
+        "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "seadome-wallpapers": "seadome-wallpapers",
