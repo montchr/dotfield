@@ -7,6 +7,7 @@
 let
   inherit (self) inputs;
   inherit (self.inputs)
+    disko
     home-manager
     nixos-apple-silicon
     nixos-hardware
@@ -108,6 +109,19 @@ in
         ];
       }
     );
+
+    platauc = makeNixosSystem "platauc" {
+      system = "aarch64-linux";
+      modules = [
+        disko.nixosModules.disko
+
+        srvos.nixosModules.hardware-hetzner-cloud-arm
+        srvos.nixosModules.mixins-terminfo
+        srvos.nixosModules.mixins-tracing
+        srvos.nixosModules.mixins-trusted-nix-caches
+        srvos.nixosModules.server
+      ];
+    };
 
     moraine = makeNixosSystem "moraine" {
       system = "x86_64-linux";

@@ -91,6 +91,29 @@ in
       keys = [ keys.ssh.anomich-at-moraine ];
     };
   };
+  platauc = {
+    ipv4.address = "78.46.148.56";
+    ipv6 = hetznerIp6 "2a01:4f8:c0c:591c";
+    network = "seadome";
+    # networks.ts = {ipv4.address = "";ipv6.address = "";};
+
+    # age = keys.age.platauc;
+    # keys = [
+    #   keys.ssh.platauc
+    #   keys.ssh.platauc-rsa
+    # ];
+    # users.cdom = {
+    #   age = keys.age.cdom-at-platauc;
+    #   keys = [keys.ssh.cdom-at-platauc];
+    # };
+
+    # Hetzner Cloud // CAX41 // nbg1-dc3 // eu-central
+    hardware = {
+      cores.virtual = 16;
+      ram = 32;
+      system = "aarch64-linux";
+    };
+  };
   ryosuke = {
     age = keys.age.ryosuke;
     ipv4.address = "192.168.1.217";

@@ -29,11 +29,11 @@ creation_rules:
     path_regex: machines/hodgepodge/secrets/[^/]+.yaml$
   - key_groups:
       - age:
-          - age1dl25evn7gstv4t48na8ypxhtxgpf67zfk2v0n3g9fkna8vx3cavsm868ly
+          - age1gugp7recrwfnf7wv0f69asemf3uqnper3r8y0vslwmdcyhqcep3sw6p5v8
           - age15yyjuhudx0qaxrgshap4uwylvc6gek5dev7wsvc0zn32v6easp4qmyffmg
         pgp:
           - 64604147C434F65EC306A21F135EEDD0F71934F3
-    path_regex: machines/moraine/secrets/[^/]+.yaml$
+    path_regex: machines/platauc/secrets/[^/]+.yaml$
   - key_groups:
       - age:
           - age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak
@@ -65,6 +65,7 @@ creation_rules:
     path_regex: secrets/storm.observer.secrets.yaml$
   - key_groups:
       - age:
+          - age1gugp7recrwfnf7wv0f69asemf3uqnper3r8y0vslwmdcyhqcep3sw6p5v8
           - age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl
           - age17cvj9zauhyazdumefu2hk5mfadptm5jyu2yay082njstp9qnp58qc2stax
           - age1ettnyqqcdmsl2xaqu3sa9vm8k2u5ys3yae8mdpvt3lgnh499ly6s7xqyav

@@ -14,6 +14,8 @@ in
       "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
       "moraine".hostname = "${hosts.moraine.ipv6.address}::1";
+      "platauc".hostname = "${hosts.platauc.ipv6.address}::1";
+
       "synoxyn" = {
         hostname = hosts.synoxyn.ipv4.address;
         port = 2367;
