@@ -94,12 +94,16 @@ in
   ryosuke = {
     age = keys.age.ryosuke;
     ipv4.address = "192.168.1.217";
+    hardware = {
+      cores.physical = 12;
+      cores.logical = 24;
+    };
     keys = [
       keys.ssh.ryosuke
       keys.ssh.ryosuke-rsa
     ];
     network = "home";
-    networks.ts = "100.123.41.68";
+    networks.ts.ipv4.address = "100.123.41.68";
     users.cdom = {
       age = keys.age.cdom-at-ryosuke;
       keys = [ keys.ssh.cdom-at-ryosuke ];

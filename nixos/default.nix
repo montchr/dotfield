@@ -100,7 +100,10 @@ in
           ./mixins/workstation.nix
 
           ./profiles/hardware/apple/macbook-14-2.nix
-          ./profiles/remote-builders/nixbuild-net.nix
+
+          ./profiles/remote-builders/default.nix
+          # ./profiles/remote-builders/nixbuild-net.nix
+          ./profiles/remote-builders/ryosuke.nix
           ./profiles/virtualisation/ddev.nix
         ];
       }
