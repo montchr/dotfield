@@ -123,26 +123,6 @@ in
       ];
     };
 
-    moraine = makeNixosSystem "moraine" {
-      system = "x86_64-linux";
-      modules = [
-        ./mixins/server.nix
-
-        srvos.nixosModules.server
-        srvos.nixosModules.hardware-hetzner-online-amd
-        srvos.nixosModules.mixins-nginx
-        srvos.nixosModules.mixins-terminfo
-        srvos.nixosModules.mixins-tracing
-        srvos.nixosModules.mixins-trusted-nix-caches
-        # TODO: needs additional config
-        srvos.nixosModules.mixins-telegraf
-
-        # FIXME: needs security before enable
-        # profiles.monitoring.prometheus
-        # profiles.monitoring.telegraf
-      ];
-    };
-
     boschic = makeNixosSystem "boschic" {
       system = "x86_64-linux";
       modules = [

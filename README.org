@@ -262,29 +262,6 @@ case are the stars here.
 As of <2024-01-22>, Ryosuke is serving as a living room HTPC.  I've also brough
 it to the office as a "laptop".
 
-** =moraine=
-:PROPERTIES:
-:CUSTOM_ID: moraine
-:END:
-
-Hetzner AX52 (+ ECC) (+ 2x16TB HDD)
-
-Media server. Work in progress.
-
-*** Name Origin
-:PROPERTIES:
-:CUSTOM_ID: name-origin
-:END:
-
-[[https://outerwilds.fandom.com/wiki/Moraine][Moraine - Official Outer Wilds Wiki]]
-
-#+begin_quote
-*Moraine* is a [[https://outerwilds.fandom.com/wiki/Hearthian][Hearthian]] who enjoys using the [[https://outerwilds.fandom.com/wiki/Signalscope][Signalscope]], especially to listen
-to the [[https://outerwilds.fandom.com/wiki/Travelers][travelers]] music from across the [[https://outerwilds.fandom.com/wiki/Solar_system][Solar system]]. They are found on a
-platform atop the tallest tree in [[https://outerwilds.fandom.com/wiki/The_Village][The Village]], so they will have a better view
-of the planets.
-#+end_quote
-
 ** =boschic= (NixOS) / =DORE= (Windows)
 :PROPERTIES:
 :CUSTOM_ID: boschic

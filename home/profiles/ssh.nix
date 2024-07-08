@@ -13,7 +13,6 @@ in
     matchBlocks = {
       "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-      "moraine".hostname = "${hosts.moraine.ipv6.address}::1";
       "platauc".hostname = "${hosts.platauc.ipv6.address}::1";
 
       "synoxyn" = {

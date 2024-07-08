@@ -39,7 +39,6 @@ let
     "gabbro"
     "hierophant"
     "hodgepodge"
-    "moraine"
     "ryosuke"
     "tuvok"
   ];
@@ -71,7 +70,7 @@ in
     {
       path_regex = "secrets\/storm\.observer\.secrets\.yaml$";
       key_groups = l.singleton {
-        age = [ keys.age.moraine ] ++ adminKeys.age;
+        age = [ ] ++ adminKeys.age;
         inherit (adminKeys) pgp;
       };
     }

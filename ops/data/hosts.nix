@@ -74,23 +74,6 @@ in
     networks.ts = "100.71.240.35";
     users.seadoom.keys = [ keys.ssh.seadoom-at-hodgepodge ];
   };
-  moraine = {
-    age = keys.age.moraine;
-    ipv6 = hetznerIp6 "2a01:4f8:200:5047";
-    keys = [
-      keys.ssh.moraine
-      keys.ssh.moraine-rsa
-    ];
-    network = "tso";
-    networks.ts = {
-      ipv4.address = "100.101.74.89";
-      ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:6265:4a59";
-    };
-    users.anomich = {
-      age = keys.age.anomich-at-moraine;
-      keys = [ keys.ssh.anomich-at-moraine ];
-    };
-  };
   platauc = {
     ipv4.address = "78.46.148.56";
     ipv6 = hetznerIp6 "2a01:4f8:c0c:591c";

@@ -33,12 +33,5 @@ in
         "@us-east"
       ];
     };
-    moraine = {
-      tags = [
-        "@seadome"
-        "@tso"
-      ];
-      targetUser = "anomich";
-    };
   };
 }
