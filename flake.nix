@@ -76,6 +76,8 @@
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
     attic.url = "github:zhaofengli/attic";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     haumea.url = "github:nix-community/haumea";
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -120,8 +122,6 @@
     pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
 
     ##: system
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
     microvm.url = "github:astro/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     musnix.url = "github:musnix/musnix";
