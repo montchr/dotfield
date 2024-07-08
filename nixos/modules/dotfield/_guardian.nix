@@ -40,10 +40,6 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.username != null;
-        message = "Username must be set when Guardian module enabled.";
-      }
-      {
         assertion = hasAttr cfg.username config.users.users;
         message = "Specified Guardian user '${cfg.username}' does not exist.";
       }
