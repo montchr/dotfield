@@ -11,7 +11,6 @@
 
     ./__gnome-services.nix
     ./__gtk.nix
-    ./__nixpkgs-wayland.nix
     ./__wallpaper.nix
 
     ../boot/systemd-boot.nix
