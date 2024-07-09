@@ -80,11 +80,12 @@ in
     network = "seadome";
     # networks.ts = {ipv4.address = "";ipv6.address = "";};
 
-    # age = keys.age.platauc;
-    # keys = [
-    #   keys.ssh.platauc
-    #   keys.ssh.platauc-rsa
-    # ];
+    age = keys.age.platauc;
+    keys = [
+      keys.ssh.platauc
+      keys.ssh.platauc-rsa
+    ];
+
     # users.cdom = {
     #   age = keys.age.cdom-at-platauc;
     #   keys = [keys.ssh.cdom-at-platauc];

@@ -1,6 +1,9 @@
 { config, ops, ... }:
 {
-  imports = [ ./disk-config.nix ];
+  imports = [
+    ./disk-config.nix
+    ./buildings.nix
+  ];
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";

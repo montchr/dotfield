@@ -115,7 +115,9 @@ in
       modules = [
         disko.nixosModules.disko
 
+        srvos.nixosModules.roles-nix-remote-builder
         srvos.nixosModules.hardware-hetzner-cloud-arm
+
         srvos.nixosModules.mixins-terminfo
         srvos.nixosModules.mixins-tracing
         srvos.nixosModules.mixins-trusted-nix-caches

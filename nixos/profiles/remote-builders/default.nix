@@ -1,1 +1,4 @@
-{ nix.distributedBuilds = true; }
+{
+  imports = [ ./platauc.nix ];
+  nix.distributedBuilds = true;
+}
