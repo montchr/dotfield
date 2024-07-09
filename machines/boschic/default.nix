@@ -28,6 +28,8 @@ in
 
   ### === networking ===========================================================
 
+  services.tailscale.enable = true;
+
   # FIXME: no connection on boot -- i need to disable internet and re-enable
   # every time despite indication of a wired connection in GNOME status bar
   networking =

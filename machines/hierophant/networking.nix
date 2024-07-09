@@ -7,5 +7,6 @@ in
   networking.nameservers = dns.nameservers.cloudflare;
 
   # Allow this host to function as a Tailscale exit node.
+  services.tailscale.enable = true;
   services.tailscale.useRoutingFeatures = "both";
 }

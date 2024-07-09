@@ -28,6 +28,8 @@
     };
   };
 
+  services.tailscale.enable = true;
+
   networking.usePredictableInterfaceNames = false;
   networking.firewall.enable = true;
 

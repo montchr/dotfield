@@ -1,11 +1,5 @@
-{
-  lib,
-  config,
-  # pkgs,
-  ...
-}:
-{
-  services.tailscale.enable = true;
+{ lib, config, ... }:
+lib.mkIf config.services.tailscale.enable {
   services.tailscale.interfaceName = "ts0";
   services.tailscale.useRoutingFeatures = "client";
 
