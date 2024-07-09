@@ -7,7 +7,9 @@
 
   users.mutableUsers = false;
 
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.secrets."users/cdom/hashed-password".neededForUsers = true;
+
   users.users.cdom = {
     uid = 1000;
     isNormalUser = true;
