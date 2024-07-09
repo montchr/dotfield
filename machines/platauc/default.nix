@@ -2,7 +2,7 @@
 {
   imports = [
     ./disk-config.nix
-    ./buildings.nix
+    ./as-build-machine.nix
   ];
 
   dotfield.guardian.enable = true;
