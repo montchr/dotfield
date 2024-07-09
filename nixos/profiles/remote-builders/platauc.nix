@@ -2,13 +2,12 @@
 let
   inherit (ops.hosts) platauc;
 in
-
 {
   programs.ssh.knownHosts."platauc" = {
     hostNames = [
       "platauc"
       platauc.ipv4.address
-      platauc.networks.ts.ipv4.address
+      # platauc.networks.ts.ipv4.address
     ];
     publicKey = builtins.head platauc.keys;
   };
