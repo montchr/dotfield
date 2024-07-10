@@ -69,9 +69,9 @@ in
       ];
     };
 
-    gc.dates = "weekly";
     optimise.automatic = true;
-    gc.automatic = (!config.programs.nh.clean.enable);
+    gc.dates = lib.mkDefault "weekly";
+    gc.automatic = lib.mkDefault true;
 
     extraOptions = ''
       warn-dirty = false

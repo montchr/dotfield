@@ -31,4 +31,11 @@
     wiktionary
     wordnet
   ];
+
+  programs.nh = {
+    enable = true;
+    # <https://github.com/viperML/nh/issues/88>
+    flake = "/etc/nixos";
+  };
+
 }
