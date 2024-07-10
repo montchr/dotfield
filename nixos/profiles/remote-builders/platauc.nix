@@ -6,6 +6,7 @@ in
   programs.ssh = {
     extraConfig = ''
       Host platauc
+        Hostname ${platauc.ipv4.address}
         IdentitiesOnly yes
         IdentityFile /root/.ssh/id_ed25519_remote_builds
         User nix-remote-builder
@@ -14,7 +15,7 @@ in
       hostNames = [
         "platauc"
         platauc.ipv4.address
-        # platauc.networks.ts.ipv4.address
+        platauc.ipv6.address
       ];
       publicKey = builtins.head platauc.keys;
     };
@@ -24,7 +25,7 @@ in
     {
       hostName = "platauc";
       system = "aarch64-linux";
-      speedFactor = 3;
+      speedFactor = 2;
       protocol = "ssh-ng";
       maxJobs = 3;
       supportedFeatures = [
