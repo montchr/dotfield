@@ -4,6 +4,7 @@
     ./users/cdom.nix
     ./secrets/sops.nix
 
+    ./experimental-mesa.nix
     ./keyboard.nix
     ./work/default.nix
 
@@ -15,10 +16,6 @@
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
-
-  # NOTE: Enabling this will rebuild the world!  But holy shit, it is worth it.
-  hardware.asahi.useExperimentalGPUDriver = true;
-  hardware.asahi.experimentalGPUInstallMode = "overlay";
 
   # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
   # support DP-Alt display output.  DP-Alt output is required for true HDMI or
