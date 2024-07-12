@@ -2,6 +2,7 @@
 let
   inherit (config.home) homeDirectory;
   inherit (ops) hosts;
+  sshDir = "${homeDirectory}/.ssh";
 in
 {
   programs.ssh = {
@@ -13,7 +14,14 @@ in
     matchBlocks = {
       "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-      "platauc".hostname = "${hosts.platauc.ipv6.address}::1";
+
+      "platauc" = {
+        hostname = "${hosts.platauc.ipv6.address}::1";
+        identitiesOnly = true;
+        # Overrides system remote builder config.
+        identityFile = "${sshDir}/id_ed25519";
+        user = "cdom";
+      };
 
       "synoxyn" = {
         hostname = hosts.synoxyn.ipv4.address;
@@ -27,7 +35,7 @@ in
       };
 
       "eu.nixbuild.net" = {
-        identityFile = "${homeDirectory}/.ssh/id_ed25519_seadome_nixbuild_net";
+        identityFile = "${sshDir}/id_ed25519_seadome_nixbuild_net";
         identitiesOnly = true;
         extraOptions = {
           PubkeyAcceptedKeyTypes = "ssh-ed25519";
