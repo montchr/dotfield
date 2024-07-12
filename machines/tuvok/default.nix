@@ -17,6 +17,8 @@
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
 
+  services.tailscale.enable = true;
+
   # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
   # support DP-Alt display output.  DP-Alt output is required for true HDMI or
   # DP output via one of this machine's two USB-C ports and zero HDMI/DP ports.
