@@ -1,4 +1,4 @@
-{ lib, flake, ... }:
+{ ... }:
 {
   imports = [
     ./users/cdom.nix
@@ -10,6 +10,8 @@
 
     ./hardware-configuration.nix
   ];
+
+  lix.enable = true;
 
   time.timeZone = "America/New_York";
 
