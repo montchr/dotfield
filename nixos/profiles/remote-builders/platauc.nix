@@ -27,7 +27,7 @@ in
       system = "aarch64-linux";
       speedFactor = 2;
       protocol = "ssh-ng";
-      maxJobs = 4;
+      maxJobs = 2;
       supportedFeatures = [
         "benchmark"
         "big-parallel"
