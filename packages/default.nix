@@ -16,6 +16,7 @@
         shpool = callPackage ./shpool/package.nix { };
         tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./tomlfmt/package.nix { };
+        wp-to-psr-4 = callPackage ./wp-to-psr-4/package.nix { };
 
         # TODO: not ready
         # wp-cli = callPackage ./wp-cli/package.nix { };
