@@ -10,7 +10,7 @@ let
 in
 {
   programs.dconf.enable = true;
-  environment.systemPackages = [ pkgs.gnome.dconf-editor ];
+  environment.systemPackages = [ pkgs.dconf-editor ];
   xdg.portal.extraPortals = lib.optional (!isGnomeDesktop) pkgs.xdg-desktop-portal-gtk;
 
   home-manager.sharedModules = [ "${flake.self}/home/profiles/graphical/gtk.nix" ];

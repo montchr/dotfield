@@ -13,8 +13,7 @@
     ++ (with pkgs.nodePackages; [
       dockerfile-language-server-nodejs
       typescript-language-server
-      vscode-css-languageserver-bin
-      vscode-html-languageserver-bin
+      vscode-langservers-extracted
       vscode-json-languageserver
       yaml-language-server
     ]);

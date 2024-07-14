@@ -18,7 +18,7 @@ in
   services.gnome.gnome-browser-connector.enable = true;
 
   # Prefer webmail or other (better) mail clients.
-  environment.gnome.excludePackages = [ pkgs.gnome.geary ];
+  environment.gnome.excludePackages = [ pkgs.geary ];
 
   # Add GNOME Extensions:
   environment.systemPackages = with pkgs.gnomeExtensions; [
