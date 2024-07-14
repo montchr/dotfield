@@ -18,7 +18,8 @@ in
     # <https://gitlab.com/nobodyinperson/hledger-utils>
     pkgs.hledger-utils
 
-    pkgs.ledger-autosync
+    # XXX(2024-08-14): build failure
+    # pkgs.ledger-autosync
 
     ## broken:
     # pkgs.hledger-iadd

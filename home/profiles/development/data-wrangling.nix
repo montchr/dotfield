@@ -10,6 +10,8 @@
     pkgs.tidy-viewer # `tv` => Pretty-print CSV files
 
     pkgs.xlsx2csv # Convert xslx to csv => <https://github.com/dilshod/xlsx2csv>
-    pkgs.visidata # better than Excel?? <https://www.visidata.org/>
+
+    # XXX(2024-08-14): build failure
+    # pkgs.visidata # better than Excel?? <https://www.visidata.org/>
   ];
 }
