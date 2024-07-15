@@ -93,9 +93,9 @@ in
 
     # Hetzner Cloud // CAX41 // nbg1-dc3 // eu-central
     hardware = {
-      cores.virtual = 16;
       ram = 32;
       system = "aarch64-linux";
+      vcpus = 16;
     };
   };
   ryosuke = {
