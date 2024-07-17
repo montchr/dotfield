@@ -12,7 +12,7 @@ in
   programs.ssh.matchBlocks = {
     "kleinweb-ispr-prod" = mkKinstaHost "isprsite" 24919;
 
-    "kleinweb-forms-prod" = mkKinstaHost "kleinforms" 46032;
+    "kleinweb-forms-prod" = mkKinstaHost "kleinforms" 49032;
     "kleinweb-forms-dev" = mkKinstaHost "kleinforms" 19154;
 
     "kleinweb-tutv-prod" = mkKinstaHost "templetv" 38736;
