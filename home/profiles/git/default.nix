@@ -71,11 +71,6 @@ in
       "*.sw?"
       "*.vi"
       "*.bak"
-
-      # Secrets
-      "*.pem"
-      ".env"
-      "auth.json"
     ];
 
     extraConfig = lib.mkMerge [
