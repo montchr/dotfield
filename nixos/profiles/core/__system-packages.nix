@@ -49,6 +49,7 @@ in
     nh # yet another nix cli helper :: <https://github.com/viperML/nh>
     nmap
     nushell
+    oils-for-unix
     openssh
     openssl
     pciutils
