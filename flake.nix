@@ -87,7 +87,14 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-07-14";
+
+    # XXX: downgrade to kernel 6.9.5-1 -- gpu crashes affecting all(?) asahi-linux variants
+    # <https://github.com/AsahiLinux/linux/issues/309>
+    # <https://github.com/tpwrules/nixos-apple-silicon/issues/218>
+    # <https://github.com/oliverbestmann/nixos-apple-silicon>
+    # nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-07-14";
+    nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=2a5a7f4337bf09fb929de9d528b381dc1894ab71";
+
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
