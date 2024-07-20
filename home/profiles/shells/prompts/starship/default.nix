@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  l = flake.inputs.nixpkgs.lib // builtins;
-in
+{ lib, ... }:
 {
   imports = [ ./extra-symbols.nix ];
   programs.starship = {
@@ -11,7 +8,7 @@ in
       ##: --- global ("prompt") ---
 
       add_newline = true;
-      format = l.concatStrings [
+      format = lib.concatStrings [
         "$username"
         "$hostname"
         "$shlvl"
@@ -42,87 +39,50 @@ in
         "$character"
       ];
 
-      character = {
-        success_symbol = "❯";
-        error_symbol = "[](bold red)";
-        vicmd_symbol = "[❮](bold purple)";
-      };
       directory = {
-        style = "cyan";
+        # style = "cyan";
         read_only = " ";
       };
-      fill.symbol = " ";
-      status = {
-        symbol = " "; # nf-cod-error
-        success_symbol = "";
-        not_executable_symbol = " "; # nf-mdi-minus_circle_outline
-        not_found_symbol = " "; # nf-cod-question
-        sigint_symbol = "ﰸ "; # nf-mdi-cancel
-        signal_symbol = ""; # nf-fa-bolt
-        map_symbol = true;
-        disabled = false;
-      };
+      #   fill.symbol = " ";
 
-      ##: --- vcs ---
+      #   ##: --- vcs ---
 
-      git_branch.symbol = " ";
-      git_status = {
-        conflicted = " ";
-        ahead = " ";
-        behind = " ";
-        diverged = " "; # alt: 
-        up_to_date = " ";
-        untracked = " "; # alt: 
-        stashed = " "; # alt: 
-        modified = " ";
-        staged = " ";
-        renamed = " ";
-        deleted = " ";
-      };
+      #   ##: --- languages ---
 
-      ##: --- languages ---
-
-      golang.symbol = " ";
       haskell.symbol = " ";
-      lua.symbol = " ";
       nodejs = {
         symbol = " ";
         version_format = "$major";
       };
-      php = {
-        symbol = " ";
-        version_format = "v\${raw}";
-        # version_format = "$major.$minor";
-      };
-      python.symbol = " ";
+      #   php = {
+      #     symbol = " ";
+      #     version_format = "v\${raw}";
+      #     # version_format = "$major.$minor";
+      #   };
+      # python.symbol = " ";
       ruby.symbol = " ";
       rust.symbol = " ";
 
-      ##: --- system resources ---
+      #   ##: --- system resources ---
 
-      battery = {
-        full_symbol = "";
-        charging_symbol = "";
-        discharging_symbol = "";
-      };
-      memory_usage.symbol = " ";
+      #   battery = {
+      #     full_symbol = "";
+      #     charging_symbol = "";
+      #     discharging_symbol = "";
+      #   };
+      #   memory_usage.symbol = " ";
 
-      ##: --- environments ---
+      #   ##: --- environments ---
 
       docker_context.symbol = " ";
       hostname = {
         ssh_only = true;
-        ssh_symbol = " "; # alt: 
       };
-      localip.disabled = false;
+
       nix_shell = {
         symbol = " ";
-        pure_msg = "ﬦ";
-        impure_msg = "ﬦ";
       };
-      package.symbol = " ";
       shlvl.disabled = false;
-      terraform.symbol = " ";
     };
   };
 }
