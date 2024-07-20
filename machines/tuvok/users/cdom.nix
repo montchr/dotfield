@@ -14,7 +14,7 @@ in
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    shell = pkgs.zsh;
+    shell = pkgs.bashInteractive;
   };
 
   home-manager.users.${username} = import ../../../users/cdom/cdom-at-tuvok.nix;
