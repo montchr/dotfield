@@ -49,6 +49,18 @@ in
       epkgs.pdf-tools
       epkgs.treesit-grammars.with-all-grammars
       epkgs.treesit-auto
+
+      (pkgs.tree-sitter.buildGrammar {
+        language = "phpdoc";
+        version = "unstable-2024-05-06";
+        src = pkgs.fetchFromGitHub {
+          owner = "claytonrcarter";
+          repo = "tree-sitter-phpdoc";
+          rev = "1d0e255b37477d0ca46f1c9e9268c8fa76c0b3fc";
+          sha256 = "sha256-EWj/Av8+Ri7KiC9LzH73ytufjkp3MxBPwfm6mF3IGD8=";
+        };
+      })
+
     ];
   };
 
