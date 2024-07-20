@@ -3,8 +3,6 @@
   # > PulseAudio server uses this to acquire realtime priority.
   security.rtkit.enable = true;
 
-  sound.enable = true;
-
   environment.systemPackages = [
     # TODO: maybe on non-gnome
     # pkgs.pwvucontrol
