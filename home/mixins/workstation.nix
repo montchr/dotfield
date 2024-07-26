@@ -2,6 +2,7 @@
   imports = [
     ./developer.nix
     ./graphical.nix
+    ./media-manager.nix
     ./trusted.nix
 
     ../profiles/graphical/applications/kitty/default.nix
