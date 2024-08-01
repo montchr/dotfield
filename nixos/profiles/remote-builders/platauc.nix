@@ -1,6 +1,7 @@
-{ ops, ... }:
+{ config, ops, ... }:
 let
   inherit (ops.hosts) platauc;
+
 in
 {
   programs.ssh = {
@@ -21,17 +22,5 @@ in
     };
   };
 
-  nix.buildMachines = [
-    {
-      hostName = "platauc";
-      system = "aarch64-linux";
-      speedFactor = 2;
-      protocol = "ssh-ng";
-      maxJobs = 2;
-      supportedFeatures = [
-        "benchmark"
-        "big-parallel"
-      ];
-    }
-  ];
+  nix.buildMachines = [ (config.lib.dotfield.mkBuildMachine "platauc") ];
 }

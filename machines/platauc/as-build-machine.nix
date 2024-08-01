@@ -1,8 +1,8 @@
 { ops, ... }:
 let
-  inherit (ops.hosts.platauc.hardware) ram vcpus;
+  inherit (ops.hosts.platauc.hardware) mem vcpus;
   requiredRamPerCore = 4;
-  allowedTotalCores = ram / requiredRamPerCore;
+  allowedTotalCores = mem / requiredRamPerCore;
 
   cores = allowedTotalCores / max-jobs;
   max-jobs = 1;
@@ -17,13 +17,14 @@ in
       }) must not be above the ${builtins.toString (vcpus - 1)} core threshold";
     }
     {
-      assertion = cores * max-jobs * requiredRamPerCore <= ram;
-      message = "Exceeded ${builtins.toString ram}GB RAM limit.";
+      assertion = cores * max-jobs * requiredRamPerCore <= mem;
+      message = "Exceeded ${builtins.toString mem}GB RAM limit.";
     }
   ];
 
   roles.nix-remote-builder.schedulerPublicKeys = [
     ops.keys.ssh.cdom-at-tuvok
+    ops.keys.ssh.nixdaemon-at-ryosuke
     ops.keys.ssh.nixdaemon-at-tuvok
   ];
 

@@ -82,6 +82,7 @@ in
         ./mixins/webdev.nix
 
         ./profiles/hardware/razer.nix
+        ./profiles/remote-builders/default.nix
       ];
     };
 

@@ -93,7 +93,7 @@ in
 
     # Hetzner Cloud // CAX41 // nbg1-dc3 // eu-central
     hardware = {
-      ram = 32;
+      mem = 32;
       system = "aarch64-linux";
       vcpus = 16;
     };
@@ -102,8 +102,9 @@ in
     age = keys.age.ryosuke;
     ipv4.address = "192.168.1.217";
     hardware = {
-      cores.physical = 12;
-      cores.logical = 24;
+      mem = 32;
+      vcpus = 24;
+      system = "x86_64-linux";
     };
     keys = [
       keys.ssh.ryosuke
