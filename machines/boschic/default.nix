@@ -10,6 +10,8 @@ in
     ./users
   ];
 
+  dotfield.features.hasNvidia = true;
+
   time.timeZone = "America/New_York";
 
   # FIXME: disable. likely interferes with rEFInd.

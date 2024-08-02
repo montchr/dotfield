@@ -68,7 +68,9 @@ in
         # FIXME: The default `false` value indicates that we cannot know with
         # certainty whether NVIDIA drives are in use. This may be the case, for
         # example, on generic Linux with a standalone home-manager.
-        hasNvidia = config.hardware.nvidia.modesetting.enable or false;
+        # FIXME: 2024-07-29 causes eval error on tuvok
+        # hasNvidia = config.hardware.nvidia.modesetting.enable or false;
+        hasNvidia = lib.mkDefault false;
 
         # Whether the system has any features indicating a Wayland session.
         hasWayland =
