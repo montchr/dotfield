@@ -1,4 +1,4 @@
-{ root, ... }:
+{ self, root, ... }:
 let
   inherit (root) keys networks;
   hetznerIp6 = address: {
@@ -132,6 +132,11 @@ in
   };
   tuvix = {
     age = keys.age.tuvix;
+    hardware = {
+      mem = 16;
+      system = "aarch64-darwin";
+      vcpus = 8;
+    };
     ipv4.address = "192.168.1.155";
     keys = [
       keys.ssh.tuvix
@@ -151,6 +156,12 @@ in
     };
   };
   tuvok = {
+    hardware = {
+      # We share a body...
+      inherit (self.tuvix.hardware) mem vcpus;
+      # ...different minds, same brain.
+      system = "aarch64-linux";
+    };
     age = keys.age.tuvok;
     keys = [
       keys.ssh.tuvok

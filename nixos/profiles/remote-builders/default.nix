@@ -1,10 +1,4 @@
 { config, ops, ... }:
-let
-  inherit (config.networking) hostName;
-  inherit (ops.hosts.${hostName}.hardware) vcpus;
-
-in
-
 {
   imports = [ ./platauc.nix ];
 
@@ -13,6 +7,9 @@ in
   lib.dotfield.mkBuildMachine =
     machine:
     let
+      inherit (config.networking) hostName;
+      inherit (ops.hosts.${hostName}.hardware) vcpus;
+
       hw = ops.hosts.${machine}.hardware;
     in
     {
