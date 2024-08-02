@@ -1,4 +1,9 @@
-{ ops, ... }:
+{
+  config,
+  lib,
+  ops,
+  ...
+}:
 let
   inherit (ops.hosts.platauc.hardware) mem vcpus;
   requiredRamPerCore = 4;
@@ -7,7 +12,6 @@ let
   cores = allowedTotalCores / max-jobs;
   max-jobs = 1;
 in
-
 {
   assertions = [
     {
@@ -31,5 +35,8 @@ in
   nix.settings = {
     inherit cores max-jobs;
     sandbox = true;
+    connect-timeout = lib.mkForce 90;
+    download-attempts = 10;
+    show-trace = true;
   };
 }
