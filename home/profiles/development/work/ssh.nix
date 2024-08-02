@@ -10,17 +10,17 @@ let
 in
 {
   programs.ssh.matchBlocks = {
-    "kleinweb-ispr-prod" = mkKinstaHost "isprsite" 24919;
+    "isprsite-production" = mkKinstaHost "isprsite" 24919;
 
-    "kleinweb-forms-prod" = mkKinstaHost "kleinforms" 49032;
-    "kleinweb-forms-dev" = mkKinstaHost "kleinforms" 19154;
+    "kleinforms-production" = mkKinstaHost "kleinforms" 49032;
+    "kleinforms-dev" = mkKinstaHost "kleinforms" 19154;
 
-    "kleinweb-tutv-prod" = mkKinstaHost "templetv" 38736;
-    "kleinweb-tutv-dev" = mkKinstaHost "templetv" 59770;
+    "templetv-production" = mkKinstaHost "templetv" 38736;
+    "templetv-dev" = mkKinstaHost "templetv" 59770;
 
-    "kleinweb-seesaw-prod" = mkKinstaHost2 "seesaw" 52637;
+    "seesaw-production" = mkKinstaHost2 "seesaw" 52637;
 
-    "kleinweb-hostone" = {
+    "hostone" = {
       hostname = "67.225.164.90";
       port = 5623;
     };
