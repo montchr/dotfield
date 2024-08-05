@@ -13,6 +13,7 @@
         git-repo-manager = callPackage ./git-repo-manager/package.nix { };
         igr = callPackage ./igr/package.nix { };
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };
+        realise-symlink = callPackage ./realise-symlink/package.nix { };
         shpool = callPackage ./shpool/package.nix { };
         tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./tomlfmt/package.nix { };
