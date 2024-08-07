@@ -19,7 +19,6 @@
     ../profiles/ledger.nix
     ../profiles/pandoc.nix
     ../profiles/sync.nix
-    ../profiles/vhs.nix
     ../profiles/writing.nix
     ../profiles/yubikey.nix
   ];
