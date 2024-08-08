@@ -13,10 +13,10 @@ in
     "isprsite-production" = mkKinstaHost "isprsite" 24919;
 
     "kleinforms-production" = mkKinstaHost "kleinforms" 49032;
-    "kleinforms-dev" = mkKinstaHost "kleinforms" 19154;
+    "kleinforms-staging" = mkKinstaHost "kleinforms" 30014;
 
     "templetv-production" = mkKinstaHost "templetv" 38736;
-    "templetv-dev" = mkKinstaHost "templetv" 59770;
+    "templetv-staging" = mkKinstaHost "templetv" 59770;
 
     "seesaw-production" = mkKinstaHost2 "seesaw" 52637;
 

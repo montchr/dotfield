@@ -16,7 +16,7 @@ in
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
 
       "platauc" = {
-        hostname = "${hosts.platauc.ipv6.address}::1";
+        hostname = "${hosts.platauc.ipv4.address}";
         identitiesOnly = true;
         # Overrides system remote builder config.
         identityFile = "${sshDir}/id_ed25519";
