@@ -3,6 +3,8 @@ let
   inherit (config.home) homeDirectory;
   inherit (ops) hosts;
   sshDir = "${homeDirectory}/.ssh";
+  identityFile = "${sshDir}/id_ed25519";
+
 in
 {
   programs.ssh = {
@@ -19,7 +21,7 @@ in
         hostname = "${hosts.platauc.ipv4.address}";
         identitiesOnly = true;
         # Overrides system remote builder config.
-        identityFile = "${sshDir}/id_ed25519";
+        inherit identityFile;
         user = "cdom";
       };
 
@@ -28,18 +30,27 @@ in
         port = 2367;
       };
 
+      "atlantis" = {
+        hostname = "atlantis.whatbox.ca";
+        user = "syadasti";
+      };
+
       "github.com" = {
-        # inherit identityFile;
-        # identitiesOnly = true;
         user = "git";
       };
 
       "eu.nixbuild.net" = {
         identityFile = "${sshDir}/id_ed25519_seadome_nixbuild_net";
-        identitiesOnly = true;
+
         extraOptions = {
           PubkeyAcceptedKeyTypes = "ssh-ed25519";
         };
+      };
+
+      "*" = {
+        inherit identityFile;
+
+        identitiesOnly = true;
       };
     };
 
