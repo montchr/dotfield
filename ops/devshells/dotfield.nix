@@ -65,7 +65,8 @@ in
 
           (maintenance namaka.packages.default)
 
-          (maintenance pkgs.nix-init)
+          # XXX: build failure
+          # (maintenance pkgs.nix-init)
           (maintenance pkgs.nix-prefetch)
           (maintenance pkgs.nix-tree)
           (maintenance pkgs.nixdoc)
