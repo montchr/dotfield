@@ -1,8 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./users/cdom.nix
     ./secrets/sops.nix
+
+    ./backups.nix
 
     ./experimental-mesa.nix
     ./keyboard.nix
@@ -10,6 +12,8 @@
 
     ./hardware-configuration.nix
   ];
+
+  environment.systemPackages = [ pkgs.borgbackup ];
 
   # XXX: Will be fixed in kernel release 6.9.12-2
   # <https://github.com/tpwrules/nixos-apple-silicon/issues/225>
