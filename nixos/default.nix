@@ -11,6 +11,7 @@ let
     home-manager
     nixos-apple-silicon
     nixos-hardware
+    nixpkgs-trunk
     sops-nix
     srvos
     ;
@@ -95,7 +96,10 @@ in
         pkgs = import inputs.nixos-unstable {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ nixos-apple-silicon.overlays.default ];
+          overlays = [
+            (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
+            nixos-apple-silicon.overlays.default
+          ];
         };
         modules = [
           ./mixins/gnome.nix

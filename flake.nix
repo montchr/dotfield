@@ -4,6 +4,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-trunk,
       flake-parts,
       haumea,
       namaka,
@@ -56,6 +57,7 @@
               pkgs = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
+                overlays = [ (import ./overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; }) ];
               };
             };
             formatter = pkgs.nixfmt-rfc-style;
