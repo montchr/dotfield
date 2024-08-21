@@ -6,6 +6,7 @@ in
 {
   services.borgbackup.jobs = {
     home-backup = mkJob {
+      startAt = "hourly";
       paths = [ "/home" ];
       keyFile = secrets."borg/repos/home/ssh-key".path;
       passCommand = "cat ${secrets."borg/repos/home/passphrase".path}";

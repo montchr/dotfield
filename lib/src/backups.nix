@@ -18,9 +18,10 @@ in
       repo,
       patterns ? [ ],
       patternFiles ? [ ],
+      startAt ? "daily",
     }:
     {
-      inherit paths repo;
+      inherit paths repo startAt;
       compression = "zstd,11";
       dateFormat = "+%Y-%m-%dT%H:%M:%S";
       doInit = true; # set to false if repo is not consistently available e.g. network drive
@@ -46,12 +47,12 @@ in
         extraCreateArgs="$extraCreateArgs --stats"
       '';
       prune.keep = {
+        hourly = 2;
         daily = 5;
         weekly = 4;
         monthly = 12;
         yearly = 3;
       };
-      startAt = "daily";
       environment."BORG_RSH" = "ssh -i ${keyFile}";
     };
 }
