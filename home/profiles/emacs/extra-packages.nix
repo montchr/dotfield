@@ -13,8 +13,7 @@
     ++ (with pkgs.nodePackages; [
       dockerfile-language-server-nodejs
       typescript-language-server
-      # XXX: broken!!!
-      # vscode-langservers-extracted
+      vscode-langservers-extracted
       vscode-json-languageserver
       yaml-language-server
     ]);
