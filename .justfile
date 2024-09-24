@@ -79,29 +79,36 @@ init-package pname url:
 
 ###: GENERATE/CONVERT =================================================================
 
+alias nixify-yml := nixify-yaml
+
+nixify-json-cmd := 'nix eval --expr "builtins.fromJSON (builtins.readFile $1)" --impure'
+nixify-toml-cmd := 'nix eval --expr "builtins.fromTOML (builtins.readFile $1)" --impure'
+
 # <- Generate a hashed password compatible with the NixOS options
 generate-hashed-password:
   mkpasswd -m sha-512
 
+# NOTE:
+nixify-all ext src dest:
+  fd -t f -e {{ext}} . {{src}} -x bash -c \
+    'just nixify-{{ext}} {} | nixfmt > {{dest}}/{/.}.nix'
+
 # <- Convert a YAML file to a Nix expression
-nixify-yaml file:
-  just nixify-json <(yq '.' {{file}})
+nixify-yaml src:
+  yq '.' '{{src}}' > {{prj-data / file_stem(src)}}.json
+  echo {{ quote( shell(nixify-json-cmd, prj-data / file_stem(src) + ".json") ) }}
 
-# or, without recursive just:
-# nixify-yaml file: && (nixify-json prj-data / file_stem(file) + ".json")
-#   yq '.' '{{file}}' > {{prj-data / file_stem(file)}}.json
-
-# TODO: allow raw input (needs multiline string format but it works in repl):
+# TODO: read from stdin
 # builtins.fromJSON ''
 #  {"foo": "bar"}
 # ''
 # <- Convert a JSON file to a Nix expression
 nixify-json file:
-  nix eval --expr 'builtins.fromJSON (builtins.readFile {{file}})' --impure
+  {{ shell(nixify-json-cmd, file) }}
 
 # <- Convert a TOML file to a Nix expression
 nixify-toml file:
-  nix eval --expr 'builtins.fromTOML (builtins.readFile {{file}})' --impure
+  {{ shell(nixify-toml-cmd, file) }}
 
 # <https://github.com/nix-community/dconf2nix>
 # <- Export current dconf/GNOME/GTK/gsettings as INI and Nix files
