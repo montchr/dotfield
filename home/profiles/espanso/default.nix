@@ -24,11 +24,9 @@ in
       default = {
         search_trigger = ";;snip";
 
-        # Valid hotkey values listed here:
         # <https://espanso.org/docs/configuration/options/#customizing-the-search-shortcut>
-        # <https://github.com/federico-terzi/espanso/blob/283b85818b6cc27f1d545337b99effa847b380eb/espanso-detect/src/hotkey/keys.rs#L221-L302>
-        # FIXME: this is mac only -- fix for pc layout
-        # search_shortcut = "ALT+CMD+SPACE";
+        # TODO: verify
+        search_shortcut = if isDarwin then "CMD+ALT+SPACE" else "META+ALT+SPACE";
       };
     };
     matches = haumea.lib.load {
