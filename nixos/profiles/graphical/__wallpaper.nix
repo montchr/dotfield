@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.gnome.gnome-backgrounds ];
+  environment.systemPackages = [ pkgs.gnome-backgrounds ];
 }
