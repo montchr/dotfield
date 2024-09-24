@@ -1,1 +1,1 @@
-{ services.espanso.matches = null; }
+{ matches = null; }

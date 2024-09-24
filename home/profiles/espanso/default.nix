@@ -1,11 +1,10 @@
 {
+  flake,
   pkgs,
-  # config,
   ...
 }:
 let
-  # inherit (config.lib.file) mkOutOfStoreSymlink;
-  # dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
+  inherit (flake.inputs) haumea;
 
   cmx-espanso-list-triggers = pkgs.writeShellApplication {
     name = "cmx-espanso-list-triggers";
@@ -17,15 +16,6 @@ let
   };
 in
 {
-  imports = [
-    ./matches/base.nix
-    ./matches/time.nix
-    ./matches/urls.nix
-    ./matches/words.nix
-    ./matches/comment.nix
-    ./matches/_accented-words.nix
-  ];
-
   services.espanso = {
     enable = true;
     configs = {
@@ -38,6 +28,10 @@ in
         # FIXME: this is mac only -- fix for pc layout
         # search_shortcut = "ALT+CMD+SPACE";
       };
+    };
+    matches = haumea.lib.load {
+      src = ./matches;
+      loader = haumea.lib.loaders.verbatim;
     };
   };
 

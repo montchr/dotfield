@@ -1,5 +1,5 @@
 {
-  services.espanso.matches = [
+  matches = [
     {
       propagate_case = true;
       replace = "philadelphia";

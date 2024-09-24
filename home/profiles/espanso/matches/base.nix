@@ -1,5 +1,5 @@
 {
-  services.espanso.matches = [
+  matches = [
     {
       replace = "⌘";
       trigger = ";s;cmd";
