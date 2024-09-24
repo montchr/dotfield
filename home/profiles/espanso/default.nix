@@ -5,6 +5,7 @@
 }:
 let
   inherit (flake.inputs) haumea;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   cmx-espanso-list-triggers = pkgs.writeShellApplication {
     name = "cmx-espanso-list-triggers";
@@ -18,6 +19,7 @@ in
 {
   services.espanso = {
     enable = true;
+    package = if isLinux then pkgs.espanso-wayland else pkgs.espanso;
     configs = {
       default = {
         search_trigger = ";;snip";
