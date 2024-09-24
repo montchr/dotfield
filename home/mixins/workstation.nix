@@ -9,10 +9,10 @@
     ../profiles/graphical/applications/obs-studio.nix
     ../profiles/graphical/applications/okular.nix
     ../profiles/graphical/applications/xournal.nix
-    ../profiles/graphical/espanso.nix
     ../profiles/development/common.nix
     ../profiles/development/data-wrangling.nix
     ../profiles/emacs/org-protocol.nix
+    ../profiles/espanso/default.nix
     ../profiles/git/repo-manager.nix
     ../profiles/git/with-pgp-signing.nix
     ../profiles/git-sync.nix

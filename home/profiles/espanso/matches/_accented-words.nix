@@ -1,0 +1,1 @@
+{ services.espanso.matches = null; }
