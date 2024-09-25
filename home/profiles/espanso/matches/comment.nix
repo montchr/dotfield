@@ -50,16 +50,25 @@
       ];
     }
     {
-      replace = "# SPDX-FileCopyrightText: {{year}} {{form.author}}\n# SPDX-License-Identifier: {{form.license}}";
+      replace = "# SPDX-FileCopyrightText: (C) {{year}} {{form.author}}\n# SPDX-License-Identifier: {{form.license}}";
       trigger = ";#spdx";
       vars = [
         {
           name = "form";
           params = {
             fields = {
-              author = {
-                default = "Chris Montgomery <chmont@proton.me>";
-              };
+              author =
+                let
+                  default = "Chris Montgomery <chmont@protonmail.com>";
+                in
+                {
+                  inherit default;
+                  type = "choice";
+                  values = [
+                    default
+                    "Temple University <kleinweb@temple.edu>"
+                  ];
+                };
               license = {
                 default = "GPL-3.0-or-later";
                 type = "choice";
