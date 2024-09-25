@@ -23,7 +23,7 @@
     }
     {
       replace = "{{dateFriendly}}";
-      trigger = ";d.df";
+      trigger = ";d;df";
       vars = [
         {
           name = "dateFriendly";
@@ -40,7 +40,7 @@
     }
     {
       replace = "{{date}} {{time}}";
-      trigger = ";d.dt";
+      trigger = ";d;dt";
     }
     {
       replace = "{{id}}";
