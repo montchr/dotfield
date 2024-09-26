@@ -8,6 +8,7 @@
   home.packages = [
     pkgs.asciinema
     pkgs.ast-grep
+    pkgs.lynis # security auditing
     pkgs.universal-ctags
 
     # {{{ checkers & formatters

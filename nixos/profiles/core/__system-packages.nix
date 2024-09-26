@@ -55,6 +55,7 @@ in
     pciutils
     procs
     rclone
+    reptyr # reparent a running process to another tty
     (ripgrep.override { withPCRE2 = true; })
     rlwrap # no more "^[[D" in limited shells (a readline wrapper) :: <https://github.com/hanslub42/rlwrap>
     rsync
