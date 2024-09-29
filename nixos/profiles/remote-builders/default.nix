@@ -4,18 +4,22 @@
 
   nix.distributedBuilds = true;
 
-  lib.dotfield.mkBuildMachine =
-    machine:
+  lib.dotfield.mkBuildMachine = config.lib.dotfield.mkBuildMachineFor config.networking.hostName;
+  lib.dotfield.mkBuildMachineFor =
+    localHostName: builderHostName:
     let
-      inherit (config.networking) hostName;
-      inherit (ops.hosts.${hostName}.hardware) vcpus;
-
-      hw = ops.hosts.${machine}.hardware;
+      localVcpus = ops.hosts.${localHostName}.hardware.vcpus or 1;
+      builder = ops.hosts.${builderHostName}.hardware or { };
+      builderVcpus = builder.vcpus or 1;
     in
     {
-      inherit (hw) system;
-      hostName = machine;
-      speedFactor = builtins.ceil vcpus / hw.vcpus;
+      inherit (builder) system;
+      hostName = builderHostName;
+
+      # TODO: should be reversed, right?
+      # speedFactor = builtins.ceil builderVcpus / localVcpus;
+      speedFactor = builtins.ceil localVcpus / builderVcpus;
+
       protocol = "ssh-ng";
       # maxJobs = 2;
       supportedFeatures = [
