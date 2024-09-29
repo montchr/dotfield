@@ -14,7 +14,6 @@ in
   services.xserver.desktopManager.gnome.enable = true;
 
   services.gnome.core-developer-tools.enable = true;
-  services.gnome.games.enable = true;
   services.gnome.gnome-browser-connector.enable = true;
 
   # Prefer webmail or other (better) mail clients.
