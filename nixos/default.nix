@@ -116,7 +116,7 @@ let
         pkgs = makeAsahiPkgs localSystem { };
         modules = [
           "${nixos-apple-silicon}/iso-configuration"
-          ./mixins/desktop-installer.nix
+          ./mixins/installer.nix
           ./profiles/hardware/apple/apple-silicon.nix
           { hardware.asahi.pkgsSystem = localSystem; }
         ];

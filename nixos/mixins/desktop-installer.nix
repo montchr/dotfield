@@ -1,5 +1,4 @@
 {
-  lib,
   modulesPath,
   pkgs,
   ...
@@ -10,9 +9,6 @@
     ./installer.nix
     ./desktop.nix
   ];
-
-  # HACK: Override core profile
-  services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
 
   environment.systemPackages = [
     pkgs.foot
