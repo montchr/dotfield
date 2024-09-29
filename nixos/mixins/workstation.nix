@@ -1,7 +1,12 @@
-{ pkgs, config, ... }:
+{
+  flake,
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = [
-    ../profiles/graphical/common.nix
+    ./desktop.nix
 
     ../profiles/audio.nix
     ../profiles/networking/avahi.nix
@@ -10,9 +15,7 @@
     ../profiles/hardware/bluetooth.nix
     ../profiles/hardware/bluetooth-headset.nix
     ../profiles/hardware/keyboard/default.nix
-    ../profiles/hardware/power.nix
     ../profiles/hardware/printers-scanners/default.nix
-    ../profiles/hardware/yubikey.nix
   ];
 
   programs._1password.enable = true;
