@@ -12,7 +12,10 @@
   microvm.host.enable = true;
 
   networking.hosts = {
-    "127.0.0.1" = [ "tutv.ddev.site" ];
+    "127.0.0.1" = [
+      #      "kleinforms.ddev.site"
+      "tutv.ddev.site"
+    ];
   };
 
   security.pki.certificates = [

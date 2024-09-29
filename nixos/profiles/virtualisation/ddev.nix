@@ -6,6 +6,12 @@
     # ./podman.nix
   ];
 
+  # TODO: is this actually needed?
+  # FIXME: do not expose to LAN!
+  # networking.firewall.allowedTCPPorts = [
+  #   9003 # xdebug
+  # ];
+
   environment.systemPackages = [
     pkgs.ddev
     pkgs.docker-buildx
