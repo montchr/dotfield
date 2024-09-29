@@ -1521,6 +1521,21 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1726966855,
+        "narHash": "sha256-25ByioeOBFcnitO5lM/Mufnv/u7YtHEHEM8QFuiS40k=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "575704ff85d3a41dc5bfef7b55380cbc7b87f3c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixos-apple-silicon": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -1539,6 +1554,27 @@
         "owner": "tpwrules",
         "ref": "release-2024-09-03",
         "repo": "nixos-apple-silicon",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727312535,
+        "narHash": "sha256-exnTgS6OBYvEa8v5x8UsLQK2ERdDFwXNFQHoT2cqycY=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "f31447cd3f8e54674bd1675969e97e6043a309bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
         "type": "github"
       }
     },
@@ -2480,6 +2516,7 @@
         "nix-index-database": "nix-index-database",
         "nix-inspect": "nix-inspect",
         "nixos-apple-silicon": "nixos-apple-silicon",
+        "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable_2",

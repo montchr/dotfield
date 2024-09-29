@@ -10,6 +10,7 @@ let
     disko
     home-manager
     nixos-apple-silicon
+    nixos-generators
     nixos-hardware
     nixpkgs-trunk
     sops-nix
@@ -30,17 +31,14 @@ let
   ];
 
   makeAsahiPkgs =
+    buildPlatform:
     {
-      channel ? "nixos-unstable",
+      channel ? "unstable",
     }:
-    let
-      system = "aarch64-linux";
-    in
-
-    import inputs.${channel} {
+    import inputs."nixos-${channel}" {
       config.allowUnfree = true;
-      crossSystem.system = system;
-      localSystem.system = system;
+      crossSystem.system = "aarch64-linux";
+      localSystem.system = buildPlatform;
       overlays = [
         (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
         nixos-apple-silicon.overlays.default
@@ -77,18 +75,74 @@ let
           ];
       }
     );
+
+  generateSystemArtifact =
+    hostName:
+    args@{
+      format,
+      system,
+      channel ? "unstable",
+      ...
+    }:
+    withSystem system (
+      { pkgs, ... }:
+      inputs.nixos-generators.nixosGenerate {
+        inherit system format;
+        pkgs = args.pkgs or pkgs;
+        specialArgs = {
+          flake = lib'.modules.flakeSpecialArgs' system;
+        };
+        modules =
+          defaultModules
+          ++ modules
+          ++ (args.modules or [ ])
+          ++ [
+            ../machines/${hostName}
+            {
+              _module.args = {
+                inherit ops;
+              };
+              networking.hostName = hostName;
+            }
+          ];
+      }
+    );
+
+  makeAsahiInstallerPackage =
+    localSystem: targetHostName:
+    let
+      installer = makeNixosSystem targetHostName {
+        system = "aarch64-linux";
+        pkgs = makeAsahiPkgs localSystem { };
+        modules = [
+          "${nixos-apple-silicon}/iso-configuration"
+          ./mixins/desktop-installer.nix
+          ./profiles/hardware/apple/apple-silicon.nix
+          { hardware.asahi.pkgsSystem = localSystem; }
+        ];
+      };
+    in
+    (installer.config.system.build.isoImage.overrideAttrs (o: {
+      # add ability to access the whole config from the command line
+      passthru = (o.passthru or { }) // {
+        inherit (installer) config;
+      };
+    }));
 in
 {
+  perSystem =
+    { system, ... }:
+    {
+      packages = {
+        tuvok-installer-iso = makeAsahiInstallerPackage system "tuvok-installer";
+      };
+    };
+
   flake.nixosModules = {
     "hardware/keyboard/keyboardio" = import ./modules/hardware/keyboard/keyboardio;
   };
 
   flake.nixosConfigurations = {
-    # bootstrap-graphical = makeNixosSystem "bootstrap-graphical" {
-    #   system = x86_64-linux;
-    #   modules = with features; desktop ++ gnome ++ workstation;
-    # };
-
     ryosuke = makeNixosSystem "ryosuke" {
       system = "x86_64-linux";
       modules = [
@@ -118,17 +172,6 @@ in
         # ./profiles/remote-builders/nixbuild-net.nix
         ./profiles/remote-builders/ryosuke.nix
         ./profiles/virtualisation/ddev.nix
-
-        {
-          formatConfigs.asahi-install-iso =
-            { lib, config, ... }:
-            {
-              imports = [ "${inputs.nixos-apple-silicon}/iso-configuration" ];
-              formatAttr = "isoImage";
-              fileExtension = ".iso";
-              services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
-            };
-        }
       ];
     };
 

@@ -7,7 +7,21 @@
 let
   inherit (config.networking) hostName;
   inherit (flake.inputs) nixos-apple-silicon;
-  firmwareInputName = "asahi-${hostName}-firmware";
+  firmwareInputName =
+    let
+      hostName' =
+        builtins.replaceStrings
+          [
+            "-installer"
+            "-iso"
+          ]
+          [
+            ""
+            ""
+          ]
+          hostName;
+    in
+    "asahi-${hostName'}-firmware";
   firmwareInput = flake.perSystem.inputs'.${firmwareInputName};
 in
 {
