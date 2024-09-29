@@ -29,6 +29,24 @@ let
     ./profiles/networking/tailscale.nix
   ];
 
+  makeAsahiPkgs =
+    {
+      channel ? "nixos-unstable",
+    }:
+    let
+      system = "aarch64-linux";
+    in
+
+    import inputs.${channel} {
+      config.allowUnfree = true;
+      crossSystem.system = system;
+      localSystem.system = system;
+      overlays = [
+        (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
+        nixos-apple-silicon.overlays.default
+      ];
+    };
+
   makeNixosSystem =
     hostName:
     nixosArgs@{
@@ -87,33 +105,32 @@ in
       ];
     };
 
-    tuvok = makeNixosSystem "tuvok" (
-      let
-        system = "aarch64-linux";
-      in
-      {
-        inherit system;
-        pkgs = import inputs.nixos-unstable {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [
-            (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
-            nixos-apple-silicon.overlays.default
-          ];
-        };
-        modules = [
-          ./mixins/gnome.nix
-          ./mixins/workstation.nix
+    tuvok = makeNixosSystem "tuvok" {
+      system = "aarch64-linux";
+      pkgs = makeAsahiPkgs { };
+      modules = [
+        ./mixins/gnome.nix
+        ./mixins/workstation.nix
 
-          ./profiles/hardware/apple/macbook-14-2.nix
+        ./profiles/hardware/apple/macbook-14-2.nix
 
-          ./profiles/remote-builders/default.nix
-          # ./profiles/remote-builders/nixbuild-net.nix
-          ./profiles/remote-builders/ryosuke.nix
-          ./profiles/virtualisation/ddev.nix
-        ];
-      }
-    );
+        ./profiles/remote-builders/default.nix
+        # ./profiles/remote-builders/nixbuild-net.nix
+        ./profiles/remote-builders/ryosuke.nix
+        ./profiles/virtualisation/ddev.nix
+
+        {
+          formatConfigs.asahi-install-iso =
+            { lib, config, ... }:
+            {
+              imports = [ "${inputs.nixos-apple-silicon}/iso-configuration" ];
+              formatAttr = "isoImage";
+              fileExtension = ".iso";
+              services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
+            };
+        }
+      ];
+    };
 
     platauc = makeNixosSystem "platauc" {
       system = "aarch64-linux";
