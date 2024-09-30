@@ -8,7 +8,7 @@ let
   isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {
-  imports = [ ./common.nix ];
+  imports = [ ./common.nix ../networking/networkmanager.nix ../networking/wifi.nix ];
 
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
