@@ -6,12 +6,17 @@
 
     ./backups.nix
 
-    ./experimental-mesa.nix
+#    ./experimental-mesa.nix
     ./keyboard.nix
     ./work/default.nix
 
     ./hardware-configuration.nix
   ];
+
+  # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
+  # broken wifi.  Reverting to the "asahi-tuvok-firmware" repository works.
+  hardware.asahi.peripheralFirmwareDirectory =
+    flake.perSystem.inputs'.asahi-tuvok-firmware.packages.default;
 
   environment.systemPackages = [ pkgs.borgbackup ];
 
@@ -27,9 +32,9 @@
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
-  users.mutableUsers = false;
+ # users.mutableUsers = false;
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 
   # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
   # support DP-Alt display output.  DP-Alt output is required for true HDMI or

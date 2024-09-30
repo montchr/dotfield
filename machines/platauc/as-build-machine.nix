@@ -27,9 +27,9 @@ in
   ];
 
   roles.nix-remote-builder.schedulerPublicKeys = [
-    ops.keys.ssh.cdom-at-tuvok
+    ops.keys.ssh.cdom-at-tuuvok
     ops.keys.ssh.nixdaemon-at-ryosuke
-    ops.keys.ssh.nixdaemon-at-tuvok
+    ops.keys.ssh.nixdaemon-at-tuuvok
   ];
 
   nix.settings = {

@@ -8,4 +8,4 @@ in
 ++ hosts.hodgepodge.users.seadoom.keys
 ++ hosts.ryosuke.users.cdom.keys
 ++ hosts.tuvix.users.cdom.keys
-++ hosts.tuvok.users.cdom.keys
+++ hosts.tuuvok.users.cdom.keys

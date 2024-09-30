@@ -1,28 +1,10 @@
 {
-  config,
   lib,
   flake,
   ...
 }:
 let
-  inherit (config.networking) hostName;
   inherit (flake.inputs) nixos-apple-silicon;
-  firmwareInputName =
-    let
-      hostName' =
-        builtins.replaceStrings
-          [
-            "-installer"
-            "-iso"
-          ]
-          [
-            ""
-            ""
-          ]
-          hostName;
-    in
-    "asahi-${hostName'}-firmware";
-  firmwareInput = flake.perSystem.inputs'.${firmwareInputName};
 in
 {
   imports = [
@@ -30,8 +12,6 @@ in
 
     ../../boot/systemd-boot.nix
   ];
-
-  hardware.asahi.peripheralFirmwareDirectory = firmwareInput.packages.default;
 
   boot.loader.systemd-boot.consoleMode = lib.mkForce "0";
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;

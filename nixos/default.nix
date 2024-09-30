@@ -134,7 +134,7 @@ in
     { system, ... }:
     {
       packages = {
-        tuvok-installer-iso = makeAsahiInstallerPackage system "tuvok-installer";
+        tuuvok-installer-iso = makeAsahiInstallerPackage system "tuuvok-installer";
       };
     };
 
@@ -159,9 +159,9 @@ in
       ];
     };
 
-    tuvok = makeNixosSystem "tuvok" {
+    tuuvok = makeNixosSystem "tuuvok" {
       system = "aarch64-linux";
-      pkgs = makeAsahiPkgs { };
+      pkgs = makeAsahiPkgs "aarch64-linux" { };
       modules = [
         ./mixins/gnome.nix
         ./mixins/workstation.nix

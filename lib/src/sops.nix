@@ -40,7 +40,7 @@ let
     "hierophant"
     "hodgepodge"
     "ryosuke"
-    "tuvok"
+    "tuuvok"
   ];
 in
 {

@@ -155,25 +155,26 @@ in
       ];
     };
   };
-  tuvok = {
+  tuuvok = {
     hardware = {
       # We share a body...
       inherit (self.tuvix.hardware) mem vcpus;
       # ...different minds, same brain.
       system = "aarch64-linux";
     };
-    age = keys.age.tuvok;
+    age = keys.age.tuuvok;
     keys = [
-      keys.ssh.tuvok
-      keys.ssh.tuvok-rsa
+      keys.ssh.tuuvok
+      keys.ssh.tuuvok-rsa
     ];
     networks.ts = {
       ipv4 = "100.89.80.26";
       ipv6 = "fd7a:115c:a1e0::1c01:501a";
     };
     users.cdom = {
+      # FIXME: generate new for tuuvok
       age = keys.age.cdom-at-tuvok;
-      keys = [ keys.ssh.cdom-at-tuvok ];
+      keys = [ keys.ssh.cdom-at-tuuvok ];
     };
   };
   tso = {
