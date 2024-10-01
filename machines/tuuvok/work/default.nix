@@ -13,7 +13,8 @@
 
   networking.hosts = {
     "127.0.0.1" = [
-      #      "kleinforms.ddev.site"
+      "kleinforms.ddev.site"
+      "logancenter.ddev.site"
       "tutv.ddev.site"
     ];
   };
