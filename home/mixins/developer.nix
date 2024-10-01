@@ -6,5 +6,8 @@
     ../profiles/just.nix
   ];
 
-  home.packages = [ pkgs.git-filter-repo ];
+  home.packages = [
+    pkgs.git-filter-repo
+    pkgs.vscode
+  ];
 }
