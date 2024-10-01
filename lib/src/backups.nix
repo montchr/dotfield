@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chmont@proton.me>
+# SPDX-FileCopyrightText: Copyright (c) 2023-2024 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: Copyright (c) 2022-2023 Gabriel Arazas <foodogsquared@foodogsquared.one>
 # SPDX-License-Identifier: GPL-3.0-or-later AND MIT
 #
@@ -22,6 +22,7 @@ in
     }:
     {
       inherit paths repo startAt;
+      # storage efficiency > speed
       compression = "zstd,11";
       dateFormat = "+%Y-%m-%dT%H:%M:%S";
       doInit = true; # set to false if repo is not consistently available e.g. network drive
@@ -40,11 +41,12 @@ in
       exclude = [
         "/nix"
         "'**/.cache'" # note the single quotes -- copied as is from NixOS manual
+        "**/node_modules"
       ];
       extraInitArgs = "--make-parent-dirs";
       persistentTimer = true;
       preHook = ''
-        extraCreateArgs="$extraCreateArgs --stats"
+        extraCreateArgs="$extraCreateArgs --verbose --stats --checkpoint-interval 600"
       '';
       prune.keep = {
         hourly = 2;
