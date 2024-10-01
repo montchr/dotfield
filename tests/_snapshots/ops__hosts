@@ -1,23 +1,5 @@
 #pretty
 {
-  aerattum = {
-    network = "seadome";
-    users = {
-      blink = {
-        keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2HrKDL60obU2mEkV1pM1xHQeTHc+czioQDTqu0gP37 blink@aerattum"
-        ];
-      };
-      workingcopy = {
-        keys = [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrU4ZPmxcBNnMeLLyBkFcjlG2MwaIUp5deSycmXSb7gIC4MZKH0lvoCXsXBYTocGhwna2mg1SfpolLZzxzWAYpx52RoHeyY6ml/Z1dSJbpMgV5KZ2kqKo1hHar2i9wsc/EZQKv3rlngOSECiwg2LxHOIGGTz/779yEJnfnWnta+5Tnpk4zdgp8j8g+QbY7NFHcZg2mjcy++Nf2psqJsDZVE1JmzNsA30jEGaGDRAaAv9ZHcQf6E3GEpRvr3iqO9YTzOcgdzzl8CvAtZUa1G4piQK6CYkC6HgAvm73+kSm+JxssSfFi3xgK0+RLAUTGa25MH3PAqR9V8lrcuLI891sLEQTtQIIALfzTw04e740DqXRifzasCVo8lMmZBX8Mu+FC0KSFL0254OfHuTHDCWE7fc/3069pcpgAaJGIDj2rE3v631WqoPZpkmvefuu4+n5nvKe4ypwA/OH6h52s3CL7DlcREe6lnBraEzbuXxVL+0JP66yEzK4vFGtZWeTsbo9jyQkoJIw4IkuqHvRxElysOHaQqG08GkjiCBONiGIqk0GQ3pmeyjptfnrVyi2pFGTvVVQ06ZC7If3wywkWXCJzJ2nrD9B+gyRvKv557m24Goj2+LCi6IVZsFIh6r4+vOdaMnX39eol/kWMl1n93D8YG3bBS5JH0fEQsMZEpsUd7Q== WorkingCopy@aerattum"
-        ];
-      };
-    };
-  };
-  bootstrap-graphical = {
-    network = "seadome";
-  };
   boschic = {
     age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl";
     ipv4 = {
@@ -121,39 +103,34 @@
       };
     };
   };
-  moraine = {
-    age = "age1dl25evn7gstv4t48na8ypxhtxgpf67zfk2v0n3g9fkna8vx3cavsm868ly";
+  platauc = {
+    age = "age1gugp7recrwfnf7wv0f69asemf3uqnper3r8y0vslwmdcyhqcep3sw6p5v8";
+    hardware = {
+      mem = 32;
+      system = "aarch64-linux";
+      vcpus = 16;
+    };
+    ipv4 = {
+      address = "78.46.148.56";
+    };
     ipv6 = {
-      address = "2a01:4f8:200:5047";
+      address = "2a01:4f8:c0c:591c";
       gateway = "fe80::1";
       prefixLength = 64;
     };
     keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1hnnVzNQ1JJ1TOTOWuxztbCV6EZ4F8xZBrEfOwROVX root@moraine"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCu56Rvtpdr8oPtKT+dru8t/GrqwVtngVIAGGjSRMmg4GBbi8OVx5TkKCNFypJKwx1oCUnIb5f11HVdHukpe/TAjxKlF1kQlXJpaCLszQD5Gdf9SBH8gKrNtoqlsnalaU7faWnbfGoPmMPrd6hNVByslAzrC1OHFiI1vqAmnwh5XdU7Y4r8brScPsG4NoRQ9P3bTNMs4Sk1s0UxMAgziHltG/jlcupQxHx5Zdm2of3wXAWdvrRT3k69aPd6PHs+rQOqZkzuY9vRloKxFSINyTnXnJDlCZis0NzoSoeAdfuWj5xfk795NztCJaazkRSp/4Mg7/hkoWfGvVve5WV+kwOEKpLOWpYHNHUgyABLb7QxZ+Yx/9UGZT91kWVX1KxpSEG7S/Azs327flI+lw3b9kBwYyPIV7A2UztfvCmJmKKKyn1rppUDbICCCQb6ADmwSSvqYsRwDXU0QGyns3sUpNjq0F73QJOIGTTE47+lbEVwYYt3JyXSzl1RaUe7Bw5+mpD1z71EkFuO2Y3BtDaqIbqvjY6rKKT5h+8fw0u+WHcSmZIczncZGLp18qR1PSc4nAlFh0inGMbUQbuqIMYsqmmGkWs71/7rHtvBGBEHq90KYfXXGT3bhzv/Xj0gtUr1XXBEHIV+KAM/4mVBdOowCJiVuRzLyQ7cUYJl+INwi3XZIw== root@moraine"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqlIZOZxi0E6XGi/iOcMjU1tS5IbJfXlQG18kiqaP8M"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCts7S7lQeh6uJMRyamwzahBDdZL2IDxaUp5Vv0vNf2gd2gcvS+CW0Jvyghjtuof9VcuNe1YttgbqckiT8bZuF1oZldKoHOcS1idlf44Xw76l/0CZslB3B/VsAQxWFGxBfE/l8N0Y0mvSOeinEbli4lLyt8YUxAMq6n3d/Y8d+QQbm4AWTfTFXGOLL9QnOZ3zY9pOhORQ2p+ubpWBsfMVu31lUegUn5Ywef2ht07ZoYfxItFe29j2PHVyl43YcPtsqlP89Zj8qsJxJ1TzkcStZ1LAY2xsAZOlsg3iDYP1ozL4KJhvypnu5EBDOdmFHk7HbOrw5LE0hhJ2GAoFD4+pFYerXa+9oIBm9HPjFESr+TisImrwW/mXOioXTKDHd2q6WgqjctUi3slGytNZo8s4Huh6/iE+ZDa9QvQplO9iQO3ffuRV0D73nlOAY7T+BMJkBt+VnIdmhRq/awZuaPRZexc0obUAgtG6YsqoVdb9ijR/4PzvHN9F/yx5Yzdo5S6F8="
     ];
-    network = "tso";
-    networks = {
-      ts = {
-        ipv4 = {
-          address = "100.101.74.89";
-        };
-        ipv6 = {
-          address = "fd7a:115c:a1e0:ab12:4843:cd96:6265:4a59";
-        };
-      };
-    };
-    users = {
-      anomich = {
-        age = "age1uh9evf8arwmd5mmjldxls5xunqzzve5pxv396ynre6mg20j2nveq88prjq";
-        keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUGLeqyzAYXvrFCTSqumXiJ7xWOCclO0eRf0vlP2eya anomich@moraine"
-        ];
-      };
-    };
+    network = "seadome";
   };
   ryosuke = {
     age = "age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak";
+    hardware = {
+      mem = 32;
+      system = "x86_64-linux";
+      vcpus = 24;
+    };
     ipv4 = {
       address = "192.168.1.217";
     };
@@ -163,13 +140,17 @@
     ];
     network = "home";
     networks = {
-      ts = "100.123.41.68";
+      ts = {
+        ipv4 = {
+          address = "100.123.41.68";
+        };
+      };
     };
     users = {
       cdom = {
         age = "age19une89quzx4jt36hndrdp5ghr43845dndctfta206f7ts5ucsyjqt0l3pm";
         keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC52Epc2Ogk0FWyTsdDzvZpJIQQAAhZJMZOwqsOJwKR9 cdom@ryosuke"
         ];
       };
     };
@@ -179,22 +160,57 @@
       address = "192.168.1.197";
     };
     network = "home";
-  };
-  tso = {
-    keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILe2tpFQpyuNr2lylASEC7xT2ZH+HT3tKCoHmnkb24Ii root@tso"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCOiduTDc9Jb9J8kgt0LXdFiM3f33YOdvLkevWJFtMu3yOS2+NGM5U2H/bRh/D28YxVtQrtAc1coLq3XoUVKKjHBAzUWlJp79eTn4ABYpFkbtXFed7Y3F7TYldnTZRelG5P/jaJlumHO596bijKgJIPcDNh3HoYIoTzrqPP+KTpMnKVj66uqNo3pULPFiDC8vMYhOLSPh0EhdI5GgupOMQE4oMslVSDLW52y+2S43Yo8ww6vUAZiJc7h15EMboAcgiRwkUlCUwnpE6PcSVzB3iwXS5jQ53OmSSdetarUJYG1wxeEONUyyehggYV7Us1Q3voub12xaNvvQc9kLd9I1z root@tso"
-    ];
+    networks = {
+      ts = {
+        ipv4 = {
+          address = "100.106.113.40";
+        };
+        ipv6 = {
+          address = "fd7a:115c:a1e0::7601:7129";
+        };
+      };
+    };
     users = {
-      seed = {
+      cdom = {
         keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMXlRdrAImpqwSnKJJZCHj8KUigfiHIAhMYUzke+DEUo seed@tso"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd0Ao5dHAF1+uOanojoMaE6XBkzsa6ooMNe+rBNY5PI cdom@synoxyn"
+        ];
+      };
+    };
+  };
+  tuuvok = {
+    age = "age19kn70a9r8m40kf7xw0gkme07gvxzmgncsvh2dfnpdrp5d82xefcsc9ezzm";
+    hardware = {
+      mem = 16;
+      system = "aarch64-linux";
+      vcpus = 8;
+    };
+    keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsLR0LK/aTdMwlK0OgLVeO/vPg1i4ttIqbe4icNi059 root@tuuvok"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQw0jGCRQDPQ6RoI5S4MROUfgTdi99Zcoz+UNY0/A1igxEQil/pxFsgPbzXvP0cpbG22mttiiPjh8pEqfBgbBD+tbv6nBP1Ne2hGAXv4DHwfhJTBq06zZn1RHBlQu3zGaoZWKcR4DBnYDcCKYN5ORuTsBkxNsoVfIMoPCoMHnnDZ0RA9SQ07+z5tJfmLuX1In3bayMuTMVqsj6FHDGiKdCAkrgkk0U8CJkIXVSHyljBVB0sHQNigSTpKQ5VyYkStXJbWYAq20FouO5HXXMFC64vMFLZqkoz1y38eOCoUiV84lBZ7iXg9oSYm4ogTaGEiSfuiz+Rkixaqk/NtmuCsV/mOQ5DPd5CDgF1KsFwfIQofK2arDPSfiVYTApARRXOSRCLwx4oY6qUHgHm+IxQQJL5UQteiyPBg8PXlDph9fdjiPhwcOIdlpOQ/wr8d4PINpfJ8IdaD1CjwTmtwc+hFkEXn0XsUWGThRurMuTkjyN48xASvlljNzPyF1dbFrLe+FJ/7HWdRJwGyo9wurjAvU3nKj6YQ+jQhaE2/C5euo2EmFqWHzPe/sg9W2od03YPlBiiw4zNad/1X70QVtNJFhHKpZTBaPpwHAQezfIbNSvilg96p4aridCfGjcEl+sH+NcaHyMsYHo7I7tVF91c17IeUDSWzmaJdkkMxuiEbUzvQ== root@tuuvok"
+    ];
+    networks = {
+      ts = {
+        ipv4 = "100.89.80.26";
+        ipv6 = "fd7a:115c:a1e0::1c01:501a";
+      };
+    };
+    users = {
+      cdom = {
+        age = "age1a6wqjd7kf7hqq2v9fljnnz3qvn05l696yz9y74tdjd6d2rjyavvqt352h5";
+        keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL2ykI21Ebz/Z2Q02DTFUGb9QAabsDlhjdaYjZuW+EHx cdom@tuuvok"
         ];
       };
     };
   };
   tuvix = {
     age = "age1mufuvfqdnvzmvc4rkx7aq2fwqg7m8xa8lfm33e6k3zhgqd2elaasghe64d";
+    hardware = {
+      mem = 16;
+      system = "aarch64-darwin";
+      vcpus = 8;
+    };
     ipv4 = {
       address = "192.168.1.155";
     };
@@ -219,21 +235,6 @@
         keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmT25KQRhB56Ym0w81lzRbcYNqWffihEsq/RZ2QE754 cdom@tuvix"
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDczCHJl9sJxhB7uy4tqWGYUy1cV3r6dfj777kXsIVyTgT16rDYN0ySVHL2qPUycNv5Xe1Fsv526vJpJEMX3W28mh7n9Kfp2U6WcMPZTtnOxoXrd9CAv8XjtkMEPzoaRQl37WwAkNT1zD5Qx9pFFS8Q5tipquSECH/iA/xBQ51g6FYIT+VVhVsVjWegQR5YB44e0GnYZdSbcOPP42C1Itxyr4hRHitjWWf+lKoNy0eP5KNVNH1MGGVnpriWohHhXPpOjKO7Fs7RI0TEiNJP8+MuI52c26mc3n1c8yla7/li9GStlxEhaZSPveQ0bnUYgXI5aqPT0oCmsXNVH+Ph1oTCYaqIGVvpidvrN/dJsg0psGfl7l0HSlaYBcebvlM+jorS6EVNBx+pILhXFX+YrDrp5rmMiUFAWdvcxTb1gmeFr27fwZV75G01aZvLQhlt3mTzH0yOpEEZQRlsczL8RH+8DTOqQSyM8j62wxGaNDRSTwka54/Wkn4O9e2ZJ88Xi58= cdom@tuvix"
-        ];
-      };
-    };
-  };
-  tuvok = {
-    age = "age1yt565snk3pm5p6k4404sp2663hn3ep7gpffaqrfyydkk48ldegdqkrfxqx";
-    keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJegiYck8knRAWwWakp21vNjCd03yz0r9gVtAHp9TjEE root@tuvok"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZJL48vDCKgEq7Fdce+AEcEDLyxJ2Lq07HgSPD9PXKxhHqWh/Q/5y8squmE6bDodwc9m/EsEnKg5Y9eawSL15fWFvy2REWrdKtu5WbL59m0sGkydDaCSFso5yB92gJJ/558SQR0eFcZDxsQyUWlQ+C+THbQpqJMzI09guFNGg1eJT1O5uX8/5I63TwzF3GTM6IfWY1s5zUQbn44pOTmN0A7n1qxbn1NXkobhN9bC/7YD1RmP9LesjnJARlret9L3K4s4mgl4pNrnqQcHa3L59MggZfn3w2prDslBckMeDyomhIYp7y/Ta3UXsuKBmf7UV0UC1CfWm+XtOtRG/C+l++O5FrLnXzPAX9gryt2Qw9LjtaO60hQucgUO4ai4vG2rJfnI+5go2WPCEpJqhFE3UJmdytoLvezc444SrmZSwWoiZgiVpwnErJi7mFUqszl3TtzqKstE50RcUIQmYUaHfj/7Yz/Z5vZno0vH/nKLGdduYVr/LSxaoiJTJoY+TJnGnpkMWrNLbke/GEvX51ybMq9Fhz+d/siMi4IaG4fwfiYHVqZMgn1I4JPae6hVA1wYIr9za3nRv3OjG4rYcoHY0evcRARl2O+/MOKehmxCzrZDx4Rk4C9el7RmmNfsJ5ZdgRsF1z5yo+A5297gGjFHsIQlkZCzKv/q7xREZTpaabFQ== root@tuvok"
-    ];
-    users = {
-      cdom = {
-        age = "age1eqt97wapaeufkg6ykee802t7afv2ud0f933js24x2xr9xqgzuuvs8dqyz6";
-        keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINHF5P+/PBAUrQFmfHS4ifHZz6IDqxhe9QPT+UfiZg0C cdom@tuvok"
         ];
       };
     };

@@ -8,14 +8,6 @@ let
   };
 in
 {
-  aerattum = {
-    network = "seadome";
-    users = {
-      blink.keys = [ keys.ssh.blink-at-aerattum ];
-      workingcopy.keys = [ keys.ssh.workingcopy-at-aerattum-rsa ];
-    };
-  };
-  bootstrap-graphical.network = "seadome";
   boschic = {
     age = keys.age.boschic;
     ipv4.address = "192.168.1.214";
@@ -175,12 +167,5 @@ in
       age = keys.age.cdom-at-tuuvok;
       keys = [ keys.ssh.cdom-at-tuuvok ];
     };
-  };
-  tso = {
-    keys = [
-      keys.ssh.tso
-      keys.ssh.tso-rsa
-    ];
-    users.seed.keys = [ keys.ssh.seed-at-tso ];
   };
 }
