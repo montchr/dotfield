@@ -49,11 +49,11 @@ creation_rules:
 
   - key_groups:
       - age:
-          - age1yt565snk3pm5p6k4404sp2663hn3ep7gpffaqrfyydkk48ldegdqkrfxqx
+          - age19kn70a9r8m40kf7xw0gkme07gvxzmgncsvh2dfnpdrp5d82xefcsc9ezzm
           - age15yyjuhudx0qaxrgshap4uwylvc6gek5dev7wsvc0zn32v6easp4qmyffmg
         pgp:
           - 64604147C434F65EC306A21F135EEDD0F71934F3
-    path_regex: machines/tuvok/secrets/[^/]+.yaml$
+    path_regex: machines/tuuvok/secrets/[^/]+.yaml$
 
   - key_groups:
       - age:
@@ -74,6 +74,7 @@ creation_rules:
 
   - key_groups:
       - age:
+          - age15yyjuhudx0qaxrgshap4uwylvc6gek5dev7wsvc0zn32v6easp4qmyffmg
           - age1gugp7recrwfnf7wv0f69asemf3uqnper3r8y0vslwmdcyhqcep3sw6p5v8
           - age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl
           - age17cvj9zauhyazdumefu2hk5mfadptm5jyu2yay082njstp9qnp58qc2stax
@@ -82,7 +83,7 @@ creation_rules:
           - age1dl25evn7gstv4t48na8ypxhtxgpf67zfk2v0n3g9fkna8vx3cavsm868ly
           - age14rlwkyskyfz65vrvu2n4v3vslqvuqc8uk7vjsre9n52zpnhke30svsjvak
           - age1yt565snk3pm5p6k4404sp2663hn3ep7gpffaqrfyydkk48ldegdqkrfxqx
-          - age15yyjuhudx0qaxrgshap4uwylvc6gek5dev7wsvc0zn32v6easp4qmyffmg
+          - age19kn70a9r8m40kf7xw0gkme07gvxzmgncsvh2dfnpdrp5d82xefcsc9ezzm
         pgp:
           - 64604147C434F65EC306A21F135EEDD0F71934F3
     path_regex: secrets/[^/]+.yaml$

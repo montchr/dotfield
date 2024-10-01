@@ -172,8 +172,7 @@ in
       ipv6 = "fd7a:115c:a1e0::1c01:501a";
     };
     users.cdom = {
-      # FIXME: generate new for tuuvok
-      age = keys.age.cdom-at-tuvok;
+      age = keys.age.cdom-at-tuuvok;
       keys = [ keys.ssh.cdom-at-tuuvok ];
     };
   };

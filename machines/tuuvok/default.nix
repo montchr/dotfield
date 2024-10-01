@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
 {
   imports = [
     ./users/cdom.nix
