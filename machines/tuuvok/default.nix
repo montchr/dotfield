@@ -1,18 +1,15 @@
 { flake, pkgs, ... }:
 {
   imports = [
-    ./users/cdom.nix
-    ./secrets/sops.nix
+    ./hardware-configuration.nix
 
     ./backups.nix
-
-    # FIXME: needs access to platauc builder for this to be at all feasible
-    #    ./experimental-mesa.nix
-
     ./keyboard.nix
+    ./users/cdom.nix
+    ./secrets/sops.nix
     ./work/default.nix
 
-    ./hardware-configuration.nix
+    ./experimental-mesa.nix
   ];
 
   # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
