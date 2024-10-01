@@ -20,12 +20,6 @@
 
   environment.systemPackages = [ pkgs.borgbackup ];
 
-  # XXX: Will be fixed in kernel release 6.9.12-2
-  # <https://github.com/tpwrules/nixos-apple-silicon/issues/225>
-  # <https://social.treehouse.systems/@AsahiLinux/112909897657710314>
-  # <https://bugzilla.redhat.com/show_bug.cgi?id=2302577>
-  boot.kernelParams = [ "brcmfmac.feature_disable=0x82000" ];
-
   lix.enable = true;
 
   time.timeZone = "America/New_York";
