@@ -6,7 +6,9 @@
 
     ./backups.nix
 
-#    ./experimental-mesa.nix
+    # FIXME: needs access to platauc builder for this to be at all feasible
+    #    ./experimental-mesa.nix
+
     ./keyboard.nix
     ./work/default.nix
 
@@ -26,7 +28,7 @@
 
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cdom";
- # users.mutableUsers = false;
+  users.mutableUsers = false;
 
   # services.tailscale.enable = true;
 
