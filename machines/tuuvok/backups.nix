@@ -1,5 +1,6 @@
 { flake, config, ... }:
 let
+  inherit (config.networking) hostName;
   inherit (config.sops) secrets;
   inherit (flake.self.lib.backups) mkJob;
 in
@@ -10,8 +11,9 @@ in
       paths = [ "/home" ];
       keyFile = secrets."borg/repos/home/ssh-key".path;
       passCommand = "cat ${secrets."borg/repos/home/passphrase".path}";
-      repo = "ssh://de1954@de1954.rsync.net/./backups/tuvok-home";
+      repo = "ssh://de1954@de1954.rsync.net/./backups/${hostName}-home";
     };
+
     # services-backup = mkJob {
     #   inherit secrets;
     #   # TODO: probably others
