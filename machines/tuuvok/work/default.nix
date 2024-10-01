@@ -1,16 +1,4 @@
-{ flake, ... }:
 {
-  imports = [
-    flake.inputs.microvm.nixosModules.host
-
-    # ./modules/node.nix
-    # ./modules/interface-naming.nix
-
-    # ./modules/guests
-  ];
-
-  microvm.host.enable = true;
-
   networking.hosts = {
     "127.0.0.1" = [
       "kleinforms.ddev.site"
