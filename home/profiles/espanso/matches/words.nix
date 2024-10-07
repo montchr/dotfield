@@ -22,5 +22,9 @@
       replace = "`x86_64-linux`";
       trigger = "`x8l";
     }
+    {
+      replace = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      trigger = ":sha-AAA";
+    }
   ];
 }
