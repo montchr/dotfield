@@ -6,8 +6,7 @@
 
     ./backups.nix
 
-    # FIXME: needs access to platauc builder for this to be at all feasible
-    #    ./experimental-mesa.nix
+    ./experimental-mesa.nix
 
     ./keyboard.nix
     ./work/default.nix
