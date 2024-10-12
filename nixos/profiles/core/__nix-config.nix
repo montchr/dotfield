@@ -11,6 +11,7 @@
 }:
 let
   inherit (flake) inputs;
+  cfg = config.nix;
   inputFlakes = lib.filterAttrs (_: v: v ? outputs) inputs;
   inputsToPaths = lib.mapAttrs' (
     n: v: {
@@ -22,7 +23,7 @@ in
 
 {
   environment.etc = inputsToPaths inputs;
-  environment.systemPackages = [ config.nix.package ];
+  environment.systemPackages = [ cfg.package ];
 
   nix = {
     nixPath = [
@@ -32,19 +33,25 @@ in
     ];
     distributedBuilds = true;
     registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
+    extraOptions = ''
+      warn-dirty = false
+    '';
     settings = {
       allowed-users = [ "*" ];
       trusted-users = [
         "root"
         "@wheel"
       ];
-      auto-optimise-store = true;
-      builders-use-substitutes = true;
+
+      sandbox = true;
+
+      ## === Features ===
+
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      sandbox = true;
+
       # TODO: always appropriate??
       system-features = [
         "nixos-test"
@@ -53,6 +60,9 @@ in
         "kvm"
       ];
 
+      ## === Substituters ===
+
+      builders-use-substitutes = true;
       substituters = [
         "https://dotfield.cachix.org"
         "https://nix-community.cachix.org"
@@ -69,12 +79,15 @@ in
       ];
     };
 
+    ## === Store Maintenance ===
+
+    ## `nix store optimise`
+    settings.auto-optimise-store = true;
     optimise.automatic = true;
+
+    ## `nix store gc`
     gc.dates = lib.mkDefault "weekly";
     gc.automatic = lib.mkDefault true;
 
-    extraOptions = ''
-      warn-dirty = false
-    '';
   };
 }
