@@ -82,8 +82,8 @@ in
     ## === Store Maintenance ===
 
     ## `nix store optimise`
-    settings.auto-optimise-store = true;
-    optimise.automatic = true;
+    settings.auto-optimise-store = lib.mkDefault true;
+    optimise.automatic = !cfg.settings.auto-optimise-store;
 
     ## `nix store gc`
     gc.dates = lib.mkDefault "weekly";
