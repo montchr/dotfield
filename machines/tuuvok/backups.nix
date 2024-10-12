@@ -15,6 +15,8 @@ in
   services.borgbackup.jobs = {
     home-backup = mkJob {
       startAt = "hourly";
+      # Prevent hogging resources on system wake.
+      persistentTimer = false;
       paths = [ "/home" ];
       keyFile = secrets."borg/repos/home/ssh-key".path;
       passCommand = "cat ${secrets."borg/repos/home/passphrase".path}";
