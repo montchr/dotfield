@@ -29,15 +29,6 @@
 
   # services.tailscale.enable = true;
 
-  # Currently required for Asahi monitor support via USB-C.  Asahi does not yet
-  # support DP-Alt display output.  DP-Alt output is required for true HDMI or
-  # DP output via one of this machine's two USB-C ports and zero HDMI/DP ports.
-  # For details on update procedure, see <https://wiki.nixos.org/wiki/Displaylink>.
-  services.xserver.videoDrivers = [
-    "displaylink"
-    "modesetting"
-  ];
-
   programs.appimage = {
     enable = true;
     binfmt = true;
