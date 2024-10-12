@@ -43,8 +43,6 @@ in
         "@wheel"
       ];
 
-      sandbox = true;
-
       ## === Features ===
 
       experimental-features = [
