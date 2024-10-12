@@ -1,4 +1,4 @@
-{ flake, pkgs, ... }:
+{ flake, ... }:
 {
   imports = [
     ./users/cdom.nix
@@ -18,8 +18,6 @@
   # broken wifi.  Reverting to the "asahi-tuvok-firmware" repository works.
   hardware.asahi.peripheralFirmwareDirectory =
     flake.perSystem.inputs'.asahi-tuvok-firmware.packages.default;
-
-  environment.systemPackages = [ pkgs.borgbackup ];
 
   lix.enable = true;
 

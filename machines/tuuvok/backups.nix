@@ -1,10 +1,17 @@
-{ flake, config, ... }:
+{
+  pkgs,
+  flake,
+  config,
+  ...
+}:
 let
   inherit (config.networking) hostName;
   inherit (config.sops) secrets;
   inherit (flake.self.lib.backups) mkJob;
 in
 {
+  environment.systemPackages = [ pkgs.borgbackup ];
+
   services.borgbackup.jobs = {
     home-backup = mkJob {
       startAt = "hourly";
