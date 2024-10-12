@@ -96,6 +96,11 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
     simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     srvos.url = "github:numtide/srvos";
+    # <https://viperml.github.io/wrapper-manager/>
+    wrapper-manager = {
+      url = "github:viperML/wrapper-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ##: ops
     colmena.url = "github:zhaofengli/colmena";

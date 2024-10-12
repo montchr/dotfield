@@ -2529,7 +2529,8 @@
         "seadome-wallpapers": "seadome-wallpapers",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops-nix": "sops-nix",
-        "srvos": "srvos"
+        "srvos": "srvos",
+        "wrapper-manager": "wrapper-manager"
       }
     },
     "rust-analyzer-src": {
@@ -3071,6 +3072,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wrapper-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1724503599,
+        "narHash": "sha256-WVhNq3QjnG/2mi772CkTxZCQcomKV5S03TbQKwe1Kj4=",
+        "owner": "viperML",
+        "repo": "wrapper-manager",
+        "rev": "c936f9203217e654a6074d206505c16432edbc70",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "wrapper-manager",
         "type": "github"
       }
     },
