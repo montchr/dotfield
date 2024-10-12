@@ -27,7 +27,7 @@
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
 
-  # services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   # TODO: relocate to a relevant profile -- why was this necessary?
   # programs.appimage = {
