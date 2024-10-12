@@ -19,9 +19,16 @@ in
       patterns ? [ ],
       patternFiles ? [ ],
       startAt ? "daily",
+      persistentTimer ? true,
     }:
     {
-      inherit paths repo startAt;
+      inherit
+        paths
+        persistentTimer
+        repo
+        startAt
+        ;
+
       # storage efficiency > speed
       compression = "zstd,11";
       dateFormat = "+%Y-%m-%dT%H:%M:%S";
@@ -44,7 +51,6 @@ in
         "**/node_modules"
       ];
       extraInitArgs = "--make-parent-dirs";
-      persistentTimer = true;
       preHook = ''
         extraCreateArgs="$extraCreateArgs --verbose --stats --checkpoint-interval 600"
       '';
