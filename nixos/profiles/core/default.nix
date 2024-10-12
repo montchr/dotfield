@@ -2,7 +2,6 @@
   config,
   lib,
   ops,
-  pkgs,
   flake,
   ...
 }:
@@ -22,6 +21,8 @@ in
     ./__secrets.nix
     ./__system-packages.nix
   ];
+
+  lix.enable = true;
 
   programs.fish.enable = true;
 

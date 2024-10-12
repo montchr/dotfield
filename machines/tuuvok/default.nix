@@ -19,8 +19,6 @@
   hardware.asahi.peripheralFirmwareDirectory =
     flake.perSystem.inputs'.asahi-tuvok-firmware.packages.default;
 
-  lix.enable = true;
-
   time.timeZone = "America/New_York";
 
   dotfield.guardian.enable = true;
