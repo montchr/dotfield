@@ -29,10 +29,11 @@
 
   # services.tailscale.enable = true;
 
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
+  # TODO: relocate to a relevant profile -- why was this necessary?
+  # programs.appimage = {
+  #   enable = true;
+  #   binfmt = true;
+  # };
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }
