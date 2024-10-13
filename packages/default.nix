@@ -18,6 +18,8 @@
         tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./tomlfmt/package.nix { };
         wp-to-psr-4 = callPackage ./wp-to-psr-4/package.nix { };
+
+        iching = callPackage ./iching/package.nix { };
         yijing-q-merge-csv = callPackage ./yijing-q-merge-csv/package.nix { };
 
         # TODO: not ready
