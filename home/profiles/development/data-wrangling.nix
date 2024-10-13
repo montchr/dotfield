@@ -5,6 +5,7 @@
     # as CSV, TSV, and tabular JSON"
     # <https://github.com/johnkerl/miller>
     pkgs.miller
+
     # TODO: not yet: <https://github.com/NixOS/nixpkgs/pull/296424>
     # pkgs.qsv # "CSVs sliced, diced & analyzed" (maintained fork of xsv)
     pkgs.tidy-viewer # `tv` => Pretty-print CSV files
