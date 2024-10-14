@@ -1,16 +1,18 @@
-{
-  config,
-  lib,
-  ops,
-  ...
-}:
+{ lib, ops, ... }:
 let
   inherit (ops.hosts.platauc.hardware) mem vcpus;
-  requiredRamPerCore = 4;
+
+  # Allow for some padding -- don't push usage to the limit.
+  ramPad = 1;
+
+  # TODO: cite source -- chromium needs at least 4GB, apparently, but that no
+  # longer seems enough due to more frequent crashes during builds lately.
+  requiredRamPerCore = 4 + ramPad;
+
   allowedTotalCores = mem / requiredRamPerCore;
 
-  cores = allowedTotalCores / max-jobs;
   max-jobs = 1;
+  cores = allowedTotalCores / max-jobs;
 in
 {
   assertions = [
