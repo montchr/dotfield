@@ -1,7 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
   gmailAccount =
     {
       name,
@@ -84,31 +82,14 @@ let
     };
 in
 {
-  programs.mbsync.enable = true;
-  programs.mu.enable = true;
-  programs.msmtp.enable = true;
-  services.mbsync = {
-    enable = false;
-    frequency = "*:0/5";
-    # TODO: might need to be told about password store dir
-    postExec = "${pkgs.mu}/bin/mu index";
-  };
+  # accounts.email.accounts.personal =
+  #   gmailAccount {
+  #     name = "personal";
+  #     domain = "cdom.io";
+  #   }
+  #   // {
+  #     primary = true;
+  #     msmtp.enable = true;
+  #   };
 
-  accounts.email = {
-    maildirBasePath = "Mail";
-    accounts = {
-      personal =
-        gmailAccount {
-          name = "personal";
-          domain = "cdom.io";
-        }
-        // {
-          primary = true;
-          msmtp.enable = true;
-        };
-    };
-  };
 }
-## References:
-# https://github.com/Emiller88/dotfiles/blob/5eaabedf1b141c80a8d32e1b496055231476f65e/modules/shell/mail.nix
-# https://github.com/berbiche/dotfiles/blob/cf8bc65bb775b69727a660a75ef2b981b0a31e54/profiles/email/accounts.nix

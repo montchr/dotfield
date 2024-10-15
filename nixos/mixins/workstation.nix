@@ -16,6 +16,8 @@
     ../profiles/hardware/bluetooth-headset.nix
     ../profiles/hardware/keyboard/default.nix
     ../profiles/hardware/printers-scanners/default.nix
+
+    ../profiles/protonmail-bridge.nix
   ];
 
   programs._1password.enable = true;
