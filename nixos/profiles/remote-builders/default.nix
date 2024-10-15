@@ -1,6 +1,7 @@
 { config, ops, ... }:
 {
-  imports = [ ./platauc.nix ];
+  # FIXME: uhoh...
+  #  imports = [ ./platauc.nix ];
 
   nix.distributedBuilds = true;
 
