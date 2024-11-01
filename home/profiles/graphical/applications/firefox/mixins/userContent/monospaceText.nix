@@ -1,3 +1,4 @@
+# TODO: provide link to selectors source to facilitate updates
 _: rules: ''
   code,
   kbd,
