@@ -22,8 +22,6 @@ in
     ./__system-packages.nix
   ];
 
-  lix.enable = true;
-
   programs.fish.enable = true;
 
   programs.zsh = {

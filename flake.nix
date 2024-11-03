@@ -85,10 +85,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-09-03";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
