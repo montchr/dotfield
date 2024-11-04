@@ -8,6 +8,9 @@
     {
       packages = inputs.flake-utils.lib.filterPackages system ({
         base16-schemes = callPackage ./base16-schemes/package.nix { };
+        beets-filetote = callPackage ./beets-filetote/package.nix {
+          beets = pkgs.beetsPackages.beets-minimal;
+        };
         ddi = callPackage ./ddi/package.nix { };
         fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
         git-repo-manager = callPackage ./git-repo-manager/package.nix { };
