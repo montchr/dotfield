@@ -1,6 +1,9 @@
+## Sources:
+# <https://github.com/montchr/stormobservatory/blob/8c26fbfebdd437c3d50446002766b9b9410a85a2/src/beets/config.yaml>
+# <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/hosts/mali/beets.nix>
+# <https://github.com/foo-dogsquared/nixos-config/blob/e64d10f2aac3031c07aaef8b4dc481f055cec072/configs/home-manager/foo-dogsquared/modules/setups/music.nix>
 {
   flake,
-  lib,
   config,
   ...
 }:
@@ -36,6 +39,7 @@ in
         "fromfilename"
         "fuzzy"
         "info"
+        "inline"
         "mbsync"
         "playlist"
         "replaygain"
@@ -53,11 +57,25 @@ in
         write = true;
       };
 
-      paths = {
-        default = "%first{$albumartist}/$album%aunique{}%if{$multidisc,$disc-}%if{$track,$track - }$title";
+      # Use the original release date instead of the edition release date.
+      original_date = true;
+
+      languages = [ "en" ];
+      per_disc_numbering = true;
+      item_fields = {
+        multidisc = "1 if disctotal > 1 else 0";
+        artist_differs = "1 if albumartist != artist else 0";
       };
 
-      per_disc_numbering = true;
+      paths = {
+        default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+      };
+
+      ui.color = true;
+
+      ignore_hidden = true;
+      asciify_paths = true;
+      max_filename_length = 255;
 
       match = {
         # <https://beets.readthedocs.io/en/stable/reference/config.html#max-rec>
@@ -102,17 +120,16 @@ in
         ];
       };
 
-      fetchart.auto = true;
-      fetchart.sources = [
-        "filesystem"
-        "coverart"
-        "discogs"
-        "amazon"
-        "albumart"
-      ];
-
-      # Use the original release date instead of the edition release date.
-      original_date = true;
+      fetchart = {
+        auto = true;
+        sources = [
+          "filesystem"
+          "coverart"
+          "discogs"
+          "amazon"
+          "albumart"
+        ];
+      };
 
       replaygain = {
         auto = true;
@@ -122,35 +139,26 @@ in
         parallel_on_import = true;
       };
 
-      edit.itemfields = [
-        "track"
-        "title"
-        "artist"
-        "album"
-        "year"
-        "month"
-        "day"
-      ];
-      edit.albumfields = [
-        "album"
-        "albumartist"
-        "albumdisambig"
-        "year"
-        "month"
-        "day"
-      ];
+      edit = {
+        itemfields = [
+          "track"
+          "title"
+          "artist"
+          "album"
+          "year"
+          "month"
+          "day"
+        ];
+        albumfields = [
+          "album"
+          "albumartist"
+          "albumdisambig"
+          "year"
+          "month"
+          "day"
+        ];
+      };
 
-      ui.color = true;
-
-      item_fields.multidisc = "1 if disctotal > 1 else 0";
-      # TODO: keep or remove?
-      # item_fields.artist_differs = "1 if albumartist != artist else 0";
-
-      languages = [ "en" ];
-
-      ignore_hidden = true;
-      asciify_paths = true;
-      max_filename_length = 255;
     };
   };
 }
