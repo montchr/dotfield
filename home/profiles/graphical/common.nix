@@ -9,6 +9,7 @@
     ./gtk.nix
     ./qt.nix
 
+    ./applications/calibre.nix
     ./applications/zathura.nix
   ];
 
