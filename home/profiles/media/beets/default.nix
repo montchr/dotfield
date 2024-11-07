@@ -2,26 +2,13 @@
 # <https://github.com/montchr/stormobservatory/blob/8c26fbfebdd437c3d50446002766b9b9410a85a2/src/beets/config.yaml>
 # <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/hosts/mali/beets.nix>
 # <https://github.com/foo-dogsquared/nixos-config/blob/e64d10f2aac3031c07aaef8b4dc481f055cec072/configs/home-manager/foo-dogsquared/modules/setups/music.nix>
-{
-  flake,
-  config,
-  ...
-}:
+{ config, ... }:
 let
-  inherit (flake.inputs) wrapper-manager;
   inherit (config) xdg;
-
   musicDir = config.xdg.userDirs.music;
-
-  cfg = config.programs.beets;
 in
 
 {
-  # wrappers."beet" = {
-  #   basePackage = cfg.package;
-  #   prependFlags = ["--config" ]
-  # };
-
   programs.beets = {
     enable = true;
     settings = {
@@ -30,6 +17,7 @@ in
       log = "${xdg.stateHome}/beets/beet.log";
 
       plugins = [
+        "albumtypes"
         "chroma"
         "discogs"
         "edit"
@@ -68,7 +56,10 @@ in
       };
 
       paths = {
-        default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+        # XXX: discogs plugin often fails with `%first{}`
+        # <https://github.com/beetbox/beets/issues/5473>
+        # default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+        default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
       };
 
       ui.color = true;
