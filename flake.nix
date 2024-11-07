@@ -74,6 +74,10 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
 
+    # HACK: Pin the systemd version to one that can boot
+    # See: <https://github.com/tpwrules/nixos-apple-silicon/issues/248>
+    nixpkgs-systemd-boot.url = "github:nixos/nixpkgs?rev=41dea55321e5a999b17033296ac05fe8a8b5a257";
+
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
     attic.url = "github:zhaofengli/attic";
