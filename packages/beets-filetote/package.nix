@@ -2,37 +2,51 @@
 # Source: <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/pkgs/beets-filetote.nix>
 {
   lib,
+  python3Packages,
   fetchFromGitHub,
   beets,
-  python3Packages,
 }:
+
 python3Packages.buildPythonApplication rec {
   pname = "beets-filetote";
-  version = "0.4.8";
+  version = "0.4.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "gtronset";
     repo = "beets-filetote";
     rev = "v${version}";
-    hash = "sha256-ve6druyiu4WJJI1RKc20AMHPARD0h84myg8CM9paZeM=";
+    hash = "sha256-pZ6c2XQMSiiPHyZMLSiSE+LXeCfi3HEWtsTK5DP9YZE=";
   };
+
+  build-system = [
+    python3Packages.poetry-core
+  ];
 
   postPatch = ''
     sed -i -e '/audible/d' tests/helper.py
   '';
 
-  nativeBuildInputs = [ python3Packages.poetry-core ];
-
   pytestFlagsArray = [ "-r fEs" ];
 
-  disabledTests = [ "test_audible_m4b_files.py" ];
+  disabledTests = [
+    "test_audible_m4b_files.py"
+
+    # XXX: Needs update for Beets v2.0.0
+    # <https://github.com/gtronset/beets-filetote/discussions/160>
+    "test_move_on_modify_command"
+    "test_prune_modify_query"
+  ];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     beets
     toml
   ];
+
+  preBuild = ''
+    export HOME=$(mktemp -d)
+  '';
 
   pythonImportsCheck = [
     "beetsplug.filetote"

@@ -2,7 +2,12 @@
 # <https://github.com/montchr/stormobservatory/blob/8c26fbfebdd437c3d50446002766b9b9410a85a2/src/beets/config.yaml>
 # <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/hosts/mali/beets.nix>
 # <https://github.com/foo-dogsquared/nixos-config/blob/e64d10f2aac3031c07aaef8b4dc481f055cec072/configs/home-manager/foo-dogsquared/modules/setups/music.nix>
-{ config, ... }:
+{
+  flake,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (config) xdg;
   musicDir = config.xdg.userDirs.music;
@@ -11,6 +16,14 @@ in
 {
   programs.beets = {
     enable = true;
+    package = pkgs.beets.override {
+      pluginOverrides = {
+        filetote = {
+          enable = true;
+          propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
+        };
+      };
+    };
     settings = {
       library = "${musicDir}/library.db";
       directory = "${musicDir}/data";
@@ -24,6 +37,7 @@ in
         "embedart"
         "export"
         "fetchart"
+        "filetote"
         "fromfilename"
         "fuzzy"
         "info"
@@ -60,6 +74,21 @@ in
         # <https://github.com/beetbox/beets/issues/5473>
         # default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
         default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+      };
+
+
+      filetote = {
+        extensions = [
+          ".cue"
+          ".nfo"
+          ".pdf"
+        ];
+        filenames = "cover.jpg cover.png";
+        pairing = {
+          enabled = true;
+          pairing_only = true;
+          extensions = [ ".lrc" ];
+        };
       };
 
       ui.color = true;
