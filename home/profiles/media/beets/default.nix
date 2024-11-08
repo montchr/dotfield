@@ -31,6 +31,7 @@ in
 
       plugins = [
         "albumtypes"
+        "badfiles"
         "chroma"
         "discogs"
         "edit"
@@ -62,7 +63,10 @@ in
       # Use the original release date instead of the edition release date.
       original_date = true;
 
-      languages = [ "en" ];
+      # FIXME: MusicBrainz generally does not respect this setting!  Many
+      # Japanese artist names are saved as kanji characters instead of their
+      # transliterations.  E.G. Haroumi Hosono => 細野 晴臣
+      languages = "en";
       per_disc_numbering = true;
       item_fields = {
         multidisc = "1 if disctotal > 1 else 0";
@@ -72,10 +76,13 @@ in
       paths = {
         # XXX: discogs plugin often fails with `%first{}`
         # <https://github.com/beetbox/beets/issues/5473>
-        # default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+        # "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
         default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
       };
 
+      badfiles = {
+        check_on_import = true;
+      };
 
       filetote = {
         extensions = [
@@ -140,11 +147,24 @@ in
         ];
       };
 
+      # https://beets.readthedocs.io/en/stable/plugins/discogs.html#configuration
+      discogs = {
+        append_style_genre = true;
+        separator = ";";
+        # Consider matches with same weight as the MusicBrainz source
+        source_weight = "0.0";
+        # Example:
+        # <https://www.discogs.com/Handel-Sutherland-Kirkby-Kwella-Nelson-Watkinson-Bowman-Rolfe-Johnson-Elliott-Partridge-Thomas-The-A/release/2026070>
+        # true => "Athalia, Act I, Scene I: Sinfonia"
+        # false => "Sinfonia"
+        index_tracks = true;
+      };
+
       fetchart = {
         auto = true;
         sources = [
-          "filesystem"
           "coverart"
+          "filesystem"
           "discogs"
           "amazon"
           "albumart"
