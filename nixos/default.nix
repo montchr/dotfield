@@ -31,11 +31,10 @@ let
   ];
 
   makeAsahiPkgs =
-    buildPlatform:
     {
-      channel ? "unstable",
+      buildPlatform ? "aarch64-linux",
     }:
-    import inputs."nixos-${channel}" {
+    import inputs.nixpkgs-apple-silicon {
       config.allowUnfree = true;
       crossSystem.system = "aarch64-linux";
       localSystem.system = buildPlatform;
@@ -161,7 +160,7 @@ in
 
     tuuvok = makeNixosSystem "tuuvok" {
       system = "aarch64-linux";
-      pkgs = makeAsahiPkgs "aarch64-linux" { };
+      pkgs = makeAsahiPkgs { };
       modules = [
         ./mixins/gnome.nix
         ./mixins/workstation.nix

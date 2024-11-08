@@ -73,10 +73,7 @@
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-
-    # HACK: Pin the systemd version to one that can boot
-    # See: <https://github.com/tpwrules/nixos-apple-silicon/issues/248>
-    nixpkgs-systemd-boot.url = "github:nixos/nixpkgs?rev=41dea55321e5a999b17033296ac05fe8a8b5a257";
+    nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
@@ -89,7 +86,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/release-2024-09-03";
+    nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
