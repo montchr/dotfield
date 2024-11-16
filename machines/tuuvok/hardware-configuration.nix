@@ -79,8 +79,7 @@
 
   swapDevices = [
     {
-      # FIXME: systemd-boot timer times out
-      device = "/dev/disk/by-uuid/ad93d511-b708-4129-baa1-cf5f589ff2b7";
+      device = "/dev/disk/by-uuid/bdc4b25d-db43-42e7-8a30-be269d188b40";
     }
   ];
 
