@@ -11,6 +11,7 @@
 let
   inherit (config) xdg;
   musicDir = config.xdg.userDirs.music;
+  separator = "; ";
 in
 
 {
@@ -31,7 +32,7 @@ in
 
       plugins = [
         "albumtypes"
-        "badfiles"
+        # "badfiles" # slow -- only use as needed
         "chroma"
         "discogs"
         "edit"
@@ -67,6 +68,7 @@ in
       # Japanese artist names are saved as kanji characters instead of their
       # transliterations.  E.G. Haroumi Hosono => 細野 晴臣
       languages = "en";
+
       per_disc_numbering = true;
       item_fields = {
         multidisc = "1 if disctotal > 1 else 0";
@@ -76,8 +78,8 @@ in
       paths = {
         # XXX: discogs plugin often fails with `%first{}`
         # <https://github.com/beetbox/beets/issues/5473>
-        # "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
-        default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}%if{$track,$track - }$title";
+        default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
+        # default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
       };
 
       badfiles = {
@@ -138,6 +140,7 @@ in
       };
 
       musicbrainz = {
+        # Use these extra metadata to narrow API queries.
         extra_tags = [
           "year"
           "catalognum"
@@ -145,14 +148,26 @@ in
           "media"
           "label"
         ];
+        # NOTE: separator is "; " -- not configurable
+        genres = true;
+        # Related metadata sources stored as library fields.  Existing data
+        # overwritten upon re-import.
+        external_ids = {
+          bandcamp = true;
+          discogs = true;
+          spotify = true;
+        };
       };
 
       # https://beets.readthedocs.io/en/stable/plugins/discogs.html#configuration
       discogs = {
+        inherit separator;
+        # "Techno" vs. only "Electronic"
         append_style_genre = true;
-        separator = ";";
-        # Consider matches with same weight as the MusicBrainz source
-        source_weight = "0.0";
+        # Consider matches with same weight as the MusicBrainz source.  MB data
+        # is generally less complete and more prone to mistakes.  There is
+        # currently no way to disable MusicBrainz entirely.
+        source_weight = 0.0;
         # Example:
         # <https://www.discogs.com/Handel-Sutherland-Kirkby-Kwella-Nelson-Watkinson-Bowman-Rolfe-Johnson-Elliott-Partridge-Thomas-The-A/release/2026070>
         # true => "Athalia, Act I, Scene I: Sinfonia"
@@ -163,8 +178,8 @@ in
       fetchart = {
         auto = true;
         sources = [
-          "coverart"
           "filesystem"
+          "coverart"
           "discogs"
           "amazon"
           "albumart"
@@ -198,7 +213,6 @@ in
           "day"
         ];
       };
-
     };
   };
 }

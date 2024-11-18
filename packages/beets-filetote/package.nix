@@ -1,4 +1,3 @@
-# FIXME: tries to write config dir during tests! build fails
 # Source: <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/pkgs/beets-filetote.nix>
 {
   lib,
