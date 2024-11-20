@@ -1,0 +1,185 @@
+From f4a7ccda7402d2c3f0b3a3b5b203a6d97229b4c1 Mon Sep 17 00:00:00 2001
+From: Konstantin <78656278+amogus07@users.noreply.github.com>
+Date: Tue, 10 Sep 2024 23:36:10 +0200
+Subject: [PATCH 1/9] Update discogs.py
+
+---
+ beetsplug/discogs.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/beetsplug/discogs.py b/beetsplug/discogs.py
+index 344d67a243..2a28160b56 100644
+--- a/beetsplug/discogs.py
++++ b/beetsplug/discogs.py
+@@ -416,7 +416,7 @@ def get_album_info(self, result):
+         albumtype = media = label = catalogno = labelid = None
+         if result.data.get("formats"):
+             albumtype = (
+-                ", ".join(result.data["formats"][0].get("descriptions", []))
++                ", ".join(str(result.data["formats"][0].get("descriptions", [])))
+                 or None
+             )
+             media = result.data["formats"][0]["name"]
+
+From cf6c0896158fd39222f4621b66490eabba94d561 Mon Sep 17 00:00:00 2001
+From: Konstantin <78656278+amogus07@users.noreply.github.com>
+Date: Tue, 10 Sep 2024 23:41:52 +0200
+Subject: [PATCH 2/9] happy now?
+
+---
+ beetsplug/discogs.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/beetsplug/discogs.py b/beetsplug/discogs.py
+index 2a28160b56..0a32135028 100644
+--- a/beetsplug/discogs.py
++++ b/beetsplug/discogs.py
+@@ -416,7 +416,9 @@ def get_album_info(self, result):
+         albumtype = media = label = catalogno = labelid = None
+         if result.data.get("formats"):
+             albumtype = (
+-                ", ".join(str(result.data["formats"][0].get("descriptions", [])))
++                ", ".join(
++                    str(result.data["formats"][0].get("descriptions", []))
++                )
+                 or None
+             )
+             media = result.data["formats"][0]["name"]
+
+From 59b8d72fb503f131eaa6a13bce6d5e36aca2e01f Mon Sep 17 00:00:00 2001
+From: Konstantin <konstantinkreutz@gmail.com>
+Date: Thu, 12 Sep 2024 18:02:52 +0200
+Subject: [PATCH 3/9] Use list() instead of str()
+
+---
+ beetsplug/discogs.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/beetsplug/discogs.py b/beetsplug/discogs.py
+index 0a32135028..a74ddaba03 100644
+--- a/beetsplug/discogs.py
++++ b/beetsplug/discogs.py
+@@ -417,7 +417,7 @@ def get_album_info(self, result):
+         if result.data.get("formats"):
+             albumtype = (
+                 ", ".join(
+-                    str(result.data["formats"][0].get("descriptions", []))
++                    list(result.data["formats"][0].get("descriptions", []))
+                 )
+                 or None
+             )
+
+From 393ca44facd25a3ccf6a6ad19812cfe1291992f5 Mon Sep 17 00:00:00 2001
+From: Konstantin <konstantinkreutz@gmail.com>
+Date: Wed, 18 Sep 2024 22:01:30 +0200
+Subject: [PATCH 4/9] discogs: prevent TypeError
+
+---
+ beetsplug/discogs.py | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/beetsplug/discogs.py b/beetsplug/discogs.py
+index a74ddaba03..c896febf90 100644
+--- a/beetsplug/discogs.py
++++ b/beetsplug/discogs.py
+@@ -414,14 +414,10 @@ def get_album_info(self, result):
+         # Extract information for the optional AlbumInfo fields that are
+         # contained on nested discogs fields.
+         albumtype = media = label = catalogno = labelid = None
+-        if result.data.get("formats"):
+-            albumtype = (
+-                ", ".join(
+-                    list(result.data["formats"][0].get("descriptions", []))
+-                )
+-                or None
+-            )
+-            media = result.data["formats"][0]["name"]
++        if (formats := result.data.get("formats")) and (fmt := formats[0]):
++            if descriptions := fmt["descriptions"]:
++                albumtype = ", ".join(descriptions)
++            media = fmt["name"]
+         if result.data.get("labels"):
+             label = result.data["labels"][0].get("name")
+             catalogno = result.data["labels"][0].get("catno")
+
+From fe642a78f8f831eebe217163b0ec780991f4181b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C5=A0ar=C5=ABnas=20Nejus?= <snejus@protonmail.com>
+Date: Thu, 19 Sep 2024 13:37:12 +0100
+Subject: [PATCH 9/9] Isolate parsing formats into a separate method and test
+ it
+
+---
+ beetsplug/discogs.py         | 31 ++++++++++++++++++++++++++-----
+ test/plugins/test_discogs.py | 27 +++++++++++++++++++++++++--
+ 2 files changed, 51 insertions(+), 7 deletions(-)
+
+diff --git a/beetsplug/discogs.py b/beetsplug/discogs.py
+index c896febf90..0dc8e8a175 100644
+--- a/beetsplug/discogs.py
++++ b/beetsplug/discogs.py
+@@ -16,6 +16,8 @@
+ python3-discogs-client library.
+ """
+
++from __future__ import annotations
++
+ import http.client
+ import json
+ import os
+@@ -30,6 +32,7 @@
+ from discogs_client import __version__ as dc_string
+ from discogs_client.exceptions import DiscogsAPIError
+ from requests.exceptions import ConnectionError
++from typing_extensions import TypedDict
+
+ import beets
+ import beets.ui
+@@ -52,6 +55,12 @@
+ )
+
+
++class ReleaseFormat(TypedDict):
++    name: str
++    qty: int
++    descriptions: list[str] | None
++
++
+ class DiscogsPlugin(BeetsPlugin):
+     def __init__(self):
+         super().__init__()
+@@ -363,6 +372,18 @@ def get_master_year(self, master_id):
+             )
+             return None
+
++    @staticmethod
++    def get_media_and_albumtype(
++        formats: list[ReleaseFormat] | None,
++    ) -> tuple[str | None, str | None]:
++        media = albumtype = None
++        if formats and (first_format := formats[0]):
++            if descriptions := first_format["descriptions"]:
++                albumtype = ", ".join(descriptions)
++            media = first_format["name"]
++
++        return media, albumtype
++
+     def get_album_info(self, result):
+         """Returns an AlbumInfo object for a discogs Release object."""
+         # Explicitly reload the `Release` fields, as they might not be yet
+@@ -413,11 +434,11 @@ def get_album_info(self, result):
+
+         # Extract information for the optional AlbumInfo fields that are
+         # contained on nested discogs fields.
+-        albumtype = media = label = catalogno = labelid = None
+-        if (formats := result.data.get("formats")) and (fmt := formats[0]):
+-            if descriptions := fmt["descriptions"]:
+-                albumtype = ", ".join(descriptions)
+-            media = fmt["name"]
++        media, albumtype = self.get_media_and_albumtype(
++            result.data.get("formats")
++        )
++
++        label = catalogno = labelid = None
+         if result.data.get("labels"):
+             label = result.data["labels"][0].get("name")
+             catalogno = result.data["labels"][0].get("catno")

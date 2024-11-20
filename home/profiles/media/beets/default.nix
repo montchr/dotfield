@@ -15,9 +15,11 @@ let
 in
 
 {
+  nixpkgs.overlays = [ (import ../../../../overlays/beets.nix) ];
+
   programs.beets = {
     enable = true;
-    package = pkgs.beets.override {
+    package = pkgs.beets-unstable.override {
       pluginOverrides = {
         filetote = {
           enable = true;

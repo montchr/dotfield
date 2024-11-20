@@ -41,6 +41,7 @@ let
       overlays = [
         (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
         nixos-apple-silicon.overlays.default
+        (import ../overlays/beets.nix)
       ];
     };
 

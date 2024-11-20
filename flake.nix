@@ -57,7 +57,10 @@
               pkgs = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [ (import ./overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; }) ];
+                overlays = [
+                  (import ./overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
+                  (import ./overlays/beets.nix)
+                ];
               };
             };
             formatter = pkgs.nixfmt-rfc-style;
