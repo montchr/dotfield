@@ -74,10 +74,7 @@ in
       };
 
       paths = {
-        # XXX: discogs plugin often fails with `%first{}`
-        # <https://github.com/beetbox/beets/issues/5473>
         default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
-        # default = "$albumartist/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
       };
 
       badfiles = {
@@ -188,8 +185,8 @@ in
         auto = true;
         backend = "ffmpeg";
         threads = 2;
-        # NOTE: Must run `beet write` after import!
-        parallel_on_import = true;
+        # NOTE: When true, must run `beet write` after import!
+        parallel_on_import = false;
       };
 
       edit = {
