@@ -58,6 +58,7 @@ in
         copy = false;
         duplicate_action = "ask";
         incremental = true;
+        languages = "en";
         move = true;
         resume = true;
         write = true;
@@ -65,11 +66,6 @@ in
 
       # Use the original release date instead of the edition release date.
       original_date = true;
-
-      # FIXME: MusicBrainz generally does not respect this setting!  Many
-      # Japanese artist names are saved as kanji characters instead of their
-      # transliterations.  E.G. Haroumi Hosono => 細野 晴臣
-      languages = "en";
 
       per_disc_numbering = true;
       item_fields = {
