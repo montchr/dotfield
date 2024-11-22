@@ -1,8 +1,9 @@
 {
   lib,
-  beets,
   python3,
   fetchFromGitHub,
+
+  beets,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -37,18 +38,37 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    # FIXME: needs rich-tables
-    # pytestCheckHook
-    beets
+  # FIXME: tests require a git repo!  but this probably could be avoided
+  # upstream by making the use of `gitpython` optional.  this would likely
+  # require a refactor, as i don't think it is possible to skip
+  # `tests/conftest.py`.  the `gitpython` package disables checks because they
+  # require a git repo:
+  # <https://github.com/NixOS/nixpkgs/blob/e8c38b73aeb218e27163376a2d617e61a2ad9b59/pkgs/development/python-modules/gitpython/default.nix#L38-L39>
+  doCheck = false;
 
-    # test dependencies:
+  nativeCheckInputs = (
+    #  with python3.pkgs;
+    [
+      beets
+      # rich-tables
+      # pytestCheckHook
+      # gitpython
+      # rich
+    ]);
 
-    # gitpython
-    # rich
-    # TODO: package this
-    # rich-tables
-  ];
+  # pytestFlagsArray = [ "-r fEs" ];
+
+  # disabledTests = [
+  #   # <https://github.com/snejus/beetcamp/blob/b356bf6379ff887d78a281e88f5fc32f93287e3e/.github/workflows/build.yml#L31>
+  #   "need_connection"
+  # ];
+
+  # disabledTestPaths = [
+  #   "tests/conftest.py"
+
+  #   # <https://github.com/snejus/beetcamp/blob/b356bf6379ff887d78a281e88f5fc32f93287e3e/.github/workflows/build.yml#L31>
+  #   "tests/test_lib.py"
+  # ];
 
   pythonImportsCheck = [
     "beetsplug.bandcamp"

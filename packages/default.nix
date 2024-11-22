@@ -6,14 +6,8 @@
       inherit (pkgs) callPackage;
     in
     {
-      packages = inputs.flake-utils.lib.filterPackages system ({
+      packages = inputs.flake-utils.lib.filterPackages system (rec {
         base16-schemes = callPackage ./base16-schemes/package.nix { };
-        beetcamp = callPackage ./beets/plugins/beetcamp.nix {
-          beets = pkgs.beetsPackages.beets-minimal;
-        };
-        beets-filetote = callPackage ./beets/plugins/filetote.nix {
-          beets = pkgs.beetsPackages.beets-minimal;
-        };
         ddi = callPackage ./ddi/package.nix { };
         fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
         git-repo-manager = callPackage ./git-repo-manager/package.nix { };
@@ -25,11 +19,27 @@
         tomlfmt = callPackage ./tomlfmt/package.nix { };
         wp-to-psr-4 = callPackage ./wp-to-psr-4/package.nix { };
 
+        ##: yijing tools
         iching = callPackage ./iching/package.nix { };
         yijing-q-merge-csv = callPackage ./yijing-q-merge-csv/package.nix { };
 
         # TODO: not ready
         # wp-cli = callPackage ./wp-cli/package.nix { };
+
+        ##: python modules
+        rgbxy = callPackage ./python-modules/rgbxy.nix { };
+        rich-tables = callPackage ./python-modules/rich-tables.nix {
+          inherit rgbxy;
+        };
+
+        ##: beets plugins
+        beetcamp = callPackage ./beets/plugins/beetcamp.nix {
+          inherit rich-tables;
+          beets = pkgs.beetsPackages.beets-minimal;
+        };
+        beets-filetote = callPackage ./beets/plugins/filetote.nix {
+          beets = pkgs.beetsPackages.beets-minimal;
+        };
 
         vscode-php-debug = callPackage ./vscode-php-debug/package.nix { };
 
