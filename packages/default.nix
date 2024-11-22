@@ -11,7 +11,7 @@
         beetcamp = callPackage ./beets/plugins/beetcamp.nix {
           beets = pkgs.beetsPackages.beets-minimal;
         };
-        beets-filetote = callPackage ./beets-filetote/package.nix {
+        beets-filetote = callPackage ./beets/plugins/filetote.nix {
           beets = pkgs.beetsPackages.beets-minimal;
         };
         ddi = callPackage ./ddi/package.nix { };
