@@ -8,6 +8,9 @@
     {
       packages = inputs.flake-utils.lib.filterPackages system ({
         base16-schemes = callPackage ./base16-schemes/package.nix { };
+        beetcamp = callPackage ./beets/plugins/beetcamp.nix {
+          beets = pkgs.beetsPackages.beets-minimal;
+        };
         beets-filetote = callPackage ./beets-filetote/package.nix {
           beets = pkgs.beetsPackages.beets-minimal;
         };

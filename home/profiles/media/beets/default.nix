@@ -17,10 +17,16 @@ in
 {
   nixpkgs.overlays = [ (import ../../../../overlays/beets.nix) ];
 
+  home.packages = [ flake.perSystem.packages.beetcamp ];
+
   programs.beets = {
     enable = true;
     package = pkgs.beets-unstable.override {
       pluginOverrides = {
+        beetcamp = {
+          enable = true;
+          propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
+        };
         filetote = {
           enable = true;
           propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
@@ -35,6 +41,7 @@ in
       plugins = [
         "albumtypes"
         # "badfiles" # slow -- only use as needed
+        "bandcamp" # aka "beetcamp"
         "chroma"
         "discogs"
         "edit"
@@ -168,6 +175,20 @@ in
         # true => "Athalia, Act I, Scene I: Sinfonia"
         # false => "Sinfonia"
         index_tracks = true;
+      };
+
+      # "beetcamp" plugin
+      bandcamp = {
+        art = true;
+        # exclude_extra_fields = [ ];
+        genre = {
+          # always_include = [ ];
+          capitalize = true;
+          # maximum = 0;
+          # <https://github.com/snejus/beetcamp/blob/main/README.md#genre-modes>
+          mode = "progressive";
+        };
+        # search_max = 2;
       };
 
       fetchart = {
