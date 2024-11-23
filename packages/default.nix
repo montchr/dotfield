@@ -1,12 +1,14 @@
 { inputs, ... }:
 {
+  imports = [ ./beets-packages.nix ];
+
   perSystem =
     { pkgs, system, ... }:
     let
       inherit (pkgs) callPackage;
     in
     {
-      packages = inputs.flake-utils.lib.filterPackages system (rec {
+      packages = inputs.flake-utils.lib.filterPackages system ({
         base16-schemes = callPackage ./base16-schemes/package.nix { };
         ddi = callPackage ./ddi/package.nix { };
         fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
@@ -25,21 +27,6 @@
 
         # TODO: not ready
         # wp-cli = callPackage ./wp-cli/package.nix { };
-
-        ##: python modules
-        rgbxy = callPackage ./python-modules/rgbxy.nix { };
-        rich-tables = callPackage ./python-modules/rich-tables.nix {
-          inherit rgbxy;
-        };
-
-        ##: beets plugins
-        beetcamp = callPackage ./beets/plugins/beetcamp.nix {
-          inherit rich-tables;
-          beets = pkgs.beetsPackages.beets-minimal;
-        };
-        beets-filetote = callPackage ./beets/plugins/filetote.nix {
-          beets = pkgs.beetsPackages.beets-minimal;
-        };
 
         vscode-php-debug = callPackage ./vscode-php-debug/package.nix { };
 

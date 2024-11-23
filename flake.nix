@@ -5,6 +5,7 @@
     {
       nixpkgs,
       nixpkgs-trunk,
+      nixpkgs-beets-pr-358086,
       flake-parts,
       haumea,
       namaka,
@@ -58,8 +59,12 @@
                 inherit system;
                 config.allowUnfree = true;
                 overlays = [
-                  (import ./overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
-                  (import ./overlays/beets.nix)
+                  (import ./overlays/mkDefaultOverlay.nix {
+                    inherit
+                      nixpkgs-beets-pr-358086
+                      nixpkgs-trunk
+                      ;
+                  })
                 ];
               };
             };
@@ -77,6 +82,7 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
+    nixpkgs-beets-pr-358086.url = "github:montchr/nixpkgs?ref=update/beets";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";

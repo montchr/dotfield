@@ -24,23 +24,31 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     sed -i -e '/audible/d' tests/helper.py
+
+    # beets v2.1.0 compat
+    # <https://github.com/beetbox/beets/commit/0e87389994a9969fa0930ffaa607609d02e286a8>
+    sed -i -e 's/util\.py3_path/os.fsdecode/g' tests/_common.py
   '';
 
   pytestFlagsArray = [ "-r fEs" ];
 
   disabledTests = [
-    "test_audible_m4b_files.py"
-
     # XXX: Needs update for Beets v2.0.0
     # <https://github.com/gtronset/beets-filetote/discussions/160>
     "test_move_on_modify_command"
     "test_prune_modify_query"
   ];
 
+  disabledTestPaths = [
+    "tests/test_audible_m4b_files.py"
+  ];
+
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     beets
+    reflink
     toml
+    typeguard
   ];
 
   preBuild = ''

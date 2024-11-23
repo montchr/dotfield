@@ -1861,6 +1861,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-beets-pr-358086": {
+      "locked": {
+        "lastModified": 1732336041,
+        "narHash": "sha256-FZ85qYGrlqwOPag7MkrIZy3eAEd3NDllrhJeoKok4d8=",
+        "owner": "montchr",
+        "repo": "nixpkgs",
+        "rev": "e72af33277a8bb59fed0cd28b355a6437ebb9336",
+        "type": "github"
+      },
+      "original": {
+        "owner": "montchr",
+        "ref": "update/beets",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1730504152,
@@ -2732,6 +2748,7 @@
           "nixos-apple-silicon",
           "nixpkgs"
         ],
+        "nixpkgs-beets-pr-358086": "nixpkgs-beets-pr-358086",
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "pre-commit-hooks": "pre-commit-hooks_2",

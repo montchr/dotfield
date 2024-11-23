@@ -12,7 +12,6 @@ let
     nixos-apple-silicon
     nixos-generators
     nixos-hardware
-    nixpkgs-trunk
     sops-nix
     srvos
     ;
@@ -39,9 +38,13 @@ let
       crossSystem.system = "aarch64-linux";
       localSystem.system = buildPlatform;
       overlays = [
-        (import ../overlays/mkDefaultOverlay.nix { inherit nixpkgs-trunk; })
+        (import ../overlays/mkDefaultOverlay.nix {
+          inherit (inputs)
+            nixpkgs-beets-pr-358086
+            nixpkgs-trunk
+            ;
+        })
         nixos-apple-silicon.overlays.default
-        (import ../overlays/beets.nix)
       ];
     };
 

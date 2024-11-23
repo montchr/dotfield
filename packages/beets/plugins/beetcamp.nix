@@ -4,6 +4,7 @@
   fetchFromGitHub,
 
   beets,
+  rich-tables,
 }:
 
 python3.pkgs.buildPythonApplication rec {

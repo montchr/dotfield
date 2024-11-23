@@ -15,18 +15,18 @@ let
 in
 
 {
-  nixpkgs.overlays = [ (import ../../../../overlays/beets.nix) ];
-
-  home.packages = [ flake.perSystem.packages.beetcamp ];
+  #  home.packages = [ flake.perSystem.packages.beetcamp ];
 
   programs.beets = {
     enable = true;
-    package = pkgs.beets-unstable.override {
+    # package = pkgs.beets;
+    # FIXME: broken plugins with beets 2.1.0 ?
+    package = pkgs.beets.override {
       pluginOverrides = {
-        beetcamp = {
-          enable = true;
-          propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
-        };
+        # beetcamp = {
+        #   enable = true;
+        #   propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
+        # };
         filetote = {
           enable = true;
           propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
@@ -40,8 +40,12 @@ in
 
       plugins = [
         "albumtypes"
+
         # "badfiles" # slow -- only use as needed
-        "bandcamp" # aka "beetcamp"
+
+        # FIXME: breaks
+        # "bandcamp" # aka "beetcamp"
+
         "chroma"
         "discogs"
         "edit"
