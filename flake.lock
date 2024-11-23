@@ -520,11 +520,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1731804998,
-        "narHash": "sha256-62EuEoNZV05iji2ZiRHujzgo6t+m1uebo9HTYr1xtgE=",
+        "lastModified": 1732327231,
+        "narHash": "sha256-HNuSkHJxMw8k0tEMUO7IBt6+0p00zefPjNcsnf21NxQ=",
         "owner": "seadome",
         "repo": "firefox-addons",
-        "rev": "987a68ac44a7168e03d54f98fdaec9244e83cd4c",
+        "rev": "b57b270c5cda5c77577875937dd56a94474a58b0",
         "type": "github"
       },
       "original": {
