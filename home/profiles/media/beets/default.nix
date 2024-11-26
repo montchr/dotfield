@@ -10,6 +10,9 @@
 }:
 let
   inherit (config) xdg;
+
+  cfg = config.programs.beets;
+
   musicDir = config.xdg.userDirs.music;
   separator = "; ";
 in
@@ -55,6 +58,7 @@ in
         "filetote"
         "fromfilename"
         "fuzzy"
+        "importfeeds"
         "info"
         "inline"
         "mbsync"
@@ -62,6 +66,9 @@ in
         "replaygain"
         "scrub"
         "smartplaylist"
+        "the"
+        "thumbnails"
+        "unimported"
       ];
 
       import = {
@@ -75,6 +82,13 @@ in
         write = true;
       };
 
+      importfeeds = {
+        absolutepath = false;
+        dir = "${musicDir}/imports";
+        formats = "m3u m3u_session";
+        relative_to = cfg.settings.directory;
+      };
+
       # Use the original release date instead of the edition release date.
       original_date = true;
 
@@ -85,7 +99,7 @@ in
       };
 
       paths = {
-        default = "%first{$albumartist}/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
+        default = "%the{%first{$albumartist}}/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
       };
 
       badfiles = {
@@ -232,6 +246,10 @@ in
           "month"
           "day"
         ];
+      };
+
+      unimported = {
+        ignore_extensions = "cue jpg jpeg lrc md nfo pdf png txt webp";
       };
     };
   };
