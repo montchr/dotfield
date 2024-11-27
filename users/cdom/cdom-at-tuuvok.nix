@@ -1,14 +1,12 @@
 _hmArgs: {
   imports = [
     ../../home/mixins/workstation.nix
+    ../../home/mixins/jobwork.nix
 
-    ../../home/profiles/development/work/default.nix
     ../../home/profiles/shells/fish/default.nix
     ../../home/profiles/shells/fish/trampoline.nix
 
     ../../home/profiles/gpg/with-ssh-support.nix
-    ../../home/profiles/graphical/applications/jetbrains.nix
-    ../../home/profiles/graphical/applications/microsoft-teams.nix
   ];
 
   # The trackpad on this device is huge, and I always end up touching
