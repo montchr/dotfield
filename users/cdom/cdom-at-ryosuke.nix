@@ -4,6 +4,9 @@ _hmArgs: {
     ../../home/mixins/jobwork.nix
 
     ../../home/profiles/shells/fish/default.nix
+    ../../home/profiles/shells/fish/trampoline.nix
+
+    ../../home/profiles/gpg/with-ssh-support.nix
   ];
 
   home.stateVersion = "22.05";
