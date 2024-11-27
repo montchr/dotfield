@@ -167,6 +167,7 @@ in
       pkgs = makeAsahiPkgs { };
       modules = [
         ./mixins/gnome.nix
+        ./mixins/jobwork.nix
         ./mixins/workstation.nix
 
         ./profiles/hardware/apple/macbook-14-2.nix
@@ -175,7 +176,6 @@ in
         ./profiles/remote-builders/default.nix
         # ./profiles/remote-builders/nixbuild-net.nix
         ./profiles/remote-builders/ryosuke.nix
-        ./profiles/virtualisation/ddev.nix
       ];
     };
 
