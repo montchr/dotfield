@@ -154,6 +154,7 @@ in
         nixos-hardware.nixosModules.common-gpu-amd
 
         ./mixins/gnome.nix
+        ./mixins/jobwork.nix
         ./mixins/workstation.nix
         ./mixins/webdev.nix
 
