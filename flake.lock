@@ -519,11 +519,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1732327231,
-        "narHash": "sha256-HNuSkHJxMw8k0tEMUO7IBt6+0p00zefPjNcsnf21NxQ=",
+        "lastModified": 1732586987,
+        "narHash": "sha256-ki7PZ51WiPEseHmxhjkkPNHsjUnLQTJCbRHJo4vgYFc=",
         "owner": "seadome",
         "repo": "firefox-addons",
-        "rev": "b57b270c5cda5c77577875937dd56a94474a58b0",
+        "rev": "4de24645f69582e26ba1ec952c3daf2676a19d9e",
         "type": "github"
       },
       "original": {
@@ -1766,11 +1766,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1731676054,
-        "narHash": "sha256-OZiZ3m8SCMfh3B6bfGC/Bm4x3qc1m2SVEAlkV6iY7Yg=",
+        "lastModified": 1732014248,
+        "narHash": "sha256-y/MEyuJ5oBWrWAic/14LaIr/u5E0wRVzyYsouYY3W6w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5e4fbfb6b3de1aa2872b76d49fafc942626e2add",
+        "rev": "23e89b7da85c3640bbc2173fe04f4bd114342367",
         "type": "github"
       },
       "original": {
