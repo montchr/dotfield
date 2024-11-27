@@ -12,7 +12,7 @@
   dotfield.guardian.username = "cdom";
 
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "median";
+  services.displayManager.autoLogin.user = "cdom";
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   # Never remove old secrets (attempt to fix lockouts).
