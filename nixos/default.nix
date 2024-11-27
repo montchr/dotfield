@@ -156,7 +156,6 @@ in
         ./mixins/gnome.nix
         ./mixins/jobwork.nix
         ./mixins/workstation.nix
-        ./mixins/webdev.nix
 
         ./profiles/hardware/razer.nix
         ./profiles/remote-builders/default.nix
@@ -199,7 +198,7 @@ in
       system = "x86_64-linux";
       modules = [
         ./mixins/gnome.nix
-        ./mixins/webdev.nix
+        ./mixins/jobwork.nix
         ./mixins/workstation.nix
 
         # FIXME: clarify that this means an amd cpu, NOT gpu
