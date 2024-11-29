@@ -8,7 +8,6 @@
       with pkgs.fishPlugins;
       [
         autopair
-        colored-man-pages
         done
       ]
     );
