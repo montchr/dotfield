@@ -3,15 +3,18 @@
     { inputs', pkgs, ... }:
     let
       inherit (pkgs) callPackage;
+      beets = pkgs.beetsPackages.beets-minimal;
     in
     {
       packages = rec {
         beetcamp = callPackage ./beets/plugins/beetcamp.nix {
-          inherit rich-tables;
-          beets = pkgs.beetsPackages.beets-minimal;
+          inherit beets rich-tables;
         };
         beets-filetote = callPackage ./beets/plugins/filetote.nix {
-          beets = pkgs.beetsPackages.beets-minimal;
+          inherit beets;
+        };
+        beet-summarize = callPackage ./beets/plugins/summarize.nix {
+          inherit beets;
         };
 
         rgbxy = callPackage ./python-modules/rgbxy.nix { };

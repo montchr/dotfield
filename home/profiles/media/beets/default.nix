@@ -23,9 +23,9 @@ in
   programs.beets = {
     enable = true;
     # package = pkgs.beets;
-    # FIXME: broken plugins with beets 2.1.0 ?
     package = pkgs.beets.override {
       pluginOverrides = {
+        # FIXME: broken with beets 2.1.0
         # beetcamp = {
         #   enable = true;
         #   propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
@@ -33,6 +33,10 @@ in
         filetote = {
           enable = true;
           propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
+        };
+        summarize = {
+          enable = true;
+          propagatedBuildInputs = [ flake.perSystem.packages.beet-summarize ];
         };
       };
     };
@@ -66,6 +70,7 @@ in
         "replaygain"
         "scrub"
         "smartplaylist"
+        "summarize"
         "the"
         "thumbnails"
         "unimported"
@@ -80,6 +85,10 @@ in
         move = true;
         resume = true;
         write = true;
+      };
+
+      scrub = {
+        auto = false;
       };
 
       importfeeds = {
