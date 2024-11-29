@@ -16,6 +16,7 @@
         igr = callPackage ./igr/package.nix { };
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };
         realise-symlink = callPackage ./realise-symlink/package.nix { };
+        scotty = callPackage ./scotty/package.nix { };
         shpool = callPackage ./shpool/package.nix { };
         tinty = callPackage ./tinty/package.nix { };
         tomlfmt = callPackage ./tomlfmt/package.nix { };

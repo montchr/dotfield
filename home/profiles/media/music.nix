@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
 {
-  home.packages = [ pkgs.quodlibet-full ];
+  home.packages = [
+    pkgs.quodlibet-full
+
+    flake.perSystem.packages.scotty
+  ];
 }
