@@ -3,6 +3,7 @@
 # <https://github.com/Ramblurr/nixcfg/blob/5140a2049ac6dfae528ca60c4ffccbff553d638d/hosts/mali/beets.nix>
 # <https://github.com/foo-dogsquared/nixos-config/blob/e64d10f2aac3031c07aaef8b4dc481f055cec072/configs/home-manager/foo-dogsquared/modules/setups/music.nix>
 {
+  lib,
   flake,
   pkgs,
   config,
@@ -71,12 +72,15 @@ in
         "export"
         "fetchart"
         "filetote"
+        "fish"
         "fromfilename"
         "fuzzy"
         "importfeeds"
         "info"
         "inline"
+        "lastgenre"
         "mbsync"
+        "missing"
         "playlist"
         "replaygain"
         "scrub"
