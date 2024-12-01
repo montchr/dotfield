@@ -18,6 +18,17 @@ let
 in
 
 {
+  imports = [
+    ./__files.nix
+    ./__imports.nix
+    ./__lookup.nix
+    ./__datasource-bandcamp.nix
+    ./__datasource-discogs.nix
+    ./__datasource-musicbrainz.nix
+    ./__metadata.nix
+    ./__metadata-genre.nix
+  ];
+
   #  home.packages = [ flake.perSystem.packages.beetcamp ];
 
   programs.beets = {
@@ -76,147 +87,7 @@ in
         "unimported"
       ];
 
-      import = {
-        bell = true;
-        copy = false;
-        duplicate_action = "ask";
-        incremental = true;
-        languages = "en";
-        move = true;
-        resume = true;
-        write = true;
-      };
-
-      scrub = {
-        auto = false;
-      };
-
-      importfeeds = {
-        absolutepath = false;
-        dir = "${musicDir}/imports";
-        formats = "m3u m3u_session";
-        relative_to = cfg.settings.directory;
-      };
-
-      # Use the original release date instead of the edition release date.
-      original_date = true;
-
-      per_disc_numbering = true;
-      item_fields = {
-        multidisc = "1 if disctotal > 1 else 0";
-        artist_differs = "1 if albumartist != artist else 0";
-      };
-
-      paths = {
-        default = "%the{%first{$albumartist}}/$album%aunique{}/%if{$multidisc,$disc-}$track - $title";
-      };
-
-      badfiles = {
-        check_on_import = true;
-      };
-
-      filetote = {
-        extensions = [
-          ".cue"
-          ".nfo"
-          ".pdf"
-        ];
-        filenames = "cover.jpg cover.png";
-        pairing = {
-          enabled = true;
-          pairing_only = true;
-          extensions = [ ".lrc" ];
-        };
-      };
-
       ui.color = true;
-
-      ignore_hidden = true;
-      asciify_paths = true;
-      max_filename_length = 255;
-
-      match = {
-        # <https://beets.readthedocs.io/en/stable/reference/config.html#max-rec>
-        max_rec.missing_tracks = "low";
-        medium_rec_thresh = 0.25;
-        preferred = {
-          countries = [
-            "XW"
-            "US"
-            "UK|GB"
-            "DE"
-          ];
-          media = [
-            "Digital Media|File"
-            "CD"
-          ];
-        };
-        rec_gap_thresh = 0.25;
-        strong_rec_thresh = 0.15;
-
-        ignored = "missing_tracks unmatched_tracks";
-        ignored_media = [
-          "Data CD"
-          "DVD"
-          "DVD-Video"
-          "Blu-ray"
-          "HD-DVD"
-          "VCD"
-          "SVCD"
-          "UMD"
-          "VHS"
-        ];
-      };
-
-      musicbrainz = {
-        # Use these extra metadata to narrow API queries.
-        extra_tags = [
-          "year"
-          "catalognum"
-          "country"
-          "media"
-          "label"
-        ];
-        # NOTE: separator is "; " -- not configurable
-        genres = true;
-        # Related metadata sources stored as library fields.  Existing data
-        # overwritten upon re-import.
-        external_ids = {
-          bandcamp = true;
-          discogs = true;
-          spotify = true;
-        };
-      };
-
-      # https://beets.readthedocs.io/en/stable/plugins/discogs.html#configuration
-      discogs = {
-        inherit separator;
-        # "Techno" vs. only "Electronic"
-        append_style_genre = true;
-        # Consider matches with same weight as the MusicBrainz source.  MB data
-        # is generally less complete and more prone to mistakes.  There is
-        # currently no way to disable MusicBrainz entirely.
-        source_weight = 0.0;
-        # Example:
-        # <https://www.discogs.com/Handel-Sutherland-Kirkby-Kwella-Nelson-Watkinson-Bowman-Rolfe-Johnson-Elliott-Partridge-Thomas-The-A/release/2026070>
-        # true => "Athalia, Act I, Scene I: Sinfonia"
-        # false => "Sinfonia"
-        index_tracks = true;
-      };
-
-      # "beetcamp" plugin
-      bandcamp = {
-        art = true;
-        # exclude_extra_fields = [ ];
-        genre = {
-          # always_include = [ ];
-          capitalize = true;
-          # maximum = 0;
-          # <https://github.com/snejus/beetcamp/blob/main/README.md#genre-modes>
-          mode = "progressive";
-        };
-        # search_max = 2;
-      };
 
       fetchart = {
         auto = true;
