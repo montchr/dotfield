@@ -1,9 +1,9 @@
 {
   # https://beets.readthedocs.io/en/stable/plugins/discogs.html#configuration
   programs.beets.settings.discogs = {
-    inherit separator;
     # "Techno" vs. only "Electronic"
     append_style_genre = true;
+    separator = "; ";
     # Consider matches with same weight as the MusicBrainz source.  MB data
     # is generally less complete and more prone to mistakes.  There is
     # currently no way to disable MusicBrainz entirely.

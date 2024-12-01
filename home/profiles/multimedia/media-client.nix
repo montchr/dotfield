@@ -13,8 +13,7 @@ let
 in
 {
   imports = [
-    ./applications/jellyfin-client.nix
-    ./mpv.nix
+    ./video/mpv.nix
   ];
 
   xdg.mimeApps.defaultApplications =
