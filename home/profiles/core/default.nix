@@ -24,6 +24,7 @@ in
 
     ./bat.nix
     ./home-packages.nix
+    ./homeshick.nix
     ./tealdeer.nix
   ];
 
