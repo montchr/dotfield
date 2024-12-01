@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ ./mpd.nix ];
+
   home.packages = [
     pkgs.quodlibet-full
 
