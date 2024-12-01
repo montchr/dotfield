@@ -33,7 +33,7 @@
       iosevka-comfy.comfy-wide-motion-duo
       jetbrains-mono
       liberation_ttf
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       terminus_font
     ]
   );
