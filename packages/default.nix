@@ -12,6 +12,7 @@
         base16-schemes = callPackage ./base16-schemes/package.nix { };
         ddi = callPackage ./ddi/package.nix { };
         fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
+        getcert = callPackage ./getcert/package.nix { };
         git-repo-manager = callPackage ./git-repo-manager/package.nix { };
         igr = callPackage ./igr/package.nix { };
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };

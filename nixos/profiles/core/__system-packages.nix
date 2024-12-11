@@ -32,7 +32,8 @@ in
     # TODO: installer/rescue only?
     gptfdisk
     grc
-    ijq # <- interactive jq :: <https://git.sr.ht/~gpanders/ijq>
+    gron # <- gr(eppable)(js)on
+    ijq
     inetutils
     iputils
     jq
@@ -50,6 +51,7 @@ in
     openssl
     pciutils
     procs
+    pv # Tool for monitoring the progress of data through a pipeline
     rclone
     reptyr # reparent a running process to another tty
     (ripgrep.override { withPCRE2 = true; })
