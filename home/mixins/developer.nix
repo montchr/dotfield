@@ -13,6 +13,7 @@
   ];
 
   home.packages = [
+    pkgs.copier
     pkgs.git-filter-repo
     pkgs.vscode
   ];
