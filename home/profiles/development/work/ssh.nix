@@ -15,6 +15,9 @@ in
     "kleinforms-production" = mkKinstaHost "kleinforms" 49032;
     "kleinforms-staging" = mkKinstaHost "kleinforms" 30014;
 
+    "phillyn-production" = mkKinstaHost "phillyn" 17385;
+    "phillyn-staging" = mkKinstaHost "phillyn" 47991;
+
     "templetv-production" = mkKinstaHost "templetv" 38736;
     "templetv-staging" = mkKinstaHost "templetv" 59770;
 
