@@ -40,7 +40,6 @@ let
       overlays = [
         (import ../overlays/mkDefaultOverlay.nix {
           inherit (inputs)
-            nixpkgs-beets-pr-358086
             nixpkgs-trunk
             ;
         })

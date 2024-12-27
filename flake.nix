@@ -5,7 +5,6 @@
     {
       nixpkgs,
       nixpkgs-trunk,
-      nixpkgs-beets-pr-358086,
       flake-parts,
       haumea,
       namaka,
@@ -61,7 +60,6 @@
                 overlays = [
                   (import ./overlays/mkDefaultOverlay.nix {
                     inherit
-                      nixpkgs-beets-pr-358086
                       nixpkgs-trunk
                       ;
                   })
@@ -79,10 +77,9 @@
     nixpkgs.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
-    nixpkgs-beets-pr-358086.url = "github:montchr/nixpkgs?ref=update/beets";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
@@ -96,7 +93,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2024-11-30";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2024-12-25";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
