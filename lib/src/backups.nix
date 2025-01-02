@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023-2024 Chris Montgomery <chmont@proton.me>
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: Copyright (c) 2022-2023 Gabriel Arazas <foodogsquared@foodogsquared.one>
 # SPDX-License-Identifier: GPL-3.0-or-later AND MIT
 #

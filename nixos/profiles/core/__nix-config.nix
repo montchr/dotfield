@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2024 Chris Montgomery
+# Copyright (C) 2022-2025 Chris Montgomery
 # Copyright (C) 2021 Gytis Ivaskevicius
 # SPDX-License-Identifier: GPL-3.0-or-later AND MIT
 # <https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a/LICENSE>
