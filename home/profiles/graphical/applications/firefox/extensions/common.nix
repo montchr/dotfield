@@ -3,12 +3,12 @@ with addons;
 [
   onepassword-password-manager
   a11ycss
-  anchors-reveal
   auto-tab-discard
   consent-o-matic
   copy-as-org-mode
   copy-selection-as-markdown
   darkreader
+  display-anchors
   link-cleaner
   multi-account-containers
   offline-qr-code-generator
