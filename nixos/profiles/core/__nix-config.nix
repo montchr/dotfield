@@ -33,9 +33,6 @@ in
     ];
     distributedBuilds = true;
     registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
-    extraOptions = ''
-      warn-dirty = false
-    '';
     settings = {
       allowed-users = [ "*" ];
       trusted-users = [
