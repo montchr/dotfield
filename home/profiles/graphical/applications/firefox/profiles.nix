@@ -12,6 +12,7 @@ let
   inherit (flake.inputs.apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config) theme;
+  lib' = flake.self.lib;
 
   cfg = config.programs.firefox;
 
@@ -31,11 +32,16 @@ let
     }:
     evalSettings {
       inherit theme;
-      modules = [ ./settings/common.nix ] ++ modules;
+      modules = [
+        ./settings/common.nix
+        {
+          "identity.fxaccounts.account.device.name" =
+            hmArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
+        }
+        { _module.args = { inherit lib'; }; }
+      ] ++ modules;
       extraArgs = {
         inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-        hmConfig = config;
-        osConfig = hmArgs.osConfig or null;
       };
     };
   makeSettings' = module: (makeSettings { modules = [ module ]; }).config;
@@ -47,17 +53,17 @@ let
 
     * {
       font-family: var(--dotfield--font--mono, monospace) !important;
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1;
     }
 
     moz-input-box,
     #urlbar-input-container {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     #sidebar-header {
-      display: none;
+      /* display: none; */
     }
   '';
 
@@ -89,7 +95,7 @@ let
     }
   '';
 
-  search = import ./search/default.nix { inherit lib pkgs; };
+  search = import ./search/default.nix { inherit lib lib' pkgs; };
 in
 {
   imports = [ ./extensions/tridactyl.nix ];

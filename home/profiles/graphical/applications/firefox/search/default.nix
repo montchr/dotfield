@@ -1,28 +1,35 @@
-# TODO: provide link to docs on supported metadata (somewhere in mozilla source code prob)
-{ lib, pkgs }:
+# Search engine options reference: <https://searchfox.org/mozilla-central/rev/669329e284f8e8e2bb28090617192ca9b4ef3380/toolkit/components/search/SearchEngine.jsm#1138-1177>
+{
+  lib,
+  lib',
+  pkgs,
+}:
 let
-  engine = template: { urls = lib.singleton { inherit template; }; };
-  withAlias = s: attrs: attrs // { definedAliases = lib.singleton s; };
-  engine' = alias: template: withAlias "@${alias}" (engine template);
+  inherit (lib'.firefox) engine engine';
 in
 {
   # Required -- disabled by default to prevent unintentional data loss.
   force = true;
 
   default = lib.mkDefault "Kagi";
+  privateDefault = "DuckDuckGo";
 
   engines = {
     "Kagi" = engine "https://kagi.com/search?q={searchTerms}";
-    "Marginalia" = engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
+    "Letterboxd" = engine' "lb" "https://letterboxd.com/search/{searchTerms}";
+    "Marginalia" =
+      engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
     "npm" = engine' "npm" "https://www.npmjs.com/search?q={searchTerms}";
     # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
     "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
     "Power Thesaurus" = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
     "TVDB" = engine' "tvdb" "https://thetvdb.com/search?query={searchTerms}";
+    "WordPress Code Reference" = engine' "wp" "https://developer.wordpress.org/?s={searchTerms}";
 
     ## === Nix Reference ===
 
-    "home-manager options" = engine' "hm" "https://home-manager-options.extranix.com/?query={searchTerms}";
+    "home-manager options" =
+      engine' "hm" "https://home-manager-options.extranix.com/?query={searchTerms}";
     "Nix Packages" = {
       definedAliases = [
         "@nixpkgs"

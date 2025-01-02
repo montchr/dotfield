@@ -1,16 +1,8 @@
 # TODO: add docs for all "magical" numeric values
-{
-  flake,
-  theme,
-  osConfig,
-  lib,
-  ...
-}:
+{ theme, lib, ... }:
 let
   # FIXME: only do theme stuff if theme enabled for user
   inherit (theme) fonts;
-  l = flake.inputs.nixpkgs.lib // builtins;
-  hostName = osConfig.networking.hostName or (l.getEnv "HOSTNAME");
 in
 {
   "browser.bookmarks.showMobileBookmarks" = true;
@@ -58,8 +50,6 @@ in
   "font.name.sans-serif.x-western" = fonts.sansSerif.name;
   "font.name.serif.x-western" = fonts.serif.name;
   "font.size.monospace.x-western" = 12;
-
-  "identity.fxaccounts.account.device.name" = hostName;
 
   # CSS blur filter in v88+
   "layout.css.backdrop-filter.enabled" = true;

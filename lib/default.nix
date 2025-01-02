@@ -13,6 +13,7 @@ let
     src = ./src;
     inputs = {
       inherit ops withSystem;
+      # inherit (inputs.nixpkgs) lib;
       flake = {
         inherit self inputs config;
       };

@@ -9,6 +9,9 @@ _hmArgs: {
     ../../home/profiles/gpg/with-ssh-support.nix
   ];
 
+  programs.firefox.profiles.work.isDefault = true;
+  programs.firefox.profiles.home.isDefault = false;
+
   # The trackpad on this device is huge, and I always end up touching
   # its corner with my palm, which is very disruptive.  Actually, it is
   # not only disruptive, but also has led to pain due to habitual thumb

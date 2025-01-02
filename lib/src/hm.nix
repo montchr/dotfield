@@ -15,7 +15,12 @@ let
   specialArgs = {
     flake = flakeSpecialArgs;
   };
-  specialArgs' = system: specialArgs // { flake = flakeSpecialArgs' system; };
+  specialArgs' =
+    system:
+    specialArgs
+    // {
+      flake = flakeSpecialArgs // (flakeSpecialArgs' system);
+    };
 
   settings = {
     extraSpecialArgs = specialArgs;
