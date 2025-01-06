@@ -4,6 +4,7 @@
       "kleinforms.ddev.site"
       "logancenter.ddev.site"
       "logance.ddev.site"
+      "phillyn.ddev.site"
       "tutv.ddev.site"
     ];
   };
