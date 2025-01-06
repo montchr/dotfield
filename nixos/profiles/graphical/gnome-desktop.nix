@@ -10,8 +10,6 @@ in
 {
   imports = [
     ./common.nix
-
-    ../networking/wifi.nix
   ];
 
   services.xserver.enable = true;

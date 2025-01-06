@@ -1,6 +1,4 @@
 {
-  imports = [ ../networking/wifi.nix ];
-
   # battery info
   services.upower.enable = true;
 
