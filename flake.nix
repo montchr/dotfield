@@ -92,8 +92,9 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2024-12-25";
+    # XXX: <https://github.com/tpwrules/nixos-apple-silicon/issues/261#issuecomment-2579842582>
+    nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
+    # nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2024-12-25";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
@@ -133,7 +134,6 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixos-stable";
 
     ##: system
     microvm.url = "github:astro/microvm.nix";

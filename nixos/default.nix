@@ -33,7 +33,7 @@ let
     {
       buildPlatform ? "aarch64-linux",
     }:
-    import inputs.nixpkgs-apple-silicon {
+    import inputs.nixos-unstable {
       config.allowUnfree = true;
       crossSystem.system = "aarch64-linux";
       localSystem.system = buildPlatform;
