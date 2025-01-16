@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = [
+    pkgs.csvkit # https://csvkit.readthedocs.io/en/latest/
     pkgs.miller
     pkgs.qsv # "CSVs sliced, diced & analyzed" (maintained fork of xsv)
     pkgs.tidy-viewer # `tv` => Pretty-print CSV files
