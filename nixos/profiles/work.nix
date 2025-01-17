@@ -5,6 +5,7 @@
       "logancenter.ddev.site"
       "logance.ddev.site"
       "phillyn.ddev.site"
+      "telepresence.ddev.site"
       "tutv.ddev.site"
     ];
   };
