@@ -43,10 +43,12 @@ in
 
   programs.emacs = {
     enable = true;
+    # TODO: update darwin package to whatever it should be now
     package = if isDarwin then pkgs.emacs29-macport else emacs-overlay.packages.emacs-pgtk;
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
+      epkgs.ready-player
       epkgs.treesit-grammars.with-all-grammars
       epkgs.treesit-auto
 
