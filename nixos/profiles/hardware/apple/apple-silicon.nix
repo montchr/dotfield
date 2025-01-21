@@ -1,14 +1,7 @@
-{
-  lib,
-  flake,
-  ...
-}:
-let
-  inherit (flake.inputs) nixos-apple-silicon;
-in
+{ lib, flake, ... }:
 {
   imports = [
-    nixos-apple-silicon.nixosModules.apple-silicon-support
+    flake.inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
 
     ../../boot/systemd-boot.nix
 
@@ -23,4 +16,6 @@ in
   # Mutually exclusive legacy Apple hardware.
   hardware.facetimehd.enable = lib.mkForce false;
   services.mbpfan.enable = lib.mkForce false;
+
+  hardware.asahi.useExperimentalGPUDriver = true;
 }

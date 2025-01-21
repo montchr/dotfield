@@ -5,9 +5,6 @@
     ./secrets/sops.nix
 
     ./backups.nix
-
-    ./experimental-mesa.nix
-
     ./keyboard.nix
     ./work/default.nix
 
