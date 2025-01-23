@@ -67,9 +67,6 @@ in
   "privacy.donottrackheader.enabled" = true;
   # TODO: add docs for values
   "privacy.donottrackheader.value" = 1;
-  "privacy.trackingprotection.enabled" = true;
-  "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
-  "privacy.trackingprotection.socialtracking.enabled" = true;
   # Disable fingerprinting on AMO to allow for Tridactyl control.
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
