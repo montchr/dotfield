@@ -36,6 +36,7 @@ in
     ijq
     inetutils
     iputils
+    jc # jsonify output of many cli tools
     jq
     less
     lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
