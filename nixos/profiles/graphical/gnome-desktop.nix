@@ -18,9 +18,6 @@ in
   services.gnome.core-developer-tools.enable = true;
   services.gnome.gnome-browser-connector.enable = true;
 
-  # Prefer webmail or other (better) mail clients.
-  environment.gnome.excludePackages = [ pkgs.geary ];
-
   # Add GNOME Extensions:
   environment.systemPackages = with pkgs.gnomeExtensions; [
     clipboard-history # https://extensions.gnome.org/extension/4839/clipboard-history/
