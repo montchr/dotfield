@@ -1,5 +1,5 @@
 {
-  matches = [
+  services.espanso.matches.arrows.matches = [
     {
       replace = "←";
       triggers = [

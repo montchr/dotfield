@@ -1,5 +1,5 @@
 {
-  matches = [
+  services.espanso.matches.crypt.matches = [
     {
       trigger = ";;uuid";
       replace = "{{output}}";

@@ -1,12 +1,12 @@
 {
-  global_vars = [
+  services.espanso.matches.comment.global_vars = [
     {
       name = "clip";
       type = "clipboard";
     }
   ];
 
-  matches = [
+  services.espanso.matches.comment.matches = [
     {
       replace = "# <{{clipped}}>";
       trigger = "# <";

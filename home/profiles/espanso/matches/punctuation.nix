@@ -1,5 +1,5 @@
 {
-  matches = [
+  services.espanso.matches.punctuation.matches = [
     {
       replace = "—";
       trigger = ":--.";

@@ -1,5 +1,5 @@
 {
-  matches = [
+  services.espanso.matches.urls.matches = [
     {
       replace = "https://github.com/";
       trigger = ";@gh";
