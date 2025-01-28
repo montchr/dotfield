@@ -11,6 +11,7 @@
 ;;; Aliases
 
 (defalias tec (tap-hold-press $tt $ht esc lctl))
+(defalias tbm (tap-hold $tt $ht tab lmet))
 
 (defalias
   ;; left side
@@ -36,7 +37,7 @@
 ;;; Layers
 
 (deflayer base
-  _    _    _    _    _    _    _    _    _    _    _
+  @tbm _    _    _    _    _    _    _    _    _    _
   @tec @am  @sa  @dc  @fs  _    _    @js  @kc  @la  @;m
   _    _    _    _    _    _    _    _    _    _    _
        _              _              _
