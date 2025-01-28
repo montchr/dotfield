@@ -111,14 +111,11 @@ nixify-toml file:
   {{ shell(nixify-toml-cmd, file) }}
 
 # <https://github.com/nix-community/dconf2nix>
-# <- Export current dconf/GNOME/GTK/gsettings as INI and Nix files
+# Export current dconf/GNOME/GTK/gsettings as INI and Nix files
 nixify-dconf out=prj-data:
-  dconf dump / > {{out}}/dconf.settings
-  dconf2nix \
-    -i {{out}}/dconf.settings \
-    -o {{out}}/dconf.settings.nix
-  bat --style=plain --paging=never \
-    {{out}}/dconf.settings.nix
+  dconf dump / | sed '/app-picker-layout/d' > {{out}}/dconf.settings
+  dconf2nix -i {{out}}/dconf.settings -o {{out}}/dconf.settings.nix
+  bat --style=plain --paging=never {{out}}/dconf.settings.nix
   @echo 'Exported to {{out}}'
 
 ###: THEME =====================================================================
