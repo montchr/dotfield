@@ -525,6 +525,7 @@ with available settings, similar to Firefox's =about:config= page.
 *** Configuring GNOME via =home-manager=
 :PROPERTIES:
 :CUSTOM_ID: configuring-gnome-via-home-manager
+:ID:       5da0abed-8fc0-4cff-921c-bdfc12107c60
 :END:
 
 

@@ -31,13 +31,6 @@ in
     "org/gnome/desktop/interface" = {
       clock-show-seconds = false;
       clock-show-weekday = true;
-
-      # FIXME: too aggressive, need CUA-like also -- macOS keys are actually
-      # pretty nice as a weird combination of Emacs and CUA with cmd/ctrl swap
-      # Emacs because it's so ingrained by both shells and even macOS defaults.
-      # But it's understandable why it's not the default:
-      # e.g. "C-a" is no longer for select all -- macOS can get away with this
-      # because it doesn't use Ctrl as prominently as Super
       gtk-key-theme = "Emacs";
 
       # text-scaling-factor = 1.0;
@@ -65,7 +58,7 @@ in
     };
 
     "org/gnome/mutter" = {
-      # Prevent annoying inability to exit eternal recurrence of this modal existence.
+      # Modals might get stuck without this setting.
       attach-modal-dialogs = true;
       dynamic-workspaces = true;
       edge-tiling = true;

@@ -7,6 +7,8 @@ _hmArgs: {
     ../../home/profiles/shells/fish/trampoline.nix
 
     ../../home/profiles/gpg/with-ssh-support.nix
+    # ../../home/profiles/graphical/sessions/gnome/extensions/just-perfection.nix
+    #    ../../home/profiles/graphical/sessions/gnome/extensions/paperwm.nix
   ];
 
   programs.firefox.profiles.work.isDefault = true;
