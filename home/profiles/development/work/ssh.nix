@@ -13,6 +13,9 @@ in
     "isprsite-production" = mkKinstaHost "isprsite" 24919;
     "kleinforms-production" = mkKinstaHost "kleinforms" 49032;
     "kleinforms-staging" = mkKinstaHost "kleinforms" 30014;
+    "logancentertest" = mkKinstaHost "logancentertest" 35513;
+    "logancenter-production" = mkKinstaHost "logancenter" 32418;
+    "logancenter-staging" = mkKinstaHost "logancenter" 38819;
     "phillyn-production" = mkKinstaHost "phillyn" 17385;
     "phillyn-staging" = mkKinstaHost "phillyn" 47991;
     "telepresence-production" = mkKinstaHost "telepresence" 59096;
