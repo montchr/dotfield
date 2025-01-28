@@ -21,11 +21,11 @@ contact with the real".
 :END:
 
 These are my personal configurations and are not intended for use as a
-template, but you are welcome to do so if you like! I hope visitors
+template, but you are welcome to do so if you like!  I hope visitors
 manage to find something helpful/inspiring/interesting, but please keep
 in mind that /I have no idea what I'm doing/.
 
-Dotfield does not embody "best practices" or "the right way to Nix". The
+Dotfield does not embody "best practices" or "the right way to Nix".  The
 project exists as an evolving and unstable result of one amateur's take
 on identifying and implementing flexible and understandishable patterns
 or novelties across other sources this amateur has encountered.
@@ -170,8 +170,8 @@ pass show age--secret-key >> $XDG_CONFIG_HOME/sops/age/keys
 :CUSTOM_ID: structure
 :END:
 
-I still don't know what I'm doing. Maybe one day I will have enough of
-an idea that I can write it down with any amount of coherence. Or maybe
+I still don't know what I'm doing.  Maybe one day I will have enough of
+an idea that I can write it down with any amount of coherence.  Or maybe
 I'm doing it all backwards...?
 
 * Grafts
@@ -322,12 +322,12 @@ Bus 005 Device 008: ID 1235:800c Focusrite-Novation Scarlett 18i20
 #+end_src
 
 The 18i20 is connected to KRK Rokit 5 studio monitors via the
-interface's L/R monitor output channels. Unfortunately, ALSA resets the
+interface's L/R monitor output channels.  Unfortunately, ALSA resets the
 monitor output level to muted status each time the device is
 reconnected.
 
 See =/var/lib/alsa/asound.state= for the state of ALSA settings as of
-last boot. According to
+last boot.  According to
 [[https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_and_systemd]],
 updated values will be written on shutdown.
 
@@ -381,9 +381,9 @@ Source should be PCM 1
 :CUSTOM_ID: hodgepodge-aka-the-sacred-chao
 :END:
 
-An early-2014 15-inch MacBook Pro who has seen quite the life. ~Mostly
+An early-2014 15-inch MacBook Pro who has seen quite the life.  ~Mostly
 unused for the past several years due to the availability of more
-portable work laptops. It is now living out its life in a declarative
+portable work laptops.  It is now living out its life in a declarative
 retirement home.~
 
 *Update [2024-04-10]:* This laptop was my primary computer for a couple months
@@ -419,8 +419,8 @@ MacBookPro11,3 (Late 2013) (Dual-Graphics Retina Display)
 :END:
 
 Technically, there is also an integrated Intel graphics card in addition
-to the discrete NVIDIA card. However, Apple decided to force the
-integrated Intel GPU to be disabled unless running macOS. There are ways
+to the discrete NVIDIA card.  However, Apple decided to force the
+integrated Intel GPU to be disabled unless running macOS.  There are ways
 around that (apparently rEFInd can help), but I don't think it's worth
 the extra effort.
 
@@ -461,7 +461,7 @@ The discussion resulted in a chain of bug reports leading here:
 [[https://gitlab.freedesktop.org/drm/amd/-/issues/759]]
 
 The discussion and bug report also pertain to AMD graphics, which
-doesn't apply to the MacBookPro11,3 model. And yet the power adapter
+doesn't apply to the MacBookPro11,3 model.  And yet the power adapter
 workaround still seems to help resolve the issue with this machine's
 NVIDIA graphics...
 
@@ -477,9 +477,9 @@ NVIDIA graphics...
 Dead but dreaming.
 
 Laid to indefinite rest when one of the cats, seeking human attention,
-chewed through the LCD screen. We did not speak for a week.
+chewed through the LCD screen.  We did not speak for a week.
 
-Still works, but unusable without external display. Suffers from
+Still works, but unusable without external display.  Suffers from
 congenital Butterfly Keyboard Syndrome.
 
 * Notes
@@ -495,15 +495,15 @@ Mostly opinions and rants, some of which will likely be removed in time.
 :END:
 
 It's been the default desktop environment for my graphical NixOS
-configurations, but only because it "just works". In actuality, while it
-"works", it *just* works. Its primary method of configuration is based
+configurations, but only because it "just works".  In actuality, while it
+"works", it *just* works.  Its primary method of configuration is based
 on the state of user-selected options in GUIs, hiding the configuration
 behind opaque UX
 
 There is, I'm sure, a specific term for this particular application
 design fallacy, perhaps best summarized by WordPress' infamous
 "decisions not options" aphorism and embodied in Apple software and
-hardware. While it looks pretty and looks like it has "good UX", like
+hardware.  While it looks pretty and looks like it has "good UX", like
 macOS (and Apple software in general), it has so much useless clutter
 and ends up breaking in weird ways.
 
@@ -513,7 +513,7 @@ and ends up breaking in weird ways.
 :END:
 
 =gsettings= is a command-line interface for =dconf= schema
-introspection. It's useful for getting/setting the current value of a
+introspection.  It's useful for getting/setting the current value of a
 setting and for scripting necessarily-stateful settings like theme
 appearance variants.
 
@@ -546,7 +546,7 @@ Unreliable and clunky.
 :END:
 
 On multiple occasions, I've gotten locked out of the default keyring,
-which is supposed to be the same as the login password. Deleting a
+which is supposed to be the same as the login password.  Deleting a
 couple files resets it:
 
 #+begin_src sh
@@ -561,13 +561,13 @@ rm ~/.local/share/keyrings/{login.keyring,user.keystore}
 :END:
 
 When I first activated the Nextcloud Client application on boschic, I
-was prompted to unlock the =default= keyring. But because I was locked
-out, I needed to dismiss the prompt. The prompt immediately reappeared.
+was prompted to unlock the =default= keyring.  But because I was locked
+out, I needed to dismiss the prompt.  The prompt immediately reappeared.
 
 Because the GNOME prompts are "accessible", there is no way to escape
-focus other than pressing cancel. That means that a process can spam
+focus other than pressing cancel.  That means that a process can spam
 request a prompt indefinitely, with no way to kill the process from
-within the GNOME session. I had to resort to C-M-F1 to switch to the
+within the GNOME session.  I had to resort to C-M-F1 to switch to the
 virtual console / getty.
 
 On that note, considering that I've disabled getty@tty1 when autologin
@@ -580,8 +580,8 @@ scenarios...
 :END:
 
 I really do want a browser to "just work", but with the option to
-configure frustrating things like... keyboard shortcuts... which Firefox
-does not support. The question is: do any browsers? I am not yet sure.
+configure frustrating things like...  keyboard shortcuts...  which Firefox
+does not support.  The question is: do any browsers?  I am not yet sure.
 
 *** Customizing keyboard shortcuts
 :PROPERTIES:
@@ -592,13 +592,13 @@ TL;DR Nope, forget it.
 
 [[https://support.mozilla.org/bm/questions/1381773]]
 
-there is no way to customize internal keyboard shortcuts. this should be
-considered a bug, not a feature request. but it's considered an "idea"
+there is no way to customize internal keyboard shortcuts.  this should be
+considered a bug, not a feature request.  but it's considered an "idea"
 in a community feedback forum, with no indication as to whether it
 matters to Mozilla or not.
 
 i wonder whether the community forum is intended to act as a buffer zone
 / feedback echo chamber to keep users out of the internal bug trackers.
 Mozilla has to actually consider and prioritize user feedback from this
-forum, otherwise why does it exist? Is there any evidence of such a
+forum, otherwise why does it exist?  Is there any evidence of such a
 process?
