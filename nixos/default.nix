@@ -170,7 +170,7 @@ in
         ./mixins/sway.nix
         ./mixins/workstation.nix
 
-        ./profiles/hardware/apple/macbook-14-2.nix
+        ./profiles/hardware/apple/macbook-14-2/default.nix
         ./profiles/hardware/displaylink.nix
 
         ./profiles/remote-builders/default.nix

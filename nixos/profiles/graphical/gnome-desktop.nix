@@ -22,7 +22,6 @@ in
   environment.systemPackages = with pkgs.gnomeExtensions; [
     clipboard-history # https://extensions.gnome.org/extension/4839/clipboard-history/
     just-perfection # https://gitlab.gnome.org/jrahmatzadeh/just-perfection
-    paperwm # <https://github.com/paperwm/PaperWM>
   ];
 
   home-manager.sharedModules = lib.singleton {

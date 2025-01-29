@@ -12,6 +12,12 @@ in
   };
   theme.fonts.terminal = cfg.monospace;
 
+  programs.ghostty.settings.font-family = cfg.terminal.name;
+  programs.ghostty.settings.font-feature = [
+    "-calt"
+    "+dlig"
+  ];
+
   programs.kitty.extraConfig =
     let
       inherit (cfg.terminal) psNamespace;

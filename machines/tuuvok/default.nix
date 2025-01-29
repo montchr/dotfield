@@ -22,13 +22,10 @@
   dotfield.guardian.username = "cdom";
   users.mutableUsers = false;
 
-  services.tailscale.enable = true;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "cdom";
 
-  # TODO: relocate to a relevant profile -- why was this necessary?
-  # programs.appimage = {
-  #   enable = true;
-  #   binfmt = true;
-  # };
+  services.tailscale.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

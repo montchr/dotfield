@@ -1,0 +1,88 @@
+#+title: MacBook14,2 (A2681)
+#+author: Chris Montgomery <chmont@protonmail.com>
+#+language: en
+
++ Specs :: <https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m2-8-core-cpu-8-core-gpu-13-2022-specs.html>
+
+* Sway
+
+** Outputs
+:PROPERTIES:
+:ID:       ddfa4c6c-fa57-45e4-96c1-edb60bdabdcb
+:END:
+
++ Documentation :: <https://github.com/swaywm/sway/wiki#user-content-hidpi>
+
+Note that with multiple displays, relative position must be
+considered.  See the wiki page linked above.
+
+#+NAME: sway-outputs
+#+begin_src shell :results raw
+swaymsg -p -t get_outputs
+#+end_src
+
+#+RESULTS: sway-outputs
+Output eDP-1 'Unknown Unknown Unknown' (focused)
+  Current mode: 2560x1600 @ 60.000 Hz
+  Power: on
+  Position: 0,0
+  Scale factor: 2.000000
+  Scale filter: nearest
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 1
+  Max render time: off
+  Adaptive sync: disabled
+  Allow tearing: no
+  Available modes:
+    2560x1600 @ 60.000 Hz
+
+
+#+RESULTS:
+Output eDP-1 'Unknown Unknown Unknown' (focused)
+  Current mode: 2560x1600 @ 60.000 Hz
+  Power: on
+  Position: 0,0
+  Scale factor: 2.000000
+  Scale filter: nearest
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 1
+  Max render time: off
+  Adaptive sync: disabled
+  Allow tearing: no
+  Available modes:
+    2560x1600 @ 60.000 Hz
+
+Output eDP-1 'Unknown Unknown Unknown' (focused)
+  Current mode: 2560x1600 @ 60.000 Hz
+  Power: on
+  Position: 0,0
+  Scale factor: 2.000000
+  Scale filter: nearest
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 1
+  Max render time: off
+  Adaptive sync: disabled
+  Allow tearing: no
+  Available modes:
+    2560x1600 @ 60.000 Hz
+
+
+#+begin_example
+Output eDP-1 'Unknown Unknown Unknown' (focused)
+  Current mode: 2560x1600 @ 60.000 Hz
+  Power: on
+  Position: 0,0
+  Scale factor: 2.000000
+  Scale filter: nearest
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 2
+  Max render time: off
+  Adaptive sync: disabled
+  Allow tearing: no
+  Available modes:
+    2560x1600 @ 60.000 Hz
+    #+end_example

@@ -11,6 +11,8 @@
     ../profiles/audio.nix
     ../profiles/networking/avahi.nix
 
+    ../profiles/graphical/applications/obs-studio.nix
+
     ../profiles/hardware/android-devices/default.nix
     ../profiles/hardware/bluetooth.nix
     ../profiles/hardware/bluetooth-headset.nix

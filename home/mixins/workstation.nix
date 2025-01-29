@@ -5,6 +5,7 @@
     ./media-manager.nix
     ./trusted.nix
 
+    ../profiles/graphical/applications/ghostty/default.nix
     ../profiles/graphical/applications/kitty/default.nix
     ../profiles/graphical/applications/obs-studio.nix
     ../profiles/graphical/applications/okular.nix

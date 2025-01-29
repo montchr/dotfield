@@ -1,7 +1,18 @@
-moduleArgs@{ pkgs, ... }:
+moduleArgs@{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.wayland.windowManager.sway;
+  fxCfg = config.programs.firefox;
+  mod = cfg.config.modifier;
+in
 {
   imports = [
     ../common.nix
+    ../darkman.nix
   ];
 
   wayland.windowManager.sway = {
@@ -13,9 +24,27 @@ moduleArgs@{ pkgs, ... }:
       modifier = "Mod4";
       terminal = "kitty";
       startup = [
-        { command = "firefox --profile home"; }
-        { command = "emacs"; }
+        {
+          command = "firefox --profile ~/.mozilla/firefox/home";
+        }
+        {
+          command = "emacs";
+        }
       ];
+      # NOTE: lib.mkOptionDefault is required in order to not wipe out
+      # default keybindings!  See the option description.
+      keybindings = lib.mkOptionDefault {
+
+        # "$mod+Shift+q" = "kill"; # default
+
+        # NOTE: Most media keys are set in system config.  The
+        # behavior of the following media keys is a matter of user
+        # preference:
+        "XF86AudioPlay" = "exec playerctl play-pause";
+        "XF86AudioNext" = "exec playerctl next";
+        "XF86AudioPrev" = "exec playerctl previous";
+        "XF86Search" = "exec fuzzel";
+      };
       # output = {};
       # seat = {
       #   "*" = {
