@@ -13,6 +13,8 @@
     ./applications/zathura.nix
   ];
 
+  services.gnome-keyring.enable = true;
+
   home.packages = [
     # HACK: The `gap` plugin requires building from source due to continual
     # breakages and security issues, and I have no intent on using it anyway.
