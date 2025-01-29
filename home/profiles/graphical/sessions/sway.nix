@@ -1,13 +1,14 @@
 moduleArgs@{ pkgs, ... }:
 {
-  imports = [ ../common.nix ];
+  imports = [
+    ../common.nix
+  ];
 
   wayland.windowManager.sway = {
     enable = true;
     # A `null` value tells home-manager to use the package from the
     # system level.
     package = if (moduleArgs.osConfig.programs.sway.enable or false) then null else pkgs.sway;
-    systemdIntegration = true; # default
     config = {
       modifier = "Mod4";
       terminal = "kitty";

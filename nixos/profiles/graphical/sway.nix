@@ -62,10 +62,9 @@ in
     wl-clipboard
 
     ##: gnome apps compatibility
-    configure-gtk
     glib
-    gnome3.adwaita-icon-theme
-    gnome3.nautilus
+    adwaita-icon-theme
+    nautilus
 
     qt5.qtwayland
   ];
