@@ -22,7 +22,7 @@ in
     package = if (moduleArgs.osConfig.programs.sway.enable or false) then null else pkgs.sway;
     config = {
       modifier = "Mod4";
-      terminal = "kitty";
+      terminal = "ghostty";
       startup = [
         {
           command = "firefox --profile ~/.mozilla/firefox/home";
