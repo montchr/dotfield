@@ -1,39 +1,42 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  inherit (config.home) homeDirectory;
+in
 {
   imports = [
-    ../hardware/mouse.nix
-
-    ./__clipboard.nix
-    ./__xdg.nix
-
-    ./gtk.nix
-    ./qt.nix
+    ./__gtk.nix
 
     ./applications/calibre.nix
+    ./applications/gimp.nix
     ./applications/zathura.nix
+
+    ../hardware/mouse.nix
   ];
+
+  qt.enable = true;
+  qt.platformTheme.name = "gtk3";
 
   services.gnome-keyring.enable = true;
 
-  home.packages = [
-    # HACK: The `gap` plugin requires building from source due to continual
-    # breakages and security issues, and I have no intent on using it anyway.
-    # <https://github.com/NixOS/nixpkgs/pull/295257>
-    # TODO: save as custom package elsewhere
-    (pkgs.gimp-with-plugins.override {
-      plugins =
-        # <https://github.com/Scrumplex/nixpkgs/blob/cca25fd345f2c48de66ff0a950f4ec3f63e0420f/pkgs/applications/graphics/gimp/wrapper.nix#L5C1-L6C99>
-        lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false) (
-          lib.attrValues (
-            builtins.removeAttrs pkgs.gimpPlugins [
-              "gimp"
-              "gap"
-              "gmic" # <https://github.com/NixOS/nixpkgs/pull/312997>
-            ]
-          )
-        );
-    })
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      extraConfig = {
+        # TODO: somehow share this value with home-manager git-sync?
+        XDG_PROJECTS_DIR = homeDirectory + "/Projects";
+        XDG_MAIL_DIR = "${homeDirectory}/Mail";
+      };
+    };
+    mimeApps.enable = true;
+  };
 
+  home.packages = [
     pkgs.mediainfo
     pkgs.ydotool # command-line automation tool
   ];

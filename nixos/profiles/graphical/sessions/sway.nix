@@ -10,15 +10,13 @@ let
 in
 {
   imports = [
-    ./wlroots/common.nix
-    ./wlroots/kanshi.nix
+    ./__wlroots.nix
   ];
 
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     xwayland.enable = true;
-    # TODO: remove (obsolete)
     extraOptions = optional hasNvidia "--unsupported-gpu";
     extraSessionCommands = ''
       # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayla[Espanso]: An error occurred during rendering, please examine the logs for more information.
@@ -60,29 +58,9 @@ in
     ##: core
     sway
     swayidle
-    # TODO
-    # swaylock
+    swaylock
 
-    brightnessctl
-    dunst
-    fuzzel
-    grim
-    kooha
-    mako
-    slurp
-    swappy
-    swayimg
-    wf-recorder
-    wl-clipboard
     # TODO: profile
     #    wlr-which-key
-
-    ##: gtk/gnome compat
-    glib
-    adwaita-icon-theme
-    nautilus
-
-    ##: qt compat
-    qt5.qtwayland
   ];
 }

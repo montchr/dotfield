@@ -16,4 +16,5 @@ in
     };
   };
   wayland.windowManager.sway.config.menu = lib.getExe pkgs.fuzzel;
+  home.packages = [ pkgs.fuzzel ];
 }

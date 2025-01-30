@@ -1,6 +1,6 @@
 {
   imports = [
-    ../profiles/graphical/sessions/sway.nix
+    ../profiles/graphical/sessions/sway/default.nix
 
     ../profiles/graphical/applications/flameshot.nix
     ../profiles/graphical/launchers/fuzzel.nix

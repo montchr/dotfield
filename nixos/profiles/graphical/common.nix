@@ -1,17 +1,19 @@
 {
+  config,
   flake,
   lib,
   pkgs,
   ...
 }:
+let
+  isGnomeDesktop = config.services.xserver.desktopManager.gnome.enable;
+in
 {
   imports = [
-    ./applications
-    ./fonts
+    ./applications/default.nix
+    ./fonts/default.nix
 
     ./__gnome-services.nix
-    ./__gtk.nix
-    ./__wallpaper.nix
 
     ../boot/systemd-boot.nix
   ];
@@ -23,24 +25,34 @@
     "video"
   ];
 
-  documentation.info.enable = true;
-  # NOTE: Force override <numtide/srvos>.
-  documentation.man.enable = lib.mkForce true;
-
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
   hardware.graphics.enable = true;
   qt.enable = true;
 
+  xdg = {
+    mime.enable = true;
+    icons.enable = true;
+    portal.enable = true;
+    portal.extraPortals = lib.optional (!isGnomeDesktop) pkgs.xdg-desktop-portal-gtk;
+  };
+
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
-  # Hide cursor upon keystroke.
-  # FIXME: "could not open display"
-  # services.unclutter = {
-  #   enable = true;
-  #   keystroke = true;
-  # };
+  programs.dconf.enable = true;
+  programs.kdeconnect.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    dconf-editor
+    foot
+    glib
+    gnome-backgrounds
+    qt5.qtwayland
+    wev
+    wl-clipboard
+  ];
 
   # Prevent stupid boot delays waiting for internet.
   # FIXME: this doesn't really seem to help much. dhcp still delays boot.
@@ -48,23 +60,8 @@
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # # "Symlinks and syncs browser profile dirs to RAM thus reducing HDD/SDD calls
-  # # and speeding-up browsers."
-  # # <https://github.com/graysky2/profile-sync-daemon>
-  # # <https://wiki.archlinux.org/title/Profile-sync-daemon>
-  # services.psd.enable = true;
-  # services.psd.resyncTimer = "10m";
+  documentation.info.enable = true;
+  # HACK: Force override <numtide/srvos>.
+  documentation.man.enable = lib.mkForce true;
 
-  xdg = {
-    mime.enable = true;
-    icons.enable = true;
-    portal.enable = true;
-  };
-
-  environment.systemPackages = [
-    pkgs.wev # the Wayland Event Viewer
-    pkgs.wl-clipboard
-  ];
-
-  home-manager.sharedModules = [ "${flake.self}/home/profiles/graphical/qt.nix" ];
 }

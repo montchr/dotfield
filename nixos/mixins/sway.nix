@@ -1,5 +1,5 @@
 {
   imports = [
-    ../profiles/graphical/sway.nix
+    ../profiles/graphical/sessions/sway.nix
   ];
 }

@@ -18,21 +18,13 @@ in
   imports = [
     ./mimeapps.nix
 
-    ../../gtk.nix
+    ../../__gtk.nix
   ];
-
-  # The package loaded by the "gnome" setting is obsolete.
-  # TODO: gtk4?
-  qt.platformTheme.name = "gtk3";
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       clock-show-seconds = false;
       clock-show-weekday = true;
-      gtk-key-theme = "Emacs";
-
-      # text-scaling-factor = 1.0;
-      # toolkit-accessibility = false;
     };
 
     "org/gnome/desktop/media-handling" = {
@@ -76,8 +68,6 @@ in
     };
 
     "org/gnome/desktop/privacy" = {
-      disable-camera = true;
-      disable-microphone = true;
       old-files-age = mkUint32 30;
       recent-files-max-age = -1;
     };

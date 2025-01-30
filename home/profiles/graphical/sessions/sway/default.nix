@@ -11,8 +11,7 @@ let
 in
 {
   imports = [
-    ../common.nix
-    ../darkman.nix
+    ../../__wlroots.nix
   ];
 
   wayland.windowManager.sway = {
