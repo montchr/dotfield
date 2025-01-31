@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 let
   inherit (config) xdg;
-  inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (pkgs) vimPlugins;
 
   cfg = config.programs.neovim;
 
   userNamespace = "cdom";
-  configSrcBasePath = "${xdg.configHome}/dotfield/users/${userNamespace}/config";
   dataPath = "${xdg.dataHome}/nvim";
   cachePath = "${xdg.cacheHome}/nvim";
 
@@ -20,7 +18,6 @@ in
   imports = [ ./plugins.nix ];
 
   xdg.configFile."nvim/init.lua".text = (cfg.generatedConfigs.lua or "") + initContent;
-  xdg.configFile."nvim/lua/${userNamespace}".source = mkOutOfStoreSymlink "${configSrcBasePath}/nvim/lua/${userNamespace}";
 
   home.packages = [
     (pkgs.writeShellScriptBin "nvim-purge-state" ''

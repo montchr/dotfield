@@ -1,0 +1,8 @@
+profile {
+        output eDP-1 enable scale 2
+}
+
+profile {
+        output eDP-1 disable
+        output "LG Electronics LG Ultra HD 0x000668B9" enable scale 2 mode 3840x2160 position 0,0
+}
