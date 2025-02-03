@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   home.packages = [
     # HACK: The `gap` plugin requires building from source due to continual
