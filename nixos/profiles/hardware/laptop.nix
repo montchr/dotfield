@@ -1,9 +1,11 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [ ../networking/wifi.nix ];
 
   services.upower.enable = true;
   networking.networkmanager.wifi.powersave = true;
+
+  environment.systemPackages = [ pkgs.poweralertd ];
 
   # NOTE: Requires that the $laptop variable is set!  This should be
   # added in a laptop-specific module!
