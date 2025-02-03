@@ -578,6 +578,54 @@ On that note, considering that I've disabled getty@tty1 when autologin
 is enabled (due to a NixOS issue), switching tty might not work in those
 scenarios...
 
+** wlroots
+
+*** Compositors
+
+**** Sway (Preferred)
+:PROPERTIES:
+:ID:       5de9ebe0-fd6b-408e-9dc0-24bb8dc12422
+:END:
+
+Nothing to comment upon.  It is the standard.
+
+**** Hyprland (Avoid)
+:PROPERTIES:
+:ID:       95e06cb3-aeff-436f-8e74-3fa269b6cb1d
+:END:
+
+Its maintainer and community have a tendancy towards the toxic.  I am
+not doing this for “the rice”.  While the tool itself looks great, I
+would rather not bother.  I would rather suck less.  This is supposed
+to be enjoyable, and I would prefer to stay away from a fucking window
+manager that leaves me with a bad aftertaste.
+
+*** Tools
+
+**** Launchers
+
+***** =fuzzel= (Preferred)
+:PROPERTIES:
+:ID:       662f50f4-095d-4c7e-ac28-9686c014a4dc
+:END:
+
+**** Lockscreens
+:PROPERTIES:
+:ID:       1a378419-9468-49df-9302-63b43b16bda6
+:END:
+
+***** =waylock= (Avoid)
+:PROPERTIES:
+:ID:       9143f3f7-1c60-4912-9d01-2a468ed43fe4
+:END:
+
+Avoid.
+
++ Maybe locks after three unsuccessful attempts for an unknown number
+  of minutes.
++ I got locked out after waiting.
++ Its charm – minimalism – is also its biggest flaw.
+
 ** Firefox
 :PROPERTIES:
 :CUSTOM_ID: firefox

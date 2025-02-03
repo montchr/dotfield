@@ -6,6 +6,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    gtk-layer-shell
+
     # essentials
     brightnessctl # display brightness
     grim # screenshot
@@ -15,5 +17,9 @@
 
     # swappables
     nautilus # gnome file manager
+
+    # TODO: evaluate
+    shikane # aims to be improvement over kanshi
+
   ];
 }

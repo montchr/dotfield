@@ -9,6 +9,8 @@
 # > protocol.
 { pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.kanshi ];
+
   systemd.user.services.kanshi = {
     description = "kanshi daemon";
     environment = {

@@ -18,7 +18,7 @@ in
     enable = true;
     # A `null` value tells home-manager to use the package from the
     # system level.
-    package = if (moduleArgs.osConfig.programs.sway.enable or false) then null else pkgs.sway;
+    package = null;
     config = {
       modifier = "Mod4";
       terminal = "ghostty";
