@@ -7,6 +7,7 @@ _hmArgs: {
     ../../home/profiles/shells/fish/default.nix
     ../../home/profiles/shells/fish/trampoline.nix
 
+    ../../home/profiles/git/with-pgp-signing.nix
     ../../home/profiles/gpg/with-ssh-support.nix
     # ../../home/profiles/graphical/sessions/gnome/extensions/just-perfection.nix
     #    ../../home/profiles/graphical/sessions/gnome/extensions/paperwm.nix

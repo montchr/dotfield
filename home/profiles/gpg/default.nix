@@ -24,6 +24,7 @@ in
 
     services.gpg-agent = {
       enable = true;
+      # FIXME: not necessarily gnome3
       pinentryPackage = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry-gnome3;
       sshKeys = [ key ];
     };

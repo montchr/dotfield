@@ -1,6 +1,7 @@
 _hmArgs: {
   imports = [
     ../../home/mixins/workstation.nix
+
     ../../home/profiles/git/with-pgp-signing.nix
   ];
 
