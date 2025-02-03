@@ -18,18 +18,6 @@ let
   };
 in
 {
-  imports = [
-    ./matches/arrows.nix
-    ./matches/base.nix
-    ./matches/comment.nix
-    ./matches/crypt.nix
-    ./matches/identity.nix
-    ./matches/punctuation.nix
-    ./matches/time.nix
-    ./matches/urls.nix
-    ./matches/words.nix
-    ./matches/_accented-words.nix
-  ];
   services.espanso = {
     enable = true;
     package = if isLinux then pkgs.espanso-wayland else pkgs.espanso;
