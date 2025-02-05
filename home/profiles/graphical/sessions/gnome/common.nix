@@ -58,13 +58,9 @@ in
 
     "org/gnome/desktop/wm/preferences" = {
       auto-raise = true;
-      # FIXME: want maximimize/toggle
       button-layout = "appmenu:minimize,close";
       focus-mode = "click";
       num-workspaces = 2;
-      # FIXME: no hardcode
-      # titlebar-font = "Iosevka Comfy 10";
-      # workspace-names = [ "sys" "talk" "web" "edit" "run" ];
     };
 
     "org/gnome/desktop/privacy" = {
