@@ -1,10 +1,10 @@
 {
   lib,
-  php,
+  php82,
   fetchFromGitHub,
 }:
 
-php.buildComposerProject (finalAttrs: {
+php82.buildComposerProject (finalAttrs: {
   pname = "php-stubs-generator";
   version = "0.8.4";
 

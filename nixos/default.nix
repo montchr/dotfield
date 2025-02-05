@@ -31,9 +31,10 @@ let
 
   makeAsahiPkgs =
     {
+      channel ? "nixos-unstable",
       buildPlatform ? "aarch64-linux",
     }:
-    import inputs.nixos-unstable {
+    import inputs.${channel} {
       config.allowUnfree = true;
       crossSystem.system = "aarch64-linux";
       localSystem.system = buildPlatform;

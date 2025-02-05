@@ -1,10 +1,10 @@
 {
   lib,
-  php,
+  php82,
   fetchFromGitHub,
 }:
 
-php.buildComposerProject (finalAttrs: {
+php82.buildComposerProject (finalAttrs: {
   pname = "wp-to-psr-4";
   version = "1.0.0";
 
