@@ -1,0 +1,6 @@
+font-family = Iosevka Comfy
+font-feature = -calt
+font-feature = +dlig
+font-size = 13
+theme = dark:Cyberdyne,light:catppuccin-latte
+window-decoration = false
