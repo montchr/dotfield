@@ -5,6 +5,9 @@
     ../kanshi.nix
   ];
 
+  security.pam.services.swaylock = { };
+  security.pam.services.waylock = { };
+
   environment.systemPackages = with pkgs; [
     gtk-layer-shell
 
