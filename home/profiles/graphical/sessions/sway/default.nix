@@ -20,6 +20,10 @@ in
     # A `null` value tells home-manager to use the package from the
     # system level.
     package = null;
+    extraConfigEarly = ''
+      # <https://wiki.nixos.org/wiki/Sway#GTK_apps_take_an_exceptionally_long_time_to_start>
+      include /etc/sway/config.d/*
+    '';
     config = {
       modifier = "Mod4";
       terminal = "ghostty";
