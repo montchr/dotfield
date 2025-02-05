@@ -131,6 +131,13 @@ in
       #   };
       # };
 
+      fonts.fontconfig.enable = true;
+      fonts.fontconfig.defaultFonts = {
+        monospace = lib.mkBefore [ cfg.fonts.monospace.name ];
+        sansSerif = lib.mkBefore [ cfg.fonts.sansSerif.name ];
+        serif = lib.mkBefore [ cfg.fonts.serif.name ];
+      };
+
       dconf.settings =
         let
           fontspecFor =
@@ -140,7 +147,7 @@ in
               (builtins.toString font.size)
             ];
           sans = fontspecFor cfg.fonts.sansSerif;
-          # serif = fontname cfg.fonts.serif;
+          serif = fontspecFor cfg.fonts.serif;
           mono = fontspecFor cfg.fonts.monospace;
         in
         {

@@ -6,6 +6,7 @@ moduleArgs@{
 }:
 let
   cfg = config.wayland.windowManager.sway;
+  theme = config.theme;
   fxCfg = config.programs.firefox;
   mod = cfg.config.modifier;
 in
@@ -53,6 +54,14 @@ in
       floating.criteria = [
         { class = "Pavucontrol"; }
       ];
+      fonts = {
+        names = [
+          "Aporetic Serif Mono"
+          "Symbols Nerd Font"
+        ];
+        style = "Semi-bold";
+        size = 10.0;
+      };
     };
   };
 }

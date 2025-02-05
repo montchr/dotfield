@@ -7,7 +7,7 @@ let
       { inputs', ... }@ctx:
       let
         perSystem = {
-          inherit (ctx.config) packages;
+          inherit (ctx.config) legacyPackages packages;
           inherit inputs';
         };
       in

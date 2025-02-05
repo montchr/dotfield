@@ -1,6 +1,9 @@
 { inputs, ... }:
 {
-  imports = [ ./beets-packages.nix ];
+  imports = [
+    ./__aporetic.nix
+    ./__beets-packages.nix
+  ];
 
   perSystem =
     { pkgs, system, ... }:
@@ -8,13 +11,14 @@
       inherit (pkgs) callPackage;
     in
     {
-      packages = inputs.flake-utils.lib.filterPackages system ({
+      packages = inputs.flake-utils.lib.filterPackages system {
         base16-schemes = callPackage ./base16-schemes/package.nix { };
         ddi = callPackage ./ddi/package.nix { };
         fzf-tab-completion = callPackage ./fzf-tab-completion/package.nix { };
         getcert = callPackage ./getcert/package.nix { };
         git-repo-manager = callPackage ./git-repo-manager/package.nix { };
         igr = callPackage ./igr/package.nix { };
+
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };
         realise-symlink = callPackage ./realise-symlink/package.nix { };
         scotty = callPackage ./scotty/package.nix { };
@@ -52,6 +56,6 @@
 
         ##: fonts
         berkeley-mono = callPackage ./berkeley-mono/package.nix { };
-      });
+      };
     };
 }
