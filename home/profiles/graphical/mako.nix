@@ -1,4 +1,7 @@
 { pkgs, config, ... }:
+let
+  theme = config.theme;
+in
 {
   home.packages = [ pkgs.mako ];
   services.mako = {

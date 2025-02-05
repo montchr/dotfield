@@ -43,4 +43,7 @@ in
       "kitty_mod+enter" = "new_window_with_cwd";
     };
   };
+
+  programs.fuzzel.settings.main.terminal = "kitty";
+  wayland.windowManager.sway.config.terminal = "kitty";
 }

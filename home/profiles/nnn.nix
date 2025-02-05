@@ -19,8 +19,7 @@ let
   # FIXME: false negative depending on osConfig
   isGraphical = (moduleArgs.osConfig.services.xserver.enable or false);
 
-  # TODO: add wezterm support; and whatabout zellij?
-  enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
+  enablePreviews = true;
 
   # FIXME: make sure the wrapped package can access these
   #        currently no syntax highlighting in previews

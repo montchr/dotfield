@@ -26,7 +26,7 @@ in
     '';
     config = {
       modifier = "Mod4";
-      terminal = "ghostty";
+      terminal = lib.mkDefault "foot";
       startup = [
         {
           command = "firefox --profile ~/.mozilla/firefox/home";
