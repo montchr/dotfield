@@ -4,6 +4,7 @@
     ./common.nix
     ./cliphist.nix
     ./darkman.nix
+    ./mako.nix
   ];
 
   home.packages = with pkgs; [
