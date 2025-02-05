@@ -53,6 +53,7 @@ in
           pkgs.reuse
           pkgs.shellcheck
           pkgs.statix
+          pkgs.stow
           pkgs.treefmt
         ];
         commands = [
