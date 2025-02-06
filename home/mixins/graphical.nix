@@ -4,6 +4,7 @@
 
     ../profiles/graphical/applications/chromium.nix
     ../profiles/graphical/applications/firefox/default.nix
+    ../profiles/graphical/applications/floorp.nix
     ../profiles/graphical/applications/foot.nix
     ../profiles/graphical/applications/ghostty/default.nix
     #    ../profiles/graphical/applications/kitty/default.nix
