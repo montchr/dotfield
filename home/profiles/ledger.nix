@@ -29,7 +29,7 @@ in
   home.sessionVariables."DOTFIELD_LEDGER_DIR" = ledgerDir;
 
   services.git-sync.repositories."montchr__ledger" = {
-    uri = "git@git.sr.ht:~montchr/ledger";
+    uri = "git@codeberg.org:montchr/ledger";
     path = ledgerDir;
   };
 }

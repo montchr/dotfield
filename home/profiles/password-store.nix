@@ -9,7 +9,7 @@ let
   inherit (config.lib.dag) entryAfter;
 
   passwordStorePath = config.xdg.dataHome + "/pass";
-  passwordStoreRemoteUrl = "git@git.sr.ht:~montchr/password-store";
+  passwordStoreRemoteUrl = "git@codeberg.org:montchr/password-store";
 in
 lib.mkIf config.programs.gpg.enable {
   programs.password-store = {
