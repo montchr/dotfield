@@ -8,7 +8,7 @@ let
   key = config.dotfield.whoami.pgp;
   inherit (config.lib.dag) entryAfter;
 
-  passwordStorePath = config.xdg.dataHome + "/pass";
+  passwordStorePath = config.home.homeDirectory + "/.password-store";
   passwordStoreRemoteUrl = "git@codeberg.org:montchr/password-store";
 in
 lib.mkIf config.programs.gpg.enable {
