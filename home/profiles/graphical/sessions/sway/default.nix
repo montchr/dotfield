@@ -38,6 +38,8 @@ in
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {
+        # "$mod+shift+`" = "exec emacsclient";
+
         # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
         "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
@@ -51,20 +53,21 @@ in
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
       };
       # output = {};
-      # seat = {
-      #   "*" = {
-      #     hide_cursor = "when-typing enable";
-      #   };
-      # };
+      seat = {
+        "*" = {
+          hide_cursor = "when-typing enable";
+        };
+      };
       floating.criteria = [
         { class = "Pavucontrol"; }
       ];
+
       fonts = {
         names = [
-          "Aporetic Serif Mono"
+          "Aporetic Serif"
           "Symbols Nerd Font"
         ];
-        style = "Semi-bold";
+        # style = "Semi-bold";
         size = 10.0;
       };
     };

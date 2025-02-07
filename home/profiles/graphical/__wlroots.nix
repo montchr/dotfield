@@ -5,6 +5,8 @@
     ./cliphist.nix
     ./darkman.nix
     ./mako.nix
+    ./swayidle.nix
+    ./swaylock.nix
   ];
 
   home.packages = with pkgs; [

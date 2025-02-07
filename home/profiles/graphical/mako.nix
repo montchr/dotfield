@@ -7,8 +7,16 @@ in
   services.mako = {
     enable = true;
     anchor = "top-center";
+    layer = "overlay";
+    defaultTimeout = 12000;
     font = "monospace 8";
-    icons = true;
+    padding = "5,10";
+    width = 300;
+    height = 60;
+    borderSize = 2;
+    extraConfig = ''
+      max-history=50
+    '';
   };
 
 }
