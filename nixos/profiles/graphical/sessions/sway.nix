@@ -31,19 +31,6 @@ in
 
   environment.etc."sway/config".text = ''
     exec sleep 5; systemctl --user start kanshi.service
-
-    # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
-    # These should be set in user config:
-    # bindsym XF86AudioPlay exec playerctl play-pause
-    # bindsym XF86AudioNext exec playerctl next
-    # bindsym XF86AudioPrev exec playerctl previous
-    # bindsym XF86Search exec fuzzel
   '';
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

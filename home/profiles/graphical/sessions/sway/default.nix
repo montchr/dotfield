@@ -38,16 +38,17 @@ in
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {
-
-        # "$mod+Shift+q" = "kill"; # default
-
-        # NOTE: Most media keys are set in system config.  The
-        # behavior of the following media keys is a matter of user
-        # preference:
+        # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
+        "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+        "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+        "XF86Search" = "exec fuzzel";
+        "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        "XF86AudioPrev" = "exec playerctl previous";
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioNext" = "exec playerctl next";
-        "XF86AudioPrev" = "exec playerctl previous";
-        "XF86Search" = "exec fuzzel";
+        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
       };
       # output = {};
       # seat = {
