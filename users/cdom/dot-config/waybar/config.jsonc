@@ -69,8 +69,8 @@
   },
   "mpd": {
     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-    "format-disconnected": "Disconnected ",
-    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "format-disconnected": "󰝛",
+    "format-stopped": "󰝚  {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}",
     "unknown-tag": "N/A",
     "interval": 5,
     "consume-icons": {
@@ -81,7 +81,7 @@
       "on": " "
     },
     "repeat-icons": {
-      "on": "󰑖 "
+      "on": " "
     },
     "single-icons": {
       "on": "󰑘 "
@@ -105,28 +105,30 @@
     "spacing": 10
   },
   "clock": {
-    // "timezone": "America/New_York",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%Y-%m-%d}"
+    "interval": 1,
+    "on-click-left": "mode",
+    "format": "{:%Y-%m-%d %H:%M:%S %z}",
+    "format-alt": "{:%m/%d %H:%M:%S}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
-    "format": "{usage}% ",
+    "format": " {usage}%",
     "tooltip": false
   },
   "memory": {
-    "format": "{}% "
+    "format": " {}%"
   },
   "temperature": {
     // "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
     // "format-critical": "{temperatureC}°C {icon}",
-    "format": "{temperatureC}°C {icon}",
+    "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", ""]
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
+    "format": "{icon} {percent}%",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
   "battery": {
@@ -135,12 +137,12 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
-    "format-full": "{capacity}% {icon}",
-    "format-charging": "{capacity}% 󰂄",
-    "format-plugged": "{capacity}% ",
-    "format-alt": "{time} {icon}",
-    // "format-good": "", // An empty format will hide the module
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-good": "", // An empty format will hide the module
     // "format-full": "",
     "format-icons": ["", "", "", "", ""]
   },
@@ -152,28 +154,28 @@
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true,
     "format-icons": {
-      "default": "",
-      "performance": "",
-      "balanced": "",
-      "power-saver": ""
+      "default": "䷯",
+      "performance": "䷏",
+      "balanced": "䷎",
+      "power-saver": "䷟"
     }
   },
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
-    "tooltip-format": "{ifname} via {gwaddr} 󰌘",
-    "format-linked": "{ifname} (No IP) 󰌚",
-    "format-disconnected": "Disconnected 󰌙",
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀 {ipaddr}/{cidr}",
+    "tooltip-format": "󰌘 {ifname} via {gwaddr}",
+    "format-linked": "󰌚 {ifname} (No IP)",
+    "format-disconnected": "󰌙 Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
-    "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format": "{icon} {volume}% {format_source}",
+    "format-bluetooth": "{icon} {volume}% {format_source}",
     "format-bluetooth-muted": "󰝟 {icon} {format_source}",
     "format-muted": "󰝟 {format_source}",
-    "format-source": "{volume}% ",
+    "format-source": " {volume}%",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "󰋋",
@@ -202,7 +204,7 @@
     "format": "⏻ ",
     "tooltip": false,
     "menu": "on-click",
-    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+    "menu-file": "$HOME/.config/waybar/power_menu.xml", // <https://github.com/Alexays/Waybar/blob/c32d5e3883558db2913dcd09c1b96a7e6c467c25/resources/custom_modules/power_menu.xml>
     "menu-actions": {
       "shutdown": "shutdown",
       "reboot": "reboot",

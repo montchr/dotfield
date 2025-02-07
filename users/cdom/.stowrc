@@ -1,0 +1,5 @@
+--target=~
+--ignore='.nix$'
+--ignore='\.stowrc'
+--dotfiles
+--verbose

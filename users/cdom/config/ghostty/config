@@ -1,6 +1,0 @@
-font-family = Aporetic Sans Mono
-font-feature = -calt
-font-feature = +dlig
-font-size = 12
-theme = dark:Cyberdyne,light:catppuccin-latte
-window-decoration = false
