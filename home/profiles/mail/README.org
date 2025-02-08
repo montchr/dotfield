@@ -1,0 +1,26 @@
+:PROPERTIES:
+:ID:       923c36aa-5d6c-46fa-a87a-e2f954f1bc25
+:END:
+#+title: Configuring Email
+#+author: Cea
+#+language: en
+
+* Outlook
+:PROPERTIES:
+:ID:       ac856a89-fa2b-4750-ad42-bba5002b1c65
+:END:
+
+1. Link =pizauth.conf= to =~/.config/pizauth.conf=, adjusting details if
+   necessary prior to doing so.
+2. =pizauth server= — there should be no output
+3. =pizauth show TU= — on first run, you will see a URL, so copy that
+   and open in a browser
+4. Run through the auth flow
+5. See the access token spit out by =pizauth=
+
+* Sources
+:PROPERTIES:
+:ID:       e754fd54-2029-4673-8d15-cb0fe7f444f2
+:END:
+
+** [[https://brettpresnell.com/post/email/][Reading Email with Emacs | Brett Presnell]]

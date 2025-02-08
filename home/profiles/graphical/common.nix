@@ -38,6 +38,7 @@ in
 
   home.packages = [
     pkgs.mediainfo
+    pkgs.thunderbird-latest
     pkgs.ydotool # command-line automation tool
   ];
 

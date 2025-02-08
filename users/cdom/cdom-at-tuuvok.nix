@@ -4,6 +4,9 @@ _hmArgs: {
     ../../home/mixins/workstation.nix
     ../../home/mixins/jobwork.nix
 
+    ../../home/profiles/mail/default.nix
+    ../../home/profiles/mail/accounts/outlook.nix
+
     ../../home/profiles/shells/fish/default.nix
     ../../home/profiles/shells/fish/trampoline.nix
 

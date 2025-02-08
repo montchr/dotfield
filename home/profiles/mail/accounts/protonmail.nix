@@ -1,20 +1,21 @@
 { config, pkgs, ... }:
 let
-  inherit (config.dotfield.dotfield) whoami;
-
-  passCmdFor = user: domain: "${pkgs.pass}/bin/pass Email/${domain}/${user}";
+  inherit (config.dotfield) whoami;
 
   mkProtonMailAccount =
     {
       user,
       domain ? "proton.me",
       realName ? whoami.fullName,
+      primary ? false,
     }:
     let
+
       address = "${user}@${domain}";
+      passCmdFor = user: domain: "${pkgs.pass}/bin/pass ${address}/bridge/password";
     in
     {
-      inherit address realName;
+      inherit address realName primary;
 
       userName = address;
 
@@ -41,16 +42,22 @@ let
         create = "maildir";
         # Insecure auth on localhost is... okay...?
         extraConfig.account.AuthMechs = "LOGIN";
-        # TODO: verify effect
-        # remove = "none";
-        # expunge = "both";
+        # Prevent... mishaps...
+        remove = "none";
+        expunge = "none";
+      };
+
+      notmuch = {
+        enable = true;
       };
     };
 in
 
 {
-  accounts.email.accounts.primary = mkProtonMailAccount {
-    userName = "chmont";
-  };
+  imports = [ ../../proton-bridge.nix ];
 
+  accounts.email.accounts."chmont-at-proton" = mkProtonMailAccount {
+    user = "chmont";
+    primary = true;
+  };
 }
