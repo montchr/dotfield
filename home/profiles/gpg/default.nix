@@ -38,10 +38,6 @@ in
           text = ops.keys.pgp.asc.${key};
           trust = "ultimate";
         }
-        {
-          text = ops.keys.pgp.asc."0xF0B8FB42A7498482";
-          trust = "ultimate";
-        }
       ];
 
       # https://github.com/drduh/config/blob/master/gpg.conf
