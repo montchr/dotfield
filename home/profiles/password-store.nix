@@ -27,6 +27,11 @@ lib.mkIf config.programs.gpg.enable {
     };
   };
 
+  services.pass-secret-service = {
+    enable = true;
+    storePath = passwordStorePath;
+  };
+
   programs.browserpass.enable = true;
   programs.browserpass.browsers = [ "firefox" ];
 

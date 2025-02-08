@@ -21,8 +21,6 @@ in
   qt.enable = true;
   qt.platformTheme.name = "gtk3";
 
-  services.gnome-keyring.enable = true;
-
   xdg = {
     userDirs = {
       enable = true;
