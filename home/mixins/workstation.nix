@@ -14,7 +14,6 @@
     ../profiles/development/data-wrangling.nix
     ../profiles/emacs/org-protocol.nix
     ../profiles/espanso/default.nix
-    ../profiles/git/repo-manager.nix
     ../profiles/git-sync.nix
     ../profiles/ledger.nix
     ../profiles/pandoc.nix
