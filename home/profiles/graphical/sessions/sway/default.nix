@@ -43,6 +43,8 @@ in
         # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
         "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+        "shift+XF86MonBrightnessDown" = "exec brightnessctl -d kbd_backlight set 10%-";
+        "shift+XF86MonBrightnessUp" = "exec brightnessctl -d kbd_backlight set 10%+";
         "XF86Search" = "exec fuzzel";
         "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
         "XF86AudioPrev" = "exec playerctl previous";
