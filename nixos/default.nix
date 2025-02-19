@@ -41,6 +41,7 @@ let
       overlays = [
         (import ../overlays/mkDefaultOverlay.nix {
           inherit (inputs)
+            nixos-stable
             nixpkgs-trunk
             ;
         })

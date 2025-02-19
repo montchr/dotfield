@@ -34,7 +34,6 @@ in
 
   programs.beets = {
     enable = true;
-    # package = pkgs.beets;
     package = pkgs.beets.override {
       pluginOverrides = {
         # FIXME: broken with beets 2.1.0
