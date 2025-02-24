@@ -36,10 +36,9 @@
     # menus:
     wlogout
     wlr-which-key
-    # image viewers:
-    pqiv
+    # document viewers:
     swayimg
-
+    zathura
     # wallpaper:
     waypaper
   ];
