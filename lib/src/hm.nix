@@ -60,9 +60,8 @@ in
   makeHomeConfiguration =
     username: args:
     let
-      inherit (args) pkgs;
-      # FIXME: should be hostPlatform?
-      inherit (pkgs.stdenv) system;
+      # FIXME: should use hostPlatform?
+      system = args.pkgs.stdenv.system or args.system;
     in
     withSystem system (
       { pkgs, ... }:

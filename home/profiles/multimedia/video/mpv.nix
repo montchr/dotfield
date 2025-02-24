@@ -5,7 +5,6 @@ moduleArgs@{
   ...
 }:
 let
-  inherit (config.dotfield.features) hasWayland;
   isGnomeDesktop = moduleArgs.osConfig.services.xserver.desktopManager.gnome.enable or false;
   hasNvidia = moduleArgs.osConfig.dotfield.features.hasNvidia or false;
 in
@@ -27,9 +26,9 @@ in
         # FIXME: doesn't belong here...?
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
+        gpu-context = "wayland";
       }
       (lib.optionalAttrs hasNvidia { hwdec = "vdpau"; })
-      (lib.optionalAttrs hasWayland { gpu-context = "wayland"; })
     ];
   };
 }
