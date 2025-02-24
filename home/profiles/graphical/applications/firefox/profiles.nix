@@ -98,16 +98,14 @@ let
   search = import ./search/default.nix { inherit lib lib' pkgs; };
 in
 {
-  imports = [ ./extensions/tridactyl.nix ];
-
   programs.firefox.profiles.home = {
     inherit
-      extensions
       search
       userChrome
       userContent
       ;
     id = 0;
+    extensions.packages = extensions;
     settings = makeSettings' {
       imports = [
         ./settings/browser-toolbox.nix
@@ -120,10 +118,9 @@ in
   };
 
   programs.firefox.profiles.work = {
-    inherit extensions search userContent;
+    inherit search userContent;
     id = 1;
-
-    # TODO: improve appearance distinction from other profiles
+    extensions.packages = extensions;
     settings = makeSettings' {
       "browser.startup.homepage" = "about:blank";
       "userChrome.theme.monospace" = false;
