@@ -9,6 +9,7 @@ with addons;
   copy-selection-as-markdown
   darkreader
   display-anchors
+  grasp
   link-cleaner
   multi-account-containers
   offline-qr-code-generator
