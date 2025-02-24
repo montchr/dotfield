@@ -2,14 +2,14 @@
 # $ kitty +list-fonts --psnames | grep Aporetic
 # ...or with Ghostty:
 # $ ghostty +list-fonts | grep Aporetic
-{ config, flake, ... }:
+{ config, pkgs, ... }:
 let
   cfg = config.theme.fonts;
 in
 {
   theme.fonts.monospace = {
     name = "Aporetic Sans Mono";
-    package = flake.perSystem.legacyPackages.aporetic.sans-mono;
+    package = pkgs.aporetic;
     psNamespace = "Aporetic-Sans-Mono";
   };
   theme.fonts.terminal = cfg.monospace;

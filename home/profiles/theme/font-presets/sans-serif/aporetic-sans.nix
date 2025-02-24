@@ -1,8 +1,8 @@
-{ flake, ... }:
+{ pkgs, ... }:
 {
   theme.fonts.sansSerif = {
     name = "Aporetic Sans";
-    package = flake.perSystem.legacyPackages.aporetic.sans;
+    package = pkgs.aporetic;
     psNamespace = "Aporetic-Sans";
   };
 }

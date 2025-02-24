@@ -1,7 +1,6 @@
 { inputs, ... }:
 {
   imports = [
-    ./__aporetic.nix
     ./__beets-packages.nix
   ];
 

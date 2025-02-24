@@ -13,11 +13,7 @@
   fonts.packages = (
     with pkgs;
     [
-      flake.perSystem.legacyPackages.aporetic.sans
-      flake.perSystem.legacyPackages.aporetic.sans-mono
-      flake.perSystem.legacyPackages.aporetic.serif
-      flake.perSystem.legacyPackages.aporetic.serif-mono
-
+      aporetic
       bakoma_ttf
       # <https://software.sil.org/charis/>
       # <https://practicaltypography.com/charter.html>
