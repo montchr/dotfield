@@ -44,7 +44,7 @@ in
   programs.emacs = {
     enable = true;
     # TODO: update darwin package to whatever it should be now
-    package = if isDarwin then pkgs.emacs29-macport else emacs-overlay.packages.emacs-pgtk;
+    package = if isDarwin then pkgs.emacs30-macport else emacs-overlay.packages.emacs-unstable-pgtk;
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
