@@ -6,8 +6,10 @@
     flake.perSystem.packages.realise-symlink
 
     pkgs.fq # <- oh look, another jq-like
-    pkgs.fx # <- interactive terminal json viewer                  => <https://github.com/antonmedv/fx>
+    pkgs.fx # <- interactive terminal json viewer                    => <https://github.com/antonmedv/fx>
     pkgs.glow # <- charmbracelet's markdown cli renderer
+    pkgs.hexyl # <- hex viewer
+    pkgs.monolith # <- bundle any web page into a single html file   => <https://github.com/Y2Z/monolith>
     pkgs.moreutils # <- almost core utils
     pkgs.ouch # <- Obvious Unified Compression Helper                => <https://github.com/ouch-org/ouch>
     pkgs.treefmt # <- one cli to format the code tree
@@ -27,15 +29,11 @@
 
     ##: [evaluating]
     pkgs.joshuto # <- yet ANOTHER ranger-like file manager tui => <https://github.com/kamiyaa/joshuto>
-    pkgs.skim # <- like fzf... but... written in rust...
 
     ##: [lukewarm]
     pkgs.grex # <- generate regexps from user-provided test cases
 
     ##: [TODO]
-    pkgs.doggo # <- command-line DNS client for humans                => <https://github.com/mr-karan/doggo>
     pkgs.duf # <- better du/df alternative                          => <https://github.com/muesli/duf/>
-    pkgs.fortune # <- display pseudorandom quotations
-    pkgs.hexyl # <- command-line hex viewer
   ];
 }
