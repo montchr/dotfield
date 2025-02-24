@@ -31,9 +31,8 @@ in
         {
           command = "firefox --profile ~/.mozilla/firefox/home";
         }
-        {
-          command = "emacs";
-        }
+        { command = "emacs"; }
+        { command = "waypaper --restore"; }
       ];
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.

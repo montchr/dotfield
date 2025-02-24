@@ -40,5 +40,7 @@
     pqiv
     swayimg
 
+    # wallpaper:
+    waypaper
   ];
 }
