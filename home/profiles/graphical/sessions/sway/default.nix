@@ -65,7 +65,7 @@ in
 
       fonts = {
         names = [
-          "Aporetic Serif"
+          "Aporetic Sans"
           "Symbols Nerd Font"
         ];
         # style = "Semi-bold";

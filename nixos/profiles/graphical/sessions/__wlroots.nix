@@ -8,6 +8,7 @@
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
 
+  # TODO: provide a default launcher
   environment.systemPackages = with pkgs; [
     gtk-layer-shell
 
@@ -23,6 +24,7 @@
 
     # TODO: evaluate
     shikane # aims to be improvement over kanshi
+    wluma # sensor-adaptive brightness adjustment daemon
 
   ];
 }

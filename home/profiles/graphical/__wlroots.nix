@@ -18,28 +18,42 @@
   ];
 
   home.packages = with pkgs; [
-    dmenu
+    ## Launchers:
+    bemenu
+    fuzzel
+    tofi
+
+    ## Color picker:
+    # TODO: find a non-hypr alternative!
+    hyprpicker
 
     # TODO: evaluate
-    # lockscreen
+    ## Lockscreen:
     # TODO: <https://gitlab.com/wef/dotfiles/-/blob/master/bin/mylock>
     swaylock
-    # bars
+
+    ## Bars:
+    eww
     waybar
-    # screenshots/capture:
+
+    ## Screenshots/capture/annotation:
     kooha # screenshot gui
     swappy
     wf-recorder
-    # notifications:
+
+    ## Notifications:
     dunst
     mako
-    # menus:
+
+    ## Menus:
     wlogout
     wlr-which-key
-    # document viewers:
+
+    ## Document viewers:
     swayimg
     zathura
-    # wallpaper:
+
+    ## Wallpaper:
     waypaper
   ];
 }
