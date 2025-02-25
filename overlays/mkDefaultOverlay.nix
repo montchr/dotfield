@@ -4,6 +4,7 @@ final: prev: {
     beets
     beets-unstable
     beetsPackages
+    biome
     ;
 
   inherit (nixpkgs-trunk.legacyPackages.${final.system})

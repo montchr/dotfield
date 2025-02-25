@@ -11,7 +11,8 @@
 
   home.packages = [
     pkgs.asciinema
-    pkgs.ast-grep
+    # FIXME: build failure
+    # pkgs.ast-grep
     pkgs.lynis # security auditing
     pkgs.universal-ctags
 
