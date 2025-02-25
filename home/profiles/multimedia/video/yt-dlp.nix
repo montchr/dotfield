@@ -16,6 +16,7 @@ in
       # sub-langs = "en-US";
     };
   };
+  programs.mpv.config.ytdl-format = "bestvideo+bestaudio";
   home.shellAliases = {
     ytd = "yt-dlp";
 

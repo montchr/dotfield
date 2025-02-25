@@ -14,7 +14,6 @@ in
     scripts =
       with pkgs.mpvScripts;
       [
-        autoload # autoload playlist entries before/after current file
         thumbnail # show thumbnail in seekbar
         mpv-playlistmanager
       ]
@@ -23,8 +22,6 @@ in
       ++ lib.optional isGnomeDesktop inhibit-gnome;
     config = lib.mkMerge [
       {
-        # FIXME: doesn't belong here...?
-        ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
         gpu-context = "wayland";
       }
