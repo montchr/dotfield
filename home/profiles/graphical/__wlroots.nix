@@ -12,7 +12,7 @@
     ./common.nix
     ./cliphist.nix
     ./darkman.nix
-    ./mako.nix
+    ./dunst.nix
     ./swayidle.nix
     ./swaylock.nix
   ];
@@ -21,7 +21,6 @@
     ## Launchers:
     bemenu
     fuzzel
-    tofi
 
     ## Color picker:
     # TODO: find a non-hypr alternative!
@@ -43,7 +42,6 @@
 
     ## Notifications:
     dunst
-    mako
 
     ## Menus:
     wlogout
