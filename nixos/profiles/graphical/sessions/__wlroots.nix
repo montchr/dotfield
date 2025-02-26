@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ../nixpkgs-wayland-overlay.nix
     ../common.nix
     ../kanshi.nix
   ];
