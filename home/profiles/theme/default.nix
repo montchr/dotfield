@@ -13,9 +13,9 @@ in
     ./__difftastic.nix
     ./__kitty.nix
 
-    ./font-presets/monospace/iosevka-comfy.nix
+    ./font-presets/monospace/aporetic-sans-mono.nix
     ./font-presets/sans-serif/inter.nix
-    ./font-presets/serif/ibm-plex-serif.nix
+    ./font-presets/serif/aporetic-serif.nix
   ];
 
   home.packages = [ pkgs.fastfetch ];
