@@ -9,6 +9,20 @@ let
   theme = config.theme;
   fxCfg = config.programs.firefox;
   mod = cfg.config.modifier;
+
+  screenshotsDir = "$HOME/Pictures/Screenshots";
+  screenshotFilename = "${screenshotsDir}/screenshot-$(date '+%Y%m%dT%H%M%S').png";
+  screenshot = pkgs.writeShellScript "screenshot.sh" ''
+    grim -g "$(slurp -o -r -c '#ff0000ff')" - \
+      | satty --filename - --fullscreen \
+        --output-filename ${screenshotFilename}
+  '';
+  screenshotArea = pkgs.writeShellScript "screenshot-area.sh" ''
+    mkdir -p "${screenshotsDir}"
+    grim -g "$(slurp)" \
+    | satty --filename - --output-filename ${screenshotFilename}
+  '';
+
 in
 {
   imports = [
@@ -39,6 +53,11 @@ in
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {
         # "$mod+shift+`" = "exec emacsclient";
+        "${mod}+F12" = "exec ${screenshot}";
+        "${mod}+Shift+F12" = "exec ${screenshotArea}";
+        "${mod}+p" = "exec ${screenshot}";
+        "${mod}+Shift+p" = "exec ${screenshotArea}";
+        "${mod}+Ctrl+p" = "exec kooha";
 
         # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
         "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
