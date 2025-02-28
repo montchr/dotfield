@@ -7,8 +7,9 @@ moduleArgs@{
 let
   cfg = config.wayland.windowManager.sway;
   theme = config.theme;
-  fxCfg = config.programs.firefox;
   mod = cfg.config.modifier;
+
+  swaymsg = "swaymsg";
 
   screenshotsDir = "$HOME/Pictures/Screenshots";
   screenshotFilename = "${screenshotsDir}/screenshot-$(date '+%Y%m%dT%H%M%S').png";
@@ -42,6 +43,29 @@ in
     config = {
       modifier = "Mod4";
       terminal = lib.mkDefault "foot";
+      focus.followMouse = "always";
+
+      window = {
+        hideEdgeBorders = "smart";
+        border = 2;
+        titlebar = true;
+        commands = [
+          {
+            command = "floating enable, sticky enable";
+            criteria = {
+              title = "Picture-in-Picture";
+            };
+          }
+          {
+            command = "floating enable, sticky enable";
+            criteria = {
+              title = ".*Sharing Indicator.*";
+            };
+          }
+
+        ];
+      };
+
       startup = [
         { command = "firefox --profile ~/.mozilla/firefox/home"; }
         { command = "firefox --profile ~/.mozilla/firefox/work"; }
@@ -52,7 +76,17 @@ in
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {
-        # "$mod+shift+`" = "exec emacsclient";
+        # "${mod}+shift+grave" = "exec emacsclient";
+
+        "${mod}+Ctrl+Alt+Delete" = "exec ${swaymsg} exit";
+        "Ctrl+Alt+Delete" = "exec ${swaymsg} exit";
+        "${mod}+Ctrl+Alt+Insert" = "exec ${swaymsg} reload";
+
+        "${mod}+Tab" = "workspace next";
+        "${mod}+Shift+Tab" = "workspace prev";
+        "${mod}+Next" = "workspace next";
+        "${mod}+Prior" = "workspace prev";
+
         "${mod}+F12" = "exec ${screenshot}";
         "${mod}+Shift+F12" = "exec ${screenshotArea}";
         "${mod}+p" = "exec ${screenshot}";
@@ -79,9 +113,16 @@ in
           hide_cursor = "when-typing enable";
         };
       };
-      floating.criteria = [
-        { class = "Pavucontrol"; }
-      ];
+      floating = {
+        border = 3;
+        titlebar = false;
+        criteria = [
+          { class = "Pavucontrol"; }
+          { app_id = ".*zathura"; }
+          { app_id = "mpv"; }
+          { app_id = "xdg-desktop-portal-gtk"; }
+        ];
+      };
 
       fonts = {
         names = [
