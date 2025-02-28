@@ -21,8 +21,10 @@ in
       age = keys.age.seadoom-at-boschic;
       keys = [ keys.ssh.seadoom-at-boschic ];
     };
+    syncthing.id = "5TCUNJM-PVGGNJ6-DETAT3O-PSMTOEP-SXRT7FP-62EFNZY-6ENFIYZ-3J2VHQJ";
   };
   brakhage.users.blink.keys = [ keys.ssh.blink-at-brakhage ];
+  brakhage.syncthing.id = "DIRTDK2-3ODIIYJ-SB3E2A6-PCQP3RZ-M7KDQGU-7TMZ525-YGVXW5C-HHDS6A3";
   chert = {
     inherit (networks.loopgarden) domain;
     ipv6 = hetznerIp6 "2a01:4f8:c012:6d05";
@@ -65,6 +67,7 @@ in
     network = "home";
     networks.ts = "100.71.240.35";
     users.seadoom.keys = [ keys.ssh.seadoom-at-hodgepodge ];
+    syncthing.id = "W7EFFEO-BAZIKPC-M5C2OOT-JXR6CIP-MISL4ID-2ZUBFYT-44ZEWUK-6R75OA3";
   };
   platauc = {
     ipv4.address = "78.46.148.56";
@@ -108,6 +111,7 @@ in
       age = keys.age.cdom-at-ryosuke;
       keys = [ keys.ssh.cdom-at-ryosuke ];
     };
+    syncthing.id = "2HDN7UF-5YKEBC7-4YB4L4H-A6Y7EGS-YZ5CSQX-AWWDKR7-KH5WIKH-D6LOTQ4";
   };
   synoxyn = {
     ipv4.address = "192.168.1.197";
@@ -121,6 +125,7 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGd0Ao5dHAF1+uOanojoMaE6XBkzsa6ooMNe+rBNY5PI cdom@synoxyn"
       ];
     };
+    syncthing.id = "QRAOJJT-LNPMO55-EE6GHCF-QQARBFR-RFH67IA-I465ZJQ-N37LLBU-BWZ2IAR";
   };
   tuvix = {
     age = keys.age.tuvix;
@@ -146,6 +151,7 @@ in
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDczCHJl9sJxhB7uy4tqWGYUy1cV3r6dfj777kXsIVyTgT16rDYN0ySVHL2qPUycNv5Xe1Fsv526vJpJEMX3W28mh7n9Kfp2U6WcMPZTtnOxoXrd9CAv8XjtkMEPzoaRQl37WwAkNT1zD5Qx9pFFS8Q5tipquSECH/iA/xBQ51g6FYIT+VVhVsVjWegQR5YB44e0GnYZdSbcOPP42C1Itxyr4hRHitjWWf+lKoNy0eP5KNVNH1MGGVnpriWohHhXPpOjKO7Fs7RI0TEiNJP8+MuI52c26mc3n1c8yla7/li9GStlxEhaZSPveQ0bnUYgXI5aqPT0oCmsXNVH+Ph1oTCYaqIGVvpidvrN/dJsg0psGfl7l0HSlaYBcebvlM+jorS6EVNBx+pILhXFX+YrDrp5rmMiUFAWdvcxTb1gmeFr27fwZV75G01aZvLQhlt3mTzH0yOpEEZQRlsczL8RH+8DTOqQSyM8j62wxGaNDRSTwka54/Wkn4O9e2ZJ88Xi58= cdom@tuvix"
       ];
     };
+    syncthing.id = "RYZCGPD-UTXDTH6-DZ5ZJ4W-QVMBUYS-RYBME76-HXUWNVR-OAJK4VR-F222AAK";
   };
   tuuvok = {
     hardware = {
@@ -167,5 +173,6 @@ in
       age = keys.age.cdom-at-tuuvok;
       keys = [ keys.ssh.cdom-at-tuuvok ];
     };
+    syncthing.id = "TR3RHZG-CZX3C6D-N2SDPVS-RI2H4JR-DEAVMKT-O7V4US2-LQK5WNR-V2TN2AA";
   };
 }
