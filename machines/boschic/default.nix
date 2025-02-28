@@ -66,4 +66,8 @@ in
     };
 
   programs.steam.enable = true;
+
+  home-manager.sharedModules = [
+    ../../home/mixins/nvidia.nix
+  ];
 }

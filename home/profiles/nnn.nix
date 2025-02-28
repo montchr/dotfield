@@ -16,34 +16,21 @@ let
 
   kittyCfg = config.programs.kitty;
 
-  # FIXME: false negative depending on osConfig
-  isGraphical = (moduleArgs.osConfig.services.xserver.enable or false);
-
   enablePreviews = true;
 
   # FIXME: make sure the wrapped package can access these
   #        currently no syntax highlighting in previews
-  previewDeps =
-    [
-      pkgs.bat
-      pkgs.eza
-      pkgs.file
-      pkgs.glow
-      pkgs.man
-      pkgs.mediainfo
-      pkgs.pistol
-      pkgs.unzip
-    ]
-    ++ (lib.optionals isGraphical [
-      pkgs.imagemagick
-      pkgs.ffmpeg
-      pkgs.ffmpegthumbnailer
-      pkgs.fontpreview
-      pkgs.poppler # pdf rendering
-      pkgs.viu
-      pkgs.w3m # text-mode web browser
-    ])
-    ++ (lib.optionals (isGraphical && isLinux) [ pkgs.gnome-epub-thumbnailer ]);
+  previewDeps = [
+    pkgs.bat
+    pkgs.eza
+    pkgs.file
+    pkgs.glow
+    pkgs.man
+    pkgs.mediainfo
+    pkgs.pistol
+    pkgs.unzip
+  ];
+
 in
 {
   programs.nnn = {

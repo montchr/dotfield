@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ../profiles/graphical/common.nix
@@ -12,5 +13,15 @@
     ../profiles/hardware/keyboard/default.nix
     ../profiles/multimedia/default.nix
     ../profiles/theme/default.nix
+  ];
+
+  programs.nnn.extraPackages = [
+    pkgs.imagemagick
+    pkgs.ffmpeg
+    pkgs.ffmpegthumbnailer
+    pkgs.fontpreview
+    pkgs.poppler # pdf rendering
+    pkgs.viu
+    pkgs.w3m # text-mode web browser
   ];
 }

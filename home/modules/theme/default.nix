@@ -20,12 +20,11 @@ let
   # Single-item list format follows the NixOS options.
   defaultFonts =
     let
-      fonts =
-        moduleArgs.osConfig.fonts.fontconfig.defaultFonts or {
-          monospace = [ "DejaVu Sans Mono" ];
-          sansSerif = [ "DejaVu Sans" ];
-          serif = [ "DejaVu Serif" ];
-        };
+      fonts = {
+        monospace = [ "DejaVu Sans Mono" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif = [ "DejaVu Serif" ];
+      };
     in
     mapAttrs (_: head) fonts;
 

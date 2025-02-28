@@ -1,16 +1,12 @@
-moduleArgs@{
+{
   pkgs,
   lib,
   config,
   ...
 }:
 let
-  swayPackage =
-    moduleArgs.osConfig.programs.sway.package or config.wayland.windowManager.sway.package;
   swaylock = lib.getExe config.programs.swaylock.package;
   pgrep = "${pkgs.procps}/bin/pgrep";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
-  swaymsg = "${swayPackage}/bin/swaymsg";
 
   isLocked = "${pgrep} -x ${swaylock}";
   lockTime = 10 * 60;
@@ -47,8 +43,8 @@ in
       # Sway: Turn off displays
       ++ (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
         timeout = 40;
-        command = "${swaymsg} 'output * dpms off'";
-        resumeCommand = "${swaymsg} 'output * dpms on'";
+        command = "swaymsg 'output * dpms off'";
+        resumeCommand = "swaymsg 'output * dpms on'";
       }));
   };
 }

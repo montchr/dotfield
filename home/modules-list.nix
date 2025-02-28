@@ -1,5 +1,4 @@
 [
-  ./modules/dotfield/paths.nix
   ./modules/dotfield/whoami.nix
   ./modules/theme/default.nix
 
