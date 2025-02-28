@@ -7,5 +7,4 @@
     ];
   };
   nix.settings.trusted-substituters = [ "https://nixpkgs-wayland.cachix.org" ];
-  nixpkgs.overlays = [ flake.inputs.nixpkgs-wayland.overlay ];
 }

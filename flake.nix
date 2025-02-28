@@ -5,7 +5,9 @@
     {
       nixpkgs,
       nixos-stable,
+      nixos-unstable,
       nixpkgs-trunk,
+      nixpkgs-wayland,
       flake-parts,
       haumea,
       namaka,
@@ -59,11 +61,16 @@
                 inherit system;
                 config.allowUnfree = true;
                 overlays = [
+                  inputs.nixpkgs-wayland.overlay
+
                   (import ./overlays/mkDefaultOverlay.nix {
                     inherit
                       nixos-stable
                       nixpkgs-trunk
                       ;
+                  })
+                  (import ./overlays/mkWaylandOverlay.nix {
+                    inherit nixos-unstable nixpkgs-wayland;
                   })
                 ];
               };

@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ../nixpkgs-wayland-overlay.nix
     ../common.nix
   ];
 
@@ -15,14 +16,14 @@ in
 
   # TODO: provide a default launcher
   environment.systemPackages = with pkgs; [
-    wlPkgs.gtk-layer-shell
+    gtk-layer-shell
 
     # essentials
     brightnessctl
-    wlPkgs.grim
-    wlPkgs.slurp
     wev # input monitoring
     wl-clipboard # clipboard
+    grim
+    slurp
 
     # swappables
     nemo # file manager

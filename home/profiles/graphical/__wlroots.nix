@@ -39,8 +39,8 @@
     swaylock
 
     ## Bars:
-    flake.perSystem.inputs'.nixpkgs-wayland.packages.eww
-    waybar
+    eww
+    flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar
 
     ## Screenshots/capture/annotation:
     kooha # screenshot gui

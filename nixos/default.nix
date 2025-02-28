@@ -39,11 +39,16 @@ let
       crossSystem.system = "aarch64-linux";
       localSystem.system = buildPlatform;
       overlays = [
+        inputs.nixpkgs-wayland.overlay
+
         (import ../overlays/mkDefaultOverlay.nix {
           inherit (inputs)
             nixos-stable
             nixpkgs-trunk
             ;
+        })
+        (import ../overlays/mkWaylandOverlay.nix {
+          inherit (inputs) nixos-unstable nixpkgs-wayland;
         })
         nixos-apple-silicon.overlays.default
       ];
