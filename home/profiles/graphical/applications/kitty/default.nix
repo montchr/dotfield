@@ -46,4 +46,8 @@ in
 
   programs.fuzzel.settings.main.terminal = "kitty";
   wayland.windowManager.sway.config.terminal = "kitty";
+
+  dconf.settings."org/cinnamon/desktop/applications/terminal" = {
+    exec = "kitty";
+  };
 }

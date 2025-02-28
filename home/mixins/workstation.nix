@@ -8,6 +8,7 @@
     ../profiles/graphical/applications/ghostty/default.nix
     ../profiles/graphical/applications/obs-studio.nix
     ../profiles/graphical/applications/okular.nix
+    ../profiles/graphical/applications/qutebrowser.nix
     ../profiles/graphical/applications/xournal.nix
 
     ../profiles/development/common.nix

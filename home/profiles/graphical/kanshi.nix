@@ -7,19 +7,21 @@
 # > This is a Wayland equivalent for tools like autorandr. kanshi can be
 # > used on Wayland compositors supporting the wlr-output-management
 # > protocol.
-{ pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.kanshi ];
-
-  systemd.user.services.kanshi = {
-    description = "kanshi daemon";
-    environment = {
-      WAYLAND_DISPLAY = "wayland-1";
-      DISPLAY = ":0";
-    };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c kanshi_config_file'';
-    };
+  config,
+  flake,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.services.kanshi;
+in
+{
+  services.kanshi = {
+    enable = true;
+    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.kanshi;
+    profiles = { };
   };
+
+  home.packages = [ cfg.package ];
 }

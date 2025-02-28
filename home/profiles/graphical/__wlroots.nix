@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
 {
   imports = [
     # A secret service is required.  It's either this one (uses
@@ -13,9 +13,16 @@
     ./cliphist.nix
     ./darkman.nix
     ./dunst.nix
+    ./kanshi.nix
     ./swayidle.nix
     ./swaylock.nix
+
+    ./applications/nemo.nix
   ];
+
+  dconf.settings."org/nemo/desktop" = {
+    show-desktop-icons = false;
+  };
 
   home.packages = with pkgs; [
     ## Launchers:
@@ -32,16 +39,13 @@
     swaylock
 
     ## Bars:
-    eww
+    flake.perSystem.inputs'.nixpkgs-wayland.packages.eww
     waybar
 
     ## Screenshots/capture/annotation:
     kooha # screenshot gui
     swappy
     wf-recorder
-
-    ## Notifications:
-    dunst
 
     ## Menus:
     wlogout

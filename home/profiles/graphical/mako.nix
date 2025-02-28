@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  flake,
+  pkgs,
+  config,
+  ...
+}:
 let
   theme = config.theme;
 in
@@ -6,6 +11,7 @@ in
   home.packages = [ pkgs.mako ];
   services.mako = {
     enable = true;
+    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.mako;
     anchor = "top-center";
     layer = "overlay";
     defaultTimeout = 12000;

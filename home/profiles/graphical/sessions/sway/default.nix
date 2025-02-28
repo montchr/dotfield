@@ -21,6 +21,7 @@ in
     # system level.
     package = null;
     extraConfigEarly = ''
+      # FIXME: this does not help
       # <https://wiki.nixos.org/wiki/Sway#GTK_apps_take_an_exceptionally_long_time_to_start>
       include /etc/sway/config.d/*
     '';
@@ -28,12 +29,12 @@ in
       modifier = "Mod4";
       terminal = lib.mkDefault "foot";
       startup = [
-        {
-          command = "firefox --profile ~/.mozilla/firefox/home";
-        }
+        { command = "firefox --profile ~/.mozilla/firefox/home"; }
+        { command = "firefox --profile ~/.mozilla/firefox/work"; }
         { command = "emacs"; }
         { command = "waypaper --restore"; }
       ];
+
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {

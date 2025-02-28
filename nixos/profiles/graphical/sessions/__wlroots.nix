@@ -1,27 +1,31 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
+let
+  wlPkgs = flake.perSystem.inputs'.nixpkgs-wayland.packages;
+in
 {
   imports = [
-    ../nixpkgs-wayland-overlay.nix
     ../common.nix
-    ../kanshi.nix
   ];
 
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
 
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg.portal.wlr.enable = true;
+
   # TODO: provide a default launcher
   environment.systemPackages = with pkgs; [
-    gtk-layer-shell
+    wlPkgs.gtk-layer-shell
 
     # essentials
-    brightnessctl # display brightness
-    grim # screenshot
-    slurp # screenshots
+    brightnessctl
+    wlPkgs.grim
+    wlPkgs.slurp
     wev # input monitoring
     wl-clipboard # clipboard
 
     # swappables
-    nautilus # gnome file manager
+    nemo # file manager
 
     # TODO: evaluate
     shikane # aims to be improvement over kanshi

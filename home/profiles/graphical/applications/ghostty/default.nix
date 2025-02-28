@@ -11,6 +11,10 @@
       window-decoration = false;
     };
   };
+
   programs.fuzzel.settings.main.terminal = "ghostty";
   wayland.windowManager.sway.config.terminal = "ghostty";
+  dconf.settings."org/cinnamon/desktop/applications/terminal" = {
+    exec = "ghostty";
+  };
 }

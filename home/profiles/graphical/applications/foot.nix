@@ -2,6 +2,7 @@
 #
 # - Cursor scaling broken in GNOME, leading to gigantic cursor: <https://codeberg.org/dnkl/foot/issues/1426>
 {
+  flake,
   config,
   lib,
   pkgs,
@@ -15,6 +16,7 @@ in
   config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     programs.foot = {
       enable = true;
+      package = flake.perSystem.inputs'.nixpkgs-wayland.packages.foot;
       settings = {
 
         main = {

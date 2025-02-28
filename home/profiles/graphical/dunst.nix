@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
 {
   services.dunst = {
     enable = true;
+    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.dunst;
     iconTheme.name = "Adwaita";
     iconTheme.package = pkgs.adwaita-icon-theme;
     iconTheme.size = "16x16";

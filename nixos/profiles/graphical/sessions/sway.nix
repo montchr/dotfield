@@ -1,4 +1,5 @@
 {
+  flake,
   config,
   lib,
   pkgs,
@@ -12,6 +13,8 @@ in
   imports = [
     ./__wlroots.nix
   ];
+
+  programs.light.enable = true;
 
   programs.sway = {
     enable = true;
@@ -32,14 +35,6 @@ in
   environment.etc."sway/config".text = ''
     exec sleep 5; systemctl --user start kanshi.service
   '';
-
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  xdg.portal.wlr.enable = true;
-
-  programs.light.enable = true;
-  # programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
-  #   wlrobs
-  # ];
 
   environment.systemPackages = with pkgs; [
     ##: core
