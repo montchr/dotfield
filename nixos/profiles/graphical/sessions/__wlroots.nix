@@ -20,15 +20,22 @@ in
 
     # essentials
     brightnessctl
-    wev # input monitoring
-    wl-clipboard # clipboard
     grim
+    satty
     slurp
+    swaybg
+    swaylock
+    swaylock-effects
+    wev
+    wf-recorder
+    wl-clipboard
 
     # swappables
+    kanshi
     nemo # file manager
 
     # TODO: evaluate
+    nwg-displays # output management gui
     shikane # aims to be improvement over kanshi
     wluma # sensor-adaptive brightness adjustment daemon
 

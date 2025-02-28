@@ -28,6 +28,7 @@
     ## Launchers:
     bemenu
     fuzzel
+    ulauncher
 
     ## Color picker:
     # TODO: find a non-hypr alternative!
@@ -43,9 +44,11 @@
     flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar
 
     ## Screenshots/capture/annotation:
+    grim
     kooha # screenshot gui
-    swappy
-    wf-recorder
+    satty # annotator
+    slurp
+    wf-recorder # screen recorder
 
     ## Menus:
     wlogout
