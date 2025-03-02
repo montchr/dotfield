@@ -21,6 +21,9 @@ in
     ../../__gtk.nix
   ];
 
+  qt.style = "gtk3";
+  qt.platformTheme.name = "gtk3";
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       clock-show-seconds = false;
