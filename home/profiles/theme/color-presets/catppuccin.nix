@@ -26,10 +26,10 @@ lib.mkIf cfg.enable (
       theme.color.scheme.light = mkColorScheme schemes.catppuccin-latte;
     }
   ]
-  ++ (builtins.map (browser: {
-    programs.${browser}.extensions = [
-      { id = chromeExtensionIds.${cfg.color.scheme.dark.name}; }
-      { id = chromeExtensionIds.${cfg.color.scheme.light.name}; }
-    ];
-  }) supportedChromiumBrowsers)
+  # ++ (builtins.map (browser: {
+  #   programs.${browser}.extensions = [
+  #     { id = chromeExtensionIds.${cfg.color.scheme.dark.name}; }
+  #     { id = chromeExtensionIds.${cfg.color.scheme.light.name}; }
+  #   ];
+  # }) supportedChromiumBrowsers)
 )

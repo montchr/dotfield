@@ -6,8 +6,6 @@
     enableZshIntegration = true;
     installBatSyntax = true;
     settings = {
-      font-size = 11;
-      theme = "dark:catppuccin-frappe,light:catppuccin-latte";
       window-decoration = false;
     };
   };

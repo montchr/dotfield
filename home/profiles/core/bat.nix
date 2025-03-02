@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   home.shellAliases."grr" = "${pkgs.bat-extras.batgrep}/bin/batgrep";
   home.shellAliases."man" = "${pkgs.bat-extras.batman}/bin/batman";
@@ -17,7 +17,7 @@
   programs.bat = {
     enable = true;
     config = {
-      theme = "base16";
+      theme = lib.mkDefault "base16";
       map-syntax = [
         ".*ignore:Git Ignore"
         ".gitconfig.local:Git Config"
