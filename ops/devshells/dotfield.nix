@@ -16,7 +16,6 @@ in
       inherit (inputs')
         colmena
         home-manager
-        namaka
         nix-inspect
         ;
 
@@ -63,8 +62,6 @@ in
           (dotfield pkgs.treefmt)
 
           # (maintenance (nix-inspect.packages.default.overrideAttrs { meta.description = "test"; }))
-
-          (maintenance namaka.packages.default)
 
           (maintenance pkgs.nix-init)
           (maintenance pkgs.nix-prefetch)

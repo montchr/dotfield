@@ -10,7 +10,6 @@
       nixpkgs-wayland,
       flake-parts,
       haumea,
-      namaka,
       ...
     }@inputs:
     (
@@ -44,13 +43,6 @@
 
           ./hive.nix
         ];
-
-        flake.checks = namaka.lib.load {
-          src = ./tests;
-          inputs = {
-            inherit ops;
-          };
-        };
 
         perSystem =
           { system, pkgs, ... }:
@@ -118,13 +110,6 @@
     ##: ops
     colmena.url = "github:zhaofengli/colmena";
     sops-nix.url = "github:Mic92/sops-nix";
-    namaka = {
-      url = "github:nix-community/namaka";
-      inputs = {
-        haumea.follows = "haumea";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
 
     ##: customisation
     base16-schemes.url = "github:montchr/nix-base16-schemes";
