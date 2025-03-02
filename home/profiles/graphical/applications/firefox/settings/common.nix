@@ -1,9 +1,4 @@
 # TODO: add docs for all "magical" numeric values
-{ theme, lib, ... }:
-let
-  # FIXME: only do theme stuff if theme enabled for user
-  inherit (theme) font;
-in
 {
   "browser.bookmarks.showMobileBookmarks" = true;
   "browser.contentblocking.category" = "strict";
@@ -26,7 +21,7 @@ in
   # Whether we should draw the tabs on top of the titlebar.
   # no (0), yes (1), or default (2), which is true everywhere except Linux.
   # <https://searchfox.org/mozilla-release/rev/b6792379492929d65f5b61a3caa0a9b19bbd7078/modules/libpref/init/StaticPrefList.yaml#1565-1571>
-  "browser.tabs.inTitlebar" = lib.mkDefault 0;
+  "browser.tabs.inTitlebar" = 0;
 
   # TODO: add documentation for values
   "browser.uidensity" = 1; # Dense.
@@ -46,9 +41,9 @@ in
 
   # Default font should be a generic, either 'serif' or 'sans-serif'.
   "font.default.x-western" = "sans-serif";
-  "font.name.monospace.x-western" = font.monospace.name;
-  "font.name.sans-serif.x-western" = font.sansSerif.name;
-  "font.name.serif.x-western" = font.serif.name;
+  "font.name.monospace.x-western" = "monospace";
+  "font.name.sans-serif.x-western" = "sans-serif";
+  "font.name.serif.x-western" = "serif";
   "font.size.monospace.x-western" = 12;
 
   # CSS blur filter in v88+

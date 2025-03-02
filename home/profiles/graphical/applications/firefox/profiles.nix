@@ -9,9 +9,7 @@ hmArgs@{
 let
   inherit (flake.inputs) haumea;
   inherit (flake.perSystem.inputs') firefox-addons;
-  inherit (flake.inputs.apparat.lib.firefox) evalSettings;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (config) theme;
   lib' = flake.self.lib;
 
   cfg = config.programs.firefox;
@@ -26,72 +24,26 @@ let
   addons = firefox-addons.packages;
   extensions = import ./extensions/common.nix { inherit addons; };
 
-  makeSettings =
-    {
-      modules ? [ ],
-    }:
-    evalSettings {
-      inherit theme;
-      modules = [
-        ./settings/common.nix
-        {
-          "identity.fxaccounts.account.device.name" =
-            hmArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
-        }
-        { _module.args = { inherit lib'; }; }
-      ] ++ modules;
-      extraArgs = {
-        inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-      };
+  baseSettings =
+    (import ./settings/common.nix)
+    // (import ./settings/browser-toolbox.nix)
+    // (import ./settings/ui-state.nix)
+    // {
+      "browser.startup.homepage" = builtins.concatStringsSep "|" [ "https://lobste.rs" ];
+      "identity.fxaccounts.account.device.name" =
+        hmArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
     };
-  makeSettings' = module: (makeSettings { modules = [ module ]; }).config;
 
   userChrome = ''
-    :root {
-      ${mixins.common.themeSettings { inherit (theme) font; }}
-    }
-
     * {
-      font-family: var(--dotfield--font--mono, monospace) !important;
-      font-size: 11px;
+      font-family: monospace !important;
+      font-size: 10px;
       line-height: 1;
     }
 
     moz-input-box,
     #urlbar-input-container {
       font-size: 13px;
-    }
-
-    #sidebar-header {
-      /* display: none; */
-    }
-  '';
-
-  # FIXME: userContent.css is only for mozilla pages! e.g. about:config
-  #        most of this should be moved to something like Stylus
-  userContent = ''
-    :host,
-    :root {
-      ${mixins.common.themeSettings { inherit (theme) font; }}
-    }
-
-    ${mixins.userContent.monospaceText ''
-      font-family: var(--dotfield--font--mono, monospace) !important;
-      font-size: 0.875em !important;
-      line-height: 1.1 !important;
-    ''}
-
-    /* GitHub: supplemental text */
-    .text-mono {
-      font-family: var(--dotfield--font--mono, monospace) !important;
-    }
-
-    body,
-    .tooltipped:after,
-    .markdown-body,
-    .hx_text-body {
-      /* Very politely encourage use of our preferred body font family. */
-      font-family: var(--dotfield--font--sans, sans-serif);
     }
   '';
 
@@ -102,26 +54,17 @@ in
     inherit
       search
       userChrome
-      userContent
       ;
     id = 0;
     extensions.packages = extensions;
-    settings = makeSettings' {
-      imports = [
-        ./settings/browser-toolbox.nix
-
-        # TODO: dogfood for a while
-        ./settings/ui-state.nix
-      ];
-      "browser.startup.homepage" = builtins.concatStringsSep "|" [ "https://lobste.rs" ];
-    };
+    settings = baseSettings // { };
   };
 
   programs.firefox.profiles.work = {
-    inherit search userContent;
+    inherit search;
     id = 1;
     extensions.packages = extensions;
-    settings = makeSettings' {
+    settings = baseSettings // {
       "browser.startup.homepage" = "about:blank";
       "userChrome.theme.monospace" = false;
     };

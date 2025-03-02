@@ -7,7 +7,6 @@
 # TODO: hide the stuff we don't care about so that only stuff like "nav-bar" and
 # "unified-extensions-area" are accessible. all settings likely still need to be
 # present in order to prevent config corruption
-_:
 let
   navbarItems = [
     "back-button"
