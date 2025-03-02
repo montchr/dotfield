@@ -41,6 +41,7 @@ in
     inherit sessionVariables;
   };
 
+  stylix.targets.emacs.enable = false;
   programs.emacs = {
     enable = true;
     # TODO: update darwin package to whatever it should be now

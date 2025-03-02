@@ -4,7 +4,6 @@ _hmArgs: {
     ../../home/mixins/workstation.nix
     ../../home/mixins/jobwork.nix
 
-    ../../home/profiles/theme/color-presets/catppuccin.nix
     ../../home/profiles/mail/default.nix
     # ../../home/profiles/mail/accounts/outlook.nix
 

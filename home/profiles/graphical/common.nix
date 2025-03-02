@@ -18,9 +18,6 @@ in
     ../hardware/mouse.nix
   ];
 
-  qt.enable = true;
-  qt.platformTheme.name = "gtk3";
-
   xdg = {
     userDirs = {
       enable = true;

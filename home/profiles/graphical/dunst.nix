@@ -13,12 +13,8 @@
         offset = "30x50";
         origin = "top-center";
         transparency = 10;
-        frame_color = "#eceff1";
-        font = "monospace 8";
       };
       urgency_normal = {
-        background = "#37474f";
-        foreground = "#eceff1";
         timeout = 10;
       };
     };

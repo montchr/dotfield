@@ -5,9 +5,6 @@
     pkgs.dconf-editor
   ];
 
-  # TODO: gtk4?
-  qt.platformTheme.name = "gtk3";
-
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       gtk-key-theme = "Emacs";

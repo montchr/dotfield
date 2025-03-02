@@ -14,6 +14,7 @@ let
     nixos-hardware
     sops-nix
     srvos
+    stylix
     ;
 
   lib' = self.lib;

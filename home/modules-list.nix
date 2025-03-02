@@ -1,6 +1,5 @@
 [
   ./modules/dotfield/whoami.nix
-  ./modules/theme/default.nix
 
   ./modules/programs/bash/trampoline.nix
   ./modules/programs/cod.nix

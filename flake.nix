@@ -116,6 +116,7 @@
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "github:seadome/firefox-addons";
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
+    stylix.url = "github:danth/stylix";
 
     ##: apps/tools
     deadnix.url = "github:astro/deadnix";
