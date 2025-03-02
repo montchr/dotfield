@@ -12,13 +12,13 @@ let
 in
 lib.mkIf cfg.enable (
   let
-    colorSchemes = theme.color.schemes;
+    colorSchemes = theme.color.scheme;
     colorSettings = makeThemeAttrs (asHexStrings colorSchemes.default.colors);
 
     fontSettings =
       let
-        font_family = theme.fonts.terminal.name;
-        font_size = theme.fonts.terminal.size;
+        font_family = theme.font.terminal.name;
+        font_size = theme.font.terminal.size;
       in
       {
         inherit font_family font_size;

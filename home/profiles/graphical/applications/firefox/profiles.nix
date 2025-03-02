@@ -48,7 +48,7 @@ let
 
   userChrome = ''
     :root {
-      ${mixins.common.themeSettings { inherit (theme) fonts; }}
+      ${mixins.common.themeSettings { inherit (theme) font; }}
     }
 
     * {
@@ -72,7 +72,7 @@ let
   userContent = ''
     :host,
     :root {
-      ${mixins.common.themeSettings { inherit (theme) fonts; }}
+      ${mixins.common.themeSettings { inherit (theme) font; }}
     }
 
     ${mixins.userContent.monospaceText ''

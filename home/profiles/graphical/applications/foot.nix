@@ -10,7 +10,7 @@
 }:
 let
   themeCfg = config.theme;
-  themeFont = themeCfg.fonts.terminal;
+  themeFont = themeCfg.font.terminal;
 in
 {
   config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {

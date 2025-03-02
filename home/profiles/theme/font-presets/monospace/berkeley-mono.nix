@@ -4,12 +4,12 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "Berkeley Mono";
     package = berkeley-mono;
     psNamespace = "BerkeleyMono";
   };
-  theme.fonts.terminal = cfg.monospace;
+  theme.font.terminal = cfg.monospace;
 
   programs.kitty.extraConfig =
     let

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  theme.fonts.serif = {
+  theme.font.serif = {
     name = "Aporetic Serif";
     package = pkgs.aporetic;
     psNamespace = "Aporetic-Serif";

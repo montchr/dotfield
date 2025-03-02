@@ -2,7 +2,7 @@
 { theme, lib, ... }:
 let
   # FIXME: only do theme stuff if theme enabled for user
-  inherit (theme) fonts;
+  inherit (theme) font;
 in
 {
   "browser.bookmarks.showMobileBookmarks" = true;
@@ -46,9 +46,9 @@ in
 
   # Default font should be a generic, either 'serif' or 'sans-serif'.
   "font.default.x-western" = "sans-serif";
-  "font.name.monospace.x-western" = fonts.monospace.name;
-  "font.name.sans-serif.x-western" = fonts.sansSerif.name;
-  "font.name.serif.x-western" = fonts.serif.name;
+  "font.name.monospace.x-western" = font.monospace.name;
+  "font.name.sans-serif.x-western" = font.sansSerif.name;
+  "font.name.serif.x-western" = font.serif.name;
   "font.size.monospace.x-western" = 12;
 
   # CSS blur filter in v88+

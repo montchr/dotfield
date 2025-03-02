@@ -7,14 +7,14 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "Aporetic Serif Mono";
 
     package = pkgs.aporetic;
 
     psNamespace = "Aporetic-Serif-Mono";
   };
-  theme.fonts.terminal = cfg.monospace;
+  theme.font.terminal = cfg.monospace;
 
   programs.ghostty.settings.font-family = cfg.terminal.name;
   programs.ghostty.settings.font-feature = [

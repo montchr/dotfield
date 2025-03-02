@@ -46,12 +46,12 @@ in
 
   options.theme = {
     enable = lib.mkEnableOption "Whether to enable the theme module.";
-    color.schemes = {
-      default = mkColorSchemeOption cfg.color.schemes.dark;
+    color.scheme = {
+      default = mkColorSchemeOption cfg.color.scheme.dark;
       dark = mkColorSchemeOption (mkColorScheme schemes.default-dark);
       light = mkColorSchemeOption (mkColorScheme schemes.default-light);
     };
-    fonts = {
+    font = {
       monospace = {
         name = mkOpt str defaultFonts.monospace;
         weight = mkOpt int fontWeights.normal;
@@ -95,15 +95,15 @@ in
 
   config = lib.mkIf cfg.enable (
     let
-      colorSchemes = cfg.color.schemes;
+      colorScheme = cfg.color.scheme;
       sessionVariables = {
         #: current
-        DOTFIELD_COLORS = colorSchemes.default.name;
-        DOTFIELD_THEME_MODE = colorSchemes.default.kind;
+        DOTFIELD_COLORS = colorScheme.default.name;
+        DOTFIELD_THEME_MODE = colorScheme.default.kind;
 
         #: alternatives
-        DOTFIELD_COLORS_DARK = colorSchemes.dark.name;
-        DOTFIELD_COLORS_LIGHT = colorSchemes.light.name;
+        DOTFIELD_COLORS_DARK = colorScheme.dark.name;
+        DOTFIELD_COLORS_LIGHT = colorScheme.light.name;
       };
     in
     {
@@ -121,24 +121,24 @@ in
       # builds take 5ever
       # specialisation = {
       #   dark.configuration = {
-      #     theme.color.schemes.default = colorSchemes.dark;
+      #     theme.color.scheme.default = colorScheme.dark;
       #   };
       #   light.configuration = {
-      #     theme.color.schemes.default = colorSchemes.light;
+      #     theme.color.scheme.default = colorScheme.light;
       #   };
       # };
 
       fonts.fontconfig.enable = true;
       fonts.fontconfig.defaultFonts = {
-        monospace = lib.mkBefore [ cfg.fonts.monospace.name ];
-        sansSerif = lib.mkBefore [ cfg.fonts.sansSerif.name ];
-        serif = lib.mkBefore [ cfg.fonts.serif.name ];
+        monospace = lib.mkBefore [ cfg.font.monospace.name ];
+        sansSerif = lib.mkBefore [ cfg.font.sansSerif.name ];
+        serif = lib.mkBefore [ cfg.font.serif.name ];
       };
 
       home.packages = [
-        cfg.fonts.monospace.package
-        cfg.fonts.sansSerif.package
-        cfg.fonts.serif.package
+        cfg.font.monospace.package
+        cfg.font.sansSerif.package
+        cfg.font.serif.package
       ];
 
       dconf.settings =
@@ -149,15 +149,15 @@ in
               font.name
               (builtins.toString font.size)
             ];
-          sans = fontspecFor cfg.fonts.sansSerif;
-          serif = fontspecFor cfg.fonts.serif;
-          mono = fontspecFor cfg.fonts.monospace;
+          sans = fontspecFor cfg.font.sansSerif;
+          serif = fontspecFor cfg.font.serif;
+          mono = fontspecFor cfg.font.monospace;
         in
         {
           "org/gnome/desktop/interface" = {
             document-font-name = sans;
             font-name = sans; # default font
-            color-scheme = "prefer-" + cfg.color.schemes.default.kind;
+            color-scheme = "prefer-" + cfg.color.scheme.default.kind;
             monospace-font-name = mono;
           };
           "org/gnome/desktop/wm/preferences" = {

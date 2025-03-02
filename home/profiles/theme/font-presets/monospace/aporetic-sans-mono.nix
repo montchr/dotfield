@@ -7,10 +7,10 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "Aporetic Sans Mono";
     package = pkgs.aporetic;
     psNamespace = "Aporetic-Sans-Mono";
   };
-  theme.fonts.terminal = cfg.monospace;
+  theme.font.terminal = cfg.monospace;
 }

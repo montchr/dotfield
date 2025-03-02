@@ -7,12 +7,12 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "Iosevka SS08";
     package = pkgs.iosevka-bin;
     psNamespace = "Iosevka-SS08";
   };
-  theme.fonts.terminal = {
+  theme.font.terminal = {
     name = "Iosevka Term SS08";
     package = pkgs.iosevka-bin;
     psNamespace = "Iosevka-Term-SS08";

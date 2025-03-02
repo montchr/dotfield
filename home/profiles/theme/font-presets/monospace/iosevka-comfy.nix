@@ -5,12 +5,12 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "Iosevka Comfy";
     package = pkgs.iosevka-comfy.comfy;
     psNamespace = "Iosevka-Comfy";
   };
-  theme.fonts.terminal = cfg.monospace;
+  theme.font.terminal = cfg.monospace;
 
   programs.ghostty.settings.font-family = cfg.terminal.name;
   programs.ghostty.settings.font-feature = [

@@ -5,12 +5,12 @@ let
   cfg = config.theme.fonts;
 in
 {
-  theme.fonts.monospace = {
+  theme.font.monospace = {
     name = "JetBrains Mono";
     package = pkgs.jetbrains-mono;
     psNamespace = "JetBrainsMono";
   };
-  theme.fonts.terminal = cfg.monospace;
+  theme.font.terminal = cfg.monospace;
 
   programs.kitty.extraConfig =
     let
