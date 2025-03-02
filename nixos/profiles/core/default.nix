@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (flake.inputs.apparat.constants.networking) dns;
+  inherit (flake.inputs.apparat.lib.net.constants) dns;
   # FIXME: idk, i don't like the idea that this well-known directory
   #        would be located at `/persist/etc/ssh/` instead of `/etc/ssh/`...
   inherit (config.dotfield.paths) storageBase;

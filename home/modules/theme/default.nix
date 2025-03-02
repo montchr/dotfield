@@ -13,6 +13,7 @@ let
   inherit (flake.inputs) apparat base16-schemes;
   inherit (flake.self.lib.theme) mkColorScheme;
   inherit (apparat.lib) mkOpt;
+  inherit (apparat.lib.typography) fontWeights;
   inherit (base16-schemes.lib) schemes;
 
   cfg = config.theme;
@@ -27,9 +28,6 @@ let
       };
     in
     mapAttrs (_: head) fonts;
-
-  # TODO: get this from apparat constant
-  normalWeight = 400;
 
   colorSchemeModule = import ./__colorScheme.nix { inherit flake; };
 
@@ -56,28 +54,28 @@ in
     fonts = {
       monospace = {
         name = mkOpt str defaultFonts.monospace;
-        weight = mkOpt int normalWeight;
+        weight = mkOpt int fontWeights.normal;
         size = mkOpt int 12;
         package = mkPackageOption "monospace";
         psNamespace = mkOpt str "";
       };
       terminal = {
         name = mkOpt str defaultFonts.monospace;
-        weight = mkOpt int normalWeight;
+        weight = mkOpt int fontWeights.normal;
         size = mkOpt int 12;
         package = mkPackageOption "terminal";
         psNamespace = mkOpt str "";
       };
       sansSerif = {
         name = mkOpt str defaultFonts.sansSerif;
-        weight = mkOpt int normalWeight;
+        weight = mkOpt int fontWeights.normal;
         size = mkOpt int 12;
         package = mkPackageOption "sans-serif";
         psNamespace = mkOpt str "";
       };
       serif = {
         name = mkOpt str defaultFonts.serif;
-        weight = mkOpt int normalWeight;
+        weight = mkOpt int fontWeights.normal;
         size = mkOpt int 12;
         package = mkPackageOption "serif";
         psNamespace = mkOpt str "";
