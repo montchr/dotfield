@@ -6,20 +6,26 @@ rec {
   term = "ghostty";
   shell = "fish";
 
-  theme.color.variant = "light";
-  theme.color.scheme.dark = "catppuccin-mocha";
+  theme.color.variant = "dark";
+  theme.color.scheme.dark = "catppuccin-macchiato";
   theme.color.scheme.light = "catppuccin-latte";
-  theme.font.sansSerif = {
+  theme.font.families.sansSerif = {
     name = "Inter";
     package = pkgs.inter;
   };
-  theme.font.serif = {
+  theme.font.families.serif = {
     name = "Aporetic Serif";
     package = pkgs.aporetic;
   };
-  theme.font.monospace = {
+  theme.font.families.monospace = {
     name = "Aporetic Sans Mono";
     package = pkgs.aporetic;
+  };
+  theme.font.sizes = {
+    applications = 12;
+    desktop = 10;
+    popups = 10;
+    terminal = 10;
   };
   theme.icons = {
     package = pkgs.papirus-icon-theme;
