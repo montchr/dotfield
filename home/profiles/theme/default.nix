@@ -1,4 +1,5 @@
 {
+  flake,
   config,
   lib,
   pkgs,
@@ -6,27 +7,22 @@
 }:
 let
   inherit (config.stylix) fonts;
+  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
+    inherit pkgs;
+  };
+  colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
 in
 {
   imports = [
     ./__kitty.nix
-
   ];
 
-  # theme.enable = true;
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
-  stylix.fonts.sansSerif = {
-    name = "Inter";
-    package = pkgs.inter;
-  };
-  stylix.fonts.serif = {
-    name = "Aporetic Serif";
-    package = pkgs.aporetic;
-  };
-  stylix.fonts.monospace = {
-    name = "Aporetic Sans Mono";
-    package = pkgs.aporetic;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
+  stylix.fonts = { inherit (prefs.theme.font) sansSerif serif monospace; };
+  stylix.cursor = prefs.theme.cursor;
+  stylix.iconTheme = prefs.theme.icons // {
+    enable = true;
   };
 
   fonts.fontconfig.enable = true;
@@ -37,6 +33,9 @@ in
   };
 
   dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-${prefs.theme.color.variant}";
+    };
     "org/gnome/desktop/wm/preferences" = {
       titlebar-uses-system-font = true;
     };
@@ -44,24 +43,11 @@ in
 
   home.packages = [
     pkgs.fastfetch # another neofetch clone
-
-    config.stylix.fonts.monospace.package
-    config.stylix.fonts.sansSerif.package
-    config.stylix.fonts.serif.package
   ];
 
-  # home.pointerCursor = {
-  #   name = "Adwaita";
-  #   package = pkgs.gnome-themes-extra;
-  # };
-
-  #  programs.bat.config.theme = "base16";
-  # programs.git.delta.options.features = "base16";
-  # programs.git.delta.options.light = cfg.color.scheme.default.kind == "light";
-  # programs.git.difftastic.background = reversePolarity cfg.theme.color.scheme.default.kind;
   programs.ghostty.settings = {
     font-family = config.stylix.fonts.monospace.name;
-    font-size = 11;
-    theme = "dark:catppuccin-mocha,light:catppuccin-latte";
+    font-size = config.stylix.fonts.sizes.terminal;
+    theme = colorScheme;
   };
 }
