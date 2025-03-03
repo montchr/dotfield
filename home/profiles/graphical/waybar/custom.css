@@ -1,0 +1,397 @@
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: "Symbols Nerd Font", FontAwesome, "Aporetic Serif Mono", "Iosevka Comfy Motion", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 10px;
+}
+
+window#waybar {
+    background-color: @base00;
+    border-bottom: 3px solid @base01;
+    color: @base05;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: @base00;
+}
+
+window#waybar.termite {
+    /* background-color: #3F3F3F; */
+}
+
+window#waybar.chromium {
+    background-color: @base00;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#mode {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 5px;
+    color: @base05;
+}
+
+label:focus {
+    background-color: @base03;
+}
+
+@keyframes blink {
+    to {
+        background-color: @base05;
+        color: @base00;
+    }
+}
+
+/* ==========================================================================
+   Workspaces
+   ========================================================================== */
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: @base05;
+}
+
+#workspaces button:hover {
+    background: alpha(@base03, 0.5);
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    background-color: @base03;
+    box-shadow: inset 0 -3px @base05;
+}
+
+#workspaces button.urgent {
+    background-color: @base08;
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* ==========================================================================
+   Power / Battery
+   ========================================================================== */
+
+/* Battery
+   ========================================================================== */
+
+#upower,
+#battery {
+    background-color: @base0D;
+    background-color: @base01;
+    color: @base05;
+}
+
+#upower.charging,
+#battery.charging,
+#battery.plugged {
+    color: @base05;
+    background-color: @base0E;
+    background-color: @base0B;
+}
+
+#battery.critical:not(.charging) {
+    background-color: @base08;
+    color: @base05;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    /* Using steps() instead of linear as a timing function to limit cpu usage */
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Power profiles
+   ========================================================================== */
+
+#power-profiles-daemon {
+  font-family: "Symbols Nerd Font";
+  font-size: 1.5em;
+  font-stretch: expanded;
+  padding-bottom: 0.15em;
+    /*TODO: should be handled as layout on parent, not on individual
+  item */
+  /* padding-right: 15px; */
+}
+
+#power-profiles-daemon.performance {
+    background-color: @base07;
+    color: @base05;
+}
+
+#power-profiles-daemon.balanced {
+    background-color: @base07;
+    color: @base00;
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: @base0A;
+    color: @base05;
+}
+
+/* ==========================================================================
+   Network
+   ========================================================================== */
+
+#network {
+    background-color: @base01;
+    color: @base05;
+}
+
+#network.disconnected {
+    background-color: @base0C;
+}
+
+/* Audio :: pulseaudio
+   ========================================================================== */
+
+#pulseaudio {
+    background-color: @base0F;
+    color: @base00;
+}
+
+#pulseaudio.muted {
+    background-color: @base0C;
+    color: @base00;
+}
+
+/* Bluetooth :: wireplumber
+   ========================================================================== */
+
+#wireplumber {
+    background-color: @base01;
+    color: @base05;
+}
+
+#wireplumber.muted {
+    background-color: @base0C;
+    color: @base05;
+}
+
+
+/* ==========================================================================
+   Media
+   ========================================================================== */
+
+#custom-media {
+    /* background-color: #66cc99; */
+    /* color: #2a5c45; */
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    /* background-color: #66cc99; */
+}
+
+#custom-media.custom-vlc {
+    /* background-color: #ffa000; */
+}
+
+/* Music Player Daemon :: mpd
+   ========================================================================== */
+
+#mpd {
+    /* background-color: #66cc99; */
+    /* color: #2a5c45; */
+}
+
+#mpd.disconnected {
+    /* background-color: #f53c3c; */
+}
+
+#mpd.stopped {
+    /* background-color: #90b1b1; */
+}
+
+#mpd.paused {
+    /* background-color: #51a37a; */
+}
+
+
+/* ==========================================================================
+   Sensors
+   ========================================================================== */
+
+
+#cpu {
+    background-color: @base02;
+    color: @base05;
+}
+
+#memory {
+    background-color: @base02;
+    color: @base05;
+}
+
+#disk {
+    background-color: @base01;
+}
+
+#temperature {
+    background-color: @base03;
+}
+
+#temperature.critical {
+    background-color: @base08;
+    color: @base00;
+}
+
+#backlight {
+    background-color: @base02;
+    color: @base05;
+}
+
+
+/* ==========================================================================
+   Tray / Status indicators
+   ========================================================================== */
+
+#tray {
+    /* background-color: #2980b9; */
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    /* background-color: #eb4d4b; */
+}
+
+#idle_inhibitor {
+    /* background-color: #2d3436; */
+}
+
+#idle_inhibitor.activated {
+    /* background-color: #ecf0f1; */
+    /* color: #2d3436; */
+}
+
+
+/* Language & Keyboard
+   ========================================================================== */
+
+#language {
+    /* background: #00b093; */
+    /* color: #740864; */
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    /* background: #97e1ad; */
+    /* color: #000000; */
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Scratchpad
+   ========================================================================== */
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+    background-color: transparent;
+}
+
+/* Privacy indicators
+   ========================================================================== */
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+    /* color: white; */
+}
+
+#privacy-item.screenshare {
+    /* background-color: #cf5700; */
+}
+
+#privacy-item.audio-in {
+    /* background-color: #1ca000; */
+}
+
+#privacy-item.audio-out {
+    /* background-color: #0069d4; */
+}
+
+
+/* ==========================================================================
+   Clock
+   ========================================================================== */
+
+#clock {
+    background-color: @base0C;
+    color: @base00;
+    /* font-weight: bold; */
+    font-size: 14px;
+}
