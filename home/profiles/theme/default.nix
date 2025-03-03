@@ -19,7 +19,10 @@ in
 
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
-  stylix.fonts = { inherit (prefs.theme.font) sansSerif serif monospace; };
+  stylix.fonts = {
+    inherit (prefs.theme.font) sizes;
+    inherit (prefs.theme.font.families) sansSerif serif monospace;
+  };
   stylix.cursor = prefs.theme.cursor;
   stylix.iconTheme = prefs.theme.icons // {
     enable = true;
@@ -34,7 +37,8 @@ in
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-${prefs.theme.color.variant}";
+      # HACK: override stylix -- why does it set 'default'?
+      # color-scheme = lib.mkForce "prefer-${prefs.theme.color.variant}";
     };
     "org/gnome/desktop/wm/preferences" = {
       titlebar-uses-system-font = true;
