@@ -47,8 +47,8 @@ in
 
       window = {
         hideEdgeBorders = "smart";
-        border = 2;
-        titlebar = true;
+        border = 1;
+        titlebar = false;
         commands = [
           {
             command = "floating enable, sticky enable";
@@ -63,6 +63,17 @@ in
             };
           }
 
+        ];
+      };
+
+      floating = {
+        border = 0;
+        titlebar = false;
+        criteria = [
+          { class = "Pavucontrol"; }
+          { app_id = ".*zathura"; }
+          { app_id = "mpv"; }
+          { app_id = "xdg-desktop-portal-gtk"; }
         ];
       };
 
@@ -112,16 +123,6 @@ in
         "*" = {
           hide_cursor = "when-typing enable";
         };
-      };
-      floating = {
-        border = 3;
-        titlebar = false;
-        criteria = [
-          { class = "Pavucontrol"; }
-          { app_id = ".*zathura"; }
-          { app_id = "mpv"; }
-          { app_id = "xdg-desktop-portal-gtk"; }
-        ];
       };
 
       fonts = {
