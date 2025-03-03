@@ -8,7 +8,7 @@
   fonts.fontconfig = {
     enable = true;
   };
-
+  environment.systemPackages = [ pkgs.font-manager ];
   fonts.fontDir.enable = true;
   fonts.packages = (
     with pkgs;
@@ -20,18 +20,14 @@
       charis-sil
       corefonts
       dejavu_fonts
+      departure-mono
       fira
       gentium
       ia-writer-duospace
+      ia-writer-quattro
       ibm-plex
       inter
-      # iosevka-bin
-      # iosevka-comfy.comfy
-      # iosevka-comfy.comfy-motion
-      # iosevka-comfy.comfy-wide-duo
-      # iosevka-comfy.comfy-wide-motion-duo
       jetbrains-mono
-      liberation_ttf
       nerd-fonts.symbols-only
       terminus_font
     ]
