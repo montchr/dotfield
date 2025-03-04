@@ -11,17 +11,25 @@ in
 {
   programs.ssh.matchBlocks = {
     "isprsite-production" = mkKinstaHost "isprsite" 24919;
+
     "kleinforms-production" = mkKinstaHost "kleinforms" 49032;
     "kleinforms-staging" = mkKinstaHost "kleinforms" 30014;
-    "logancentertest" = mkKinstaHost "logancentertest" 35513;
+
+    "kleinsites-production" = mkKinstaHost "kleinsites" 60160;
+    "kleinsites-staging" = mkKinstaHost "kleinsites" 17779;
+
     "logancenter-production" = mkKinstaHost "logancenter" 32428;
     "logancenter-staging" = mkKinstaHost "logancenter" 58819;
+
     "phillyn-production" = mkKinstaHost "phillyn" 17385;
     "phillyn-staging" = mkKinstaHost "phillyn" 47991;
+
     "telepresence-production" = mkKinstaHost "telepresence" 59096;
     # "telepresence-staging" = mkKinstaHost "telepresence" 59770;
+
     "templetv-production" = mkKinstaHost "templetv" 38736;
     "templetv-staging" = mkKinstaHost "templetv" 59770;
+
     "seesaw-production" = mkKinstaHost2 "seesaw" 52637;
 
     "hostone" = {
