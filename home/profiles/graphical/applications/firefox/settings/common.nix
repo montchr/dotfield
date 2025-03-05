@@ -39,6 +39,8 @@
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "extensions.webextensions.restrictedDomains" = "";
 
+  "identity.fxaccounts.enabled" = true;
+
   # Default font should be a generic, either 'serif' or 'sans-serif'.
   "font.default.x-western" = "sans-serif";
   "font.name.monospace.x-western" = "monospace";
@@ -59,13 +61,14 @@
   # WARNING: changing this may break keyboard shortcuts.
   "permissions.default.shortcuts" = 0; # :: default => 0
 
+  "privacy.clearOnShutdown.history" = false;
+  "privacy.clearOnShutdown.downloads" = false;
   "privacy.donottrackheader.enabled" = true;
   # TODO: add docs for values
   "privacy.donottrackheader.value" = 1;
   # Disable fingerprinting on AMO to allow for Tridactyl control.
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
-
   "services.sync.engine.passwords" = false;
 
   "signon.rememberSignons" = false;
@@ -76,6 +79,8 @@
 
   # Enable custom stylesheets.
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+  "webgl.disabled" = false;
 
   # Fully disable Pocket. See
   # https://www.reddit.com/r/linux/comments/zabm2a.
