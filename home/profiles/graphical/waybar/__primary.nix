@@ -208,7 +208,7 @@ in
       format-muted = "󰝟 {format_source}";
       format-source = " {volume}%";
       format-source-muted = "";
-      on-click = "pavucontrol";
+      on-click = "pwvucontrol";
       scroll-step = 1;
     };
     "sway/mode" = {
