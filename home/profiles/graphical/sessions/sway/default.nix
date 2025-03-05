@@ -47,7 +47,7 @@ in
 
       window = {
         hideEdgeBorders = "smart";
-        border = 1;
+        border = 2;
         titlebar = false;
         commands = [
           {
@@ -67,7 +67,7 @@ in
       };
 
       floating = {
-        border = 0;
+        border = 1;
         titlebar = false;
         criteria = [
           { class = "Pavucontrol"; }
