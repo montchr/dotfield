@@ -49,6 +49,7 @@ in
     foot
     glib
     gnome-backgrounds
+    libnotify
     qt5.qtwayland
     wev
     wl-clipboard
