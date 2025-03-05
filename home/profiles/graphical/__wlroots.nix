@@ -19,7 +19,9 @@
     ./swaylock.nix
     ./waybar.nix
 
+    ./applications/flameshot.nix
     ./applications/nemo.nix
+    ./launchers/fuzzel.nix
   ];
 
   dconf.settings."org/nemo/desktop" = {
@@ -29,7 +31,6 @@
   home.packages = with pkgs; [
     ## Launchers:
     bemenu
-    fuzzel
     ulauncher
 
     ## Color picker:
@@ -43,7 +44,7 @@
 
     ## Screenshots/capture/annotation:
     grim
-    kooha # screenshot gui
+    kooha # screen recorder gui
     satty # annotator
     slurp
     wf-recorder # screen recorder
