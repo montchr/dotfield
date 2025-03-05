@@ -140,7 +140,7 @@ label:focus {
 #battery.plugged {
     color: @base05;
     background-color: @base0E;
-    background-color: @base0B;
+    background-color: @base06;
 }
 
 #battery.critical:not(.charging) {
@@ -199,8 +199,8 @@ label:focus {
    ========================================================================== */
 
 #pulseaudio {
-    background-color: @base0F;
-    color: @base00;
+    background-color: @base02;
+    color: @base05;
 }
 
 #pulseaudio.muted {

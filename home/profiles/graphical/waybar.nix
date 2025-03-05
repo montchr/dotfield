@@ -12,7 +12,8 @@ in
 
   programs.waybar.enable = true;
   programs.waybar.package = flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar;
-  programs.waybar.systemd.enable = true;
+  # FIXME: still results in duplicate bars upon config reload
+  #  programs.waybar.systemd.enable = true;
   programs.waybar.style = ''
     @import "./custom.css";
   '';
@@ -22,4 +23,6 @@ in
       command = lib.getExe cfg.package;
     }
   ];
+
+  home.packages = [ cfg.package ];
 }

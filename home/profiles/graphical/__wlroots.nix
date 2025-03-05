@@ -17,6 +17,7 @@
     ./kanshi.nix
     ./swayidle.nix
     ./swaylock.nix
+    ./waybar.nix
 
     ./applications/nemo.nix
   ];
@@ -39,9 +40,6 @@
     ## Lockscreen:
     # TODO: <https://gitlab.com/wef/dotfiles/-/blob/master/bin/mylock>
     swaylock
-
-    ## Bars:
-    flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar
 
     ## Screenshots/capture/annotation:
     grim
