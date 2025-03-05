@@ -13,6 +13,7 @@
     ./cliphist.nix
     ./darkman.nix
     ./dunst.nix
+    ./eww.nix
     ./kanshi.nix
     ./swayidle.nix
     ./swaylock.nix
@@ -40,7 +41,6 @@
     swaylock
 
     ## Bars:
-    eww
     flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar
 
     ## Screenshots/capture/annotation:
