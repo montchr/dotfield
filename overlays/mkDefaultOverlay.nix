@@ -1,6 +1,6 @@
-{ nixos-stable, nixpkgs-trunk }:
+{ inputs }:
 final: prev: {
-  inherit (nixos-stable.legacyPackages.${final.system})
+  inherit (inputs.nixos-stable.legacyPackages.${final.system})
     beets
     beets-unstable
     beetsPackages
@@ -8,7 +8,7 @@ final: prev: {
     notmuch-mutt
     ;
 
-  # inherit (nixpkgs-trunk.legacyPackages.${final.system})
+  # inherit (inputs.nixpkgs-trunk.legacyPackages.${final.system})
   #
   #   ;
 

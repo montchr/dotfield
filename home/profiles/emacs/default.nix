@@ -28,9 +28,6 @@ in
     ../writing.nix
   ];
 
-  # XXX: no effect!  <https://github.com/nix-community/home-manager/issues/2954#issuecomment-2185326566>
-  nixpkgs.overlays = [ flake.inputs.emacs-overlay.overlays.default ];
-
   home = {
     inherit sessionVariables;
   };

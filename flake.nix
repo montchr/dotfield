@@ -52,19 +52,7 @@
               pkgs = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [
-                  inputs.nixpkgs-wayland.overlay
-
-                  (import ./overlays/mkDefaultOverlay.nix {
-                    inherit
-                      nixos-stable
-                      nixpkgs-trunk
-                      ;
-                  })
-                  (import ./overlays/mkWaylandOverlay.nix {
-                    inherit nixos-unstable nixpkgs-wayland;
-                  })
-                ];
+                overlays = (import ./overlays/default.nix { inherit inputs; });
               };
             };
             formatter = pkgs.nixfmt-rfc-style;

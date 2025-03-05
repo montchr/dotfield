@@ -1,5 +1,5 @@
-{ nixos-unstable, nixpkgs-wayland }:
+{ inputs }:
 final: prev: {
   # XXX: Failing build on nixpkgs-wayland
-  inherit (nixos-unstable.legacyPackages.${final.system}) waybar;
+  inherit (inputs.nixos-unstable.legacyPackages.${final.system}) waybar;
 }
