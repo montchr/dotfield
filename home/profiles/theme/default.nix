@@ -13,10 +13,6 @@ let
   colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
 in
 {
-  imports = [
-    ./__kitty.nix
-  ];
-
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
   stylix.fonts = {
@@ -48,10 +44,4 @@ in
   home.packages = [
     pkgs.fastfetch # another neofetch clone
   ];
-
-  programs.ghostty.settings = {
-    font-family = config.stylix.fonts.monospace.name;
-    font-size = config.stylix.fonts.sizes.terminal;
-    theme = colorScheme;
-  };
 }
