@@ -8,7 +8,7 @@
     iconTheme.size = "16x16";
     settings = {
       global = {
-        width = 300;
+        width = 400;
         height = 60;
         offset = "30x50";
         origin = "top-center";
