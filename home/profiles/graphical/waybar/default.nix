@@ -8,6 +8,8 @@ let
   cfg = config.programs.waybar;
 in
 {
+  imports = [ ./__primary.nix ];
+
   stylix.targets.waybar.addCss = false;
 
   programs.waybar.enable = true;

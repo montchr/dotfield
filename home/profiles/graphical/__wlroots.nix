@@ -17,7 +17,7 @@
     ./kanshi.nix
     ./swayidle.nix
     ./swaylock.nix
-    ./waybar.nix
+    ./waybar/default.nix
 
     ./applications/flameshot.nix
     ./applications/nemo.nix
