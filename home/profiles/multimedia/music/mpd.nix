@@ -10,6 +10,8 @@ in
     musicDirectory = beetsCfg.settings.directory;
     playlistDirectory = "${config.xdg.userDirs.music}/playlists";
     network.startWhenNeeded = true;
+    network.listenAddress = "127.0.0.1";
+    network.port = 6600;
   };
 
   programs.beets.mpdIntegration = {
