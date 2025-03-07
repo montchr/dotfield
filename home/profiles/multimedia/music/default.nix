@@ -4,7 +4,10 @@
   ...
 }:
 {
-  imports = [ ./mpd.nix ];
+  imports = [
+    ./mpd.nix
+    ./playerctl.nix
+  ];
 
   home.packages = [
     pkgs.quodlibet-full

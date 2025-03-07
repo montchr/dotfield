@@ -3,6 +3,8 @@ let
   beetsCfg = config.programs.beets;
 in
 {
+  imports = [ ./playerctl.nix ];
+
   services.mpd = {
     enable = true;
     musicDirectory = beetsCfg.settings.directory;
