@@ -46,7 +46,6 @@ in
       focus.followMouse = "always";
 
       window = {
-        hideEdgeBorders = "smart";
         border = 2;
         titlebar = false;
         commands = [
