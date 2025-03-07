@@ -9,6 +9,7 @@
 
     ../profiles/cheatsheets.nix
     ../profiles/emacs/default.nix
+    ../profiles/jujutsu.nix
     ../profiles/just.nix
   ];
 
