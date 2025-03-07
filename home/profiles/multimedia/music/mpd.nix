@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 let
   beetsCfg = config.programs.beets;
 in
@@ -20,4 +20,13 @@ in
   };
 
   programs.ncmpcpp.enable = true;
+  services.amberol.enable = true;
+
+  home.packages = with pkgs; [
+    mpc
+    ncmpc
+    cantata # qt gui (ick)
+    mmtc
+    pms
+  ];
 }
