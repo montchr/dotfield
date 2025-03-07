@@ -6,7 +6,7 @@ let
     {
       user,
       domain ? "proton.me",
-      realName ? whoami.fullName,
+      realName ? whoami.name,
       primary ? false,
     }:
     let

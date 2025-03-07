@@ -22,7 +22,7 @@ in
   # https://nixos.org/manual/nix/stable/#idm140737322046656
   xdg.configFile."npm/npmrc".text = ''
     email="${whoami.email}"
-    init-author-name="${whoami.fullName}"
+    init-author-name="${whoami.name}"
     init-version=0.0.1
     cache=''${XDG_CACHE_HOME}/npm
   '';

@@ -7,7 +7,7 @@
 }:
 let
   inherit (flake.perSystem) packages;
-  inherit (config.dotfield.whoami) email fullName githubUserName;
+  inherit (config.dotfield) whoami;
 in
 {
   home.packages = [
@@ -41,8 +41,8 @@ in
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
-    userEmail = email;
-    userName = fullName;
+    userEmail = whoami.email;
+    userName = whoami.name;
 
     aliases = {
       snapshot = ''!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'';
@@ -75,7 +75,7 @@ in
     extraConfig = lib.mkMerge [
       {
         init.defaultBranch = "main";
-        github.user = githubUserName;
+        github.user = whoami.github;
 
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";

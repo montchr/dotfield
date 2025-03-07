@@ -6,8 +6,7 @@ in
   programs.jujutsu = {
     enable = true;
     settings = {
-      inherit (whoami) email;
-      name = whoami.fullName;
+      inherit (whoami) email name;
     };
   };
 }
