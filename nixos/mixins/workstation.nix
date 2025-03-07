@@ -10,6 +10,7 @@
 
     ../profiles/audio.nix
     ../profiles/networking/avahi.nix
+    ../profiles/networking/protonvpn.nix
 
     ../profiles/graphical/applications/obs-studio.nix
 
