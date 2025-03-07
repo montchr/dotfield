@@ -72,7 +72,7 @@ in
       format-alt = "{icon} {time}";
       format-charging = "󰂄 {capacity}%";
       format-full = "{icon} {capacity}%";
-      format-good = "";
+      # format-good = "";
       format-icons = [
         ""
         ""
@@ -83,7 +83,6 @@ in
       format-plugged = " {capacity}%";
       states = {
         critical = 15;
-        good = 95;
         warning = 30;
       };
     };
