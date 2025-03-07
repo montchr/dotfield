@@ -37,7 +37,6 @@ let
     ../../home/profiles/direnv.nix
     ../../home/profiles/fzf.nix
     ../../home/profiles/git/default.nix
-    ../../home/profiles/helix.nix
     ../../home/profiles/neovim/default.nix
     ../../home/profiles/nnn.nix
     ../../home/profiles/rclone.nix
