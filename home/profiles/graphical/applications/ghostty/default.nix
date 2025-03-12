@@ -6,6 +6,7 @@
     enableZshIntegration = true;
     installBatSyntax = true;
     settings = {
+      confirm-close-surface = false;
       window-decoration = false;
     };
   };
