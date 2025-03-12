@@ -1,5 +1,14 @@
-{ lib, pkgs, ... }:
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
+    inherit pkgs;
+  };
   nemoPackage = pkgs.nemo-with-extensions;
 in
 {
@@ -18,7 +27,5 @@ in
     };
   };
 
-  dconf.settings."org/cinnamon/desktop/applications/terminal" = {
-    exec = lib.mkDefault "foot";
-  };
+  dconf.settings."org/cinnamon/desktop/applications/terminal".exec = prefs.term or "foot";
 }

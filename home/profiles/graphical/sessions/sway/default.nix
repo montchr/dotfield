@@ -1,4 +1,5 @@
-moduleArgs@{
+{
+  flake,
   config,
   lib,
   pkgs,
@@ -6,7 +7,9 @@ moduleArgs@{
 }:
 let
   cfg = config.wayland.windowManager.sway;
-  theme = config.theme;
+  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
+    inherit pkgs;
+  };
   mod = cfg.config.modifier;
 
   swaymsg = "swaymsg";
@@ -42,7 +45,7 @@ in
     '';
     config = {
       modifier = "Mod4";
-      terminal = lib.mkDefault "foot";
+      terminal = prefs.term or "foot";
       focus.followMouse = "always";
 
       window = {
