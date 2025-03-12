@@ -45,6 +45,7 @@ in
     '';
     config = {
       modifier = "Mod4";
+      menu = prefs.wayland.menu or "bemenu-run";
       terminal = prefs.term or "foot";
       focus.followMouse = "always";
 

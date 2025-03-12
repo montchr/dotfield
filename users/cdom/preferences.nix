@@ -51,7 +51,7 @@ rec {
   wayland = {
     desktop = "sway";
     bar = "waybar";
-    launcher = "fuzzel";
+    menu = "fuzzel";
     notifications = "dunst";
   };
 }
