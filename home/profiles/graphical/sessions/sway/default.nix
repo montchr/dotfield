@@ -31,6 +31,8 @@ in
 {
   imports = [
     ../../__wlroots.nix
+
+    ./swayosd.nix
   ];
 
   wayland.windowManager.sway = {

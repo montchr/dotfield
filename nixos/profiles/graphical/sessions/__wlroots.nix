@@ -8,6 +8,7 @@ in
     ../common.nix
   ];
 
+  # Required for lockers to perform authentication.
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
 
