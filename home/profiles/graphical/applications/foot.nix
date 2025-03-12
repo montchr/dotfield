@@ -16,7 +16,7 @@ in
   config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     programs.foot = {
       enable = true;
-      package = flake.perSystem.inputs'.nixpkgs-wayland.packages.foot;
+      package = flake.perSystem.inputs'.nixos-stable.legacyPackages.foot;
       settings = {
 
         main = {
@@ -31,7 +31,7 @@ in
         };
 
         scrollback = {
-          lines = 5000;
+          lines = 10000;
         };
 
         cursor = {
