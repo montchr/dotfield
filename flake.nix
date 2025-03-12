@@ -82,7 +82,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     #    nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2025-02-03";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2025-03-10";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
