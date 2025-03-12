@@ -5,6 +5,8 @@ final: prev: {
     beets-unstable
     beetsPackages
     foot
+    notmuch
+    notmuch-mutt
     ;
 
   # inherit (inputs.nixpkgs-trunk.legacyPackages.${final.system})
