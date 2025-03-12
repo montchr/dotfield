@@ -48,6 +48,10 @@ in
       terminal = prefs.term or "foot";
       focus.followMouse = "always";
 
+      bars = [
+        { command = prefs.wayland.bar; }
+      ];
+
       window = {
         border = 2;
         titlebar = false;

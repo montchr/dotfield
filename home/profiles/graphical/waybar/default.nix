@@ -20,11 +20,5 @@ in
     @import "./custom.css";
   '';
 
-  wayland.windowManager.sway.config.bars = [
-    {
-      command = lib.getExe cfg.package;
-    }
-  ];
-
   home.packages = [ cfg.package ];
 }
