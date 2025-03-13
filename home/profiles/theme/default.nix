@@ -24,6 +24,17 @@ in
     enable = true;
   };
 
+  stylix.targets.floorp.enable = false;
+  stylix.targets.librewolf.enable = false;
+  stylix.targets.firefox.profileNames = [
+    "home"
+    "work"
+  ];
+  stylix.targets.vscode.profileNames = [ "default" ];
+  # FIXME: infinite recursion why?
+  # stylix.targets.firefox.profileNames = builtins.attrNames config.programs.firefox.profiles;
+  # stylix.targets.vscode.profileNames = builtins.attrNames config.programs.vscode.profiles;
+
   fonts.fontconfig.enable = true;
   fonts.fontconfig.defaultFonts = {
     monospace = lib.mkBefore [ config.stylix.fonts.monospace.name ];
