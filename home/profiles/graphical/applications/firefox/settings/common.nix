@@ -41,13 +41,6 @@
 
   "identity.fxaccounts.enabled" = true;
 
-  # Default font should be a generic, either 'serif' or 'sans-serif'.
-  "font.default.x-western" = "sans-serif";
-  "font.name.monospace.x-western" = "monospace";
-  "font.name.sans-serif.x-western" = "sans-serif";
-  "font.name.serif.x-western" = "serif";
-  "font.size.monospace.x-western" = 12;
-
   # CSS blur filter in v88+
   "layout.css.backdrop-filter.enabled" = true;
 
