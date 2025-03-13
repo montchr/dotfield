@@ -4,9 +4,11 @@
   #  imports = [ ./user-settings.nix ];
   programs.vscode = {
     enable = true;
-    enableExtensionUpdateCheck = true;
-    enableUpdateCheck = false;
-    # keybindings = import ./keybindings.nix;
+    profiles.default = {
+      enableExtensionUpdateCheck = true;
+      enableUpdateCheck = false;
+      # keybindings = import ./keybindings.nix;
+    };
     mutableExtensionsDir = true;
   };
 }
