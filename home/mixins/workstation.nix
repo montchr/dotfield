@@ -16,6 +16,7 @@
     ../profiles/emacs/org-protocol.nix
     ../profiles/espanso/default.nix
     ../profiles/git-sync.nix
+    ../profiles/kdeconnect.nix
     ../profiles/ledger.nix
     ../profiles/pandoc.nix
     ../profiles/sync.nix

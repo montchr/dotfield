@@ -41,7 +41,6 @@ in
   security.sudo.wheelNeedsPassword = false;
 
   programs.dconf.enable = true;
-  programs.kdeconnect.enable = true;
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme

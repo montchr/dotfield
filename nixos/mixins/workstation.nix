@@ -21,6 +21,18 @@
     ../profiles/hardware/printers-scanners/default.nix
   ];
 
+  networking.firewall =
+    let
+      kdeconnectPorts = {
+        from = 1714;
+        to = 1764;
+      };
+    in
+    {
+      allowedTCPPortRanges = [ kdeconnectPorts ];
+      allowedUDPPortRanges = [ kdeconnectPorts ];
+    };
+
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
