@@ -10,8 +10,10 @@
 
 ;;; Aliases
 
+(defalias cw (caps-word $tt))
 (defalias tec (tap-hold-press $tt $ht esc lctl))
 (defalias tbm (tap-hold $tt $ht tab lmet))
+(defalias scw (tap-dance $tt (lsft @cw)))
 
 (defalias
   ;; left side
@@ -39,6 +41,6 @@
 (deflayer base
   @tbm _    _    _    _    _    _    _    _    _    _
   @tec @am  @sa  @dc  @fs  _    _    @js  @kc  @la  @;m
-  _    _    _    _    _    _    _    _    _    _    _
+  @scw _    _    _    _    _    _    _    _    _    _
        _              _              _
   )
