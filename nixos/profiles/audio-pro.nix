@@ -12,11 +12,7 @@
 
   environment.systemPackages = [ ];
 
-  # Optimizations for real-time audio support.
-  #
-  # Note that this does not automatically enable the realtime kernel patch, as
-  # that would require rebuilding the kernel.
-  #
-  # <https://github.com/musnix/musnix?tab=readme-ov-file#kernel-options>
   musnix.enable = true;
+  musnix.rtcqs.enable = true;
+  musnix.das_watchdog.enable = true;
 }

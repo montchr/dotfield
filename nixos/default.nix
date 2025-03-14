@@ -162,7 +162,6 @@ in
       system = "aarch64-linux";
       pkgs = makeAsahiPkgs { channel = "nixpkgs-apple-silicon"; };
       modules = [
-        # ./mixins/gnome.nix
         ./mixins/jobwork.nix
         ./mixins/sway.nix
         ./mixins/workstation.nix
@@ -171,8 +170,9 @@ in
         ./profiles/hardware/displaylink.nix
 
         ./profiles/remote-builders/default.nix
-        # ./profiles/remote-builders/nixbuild-net.nix
         ./profiles/remote-builders/ryosuke.nix
+
+        ./profiles/audio-pro.nix
       ];
     };
 
