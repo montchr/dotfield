@@ -22,9 +22,9 @@ in
     ./common.nix
     ./cliphist.nix
     ./darkman.nix
-    ./dunst.nix
     ./eww.nix
     ./kanshi.nix
+    ./mako.nix
     ./swayidle.nix
     ./swaylock.nix
     ./waybar/default.nix

@@ -68,6 +68,6 @@ rec {
     bar = "waybar";
     menu = "fuzzel";
     launcher = "fuzzel";
-    notifications = "dunst";
+    notifications = "mako";
   };
 }

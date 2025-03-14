@@ -15,7 +15,6 @@ in
     anchor = "top-center";
     layer = "overlay";
     defaultTimeout = 12000;
-    font = "monospace 8";
     padding = "5,10";
     width = 300;
     height = 60;
