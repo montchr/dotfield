@@ -7,8 +7,12 @@ rec {
   shell = "fish";
   file-manager = "nemo";
 
-  theme.color.variant = "dark";
-  theme.color.scheme.dark = "catppuccin-macchiato";
+  # theme.color.variant = "dark";
+  theme.color.variant = "light";
+  # theme.color.scheme.dark = "catppuccin-frappe";
+  theme.color.scheme.dark = "catppuccin-mocha";
+  # theme.color.scheme.dark = "catppuccin-macchiato";
+  # theme.color.scheme.dark = "black-metal-khold";
   theme.color.scheme.light = "catppuccin-latte";
   theme.font.families.sansSerif = {
     name = "Inter";
@@ -40,19 +44,30 @@ rec {
   # alternatively: posy-cursors / graphite-cursors / vanilla-dmz /
   # catppuccin-cursors / hackneyed-x11-cursors / openzone-cursors
   theme.cursor = {
-    name = "phinger-cursors-dark";
-    package = pkgs.phinger-cursors;
-    size = 24;
+    # name = "phinger-cursors-dark";
+    # package = pkgs.phinger-cursors;
+    # size = 24;
+    # name = "Posy_Cursor_Black";
+    # package = pkgs.posy-cursors;
+    # size = 32;
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 16;
   };
-  # theme.gui = {
-  #   name = "Arc-Dark";
-  #   package = pkgs.arc-theme;
-  # };
+  theme.gui = {
+    package = pkgs.flat-remix-gtk;
+    name =
+      if (theme.color.variant == "light") then
+        "Flat-Remix-GTK-Grey-Light"
+      else
+        "Flat-Remix-GTK-Grey-Darkest";
+  };
 
   wayland = {
     desktop = "sway";
     bar = "waybar";
     menu = "fuzzel";
+    launcher = "fuzzel";
     notifications = "dunst";
   };
 }
