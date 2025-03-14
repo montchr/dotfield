@@ -69,6 +69,7 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
+    nixpkgs-for-beets-not-failing-build.url = "github:NixOS/nixpkgs?rev=1546c45c538633ae40b93e2d14e0bb6fd8f13347";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
