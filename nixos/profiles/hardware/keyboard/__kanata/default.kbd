@@ -5,7 +5,7 @@
   tt $tap-timeout)
 
 (defvar
-  hold-timeout 200
+  hold-timeout 175
   ht $hold-timeout)
 
 ;;; Aliases
