@@ -8,12 +8,24 @@ in
     ../common.nix
   ];
 
+  programs.light.enable = true;
+
   # Required for lockers to perform authentication.
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   xdg.portal.wlr.enable = true;
+
+  environment.sessionVariables = {
+    # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayla[Espanso]: An error occurred during rendering, please examine the logs for more information.
+    "ELECTRON_OZONE_PLATFORM_HINT" = "wayland";
+    "SDL_VIDEODRIVER" = "wayland";
+    "QT_QPA_PLATFORM" = "wayland-egl";
+    "QT_SCALE_FACTOR_ROUNDING_POLICY" = "RoundPreferFloor";
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION" = "1";
+    "_JAVA_AWT_WM_NONREPARENTING" = "1";
+  };
 
   # TODO: provide a default launcher
   environment.systemPackages = with pkgs; [
@@ -25,11 +37,13 @@ in
     satty
     slurp
     swaybg
+    swayidle
     swaylock
     swaylock-effects
     wev
     wf-recorder
     wl-clipboard
+    xwayland-satellite
 
     # swappables
     kanshi
@@ -39,6 +53,9 @@ in
     nwg-displays # output management gui
     shikane # aims to be improvement over kanshi
     wluma # sensor-adaptive brightness adjustment daemon
+
+    # TODO: profile
+    #    wlr-which-key
 
   ];
 }
