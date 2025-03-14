@@ -160,7 +160,7 @@ in
 
     tuuvok = makeNixosSystem "tuuvok" {
       system = "aarch64-linux";
-      pkgs = makeAsahiPkgs { };
+      pkgs = makeAsahiPkgs { channel = "nixpkgs-apple-silicon"; };
       modules = [
         # ./mixins/gnome.nix
         ./mixins/jobwork.nix
