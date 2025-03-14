@@ -22,6 +22,10 @@ in
     ./__system-packages.nix
   ];
 
+  # XXX: yeah it's broken lazy-options.json non-deterministic fail
+  # (can't revert to earlier flake.lock!!!)
+  documentation.nixos.enable = false;
+
   programs.fish.enable = true;
 
   programs.zsh = {
