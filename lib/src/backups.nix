@@ -20,6 +20,7 @@ in
       patternFiles ? [ ],
       startAt ? "daily",
       persistentTimer ? true,
+      keep ? { },
     }:
     {
       inherit
@@ -56,11 +57,11 @@ in
       '';
       prune.keep = {
         hourly = 2;
-        daily = 5;
-        weekly = 4;
-        monthly = 12;
-        yearly = 3;
-      };
+        daily = 1;
+        weekly = 3;
+        monthly = 3;
+        yearly = 1;
+      } // keep;
       environment."BORG_RSH" = "ssh -i ${keyFile}";
     };
 }
