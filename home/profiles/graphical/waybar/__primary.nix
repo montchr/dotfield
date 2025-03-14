@@ -1,14 +1,17 @@
 { lib, config, ... }:
 let
+  hyprcfg = config.wayland.windowManager.hyprland;
   swaycfg = config.wayland.windowManager.sway;
+  withHyprland = items: lib.optionals hyprcfg.enable items;
   withSway = items: lib.optionals swaycfg.enable items;
 in
 {
   programs.waybar.settings.primary = {
     layer = "top";
     position = "bottom";
-    height = 16;
+    height = 24;
     # width = 1280;
+    # margin = 6;
     spacing = 3;
     modules-left =
       [ ]
@@ -16,6 +19,10 @@ in
         "sway/workspaces"
         "sway/mode"
         "sway/scratchpad"
+      ])
+      ++ (withHyprland [
+        "hyprland/workspaces"
+        "hyprland/submap"
       ])
       ++ [ "custom/media" ];
     modules-center = [ ] ++ (withSway [ "sway/window" ]);
