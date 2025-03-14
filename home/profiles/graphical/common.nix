@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./__gtk.nix
+    ./__handlr.nix
 
     ./applications/calibre.nix
     ./applications/gimp.nix
