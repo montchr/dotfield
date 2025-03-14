@@ -162,9 +162,9 @@ in
       system = "aarch64-linux";
       pkgs = makeAsahiPkgs { };
       modules = [
+        # ./mixins/gnome.nix
         ./mixins/jobwork.nix
-        ./mixins/niri.nix
-        # ./mixins/sway.nix
+        ./mixins/sway.nix
         ./mixins/workstation.nix
 
         ./profiles/hardware/apple/macbook-14-2/default.nix
