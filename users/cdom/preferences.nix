@@ -5,6 +5,7 @@ rec {
   editor = "emacsclient";
   term = "ghostty";
   shell = "fish";
+  file-manager = "nemo";
 
   theme.color.variant = "dark";
   theme.color.scheme.dark = "catppuccin-macchiato";

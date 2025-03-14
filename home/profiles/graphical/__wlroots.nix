@@ -1,4 +1,14 @@
-{ flake, pkgs, ... }:
+{
+  flake,
+  config,
+  pkgs,
+  ...
+}:
+let
+  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
+    inherit pkgs;
+  };
+in
 {
   imports = [
     # A secret service is required.  It's either this one (uses
@@ -20,7 +30,15 @@
     ./waybar/default.nix
 
     ./applications/flameshot.nix
-    ./applications/nemo.nix
+
+    # FIXME: how to integrate with preferences?  using prefs value in
+    # import would result in infinite recursion due to prefs import
+    # dependency on username.  regardless, even if it did work, that
+    # approach would not scale -- e.g. if 'launcher' pref uses an
+    # argument to specify a drun mode (n/a for fuzzel, which is
+    # conveniently my current preferred launcher), then the attr can
+    # no longer map to a file.
+    ./applications/file-managers/nemo.nix
     ./launchers/fuzzel.nix
   ];
 
