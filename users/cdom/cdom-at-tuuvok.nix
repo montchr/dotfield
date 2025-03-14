@@ -12,8 +12,8 @@ _hmArgs: {
 
     ../../home/profiles/git/with-pgp-signing.nix
     ../../home/profiles/gpg/with-ssh-support.nix
-    # ../../home/profiles/graphical/sessions/gnome/extensions/just-perfection.nix
-    #    ../../home/profiles/graphical/sessions/gnome/extensions/paperwm.nix
+
+    ../../home/profiles/multimedia/music/music-production.nix
   ];
 
   programs.firefox.profiles.work.isDefault = true;
