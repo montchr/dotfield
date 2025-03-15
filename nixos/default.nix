@@ -163,6 +163,7 @@ in
       pkgs = makeAsahiPkgs { channel = "nixpkgs-apple-silicon"; };
       modules = [
         ./mixins/jobwork.nix
+        ./mixins/hyprland.nix
         ./mixins/sway.nix
         ./mixins/workstation.nix
 
