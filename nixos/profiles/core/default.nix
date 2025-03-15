@@ -26,6 +26,8 @@ in
   # (can't revert to earlier flake.lock!!!)
   documentation.nixos.enable = false;
 
+  services.dbus.implementation = "broker";
+
   programs.fish.enable = true;
 
   programs.zsh = {
