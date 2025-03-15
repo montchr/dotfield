@@ -6,6 +6,7 @@ in
   imports = [
     ../nixpkgs-wayland-overlay.nix
     ../common.nix
+    ../login/regreet.nix
   ];
 
   # UWSM provides a standardized entrypoint for Wayland compositors.
