@@ -172,8 +172,6 @@ in
 
         ./profiles/remote-builders/default.nix
         ./profiles/remote-builders/ryosuke.nix
-
-        ./profiles/audio-pro.nix
       ];
     };
 
