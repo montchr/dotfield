@@ -64,7 +64,7 @@ rec {
   };
 
   wayland = {
-    desktop = "sway";
+    desktop = "hyprland";
     bar = "waybar";
     menu = "fuzzel";
     launcher = "fuzzel";
