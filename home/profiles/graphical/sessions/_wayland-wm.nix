@@ -17,19 +17,19 @@ in
     # XDG Secret Service protocol).  It's probably not the best idea
     # to make pass-secret-service a requirement, since it requires the
     # user to have configured the password-store properly.
-    ../password-store.nix
+    ../../password-store.nix
 
-    ./common.nix
-    ./cliphist.nix
-    ./darkman.nix
-    ./eww.nix
-    ./kanshi.nix
-    ./mako.nix
-    ./swayidle.nix
-    ./swaylock.nix
-    ./waybar/default.nix
+    ../common.nix
+    ../cliphist.nix
+    ../darkman.nix
+    ../eww.nix
+    ../kanshi.nix
+    ../mako.nix
+    ../swayidle.nix
+    ../swaylock.nix
+    ../waybar/default.nix
 
-    ./applications/flameshot.nix
+    ../applications/flameshot.nix
 
     # FIXME: how to integrate with preferences?  using prefs value in
     # import would result in infinite recursion due to prefs import
@@ -38,8 +38,8 @@ in
     # argument to specify a drun mode (n/a for fuzzel, which is
     # conveniently my current preferred launcher), then the attr can
     # no longer map to a file.
-    ./applications/file-managers/nemo.nix
-    ./launchers/fuzzel.nix
+    ../applications/file-managers/nemo.nix
+    ../launchers/fuzzel.nix
   ];
 
   dconf.settings."org/nemo/desktop" = {

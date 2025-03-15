@@ -15,7 +15,6 @@ in
   security.pam.services.waylock = { };
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  xdg.portal.wlr.enable = true;
 
   environment.sessionVariables = {
     # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayla[Espanso]: An error occurred during rendering, please examine the logs for more information.

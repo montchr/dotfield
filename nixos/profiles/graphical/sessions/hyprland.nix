@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./__wlroots.nix ];
+  imports = [ ./_wayland-wm.nix ];
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;

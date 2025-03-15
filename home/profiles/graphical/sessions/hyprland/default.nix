@@ -15,7 +15,7 @@ let
 in
 {
   imports = [
-    ../../__wlroots.nix
+    ../_wayland-wm.nix
 
     ./__keybindings.nix
   ];

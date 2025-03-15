@@ -11,8 +11,10 @@ let
 in
 {
   imports = [
-    ./__wlroots.nix
+    ./_wayland-wm.nix
   ];
+
+  xdg.portal.wlr.enable = true;
 
   programs.sway = {
     enable = true;
