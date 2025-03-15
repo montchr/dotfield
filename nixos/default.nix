@@ -162,9 +162,8 @@ in
       system = "aarch64-linux";
       pkgs = makeAsahiPkgs { channel = "nixpkgs-apple-silicon"; };
       modules = [
-        ./mixins/hyprland.nix
         ./mixins/jobwork.nix
-        # ./mixins/sway.nix
+        ./mixins/sway.nix
         ./mixins/workstation.nix
 
         ./profiles/hardware/apple/macbook-14-2/default.nix
