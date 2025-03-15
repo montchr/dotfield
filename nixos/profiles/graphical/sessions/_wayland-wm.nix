@@ -8,8 +8,6 @@ in
     ../common.nix
   ];
 
-  programs.light.enable = true;
-
   # Required for lockers to perform authentication.
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
