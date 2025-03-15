@@ -33,8 +33,13 @@ in
     ];
     bind =
       [
-        "$mod SHIFT,q,killactive"
-        "$mod SHIFT,e,exit"
+        "$mod SHIFT, q, killactive"
+        # NOTE: Do not use `exit` in combination with UWSM!  This will
+        # yank compositor from under all the clients, interfere with
+        # ordered unit deactivation sequence, and leave you in a black
+        # screen prison.
+        # <https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#how-to-stop>
+        "$mod SHIFT, e, exec, uwsm stop"
 
         "$mod,Return,exec,ghostty"
         "$mod,d,exec,fuzzel"

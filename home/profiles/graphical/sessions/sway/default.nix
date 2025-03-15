@@ -98,8 +98,14 @@ in
       keybindings = lib.mkOptionDefault {
         # "${mod}+shift+grave" = "exec emacsclient";
 
-        "${mod}+Ctrl+Alt+Delete" = "exec ${swaymsg} exit";
-        "Ctrl+Alt+Delete" = "exec ${swaymsg} exit";
+        "${mod}+Shift+e" = ''
+          exec swaynag -t warning \
+            -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' \
+            -B 'Yes, exit sway' \
+            'uwsm stop'
+        '';
+        "${mod}+Ctrl+Alt+Delete" = "uwsm stop";
+        "Ctrl+Alt+Delete" = "uwsm stop";
         "${mod}+Ctrl+Alt+Insert" = "exec ${swaymsg} reload";
 
         "${mod}+Tab" = "workspace next";

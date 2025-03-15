@@ -8,6 +8,10 @@ in
     ../common.nix
   ];
 
+  # UWSM provides a standardized entrypoint for Wayland compositors.
+  # NOTE: Each supported compositor must be added to `programs.uwsm.waylandCompositors`.
+  programs.uwsm.enable = true;
+
   # Required for lockers to perform authentication.
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
