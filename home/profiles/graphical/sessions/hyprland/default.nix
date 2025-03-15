@@ -12,13 +12,6 @@ let
 
   launch = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
   fuzzel = lib.getExe pkgs.fuzzel;
-
-  workspaceBindings = builtins.concatLists (
-    builtins.genList (i: [
-      "$mod, code:1${toString i}, workspace, ${toString (i + 1)}"
-      "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString (i + 1)}"
-    ]) 9
-  );
 in
 {
   imports = [
@@ -172,15 +165,18 @@ in
 
       bind =
         [
-          "$mod,Return,exec,${launch "x-scheme-handler/terminal"}"
-          "$mod,e,exec,${launch "text/plain"}"
-          "$mod,b,exec,${launch "x-scheme-handler/https"}"
+          # FIXME: nothing happens!
+          "$mod, Return, exec, ${launch "x-scheme-handler/terminal"}"
+
+          "$mod, e, exec, ${launch "text/plain"}"
+          "$mod, b, exec, ${launch "x-scheme-handler/https"}"
 
           # Brightness
           ",XF86MonBrightnessUp,exec,brightnessctl set 5%+"
           ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
           "SHIFT,XF86MonBrightnessUp,exec,brightnessctl -d kbd_backlight set 10%+"
           "SHIFT,XF86MonBrightnessDown,exec,brightnessctl -d kbd_backlight set 10%-"
+
           # Volume
           ",XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%"
           ",XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%"
@@ -195,10 +191,7 @@ in
           "$mod,F12,exec,grimblast --notify --freeze copy output"
           "SHIFT,Print,exec,grimblast --notify --freeze copy output"
           "$mod SHIFT,F12,exec,grimblast --notify --freeze copy output"
-
-          ", Print, exec, grimblast copy area"
         ]
-        ++ workspaceBindings
         ++ (
           let
             playerctl = lib.getExe' config.services.playerctld.package "playerctl";
