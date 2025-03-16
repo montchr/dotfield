@@ -18,5 +18,7 @@
           )
         );
     })
+
+    pkgs.inkscape
   ];
 }
