@@ -48,9 +48,8 @@ in
     # NOTE: Both of these values must match.
     package = null;
     portalPackage = null;
-
-    # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
-    systemd.variables = [ "--all" ];
+    # Defer to UWSM.
+    systemd.enable = false;
 
     settings = {
       "$mod" = "SUPER";
