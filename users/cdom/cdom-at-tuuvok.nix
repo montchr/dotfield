@@ -31,6 +31,11 @@ _hmArgs: {
       output.mode = "3840x2160";
     }
     {
+      output.criteria = "LG Electronics LG ULTRAGEAR 107NTBKA5869";
+      output.scale = 1.0;
+      output.mode = "2560x1440";
+    }
+    {
       profile.name = "undocked";
       profile.outputs = [
         {
@@ -53,6 +58,20 @@ _hmArgs: {
           status = "enable";
           position = "0,0";
           scale = 2.0;
+        }
+      ];
+    }
+    {
+      profile.name = "homedock";
+      profile.outputs = [
+        {
+          criteria = "eDP-1";
+          status = "disable";
+        }
+        {
+          criteria = "LG Electronics LG ULTRAGEAR 107NTBKA5869";
+          status = "enable";
+          position = "0,0";
         }
       ];
     }
