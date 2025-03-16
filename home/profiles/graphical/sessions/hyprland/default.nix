@@ -58,8 +58,8 @@ in
       "$menu" = prefs.wayland.menu;
 
       general = {
-        gaps_in = 8;
-        gaps_out = 16;
+        gaps_in = 6;
+        gaps_out = 12;
         border_size = 2;
         resize_on_border = true;
         layout = "dwindle";
@@ -101,25 +101,21 @@ in
       ];
 
       decoration = {
-        rounding = 8;
+        rounding = 6;
         rounding_power = 2;
         active_opacity = 1.0;
-        inactive_opacity = 0.9;
+        inactive_opacity = 0.95;
         fullscreen_opacity = 1.0;
         shadow = {
           enabled = true;
-          offset = "3 3";
-          range = 12;
+          # offset = "3 3";
+          # range = 12;
           # render_power = 3;
-          # color = "0x44000000";
-          # color_inactive = "0x66000000";
         };
         blur = {
           enabled = true;
           size = 4;
           passes = 3;
-          # TODO: why this number? from default config
-          vibrancy = 0.1696;
           new_optimizations = true;
           ignore_opacity = true;
           popups = true;
@@ -137,7 +133,6 @@ in
 
           "easeinout, 0.45, 0, 0.55, 1"
         ];
-
         animation = [
           "fadeIn, 1, 3, easeout"
           "fadeLayersIn, 1, 3, easeoutback"
@@ -159,15 +154,16 @@ in
       };
 
       # exec = [
-
       # ];
 
       bind =
         [
           # FIXME: nothing happens!
           "$mod, Return, exec, ${launch "x-scheme-handler/terminal"}"
-
+          # FIXME: nothing happens!  maybe needs mime association?
           "$mod, e, exec, ${launch "text/plain"}"
+
+          # Open default web browser
           "$mod, b, exec, ${launch "x-scheme-handler/https"}"
 
           # Brightness
