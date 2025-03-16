@@ -41,7 +41,7 @@ _hmArgs: {
       ];
     }
     {
-      profile.name = "docked";
+      profile.name = "workdock";
       profile.outputs = [
         {
           criteria = "eDP-1";
@@ -52,7 +52,6 @@ _hmArgs: {
           criteria = "LG Electronics LG Ultra HD 0x000668B9";
           status = "enable";
           position = "0,0";
-          # FIXME: not working
           scale = 2.0;
         }
       ];
