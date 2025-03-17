@@ -22,9 +22,10 @@ in
     ../common.nix
     ../cliphist.nix
     ../darkman.nix
+    ../dunst.nix
     ../eww.nix
     ../kanshi.nix
-    ../mako.nix
+    #    ../mako.nix
     ../swayidle.nix
     ../swaylock.nix
     ../waybar/default.nix
@@ -47,12 +48,7 @@ in
   };
 
   home.packages = with pkgs; [
-    ## Launchers:
-    bemenu
-    ulauncher
-
     ## Color picker:
-    # TODO: find a non-hypr alternative!
     hyprpicker
 
     # TODO: evaluate
