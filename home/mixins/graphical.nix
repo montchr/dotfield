@@ -1,8 +1,6 @@
 { flake, pkgs, ... }:
 {
   imports = [
-    flake.inputs.stylix.homeManagerModules.stylix
-
     ../profiles/graphical/common.nix
 
     ../profiles/graphical/applications/chromium.nix

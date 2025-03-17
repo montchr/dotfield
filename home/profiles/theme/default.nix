@@ -14,7 +14,8 @@ let
 in
 {
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
+  # Inherits from the NixOS module.  Uncomment to override.
+  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
   stylix.fonts = {
     inherit (prefs.theme.font) sizes;
     inherit (prefs.theme.font.families) sansSerif serif monospace;
