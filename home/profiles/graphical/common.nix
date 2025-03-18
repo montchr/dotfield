@@ -11,6 +11,7 @@ in
   imports = [
     ./__gtk.nix
     ./__handlr.nix
+    ./__mimeapps.nix
 
     ./applications/calibre.nix
     ./applications/zathura.nix
@@ -28,10 +29,10 @@ in
         XDG_MAIL_DIR = "${homeDirectory}/Mail";
       };
     };
-    mimeApps.enable = true;
   };
 
   home.packages = [
+    pkgs.dex # helper for working with xdg desktop entries
     pkgs.mediainfo
     pkgs.thunderbird-latest
     pkgs.ydotool # command-line automation tool

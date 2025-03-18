@@ -6,6 +6,9 @@ rec {
   term = "ghostty";
   shell = "fish";
   file-manager = "nemo";
+  audio-player = "mpv";
+  video-player = "mpv";
+  web-browser = "firefox";
 
   # theme.color.variant = "dark";
   theme.color.variant = "light";

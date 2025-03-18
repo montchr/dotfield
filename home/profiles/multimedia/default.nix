@@ -1,7 +1,5 @@
 {
   imports = [
-    ./media-client.nix
-
     ./music/default.nix
     ./music/spotify.nix
 

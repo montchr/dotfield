@@ -1,4 +1,7 @@
-hmArgs@{ pkgs, ... }:
+hmArgs@{ flake, pkgs, ... }:
+let
+  inherit (flake.lib) mimetypes;
+in
 {
   imports = [ ./profiles.nix ];
 
@@ -9,12 +12,5 @@ hmArgs@{ pkgs, ... }:
         (hmArgs.osConfig.programs.firefox.package or pkgs.firefox)
       else
         pkgs.firefox;
-  };
-
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = [ "firefox.desktop" ];
-    "text/xml" = [ "firefox.desktop" ];
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 }

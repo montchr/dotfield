@@ -16,9 +16,7 @@ let
 in
 {
   imports = [
-    ./mimeapps.nix
-
-    ../../__gtk.nix
+    ./__mimeapps.nix
   ];
 
   dconf.settings = {

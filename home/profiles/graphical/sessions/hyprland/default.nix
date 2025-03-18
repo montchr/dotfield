@@ -53,7 +53,8 @@ in
 
     settings = {
       "$mod" = "SUPER";
-      "$terminal" = prefs.term;
+      "$terminal" = launch "x-scheme-handler/terminal";
+      "$browser" = launch "x-scheme-handler/https";
       "$fileManager" = prefs.file-manager;
       "$menu" = prefs.wayland.menu;
 
@@ -158,13 +159,13 @@ in
 
       bind =
         [
+          "$mod, Return, exec, $terminal"
+
           # FIXME: nothing happens!
-          "$mod, Return, exec, ${launch "x-scheme-handler/terminal"}"
-          # FIXME: nothing happens!  maybe needs mime association?
           "$mod, e, exec, ${launch "text/plain"}"
 
           # Open default web browser
-          "$mod, b, exec, ${launch "x-scheme-handler/https"}"
+          "$mod, b, exec, $browser"
 
           # Brightness
           ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"

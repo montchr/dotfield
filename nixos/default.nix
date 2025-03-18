@@ -24,6 +24,7 @@ let
   defaultModules = [
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops
+    stylix.nixosModules.stylix
 
     ./profiles/core/default.nix
     ./profiles/boot/common.nix

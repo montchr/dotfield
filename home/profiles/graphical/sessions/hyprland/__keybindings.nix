@@ -41,7 +41,6 @@ in
         # <https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#how-to-stop>
         "$mod SHIFT, e, exec, uwsm stop"
 
-        "$mod, Return, exec, ghostty"
         "$mod, d, exec, fuzzel"
 
         "$mod, s, togglesplit"

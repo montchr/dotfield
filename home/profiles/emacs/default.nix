@@ -1,13 +1,14 @@
 {
+  flake,
   config,
   lib,
   pkgs,
-  flake,
   ...
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+  inherit (flake.lib) mimetypes;
 
   cfg = config.programs.emacs;
 
@@ -64,43 +65,4 @@ in
     editorPkg
   ];
 
-  # <https://mimetype.io/all-types>
-  xdg.mimeApps.defaultApplications =
-    let
-      # TODO: there are definitely more filetypes...
-      mimetypes = [
-        "application/atom+xml"
-        "application/davmount+xml"
-        "application/ecmascript"
-        "application/json"
-        "application/pgp-encrypted"
-        "application/pgp-signature"
-        "application/rdf+xml"
-        "application/x-latex"
-        "application/x-sh"
-        "application/x-shellscript"
-        "application/x-tex"
-        "application/x-tex-tfm"
-        "application/x-texinfo"
-        "application/xml"
-        "application/xml-dtd"
-        "application/yaml"
-        "test/mimetype"
-        "text/css"
-        "text/html"
-        "text/csv"
-        "text/javascript"
-        "text/json"
-        "text/markdown"
-        "text/plain"
-        "text/tab-separated-values"
-        "text/vnd.curl"
-        "text/x-markdown"
-        "text/x-python"
-        "text/x-vcard"
-        "text/org"
-        "text/text"
-      ];
-    in
-    lib.genAttrs mimetypes (_: lib.singleton "emacsclient.desktop");
 }
