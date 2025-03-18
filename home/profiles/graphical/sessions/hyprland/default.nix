@@ -167,6 +167,8 @@ in
           # Open default web browser
           "$mod, b, exec, $browser"
 
+          "$mod, d, exec, $menu"
+
           # Brightness
           ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
           ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
