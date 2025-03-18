@@ -20,17 +20,6 @@ in
     ./__keybindings.nix
   ];
 
-  # from @misterio77
-  # xdg.portal = {
-  #   extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-  #   config.hyprland = {
-  #     default = [
-  #       "wlr"
-  #       "gtk"
-  #     ];
-  #   };
-  # };
-
   home.packages = with pkgs; [
     grimblast
     hypridle
