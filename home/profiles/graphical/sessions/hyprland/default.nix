@@ -71,7 +71,9 @@ in
       };
 
       cursor.inactive_timeout = 4;
+
       input.touchpad.disable_while_typing = true;
+      input.touchpad.clickfinger_behavior = true;
 
       dwindle = {
         split_width_multiplier = 1.35;
