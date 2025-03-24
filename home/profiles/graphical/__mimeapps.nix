@@ -1,10 +1,11 @@
 {
   flake,
   config,
+  pkgs,
   ...
 }:
 let
-  inherit (flake.lib) mimetypes;
+  inherit (flake.self.lib) mimetypes;
   prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
     inherit pkgs;
   };

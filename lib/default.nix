@@ -4,16 +4,16 @@
   config,
   withSystem,
   ops,
+  lib,
   ...
 }:
 let
   haumea = inputs.haumea.lib;
 
-  lib = haumea.load {
+  lib' = haumea.load {
     src = ./src;
     inputs = {
-      inherit ops withSystem;
-      # inherit (inputs.nixpkgs) lib;
+      inherit lib ops withSystem;
       flake = {
         inherit self inputs config;
       };
@@ -21,7 +21,7 @@ let
   };
 in
 {
-  flake.lib = lib // {
+  flake.lib = lib' // {
     inherit ops;
   };
 }
