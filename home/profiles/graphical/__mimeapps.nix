@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (flake.self.lib) mimetypes;
+  inherit (flake.self.lib) mimeapps mimetypes;
   prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
     inherit pkgs;
   };
@@ -13,12 +13,12 @@ in
 {
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications =
-    (mimetypes.genAssoc mimetypes.audio "${prefs.audio-player}.desktop")
-    // (mimetypes.genAssoc mimetypes.text "${prefs.editor}.desktop")
-    // (mimetypes.genAssoc mimetypes.video "${prefs.video-player}.desktop")
-    // (mimetypes.genAssoc mimetypes.webpage "${prefs.web-browser}.desktop")
+    (mimetypes.genAssoc mimetypes.audio (mimeapps.nameFor prefs.audio-player))
+    // (mimetypes.genAssoc mimetypes.text (mimeapps.nameFor prefs.editor))
+    // (mimetypes.genAssoc mimetypes.video (mimeapps.nameFor prefs.video-player))
+    // (mimetypes.genAssoc mimetypes.webpage (mimeapps.nameFor prefs.web-browser))
     // {
-      "inode/directory" = [ "${prefs.file-manager}.desktop" ];
-      "x-scheme-handler/terminal" = [ "${prefs.term}.desktop" ];
+      "inode/directory" = [ (mimeapps.nameFor prefs.file-manager) ];
+      "x-scheme-handler/terminal" = [ (mimeapps.nameFor prefs.term) ];
     };
 }
