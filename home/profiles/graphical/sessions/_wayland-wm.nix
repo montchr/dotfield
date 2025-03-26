@@ -25,9 +25,9 @@ in
     ../dunst.nix
     ../eww.nix
     ../kanshi.nix
-    #    ../mako.nix
     ../swayidle.nix
     ../swaylock.nix
+    ../swww.nix
     ../waybar/default.nix
 
     ../applications/flameshot.nix

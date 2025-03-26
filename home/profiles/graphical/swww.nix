@@ -1,0 +1,3 @@
+{
+  services.swww.enable = true;
+}
