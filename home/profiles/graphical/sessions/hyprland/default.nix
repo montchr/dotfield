@@ -70,6 +70,10 @@ in
       };
 
       misc = {
+        # No, Hyprland community, I absolutely do not want to see your
+        # creepy and unsolicited anime girl background.  This opt-out
+        # setting is proof that Drew DeVault was right about you.
+        disable_hyprland_logo = true;
         focus_on_activate = true;
         # Unfullscreen when opening something
         new_window_takes_over_fullscreen = 2;
