@@ -51,6 +51,10 @@ in
     ## Color picker:
     hyprpicker
 
+    ## File manager:
+    superfile
+    yazi
+
     # TODO: evaluate
     ## Lockscreen:
     # TODO: <https://gitlab.com/wef/dotfiles/-/blob/master/bin/mylock>
@@ -68,10 +72,14 @@ in
     wlr-which-key
 
     ## Document viewers:
+    kdePackages.koko
+    pix
+    pqiv # or imv
     swayimg
     zathura
 
     ## Wallpaper:
+    swaybg
     waypaper
   ];
 }
