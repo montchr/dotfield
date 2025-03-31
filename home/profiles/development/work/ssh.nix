@@ -30,7 +30,7 @@ in
     "templetv-production" = mkKinstaHost "templetv" 38736;
     "templetv-staging" = mkKinstaHost "templetv" 59770;
 
-    "seesaw-production" = mkKinstaHost2 "seesaw" 52637;
+    "seesaw-production" = mkKinstaHost2 "seesaw" 30503;
 
     "hostone" = {
       hostname = "67.225.164.90";
