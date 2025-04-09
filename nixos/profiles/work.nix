@@ -6,6 +6,9 @@
       "logancenter.ddev.site"
       "logance.ddev.site"
       "phillyn.ddev.site"
+      "seesaw.ddev.site"
+      "pingpong.seesaw.ddev.site"
+      "kleinit.seesaw.ddev.site"
       "telepresence.ddev.site"
       "tutv.ddev.site"
     ];
