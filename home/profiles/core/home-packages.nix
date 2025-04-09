@@ -5,6 +5,7 @@
 
     flake.perSystem.packages.realise-symlink
 
+    pkgs.chawan # <- tui web browser
     pkgs.fq # <- oh look, another jq-like
     pkgs.fx # <- interactive terminal json viewer                    => <https://github.com/antonmedv/fx>
     pkgs.glow # <- charmbracelet's markdown cli renderer

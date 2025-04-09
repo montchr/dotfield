@@ -1,7 +1,7 @@
 { inputs }:
 final: prev: {
   inherit (inputs.nixos-stable.legacyPackages.${final.system})
-
+    calibre
     foot
     notmuch
     notmuch-mutt
