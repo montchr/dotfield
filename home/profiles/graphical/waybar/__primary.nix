@@ -45,8 +45,8 @@ in
       ++ [
         "battery"
         "battery#bat2"
-        "clock"
         "tray"
+        "clock"
         "custom/power"
       ];
     "sway/workspaces" = {
