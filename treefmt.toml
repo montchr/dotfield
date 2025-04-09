@@ -32,10 +32,10 @@ includes = [
 ]
 options = ["--write"]
 
-[formatter.toml]
-command = "tomlfmt"
-includes = ["*toml"]
-options = ["--write"]
+# [formatter.toml]
+# command = "tomlfmt"
+# includes = ["*toml"]
+# options = ["--write"]
 
 [formatter.shell]
 command = "shfmt"

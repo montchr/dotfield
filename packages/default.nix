@@ -22,7 +22,6 @@
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };
         realise-symlink = callPackage ./realise-symlink/package.nix { };
         scotty = callPackage ./scotty/package.nix { };
-        tomlfmt = callPackage ./tomlfmt/package.nix { };
         wp-to-psr-4 = callPackage ./wp-to-psr-4/package.nix { };
 
         ##: yijing tools

@@ -36,8 +36,6 @@ in
       devshells.default = {
         devshell.name = "dotfield";
         devshell.packages = [
-          config.packages.tomlfmt
-
           nix-inspect.packages.default
 
           pkgs.cachix
