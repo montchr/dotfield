@@ -179,9 +179,9 @@ in
           "SHIFT, XF86AudioMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 
-          # Screenshotting
+          # Screenshots
           ",Print, exec, grimblast --notify --freeze copy area"
-          "$mod, F12, exec, grimblast --notify --freeze copy output"
+          "$mod, F12, exec, grimblast --notify --freeze copy area"
           "SHIFT, Print, exec, grimblast --notify --freeze copy output"
           "$mod SHIFT, F12, exec, grimblast --notify --freeze copy output"
         ]
