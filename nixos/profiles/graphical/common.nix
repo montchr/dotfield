@@ -54,12 +54,6 @@ in
     wl-clipboard
   ];
 
-  # Prevent stupid boot delays waiting for internet.
-  # FIXME: this doesn't really seem to help much. dhcp still delays boot.
-  # https://discourse.nixos.org/t/boot-faster-by-disabling-udev-settle-and-nm-wait-online/6339
-  systemd.services.systemd-udev-settle.enable = false;
-  systemd.services.NetworkManager-wait-online.enable = false;
-
   documentation.info.enable = true;
   # HACK: Force override <numtide/srvos>.
   documentation.man.enable = lib.mkForce true;
