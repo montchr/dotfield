@@ -6,7 +6,8 @@
     ardour
     carla
     dexed
-    mixxx
+    # XXX: broken as of 2025-04-18
+    # mixxx
     puredata
     qsynth
     renoise
