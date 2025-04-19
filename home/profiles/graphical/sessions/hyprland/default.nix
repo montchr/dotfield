@@ -47,6 +47,10 @@ in
       "$fileManager" = prefs.file-manager;
       "$menu" = prefs.wayland.menu;
 
+      debug = {
+        disable_logs = false;
+      };
+
       general = {
         gaps_in = 6;
         gaps_out = 12;
