@@ -1,4 +1,7 @@
 {
+  services.greetd.enable = true;
+  services.greetd.vt = 2;
+
   users.extraUsers.greeter = {
     home = "/tmp/greeter-home";
     createHome = true;
