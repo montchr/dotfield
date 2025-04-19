@@ -39,19 +39,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.bash.initExtra =
+    programs.bash.bashrcExtra =
       let
         shell = cfg.shell.package.pname;
-        shouldLaunch =
-          (lib.optionalString isLinux "$(ps --no-header --pid=$PPID --format=comm) != ${shell} && ")
-          + ''-z ''${BASH_EXECUTION_STRING}'';
       in
       lib.mkAfter ''
-        if [[ ${shouldLaunch} ]]
-        then
-            shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-            exec ${shell} $LOGIN_OPTION
-        fi
+        case "$(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm)" in
+          "${shell}"|"systemd")
+            ;;
+          *)
+            if [[ -z ''${BASH_EXECUTION_STRING} && ''${SHLVL} == 1 ]]; then
+              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+              exec ${shell} $LOGIN_OPTION
+            fi
+            ;;
+        esac
       '';
   };
 }
