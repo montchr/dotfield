@@ -161,7 +161,7 @@ in
 
     tuuvok = makeNixosSystem "tuuvok" {
       system = "aarch64-linux";
-      pkgs = makeAsahiPkgs { channel = "nixpkgs-apple-silicon"; };
+      pkgs = makeAsahiPkgs { channel = "nixos-unstable"; };
       modules = [
         ./mixins/jobwork.nix
         ./mixins/hyprland.nix

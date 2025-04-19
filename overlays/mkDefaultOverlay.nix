@@ -5,6 +5,7 @@ final: prev: {
     foot
     notmuch
     notmuch-mutt
+    wireplumber
     ;
 
   inherit (inputs.nixpkgs-for-beets-not-failing-build.legacyPackages.${final.system})
