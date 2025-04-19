@@ -6,6 +6,11 @@
 
   programs.regreet = {
     enable = true;
+    cageArgs = [
+      "-s"
+      "-m"
+      "last"
+    ];
     settings = {
       appearance = {
         greeting_msg = "Hello Word!";
