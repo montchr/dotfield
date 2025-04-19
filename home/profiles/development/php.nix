@@ -11,7 +11,6 @@
     pkgs.nodePackages.intelephense
 
     flake.perSystem.inputs'.nixpkgs-trunk.legacyPackages.phpactor
-    pkgs.phpPackages.php-cs-fixer
     pkgs.wp-cli
 
     # Provides DAP connection to Xdebug for editor support
