@@ -37,8 +37,16 @@ in
     # NOTE: Both of these values must match.
     package = null;
     portalPackage = null;
-    # Defer to UWSM.
-    systemd.enable = false;
+
+    systemd = {
+      # Defer to UWSM.
+      enable = false;
+      variables = [ "--all" ];
+      extraCommands = [
+        "systemctl --user stop graphical-session.target"
+        "systemctl --user start hyprland-session.target"
+      ];
+    };
 
     settings = {
       "$mod" = "SUPER";
