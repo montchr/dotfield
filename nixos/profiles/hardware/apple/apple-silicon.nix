@@ -13,5 +13,6 @@
   hardware.facetimehd.enable = lib.mkForce false;
   services.mbpfan.enable = lib.mkForce false;
 
+  hardware.asahi.enable = true;
   hardware.asahi.useExperimentalGPUDriver = true;
 }
