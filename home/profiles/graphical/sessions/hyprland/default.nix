@@ -164,6 +164,8 @@ in
       # exec = [
       # ];
 
+      exec-once = [ "uwsm finalize" ];
+
       bind =
         [
           "$mod, Return, exec, $terminal"
