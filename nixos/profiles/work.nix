@@ -11,6 +11,7 @@
       "kleinit.seesaw.ddev.site"
       "telepresence.ddev.site"
       "tutv.ddev.site"
+      "whipradio.ddev.site"
     ];
   };
 }

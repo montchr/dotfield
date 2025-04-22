@@ -30,6 +30,9 @@ in
     "templetv-production" = mkKinstaHost "templetv" 38736;
     "templetv-staging" = mkKinstaHost "templetv" 59770;
 
+    "whipradio-production" = mkKinstaHost "whipradio" 19001;
+    "whipradio-staging" = mkKinstaHost "whipradio" 35166;
+
     "seesaw-production" = mkKinstaHost2 "seesaw" 30503;
 
     "hostone" = {
