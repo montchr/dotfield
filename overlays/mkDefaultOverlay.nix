@@ -14,8 +14,9 @@ final: prev: {
     beetsPackages
     ;
 
-  # inherit (inputs.nixpkgs-trunk.legacyPackages.${final.system})
-
-  #   ;
+  inherit (inputs.nixpkgs-trunk.legacyPackages.${final.system})
+    fishMinimal
+    fish
+    ;
 
 }
