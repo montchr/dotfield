@@ -11,26 +11,21 @@ in
   # Required -- disabled by default to prevent unintentional data loss.
   force = true;
 
-  default = lib.mkDefault "Kagi";
-  privateDefault = "DuckDuckGo";
+  default = lib.mkDefault "kagi";
+  privateDefault = "ddg";
 
   engines = {
-    "Kagi" = engine "https://kagi.com/search?q={searchTerms}";
-    "Letterboxd" = engine' "lb" "https://letterboxd.com/search/{searchTerms}";
-    "Marginalia" =
-      engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
-    "npm" = engine' "npm" "https://www.npmjs.com/search?q={searchTerms}";
-    # NOTE: Requires setting HTTP method to GET in SearXNG Preferences -> Privacy
-    "priv.au" = engine' "s" "https://priv.au/search?q={searchTerms}";
-    "Power Thesaurus" = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
-    "TVDB" = engine' "tvdb" "https://thetvdb.com/search?query={searchTerms}";
-    "WordPress Code Reference" = engine' "wp" "https://developer.wordpress.org/?s={searchTerms}";
+    kagi = engine "https://kagi.com/search?q={searchTerms}";
+    letterboxd = engine' "lb" "https://letterboxd.com/search/{searchTerms}";
+    marginalia = engine' "m" "https://search.marginalia.nu/search?query={searchTerms}&profile=default&js=default";
+    powerthesaurus = engine' "thes" "https://www.powerthesaurus.org/{searchTerms}/synonyms";
+    tvdb = engine' "tvdb" "https://thetvdb.com/search?query={searchTerms}";
+    wp = engine' "wp" "https://developer.wordpress.org/?s={searchTerms}";
 
     ## === Nix Reference ===
 
-    "home-manager options" =
-      engine' "hm" "https://home-manager-options.extranix.com/?query={searchTerms}";
-    "Nix Packages" = {
+    hm-options = engine' "hm" "https://home-manager-options.extranix.com/?query={searchTerms}";
+    nixpkgs = {
       definedAliases = [
         "@nixpkgs"
         "@pkgs"
@@ -53,7 +48,7 @@ in
       ];
       icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
     };
-    "NixOS Options" = {
+    nixos-options = {
       definedAliases = [
         "@nixos"
         "@nixopts"
@@ -86,13 +81,10 @@ in
       ];
       icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
     };
-    "NixOS Wiki" = {
+    nixos-wiki = {
       urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
-      iconUpdateURL = "https://wiki.nixos.org/favicon.ico";
-      # TODO: why?
-      updateInterval = 24 * 60 * 60 * 1000; # every day
       definedAliases = [ "@nwiki" ];
     };
-    "Noogle" = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
+    nix = engine' "nixlib" "https://noogle.dev/?term=%22{searchTerms}%22";
   };
 }
