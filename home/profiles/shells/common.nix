@@ -24,6 +24,7 @@ in
 
   programs.bat.enable = true;
   programs.bottom.enable = true;
+  programs.carapace.enable = true;
   programs.eza.enable = true;
   programs.info.enable = true;
   programs.less.enable = true;

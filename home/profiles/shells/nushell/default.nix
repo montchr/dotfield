@@ -52,7 +52,6 @@ in
 
   # TODO: install these via module flags (needs dev)
   home.packages = [
-    pkgs.carapace # general-purpose completion provider
     pkgs.fish # for its completion engine, nothing more
     pkgs.jc
   ];
