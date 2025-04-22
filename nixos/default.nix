@@ -33,7 +33,7 @@ let
 
   makeAsahiPkgs =
     {
-      channel ? "nixos-unstable",
+      channel ? "nixpkgs-apple-silicon",
       buildPlatform ? "aarch64-linux",
     }:
     import inputs.${channel} {
@@ -43,6 +43,33 @@ let
       overlays = (import ../overlays/default.nix { inherit inputs; }) ++ [
         inputs.nixos-apple-silicon.overlays.default
       ];
+    };
+
+  makeAsahiSystem =
+    hostName: nixosArgs:
+    let
+      system = "aarch64-linux";
+      channel = "nixpkgs-apple-silicon";
+    in
+    inputs.${channel}.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        flake = lib'.modules.flakeSpecialArgs' system;
+      };
+      modules =
+        defaultModules
+        ++ modules
+        ++ (nixosArgs.modules or [ ])
+        ++ [
+          ../machines/${hostName}
+          {
+            _module.args = {
+              inherit ops;
+            };
+            nixpkgs.pkgs = makeAsahiPkgs { inherit channel; };
+            networking.hostName = hostName;
+          }
+        ];
     };
 
   makeNixosSystem =
@@ -159,9 +186,7 @@ in
       ];
     };
 
-    tuuvok = makeNixosSystem "tuuvok" {
-      system = "aarch64-linux";
-      pkgs = makeAsahiPkgs { channel = "nixos-unstable"; };
+    tuuvok = makeAsahiSystem "tuuvok" {
       modules = [
         ./mixins/jobwork.nix
         ./mixins/hyprland.nix
