@@ -12,7 +12,7 @@
 let
   inherit (flake) inputs;
   cfg = config.nix;
-  inputFlakes = lib.filterAttrs (_: v: v ? outputs) inputs;
+  inputFlakes = lib.filterAttrs (n: v: (v ? outputs) && n != "nixpkgs") inputs;
   inputsToPaths = lib.mapAttrs' (
     n: v: {
       name = "nix/inputs/${n}";
@@ -32,7 +32,9 @@ in
       "/etc/nix/inputs"
     ];
     distributedBuilds = true;
-    registry = lib.mapAttrs (_: input: { flake = input; }) inputFlakes;
+    registry = builtins.removeAttrs (lib.mapAttrs (_: input: { flake = input; }) inputFlakes) [
+      "nixpkgs"
+    ];
     settings = {
       allowed-users = [ "*" ];
       trusted-users = [
