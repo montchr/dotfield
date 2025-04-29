@@ -19,7 +19,7 @@ in
 {
   services.kanshi = {
     enable = true;
-    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.kanshi;
+    # package = flake.perSystem.inputs'.nixpkgs-wayland.packages.kanshi;
     profiles = { };
   };
 

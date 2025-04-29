@@ -1,7 +1,4 @@
 { flake, pkgs, ... }:
-let
-  wlPkgs = flake.perSystem.inputs'.nixpkgs-wayland.packages;
-in
 {
   imports = [
     ../nixpkgs-wayland-overlay.nix

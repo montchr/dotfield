@@ -10,7 +10,7 @@ in
 {
   services.mako = {
     enable = true;
-    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.mako;
+    # package = flake.perSystem.inputs'.nixpkgs-wayland.packages.mako;
     anchor = "top-center";
     layer = "overlay";
     defaultTimeout = 12000;

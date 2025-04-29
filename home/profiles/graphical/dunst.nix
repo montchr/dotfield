@@ -2,7 +2,7 @@
 {
   services.dunst = {
     enable = true;
-    package = flake.perSystem.inputs'.nixpkgs-wayland.packages.dunst;
+    # package = flake.perSystem.inputs'.nixpkgs-wayland.packages.dunst;
     settings = {
       global = {
         width = 400;
