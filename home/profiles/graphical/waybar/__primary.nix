@@ -63,15 +63,10 @@ in
     backlight = {
       format = "{icon} {percent}%";
       format-icons = [
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
+        "󰪟"
+        "󰪡"
+        "󰪣"
+        "󰪥"
       ];
     };
     battery = {
@@ -81,13 +76,13 @@ in
       format-full = "{icon} {capacity}%";
       # format-good = "";
       format-icons = [
-        ""
-        ""
-        ""
-        ""
-        ""
+        "󰁹"
+        "󰁻"
+        "󰁽"
+        "󰁿"
+        "󰂁"
       ];
-      format-plugged = " {capacity}%";
+      # format-plugged = " {capacity}%";
       states = {
         critical = 15;
         warning = 30;
@@ -147,7 +142,7 @@ in
       numlock = true;
     };
     memory = {
-      format = " {}%";
+      format = " {}%";
     };
     mpd = {
       consume-icons = {
