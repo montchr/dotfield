@@ -39,11 +39,6 @@ in
       hostname = "67.225.164.90";
       port = 5623;
     };
-    "kleinsites-hostone" = {
-      user = "kleinsites";
-      hostname = "67.225.164.90";
-      port = 5623;
-    };
 
     "kleinweb-db" = {
       hostname = "67.225.164.91";
