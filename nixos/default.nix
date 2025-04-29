@@ -61,7 +61,10 @@ let
         ++ modules
         ++ (nixosArgs.modules or [ ])
         ++ [
+          inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+
           ../machines/${hostName}
+
           {
             _module.args = {
               inherit ops;

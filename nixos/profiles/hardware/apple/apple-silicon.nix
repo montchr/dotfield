@@ -1,8 +1,6 @@
 { lib, flake, ... }:
 {
   imports = [
-    flake.inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
-
     ../../boot/systemd-boot.nix
   ];
 
