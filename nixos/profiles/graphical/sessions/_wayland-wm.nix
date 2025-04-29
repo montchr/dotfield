@@ -17,7 +17,7 @@
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 
   environment.sessionVariables = {
-    # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayla[Espanso]: An error occurred during rendering, please examine the logs for more information.
+    # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayland>
     "ELECTRON_OZONE_PLATFORM_HINT" = "wayland";
     "SDL_VIDEODRIVER" = "wayland";
     "QT_QPA_PLATFORM" = "wayland-egl";
