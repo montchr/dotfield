@@ -6,12 +6,12 @@
 }:
 stdenv.mkDerivation {
   pname = "berkeley-mono";
-  version = "1.009";
+  version = "2.002";
 
   src = requireFile rec {
     name = "berkeley-mono-typeface.zip";
-    url = "https://berkeleygraphics.com/typefaces/berkeley-mono/";
-    sha256 = "17cqpql8zvakczvjhbzp6mgxvr137av2nik53p0ylk6gwjlqklv1";
+    url = "https://usgraphics.com/products/berkeley-mono";
+    sha256 = "15imcrymcby2jja9fh9mz7z0lf0ajvi1nv5dvswv7rmgn8gfjf8b";
     message = ''
       ${name} font not found in nix store, to add it run:
       $ nix-store --add-fixed sha256 /path/to/${name}
@@ -37,9 +37,13 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage = "https://berkeleygraphics.com/typefaces/berkeley-mono/";
+    homepage = "https://usgraphics.com/products/berkeley-mono";
     description = ''
-      A love letter to the golden era of computing.
+      Berkeley Mono™ is a love letter to the golden era of computing.
+      The era that gave rise to a generation of people who celebrated
+      automation and reveled in the joy of computing, when transistors
+      replaced cogs, and machine-readable typefaces were developed,
+      for when humans and machines truly interfaced on an unprecedented scale.
     '';
     platforms = platforms.all;
     licence = licences.unfree;
