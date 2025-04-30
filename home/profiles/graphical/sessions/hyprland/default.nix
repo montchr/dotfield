@@ -30,6 +30,10 @@ in
     hyprsunset
   ];
 
+  # systemd.user.services."wayland-wm@Hyprland" = {
+  #   Service.TimeoutStartSec = 30;
+  # };
+
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -41,11 +45,11 @@ in
     systemd = {
       # Defer to UWSM.
       enable = false;
-      variables = [ "--all" ];
-      extraCommands = [
-        "systemctl --user stop graphical-session.target"
-        "systemctl --user start hyprland-session.target"
-      ];
+      # variables = [ "--all" ];
+      # extraCommands = [
+      #   "systemctl --user stop graphical-session.target"
+      #   "systemctl --user start hyprland-session.target"
+      # ];
     };
 
     settings = {
@@ -57,6 +61,7 @@ in
 
       debug = {
         disable_logs = false;
+        enable_stdout_logs = true;
       };
 
       general = {
@@ -164,7 +169,9 @@ in
       # exec = [
       # ];
 
-      exec-once = [ "uwsm finalize" ];
+      exec-once = [
+        "exec uwsm finalize"
+      ];
 
       bind =
         [
