@@ -82,9 +82,11 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
-    nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
-    nixos-apple-silicon.inputs.nixpkgs.follows = "nixos-unstable";
     # nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2025-04-27-2";
+    # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
+    # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";
+    nixos-apple-silicon.url = "github:flokli/nixos-apple-silicon?ref=wip";
+    nixos-apple-silicon.inputs.nixpkgs.follows = "nixos-unstable";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # FIXME: update
