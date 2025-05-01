@@ -31,5 +31,5 @@ in
   systemd.services."getty@tty1".enable = (!isAutoLoginEnabled);
   systemd.services."autovt@tty1".enable = (!isAutoLoginEnabled);
 
-  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
+  programs.gnupg.agent.pinentry.package = pkgs.pinentry-gnome3;
 }
