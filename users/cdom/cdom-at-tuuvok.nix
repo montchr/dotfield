@@ -1,6 +1,7 @@
 _hmArgs: {
   imports = [
     ../../home/mixins/hyprland.nix
+    ../../home/mixins/niri.nix
     ../../home/mixins/sway.nix
     ../../home/mixins/workstation.nix
     ../../home/mixins/jobwork.nix
