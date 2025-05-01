@@ -12,6 +12,11 @@ let
   };
   mod = cfg.config.modifier;
 
+  app = cmd: "${app'} ${cmd}";
+  app' = "${pkgs.uwsm}/bin/uwsm-app --";
+
+  logoutCmd = "${pkgs.uwsm}/bin/uwsm stop";
+
   swaymsg = "swaymsg";
 
   screenshotsDir = "$HOME/Pictures/Screenshots";
@@ -48,11 +53,11 @@ in
     config = {
       modifier = "Mod4";
       menu = prefs.wayland.menu or "bemenu-run";
-      terminal = prefs.term or "foot";
+      terminal = app (prefs.term or "foot");
       focus.followMouse = "always";
 
       bars = [
-        { command = prefs.wayland.bar; }
+        { command = app prefs.wayland.bar; }
       ];
 
       window = {
@@ -87,25 +92,25 @@ in
       };
 
       startup = [
-        { command = "firefox --profile ~/.mozilla/firefox/home"; }
-        { command = "firefox --profile ~/.mozilla/firefox/work"; }
-        { command = "emacs"; }
-        { command = "waypaper --restore"; }
+        # { command = app "firefox --profile ~/.mozilla/firefox/home"; }
+        # { command = app "firefox --profile ~/.mozilla/firefox/work"; }
+        { command = app "emacs"; }
+        { command = app "waypaper --restore"; }
       ];
 
       # NOTE: lib.mkOptionDefault is required in order to not wipe out
       # default keybindings!  See the option description.
       keybindings = lib.mkOptionDefault {
-        # "${mod}+shift+grave" = "exec emacsclient";
+        # "${mod}+shift+grave" = "exec ${app'} emacsclient";
 
         "${mod}+Shift+e" = ''
           exec swaynag -t warning \
             -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' \
             -B 'Yes, exit sway' \
-            'uwsm stop'
+            '${logoutCmd}'
         '';
-        "${mod}+Ctrl+Alt+Delete" = "uwsm stop";
-        "Ctrl+Alt+Delete" = "uwsm stop";
+        "${mod}+Ctrl+Alt+Delete" = logoutCmd;
+        "Ctrl+Alt+Delete" = logoutCmd;
         "${mod}+Ctrl+Alt+Insert" = "exec ${swaymsg} reload";
 
         "${mod}+Tab" = "workspace next";
@@ -113,10 +118,10 @@ in
         "${mod}+Next" = "workspace next";
         "${mod}+Prior" = "workspace prev";
 
-        "${mod}+F12" = "exec ${screenshot}";
-        "${mod}+Shift+F12" = "exec ${screenshotArea}";
-        "${mod}+p" = "exec ${screenshot}";
-        "${mod}+Shift+p" = "exec ${screenshotArea}";
+        "${mod}+F12" = "exec ${screenshotArea}";
+        "${mod}+Shift+F12" = "exec ${screenshot}";
+        "${mod}+p" = "exec ${screenshotArea}";
+        "${mod}+Shift+p" = "exec ${screenshot}";
         "${mod}+Ctrl+p" = "exec kooha";
 
         # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>

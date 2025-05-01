@@ -14,6 +14,7 @@ in
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
+      launch-prefix = "uwsm app -- ";
       use-bold = true;
       terminal = prefs.term or "foot";
       layer = "overlay";
