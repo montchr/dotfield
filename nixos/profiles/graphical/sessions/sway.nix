@@ -29,10 +29,6 @@ in
     extraOptions = optional hasNvidia "--unsupported-gpu";
   };
 
-  environment.etc."sway/config".text = ''
-    exec sleep 5; systemctl --user start kanshi.service
-  '';
-
   environment.systemPackages = with pkgs; [
     sway
   ];
