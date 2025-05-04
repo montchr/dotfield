@@ -53,7 +53,8 @@ in
       all-outputs = true;
       disable-scroll = true;
       warp-on-scroll = false;
-      format = "{name} :: {icon}";
+      format = "{name}";
+      #      format = "{name} :: {icon}";
       format-icons = {
         "default" = "";
         "urgent" = "";
@@ -82,7 +83,6 @@ in
         "󰁿"
         "󰂁"
       ];
-      # format-plugged = " {capacity}%";
       states = {
         critical = 15;
         warning = 30;
@@ -228,15 +228,15 @@ in
     temperature = {
       critical-threshold = 80;
       format = "{icon} {temperatureC}°C";
-      format-critical = "{temperatureC}°C {icon}";
+      # format-critical = "{temperatureC}°C {icon}";
       format-icons = [
-        ""
+        ""
         ""
-        ""
+        ""
       ];
     };
     tray = {
-      spacing = 10;
+      spacing = 5;
     };
   };
 }
