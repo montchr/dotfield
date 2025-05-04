@@ -1,7 +1,5 @@
-{ flake, ... }:
+{ pkgs, ... }:
 {
-  nixpkgs.overlays = [ flake.inputs.niri.overlays.niri ];
-
   programs.uwsm.waylandCompositors.niri = {
     prettyName = "Niri";
     comment = "Niri compositor managed by UWSM";
@@ -10,5 +8,6 @@
 
   programs.niri = {
     enable = true;
+    package = pkgs.niri-unstable;
   };
 }
