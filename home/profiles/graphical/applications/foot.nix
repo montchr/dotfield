@@ -16,7 +16,6 @@ in
   config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     programs.foot = {
       enable = true;
-      package = flake.perSystem.inputs'.nixos-stable.legacyPackages.foot;
       settings = {
 
         main = {

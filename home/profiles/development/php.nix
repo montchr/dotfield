@@ -10,7 +10,7 @@
     # unfree, but the alternatives are in a sad state
     pkgs.nodePackages.intelephense
 
-    flake.perSystem.inputs'.nixpkgs-trunk.legacyPackages.phpactor
+    pkgs.phpactor
     pkgs.wp-cli
 
     # Provides DAP connection to Xdebug for editor support

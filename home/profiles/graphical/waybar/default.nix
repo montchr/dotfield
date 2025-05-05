@@ -14,7 +14,6 @@ in
   stylix.targets.waybar.addCss = false;
 
   programs.waybar.enable = true;
-  programs.waybar.package = flake.perSystem.inputs'.nixos-unstable.legacyPackages.waybar;
   programs.waybar.systemd.enable = true;
   programs.waybar.systemd.target = "tray.target";
   programs.waybar.style = ''

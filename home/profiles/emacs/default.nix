@@ -7,7 +7,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (flake.perSystem.inputs') emacs-overlay nil-lsp;
+  inherit (flake.perSystem.inputs') nil-lsp;
   inherit (flake.lib) mimetypes;
 
   cfg = config.programs.emacs;
@@ -42,8 +42,7 @@ in
   stylix.targets.emacs.enable = false;
   programs.emacs = {
     enable = true;
-    # TODO: update darwin package to whatever it should be now
-    package = if isDarwin then pkgs.emacs30-macport else emacs-overlay.packages.emacs-unstable-pgtk;
+    package = if isDarwin then pkgs.emacs30-macport else pkgs.emacs-unstable-pgtk;
     extraPackages = epkgs: [
       (epkgs.jinx.override { enchant2 = pkgs.enchant; })
       epkgs.pdf-tools
