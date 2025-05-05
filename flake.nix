@@ -107,7 +107,6 @@
     base16-schemes.url = "github:montchr/nix-base16-schemes";
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "github:seadome/firefox-addons";
-    niri.url = "github:sodiboo/niri-flake";
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";
 

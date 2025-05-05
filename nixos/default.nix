@@ -193,7 +193,6 @@ in
       modules = [
         ./mixins/jobwork.nix
         ./mixins/hyprland.nix
-        ./mixins/niri.nix
         ./mixins/sway.nix
         ./mixins/workstation.nix
 
