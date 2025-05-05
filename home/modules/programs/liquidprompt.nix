@@ -49,6 +49,6 @@ in
     # xdg.configFile."liquidpromptrc".text = lib.toShellVars cfg.settings;
 
     programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration shellInit;
-    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration shellInit;
+    programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration shellInit;
   };
 }

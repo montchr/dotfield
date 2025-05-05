@@ -3,7 +3,6 @@ let
   inherit (config) xdg;
   hmLib = config.lib;
   cfg = config.programs.zsh;
-  l = import ./lib.nix { inherit lib; };
 
   dotfieldDir = config.home.sessionVariables."DOTFIELD_DIR";
 
@@ -13,7 +12,12 @@ let
   ZSH_DATA = "${xdg.dataHome}/zsh";
 in
 {
-  imports = [ ../common.nix ];
+  imports = [
+    ../common.nix
+
+    ./__load-main.nix
+    ./__load-profiler.nix
+  ];
 
   home.extraOutputsToInstall = [ "/share/zsh" ];
 
@@ -34,15 +38,6 @@ in
     autosuggestion.enable = false;
     # zsh-autocomplete requires removal of any calls to compinit in zsh config.
     enableCompletion = false;
-
-    initExtraFirst = l.mkInitProfiler ''
-      ## Initialise the builtin profiler -- run `zprof` to read results
-      zmodload zsh/zprof
-    '';
-
-    initExtra = l.mkInitUserConfig ''
-      . "${DOTFIELD_USER_ZDOTDIR}/main.zsh"
-    '';
 
     sessionVariables = {
       inherit DOTFIELD_USER_ZDOTDIR ZSH_CACHE ZSH_DATA;

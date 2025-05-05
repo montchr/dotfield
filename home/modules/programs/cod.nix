@@ -58,7 +58,7 @@ in
     programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration ''
       ${cfg.package}/bin/cod init $fish_pid fish | source
     '';
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration ''
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration ''
       source <(${cfg.package}/bin/cod init $$ zsh)
     '';
   };

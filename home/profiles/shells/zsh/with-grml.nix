@@ -1,11 +1,11 @@
 { lib, pkgs, ... }:
 let
-  l = import ./lib.nix { inherit lib; };
+  l = import ./_lib.nix { inherit lib; };
 in
 {
-  imports = [ ./custom-prompt.nix ];
+  imports = [ ./_custom-prompt.nix ];
 
-  programs.zsh.initExtraFirst = l.mkInitConfigPreset ''
+  programs.zsh.initContent = l.mkInitConfigPreset ''
     source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
   '';
 }
