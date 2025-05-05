@@ -1600,20 +1600,19 @@
     "nixos-apple-silicon": {
       "inputs": {
         "flake-compat": "flake-compat_6",
-        "nixpkgs": "nixpkgs_17",
-        "rust-overlay": "rust-overlay_4"
+        "nixpkgs": "nixpkgs_17"
       },
       "locked": {
-        "lastModified": 1745742110,
-        "narHash": "sha256-10uR45i4OYEKBynP94nYVS6isMdWnHQcBB9mJFDsAqI=",
-        "owner": "montchr",
+        "lastModified": 1745702639,
+        "narHash": "sha256-YwsgMXuq1+yJiRKMWcOmyy6ZxZo4uvSMwGfXnCbRCgQ=",
+        "owner": "flokli",
         "repo": "nixos-apple-silicon",
-        "rev": "5f4278a9e39eaa422c2bf6d0f0edf9d015f139ff",
+        "rev": "88b5a309cda528ba3829a2cffb64960c97bbddce",
         "type": "github"
       },
       "original": {
-        "owner": "montchr",
-        "ref": "main",
+        "owner": "flokli",
+        "ref": "wip",
         "repo": "nixos-apple-silicon",
         "type": "github"
       }
@@ -2680,22 +2679,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "ed8aa5b64f7d36d9338eb1d0a3bb60cf52069a72",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_4": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746326315,
-        "narHash": "sha256-IDqSls/r6yBfdOBRSMQ/noTUoigmsKnTQ7TqpsBtN4Y=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "dd280c436961ec5adccf0135efe5b66a23d84497",
         "type": "github"
       },
       "original": {
