@@ -1,0 +1,188 @@
+{
+  "migrationVersion": 1,
+  "vaults": [],
+  "stats": {
+    "addToObsidian": 0,
+    "saveFile": 6,
+    "copyToClipboard": 0,
+    "share": 0
+  },
+  "general_settings": {
+    "showMoreActionsButton": false,
+    "betaFeatures": false,
+    "legacyMode": false,
+    "silentOpen": true,
+    "saveBehavior": "saveFile"
+  },
+  "highlighter_settings": {
+    "highlighterEnabled": true,
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline"
+  },
+  "interpreter_settings": {
+    "interpreterModel": "",
+    "models": [],
+    "providers": [],
+    "interpreterEnabled": false,
+    "interpreterAutoRun": false,
+    "defaultPromptContext": ""
+  },
+  "reader_settings": {
+    "fontSize": 1.5,
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "theme": "default",
+    "themeMode": "auto"
+  },
+  "template_1744676008143prjmpy258": {
+    "id": "1744676008143prjmpy258",
+    "name": "Default",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Clippings",
+    "noteContentFormat": "{{content}}",
+    "context": "",
+    "properties": [
+      {
+        "id": "1744676008143o53pmns0e",
+        "name": "title",
+        "value": "{{title}}"
+      },
+      {
+        "id": "1744676008143g14abd6c4",
+        "name": "source",
+        "value": "{{url}}"
+      },
+      {
+        "id": "1744676008143go9ppqjlu",
+        "name": "author",
+        "value": "{{author|split:\", \"|wikilink|join}}"
+      },
+      {
+        "id": "1744676008143550u45bke",
+        "name": "published",
+        "value": "{{published}}"
+      },
+      {
+        "id": "17446760081432bsmy1jec",
+        "name": "created",
+        "value": "{{date}}"
+      },
+      {
+        "id": "17446760081438boi17qz2",
+        "name": "description",
+        "value": "{{description}}"
+      },
+      {
+        "id": "1744676008143c3d3j7o7n",
+        "name": "tags",
+        "value": "clippings"
+      }
+    ],
+    "triggers": []
+  },
+  "template_1746748002382ohulz08cw": {
+    "id": "1746748002382ohulz08cw",
+    "name": "Denote",
+    "behavior": "create",
+    "noteNameFormat": "{{date|date:YYYYMMDDTHHmmss}}--{{title|split:\"|\"|first|replace:\"/[;\\:,]/gi\":\"\"|trim|kebab}}__clipping",
+    "path": "Clippings",
+    "noteContentFormat": "{{content}}",
+    "properties": [
+      {
+        "id": "1746748109804jf1esto6s",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "1746748123230lznib7s5a",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "17467481702750zthy4f93",
+        "name": "author",
+        "value": "{{author|split:\\\", \\\"|wikilink|join}}",
+        "type": "text"
+      },
+      {
+        "id": "17467482633211nag09x5y",
+        "name": "published",
+        "value": "{{published}}",
+        "type": "date"
+      },
+      {
+        "id": "17467482827233hz9lqzn4",
+        "name": "accessed",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "1746748324461xsnixbu3u",
+        "name": "description",
+        "value": "{{description}}",
+        "type": "text"
+      },
+      {
+        "id": "1746748339555rw70rg3vw",
+        "name": "tags",
+        "value": "clipping",
+        "type": "text"
+      },
+      {
+        "id": "1746748368635f7c1onaeh",
+        "name": "identifier",
+        "value": "{{date|date:YYYYMMDDTHHmmss}}",
+        "type": "text"
+      }
+    ],
+    "triggers": [],
+    "context": ""
+  },
+  "property_types": [
+    {
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "name": "author",
+      "type": "text"
+    },
+    {
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "name": "created",
+      "type": "date",
+      "defaultValue": "{{date}}"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "tags",
+      "type": "text"
+    },
+    {
+      "name": "date",
+      "type": "date"
+    },
+    {
+      "name": "accessed",
+      "type": "date"
+    },
+    {
+      "name": "identifier",
+      "type": "text"
+    }
+  ],
+  "template_list": ["1746748002382ohulz08cw", "1744676008143prjmpy258"]
+}

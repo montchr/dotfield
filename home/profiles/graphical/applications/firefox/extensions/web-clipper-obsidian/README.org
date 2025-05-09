@@ -1,0 +1,66 @@
+:PROPERTIES:
+:ID:       08f4e9dc-7443-476d-8ea4-52588d0ac549
+:END:
+
++ [[https://baty.net/posts/2025/03/using-the-obsidian-web-clipper-with-denote/][Using the Obsidian Web Clipper with Denote | Baty.net]]
++ [[https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/][Obsidian Web Clipper – Get this Extension for 🦊 Firefox (en-US)]]
+
+* Using the Obsidian Web Clipper with Denote
+:PROPERTIES:
+:ID:       57340821-eecc-4640-89f7-0bfa1936fde1
+:END:
+
+I had to clean up the =title= in the filename a bit.  The idea to use
+the Obsidian Web Clipper is great, but the filename format is very
+clearly not acceptable as a Denote filename due to the spaces (clearly
+visible in the screenshots).
+
+Import the [[file:denote-clipper.json][denote-clipper.json]] file as a new Template in the extension settings.
+
+Or just import all extension settings from [[file:obsidian-web-clipper-settings.json][obsidian-web-clipper-settings.json]].
+
+Since macOS is not a given, Hazel is not an option for automation.
+Consider Maid or some hacked-together thing involving Watchman.
+Either should run as a service.
+
+** Article
+:PROPERTIES:
+:ID:       0cd59470-e652-4d50-81f5-3745f5b214d2
+:END:
+
+I was feeling envious of the  [[https://obsidian.md/clipper][Obsidian Web Clipper]], which is quite fancy, so I thought I'd try leveraging it for use with  [[https://protesilaos.com/emacs/denote][Denote]].
+
+My first run at this involves a couple of steps:
+
+- Tweak the web clipper to save files using Denote's format and front matter
+- Save the file without adding it to an Obsidian vault
+- Move the saved file into my Denote folder
+
+Here's the Web Clipper template configuration I ended up with:
+
+[[https://baty.net/posts/2025/03/using-the-obsidian-web-clipper-with-denote/clipper.png]]
+
+It was important to set the “Tags” property type to “Text” rather than the default “Multitext” so that Denote does the right thing with it when renaming the file later.
+
+In the Web Clipper's advanced settings, I set the behavior to “Save file...” rather than “Add to Obsidian”.
+
+[[https://baty.net/posts/2025/03/using-the-obsidian-web-clipper-with-denote/settings.png]]
+
+OK, so now after using the Web Clipper, I get a Markdown file ^{[[#fn:1][1]]}with a (mostly) Denote-compatible file name and front matter in my ~/Downloads folder. Here's what clipping this post looks like:
+
+[[https://baty.net/posts/2025/03/using-the-obsidian-web-clipper-with-denote/example.png]]
+
+To get the file into my  =denote-directory=, I use a rule in  [[https://www.noodlesoft.com/][Hazel]]. Hazel watches my Downloads folder for any new file whose name contains the string “__clipping”, and automatically moves it into a “clippings” folder in my Denote folder.
+
+The only manual step remaining is to finish renaming the files using Denote. I don't yet know how to have the Web Clipper “slugify” the file name, so I have Denote do it. This can be done in batch using Dired, so it's not a huge burden.
+
+If there's a simpler way to get a nicely-formatted Org mode file from a web page directly to my Denote folder, I'm all ears, but for now...
+
+Take that, Obsidian! 😄
+
+--------------
+
+1.
+
+   <<fn:1>>
+   Denote handles Markdown files natively, so this is fine.  [[#fnref:1][↩︎]]

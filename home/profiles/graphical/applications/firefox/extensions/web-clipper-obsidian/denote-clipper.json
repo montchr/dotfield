@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Denote",
+  "behavior": "create",
+  "noteContentFormat": "{{content}}",
+  "properties": [
+    {
+      "name": "title",
+      "value": "{{title}}",
+      "type": "text"
+    },
+    {
+      "name": "source",
+      "value": "{{url}}",
+      "type": "text"
+    },
+    {
+      "name": "author",
+      "value": "{{author|split:\\\", \\\"|wikilink|join}}",
+      "type": "text"
+    },
+    {
+      "name": "published",
+      "value": "{{published}}",
+      "type": "date"
+    },
+    {
+      "name": "accessed",
+      "value": "{{date}}",
+      "type": "date"
+    },
+    {
+      "name": "description",
+      "value": "{{description}}",
+      "type": "text"
+    },
+    {
+      "name": "tags",
+      "value": "clipping",
+      "type": "text"
+    },
+    {
+      "name": "identifier",
+      "value": "{{date|date:YYYYMMDDTHHmmss}}",
+      "type": "text"
+    }
+  ],
+  "triggers": [],
+  "noteNameFormat": "{{date|date:YYYYMMDDTHHmmss}}--{{title|split:\"|\"|first|replace:\"/[;\\:,]/gi\":\"\"|trim|kebab}}__clipping",
+  "path": "Clippings"
+}
