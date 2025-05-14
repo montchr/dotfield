@@ -15,9 +15,12 @@ in
     pkgs.exiftool # <- EXIF diff handler
     pkgs.hut # <- a sourcehut CLI (unofficial)
 
+    ## forge integrations
+    pkgs.codeberg-cli
     pkgs.gitAndTools.hub
     pkgs.gitAndTools.gh
     pkgs.gitAndTools.tig
+    pkgs.glab
 
     ##: --- for occasional-use ---
 
