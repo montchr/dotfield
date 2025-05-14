@@ -14,7 +14,10 @@
     # FIXME: build failure
     # pkgs.ast-grep
     pkgs.lynis # security auditing
+    pkgs.quicktype # json schema toolkit
     pkgs.universal-ctags
+
+    pkgs.jq-lsp
 
     # {{{ checkers & formatters
     pkgs.biome

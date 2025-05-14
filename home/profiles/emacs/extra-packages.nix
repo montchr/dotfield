@@ -14,7 +14,6 @@
       dockerfile-language-server-nodejs
       typescript-language-server
       vscode-langservers-extracted
-      vscode-json-languageserver
       yaml-language-server
     ]);
 }
