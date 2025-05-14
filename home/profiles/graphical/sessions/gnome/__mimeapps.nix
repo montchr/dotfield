@@ -1,6 +1,6 @@
 { flake, lib, ... }:
 let
-  inherit (flake.lib) mimetypes;
+  inherit (flake.self.lib) mimetypes;
 in
 {
   xdg.mimeApps.defaultApplications =

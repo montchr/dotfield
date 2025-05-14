@@ -1,4 +1,5 @@
 {
+  flake,
   lib,
   config,
   pkgs,
@@ -23,7 +24,7 @@ in
   ];
 
   home-manager.sharedModules = lib.singleton {
-    imports = [ ../../../home/profiles/graphical/sessions/gnome/common.nix ];
+    imports = [ "${flake.self}/home/profiles/graphical/sessions/gnome/common.nix" ];
   };
 
   # Prevent GNOME session crashes when auto-login is enabled.
@@ -31,5 +32,5 @@ in
   systemd.services."getty@tty1".enable = (!isAutoLoginEnabled);
   systemd.services."autovt@tty1".enable = (!isAutoLoginEnabled);
 
-  programs.gnupg.agent.pinentry.package = pkgs.pinentry-gnome3;
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
 }
