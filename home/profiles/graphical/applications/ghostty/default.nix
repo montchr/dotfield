@@ -8,6 +8,7 @@
     settings = {
       confirm-close-surface = false;
       window-decoration = false;
+      window-inherit-working-directory = true;
     };
   };
 
