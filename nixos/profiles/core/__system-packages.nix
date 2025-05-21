@@ -38,6 +38,7 @@ in
     iputils
     jc # jsonify output of many cli tools
     jq
+    jnv # yet another interactive jq thingy
     less
     lm_sensors # <- standard tool for temperature monitoring <https://hwmon.wiki.kernel.org/lm_sensors>
     lnav
