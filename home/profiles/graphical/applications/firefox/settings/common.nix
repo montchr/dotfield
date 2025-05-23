@@ -56,9 +56,7 @@
 
   "privacy.clearOnShutdown.history" = false;
   "privacy.clearOnShutdown.downloads" = false;
-  "privacy.donottrackheader.enabled" = true;
-  # TODO: add docs for values
-  "privacy.donottrackheader.value" = 1;
+
   # Disable fingerprinting on AMO to allow for Tridactyl control.
   # See https://github.com/tridactyl/tridactyl/issues/1800
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
