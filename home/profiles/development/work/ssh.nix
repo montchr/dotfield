@@ -27,6 +27,9 @@ in
     "telepresence-production" = mkKinstaHost "telepresence" 59096;
     # "telepresence-staging" = mkKinstaHost "telepresence" 59770;
 
+    "templenews-production" = mkKinstaHost "templenews" 44769;
+    "templenews-staging" = mkKinstaHost "templenews" 34285;
+
     "templetv-production" = mkKinstaHost "templetv" 38736;
     "templetv-staging" = mkKinstaHost "templetv" 59770;
 

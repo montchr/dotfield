@@ -10,6 +10,7 @@
       "pingpong.seesaw.ddev.site"
       "kleinit.seesaw.ddev.site"
       "telepresence.ddev.site"
+      "templenews.ddev.site"
       "tutv.ddev.site"
       "whipradio.ddev.site"
     ];
