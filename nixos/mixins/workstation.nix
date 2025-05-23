@@ -12,6 +12,7 @@
     ../profiles/networking/avahi.nix
     ../profiles/networking/protonvpn.nix
 
+    ../profiles/graphical/applications/1password.nix
     ../profiles/graphical/applications/obs-studio.nix
 
     ../profiles/hardware/android-devices/default.nix
@@ -32,12 +33,6 @@
       allowedTCPPortRanges = [ kdeconnectPorts ];
       allowedUDPPortRanges = [ kdeconnectPorts ];
     };
-
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = config.users.groups.wheel.members;
-  };
 
   location.provider = "geoclue2";
   services.geoclue2.enable = true;
