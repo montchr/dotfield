@@ -6,7 +6,7 @@
   ...
 }:
 let
-  isGnomeDesktop = config.services.xserver.desktopManager.gnome.enable;
+  isGnomeDesktop = config.services.desktopManager.gnome.enable;
 in
 {
   imports = [

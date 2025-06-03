@@ -12,7 +12,7 @@ in
   imports = [ ../common.nix ];
 
   services.xserver.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   services.gnome.core-developer-tools.enable = true;
   services.gnome.gnome-browser-connector.enable = true;

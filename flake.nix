@@ -82,7 +82,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon?ref=release-2025-05-17";
+    nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-05-30";
     # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
     # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";
     # nixos-apple-silicon.url = "github:flokli/nixos-apple-silicon?ref=wip";
