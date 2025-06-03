@@ -46,6 +46,7 @@ in
   };
 
   networking.nameservers = dns.nameservers.quad9;
+  networking.networkmanager.insertNameservers = dns.nameservers.quad9;
 
   programs.git.enable = true;
   programs.git.config = {
