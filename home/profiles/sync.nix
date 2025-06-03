@@ -3,5 +3,5 @@
 {
   services.syncthing.enable = true;
 
-  home.packages = [ pkgs.nextcloud-client ];
+  # home.packages = [ pkgs.nextcloud-client ];
 }
