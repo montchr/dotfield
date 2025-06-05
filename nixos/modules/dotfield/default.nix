@@ -73,8 +73,7 @@ in
         hasNvidia = lib.mkDefault false;
 
         # Whether the system has any features indicating a Wayland session.
-        hasWayland =
-          config.services.xserver.displayManager.gdm.wayland or config.programs.sway.enable or false;
+        hasWayland = config.services.displayManager.gdm.wayland or config.programs.sway.enable or false;
       };
     };
 
