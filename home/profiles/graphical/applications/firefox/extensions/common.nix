@@ -1,7 +1,9 @@
 { addons }:
 with addons;
 [
-  onepassword-password-manager
+  # XXX: as of 2025-06-04 seems broken when installed this way
+  # onepassword-password-manager
+
   a11ycss
   auto-tab-discard
   consent-o-matic
