@@ -192,9 +192,9 @@ in
     tuuvok = makeAsahiSystem "tuuvok" {
       modules = [
         ./mixins/jobwork.nix
-        ./mixins/gnome.nix
+        # ./mixins/gnome.nix
         # ./mixins/hyprland.nix
-        # ./mixins/sway.nix
+        ./mixins/sway.nix
         ./mixins/workstation.nix
 
         ./profiles/hardware/apple/macbook-14-2/default.nix
