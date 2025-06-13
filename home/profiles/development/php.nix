@@ -7,9 +7,6 @@
     # pkgs.php
     # pkgs.phpPackages.composer
 
-    # unfree, but the alternatives are in a sad state
-    pkgs.nodePackages.intelephense
-
     pkgs.phpactor
     pkgs.wp-cli
 
