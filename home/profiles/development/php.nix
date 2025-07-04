@@ -1,17 +1,14 @@
 { flake, pkgs, ... }:
 {
   home.packages = [
-    # FIXME: conflicts with wp-cli php.ini
-    #        wp-cli should probably be an alias for phpPackages.wp-cli ? but i
-    #        don't think that is the case.
-    # pkgs.php
-    # pkgs.phpPackages.composer
-
     pkgs.phpactor
     pkgs.wp-cli
 
     # Provides DAP connection to Xdebug for editor support
     pkgs.vscode-extensions.xdebug.php-debug
+
+    # Requires further setup: <https://wiki.nixos.org/wiki/Jetbrains_Tools#JetBrains_Toolbox>
+    pkgs.jetbrains-toolbox
   ];
 
   home.sessionVariables = {
