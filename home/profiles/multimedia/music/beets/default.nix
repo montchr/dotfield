@@ -34,23 +34,27 @@ in
 
   programs.beets = {
     enable = true;
-    package = pkgs.beets.override {
-      pluginOverrides = {
-        # FIXME: broken with beets 2.1.0
-        # beetcamp = {
-        #   enable = true;
-        #   propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
-        # };
-        filetote = {
-          enable = true;
-          propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
+    package =
+      flake.perSystem.inputs'.nixpkgs-for-beets-not-failing-build.legacyPackages.beets.override
+        {
+          pluginOverrides = {
+            # FIXME: broken with beets 2.1.0
+            # beetcamp = {
+            #   enable = true;
+            #   propagatedBuildInputs = [ flake.perSystem.packages.beetcamp ];
+            # };
+            # FIXME: broken when overriding beets from older
+            # nixpkgs...? thinks beets package is not available
+            # filetote = {
+            #   enable = true;
+            #   propagatedBuildInputs = [ flake.perSystem.packages.beets-filetote ];
+            # };
+            # summarize = {
+            #   enable = true;
+            #   propagatedBuildInputs = [ flake.perSystem.packages.beet-summarize ];
+            # };
+          };
         };
-        summarize = {
-          enable = true;
-          propagatedBuildInputs = [ flake.perSystem.packages.beet-summarize ];
-        };
-      };
-    };
     settings = {
       library = "${musicDir}/library.db";
       directory = "${musicDir}/data";
