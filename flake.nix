@@ -66,10 +66,10 @@
     nixpkgs.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
-    nixpkgs-for-beets-not-failing-build.url = "github:NixOS/nixpkgs?rev=1546c45c538633ae40b93e2d14e0bb6fd8f13347";
+    nixpkgs-for-beets-not-failing-build.url = "github:NixOS/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc";
 
     ##: core modules+libraries
     apparat.url = "sourcehut:~montchr/apparat";
@@ -94,10 +94,7 @@
     simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     srvos.url = "github:numtide/srvos";
     # <https://viperml.github.io/wrapper-manager/>
-    wrapper-manager = {
-      url = "github:viperML/wrapper-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wrapper-manager.url = "github:viperML/wrapper-manager";
 
     ##: ops
     colmena.url = "github:zhaofengli/colmena";
