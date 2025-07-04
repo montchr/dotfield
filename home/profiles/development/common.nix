@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./nix-tools.nix
@@ -19,7 +24,7 @@
 
     pkgs.jq-lsp
 
-    # {{{ checkers & formatters
+    # checkers & formatters {{{
     pkgs.biome
     pkgs.dotenv-linter
     pkgs.nodePackages.prettier
@@ -27,5 +32,6 @@
     pkgs.shellcheck
     pkgs.yamllint
     # }}}
-  ];
+
+  ] ++ lib.optionals config.programs.fish.enable [ pkgs.fish-lsp ];
 }
