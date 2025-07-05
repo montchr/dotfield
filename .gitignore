@@ -36,3 +36,6 @@ ops/keys/ssh/*
 ##: temporary files
 *.tmp
 tmp/
+
+##: jujutsu vcs
+/target/
