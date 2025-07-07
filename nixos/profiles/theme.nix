@@ -16,9 +16,11 @@ in
 
   specialisation = {
     dark.configuration = {
+      environment.etc."specialisation".text = "dark";
       stylix.base16Scheme = toColorSchemePath "catppuccin-mocha";
     };
     light.configuration = {
+      environment.etc."specialisation".text = "light";
       stylix.base16Scheme = toColorSchemePath "catppuccin-latte";
     };
   };
