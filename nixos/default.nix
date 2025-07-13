@@ -9,7 +9,6 @@ let
   inherit (self.inputs)
     disko
     home-manager
-    lix-module
     nixos-apple-silicon
     nixos-generators
     nixos-hardware
@@ -24,7 +23,6 @@ let
 
   defaultModules = [
     home-manager.nixosModules.home-manager
-    lix-module.nixosModules.default
     sops-nix.nixosModules.sops
     stylix.nixosModules.stylix
 

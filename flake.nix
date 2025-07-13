@@ -82,10 +82,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-05-30";
     # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
     # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";
