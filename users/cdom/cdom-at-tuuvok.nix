@@ -14,6 +14,7 @@ _hmArgs: {
 
     ../../home/profiles/git/with-gpg-signing.nix
     ../../home/profiles/gpg/with-ssh-support.nix
+    ../../home/profiles/jujutsu/with-gpg-signing.nix
 
     ../../home/profiles/multimedia/music/music-production.nix
   ];

@@ -8,7 +8,7 @@
 
     ../profiles/cheatsheets.nix
     ../profiles/emacs/default.nix
-    ../profiles/jujutsu.nix
+    ../profiles/jujutsu/default.nix
     ../profiles/just.nix
   ];
 
