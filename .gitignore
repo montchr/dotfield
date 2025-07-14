@@ -10,6 +10,7 @@
 ##: build artifacts
 build
 result
+/nix.profile
 
 ##: private/local files
 *.local
