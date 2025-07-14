@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 let
   inherit (config.dotfield) whoami;
 in

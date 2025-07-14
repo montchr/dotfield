@@ -12,7 +12,7 @@ _hmArgs: {
     ../../home/profiles/shells/fish/default.nix
     ../../home/profiles/shells/fish/trampoline.nix
 
-    ../../home/profiles/git/with-pgp-signing.nix
+    ../../home/profiles/git/with-gpg-signing.nix
     ../../home/profiles/gpg/with-ssh-support.nix
 
     ../../home/profiles/multimedia/music/music-production.nix
