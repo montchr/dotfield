@@ -1,16 +1,16 @@
-{ lib, pkgs, ... }:
+{ flake, pkgs, ... }:
 {
   imports = [ ../common.nix ];
 
   programs.fish = {
     enable = true;
-    plugins = map (pkg: { inherit (pkg) name src; }) (
+    plugins =
       with pkgs.fishPlugins;
       [
         autopair
         done
       ]
-    );
+      |> builtins.map flake.self.lib.fish.toPluginAttrs;
   };
 
   # Install package-supplied completions.
