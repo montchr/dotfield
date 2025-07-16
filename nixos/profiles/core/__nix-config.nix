@@ -45,8 +45,9 @@ in
       ## === Features ===
 
       experimental-features = [
-        "nix-command"
         "flakes"
+        "nix-command"
+        "pipe-operators"
       ];
 
       # TODO: always appropriate??
