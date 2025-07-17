@@ -8,6 +8,11 @@ let
   inherit (config.dotfield) whoami;
 in
 {
+  home.packages = [
+    pkgs.jjui
+    pkgs.jj-fzf
+  ];
+
   programs.jujutsu = {
     enable = true;
     settings = {
