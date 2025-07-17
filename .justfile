@@ -20,12 +20,16 @@ cachix-exec := "cachix watch-exec " + cachix-cache-name + " --jobs " + cachix-jo
 ##: directories/paths
 prj-root := env_var('PRJ_ROOT')
 prj-data := env_var('PRJ_DATA_HOME')
+user-configs-dir := justfile_directory() / "users" / env("USER") / "config"
 
 sys-gen-path := env_var('DOTFIELD_SYS_DRV')
 
 hm-gen-path := `home-manager generations | head -1 | grep -Eo '/nix/store.+$'`
 hm-specialisation-path := hm-gen-path / "specialisations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
+
+stow scope:
+  cd {{ user-configs-dir }} && stow -R {{ scope }}
 
 # <- Rebuild the system and provide a summary of the changes
 build *ARGS='':
