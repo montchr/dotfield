@@ -8,6 +8,7 @@
     ../../home/profiles/neovim/default.nix
     ../../home/profiles/nnn.nix
     ../../home/profiles/rclone.nix
+    ../../home/profiles/shells/prompts/starship/default.nix
     ../../home/profiles/shells/zsh/default.nix
     ../../home/profiles/shells/zsh/with-grml.nix
     ../../home/profiles/ssh.nix

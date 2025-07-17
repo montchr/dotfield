@@ -8,4 +8,6 @@ in
   programs.zsh.initContent = l.mkInitConfigPreset ''
     source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
   '';
+
+  programs.starship.enableZshIntegration = false;
 }

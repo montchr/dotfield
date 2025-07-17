@@ -8,6 +8,8 @@ let
   inherit (config.dotfield) whoami;
 in
 {
+  imports = [ ./__starship-prompt-support.nix ];
+
   home.packages = [
     pkgs.jjui
     pkgs.jj-fzf

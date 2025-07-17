@@ -16,6 +16,9 @@
         "$container"
         "$docker_context"
         "$directory"
+        # HACK: jujutsu support
+        # unfortunately difficult to override in the jj module
+        "\${custom.jj}\${custom.jj_git_branch_fallback}"
         "$git_branch"
         "$git_commit"
         "$git_state"
@@ -44,10 +47,6 @@
         read_only = " ";
       };
       #   fill.symbol = " ";
-
-      #   ##: --- vcs ---
-
-      #   ##: --- languages ---
 
       haskell.symbol = " ";
       nodejs = {
