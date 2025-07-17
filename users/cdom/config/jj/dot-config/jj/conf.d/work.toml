@@ -1,7 +1,7 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [[--scope]]
---when.repositories = ["~/Projects/work/applications/templenews"]
+--when.repositories = ["~/Projects/work/"]
 [--scope.user]
 email = "chrismont@temple.edu"
 [--scope.git]
