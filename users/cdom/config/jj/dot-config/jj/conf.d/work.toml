@@ -1,0 +1,8 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[[--scope]]
+--when.repositories = ["~/Projects/work/applications/templenews"]
+[--scope.user]
+email = "chrismont@temple.edu"
+[--scope.git]
+auto-local-bookmark = true
