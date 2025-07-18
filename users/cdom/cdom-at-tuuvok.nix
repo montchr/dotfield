@@ -1,5 +1,7 @@
 _hmArgs: {
   imports = [
+    ./profile.nix
+
     # ../../home/mixins/hyprland.nix
     ../../home/mixins/sway.nix
     ../../home/profiles/graphical/sessions/gnome/common.nix
@@ -8,9 +10,6 @@ _hmArgs: {
 
     ../../home/profiles/mail/default.nix
     # ../../home/profiles/mail/accounts/outlook.nix
-
-    ../../home/profiles/shells/fish/default.nix
-    ../../home/profiles/shells/fish/trampoline.nix
 
     ../../home/profiles/git/with-gpg-signing.nix
     ../../home/profiles/gpg/with-ssh-support.nix

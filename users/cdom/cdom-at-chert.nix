@@ -1,7 +1,7 @@
 _hmArgs: {
   imports = [
+    ./profile.nix
     ../../home/profiles/mail/default.nix
-    ../../home/profiles/shells/fish/default.nix
   ];
 
   home.stateVersion = "23.05";

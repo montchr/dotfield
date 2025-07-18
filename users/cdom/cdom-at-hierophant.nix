@@ -1,1 +1,5 @@
-_hmArgs: { home.stateVersion = "23.05"; }
+_hmArgs: {
+  imports = [ ./profile.nix ];
+
+  home.stateVersion = "23.05";
+}
