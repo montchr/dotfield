@@ -35,29 +35,19 @@ in
       # devshells.dotfield = {
       devshells.default = {
         devshell.name = "dotfield";
-        devshell.packages = [
+        devshell.packages = (import ./__common-packages.nix pkgs) ++ [
           nix-inspect.packages.default
 
-          pkgs.cachix
           pkgs.crudini # CRUD for ini files -- for dconf dump manipulation
-          pkgs.deadnix
-          pkgs.editorconfig-checker
           pkgs.gh
           pkgs.nh
           pkgs.nix-diff
           pkgs.nix-output-monitor
-          pkgs.nodePackages.prettier
-          pkgs.reuse
-          pkgs.shellcheck
-          pkgs.statix
           pkgs.stow
-          pkgs.treefmt
         ];
         commands = [
           (dotfield colmena.packages.colmena)
           (dotfield home-manager.packages.default)
-          (dotfield pkgs.just)
-          (dotfield pkgs.treefmt)
 
           # (maintenance (nix-inspect.packages.default.overrideAttrs { meta.description = "test"; }))
 
@@ -65,7 +55,6 @@ in
           (maintenance pkgs.nix-prefetch)
           (maintenance pkgs.nix-tree)
           (maintenance pkgs.nixdoc)
-          (maintenance pkgs.nixfmt-rfc-style)
           (maintenance pkgs.nurl)
         ];
         env = [
