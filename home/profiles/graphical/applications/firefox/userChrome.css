@@ -1,0 +1,31 @@
+* {
+  font-family: monospace !important;
+  font-size: 10px;
+  line-height: 1;
+}
+
+moz-input-box,
+#urlbar-input-container {
+  font-size: 13px;
+}
+
+:root {
+  &[uidensity="compact"] {
+    --toolbarbutton-outer-padding: 1px;
+  }
+}
+
+
+/* ========================================================================
+   Tab Bar
+   ======================================================================== */
+
+#tabbrowser-tabs[orient="vertical"] {
+  & .tabbrowser-tab {
+    padding-block: 0;
+  }
+
+  [uidensity="compact"] & {
+    --tab-min-height: 26px;
+  }
+}

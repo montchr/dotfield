@@ -34,18 +34,7 @@ let
         hmArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
     };
 
-  userChrome = ''
-    * {
-      font-family: monospace !important;
-      font-size: 10px;
-      line-height: 1;
-    }
-
-    moz-input-box,
-    #urlbar-input-container {
-      font-size: 13px;
-    }
-  '';
+  userChrome = builtins.readFile ./userChrome.css;
 
   search = import ./search/default.nix { inherit lib lib' pkgs; };
 in
