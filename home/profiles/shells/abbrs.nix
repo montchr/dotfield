@@ -9,6 +9,18 @@
   rcpu = "rcp --chmod=go=";
   rcpdu = "rcpd --chmod=go=";
 
+  ### Jujutsu
+
+  jjd = "jj describe -m";
+  jjdn = "jj describe @+ -m";
+  jjdp = "jj describe @- -m";
+  jjff = "jj diff";
+  jjl = "jj log -n 6 --no-pager";
+  jjn = "jj new -m";
+  jjs = "jj st --no-pager";
+
+  ### Git
+
   g = "git";
 
   # add / branch / checkout / reset
