@@ -29,17 +29,21 @@ in
           "--no-pager"
         ];
       };
+
       template-aliases = {
         # Display relative timestamps in log output
         "format_timestamp(timestamp)" = "timestamp.ago()";
       };
+
       user = {
         inherit (whoami) email name;
       };
+
       ui = {
         # default-command = [
         #   "log"
         # ];
+
         # https://jj-vcs.github.io/jj/latest/config/#generating-diffs-by-external-command
         diff-formatter = [
           (lib.getExe pkgs.difftastic)
@@ -47,8 +51,8 @@ in
           "$left"
           "$right"
         ];
+
         movement.edit = true;
-        # paginate = "never";
       };
     };
   };
