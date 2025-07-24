@@ -10,7 +10,8 @@
   ];
 
   home.packages = [
-    pkgs.quodlibet-full
+    # XXX: broken (2025-07-24)
+    # pkgs.quodlibet-full
 
     flake.perSystem.packages.scotty
 
