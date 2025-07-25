@@ -42,18 +42,7 @@ in
       ui = {
         # For interoperability with other tools that don't know jj.
         conflict-marker-style = "git";
-
-        # default-command = [
-        #   "log"
-        # ];
-
-        # https://jj-vcs.github.io/jj/latest/config/#generating-diffs-by-external-command
-        diff-formatter = [
-          (lib.getExe pkgs.difftastic)
-          "--color=always"
-          "$left"
-          "$right"
-        ];
+        diff-formatter = ":git";
 
         movement.edit = true;
       };
