@@ -90,6 +90,10 @@ in
           { app_id = ".*zathura"; }
           { app_id = "mpv"; }
           { app_id = "xdg-desktop-portal-gtk"; }
+          {
+            app_id = "emacs";
+            title = "emacs-float";
+          }
         ];
       };
 
