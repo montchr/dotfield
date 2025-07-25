@@ -19,6 +19,8 @@ let
 
   swaymsg = "swaymsg";
 
+  ceamxTyper = pkgs.writeShellScript "ceamx-typer" "${config.programs.emacs.package}/bin/emacsclient --eval '(ceamx-typer/edit)'";
+
   screenshotsDir = "$HOME/Pictures/Screenshots";
   screenshotFilename = "${screenshotsDir}/screenshot-$(date '+%Y%m%dT%H%M%S').png";
   screenshot = pkgs.writeShellScript "screenshot.sh" ''
@@ -123,6 +125,8 @@ in
         "${mod}+p" = "exec ${screenshotArea}";
         "${mod}+Shift+p" = "exec ${screenshot}";
         "${mod}+Ctrl+p" = "exec kooha";
+
+        "${mod}+i" = "exec ${ceamxTyper}";
 
         # <https://wiki.archlinux.org/title/Sway#Custom_keybindings>
         "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
