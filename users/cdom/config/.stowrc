@@ -1,5 +1,5 @@
 --target=~
---ignore='.nix$'
+--ignore='\.nix$'
 --ignore='\.stowrc'
 --no-folding
 --dotfiles
