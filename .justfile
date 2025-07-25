@@ -31,6 +31,11 @@ hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 stow scope:
   cd {{ user-configs-dir }} && stow -R {{ scope }}
 
+stow-all *FLAGS:
+  cd {{ user-configs-dir }} \
+  && fd --type d --max-depth 1 --exec-batch \
+  stow -R {{ FLAGS }} '{.}'
+
 # <- Rebuild the system and provide a summary of the changes
 build *ARGS='':
   {{cachix-exec}} nh -- os build "{{prj-root}}" {{ARGS}}
