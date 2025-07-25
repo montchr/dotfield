@@ -7,6 +7,7 @@
 {
   environment.variables = {
     EDITOR = "vim";
+    HOSTNAME = config.networking.hostName;
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     XDG_CACHE_HOME = "$HOME/.cache";
