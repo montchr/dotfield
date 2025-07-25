@@ -52,6 +52,8 @@ in
     qt5.qtwayland
     wev
     wl-clipboard
+    wtype # abandoned?
+    ydotool
   ];
 
   documentation.info.enable = true;
