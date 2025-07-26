@@ -19,7 +19,10 @@
         gh-repo-explore = callPackage ./gh/gh-repo-explore/package.nix { };
         gh-s = callPackage ./gh/gh-s/package.nix { };
         igr = callPackage ./igr/package.nix { };
+        iosvmata-bin = callPackage ./iosvmata-bin/package.nix { };
         php-stubs-generator = callPackage ./php-stubs-generator/package.nix { };
+        pragmasevka = callPackage ./pragmasevka/package.nix { };
+        pragmasevka-bin = callPackage ./pragmasevka-bin/package.nix { };
         realise-symlink = callPackage ./realise-symlink/package.nix { };
         scotty = callPackage ./scotty/package.nix { };
         starship-jj = callPackage ./starship-jj/package.nix { };

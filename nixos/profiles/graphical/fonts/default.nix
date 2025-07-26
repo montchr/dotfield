@@ -32,6 +32,8 @@
       preferredFonts = with pkgs; [
         aporetic
         (mkIosevkaSgrVariant "Term")
+        flake.perSystem.packages.iosvmata-bin
+        flake.perSystem.packages.pragmasevka-bin
       ];
     in
     baselineFonts
