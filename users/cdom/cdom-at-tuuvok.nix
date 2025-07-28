@@ -1,4 +1,5 @@
-_hmArgs: {
+{ pkgs, ... }:
+{
   imports = [
     ./profile.nix
 
@@ -15,6 +16,7 @@ _hmArgs: {
     ../../home/profiles/gpg/with-ssh-support.nix
     ../../home/profiles/jujutsu/with-gpg-signing.nix
     ../../home/profiles/jujutsu/with-sign-on-push.nix
+    ../../home/profiles/development/rust.nix
 
     ../../home/profiles/multimedia/music/music-production.nix
   ];
