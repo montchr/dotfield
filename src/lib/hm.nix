@@ -31,10 +31,10 @@ let
   settings' = system: settings // { extraSpecialArgs = specialArgs' system; };
 
   defaultModules = homeModules ++ [
-    ../../home/profiles/core/default.nix
-    ../../home/profiles/direnv.nix
-    ../../home/profiles/fzf.nix
-    ../../home/profiles/git/default.nix
+    # ../../home/profiles/core/default.nix
+    # ../../home/profiles/direnv.nix
+    # ../../home/profiles/fzf.nix
+    # ../../home/profiles/git/default.nix
     {
       _module.args = {
         # FIXME: include self.lib somehow (will cause infinite recursion

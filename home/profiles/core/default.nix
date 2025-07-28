@@ -22,7 +22,7 @@ in
   imports = [
     nix-index-database.hmModules.nix-index
 
-    ./bat.nix
+    # ./bat.nix
     ./home-packages.nix
     ./homeshick.nix
     ./tealdeer.nix

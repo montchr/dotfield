@@ -21,15 +21,15 @@ let
 
   modules = import ./modules-list.nix;
 
-  defaultModules = [
-    home-manager.nixosModules.home-manager
-    sops-nix.nixosModules.sops
-    stylix.nixosModules.stylix
+  # defaultModules = [
+  #   # home-manager.nixosModules.home-manager
+  #   # sops-nix.nixosModules.sops
+  #   # stylix.nixosModules.stylix
 
-    ./profiles/core/default.nix
-    ./profiles/boot/common.nix
-    ./profiles/networking/tailscale.nix
-  ];
+  #   # ./profiles/core/default.nix
+  #   # ./profiles/boot/common.nix
+  #   # ./profiles/networking/tailscale.nix
+  # ];
 
   makeAsahiPkgs =
     {
@@ -192,16 +192,14 @@ in
     tuuvok = makeAsahiSystem "tuuvok" {
       modules = [
         ./mixins/jobwork.nix
-        # ./mixins/gnome.nix
-        # ./mixins/hyprland.nix
         ./mixins/sway.nix
         ./mixins/workstation.nix
 
-        ./profiles/hardware/apple/macbook-14-2/default.nix
-        ./profiles/hardware/displaylink.nix
+        # ./profiles/hardware/apple/macbook-14-2/default.nix
+        # ./profiles/hardware/displaylink.nix
 
-        ./profiles/remote-builders/default.nix
-        ./profiles/remote-builders/ryosuke.nix
+        # ./profiles/remote-builders/default.nix
+        # ./profiles/remote-builders/ryosuke.nix
       ];
     };
 
