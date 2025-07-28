@@ -7,6 +7,7 @@
 
     ../profiles/graphical/applications/ghostty/default.nix
     ../profiles/graphical/applications/graphics-editing.nix
+    ../profiles/graphical/applications/libreoffice.nix
     ../profiles/graphical/applications/obs-studio.nix
     ../profiles/graphical/applications/okular.nix
     ../profiles/graphical/applications/qutebrowser.nix
