@@ -1,19 +1,40 @@
-{ flake, withSystem, ... }:
+# Copyright (C) 2024-2025 Chris Montgomery
+# Copyright (C) 2025 Michael Belsanti
+# SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+{ lib, ... }:
 let
-  flakeSpecialArgs = flake;
-  flakeSpecialArgs' =
-    system:
-    withSystem system (
-      { inputs', ... }@ctx:
-      let
-        perSystem = {
-          inherit (ctx.config) legacyPackages packages;
-          inherit inputs';
-        };
-      in
-      flakeSpecialArgs // { inherit perSystem; }
-    );
+  inherit (lib) mkOption types;
+
+  mkDeferredModuleOption =
+    description:
+    mkOption {
+      inherit description;
+      type = types.deferredModule;
+      default = { };
+    };
+
+  scopedSubmoduleType = types.submodule {
+    options = {
+      nixos = mkDeferredModuleOption "A NixOS module";
+      home = mkDeferredModuleOption "A Home-Manager module";
+    };
+  };
+
+  scopedModulesOptions = {
+    nixos = mkDeferredModuleOption "Global NixOS configuration";
+    home = mkDeferredModuleOption "Global Home-Manager configuration";
+    modules = mkOption {
+      type = types.lazyAttrsOf scopedSubmoduleType;
+    };
+  };
 in
 {
-  inherit flakeSpecialArgs flakeSpecialArgs';
+  flake.lib.modules = {
+    inherit
+      mkDeferredModuleOption
+      scopedModulesOptions
+      scopedSubmoduleType
+      ;
+  };
 }

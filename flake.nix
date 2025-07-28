@@ -12,54 +12,33 @@
       haumea,
       ...
     }@inputs:
-    (
-      let
-        ops = import ./ops/data.nix { inherit haumea; };
-      in
-      flake-parts.lib.mkFlake { inherit inputs; } {
-        systems = [
-          "aarch64-linux"
-          "x86_64-linux"
-        ];
-        imports = [
-          inputs.devshell.flakeModule
-          inputs.pre-commit-hooks.flakeModule
+    (flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      imports = [
+        ./src
 
-          {
-            _module.args = {
-              inherit ops;
+        ./.config/devshells
+        ./.config/git-hooks.nix
+
+        ./hive.nix
+      ];
+
+      perSystem =
+        { system, pkgs, ... }:
+        {
+          _module.args = {
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = (import ./src/overlays/default.nix { inherit inputs; });
             };
-          }
-
-          ./flake-modules/homeConfigurations.nix
-
-          ./src
-
-          ./packages
-          ./nixos
-          ./home
-
-          ./ops/devshells
-          ./ops/git-hooks.nix
-
-          ./hive.nix
-        ];
-
-        perSystem =
-          { system, pkgs, ... }:
-          {
-            _module.args = {
-              inherit ops;
-              pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-                overlays = (import ./overlays/default.nix { inherit inputs; });
-              };
-            };
-            formatter = pkgs.nixfmt-rfc-style;
           };
-      }
-    );
+          formatter = pkgs.nixfmt-rfc-style;
+        };
+    });
 
   inputs = {
 
@@ -83,6 +62,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
+    import-tree.url = "github:vic/import-tree";
     nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-05-30";
     # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
     # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";

@@ -8,8 +8,7 @@
 { flake, ... }:
 let
   inherit (flake.inputs.nixpkgs) lib;
-in
-{
+
   mkJob =
     {
       keyFile,
@@ -61,7 +60,11 @@ in
         weekly = 3;
         monthly = 3;
         yearly = 1;
-      } // keep;
+      }
+      // keep;
       environment."BORG_RSH" = "ssh -i ${keyFile}";
     };
+in
+{
+  flake.lib.backups = { inherit mkJob; };
 }

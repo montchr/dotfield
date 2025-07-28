@@ -1,0 +1,54 @@
+diff --git a/src/lib/modules.nix b/src/lib/modules.nix
+index 1234567..abcdefg 100644
+--- a/src/lib/modules.nix
++++ b/src/lib/modules.nix
+@@ -32,6 +32,10 @@ let
+     modules = mkOption {
+       type = types.lazyAttrsOf scopedSubmoduleType;
+     };
++    userModules = mkOption {
++      type = types.lazyAttrsOf (types.lazyAttrsOf scopedSubmoduleType);
++      default = {};
++      description = "User-specific modules organized by username, then scope";
++    };
+   };
+ 
+ in
+diff --git a/src/modules/dotfield/nixos.nix b/src/modules/dotfield/nixos.nix
+index 1234567..abcdefg 100644
+--- a/src/modules/dotfield/nixos.nix
++++ b/src/modules/dotfield/nixos.nix
+@@ -18,6 +18,20 @@ let
+ 
+   collectNixosModules = builtins.foldl' (v: acc: acc ++ v.nixos.imports) [ ];
+   collectHomeModules = builtins.foldl' (v: acc: acc ++ v.home.imports) [ ];
++  
++  # Enhanced collectHomeModules that merges user-specific modules
++  collectHomeModulesForUser = username: requestedModules:
++    let
++      baseModules = collectHomeModules requestedModules;
++      
++      # Create additional modules that merge global + user-specific
++      userModuleOverrides = lib.mapAttrsToList (scope: userModule:
++        { imports = [ userModule.home ]; }
++      ) (config.dotfield.userModules.${username} or {});
++      
++    in
++    baseModules ++ userModuleOverrides;
+ 
+ in
+ {
+@@ -114,8 +128,11 @@ in
+           # the ideal behavior would be that auto import would defer the
+           # import of the user-specific features until inside the user
+           # scope.  how would that work?
+-          users = lib.mapAttrs (_username: userConfig: {
+-            imports = (collectHomeModules userConfig.modules) ++ userConfig.home.imports ++ homeModules;
++          # FIXED: User-specific modules are now properly namespaced and merged
++          users = lib.mapAttrs (username: userConfig: {
++            imports = (collectHomeModulesForUser username userConfig.modules) 
++                     ++ userConfig.home.imports 
++                     ++ homeModules;
+           }) hostConfig.users;
+ 
+         in

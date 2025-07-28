@@ -1,5 +1,5 @@
 {
   imports = [
-    ../profiles/graphical/sessions/hyprland/default.nix
+    # ../profiles/graphical/sessions/hyprland/default.nix
   ];
 }

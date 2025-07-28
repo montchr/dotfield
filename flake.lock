@@ -1070,6 +1070,21 @@
         "type": "github"
       }
     },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1752730890,
+        "narHash": "sha256-GES8fapSLGz36MMPRVNkSUWXUTtqvGQNXHjRmRLfJUY=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "6ebb8cb87987b20264c09296166543fd3761d274",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
     "incl": {
       "inputs": {
         "nixlib": [
@@ -2291,6 +2306,7 @@
         "flake-utils": "flake-utils_5",
         "haumea": "haumea_4",
         "home-manager": "home-manager",
+        "import-tree": "import-tree",
         "microvm": "microvm",
         "musnix": "musnix",
         "nix-ai-tools": "nix-ai-tools",
