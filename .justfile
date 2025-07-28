@@ -8,6 +8,8 @@ mod nixify ".just/nixify.mod.just"
 default:
   @just --choose
 
+org-id := "0a2ea76a-bb6e-4c01-9562-276e80cb1df4"
+
 ##: legal/reuse
 copyright := 'Chris Montgomery <chmont@proton.me>'
 default-license := 'GPL-3.0-or-later'

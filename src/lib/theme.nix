@@ -1,15 +1,14 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023 Chris Montgomery <chmont@proton.me>
 # SPDX-FileCopyrightText: Copyright (c) 2019 Robert Helgesson
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
-{ flake, ... }:
+{ lib, inputs, ... }:
 let
-  inherit (flake.inputs) apparat;
-  inherit (apparat.lib.color) fromHex;
-  l = flake.inputs.nixpkgs.lib // builtins;
+  inherit (inputs.apparat.lib.color) fromHex;
+  inherit (builtins) substring;
 
   # TODO: prob more useful to expand scope as a general colorscheme getter since
   #       even with this fn it's pretty repetitive
-  asHexStrings = l.mapAttrs (_: v: v.hex.r + v.hex.g + v.hex.b);
+  asHexStrings = lib.mapAttrs (_: v: v.hex.r + v.hex.g + v.hex.b);
 
   /*
     Guesstimate light/dark polarity for a decimal color value.
@@ -53,9 +52,9 @@ let
     v:
     let
       hex = {
-        r = l.substring 0 2 v;
-        g = l.substring 2 2 v;
-        b = l.substring 4 2 v;
+        r = substring 0 2 v;
+        g = substring 2 2 v;
+        b = substring 4 2 v;
       };
       dec = {
         r = fromHex hex.r;
@@ -83,15 +82,24 @@ let
   mkColorScheme =
     scheme:
     let
-      bases = l.filterAttrs (n: _: l.hasPrefix "base" n) scheme;
-      colors = l.mapAttrs (_: mkColor) bases;
+      bases = lib.filterAttrs (n: _: lib.hasPrefix "base" n) scheme;
+      colors = lib.mapAttrs (_: mkColor) bases;
     in
     {
       inherit colors;
-      name = l.replaceStrings [ " " ] [ "-" ] scheme.scheme;
+      name = builtins.replaceStrings [ " " ] [ "-" ] scheme.scheme;
       kind = derivePolarity { inherit (colors.base00) dec; };
     };
+
+  toColorSchemePath = pkgs: scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
 in
 {
-  inherit asHexStrings derivePolarity mkColorScheme;
+  flake.lib.theme = {
+    inherit
+      asHexStrings
+      derivePolarity
+      mkColorScheme
+      toColorSchemePath
+      ;
+  };
 }

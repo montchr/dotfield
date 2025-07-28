@@ -8,20 +8,15 @@
   ...
 }:
 let
+  inherit (inputs) import-tree;
   haumea = inputs.haumea.lib;
 in
 {
   imports = [
+    (import-tree ./lib)
+    (import-tree ./features)
+    (import-tree ./modules)
+
     ./packages
   ];
-
-  flake.lib = haumea.load {
-    src = ./lib;
-    inputs = {
-      inherit lib ops withSystem;
-      flake = {
-        inherit self inputs config;
-      };
-    };
-  };
 }

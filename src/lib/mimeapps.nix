@@ -1,8 +1,10 @@
-{ self, ... }:
-{
+let
   desktopEntryNames = {
     ghostty = "com.mitchellh.ghostty";
   };
 
-  nameFor = app: (self.desktopEntryNames.${app} or app) + ".desktop";
+  nameFor = app: (desktopEntryNames.${app} or app) + ".desktop";
+in
+{
+  flake.lib.mimeapps = { inherit desktopEntryNames nameFor; };
 }
