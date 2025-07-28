@@ -1,3 +1,0 @@
-{
-  services.darkman.enable = true;
-}

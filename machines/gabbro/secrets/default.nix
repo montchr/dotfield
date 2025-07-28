@@ -1,1 +1,0 @@
-{ sops.defaultSopsFile = ./secrets.yaml; }

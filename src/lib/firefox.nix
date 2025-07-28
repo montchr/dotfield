@@ -1,10 +1,8 @@
-{ ... }:
 let
   engine = template: { urls = [ { inherit template; } ]; };
+  engine' = alias: template: withAlias "@${alias}" (engine template);
   withAlias = s: attrs: attrs // { definedAliases = [ s ]; };
 in
 {
-  inherit engine;
-
-  engine' = alias: template: withAlias "@${alias}" (engine template);
+  flake.lib.firefox = { inherit engine engine'; };
 }

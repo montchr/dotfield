@@ -1,0 +1,5 @@
+
+{}:
+let
+  installer = makeNixosSystem
+in
