@@ -9,19 +9,15 @@
 }:
 let
   haumea = inputs.haumea.lib;
-
-  lib' = haumea.load {
-    src = ./src;
+in
+{
+  flake.lib = haumea.load {
+    src = ./lib;
     inputs = {
       inherit lib ops withSystem;
       flake = {
         inherit self inputs config;
       };
     };
-  };
-in
-{
-  flake.lib = lib' // {
-    inherit ops;
   };
 }

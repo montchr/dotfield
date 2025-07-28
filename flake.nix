@@ -33,7 +33,8 @@
 
           ./flake-modules/homeConfigurations.nix
 
-          ./lib
+          ./src
+
           ./packages
           ./nixos
           ./home
