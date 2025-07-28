@@ -11,6 +11,7 @@
     in
     {
       packages = inputs.flake-utils.lib.filterPackages system {
+        astrata = callPackage ./astrata/package.nix { };
         base16-schemes = callPackage ./base16-schemes/package.nix { };
         berkeley-mono = callPackage ./berkeley-mono/package.nix { };
         ddi = callPackage ./ddi/package.nix { };
