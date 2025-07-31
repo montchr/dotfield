@@ -48,9 +48,6 @@ in
   programs.bash = {
     inherit sessionVariables;
   };
-  programs.zsh = {
-    inherit sessionVariables;
-  };
   # FIXME: unsupported
   # programs.fish = {inherit sessionVariables;};
   # programs.nushell = {inherit sessionVariables;};

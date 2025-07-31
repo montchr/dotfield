@@ -30,21 +30,6 @@ in
 
   programs.fish.enable = true;
 
-  programs.zsh = {
-    enable = true;
-    shellInit = "";
-    loginShellInit = "";
-    interactiveShellInit = "";
-
-    # Prompts/completions/widgets should never be initialised at the
-    # system-level because it will need to be initialised a second time once the
-    # user's zsh configs load.
-    enableCompletion = lib.mkForce false;
-    enableBashCompletion = lib.mkForce false;
-    promptInit = lib.mkForce "";
-    syntaxHighlighting.enable = lib.mkForce false;
-  };
-
   networking.nameservers = dns.nameservers.quad9;
   networking.networkmanager.insertNameservers = dns.nameservers.quad9;
 

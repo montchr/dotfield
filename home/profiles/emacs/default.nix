@@ -35,9 +35,6 @@ in
   programs.bash = {
     inherit sessionVariables;
   };
-  programs.zsh = {
-    inherit sessionVariables;
-  };
 
   stylix.targets.emacs.enable = false;
   programs.emacs = {

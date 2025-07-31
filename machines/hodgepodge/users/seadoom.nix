@@ -19,7 +19,6 @@ in
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    shell = pkgs.zsh;
     extraGroups = [
       "audio"
       "video"

@@ -36,7 +36,6 @@ in
 
   ### shells
   programs.bash.enable = true;
-  programs.zsh.enable = true;
 
   ### essential tools
   programs.jq.enable = true;

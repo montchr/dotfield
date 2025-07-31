@@ -12,7 +12,6 @@
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/seadoom/hashed-password".path;
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    shell = pkgs.zsh;
   };
 
   home-manager.users.seadoom = import ../../../users/cdom/seadoom-at-boschic.nix;

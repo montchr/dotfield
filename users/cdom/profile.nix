@@ -8,8 +8,6 @@
     ../../home/profiles/nnn.nix
     ../../home/profiles/rclone.nix
     ../../home/profiles/shells/prompts/starship/default.nix
-    ../../home/profiles/shells/zsh/default.nix
-    ../../home/profiles/shells/zsh/with-grml.nix
     ../../home/profiles/ssh.nix
     ../../home/profiles/yazi.nix
     ../../home/profiles/zellij.nix

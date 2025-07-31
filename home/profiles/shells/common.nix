@@ -11,7 +11,6 @@ in
   };
 
   programs.bash.shellAliases = shellAbbrs;
-  programs.zsh.shellAliases = shellAbbrs;
   programs.fish = {
     inherit shellAbbrs;
   };
