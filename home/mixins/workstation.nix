@@ -15,7 +15,7 @@
 
     ../profiles/development/common.nix
     ../profiles/development/data-wrangling.nix
-    ../profiles/emacs/org-protocol.nix
+    # ../profiles/emacs/org-protocol.nix
     ../profiles/espanso/default.nix
     ../profiles/git-sync.nix
     ../profiles/kdeconnect.nix

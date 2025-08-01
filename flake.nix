@@ -108,11 +108,16 @@
     stylix.url = "github:danth/stylix";
 
     ##: apps/tools
+    ceamx = {
+      url = "github:montchr/ceamx";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.apparat.follows = "apparat";
+      inputs.devshell.follows = "devshell";
+    };
     deadnix.url = "github:astro/deadnix";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nix-inspect.url = "github:bluskript/nix-inspect";
-    nil-lsp.url = "github:oxalica/nil";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";

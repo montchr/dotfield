@@ -35,15 +35,6 @@
         # TODO: not ready
         # wp-cli = callPackage ./wp-cli/package.nix { };
 
-        aspell-with-dicts = (
-          pkgs.aspellWithDicts (
-            ds: with ds; [
-              en
-              en-computers
-              en-science
-            ]
-          )
-        );
       };
     };
 }
