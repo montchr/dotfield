@@ -6,6 +6,12 @@
 }:
 let
   inherit (config.dotfield) whoami;
+
+  # TODO: for visibility -- refactor "later"
+  guiTools = [
+    pkgs.gg-jj
+    pkgs.diffedit3
+  ];
 in
 {
   imports = [ ./__starship-prompt-support.nix ];
@@ -13,7 +19,9 @@ in
   home.packages = [
     pkgs.jjui
     pkgs.jj-fzf
-  ];
+    pkgs.lazyjj
+  ]
+  ++ guiTools;
 
   programs.jujutsu = {
     enable = true;
