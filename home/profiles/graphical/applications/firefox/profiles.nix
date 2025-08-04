@@ -8,7 +8,6 @@ hmArgs@{
 }:
 let
   inherit (flake.inputs) haumea;
-  inherit (flake.perSystem.inputs') firefox-addons;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   lib' = flake.self.lib;
 
@@ -20,9 +19,6 @@ let
       inherit lib;
     };
   };
-
-  addons = firefox-addons.packages;
-  extensions = import ./extensions/common.nix { inherit addons; };
 
   baseSettings =
     (import ./settings/common.nix)
@@ -45,14 +41,12 @@ in
       userChrome
       ;
     id = 0;
-    extensions.packages = extensions;
     settings = baseSettings // { };
   };
 
   programs.firefox.profiles.work = {
     inherit search;
     id = 1;
-    extensions.packages = extensions;
     settings = baseSettings // {
       "browser.startup.homepage" = "about:blank";
       "userChrome.theme.monospace" = false;
