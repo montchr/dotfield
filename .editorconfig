@@ -12,6 +12,10 @@ trim_trailing_whitespace=true
 indent_style=space
 trim_trailing_whitespace=false
 
+[*.{kdl,plist,php,py,xml}]
+indent_size=4
+indent_style=space
+
 [*.org]
 indent_size=8
 indent_style=space
@@ -26,10 +30,6 @@ end_of_line=unset
 indent_size=unset
 insert_final_newline=unset
 trim_trailing_whitespace=unset
-
-[*.{plist,php,py,xml}]
-indent_size=4
-indent_style=space
 
 [*.{pub,txt}]
 indent_size=unset
