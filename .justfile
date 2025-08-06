@@ -30,6 +30,11 @@ hm-gen-path := `home-manager generations | head -1 | grep -Eo '/nix/store.+$'`
 hm-specialisation-path := hm-gen-path / "specialisations"
 hm-fragment := quote( env_var('USER') + '@' + `hostname` )
 
+push *ARGS="-b main":
+  for remote in codeberg github sourcehut; do \
+    jj git push {{ ARGS }} --remote $remote; \
+  done
+
 stow scope:
   cd {{ user-configs-dir }} && stow -R {{ scope }}
 
