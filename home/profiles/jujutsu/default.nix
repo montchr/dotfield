@@ -23,6 +23,13 @@ in
   ]
   ++ guiTools;
 
+  # This should be, for now, the developer's responsibility.  It is not
+  # on individual projects to add an ignore for somebody's exotic
+  # workflow until that exotic workflow becomes widely adopted.  Or do
+  # you think that adding this to a project's official gitignore is good
+  # publicity for Jujutsu?
+  programs.git.ignores = [ ".jj*" ];
+
   programs.jujutsu = {
     enable = true;
     settings = {
