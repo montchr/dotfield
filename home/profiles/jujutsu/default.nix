@@ -14,7 +14,7 @@ let
   ];
 in
 {
-  imports = [ ./__starship-prompt-support.nix ];
+  imports = [ ./integrations/starship ];
 
   home.packages = [
     pkgs.jjui

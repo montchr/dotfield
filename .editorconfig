@@ -12,7 +12,7 @@ trim_trailing_whitespace=true
 indent_style=space
 trim_trailing_whitespace=false
 
-[*.{kdl,plist,php,py,xml}]
+[*.{fish,kdl,plist,php,py,xml}]
 indent_size=4
 indent_style=space
 
