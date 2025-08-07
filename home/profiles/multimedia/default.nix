@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./music/default.nix
@@ -7,4 +8,6 @@
     ./video/mpv.nix
     ./video/yt-dlp.nix
   ];
+
+  home.packages = [ pkgs.plex-media-player ];
 }

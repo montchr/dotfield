@@ -7,7 +7,7 @@ in
 
   services.mpd = {
     enable = true;
-    musicDirectory = beetsCfg.settings.directory;
+    musicDirectory = beetsCfg.settings.directory or "${config.home.homeDirectory}/Music/data";
     playlistDirectory = "${config.xdg.userDirs.music}/playlists";
     network.startWhenNeeded = true;
     network.listenAddress = "127.0.0.1";
