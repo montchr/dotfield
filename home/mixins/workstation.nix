@@ -5,6 +5,7 @@
     ./media-manager.nix
     ./trusted.nix
 
+    ../profiles/graphical/download-manager.nix
     ../profiles/graphical/applications/ghostty/default.nix
     ../profiles/graphical/applications/graphics-editing.nix
     ../profiles/graphical/applications/libreoffice.nix
