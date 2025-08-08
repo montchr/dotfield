@@ -93,6 +93,21 @@ init-package pname url:
   @echo "Add this to packages/default.nix:"
   @echo '{{pname}} = callPackage ./{{pname}}/package.nix { };'
 
+[doc: "Replace a symlink to a Nix store file with a writeable copy of the file contents"]
+@derealise-symlink symlink:
+  if [[ ! -L "{{ symlink }}" ]]; then >&2 echo "Not a symlink: {{ symlink }}"; exit; fi
+  if [[ ! -d "{{ symlink }}" ]]; then \
+    cp --backup --suffix ".realised.bak" --copy-contents --verbose --remove-destination \
+      "$(readlink "{{ symlink }}")" "{{ symlink }}"; \
+    chmod --changes 644 "{{ symlink }}"; \
+  fi
+
+[doc: "Restore the original Nix store link backed up during derealisation"]
+@realise-symlink derealised:
+  if [[ ! -L "{{ derealised }}.realised.bak" ]]; then >&2 echo "Realisation not found: {{ derealised }}.realised.bak"; exit; fi
+  mv --backup --suffix ".derealised.bak" --verbose "{{ derealised }}.realised.bak" "{{ derealised }}"
+
+
 ###: GENERATE/CONVERT =================================================================
 
 # <- Generate a hashed password compatible with the NixOS options
