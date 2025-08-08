@@ -67,7 +67,7 @@ let
 
           {
             _module.args = {
-              inherit ops;
+              inherit lib' ops;
             };
             nixpkgs.pkgs = makeAsahiPkgs { inherit channel; };
             networking.hostName = hostName;
@@ -97,7 +97,7 @@ let
             ../machines/${hostName}
             {
               _module.args = {
-                inherit ops;
+                inherit lib' ops;
               };
               nixpkgs.pkgs = nixosArgs.pkgs or pkgs;
               networking.hostName = hostName;
