@@ -9,7 +9,8 @@
     ../../home/mixins/workstation.nix
     ../../home/mixins/jobwork.nix
 
-    ../../home/profiles/mail/default.nix
+    ../../home/profiles/ai
+    ../../home/profiles/mail
     # ../../home/profiles/mail/accounts/outlook.nix
 
     ../../home/profiles/git/with-gpg-signing.nix
