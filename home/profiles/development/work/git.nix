@@ -1,7 +1,5 @@
 { config, ... }:
 {
-  programs.git-credential-oauth.enable = true;
-
   programs.git.includes = [
     {
       path = "${config.xdg.configHome}/git/tu-gitlab-credentials";
