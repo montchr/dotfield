@@ -72,17 +72,23 @@
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
     nixpkgs-for-beets-not-failing-build.url = "github:NixOS/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc";
 
-    ##: core modules+libraries
+    ##: core libraries
     apparat.url = "sourcehut:~montchr/apparat";
-    attic.url = "github:zhaofengli/attic";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
     haumea.url = "github:nix-community/haumea";
-    devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    ##: core modules
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
+    # FIXME: update
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
+    simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    srvos.url = "github:numtide/srvos";
+    # <https://viperml.github.io/wrapper-manager/>
+
+    ##: hardware
     nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-05-30";
     # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
     # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";
@@ -90,15 +96,11 @@
     # nixos-apple-silicon.inputs.nixpkgs.follows = "nixos-unstable";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    # FIXME: update
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
-    simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    srvos.url = "github:numtide/srvos";
-    # <https://viperml.github.io/wrapper-manager/>
-    wrapper-manager.url = "github:viperML/wrapper-manager";
 
     ##: ops
+    attic.url = "github:zhaofengli/attic";
     colmena.url = "github:zhaofengli/colmena";
+    devshell.url = "github:numtide/devshell";
     sops-nix.url = "github:Mic92/sops-nix";
 
     ##: customisation
@@ -106,6 +108,7 @@
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";
+    wrapper-manager.url = "github:viperML/wrapper-manager";
 
     ##: apps/tools
     ceamx = {
