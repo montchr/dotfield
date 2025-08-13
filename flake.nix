@@ -77,6 +77,8 @@
     haumea.url = "github:nix-community/haumea";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-lib.follows = "flake-parts/nixpkgs-lib";
+
     ##: core modules
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";

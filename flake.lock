@@ -2309,6 +2309,10 @@
           "nixpkgs"
         ],
         "nixpkgs-for-beets-not-failing-build": "nixpkgs-for-beets-not-failing-build",
+        "nixpkgs-lib": [
+          "flake-parts",
+          "nixpkgs-lib"
+        ],
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "pre-commit-hooks": "pre-commit-hooks",
