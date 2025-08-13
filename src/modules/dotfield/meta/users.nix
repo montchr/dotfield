@@ -333,55 +333,31 @@ in
   options.dotfield.meta.users = lib.mkOption {
     type =
       with types;
-      attrsOf submodule (
-        { name, ... }:
-        let
-          username = name;
-          keysDir = ./../../users/${username}/keys;
-          
-          # Function to get SSH public key files
-          getSshKeys =
-            dir:
-            if builtins.pathExists dir then
-              builtins.readDir dir
-              |> lib.filterAttrs (
-                name: type: type == "regular" && lib.hasSuffix ".ssh.pub" name
-              )
-              |> lib.mapAttrsToList (filename: _: builtins.readFile (dir + "/${filename}"))
-            else
-              [ ];
-        in
-        {
-          options = {
-            preferences = lib.mkOption {
-              type = userPreferencesSubmodule;
-              # TODO: is this the right way to use the defaults in the submodule?
-              default = { };
-              description = "User preferences";
-            };
-            whoami = lib.mkOption {
-              type = whoamiSubmodule;
-              # TODO: is this the right way to use the defaults in the submodule?
-              default = { };
-              description = "User identifying attributes";
-            };
-            keys = lib.mkOption {
-              type = listOf str;
-              default = [ ];
-              description = ''
-                SSH public keys for the user.
+      attrsOf submodule {
+        options = {
+          preferences = lib.mkOption {
+            type = userPreferencesSubmodule;
+            # TODO: is this the right way to use the defaults in the submodule?
+            default = { };
+            description = "User preferences";
+          };
+          whoami = lib.mkOption {
+            type = whoamiSubmodule;
+            # TODO: is this the right way to use the defaults in the submodule?
+            default = { };
+            description = "User identifying attributes";
+          };
+          keys = lib.mkOption {
+            type = listOf str;
+            default = [ ];
+            description = ''
+              SSH public keys for the user.
 
-                By default, this will automatically include the contents of all .ssh.pub files
-                in src/users/<username>/keys/.
-              '';
-            };
+              Keys should be referenced from the centralized key management in src/metadata/data/keys/.
+            '';
           };
-          
-          config = {
-            keys = lib.mkDefault (getSshKeys keysDir);
-          };
-        }
-      );
+        };
+      };
     default = { };
     description = "User metadata and preferences configuration";
   };
