@@ -1,6 +1,6 @@
-{ config, ... }:
+{ self, ... }:
 let
-  cfg = config.dotfield.meta.networks;
+  cfg = self.dotfield.meta.networks;
 in
 {
   dotfield.meta.networks = {

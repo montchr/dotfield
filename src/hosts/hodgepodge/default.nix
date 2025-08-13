@@ -1,41 +1,25 @@
-##: MacBookPro11,3 Core i7 2.3GHz 15in. (Late 2013) (Dual-Graphics)
-# <https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-dual-graphics-late-2013-retina-display-specs.html>
-{ lib, ... }:
+{ config, ... }:
+let
+  inherit (config.dotfield.meta) keys;
+  hostName = "hodgepodge";
+in
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./profiles/sops.nix
-    ./users/seadoom.nix
-    ./graphics.nix
-  ];
+  dotfield.hosts.nixos.${hostName} = {
+    modules = [ ];
 
-  time.timeZone = "America/New_York";
-
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  ## Hardware oddities specific to this machine
-  home-manager.sharedModules = lib.singleton {
-    dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
-      # NOTE: This machine's trackpad physical button is physically broken.
-      # Without tap-to-click, it would not possible to use the trackpad.
-      tap-to-click = lib.mkForce true;
-    };
-
-    # The keyboard is also starting to go... but a super-thorough deep clean
-    # might help...
-    dconf.settings."org/gnome/desktop/a11y/applications" = {
-      screen-keyboard-enabled = lib.mkDefault true;
-    };
+    users.groups.wheel.members = [ "seadoom" ];
   };
 
-  services.tailscale.enable = true;
-
-  networking.usePredictableInterfaceNames = false;
-  networking.firewall.enable = true;
-
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "seadoom";
-  users.mutableUsers = false;
-
-  system.stateVersion = "21.11"; # Did you read the comment?
+  dotfield.meta.hosts.${hostName} = {
+    admins = [ "seadoom" ];
+    ipv4.address = "192.168.1.152";
+    keys = {
+      age = keys.age."hodgepodge";
+      ssh = [ keys.hodgepodge ];
+    };
+    network = "home";
+    networks.ts = "100.71.240.35";
+    users.seadoom.keys.ssh = [ keys.ssh.seadoom-at-hodgepodge ];
+    syncthing.id = "W7EFFEO-BAZIKPC-M5C2OOT-JXR6CIP-MISL4ID-2ZUBFYT-44ZEWUK-6R75OA3";
+  };
 }
