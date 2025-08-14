@@ -1,19 +1,26 @@
 { lib, ... }:
 let
-  import-tree' =
+  tree =
     root:
     let
-      nixFiles = lib.fileset.fileFilter (f: f.hasExt "nix") root;
-      publicFiles = lib.fileset.fileFilter (f: !lib.hasPrefix "_" f.name) root;
+      inherit (lib.strings) hasPrefix;
+      inherit (lib.fileset) fileFilter intersection toList;
+      nixFiles = fileFilter (f: f.hasExt "nix") root;
+      publicFiles = fileFilter (f: !hasPrefix "_" f.name) root;
     in
-    lib.fileset.toList (lib.fileset.intersection nixFiles publicFiles);
+    toList (intersection nixFiles publicFiles);
 in
 {
   imports =
-    (import-tree' ./lib)
-    ++ (import-tree' ./features)
-    ++ (import-tree' ./modules)
+    (tree ./hosts)
+    ++ (tree ./lib)
+    ++ (tree ./features)
+    ++ (tree ./modules)
     ++ [
       ./packages
     ];
+
+  flake.lib.fs = {
+    importTree = tree;
+  };
 }

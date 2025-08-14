@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."virtualisation/ddev".nixos =
+  dotfield.features."virtualisation/ddev".nixos =
     { config, pkgs, ... }:
     let
       cfg = config.programs.ddev;

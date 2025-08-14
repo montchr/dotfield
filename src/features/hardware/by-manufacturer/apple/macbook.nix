@@ -1,7 +1,7 @@
 { self, ... }:
 {
-  dotfield.modules."hardware/apple/macbook".nixos = {
-    imports = [ self.dotfield.modules."hardware/laptop".nixos ];
+  dotfield.features."hardware/apple/macbook".nixos = {
+    imports = [ self.dotfield.features."hardware/laptop".nixos ];
 
     # <https://wiki.archlinux.org/title/Apple_Keyboard#hid_apple_module_options>
     boot.kernelParams = [

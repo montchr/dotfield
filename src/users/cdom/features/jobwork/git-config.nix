@@ -1,5 +1,5 @@
 {
-  dotfield.modules.jobwork.home =
+  dotfield.features.jobwork.home =
     { config, ... }:
     {
       programs.git.includes = [

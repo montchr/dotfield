@@ -10,7 +10,7 @@
       userName = whoami.name;
     };
 
-  dotfield.modules.development.home = moduleWithSystem (
+  dotfield.features.development.home = moduleWithSystem (
     perSystem@{ config, ... }:
     home@{ config, pkgs, ... }:
     let

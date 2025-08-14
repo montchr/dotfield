@@ -20,7 +20,7 @@
 
 { lib, ... }:
 {
-  dotfield.modules."virtualisation/podman".nixos =
+  dotfield.features."virtualisation/podman".nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {

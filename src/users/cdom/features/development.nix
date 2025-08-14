@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { config, pkgs, ... }:
     {
       home.shellAliases."d" = "direnv";

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."virtualisation/docker".nixos =
+  dotfield.features."virtualisation/docker".nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {

@@ -16,7 +16,7 @@
 
     };
 
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       programs.nnn.extraPackages = [

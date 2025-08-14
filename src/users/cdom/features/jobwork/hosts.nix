@@ -1,11 +1,11 @@
 { self, lib, ... }:
 {
-  dotfield.modules.jobwork.nixos =
+  dotfield.features.jobwork.nixos =
     { config, ... }:
     {
       imports = [
-        self.dotfield.modules.nixos."virtualisation/ddev"
-        self.dotfield.modules.nixos."virtualisation/docker"
+        self.dotfield.features.nixos."virtualisation/ddev"
+        self.dotfield.features.nixos."virtualisation/docker"
       ];
 
       programs.ddev.enable = true;

@@ -1,7 +1,7 @@
 { self, ... }:
 
 {
-  dotfield.modules."git/with-gpg-signing".home =
+  dotfield.features."git/with-gpg-signing".home =
     { config, ... }:
     let
       inherit (self.dotfield.meta.users.${config.home.username}) whoami;

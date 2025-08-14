@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."hardware/amd/cpu".nixos =
+  dotfield.features."hardware/amd/cpu".nixos =
     { config, ... }:
     {
       boot.kernelModules = lib.optional config.virtualisation.libvirtd.enable "kvm-amd";

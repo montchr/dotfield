@@ -1,5 +1,5 @@
 {
-  dotfield.modules."boot/systemd-boot".nixos = {
+  dotfield.features."boot/systemd-boot".nixos = {
     boot.loader.systemd-boot = {
       enable = true;
       consoleMode = "auto";

@@ -1,6 +1,6 @@
 { lib, self, ... }:
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       home.packages = [

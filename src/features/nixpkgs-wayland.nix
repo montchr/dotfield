@@ -1,5 +1,5 @@
 {
-  dotfield.modules."binary-caches/nixpkgs-wayland".nixos = {
+  dotfield.features."binary-caches/nixpkgs-wayland".nixos = {
     nix.settings = {
       substituters = [ "https://nixpkgs-wayland.cachix.org" ];
       trusted-public-keys = [

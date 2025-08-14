@@ -1,6 +1,6 @@
 { withSystem, ... }:
 {
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { pkgs, ... }:
 
     withSystem pkgs.stdenv.hostPlatform.system (perSystem: {

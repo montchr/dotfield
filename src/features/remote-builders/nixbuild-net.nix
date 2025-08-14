@@ -1,5 +1,5 @@
 {
-  dotfield.modules."remote-builders/nixbuild-net".nixos = {
+  dotfield.features."remote-builders/nixbuild-net".nixos = {
     programs.ssh = {
       # TODO: how to use these settings automatically if a user also configures?
       extraConfig = ''

@@ -1,5 +1,5 @@
 {
-  dotfield.modules."greeters/regreet".nixos = {
+  dotfield.features."greeters/regreet".nixos = {
     services.greetd.enable = true;
     services.greetd.vt = 2;
 

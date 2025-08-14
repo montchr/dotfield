@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {
@@ -22,7 +22,7 @@
       })
     ];
 
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       home.packages = [

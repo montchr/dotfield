@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { config, ... }:
     lib.mkIf config.programs.starship.enable {
       programs.starship.settings =

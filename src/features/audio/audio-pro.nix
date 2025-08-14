@@ -9,7 +9,7 @@
 
 { inputs, ... }:
 {
-  dotfield.modules."audio/pro".nixos = {
+  dotfield.features."audio/pro".nixos = {
     imports = [
       inputs.musnix.nixosModules.musnix
     ];

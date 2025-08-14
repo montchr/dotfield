@@ -1,6 +1,6 @@
 { lib, self, ... }:
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { config, pkgs, ... }:
     let
       inherit (self.dotfield.meta.users.${config.username}) whoami;

@@ -1,5 +1,5 @@
 {
-  dotfield.modules."desktop-environments/wayland-wm".nixos =
+  dotfield.features."desktop-environments/wayland-wm".nixos =
     { pkgs, ... }:
     {
       # UWSM a standardized entrypoint for Wayland compositors.
@@ -35,7 +35,7 @@
       ];
     };
 
-  dotfield.modules."desktop-environments/wayland-wm".home =
+  dotfield.features."desktop-environments/wayland-wm".home =
     { config, ... }:
     {
       programs.eww.enable = true;

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."virtualisation/libvirt".nixos =
+  dotfield.features."virtualisation/libvirt".nixos =
     { config, ... }:
     lib.mkMerge [
       {
@@ -13,7 +13,7 @@
       "qemu-libvirtd"
     ]);
 
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, pkgs, ... }:
     lib.mkIf config.virtualisation.libvirtd.enable {
       environment.systemPackages = with pkgs; [ virt-manager ];

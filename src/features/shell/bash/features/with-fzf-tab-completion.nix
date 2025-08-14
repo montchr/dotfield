@@ -1,6 +1,6 @@
 { lib, moduleWithSystem, ... }:
 {
-  dotfield.modules."bash/with-fzf-tab-completion".home = moduleWithSystem (
+  dotfield.features."bash/with-fzf-tab-completion".home = moduleWithSystem (
     perSystem@{ config, ... }:
     {
       programs.bash.initExtra = lib.mkAfter ''

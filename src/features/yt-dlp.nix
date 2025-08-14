@@ -1,5 +1,5 @@
 {
-  dotfield.modules.archivist.home =
+  dotfield.features.archivist.home =
     { pkgs, ... }:
     {
       programs.yt-dlp = {

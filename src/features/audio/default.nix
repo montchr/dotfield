@@ -1,5 +1,5 @@
 {
-  dotfield.modules.audio.nixos =
+  dotfield.features.audio.nixos =
     { pkgs, ... }:
     {
 

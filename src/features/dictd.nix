@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { pkgs, ... }:
     {
       services.dictd.enable = true;

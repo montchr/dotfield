@@ -3,7 +3,7 @@ let
   inherit (self.dotfield.meta.hosts) ryosuke;
 in
 {
-  dotfield.modules."remote-builders/ryosuke".nixos = {
+  dotfield.features."remote-builders/ryosuke".nixos = {
     programs.ssh.knownHosts."ryosuke" = {
       hostNames = [
         "ryosuke"

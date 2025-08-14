@@ -1,5 +1,5 @@
 {
-  dotfield.modules."desktop-environments/wayland-wm".nixos =
+  dotfield.features."desktop-environments/wayland-wm".nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [

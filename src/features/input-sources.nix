@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [
@@ -8,7 +8,7 @@
       ];
     };
 
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {
@@ -18,7 +18,7 @@
     # Required to support flashing firmware.
     ++ (config.lib.generateSudoersExtraGroupsModules [ "plugdev" ]);
 
-  dotfield.modules.graphical.home =
+  dotfield.features.graphical.home =
     { config, ... }:
     {
       home.keyboard.options = [ "compose:ralt" ];
