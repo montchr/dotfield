@@ -1,5 +1,5 @@
 {
-  dotfield.modules.music-production.home =
+  dotfield.features.music-production.home =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

@@ -1,5 +1,5 @@
 { lib, ... }:
 {
-  dotfield.modules.mysql.nixos =
+  dotfield.features.mysql.nixos =
     { config, ... }: lib.mkMerge [ ] ++ (config.lib.generateSudoersExtraGroupsModules [ "mysql" ]);
 }

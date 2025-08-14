@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.kanata.nixos =
+  dotfield.features.kanata.nixos =
     { config, ... }:
     let
       cfg = config.services.kanata;

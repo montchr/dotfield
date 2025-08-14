@@ -1,10 +1,10 @@
 { self, ... }:
 {
-  dotfield.modules."desktop-environments/wayland-wm".home =
+  dotfield.features."desktop-environments/wayland-wm".home =
     { config, pkgs, ... }:
     {
       imports = [
-        self.dotfield.modules.waybar.home
+        self.dotfield.features.waybar.home
 
         ./__primary.nix
       ];
@@ -14,7 +14,7 @@
       '';
     };
 
-  dotfield.modules.theme.home = {
+  dotfield.features.theme.home = {
     stylix.targets.waybar.addCss = false;
   };
 }

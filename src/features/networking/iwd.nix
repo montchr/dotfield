@@ -9,7 +9,7 @@
 # - <https://wiki.archlinux.org/title/Iwd#EAP-PEAP>
 # - <https://wiki.archlinux.org/title/Iwd#eduroam>
 {
-  dotfield.modules."networking/iwd".nixos = {
+  dotfield.features."networking/iwd".nixos = {
     networking.wireless.iwd = {
       enable = true;
       settings = {

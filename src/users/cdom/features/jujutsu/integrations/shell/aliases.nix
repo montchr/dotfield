@@ -13,7 +13,7 @@ let
   };
 in
 {
-  dotfield.modules.development.home = {
+  dotfield.features.development.home = {
     imports = [
       (lib'.shell.makeShellAliasesModule { inherit abbrs; })
     ];

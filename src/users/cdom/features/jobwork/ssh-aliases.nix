@@ -9,7 +9,7 @@ let
   };
 in
 {
-  dotfield.modules.jobwork.home = {
+  dotfield.features.jobwork.home = {
     programs.ssh.matchBlocks = {
       "isprsite-production" = mkKinstaHost "isprsite" 24919;
 

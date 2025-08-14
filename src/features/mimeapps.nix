@@ -3,7 +3,7 @@ let
   inherit (self.lib) mimeapps mimetypes;
 in
 {
-  dotfield.modules.graphical.home =
+  dotfield.features.graphical.home =
     { config, pkgs, ... }:
     let
       prefs = self.dotfield.meta.users.${config.home.username}.preferences;

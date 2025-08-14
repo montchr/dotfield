@@ -8,17 +8,24 @@
   ...
 }:
 let
-  inherit (lib'.modules) scopedModulesOptions;
+  inherit (lib) mkOption types;
+  inherit (lib'.modules) featureSubmodule mkDeferredModuleOpt;
   lib' = config.flake.lib;
 in
 {
-  options.dotfield = scopedModulesOptions;
+  options.dotfield = {
+    nixos = mkDeferredModuleOpt "Global NixOS configuration";
+    home = mkDeferredModuleOpt "Global Home-Manager configuration";
+    features = mkOption {
+      type = types.lazyAttrsOf (types.submodule featureSubmodule);
+    };
+  };
 
   config.flake.modules = {
-    nixos = (config.dotfield.modules |> lib.mapAttrs (_: module: module.nixos)) // {
+    nixos = (config.dotfield.features |> lib.mapAttrs (_: module: module.nixos)) // {
       default.imports = config.dotfield.nixos.imports;
     };
-    home = (config.dotfield.modules |> lib.mapAttrs (_: module: module.home)) // {
+    home = (config.dotfield.features |> lib.mapAttrs (_: module: module.home)) // {
       default.imports = config.dotfield.home.imports;
     };
   };

@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.modules."desktop-environments/hyprland".home =
+  dotfield.features."desktop-environments/hyprland".home =
     { config, pkgs, ... }:
     {
       imports = [

@@ -5,13 +5,13 @@
   ...
 }:
 {
-  dotfield.modules."desktop-environments/gnome-desktop".nixos =
+  dotfield.features."desktop-environments/gnome-desktop".nixos =
     { config, pkgs, ... }:
     let
       isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
     in
     {
-      imports = [ self.dotfield.modules.nixos."greeters/gdm" ];
+      imports = [ self.dotfield.features.nixos."greeters/gdm" ];
 
       services.xserver.enable = true;
       services.desktopManager.gnome.enable = true;
@@ -32,7 +32,7 @@
       programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
     };
 
-  dotfield.modules.graphical.home =
+  dotfield.features.graphical.home =
     { pkgs, ... }:
     {
       xdg.mimeApps.defaultApplications = lib.mkDefault (

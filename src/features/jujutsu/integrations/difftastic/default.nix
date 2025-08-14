@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { config, pkgs, ... }:
     lib.mkIf config.programs.git.difftastic.enable {
       # https://jj-vcs.github.io/jj/latest/config/#generating-diffs-by-external-command

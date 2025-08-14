@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.modules.archivist.nixos =
+  dotfield.features.archivist.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [
@@ -8,7 +8,7 @@
       ];
     };
 
-  dotfield.modules.workstation.home = moduleWithSystem (
+  dotfield.features.workstation.home = moduleWithSystem (
     perSystem@{ config, ... }:
     { pkgs, ... }:
     {

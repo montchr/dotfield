@@ -57,7 +57,7 @@
 #
 # I have not tested USB support but I'm sure it's much more straightforward.
 {
-  dotfield.modules."hardware/epson/wf-3520".nixos =
+  dotfield.features."hardware/epson/wf-3520".nixos =
     { pkgs, ... }:
     let
       ip = "192.168.1.192";

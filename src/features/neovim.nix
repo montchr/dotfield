@@ -1,5 +1,5 @@
 {
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { config, pkgs, ... }:
     let
       cfg = config.programs.neovim;

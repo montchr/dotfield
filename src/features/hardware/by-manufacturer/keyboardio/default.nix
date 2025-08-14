@@ -1,6 +1,6 @@
 flake@{ lib, ... }:
 {
-  dotfield.modules."hardware/keyboardio".nixos =
+  dotfield.features."hardware/keyboardio".nixos =
     { config, ... }:
     let
       inherit (config.networking) hostName;

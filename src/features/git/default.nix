@@ -36,7 +36,7 @@
 
   };
 
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { pkgs, ... }:
     {
       programs.git.package = pkgs.gitAndTools.gitFull;

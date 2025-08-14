@@ -1,5 +1,5 @@
 {
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [

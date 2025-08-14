@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.modules.ai.home = moduleWithSystem (
+  dotfield.features.ai.home = moduleWithSystem (
     perSystem@{ inputs', ... }:
     home@{ pkgs, ... }:
     {

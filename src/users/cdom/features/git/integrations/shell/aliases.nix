@@ -59,7 +59,7 @@ let
   };
 in
 {
-  dotfield.modules.development.home = (
+  dotfield.features.development.home = (
     lib'.shell.makeShellAliasesModule {
       inherit abbrs;
     }

@@ -18,7 +18,7 @@ in
   # alter the font size in Emacs?
   dotfield.meta.displays.${name}.dpi = 109;
 
-  dotfield.modules."hardware/lg/${name}".nixos = {
+  dotfield.features."hardware/lg/${name}".nixos = {
     services.xserver.dpi = self.dotfield.meta.displays.${name}.dpi;
   };
 

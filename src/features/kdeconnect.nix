@@ -5,14 +5,14 @@ let
   };
 in
 {
-  dotfield.modules.workstation.nixos = {
+  dotfield.features.workstation.nixos = {
     networking.firewall = {
       allowedTCPPortRanges = [ allowedPorts ];
       allowedUDPPortRanges = [ allowedPorts ];
     };
   };
 
-  dotfield.modules.workstation.home = {
+  dotfield.features.workstation.home = {
     services.kdeconnect.enable = true;
   };
 }

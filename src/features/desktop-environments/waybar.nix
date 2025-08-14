@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.waybar.home =
+  dotfield.features.waybar.home =
     { config, pkgs, ... }:
     {
       programs.waybar.enable = true;

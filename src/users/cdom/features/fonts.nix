@@ -1,5 +1,5 @@
 {
-  dotfield.modules.graphical.home = {
+  dotfield.features.graphical.home = {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         font-antialiasing = "rgba";

@@ -1,5 +1,5 @@
 {
-  dotfield.modules."desktop-environments/gnome-desktop".home =
+  dotfield.features."desktop-environments/gnome-desktop".home =
     { config, ... }:
     let
       lib' = config.lib;

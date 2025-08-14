@@ -1,10 +1,10 @@
 { self, lib, ... }:
 {
-  dotfield.modules.graphical.nixos = {
+  dotfield.features.graphical.nixos = {
     programs.firefox.enable = true;
   };
 
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { pkgs, ... }:
     {
       programs.firefox = {
@@ -18,7 +18,7 @@
       };
     };
 
-  dotfield.modules.graphical.home =
+  dotfield.features.graphical.home =
     homeArgs@{ pkgs, ... }:
     {
       programs.firefox = {
@@ -31,7 +31,7 @@
       };
     };
 
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     lib.mkIf self.dotfield.graphical.nixos.services.desktopManager.gnome.enable
       {
         dconf.settings."org/gnome/desktop/notifications/application/firefox" = {

@@ -2,7 +2,7 @@
 # <https://openrazer.github.io/>
 { lib, ... }:
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {

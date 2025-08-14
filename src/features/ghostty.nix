@@ -1,5 +1,5 @@
 {
-  dotfield.modules.graphical.home = {
+  dotfield.features.graphical.home = {
     programs.ghostty = {
       enable = true;
       enableBashIntegration = true;

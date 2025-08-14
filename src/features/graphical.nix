@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { config, pkgs, ... }:
     lib.mkMerge [
       {
@@ -62,7 +62,7 @@
       ]
     );
 
-  dotfield.modules.graphical.home =
+  dotfield.features.graphical.home =
     { config, pkgs, ... }:
     {
       fonts.fontconfig.enable = true;

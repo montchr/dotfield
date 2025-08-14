@@ -1,5 +1,5 @@
 {
-  dotfield.modules.monitoring.nixos =
+  dotfield.features.monitoring.nixos =
     { config, ... }:
     let
       cfg = config.services.prometheus;

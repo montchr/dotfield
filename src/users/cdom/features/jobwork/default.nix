@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.modules.jobwork.home = moduleWithSystem (
+  dotfield.features.jobwork.home = moduleWithSystem (
     perSystem@{ config, ... }:
     home@{ config, pkgs, ... }:
     {

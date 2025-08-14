@@ -12,129 +12,109 @@
 let
 
   inherit (lib) mkOption types;
-  inherit (lib'.modules) mkDeferredModuleOption scopedModulesOptions scopedSubmoduleType;
-  haumea = inputs.haumea.lib;
+  inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
   lib' = self.lib;
-
-  # Load user modules directly here (not through module args to avoid circular deps)
-  userModules = haumea.load {
-    src = "${self.outPath}/src/users";
-    loader = haumea.loaders.verbatim;
-  };
 
   collectNixosModules = builtins.foldl' (v: acc: acc ++ v.nixos.imports) [ ];
   collectHomeModules = builtins.foldl' (v: acc: acc ++ v.home.imports) [ ];
+  collectUserFeatures = username: (lib'.fs.tree (self.outPath + src/users/${username}/features));
 
-  # Collect user-specific home modules for a given username
-  # FIXME: needs update
-  collectUserHomeModules =
-    username: requestedModuleNames:
+  hostSubmodule = (
+    { name, ... }:
+    {
+      options = {
+        nixos = mkDeferredModuleOpt "Host-specific NixOS configuration";
+        home = mkDeferredModuleOpt "Host-specific home-manager configuration, applied to all users for host.";
+        features = mkFeatureListOpt "List of features for the host";
+        name = mkOption {
+          default = name;
+          readOnly = true;
+          description = "Hostname";
+        };
+        users = mkOption {
+          type = types.lazyAttrsOf (
+            types.submodule {
+              options = {
+                features = mkFeatureListOpt ''
+                  List of features specific to the user and host.
+
+                  While a feature may specify NixOS modules in addition to home
+                  modules, only home modules will affect configuration.  For this
+                  reason, users should be encouraged to avoid pointlessly specifying
+                  their own NixOS modules.
+                '';
+                home = mkDeferredModuleOpt "User-and-host-specific home configuration";
+              };
+            }
+          );
+          default = { };
+        };
+      };
+    }
+  );
+
+  makeHost =
+    hostName: hostConfig:
     let
-      userFeatures = userModules.${username}.features or { };
-      userHomeModules = lib.mapAttrsToList (
-        featureName: featureModule:
-        if builtins.elem featureName requestedModuleNames && featureModule ? home then
-          featureModule.home
-        else
-          null
-      ) userFeatures;
+      moduleArgs = {
+        _module.args = {
+          inherit lib';
+        };
+      };
+
+      nixosModules =
+        (collectNixosModules hostConfig.features)
+        ++ hostConfig.nixos.imports
+        ++ [
+          config.dotfield.nixos
+          moduleArgs
+        ];
+
+      homeModules = [
+        config.dotfield.home
+        hostConfig.home
+        moduleArgs
+      ];
+
+      users = lib.mapAttrs (username: userConfig: {
+        imports =
+          homeModules
+          ++ userConfig.home.imports
+
+          # Home modules for this user-and-host-specific intersection.
+          ++ (collectHomeModules userConfig.features)
+
+          # Baseline home modules for this user.
+          ++ (collectHomeModules config.dotfield.users.${username}.features)
+
+          # User-defined extensions to Dotfield features.
+          ++ (collectUserFeatures username)
+
+          # Baseline home configuration for this user.
+          ++ [ (config.dotfield.users.${username}.home) ];
+      }) hostConfig.users;
+
     in
-    builtins.filter (m: m != null) userHomeModules;
+    inputs.nixpkgs.lib.nixosSystem {
+      modules = nixosModules ++ [
+        inputs.home-manager.nixosModules.default
+
+        {
+          networking = { inherit hostName; };
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = (import "${self.outPath}/overlays/default.nix" { inherit inputs; });
+          home-manager.users = users;
+        }
+      ];
+    };
 
 in
 {
   options.dotfield.hosts.nixos = mkOption {
-    type = types.attrsOf (
-      types.submodule (
-        { name, ... }:
-        let
-          scopedModulesListOption = mkOption {
-            type = types.listOf scopedSubmoduleType;
-            default = [ ];
-          };
-        in
-        {
-          options = {
-            nixos = mkDeferredModuleOption "Host-specific NixOS configuration";
-            home = mkDeferredModuleOption "Host-specific home-manager configuration, applied to all users for host.";
-            modules = scopedModulesListOption;
-            name = mkOption {
-              default = name;
-              readOnly = true;
-              description = "Hostname";
-            };
-            users = mkOption {
-              type = types.lazyAttrsOf (
-                types.submodule {
-                  options = {
-                    modules = scopedModulesListOption;
-                    home = mkDeferredModuleOption "User-and-host-specific home-manager configuration";
-                  };
-                }
-              );
-              default = { };
-            };
-          };
-        }
-      )
-    );
+    type = types.attrsOf (types.submodule hostSubmodule);
   };
 
   config = {
-    flake.nixosConfigurations =
-      config.dotfield.hosts.nixos
-      |> lib.mapAttrs (
-        hostName: hostConfig:
-        let
-          moduleArgs = {
-            _module.args = {
-              inherit lib';
-            };
-          };
-
-          nixosModules =
-            (collectNixosModules hostConfig.modules)
-            ++ hostConfig.nixos.imports
-            ++ [
-              config.dotfield.nixos
-              moduleArgs
-            ];
-
-          homeModules = [
-            config.dotfield.home
-            hostConfig.home
-            moduleArgs
-          ];
-
-          # FIXED: User-specific modules loaded from separate import tree
-          # Global modules come from src/features, user modules from src/users/<username>/features
-          users = lib.mapAttrs (
-            username: userConfig:
-            let
-              globalHomeModules = collectHomeModules userConfig.modules;
-              # Extract module names for user module lookup
-              moduleNames = map (
-                m: if builtins.isString m then m else m.name or (throw "Cannot determine module name")
-              ) userConfig.modules;
-              userHomeModules = collectUserHomeModules username moduleNames;
-            in
-            {
-              imports = globalHomeModules ++ userHomeModules ++ userConfig.home.imports ++ homeModules;
-            }
-          ) hostConfig.users;
-
-        in
-        inputs.nixpkgs.lib.nixosSystem {
-          modules = nixosModules ++ [
-            inputs.home-manager.nixosModules.default
-            {
-              networking = { inherit hostName; };
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.overlays = (import "${self.outPath}/overlays/default.nix" { inherit inputs; });
-              home-manager.users = users;
-            }
-          ];
-        }
-      );
+    flake.nixosConfigurations = lib.mapAttrs makeHost config.dotfield.hosts.nixos;
   };
 }

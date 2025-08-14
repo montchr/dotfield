@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, ... }:
     lib.mkMerge [
       {

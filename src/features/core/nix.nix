@@ -1,6 +1,6 @@
 { lib, inputs, ... }:
 {
-  dotfield.modules.workstation.nixos = {
+  dotfield.features.workstation.nixos = {
     programs.nh = {
       enable = true;
       # <https://github.com/viperML/nh/issues/88>

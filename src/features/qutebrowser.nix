@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.home = {
+  dotfield.features.workstation.home = {
     programs.qutebrowser = {
       enable = true;
       enableDefaultBindings = true;

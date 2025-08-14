@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.modules.development.home = moduleWithSystem (
+  dotfield.features.development.home = moduleWithSystem (
     perSystem@{ packages }:
     home@{ config, pkgs, ... }:
     {

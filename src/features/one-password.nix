@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { config, ... }:
     {
       programs._1password.enable = true;

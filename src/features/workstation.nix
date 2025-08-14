@@ -1,16 +1,18 @@
-{ self, ... }:
+{ lib, self, ... }:
 {
-  dotfield.modules.workstation.nixos = {
+  dotfield.features.workstation.nixos = {
     imports = [
-      self.dotfield.modules.archivist.nixos
+      self.dotfield.features.archivist.nixos
     ];
+
+    time.timeZone = lib.mkDefault "America/New_York";
   };
 
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       imports = [
-        self.dotfield.modules.archivist.home
+        self.dotfield.features.archivist.home
       ];
 
       home.packages = [

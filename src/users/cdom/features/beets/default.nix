@@ -8,7 +8,7 @@
 
 { moduleWithSystem }:
 {
-  dotfield.modules.archivist.home =
+  dotfield.features.archivist.home =
     perSystem@{ inputs', ... }:
     { config, pkgs, ... }:
     let
