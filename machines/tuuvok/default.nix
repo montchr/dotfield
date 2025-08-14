@@ -27,10 +27,10 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "cdom";
 
+  services.avahi.enable = true;
   # Not allowed because I don't want to make the building's network
   # switch mad again.
-  # TODO: Should be disabled by default?
-  services.avahi.enable = lib.mkForce false;
+  services.avahi.publish.enable = false;
 
   services.tailscale.enable = true;
 

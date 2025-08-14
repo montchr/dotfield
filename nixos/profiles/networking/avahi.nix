@@ -5,10 +5,5 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    publish = {
-      enable = lib.mkDefault false;
-      domain = true;
-      userServices = true;
-    };
   };
 }
