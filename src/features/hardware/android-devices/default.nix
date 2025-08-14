@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."hardware/android-devices".nixos =
+  dotfield.features."hardware/android-devices".nixos =
     { config, pkgs, ... }:
     (
       lib.mkMerge [

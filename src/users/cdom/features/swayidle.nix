@@ -1,5 +1,5 @@
 {
-  dotfield.modules."desktop-environments/wayland-wm".home =
+  dotfield.features."desktop-environments/wayland-wm".home =
     {
       pkgs,
       lib,

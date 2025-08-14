@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { config, ... }:
     let
       ledgerDir = "${config.home.homeDirectory}/Documents/ledger";

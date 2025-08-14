@@ -1,8 +1,8 @@
 { lib, self, ... }:
 {
-  dotfield.modules."hardware/apple/apple-silicon".nixos = {
+  dotfield.features."hardware/apple/apple-silicon".nixos = {
     imports = [
-      self.dotfield.modules."boot/systemd-boot".nixos
+      self.dotfield.features."boot/systemd-boot".nixos
     ];
 
     boot.loader.systemd-boot.consoleMode = lib.mkForce "0";

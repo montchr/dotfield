@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       programs.mpv.scripts = with pkgs.mpvScripts; [

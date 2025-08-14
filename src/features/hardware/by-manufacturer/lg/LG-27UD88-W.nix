@@ -15,7 +15,7 @@ in
   # source: https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php
   dotfield.meta.displays.${name}.dpi = 163;
 
-  dotfield.modules."hardware/lg/${name}".nixos =
+  dotfield.features."hardware/lg/${name}".nixos =
     { config, ... }:
     lib.mkMerge [
       { services.xserver.dpi = self.dotfield.displays.${name}.dpi; }

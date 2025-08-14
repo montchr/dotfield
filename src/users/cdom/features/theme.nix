@@ -9,7 +9,7 @@ let
 in
 
 {
-  dotfield.modules.theme.home =
+  dotfield.features.theme.home =
     { config, pkgs, ... }:
     let
       inherit (config.stylix) fonts;
@@ -48,7 +48,7 @@ in
 
     };
 
-  dotfield.modules.theme.nixos =
+  dotfield.features.theme.nixos =
     { pkgs, ... }:
     let
       toColorSchemePath' = toColorSchemePath pkgs;

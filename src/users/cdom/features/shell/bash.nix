@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.home.home = {
+  dotfield.features.home.home = {
     programs.bash = {
       historyControl = [
         "erasedups"

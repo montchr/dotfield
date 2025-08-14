@@ -5,10 +5,21 @@ let
   hostName = "boschic";
 in
 {
-  dotfield.hosts.nixos.${hostName} = {
-    modules = [ ];
 
+  dotfield.hosts.nixos.${hostName}.features = with config.dotfield.features; [
+    workstation
+    "hardware/nvidia"
+  ];
+
+  dotfield.hosts.nixos.${hostName}.nixos = {
+
+    users.mutableUsers = false;
     users.groups.wheel.members = [ "seadoom" ];
+    sops.defaultSopsFile = ./secrets/secrets.yaml;
+  };
+
+  dotfield.hosts.nixos.${hostName}.users.seadoom = {
+
   };
 
   dotfield.meta.hosts.${hostName} = {

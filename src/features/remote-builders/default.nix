@@ -1,7 +1,7 @@
 {
   imports = [ ./__lib.nix ];
 
-  dotfield.modules.remote-builders.nixos = {
+  dotfield.features.remote-builders.nixos = {
     nix.distributedBuilds = true;
   };
 }

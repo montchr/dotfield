@@ -1,5 +1,5 @@
 {
-  dotfield.modules."jujutsu/with-sign-on-push".home = {
+  dotfield.features."jujutsu/with-sign-on-push".home = {
     programs.jujutsu.settings = {
       # Defer signing until push to remote.  This provides a *very*
       # significant performance boost during jj operations using the git

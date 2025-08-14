@@ -3,7 +3,7 @@
 # - <https://github.com/edkedk99/awesome-hledger?tab=readme-ov-file>
 # - <https://github.com/edkedk99/awesome-hledger/tree/master/contrib-resources>
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     { pkgs, ... }:
     {
       # TODO:

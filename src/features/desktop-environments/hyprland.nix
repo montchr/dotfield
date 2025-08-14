@@ -1,5 +1,5 @@
 {
-  dotfield.modules."desktop-environments/hyprland".nixos = {
+  dotfield.features."desktop-environments/hyprland".nixos = {
     programs.hyprland.withUWSM = true;
     programs.uwsm.waylandCompositors.hyprland = {
       prettyName = "Hyprland";

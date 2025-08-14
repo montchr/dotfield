@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.home = {
+  dotfield.features.workstation.home = {
     services.git-sync.enable = true;
   };
 }

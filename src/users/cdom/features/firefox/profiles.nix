@@ -3,7 +3,7 @@ let
   lib' = self.lib;
 in
 {
-  dotfield.modules.workstation.home =
+  dotfield.features.workstation.home =
     homeArgs@{ config, pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) isLinux;

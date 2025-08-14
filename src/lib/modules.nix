@@ -6,7 +6,7 @@
 let
   inherit (lib) mkOption types;
 
-  mkDeferredModuleOption =
+  mkDeferredModuleOpt =
     description:
     mkOption {
       inherit description;
@@ -14,27 +14,26 @@ let
       default = { };
     };
 
-  scopedSubmoduleType = types.submodule {
+  featureSubmodule = {
     options = {
-      nixos = mkDeferredModuleOption "A NixOS module";
-      home = mkDeferredModuleOption "A Home-Manager module";
+      nixos = mkDeferredModuleOpt "A NixOS module";
+      home = mkDeferredModuleOpt "A Home-Manager module";
     };
   };
 
-  scopedModulesOptions = {
-    nixos = mkDeferredModuleOption "Global NixOS configuration";
-    home = mkDeferredModuleOption "Global Home-Manager configuration";
-    modules = mkOption {
-      type = types.lazyAttrsOf scopedSubmoduleType;
+  mkFeatureListOpt =
+    description:
+    mkOption {
+      type = types.listOf (types.submodule featureSubmodule);
+      default = [ ];
     };
-  };
 in
 {
   flake.lib.modules = {
     inherit
-      mkDeferredModuleOption
-      scopedModulesOptions
-      scopedSubmoduleType
+      featureSubmodule
+      mkDeferredModuleOpt
+      mkFeatureListOpt
       ;
   };
 }

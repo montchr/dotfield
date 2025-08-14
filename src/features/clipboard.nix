@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [
@@ -9,7 +9,7 @@
       ];
     };
 
-  dotfield.modules.graphical.home = moduleWithSystem (
+  dotfield.features.graphical.home = moduleWithSystem (
     perSystem@{ config }:
     { pkgs, ... }:
     {

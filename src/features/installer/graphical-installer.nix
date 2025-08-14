@@ -1,5 +1,5 @@
 {
-  dotfield.modules."installer/graphical".nixos =
+  dotfield.features."installer/graphical".nixos =
     {
       modulesPath,
       pkgs,

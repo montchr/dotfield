@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules.blesh.home =
+  dotfield.features.blesh.home =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.blesh ];

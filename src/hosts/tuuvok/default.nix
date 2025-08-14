@@ -9,7 +9,7 @@ let
 in
 {
   dotfield.hosts.nixos.${hostName} = {
-    modules = with config.dotfield.modules; [
+    modules = with config.dotfield.features; [
       jobwork
       sway
       workstation

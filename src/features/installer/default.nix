@@ -1,8 +1,8 @@
 { self, lib, ... }:
 {
-  dotfield.modules.installer.nixos = {
+  dotfield.features.installer.nixos = {
     imports = [
-      self.dotfield.modules.nixos.remote-builders
+      self.dotfield.features.nixos.remote-builders
     ];
 
     dotfield.guardian.enable = false;

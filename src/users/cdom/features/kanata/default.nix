@@ -1,5 +1,5 @@
 {
-  dotfield.modules.kanata.nixos =
+  dotfield.features.kanata.nixos =
     { pkgs, ... }:
     {
       services.kanata.keyboards."default" = {

@@ -1,7 +1,6 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   dotfield.nixos = {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
     home-manager = {
       settings = {
         useGlobalPkgs = true;
@@ -25,7 +24,7 @@
       manual.json.enable = true;
     };
 
-  dotfield.modules.graphical.home = {
+  dotfield.features.graphical.home = {
     # TODO: what even is this for?
     systemd.user.targets.tray = {
       Unit = {

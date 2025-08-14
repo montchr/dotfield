@@ -4,12 +4,12 @@
   ...
 }:
 {
-  dotfield.modules."hardware/laptop".nixos =
+  dotfield.features."hardware/laptop".nixos =
     { config, ... }:
     {
       imports = [
-        self.dotfield.modules."hardware/battery".nixos
-        self.dotfield.modules.networkmanager.nixos
+        self.dotfield.features."hardware/battery".nixos
+        self.dotfield.features.networkmanager.nixos
       ];
 
       config = lib.mkIf config.programs.sway.enable {

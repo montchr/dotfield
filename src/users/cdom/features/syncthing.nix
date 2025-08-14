@@ -1,6 +1,6 @@
 # TODO: configure syncthing dirs
 {
-  dotfield.modules.workstation.home = {
+  dotfield.features.workstation.home = {
     services.syncthing.enable = true;
   };
 }

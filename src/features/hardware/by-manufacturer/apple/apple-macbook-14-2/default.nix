@@ -1,13 +1,13 @@
 { lib, self, ... }:
 {
-  dotfield.modules."hardware/apple/macbook-14-2".nixos = {
+  dotfield.features."hardware/apple/macbook-14-2".nixos = {
     imports = [
-      self.dotfield.modules."hardware/apple-silicon".nixos
-      self.dotfield.modules."hardware/apple-macbook".nixos
+      self.dotfield.features."hardware/apple-silicon".nixos
+      self.dotfield.features."hardware/apple-macbook".nixos
     ];
   };
 
-  dotfield.modules.graphical.nixos =
+  dotfield.features.graphical.nixos =
     { config, ... }:
     lib.mkIf config.programs.sway.enable {
       environment.etc."sway/config".text = ''

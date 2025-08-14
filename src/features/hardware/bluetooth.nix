@@ -1,5 +1,5 @@
 {
-  dotfield.modules.workstation.nixos =
+  dotfield.features.workstation.nixos =
     { pkgs, ... }:
     {
       hardware.bluetooth.enable = true;

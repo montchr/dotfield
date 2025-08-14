@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.modules.password-store.home =
+  dotfield.features.password-store.home =
     { config, pkgs, ... }:
     let
       inherit (self.dotfield.meta.users.${config.username}) whoami;

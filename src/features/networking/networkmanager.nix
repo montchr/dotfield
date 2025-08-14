@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.modules."networking/networkmanager".nixos =
+  dotfield.features."networking/networkmanager".nixos =
     { config, ... }:
     lib.mkMerge [
       {

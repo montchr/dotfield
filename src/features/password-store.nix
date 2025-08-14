@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.modules.password-store.home =
+  dotfield.features.password-store.home =
     { config, pkgs, ... }:
 
     lib.mkIf config.programs.gpg.enable {

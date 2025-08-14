@@ -5,7 +5,7 @@
   ...
 }:
 {
-  dotfield.modules.development.home =
+  dotfield.features.development.home =
     { pkgs, ... }:
     withSystem pkgs.stdenv.hostPlatform.system (
       { packages, inputs', ... }:

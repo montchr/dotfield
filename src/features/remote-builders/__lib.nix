@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  dotfield.modules.defaults.nixos =
+  dotfield.features.defaults.nixos =
     { config, ... }:
     {
       lib.dotfield.mkBuildMachine = config.lib.dotfield.mkBuildMachineFor config.networking.hostName;
