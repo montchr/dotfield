@@ -1,20 +1,19 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 {
   dotfield.nixos =
     { config, pkgs, ... }:
-    lib.mkMerge [
-      {
-        imports = [ inputs.sops-nix.nixosModules.sops ];
+    {
+      imports = [ inputs.sops-nix.nixosModules.sops ];
 
-        sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-        environment.systemPackages = [
-          pkgs.rage
-          pkgs.sops
-        ];
-      }
-    ]
-    ++ (config.lib.generateSudoersExtraGroupsModules [ "keys" ]);
+      environment.systemPackages = [
+        pkgs.rage
+        pkgs.sops
+      ];
+
+      users.groups.keys.members = config.users.groups.wheel.members;
+    };
 
   dotfield.home = {
     # Allow normal users to use sops.

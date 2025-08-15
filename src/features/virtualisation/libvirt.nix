@@ -2,16 +2,13 @@
 {
   dotfield.features."virtualisation/libvirt".nixos =
     { config, ... }:
-    lib.mkMerge [
-      {
-        virtualisation.libvirtd.enable = true;
-        networking.firewall.checkReversePath = "loose";
-      }
-    ]
-    ++ (config.lib.generateSudoersExtraGroupsModules [
-      "libvirtd"
-      "qemu-libvirtd"
-    ]);
+    {
+      users.groups.libvirtd.members = config.users.groups.wheel.members;
+      users.groups.qemu-libvirtd.members = config.users.groups.wheel.members;
+
+      virtualisation.libvirtd.enable = true;
+      networking.firewall.checkReversePath = "loose";
+    };
 
   dotfield.features.workstation.nixos =
     { config, pkgs, ... }:

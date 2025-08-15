@@ -1,11 +1,8 @@
-{ lib, ... }:
 {
   dotfield.features."networking/networkmanager".nixos =
     { config, ... }:
-    lib.mkMerge [
-      {
-        networking.networkmanager.enable = true;
-      }
-    ]
-    ++ (config.lib.generateSudoersExtraGroupsModules [ "networkmanager" ]);
+    {
+      networking.networkmanager.enable = true;
+      users.groups.networkmanager.members = config.users.groups.wheel.members;
+    };
 }

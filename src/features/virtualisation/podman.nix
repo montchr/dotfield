@@ -24,6 +24,12 @@
     { config, pkgs, ... }:
     lib.mkMerge [
       {
+        # Any other user who needs to be able to run Docker-compatible Podman
+        # containers will need to be added to this group. However, note that this
+        # essentially gives container `root` users access to the host system via the
+        # socket.
+        users.groups.podman.members = config.users.groups.wheel.members;
+
         environment.systemPackages = with pkgs; [
           arion
           dive # inspect image layers
@@ -47,10 +53,5 @@
           defaultNetwork.settings.dns_enabled = true;
         };
       }
-    ]
-    # Any other user who needs to be able to run Docker-compatible Podman
-    # containers will need to be added to this group. However, note that this
-    # essentially gives container `root` users access to the host system via the
-    # socket.
-    ++ (config.lib.generateSudoersExtraGroupsModules [ "podman" ]);
+    ];
 }

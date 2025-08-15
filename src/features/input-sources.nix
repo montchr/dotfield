@@ -1,4 +1,3 @@
-{ lib, ... }:
 {
   dotfield.features.graphical.nixos =
     { pkgs, ... }:
@@ -10,13 +9,11 @@
 
   dotfield.features.workstation.nixos =
     { config, pkgs, ... }:
-    lib.mkMerge [
-      {
-        hardware.keyboard.qmk.enable = true;
-      }
-    ]
-    # Required to support flashing firmware.
-    ++ (config.lib.generateSudoersExtraGroupsModules [ "plugdev" ]);
+    {
+      hardware.keyboard.qmk.enable = true;
+      # Required to support flashing firmware.
+      users.groups.plugdev.members = config.users.groups.wheel.members;
+    };
 
   dotfield.features.graphical.home =
     { config, ... }:
