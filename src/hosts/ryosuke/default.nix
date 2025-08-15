@@ -10,7 +10,7 @@ in
 {
   dotfield.hosts.nixos.${hostName} = {
     modules = (
-      with self.dotfield.modules;
+      with self.dotfield.features;
       [
         gnome
         jobwork
