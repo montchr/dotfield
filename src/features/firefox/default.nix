@@ -1,4 +1,3 @@
-{ self, lib, ... }:
 {
   dotfield.features.graphical.nixos = {
     programs.firefox.enable = true;
@@ -32,10 +31,10 @@
     };
 
   dotfield.features.workstation.home =
-    lib.mkIf self.dotfield.graphical.nixos.services.desktopManager.gnome.enable
-      {
-        dconf.settings."org/gnome/desktop/notifications/application/firefox" = {
-          application-id = "firefox.desktop";
-        };
+    { config, ... }:
+    {
+      dconf.settings."org/gnome/desktop/notifications/application/firefox" = {
+        application-id = "firefox.desktop";
       };
+    };
 }

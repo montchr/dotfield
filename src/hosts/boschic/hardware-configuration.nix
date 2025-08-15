@@ -82,5 +82,7 @@
     # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
     # networking.interfaces.ts0.useDHCP = lib.mkDefault true;
     # networking.interfaces.wlp7s0.useDHCP = lib.mkDefault true;
+
+    nixpkgs.hostPlatform = "x86_64-linux";
   };
 }

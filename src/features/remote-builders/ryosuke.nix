@@ -1,6 +1,6 @@
-{ self, ... }:
+flake@{ ... }:
 let
-  inherit (self.dotfield.meta.hosts) ryosuke;
+  inherit (flake.config.dotfield.meta.hosts) ryosuke;
 in
 {
   dotfield.features."remote-builders/ryosuke".nixos = {

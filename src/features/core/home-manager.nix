@@ -1,18 +1,18 @@
-{ self, ... }:
+flake@{ ... }:
 {
   dotfield.nixos = {
     home-manager = {
-      settings = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-      };
+      backupFileExtension = "bak";
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      verbose = true;
     };
   };
 
   dotfield.home =
     { config, ... }:
     let
-      meta = (self.dotfield.meta.users.${config.home.username});
+      meta = (flake.config.dotfield.meta.users.${config.home.username});
     in
 
     {

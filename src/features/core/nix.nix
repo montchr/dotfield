@@ -30,11 +30,14 @@
           "/etc/nix/inputs"
         ];
         distributedBuilds = true;
-        allowed-users = [ "*" ];
-        trusted-users = [
-          "root"
-          "@wheel"
-        ];
+
+        settings = {
+          allowed-users = [ "*" ];
+          trusted-users = [
+            "root"
+            "@wheel"
+          ];
+        };
 
         #### Nix Store Maintenance
 
@@ -57,32 +60,24 @@
 
         #### Features
 
-        experimental-features = [
+        settings.experimental-features = [
           "flakes"
           "nix-command"
           "pipe-operators"
         ];
 
-        # TODO: always appropriate??
-        system-features = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-        ];
-
         #### Substituters
 
-        builders-use-substitutes = true;
-        substituters = [
+        settings.builders-use-subsitutes = true;
+        settings.substituters = [
           "https://dotfield.cachix.org"
           "https://nix-community.cachix.org"
         ];
-        trusted-substituters = [
+        settings.trusted-substituters = [
           "ssh://eu.nixbuild.net"
           "https://nixpkgs-update.cachix.org/"
         ];
-        trusted-public-keys = [
+        settings.trusted-public-keys = [
           "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
           "nixbuild.net/cdom-1:DU7hcG2k5kj9nC6NUvsOYQNiaI5UXYjjY5gBOccaND4="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="

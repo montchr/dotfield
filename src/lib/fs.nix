@@ -1,6 +1,6 @@
-{ config, ... }:
+{ self, ... }:
 let
-  inherit (config.lib.fs) tree;
+  inherit (self.lib.fs) tree;
 in
 {
   flake.lib.fs = {

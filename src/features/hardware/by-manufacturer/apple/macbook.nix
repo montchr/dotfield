@@ -1,7 +1,7 @@
-{ self, ... }:
+flake@{ ... }:
 {
   dotfield.features."hardware/apple/macbook".nixos = {
-    imports = [ self.dotfield.features."hardware/laptop".nixos ];
+    imports = [ flake.config.dotfield.features."hardware/laptop".nixos ];
 
     # <https://wiki.archlinux.org/title/Apple_Keyboard#hid_apple_module_options>
     boot.kernelParams = [

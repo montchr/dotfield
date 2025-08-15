@@ -1,9 +1,9 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.graphical.nixos =
     { config, pkgs, ... }:
     {
-      imports = [ self.dotfield."boot/systemd-boot" ];
+      imports = [ flake.config.dotfield."boot/systemd-boot" ];
 
       services.xserver.enable = true;
       services.xserver.xkb.layout = "us";

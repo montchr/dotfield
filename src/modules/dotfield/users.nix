@@ -1,12 +1,12 @@
 {
   lib,
-  config,
+  self,
   ...
 }:
 let
   inherit (lib) mkOption types;
   inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
-  lib' = config.lib;
+  lib' = self.lib;
 in
 {
   options.dotfield.users = mkOption {
@@ -20,11 +20,13 @@ in
               readOnly = true;
               description = "Username";
             };
-            modules = mkFeatureListOpt "List of baseline features shared by all of this user's configurations";
+            features = mkFeatureListOpt "List of baseline features shared by all of this user's configurations";
             home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
           };
         }
       )
     );
+    default = { };
+    description = "Baseline user features and home configurations";
   };
 }

@@ -80,10 +80,10 @@ in
     ];
     network = "home";
     networks.ts.ipv4.address = "100.123.41.68";
-    # users.cdom = {
-    #   age = keys.age.cdom-at-ryosuke;
-    #   keys = [ keys.ssh.cdom-at-ryosuke ];
-    # };
+    users.cdom.keys = {
+      age = keys.age.cdom-at-ryosuke;
+      ssh = [ keys.ssh.cdom-at-ryosuke ];
+    };
     syncthing.id = "2HDN7UF-5YKEBC7-4YB4L4H-A6Y7EGS-YZ5CSQX-AWWDKR7-KH5WIKH-D6LOTQ4";
   };
 

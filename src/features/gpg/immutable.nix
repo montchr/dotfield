@@ -1,9 +1,9 @@
-{ lib, self, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.workstation.home =
     { config, pkgs, ... }:
     let
-      inherit (self.dotfield.meta.users.${config.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
     lib.mkIf ("" != whoami.pgp.id) {
       home.sessionVariables.DOTFIELD_PGP_KEY = whoami.pgp.id;

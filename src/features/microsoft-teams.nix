@@ -1,4 +1,4 @@
-{ lib, self, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.workstation.home =
     { pkgs, ... }:
@@ -8,6 +8,6 @@
       ];
 
       dconf.settings."org/gnome/desktop/notifications/application/teams".application-id =
-        lib.mkIf self.dotfield.graphical.nixos.services.desktopManager.gnome.enable "teams.desktop";
+        lib.mkIf flake.config.dotfield.graphical.nixos.services.desktopManager.gnome.enable "teams.desktop";
     };
 }

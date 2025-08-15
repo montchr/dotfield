@@ -1,6 +1,6 @@
-{ self, ... }:
+{ config, ... }:
 let
-  inherit (self.dotfield.meta) networks;
+  inherit (config.dotfield.meta) networks;
 in
 {
   dotfield.meta.services = {

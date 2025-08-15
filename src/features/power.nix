@@ -1,6 +1,6 @@
 {
   dotfield.features.workstation.nixos = {
-    services.Logind.extraConfig = ''
+    services.logind.extraConfig = ''
       HandlePowerKey=suspend
     '';
     services.power-profiles-daemon.enable = true;

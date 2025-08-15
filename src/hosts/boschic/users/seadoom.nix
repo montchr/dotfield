@@ -7,12 +7,9 @@ in
 {
 
   dotfield.hosts.nixos.boschic.users.seadoom = {
-    features =
-      flake.config.dotfield.hosts.boschic.features
-      ++ (with flake.config.dotfield.features; [
-        gpg
-        "git/with-gpg-signing"
-      ]);
+    features = flake.config.dotfield.hosts.nixos.boschic.features ++ ([
+      flake.config.dotfield.features."git/with-gpg-signing"
+    ]);
     home = {
       home.stateVersion = "21.11";
     };

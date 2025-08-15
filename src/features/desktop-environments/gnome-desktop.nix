@@ -1,9 +1,10 @@
-{
+flake@{
   lib,
-  lib',
-  self,
   ...
 }:
+let
+  lib' = flake.config.lib;
+in
 {
   dotfield.features.gnome-desktop.nixos =
     { config, pkgs, ... }:
@@ -11,7 +12,7 @@
       isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
     in
     {
-      imports = [ self.dotfield.features.nixos."greeters/gdm" ];
+      imports = [ flake.config.dotfield.features."greeters/gdm".nixos ];
 
       services.xserver.enable = true;
       services.desktopManager.gnome.enable = true;

@@ -1,10 +1,10 @@
-{ self, ... }:
+flake@{ ... }:
 
 {
   dotfield.features."git/with-gpg-signing".home =
     { config, ... }:
     let
-      inherit (self.dotfield.meta.users.${config.home.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
     {
       programs.git.signing = {

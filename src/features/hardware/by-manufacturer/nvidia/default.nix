@@ -10,7 +10,7 @@
   dotfield.features."hardware/nvidia".nixos =
     { config, ... }:
     {
-      shardware.graphics.enable = true;
+      hardware.graphics.enable = true;
       services.xserver.videoDrivers = [ "nvidia" ];
 
       # Whether to support direct rendering for 32-bit applications (e.g. Wine).

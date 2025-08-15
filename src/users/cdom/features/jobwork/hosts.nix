@@ -1,11 +1,11 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.jobwork.nixos =
     { config, ... }:
     {
       imports = [
-        self.dotfield.features.nixos."virtualisation/ddev"
-        self.dotfield.features.nixos."virtualisation/docker"
+        flake.config.dotfield.features.nixos."virtualisation/ddev"
+        flake.config.dotfield.features.nixos."virtualisation/docker"
       ];
 
       programs.ddev.enable = true;

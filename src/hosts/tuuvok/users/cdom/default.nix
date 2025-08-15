@@ -23,6 +23,10 @@ in
         programs.firefox.profiles.work.isDefault = true;
         programs.firefox.profiles.home.isDefault = false;
 
+        wayland.windowManager.sway.config.startup = [
+          { command = "teams-for-linux"; }
+        ];
+
         home.stateVersion = "23.05";
       };
     };

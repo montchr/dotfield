@@ -1,5 +1,5 @@
 {
-  dotfield.features.archivist.nixos =
+  dotfield.features.archivist.home =
     { pkgs, ... }:
     {
       home.packages = [

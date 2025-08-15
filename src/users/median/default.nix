@@ -1,0 +1,3 @@
+{
+  dotfield.meta.users.median = { };
+}

@@ -1,11 +1,10 @@
-{
+flake@{
   lib,
-  self,
   inputs,
   ...
 }:
 let
-  inherit (self.lib.theme) toColorSchemePath;
+  inherit (flake.config.lib.theme) toColorSchemePath;
 in
 
 {
@@ -14,7 +13,7 @@ in
     let
       inherit (config.stylix) fonts;
       colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
-      prefs = self.dotfield.meta.users.${config.home.username}.preferences;
+      prefs = flake.config.dotfield.meta.users.${config.home.username}.preferences;
     in
 
     {

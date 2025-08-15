@@ -1,6 +1,6 @@
 ### ViewSonic PX727-4K Projector
 
-{ self, ... }:
+flake@{ ... }:
 let
   name = "ViewSonic-PX727-4K";
 in
@@ -14,6 +14,6 @@ in
   dotfield.meta.displays.${name}.dpi = 44;
 
   dotfield.features."hardware/viewsonic/${name}".nixos = {
-    services.xserver.dpi = self.dotfield.meta.displays.${name}.dpi;
+    services.xserver.dpi = flake.config.dotfield.meta.displays.${name}.dpi;
   };
 }

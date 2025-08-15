@@ -331,9 +331,8 @@ let
 in
 {
   options.dotfield.meta.users = lib.mkOption {
-    type =
-      with types;
-      attrsOf submodule {
+    type = types.lazyAttrsOf (
+      types.submodule {
         options = {
           preferences = lib.mkOption {
             type = userPreferencesSubmodule;
@@ -347,8 +346,8 @@ in
             default = { };
             description = "User identifying attributes";
           };
-          keys = lib.mkOption {
-            type = listOf str;
+          keys.ssh = lib.mkOption {
+            type = with types; listOf str;
             default = [ ];
             description = ''
               SSH public keys for the user.
@@ -357,7 +356,8 @@ in
             '';
           };
         };
-      };
+      }
+    );
     default = { };
     description = "User metadata and preferences configuration";
   };

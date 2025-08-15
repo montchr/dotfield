@@ -1,9 +1,9 @@
-{ self, ... }:
+flake@{ ... }:
 {
   dotfield.features.wayland-wm.home =
     { config, pkgs, ... }:
     let
-      prefs = self.dotfield.meta.users.${config.home.username}.preferences;
+      prefs = flake.config.dotfield.meta.users.${config.home.username}.preferences;
     in
     {
       programs.fuzzel.enable = true;

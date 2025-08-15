@@ -3,21 +3,29 @@
 # SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 
 {
-  self,
   lib,
+  self,
   config,
   inputs,
   ...
 }:
 let
-
   inherit (lib) mkOption types;
   inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
   lib' = self.lib;
 
-  collectNixosModules = builtins.foldl' (v: acc: acc ++ v.nixos.imports) [ ];
-  collectHomeModules = builtins.foldl' (v: acc: acc ++ v.home.imports) [ ];
-  collectUserFeatures = username: (lib'.fs.tree (self.outPath + src/users/${username}/features));
+  collectNixosModules = modules: lib.fold (v: acc: acc ++ v.nixos.imports) [ ] modules;
+  collectHomeModules = modules: lib.fold (v: acc: acc ++ v.home.imports) [ ] modules;
+  # error: lib.fileset.fileFilter: Second argument is of type string, but it should be a path instead.
+  # collectUserFeatures = username: (lib'.fs.tree (self.outPath + "/src/users/${username}/features"));
+  collectUserFeatures =
+    username:
+    let
+      path = ../../users/${username}/features;
+    in
+    if builtins.pathExists path then (lib'.fs.loadTree path) else [ ];
+
+  overlays = (import (self.outPath + "/src/overlays/default.nix") { inherit inputs; });
 
   hostSubmodule = (
     { name, ... }:
@@ -85,13 +93,13 @@ let
           ++ (collectHomeModules userConfig.features)
 
           # Baseline home modules for this user.
-          ++ (collectHomeModules config.dotfield.users.${username}.features)
+          ++ (collectHomeModules config.dotfield.users.${username}.features or [ ])
 
           # User-defined extensions to Dotfield features.
           ++ (collectUserFeatures username)
 
           # Baseline home configuration for this user.
-          ++ [ (config.dotfield.users.${username}.home) ];
+          ++ [ (config.dotfield.users.${username}.home or { }) ];
       }) hostConfig.users;
 
     in
@@ -102,7 +110,7 @@ let
         {
           networking = { inherit hostName; };
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = (import "${self.outPath}/overlays/default.nix" { inherit inputs; });
+          nixpkgs = { inherit overlays; };
           home-manager.users = users;
         }
       ];

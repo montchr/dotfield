@@ -1,13 +1,17 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.installer.nixos = {
     imports = [
-      self.dotfield.features.nixos.remote-builders
+      flake.config.dotfield.features.remote-builders.nixos
     ];
 
-    dotfield.guardian.enable = false;
+    users.users.nixos = {
+      password = "nixos";
+      description = "default";
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+    };
 
-    # HACK: Override core profile
     services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
   };
 }

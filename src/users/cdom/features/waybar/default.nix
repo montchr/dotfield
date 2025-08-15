@@ -1,10 +1,10 @@
-{ self, ... }:
+flake@{ ... }:
 {
   dotfield.features.wayland-wm.home =
     { config, pkgs, ... }:
     {
       imports = [
-        self.dotfield.features.waybar.home
+        flake.config.dotfield.features.waybar.home
 
         ./__primary.nix
       ];

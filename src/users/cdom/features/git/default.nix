@@ -1,9 +1,9 @@
-{ self, moduleWithSystem, ... }:
+flake@{ moduleWithSystem, ... }:
 {
   dotfield.home.programs.git =
     { config, ... }:
     let
-      inherit (self.dotfield.meta.users.${config.home.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
     {
       userEmail = whoami.email;
@@ -14,7 +14,7 @@
     perSystem@{ config, ... }:
     home@{ config, pkgs, ... }:
     let
-      inherit (self.dotfield.meta.users.${config.home.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
     {
       home.packages = [

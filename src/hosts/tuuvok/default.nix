@@ -28,14 +28,14 @@ in
       "hardware/displaylink"
     ];
 
-    imports = [
-      inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
-    ];
-
     nixos = moduleWithSystem (
       perSystem@{ config, ... }:
       nixos@{ config, ... }:
       {
+        imports = [
+          inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+        ];
+
         nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
 
         # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
@@ -80,9 +80,9 @@ in
       ipv4 = "100.89.80.26";
       ipv6 = "fd7a:115c:a1e0::1c01:501a";
     };
-    users.cdom = {
+    users.cdom.keys = {
       age = keys.age.cdom-at-tuuvok;
-      keys = [ keys.ssh.cdom-at-tuuvok ];
+      ssh = [ keys.ssh.cdom-at-tuuvok ];
     };
     syncthing.id = "TR3RHZG-CZX3C6D-N2SDPVS-RI2H4JR-DEAVMKT-O7V4US2-LQK5WNR-V2TN2AA";
   };

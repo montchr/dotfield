@@ -1,4 +1,4 @@
-{ self, ... }:
+flake@{ self, ... }:
 let
   inherit (self.lib) mimeapps mimetypes;
 in
@@ -6,7 +6,7 @@ in
   dotfield.features.graphical.home =
     { config, pkgs, ... }:
     let
-      prefs = self.dotfield.meta.users.${config.home.username}.preferences;
+      prefs = flake.config.dotfield.meta.users.${config.home.username}.preferences;
     in
     {
       xdg.mimeApps.enable = true;

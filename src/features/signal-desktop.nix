@@ -1,4 +1,4 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.graphical.home =
     { pkgs, ... }:
@@ -8,7 +8,7 @@
       ];
 
       dconf.settings."org/gnome/desktop/notifications/application/signal-desktop" =
-        lib.mkIf self.dotfield.graphical.nixos.services.desktopManager.gnome.enable
+        lib.mkIf flake.config.dotfield.graphical.nixos.services.desktopManager.gnome.enable
           {
             application-id = "signal-desktop.desktop";
           };

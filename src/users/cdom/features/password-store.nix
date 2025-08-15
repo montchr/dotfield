@@ -1,9 +1,9 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.password-store.home =
     { config, pkgs, ... }:
     let
-      inherit (self.dotfield.meta.users.${config.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.username}) whoami;
       inherit (config.lib.dag) entryAfter;
 
       cfg = config.programs.password-store;

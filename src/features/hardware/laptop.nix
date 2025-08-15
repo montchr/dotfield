@@ -1,15 +1,11 @@
-{
-  self,
-  lib,
-  ...
-}:
+flake@{ lib, ... }:
 {
   dotfield.features."hardware/laptop".nixos =
     { config, ... }:
     {
       imports = [
-        self.dotfield.features."hardware/battery".nixos
-        self.dotfield.features.networkmanager.nixos
+        flake.config.dotfield.features."hardware/battery".nixos
+        flake.config.dotfield.features.networkmanager.nixos
       ];
 
       config = lib.mkIf config.programs.sway.enable {

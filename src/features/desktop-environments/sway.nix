@@ -1,4 +1,4 @@
-{ self, lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.features.sway.nixos =
     { config, pkgs, ... }:
@@ -8,7 +8,7 @@
     in
     {
       imports = [
-        self.dotfield.nixos.wayland
+        flake.config.dotfield.nixos.wayland
       ];
 
       xdg.portal.wlr.enable = true;
