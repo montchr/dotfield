@@ -1,5 +1,5 @@
 {
-  dotfield.features."desktop-environments/wayland-wm".home = {
+  dotfield.features.wayland-wm.home = {
     services.dunst = {
       enable = true;
       settings = {

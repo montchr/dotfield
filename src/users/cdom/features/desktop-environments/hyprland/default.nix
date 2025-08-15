@@ -1,10 +1,10 @@
 { self, lib, ... }:
 {
-  dotfield.features."desktop-environments/hyprland".home =
+  dotfield.features.hyprland.home =
     { config, pkgs, ... }:
     {
       imports = [
-        self.flake.modules.home."desktop-environments/wayland-wm"
+        self.flake.modules.home.wayland-wm
 
         ./__keybindings.nix
       ];

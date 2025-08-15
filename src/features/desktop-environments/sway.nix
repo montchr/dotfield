@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.features."desktop-environments/sway".nixos =
+  dotfield.features.sway.nixos =
     { config, pkgs, ... }:
     let
       inherit (lib) optional;

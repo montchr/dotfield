@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  dotfield.features."desktop-environments/wayland".home =
+  dotfield.features.wayland.home =
     { config, pkgs, ... }:
     let
       prefs = self.dotfield.meta.users.${config.home.username}.preferences;

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  dotfield.features."desktop-environments/gnome-desktop".nixos =
+  dotfield.features.gnome-desktop.nixos =
     { config, pkgs, ... }:
     let
       isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;

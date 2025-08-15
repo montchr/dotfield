@@ -1,5 +1,5 @@
 {
-  dotfield.features."desktop-environments/sway".home =
+  dotfield.features.sway.home =
     { config, pkgs, ... }:
     let
       cfg = config.wayland.windowManager.sway;
