@@ -9,5 +9,4 @@ _hmArgs: {
     ../../home/profiles/gpg/with-ssh-support.nix
   ];
 
-  home.stateVersion = "22.05";
 }

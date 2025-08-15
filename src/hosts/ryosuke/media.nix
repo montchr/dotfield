@@ -1,5 +1,5 @@
-{ pkgs, ... }:
 {
-  services.deluge.enable = true;
-  environment.systemPackages = [ pkgs.jellyfin-media-player ];
+  dotfield.hosts.nixos.ryosuke.nixos = {
+    services.deluge.enable = true;
+  };
 }
