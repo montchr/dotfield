@@ -3,7 +3,7 @@ let
   inherit (config.dotfield.meta) hosts keys;
 in
 {
-  dotfield.meta.users.cdom.keys = [
+  dotfield.meta.users.cdom.keys.ssh = [
     keys.ssh.cdom-yubikey-rsa
   ]
   ++ hosts.boschic.users.seadoom.keys.ssh
