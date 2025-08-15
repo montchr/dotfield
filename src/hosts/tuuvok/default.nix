@@ -1,15 +1,16 @@
-{
+flake@{
   lib,
-  config,
   inputs,
+  moduleWithSystem,
   ...
 }:
 let
+  inherit (flake.config.dotfield.meta) hosts keys;
   hostName = "tuuvok";
 in
 {
   dotfield.hosts.nixos.${hostName} = {
-    modules = with config.dotfield.features; [
+    features = with flake.config.dotfield.features; [
       jobwork
       sway
       workstation
@@ -32,6 +33,58 @@ in
       inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     ];
 
-    nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
+    nixos = moduleWithSystem (
+      perSystem@{ config, ... }:
+      nixos@{ config, ... }:
+      {
+        nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
+
+        # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
+        # broken wifi.  Reverting to the "asahi-tuvok-firmware" repository works.
+        hardware.asahi.peripheralFirmwareDirectory =
+          flake.perSystem.inputs'.asahi-tuvok-firmware.packages.default;
+
+        services.tailscale.enable = true;
+
+        fonts.packages = [ perSystem.config.packages.berkeley-mono ];
+
+        users.mutableUsers = false;
+        sops.defaultSopsFile = ./secrets.yaml;
+        services.displayManager.autoLogin.enable = true;
+        services.displayManager.autoLogin.user = "cdom";
+
+        # Not allowed because I don't want to make the building's network
+        # switch mad again.
+        # TODO: Should be disabled by default?
+        services.avahi.enable = lib.mkForce false;
+
+        system.stateVersion = "23.11"; # Did you read the comment?
+      }
+    );
+  };
+
+  dotfield.meta.hosts.tuuvok = {
+    hardware = {
+      # We share a body...
+      inherit (hosts.tuvix.hardware) mem vcpus;
+      # ...different minds, same brain.
+      system = "aarch64-linux";
+    };
+    keys = {
+      age = keys.age.tuuvok;
+      ssh = [
+        keys.ssh.tuuvok
+        keys.ssh.tuuvok-rsa
+      ];
+    };
+    networks.ts = {
+      ipv4 = "100.89.80.26";
+      ipv6 = "fd7a:115c:a1e0::1c01:501a";
+    };
+    users.cdom = {
+      age = keys.age.cdom-at-tuuvok;
+      keys = [ keys.ssh.cdom-at-tuuvok ];
+    };
+    syncthing.id = "TR3RHZG-CZX3C6D-N2SDPVS-RI2H4JR-DEAVMKT-O7V4US2-LQK5WNR-V2TN2AA";
   };
 }
