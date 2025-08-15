@@ -1,6 +1,6 @@
 { self, inputs, ... }:
 {
-  dotfield.modules.hosts.nixos = {
+  dotfield.features.hosts.nixos = {
 
   };
 }
