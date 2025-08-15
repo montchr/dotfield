@@ -1,0 +1,64 @@
+swap_floating_layout name="enlarged" {
+    floating_panes max_panes=10 {
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 1
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 2
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 3
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 4
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 5
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 6
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 7
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 8
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x "5%"
+            y 9
+        }
+        pane {
+            height "90%"
+            width "90%"
+            x 10
+            y 10
+        }
+    }
+}

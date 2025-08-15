@@ -1,0 +1,41 @@
+layout {
+    cwd "~"
+
+    default_tab_template name="tt" {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab_template name="prj" {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane split_direction="vertical" {
+            pane size="40%" {
+                command "bash"
+                args "-c" "jjui"
+            }
+            pane size="60%" {
+                children
+            }
+        }
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    prj name="h:os" cwd="/etc/nixos"
+    prj name="h:ceamx" cwd=".config/emacs"
+    prj name="w:r:lib" cwd="Projects/work/repos/lib"
+    prj name="w:r:beams" cwd="Projects/work/repos/beams"
+    prj name="w:a:tutv" cwd="Projects/work/applications/tutv"
+    prj name="w:a:mmmm" cwd="Projects/work/applications/kleinforms"
+    prj name="w:a:pn" cwd="Projects/work/applications/phillyn"
+    prj name="w:a:sts" cwd="Projects/work/applications/kleinsites"
+    prj name="w:a:ttn" cwd="Projects/work/applications/templenews"
+}

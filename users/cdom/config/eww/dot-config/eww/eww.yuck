@@ -1,0 +1,36 @@
+(defwindow controlplane
+           :monitor 0
+           :geometry (geometry :x "24"
+                               :y "24"
+                               :width "23%"
+                               ;; :height "93%"
+                               :anchor "top right")
+           :stacking "overlay"
+           :exclusive false
+           :focusable true
+           :windowtype "dock"
+
+           (greeter :text "Say hello!"
+                    :name "Cea"))
+
+(defwidget greeter [?text name]
+           (box :orientation "horizontal"
+                :halign "center"
+
+                text
+
+                (button :onclick "notify-send 'Hello Word' 'Hello, ${name}'"
+                        "Greet")))
+
+;; (defwindow example
+;;            :monitor 0
+;;            :geometry (geometry :x "0%"
+;;                                :y "20px"
+;;                                :width "90%"
+;;                                :height "30px"
+;;                                :anchor "top center")
+;;            :stacking "fg"
+;;            :reserve (struts :distance "40px" :side "top")
+;;            :windowtype "dock"
+;;            :wm-ignore false
+;;   "example content")

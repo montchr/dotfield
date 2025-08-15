@@ -1,0 +1,18 @@
+swap_tiled_layout name="stacked" {
+    tab min_panes=5 {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        pane {
+            pane split_direction="vertical" {
+                pane
+                pane stacked=true {
+                    children
+                }
+            }
+        }
+        pane size=1 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+}

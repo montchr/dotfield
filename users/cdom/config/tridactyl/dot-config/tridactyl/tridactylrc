@@ -1,0 +1,117 @@
+" -*- mode: vimrc -*-
+
+" https://github.com/tridactyl/tridactyl/blob/master/.tridactylrc
+" May require the latest beta builds.
+
+" clean all previous configurations
+" sanitise tridactylsync
+" sanitise tridactyllocal
+
+" TODO: needs work
+" colorscheme cdom
+" set theme cdom
+
+
+" === Keybindings ==============================================================
+" Also see TST-specific section below.
+
+" Handy multiwindow/multitasking binds
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+
+" Flip the prev/next bindings, esp. for TST
+" bind J tabnext_gt
+" bind K tabprev
+bind J tabprev
+bind K tabnext_gt
+
+
+" === Misc settings ============================================================
+
+" Hinting mode
+set hintfiltermode vimperator-reflow
+set hintnames short
+
+set hintdelay 100
+
+" Add some URLs to the disallow list
+blacklistadd https://app.terrastruct.com
+blacklistadd https://configure.zsa.io
+blacklistadd https://mail.google.com/mail
+blacklistadd https://mail.proton.me/
+blacklistadd https://outlook.office.com
+
+
+" === URL redirects ============================================================
+
+" Isolate Facebook in its own container
+" set auconcreatecontainer true
+" autocontain facebook\.com facebook
+
+
+" === Search ===================================================================
+
+" TODO: devdocs, kagi, ddg, awesomelists
+" devdocs may need more care, as it's most useful with docset-scoped searches
+
+" Reset existing `searchurls`
+" Should work, but does not: `js tri.config.set("searchurls", {})`
+" For now, this: <https://github.com/tridactyl/tridactyl/issues/2327>
+unset searchurls
+
+set searchurls.arch https://wiki.archlinux.org/index.php?search=%s
+set searchurls.alt2 https://alternativeto.net/browse/search/?q=
+set searchurls.caniuse https://caniuse.com/?search=
+set searchurls.gh https://github.com/search?q=
+set searchurls.mdn https://developer.mozilla.org/en-US/search?q=%s
+set searchurls.nix https://noogle.dev/?term=%22%s%22
+set searchurls.nixpkgs https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20%s
+set searchurls.nixoswiki https://wiki.nixos.org/w/index.php?search=
+set searchurls.npm https://bundlephobia.com/package/%s
+set searchurls.opts https://search.nixos.org/options?query=
+set searchurls.pkgs https://search.nixos.org/packages?query=
+set searchurls.yt https://www.youtube.com/results?search_query=%s
+
+
+" === Tree-Style Tab ===========================================================
+" <https://github.com/tridactyl/tridactyl/issues/377#issuecomment-895565496>
+" <https://github.com/piroor/treestyletab/wiki/API-for-other-addons#basics-to-specify-tabs>
+
+" --- Commands -----------------------------------------------------------------
+
+
+" --- Bindings -----------------------------------------------------------------
+
+" Collapse root
+bind zx ttcollapse root
+" Collapse current or parent
+bind zc ttcollapse_current_or_parent
+" Collapse current subtree
+bind zC ttcollapse_recursively root
+
+" Expand current tab
+bind zo ttexpand current
+" Expand current tab and subtree
+bind zO ttexpand_recursively current
+
+" Collapse/expand all
+bind zM ttcollapse *
+bind zR ttexpand *
+
+" Traverse up the tree
+bind zp ttfocus parent
+bind zP ttfocus root
+
+" Focus next/previous, skipping over subtrees.
+" Alternatively: nextSiblingCyclic/prevSiblingCyclic
+bind zj ttfocus nextSibling
+bind zk ttfocus prevSibling
+
+" NOTE: These indent/outdent bindings override the standard tab move bindings,
+"       so might consider z>,z< or similar:
+bind << ttoutdent_recursively current
+bind >> ttindent_recursively current
+
+" Local Variables:
+" mode: vimrc
+" End:

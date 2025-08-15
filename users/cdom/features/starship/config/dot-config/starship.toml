@@ -1,0 +1,314 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+continuation_prompt = "[▸▹ ](dimmed white)"
+
+format = """($nix_shell$container ${custom.git_branch_fallback}${custom.jj}\n)$cmd_duration\
+  $hostname\
+  $localip\
+  $shlvl\
+  $shell\
+  $env_var\
+  $jobs\
+  $sudo\
+  $username\
+  $character
+"""
+
+right_format = """
+$directory\
+$singularity\
+$kubernetes\
+$pijul_channel\
+$docker_context\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$pulumi\
+$c\
+$cpp\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$conda\
+$pixi\
+$meson\
+$spack\
+$memory_usage\
+$crystal\
+$os\
+$battery\
+$time"""
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[\\$](bold red)"
+
+# TODO: Unfortunately, these create the appearance of extra space after the
+# grapheme, which cannot be avoided except by perhaps some kind of
+# negative offset afterwards, as the grapheme itself does not occupy the
+# full width of the character.
+# success_symbol = "[☰](bold green)"
+# error_symbol = "[☷](bold red)"
+
+[status]
+disabled = false
+format = "[$symbol \\[$status\\]]($style) "
+symbol = "‼"
+success_symbol = ""
+not_executable_symbol = "☶"                 # Mountain "Keeping Still"
+not_found_symbol = "☵"                      # Water "The Abyssal"
+sigint_symbol = "☳"                         # Thunder "Shake"
+signal_symbol = "☲"                         # Fire "The Clinging"
+map_symbol = true
+pipestatus = true
+style = "bold red"
+
+[nix_shell]
+format = '[$name](italic dimmed white) $state'
+style = 'bold dimmed blue'
+# symbol = " "
+symbol = '✶ '
+impure_msg = '[ƛ](dimmed yellow)'
+pure_msg = '[λ](dimmed green)'
+unknown_msg = '[◌](dimmed blue)'
+
+[custom.jj]
+# symbol = "𝚫"
+symbol = "𝛅:" # bold math symbol
+# symbol = "δ:" # non-bold regular greek letter
+# symbol = "ᵟ"
+
+
+[localip]
+ssh_only = true
+format = " ◯[$localipv4](bold magenta)"
+disabled = false
+
+
+[directory]
+home_symbol = "~"
+truncation_length = 2
+truncation_symbol = "⋮ "
+read_only = " ◈"
+read_only_style = "red"
+use_os_path_sep = true
+style = "bold blue"
+truncate_to_repo = true
+format = '[$path]($style)[$read_only]($read_only_style)'
+repo_root_style = 'bold underline blue'
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) [△](bold bright-blue)'
+
+[cmd_duration]
+format = "[◄ $duration ](italic white)"
+
+[jobs]
+format = "[$symbol$number]($style) "
+style = "white"
+symbol = "[▶](blue italic)"
+
+
+[time]
+disabled = false
+format = "[ $time]($style)"
+#time_format = "%R"
+style = "italic dimmed white"
+
+
+[battery]
+format = "[ $percentage $symbol]($style)"
+full_symbol = "█"
+charging_symbol = "[↑](italic bold green)"
+discharging_symbol = "↓"
+unknown_symbol = "░"
+empty_symbol = "▃"
+
+[[battery.display]]
+threshold = 20
+style = "italic bold red"
+
+[[battery.display]]
+threshold = 60
+style = "italic dimmed bright-purple"
+
+[[battery.display]]
+threshold = 70
+style = "italic dimmed yellow"
+
+[hostname]
+format = "[$symbol]($style)"
+ssh_symbol = " "
+
+[memory_usage]
+symbol = "▪▫▪ "
+format = " mem [${ram}( ${swap})]($style)"
+
+# [git_branch]
+# disabled = true
+# format = " [$branch(:$remote_branch)]($style)"
+# symbol = "[△](bold italic bright-blue)"
+# style = "italic bright-blue"
+# truncation_symbol = "⋯"
+# truncation_length = 11
+# ignore_branches = ["main", "master"]
+# only_attached = true
+
+
+[package]
+disabled = true
+
+
+[aws]
+format = "[$symbol]($style)"
+
+[buf]
+format = "[$symbol]($style)"
+
+[bun]
+format = "[$symbol]($style)"
+
+[c]
+format = "[$symbol]($style)"
+
+[cpp]
+format = "[$symbol]($style)"
+
+[cmake]
+format = "[$symbol]($style)"
+
+[conda]
+format = "[$symbol]($style)"
+
+[crystal]
+format = "[$symbol]($style)"
+
+[dart]
+format = "[$symbol]($style)"
+
+[deno]
+format = "[$symbol]($style)"
+
+[docker_context]
+format = "[$symbol]($style)"
+
+[elixir]
+format = "[$symbol]($style)"
+
+[elm]
+format = "[$symbol]($style)"
+
+[fennel]
+format = "[$symbol]($style)"
+
+[gcloud]
+format = "[$symbol]($style)"
+
+[golang]
+format = "[$symbol]($style)"
+
+[gradle]
+format = "[$symbol]($style)"
+
+[haskell]
+format = "[$symbol]($style)"
+
+[haxe]
+format = "[$symbol]($style)"
+
+[java]
+format = "[$symbol]($style)"
+
+[julia]
+format = "[$symbol]($style)"
+
+[kotlin]
+format = "[$symbol]($style)"
+
+[lua]
+format = "[$symbol]($style)"
+
+[meson]
+format = "[$symbol]($style)"
+
+[nim]
+format = "[$symbol]($style)"
+
+[nodejs]
+format = "[$symbol ($version)]($style)"
+detect_files = ["package-lock.json", "pnpm.lock", "yarn.lock"]
+detect_folders = ["node_modules"]
+
+[ocaml]
+format = "[$symbol]($style)"
+
+[perl]
+format = "[$symbol]($style)"
+
+[php]
+format = "[$symbol ($version)]($style)"
+
+[pijul_channel]
+format = "[$symbol]($style)"
+
+[pixi]
+format = "[$symbol]($style)"
+
+[python]
+format = "[$symbol ($version)]($style)"
+
+[rlang]
+format = "[$symbol]($style)"
+
+[ruby]
+format = "[$symbol]($style)"
+
+[rust]
+format = "[$symbol]($style)"
+
+[scala]
+format = "[$symbol]($style)"
+
+[swift]
+format = "[$symbol]($style)"
+
+[zig]
+format = "[$symbol]($style)"

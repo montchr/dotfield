@@ -1,0 +1,3 @@
+# export AQ_DRM_DEVICES="/dev/dri/card0"
+# export AQ_TRACE=1
+# export HYPRLAND_TRACE=1

@@ -1,0 +1,6 @@
+--target=~
+--ignore='\.nix$'
+--ignore='\.stowrc'
+--no-folding
+--dotfiles
+--verbose
