@@ -1,0 +1,47 @@
+matches:
+- replace: ←
+  triggers:
+  - :arrll
+  - :arrww
+- replace: →
+  triggers:
+  - :arrrr
+  - :arree
+- replace: ↑
+  triggers:
+  - :arrnn
+- replace: ↓
+  triggers:
+  - :arrss
+- replace: ↖
+  triggers:
+  - :arrnw
+- replace: ↗
+  triggers:
+  - :arrne
+- replace: ↘
+  triggers:
+  - :arrse
+- replace: ↙
+  triggers:
+  - :arrsw
+- replace: ↕
+  triggers:
+  - :arrns
+- replace: ↔
+  triggers:
+  - :arrlr
+- replace: ⇑
+  triggers:
+  - :arr=nn
+- replace: ⇓
+  triggers:
+  - :arr=ss
+- replace: ⇒
+  triggers:
+  - :arr=ee
+  - :arr=rr
+- replace: ⇐
+  triggers:
+  - :arr=ww
+  - :arr=ll

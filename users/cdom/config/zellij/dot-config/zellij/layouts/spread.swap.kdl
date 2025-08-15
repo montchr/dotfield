@@ -1,0 +1,63 @@
+swap_floating_layout name="spread" {
+    floating_panes max_panes=1 {
+        pane {
+            x "50%"
+            y "50%"
+        }
+    }
+    floating_panes max_panes=2 {
+        pane {
+            width "45%"
+            x "1%"
+            y "25%"
+        }
+        pane {
+            width "45%"
+            x "50%"
+            y "25%"
+        }
+    }
+    floating_panes max_panes=3 {
+        pane {
+            height "45%"
+            width "45%"
+            y "55%"
+        }
+        pane {
+            width "45%"
+            x "1%"
+            y "1%"
+        }
+        pane {
+            width "45%"
+            x "50%"
+            y "1%"
+        }
+    }
+    floating_panes max_panes=4 {
+        pane {
+            height "45%"
+            width "45%"
+            x "1%"
+            y "55%"
+        }
+        pane {
+            height "45%"
+            width "45%"
+            x "50%"
+            y "55%"
+        }
+        pane {
+            height "45%"
+            width "45%"
+            x "1%"
+            y "1%"
+        }
+        pane {
+            height "45%"
+            width "45%"
+            x "50%"
+            y "1%"
+        }
+    }
+}

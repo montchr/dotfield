@@ -1,0 +1,3 @@
+source /etc/profile
+
+source "/nix/store/jsb06b1s0iydn8yg3g6j9361iz8ikrkr-bash-completion-2.14.0/etc/profile.d/bash_completion.sh"

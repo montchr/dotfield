@@ -1,0 +1,26 @@
+matches:
+- replace: '{{output}}'
+  trigger: ;;uuid
+  vars:
+  - name: output
+    params:
+      cmd: uuidgen -r
+    type: shell
+- replace: '{{output}}'
+  trigger: ;e;b64u
+  vars:
+  - name: clip
+    type: clipboard
+  - name: output
+    params:
+      cmd: echo -n "{{clip}}" | basenc --base64url
+    type: shell
+- replace: '{{output}}'
+  trigger: ;d;b64u
+  vars:
+  - name: clip
+    type: clipboard
+  - name: output
+    params:
+      cmd: echo -n "{{clip}}" | basenc --decode --base64url
+    type: shell

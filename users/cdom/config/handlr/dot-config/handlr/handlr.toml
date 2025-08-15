@@ -1,0 +1,4 @@
+enable_selector = true
+selector = "fuzzel -d -p 'Open With: '"
+term_exec_args = '-e'
+expand_wildcards = false

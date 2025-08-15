@@ -1,0 +1,222 @@
+# -*- mode: sh; -*-
+# shellcheck shell=bash
+
+### common marks
+LP_MARK_PREFIX='\n'
+LP_COLOR_MARK="$BOLD"
+LP_COLOR_MARK_ROOT="$BOLD_RED"
+LP_COLOR_MARK_SUDO="$LP_COLOR_MARK_ROOT"
+LP_MARK_BRACKET_OPEN="["
+LP_MARK_BRACKET_CLOSE="]"
+# LP_MARK_MULTIPLEXER_OPEN=$LP_MARK_BRACKET_OPEN
+# LP_MARK_MULTIPLEXER_CLOSE=$LP_MARK_BRACKET_CLOSE
+LP_MARK_DEFAULT="$"
+
+### clock
+LP_ENABLE_TIME=0
+LP_TIME_ANALOG=0
+LP_COLOR_TIME="$BLUE"
+
+## === color ===
+
+LP_ENABLE_COLOR=1
+
+LP_COLOR_IN_MULTIPLEXER="$BOLD_BLUE"
+LP_COLOR_JOB_D="$YELLOW"
+LP_COLOR_JOB_R="$BOLD_YELLOW"
+LP_COLOR_JOB_Z="$BOLD_YELLOW"
+
+# Quantize sensor values to color scale.
+# <https://github.com/liquidprompt/liquidprompt/blob/6f0dc9f7dda99fe98c6dce26be5e461692782c6d/liquidprompt#L366-L377>
+# this is the default value:
+LP_COLORMAP=(
+    ""               # 0
+    "$GREEN"         # 1
+    "$BOLD_GREEN"    # 2
+    "$YELLOW"        # 3
+    "$BOLD_YELLOW"   # 4
+    "$RED"           # 5
+    "$BOLD_RED"      # 6
+    "$WARN_RED"      # 7
+    "$CRIT_RED"      # 8
+    "$DANGER_RED"    # 9
+)
+
+## === connections ===
+
+LP_ENABLE_PROXY=1
+LP_ENABLE_SSH_COLORS=1 # colorize $LP_COLOR_SSH based on ssh hostname hash
+
+LP_MARK_PROXY="↥"
+
+LP_COLOR_PROXY="$BOLD_BLUE"
+LP_COLOR_SSH="$BLUE"
+LP_COLOR_HOST=""
+LP_COLOR_TELNET="$WARN_RED"
+
+# 0  => remote only (default)
+# 1  => always
+# -1 => never
+LP_HOSTNAME_ALWAYS=0
+
+# short  => before first dot (default)
+# full   => hostname without domain
+# fqdn   => fqdn if exists, fallback to full
+# pretty => machine name
+LP_HOSTNAME_METHOD=pretty
+
+## === environments ===
+
+LP_ENABLE_AWS_PROFILE=1
+LP_ENABLE_CONTAINER=0
+LP_ENABLE_TERRAFORM=0
+LP_ENABLE_VIRTUALENV=0
+
+LP_COLOR_AWS_PROFILE="$YELLOW"
+LP_COLOR_CONTAINER="$BOLD_BLUE"
+LP_COLOR_TERRAFORM="$PINK"
+LP_COLOR_VIRTUALENV="$CYAN"
+
+### n/a
+LP_ENABLE_SCLS=0 # something to do with red hat idk
+LP_ENABLE_KUBECONTEXT=0
+LP_ENABLE_KUBE_NAMESPACE=0
+LP_ENABLE_NODE_VENV=0
+LP_ENABLE_RUBY_VENV=0
+# LP_MARK_KUBECONTEXT="⎈"
+# LP_COLOR_KUBECONTEXT="$CYAN"
+# LP_COLOR_NODE_VENV="$LP_COLOR_VIRTUALENV"
+# LP_RUBY_RVM_PROMPT_OPTIONS=
+# LP_COLOR_RUBY_VENV="$LP_COLOR_VIRTUALENV"
+
+## === filesystem/permissions ===
+
+LP_ENABLE_DIRSTACK=1
+LP_ENABLE_PERM=1 # if dir ro
+LP_ENABLE_SHORTEN_PATH=1
+LP_ENABLE_SUDO=0 # NOTE: enabling this will log every prompt to syslog
+LP_ENABLE_VCS_ROOT=0
+
+LP_MARK_DIRSTACK="⚞"
+LP_MARK_PERM=":" # separator between hostname and cwd
+LP_MARK_SHORTEN_PATH=" … "
+
+LP_COLOR_DIRSTACK="$BOLD_YELLOW"
+LP_COLOR_PATH=""
+LP_COLOR_PATH_LAST_DIR="$BOLD"
+LP_COLOR_PATH_ROOT="$BOLD_YELLOW"
+LP_COLOR_WRITE="$GREEN"
+# LP_COLOR_PATH_SEPARATOR="lp_terminal_format 8 -1 0 0 -1"
+# LP_COLOR_PATH_SHORTENED="lp_terminal_format 8 -1 0 0 1"
+
+## === session ===
+
+### title
+LP_ENABLE_TITLE=1 # for terminal emulator
+LP_ENABLE_TITLE_COMMAND=1 # show current cmd
+LP_ENABLE_SCREEN_TITLE=1 # for multiplexer
+
+### nested shells
+LP_ENABLE_SHLVL=1
+LP_MARK_SHLVL="└"
+LP_COLOR_SHLVL="$BOLD_GREEN"
+
+### display
+LP_COLOR_X11_OFF="$YELLOW"
+LP_COLOR_X11_ON="$GREEN"
+
+## === processes ===
+
+LP_ENABLE_DETACHED_SESSIONS=1
+LP_ENABLE_ERROR=1
+LP_ENABLE_JOBS=1 # if jobs > 0
+
+LP_COLOR_ERR="$PURPLE"
+
+### duration
+LP_ENABLE_RUNTIME=1 # if trt > threshold
+LP_ENABLE_RUNTIME_BELL=1
+LP_RUNTIME_THRESHOLD=2
+LP_RUNTIME_BELL_THRESHOLD=10
+LP_COLOR_RUNTIME="$YELLOW"
+
+## --- resources/sensors ---
+
+LP_PERCENTS_ALWAYS=1 # display value, not just icon
+
+### battery
+LP_ENABLE_BATT=1
+LP_BATTERY_THRESHOLD=90
+# TODO: swap these marks?
+LP_MARK_ADAPTER="⏚"
+LP_MARK_BATTERY="⌁"
+LP_COLOR_CHARGING_ABOVE="$GREEN"
+LP_COLOR_CHARGING_UNDER="$YELLOW"
+LP_COLOR_DISCHARGING_ABOVE="$YELLOW"
+LP_COLOR_DISCHARGING_UNDER="$RED"
+
+### load
+LP_ENABLE_LOAD=1 # if load > threshold
+LP_LOAD_CAP="2.0" # color scaling control
+LP_LOAD_THRESHOLD="0.75"
+LP_MARK_LOAD="⌂"
+
+### temperature
+LP_ENABLE_TEMP=1 # if sys temperature > threshold
+LP_TEMP_THRESHOLD=60
+LP_MARK_TEMP="θ"
+
+### wifi
+LP_ENABLE_WIFI_STRENGTH=1 
+LP_WIFI_STRENGTH_THRESHOLD=40
+# TODO: use something other than an emoji
+LP_MARK_WIFI="📶"
+
+## === user ===
+
+# 0  => only when non-login user
+# 1  => always
+# -1 => never
+LP_USER_ALWAYS=0
+
+LP_COLOR_SU="$BOLD_YELLOW"
+LP_COLOR_USER_ALT="$BOLD"
+LP_COLOR_USER_LOGGED=""""
+LP_COLOR_USER_ROOT="$BOLD_YELLOW"
+
+## === version control ===
+
+LP_MARK_DISABLED="⌀"
+LP_MARK_STASH="+"
+LP_MARK_UNTRACKED="*"
+
+LP_COLOR_CHANGES="$RED"
+LP_COLOR_COMMITS_BEHIND="$BOLD_RED"
+LP_COLOR_COMMITS="$YELLOW"
+LP_COLOR_DIFF="$PURPLE"
+# repo root dir, not root user
+LP_COLOR_PATH_VCS_ROOT="$BOLD"
+LP_COLOR_UP="$GREEN"
+
+### git
+LP_ENABLE_GIT=1 
+LP_MARK_GIT="±"
+
+### n/a
+LP_ENABLE_BZR=0
+LP_ENABLE_FOSSIL=0
+LP_ENABLE_HG=0
+LP_ENABLE_SVN=0 # let's hope i never contribute to wordpress core
+# LP_HG_COMMAND=hg
+# LP_MARK_FOSSIL="⌘"
+# LP_MARK_HG="☿"
+# LP_MARK_SVN="‡"
+# <https://github.com/RichiH/vcsh>
+# LP_MARK_VCSH="|"
+
+## === extras ===
+
+LOCAL_RCFILE=$HOME/.liquidpromptrc.local
+[ -f "$LOCAL_RCFILE" ] && source "$LOCAL_RCFILE"
+
+# vim: ft=sh et sts=4 sw=4 tw=120
