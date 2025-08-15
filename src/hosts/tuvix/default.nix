@@ -1,10 +1,9 @@
 { config, ... }:
 let
   inherit (config.dotfield.meta) keys;
-  hostName = "tuvix";
 in
 {
-  dotfield.meta.hosts.${hostName} = {
+  dotfield.meta.hosts.tuvix = {
     hardware = {
       mem = 16;
       system = "aarch64-darwin";

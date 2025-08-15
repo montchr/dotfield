@@ -6,10 +6,9 @@ flake@{
 }:
 let
   inherit (flake.config.dotfield.meta) hosts keys;
-  hostName = "tuuvok";
 in
 {
-  dotfield.hosts.nixos.${hostName} = {
+  dotfield.hosts.nixos.tuuvok = {
     features = with flake.config.dotfield.features; [
       jobwork
       sway

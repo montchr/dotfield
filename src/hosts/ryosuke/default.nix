@@ -7,11 +7,10 @@ let
   inherit (inputs) nixos-hardware;
   inherit (config.dotfield.meta) keys;
 
-  hostName = "ryosuke";
-  cfg = config.dotfield.hosts.${hostName};
+  cfg = config.dotfield.hosts.ryosuke;
 in
 {
-  dotfield.hosts.nixos.${hostName} = {
+  dotfield.hosts.nixos.ryosuke = {
     features = (
       with config.dotfield.features;
       [
@@ -67,7 +66,7 @@ in
     };
   };
 
-  dotfield.meta.hosts.${hostName} = {
+  dotfield.meta.hosts.ryosuke = {
     ipv4.address = "192.168.1.217";
     hardware = {
       mem = 32;

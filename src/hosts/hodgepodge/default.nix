@@ -1,10 +1,9 @@
 { lib, config, ... }:
 let
   inherit (config.dotfield.meta) keys;
-  hostName = "hodgepodge";
 in
 {
-  dotfield.hosts.nixos.${hostName} = {
+  dotfield.hosts.nixos.hodgepodge = {
     features = with config.dotfield.features; [
       workstation
       gnome
@@ -48,7 +47,7 @@ in
 
   };
 
-  dotfield.meta.hosts.${hostName} = {
+  dotfield.meta.hosts.hodgepodge = {
     admins = [ "seadoom" ];
     ipv4.address = "192.168.1.152";
     keys = {
