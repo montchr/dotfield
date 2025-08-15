@@ -1,32 +1,25 @@
+flake@{ ... }:
 {
-  config,
-  pkgs,
-  ops,
-  ...
-}:
-let
-  username = "seadoom";
-in
-{
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "seadoom";
-  users.mutableUsers = false;
-
-  sops.secrets."users/${username}/hashed-password".neededForUsers = true;
-
-  users.users.${username} = {
-    uid = 1000;
-    isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
-    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
-    extraGroups = [
-      "audio"
-      "video"
-    ];
+  dotfield.hosts.nixos.hodgepodge.users.seadoom = {
+    features = flake.config.dotfield.hosts.hodgepodge.features ++ ([
+      flake.config.dotfield.features."git/with-gpg-signing"
+    ]);
+    home.home.stateVersion = "21.11";
   };
 
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
+  dotfield.hosts.nixos.hodgepodge.nixos =
+    { config, ... }:
+    let
+      username = "seadoom";
+    in
+    {
+      sops.secrets."users/${username}/hashed-password".neededForUsers = true;
 
-  home-manager.users.${username} = import ../../../users/cdom/seadoom-at-hodgepodge.nix;
+      users.users.${username} = {
+        uid = 1000;
+        isNormalUser = true;
+        hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
+        openssh.authorizedKeys.keys = flake.dotfield.meta.users.cdom.keys.ssh;
+      };
+    };
 }
