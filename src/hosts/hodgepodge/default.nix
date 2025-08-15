@@ -1,13 +1,51 @@
-{ config, ... }:
+{ lib, config, ... }:
 let
   inherit (config.dotfield.meta) keys;
   hostName = "hodgepodge";
 in
 {
   dotfield.hosts.nixos.${hostName} = {
-    modules = [ ];
+    features = with config.dotfield.features; [
+      workstation
+      gnome
 
-    users.groups.wheel.members = [ "seadoom" ];
+      "hardware/apple/macbook-pro-11-3"
+    ];
+
+    nixos = {
+      services.tailscale.enable = true;
+
+      boot.loader.efi.canTouchEfiVariables = true;
+
+      ## Hardware oddities specific to this machine:
+      home-manager.sharedModules = lib.singleton {
+        dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
+          # The trackpad button is physically broken.
+          # Without tap-to-click, it would not possible to use the trackpad.
+          tap-to-click = lib.mkForce true;
+        };
+
+        # The keyboard is also starting to go... but a super-thorough
+        # deep clean might help.  Fortunately, no butterflies here.
+        # Real and actual removable keycaps!  What a concept.
+        dconf.settings."org/gnome/desktop/a11y/applications" = {
+          screen-keyboard-enabled = lib.mkDefault true;
+        };
+      };
+
+      networking.usePredictableInterfaceNames = false;
+      networking.firewall.enable = true;
+
+      users.mutableUsers = false;
+      users.groups.wheel.members = [ "seadoom" ];
+      sops.defaultSopsFile = ../secrets/secrets.yaml;
+
+      services.displayManager.autoLogin.enable = true;
+      services.displayManager.autoLogin.user = "seadoom";
+
+      system.stateVersion = "21.11"; # Did you read the comment?
+    };
+
   };
 
   dotfield.meta.hosts.${hostName} = {
