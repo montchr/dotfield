@@ -14,8 +14,9 @@ let
   inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
   lib' = self.lib;
 
-  collectNixosModules = modules: lib.fold (v: acc: acc ++ v.nixos.imports) [ ] modules;
-  collectHomeModules = modules: lib.fold (v: acc: acc ++ v.home.imports) [ ] modules;
+  collectTypedModules = type: lib.foldr (v: acc: acc ++ v.${type}.imports) [ ];
+  collectNixosModules = collectTypedModules "nixos";
+  collectHomeModules = collectTypedModules "home";
   # error: lib.fileset.fileFilter: Second argument is of type string, but it should be a path instead.
   # collectUserFeatures = username: (lib'.fs.tree (self.outPath + "/src/users/${username}/features"));
   collectUserFeatures =
@@ -23,7 +24,7 @@ let
     let
       path = ../../users/${username}/features;
     in
-    if builtins.pathExists path then (lib'.fs.loadTree path) else [ ];
+    (lib'.fs.loadTree path);
 
   overlays = (import (self.outPath + "/src/overlays/default.nix") { inherit inputs; });
 
@@ -96,7 +97,7 @@ let
           ++ (collectHomeModules config.dotfield.users.${username}.features or [ ])
 
           # User-defined extensions to Dotfield features.
-          ++ (collectUserFeatures username)
+          ++ (collectHomeModules (collectUserFeatures username))
 
           # Baseline home configuration for this user.
           ++ [ (config.dotfield.users.${username}.home or { }) ];

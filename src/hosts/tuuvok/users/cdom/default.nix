@@ -8,8 +8,8 @@ in
       features =
         flake.config.dotfield.hosts.nixos.tuuvok.features
         ++ (with flake.config.dotfield.features; [
+          # FIXME: per-user features fails first here (alphabetically)
           ai
-          gpg
           mail
           music-production
 

@@ -8,7 +8,8 @@ flake@{ lib, ... }:
     in
     {
       imports = [
-        flake.config.dotfield.nixos.wayland
+        flake.config.dotfield.nixos.wayland-wm
+        flake.config.dotfield.features.wayland-wm.nixos
       ];
 
       xdg.portal.wlr.enable = true;
