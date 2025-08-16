@@ -4,6 +4,6 @@ let
 in
 {
   dotfield.users.cdom.features = [
-    features."fish/with-ghostty-launch-command"
+    features.fish__with-ghostty-launch-command
   ];
 }

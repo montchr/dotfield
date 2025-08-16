@@ -1,5 +1,5 @@
 {
-  dotfield.features."greeters/gdm".nixos = {
+  dotfield.features.greeters__gdm.nixos = {
     services.displayManager.gdm = {
       enable = true;
       wayland = true;

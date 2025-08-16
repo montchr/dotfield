@@ -3,11 +3,11 @@
 # <https://wiki.nixos.org/wiki/Nvidia>
 
 {
-  dotfield.features."hardware/nvidia".home = {
+  dotfield.features.hardware__nvidia.home = {
     programs.mpv.config.hwdec = "vdpau";
   };
 
-  dotfield.features."hardware/nvidia".nixos =
+  dotfield.features.hardware__nvidia.nixos =
     { config, ... }:
     {
       hardware.graphics.enable = true;

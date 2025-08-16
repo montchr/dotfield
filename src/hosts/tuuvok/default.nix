@@ -13,8 +13,8 @@ in
       sway
       workstation
 
-      "greeter/regreet"
-      "hardware/apple-macbook-14-2"
+      greeters__regreet
+      hardware__apple__macbook-14-2
 
       # DisplayLink is currently required for Asahi monitor support.
       # Asahi does not yet support standard DP-Alt display output.
@@ -24,7 +24,7 @@ in
       # requiring special external hardware, either a dock or a
       # monitor natively supporting DisplayLink, but for now, I'll
       # take it.
-      "hardware/displaylink"
+      hardware__displaylink
     ];
 
     nixos = moduleWithSystem (

@@ -1,7 +1,7 @@
 flake@{ ... }:
 {
-  dotfield.features."hardware/apple/macbook-intel".nixos = {
-    imports = [ flake.config.dotfield.nixos."hardware/apple-macbook" ];
+  dotfield.features.hardware__apple__macbook-intel.nixos = {
+    imports = [ flake.config.dotfield.features.hardware__apple-macbook ];
 
     hardware.facetimehd.enable = true;
     services.mbpfan.enable = true;

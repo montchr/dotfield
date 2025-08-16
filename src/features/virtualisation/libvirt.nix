@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.features."virtualisation/libvirt".nixos =
+  dotfield.features.virtualisation__libvirt.nixos =
     { config, ... }:
     {
       users.groups.libvirtd.members = config.users.groups.wheel.members;

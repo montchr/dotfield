@@ -3,7 +3,7 @@ let
   inherit (flake.config.dotfield.meta.hosts) ryosuke;
 in
 {
-  dotfield.features."remote-builders/ryosuke".nixos = {
+  dotfield.features.remote-builders__ryosuke.nixos = {
     programs.ssh.knownHosts."ryosuke" = {
       hostNames = [
         "ryosuke"

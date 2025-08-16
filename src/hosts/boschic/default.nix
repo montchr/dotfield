@@ -9,10 +9,10 @@ in
     features = [
       features.workstation
       features.gnome-desktop
-      features."hardware/amd/cpu"
-      features."hardware/focusrite/scarlett-18i20-mk1"
-      features."hardware/nvidia"
-      features."hardware/razer"
+      features.hardware__amd__cpu
+      features.hardware__focusrite__scarlett-18i20-mk1
+      features.hardware__nvidia
+      features.hardware__razer
     ];
 
     nixos = {

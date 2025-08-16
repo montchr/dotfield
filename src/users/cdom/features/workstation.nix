@@ -7,7 +7,7 @@ in
     { pkgs, ... }:
     {
       imports = [
-        features."gpg/with-ssh".home
+        features.gpg__with-ssh.home
         features.password-store.home
       ];
 

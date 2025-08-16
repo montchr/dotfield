@@ -1,5 +1,5 @@
 {
-  dotfield.features."greeters/greetd".nixos =
+  dotfield.features.greeters__greetd.nixos =
     { pkgs, ... }:
     {
       services.greetd = {

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.features."hardware/nvidia/with-beta-drivers".nixos =
+  dotfield.features.hardware__nvidia__with-beta-drivers.nixos =
     { config, ... }:
     let
       inherit (config.boot.kernelPackages) nvidiaPackages;

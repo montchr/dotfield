@@ -1,5 +1,5 @@
 {
-  dotfield.features."virtualisation/docker".nixos =
+  dotfield.features.virtualisation__docker.nixos =
     { config, pkgs, ... }:
     {
       # Any other user who needs to be able to run Docker containers will need to be

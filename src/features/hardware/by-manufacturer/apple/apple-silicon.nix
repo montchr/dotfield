@@ -1,8 +1,8 @@
 flake@{ lib, ... }:
 {
-  dotfield.features."hardware/apple/apple-silicon".nixos = {
+  dotfield.features.hardware__apple__apple-silicon.nixos = {
     imports = [
-      flake.config.dotfield.features."boot/systemd-boot".nixos
+      flake.config.dotfield.features.boot__systemd-boot.nixos
     ];
 
     boot.loader.systemd-boot.consoleMode = lib.mkForce "0";

@@ -1,10 +1,10 @@
 flake@{ lib, ... }:
 {
-  dotfield.features."hardware/laptop".nixos =
+  dotfield.features.hardware__laptop.nixos =
     { config, ... }:
     {
       imports = [
-        flake.config.dotfield.features."hardware/battery".nixos
+        flake.config.dotfield.features.hardware__battery.nixos
         flake.config.dotfield.features.networkmanager.nixos
       ];
 

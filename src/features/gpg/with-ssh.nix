@@ -1,5 +1,5 @@
 {
-  dotfield.features."gpg/with-ssh".home =
+  dotfield.features.gpg__with-ssh.home =
     { config, pkgs, ... }:
     {
       services.gpg-agent = {

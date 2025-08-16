@@ -2,13 +2,8 @@ flake@{ lib, ... }:
 {
   dotfield.features.sway.nixos =
     { config, pkgs, ... }:
-    let
-      inherit (lib) optional;
-      inherit (config.dotfield.features) hasNvidia;
-    in
     {
       imports = [
-        flake.config.dotfield.nixos.wayland-wm
         flake.config.dotfield.features.wayland-wm.nixos
       ];
 

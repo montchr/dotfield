@@ -1,8 +1,9 @@
 { lib, config, ... }:
 {
   dotfield.features.workstation.nixos = {
-    imports = [
-      config.dotfield.features.archivist.nixos
+    imports = with config.dotfield.features; [
+      archivist.nixos
+      networkmanager.nixos
     ];
 
     time.timeZone = lib.mkDefault "America/New_York";

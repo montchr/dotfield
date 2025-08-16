@@ -1,7 +1,7 @@
 # Razer Deathadder V3 Pro Wireless Mouse
 # <https://openrazer.github.io/>
 {
-  dotfield.features."hardware/razer".nixos =
+  dotfield.features.hardware__razer.nixos =
     { config, pkgs, ... }:
     {
       environment.systemPackages = [

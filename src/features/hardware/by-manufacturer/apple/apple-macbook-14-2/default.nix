@@ -1,12 +1,12 @@
 flake@{ lib, ... }:
 {
-  dotfield.features."hardware/apple/macbook-14-2" = {
+  dotfield.features.hardware__apple__macbook-14-2 = {
     nixos =
       { config, ... }:
       {
-        imports = [
-          flake.config.dotfield.features."hardware/apple-silicon".nixos
-          flake.config.dotfield.features."hardware/apple-macbook".nixos
+        imports = with flake.config.dotfield.features; [
+          hardware__apple__apple-silicon.nixos
+          hardware__apple__macbook.nixos
         ];
 
         config = lib.mkIf config.programs.sway.enable {

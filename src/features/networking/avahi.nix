@@ -4,7 +4,7 @@
 # NOTE: This must be enabled explicitly in host configurations.
 
 {
-  dotfield.features."networking/service-discovery".nixos = {
+  dotfield.features.networking__service-discovery.nixos = {
     services.avahi = {
       enable = true;
       nssmdns4 = true;

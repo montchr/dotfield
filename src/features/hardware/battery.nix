@@ -1,5 +1,5 @@
 {
-  dotfield.features."hardware/battery".nixos =
+  dotfield.features.hardware__battery.nixos =
     { pkgs, ... }:
     {
       services.upower.enable = true;

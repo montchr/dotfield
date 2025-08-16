@@ -1,6 +1,6 @@
 { withSystem, ... }:
 {
-  dotfield.features."fonts/berkeley-mono".nixos =
+  dotfield.features.fonts__berkeley-mono.nixos =
     { pkgs, ... }:
     withSystem pkgs.stdenv.hostPlatform.system (
       { packages, inputs', ... }:

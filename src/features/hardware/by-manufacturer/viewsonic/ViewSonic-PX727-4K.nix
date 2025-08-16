@@ -13,7 +13,7 @@ in
   # source: https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php
   dotfield.meta.displays.${name}.dpi = 44;
 
-  dotfield.features."hardware/viewsonic/${name}".nixos = {
+  dotfield.features.hardware__viewsonic__PX727-4K.nixos = {
     services.xserver.dpi = flake.config.dotfield.meta.displays.${name}.dpi;
   };
 }

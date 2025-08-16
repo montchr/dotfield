@@ -1,7 +1,7 @@
 flake@{ ... }:
 
 {
-  dotfield.features."git/with-gpg-signing".home =
+  dotfield.features.git__with-gpg-signing.home =
     { config, ... }:
     let
       inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;

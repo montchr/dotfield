@@ -1,5 +1,5 @@
 {
-  dotfield.features."fish/with-bash-trampoline".home =
+  dotfield.features.fish__with-bash-trampoline.home =
     { config, ... }:
     let
       cfg = config.programs.fish;

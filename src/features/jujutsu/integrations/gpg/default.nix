@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  dotfield.features."jujutsu/with-gpg-signing".home =
+  dotfield.features.jujutsu__with-gpg-signing.home =
     { whoami, ... }:
     {
       programs.jujutsu.settings.signing = {

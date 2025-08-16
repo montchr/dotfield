@@ -1,14 +1,11 @@
 ### LG 27UD88-W Monitor
 
 flake@{ lib, ... }:
-
 let
-  cfg = flake.config.dotfield.meta.displays.${name};
-  name = "lg/27UD88-W";
+  cfg = flake.config.dotfield.meta.displays."LG_27UD88-W";
 in
-
 {
-  dotfield.meta.displays.${name} = {
+  dotfield.meta.displays."LG-27UD88-W" = {
     deviceName = "LG Electronics LG Ultra HD 0x000668B9";
     # diag = w: h: sqrt(w^2 + h^2);
     # diagPx = diag 3840 2160;        => 4405.814340165
@@ -26,7 +23,7 @@ in
     ];
   };
 
-  dotfield.features."hardware/${name}" = {
+  dotfield.features.hardware__lg__ud27ud88-w = {
     home.services.kanshi.settings = [
       {
         output = {

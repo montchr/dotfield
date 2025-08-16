@@ -1,5 +1,5 @@
 {
-  dotfield.features."hardware/android-devices".nixos =
+  dotfield.features.hardware__android-devices.nixos =
     { config, pkgs, ... }:
     {
       programs.adb.enable = true;

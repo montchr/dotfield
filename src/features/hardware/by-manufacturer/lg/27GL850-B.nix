@@ -2,11 +2,10 @@
 
 flake@{ ... }:
 let
-  name = "lg/27GL850-B";
-  cfg = flake.config.dotfield.meta.displays.${name};
+  cfg = flake.config.dotfield.meta.displays."LG-27GL850-B";
 in
 {
-  dotfield.meta.displays.${name} = {
+  dotfield.meta.displays."LG-27GL850-B" = {
     deviceName = "LG Electronics LG ULTRAGEAR 107NTBKA5869";
     mode = [
       2560
@@ -34,7 +33,7 @@ in
     ];
   };
 
-  dotfield.features."hardware/${name}" = {
+  dotfield.features.hardware__lg__27GL850-B = {
     nixos = {
       services.xserver.dpi = cfg.dpi;
     };

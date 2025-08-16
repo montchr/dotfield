@@ -2,7 +2,7 @@ flake@{ ... }:
 {
   dotfield.hosts.nixos.hodgepodge.users.seadoom = {
     features = flake.config.dotfield.hosts.hodgepodge.features ++ ([
-      flake.config.dotfield.features."git/with-gpg-signing"
+      flake.config.dotfield.features.git__with-gpg-signing
     ]);
     home.home.stateVersion = "21.11";
   };

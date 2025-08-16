@@ -1,5 +1,5 @@
 {
-  dotfield.features."hardware/touchpad".home = {
+  dotfield.features.hardware__touchpad.home = {
     dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;
     };
