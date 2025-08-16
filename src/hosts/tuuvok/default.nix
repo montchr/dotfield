@@ -10,7 +10,6 @@ in
 {
   dotfield.hosts.nixos.tuuvok = {
     features = with flake.config.dotfield.features; [
-      jobwork
       sway
       workstation
 
@@ -34,6 +33,7 @@ in
       {
         imports = [
           inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+          inputs.beams.modules.nixos.default
         ];
 
         nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
@@ -60,6 +60,12 @@ in
         system.stateVersion = "23.11"; # Did you read the comment?
       }
     );
+
+    home = {
+      imports = [
+        inputs.beams.modules.home.default
+      ];
+    };
   };
 
   dotfield.meta.hosts.tuuvok = {

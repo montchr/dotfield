@@ -50,6 +50,10 @@ in
     };
 
     nixos = {
+      imports = [
+        inputs.beams.modules.nixos.default
+      ];
+
       networking.firewall.enable = true;
       services.tailscale.enable = true;
 
@@ -63,6 +67,12 @@ in
       sops.keepGenerations = 0;
 
       system.stateVersion = "22.05";
+    };
+
+    home = {
+      imports = [
+        inputs.beams.modules.home.default
+      ];
     };
   };
 
