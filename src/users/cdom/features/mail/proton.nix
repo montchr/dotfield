@@ -1,5 +1,5 @@
 {
-  dotfield.features.mail.home =
+  dotfield.users.cdom.features.mail.home =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.protonmail-bridge-gui ];

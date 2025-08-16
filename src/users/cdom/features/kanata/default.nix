@@ -1,5 +1,5 @@
 {
-  dotfield.features.kanata.nixos =
+  dotfield.users.cdom.features.kanata.nixos =
     { pkgs, ... }:
     {
       services.kanata.keyboards."default" = {

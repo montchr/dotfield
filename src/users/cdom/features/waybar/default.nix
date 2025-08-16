@@ -1,10 +1,10 @@
 flake@{ ... }:
 {
-  dotfield.features.wayland-wm.home =
+  dotfield.users.cdom.features.wayland-wm.home =
     { config, pkgs, ... }:
     {
       imports = [
-        flake.config.dotfield.features.waybar.home
+        flake.config.dotfield.users.cdom.features.waybar.home
 
         ./__primary.nix
       ];
@@ -14,7 +14,7 @@ flake@{ ... }:
       '';
     };
 
-  dotfield.features.theme.home = {
+  dotfield.users.cdom.features.theme.home = {
     stylix.targets.waybar.addCss = false;
   };
 }

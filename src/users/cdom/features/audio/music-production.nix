@@ -1,5 +1,5 @@
 {
-  dotfield.features.music-production.home =
+  dotfield.users.cdom.features.music-production.home =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

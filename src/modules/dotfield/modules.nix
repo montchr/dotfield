@@ -21,10 +21,14 @@ in
           home = mkDeferredModuleOpt "Global Home-Manager configuration";
         };
       };
-      description = "Baseline configurations shared by all NixOS and home configurations";
+      description = "Baseline NixOS and home configurations";
     };
     features = mkOption {
       type = types.lazyAttrsOf (types.submodule featureSubmodule);
+      description = ''
+        Logical groupings for NixOS and home modules definining
+        configuration with related functionality
+      '';
     };
   };
 

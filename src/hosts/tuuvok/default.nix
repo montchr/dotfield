@@ -61,9 +61,9 @@ in
       }
     );
 
-    home = {
+    baseline.home = {
       imports = [
-        inputs.beams.modules.home.default
+        inputs.beams.modules.homeManager.default
       ];
     };
   };

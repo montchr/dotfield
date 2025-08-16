@@ -1,16 +1,16 @@
 flake@{ moduleWithSystem, ... }:
+let
+  inherit (flake.config.dotfield.meta.users.cdom) whoami;
+in
 {
-  dotfield.baseline.home.programs.git =
-    { config, ... }:
-    let
-      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
-    in
-    {
+  dotfield.baseline.home = {
+    programs.git = {
       userEmail = whoami.email;
       userName = whoami.name;
     };
+  };
 
-  dotfield.features.development.home = moduleWithSystem (
+  dotfield.users.cdom.features.development.home = moduleWithSystem (
     perSystem@{ config, ... }:
     home@{ config, pkgs, ... }:
     let

@@ -1,5 +1,5 @@
 {
-  dotfield.features.jobwork.home =
+  dotfield.users.cdom.features.jobwork.home =
     { config, ... }:
     {
       programs.git.includes = [

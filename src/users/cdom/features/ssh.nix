@@ -1,3 +1,7 @@
+flake@{ ... }:
+let
+  inherit (flake.config.dotfield.meta) hosts;
+in
 {
   dotfield.baseline.home = {
     programs.ssh.includes = [ "~/.config/ssh/config.local" ];

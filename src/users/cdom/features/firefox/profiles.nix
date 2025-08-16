@@ -3,7 +3,7 @@ let
   lib' = self.lib;
 in
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     homeArgs@{ config, pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -11,9 +11,9 @@ in
       cfg = config.programs.firefox;
 
       baseSettings =
-        (import ./settings/common.nix)
-        // (import ./settings/browser-toolbox.nix)
-        // (import ./settings/ui-state.nix)
+        (import ./__settings/common.nix)
+        // (import ./__settings/browser-toolbox.nix)
+        // (import ./__settings/ui-state.nix)
         // {
           "browser.startup.homepage" = builtins.concatStringsSep "|" [ "https://lobste.rs" ];
           "identity.fxaccounts.account.device.name" =
@@ -22,7 +22,7 @@ in
 
       userChrome = builtins.readFile ./userChrome.css;
 
-      search = import ./search/default.nix { inherit lib lib' pkgs; };
+      search = import ./__search/default.nix { inherit lib lib' pkgs; };
     in
     {
       programs.firefox.profiles.home = {

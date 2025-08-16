@@ -1,9 +1,9 @@
 { config, ... }:
 let
-  features = config.dotfield.features;
+  features = config.dotfield.users.cdom.features;
 in
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     { pkgs, ... }:
     {
       imports = [

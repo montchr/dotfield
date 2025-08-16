@@ -1,5 +1,5 @@
 {
-  dotfield.features.development.home = {
+  dotfield.users.cdom.features.development.home = {
     programs.jujutsu.settings.aliases = {
       # SYNOPSIS: jj harvest <revset>
       #

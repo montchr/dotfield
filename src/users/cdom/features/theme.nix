@@ -8,7 +8,7 @@ let
 in
 
 {
-  dotfield.features.theme.home =
+  dotfield.users.cdom.features.theme.home =
     { config, pkgs, ... }:
     let
       inherit (config.stylix) fonts;
@@ -47,7 +47,7 @@ in
 
     };
 
-  dotfield.features.theme.nixos =
+  dotfield.users.cdom.features.theme.nixos =
     { pkgs, ... }:
     let
       toColorSchemePath' = toColorSchemePath pkgs;

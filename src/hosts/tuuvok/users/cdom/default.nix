@@ -7,19 +7,32 @@ in
     users.cdom = {
       features =
         flake.config.dotfield.hosts.nixos.tuuvok.features
-        ++ (with flake.config.dotfield.features; [
-          # FIXME: per-user features fails first here (alphabetically)
+        ++ (with flake.config.dotfield.users.cdom.features; [
           ai
           mail
           music-production
-
-          "git/with-gpg-signing"
-          "gpg/with-ssh-support"
-          "jujutsu/with-gpg-signing"
-          "jujutsu/with-sign-on-push"
+        ])
+        ++ (with flake.config.dotfield.features; [
+          git__with-gpg-signing
+          gpg__with-ssh
+          jujutsu__with-gpg-signing
+          jujutsu__with-sign-on-push
         ]);
 
       home = {
+        # imports = (
+        #   with flake.config.dotfield.users.cdom.features;
+        #   [
+        #     ai.home
+        #     mail.home
+        #     music-production.home
+
+        #     git__with-gpg-signing.home
+        #     gpg__with-ssh-support.home
+        #     jujutsu__with-gpg-signing.home
+        #     jujutsu__with-sign-on-push.home
+        #   ]
+        # );
         programs.firefox.profiles.work.isDefault = true;
         programs.firefox.profiles.home.isDefault = false;
 

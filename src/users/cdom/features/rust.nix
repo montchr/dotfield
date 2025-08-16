@@ -1,5 +1,5 @@
 {
-  dotfield.features.development.home =
+  dotfield.users.cdom.features.development.home =
     { pkgs, ... }:
     {
       home.packages = [

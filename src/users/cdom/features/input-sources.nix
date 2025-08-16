@@ -1,5 +1,5 @@
 {
-  dotfield.features.workstation.nixos =
+  dotfield.users.cdom.features.workstation.nixos =
     { pkgs, ... }:
     {
       hardware.keyboard.qmk.enable = true;
@@ -11,7 +11,7 @@
       ];
     };
 
-  dotfield.features.graphical.home = {
+  dotfield.users.cdom.features.graphical.home = {
     dconf.settings = {
       "org/gnome/desktop/input-sources".xkb-options = [
         "caps:ctrl_modifier"

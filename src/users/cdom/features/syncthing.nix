@@ -1,6 +1,6 @@
 # TODO: configure syncthing dirs
 {
-  dotfield.features.workstation.home = {
+  dotfield.users.cdom.features.workstation.home = {
     services.syncthing.enable = true;
   };
 }

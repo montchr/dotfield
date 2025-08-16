@@ -5,7 +5,7 @@
   ...
 }:
 {
-  dotfield.features.development.home =
+  dotfield.users.cdom.features.development.home =
     { pkgs, ... }:
     withSystem pkgs.stdenv.hostPlatform.system (
       { packages, inputs', ... }:
@@ -16,7 +16,7 @@
         };
       in
       {
-        imports = [ inputs.ceamx.modules.homeManager.ceamx ];
+        imports = [ inputs.ceamx.modules.home.ceamx ];
 
         programs.emacs = {
           enable = true;

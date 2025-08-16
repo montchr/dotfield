@@ -1,5 +1,5 @@
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     { config, pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;

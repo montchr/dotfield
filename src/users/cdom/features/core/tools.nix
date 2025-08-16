@@ -1,11 +1,11 @@
 { moduleWithSystem, ... }:
 {
   dotfield.baseline.nixos = moduleWithSystem (
-    perSystem@{ config }:
+    perSystem@{ packages, ... }:
     nixos@{ pkgs, ... }:
     {
-      home.packages = [
-        config.packages.realise-symlink
+      environment.systemPackages = [
+        perSystem.packages.realise-symlink
 
         pkgs.chawan # <- tui web browser
         pkgs.dua # better du, ay?
@@ -17,9 +17,8 @@
     }
   );
 
-  dotfield.baseline.home = moduleWithSystem (
-    perSystem@{ config }:
-    nixos@{ pkgs, ... }:
+  dotfield.baseline.home =
+    { pkgs, ... }:
     {
       home.packages = [
         pkgs.fx # <- interactive terminal json viewer                    => <https://github.com/antonmedv/fx>
@@ -34,6 +33,5 @@
         pkgs.duf # <- better du/df alternative                          => <https://github.com/muesli/duf/>
 
       ];
-    }
-  );
+    };
 }

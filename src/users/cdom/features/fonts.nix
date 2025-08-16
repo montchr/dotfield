@@ -1,5 +1,5 @@
 {
-  dotfield.features.graphical.home = {
+  dotfield.users.cdom.features.graphical.home = {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         font-antialiasing = "rgba";

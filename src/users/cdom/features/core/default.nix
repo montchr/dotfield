@@ -1,5 +1,5 @@
 {
-  dotfield.baseline.home =
+  dotfield.users.cdom.baseline.home =
     { pkgs, ... }:
     {
       home.shellAliases."grr" = "${pkgs.bat-extras.batgrep}/bin/batgrep";

@@ -1,3 +1,4 @@
+flake@{ ... }:
 {
   dotfield.features.hyprland.nixos = {
     programs.hyprland.withUWSM = true;
@@ -9,5 +10,11 @@
 
     programs.hyprland.enable = true;
     programs.hyprland.xwayland.enable = true;
+  };
+
+  dotfield.features.hyprland.home = {
+    imports = [
+      flake.config.dotfield.features.wayland-wm.home
+    ];
   };
 }

@@ -1,5 +1,5 @@
 {
-  dotfield.features.graphical.home = {
+  dotfield.users.cdom.features.graphical.home = {
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
     };

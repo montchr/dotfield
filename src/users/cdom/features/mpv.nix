@@ -1,5 +1,5 @@
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     { pkgs, ... }:
     {
       programs.mpv.scripts = with pkgs.mpvScripts; [

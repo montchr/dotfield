@@ -1,1 +1,2 @@
-dconf.settings."org/gnome/desktop/input-sources".
+# FIXME: what was supposed to go here?
+{ }

@@ -9,7 +9,7 @@
 # > protocol.
 
 {
-  dotfield.features.wayland-wm.home =
+  dotfield.users.cdom.features.wayland-wm.home =
     { config, ... }:
     let
       cfg = config.services.kanshi;

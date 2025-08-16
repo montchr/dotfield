@@ -1,6 +1,6 @@
 { lib', ... }:
 {
-  dotfield.features.development.home = (
+  dotfield.users.cdom.features.development.home = (
     lib'.shell.makeShellAliasesModule {
       abbrs = {
         n = "nix";

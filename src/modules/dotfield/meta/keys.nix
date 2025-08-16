@@ -4,7 +4,7 @@ let
 in
 {
   options.dotfield.meta.keys = mkOption {
-    type = with types; attrsOf attrsOf str;
+    type = with types; attrsOf (attrsOf str);
     default = { };
     description = "Host metadata configuration including hardware specs, networking, and user keys";
   };

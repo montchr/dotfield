@@ -69,9 +69,9 @@ in
       system.stateVersion = "22.05";
     };
 
-    home = {
+    baseline.home = {
       imports = [
-        inputs.beams.modules.home.default
+        inputs.beams.modules.homeManager.default
       ];
     };
   };

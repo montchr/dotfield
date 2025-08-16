@@ -1,7 +1,8 @@
 {
-  dotfield.features.gnome-desktop.home =
+  dotfield.users.cdom.features.gnome-desktop.home =
     { config, ... }:
     let
+      inherit (config.lib.hm.gvariant) mkUint32;
       lib' = config.lib;
     in
     {

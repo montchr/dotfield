@@ -1,11 +1,10 @@
+flake@{ lib, ... }:
 {
-  dotfield.features.sway.home =
+  dotfield.users.cdom.features.sway.home =
     { config, pkgs, ... }:
     let
+      prefs = flake.config.dotfield.meta.users.cdom.preferences;
       cfg = config.wayland.windowManager.sway;
-      prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-        inherit pkgs;
-      };
       mod = cfg.config.modifier;
 
       app = cmd: "${app'} ${cmd}";

@@ -1,5 +1,5 @@
 {
-  dotfield.features.wayland-wm.home =
+  dotfield.users.cdom.features.wayland-wm.home =
     {
       pkgs,
       lib,

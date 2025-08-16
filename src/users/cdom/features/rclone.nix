@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     { pkgs, ... }:
     let
       # FIXME: not available...?

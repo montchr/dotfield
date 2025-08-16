@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.features.ai.home = moduleWithSystem (
+  dotfield.users.cdom.features.ai.home = moduleWithSystem (
     perSystem@{ inputs', ... }:
     home@{ pkgs, ... }:
     {

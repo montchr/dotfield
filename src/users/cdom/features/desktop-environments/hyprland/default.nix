@@ -1,10 +1,15 @@
-{ self, lib, ... }:
+flake@{ self, lib, ... }:
 {
-  dotfield.features.hyprland.home =
+  dotfield.users.cdom.features.hyprland.home =
     { config, pkgs, ... }:
+    let
+      prefs = flake.config.dotfield.meta.users.cdom.preferences;
+      launch = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
+      fuzzel = lib.getExe pkgs.fuzzel;
+    in
     {
       imports = [
-        self.flake.modules.home.wayland-wm
+        config.dotfield.features.wayland-wm.home
 
         ./__keybindings.nix
       ];

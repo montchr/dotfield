@@ -1,5 +1,5 @@
 {
-  dotfield.features.graphical.home = {
+  dotfield.users.cdom.features.graphical.home = {
     programs.ghostty.settings = {
       confirm-close-surface = false;
       # Ensure a predictable font width.

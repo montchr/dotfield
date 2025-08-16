@@ -1,5 +1,9 @@
+flake@{ ... }:
+let
+  inherit (flake.config.dotfield.meta.users.cdom) whoami;
+in
 {
-  dotfield.features.development.home =
+  dotfield.users.cdom.features.development.home =
     { config, pkgs, ... }:
     {
       home.packages = [

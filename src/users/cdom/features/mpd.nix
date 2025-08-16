@@ -1,5 +1,5 @@
 {
-  dotfield.features.workstation.home =
+  dotfield.users.cdom.features.workstation.home =
     { config, pkgs, ... }:
     let
       beetsCfg = config.programs.beets;

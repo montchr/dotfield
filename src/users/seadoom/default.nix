@@ -4,7 +4,13 @@ let
   inherit (meta) users;
 in
 {
-  dotfield.users.seadoom.baseline.features = [
-    features.fish__with-ghostty-launch-command
-  ];
+  dotfield.users.seadoom = {
+    baseline = {
+      features = [
+        features.fish__with-ghostty-launch-command
+      ];
+    };
+  };
+
+  dotfield.meta.users.seadoom = { };
 }

@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.features.jobwork.home = moduleWithSystem (
+  dotfield.users.cdom.features.jobwork.home = moduleWithSystem (
     perSystem@{ config, ... }:
     home@{ config, pkgs, ... }:
     {
