@@ -1,6 +1,6 @@
 flake@{ moduleWithSystem, ... }:
 {
-  dotfield.home.programs.git =
+  dotfield.baseline.home.programs.git =
     { config, ... }:
     let
       inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;

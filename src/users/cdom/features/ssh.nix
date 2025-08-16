@@ -1,5 +1,5 @@
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     programs.ssh.includes = [ "~/.config/ssh/config.local" ];
     programs.ssh.matchBlocks = {
       "synoxyn" = {

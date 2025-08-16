@@ -1,5 +1,5 @@
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     imports = [
       ./__module.nix
     ];

@@ -1,6 +1,6 @@
 flake@{ ... }:
 {
-  dotfield.nixos = {
+  dotfield.baseline.nixos = {
     home-manager = {
       backupFileExtension = "bak";
       useGlobalPkgs = true;
@@ -9,7 +9,7 @@ flake@{ ... }:
     };
   };
 
-  dotfield.home =
+  dotfield.baseline.home =
     { config, ... }:
     let
       meta = (flake.config.dotfield.meta.users.${config.home.username});

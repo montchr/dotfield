@@ -1,6 +1,6 @@
 { moduleWithSystem, lib, ... }:
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { config, ... }:
     {
       home.extraOutputsToInstall = [ "/share/bash-completion" ];

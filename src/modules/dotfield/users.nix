@@ -20,8 +20,15 @@ in
               readOnly = true;
               description = "Username";
             };
-            features = mkFeatureListOpt "List of baseline features shared by all of this user's configurations";
-            home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
+            baseline = mkOption {
+              type = types.submodule {
+                options = {
+                  features = mkFeatureListOpt "List of baseline features shared by all of this user's configurations";
+                  home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
+                };
+                description = "Baseline features and configurations shared by all of this user's configurations";
+              };
+            };
           };
         }
       )

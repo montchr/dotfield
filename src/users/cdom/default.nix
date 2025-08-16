@@ -3,7 +3,7 @@ let
   inherit (flake.config.dotfield) features;
 in
 {
-  dotfield.users.cdom.features = [
+  dotfield.users.cdom.baseline.features = [
     features.fish__with-ghostty-launch-command
   ];
 }

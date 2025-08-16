@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  dotfield.nixos = moduleWithSystem (
+  dotfield.baseline.nixos = moduleWithSystem (
     perSystem@{ config }:
     nixos@{ pkgs, ... }:
     {
@@ -17,7 +17,7 @@
     }
   );
 
-  dotfield.home = moduleWithSystem (
+  dotfield.baseline.home = moduleWithSystem (
     perSystem@{ config }:
     nixos@{ pkgs, ... }:
     {

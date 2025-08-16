@@ -7,8 +7,8 @@ This document describes all available configuration options under `options.dotfi
 The dotfield module system provides:
 - User metadata and preferences (`dotfield.meta.users`)
 - Display metadata (`dotfield.meta.displays`)
-- NixOS module definitions (`dotfield.nixos`)
-- Home-manager module definitions (`dotfield.home`)
+- NixOS module definitions (`dotfield.baseline.nixos`)
+- Home-manager module definitions (`dotfield.baseline.home`)
 - Modular component system (`dotfield.features`)
 - Host configurations (`dotfield.hosts.nixos`)
 
@@ -19,11 +19,11 @@ The dotfield module system provides:
 - **Default**: `{}`
 - **Description**: Generic options store
 
-### `dotfield.nixos`
+### `dotfield.baseline.nixos`
 - **Type**: Module type
 - **Description**: Global NixOS configuration
 
-### `dotfield.home`
+### `dotfield.baseline.home`
 - **Type**: Module type
 - **Description**: Global Home-Manager configuration
 

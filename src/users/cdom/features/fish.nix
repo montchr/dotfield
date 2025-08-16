@@ -3,7 +3,7 @@ let
   lib' = self.lib;
 in
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { pkgs, ... }:
     {
       programs.fish.plugins =

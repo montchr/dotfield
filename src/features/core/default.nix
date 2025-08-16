@@ -3,7 +3,7 @@ let
   inherit (inputs.apparat.lib.net.constants) dns;
 in
 {
-  dotfield.nixos = {
+  dotfield.baseline.nixos = {
     i18n.defaultLocale = "en_US.UTF-8";
 
     services.dbus.implementation = "broker";
@@ -64,7 +64,7 @@ in
     hardware.enableRedistributableFirmware = true;
   };
 
-  dotfield.home =
+  dotfield.baseline.home =
     { config, pkgs, ... }:
     let
       # Although it points to a commonly-used path for user-owned executables,

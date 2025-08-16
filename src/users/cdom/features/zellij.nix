@@ -1,5 +1,5 @@
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     programs.zellij.enable = true;
   };
 }

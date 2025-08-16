@@ -1,5 +1,5 @@
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { config, pkgs, ... }:
     {
       programs.nnn = {

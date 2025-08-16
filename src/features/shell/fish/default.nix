@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { pkgs, ... }:
     {
       programs.fish.enable = true;

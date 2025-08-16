@@ -24,7 +24,7 @@ let
 in
 
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     imports = [
       (lib'.shell.makeShellAliasesModule { inherit aliases; })
     ];

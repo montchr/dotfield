@@ -4,9 +4,7 @@ let
   inherit (meta) users;
 in
 {
-  dotfield.users.seadoom.features = [
+  dotfield.users.seadoom.baseline.features = [
     features.fish__with-ghostty-launch-command
   ];
-
-  dotfield.meta.users.seadoom = { inherit (users.cdom) keys preferences whoami; };
 }

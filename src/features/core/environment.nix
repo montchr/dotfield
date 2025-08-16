@@ -1,5 +1,5 @@
 {
-  dotfield.nixos =
+  dotfield.baseline.nixos =
     { config, pkgs, ... }:
     {
       environment.variables = {

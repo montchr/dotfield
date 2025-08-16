@@ -1,5 +1,5 @@
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     programs.dircolors.enable = true;
     programs.carapace.enable = true;
     programs.info.enable = true;

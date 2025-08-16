@@ -1,5 +1,5 @@
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { config, ... }:
     {
       programs.pandoc.enable = true;

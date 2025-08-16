@@ -1,5 +1,5 @@
 {
-  dotfield.nixos =
+  dotfield.baseline.nixos =
     { pkgs, ... }:
     {
       programs.htop.enable = true;

@@ -13,7 +13,7 @@ let
 in
 
 {
-  dotfield.home =
+  dotfield.baseline.home =
     nixos@{ pkgs, ... }:
     (withSystem pkgs.stdenv.hostPlatform.system (
       perSystem@{ config }:

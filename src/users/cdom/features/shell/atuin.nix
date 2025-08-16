@@ -1,5 +1,5 @@
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     programs.atuin.enable = true;
 
     ##: <https://atuin.sh/docs/config/>

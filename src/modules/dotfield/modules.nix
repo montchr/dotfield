@@ -14,8 +14,15 @@ let
 in
 {
   options.dotfield = {
-    nixos = mkDeferredModuleOpt "Global NixOS configuration";
-    home = mkDeferredModuleOpt "Global Home-Manager configuration";
+    baseline = mkOption {
+      type = types.submodule {
+        options = {
+          nixos = mkDeferredModuleOpt "Global NixOS configuration";
+          home = mkDeferredModuleOpt "Global Home-Manager configuration";
+        };
+      };
+      description = "Baseline configurations shared by all NixOS and home configurations";
+    };
     features = mkOption {
       type = types.lazyAttrsOf (types.submodule featureSubmodule);
     };
@@ -23,10 +30,10 @@ in
 
   config.flake.modules = {
     nixos = (config.dotfield.features |> lib.mapAttrs (_: module: module.nixos)) // {
-      default.imports = config.dotfield.nixos.imports;
+      default.imports = config.dotfield.baseline.nixos.imports;
     };
     home = (config.dotfield.features |> lib.mapAttrs (_: module: module.home)) // {
-      default.imports = config.dotfield.home.imports;
+      default.imports = config.dotfield.baseline.home.imports;
     };
   };
 }

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.home =
+  dotfield.baseline.home =
     { config, ... }:
     {
       programs.ssh = {

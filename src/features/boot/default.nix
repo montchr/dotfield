@@ -1,5 +1,5 @@
 {
-  dotfield.nixos =
+  dotfield.baseline.nixos =
     { lib, ... }:
     {
       boot.consoleLogLevel = lib.mkDefault 3;

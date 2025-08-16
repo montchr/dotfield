@@ -1,5 +1,5 @@
 {
-  dotfield.nixos =
+  dotfield.baseline.nixos =
     { lib, config, ... }:
     lib.mkIf config.services.tailscale.enable {
       services.tailscale.interfaceName = "ts0";

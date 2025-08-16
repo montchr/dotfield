@@ -75,12 +75,12 @@ let
         (collectNixosModules hostConfig.features)
         ++ hostConfig.nixos.imports
         ++ [
-          config.dotfield.nixos
+          config.dotfield.baseline.nixos
           moduleArgs
         ];
 
       homeModules = [
-        config.dotfield.home
+        config.dotfield.baseline.home
         hostConfig.home
         moduleArgs
       ];

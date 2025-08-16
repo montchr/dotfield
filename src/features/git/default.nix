@@ -1,5 +1,5 @@
 {
-  dotfield.home.programs.git = {
+  dotfield.baseline.home.programs.git = {
     enable = true;
 
     aliases = {

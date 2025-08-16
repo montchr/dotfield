@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.home =
+  dotfield.baseline.home =
     # #: NOTE: The source module is currently forked to prevent activation failure
     #         during NixOS boot.
     #

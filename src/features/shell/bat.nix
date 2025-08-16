@@ -3,7 +3,7 @@
   ...
 }:
 {
-  dotfield.home = {
+  dotfield.baseline.home = {
     programs.bat = {
       enable = true;
       config = {

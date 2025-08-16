@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  dotfield.nixos =
+  dotfield.baseline.nixos =
     { config, pkgs, ... }:
     {
       imports = [ inputs.sops-nix.nixosModules.sops ];
@@ -15,7 +15,7 @@
       users.groups.keys.members = config.users.groups.wheel.members;
     };
 
-  dotfield.home = {
+  dotfield.baseline.home = {
     # Allow normal users to use sops.
     home.sessionVariables = {
       "AGE_KEY_DIR" = "$HOME/.age";
