@@ -11,6 +11,10 @@ let
   haumea = inputs.haumea.lib;
 in
 {
+  imports = [
+    ./packages
+  ];
+
   flake.lib = haumea.load {
     src = ./lib;
     inputs = {

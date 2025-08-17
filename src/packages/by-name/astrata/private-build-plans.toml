@@ -1,0 +1,130 @@
+[buildPlans.astrata-mono]
+family = "Astrata Mono"
+spacing = "normal"
+serifs = "sans"
+noCvSs = false
+exportGlyphNames = false
+
+[buildPlans.astrata-mono.variants.design]
+one = "base"
+two = "straight-neck-serifless"
+three = "flat-top-serifless"
+four = "semi-open-non-crossing-serifless"
+five = "upright-flat-serifless"
+seven = "curly-serifed"
+eight = "crossing"
+nine = "straight-bar"
+zero = "slashed-split"
+capital-a = "curly-serifless"
+capital-b = "more-asymmetric-interrupted-serifless"
+capital-d = "more-rounded-unilateral-serifed"
+capital-e = "top-left-serifed"
+capital-f = "top-left-serifed"
+capital-g = "toothless-corner-serifless-hooked"
+capital-h = "top-left-serifed"
+capital-j = "serifed"
+capital-k = "curly-serifless"
+capital-m = "hanging-motion-serifed"
+capital-n = "standard-motion-serifed"
+capital-p = "closed-motion-serifed"
+capital-q = "straight"
+capital-r = "straight-top-left-serifed"
+capital-v = "curly-serifless"
+capital-w = "straight-motion-serifed"
+capital-x = "curly-serifless"
+capital-y = "curly-serifless"
+capital-z = "curly-serifless"
+a = "double-storey-toothless-corner"
+b = "toothless-corner-serifless"
+d = "toothless-corner-serifless"
+e = "flat-crossbar"
+f = "flat-hook-serifless"
+g = "double-storey"
+i = "hooky"
+j = "serifless"
+k = "curly-serifless"
+l = "flat-tailed"
+m = "earless-corner-double-arch-serifless"
+n = "earless-corner-straight-serifless"
+p = "earless-corner-serifless"
+q = "earless-corner-straight-serifless"
+r = "earless-corner-serifless"
+t = "flat-hook"
+u = "toothless-rounded-serifless"
+v = "curly-serifless"
+w = "rounded-vertical-sides-flat-top-serifless"
+x = "curly-serifless"
+y = "curly-serifless"
+z = "curly-serifless"
+capital-eszet = "rounded-serifed"
+eszet = "sulzbacher-tailed-serifless"
+capital-delta = "curly"
+lower-eta = "earless-corner-serifless"
+lower-kappa = "curly-serifless"
+capital-lambda = "curly-serifless"
+lower-lambda = "straight-turn"
+lower-mu = "toothless-corner-serifless"
+asterisk = "turn-penta-low"
+brace = "curly-flat-boundary"
+guillemet = "straight"
+number-sign = "slanted-open"
+ampersand = "upper-open"
+at = "compact"
+dollar = "through-cap"
+cent = "open"
+percent = "dots"
+question = "corner-flat-hooked"
+micro-sign = "toothless-corner-motion-serifed"
+lig-ltgteq = "slanted"
+lig-equal-chain = "without-notch"
+lig-hyphen-chain = "with-notch"
+
+[buildPlans.astrata-mono.ligations]
+inherits = "dlig"
+
+[buildPlans.astrata-mono.weights.Regular]
+shape = 400
+menu = 400
+css = 400
+
+[buildPlans.astrata-mono.weights.Bold]
+shape = 700
+menu = 700
+css = 700
+
+[buildPlans.astrata-mono.weights.Light]
+shape = 300
+menu = 300
+css = 300
+
+[buildPlans.astrata-mono.weights.Medium]
+shape = 500
+menu = 500
+css = 500
+
+[buildPlans.astrata-mono.weights.SemiBold]
+shape = 600
+menu = 600
+css = 600
+
+[buildPlans.astrata-mono.widths.Normal]
+shape = 548
+menu = 6
+css = "normal"
+
+[buildPlans.astrata-mono.widths.Extended]
+shape = 600
+menu = 7
+css = "expanded"
+
+[buildPlans.astrata-mono.slopes.Upright]
+angle = 0
+shape = "upright"
+menu = "upright"
+css = "normal"
+
+[buildPlans.astrata-mono.slopes.Italic]
+angle = 9.4
+shape = "italic"
+menu = "italic"
+css = "italic"

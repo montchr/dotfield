@@ -35,7 +35,6 @@
 
           ./src
 
-          ./packages
           ./nixos
           ./home
 
