@@ -20,6 +20,7 @@ in
     (loadTree ./hosts)
     ++ (loadTree ./lib)
     ++ (loadTree ./features)
+    ++ (loadTree ./meta)
     ++ (loadTree ./modules)
 
     ++ (loadUser ./users/cdom)

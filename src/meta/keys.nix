@@ -6,7 +6,7 @@ let
 in
 {
   dotfield.meta.keys = load {
-    src = ./data;
+    src = ./data/keys;
     loader = [
       (matchers.nix loaders.default)
       (matchers.always (_: builtins.readFile))
