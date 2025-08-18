@@ -1,7 +1,6 @@
 {
   dotfield.features.greeters__regreet.nixos = {
     services.greetd.enable = true;
-    services.greetd.vt = 2;
 
     users.extraUsers.greeter = {
       home = "/tmp/greeter-home";

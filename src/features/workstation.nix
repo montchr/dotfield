@@ -3,6 +3,7 @@
   dotfield.features.workstation.nixos = {
     imports = with config.dotfield.features; [
       archivist.nixos
+      graphical.nixos
       networkmanager.nixos
     ];
 
@@ -14,6 +15,7 @@
     {
       imports = [
         config.dotfield.features.archivist.home
+        config.dotfield.features.graphical.home
       ];
 
       home.packages = [

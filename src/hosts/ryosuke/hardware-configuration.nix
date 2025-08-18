@@ -9,6 +9,10 @@
     {
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+      # FIXME: this is untest!  the definition was missing.  ryosuke
+      # needs a checkup.
+      boot.loader.grub.devices = [ config.fileSystems."/boot".device ];
+
       boot.initrd.availableKernelModules = [
         "nvme"
         "xhci_pci"

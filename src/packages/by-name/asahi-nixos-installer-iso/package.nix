@@ -1,5 +1,0 @@
-
-{}:
-let
-  installer = makeNixosSystem
-in

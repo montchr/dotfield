@@ -1,9 +1,9 @@
-{ withSystem, ... }:
+{ moduleWithSystem, ... }:
 {
-  dotfield.features.graphical.nixos =
+  dotfield.features.graphical.nixos = moduleWithSystem (
+    perSystem@{ config, ... }:
     { pkgs, ... }:
-
-    withSystem pkgs.stdenv.hostPlatform.system (perSystem: {
+    {
       fonts.fontconfig = {
         enable = true;
       };
@@ -32,7 +32,7 @@
             pkgs.aporetic
             (mkIosevkaSgrVariant "Term")
           ]
-          ++ (with perSystem.packages; [
+          ++ (with perSystem.config.packages; [
             astrata
             iosvmata-bin
             pragmasevka-bin
@@ -54,5 +54,6 @@
           ia-writer-quattro
         ])
       );
-    });
+    }
+  );
 }

@@ -9,7 +9,7 @@
       };
 
       home.packages = [
-        perSystem.config.packages.wp-to-psr4
+        perSystem.config.packages.wp-to-psr-4
 
         pkgs.awscli2
 

@@ -7,10 +7,8 @@ flake@{ lib, ... }:
         pkgs.signal-desktop
       ];
 
-      dconf.settings."org/gnome/desktop/notifications/application/signal-desktop" =
-        lib.mkIf flake.config.dotfield.graphical.nixos.services.desktopManager.gnome.enable
-          {
-            application-id = "signal-desktop.desktop";
-          };
+      dconf.settings."org/gnome/desktop/notifications/application/signal-desktop" = {
+        application-id = "signal-desktop.desktop";
+      };
     };
 }

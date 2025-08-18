@@ -20,21 +20,9 @@ in
         ]);
 
       home = {
-        # imports = (
-        #   with flake.config.dotfield.users.cdom.features;
-        #   [
-        #     ai.home
-        #     mail.home
-        #     music-production.home
-
-        #     git__with-gpg-signing.home
-        #     gpg__with-ssh-support.home
-        #     jujutsu__with-gpg-signing.home
-        #     jujutsu__with-sign-on-push.home
-        #   ]
-        # );
-        programs.firefox.profiles.work.isDefault = true;
-        programs.firefox.profiles.home.isDefault = false;
+        # FIXME: this no longer works!  causes error
+        # programs.firefox.profiles.work.isDefault = true;
+        # programs.firefox.profiles.home.isDefault = false;
 
         wayland.windowManager.sway.config.startup = [
           { command = "teams-for-linux"; }

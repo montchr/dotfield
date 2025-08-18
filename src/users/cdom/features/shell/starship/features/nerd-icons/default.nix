@@ -1,6 +1,12 @@
+{ lib, ... }:
+let
+  inherit (builtins) fromTOML mapAttrs readFile;
+
+in
 {
+
   dotfield.baseline.home = {
     programs.starship.settings =
-      builtins.readFile ./config/dot-config/starship.toml |> builtins.fromTOML;
+      readFile ./config/dot-config/starship.toml |> fromTOML |> mapAttrs (_: v: lib.mkDefault v);
   };
 }

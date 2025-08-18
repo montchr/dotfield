@@ -15,44 +15,21 @@ in
       with config.dotfield.features;
       [
         workstation
-        gnome
-        jobwork
+        gnome-desktop
         # remote-builders-default
-
-        "hardware/razer"
+        hardware__razer
       ]
     );
-
-    imports = (
-      with nixos-hardware.nixosModules;
-      [
-        common-cpu-amd
-        common-cpu-amd-pstate
-        common-gpu-amd
-      ]
-    );
-
-    users.cdom = {
-      features =
-        cfg.features
-        ++ (with config.dotfield.features; [
-          gpg
-
-          "git/with-gpg-signing"
-          "gpg/with-ssh-support"
-        ]);
-      home.home.stateVersion = "22.05";
-    };
-
-    users.median = {
-      features = (with config.dotfield.features; [ workstation ]);
-      home.home.stateVersion = "24.05";
-    };
 
     nixos = {
       imports = [
         inputs.beams.modules.nixos.default
-      ];
+      ]
+      ++ (with nixos-hardware.nixosModules; [
+        common-cpu-amd
+        common-cpu-amd-pstate
+        common-gpu-amd
+      ]);
 
       networking.firewall.enable = true;
       services.tailscale.enable = true;

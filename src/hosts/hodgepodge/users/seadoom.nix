@@ -1,7 +1,7 @@
 flake@{ ... }:
 {
   dotfield.hosts.nixos.hodgepodge.users.seadoom = {
-    features = flake.config.dotfield.hosts.hodgepodge.features ++ ([
+    features = flake.config.dotfield.hosts.nixos.hodgepodge.features ++ ([
       flake.config.dotfield.features.git__with-gpg-signing
     ]);
     home.home.stateVersion = "21.11";
@@ -19,7 +19,7 @@ flake@{ ... }:
         uid = 1000;
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
-        openssh.authorizedKeys.keys = flake.dotfield.meta.users.cdom.keys.ssh;
+        openssh.authorizedKeys.keys = flake.config.dotfield.meta.users.cdom.keys.ssh;
       };
     };
 }

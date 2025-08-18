@@ -1,11 +1,11 @@
 { moduleWithSystem, ... }:
 {
   dotfield.baseline.nixos = moduleWithSystem (
-    perSystem@{ packages, ... }:
+    perSystem@{ config, ... }:
     nixos@{ pkgs, ... }:
     {
       environment.systemPackages = [
-        perSystem.packages.realise-symlink
+        perSystem.config.packages.realise-symlink
 
         pkgs.chawan # <- tui web browser
         pkgs.dua # better du, ay?

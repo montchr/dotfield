@@ -5,10 +5,8 @@
 ## Sources:
 #
 # <https://github.com/foo-dogsquared/nixos-config/blob/7dacbe6963935fa3a36713c74c4e623df1d2188e/hosts/plover/default.nix>
-{ flake, ... }:
+{ lib, ... }:
 let
-  inherit (flake.inputs.nixpkgs) lib;
-
   mkJob =
     {
       keyFile,

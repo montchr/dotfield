@@ -14,7 +14,7 @@ in
 
 {
   dotfield.baseline.home = moduleWithSystem (
-    perSystem@{ packages, ... }:
+    perSystem@{ config, ... }:
     nixos@{ pkgs, ... }:
     let
       fd = packageCommand pkgs.fd;
@@ -23,7 +23,7 @@ in
       dirPreviewCommand = lib.getExe pkgs.eza + " --tree {} | head -n 200";
     in
     {
-      home.packages = [ packages.igr ];
+      home.packages = [ perSystem.config.packages.igr ];
 
       programs.fzf = {
         enable = true;

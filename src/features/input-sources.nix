@@ -21,7 +21,7 @@
       home.keyboard.options = [ "compose:ralt" ];
       dconf.settings."org/gnome/desktop/input-sources" = {
         sources = [
-          (config.lib.hm.gvariant.mkTuple [
+          (config.lib.gvariant.mkTuple [
             "xkb"
             "us"
           ])

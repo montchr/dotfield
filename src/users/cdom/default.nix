@@ -15,9 +15,8 @@ in
       email = "chmont@protonmail.com";
       pgp = rec {
         id = "0x135EEDD0F71934F3";
-        # TODO: how can this be made a default?  perhaps there is indeed
-        # a benefit to centralising keys.
-        key = builtins.readFile ./keys/${id}.asc;
+        # TODO: how can this be made a default?
+        key = keys.pgp.asc.${id};
       };
       github = "montchr";
       mastodon = "@montchr@assemblag.es";

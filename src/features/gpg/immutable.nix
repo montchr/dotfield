@@ -5,7 +5,7 @@ flake@{ lib, ... }:
     let
       inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
-    lib.mkIf ("" != whoami.pgp.id) {
+    lib.mkIf ((null != whoami.pgp.id)) {
       home.sessionVariables.DOTFIELD_PGP_KEY = whoami.pgp.id;
 
       programs.gpg = {

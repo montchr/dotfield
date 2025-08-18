@@ -16,7 +16,7 @@
         # Notifications are super frequent, repetitive, and sometimes just report 0%.
         # The upstream issue tracker has quite a few related issues:
         # <https://github.com/openrazer/openrazer/issues?q=notification+battery>
-        mouseBatteryNotifier = false;
+        batteryNotifier.enable = false;
       };
     };
 }

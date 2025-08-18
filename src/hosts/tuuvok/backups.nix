@@ -1,4 +1,7 @@
-{ lib', ... }:
+{ self, ... }:
+let
+  lib' = self.lib;
+in
 {
   dotfield.hosts.nixos.tuuvok.nixos =
     {

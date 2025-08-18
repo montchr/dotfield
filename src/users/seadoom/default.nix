@@ -1,7 +1,6 @@
-flake@{ ... }:
+{ config, ... }:
 let
-  inherit (flake.config.dotfield) features meta;
-  inherit (meta) users;
+  inherit (config.dotfield) features meta;
 in
 {
   dotfield.users.seadoom = {
@@ -12,5 +11,5 @@ in
     };
   };
 
-  dotfield.meta.users.seadoom = { };
+  dotfield.meta.users.seadoom = meta.users.cdom;
 }

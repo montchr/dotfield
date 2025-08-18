@@ -68,7 +68,6 @@
 
         #### Substituters
 
-        settings.builders-use-subsitutes = true;
         settings.substituters = [
           "https://dotfield.cachix.org"
           "https://nix-community.cachix.org"
@@ -86,7 +85,8 @@
       };
 
       programs.nix-index.enable = true;
-      # NOTE: This will install the `comma` command-line tool.
+      # NOTE: This will install the comma command-line tool, simply
+      # called `,` (comma).
       programs.nix-index-database.comma.enable = true;
 
       # Nix-oriented package search tool and `command-not-found` replacement.

@@ -3,7 +3,7 @@ flake@{ lib, ... }:
   dotfield.features.graphical.nixos =
     { config, pkgs, ... }:
     {
-      imports = [ flake.config.dotfield."boot/systemd-boot" ];
+      imports = [ flake.config.dotfield.features.boot__systemd-boot.nixos ];
 
       services.xserver.enable = true;
       services.xserver.xkb.layout = "us";
@@ -18,7 +18,6 @@ flake@{ lib, ... }:
       };
 
       programs.dconf.enable = true;
-      programs.zathura.enable = true;
 
       security.rtkit.enable = true;
       security.sudo.wheelNeedsPassword = false;
@@ -66,6 +65,7 @@ flake@{ lib, ... }:
         enable = true;
         package = pkgs.chromium.override { enableWideVine = true; };
       };
+      programs.zathura.enable = true;
 
       xdg.userDirs = {
         enable = true;

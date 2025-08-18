@@ -5,25 +5,23 @@
       features =
         config.dotfield.hosts.nixos.ryosuke.features
         ++ (with config.dotfield.features; [
-          gpg
-
-          "git/with-gpg-signing"
-          "gpg/with-ssh-support"
+          git__with-gpg-signing
+          gpg__with-ssh
+        ])
+        ++ (with config.dotfield.users.cdom.features; [
+          jobwork
         ]);
+
       home.home.stateVersion = "22.05";
     };
 
-    nixos =
-      let
-        username = "cdom";
-      in
-      {
-        users.users.${username} = {
-          uid = 1000;
-          isNormalUser = true;
-          openssh.authorizedKeys.keys = config.dotfield.meta.users.cdom.keys.ssh;
-        };
+    nixos = {
+      users.users.cdom = {
+        uid = 1000;
+        isNormalUser = true;
+        openssh.authorizedKeys.keys = config.dotfield.meta.users.cdom.keys.ssh;
       };
+    };
   };
 
 }

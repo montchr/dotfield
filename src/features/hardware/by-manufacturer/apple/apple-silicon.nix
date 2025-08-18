@@ -13,8 +13,6 @@ flake@{ lib, ... }:
     services.mbpfan.enable = lib.mkForce false;
 
     hardware.asahi.enable = true;
-    # TODO: afaik this no longer does anything.  mesa has merged asahi fork.
-    hardware.asahi.useExperimentalGPUDriver = true;
 
     # Recent GTK uses Vulkan as a backend.  On Asahi the OpenGL driver
     # seems to perform better than the Vulkan part, so we fall back to

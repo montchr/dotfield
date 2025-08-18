@@ -28,7 +28,7 @@ in
     ];
 
     nixos = moduleWithSystem (
-      perSystem@{ config, ... }:
+      perSystem@{ inputs', config, ... }:
       nixos@{ config, ... }:
       {
         imports = [
@@ -36,19 +36,21 @@ in
           inputs.beams.modules.nixos.default
         ];
 
-        nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
+        nixpkgs.overlays = lib.mkBefore [
+          inputs.nixos-apple-silicon.overlays.default
+        ];
 
         # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
         # broken wifi.  Reverting to the "asahi-tuvok-firmware" repository works.
         hardware.asahi.peripheralFirmwareDirectory =
-          flake.perSystem.inputs'.asahi-tuvok-firmware.packages.default;
+          perSystem.inputs'.asahi-tuvok-firmware.packages.default;
 
         services.tailscale.enable = true;
 
         fonts.packages = [ perSystem.config.packages.berkeley-mono ];
 
         users.mutableUsers = false;
-        sops.defaultSopsFile = ./secrets.yaml;
+        sops.defaultSopsFile = ./secrets/secrets.yaml;
         services.displayManager.autoLogin.enable = true;
         services.displayManager.autoLogin.user = "cdom";
 

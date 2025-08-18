@@ -5,10 +5,9 @@ in
 {
   dotfield.hosts.nixos.hodgepodge = {
     features = with config.dotfield.features; [
+      hardware__apple__macbook-pro-11-3
       workstation
-      gnome
-
-      "hardware/apple/macbook-pro-11-3"
+      gnome-desktop
     ];
 
     nixos = {
@@ -37,7 +36,7 @@ in
 
       users.mutableUsers = false;
       users.groups.wheel.members = [ "seadoom" ];
-      sops.defaultSopsFile = ../secrets/secrets.yaml;
+      sops.defaultSopsFile = ./secrets/secrets.yaml;
 
       services.displayManager.autoLogin.enable = true;
       services.displayManager.autoLogin.user = "seadoom";
