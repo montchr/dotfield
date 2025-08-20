@@ -3,7 +3,6 @@
   imports = [
     ./profile.nix
 
-    # ../../home/mixins/hyprland.nix
     ../../home/mixins/sway.nix
     ../../home/profiles/graphical/sessions/gnome/common.nix
     ../../home/mixins/workstation.nix

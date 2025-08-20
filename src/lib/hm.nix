@@ -23,6 +23,9 @@ let
     };
 
   settings = {
+    # Prevent activation failures by specifying how to handle file
+    # collisions.  Just back them up, don't freak out.
+    backupFileExtension = "bak";
     extraSpecialArgs = specialArgs;
     sharedModules = defaultModules;
     useGlobalPkgs = true;

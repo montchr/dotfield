@@ -9,11 +9,7 @@ in
 {
   programs.ssh = {
     enable = true;
-    forwardAgent = false;
-    serverAliveInterval = 300;
-    controlMaster = "auto";
-    controlPersist = "10m";
-    matchBlocks = {
+    nndfsdfamatchBlocks = {
       "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
 
@@ -51,6 +47,10 @@ in
         inherit identityFile;
 
         identitiesOnly = true;
+        forwardAgent = false;
+        serverAliveInterval = 300;
+        controlMaster = "auto";
+        controlPersist = "10m";
       };
     };
 

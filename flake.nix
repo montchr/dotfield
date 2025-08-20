@@ -87,14 +87,9 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
     simple-nixos-mailserver.inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     srvos.url = "github:numtide/srvos";
-    # <https://viperml.github.io/wrapper-manager/>
 
     ##: hardware
-    nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-05-30";
-    # nixos-apple-silicon.url = "github:montchr/nixos-apple-silicon?ref=main";
-    # nixos-apple-silicon.url = "github:oliverbestmann/nixos-apple-silicon?ref=main";
-    # nixos-apple-silicon.url = "github:flokli/nixos-apple-silicon?ref=wip";
-    # nixos-apple-silicon.inputs.nixpkgs.follows = "nixos-unstable";
+    nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     asahi-tuvok-firmware.url = "git+ssh://git@git.sr.ht/~montchr/asahi-tuvok-firmware";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 

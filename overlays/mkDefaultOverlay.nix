@@ -11,6 +11,5 @@ let
   };
 in
 {
-  inherit (stablePkgs) calibre;
   inherit (trunkPkgs) zellij;
 }
