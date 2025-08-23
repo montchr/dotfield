@@ -144,3 +144,5 @@ Abstract common host patterns:
 - Complex audio setup on some hosts (Focusrite Scarlett interfaces)
 - Wayland-first with fallback X11 support
 - Extensive theming system with light/dark variants
+- `rg` and `fd` are available tools
+- ask permission when executing commands via `fd`

@@ -82,7 +82,7 @@ let
     options = {
       desktop = lib.mkOption {
         type = with types; str;
-        default = "hyprland";
+        default = "sway";
         description = "Wayland desktop environment/compositor";
       };
       bar = lib.mkOption {
@@ -109,10 +109,10 @@ let
   };
 
   userPreferencesSubmodule = types.submodule {
-    options.preferences = {
+    options = {
       editor = lib.mkOption {
         type = with types; str;
-        default = "emacsclient";
+        default = "vim";
         description = "Default text editor command";
       };
 
@@ -155,12 +155,10 @@ let
       theme = {
         color = {
           variant = lib.mkOption {
-            type =
-              with types;
-              enum [
-                "light"
-                "dark"
-              ];
+            type = types.enum [
+              "light"
+              "dark"
+            ];
             default = "light";
             description = "Color theme variant";
           };

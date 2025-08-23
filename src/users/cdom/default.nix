@@ -3,9 +3,14 @@ let
   inherit (config.dotfield.meta) hosts keys;
 in
 {
-  dotfield.users.cdom.baseline.features = with config.dotfield.features; [
-    fish__with-ghostty-launch-command
-  ];
+  dotfield.users.cdom.baseline.features =
+    (with config.dotfield.features; [
+      fish__with-ghostty-launch-command
+      theme
+    ])
+    ++ (with config.dotfield.users.cdom.features; [
+      theme
+    ]);
 
   dotfield.meta.users.cdom = {
     whoami = {
@@ -27,7 +32,7 @@ in
       term = "ghostty";
       shell = "fish";
       file-manager = "nemo";
-      audio-player = "mpv";
+      # audio-player = "mpv";
       video-player = "mpv";
       web-browser = "firefox";
 

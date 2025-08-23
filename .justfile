@@ -3,7 +3,8 @@
 
 ###: https://just.systems/man/en/
 
-mod nixify ".just/nixify.mod.just"
+mod features ".config/features/mod.just"
+mod nixify ".config/nixify.mod.just"
 
 default:
   @just --choose
