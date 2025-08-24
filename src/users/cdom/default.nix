@@ -1,16 +1,29 @@
-{ config, ... }:
+{ self, config, ... }:
 let
   inherit (config.dotfield.meta) hosts keys;
+  inherit (self.lib.theme) toColorSchemePath;
 in
 {
-  dotfield.users.cdom.baseline.aspects =
-    (with config.dotfield.aspects; [
-      fish__with-ghostty-launch-command
-      theme
-    ])
-    ++ (with config.dotfield.users.cdom.aspects; [
-      theme
-    ]);
+  dotfield.users.cdom.baseline = {
+    aspects =
+      (with config.dotfield.aspects; [
+        theme
+      ])
+      ++ (with config.dotfield.users.cdom.aspects; [
+        theme
+      ]);
+
+    home =
+      { pkgs, ... }:
+      {
+        programs.ghostty.settings.command = "fish";
+        services.gpg-agent = {
+          enableSshSupport = true;
+          enableExtraSocket = true;
+        };
+        stylix.base16Scheme = toColorSchemePath pkgs "catppuccin-mocha";
+      };
+  };
 
   dotfield.meta.users.cdom = {
     whoami = {

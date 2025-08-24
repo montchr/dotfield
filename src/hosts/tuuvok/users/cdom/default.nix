@@ -14,7 +14,6 @@ in
         ])
         ++ (with flake.config.dotfield.aspects; [
           git__with-gpg-signing
-          gpg__with-ssh
           jujutsu__with-gpg-signing
           jujutsu__with-sign-on-push
         ]);
@@ -23,6 +22,9 @@ in
         # FIXME: this no longer works!  causes error
         # programs.firefox.profiles.work.isDefault = true;
         # programs.firefox.profiles.home.isDefault = false;
+
+        services.gpg-agent.enableSshSupport = true;
+        services.gpg-agent.enableExtraSocket = true;
 
         wayland.windowManager.sway.config.startup = [
           { command = "teams-for-linux"; }

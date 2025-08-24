@@ -6,7 +6,7 @@ in
   dotfield.users.seadoom = {
     baseline = {
       aspects = [
-        aspects.fish__with-ghostty-launch-command
+
       ];
     };
   };

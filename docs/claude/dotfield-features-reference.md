@@ -99,7 +99,7 @@ Generated on: 2025-08-24
 
 **Global aspects (`dotfield.aspects`):** 56 total
 - nixos only: 37
-- home only: 13  
+- home only: 13
 - both aspects: 6
 
 **User-specific aspects (`dotfield.users.cdom.aspects`):** 20 total

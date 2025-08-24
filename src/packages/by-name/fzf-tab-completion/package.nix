@@ -3,15 +3,16 @@
   stdenv,
   fetchFromGitHub,
 }:
+
 stdenv.mkDerivation rec {
   pname = "fzf-tab-completion";
-  version = "unstable-2023-11-09";
+  version = "unstable-2025-01-20";
 
   src = fetchFromGitHub {
     owner = "lincheney";
     repo = "fzf-tab-completion";
-    rev = "f6f83c88eca0fc07f7820dd8bb6c7ea75ef478c5";
-    hash = "sha256-AWgf8jSticYgO+qzTc/YjO1dZrh1fqSJPbgqyu/oLxE=";
+    rev = "4850357beac6f8e37b66bd78ccf90008ea3de40b";
+    hash = "sha256-pgcrRRbZaLoChVPeOvw4jjdDCokUK1ew0Wfy42bXfQo=";
   };
 
   # NOTE: The readline integration is out of scope here because
@@ -24,12 +25,12 @@ stdenv.mkDerivation rec {
     install -D zsh/* -t $installPath/zsh
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tab completion using fzf";
     homepage = "https://github.com/lincheney/fzf-tab-completion";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ montchr ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "fzf-tab-completion";
-    platforms = platforms.all;
+    platforms = lib.platforms.unix;
   };
 }
