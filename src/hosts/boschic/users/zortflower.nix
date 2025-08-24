@@ -1,7 +1,7 @@
 flake@{ ... }:
 {
   dotfield.hosts.nixos.boschic.users.zortflower = {
-    features = [ flake.config.dotfield.features.workstation ];
+    aspects = [ flake.config.dotfield.aspects.workstation ];
     home.home.stateVersion = "22.05";
   };
 

@@ -28,7 +28,7 @@ let
       };
 
       nixosModules =
-        (collectNixosModules hostConfig.features)
+        (collectNixosModules hostConfig.aspects)
         ++ hostConfig.nixos.imports
         ++ [
           config.dotfield.baseline.nixos
@@ -45,8 +45,8 @@ let
         imports =
           homeModules
           ++ userConfig.home.imports
-          ++ (collectHomeModules userConfig.features)
-          ++ (collectHomeModules config.dotfield.users.${username}.baseline.features)
+          ++ (collectHomeModules userConfig.aspects)
+          ++ (collectHomeModules config.dotfield.users.${username}.baseline.aspects)
           ++ [ (config.dotfield.users.${username}.baseline.home) ];
       }) hostConfig.users;
     in

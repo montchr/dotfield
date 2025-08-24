@@ -5,14 +5,14 @@ in
 {
   dotfield.hosts.nixos.tuuvok = {
     users.cdom = {
-      features =
-        flake.config.dotfield.hosts.nixos.tuuvok.features
-        ++ (with flake.config.dotfield.users.cdom.features; [
+      aspects =
+        flake.config.dotfield.hosts.nixos.tuuvok.aspects
+        ++ (with flake.config.dotfield.users.cdom.aspects; [
           ai
           mail
           music-production
         ])
-        ++ (with flake.config.dotfield.features; [
+        ++ (with flake.config.dotfield.aspects; [
           git__with-gpg-signing
           gpg__with-ssh
           jujutsu__with-gpg-signing

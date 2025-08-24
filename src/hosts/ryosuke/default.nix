@@ -11,8 +11,8 @@ let
 in
 {
   dotfield.hosts.nixos.ryosuke = {
-    features = (
-      with config.dotfield.features;
+    aspects = (
+      with config.dotfield.aspects;
       [
         workstation
         gnome-desktop

@@ -33,7 +33,7 @@ Based on the analysis of your project's instability patterns, here's how you cou
 
 2. **Create feature toggles**
    ```nix
-   dotfield.features = {
+   dotfield.aspects = {
      experimental-wayland = false;  # Default safe
      bleeding-edge-packages = false;
      ui-customizations = "minimal";  # vs "full"

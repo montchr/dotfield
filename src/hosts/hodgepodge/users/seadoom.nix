@@ -1,8 +1,8 @@
 flake@{ ... }:
 {
   dotfield.hosts.nixos.hodgepodge.users.seadoom = {
-    features = flake.config.dotfield.hosts.nixos.hodgepodge.features ++ ([
-      flake.config.dotfield.features.git__with-gpg-signing
+    aspects = flake.config.dotfield.hosts.nixos.hodgepodge.aspects ++ ([
+      flake.config.dotfield.aspects.git__with-gpg-signing
     ]);
     home.home.stateVersion = "21.11";
   };

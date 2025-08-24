@@ -19,7 +19,7 @@ in
   imports =
     (loadTree ./hosts)
     ++ (loadTree ./lib)
-    ++ (loadTree ./features)
+    ++ (loadTree ./aspects)
     ++ (loadTree ./meta)
     ++ (loadTree ./modules)
 

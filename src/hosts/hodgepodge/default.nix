@@ -4,7 +4,7 @@ let
 in
 {
   dotfield.hosts.nixos.hodgepodge = {
-    features = with config.dotfield.features; [
+    aspects = with config.dotfield.aspects; [
       hardware__apple__macbook-pro-11-3
       workstation
       gnome-desktop

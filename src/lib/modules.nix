@@ -14,7 +14,7 @@ let
       default = { };
     };
 
-  featureSubmodule = {
+  aspectsubmodule = {
     options = {
       nixos = mkDeferredModuleOpt "A NixOS module";
       home = mkDeferredModuleOpt "A Home-Manager module";
@@ -24,14 +24,14 @@ let
   mkFeatureListOpt =
     description:
     mkOption {
-      type = types.listOf (types.submodule featureSubmodule);
+      type = types.listOf (types.submodule aspectsubmodule);
       default = [ ];
     };
 in
 {
   flake.lib.modules = {
     inherit
-      featureSubmodule
+      aspectsubmodule
       mkDeferredModuleOpt
       mkFeatureListOpt
       ;

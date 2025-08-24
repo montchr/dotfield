@@ -2,7 +2,7 @@
 {
   dotfield.hosts.nixos.ryosuke = {
     users.median = {
-      features = config.dotfield.hosts.nixos.ryosuke.features;
+      aspects = config.dotfield.hosts.nixos.ryosuke.aspects;
       home.home.stateVersion = "24.05";
     };
 

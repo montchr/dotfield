@@ -1,18 +1,18 @@
 { config, ... }:
 let
   inherit (config.dotfield.meta) keys;
-  inherit (config.dotfield) features;
+  inherit (config.dotfield) aspects;
   hostName = "boschic";
 in
 {
   dotfield.hosts.nixos.boschic = {
-    features = [
-      features.workstation
-      features.gnome-desktop
-      features.hardware__amd__cpu
-      features.hardware__focusrite__scarlett-18i20-mk1
-      features.hardware__nvidia
-      features.hardware__razer
+    aspects = [
+      aspects.workstation
+      aspects.gnome-desktop
+      aspects.hardware__amd__cpu
+      aspects.hardware__focusrite__scarlett-18i20-mk1
+      aspects.hardware__nvidia
+      aspects.hardware__razer
     ];
 
     nixos = {

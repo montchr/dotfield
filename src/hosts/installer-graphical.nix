@@ -1,7 +1,7 @@
 flake@{ ... }:
 {
   dotfield.hosts.nixos.installer-graphical = {
-    features = with flake.config.dotfield.features; [
+    aspects = with flake.config.dotfield.aspects; [
       graphical
       installer
     ];

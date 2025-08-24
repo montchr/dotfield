@@ -1,12 +1,12 @@
 { config, ... }:
 let
-  inherit (config.dotfield) features meta;
+  inherit (config.dotfield) aspects meta;
 in
 {
   dotfield.users.seadoom = {
     baseline = {
-      features = [
-        features.fish__with-ghostty-launch-command
+      aspects = [
+        aspects.fish__with-ghostty-launch-command
       ];
     };
   };

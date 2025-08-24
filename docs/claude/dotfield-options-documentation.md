@@ -9,7 +9,7 @@ The dotfield module system provides:
 - Display metadata (`dotfield.meta.displays`)
 - NixOS module definitions (`dotfield.baseline.nixos`)
 - Home-manager module definitions (`dotfield.baseline.home`)
-- Modular component system (`dotfield.features`)
+- Modular component system (`dotfield.aspects`)
 - Host configurations (`dotfield.hosts.nixos`)
 
 ## Core Options
@@ -27,7 +27,7 @@ The dotfield module system provides:
 - **Type**: Module type
 - **Description**: Global Home-Manager configuration
 
-### `dotfield.features`
+### `dotfield.aspects`
 - **Type**: `lazyAttrsOf (submodule)`
 - **Description**: Modular component definitions with:
   - `nixos`: NixOS module

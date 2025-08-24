@@ -41,14 +41,14 @@ in
             baseline = mkOption {
               type = types.submodule {
                 options = {
-                  features = mkFeatureListOpt "List of baseline features shared by all of this user's configurations";
+                  aspects = mkFeatureListOpt "List of baseline aspects shared by all of this user's configurations";
                   home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
                 };
               };
-              description = "Baseline features and configurations shared by all of this user's configurations";
+              description = "Baseline aspects and configurations shared by all of this user's configurations";
               default = { };
             };
-            features = mkOption {
+            aspects = mkOption {
               type = types.lazyAttrsOf (
                 types.submodule {
                   options = {
@@ -60,7 +60,7 @@ in
               description = ''
                 User-specific feature definitions.
 
-                Note that due to these features' nature as user-specific, they
+                Note that due to these aspects' nature as user-specific, they
                 may not define NixOS modules, which would affect the entire system.
               '';
             };
@@ -69,6 +69,6 @@ in
       )
     );
     default = { };
-    description = "Baseline user features and home configurations";
+    description = "Baseline user aspects and home configurations";
   };
 }

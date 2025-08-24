@@ -2,13 +2,13 @@
 {
   dotfield.hosts.nixos.ryosuke = {
     users.cdom = {
-      features =
-        config.dotfield.hosts.nixos.ryosuke.features
-        ++ (with config.dotfield.features; [
+      aspects =
+        config.dotfield.hosts.nixos.ryosuke.aspects
+        ++ (with config.dotfield.aspects; [
           git__with-gpg-signing
           gpg__with-ssh
         ])
-        ++ (with config.dotfield.users.cdom.features; [
+        ++ (with config.dotfield.users.cdom.aspects; [
           jobwork
         ]);
 

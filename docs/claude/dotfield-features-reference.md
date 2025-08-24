@@ -1,10 +1,10 @@
-# Dotfield Features Reference
+# Dotfield Aspects Reference
 
-This document lists all unique values for `dotfield.features.<value>` and `dotfield.users.cdom.features.<value>` patterns found in the codebase, along with their aspects (nixos, home, or both).
+This document lists all unique values for `dotfield.aspects.<value>` and `dotfield.users.cdom.aspects.<value>` patterns found in the codebase, along with their aspects (nixos, home, or both).
 
 Generated on: 2025-08-24
 
-## dotfield.features.<value> patterns:
+## dotfield.aspects.<value> patterns:
 
 | Feature Name | nixos | home | Both |
 |--------------|-------|------|------|
@@ -70,7 +70,7 @@ Generated on: 2025-08-24
 | `wayland-wm` | | | ✓ |
 | `workstation` | | | ✓ |
 
-## dotfield.users.cdom.features.<value> patterns:
+## dotfield.users.cdom.aspects.<value> patterns:
 
 | Feature Name | nixos | home | Both |
 |--------------|-------|------|------|
@@ -97,12 +97,12 @@ Generated on: 2025-08-24
 
 ## Summary
 
-**Global features (`dotfield.features`):** 56 total
+**Global aspects (`dotfield.aspects`):** 56 total
 - nixos only: 37
 - home only: 13  
 - both aspects: 6
 
-**User-specific features (`dotfield.users.cdom.features`):** 20 total
+**User-specific aspects (`dotfield.users.cdom.aspects`):** 20 total
 - nixos only: 1
 - home only: 17
 - both aspects: 2

@@ -9,7 +9,7 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (lib'.modules) featureSubmodule mkDeferredModuleOpt;
+  inherit (lib'.modules) aspectsubmodule mkDeferredModuleOpt;
   lib' = config.flake.lib;
 in
 {
@@ -23,8 +23,8 @@ in
       };
       description = "Baseline NixOS and home configurations";
     };
-    features = mkOption {
-      type = types.lazyAttrsOf (types.submodule featureSubmodule);
+    aspects = mkOption {
+      type = types.lazyAttrsOf (types.submodule aspectsubmodule);
       description = ''
         Logical groupings for NixOS and home modules definining
         configuration with related functionality
@@ -33,10 +33,10 @@ in
   };
 
   config.flake.modules = {
-    nixos = (config.dotfield.features |> lib.mapAttrs (_: module: module.nixos)) // {
+    nixos = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.nixos)) // {
       default.imports = config.dotfield.baseline.nixos.imports;
     };
-    home = (config.dotfield.features |> lib.mapAttrs (_: module: module.home)) // {
+    home = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.home)) // {
       default.imports = config.dotfield.baseline.home.imports;
     };
   };

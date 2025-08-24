@@ -3,12 +3,12 @@ let
   inherit (config.dotfield.meta) hosts keys;
 in
 {
-  dotfield.users.cdom.baseline.features =
-    (with config.dotfield.features; [
+  dotfield.users.cdom.baseline.aspects =
+    (with config.dotfield.aspects; [
       fish__with-ghostty-launch-command
       theme
     ])
-    ++ (with config.dotfield.users.cdom.features; [
+    ++ (with config.dotfield.users.cdom.aspects; [
       theme
     ]);
 

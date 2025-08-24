@@ -1,6 +1,6 @@
 { self, inputs, ... }:
 {
-  dotfield.features.hosts.nixos = {
+  dotfield.aspects.hosts.nixos = {
 
   };
 }

@@ -9,7 +9,7 @@ let
 in
 {
   dotfield.hosts.nixos.tuuvok = {
-    features = with flake.config.dotfield.features; [
+    aspects = with flake.config.dotfield.aspects; [
       sway
       workstation
 

@@ -155,7 +155,7 @@ function msg::subdomain {
 #========================================
 # Print a de-emphasized domain + message header.
 #
-# Same features as `msg::domain` with these differences:
+# Same aspects as `msg::domain` with these differences:
 #
 # - The line will be preceded with a single-arrow
 # - Output will be colorized more subtly
@@ -175,7 +175,7 @@ function msg::domain__lesser {
 #========================================
 # Print an "inactive" domain + message header.
 #
-# Same features as `msg::domain` with these differences:
+# Same aspects as `msg::domain` with these differences:
 #
 # - The line will be preceded with a left-facing single-arrow
 # - Output will not be colorized
