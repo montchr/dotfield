@@ -1,4 +1,4 @@
-flake@{ lib, ... }:
+{ lib, ... }:
 {
   dotfield.aspects.graphical.nixos =
     { config, pkgs, ... }:
@@ -32,16 +32,21 @@ flake@{ lib, ... }:
         adwaita-icon-theme
         dconf-editor
         eog
+        imagemagick
+        ffmpeg
+        ffmpegthumbnailer
         ghostty
         glib
         gnome-backgrounds
         libnotify
+        poppler
         qt5.qtwayland
         qview
         wev
         wl-clipboard
         wtype # abandoned?
         ydotool
+        zathura
       ];
 
       # <https://wiki.archlinux.org/title/Users_and_groups#Pre-systemd_groups>
@@ -57,13 +62,10 @@ flake@{ lib, ... }:
   dotfield.aspects.graphical.home =
     { config, pkgs, ... }:
     {
-      fonts.fontconfig.enable = true;
-
       programs.chromium = {
         enable = true;
         package = pkgs.chromium.override { enableWideVine = true; };
       };
-      programs.zathura.enable = true;
 
       xdg.userDirs = {
         enable = true;

@@ -1,5 +1,5 @@
 {
-  dotfield.aspects.networkmanager.nixos =
+  dotfield.aspects.graphical.nixos =
     { config, ... }:
     {
       networking.networkmanager.enable = true;

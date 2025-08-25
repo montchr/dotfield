@@ -1,11 +1,16 @@
 { lib, config, ... }:
+let
+  inherit (builtins) map;
+in
 {
   dotfield.aspects.workstation.nixos = {
-    imports = with config.dotfield.aspects; [
-      archivist.nixos
-      graphical.nixos
-      networkmanager.nixos
-    ];
+    imports =
+      (with config.dotfield.aspects; [
+        archivist
+        audio
+        graphical
+      ])
+      |> map (v: v.nixos);
 
     time.timeZone = lib.mkDefault "America/New_York";
   };
@@ -13,10 +18,13 @@
   dotfield.aspects.workstation.home =
     { pkgs, ... }:
     {
-      imports = [
-        config.dotfield.aspects.archivist.home
-        config.dotfield.aspects.graphical.home
-      ];
+      imports =
+        (with config.dotfield.aspects; [
+          archivist
+          audio
+          graphical
+        ])
+        |> map (v: v.home);
 
       home.packages = [
         pkgs.dex # helper for working with xdg desktop entries

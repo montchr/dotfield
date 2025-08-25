@@ -5,7 +5,6 @@ flake@{ lib, ... }:
     {
       imports = [
         flake.config.dotfield.aspects.hardware__battery.nixos
-        flake.config.dotfield.aspects.networkmanager.nixos
       ];
 
       config = lib.mkIf config.programs.sway.enable {

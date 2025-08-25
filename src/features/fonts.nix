@@ -7,8 +7,14 @@
       fonts.fontconfig = {
         enable = true;
       };
-      environment.systemPackages = [ pkgs.font-manager ];
+
+      environment.systemPackages = [
+        pkgs.font-manager
+        pkgs.fontpreview
+      ];
+
       fonts.fontDir.enable = true;
+
       fonts.packages = (
         let
           mkIosevkaSgrVariant =
@@ -56,4 +62,8 @@
       );
     }
   );
+
+  dotfield.aspects.graphical.home = {
+    fonts.fontconfig.enable = true;
+  };
 }

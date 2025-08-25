@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  dotfield.users.cdom.aspects.home.home = {
+  dotfield.users.cdom.baseline.home = {
     programs.bash = {
       historyControl = [
         "erasedups"

@@ -1,5 +1,5 @@
 {
-  dotfield.aspects.development.home =
+  dotfield.aspects.graphical.home =
     { pkgs, ... }:
     {
       home.packages = [

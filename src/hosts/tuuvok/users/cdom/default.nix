@@ -1,30 +1,41 @@
 flake:
 let
   inherit (flake.config.dotfield) meta;
+  inherit (builtins)
+    attrNames
+    foldl'
+    filter
+    mapAttrs
+    ;
+  hostAspects = flake.config.dotfield.hosts.nixos.tuuvok.aspects;
+
+  /**
+    FIXME: this will not work -- the input aspects will already be a
+    list in the single use case, which we cannot work with...?
+
+    Given an attibute set of aspects, return a list of those aspects in
+    addition to the corresponding user aspects, if any.
+  */
+  # decorateAspectsForUser =
+  #   username: globalAspects:
+  #   let
+  #     userAspects = flake.config.dotfield.users.${username}.aspects;
+  #   in
+  #   attrNames globalAspects
+  #   |> foldl' (acc: aspect: acc ++ [ (userAspects.${aspect} or false) ]) globalAspects
+  #   |> filter (v: v != false);
 in
 {
   dotfield.hosts.nixos.tuuvok = {
     users.cdom = {
-      aspects =
-        flake.config.dotfield.hosts.nixos.tuuvok.aspects
-        ++ (with flake.config.dotfield.users.cdom.aspects; [
-          ai
-          mail
-          music-production
-        ])
-        ++ (with flake.config.dotfield.aspects; [
-          git__with-gpg-signing
-          jujutsu__with-gpg-signing
-          jujutsu__with-sign-on-push
-        ]);
+      aspects = hostAspects
+      # (decorateAspectsForUser "cdom" hostAspects)
+      ;
 
       home = {
         # FIXME: this no longer works!  causes error
         # programs.firefox.profiles.work.isDefault = true;
         # programs.firefox.profiles.home.isDefault = false;
-
-        services.gpg-agent.enableSshSupport = true;
-        services.gpg-agent.enableExtraSocket = true;
 
         wayland.windowManager.sway.config.startup = [
           { command = "teams-for-linux"; }

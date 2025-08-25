@@ -1,6 +1,6 @@
 flake@{ lib, ... }:
 {
-  dotfield.users.cdom.aspects.password-store.home =
+  dotfield.users.cdom.aspects.workstation.home =
     { config, pkgs, ... }:
     let
       inherit (flake.config.dotfield.meta.users.${config.username}) whoami;

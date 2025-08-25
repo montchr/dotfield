@@ -1,5 +1,5 @@
 {
-  dotfield.aspects.hardware__android-devices.nixos =
+  dotfield.aspects.workstation.nixos =
     { config, pkgs, ... }:
     {
       programs.adb.enable = true;

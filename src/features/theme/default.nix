@@ -1,12 +1,27 @@
 flake@{
+  self,
   lib,
   inputs,
   ...
 }:
 let
-  inherit (flake.config.lib.theme) toColorSchemePath;
+  inherit (self.lib.theme) toColorSchemePath;
 in
 {
+  dotfield.aspects.workstation.nixos = {
+    imports = [ flake.config.dotfield.aspects.theme.nixos ];
+  };
+
+  dotfield.aspects.theme.nixos =
+    { pkgs, ... }:
+    {
+      imports = [ inputs.stylix.nixosModules.stylix ];
+
+      stylix.enable = true;
+
+      stylix.base16Scheme = lib.mkDefault (toColorSchemePath pkgs "catppuccin-mocha");
+    };
+
   dotfield.aspects.theme.home =
     { config, pkgs, ... }:
     let
@@ -16,10 +31,6 @@ in
       fontFamilies = mapAttrs (_: v: removeAttrs v [ "pname" ]) prefs.theme.font.families;
     in
     {
-      imports = [
-        inputs.stylix.homeModules.stylix
-      ];
-
       stylix = {
         enable = true;
         fonts = {
@@ -50,13 +61,4 @@ in
       ];
     };
 
-  dotfield.aspects.theme.nixos =
-    { pkgs, ... }:
-    {
-      imports = [ inputs.stylix.nixosModules.stylix ];
-
-      stylix.enable = true;
-
-      stylix.base16Scheme = lib.mkDefault (toColorSchemePath pkgs "catppuccin-mocha");
-    };
 }

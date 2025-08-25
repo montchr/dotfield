@@ -1,13 +1,27 @@
-{ config, ... }:
+flake@{ ... }:
 let
-  aspects = config.dotfield.users.cdom.aspects;
+  inherit (builtins) map;
 in
 {
   dotfield.users.cdom.aspects.workstation.home =
     { pkgs, ... }:
     {
-      imports = [
-        aspects.password-store.home
-      ];
+      imports =
+        (with flake.config.dotfield.aspects; [
+          development
+          git__with-gpg-signing
+          jujutsu__with-gpg-signing
+          jujutsu__with-sign-on-push
+        ])
+        ++ (with flake.config.dotfield.users.cdom.aspects; [
+          ai
+          mail
+          music-production
+        ])
+        |> map (v: v.home);
+
+      services.gpg-agent.enableSshSupport = true;
+      services.gpg-agent.enableExtraSocket = true;
+
     };
 }

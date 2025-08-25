@@ -6,13 +6,14 @@ let
 in
 {
   dotfield.hosts.nixos.boschic = {
-    aspects = [
-      aspects.workstation
-      aspects.gnome-desktop
-      aspects.hardware__amd__cpu
-      aspects.hardware__focusrite__scarlett-18i20-mk1
-      aspects.hardware__nvidia
-      aspects.hardware__razer
+    aspects = with config.dotfield.aspects; [
+      workstation
+      greeters__gdm
+      gnome-desktop
+      hardware__amd__cpu
+      hardware__focusrite__scarlett-18i20-mk1
+      hardware__nvidia
+      hardware__razer
     ];
 
     nixos = {

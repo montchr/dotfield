@@ -12,8 +12,6 @@ in
       isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
     in
     {
-      imports = [ flake.config.dotfield.aspects.greeters__gdm.nixos ];
-
       services.xserver.enable = true;
       services.desktopManager.gnome.enable = true;
 

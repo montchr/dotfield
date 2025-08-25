@@ -9,19 +9,7 @@ flake@{ self, lib, ... }:
     in
     {
       imports = [
-        config.dotfield.aspects.wayland-wm.home
-
         ./__keybindings.nix
-      ];
-
-      home.packages = with pkgs; [
-        grimblast
-        hypridle
-        hyprlock
-        hyprpaper
-        hyprpicker
-        hyprpolkitagent
-        hyprsunset
       ];
 
       # systemd.user.services."wayland-wm@Hyprland" = {

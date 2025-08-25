@@ -1,5 +1,5 @@
 {
-  dotfield.aspects.virtualisation__docker.nixos =
+  dotfield.aspects.docker.nixos =
     { config, pkgs, ... }:
     {
       # Any other user who needs to be able to run Docker containers will need to be

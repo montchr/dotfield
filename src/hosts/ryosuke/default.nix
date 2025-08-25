@@ -15,6 +15,7 @@ in
       with config.dotfield.aspects;
       [
         workstation
+        greeters__gdm
         gnome-desktop
         # remote-builders-default
         hardware__razer

@@ -8,6 +8,7 @@ in
       hardware__apple__macbook-pro-11-3
       workstation
       gnome-desktop
+      greeters__gdm
     ];
 
     nixos = {
