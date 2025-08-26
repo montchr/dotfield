@@ -1,5 +1,7 @@
-{ lib', ... }:
+{ self, ... }:
 let
+  lib' = self.lib;
+
   abbrs = {
     g = "git";
 

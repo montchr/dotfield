@@ -1,4 +1,4 @@
-flake@{ lib, ... }:
+flake@{ ... }:
 {
   dotfield.aspects.development.home =
     { config, pkgs, ... }:
@@ -7,23 +7,8 @@ flake@{ lib, ... }:
     in
     {
       home.packages = [
-        pkgs.asciinema
-        pkgs.biome
-        pkgs.csvkit
-        pkgs.jq-lsp
-        pkgs.nixpkgs-review
-        pkgs.nixfmt-rfc-style
-        pkgs.nix-init
-        pkgs.nix-update
         pkgs.nodejs
-        pkgs.quicktype # json schema toolkit
-        pkgs.shellcheck
-        pkgs.shfmt
-        pkgs.treefmt
-        pkgs.universal-ctags
-        pkgs.vhs
-      ]
-      ++ lib.optionals config.programs.fish.enable [ pkgs.fish-lsp ];
+      ];
 
       home.sessionVariables = {
         NODE_REPL_HISTORY = "${config.xdg.dataHome}/node/repl_history";
@@ -43,9 +28,5 @@ flake@{ lib, ... }:
         init-version=0.0.1
         cache=''${XDG_CACHE_HOME}/npm
       '';
-
-      # NOTE: This will significantly slow down builds.  However, it enables more
-      # manpage integrations across various tools (e.g. `apropos`, `man -k`).
-      programs.man.generateCaches = true;
     };
 }

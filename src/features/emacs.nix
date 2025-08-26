@@ -11,8 +11,9 @@
     { pkgs, ... }:
     {
       programs.emacs = {
-        package =
-          if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emacs30-macport else pkgs.emacs-unstable-pgtk;
+        package = lib.mkDefault (
+          if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emacs30-macport else pkgs.emacs-unstable-pgtk
+        );
       };
     };
 }

@@ -16,10 +16,6 @@ in
         };
 
         ui = {
-          # For interoperability with other tools that don't know jj.
-          conflict-marker-style = "git";
-          diff-formatter = ":git";
-
           movement.edit = true;
         };
 

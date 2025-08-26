@@ -36,17 +36,7 @@ in
           colorMoved = "dimmed-zebra";
           tool = "ediff";
         };
-      };
-      programs.gh.settings.git_protocol = "ssh";
-      programs.gh.extensions = [
-        perSystem.config.packages.gh-repo-explore
-        perSystem.config.packages.gh-s
 
-        pkgs.gh-dash
-        pkgs.gh-eco
-      ];
-
-      extraConfig = {
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
@@ -56,6 +46,8 @@ in
         apply.whitespace = "nowarn";
         pull.rebase = true;
       };
+
+      programs.gh.settings.git_protocol = "ssh";
     }
   );
 }

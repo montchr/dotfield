@@ -1,33 +1,32 @@
 {
-  withSystem,
+  moduleWithSystem,
   lib,
   inputs,
   ...
 }:
 {
-  dotfield.users.cdom.aspects.development.home =
-    { pkgs, ... }:
-    withSystem pkgs.stdenv.hostPlatform.system (
-      { packages, inputs', ... }:
-      let
-        inherit (pkgs.stdenv.hostPlatform) isDarwin;
-        sessionVariables = {
-          EDITOR = lib.getExe inputs'.ceamx.packages.editor;
-        };
-      in
-      {
-        imports = [ inputs.ceamx.modules.homeManager.ceamx ];
+  dotfield.users.cdom.aspects.development.home = moduleWithSystem (
+    perSystem@{ inputs', ... }:
+    home@{ pkgs, ... }:
 
-        programs.emacs = {
-          enable = true;
-          package = if isDarwin then pkgs.emacs30-macport else pkgs.emacs-unstable-pgtk;
-          ceamx.enable = true;
-        };
+    let
+      inherit (pkgs.stdenv.hostPlatform) isDarwin;
+      sessionVariables = {
+        EDITOR = lib.getExe inputs'.ceamx.packages.editor;
+      };
+    in
+    {
+      imports = [ inputs.ceamx.modules.homeManager.ceamx ];
 
-        home = { inherit sessionVariables; };
-        programs.bash = { inherit sessionVariables; };
+      programs.emacs = {
+        enable = true;
+        ceamx.enable = true;
+      };
 
-        stylix.targets.emacs.enable = false;
-      }
-    );
+      home = { inherit sessionVariables; };
+      programs.bash = { inherit sessionVariables; };
+
+      stylix.targets.emacs.enable = false;
+    }
+  );
 }

@@ -111,6 +111,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    tree-sitter-grammars.url = "github:marsam/tree-sitter-grammars";
 
     ##: system
     microvm.url = "github:astro/microvm.nix";

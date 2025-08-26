@@ -15,6 +15,7 @@ in
         ])
         ++ (with flake.config.dotfield.users.cdom.aspects; [
           ai
+          development
           mail
           music-production
         ])

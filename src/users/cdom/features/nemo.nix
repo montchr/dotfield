@@ -1,6 +1,6 @@
 flake@{ ... }:
 {
-  dotfield.users.cdom.aspects.wayland.home =
+  dotfield.users.cdom.aspects.wayland-wm.home =
     { config, pkgs, ... }:
     let
       prefs = flake.config.dotfield.meta.users.${config.home.username}.preferences;
