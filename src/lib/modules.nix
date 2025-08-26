@@ -54,6 +54,12 @@ let
               internal = true;
               description = "Name of the aspect";
             };
+            depends = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              internal = true;
+              description = "List of aspect names this aspect depends on";
+            };
             nixos = mkDeferredModuleOpt "A NixOS module for this aspect";
             home = mkDeferredModuleOpt "A Home-Manager module for this aspect";
           };

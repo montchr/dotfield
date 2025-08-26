@@ -2,11 +2,16 @@
 
 flake@{ lib, ... }:
 let
-  cfg = flake.config.dotfield.meta.displays."LG_27UD88-W";
+  cfg = flake.config.dotfield.meta.displays."LG-27UD88-W";
 in
 {
   dotfield.meta.displays."LG-27UD88-W" = {
     deviceName = "LG Electronics LG Ultra HD 0x000668B9";
+    mode = [
+      3840
+      2160
+    ];
+    diag = 27.0;
     # diag = w: h: sqrt(w^2 + h^2);
     # diagPx = diag 3840 2160;        => 4405.814340165
     # diagIn = 27;
@@ -23,7 +28,7 @@ in
     ];
   };
 
-  dotfield.aspects.hardware__lg__ud27ud88-w = {
+  dotfield.aspects.hardware__lg__27ud88-w = {
     home.services.kanshi.settings = [
       {
         output = {
@@ -40,6 +45,7 @@ in
         { services.xserver.dpi = cfg.dpi; }
       ]
       ++ (lib.mkIf config.programs.sway.enable {
+        # $ swaymsg -t get_outputs
         # Output DVI-I-1 'LG Electronics LG Ultra HD 0x000668B9'
         #   Current mode: 3840x2160 @ 60.000 Hz
         #   Power: on

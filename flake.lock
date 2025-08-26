@@ -1441,6 +1441,29 @@
         "type": "github"
       }
     },
+    "nix-math": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755067526,
+        "narHash": "sha256-2KbLUfOz5qiurmzAlKwX0JeGtNSFrp/kxcOQ/cW2QKY=",
+        "owner": "xddxdd",
+        "repo": "nix-math",
+        "rev": "8f422e92b6fd41374c728db9726280e4e464ce95",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "repo": "nix-math",
+        "type": "github"
+      }
+    },
     "nix-nil-lsp": {
       "inputs": {
         "nixpkgs": "nixpkgs_8"
@@ -2434,6 +2457,7 @@
         "nix-ai-tools": "nix-ai-tools",
         "nix-index-database": "nix-index-database",
         "nix-inspect": "nix-inspect",
+        "nix-math": "nix-math",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",

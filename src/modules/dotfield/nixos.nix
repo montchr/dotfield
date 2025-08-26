@@ -18,6 +18,28 @@ let
   collectNixosModules = collectTypedModules "nixos";
   collectHomeModules = collectTypedModules "home";
 
+  # Get all aspects that are active (direct + transitive) using the registry
+  getAllActiveAspects =
+    hostAspects: registry:
+    let
+      # Start with the aspects directly specified by the host
+      directNames = map (a: a._name) hostAspects;
+
+      # Recursively collect transitive imports from registry
+      collectTransitive =
+        aspectNames: visited:
+        let
+          newTransitives = lib.concatMap (name: registry.${name}.transitiveImports or [ ]) aspectNames;
+          unvisited = lib.filter (name: !(lib.elem name visited)) newTransitives;
+          newVisited = visited ++ unvisited;
+        in
+        if unvisited == [ ] then
+          aspectNames
+        else
+          lib.unique (aspectNames ++ collectTransitive unvisited newVisited);
+    in
+    collectTransitive directNames directNames;
+
   overlays = (import (self.outPath + "/src/overlays/default.nix") { inherit inputs; });
 
   makeHost =
@@ -47,8 +69,13 @@ let
         username: userConfig:
         let
           customAspects = config.dotfield.users.${username}.aspects;
+
+          # Get all active aspects (direct + transitive) using the registry
+          allActiveAspectNames = getAllActiveAspects userConfig.aspects config.dotfield.registry.aspects;
+
+          # Get user aspects for all active aspect names
           mirroredAspects =
-            userConfig.aspects |> (map (v: customAspects.${v._name} or { })) |> filter (v: v != { });
+            allActiveAspectNames |> (map (name: customAspects.${name} or { })) |> filter (v: v != { });
         in
         {
           imports =

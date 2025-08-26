@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake check:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

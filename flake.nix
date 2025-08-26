@@ -109,6 +109,9 @@
     nix-inspect.url = "github:bluskript/nix-inspect";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-math.url = "github:xddxdd/nix-math";
+    nix-math.inputs.nixpkgs.follows = "nixpkgs";
+    nix-math.inputs.flake-parts.follows = "flake-parts";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
     tree-sitter-grammars.url = "github:marsam/tree-sitter-grammars";

@@ -24,8 +24,8 @@ in
             scale = 2.0;
           }
           {
-            inherit (meta.displays."lg/27UD88-W") scale;
-            criteria = meta.displays."lg/27UD88-W".deviceName;
+            inherit (meta.displays."LG-27UD88-W") scale;
+            criteria = meta.displays."LG-27UD88-W".deviceName;
             status = "enable";
             position = "0,0";
           }
@@ -39,8 +39,8 @@ in
             status = "disable";
           }
           {
-            inherit (meta.displays."lg/27GL850-B") scale;
-            criteria = meta.displays."lg/27GL850-B".deviceName;
+            inherit (meta.displays."LG-27GL850-B") scale;
+            criteria = meta.displays."LG-27GL850-B".deviceName;
             status = "enable";
             position = "0,0";
           }

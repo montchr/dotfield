@@ -8,17 +8,12 @@ let
   inherit (self.lib.theme) toColorSchemePath;
 in
 {
-  dotfield.aspects.workstation.nixos = {
-    imports = [ flake.config.dotfield.aspects.theme.nixos ];
-  };
-
-  dotfield.aspects.theme.nixos =
+  dotfield.aspects.workstation.nixos =
     { pkgs, ... }:
     {
       imports = [ inputs.stylix.nixosModules.stylix ];
 
       stylix.enable = true;
-
       stylix.base16Scheme = lib.mkDefault (toColorSchemePath pkgs "catppuccin-mocha");
     };
 

@@ -61,12 +61,14 @@ in
     };
   };
 
-  config.flake.modules = {
-    nixos = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.nixos)) // {
-      default.imports = config.dotfield.baseline.nixos.imports;
-    };
-    home = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.home)) // {
-      default.imports = config.dotfield.baseline.home.imports;
+  config = {
+    flake.modules = {
+      nixos = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.nixos)) // {
+        default.imports = config.dotfield.baseline.nixos.imports;
+      };
+      home = (config.dotfield.aspects |> lib.mapAttrs (_: module: module.home)) // {
+        default.imports = config.dotfield.baseline.home.imports;
+      };
     };
   };
 }
