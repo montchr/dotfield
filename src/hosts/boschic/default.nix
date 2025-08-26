@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config.dotfield.meta) keys;
-  inherit (config.dotfield) aspects;
+
   hostName = "boschic";
 in
 {

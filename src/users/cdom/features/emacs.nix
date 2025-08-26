@@ -16,7 +16,7 @@
         };
       in
       {
-        imports = [ inputs.ceamx.modules.home.ceamx ];
+        imports = [ inputs.ceamx.modules.homeManager.ceamx ];
 
         programs.emacs = {
           enable = true;

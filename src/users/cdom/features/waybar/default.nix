@@ -4,7 +4,8 @@ flake@{ ... }:
     { config, pkgs, ... }:
     {
       imports = [
-        flake.config.dotfield.users.cdom.aspects.waybar.home
+        flake.config.dotfield.aspects.waybar.home
+        flake.config.dotfield.aspects.wayland-wm.home
 
         ./__primary.nix
       ];

@@ -1,9 +1,9 @@
-{ lib, ... }:
+flake@{ lib, ... }:
 {
   dotfield.aspects.development.home =
     { config, pkgs, ... }:
     let
-      inherit (config.dotfield.meta.users.${config.home.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
     in
     {
       home.packages = [

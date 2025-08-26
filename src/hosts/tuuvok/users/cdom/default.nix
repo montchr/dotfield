@@ -1,36 +1,13 @@
 flake:
 let
   inherit (flake.config.dotfield) meta;
-  inherit (builtins)
-    attrNames
-    foldl'
-    filter
-    mapAttrs
-    ;
+
   hostAspects = flake.config.dotfield.hosts.nixos.tuuvok.aspects;
-
-  /**
-    FIXME: this will not work -- the input aspects will already be a
-    list in the single use case, which we cannot work with...?
-
-    Given an attibute set of aspects, return a list of those aspects in
-    addition to the corresponding user aspects, if any.
-  */
-  # decorateAspectsForUser =
-  #   username: globalAspects:
-  #   let
-  #     userAspects = flake.config.dotfield.users.${username}.aspects;
-  #   in
-  #   attrNames globalAspects
-  #   |> foldl' (acc: aspect: acc ++ [ (userAspects.${aspect} or false) ]) globalAspects
-  #   |> filter (v: v != false);
 in
 {
   dotfield.hosts.nixos.tuuvok = {
     users.cdom = {
-      aspects = hostAspects
-      # (decorateAspectsForUser "cdom" hostAspects)
-      ;
+      aspects = hostAspects;
 
       home = {
         # FIXME: this no longer works!  causes error

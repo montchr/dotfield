@@ -3,12 +3,12 @@ flake@{
 }:
 let
   inherit (flake.config.dotfield) meta;
+  hostAspects = flake.config.dotfield.hosts.nixos.boschic.aspects;
 in
 {
   dotfield.hosts.nixos.boschic.users.seadoom = {
-    aspects = flake.config.dotfield.hosts.nixos.boschic.aspects ++ ([
-      flake.config.dotfield.aspects.git__with-gpg-signing
-    ]);
+    aspects = hostAspects ++ [ flake.config.dotfield.aspects.git__with-gpg-signing ];
+
     home = {
       home.stateVersion = "21.11";
     };

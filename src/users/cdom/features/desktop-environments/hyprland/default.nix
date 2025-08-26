@@ -9,6 +9,8 @@ flake@{ self, lib, ... }:
     in
     {
       imports = [
+        flake.config.dotfield.aspects.hyprland.home
+
         ./__keybindings.nix
       ];
 

@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   dotfield.aspects.graphical.nixos =
     { pkgs, ... }:
@@ -10,7 +11,18 @@
   dotfield.aspects.workstation.nixos =
     { config, pkgs, ... }:
     {
+      imports = [
+        self.nixosModules."hardware/keyboardio"
+      ];
+
       hardware.keyboard.qmk.enable = true;
+      hardware.keyboard.keyboardio.enable = true;
+      hardware.keyboard.zsa.enable = true;
+
+      environment.systemPackages = [
+        pkgs.wally-cli
+      ];
+
       # Required to support flashing firmware.
       users.groups.plugdev.members = config.users.groups.wheel.members;
     };

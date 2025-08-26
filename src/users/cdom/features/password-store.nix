@@ -3,7 +3,7 @@ flake@{ lib, ... }:
   dotfield.users.cdom.aspects.workstation.home =
     { config, pkgs, ... }:
     let
-      inherit (flake.config.dotfield.meta.users.${config.username}) whoami;
+      inherit (flake.config.dotfield.meta.users.${config.home.username}) whoami;
       inherit (config.lib.dag) entryAfter;
 
       cfg = config.programs.password-store;

@@ -10,7 +10,7 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
+  inherit (lib'.modules) mkDeferredModuleOpt mkAspectListOpt;
   lib' = self.lib;
 
   hostSubmodule = (
@@ -18,7 +18,7 @@ let
     {
       options = {
         nixos = mkDeferredModuleOpt "Host-specific NixOS configuration";
-        aspects = mkFeatureListOpt "List of aspects for the host";
+        aspects = mkAspectListOpt "List of aspects for the host";
         baseline = mkOption {
           type = types.submodule {
             options = {
@@ -37,7 +37,7 @@ let
           type = types.lazyAttrsOf (
             types.submodule {
               options = {
-                aspects = mkFeatureListOpt ''
+                aspects = mkAspectListOpt ''
                   List of aspects specific to the user and host.
 
                   While a feature may specify NixOS modules in addition to home

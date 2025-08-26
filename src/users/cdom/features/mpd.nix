@@ -5,11 +5,8 @@
       beetsCfg = config.programs.beets;
     in
     {
-      imports = [ ./playerctl.nix ];
-
       services.mpd = {
         enable = true;
-        musicDirectory = beetsCfg.settings.directory;
         playlistDirectory = "${config.xdg.userDirs.music}/playlists";
         network.startWhenNeeded = true;
         network.listenAddress = "127.0.0.1";

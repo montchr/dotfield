@@ -2,7 +2,7 @@
   dotfield.users.cdom.aspects.gnome-desktop.home =
     { config, ... }:
     let
-      inherit (config.lib.hm.gvariant) mkUint32;
+      inherit (config.lib.gvariant) mkUint32;
       lib' = config.lib;
     in
     {
@@ -48,7 +48,7 @@
         };
 
         "org/gnome/desktop/privacy" = {
-          old-files-age = lib'.hm.gvariant.mkUint32 30;
+          old-files-age = mkUint32 30;
           recent-files-max-age = -1;
         };
 

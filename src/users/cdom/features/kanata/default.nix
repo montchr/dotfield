@@ -9,7 +9,6 @@
           ;; the same `defsrc` block.
           ${builtins.readFile ./default.kbd}
         '';
-
       };
     };
 }

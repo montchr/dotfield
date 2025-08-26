@@ -6,25 +6,9 @@
   ...
 }:
 let
-  inherit (builtins) mapAttrs removeAttrs;
   inherit (lib) mkOption types;
-  inherit (lib.strings) escapeNixIdentifier;
-  inherit (lib'.modules) mkDeferredModuleOpt mkFeatureListOpt;
+  inherit (lib'.modules) mkAspectListOpt mkAspectNameOpt mkDeferredModuleOpt;
   lib' = self.lib;
-
-  # https://github.com/hercules-ci/flake-parts/blob/af66ad14b28a127c5c0f3bbb298218fc63528a18/extras/modules.nix#L12-L22
-  addInfo =
-    username: class: moduleName:
-    if class == "generic" then
-      module: module
-    else
-      module:
-      # TODO: set key?
-      {
-        _class = class;
-        _file = "${toString moduleLocation}#dotfield.users.${escapeNixIdentifier username}.${escapeNixIdentifier moduleName}.${escapeNixIdentifier class}";
-        imports = [ module ];
-      };
 in
 {
   options.dotfield.users = mkOption {
@@ -41,7 +25,7 @@ in
             baseline = mkOption {
               type = types.submodule {
                 options = {
-                  aspects = mkFeatureListOpt "List of baseline aspects shared by all of this user's configurations";
+                  aspects = mkAspectListOpt "List of baseline aspects shared by all of this user's configurations";
                   home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
                 };
               };
@@ -50,11 +34,15 @@ in
             };
             aspects = mkOption {
               type = types.lazyAttrsOf (
-                types.submodule {
-                  options = {
-                    home = mkDeferredModuleOpt "A Home-Manager module";
-                  };
-                }
+                types.submodule (
+                  { name, ... }:
+                  {
+                    options = {
+                      _name = mkAspectNameOpt name;
+                      home = mkDeferredModuleOpt "A Home-Manager module";
+                    };
+                  }
+                )
               );
               default = { };
               description = ''

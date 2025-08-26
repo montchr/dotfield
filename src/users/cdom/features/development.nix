@@ -6,6 +6,8 @@ in
   dotfield.users.cdom.aspects.development.home =
     { config, pkgs, ... }:
     {
+      imports = [ config.dotfield.aspects.development.home ];
+
       home.shellAliases."d" = "direnv";
 
       home.packages = [

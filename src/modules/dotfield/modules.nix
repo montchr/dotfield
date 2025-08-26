@@ -9,7 +9,7 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (lib'.modules) aspectSubmodule mkDeferredModuleOpt;
+  inherit (lib'.modules) mkAspectNameOpt mkDeferredModuleOpt;
   lib' = config.flake.lib;
 in
 {
@@ -24,10 +24,39 @@ in
       description = "Baseline NixOS and home configurations";
     };
     aspects = mkOption {
-      type = types.lazyAttrsOf (types.submodule aspectSubmodule);
+      type = types.lazyAttrsOf (
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              _name = mkAspectNameOpt name;
+              nixos = mkDeferredModuleOpt "A NixOS module for the \"${name}\" aspect";
+              home = mkDeferredModuleOpt "A Home-Manager module for the \"${name}\" aspect";
+            };
+          }
+        )
+      );
       description = ''
-        Logical groupings for NixOS and home modules definining
-        configuration with related functionality
+        Abstract logical groupings for NixOS and home modules defining
+        bulk configuration for features with related functionality.
+        The relation itself is the aspect.
+
+        Think of "aspect" as a plane of feature-intensity of such
+        importance that it is named non-specifically to refer to some
+        general characteristic or collection of functions of a system,
+        while a "feature" is some specific component that combines to
+        assemble an aspect or multiple aspects.
+
+        For example, a hypothetical "multimedia" aspect could be
+        comprised of the hypothetical features "pulseaudio", "mpv", and
+        "plex-client".
+
+        As another distinction: the actual "graphical" aspect is
+        comprised of many features common to any graphical environment,
+        including both virtual machines or desktop personal computers.
+        The "workstation" aspect is comprised of many features common to
+        the latter, and is *always* also "graphical", but does not
+        include virtual machines.
       '';
     };
   };

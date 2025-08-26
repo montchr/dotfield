@@ -10,6 +10,8 @@
   ...
 }:
 let
+  inherit (builtins) filter map;
+
   lib' = self.lib;
 
   collectTypedModules = type: lib.foldr (v: acc: acc ++ v.${type}.imports) [ ];
@@ -41,14 +43,23 @@ let
         moduleArgs
       ];
 
-      users = lib.mapAttrs (username: userConfig: {
-        imports =
-          homeModules
-          ++ userConfig.home.imports
-          ++ (collectHomeModules userConfig.aspects)
-          ++ (collectHomeModules config.dotfield.users.${username}.baseline.aspects)
-          ++ [ (config.dotfield.users.${username}.baseline.home) ];
-      }) hostConfig.users;
+      users = lib.mapAttrs (
+        username: userConfig:
+        let
+          customAspects = config.dotfield.users.${username}.aspects;
+          mirroredAspects =
+            userConfig.aspects |> (map (v: customAspects.${v._name} or { })) |> filter (v: v != { });
+        in
+        {
+          imports =
+            homeModules
+            ++ userConfig.home.imports
+            ++ (collectHomeModules userConfig.aspects)
+            ++ (collectHomeModules mirroredAspects)
+            ++ (collectHomeModules config.dotfield.users.${username}.baseline.aspects)
+            ++ [ (config.dotfield.users.${username}.baseline.home) ];
+        }
+      ) hostConfig.users;
     in
     inputs.nixpkgs.lib.nixosSystem {
       modules = nixosModules ++ [

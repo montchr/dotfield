@@ -4,10 +4,6 @@
     users.cdom = {
       aspects =
         config.dotfield.hosts.nixos.ryosuke.aspects
-        ++ (with config.dotfield.aspects; [
-          git__with-gpg-signing
-          gpg__with-ssh
-        ])
         ++ (with config.dotfield.users.cdom.aspects; [
           jobwork
         ]);

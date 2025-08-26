@@ -3,19 +3,39 @@
 mod nixos
 
 src-dir := justfile_directory() / "src"
-aspects-dir := src-dir / "features"
-users-aspects-dir-glob := src-dir + "/users/*/features"
 
 [no-cd]
-list-by-scope scope:
+@_cache-global-list scope:
   rg --only-matching --no-filename --type nix --replace '$1' \
-    'dotfield\.features\.([^.]+)\.{{ scope }}' \
-    {{ aspects-dir }} \
-  | sort | uniq
+    'dotfield\.aspects\.([^.]+)\.{{ scope }}' \
+    {{ src-dir }}/features \
+  | sort \
+  | uniq \
+  > /tmp/dotfield-global-aspects-{{ scope }}
 
 [no-cd]
-list-multi-scoped: (list-by-scope "nixos") (list-by-scope "home")
-  comm -12 <(just -q features::list nixos) <(just -q features::list home)
+@_cache-user-list user scope:
+  rg --only-matching --no-filename --type nix --replace '$1' \
+    'dotfield\.users\.{{ user }}\.aspects\.([^.]+)\.{{ scope }}' \
+    {{ src-dir }}/users/{{ user }}/features \
+  | sort \
+  | uniq \
+  > /tmp/dotfield-user-{{ user }}-aspects-{{ scope }}
+
+[no-cd]
+list-global-aspects-by-scope scope: (_cache-global-list scope)
+  @cat /tmp/dotfield-global-aspects-{{ scope }}
+
+[no-cd]
+list-user-aspects-by-scope user scope: (_cache-user-list user scope)
+  @cat /tmp/dotfield-user-{{ user }}-aspects-{{ scope }}
+
+# [no-cd]
+# list-user-aspects scope:
+
+# [no-cd]
+# list-multi-scoped: (list-by-scope "nixos") (list-by-scope "home")
+#   comm -12 <(just -q features::list nixos) <(just -q features::list home)
 
 # List all unique dotfield.features values with their aspects
 list-dotfield-features:
