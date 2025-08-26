@@ -9,7 +9,7 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (lib'.modules) aspectsubmodule mkDeferredModuleOpt;
+  inherit (lib'.modules) aspectSubmodule mkDeferredModuleOpt;
   lib' = config.flake.lib;
 in
 {
@@ -24,7 +24,7 @@ in
       description = "Baseline NixOS and home configurations";
     };
     aspects = mkOption {
-      type = types.lazyAttrsOf (types.submodule aspectsubmodule);
+      type = types.lazyAttrsOf (types.submodule aspectSubmodule);
       description = ''
         Logical groupings for NixOS and home modules definining
         configuration with related functionality

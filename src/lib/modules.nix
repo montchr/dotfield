@@ -14,24 +14,32 @@ let
       default = { };
     };
 
-  aspectsubmodule = {
-    options = {
-      nixos = mkDeferredModuleOpt "A NixOS module";
-      home = mkDeferredModuleOpt "A Home-Manager module";
+  aspectSubmodule =
+    { name, ... }:
+    {
+      options = {
+        _name = mkOption {
+          default = name;
+          readOnly = true;
+          internal = true;
+          description = "Name of the aspect";
+        };
+        nixos = mkDeferredModuleOpt "A NixOS module for the \"${name}\" aspect";
+        home = mkDeferredModuleOpt "A Home-Manager module for the \"${name}\" aspect";
+      };
     };
-  };
 
   mkFeatureListOpt =
     description:
     mkOption {
-      type = types.listOf (types.submodule aspectsubmodule);
+      type = types.listOf (types.submodule aspectSubmodule);
       default = [ ];
     };
 in
 {
   flake.lib.modules = {
     inherit
-      aspectsubmodule
+      aspectSubmodule
       mkDeferredModuleOpt
       mkFeatureListOpt
       ;
