@@ -9,7 +9,7 @@ in
 {
   programs.ssh = {
     enable = true;
-    nndfsdfamatchBlocks = {
+    matchBlocks = {
       "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
       "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
 
