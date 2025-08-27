@@ -13,7 +13,7 @@
   };
 
   home-manager.users.zortflower = _: {
-    imports = [ ../../../home/mixins/graphical.nix ];
+    imports = [ ../../../../home/mixins/graphical.nix ];
     home.stateVersion = "22.05";
   };
 }

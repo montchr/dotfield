@@ -9,5 +9,5 @@ in
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  home-manager.users.${username} = import ../../../users/cdom/cdom-at-ryosuke.nix;
+  home-manager.users.${username} = import ../../../../users/cdom/cdom-at-ryosuke.nix;
 }

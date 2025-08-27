@@ -9,6 +9,7 @@ let
   flakeSpecialArgs = {
     inherit self inputs config;
   };
+
   flakeSpecialArgs' =
     system:
     withSystem system (
@@ -24,6 +25,9 @@ let
 in
 {
   flake.lib.modules = {
-    inherit flakeSpecialArgs flakeSpecialArgs';
+    inherit
+      flakeSpecialArgs
+      flakeSpecialArgs'
+      ;
   };
 }

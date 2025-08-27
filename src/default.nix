@@ -4,15 +4,17 @@
   ...
 }:
 let
+  inherit (inputs.globset.lib) globs;
+
   nixFilesFrom =
-    root: globs:
-    inputs.globset.lib.globs root (
+    root: extraGlobs:
+    globs root (
       [
         "**/*.nix"
         "!**/_*" # private files
         "!**/_*/**" # private directories
       ]
-      ++ globs
+      ++ extraGlobs
     );
 
   loadTree = root: lib.fileset.toList (nixFilesFrom root [ ]);
@@ -22,6 +24,7 @@ in
   imports =
     (loadTree ./lib)
     ++ (loadTree ./modules)
+    ++ (lib.fileset.toList (globs ./hosts [ "*/default.nix" ]))
     ++ [
       ./packages
     ];

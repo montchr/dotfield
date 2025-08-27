@@ -14,5 +14,5 @@
     openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
   };
 
-  home-manager.users.seadoom = import ../../../users/cdom/seadoom-at-boschic.nix;
+  home-manager.users.seadoom = import ../../../../users/cdom/seadoom-at-boschic.nix;
 }

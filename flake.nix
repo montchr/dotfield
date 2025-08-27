@@ -38,7 +38,6 @@
 
           ./src
 
-          ./nixos
           ./home
 
           ./ops/devshells

@@ -28,5 +28,5 @@ in
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
 
-  home-manager.users.${username} = import ../../../users/cdom/seadoom-at-hodgepodge.nix;
+  home-manager.users.${username} = import ../../../../users/cdom/seadoom-at-hodgepodge.nix;
 }

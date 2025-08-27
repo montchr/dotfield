@@ -18,5 +18,5 @@ in
     shell = pkgs.bashInteractive;
   };
 
-  home-manager.users.${username} = import ../../../users/cdom/cdom-at-tuuvok.nix;
+  home-manager.users.${username} = import ../../../../users/cdom/cdom-at-tuuvok.nix;
 }

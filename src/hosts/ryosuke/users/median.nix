@@ -11,7 +11,7 @@ in
   };
 
   home-manager.users.${username} = _: {
-    imports = [ ../../../home/mixins/graphical.nix ];
+    imports = [ ../../../../home/mixins/graphical.nix ];
     home.stateVersion = "24.05";
   };
 }
