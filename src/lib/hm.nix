@@ -1,16 +1,16 @@
 {
   ops,
-  super,
-  flake,
+  self,
+  inputs,
   withSystem,
   ...
 }:
 let
-  inherit (super.modules) flakeSpecialArgs flakeSpecialArgs';
-  inherit (flake.inputs) apparat home-manager;
+  inherit (self.lib.modules) flakeSpecialArgs flakeSpecialArgs';
+  inherit (inputs) apparat home-manager;
   inherit (apparat.lib) homePrefix;
 
-  homeModules = import "${flake.self}/home/modules-list.nix";
+  homeModules = import "${self}/home/modules-list.nix";
 
   specialArgs = {
     flake = flakeSpecialArgs;
@@ -48,28 +48,30 @@ let
   ];
 in
 {
-  inherit defaultModules settings settings';
+  flake.lib.hm = {
+    inherit defaultModules settings settings';
 
-  makeHomeConfiguration =
-    username: args:
-    let
-      # FIXME: should use hostPlatform?
-      system = args.pkgs.stdenv.system or args.system;
-    in
-    withSystem system (
-      { pkgs, ... }:
-      (home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = specialArgs' system;
-        modules =
-          defaultModules
-          ++ (args.modules or [ ])
-          ++ [
-            {
-              home.username = username;
-              home.homeDirectory = "${homePrefix system}/${username}";
-            }
-          ];
-      })
-    );
+    makeHomeConfiguration =
+      username: args:
+      let
+        # FIXME: should use hostPlatform?
+        system = args.pkgs.stdenv.system or args.system;
+      in
+      withSystem system (
+        { pkgs, ... }:
+        (home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = specialArgs' system;
+          modules =
+            defaultModules
+            ++ (args.modules or [ ])
+            ++ [
+              {
+                home.username = username;
+                home.homeDirectory = "${homePrefix system}/${username}";
+              }
+            ];
+        })
+      );
+  };
 }

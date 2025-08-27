@@ -6,7 +6,5 @@ let
   nameFor = app: (desktopEntryNames.${app} or app) + ".desktop";
 in
 {
-  flake.lib.mimeapps = {
-    inherit desktopEntryNames nameFor;
-  };
+  flake.lib.mimeapps = { inherit desktopEntryNames nameFor; };
 }

@@ -953,6 +953,26 @@
         "type": "github"
       }
     },
+    "globset": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs-lib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756146523,
+        "narHash": "sha256-dn8WNgwVQe0xBJ/d4CiRRcEVSgNclG6WSbqFEf6V024=",
+        "owner": "pdtpartners",
+        "repo": "globset",
+        "rev": "62da8904981f01dc7c97f56c3ea4f131a8393411",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pdtpartners",
+        "repo": "globset",
+        "type": "github"
+      }
+    },
     "gnome-shell": {
       "flake": false,
       "locked": {
@@ -2289,6 +2309,7 @@
         "emacs-overlay": "emacs-overlay",
         "flake-parts": "flake-parts_4",
         "flake-utils": "flake-utils_5",
+        "globset": "globset",
         "haumea": "haumea_4",
         "home-manager": "home-manager",
         "microvm": "microvm",

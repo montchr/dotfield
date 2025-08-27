@@ -4,6 +4,7 @@
 { lib, inputs, ... }:
 let
   inherit (inputs.apparat.lib.color) fromHex;
+  inherit (builtins) substring;
 
   # TODO: prob more useful to expand scope as a general colorscheme getter since
   #       even with this fn it's pretty repetitive
@@ -51,9 +52,9 @@ let
     v:
     let
       hex = {
-        r = lib.substring 0 2 v;
-        g = lib.substring 2 2 v;
-        b = lib.substring 4 2 v;
+        r = substring 0 2 v;
+        g = substring 2 2 v;
+        b = substring 4 2 v;
       };
       dec = {
         r = fromHex hex.r;
@@ -86,12 +87,19 @@ let
     in
     {
       inherit colors;
-      name = lib.replaceStrings [ " " ] [ "-" ] scheme.scheme;
+      name = builtins.replaceStrings [ " " ] [ "-" ] scheme.scheme;
       kind = derivePolarity { inherit (colors.base00) dec; };
     };
+
+  toColorSchemePath = pkgs: scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
 in
 {
   flake.lib.theme = {
-    inherit asHexStrings derivePolarity mkColorScheme;
+    inherit
+      asHexStrings
+      derivePolarity
+      mkColorScheme
+      toColorSchemePath
+      ;
   };
 }

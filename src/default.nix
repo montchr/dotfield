@@ -1,27 +1,32 @@
 {
   inputs,
-  self,
-  config,
-  withSystem,
-  ops,
   lib,
   ...
 }:
 let
-  haumea = inputs.haumea.lib;
+  nixFilesFrom =
+    root: globs:
+    inputs.globset.lib.globs root (
+      [
+        "**/*.nix"
+        "!**/_*" # private files
+        "!**/_*/**" # private directories
+      ]
+      ++ globs
+    );
+
+  loadTree = root: lib.fileset.toList (nixFilesFrom root [ ]);
+  loadUser = root: lib.fileset.toList (nixFilesFrom root [ "!/config/**" ]);
 in
 {
-  imports = [
-    ./packages
-  ];
+  imports =
+    (loadTree ./lib)
+    ++ (loadTree ./modules)
+    ++ [
+      ./packages
+    ];
 
-  flake.lib = haumea.load {
-    src = ./lib;
-    inputs = {
-      inherit lib ops withSystem;
-      flake = {
-        inherit self inputs config;
-      };
-    };
+  flake.lib.fs = {
+    inherit loadTree loadUser nixFilesFrom;
   };
 }

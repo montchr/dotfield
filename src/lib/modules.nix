@@ -1,10 +1,18 @@
-{ flake, withSystem, ... }:
+{
+  self,
+  inputs,
+  config,
+  withSystem,
+  ...
+}:
 let
-  flakeSpecialArgs = flake;
+  flakeSpecialArgs = {
+    inherit self inputs config;
+  };
   flakeSpecialArgs' =
     system:
     withSystem system (
-      { inputs', ... }@ctx:
+      ctx@{ config, inputs', ... }:
       let
         perSystem = {
           inherit (ctx.config) legacyPackages packages;
@@ -15,5 +23,7 @@ let
     );
 in
 {
-  inherit flakeSpecialArgs flakeSpecialArgs';
+  flake.lib.modules = {
+    inherit flakeSpecialArgs flakeSpecialArgs';
+  };
 }

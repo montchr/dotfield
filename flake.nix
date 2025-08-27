@@ -76,6 +76,10 @@
     haumea.url = "github:nix-community/haumea";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    globset = {
+      url = "github:pdtpartners/globset";
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+    };
     nixpkgs-lib.follows = "flake-parts/nixpkgs-lib";
 
     ##: core modules
