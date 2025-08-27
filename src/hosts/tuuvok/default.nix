@@ -9,6 +9,7 @@ let
 in
 {
   dotfield.hosts.nixos.tuuvok = {
+    channel = "nixpkgs-apple-silicon";
     aspects = with flake.config.dotfield.aspects; [
       sway
       workstation

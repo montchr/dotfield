@@ -8,11 +8,7 @@ let
   inherit (self.lib.theme) toColorSchemePath;
 in
 {
-  dotfield.aspects.workstation.nixos = {
-    imports = [ flake.config.dotfield.aspects.theme.nixos ];
-  };
-
-  dotfield.aspects.theme.nixos =
+  dotfield.aspects.graphical.nixos =
     { pkgs, ... }:
     {
       imports = [ inputs.stylix.nixosModules.stylix ];
