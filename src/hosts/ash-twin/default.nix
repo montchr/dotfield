@@ -1,4 +1,4 @@
-flake@{ ... }:
+flake@{ lib, ... }:
 let
   inherit (flake.config.dotfield) meta;
 
@@ -8,17 +8,13 @@ in
   dotfield.hosts.nixos.ash-twin = {
     aspects = with flake.config.dotfield.aspects; [
       graphical
-      installer
       sway
-      greeters__regreet
     ];
 
     nixos =
       { modulesPath, ... }:
       {
-        imports = [
-          "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-        ];
+        services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
 
         users.users.cdom = {
           uid = 1000;

@@ -19,6 +19,16 @@ let
       options = {
         nixos = mkDeferredModuleOpt "Host-specific NixOS configuration";
         aspects = mkAspectListOpt "List of aspects for the host";
+        channel = mkOption {
+          type = types.enum [
+            "nixos-stable"
+            "nixos-unstable"
+            "nixpkgs-apple-silicon"
+            "nixpkgs-trunk"
+          ];
+          default = "nixos-unstable";
+          description = "Name of the Nixpkgs input the host will be built upon";
+        };
         baseline = mkOption {
           type = types.submodule {
             options = {

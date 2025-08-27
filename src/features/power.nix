@@ -3,6 +3,13 @@
     services.logind.extraConfig = ''
       HandlePowerKey=suspend
     '';
+    services.logind.settings = {
+      Login.HandlePowerKey = "suspend";
+    };
+    # TODO: for newer nixpkgs versions ... how to use both?
+    #     services.logind.settings = {
+    #   Login.HandlePowerKey = "suspend";
+    # };
     services.power-profiles-daemon.enable = true;
   };
 

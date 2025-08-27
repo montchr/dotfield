@@ -61,7 +61,7 @@ let
         }
       ) hostConfig.users;
     in
-    inputs.nixpkgs.lib.nixosSystem {
+    inputs.${hostConfig.channel}.lib.nixosSystem {
       modules = nixosModules ++ [
         inputs.home-manager.nixosModules.default
 

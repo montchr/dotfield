@@ -15,7 +15,7 @@
     in
     {
       services.espanso = {
-        enable = true;
+        #        enable = true;
         package = if isLinux then pkgs.espanso-wayland else pkgs.espanso;
         configs = {
           default = {
