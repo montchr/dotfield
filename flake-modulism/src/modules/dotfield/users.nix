@@ -22,16 +22,6 @@ in
               readOnly = true;
               description = "Username";
             };
-            baseline = mkOption {
-              type = types.submodule {
-                options = {
-                  aspects = mkAspectListOpt "List of baseline aspects shared by all of this user's configurations";
-                  home = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
-                };
-              };
-              description = "Baseline aspects and configurations shared by all of this user's configurations";
-              default = { };
-            };
             aspects = mkOption {
               type = types.lazyAttrsOf (
                 types.submodule (

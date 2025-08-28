@@ -29,15 +29,6 @@ let
           default = "nixos-unstable";
           description = "Name of the Nixpkgs input the host will be built upon";
         };
-        baseline = mkOption {
-          type = types.submodule {
-            options = {
-              home = mkDeferredModuleOpt "Host-specific home-manager configuration, applied to all users for host.";
-            };
-          };
-          description = "Baseline configurations for repeatable configuration types on this host";
-          default = { };
-        };
         name = mkOption {
           default = name;
           readOnly = true;

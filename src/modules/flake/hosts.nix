@@ -9,13 +9,14 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (self.lib.modules) mkDeferredModuleOpt;
+  inherit (self.lib.modules) mkDeferredModuleOpt mkAspectListOpt;
 
   hostSubmodule = (
     { name, ... }:
     {
       options = {
         configuration = mkDeferredModuleOpt "NixOS configuration for the host";
+        aspects = mkAspectListOpt "List of aspects for the host";
         channel = mkOption {
           type = types.enum [
             "nixos-stable"
@@ -38,22 +39,6 @@ let
             "x86_64-linux"
           ];
           description = "System string for the host";
-        };
-        baseline = mkOption {
-          type = types.submodule {
-            options = {
-              home = mkDeferredModuleOpt "Host-specific baseline home-manager configuration";
-            };
-          };
-          description = ''
-            Baseline configurations for repeatable configuration scopes on this
-            host.
-
-            A baseline configuration is a minimal configuration to be
-            applied to all instances of a repeatable configuration scope
-            on the host.
-          '';
-          default = { };
         };
         users = mkOption {
           type = types.lazyAttrsOf (

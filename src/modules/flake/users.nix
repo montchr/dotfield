@@ -19,15 +19,6 @@ in
               readOnly = true;
               description = "Username";
             };
-            baseline = mkOption {
-              type = types.submodule {
-                options = {
-                  configuration = mkDeferredModuleOpt "Baseline home configuration for the user";
-                };
-              };
-              description = "Baseline configurations shared by all of this user's host-specific configurations";
-              default = { };
-            };
           };
         }
       )

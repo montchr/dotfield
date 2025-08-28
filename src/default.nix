@@ -23,13 +23,14 @@ let
     lib.fileset.toList (
       nixFilesFrom root [
         "!/*/config/**"
-        "!**/features/**"
+        "!--*"
       ]
     );
 in
 {
   imports =
     (loadTree ./lib)
+    ++ (loadTree ./features)
     ++ (loadTree ./hosts)
     ++ (loadTree ./modules)
     ++ (loadUsers ./users)
