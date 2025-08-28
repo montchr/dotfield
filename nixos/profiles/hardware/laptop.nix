@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  flake,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [ ../networking/wifi.nix ];
 
@@ -16,5 +21,5 @@
     bindswitch --reload --locked lid:off output $laptop enable
   '';
 
-  home-manager.sharedModules = [ ../../../home/profiles/hardware/laptop.nix ];
+  home-manager.sharedModules = [ (flake.self + "/home/profiles/hardware/laptop.nix") ];
 }

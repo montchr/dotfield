@@ -26,11 +26,7 @@
           inputs.devshell.flakeModule
           inputs.pre-commit-hooks.flakeModule
 
-          ./flake-modules/homeConfigurations.nix
-
           ./src
-
-          ./home
 
           ./dev/git-hooks
           ./dev/shells

@@ -1,6 +1,8 @@
 { flake, pkgs, ... }:
 {
   imports = [
+    flake.config.aspects.theme.home
+
     ../profiles/graphical/common.nix
 
     ../profiles/graphical/applications/chromium.nix
@@ -11,7 +13,7 @@
     ../profiles/hardware/keyboard.nix
 
     ../profiles/multimedia/default.nix
-    ../profiles/theme/default.nix
+
   ];
 
   programs.nnn.extraPackages = [
