@@ -13,7 +13,6 @@ in
     ./__handlr.nix
     ./__mimeapps.nix
 
-    ./applications/calibre.nix
     ./applications/zathura.nix
 
     ../hardware/mouse.nix

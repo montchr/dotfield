@@ -12,13 +12,6 @@ in
     ./__forge-tools.nix
   ];
 
-  home.packages = [
-    pkgs.git-filter-repo
-    pkgs.gitAndTools.tig
-  ];
-
-  programs.lazygit.enable = true;
-
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;

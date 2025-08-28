@@ -4,11 +4,6 @@
   pkgs,
   ...
 }:
-let
-  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-    inherit pkgs;
-  };
-in
 {
   imports = [
     # A secret service is required.  It's either this one (uses
@@ -21,16 +16,12 @@ in
 
     ../common.nix
     ../cliphist.nix
-    ../darkman.nix
     ../dunst.nix
     ../eww.nix
+    ../fuzzel.nix
     ../kanshi.nix
-    #    ../mako.nix
     ../swayidle.nix
-    ../swaylock.nix
     ../waybar/default.nix
-
-    ../applications/flameshot.nix
 
     # FIXME: how to integrate with preferences?  using prefs value in
     # import would result in infinite recursion due to prefs import
@@ -40,8 +31,9 @@ in
     # conveniently my current preferred launcher), then the attr can
     # no longer map to a file.
     ../applications/file-managers/nemo.nix
-    ../launchers/fuzzel.nix
   ];
+
+  programs.swaylock.enable = true;
 
   dconf.settings."org/nemo/desktop" = {
     show-desktop-icons = false;
@@ -53,23 +45,16 @@ in
 
     ## File manager:
     superfile
-    yazi
-
-    # TODO: evaluate
-    ## Lockscreen:
-    # TODO: <https://gitlab.com/wef/dotfiles/-/blob/master/bin/mylock>
-    swaylock
 
     ## Screenshots/capture/annotation:
     grim
-    kooha # screen recorder gui
-    satty # annotator
+    kooha
+    satty
     slurp
-    wf-recorder # screen recorder
+    wf-recorder
 
     ## Menus:
     wlogout
-    wlr-which-key
 
     ## Document viewers:
     kdePackages.koko

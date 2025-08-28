@@ -1,8 +1,5 @@
 { config, ops, ... }:
 {
-  # FIXME: uhoh...
-  #  imports = [ ./platauc.nix ];
-
   nix.distributedBuilds = true;
 
   lib.dotfield.mkBuildMachine = config.lib.dotfield.mkBuildMachineFor config.networking.hostName;

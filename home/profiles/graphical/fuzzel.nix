@@ -16,7 +16,7 @@ in
     main = {
       launch-prefix = "uwsm app -- ";
       use-bold = true;
-      terminal = prefs.term or "foot";
+      terminal = prefs.term or "ghostty";
       layer = "overlay";
     };
   };

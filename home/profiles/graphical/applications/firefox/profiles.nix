@@ -13,13 +13,6 @@ let
 
   cfg = config.programs.firefox;
 
-  mixins = haumea.lib.load {
-    src = ./mixins;
-    inputs = {
-      inherit lib;
-    };
-  };
-
   baseSettings =
     (import ./settings/common.nix)
     // (import ./settings/browser-toolbox.nix)

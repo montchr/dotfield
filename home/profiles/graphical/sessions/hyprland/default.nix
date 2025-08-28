@@ -30,10 +30,6 @@ in
     hyprsunset
   ];
 
-  # systemd.user.services."wayland-wm@Hyprland" = {
-  #   Service.TimeoutStartSec = 30;
-  # };
-
   wayland.windowManager.hyprland = {
     # enable = true;
 

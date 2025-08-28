@@ -21,12 +21,4 @@ in
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
-  programs.gh.extensions = [
-    packages.gh-repo-explore
-    packages.gh-s
-
-    pkgs.gh-dash
-    pkgs.gh-eco
-  ];
-
 }

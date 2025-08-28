@@ -1,6 +1,5 @@
 {
   config,
-  flake,
   lib,
   pkgs,
   ...
@@ -14,8 +13,6 @@ in
     ./fonts/default.nix
 
     ./__gnome-services.nix
-
-    ../boot/systemd-boot.nix
   ];
 
   # <https://wiki.archlinux.org/title/Users_and_groups#Pre-systemd_groups>
@@ -57,7 +54,5 @@ in
   ];
 
   documentation.info.enable = true;
-  # HACK: Force override <numtide/srvos>.
-  documentation.man.enable = lib.mkForce true;
-
+  documentation.man.enable = true;
 }

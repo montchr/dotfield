@@ -18,8 +18,6 @@ in
 
   home.packages = [
     pkgs.jjui
-    pkgs.jj-fzf
-    pkgs.lazyjj
   ]
   ++ guiTools;
 

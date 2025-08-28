@@ -1,4 +1,4 @@
-{ flake, lib, ... }:
+{ flake, ... }:
 let
   inherit (flake.self.lib) mimetypes;
 in

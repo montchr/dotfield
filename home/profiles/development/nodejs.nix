@@ -5,7 +5,6 @@ in
 {
   home.packages = [
     pkgs.nodejs
-    pkgs.yarn
   ];
 
   home.sessionVariables = {

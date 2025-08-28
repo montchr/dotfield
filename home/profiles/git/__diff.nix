@@ -17,9 +17,4 @@
       tool = "ediff";
     };
   };
-
-  programs.git.difftastic = {
-    enable = true;
-    # display = "inline";
-  };
 }

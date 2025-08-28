@@ -32,6 +32,7 @@
 
     # essentials
     brightnessctl
+    fuzzel
     grim
     satty
     slurp
@@ -47,14 +48,5 @@
     # swappables
     kanshi
     nemo # file manager
-
-    # TODO: evaluate
-    nwg-displays # output management gui
-    shikane # aims to be improvement over kanshi
-    wluma # sensor-adaptive brightness adjustment daemon
-
-    # TODO: profile
-    #    wlr-which-key
-
   ];
 }

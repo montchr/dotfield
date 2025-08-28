@@ -2,8 +2,6 @@
 {
   imports = [
     ./docker.nix
-    # FIXME: cannot create "link"
-    # ./podman.nix
   ];
 
   # FIXME: do not expose to world!

@@ -1,7 +1,0 @@
-{ flake, pkgs, ... }:
-{
-  home.packages = [
-
-  ];
-
-}

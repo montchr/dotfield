@@ -9,8 +9,6 @@
 # > protocol.
 {
   config,
-  flake,
-  pkgs,
   ...
 }:
 let

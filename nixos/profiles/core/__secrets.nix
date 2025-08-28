@@ -4,13 +4,8 @@
   pkgs,
   ...
 }:
-let
-  inherit (config.dotfield.paths) storageBase;
-  sshPath = "${storageBase}/etc/ssh";
-in
 {
-  # TODO: what about rsa keys?
-  sops.age.sshKeyPaths = [ "${sshPath}/ssh_host_ed25519_key" ];
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   home-manager.sharedModules = lib.singleton {
     # Allow normal users to use sops.

@@ -16,9 +16,7 @@
 
   home.packages = [
     pkgs.asciinema
-    # FIXME: build failure
-    # pkgs.ast-grep
-    pkgs.lynis # security auditing
+    pkgs.ast-grep
     pkgs.quicktype # json schema toolkit
     pkgs.universal-ctags
 
@@ -26,12 +24,11 @@
 
     # checkers & formatters {{{
     pkgs.biome
-    pkgs.dotenv-linter
-    pkgs.nodePackages.prettier
     pkgs.shfmt
     pkgs.shellcheck
     pkgs.yamllint
     # }}}
 
-  ] ++ lib.optionals config.programs.fish.enable [ pkgs.fish-lsp ];
+  ]
+  ++ lib.optionals config.programs.fish.enable [ pkgs.fish-lsp ];
 }

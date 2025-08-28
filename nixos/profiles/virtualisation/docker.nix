@@ -3,8 +3,6 @@
   virtualisation.docker.enable = true;
 
   environment.systemPackages = [
-    pkgs.arion
-    pkgs.dive # inspect image layers
     pkgs.docker-compose
   ];
 

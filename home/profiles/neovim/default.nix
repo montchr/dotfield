@@ -40,16 +40,6 @@ in
     withPython3 = true;
     withRuby = true;
 
-    extraPackages = [
-      pkgs.fd
-      pkgs.git
-      pkgs.glow # for glow-nvim
-      pkgs.ripgrep
-      # FIXME: build fails on `aarch64-darwin` when included in `extraPackages`,
-      #        but builds fine on its own
-      # pkgs.sumneko-lua-language-server
-    ];
-
     plugins = [
       ##: impatient-nvim :: compile and cache lua modules
       # (lib.makeLuaPlugin' vimPlugins.impatient-nvim ''

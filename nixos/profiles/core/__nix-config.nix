@@ -12,29 +12,17 @@
 let
   inherit (flake) inputs;
   cfg = config.nix;
-  inputFlakes = lib.filterAttrs (n: v: (v ? outputs) && n != "nixpkgs") inputs;
-  inputsToPaths = lib.mapAttrs' (
-    n: v: {
-      name = "nix/inputs/${n}";
-      value.source = v.outPath;
-    }
-  );
 in
 
 {
-  environment.etc = inputsToPaths inputs;
   environment.systemPackages = [ cfg.package ];
 
   nix = {
     nixPath = [
       "nixpkgs=${pkgs.path}"
       "home-manager=${inputs.home-manager}"
-      "/etc/nix/inputs"
     ];
     distributedBuilds = true;
-    registry = builtins.removeAttrs (lib.mapAttrs (_: input: { flake = input; }) inputFlakes) [
-      "nixpkgs"
-    ];
     settings = {
       allowed-users = [ "*" ];
       trusted-users = [
@@ -77,11 +65,9 @@ in
       ];
     };
 
-    ## === Store Maintenance ===
-
     ## `nix store optimise`
-    settings.auto-optimise-store = lib.mkDefault true;
-    optimise.automatic = !cfg.settings.auto-optimise-store;
+    settings.auto-optimise-store = false;
+    optimise.automatic = true;
 
     ## `nix store gc`
     gc.dates = lib.mkDefault "weekly";

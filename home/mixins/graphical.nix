@@ -5,13 +5,11 @@
 
     ../profiles/graphical/applications/chromium.nix
     ../profiles/graphical/applications/firefox/default.nix
-    ../profiles/graphical/applications/librewolf.nix
-    ../profiles/graphical/applications/floorp.nix
-    ../profiles/graphical/applications/foot.nix
-    ../profiles/graphical/applications/ghostty/default.nix
+    ../profiles/graphical/applications/ghostty.nix
     #    ../profiles/graphical/applications/kitty/default.nix
 
-    ../profiles/hardware/keyboard/default.nix
+    ../profiles/hardware/keyboard.nix
+
     ../profiles/multimedia/default.nix
     ../profiles/theme/default.nix
   ];

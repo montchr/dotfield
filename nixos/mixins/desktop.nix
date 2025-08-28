@@ -6,6 +6,4 @@
     ../profiles/networking/common.nix
     ../profiles/theme.nix
   ];
-
-  nix.settings.auto-optimise-store = true;
 }

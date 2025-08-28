@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ config, ... }:
 let
-  inherit (lib.hm.gvariant) mkUint32;
+  inherit (config.lib.gvariant) mkUint32;
 in
 {
   imports = [

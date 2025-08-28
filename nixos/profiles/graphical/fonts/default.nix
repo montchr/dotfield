@@ -44,7 +44,6 @@
       # <https://software.sil.org/charis/>
       # <https://practicaltypography.com/charter.html>
       charis-sil
-      # very nice website: <https://commitmono.com/>
       commit-mono
       departure-mono
       fira

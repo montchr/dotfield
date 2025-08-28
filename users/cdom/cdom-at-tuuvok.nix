@@ -8,7 +8,7 @@
     ../../home/mixins/workstation.nix
     ../../home/mixins/jobwork.nix
 
-    ../../home/profiles/ai
+    ../../home/profiles/ai.nix
     ../../home/profiles/mail
     # ../../home/profiles/mail/accounts/outlook.nix
 

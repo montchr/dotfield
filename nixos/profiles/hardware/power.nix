@@ -1,12 +1,11 @@
 { lib, ... }:
 {
-  services = {
-    logind.extraConfig = ''
-      HandlePowerKey=suspend
-    '';
 
-    power-profiles-daemon.enable = true;
-  };
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+  '';
+
+  services.power-profiles-daemon.enable = true;
 
   home-manager.sharedModules = [
     {

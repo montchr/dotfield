@@ -6,7 +6,6 @@
     ../profiles/development/nix-tools.nix
     ../profiles/development/nodejs.nix
 
-    ../profiles/cheatsheets.nix
     ../profiles/emacs/default.nix
     ../profiles/jujutsu/default.nix
     ../profiles/just.nix

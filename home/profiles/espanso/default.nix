@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (flake.inputs) haumea;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   cmx-espanso-list-triggers = pkgs.writeShellApplication {
