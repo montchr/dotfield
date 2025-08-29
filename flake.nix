@@ -40,8 +40,8 @@
 
           ./home
 
+          ./dev/git-hooks
           ./dev/shells
-          ./ops/git-hooks.nix
 
           ./hive.nix
         ];

@@ -49,6 +49,7 @@
         ++ checksPkgs
         ++ formatterPkgs
         ++ maintenancePkgs
+        ++ config.pre-commit.settings.enabledPackages
         ++ [
           inputs'.nix-inspect.packages.default
           pkgs.cachix
@@ -64,6 +65,8 @@
         source ${inputs.prj-spec}/contrib/shell-hook.sh
 
         ${lib.strings.toShellVars envVars}
+
+        ${config.pre-commit.installationScript}
       '';
 
     in
@@ -72,15 +75,18 @@
 
       devShells.ci = pkgs.mkShell {
         inherit shellHook;
+        name = "dotfield-ci";
         nativeBuildInputs = ciPkgs;
       };
 
       devShells.dotfield = pkgs.mkShell {
         inherit shellHook;
+        name = "dotfield";
         nativeBuildInputs = developmentPkgs ++ [ ];
       };
 
       devShells.secrets = pkgs.mkShell {
+        name = "dotfield-secrets";
         nativeBuildInputs = secretsPkgs;
       };
     };

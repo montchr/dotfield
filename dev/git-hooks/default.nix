@@ -2,7 +2,6 @@
   perSystem =
     { pkgs, ... }:
     {
-      # FIXME: must be added to devshell but numtide/devshell is inflexible
       pre-commit = {
         check.enable = true;
         settings.hooks = {
