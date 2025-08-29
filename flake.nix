@@ -40,7 +40,7 @@
 
           ./home
 
-          ./ops/devshells
+          ./dev/shells
           ./ops/git-hooks.nix
 
           ./hive.nix
@@ -128,6 +128,10 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    prj-spec = {
+      url = "github:kleinweb/prj-spec/contrib-shell-hook?dir=contrib";
+      flake = false;
+    };
 
     ##: system
     microvm.url = "github:astro/microvm.nix";
