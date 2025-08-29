@@ -6,5 +6,6 @@
 
   environment.systemPackages = [
     pkgs.android-file-transfer # => <https://github.com/whoozle/android-file-transfer-linux>
+    pkgs.android-udev-rules
   ];
 }
