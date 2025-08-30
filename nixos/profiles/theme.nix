@@ -1,12 +1,11 @@
 {
   flake,
   lib,
-  config,
   pkgs,
   ...
 }:
 let
-  toColorSchemePath = scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
+  toColorSchemePath = flake.self.lib.theme.toColorSchemePath pkgs;
 in
 {
   stylix.enable = true;

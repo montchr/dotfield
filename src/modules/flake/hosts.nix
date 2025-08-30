@@ -9,16 +9,13 @@
 }:
 let
   inherit (lib) mkOption types;
+  inherit (self.lib.modules) mkDeferredModuleOpt;
 
   hostSubmodule = (
     { name, ... }:
     {
       options = {
-        configuration = mkOption {
-          type = types.deferredModule;
-          description = "Host-specific NixOS configuration";
-          default = { };
-        };
+        configuration = mkDeferredModuleOpt "NixOS configuration for the host";
         channel = mkOption {
           type = types.enum [
             "nixos-stable"
@@ -41,16 +38,43 @@ let
           ];
           description = "System string for the host";
         };
+        baseline = mkOption {
+          type = types.submodule {
+            options = {
+              home = mkDeferredModuleOpt "Host-specific baseline home-manager configuration";
+            };
+          };
+          description = ''
+            Baseline configurations for repeatable configuration scopes on this
+            host.
+
+            A baseline configuration is a minimal configuration to be
+            applied to all instances of a repeatable configuration scope
+            on the host.
+          '';
+          default = { };
+        };
+        users = mkOption {
+          type = types.lazyAttrsOf (
+            types.submodule {
+              options = {
+                configuration = mkDeferredModuleOpt "User-specific home configuration on this host";
+              };
+            }
+          );
+          default = { };
+          description = "Users on this host";
+        };
       };
     }
   );
 
 in
 {
-  options.hosts.nixos = mkOption {
-    type = types.attrsOf (types.submodule hostSubmodule);
-    description = ''
-      Attributes of NixOS host specifications.
-    '';
+  options.hosts = {
+    nixos = mkOption {
+      type = types.attrsOf (types.submodule hostSubmodule);
+      description = "Attributes of Dotfield NixOS host specifications.";
+    };
   };
 }

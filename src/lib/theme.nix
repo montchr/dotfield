@@ -89,9 +89,16 @@ let
       name = lib.replaceStrings [ " " ] [ "-" ] scheme.scheme;
       kind = derivePolarity { inherit (colors.base00) dec; };
     };
+
+  toColorSchemePath = pkgs: scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
 in
 {
   flake.lib.theme = {
-    inherit asHexStrings derivePolarity mkColorScheme;
+    inherit
+      asHexStrings
+      derivePolarity
+      mkColorScheme
+      toColorSchemePath
+      ;
   };
 }

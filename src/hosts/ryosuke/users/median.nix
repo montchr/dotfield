@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   hosts.nixos.ryosuke.configuration =
     let
@@ -10,10 +11,15 @@
         # TODO: generate
         # openssh.authorizedKeys.keys = flake.config.meta.users.${username}.keys.ssh;
       };
-
-      home-manager.users.${username} = _: {
-        imports = [ ../../../../home/mixins/graphical.nix ];
-        home.stateVersion = "24.05";
-      };
     };
+
+  hosts.nixos.ryosuke.users.median = {
+    configuration = {
+      imports = [
+        (self.outPath + "/home/mixins/graphical.nix")
+      ];
+
+      home.stateVersion = "24.05";
+    };
+  };
 }

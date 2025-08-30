@@ -18,7 +18,14 @@ let
     );
 
   loadTree = root: lib.fileset.toList (nixFilesFrom root [ ]);
-  loadUsers = root: lib.fileset.toList (nixFilesFrom root [ "!/*/config/**" ]);
+  loadUsers =
+    root:
+    lib.fileset.toList (
+      nixFilesFrom root [
+        "!/*/config/**"
+        "!**/features/**"
+      ]
+    );
 in
 {
   imports =

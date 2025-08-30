@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   inputs,
   config,
@@ -6,6 +7,8 @@
   ...
 }:
 let
+  inherit (lib) mkOption types;
+
   flakeSpecialArgs = {
     inherit self inputs config;
   };
@@ -22,12 +25,22 @@ let
       in
       flakeSpecialArgs // { inherit perSystem; }
     );
+
+  mkDeferredModuleOpt =
+    description:
+    mkOption {
+      inherit description;
+      type = types.deferredModule;
+      default = { };
+    };
+
 in
 {
   flake.lib.modules = {
     inherit
       flakeSpecialArgs
       flakeSpecialArgs'
+      mkDeferredModuleOpt
       ;
   };
 }

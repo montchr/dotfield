@@ -11,12 +11,14 @@ let
   overlays = (import (self.outPath + "/overlays/default.nix") { inherit inputs; });
 
   makeHost =
-    hostName: hostConfig:
+    hostName: hostSpec:
     let
-      inherit (hostConfig) system;
+      inherit (hostSpec) system;
+
       profiles = nixos + "/profiles";
+
       nixosModules =
-        hostConfig.configuration.imports
+        hostSpec.configuration.imports
         ++ (import (nixos + "/modules-list.nix"))
         ++ [
           inputs.home-manager.nixosModules.default
@@ -26,14 +28,26 @@ let
           (profiles + "/core/default.nix")
           (profiles + "/networking/tailscale.nix")
         ];
+
+      homeModules = [
+        hostSpec.baseline.home
+      ];
+
+      makeHome = username: userSpec: {
+        imports = homeModules ++ [
+          config.users.${username}.baseline.configuration
+          userSpec.configuration
+        ];
+      };
     in
-    inputs.${hostConfig.channel}.lib.nixosSystem {
+    inputs.${hostSpec.channel}.lib.nixosSystem {
       inherit system;
       modules = nixosModules ++ [
         {
           networking = { inherit hostName; };
           nixpkgs.config.allowUnfree = true;
           nixpkgs = { inherit overlays; };
+          home-manager.users = lib.mapAttrs makeHome hostSpec.users;
         }
       ];
       specialArgs = {
