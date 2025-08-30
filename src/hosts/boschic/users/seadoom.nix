@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  ops,
   ...
 }:
 {
@@ -11,7 +10,7 @@
     uid = 1000;
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/seadoom/hashed-password".path;
-    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
   };
 
   home-manager.users.seadoom = import ../../../../users/cdom/seadoom-at-boschic.nix;

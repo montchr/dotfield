@@ -1,12 +1,13 @@
 {
+  flake,
   config,
   lib,
   pkgs,
-  ops,
   ...
 }:
 let
-  key = config.dotfield.whoami.pgp;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
+  key = whoami.pgp.id;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
 {
@@ -35,7 +36,7 @@ in
       mutableTrust = false;
       publicKeys = [
         {
-          text = ops.keys.pgp.asc.${key};
+          text = flake.config.meta.keys.pgp.asc.${key};
           trust = "ultimate";
         }
       ];

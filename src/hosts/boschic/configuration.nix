@@ -1,4 +1,4 @@
-{ config, ops, ... }:
+{ config, ... }:
 let
   inherit (ops) hosts networks;
   inherit (config.networking) hostName;

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  ops,
   ...
 }:
 let
@@ -18,7 +17,7 @@ in
     uid = 1000;
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
-    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
     extraGroups = [
       "audio"
       "video"

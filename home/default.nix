@@ -1,7 +1,6 @@
 {
   config,
   self,
-  ops,
   ...
 }:
 let
@@ -20,7 +19,6 @@ in
     };
     homeModules = {
       "theme" = import ./modules/theme/default.nix;
-      "whoami" = import ./modules/dotfield/whoami.nix;
       "programs/bash/trampoline" = import ./modules/programs/bash/trampoline.nix;
       "programs/cod" = import ./modules/programs/cod.nix;
       "programs/liquidprompt" = import ./modules/programs/liquidprompt.nix;
@@ -32,12 +30,6 @@ in
       traveller = makeHomeConfiguration "cdom" {
         modules = [
           ./profiles/development/work/default.nix
-
-          {
-            _module.args = {
-              inherit ops;
-            };
-          }
         ];
       };
     };

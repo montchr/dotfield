@@ -1,11 +1,16 @@
-{ lib, config, ... }:
+{
+  flake,
+  lib,
+  config,
+  ...
+}:
 let
-  inherit (config.dotfield) whoami;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
 in
 {
   programs.jujutsu.settings.signing = {
     behavior = lib.mkDefault "own";
     backend = "gpg";
-    key = whoami.pgp;
+    key = whoami.pgp.id;
   };
 }

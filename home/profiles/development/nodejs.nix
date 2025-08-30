@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
+{
+  flake,
+  config,
+  pkgs,
+  ...
+}:
 let
-  inherit (config.dotfield) whoami;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
 in
 {
   home.packages = [

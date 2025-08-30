@@ -18,18 +18,26 @@ let
     );
 
   loadTree = root: lib.fileset.toList (nixFilesFrom root [ ]);
-  loadUser = root: lib.fileset.toList (nixFilesFrom root [ "!/config/**" ]);
+  loadHosts = root: lib.fileset.toList (globs root [ "*/default.nix" ]);
+  loadUsers = root: lib.fileset.toList (nixFilesFrom root [ "!/*/config/**" ]);
 in
 {
   imports =
     (loadTree ./lib)
     ++ (loadTree ./modules)
-    ++ (lib.fileset.toList (globs ./hosts [ "*/default.nix" ]))
+    ++ (loadHosts ./hosts)
+    ++ (loadUsers ./users)
     ++ [
+      ./meta
       ./packages
     ];
 
   flake.lib.fs = {
-    inherit loadTree loadUser nixFilesFrom;
+    inherit
+      loadTree
+      loadHosts
+      loadUsers
+      nixFilesFrom
+      ;
   };
 }

@@ -6,7 +6,7 @@
 }:
 let
   inherit (flake.perSystem) packages;
-  inherit (config.dotfield) whoami;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
 in
 {
   home.packages = [

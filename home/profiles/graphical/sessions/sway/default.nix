@@ -7,9 +7,7 @@
 }:
 let
   cfg = config.wayland.windowManager.sway;
-  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-    inherit pkgs;
-  };
+  prefs = flake.config.meta.users.${config.home.username}.preferences;
   mod = cfg.config.modifier;
 
   app = cmd: "${app'} ${cmd}";

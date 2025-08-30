@@ -12,11 +12,9 @@
       haumea,
       ...
     }@inputs:
-    (
-      let
-        ops = import ./ops/data.nix { inherit haumea; };
-      in
-      flake-parts.lib.mkFlake { inherit inputs; } {
+    (flake-parts.lib.mkFlake { inherit inputs; } (
+      { config, ... }:
+      {
         debug = true;
 
         systems = [
@@ -27,12 +25,6 @@
         imports = [
           inputs.devshell.flakeModule
           inputs.pre-commit-hooks.flakeModule
-
-          {
-            _module.args = {
-              inherit ops;
-            };
-          }
 
           ./flake-modules/homeConfigurations.nix
 
@@ -50,7 +42,6 @@
           { system, pkgs, ... }:
           {
             _module.args = {
-              inherit ops;
               pkgs = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
@@ -60,7 +51,7 @@
             formatter = pkgs.nixfmt-rfc-style;
           };
       }
-    );
+    ));
 
   inputs = {
 

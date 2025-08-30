@@ -1,4 +1,4 @@
-{ config, ops, ... }:
+{ flake, config, ... }:
 let
   username = "cdom";
 in
@@ -6,7 +6,7 @@ in
   users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
-    openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+    openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
   };
 
   home-manager.users.${username} = import ../../../../users/cdom/cdom-at-ryosuke.nix;

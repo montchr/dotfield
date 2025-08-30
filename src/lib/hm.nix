@@ -1,5 +1,4 @@
 {
-  ops,
   self,
   inputs,
   withSystem,
@@ -38,13 +37,6 @@ let
     ../../home/profiles/direnv.nix
     ../../home/profiles/fzf.nix
     ../../home/profiles/git/default.nix
-    {
-      _module.args = {
-        # FIXME: include self.lib somehow (will cause infinite recursion
-        # if added in the //src/lib tree)
-        inherit ops;
-      };
-    }
   ];
 in
 {

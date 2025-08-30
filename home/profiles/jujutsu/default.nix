@@ -1,11 +1,11 @@
 {
-  lib,
+  flake,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (config.dotfield) whoami;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
 
   # TODO: for visibility -- refactor "later"
   guiTools = [

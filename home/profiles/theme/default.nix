@@ -7,22 +7,32 @@
 }:
 let
   inherit (config.stylix) fonts;
-  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-    inherit pkgs;
-  };
+  prefs = flake.config.meta.users.${config.home.username}.preferences;
   colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
 in
 {
   stylix.enable = true;
+
   # Inherits from the NixOS module.  Uncomment to override.
   # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
+
   stylix.fonts = {
     inherit (prefs.theme.font) sizes;
-    inherit (prefs.theme.font.families) sansSerif serif monospace;
+  }
+  // (lib.mapAttrs (_: v: {
+    inherit (v) name;
+    package = pkgs.${v.pname};
+  }) prefs.theme.font.families);
+
+  stylix.cursor = {
+    inherit (prefs.theme.cursor) name size;
+    package = pkgs.${prefs.theme.cursor.pname};
   };
-  stylix.cursor = prefs.theme.cursor;
-  stylix.iconTheme = prefs.theme.icons // {
+
+  stylix.iconTheme = {
+    inherit (prefs.theme.icons) dark light;
     enable = true;
+    package = pkgs.${prefs.theme.icons.pname};
   };
 
   stylix.targets.floorp.enable = false;

@@ -6,9 +6,7 @@
 }:
 let
   inherit (flake.self.lib) mimeapps mimetypes;
-  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-    inherit pkgs;
-  };
+  prefs = flake.config.meta.users.${config.home.username}.preferences;
 in
 {
   xdg.mimeApps.enable = true;

@@ -7,7 +7,7 @@ in
     uid = 1001;
     isNormalUser = true;
     # TODO: generate
-    # openssh.authorizedKeys.keys = ops.users.${username}.keys.default;
+    # openssh.authorizedKeys.keys = flake.config.meta.users.${username}.keys.ssh;
   };
 
   home-manager.users.${username} = _: {

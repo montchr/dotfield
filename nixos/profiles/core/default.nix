@@ -1,4 +1,4 @@
-{ ops, flake, ... }:
+{ flake, ... }:
 let
   inherit (flake.inputs.apparat.lib.net.constants) dns;
 in
@@ -67,7 +67,7 @@ in
   };
 
   # TODO: reduce number of keys with access
-  users.users.root.openssh.authorizedKeys.keys = ops.users.cdom.keys.default;
+  users.users.root.openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
 
   hardware.enableRedistributableFirmware = true;
 }

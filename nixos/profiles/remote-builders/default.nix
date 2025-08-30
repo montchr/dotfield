@@ -1,4 +1,4 @@
-{ config, ops, ... }:
+{ flake, config, ... }:
 {
   nix.distributedBuilds = true;
 
@@ -6,8 +6,8 @@
   lib.dotfield.mkBuildMachineFor =
     localHostName: builderHostName:
     let
-      localVcpus = ops.hosts.${localHostName}.hardware.vcpus or 1;
-      builder = ops.hosts.${builderHostName}.hardware or { };
+      localVcpus = flake.config.meta.hosts.${localHostName}.hardware.vcpus or 1;
+      builder = flake.config.meta.hosts.${builderHostName}.hardware or { };
       builderVcpus = builder.vcpus or 1;
     in
     {

@@ -1,26 +1,15 @@
-{ ops, config, ... }:
+{ flake, config, ... }:
 let
   inherit (config.home) homeDirectory;
-  inherit (ops) hosts;
+  inherit (flake.config.meta) hosts;
+
   sshDir = "${homeDirectory}/.ssh";
   identityFile = "${sshDir}/id_ed25519";
-
 in
 {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "gabbro".hostname = "${hosts.gabbro.ipv6.address}::1";
-      "hierophant".hostname = "${hosts.hierophant.ipv6.address}::1";
-
-      "platauc" = {
-        hostname = "${hosts.platauc.ipv4.address}";
-        identitiesOnly = true;
-        # Overrides system remote builder config.
-        inherit identityFile;
-        user = "cdom";
-      };
-
       "synoxyn" = {
         hostname = hosts.synoxyn.ipv4.address;
         port = 2367;

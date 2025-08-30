@@ -1,10 +1,10 @@
-{ config, ... }:
+{ flake, config, ... }:
 let
-  inherit (config.dotfield) whoami;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
 in
 {
   programs.git.signing = {
-    key = whoami.pgp;
+    key = whoami.pgp.id;
     signByDefault = true;
   };
 }

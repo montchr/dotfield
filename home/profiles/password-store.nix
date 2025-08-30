@@ -1,11 +1,13 @@
 {
+  flake,
   config,
   lib,
   pkgs,
   ...
 }:
 let
-  key = config.dotfield.whoami.pgp;
+  inherit (flake.config.meta.users.${config.home.username}) whoami;
+  key = whoami.pgp.id;
   inherit (config.lib.dag) entryAfter;
 
   passwordStorePath = config.home.homeDirectory + "/.password-store";

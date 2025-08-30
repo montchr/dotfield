@@ -3,17 +3,12 @@
   lib,
   inputs,
   self,
-  ops,
   ...
 }:
 let
   nixos = self.outPath + "/nixos";
 
   overlays = (import (self.outPath + "/overlays/default.nix") { inherit inputs; });
-
-  moduleArgs = {
-    _module.args = { inherit ops; };
-  };
 
   makeHost =
     hostName: hostConfig:
@@ -24,8 +19,6 @@ let
         hostConfig.configuration.imports
         ++ (import (nixos + "/modules-list.nix"))
         ++ [
-          moduleArgs
-
           inputs.home-manager.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix

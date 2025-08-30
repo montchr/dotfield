@@ -6,9 +6,7 @@
   ...
 }:
 let
-  prefs = import "${flake.self}/users/${config.home.username}/preferences.nix" {
-    inherit pkgs;
-  };
+  prefs = flake.config.meta.users.${config.home.username}.preferences;
 
   launch = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
   fuzzel = lib.getExe pkgs.fuzzel;

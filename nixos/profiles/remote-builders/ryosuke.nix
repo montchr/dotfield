@@ -1,6 +1,6 @@
-{ ops, ... }:
+{ flake, ... }:
 let
-  inherit (ops.hosts) ryosuke;
+  inherit (flake.config.meta.hosts) ryosuke;
 in
 
 {
@@ -11,7 +11,7 @@ in
       ryosuke.ipv4.address
       ryosuke.networks.ts.ipv4.address
     ];
-    publicKey = builtins.head ryosuke.keys;
+    publicKey = builtins.head ryosuke.keys.ssh;
   };
 
   nix.buildMachines = [
