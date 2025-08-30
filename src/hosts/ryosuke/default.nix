@@ -1,53 +1,55 @@
 {
-  config,
   self,
   inputs,
   ...
 }:
 let
-  inherit (config.meta) keys;
-
   nixos = self.outPath + "/nixos";
 in
 {
   hosts.nixos.ryosuke = {
     system = "x86_64-linux";
-    configuration = {
-      imports = [
-        ./configuration.nix
+    configuration =
+      { pkgs, ... }:
+      {
+        imports = [
+          inputs.nixos-hardware.nixosModules.common-cpu-amd
+          inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+          inputs.nixos-hardware.nixosModules.common-gpu-amd
 
-        inputs.nixos-hardware.nixosModules.common-cpu-amd
-        inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-        inputs.nixos-hardware.nixosModules.common-gpu-amd
+          (nixos + "/mixins/gnome.nix")
+          (nixos + "/mixins/jobwork.nix")
+          (nixos + "/mixins/workstation.nix")
 
-        (nixos + "/mixins/gnome.nix")
-        (nixos + "/mixins/jobwork.nix")
-        (nixos + "/mixins/workstation.nix")
+          (nixos + "/profiles/hardware/razer.nix")
+          (nixos + "/profiles/remote-builders/default.nix")
+        ];
 
-        (nixos + "/profiles/hardware/razer.nix")
-        (nixos + "/profiles/remote-builders/default.nix")
-      ];
-    };
-  };
+        dotfield.guardian.enable = true;
+        dotfield.guardian.username = "cdom";
 
-  meta.hosts.ryosuke = {
-    ipv4.address = "192.168.1.217";
-    hardware = {
-      mem = 32;
-      vcpus = 24;
-      system = "x86_64-linux";
-    };
-    keys.age = keys."ryosuke.age";
-    keys.ssh = [
-      keys.ssh.ryosuke
-      keys.ssh.ryosuke-rsa
-    ];
-    network = "home";
-    networks.ts.ipv4.address = "100.123.41.68";
-    users.cdom.keys = {
-      age = keys.age.cdom-at-ryosuke;
-      ssh = [ keys.ssh.cdom-at-ryosuke ];
-    };
-    syncthing.id = "2HDN7UF-5YKEBC7-4YB4L4H-A6Y7EGS-YZ5CSQX-AWWDKR7-KH5WIKH-D6LOTQ4";
+        services.displayManager.autoLogin.enable = true;
+        services.displayManager.autoLogin.user = "cdom";
+
+        sops.defaultSopsFile = ./secrets/secrets.yaml;
+        # Never remove old secrets (attempt to fix lockouts).
+        sops.keepGenerations = 0;
+
+        boot.loader.efi.canTouchEfiVariables = true;
+        boot.initrd.supportedFilesystems = [ "btrfs" ];
+        boot.supportedFilesystems = [ "btrfs" ];
+        boot.kernelPackages = pkgs.linuxPackages_latest;
+
+        time.timeZone = "America/New_York";
+        networking.firewall.enable = true;
+
+        services.tailscale.enable = true;
+
+        programs.steam.enable = true;
+        services.deluge.enable = true;
+        environment.systemPackages = [ pkgs.jellyfin-media-player ];
+
+        system.stateVersion = "22.05";
+      };
   };
 }

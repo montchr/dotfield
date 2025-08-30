@@ -1,6 +1,7 @@
 { config, self, ... }:
 let
-  inherit (config.meta) keys;
+  inherit (config.meta) hosts networks;
+
   nixos = self.outPath + "/nixos";
 in
 {
@@ -8,8 +9,6 @@ in
     system = "x86_64-linux";
     configuration = {
       imports = [
-        ./configuration.nix
-
         (nixos + "/mixins/gnome.nix")
         (nixos + "/mixins/jobwork.nix")
         (nixos + "/mixins/workstation.nix")
@@ -25,25 +24,74 @@ in
         (nixos + "/profiles/hardware/nvidia/stable-release.nix")
         (nixos + "/profiles/hardware/razer.nix")
       ];
-    };
-  };
 
-  meta.hosts.boschic = {
-    admins = [ "seadoom" ];
-    ipv4.address = "192.168.1.214";
-    keys = {
-      age = keys.age.boschic;
-      ssh = [
-        keys.ssh.boschic
-        keys.ssh.boschic-rsa
+      dotfield.features.hasNvidia = true;
+
+      time.timeZone = "America/New_York";
+
+      # FIXME: disable. likely interferes with rEFInd.
+      boot.loader.efi.canTouchEfiVariables = true;
+
+      boot.loader.timeout = 15;
+      boot.initrd.supportedFilesystems = [ "btrfs" ];
+      boot.supportedFilesystems = [ "btrfs" ];
+
+      services.flatpak.enable = true;
+
+      virtualisation.vmVariant = {
+        virtualisation.graphics = false;
+      };
+
+      dotfield.guardian.enable = true;
+      dotfield.guardian.username = "seadoom";
+      users.mutableUsers = false;
+
+      ### === networking ===========================================================
+
+      services.tailscale.enable = true;
+
+      # FIXME: no connection on boot -- i need to disable internet and re-enable
+      # every time despite indication of a wired connection in GNOME status bar
+      networking =
+        let
+          host = hosts.boschic;
+          net = networks.${host.network};
+          interface = "eth0";
+        in
+        {
+          useDHCP = false;
+          usePredictableInterfaceNames = false;
+          # interfaces.wlp6s0.useDHCP = true;
+
+          firewall = {
+            enable = true;
+            # allowedTCPPorts = [80 443];
+          };
+
+          defaultGateway = {
+            inherit interface;
+            inherit (net.ipv4) address;
+          };
+
+          interfaces.${interface} = {
+            ipv4.addresses = [
+              {
+                inherit (host.ipv4) address;
+                inherit (net.ipv4) prefixLength;
+              }
+            ];
+          };
+        };
+
+      programs.steam.enable = true;
+
+      sops.defaultSopsFile = ./secrets/secrets.yaml;
+
+      home-manager.sharedModules = [
+        (self.outPath + "/home/mixins/nvidia.nix")
       ];
+
+      system.stateVersion = "21.11";
     };
-    network = "home";
-    networks.ts = "100.112.94.38";
-    users.seadoom.keys = {
-      age = keys.age.seadoom-at-boschic;
-      ssh = [ keys.ssh.seadoom-at-boschic ];
-    };
-    syncthing.id = "5TCUNJM-PVGGNJ6-DETAT3O-PSMTOEP-SXRT7FP-62EFNZY-6ENFIYZ-3J2VHQJ";
   };
 }
