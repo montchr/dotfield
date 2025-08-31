@@ -4,6 +4,7 @@
     ../nixpkgs-wayland-overlay.nix
     ../common.nix
     ../login/regreet.nix
+    ../gnome-keyring.nix
   ];
 
   # UWSM provides a standardized entrypoint for Wayland compositors.
