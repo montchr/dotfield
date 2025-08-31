@@ -15,41 +15,35 @@ let
       primary ? false,
     }:
     let
-
       address = "${user}@${domain}";
-      passCmdFor = user: domain: "${pkgs.pass}/bin/pass ${address}/bridge/password";
+      tls = {
+        enable = true;
+        useStartTls = true;
+        # The certificate will need to be exported by the Bridge
+        # application in its Advanced Settings section.
+        certificatesFile = "${config.xdg.configHome}/protonmail/cert.pem";
+      };
     in
     {
       inherit address realName primary;
-
       userName = address;
-
-      passwordCommand = passCmdFor user domain;
+      passwordCommand = "pass show ${address}/bridge/password";
 
       imap = {
+        inherit tls;
         host = "127.0.0.1";
         port = 1143;
-        tls = {
-          enable = true;
-          useStartTls = true;
-        };
       };
 
       smtp = {
+        inherit tls;
         host = "127.0.0.1";
         port = 1025;
-        # Insecure transmission is... okay...?
-        tls.enable = false;
       };
 
       mbsync = {
         enable = true;
         create = "maildir";
-        # Insecure auth on localhost is... okay...?
-        extraConfig.account.AuthMechs = "LOGIN";
-        # Prevent... mishaps...
-        remove = "none";
-        expunge = "none";
       };
 
       notmuch = {
@@ -61,8 +55,9 @@ in
 {
   imports = [ ../../proton-bridge.nix ];
 
-  accounts.email.accounts."chmont-at-proton" = mkProtonMailAccount {
+  accounts.email.accounts."chmont-at-protonmail" = mkProtonMailAccount {
     user = "chmont";
+    #    domain = "protonmail.com";
     primary = true;
   };
 }
