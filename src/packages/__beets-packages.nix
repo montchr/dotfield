@@ -7,13 +7,13 @@
     in
     {
       packages = rec {
-        beetcamp = callPackage ./beets/plugins/beetcamp.nix {
+        beetcamp = callPackage ./beets-packages/plugins/beetcamp.nix {
           inherit beets rich-tables;
         };
-        beets-filetote = callPackage ./beets/plugins/filetote.nix {
+        beets-filetote = callPackage ./beets-packages/plugins/filetote.nix {
           inherit beets;
         };
-        beet-summarize = callPackage ./beets/plugins/summarize.nix {
+        beet-summarize = callPackage ./beets-packages/plugins/summarize.nix {
           inherit beets;
         };
 

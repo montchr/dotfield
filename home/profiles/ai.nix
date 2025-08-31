@@ -1,10 +1,6 @@
-{ flake, pkgs, ... }:
-let
-  inherit (flake.perSystem.inputs') nix-ai-tools;
-in
-
+{ flake, ... }:
 {
-  home.packages = with nix-ai-tools.packages; [
+  home.packages = with flake.perSystem.inputs'.nix-ai-tools.packages; [
     claude-code
     claude-desktop
     claudebox

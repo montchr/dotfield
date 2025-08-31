@@ -1,6 +1,7 @@
 flake@{ self, inputs, ... }:
 let
-  nixos = self.outPath + "/nixos";
+  mixins = self.outPath + "/nixos/mixins";
+  profiles = self.outPath + "/nixos/profiles";
 
   configuration = self.nixosConfigurations.nixos-apple-silicon-installer;
 in
@@ -12,8 +13,8 @@ in
       imports = [
         "${inputs.nixos-apple-silicon}/iso-configuration"
 
-        (nixos + "/mixins/installer.nix")
-        (nixos + "/hardware/apple/apple-silicon.nix")
+        (mixins + "/installer.nix")
+        (profiles + "/hardware/apple/apple-silicon.nix")
 
         # FIXME: must be perSystem
         #      { hardware.asahi.pkgsSystem = localSystem; }

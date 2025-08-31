@@ -10,7 +10,7 @@ in
       vcpus = 24;
       system = "x86_64-linux";
     };
-    keys.age = keys."ryosuke.age";
+    keys.age = keys.age.ryosuke;
     keys.ssh = [
       keys.ssh.ryosuke
       keys.ssh.ryosuke-rsa

@@ -13,7 +13,7 @@ let
 in
 {
   options.meta.displays = mkOption {
-    type = types.attrsOf types.submodule displaySubmodule;
+    type = types.attrsOf (types.submodule displaySubmodule);
     default = { };
     description = "Displays metadata";
   };
