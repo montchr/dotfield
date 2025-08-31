@@ -17,6 +17,7 @@ in
         imports = [
           (nixos + "/mixins/jobwork.nix")
           # ./mixins/gnome.nix
+          (nixos + "/mixins/niri.nix")
           (nixos + "/mixins/sway.nix")
           (nixos + "/mixins/workstation.nix")
 
@@ -57,6 +58,13 @@ in
 
         services.displayManager.autoLogin.enable = true;
         services.displayManager.autoLogin.user = "cdom";
+
+        # <https://yalter.github.io/niri/Getting-Started.html#asahi-arm-and-other-kmsro-devices>
+        # environment.etc."niri/config.kdl".text = ''
+        #   debug {
+        #       render-drm-device "/dev/dir/renderD128"
+        #   }
+        # '';
 
         services.avahi.enable = lib.mkForce false;
         # Not allowed because I don't want to make the building's network

@@ -29,6 +29,7 @@ in
     users.cdom = {
       configuration = {
         imports = [
+          (mixins + "/niri.nix")
           (mixins + "/sway.nix")
           (mixins + "/workstation.nix")
           (mixins + "/jobwork.nix")

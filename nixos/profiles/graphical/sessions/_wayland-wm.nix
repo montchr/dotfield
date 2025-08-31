@@ -19,7 +19,7 @@
 
   environment.sessionVariables = {
     # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayland>
-    "ELECTRON_OZONE_PLATFORM_HINT" = "wayland";
+    "ELECTRON_OZONE_PLATFORM_HINT" = "auto";
     "SDL_VIDEODRIVER" = "wayland";
     "QT_QPA_PLATFORM" = "wayland-egl";
     "QT_SCALE_FACTOR_ROUNDING_POLICY" = "RoundPreferFloor";

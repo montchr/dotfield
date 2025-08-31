@@ -99,6 +99,11 @@
     ##: customisation
     base16-schemes.url = "github:montchr/nix-base16-schemes";
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
+    niri = {
+      url = "github:YaLTeR/niri";
+      # It is important to keep the Mesa versions in sync.
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";
     wrapper-manager.url = "github:viperML/wrapper-manager";

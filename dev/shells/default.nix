@@ -55,6 +55,7 @@
           pkgs.cachix
           pkgs.nix-init
           pkgs.nixdoc
+          pkgs.stow
         ];
 
       ciPkgs = commonPkgs;
