@@ -6,16 +6,25 @@ let
     { options, config, ... }:
     {
       options = {
-        firstName = mkOption { type = types.str; };
-        lastName = mkOption { type = types.str; };
+        firstName = mkOption {
+          type = types.str;
+          description = "Given name for the user";
+        };
+        lastName = mkOption {
+          type = types.str;
+          description = "Family name for the user";
+        };
         name = mkOption {
           type = types.str;
           default = "${config.firstName} ${config.lastName}";
         };
-        email = mkOption { type = types.str; };
-        github = mkOption {
-          type = with types; nullOr str;
-          default = null;
+        email = mkOption {
+          type = types.str;
+          description = "Full primary email address for the user";
+        };
+        accounts = mkOption {
+          type = types.submodule accountsSubmodule;
+          description = "Service accounts associated with the user";
         };
         pgp = {
           id = mkOption {
@@ -27,13 +36,65 @@ let
             default = null;
           };
         };
-        mastodon = mkOption {
-          type = with types; nullOr str;
-          default = null;
-        };
       };
     }
   );
+
+  accountsSubmodule = {
+    options = {
+      github = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      mastodon = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      email = mkOption {
+        type = types.attrsOf (types.submodule emailInboxSubmodule);
+        default = { };
+        description = "Email inboxes accessed by the user";
+      };
+    };
+  };
+
+  emailInboxSubmodule = {
+    options = {
+      primary = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether this account should be considered the primary account.";
+      };
+      localpart = mkOption {
+        type = types.str;
+        description = "Localpart for this account";
+      };
+      domain = mkOption {
+        type = types.str;
+        description = "Domain name for this account";
+      };
+      provider = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "Provider for this account";
+      };
+      shared = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether the inbox is shared with others.";
+      };
+      alias = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "Primary localpart alias for this inbox";
+      };
+      extraAliases = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "Additional localpart aliases associated with this account, in order of preference.";
+      };
+    };
+  };
 
   fontFamilySubmodule = types.submodule {
     options = {

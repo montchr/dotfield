@@ -1,4 +1,9 @@
-{ self, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (config.meta) hosts keys;
   inherit (config.meta.users.cdom) whoami;
@@ -52,8 +57,31 @@ in
         # TODO: how can this be made a default?
         key = keys.pgp.asc.${id};
       };
-      github = "montchr";
-      mastodon = "@montchr@assemblag.es";
+      accounts = {
+        github = "montchr";
+        mastodon = "@montchr@assemblag.es";
+        email = {
+          personal = {
+            primary = true;
+            localpart = "chmont";
+            domain = "protonmail.com";
+            provider = "proton";
+          };
+          tu = {
+            localpart = "tuc26080";
+            alias = "chrismont";
+            domain = "temple.edu";
+            extraAliases = [ ];
+            provider = "outlook";
+          };
+          kleinweb = {
+            localpart = "kleinweb";
+            shared = true;
+            domain = "temple.edu";
+            provider = "outlook";
+          };
+        };
+      };
     };
 
     preferences = rec {

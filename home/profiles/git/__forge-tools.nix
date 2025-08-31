@@ -17,7 +17,7 @@ in
     pkgs.hut # <- a sourcehut CLI (unofficial)
   ];
 
-  programs.git.extraConfig.github.user = whoami.github;
+  programs.git.extraConfig.github.user = whoami.accounts.github;
 
   programs.gh.enable = true;
   programs.gh.settings.git_protocol = "ssh";
