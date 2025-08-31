@@ -38,5 +38,8 @@ ops/keys/ssh/*
 *.tmp
 tmp/
 
-##: jujutsu vcs
+##: generated
+.pre-commit-config.yaml
+
+##: misc
 /target/
