@@ -22,8 +22,9 @@ let
             "nixos-unstable"
             "nixpkgs-apple-silicon"
             "nixpkgs-trunk"
+            "nixpkgs"
           ];
-          default = "nixos-unstable";
+          default = "nixpkgs";
           description = "Name of the Nixpkgs input the host will be built upon";
         };
         name = mkOption {
