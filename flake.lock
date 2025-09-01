@@ -2288,25 +2288,6 @@
         "type": "github"
       }
     },
-    "prj-spec": {
-      "flake": false,
-      "locked": {
-        "dir": "contrib",
-        "lastModified": 1756493154,
-        "narHash": "sha256-XKgmmDEccMblegfJKOdlOzU99/ZUm9JF3XhOuSxsYak=",
-        "owner": "kleinweb",
-        "repo": "prj-spec",
-        "rev": "4727ff5b89020912ead606c9ebbbe3e94d4a9f50",
-        "type": "github"
-      },
-      "original": {
-        "dir": "contrib",
-        "owner": "kleinweb",
-        "ref": "contrib-shell-hook",
-        "repo": "prj-spec",
-        "type": "github"
-      }
-    },
     "purescript-overlay": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -2392,7 +2373,6 @@
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "pre-commit-hooks": "pre-commit-hooks",
-        "prj-spec": "prj-spec",
         "seadome-wallpapers": "seadome-wallpapers",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops-nix": "sops-nix",

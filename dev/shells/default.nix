@@ -1,4 +1,12 @@
-{ inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
+let
+  sources = import (self.outPath + "/npins");
+in
 {
   perSystem =
     {
@@ -11,6 +19,7 @@
       commonPkgs = with pkgs; [
         biome
         just
+        npins
       ];
 
       checksPkgs = with pkgs; [
@@ -63,7 +72,7 @@
       envVars = { };
 
       shellHook = ''
-        source ${inputs.prj-spec}/contrib/shell-hook.sh
+        source ${sources.prj-spec}/contrib/shell-hook.sh
 
         ${lib.strings.toShellVars envVars}
 

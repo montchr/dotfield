@@ -1,0 +1,24 @@
+{
+  "pins": {
+    "nixpkgs": {
+      "type": "Channel",
+      "name": "nixpkgs-unstable",
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre854745.58dcbf1ec551/nixexprs.tar.xz",
+      "hash": "0m65x3cmlhl4p7zgqybvxxb5bgv0ny7c7qbbbzf7vblf13fgdyj8"
+    },
+    "prj-spec": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kleinweb",
+        "repo": "prj-spec"
+      },
+      "branch": "contrib-shell-hook",
+      "submodules": false,
+      "revision": "4727ff5b89020912ead606c9ebbbe3e94d4a9f50",
+      "url": "https://github.com/kleinweb/prj-spec/archive/4727ff5b89020912ead606c9ebbbe3e94d4a9f50.tar.gz",
+      "hash": "1ab1dhnbjkkqvm2x56slyvvksd9vcpkjij87gbjwcw0w66c2da2w"
+    }
+  },
+  "version": 5
+}
