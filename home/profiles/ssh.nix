@@ -7,8 +7,10 @@ let
   identityFile = "${sshDir}/id_ed25519";
 in
 {
+
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "synoxyn" = {
         hostname = hosts.synoxyn.ipv4.address;
@@ -35,11 +37,17 @@ in
       "*" = {
         inherit identityFile;
 
-        identitiesOnly = true;
-        forwardAgent = false;
-        serverAliveInterval = 300;
+        addKeysToAgent = "no";
+        compression = false;
         controlMaster = "auto";
+        controlPath = "~/.ssh/master-%r@%n:%p";
         controlPersist = "10m";
+        forwardAgent = false;
+        hashKnownHosts = false;
+        identitiesOnly = true;
+        serverAliveCountMax = 3;
+        serverAliveInterval = 300;
+        userKnownHostsFile = "~/.ssh/known_hosts";
       };
     };
 

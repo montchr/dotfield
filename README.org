@@ -1,6 +1,3 @@
-:PROPERTIES:
-:ID:       23fbf04e-357d-48f8-b00a-2651cb2d0056
-:END:
 #+name: Dotfield
 #+author: Chris Montgomery <chmont@proton.me>
 #+language: en

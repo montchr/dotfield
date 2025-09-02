@@ -27,38 +27,44 @@ in
       };
 
     users.cdom = {
-      configuration = {
-        imports = [
-          (mixins + "/niri.nix")
-          (mixins + "/sway.nix")
-          (mixins + "/workstation.nix")
-          (mixins + "/jobwork.nix")
+      configuration =
+        { pkgs, ... }:
+        {
+          imports = [
+            (mixins + "/niri.nix")
+            (mixins + "/sway.nix")
+            (mixins + "/workstation.nix")
+            (mixins + "/jobwork.nix")
 
-          (profiles + "/ai.nix")
-          (profiles + "/graphical/sessions/gnome/common.nix")
-          (profiles + "/mail")
-          # (profiles + "/mail/accounts/outlook.nix")
+            (profiles + "/ai.nix")
+            (profiles + "/graphical/sessions/gnome/common.nix")
+            (profiles + "/mail")
+            # (profiles + "/mail/accounts/outlook.nix")
 
-          (profiles + "/jujutsu/with-gpg-signing.nix")
-          (profiles + "/jujutsu/with-sign-on-push.nix")
-          (profiles + "/development/rust.nix")
+            (profiles + "/jujutsu/with-gpg-signing.nix")
+            (profiles + "/jujutsu/with-sign-on-push.nix")
+            (profiles + "/development/rust.nix")
 
-          (profiles + "/multimedia/music/music-production.nix")
-        ];
+            (profiles + "/multimedia/music/music-production.nix")
+          ];
 
-        programs.firefox.profiles.work.isDefault = true;
-        programs.firefox.profiles.home.isDefault = false;
+          programs.firefox.profiles.work.isDefault = true;
+          programs.firefox.profiles.home.isDefault = false;
 
-        # The trackpad on this device is huge, and I always end up touching
-        # its corner with my palm, which is very disruptive.  Actually, it is
-        # not only disruptive, but also has led to pain due to habitual thumb
-        # hyper-extension in avoidance of the trackpad.
-        #
-        # FIXME: still needs some way to disable touch input until explicitly needed...
-        dconf.settings."org/gnome/desktop/peripherals/touchpad".tap-to-click = false;
+          # The trackpad on this device is huge, and I always end up touching
+          # its corner with my palm, which is very disruptive.  Actually, it is
+          # not only disruptive, but also has led to pain due to habitual thumb
+          # hyper-extension in avoidance of the trackpad.
+          #
+          # FIXME: still needs some way to disable touch input until explicitly needed...
+          dconf.settings."org/gnome/desktop/peripherals/touchpad".tap-to-click = false;
 
-        home.stateVersion = "23.05";
-      };
+          home.packages = with pkgs; [
+            zed-editor
+          ];
+
+          home.stateVersion = "23.05";
+        };
     };
   };
 }
