@@ -40,6 +40,8 @@
     baselineFonts
     ++ preferredFonts
     ++ (with pkgs; [
+      atkinson-hyperlegible-mono
+      atkinson-hyperlegible-next
       bakoma_ttf
       # <https://software.sil.org/charis/>
       # <https://practicaltypography.com/charter.html>
@@ -47,9 +49,8 @@
       commit-mono
       departure-mono
       fira
+      libre-baskerville
       gentium
-      ia-writer-duospace
-      ia-writer-quattro
     ])
   );
 }
