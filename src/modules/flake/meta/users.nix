@@ -196,6 +196,12 @@ let
         description = "Default audio player";
       };
 
+      pdf-reader = lib.mkOption {
+        type = with types; str;
+        default = "zathura";
+        description = "Default PDF reader";
+      };
+
       video-player = lib.mkOption {
         type = with types; str;
         default = "mpv";

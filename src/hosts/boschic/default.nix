@@ -7,6 +7,7 @@ in
 {
   hosts.nixos.boschic = {
     system = "x86_64-linux";
+    aspects = with config.aspects; [ graphical ];
     configuration = {
       imports = [
         (nixos + "/mixins/gnome.nix")

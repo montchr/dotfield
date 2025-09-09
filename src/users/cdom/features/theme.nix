@@ -1,6 +1,6 @@
-flake@{ inputs, ... }:
+flake@{ ... }:
 {
-  aspects.theme.home =
+  aspects.graphical.home =
     {
       config,
       lib,
@@ -13,10 +13,6 @@ flake@{ inputs, ... }:
       colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
     in
     {
-      imports = [
-        inputs.stylix.homeModules.stylix
-      ];
-
       stylix.enable = true;
       stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
 

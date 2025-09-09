@@ -9,8 +9,6 @@ let
   isAutoLoginEnabled = config.services.displayManager.autoLogin.enable;
 in
 {
-  imports = [ ../common.nix ];
-
   services.xserver.enable = true;
   services.desktopManager.gnome.enable = true;
 

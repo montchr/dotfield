@@ -1,4 +1,5 @@
 {
+  config,
   self,
   inputs,
   ...
@@ -9,6 +10,7 @@ in
 {
   hosts.nixos.ryosuke = {
     system = "x86_64-linux";
+    aspects = with config.aspects; [ graphical ];
     configuration =
       { pkgs, ... }:
       {

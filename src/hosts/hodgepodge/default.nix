@@ -1,6 +1,7 @@
 ##: MacBookPro11,3 Core i7 2.3GHz 15in. (Late 2013) (Dual-Graphics)
 # <https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-dual-graphics-late-2013-retina-display-specs.html>
 {
+  config,
   lib,
   self,
   ...
@@ -11,6 +12,7 @@ in
 {
   hosts.nixos.hodgepodge = {
     system = "x86_64-linux";
+    aspects = with config.aspects; [ graphical ];
     configuration = {
       imports = [
         (nixos + "/mixins/gnome.nix")

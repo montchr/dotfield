@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   hosts.nixos.ryosuke.configuration =
     let
@@ -15,10 +14,6 @@
 
   hosts.nixos.ryosuke.users.median = {
     configuration = {
-      imports = [
-        (self.outPath + "/home/mixins/graphical.nix")
-      ];
-
       home.stateVersion = "24.05";
     };
   };

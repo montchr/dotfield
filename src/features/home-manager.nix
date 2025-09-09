@@ -3,10 +3,6 @@
   aspects.core.nixos =
     { pkgs, ... }:
     {
-      imports = [
-        inputs.home-manager.nixosModules.default
-      ];
-
       home-manager = {
         # Prevent activation failures by specifying how to handle file
         # collisions.  Just back them up, don't freak out.

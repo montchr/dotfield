@@ -22,7 +22,6 @@
     #
     # ../gnome-keyring.nix
 
-    ../common.nix
     ../cliphist.nix
     ../dunst.nix
     ../eww.nix

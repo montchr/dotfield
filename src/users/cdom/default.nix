@@ -55,6 +55,7 @@ in
       shell = "fish";
       file-manager = "nemo";
       # audio-player = "mpv";
+      pdf-reader = "zathura";
       video-player = "mpv";
       web-browser = "firefox";
 

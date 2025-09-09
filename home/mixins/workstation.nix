@@ -1,13 +1,13 @@
-{ pkgs, ... }:
+{ flake, pkgs, ... }:
 {
   imports = [
+    # flake.config.aspects.graphical.home
+
     ./developer.nix
-    ./graphical.nix
     ./media-manager.nix
     ./trusted.nix
 
     ../profiles/graphical/download-manager.nix
-    ../profiles/graphical/applications/ghostty.nix
     ../profiles/graphical/applications/graphics-editing.nix
     ../profiles/graphical/applications/qutebrowser.nix
     ../profiles/graphical/reading.nix

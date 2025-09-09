@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./desktop.nix
+    # flake.config.aspects.graphical.nixos
 
     ../profiles/audio.nix
     ../profiles/networking/avahi.nix

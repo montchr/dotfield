@@ -9,10 +9,10 @@ let
 in
 {
   imports = [
-    ./applications/default.nix
-    ./fonts/default.nix
+    #    ./applications/default.nix
+    #./fonts/default.nix
 
-    ./__gnome-services.nix
+    #./__gnome-services.nix
   ];
 
   # <https://wiki.archlinux.org/title/Users_and_groups#Pre-systemd_groups>

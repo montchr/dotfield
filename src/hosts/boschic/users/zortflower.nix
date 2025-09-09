@@ -1,4 +1,4 @@
-{ self, ... }:
+flake@{ self, ... }:
 {
   hosts.nixos.boschic = {
     configuration =
@@ -19,10 +19,6 @@
 
     users.zortflower = {
       configuration = {
-        imports = [
-          (self.outPath + "/home/mixins/graphical.nix")
-        ];
-
         home.stateVersion = "22.05";
       };
     };

@@ -1,4 +1,5 @@
 {
+  config,
   moduleWithSystem,
   lib,
   self,
@@ -11,6 +12,7 @@ in
   hosts.nixos.tuuvok = {
     system = "aarch64-linux";
     channel = "nixpkgs-apple-silicon";
+    aspects = with config.aspects; [ graphical ];
     configuration = moduleWithSystem (
       perSystem@{ inputs', config }:
       {

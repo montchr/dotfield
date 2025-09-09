@@ -28,8 +28,9 @@ let
         (collectNixosModules hostSpec.aspects)
         ++ (import (nixos + "/modules-list.nix"))
         ++ [
-          #          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.default
           inputs.sops-nix.nixosModules.sops
+          inputs.stylix.nixosModules.stylix
 
           config.aspects.core.nixos
 
@@ -38,6 +39,7 @@ let
 
       homeModules = (import (home + "/modules-list.nix")) ++ [
         config.aspects.core.home
+
         hostSpec.baseline.home
       ];
 
@@ -50,13 +52,13 @@ let
           # specified host aspects and host-user aspects.
           extendedAspects =
             (hostSpec.aspects ++ userSpec.aspects)
-            |> (map (v: userAspects.${v._name} or null))
+            |> (map (v: userAspects.${v.name} or null))
             |> filter (v: v != null);
 
           # Collect global aspects sharing the same name as the
           # specified host-user aspects.
           parentAspects =
-            userSpec.aspects |> (map (v: config.aspects.${v._name} or null)) |> filter (v: v != null);
+            userSpec.aspects |> (map (v: config.aspects.${v.name} or null)) |> filter (v: v != null);
         in
         {
           imports =
