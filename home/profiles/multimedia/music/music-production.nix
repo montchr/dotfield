@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ../audio-editing.nix ];
+  imports = [
+    # FIXME: from aspect?
+    #    ../audio-editing.nix
+  ];
 
   home.packages = with pkgs; [
     ardour

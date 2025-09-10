@@ -1,5 +1,5 @@
 {
-  aspects.graphical.home = {
+  users.cdom.aspects.graphical.home = {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         font-antialiasing = "rgba";

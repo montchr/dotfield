@@ -1,6 +1,7 @@
+# TODO: do theme stuff in theme profile / only if theme enabled
 { self, ... }:
 {
-  aspects.graphical.home = # TODO: do theme stuff in theme profile / only if theme enabled
+  users.cdom.aspects.graphical.home =
     hmArgs@{
       config,
       pkgs,

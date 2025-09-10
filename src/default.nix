@@ -17,7 +17,8 @@ let
       ++ extraGlobs
     );
 
-  loadTree = root: lib.fileset.toList (nixFilesFrom root [ ]);
+  loadTree = root: loadTree' root [ ];
+  loadTree' = root: globs: lib.fileset.toList (nixFilesFrom root globs);
   loadUsers =
     root:
     lib.fileset.toList (
@@ -41,6 +42,7 @@ in
   flake.lib.fs = {
     inherit
       loadTree
+      loadTree'
       loadUsers
       nixFilesFrom
       ;

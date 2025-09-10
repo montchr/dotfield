@@ -30,10 +30,6 @@ flake@{ self, ... }:
 
     users.cdom = {
       configuration = {
-        imports = [
-          (self.outPath + "/home/mixins/workstation.nix")
-        ];
-
         programs.git.signing.signByDefault = true;
 
         home.stateVersion = "21.11";

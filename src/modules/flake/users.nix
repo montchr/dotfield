@@ -25,7 +25,7 @@ in
                   { name, ... }:
                   {
                     options = {
-                      _name = mkAspectNameOpt name;
+                      name = mkAspectNameOpt name;
                       home = mkDeferredModuleOpt "A Home-Manager module";
                     };
                   }
@@ -42,8 +42,16 @@ in
             baseline = mkOption {
               type = types.submodule {
                 options = {
-                  aspects = mkAspectListOpt "List of baseline aspects shared by all of this user's configurations";
-                  configuration = mkDeferredModuleOpt "Baseline home configuration shared by all of this user's configurations";
+                  aspects = mkAspectListOpt ''
+                    List of baseline aspects shared by all of this user's configurations.
+
+                    Note that the "core" aspect
+                    (`users.<username>.aspects.core`) will *always* be
+                    included in all of the user's configurations.  This
+                    follows the same behavior as the "core" aspect in
+                    the system scope, which is included in all system
+                    configurations.
+                  '';
                 };
               };
               description = "Baseline aspects and configurations shared by all of this user's configurations";

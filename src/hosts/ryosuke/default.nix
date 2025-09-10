@@ -10,7 +10,7 @@ in
 {
   hosts.nixos.ryosuke = {
     system = "x86_64-linux";
-    aspects = with config.aspects; [ graphical ];
+    aspects = with config.aspects; [ workstation ];
     configuration =
       { pkgs, ... }:
       {
@@ -21,7 +21,6 @@ in
 
           (nixos + "/mixins/gnome.nix")
           (nixos + "/mixins/jobwork.nix")
-          (nixos + "/mixins/workstation.nix")
 
           (nixos + "/profiles/hardware/razer.nix")
           (nixos + "/profiles/remote-builders/default.nix")

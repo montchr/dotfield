@@ -12,7 +12,7 @@ let
   };
 in
 {
-  aspects.graphical.home = {
+  users.cdom.aspects.graphical.home = {
     dconf.settings = {
       "org/gtk/gtk4/settings/file-chooser" = fileChooserDefaults // { };
       "org/gtk/settings/file-chooser" = fileChooserDefaults // { };

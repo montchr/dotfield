@@ -1,5 +1,5 @@
 {
-  aspects.graphical.home =
+  users.cdom.aspects.graphical.home =
     { pkgs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };

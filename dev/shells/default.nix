@@ -26,6 +26,7 @@ in
         biome
         deadnix
         editorconfig-checker
+        inputs'.nix-unit.packages.default
         shellcheck
         statix
       ];

@@ -8,6 +8,12 @@
 }:
 let
   inherit (lib) mkOption types;
+  inherit (lib)
+    filter
+    flatten
+    map
+    unique
+    ;
 
   flakeSpecialArgs = {
     inherit self inputs config;
@@ -25,6 +31,14 @@ let
       in
       flakeSpecialArgs // { inherit perSystem; }
     );
+
+  collectTypedModules = type: lib.foldr (v: acc: acc ++ v.${type}.imports) [ ];
+  collectNixosModules = collectTypedModules "nixos";
+  collectHomeModules = collectTypedModules "home";
+  collectNameMatches =
+    own: others: own |> (map (v: others.${v.name} or null)) |> filter (v: v != null);
+  # TODO: use ‘uniqueStrings’ once landed
+  collectRequires = all: self: self |> map (v: v.requires) |> flatten |> unique |> map (v: all.${v});
 
   mkDeferredModuleOpt =
     description:
@@ -44,6 +58,15 @@ let
     nixos = mkDeferredModuleOpt "A NixOS module for this aspect";
     home = mkDeferredModuleOpt "A Home-Manager module for this aspect";
   };
+
+  mkAspectNameOpt =
+    name:
+    mkOption {
+      type = types.str;
+      default = name;
+      readOnly = true;
+      internal = true;
+    };
 
   mkAspectListOpt =
     description:
@@ -87,9 +110,15 @@ in
   flake.lib.modules = {
     inherit
       aspectSubmoduleGenericOptions
+      collectHomeModules
+      collectNameMatches
+      collectNixosModules
+      collectRequires
+      collectTypedModules
       flakeSpecialArgs
       flakeSpecialArgs'
       mkAspectListOpt
+      mkAspectNameOpt
       mkDeferredModuleOpt
       ;
   };

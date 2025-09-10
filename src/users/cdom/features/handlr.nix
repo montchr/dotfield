@@ -1,5 +1,5 @@
 {
-  aspects.graphical.home =
+  users.cdom.aspects.graphical.home =
     { pkgs, ... }:
     {
       home.packages = [

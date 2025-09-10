@@ -4,12 +4,11 @@ let
   profiles = self.outPath + "/home/profiles";
 in
 {
-  aspects.core.home =
+  users.cdom.aspects.core.home =
     { pkgs, ... }:
     {
       imports = [
         (profiles + "/atuin.nix")
-        (profiles + "/development/nix-tools.nix")
         (profiles + "/shells/fish/default.nix")
         (profiles + "/neovim/default.nix")
         (profiles + "/nnn.nix")

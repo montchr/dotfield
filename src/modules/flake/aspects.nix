@@ -1,17 +1,12 @@
 { self, lib, ... }:
 let
   inherit (lib) mkOption types;
-  inherit (self.lib.modules) aspectSubmoduleGenericOptions;
+  inherit (self.lib.modules) aspectSubmoduleGenericOptions mkAspectNameOpt;
   aspectSubmodule =
     { name, ... }:
     {
       options = aspectSubmoduleGenericOptions // {
-        name = mkOption {
-          type = types.str;
-          default = name;
-          readOnly = true;
-          internal = true;
-        };
+        name = mkAspectNameOpt name;
       };
     };
 in

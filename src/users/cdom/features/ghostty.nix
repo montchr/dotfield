@@ -1,5 +1,5 @@
 {
-  aspects.graphical.home = {
+  users.cdom.aspects.graphical.home = {
     programs.ghostty = {
       settings = {
         confirm-close-surface = false;

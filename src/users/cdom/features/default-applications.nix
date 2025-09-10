@@ -1,6 +1,6 @@
 flake@{ self, ... }:
 {
-  aspects.graphical.home =
+  users.cdom.aspects.graphical.home =
     { config, ... }:
     let
       inherit (self.lib) mimeapps mimetypes;

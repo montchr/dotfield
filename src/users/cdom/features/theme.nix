@@ -1,6 +1,6 @@
 flake@{ ... }:
 {
-  aspects.graphical.home =
+  users.cdom.aspects.graphical.home =
     {
       config,
       lib,

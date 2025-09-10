@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  aspects.graphical.home = moduleWithSystem (
+  users.cdom.aspects.graphical.home = moduleWithSystem (
     perSystem@{ config }:
     { pkgs, ... }:
     {

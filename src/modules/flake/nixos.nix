@@ -6,14 +6,20 @@
   ...
 }:
 let
-  inherit (lib) filter map;
+  inherit (lib)
+    filter
+    map
+    ;
+
+  inherit (self.lib.modules)
+    collectNixosModules
+    collectHomeModules
+    collectNameMatches
+    collectRequires
+    ;
 
   nixos = self.outPath + "/nixos";
   home = self.outPath + "/home";
-
-  collectTypedModules = type: lib.foldr (v: acc: acc ++ v.${type}.imports) [ ];
-  collectNixosModules = collectTypedModules "nixos";
-  collectHomeModules = collectTypedModules "home";
 
   overlays = (import (self.outPath + "/overlays/default.nix") { inherit inputs; });
 
@@ -22,10 +28,11 @@ let
     let
       inherit (hostSpec) system;
 
-      profiles = nixos + "/profiles";
+      hostAspectDeps = collectRequires config.aspects hostSpec.aspects;
+      hostAspects = hostSpec.aspects ++ hostAspectDeps;
 
       nixosModules =
-        (collectNixosModules hostSpec.aspects)
+        (collectNixosModules hostAspects)
         ++ (import (nixos + "/modules-list.nix"))
         ++ [
           inputs.home-manager.nixosModules.default
@@ -46,30 +53,30 @@ let
       makeHome =
         username: userSpec:
         let
-          userAspects = config.users.${username}.aspects;
-
-          # Collect user-customized aspects sharing the same name as the
-          # specified host aspects and host-user aspects.
-          extendedAspects =
-            (hostSpec.aspects ++ userSpec.aspects)
-            |> (map (v: userAspects.${v.name} or null))
-            |> filter (v: v != null);
-
-          # Collect global aspects sharing the same name as the
-          # specified host-user aspects.
-          parentAspects =
-            userSpec.aspects |> (map (v: config.aspects.${v.name} or null)) |> filter (v: v != null);
+          userAspects =
+            userSpec.aspects
+            ++ userAspectDeps
+            ++ userExtendedAspects
+            ++ [
+              config.users.${username}.aspects.core
+            ];
+          userAspectDeps =
+            (collectRequires config.aspects userSpec.aspects)
+            ++ (collectRequires config.users.${username}.aspects userSpec.aspects);
+          userExtendedAspects = collectNameMatches (
+            hostAspects ++ userSpec.aspects ++ userAspectDeps
+          ) config.users.${username}.aspects;
+          # parentAspects = collectNameMatches userAspects config.aspects;
         in
+
         {
           imports =
             homeModules
-            ++ (collectHomeModules hostSpec.aspects)
-            ++ (collectHomeModules userSpec.aspects)
-            ++ (collectHomeModules extendedAspects)
-            ++ (collectHomeModules parentAspects)
+            ++ (collectHomeModules hostAspects)
+            ++ (collectHomeModules userAspects)
+            #  ++ (collectHomeModules parentAspects)
             ++ (collectHomeModules config.users.${username}.baseline.aspects)
             ++ [
-              config.users.${username}.baseline.configuration
               userSpec.configuration
             ];
         };

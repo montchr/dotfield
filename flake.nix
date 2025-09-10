@@ -24,9 +24,11 @@
 
         imports = [
           inputs.devshell.flakeModule
+          inputs.nix-unit.modules.flake.default
           inputs.pre-commit-hooks.flakeModule
 
           ./src
+          ./tests
 
           ./dev/git-hooks
           ./dev/shells
@@ -90,6 +92,11 @@
     attic.url = "github:zhaofengli/attic";
     colmena.url = "github:zhaofengli/colmena";
     devshell.url = "github:numtide/devshell";
+    nix-unit = {
+      url = "github:nix-community/nix-unit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     sops-nix.url = "github:Mic92/sops-nix";
 
     ##: customisation
