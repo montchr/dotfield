@@ -22,7 +22,6 @@ in
       configuration = {
         imports = [
           (mixins + "/jobwork.nix")
-          (mixins + "/workstation.nix")
         ];
 
         programs.git.signing.signByDefault = true;

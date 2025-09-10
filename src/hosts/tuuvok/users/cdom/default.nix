@@ -33,7 +33,6 @@ in
           imports = [
             (mixins + "/niri.nix")
             (mixins + "/sway.nix")
-            (mixins + "/workstation.nix")
             (mixins + "/jobwork.nix")
 
             (profiles + "/ai.nix")
@@ -41,8 +40,6 @@ in
             (profiles + "/mail")
             # (profiles + "/mail/accounts/outlook.nix")
 
-            (profiles + "/jujutsu/with-gpg-signing.nix")
-            (profiles + "/jujutsu/with-sign-on-push.nix")
             (profiles + "/development/rust.nix")
 
             (profiles + "/multimedia/music/music-production.nix")
@@ -50,6 +47,9 @@ in
 
           programs.firefox.profiles.work.isDefault = true;
           programs.firefox.profiles.home.isDefault = false;
+
+          programs.jujutsu.signing.gpg.enable = true;
+          programs.jujutsu.signing.onPush = true;
 
           # The trackpad on this device is huge, and I always end up touching
           # its corner with my palm, which is very disruptive.  Actually, it is

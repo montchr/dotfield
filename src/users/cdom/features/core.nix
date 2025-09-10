@@ -9,7 +9,6 @@ in
     {
       imports = [
         (profiles + "/atuin.nix")
-        (profiles + "/development/nix-tools.nix")
         (profiles + "/shells/fish/default.nix")
         (profiles + "/neovim/default.nix")
         (profiles + "/nnn.nix")

@@ -12,7 +12,7 @@ in
   hosts.nixos.tuuvok = {
     system = "aarch64-linux";
     channel = "nixpkgs-apple-silicon";
-    aspects = with config.aspects; [ graphical ];
+    aspects = with config.aspects; [ workstation ];
     configuration = moduleWithSystem (
       perSystem@{ inputs', config }:
       {
@@ -21,7 +21,6 @@ in
           # ./mixins/gnome.nix
           (nixos + "/mixins/niri.nix")
           (nixos + "/mixins/sway.nix")
-          (nixos + "/mixins/workstation.nix")
 
           (nixos + "/profiles/hardware/apple/macbook-14-2/default.nix")
           (nixos + "/profiles/hardware/displaylink.nix")

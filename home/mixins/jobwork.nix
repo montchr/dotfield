@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./developer.nix
+    #    ./developer.nix
 
     ../profiles/development/aws.nix
     ../profiles/development/php.nix

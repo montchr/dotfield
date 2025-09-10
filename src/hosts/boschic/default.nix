@@ -7,12 +7,11 @@ in
 {
   hosts.nixos.boschic = {
     system = "x86_64-linux";
-    aspects = with config.aspects; [ graphical ];
+    aspects = with config.aspects; [ workstation ];
     configuration = {
       imports = [
         (nixos + "/mixins/gnome.nix")
         (nixos + "/mixins/jobwork.nix")
-        (nixos + "/mixins/workstation.nix")
 
         # FIXME: clarify that this means an amd cpu, NOT gpu
         (nixos + "/profiles/hardware/amd.nix")

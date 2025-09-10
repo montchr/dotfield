@@ -6,7 +6,12 @@
   ...
 }:
 let
-  inherit (lib) filter map;
+  inherit (lib)
+    filter
+    flatten
+    map
+    unique
+    ;
 
   nixos = self.outPath + "/nixos";
   home = self.outPath + "/home";
@@ -14,6 +19,8 @@ let
   collectTypedModules = type: lib.foldr (v: acc: acc ++ v.${type}.imports) [ ];
   collectNixosModules = collectTypedModules "nixos";
   collectHomeModules = collectTypedModules "home";
+  # TODO: use ‘uniqueStrings’ once landed
+  collectRequires = all: self: self |> map (v: v.requires) |> flatten |> unique |> map (v: all.${v});
 
   overlays = (import (self.outPath + "/overlays/default.nix") { inherit inputs; });
 
@@ -26,6 +33,7 @@ let
 
       nixosModules =
         (collectNixosModules hostSpec.aspects)
+        ++ (collectNixosModules (collectRequires config.aspects hostSpec.aspects))
         ++ (import (nixos + "/modules-list.nix"))
         ++ [
           inputs.home-manager.nixosModules.default
@@ -39,6 +47,7 @@ let
 
       homeModules = (import (home + "/modules-list.nix")) ++ [
         config.aspects.core.home
+        self.modules.home."jujutsu/signing"
 
         hostSpec.baseline.home
       ];
