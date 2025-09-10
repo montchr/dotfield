@@ -37,5 +37,22 @@ flake@{ ... }:
       # TODO: reduce number of keys with access
       users.users.root.openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
     };
+
+    home = {
+      programs.ssh = {
+        enable = true;
+        matchBlocks = {
+          "github.com" = {
+            user = "git";
+          };
+          "eu.nixbuild.net" = {
+            extraOptions = {
+              PubkeyAcceptedKeyTypes = "ssh-ed25519";
+            };
+          };
+        };
+        includes = [ "~/.config/ssh/config.local" ];
+      };
+    };
   };
 }

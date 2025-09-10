@@ -17,6 +17,15 @@
     home =
       { pkgs, ... }:
       {
+        programs.bat.enable = true;
+        programs.bottom.enable = true;
+        programs.carapace.enable = true;
+        programs.dircolors.enable = true;
+        programs.eza.enable = true;
+        programs.info.enable = true;
+        programs.less.enable = true;
+        programs.zellij.enable = true;
+
         home.packages = [
           pkgs.chawan # <- tui web browser
           pkgs.fx

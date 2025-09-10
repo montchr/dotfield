@@ -1,4 +1,8 @@
 {
+  aspects.core.home = {
+    programs.nnn.enable = true;
+  };
+
   aspects.graphical.home =
     { pkgs, ... }:
     {
