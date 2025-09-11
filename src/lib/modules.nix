@@ -9,10 +9,11 @@
 let
   inherit (lib) mkOption types;
   inherit (lib)
+    elem
+    head
     filter
-    flatten
+    tail
     map
-    unique
     ;
 
   flakeSpecialArgs = {
@@ -37,8 +38,28 @@ let
   collectHomeModules = collectTypedModules "home";
   collectNameMatches =
     own: others: own |> (map (v: others.${v.name} or null)) |> filter (v: v != null);
-  # TODO: use ‘uniqueStrings’ once landed
-  collectRequires = all: self: self |> map (v: v.requires) |> flatten |> unique |> map (v: all.${v});
+  collectRequires =
+    aspects: roots:
+    let
+      rootNames = lib.catAttrs "name" roots;
+      op =
+        visited: toVisit:
+        if toVisit == [ ] then
+          visited
+        else
+          let
+            cur = head toVisit;
+            rest = tail toVisit;
+          in
+          if elem cur.name (map (v: v.name) visited) then
+            op visited rest
+          else
+            let
+              deps = map (name: aspects.${name}) (cur.requires or [ ]);
+            in
+            op (op visited deps ++ [ cur ]) rest;
+    in
+    (op [ ] roots) |> filter (v: !(lib.elem v.name rootNames));
 
   mkDeferredModuleOpt =
     description:
