@@ -10,6 +10,10 @@ in
       vcpus = 8;
     };
     ipv4.address = "192.168.1.155";
+    supportedFeatures = [
+      "benchmark"
+      "big-parallel"
+    ];
     keys = {
       age = keys.age.tuvix;
       ssh = [

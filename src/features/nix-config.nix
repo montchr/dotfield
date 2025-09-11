@@ -1,7 +1,7 @@
 # Copyright (C) 2022-2025 Chris Montgomery
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-{ lib, inputs, ... }:
+flake@{ lib, inputs, ... }:
 
 {
   aspects.core.nixos =
@@ -38,13 +38,7 @@
             "pipe-operators"
           ];
 
-          # TODO: always appropriate??
-          system-features = [
-            "nixos-test"
-            "benchmark"
-            "big-parallel"
-            "kvm"
-          ];
+          system-features = flake.config.meta.hosts.${config.networking.hostName}.supportedFeatures;
 
           ## === Substituters ===
 

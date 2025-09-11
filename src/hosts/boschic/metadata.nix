@@ -6,6 +6,12 @@ in
   meta.hosts.boschic = {
     admins = [ "seadoom" ];
     ipv4.address = "192.168.1.214";
+    supportedFeatures = [
+      "nixos-test"
+      "benchmark"
+      "big-parallel"
+      "kvm"
+    ];
     keys = {
       age = keys.age.boschic;
       ssh = [

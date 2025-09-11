@@ -10,6 +10,12 @@ in
       # ...different minds, same brain.
       system = "aarch64-linux";
     };
+    supportedFeatures = [
+      "nixos-test"
+      "benchmark"
+      "big-parallel"
+      "kvm"
+    ];
     keys = {
       age = keys.age.tuuvok;
       ssh = [

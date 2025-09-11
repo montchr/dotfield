@@ -10,6 +10,12 @@ in
       vcpus = 24;
       system = "x86_64-linux";
     };
+    supportedFeatures = [
+      "benchmark"
+      "big-parallel"
+      "kvm"
+      "nixos-test"
+    ];
     keys.age = keys.age.ryosuke;
     keys.ssh = [
       keys.ssh.ryosuke

@@ -13,22 +13,17 @@ in
     system = "aarch64-linux";
     channel = "nixpkgs-apple-silicon";
     aspects = with config.aspects; [
+      hardware__apple__macbook-14-2
       workstation
       desktop-sessions__niri
       desktop-sessions__sway
       development__kleinweb
+      hardware__displaylink
+      remote-builds__ryosuke
     ];
     configuration = moduleWithSystem (
       perSystem@{ inputs', config }:
       {
-        imports = [
-          (nixos + "/profiles/hardware/apple/macbook-14-2/default.nix")
-          (nixos + "/profiles/hardware/displaylink.nix")
-
-          (nixos + "/profiles/remote-builders/default.nix")
-          (nixos + "/profiles/remote-builders/ryosuke.nix")
-        ];
-
         # By default, kanata captures all keyboard events, so most of the
         # configuration can be shared across every keyboard we use, by way of the
         # "default" configuration.  To prevent surprises, we specify devices

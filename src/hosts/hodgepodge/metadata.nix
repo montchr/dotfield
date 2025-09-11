@@ -6,6 +6,12 @@ in
   meta.hosts.hodgepodge = {
     admins = [ "seadoom" ];
     ipv4.address = "192.168.1.152";
+    supportedFeatures = [
+      "nixos-test"
+      "benchmark"
+      "big-parallel"
+      "kvm"
+    ];
     keys = {
       age = keys.age."hodgepodge";
       ssh = [ keys.hodgepodge ];

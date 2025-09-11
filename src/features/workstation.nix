@@ -5,6 +5,7 @@
       "graphical"
 
       "hardware__epson__wf-3520"
+      "hardware__razer"
       "hardware__yubico__yubikey"
     ];
 
@@ -51,6 +52,11 @@
         home.packages = [
           pkgs.kdePackages.okular
           pkgs.libreoffice-fresh
+          # TODO: ideally this would only be included at the
+          # intersection of "graphical" and "mail" aspects, but there is
+          # currently no mechanism to achieve that. (i'm thinking
+          # module args / specialArgs of all active aspects...)
+          pkgs.protonmail-bridge-gui
           pkgs.teams-for-linux
           pkgs.vscode
         ];

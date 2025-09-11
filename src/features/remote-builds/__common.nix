@@ -1,0 +1,3 @@
+{
+  nix.distributedBuilds = true;
+}

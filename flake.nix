@@ -64,6 +64,11 @@
 
     ##: core libraries
     apparat.url = "sourcehut:~montchr/apparat";
+    dmerge = {
+      url = "github:divnix/dmerge";
+      inputs.haumea.follows = "haumea";
+      inputs.nixlib.follows = "nixpkgs-lib";
+    };
     haumea.url = "github:nix-community/haumea";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";

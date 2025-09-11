@@ -498,6 +498,30 @@
         "type": "github"
       }
     },
+    "dmerge_2": {
+      "inputs": {
+        "haumea": [
+          "haumea"
+        ],
+        "nixlib": [
+          "nixpkgs-lib"
+        ],
+        "yants": "yants_2"
+      },
+      "locked": {
+        "lastModified": 1698340621,
+        "narHash": "sha256-SFrpyBVYaBVu4kaEm6O9O5P+ZKASMEa2EOQSlC33/Ok=",
+        "owner": "divnix",
+        "repo": "dmerge",
+        "rev": "7e528814b0da207ea12ab3f62f2a928b7b8fe9c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "dmerge",
+        "type": "github"
+      }
+    },
     "dream2nix": {
       "inputs": {
         "nixpkgs": [
@@ -2434,6 +2458,7 @@
         "deadnix": "deadnix",
         "devshell": "devshell_3",
         "disko": "disko",
+        "dmerge": "dmerge_2",
         "emacs-overlay": "emacs-overlay",
         "flake-parts": "flake-parts_5",
         "flake-utils": "flake-utils_5",
@@ -3110,6 +3135,27 @@
         "owner": "divnix",
         "repo": "yants",
         "rev": "d18f356ec25cb94dc9c275870c3a7927a10f8c3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "yants",
+        "type": "github"
+      }
+    },
+    "yants_2": {
+      "inputs": {
+        "nixpkgs": [
+          "dmerge",
+          "nixlib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677285314,
+        "narHash": "sha256-hlAcg2514zKrPu8jn24BUsIjjvXvCLdw1jvKgBTpqko=",
+        "owner": "divnix",
+        "repo": "yants",
+        "rev": "9eab24b273ce021406c852166c216b86e2bb4ec4",
         "type": "github"
       },
       "original": {

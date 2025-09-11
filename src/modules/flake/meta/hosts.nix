@@ -88,6 +88,12 @@ let
         description = "Hardware specifications";
       };
 
+      supportedFeatures = mkOption {
+        type = with types; listOf str;
+        description = "Nix features supported by the host";
+        default = [ ];
+      };
+
       keys = mkOption {
         type = keysSubmodule;
         default = { };

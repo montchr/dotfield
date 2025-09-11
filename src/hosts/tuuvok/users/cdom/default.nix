@@ -27,19 +27,14 @@ in
       };
 
     users.cdom = {
+      aspects = with flake.config.users.cdom.aspects; [
+        mail
+        music-production
+      ];
       configuration =
         { pkgs, ... }:
         {
-          imports = [
-            (profiles + "/ai.nix")
-            (profiles + "/mail")
-            # (profiles + "/mail/accounts/outlook.nix")
-
-            (profiles + "/development/rust.nix")
-
-            (profiles + "/multimedia/music/music-production.nix")
-          ];
-
+          # FIXME: maybe?
           # programs.firefox.profiles.work.isDefault = true;
           # programs.firefox.profiles.home.isDefault = false;
 
