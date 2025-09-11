@@ -22,7 +22,7 @@ cachix-exec := "cachix watch-exec " + cachix-cache-name + " --jobs " + cachix-jo
 ##: directories/paths
 prj-root := env_var('PRJ_ROOT')
 prj-data := env_var('PRJ_DATA_HOME')
-user-configs-dir := justfile_directory() / "users" / env("USER") / "config"
+user-configs-dir := justfile_directory() / "src/users" / env("USER") / "config"
 
 push *ARGS="-b main":
   for remote in codeberg github sourcehut; do \
