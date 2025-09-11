@@ -7,6 +7,7 @@
       "hardware__epson__wf-3520"
       "hardware__yubico__yubikey"
     ];
+
     nixos =
       { pkgs, ... }:
       {
@@ -50,6 +51,7 @@
         home.packages = [
           pkgs.kdePackages.okular
           pkgs.libreoffice-fresh
+          pkgs.teams-for-linux
           pkgs.vscode
         ];
 

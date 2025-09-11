@@ -20,12 +20,7 @@ in
 
     users.cdom = {
       configuration = {
-        imports = [
-          (mixins + "/jobwork.nix")
-        ];
-
         programs.git.signing.signByDefault = true;
-
         home.stateVersion = "22.05";
       };
     };

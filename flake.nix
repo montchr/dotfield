@@ -74,6 +74,7 @@
     nixpkgs-lib.follows = "flake-parts/nixpkgs-lib";
 
     ##: core modules
+    beams.url = "github:kleinweb/beams";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";

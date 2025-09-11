@@ -33,7 +33,6 @@ in
           imports = [
             (mixins + "/niri.nix")
             (mixins + "/sway.nix")
-            (mixins + "/jobwork.nix")
 
             (profiles + "/ai.nix")
             (profiles + "/graphical/sessions/gnome/common.nix")

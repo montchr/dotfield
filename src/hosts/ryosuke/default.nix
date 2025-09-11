@@ -10,7 +10,10 @@ in
 {
   hosts.nixos.ryosuke = {
     system = "x86_64-linux";
-    aspects = with config.aspects; [ workstation ];
+    aspects = with config.aspects; [
+      workstation
+      development__kleinweb
+    ];
     configuration =
       { pkgs, ... }:
       {
@@ -20,7 +23,6 @@ in
           inputs.nixos-hardware.nixosModules.common-gpu-amd
 
           (nixos + "/mixins/gnome.nix")
-          (nixos + "/mixins/jobwork.nix")
 
           (nixos + "/profiles/hardware/razer.nix")
           (nixos + "/profiles/remote-builders/default.nix")

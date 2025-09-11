@@ -12,12 +12,14 @@ in
   hosts.nixos.tuuvok = {
     system = "aarch64-linux";
     channel = "nixpkgs-apple-silicon";
-    aspects = with config.aspects; [ workstation ];
+    aspects = with config.aspects; [
+      workstation
+      development__kleinweb
+    ];
     configuration = moduleWithSystem (
       perSystem@{ inputs', config }:
       {
         imports = [
-          (nixos + "/mixins/jobwork.nix")
           # ./mixins/gnome.nix
           (nixos + "/mixins/niri.nix")
           (nixos + "/mixins/sway.nix")
