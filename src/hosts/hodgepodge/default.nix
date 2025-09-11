@@ -12,11 +12,12 @@ in
 {
   hosts.nixos.hodgepodge = {
     system = "x86_64-linux";
-    aspects = with config.aspects; [ workstation ];
+    aspects = with config.aspects; [
+      workstation
+      desktop-sessions__gnome
+    ];
     configuration = {
       imports = [
-        (nixos + "/mixins/gnome.nix")
-
         (nixos + "/profiles/hardware/apple/macbookpro-11-3.nix")
       ];
 

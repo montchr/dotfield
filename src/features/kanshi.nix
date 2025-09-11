@@ -8,18 +8,18 @@
 # > used on Wayland compositors supporting the wlr-output-management
 # > protocol.
 {
-  config,
-  ...
-}:
-let
-  cfg = config.services.kanshi;
-in
-{
-  services.kanshi = {
-    enable = true;
-    # package = flake.perSystem.inputs'.nixpkgs-wayland.packages.kanshi;
-    profiles = { };
-  };
+  aspects.desktop-sessions__wayland-wm.home =
+    { config, ... }:
+    let
+      cfg = config.services.kanshi;
+    in
+    {
+      services.kanshi = {
+        enable = true;
+        # package = flake.perSystem.inputs'.nixpkgs-wayland.packages.kanshi;
+        profiles = { };
+      };
 
-  home.packages = [ cfg.package ];
+      home.packages = [ cfg.package ];
+    };
 }

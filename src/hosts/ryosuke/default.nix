@@ -12,6 +12,7 @@ in
     system = "x86_64-linux";
     aspects = with config.aspects; [
       workstation
+      desktop-sessions__gnome
       development__kleinweb
     ];
     configuration =
@@ -21,8 +22,6 @@ in
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-amd
-
-          (nixos + "/mixins/gnome.nix")
 
           (nixos + "/profiles/hardware/razer.nix")
           (nixos + "/profiles/remote-builders/default.nix")

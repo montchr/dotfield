@@ -14,16 +14,14 @@ in
     channel = "nixpkgs-apple-silicon";
     aspects = with config.aspects; [
       workstation
+      desktop-sessions__niri
+      desktop-sessions__sway
       development__kleinweb
     ];
     configuration = moduleWithSystem (
       perSystem@{ inputs', config }:
       {
         imports = [
-          # ./mixins/gnome.nix
-          (nixos + "/mixins/niri.nix")
-          (nixos + "/mixins/sway.nix")
-
           (nixos + "/profiles/hardware/apple/macbook-14-2/default.nix")
           (nixos + "/profiles/hardware/displaylink.nix")
 

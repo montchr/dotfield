@@ -31,11 +31,7 @@ in
         { pkgs, ... }:
         {
           imports = [
-            (mixins + "/niri.nix")
-            (mixins + "/sway.nix")
-
             (profiles + "/ai.nix")
-            (profiles + "/graphical/sessions/gnome/common.nix")
             (profiles + "/mail")
             # (profiles + "/mail/accounts/outlook.nix")
 

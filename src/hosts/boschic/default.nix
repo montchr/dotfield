@@ -9,12 +9,11 @@ in
     system = "x86_64-linux";
     aspects = with config.aspects; [
       workstation
+      desktop-sessions__gnome-desktop
       development__kleinweb
     ];
     configuration = {
       imports = [
-        (nixos + "/mixins/gnome.nix")
-
         # FIXME: clarify that this means an amd cpu, NOT gpu
         (nixos + "/profiles/hardware/amd.nix")
 

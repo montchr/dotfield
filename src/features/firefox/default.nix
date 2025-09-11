@@ -22,6 +22,11 @@
           else
             pkgs.firefox;
       };
-
     };
+
+  aspects.desktop-sessions__gnome.nixos = {
+    dconf.settings."org/gnome/desktop/notifications/application/firefox" = {
+      application-id = "firefox.desktop";
+    };
+  };
 }
