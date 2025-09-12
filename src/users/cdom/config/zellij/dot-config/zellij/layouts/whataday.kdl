@@ -1,6 +1,5 @@
 layout {
     cwd "~"
-
     default_tab_template name="tt" {
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
@@ -10,7 +9,6 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-
     tab_template name="prj" {
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
@@ -28,7 +26,6 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-
     prj name="h:os" cwd="/etc/nixos"
     prj name="h:ceamx" cwd=".config/emacs"
     prj name="w:r:lib" cwd="Projects/work/repos/lib"

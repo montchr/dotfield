@@ -26,29 +26,28 @@ in
       ])
       ++ [ "custom/media" ];
     modules-center = [ ] ++ (withSway [ "sway/window" ]);
-    modules-right =
-      [
-        "mpd"
-        "idle_inhibitor"
-        "pulseaudio"
-        "network"
-        "power-profiles-daemon"
-        "cpu"
-        "memory"
-        "temperature"
-        "backlight"
-        # "keyboard-state"
-      ]
-      ++ (withSway [
-        #  "sway/language"
-      ])
-      ++ [
-        "battery"
-        "battery#bat2"
-        "tray"
-        "clock"
-        "custom/power"
-      ];
+    modules-right = [
+      "mpd"
+      "idle_inhibitor"
+      "pulseaudio"
+      "network"
+      "power-profiles-daemon"
+      "cpu"
+      "memory"
+      "temperature"
+      "backlight"
+      # "keyboard-state"
+    ]
+    ++ (withSway [
+      #  "sway/language"
+    ])
+    ++ [
+      "battery"
+      "battery#bat2"
+      "tray"
+      "clock"
+      "custom/power"
+    ];
     "sway/workspaces" = {
       all-outputs = true;
       disable-scroll = true;

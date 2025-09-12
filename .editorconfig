@@ -12,18 +12,13 @@ trim_trailing_whitespace=true
 indent_style=space
 trim_trailing_whitespace=false
 
-[*.{fish,kdl,plist,php,py,xml}]
+[*.{bash,fish,kdl,plist,php,py,sh,xml}]
 indent_size=4
 indent_style=space
 
 [*.org]
 indent_size=8
 indent_style=space
-
-[*.{bash,sh}]
-binary_next_line=true
-simplify=true
-switch_case_indent=true
 
 [*.{diff,patch}]
 end_of_line=unset

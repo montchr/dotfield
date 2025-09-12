@@ -16,12 +16,12 @@
 # - https://github.com/dylanaraps/pure-bash-bible
 
 # shellcheck disable=2153
-[[ -n ${ZSH_VERSION} ]] \
-  && emulate -L bash
+[[ -n ${ZSH_VERSION} ]] &&
+  emulate -L bash
 
 # Gracefully return if sourcing multiple times.
-[[ -n ${UTILS_LOADED} ]] \
-  && return 0
+[[ -n ${UTILS_LOADED} ]] &&
+  return 0
 readonly UTILS_LOADED="true"
 
 # Settings
@@ -106,9 +106,9 @@ function msg::get_answer {
 #   1 - Negative
 #========================================
 function msg::is_confirmed {
-  [[ $REPLY =~ ^[Yy]$ ]] \
-    && return 0 \
-    || return 1
+  [[ $REPLY =~ ^[Yy]$ ]] &&
+    return 0 ||
+    return 1
 }
 
 #========================================
@@ -550,27 +550,27 @@ function repo::qualify_url {
   fi
 
   case $forge in
-    gh | github)
-      if [[ $USE_HTTPS == "true" ]]; then
-        echo "https://github.com/${identifier}.git"
-      else
-        echo "git@github.com:${identifier}.git"
-      fi
-      ;;
-    gl | gitlab)
-      if [[ $USE_HTTPS == "true" ]]; then
-        echo "https://gitlab.com/${identifier}.git"
-      else
-        echo "git@gitlab.com:${identifier}.git"
-      fi
-      ;;
-    srht | sourcehut)
-      if [[ $USE_HTTPS == "true" ]]; then
-        echo "https://git.sr.ht/~${identifier}"
-      else
-        echo "git@git.sr.ht:${identifier}"
-      fi
-      ;;
+  gh | github)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://github.com/${identifier}.git"
+    else
+      echo "git@github.com:${identifier}.git"
+    fi
+    ;;
+  gl | gitlab)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://gitlab.com/${identifier}.git"
+    else
+      echo "git@gitlab.com:${identifier}.git"
+    fi
+    ;;
+  srht | sourcehut)
+    if [[ $USE_HTTPS == "true" ]]; then
+      echo "https://git.sr.ht/~${identifier}"
+    else
+      echo "git@git.sr.ht:${identifier}"
+    fi
+    ;;
   esac
 }
 
@@ -588,9 +588,9 @@ function repo::log {
 function repo::get_forge_id {
   local forge=$1
   case $forge in
-    gh | github) echo "gh" ;;
-    gl | gitlab) echo "gl" ;;
-    srht | sourcehut) echo "srht" ;;
+  gh | github) echo "gh" ;;
+  gl | gitlab) echo "gl" ;;
+  srht | sourcehut) echo "srht" ;;
   esac
 }
 
@@ -612,9 +612,9 @@ function repo::qualify_raw_url {
   local path="$4"
 
   case $forge in
-    gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
-    gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
-    srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
+  gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
+  gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
+  srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
   esac
 
   printf "%s" "$_"

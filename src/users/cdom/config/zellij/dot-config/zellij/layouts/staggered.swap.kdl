@@ -1,3 +1,5 @@
-swap_floating_layout name="staggered" {
-    floating_panes { }
+swap_floating_layout name=staggered {
+    floating_panes {
+
+    }
 }

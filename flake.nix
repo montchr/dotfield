@@ -2,16 +2,7 @@
   description = "Dotfield";
 
   outputs =
-    {
-      nixpkgs,
-      nixos-stable,
-      nixos-unstable,
-      nixpkgs-trunk,
-      nixpkgs-wayland,
-      flake-parts,
-      haumea,
-      ...
-    }@inputs:
+    inputs@{ nixpkgs, flake-parts, ... }:
     (flake-parts.lib.mkFlake { inherit inputs; } (
       { config, ... }:
       {
@@ -25,14 +16,12 @@
         imports = [
           inputs.devshell.flakeModule
           inputs.flake-parts.flakeModules.modules
+          inputs.git-hooks.flakeModule
           inputs.nix-unit.modules.flake.default
-          inputs.pre-commit-hooks.flakeModule
 
           ./src
+          ./dev
           ./tests
-
-          ./dev/git-hooks
-          ./dev/shells
 
           ./hive.nix
         ];
@@ -99,6 +88,10 @@
     attic.url = "github:zhaofengli/attic";
     colmena.url = "github:zhaofengli/colmena";
     devshell.url = "github:numtide/devshell";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-unit = {
       url = "github:nix-community/nix-unit";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -132,8 +125,6 @@
     nix-inspect.url = "github:bluskript/nix-inspect";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
 
     ##: system
     microvm.url = "github:astro/microvm.nix";

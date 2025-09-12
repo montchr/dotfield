@@ -1,29 +1,23 @@
 name: 'Flake checks'
-
 on:
   pull_request:
   push:
     branches: [main]
-
 jobs:
   check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install Nix
         uses: cachix/install-nix-action@v26
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Setup binary cache
         uses: cachix/cachix-action@v14
         with:
           name: dotfield
           extraPullNames: dotfield,nix-community,nixpkgs-wayland,seadome
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
       - run: nix flake show -Lv
       - run: nix flake check -Lv

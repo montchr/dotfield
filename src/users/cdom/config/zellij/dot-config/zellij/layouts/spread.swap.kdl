@@ -1,4 +1,4 @@
-swap_floating_layout name="spread" {
+swap_floating_layout name=spread {
     floating_panes max_panes=1 {
         pane {
             x "50%"

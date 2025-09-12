@@ -57,7 +57,7 @@ home-specialise name:
 
 # <- Run flake checks
 check *ARGS:
-    nix flake check --verbose {{ ARGS }}
+  nix flake check --verbose {{ ARGS }}
 
 # <- Inspect flake outputs
 inspect:
@@ -71,9 +71,9 @@ lint: (_deadnix '--fail')
 fix: (_deadnix "--edit")
   statix fix
 
-# <- Lint and format files
-fmt *FILES=prj-root:
-  treefmt --no-cache {{FILES}}
+[doc: "Format the project files with treefmt"]
+fmt:
+  treefmt
 
 _deadnix method='--fail' *ARGS='--no-underscore':
   fd -t f -e nix --exclude='packages/**/*.nix' --exec-batch \

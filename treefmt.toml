@@ -1,43 +1,79 @@
 [global]
-excludes = ["*generated*", "*secrets.yaml", "*secrets.yml"]
-
-[formatter.js]
-command = "sh"
-includes = ["*.cjs", "*.js", "*.jsx", "*.mjs", "*.ts", "*.tsx"]
-options = ["-eucx", """
-    prettier --write "$@"
-    eslint "$@"
-  """, "--"]
-
-[formatter.nix]
-command = "sh"
-excludes = ["home/modules/syncthing.nix"]
-includes = ["*.nix"]
-options = ["-eucx", """
-    nixfmt "$@"
-  """, "--"]
-
-[formatter.prettier]
-command = "prettier"
-excludes = ["dark-reader.json", "devdocs.json", "karabiner.json"]
-includes = [
-  "*.css",
-  "*.html",
-  "*.json",
-  "*.md",
-  "*.mdx",
-  "*.scss",
-  "*.yaml",
-  "*.yml",
+excludes = [
+  "*.lock",
+  "package-lock.json",
+  ".gitignore",
+  ".gitmodules",
+  "npins/sources.json",
+  "*secrets.yaml",
 ]
-options = ["--write"]
+on-unmatched = "warn"
 
-# [formatter.toml]
-# command = "tomlfmt"
-# includes = ["*toml"]
-# options = ["--write"]
+[formatter.actionlint]
+command = "actionlint"
+excludes = []
+includes = [".github/workflows/*.yml", ".github/workflows/*.yaml"]
+options = []
 
-[formatter.shell]
+[formatter.biome]
+command = "biome"
+excludes = []
+includes = [
+  "*.js",
+  "*.ts",
+  "*.mjs",
+  "*.mts",
+  "*.cjs",
+  "*.cts",
+  "*.jsx",
+  "*.tsx",
+  "*.d.ts",
+  "*.d.cts",
+  "*.d.mts",
+  "*.json",
+  "*.jsonc",
+  "*.css",
+]
+options = ["check", "--write", "--no-errors-on-unmatched"]
+
+[formatter.kdlfmt]
+command = "kdlfmt"
+excludes = []
+includes = ["*.kdl"]
+options = ["format"]
+
+[formatter.keep-sorted]
+command = "keep-sorted"
+excludes = []
+includes = ["*"]
+options = []
+
+[formatter.mdformat]
+command = "mdformat"
+excludes = []
+includes = ["*.md"]
+options = []
+
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+excludes = []
+includes = ["*.nix"]
+options = []
+
+[formatter.shfmt]
 command = "shfmt"
-includes = ["*.sh", "*.bash"]
-options = ["--simplify", "--write"]
+excludes = []
+includes = ["*.sh", "*.bash", "*.envrc", "*.envrc.*"]
+options = ["-s", "-w", "-i", "2"]
+
+[formatter.taplo]
+command = "taplo"
+excludes = []
+includes = ["*.toml"]
+options = ["format"]
+
+[formatter.yamlfmt]
+command = "yamlfmt"
+excludes = []
+includes = ["*.yaml", "*.yml"]
+# options = ["-conf=/nix/store/nv55sys1k1p6n9rzc9sr20nbsnq9mksz-yamlfmt.conf"]

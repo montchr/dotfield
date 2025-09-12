@@ -1,4 +1,4 @@
-swap_floating_layout name="enlarged" {
+swap_floating_layout name=enlarged {
     floating_panes max_panes=10 {
         pane {
             height "90%"

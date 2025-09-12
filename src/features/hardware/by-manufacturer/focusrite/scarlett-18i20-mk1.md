@@ -21,20 +21,19 @@ indicates mute is on. Toggle with "m". "00" state indicates an open channel.
 Although levels can be changed on this channel, this does not seem to have any
 effect on output volume, so just keep the level low.
 
-- <2024-02-20 Tue 19:33> alsa-scarlett-gui is a package providing support for
+- \<2024-02-20 Tue 19:33> alsa-scarlett-gui is a package providing support for
   software-control of many
   Focusrite devices' advanced but proprietary controls. Currently, the package
   does not yet support Gen 1 devices, but the author indicates there is likely a
   path forward and they only need some time to work on it. <https://github.com/geoffreybennett/alsa-scarlett-gui/issues/33>
 
-- <2024-02-20 Tue 19:27> Arch Wiki note in the pro audio article suggested
+- \<2024-02-20 Tue 19:27> Arch Wiki note in the pro audio article suggested
   that some devices might not like USB 3 ports. This doesn't appear to be a
   problem for this device.
 
-- <2024-02-20 Tue 19:21> The device works with no noticeable issues for casual
+- \<2024-02-20 Tue 19:21> The device works with no noticeable issues for casual
   listening in GNOME. However, there is only very limited support in the GNOME
   sound GUI (unsurprisingly).
-
 
 ## Troubleshooting
 

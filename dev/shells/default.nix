@@ -41,10 +41,17 @@ in
         pkgs.statix
       ];
 
-      formatterPkgs = with pkgs; [
-        nixfmt-rfc-style
-        nodePackages.prettier
-        treefmt
+      formatterPkgs = [
+        pkgs.treefmt
+        pkgs.actionlint
+        pkgs.biome
+        pkgs.kdlfmt
+        pkgs.keep-sorted
+        pkgs.mdformat
+        pkgs.nixfmt-rfc-style
+        pkgs.shfmt
+        pkgs.taplo
+        pkgs.yamlfmt
       ];
 
       deploymentPkgs = [

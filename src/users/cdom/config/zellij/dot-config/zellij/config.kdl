@@ -3,13 +3,11 @@ keybinds {
         // FIXME: not working. why?
         // bind "Ctrl Tab" { GoToNextTab; }
         // bind "Ctrl Shift Tab" { GoToPreviousTab; }
-
         // Conflicts with readline/Emacs keybinding to move forward one word.
         // TODO: rebind `ToggleFloatingPanes` to something easy and non-intrusive
         unbind "Alt f"
     }
 }
-
 // Plugin aliases - can be used to change the implementation of Zellij
 // changing these requires a restart to take effect
 plugins {
@@ -27,53 +25,45 @@ plugins {
         welcome_screen true
     }
 }
-
 // Plugins to load in the background when a new session starts
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
-load_plugins { }
+load_plugins {
 
+}
 // Use a simplified UI without special fonts (arrow glyphs)
 // Options:
 //   - true
 //   - false (Default)
 //
 // simplified_ui true
-
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
 theme "ansi"
-
 // Choose the base input mode of zellij.
 // Default: normal
 //
 default_mode "normal"
-
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
 default_shell "fish"
-
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
-
 // The name of the default layout to load on startup
 // Default: "default"
 //
 default_layout "whataday"
-
 // The folder in which Zellij will look for layouts
 // (Requires restart)
 //
 // layout_dir "/tmp"
-
 // The folder in which Zellij will look for themes
 // (Requires restart)
 //
 // theme_dir "/tmp"
-
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
 // potentially interfere with copying text.
@@ -82,14 +72,12 @@ default_layout "whataday"
 //   - false
 //
 // mouse_mode false
-
 // Toggle having pane frames around the panes
 // Options:
 //   - true (default, enabled)
 //   - false
 //
 // pane_frames false
-
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
 // or should each user have their own cursor (false)
@@ -97,7 +85,6 @@ default_layout "whataday"
 // Default: false
 //
 // mirror_session true
-
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed
 // (Requires restart)
@@ -106,7 +93,6 @@ default_layout "whataday"
 //   - quit
 //
 // on_force_close "quit"
-
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
 // buffer. Excess number of lines are discarded in a FIFO fashion.
@@ -115,7 +101,6 @@ default_layout "whataday"
 // Default value: 10000
 //
 // scroll_buffer_size 10000
-
 // Provide a command to execute when copying text. The text will be piped to
 // the stdin of the program to perform the copy. This can be used with
 // terminal emulators which do not support the OSC 52 ANSI control sequence
@@ -127,7 +112,6 @@ default_layout "whataday"
 // copy_command "pbcopy"                     // osx
 //
 // copy_command "pbcopy"
-
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
 // Does not apply when using copy_command.
@@ -136,30 +120,25 @@ default_layout "whataday"
 //   - primary
 //
 // copy_clipboard "primary"
-
 // Enable automatic copying (and clearing) of selection when releasing mouse
 // Default: true
 //
 // copy_on_select true
-
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 // scrollback_editor "/usr/bin/vim"
-
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
 // otherwise this will error if such a session exists.
 // Default: <RANDOM>
 //
 session_name "whataday"
-
 // When `session_name` is provided, attaches to that session
 // if it is already running or creates it otherwise.
 // Default: false
 //
 attach_to_session true
-
-// Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
+ // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
 //   - true (default)
 //   - false
