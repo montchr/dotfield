@@ -24,6 +24,7 @@
 
         imports = [
           inputs.devshell.flakeModule
+          inputs.flake-parts.flakeModules.modules
           inputs.nix-unit.modules.flake.default
           inputs.pre-commit-hooks.flakeModule
 
