@@ -1,4 +1,7 @@
-flake@{ self, ... }:
+flake@{ lib, self, ... }:
+let
+  inherit (self.lib) isEmpty;
+in
 {
   aspects.development.home =
     {
@@ -64,7 +67,7 @@ flake@{ self, ... }:
             "format_timestamp(timestamp)" = "timestamp.ago()";
           };
 
-          user = {
+          user = lib.mkIf (!isEmpty (whoami.name or false) && !isEmpty (whoami.email or false)) {
             inherit (whoami) email name;
           };
 

@@ -49,7 +49,7 @@ let
             ++ userAspectDeps
             ++ userExtendedAspects
             ++ [
-              config.users.${username}.aspects.core
+              (config.users.${username}.aspects.core or { })
             ];
           userAspectDeps =
             (collectRequires config.aspects userSpec.aspects)

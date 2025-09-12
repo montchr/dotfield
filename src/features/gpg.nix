@@ -1,4 +1,4 @@
-flake@{ ... }:
+flake@{ self, ... }:
 {
   aspects.workstation.home =
     {
@@ -13,7 +13,7 @@ flake@{ ... }:
       inherit (pkgs.stdenv.hostPlatform) isDarwin;
     in
     {
-      config = lib.mkIf ("" != key) {
+      config = lib.mkIf (!self.lib.isEmpty key) {
         home.sessionVariables.DOTFIELD_PGP_KEY = key;
 
         home.packages = with pkgs; [

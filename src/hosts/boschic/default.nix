@@ -1,31 +1,18 @@
 { config, self, ... }:
 let
   inherit (config.meta) hosts networks;
-
-  nixos = self.outPath + "/nixos";
 in
 {
   hosts.nixos.boschic = {
     system = "x86_64-linux";
     aspects = with config.aspects; [
       workstation
-      desktop-sessions__gnome-desktop
+      desktop-sessions__gnome
+      hardware__amd__cpu
+      hardware__nvidia
       development__kleinweb
     ];
     configuration = {
-      imports = [
-        # FIXME: clarify that this means an amd cpu, NOT gpu
-        (nixos + "/profiles/hardware/amd.nix")
-
-        (nixos + "/profiles/hardware/focusrite-scarlett-18i20-mk1.nix")
-
-        # TODO: rename to note that this is gpu, making it mutually exclusive
-        #       with an AMD GPU (same goes for intel/amd cpu but i don't bother
-        #       with intel cpus)
-        (nixos + "/profiles/hardware/nvidia/stable-release.nix")
-        (nixos + "/profiles/hardware/razer.nix")
-      ];
-
       time.timeZone = "America/New_York";
 
       # FIXME: disable. likely interferes with rEFInd.
@@ -83,10 +70,6 @@ in
       programs.steam.enable = true;
 
       sops.defaultSopsFile = ./secrets/secrets.yaml;
-
-      home-manager.sharedModules = [
-        (self.outPath + "/home/mixins/nvidia.nix")
-      ];
 
       system.stateVersion = "21.11";
     };

@@ -1,8 +1,4 @@
-flake@{ self, ... }:
-let
-  mixins = self.outPath + "/home/mixins";
-  profiles = self.outPath + "/home/profiles";
-in
+flake@{ ... }:
 {
   hosts.nixos.tuuvok = {
     configuration =

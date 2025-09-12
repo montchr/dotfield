@@ -19,7 +19,7 @@ flake@{ self, ... }:
         };
       };
 
-    users.cdom = {
+    users.seadoom = {
       configuration = {
         programs.git.signing.signByDefault = true;
         home.stateVersion = "21.11";

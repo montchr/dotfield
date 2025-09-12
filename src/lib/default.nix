@@ -1,10 +1,13 @@
 { lib, self, ... }:
 let
   isPrimary = value: value.primary or false;
+
+  isEmpty =
+    v: (v == "") || (v == false) || (v == null) || (v == { }) || (v == [ ]) || (v == 0) || (v == 0.0);
 in
 {
   flake.lib = {
-    inherit isPrimary;
+    inherit isEmpty isPrimary;
 
     filterPrimary =
       value:

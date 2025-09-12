@@ -2,13 +2,13 @@
 
 { lib, ... }:
 {
-  aspects.hardware__nvidia =
-    { config, ... }:
-    let
-      inherit (config.boot.kernelPackages) nvidiaPackages;
-    in
-    {
-      nixos = {
+  aspects.hardware__nvidia = {
+    nixos =
+      { config, ... }:
+      let
+        inherit (config.boot.kernelPackages) nvidiaPackages;
+      in
+      {
         services.xserver.videoDrivers = [ "nvidia" ];
 
         hardware.graphics.enable = true;
@@ -52,8 +52,8 @@
         programs.sway.extraOptions = [ "--unsupported-gpu" ];
       };
 
-      home = {
-        programs.mpv.config.hwdec = "vdpau";
-      };
+    home = {
+      programs.mpv.config.hwdec = "vdpau";
     };
+  };
 }

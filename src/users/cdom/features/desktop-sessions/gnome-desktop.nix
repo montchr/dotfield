@@ -3,10 +3,10 @@ let
   inherit (self.lib) mimetypes;
 in
 {
-  users.cdom.aspects.desktop-sessions__gnome =
-    { config, ... }:
+  users.cdom.aspects.desktop-sessions__gnome.home =
+    { lib, config, ... }:
     let
-      inherit (config.lib.gvariant) mkUint32;
+      inherit (lib.hm.gvariant) mkUint32;
     in
     {
       xdg.mimeApps.defaultApplications =

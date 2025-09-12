@@ -24,7 +24,7 @@
       };
     };
 
-  aspects.desktop-sessions__gnome.nixos = {
+  aspects.desktop-sessions__gnome.home = {
     dconf.settings."org/gnome/desktop/notifications/application/firefox" = {
       application-id = "firefox.desktop";
     };

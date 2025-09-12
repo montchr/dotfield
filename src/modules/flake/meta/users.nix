@@ -7,24 +7,28 @@ let
     {
       options = {
         firstName = mkOption {
-          type = types.str;
+          type = with types; nullOr str;
           description = "Given name for the user";
+          default = null;
         };
         lastName = mkOption {
-          type = types.str;
+          type = with types; nullOr str;
           description = "Family name for the user";
+          default = null;
         };
         name = mkOption {
-          type = types.str;
-          default = "${config.firstName} ${config.lastName}";
+          type = with types; nullOr str;
+          default = null;
         };
         email = mkOption {
-          type = types.str;
+          type = with types; nullOr str;
           description = "Full primary email address for the user";
+          default = null;
         };
         accounts = mkOption {
           type = types.submodule accountsSubmodule;
           description = "Service accounts associated with the user";
+          default = { };
         };
         pgp = {
           id = mkOption {

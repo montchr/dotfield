@@ -1,8 +1,3 @@
-{ self, ... }:
-let
-  mixins = self.outPath + "/home/mixins";
-  profiles = self.outPath + "/home/profiles";
-in
 {
   hosts.nixos.ryosuke = {
     configuration =

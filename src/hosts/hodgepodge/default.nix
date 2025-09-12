@@ -1,26 +1,15 @@
 ##: MacBookPro11,3 Core i7 2.3GHz 15in. (Late 2013) (Dual-Graphics)
 # <https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-dual-graphics-late-2013-retina-display-specs.html>
-{
-  config,
-  lib,
-  self,
-  ...
-}:
-let
-  nixos = self.outPath + "/nixos";
-in
+{ config, lib, ... }:
 {
   hosts.nixos.hodgepodge = {
     system = "x86_64-linux";
     aspects = with config.aspects; [
       workstation
+      hardware__apple__macbookpro-11-3
       desktop-sessions__gnome
     ];
     configuration = {
-      imports = [
-        (nixos + "/profiles/hardware/apple/macbookpro-11-3.nix")
-      ];
-
       time.timeZone = "America/New_York";
 
       boot.loader.efi.canTouchEfiVariables = true;

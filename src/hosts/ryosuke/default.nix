@@ -22,9 +22,6 @@ in
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-amd
-
-          (nixos + "/profiles/hardware/razer.nix")
-          (nixos + "/profiles/remote-builders/default.nix")
         ];
 
         services.displayManager.autoLogin.enable = true;

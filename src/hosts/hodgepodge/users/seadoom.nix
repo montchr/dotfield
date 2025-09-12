@@ -25,10 +25,9 @@ flake@{ self, ... }:
         services.displayManager.autoLogin.user = username;
       };
 
-    users.cdom = {
+    users.seadoom = {
       configuration = {
         programs.git.signing.signByDefault = true;
-
         home.stateVersion = "21.11";
       };
     };

@@ -5,6 +5,7 @@
       "graphical"
 
       "hardware__epson__wf-3520"
+      "hardware__focusrite__scarlett-18i20-mk1"
       "hardware__razer"
       "hardware__yubico__yubikey"
     ];
@@ -62,8 +63,6 @@
         ];
 
         programs.obs-studio.enable = true;
-
-        services.git-sync.enable = true;
       };
   };
 }

@@ -1,4 +1,7 @@
-flake@{ ... }:
+flake@{ self, lib, ... }:
+let
+  inherit (self.lib) isEmpty;
+in
 {
   aspects.development.home =
     {
@@ -26,11 +29,15 @@ flake@{ ... }:
       #
       # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
       # https://nixos.org/manual/nix/stable/#idm140737322046656
-      xdg.configFile."npm/npmrc".text = ''
-          email="${whoami.email}"
-        init-author-name="${whoami.name}"
-        init-version=0.0.1
-        cache=''${XDG_CACHE_HOME}/npm
-      '';
+      xdg.configFile."npm/npmrc" =
+        lib.mkIf (!isEmpty (whoami.name or false) && !isEmpty (whoami.email or false))
+          {
+            text = ''
+              email="${whoami.email}"
+              init-author-name="${whoami.name}"
+              init-version=0.0.1
+              cache=''${XDG_CACHE_HOME}/npm
+            '';
+          };
     };
 }
