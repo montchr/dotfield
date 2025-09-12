@@ -10,10 +10,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v26
+      - uses: nixbuild/nix-quick-install-action@v33
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          nix_conf: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            experimental-features = flakes nix-command pipe-operators
+            keep-env-derivations = true
+            keep-outputs = true
       - name: Setup binary cache
         uses: cachix/cachix-action@v14
         with:
