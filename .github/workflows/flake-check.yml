@@ -23,10 +23,10 @@ jobs:
           name: dotfield
           extraPullNames: dotfield,nix-community,nixpkgs-wayland,seadome
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - uses: workflow/nix-shell-action@v3
+      - name: Load shell environment
+        uses: nicknovitski/nix-develop@v1
         with:
-          flakes-from-devshell: true
-          script: |
-            nix-unit --flake .#tests
+          arguments: .#ci
+      - run: nix-unit --flake .#tests
       - run: nix flake show -Lv
       - run: nix flake check -Lv
