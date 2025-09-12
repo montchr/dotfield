@@ -16,7 +16,6 @@
         imports = [
           inputs.flake-parts.flakeModules.modules
           inputs.git-hooks.flakeModule
-          inputs.nix-unit.modules.flake.default
 
           ./src
           ./dev

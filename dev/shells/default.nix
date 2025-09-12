@@ -85,7 +85,7 @@ in
           pkgs.stow
         ];
 
-      ciPkgs = commonPkgs;
+      ciPkgs = commonPkgs ++ [ nix-unit ];
 
       envVars = { };
 

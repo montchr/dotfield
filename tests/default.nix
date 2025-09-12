@@ -11,17 +11,19 @@
     ])
     |> lib.fileset.toList;
 
-  perSystem =
-    { ... }:
-    {
-      nix-unit.inputs = {
-        inherit (inputs)
-          nixpkgs
-          nixpkgs-lib
-          flake-parts
-          apparat
-          nix-unit
-          ;
-      };
-    };
+  # perSystem =
+  #   { ... }:
+  #   {
+  #     nix-unit.inputs = {
+  #       inherit (inputs)
+  #         nixpkgs
+  #         nixpkgs-lib
+  #         flake-parts
+  #         git-hooks
+  #         globset
+  #         apparat
+  #         nix-unit
+  #         ;
+  #     };
+  #   };
 }
