@@ -15,6 +15,7 @@ flake@{ self, ... }:
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."users/seadoom/hashed-password".path;
           openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
+          extraGroups = [ "wheel" ];
         };
       };
 

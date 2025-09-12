@@ -15,6 +15,7 @@ in
           uid = 1000;
           isNormalUser = true;
           openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
+          extraGroups = [ "wheel" ];
         };
       };
 

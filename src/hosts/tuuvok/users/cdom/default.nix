@@ -23,6 +23,7 @@ in
           hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
           openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
           shell = pkgs.bashInteractive;
+          extraGroups = [ "wheel" ];
         };
       };
 

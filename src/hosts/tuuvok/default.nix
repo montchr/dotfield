@@ -48,8 +48,6 @@ in
 
         time.timeZone = "America/New_York";
 
-        dotfield.guardian.enable = true;
-        dotfield.guardian.username = "cdom";
         users.mutableUsers = false;
 
         services.displayManager.autoLogin.enable = true;

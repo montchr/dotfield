@@ -46,7 +46,6 @@
       documentation.man.enable = true;
 
       users.groups = {
-        audio = { inherit (config.users.groups.wheel) members; };
         input = { inherit (config.users.groups.wheel) members; };
         video = { inherit (config.users.groups.wheel) members; };
       };

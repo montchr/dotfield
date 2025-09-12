@@ -8,6 +8,7 @@
     }:
     {
       sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      users.groups.keys = { inherit (config.users.groups.wheel) members; };
 
       home-manager.sharedModules = lib.singleton {
         # Allow normal users to use sops.

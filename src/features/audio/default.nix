@@ -1,6 +1,6 @@
 {
   aspects.workstation.nixos =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       # PulseAudio server uses this to acquire realtime priority.
       security.rtkit.enable = true;
@@ -19,5 +19,7 @@
         pulse.enable = true;
         wireplumber.enable = true;
       };
+
+      users.groups.audio = { inherit (config.users.groups.wheel) members; };
     };
 }

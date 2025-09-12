@@ -18,10 +18,7 @@ flake@{ self, ... }:
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."users/${username}/hashed-password".path;
           openssh.authorizedKeys.keys = flake.config.meta.users.cdom.keys.ssh;
-          extraGroups = [
-            "audio"
-            "video"
-          ];
+          extraGroups = [ "wheel" ];
         };
 
         services.displayManager.autoLogin.enable = true;

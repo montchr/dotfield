@@ -26,8 +26,6 @@ in
         (nixos + "/profiles/hardware/razer.nix")
       ];
 
-      dotfield.features.hasNvidia = true;
-
       time.timeZone = "America/New_York";
 
       # FIXME: disable. likely interferes with rEFInd.
@@ -43,8 +41,6 @@ in
         virtualisation.graphics = false;
       };
 
-      dotfield.guardian.enable = true;
-      dotfield.guardian.username = "seadoom";
       users.mutableUsers = false;
 
       ### === networking ===========================================================

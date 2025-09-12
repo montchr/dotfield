@@ -27,9 +27,6 @@ in
           (nixos + "/profiles/remote-builders/default.nix")
         ];
 
-        dotfield.guardian.enable = true;
-        dotfield.guardian.username = "cdom";
-
         services.displayManager.autoLogin.enable = true;
         services.displayManager.autoLogin.user = "cdom";
 

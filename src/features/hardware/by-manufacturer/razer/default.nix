@@ -1,6 +1,6 @@
 {
   aspects.hardware__razer.nixos =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       environment.systemPackages = [
         pkgs.razergenie # Razer device configuration GUI (Qt)
@@ -15,5 +15,7 @@
         # <https://github.com/openrazer/openrazer/issues?q=notification+battery>
         batteryNotifier.enable = false;
       };
+
+      users.groups.openrazer = { inherit (config.users.groups.wheel) members; };
     };
 }

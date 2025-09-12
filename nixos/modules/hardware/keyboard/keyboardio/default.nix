@@ -19,9 +19,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ ] ++ (lib.optionals cfg.chrysalis-gui.enable [ pkgs.chrysalis ]);
 
-    users.groups.plugdev = { };
-
-    dotfield.guardian.extraGroups = [ "plugdev" ];
+    users.groups.plugdev = { inherit (config.users.groups.wheel) members; };
 
     services.udev.packages = [
       (pkgs.writeTextFile {
