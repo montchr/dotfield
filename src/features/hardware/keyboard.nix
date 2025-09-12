@@ -1,8 +1,13 @@
+{ self, ... }:
 {
   aspects.workstation = {
     nixos =
       { config, pkgs, ... }:
       {
+        imports = [
+          self.modules.nixos."hardware/keyboard/keyboardio"
+        ];
+
         # Required to support flashing firmware.
         users.groups.plugdev = { inherit (config.users.groups.wheel) members; };
 

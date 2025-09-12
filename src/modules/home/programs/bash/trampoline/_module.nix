@@ -6,7 +6,6 @@
 }:
 let
   inherit (lib) types;
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   cfg = config.programs.bash.trampoline;
 in

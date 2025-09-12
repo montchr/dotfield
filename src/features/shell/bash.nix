@@ -1,4 +1,4 @@
-{ moduleWithSystem, ... }:
+{ self, moduleWithSystem, ... }:
 {
   aspects.core.home = moduleWithSystem (
     perSystem@{ config }:
@@ -11,6 +11,10 @@
       inherit (perSystem.config.packages) fzf-tab-completion;
     in
     {
+      imports = [
+        self.modules.homeManager."programs/bash/trampoline"
+      ];
+
       home.extraOutputsToInstall = [ "/share/bash-completion" ];
 
       programs.bash = {

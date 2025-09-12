@@ -17,7 +17,7 @@ flake@{ self, ... }:
     in
     {
       imports = [
-        self.modules.home."jujutsu/signing"
+        self.modules.homeManager."programs/jujutsu/signing"
       ];
 
       home.packages = [

@@ -18,9 +18,6 @@ let
     collectRequires
     ;
 
-  nixos = self.outPath + "/nixos";
-  home = self.outPath + "/home";
-
   overlays = (import (self.outPath + "/overlays/default.nix") { inherit inputs; });
 
   makeHost =
@@ -31,22 +28,16 @@ let
       hostAspectDeps = collectRequires config.aspects hostSpec.aspects;
       hostAspects = hostSpec.aspects ++ hostAspectDeps;
 
-      nixosModules =
-        (collectNixosModules hostAspects)
-        ++ (import (nixos + "/modules-list.nix"))
-        ++ [
-          inputs.home-manager.nixosModules.default
-          inputs.sops-nix.nixosModules.sops
-          inputs.stylix.nixosModules.stylix
+      nixosModules = (collectNixosModules hostAspects) ++ [
+        inputs.home-manager.nixosModules.default
+        inputs.sops-nix.nixosModules.sops
+        inputs.stylix.nixosModules.stylix
+        config.aspects.core.nixos
+        hostSpec.configuration
+      ];
 
-          config.aspects.core.nixos
-
-          hostSpec.configuration
-        ];
-
-      homeModules = (import (home + "/modules-list.nix")) ++ [
+      homeModules = [
         config.aspects.core.home
-
         hostSpec.baseline.home
       ];
 
