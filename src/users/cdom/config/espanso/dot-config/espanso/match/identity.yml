@@ -1,3 +1,4 @@
+---
 matches:
   - replace: '0x135EEDD0F71934F3'
     trigger: ;me;gpg

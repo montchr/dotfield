@@ -1,3 +1,5 @@
+# yamllint disable rule:line-length
+---
 global_vars:
   - name: clip
     type: clipboard

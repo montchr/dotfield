@@ -1,3 +1,4 @@
+---
 matches:
   - replace: '{{output}}'
     trigger: ;;uuid

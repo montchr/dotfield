@@ -15,7 +15,13 @@
     { ... }:
     {
       nix-unit.inputs = {
-        inherit (inputs) nixpkgs flake-parts nix-unit;
+        inherit (inputs)
+          nixpkgs
+          nixpkgs-lib
+          flake-parts
+          apparat
+          nix-unit
+          ;
       };
     };
 }

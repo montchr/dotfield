@@ -17,11 +17,11 @@
 
 # shellcheck disable=2153
 [[ -n ${ZSH_VERSION} ]] &&
-  emulate -L bash
+	emulate -L bash
 
 # Gracefully return if sourcing multiple times.
 [[ -n ${UTILS_LOADED} ]] &&
-  return 0
+	return 0
 readonly UTILS_LOADED="true"
 
 # Settings
@@ -42,8 +42,8 @@ readonly MSG__COL__GAP="  " # 2 spaces
 #   msg::ask "What is your name?"
 #========================================
 function msg::ask {
-  msg::question "$1"
-  read -r
+	msg::question "$1"
+	read -r
 }
 
 #========================================
@@ -56,9 +56,9 @@ function msg::ask {
 #   STDOUT - Carriage return
 #========================================
 function msg::ask_silently {
-  msg::question "$1"
-  read -s -r
-  printf "\n"
+	msg::question "$1"
+	read -s -r
+	printf "\n"
 }
 
 #========================================
@@ -73,9 +73,9 @@ function msg::ask_silently {
 #   STDOUT - Confirmation prompt followed by newline
 #========================================
 function msg::ask_for_confirmation {
-  msg::question "$1 (y/n) "
-  read -r -n 1
-  printf "\n"
+	msg::question "$1 (y/n) "
+	read -r -n 1
+	printf "\n"
 }
 
 #========================================
@@ -91,7 +91,7 @@ function msg::ask_for_confirmation {
 #   STDOUT - User response text
 #========================================
 function msg::get_answer {
-  printf "%s" "$REPLY"
+	printf "%s" "$REPLY"
 }
 
 #========================================
@@ -106,9 +106,9 @@ function msg::get_answer {
 #   1 - Negative
 #========================================
 function msg::is_confirmed {
-  [[ $REPLY =~ ^[Yy]$ ]] &&
-    return 0 ||
-    return 1
+	[[ $REPLY =~ ^[Yy]$ ]] &&
+		return 0 ||
+		return 1
 }
 
 #========================================
@@ -129,7 +129,7 @@ function msg::is_confirmed {
 #   STDOUT - Colorized and formatted domain + message
 #========================================
 function msg::domain {
-  msg::in_green "\n => $1 :: ${*:2}\n\n"
+	msg::in_green "\n => $1 :: ${*:2}\n\n"
 }
 
 #========================================
@@ -149,7 +149,7 @@ function msg::domain {
 #   STDOUT - Colorized and formatted domain + message
 #========================================
 function msg::subdomain {
-  msg::in_green "\n${MSG__INDENT}${1}\n"
+	msg::in_green "\n${MSG__INDENT}${1}\n"
 }
 
 #========================================
@@ -169,7 +169,7 @@ function msg::subdomain {
 #   STDOUT - Colorized and formatted domain + message
 #========================================
 function msg::domain__lesser {
-  msg::in_purple "\n -> $1 :: ${*:2}\n"
+	msg::in_purple "\n -> $1 :: ${*:2}\n"
 }
 
 #========================================
@@ -189,7 +189,7 @@ function msg::domain__lesser {
 #   STDOUT - Formatted domain + message
 #========================================
 function msg::domain__inactive {
-  msg::print "\n <- $1 :: ${*:2}\n"
+	msg::print "\n <- $1 :: ${*:2}\n"
 }
 
 #========================================
@@ -205,7 +205,7 @@ function msg::domain__inactive {
 #   STDOUT
 #========================================
 function msg::info {
-  msg::print "${MSG__INDENT}${*}"
+	msg::print "${MSG__INDENT}${*}"
 }
 
 #========================================
@@ -221,7 +221,7 @@ function msg::info {
 #   Formatted question prompt to STDOUT
 #========================================
 function msg::question {
-  msg::in_yellow "${MSG__INDENT}[?] $1"
+	msg::in_yellow "${MSG__INDENT}[?] $1"
 }
 
 #========================================
@@ -241,14 +241,14 @@ function msg::question {
 #   STDOUT
 #========================================
 function msg::result {
-  local code="$1"
-  local message="$2"
-  if [[ ${code} -eq 0 ]]; then
-    msg::success "${message}"
-  else
-    msg::error "${message}"
-  fi
-  return "${code}"
+	local code="$1"
+	local message="$2"
+	if [[ ${code} -eq 0 ]]; then
+		msg::success "${message}"
+	else
+		msg::error "${message}"
+	fi
+	return "${code}"
 }
 
 #========================================
@@ -264,7 +264,7 @@ function msg::result {
 #   STDOUT
 #========================================
 function msg::success {
-  msg::in_green "${MSG__INDENT}[✔] $1\n"
+	msg::in_green "${MSG__INDENT}[✔] $1\n"
 }
 
 #========================================
@@ -280,7 +280,7 @@ function msg::success {
 #   STDOUT
 #========================================
 function msg::warning() {
-  msg::in_yellow "${MSG__INDENT}[!] $1\n"
+	msg::in_yellow "${MSG__INDENT}[!] $1\n"
 }
 
 #========================================
@@ -298,7 +298,7 @@ function msg::warning() {
 #   STDERR
 #========================================
 function msg::error {
-  msg::in_red "${MSG__INDENT}[✖] $1\n" >&2
+	msg::in_red "${MSG__INDENT}[✖] $1\n" >&2
 }
 
 #========================================
@@ -313,9 +313,9 @@ function msg::error {
 #   Streams formatted info messages to STDOUT.
 #========================================
 function msg::stream::info {
-  while read -r line; do
-    msg::info "${line}"
-  done
+	while read -r line; do
+		msg::info "${line}"
+	done
 }
 
 #========================================
@@ -330,9 +330,9 @@ function msg::stream::info {
 #   Streams formatted warning messages to STDOUT.
 #========================================
 function msg::stream::warnings {
-  while read -r line; do
-    msg::warning "${line}"
-  done
+	while read -r line; do
+		msg::warning "${line}"
+	done
 }
 
 #========================================
@@ -347,9 +347,9 @@ function msg::stream::warnings {
 #   Streams formatted error message to STDERR.
 #========================================
 function msg::stream::errors {
-  while read -r line; do
-    msg::error "$line"
-  done
+	while read -r line; do
+		msg::error "$line"
+	done
 }
 
 #========================================
@@ -366,13 +366,13 @@ function msg::stream::errors {
 #   Streams formatted story messages to STDOUT.
 #========================================
 function msg::stream::story {
-  msg::info ""
-  msg::info "|"
-  while read -r line; do
-    msg::info "| ${line}"
-  done
-  msg::info "|"
-  msg::info ""
+	msg::info ""
+	msg::info "|"
+	while read -r line; do
+		msg::info "| ${line}"
+	done
+	msg::info "|"
+	msg::info ""
 }
 
 #========================================
@@ -386,7 +386,7 @@ function msg::stream::story {
 #   Green text to STDOUT.
 #========================================
 function msg::in_green {
-  msg::in_color "$1" 2
+	msg::in_color "$1" 2
 }
 
 #========================================
@@ -400,7 +400,7 @@ function msg::in_green {
 #   Purple text to STDOUT.
 #========================================
 function msg::in_purple {
-  msg::in_color "$1" 5
+	msg::in_color "$1" 5
 }
 
 #========================================
@@ -414,7 +414,7 @@ function msg::in_purple {
 #   Red text to STDOUT.
 #========================================
 function msg::in_red {
-  msg::in_color "$1" 1
+	msg::in_color "$1" 1
 }
 
 #========================================
@@ -428,7 +428,7 @@ function msg::in_red {
 #   Yellow text to STDOUT.
 #========================================
 function msg::in_yellow {
-  msg::in_color "$1" 3
+	msg::in_color "$1" 3
 }
 
 #========================================
@@ -444,12 +444,12 @@ function msg::in_yellow {
 #   Colorized text to STDOUT.
 #========================================
 function msg::in_color {
-  local message="$1"
-  local color="$2"
-  printf "%b" \
-    "$(tput setaf "${color}" 2>/dev/null)" \
-    "${message}" \
-    "$(tput sgr0 2>/dev/null)"
+	local message="$1"
+	local color="$2"
+	printf "%b" \
+		"$(tput setaf "${color}" 2>/dev/null)" \
+		"${message}" \
+		"$(tput sgr0 2>/dev/null)"
 }
 
 #========================================
@@ -463,7 +463,7 @@ function msg::in_color {
 #   Single line of text to STDOUT.
 #========================================
 function msg::print {
-  printf "%b" "$*\n"
+	printf "%b" "$*\n"
 }
 
 #========================================
@@ -482,10 +482,10 @@ function msg::print {
 #   Single line of whitespace-separated strings to STDOUT.
 #========================================
 function msg::tabular_row {
-  for cell in "$@"; do
-    printf "%b" "${cell}${MSG__COL__GAP}"
-  done
-  printf "\n"
+	for cell in "$@"; do
+		printf "%b" "${cell}${MSG__COL__GAP}"
+	done
+	printf "\n"
 }
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -497,18 +497,18 @@ function msg::tabular_row {
 # Whether the current shell is interactive.
 # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
 function shell::is_interactive {
-  [[ $- =~ 'i' ]] && return
-  [[ -n ${INTERACTIVE+t} ]] && return
-  [[ -n ${PS1+t} ]] && return
-  return 1
+	[[ $- =~ 'i' ]] && return
+	[[ -n ${INTERACTIVE+t} ]] && return
+	[[ -n ${PS1+t} ]] && return
+	return 1
 }
 
 # Whether the current shell is run within CI.
 function shell::is_ci {
-  [[ -n ${CI+t} ]] && return
-  [[ -n ${TRAVIS+t} ]] && return
-  [[ -n ${GITHUB_WORKSPACE+t} ]] && return
-  return 1
+	[[ -n ${CI+t} ]] && return
+	[[ -n ${TRAVIS+t} ]] && return
+	[[ -n ${GITHUB_WORKSPACE+t} ]] && return
+	return 1
 }
 
 #======================================
@@ -521,9 +521,9 @@ function shell::is_ci {
 #   Commands...
 #========================================
 function shell::has {
-  for cmd in "$@"; do
-    command -v "${cmd}" >/dev/null 2>&1
-  done
+	for cmd in "$@"; do
+		command -v "${cmd}" >/dev/null 2>&1
+	done
 }
 
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
@@ -533,7 +533,7 @@ function shell::has {
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
 function repo::is_repo {
-  git rev-parse &>/dev/null
+	git rev-parse &>/dev/null
 }
 
 # Qualify a repo URL.
@@ -541,57 +541,57 @@ function repo::is_repo {
 #   Repo identifier (e.g. montchr/dotfield) or URL.
 #   Forge name or shortname (e.g. github or gh).
 function repo::qualify_url {
-  local identifier=$1
-  local forge=${2-}
+	local identifier=$1
+	local forge=${2-}
 
-  if [[ ${identifier} == "https://"* || ${identifier} == "git@"* ]]; then
-    echo "${identifier}"
-    return
-  fi
+	if [[ ${identifier} == "https://"* || ${identifier} == "git@"* ]]; then
+		echo "${identifier}"
+		return
+	fi
 
-  case $forge in
-  gh | github)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://github.com/${identifier}.git"
-    else
-      echo "git@github.com:${identifier}.git"
-    fi
-    ;;
-  gl | gitlab)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://gitlab.com/${identifier}.git"
-    else
-      echo "git@gitlab.com:${identifier}.git"
-    fi
-    ;;
-  srht | sourcehut)
-    if [[ $USE_HTTPS == "true" ]]; then
-      echo "https://git.sr.ht/~${identifier}"
-    else
-      echo "git@git.sr.ht:${identifier}"
-    fi
-    ;;
-  esac
+	case $forge in
+	gh | github)
+		if [[ $USE_HTTPS == "true" ]]; then
+			echo "https://github.com/${identifier}.git"
+		else
+			echo "git@github.com:${identifier}.git"
+		fi
+		;;
+	gl | gitlab)
+		if [[ $USE_HTTPS == "true" ]]; then
+			echo "https://gitlab.com/${identifier}.git"
+		else
+			echo "git@gitlab.com:${identifier}.git"
+		fi
+		;;
+	srht | sourcehut)
+		if [[ $USE_HTTPS == "true" ]]; then
+			echo "https://git.sr.ht/~${identifier}"
+		else
+			echo "git@git.sr.ht:${identifier}"
+		fi
+		;;
+	esac
 }
 
 function repo::log {
-  git --no-pager \
-    log \
-    --graph \
-    --pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-    "$*"
+	git --no-pager \
+		log \
+		--graph \
+		--pretty=format:'%Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+		"$*"
 }
 
 # Get the canonical forge ID.
 # Parameters:
 #   Forge name
 function repo::get_forge_id {
-  local forge=$1
-  case $forge in
-  gh | github) echo "gh" ;;
-  gl | gitlab) echo "gl" ;;
-  srht | sourcehut) echo "srht" ;;
-  esac
+	local forge=$1
+	case $forge in
+	gh | github) echo "gh" ;;
+	gl | gitlab) echo "gl" ;;
+	srht | sourcehut) echo "srht" ;;
+	esac
 }
 
 #========================================
@@ -606,28 +606,28 @@ function repo::get_forge_id {
 #   Relative path
 #========================================
 function repo::qualify_raw_url {
-  local forge="$1"
-  local repo_id="$2"
-  local branch="$3"
-  local path="$4"
+	local forge="$1"
+	local repo_id="$2"
+	local branch="$3"
+	local path="$4"
 
-  case $forge in
-  gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
-  gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
-  srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
-  esac
+	case $forge in
+	gh) : "https://raw.githubusercontent.com/${repo_id}/${branch}/${path}" ;;
+	gl) : "https://gitlab.com/${repo_id}/-/raw/${branch}/${path}" ;;
+	srht) : "https://git.sr.ht/${repo_id}/blob/${branch}/${path}" ;;
+	esac
 
-  printf "%s" "$_"
+	printf "%s" "$_"
 }
 
 function repo::pluck {
-  local forge="$1"
-  local repo_id="$2"
-  local remote_path="$3"
-  local target="$4"
-  local branch="${5:-main}"
+	local forge="$1"
+	local repo_id="$2"
+	local remote_path="$3"
+	local target="$4"
+	local branch="${5:-main}"
 
-  local repo_url
-  repo_url="$(repo::qualify_raw_url "${forge}" "${repo_id}" "${branch}" "${remote_path}")"
-  download::fetch "${target}" "${repo_url}"
+	local repo_url
+	repo_url="$(repo::qualify_raw_url "${forge}" "${repo_id}" "${branch}" "${remote_path}")"
+	download::fetch "${target}" "${repo_url}"
 }

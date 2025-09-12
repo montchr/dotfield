@@ -14,7 +14,6 @@
         ];
 
         imports = [
-          inputs.devshell.flakeModule
           inputs.flake-parts.flakeModules.modules
           inputs.git-hooks.flakeModule
           inputs.nix-unit.modules.flake.default
@@ -87,7 +86,6 @@
     ##: ops
     attic.url = "github:zhaofengli/attic";
     colmena.url = "github:zhaofengli/colmena";
-    devshell.url = "github:numtide/devshell";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,7 +114,6 @@
       url = "github:montchr/ceamx";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.apparat.follows = "apparat";
-      inputs.devshell.follows = "devshell";
     };
     deadnix.url = "github:astro/deadnix";
     emacs-overlay.url = "github:nix-community/emacs-overlay";

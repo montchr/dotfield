@@ -1,3 +1,4 @@
+---
 builds:
   exclude:
     - nixosConfigurations.*

@@ -1,5 +1,6 @@
+---
 name: 'Flake checks'
-on:
+"on":
   pull_request:
   push:
     branches: [main]

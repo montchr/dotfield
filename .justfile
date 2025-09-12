@@ -63,15 +63,15 @@ check *ARGS:
 inspect:
   nix-inspect
 
-# <- Lint files
-lint: (_deadnix '--fail')
-  statix check
+[doc: "Lint the project files"]
+lint:
+  pre-commit run -a
 
 # <- Write linter fixes to files
 fix: (_deadnix "--edit")
   statix fix
 
-[doc: "Format the project files with treefmt"]
+[doc: "Format the project files"]
 fmt:
   treefmt
 
