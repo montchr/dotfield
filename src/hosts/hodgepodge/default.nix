@@ -4,30 +4,17 @@
 {
   hosts.nixos.hodgepodge = {
     system = "x86_64-linux";
+
     aspects = with config.aspects; [
       workstation
       hardware__apple__macbookpro-11-3
       desktop-sessions__gnome
     ];
+
     configuration = {
       time.timeZone = "America/New_York";
 
       boot.loader.efi.canTouchEfiVariables = true;
-
-      ## Hardware oddities specific to this machine
-      home-manager.sharedModules = lib.singleton {
-        dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
-          # NOTE: This machine's trackpad physical button is physically broken.
-          # Without tap-to-click, it would not possible to use the trackpad.
-          tap-to-click = lib.mkForce true;
-        };
-
-        # The keyboard is also starting to go... but a super-thorough deep clean
-        # might help...
-        dconf.settings."org/gnome/desktop/a11y/applications" = {
-          screen-keyboard-enabled = lib.mkDefault true;
-        };
-      };
 
       services.tailscale.enable = true;
 
@@ -39,6 +26,19 @@
       sops.defaultSopsFile = ./secrets/secrets.yaml;
 
       system.stateVersion = "21.11"; # Did you read the comment?
+    };
+
+    baseline.home = {
+      ### Hardware oddities specific to this machine:
+      dconf.settings = {
+        # This machine's trackpad physical button is physically broken.
+        # Without tap-to-click, it would not possible to use the trackpad.
+        "org/gnome/desktop/peripherals/touchpad".tap-to-click = lib.mkForce true;
+
+        # The keyboard is also starting to go... but a super-thorough deep clean
+        # might help...
+        "org/gnome/desktop/a11y/applications".screen-keyboard-enabled = true;
+      };
     };
   };
 }
