@@ -4,7 +4,8 @@
     {
       home.packages = with pkgs; [
         ardour
-        carla
+        # XXX: failing build as of 2025-09-13
+        # carla
         dexed
         # XXX: broken as of 2025-04-18
         # mixxx
