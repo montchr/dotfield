@@ -44,28 +44,28 @@ let
       makeHome =
         username: userSpec:
         let
-          userAspects =
+          userAspects = config.users.${username}.aspects;
+          resolvedUserAspects = (
             userSpec.aspects
             ++ userAspectDeps
             ++ userExtendedAspects
-            ++ [
-              (config.users.${username}.aspects.core or { })
-            ];
+            ++ userExtendedAspectsDeps
+            ++ [ (userAspects.core or { }) ]
+          );
           userAspectDeps =
-            (collectRequires config.aspects userSpec.aspects)
-            ++ (collectRequires config.users.${username}.aspects userSpec.aspects);
+            (collectRequires config.aspects userSpec.aspects) ++ (collectRequires userAspects userSpec.aspects);
           userExtendedAspects = collectNameMatches (
             hostAspects ++ userSpec.aspects ++ userAspectDeps
-          ) config.users.${username}.aspects;
-          # parentAspects = collectNameMatches userAspects config.aspects;
+          ) userAspects;
+          userExtendedAspectsDeps =
+            (collectRequires config.aspects userExtendedAspects)
+            ++ (collectRequires userAspects userExtendedAspects);
         in
-
         {
           imports =
             homeModules
             ++ (collectHomeModules hostAspects)
-            ++ (collectHomeModules userAspects)
-            #  ++ (collectHomeModules parentAspects)
+            ++ (collectHomeModules resolvedUserAspects)
             ++ (collectHomeModules config.users.${username}.baseline.aspects)
             ++ [
               userSpec.configuration
