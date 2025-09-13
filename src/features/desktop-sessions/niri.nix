@@ -1,4 +1,4 @@
-{ moduleWithSystem, ... }:
+{ inputs, moduleWithSystem, ... }:
 {
   aspects.desktop-sessions__niri = {
     requires = [ "desktop-sessions__wayland-wm" ];
@@ -7,9 +7,13 @@
       perSystem@{ inputs' }:
       nixos@{ pkgs, ... }:
       {
+        nixpkgs.overlays = [
+          inputs.niri-flake.overlays.niri
+        ];
+
         programs.niri = {
           enable = true;
-          package = perSystem.inputs'.niri.packages.default;
+          package = pkgs.niri-stable;
         };
 
         programs.uwsm.waylandCompositors.niri = {
@@ -26,7 +30,6 @@
               default = [
                 "gnome"
                 "gtk"
-
               ];
               "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
             };

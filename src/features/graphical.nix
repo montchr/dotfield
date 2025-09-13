@@ -31,6 +31,7 @@
         adwaita-icon-theme
         dconf-editor
         dconf2nix
+        glib # provides gsettings
         gnome-backgrounds
         libnotify
         qt5.qtwayland

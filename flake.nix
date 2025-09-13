@@ -104,6 +104,11 @@
       # It is important to keep the Mesa versions in sync.
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      # It is important to keep the Mesa versions in sync.
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";
     wrapper-manager.url = "github:viperML/wrapper-manager";
