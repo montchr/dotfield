@@ -4,6 +4,13 @@
       # FIXME: not necessarily -- and this prevents usage alongside
       # gnome desktop session
       "login__regreet"
+
+      # FIXME: gdm crashes to black screen without a gnome session
+      # available.  there are numerous reports out there of this
+      # happening, and i'm not quite sure what exactly gdm needs.
+      # apparently it *is* possible to use gdm + sway.
+      # "login__gdm"
+
       "secret-service__gnome-keyring"
     ];
 
@@ -44,16 +51,16 @@
           slurp
           swaybg
           swayidle
+          swayimg
           swaylock
           swaylock-effects
           wev
+          wlogout
           wf-recorder
           wl-clipboard
           xwayland-satellite
 
-          # swappables
-          kanshi
-          nemo # file manager
+          nemo # gui file manager
         ];
       };
 
@@ -79,32 +86,25 @@
         programs.swaylock.enable = true;
 
         home.packages = with pkgs; [
-          ## Color picker:
           hyprpicker
 
-          ## File manager:
-          superfile
-
           ## Screenshots/capture/annotation:
-          grim
-          kooha
-          satty
-          slurp
-          wf-recorder
+          grim # image grabber
+          kooha # simple gui screen recorder
+          satty # annotator
+          slurp # capture region to stdout
+          wf-recorder # wlr screen recorder
 
           ## Menus:
           wlogout
 
           ## Document viewers:
-          kdePackages.koko
-          pix
-          pqiv # or imv
+          pix # image manager
           swayimg
           zathura
 
           ## Wallpaper:
           swaybg
-          waypaper
         ];
       };
   };

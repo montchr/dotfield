@@ -22,7 +22,7 @@
 
       services.accounts-daemon.enable = true;
       services.dbus.packages = [
-        pkgs.gcr
+        pkgs.gcr # GNOME Crypto Services
         pkgs.gnome-settings-daemon
       ];
       services.gvfs.enable = true;
@@ -30,12 +30,10 @@
       environment.systemPackages = with pkgs; [
         adwaita-icon-theme
         dconf-editor
-        foot
-        glib
+        dconf2nix
         gnome-backgrounds
         libnotify
         qt5.qtwayland
-        signal-desktop
         wev
         wl-clipboard
         wtype # abandoned?
@@ -62,19 +60,16 @@
         pkgs.ffmpeg
         pkgs.ffmpegthumbnailer
         pkgs.mediainfo
+        pkgs.signal-desktop
         pkgs.thunderbird-latest
-        pkgs.ydotool # command-line automation tool
       ];
 
-      xdg = {
-        userDirs = {
-          enable = true;
-          createDirectories = true;
-          extraConfig = {
-            # TODO: somehow share this value with home-manager git-sync?
-            XDG_PROJECTS_DIR = config.home.homeDirectory + "/Projects";
-            XDG_MAIL_DIR = "${config.home.homeDirectory}/Mail";
-          };
+      xdg.userDirs = {
+        enable = true;
+        createDirectories = true;
+        extraConfig = {
+          XDG_MAIL_DIR = "${config.home.homeDirectory}/Mail";
+          XDG_PROJECTS_DIR = config.home.homeDirectory + "/Projects";
         };
       };
 

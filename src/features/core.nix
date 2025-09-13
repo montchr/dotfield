@@ -95,6 +95,7 @@ in
           # i still do not know... remove?
           util-linux
           vim
+          watchexec
           wget
           whois
           yq
@@ -103,7 +104,7 @@ in
       };
 
     home =
-      { config, ... }:
+      { pkgs, config, ... }:
       {
         _module.args = {
           inherit ops;
@@ -115,10 +116,7 @@ in
         news.display = "show";
         xdg.enable = true;
 
-        ### shells
         programs.bash.enable = true;
-
-        ### essential tools
         programs.jq.enable = true;
         programs.man.enable = true;
 
@@ -130,6 +128,10 @@ in
           "LESSHISTFILE" = "${config.xdg.stateHome}/lesshst";
           "XDG_BIN_HOME" = binHome;
         };
+
+        home.packages = [
+          pkgs.csvkit
+        ];
       };
   };
 }

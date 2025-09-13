@@ -4,7 +4,6 @@
     {
       home.packages = [
         pkgs.calibre
-
         pkgs.mcomix
       ];
     };

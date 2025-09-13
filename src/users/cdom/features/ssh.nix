@@ -14,6 +14,7 @@ flake@{ ... }:
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
+        includes = [ "~/.config/ssh/config.local" ];
         matchBlocks = {
           "synoxyn" = {
             hostname = hosts.synoxyn.ipv4.address;

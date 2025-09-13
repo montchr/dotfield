@@ -1,7 +1,7 @@
 {
-  aspects.workstation.nixos =
+  aspects.workstation.home =
     { pkgs, ... }:
     {
-      environment.systemPackages = with pkgs; [ protonvpn-gui ];
+      home.packages = with pkgs; [ protonvpn-gui ];
     };
 }

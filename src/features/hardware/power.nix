@@ -1,6 +1,5 @@
 {
-  # FIXME: should be workstation
-  aspects.graphical.nixos = {
+  aspects.workstation.nixos = {
     services.logind.extraConfig = ''
       HandlePowerKey=suspend
     '';
@@ -8,7 +7,7 @@
     services.power-profiles-daemon.enable = true;
   };
 
-  aspects.graphical.home = {
+  aspects.workstation.home = {
     dconf.settings."org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "suspend";
       # FIXME: this isn't great, should suspend after a while

@@ -1,8 +1,6 @@
 { lib, ... }:
 {
-  aspects.core.home = # #: NOTE: The source module is currently forked to prevent activation failure
-    #         during NixOS boot.
-    #
+  aspects.core.home =
     { config, ... }:
     let
       inherit (config) xdg;

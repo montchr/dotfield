@@ -13,4 +13,10 @@
         home.extraOutputsToInstall = [ "/share/fish" ];
       };
   };
+
+  aspects.development.home =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.fish-lsp ];
+    };
 }

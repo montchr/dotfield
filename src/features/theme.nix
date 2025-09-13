@@ -1,4 +1,3 @@
-{ inputs, ... }:
 {
   aspects.graphical.nixos =
     { pkgs, ... }:

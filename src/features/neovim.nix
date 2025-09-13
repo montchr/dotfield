@@ -3,8 +3,6 @@
     { config, pkgs, ... }:
     let
       inherit (config) xdg;
-      inherit (pkgs) vimPlugins;
-
       dataPath = "${xdg.dataHome}/nvim";
       cachePath = "${xdg.cacheHome}/nvim";
     in

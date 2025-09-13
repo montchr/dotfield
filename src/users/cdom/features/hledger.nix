@@ -3,9 +3,8 @@
 # - <https://github.com/edkedk99/awesome-hledger?tab=readme-ov-file>
 # - <https://github.com/edkedk99/awesome-hledger/tree/master/contrib-resources>
 {
-  aspects.workstation.home =
-    { config, pkgs, ... }:
-
+  users.cdom.aspects.workstation.home =
+    { pkgs, ... }:
     {
       # TODO:
       # - <https://github.com/siddhantac/puffin>

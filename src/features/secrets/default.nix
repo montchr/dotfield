@@ -1,14 +1,10 @@
 {
   aspects.core.nixos =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
+      # Required for sops-nix management.
       users.groups.keys = { inherit (config.users.groups.wheel) members; };
 
       environment.systemPackages = [

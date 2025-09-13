@@ -13,18 +13,6 @@
     nixos =
       { pkgs, ... }:
       {
-        networking.firewall =
-          let
-            kdeconnectPorts = {
-              from = 1714;
-              to = 1764;
-            };
-          in
-          {
-            allowedTCPPortRanges = [ kdeconnectPorts ];
-            allowedUDPPortRanges = [ kdeconnectPorts ];
-          };
-
         location.provider = "geoclue2";
         services.geoclue2.enable = true;
 
@@ -38,13 +26,8 @@
 
         programs.nh = {
           enable = true;
-          # <https://github.com/viperML/nh/issues/88>
           flake = "/etc/nixos";
         };
-
-        # NOTE: This will significantly slow down builds.  However, it enables more
-        # manpage integrations across various tools (e.g. `apropos`, `man -k`).
-        documentation.man.generateCaches = true;
       };
 
     home =
@@ -59,10 +42,10 @@
           # module args / specialArgs of all active aspects...)
           pkgs.protonmail-bridge-gui
           pkgs.teams-for-linux
+          pkgs.visidata
           pkgs.vscode
+          pkgs.xlsx2csv
         ];
-
-        programs.obs-studio.enable = true;
       };
   };
 }

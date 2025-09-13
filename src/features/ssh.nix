@@ -51,7 +51,6 @@ flake@{ ... }:
             };
           };
         };
-        includes = [ "~/.config/ssh/config.local" ];
       };
     };
   };

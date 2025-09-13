@@ -11,12 +11,6 @@ in
     }:
     let
       inherit (flake.config.meta.users.${config.home.username}) whoami;
-
-      # TODO: for visibility -- refactor "later"
-      guiTools = [
-        pkgs.gg-jj
-        pkgs.diffedit3
-      ];
     in
     {
       imports = [
@@ -25,8 +19,7 @@ in
 
       home.packages = [
         pkgs.jjui
-      ]
-      ++ guiTools;
+      ];
 
       # This should be, for now, the developer's responsibility.  It is not
       # on individual projects to add an ignore for somebody's exotic
@@ -38,45 +31,14 @@ in
       programs.jujutsu = {
         enable = true;
         settings = {
-          aliases = {
-            # SYNOPSIS: jj harvest <revset>
-            #
-            # NOTE: `--from` revset argument is deliberately omitted a la
-            # partial application so the argument may be provided in the
-            # shell.  Surprisingly, this Just Works™!
-            "harvest" = [
-              "squash"
-              "--interactive"
-              "--to"
-              "@"
-              "--from"
-            ];
-            "l" = [
-              "log"
-              "--no-pager"
-              "--limit=6"
-            ];
-            "s" = [
-              "st"
-              "--no-pager"
-            ];
+          user = {
+            name = lib.mkIf (!isEmpty (whoami.name or false)) whoami.name;
+            email = lib.mkIf (!isEmpty (whoami.email or false)) whoami.email;
           };
-
-          template-aliases = {
-            # Display relative timestamps in log output
-            "format_timestamp(timestamp)" = "timestamp.ago()";
-          };
-
-          user = lib.mkIf (!isEmpty (whoami.name or false) && !isEmpty (whoami.email or false)) {
-            inherit (whoami) email name;
-          };
-
           ui = {
-            # For interoperability with other tools that don't know jj.
+            # For interoperability with other tools that don't know jujutsu.
             conflict-marker-style = "git";
             diff-formatter = ":git";
-
-            movement.edit = true;
           };
         };
       };

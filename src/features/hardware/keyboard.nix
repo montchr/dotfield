@@ -23,7 +23,9 @@
           pkgs.wally-cli
         ];
       };
+  };
 
+  aspects.graphical = {
     home =
       { lib, ... }:
       {
@@ -43,4 +45,5 @@
 
       };
   };
+
 }

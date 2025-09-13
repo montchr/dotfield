@@ -5,7 +5,7 @@
       programs.mpv = {
         enable = true;
         scripts = with pkgs.mpvScripts; [
-          thumbnail # show thumbnail in seekbar
+          thumbnail
           mpv-playlistmanager
         ];
         config = {

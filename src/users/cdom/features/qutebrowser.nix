@@ -1,5 +1,5 @@
 {
-  aspects.workstation.home = {
+  users.cdom.aspects.workstation.home = {
     programs.qutebrowser = {
       enable = true;
       enableDefaultBindings = true;
