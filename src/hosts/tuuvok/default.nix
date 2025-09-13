@@ -11,7 +11,7 @@ in
 {
   hosts.nixos.tuuvok = {
     system = "aarch64-linux";
-    channel = "nixpkgs-apple-silicon";
+    channel = "nixos-unstable";
     aspects = with config.aspects; [
       hardware__apple__macbook-14-2
       workstation
