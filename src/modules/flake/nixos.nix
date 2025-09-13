@@ -96,9 +96,6 @@ let
           home-manager.users = lib.mapAttrs makeHome hostSpec.users;
         }
       ];
-      specialArgs = {
-        flake = self.lib.modules.flakeSpecialArgs' system;
-      };
     };
 in
 {

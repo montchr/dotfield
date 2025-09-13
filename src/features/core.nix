@@ -1,6 +1,5 @@
 {
   self,
-  ops,
   lib,
   ...
 }:
@@ -106,11 +105,6 @@ in
     home =
       { pkgs, config, ... }:
       {
-        _module.args = {
-          inherit ops;
-        };
-
-        ### home-manager setup
         programs.home-manager.enable = true;
         manual.json.enable = true;
         news.display = "show";
