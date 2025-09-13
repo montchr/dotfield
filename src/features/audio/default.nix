@@ -6,7 +6,8 @@
       security.rtkit.enable = true;
 
       environment.systemPackages = [
-        pkgs.pavucontrol
+        pkgs.alsa-utils
+        pkgs.easyeffects
         pkgs.pwvucontrol
       ];
 
