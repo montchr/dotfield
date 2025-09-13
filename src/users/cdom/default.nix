@@ -59,8 +59,8 @@ in
       video-player = "mpv";
       web-browser = "firefox";
 
-      # theme.color.variant = "dark";
-      theme.color.variant = "light";
+      theme.color.variant = "dark";
+      # theme.color.variant = "light";
       # theme.color.scheme.dark = "catppuccin-frappe";
       theme.color.scheme.dark = "catppuccin-mocha";
       # theme.color.scheme.dark = "catppuccin-macchiato";
