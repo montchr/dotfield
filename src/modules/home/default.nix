@@ -8,5 +8,6 @@ in
     "programs/jujutsu/signing" = importApply ./programs/jujutsu/signing/_module.nix {
       inherit (config) meta;
     };
+    kanata = ./services/kanata/_module.nix;
   };
 }

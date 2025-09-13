@@ -1,5 +1,19 @@
 ;;; Settings
 
+(defcfg
+ ;; NOTE: `process-unmapped-keys' may cause issues with some keys.  But
+ ;;       without it, all `defsrc' definitions would need to contain
+ ;;       all available keys else some actions will not work properly.
+ ;;       Most notably `tap-hold-release' will not react to the
+ ;;       unmapped keys.
+ ;;       <https://github.com/jtroo/kanata/blob/v1.6.0/docs/config.adoc#process-unmapped-keys>
+ process-unmapped-keys yes
+ linux-dev (;; Apple MacBook M2 internal keyboard
+            "/dev/input/by-path/platform-24eb30000.input-event-kbd"
+            ;; Dell Smart Card Reader Keyboard KB813t (circa 2015)
+            "/dev/input/by-id/usb-Dell_Dell_Smart_Card_Reader_Keyboard-event-kbd")
+ linux-dev-names-exclude ("Yubico YubiKey OTP+FIDO+CCID"))
+
 (defvar
   tap-timeout 100
   tt $tap-timeout)

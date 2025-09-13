@@ -57,9 +57,23 @@ let
           userExtendedAspects = collectNameMatches (
             hostAspects ++ userSpec.aspects ++ userAspectDeps
           ) userAspects;
-          userExtendedAspectsDeps =
-            (collectRequires config.aspects userExtendedAspects)
-            ++ (collectRequires userAspects userExtendedAspects);
+          # BUG: There is no point to further collecting deps from
+          # *other* user aspects here, because those should just be
+          # defined directly in the extended aspect definition.
+          # However, the logic of this enforced limitation may or may
+          # not hold up, because in truth it is to avoid an error
+          # encountered during the refactoring of the kanata modules.
+          # Be warned that attempting to source dependencies from more
+          # than one aspect group will sooner or later lead to an error
+          # where one of the aspect groups is missing the dependency.
+          # Because `collectRequires` currently does not handle more
+          # than one aspect group as its first argument, an
+          # attribute-not-found error can be thrown even if the desired
+          # aspect exists in the other group.  This is probably a bug,
+          # but it is not currently worth fixing.  That said, it could
+          # affect any usage of `collectRequires`, including the usage
+          # in the definition of `userAspectDeps` above.
+          userExtendedAspectsDeps = (collectRequires config.aspects userExtendedAspects);
         in
         {
           imports =
