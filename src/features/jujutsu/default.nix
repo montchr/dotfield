@@ -20,7 +20,7 @@ in
     in
     {
       imports = [
-        self.modules.homeManager."programs/jujutsu/signing"
+        self.modules.homeManager.jujutsu-signing
       ];
 
       home.packages = [

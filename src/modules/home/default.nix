@@ -4,8 +4,8 @@ let
 in
 {
   flake.modules.homeManager = {
-    "programs/bash/trampoline" = ./programs/bash/trampoline/_module.nix;
-    "programs/jujutsu/signing" = importApply ./programs/jujutsu/signing/_module.nix {
+    bash-trampoline = ./programs/bash/trampoline/_module.nix;
+    jujutsu-signing = importApply ./programs/jujutsu/signing/_module.nix {
       inherit (config) meta;
     };
     kanata = ./services/kanata/_module.nix;

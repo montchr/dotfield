@@ -12,7 +12,7 @@
     in
     {
       imports = [
-        self.modules.homeManager."programs/bash/trampoline"
+        self.modules.homeManager.bash-trampoline
       ];
 
       home.extraOutputsToInstall = [ "/share/bash-completion" ];
