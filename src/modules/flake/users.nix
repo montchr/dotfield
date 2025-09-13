@@ -5,7 +5,12 @@
 }:
 let
   inherit (lib) mkOption types;
-  inherit (self.lib.modules) mkAspectListOpt mkAspectNameOpt mkDeferredModuleOpt;
+  inherit (self.lib.modules)
+    aspectSubmoduleGenericOptions
+    mkAspectListOpt
+    mkAspectNameOpt
+    mkDeferredModuleOpt
+    ;
 in
 {
   options.users = mkOption {
@@ -24,9 +29,8 @@ in
                 types.submodule (
                   { name, ... }:
                   {
-                    options = {
+                    options = (builtins.removeAttrs aspectSubmoduleGenericOptions [ "nixos" ]) // {
                       name = mkAspectNameOpt name;
-                      home = mkDeferredModuleOpt "A Home-Manager module";
                     };
                   }
                 )
