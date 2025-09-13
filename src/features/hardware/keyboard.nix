@@ -11,6 +11,10 @@
         # Required to support flashing firmware.
         users.groups.plugdev = { inherit (config.users.groups.wheel) members; };
 
+        # Required to use virtual input tools e.g. kanata, espanso.
+        hardware.uinput.enable = true;
+        users.groups.uinput = { inherit (config.users.groups.wheel) members; };
+
         hardware.keyboard.keyboardio.enable = true;
         hardware.keyboard.qmk.enable = true;
         hardware.keyboard.zsa.enable = true;
@@ -19,6 +23,7 @@
           pkgs.wally-cli
         ];
       };
+
     home =
       { lib, ... }:
       {
