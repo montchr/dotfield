@@ -3,7 +3,7 @@
   users.cdom.aspects.core.home =
     { pkgs, ... }:
     let
-      shellAbbrs = import ./__abbrs.nix { inherit pkgs; };
+      shellAbbrs = import ../__abbrs.nix { inherit pkgs; };
     in
     {
       programs.fish = {
@@ -14,6 +14,7 @@
             pkgs.fishPlugins.done
           ]
           |> builtins.map self.lib.fish.toPluginAttrs;
+        interactiveShellInit = builtins.readFile ./interactive.fish;
       };
     };
 }
