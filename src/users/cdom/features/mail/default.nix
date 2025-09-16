@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   users.cdom.aspects.mail.home =
     { pkgs, ... }:
@@ -12,9 +13,9 @@
       programs.notmuch.enable = true;
       services.mbsync = {
         enable = true;
-        frequency = "*:0/15";
-        # FIXME: no effect -- maybe it needs to use pkgs after all
-        postExec = "notmuch new";
+        frequency = "*:0/5";
+        # Absolute path to package is necessary.
+        postExec = "${lib.getExe pkgs.notmuch} new";
       };
 
       accounts.email = {
