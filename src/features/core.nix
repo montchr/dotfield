@@ -40,11 +40,12 @@ in
 
         environment.systemPackages = with pkgs; [
           bashInteractive
-          bat
+          bat # :: better cat
           cacert
           coreutils
           curl
-          dig
+          dig # :: network introspection
+          diskus # :: simple `du -sh` alternative by sharkdp
           dnsutils
           du-dust
           dua
@@ -61,14 +62,15 @@ in
           gnused
           gnutar
           grc
-          ijq
+          hyperfine # the benchmarking tool by sharkdp
+          ijq # interactive jq
           inetutils
           iputils
-          jq
-          less
+          jq # thee json tool
+          less # thee pager
           lm_sensors
-          lnav
-          lynx
+          lnav # log file pager
+          lynx # thee web browser
           moreutils
           nh
           nmap
@@ -77,25 +79,22 @@ in
           openssl
           pciutils
           procs
-          pv # Tool for monitoring the progress of data through a pipeline
-          rclone
+          pv # monitor the progress of data through a pipeline
+          rclone # rsync for "the cloud"
           reptyr # reparent a running process to another tty
           (ripgrep.override { withPCRE2 = true; })
           rlwrap # no more "^[[D" in limited shells (a readline wrapper) :: <https://github.com/hanslub42/rlwrap>
-          rsync
+          rsync # thee file transfer tool
           screen
           shpool # <- "think tmux, then aim... lower" :: <https://github.com/shell-pool/shpool>
           sysstat
-          tealdeer
+          tealdeer # provides "tldr"
           unzip
           usbutils
-          # TODO: what does this provide?  even after reading
-          # <https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/about/>
-          # i still do not know... remove?
           util-linux
           vim
           watchexec
-          wget
+          wget # baby curls
           whois
           yq
           zellij
@@ -124,7 +123,8 @@ in
         };
 
         home.packages = [
-          pkgs.csvkit
+          pkgs.biff # BurntSushi's datetime calc/parser/formatting utility
+          pkgs.csvkit # Standard toolkit for CSV manipulation
         ];
       };
   };
