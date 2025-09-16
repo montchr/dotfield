@@ -7,21 +7,15 @@
     { pkgs, ... }:
     {
       # TODO:
-      # - <https://github.com/siddhantac/puffin>
       # - <https://github.com/olimorris/hledger-forecast>
       home.packages = [
         pkgs.hledger
         pkgs.hledger-ui
+        pkgs.hledger-web
 
-        # <https://gitlab.com/nobodyinperson/hledger-utils>
-        pkgs.hledger-utils
-
-        # XXX(2024-08-14): build failure
-        # pkgs.ledger-autosync
-
-        ## broken:
-        # pkgs.hledger-iadd
-        # pkgs.haskellPackages.hledger-flow
+        pkgs.hledger-utils # <https://gitlab.com/nobodyinperson/hledger-utils>
+        pkgs.ledger-autosync # sync with financial institutions via OFX
+        pkgs.puffin # hledger dashboard
       ];
     };
 }
