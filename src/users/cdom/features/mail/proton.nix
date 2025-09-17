@@ -51,6 +51,10 @@ flake@{ ... }:
           notmuch = {
             enable = true;
           };
+
+          msmtp = {
+            enable = true;
+          };
         };
     in
 

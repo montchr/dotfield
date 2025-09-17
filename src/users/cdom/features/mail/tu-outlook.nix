@@ -27,6 +27,21 @@
           expunge = "none";
         };
         notmuch.enable = true;
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            # account = "TU";
+            auth = "xoauth2";
+            host = "smtp.office365.com";
+            protocol = "smtp";
+            port = "587";
+            tls = "on";
+            tls_starttls = "on";
+            from = "chrismont@temple.edu";
+            user = "tuc26080@temple.edu";
+            passwordeval = "pizauth show TU";
+          };
+        };
       };
     };
 }
