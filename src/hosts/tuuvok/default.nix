@@ -31,8 +31,6 @@ in
 
         fonts.packages = [ perSystem.config.packages.berkeley-mono ];
 
-        # NOTE: The firmware "asahi-tuuvok-firmware" repository results in
-        # broken wifi.  Reverting to the "asahi-tuvok-firmware" repository works.
         hardware.asahi.peripheralFirmwareDirectory =
           perSystem.inputs'.asahi-tuuvok-firmware.packages.default;
 

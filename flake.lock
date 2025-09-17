@@ -28,17 +28,17 @@
     },
     "asahi-tuuvok-firmware": {
       "locked": {
-        "lastModified": 1716651120,
-        "narHash": "sha256-V8m+pvC/rBDEsHhZ6I7mQiJNFqrwaP0OGMi0VNOYsao=",
+        "lastModified": 1758422739,
+        "narHash": "sha256-q9AadgIhCNt5O4FXWLq58+W8kaYLApOMmDNkpp3ZUlo=",
         "ref": "refs/heads/master",
-        "rev": "575d3d14d46c51dce6bda78d4c5eafa80d540f6b",
-        "revCount": 4,
+        "rev": "731d906bcb1c994cc200fa73a3d1cb7c03633d45",
+        "revCount": 5,
         "type": "git",
-        "url": "https://codeberg.org/astratagem/asahi-tuuvok-firmware"
+        "url": "ssh://git@codeberg.org/astratagem/asahi-tuuvok-firmware.git"
       },
       "original": {
         "type": "git",
-        "url": "https://codeberg.org/astratagem/asahi-tuuvok-firmware"
+        "url": "ssh://git@codeberg.org/astratagem/asahi-tuuvok-firmware.git"
       }
     },
     "attic": {

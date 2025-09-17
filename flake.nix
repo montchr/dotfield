@@ -79,7 +79,7 @@
 
     ##: hardware
     nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon";
-    asahi-tuuvok-firmware.url = "git+https://codeberg.org/astratagem/asahi-tuuvok-firmware";
+    asahi-tuuvok-firmware.url = "git+ssh://git@codeberg.org/astratagem/asahi-tuuvok-firmware.git";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     ##: ops
