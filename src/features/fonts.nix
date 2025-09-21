@@ -6,6 +6,8 @@
     {
       environment.systemPackages = [ pkgs.font-manager ];
 
+      nixpkgs.config.input-fonts.acceptLicense = true;
+
       fonts.fontconfig.enable = true;
       fonts.fontDir.enable = true;
       fonts.packages = (
@@ -14,6 +16,7 @@
             corefonts
             dejavu_fonts
             ibm-plex
+            input-fonts
             iosevka
             inter
             jetbrains-mono

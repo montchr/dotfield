@@ -91,11 +91,12 @@ in
       bat = "BAT2";
     };
     clock = {
-      format = "{:%Y-%m-%d %H:%M:%S %z}";
-      format-alt = "{:%m/%d %H:%M:%S}";
+      format = "{:%Y-%m-%d %H:%M:%S}";
+      format-alt = "{:%d-%m %H:%M}";
       interval = 1;
       on-click-left = "mode";
-      tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+      # tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+      tooltip-format = "<tt><small>{calendar}</small></tt>";
     };
     cpu = {
       format = " {usage}%";

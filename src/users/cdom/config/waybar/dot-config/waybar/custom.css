@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Symbols Nerd Font", FontAwesome, "Aporetic Serif Mono", "Iosevka Comfy Motion", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 10px;
+  font-family: "Symbols Nerd Font", FontAwesome, "Input Sans", "Aporetic Serif Mono", "Iosevka Comfy Motion", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 10px;
 }
 
 window#waybar {
@@ -392,6 +392,6 @@ label:focus {
 #clock {
     background-color: @base0C;
     color: @base00;
-    /* font-weight: bold; */
-    font-size: 14px;
+  /* font-weight: bold; */
+  font-size: 12px;
 }
