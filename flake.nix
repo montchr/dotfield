@@ -78,7 +78,10 @@
     srvos.url = "github:numtide/srvos";
 
     ##: hardware
-    nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+    nixos-apple-silicon = {
+      url = "github:nix-community/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     asahi-tuuvok-firmware.url = "git+ssh://git@codeberg.org/astratagem/asahi-tuuvok-firmware.git";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -102,12 +105,12 @@
     niri = {
       url = "github:YaLTeR/niri";
       # It is important to keep the Mesa versions in sync.
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     niri-flake = {
       url = "github:sodiboo/niri-flake";
       # It is important to keep the Mesa versions in sync.
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";

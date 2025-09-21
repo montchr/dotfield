@@ -34,6 +34,7 @@
         glib # provides gsettings
         gnome-backgrounds
         libnotify
+        mesa-demos # provides mesa utilities e.g. glxinfo
         qt5.qtwayland
         wev
         wl-clipboard

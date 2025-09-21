@@ -4,9 +4,7 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 debug {
-    disable-cursor-plane
-    disable-overlay-planes
-    render-drm-device "/dev/dri/renderD128"
+    render-drm-device "/dev/dri/card0"
 }
 
 // Input device configuration.
