@@ -11,11 +11,24 @@ let
     };
   };
 
+  ipv6Submodule = types.submodule {
+    options = {
+      address = mkOption {
+        type = types.str;
+        description = "IPv6 address of the host";
+      };
+    };
+  };
+
   networkSubmodule = types.submodule {
     options = {
       ipv4 = mkOption {
         type = ipv4Submodule;
         description = "IPv4 network configuration";
+      };
+      ipv6 = mkOption {
+        type = ipv6Submodule;
+        description = "IPv6 network configuration";
       };
     };
   };
@@ -81,6 +94,11 @@ let
       ipv4 = mkOption {
         type = ipv4Submodule;
         description = "IPv4 configuration for the host";
+      };
+
+      ipv6 = mkOption {
+        type = ipv6Submodule;
+        description = "IPv6 configuration for the host";
       };
 
       hardware = mkOption {

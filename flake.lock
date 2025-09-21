@@ -1631,15 +1631,16 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1756110286,
-        "narHash": "sha256-NE0HwcQCQTgM+HuYqmiemPf/5e+3fjwowceAyJj+ikU=",
-        "owner": "nix-community",
+        "lastModified": 1758458590,
+        "narHash": "sha256-Jnn7Q53dOLNBo8rTEzTnYRkt2fltC1YhI9PzsJERuVk=",
+        "owner": "montchr",
         "repo": "nixos-apple-silicon",
-        "rev": "b99bf9bf7445416fe55da09034fc4a6cd733805c",
+        "rev": "580cc0bf9479146baed7357f1fcf084c0a2ffbe5",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "montchr",
+        "ref": "dev",
         "repo": "nixos-apple-silicon",
         "type": "github"
       }

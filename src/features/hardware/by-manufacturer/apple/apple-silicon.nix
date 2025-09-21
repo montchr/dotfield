@@ -6,11 +6,14 @@
         inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
       ];
 
-      hardware.asahi.enable = true;
       nixpkgs.overlays = lib.mkBefore [ inputs.nixos-apple-silicon.overlays.default ];
 
-      boot.loader.systemd-boot.consoleMode = lib.mkForce "0";
+      hardware.asahi.enable = true;
+
+      # U-Boot does not support EFI variables.
       boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+      # U-Boot does not support switching console mode.
+      boot.loader.systemd-boot.consoleMode = lib.mkForce "0";
 
       # Mutually exclusive legacy Apple hardware.
       hardware.facetimehd.enable = lib.mkForce false;

@@ -22,7 +22,10 @@ in
       keys.ssh.ryosuke-rsa
     ];
     network = "home";
-    networks.ts.ipv4.address = "100.123.41.68";
+    networks.ts = {
+      ipv4.address = "100.123.41.68";
+      ipv6.address = "fd7a:115c:a1e0:ab12:4843:cd96:627b:2944";
+    };
     users.cdom.keys = {
       age = keys.age.cdom-at-ryosuke;
       ssh = [ keys.ssh.cdom-at-ryosuke ];

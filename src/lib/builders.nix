@@ -15,16 +15,11 @@ let
       remoteCpus = remoteMeta.hardware.vcpus or 1;
     in
     {
+      inherit (remoteMeta) supportedFeatures;
       inherit (remoteMeta.hardware) system;
       hostName = remoteHostName;
-      # FIXME: should be reversed, right?
-      # speedFactor = builtins.ceil builderVcpus / localVcpus;
-      speedFactor = builtins.ceil localCpus / remoteCpus;
+      speedFactor = builtins.ceil remoteCpus / localCpus;
       protocol = "ssh-ng";
-      supportedFeatures = [
-        "benchmark"
-        "big-parallel"
-      ];
     };
 
   mkBuildMachineModuleFor =
@@ -40,7 +35,9 @@ let
       programs.ssh.knownHosts.${remoteHostName} = {
         publicKey = lib.head remoteMeta.keys.ssh;
         hostNames = [
-          remoteHostName
+          remoteMeta.ipv4.address
+          remoteMeta.networks.ts.ipv4.address
+          remoteMeta.networks.ts.ipv6.address
         ]
         ++ extraHostNames;
       };

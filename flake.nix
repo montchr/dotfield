@@ -79,7 +79,8 @@
 
     ##: hardware
     nixos-apple-silicon = {
-      url = "github:nix-community/nixos-apple-silicon";
+      # url = "github:nix-community/nixos-apple-silicon";
+      url = "github:montchr/nixos-apple-silicon/dev";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     asahi-tuuvok-firmware.url = "git+ssh://git@codeberg.org/astratagem/asahi-tuuvok-firmware.git";
