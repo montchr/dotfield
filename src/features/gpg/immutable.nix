@@ -1,4 +1,4 @@
-flake@{ ... }:
+flake@{ self, ... }:
 {
   aspects.workstation.home =
     {
@@ -11,7 +11,7 @@ flake@{ ... }:
       inherit (flake.config.meta.users.${config.home.username}) whoami;
       key = whoami.pgp.id;
     in
-    {
+    lib.mkIf (!self.lib.isEmpty key) {
       home.sessionVariables.DOTFIELD_PGP_KEY = key;
       programs.gpg = {
         mutableKeys = false;
