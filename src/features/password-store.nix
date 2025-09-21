@@ -1,4 +1,4 @@
-flake@{ ... }:
+flake@{ self, ... }:
 {
   aspects.workstation.home =
     {
@@ -23,7 +23,7 @@ flake@{ ... }:
           ]
         );
         settings = {
-          PASSWORD_STORE_KEY = key;
+          PASSWORD_STORE_KEY = lib.mkIf (!self.lib.isEmpty key) key;
         };
       };
 
