@@ -43,7 +43,6 @@ in
 
         programs.steam.enable = true;
         services.deluge.enable = true;
-        environment.systemPackages = [ pkgs.jellyfin-media-player ];
 
         system.stateVersion = "22.05";
       };
