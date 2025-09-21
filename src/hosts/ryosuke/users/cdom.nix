@@ -1,7 +1,8 @@
+flake@{ ... }:
 {
   hosts.nixos.ryosuke = {
     configuration =
-      { flake, config, ... }:
+      { config, ... }:
       let
         username = "cdom";
       in
