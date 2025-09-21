@@ -104,7 +104,7 @@ in
         # size = 32;
         name = "Bibata-Modern-Classic";
         pname = "bibata-cursors";
-        size = 16;
+        size = 10;
       };
       theme.gui = {
         pname = "flat-remix-gtk";

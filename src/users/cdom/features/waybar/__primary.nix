@@ -1,10 +1,3 @@
-{ lib, config, ... }:
-let
-  hyprcfg = config.wayland.windowManager.hyprland;
-  swaycfg = config.wayland.windowManager.sway;
-  withHyprland = items: lib.optionals hyprcfg.enable items;
-  withSway = items: lib.optionals swaycfg.enable items;
-in
 {
   programs.waybar.settings.primary = {
     layer = "top";
@@ -13,23 +6,27 @@ in
     # width = 1280;
     # margin = 6;
     spacing = 3;
-    modules-left =
-      [ ]
-      ++ (withSway [
-        "sway/workspaces"
-        "sway/mode"
-        "sway/scratchpad"
-      ])
-      ++ (withHyprland [
-        "hyprland/workspaces"
-        "hyprland/submap"
-      ])
-      ++ [ "custom/media" ];
-    modules-center = [ ] ++ (withSway [ "sway/window" ]);
+    modules-left = [
+      "niri/workspaces"
+
+      "sway/workspaces"
+      "sway/mode"
+      "sway/scratchpad"
+
+      "hyprland/workspaces"
+      "hyprland/submap"
+
+      "custom/media"
+    ];
+    modules-center = [
+      "niri/window"
+
+      "sway/window"
+    ];
     modules-right = [
       "mpd"
       "idle_inhibitor"
-      "pulseaudio"
+      "wireplumber"
       "network"
       "power-profiles-daemon"
       "cpu"
@@ -37,17 +34,18 @@ in
       "temperature"
       "backlight"
       # "keyboard-state"
-    ]
-    ++ (withSway [
-      #  "sway/language"
-    ])
-    ++ [
       "battery"
       "battery#bat2"
       "tray"
       "clock"
       "custom/power"
     ];
+    "niri/workspaces" = {
+      all-outputs = true;
+    };
+    "niri/window" = {
+      "format" = "{title}";
+    };
     "sway/workspaces" = {
       all-outputs = true;
       disable-scroll = true;
@@ -189,28 +187,18 @@ in
       tooltip = true;
       tooltip-format = "Power profile: {profile}\nDriver: {driver}";
     };
-    pulseaudio = {
+    wireplumber = {
       format = "{icon} {volume}% {format_source}";
-      format-bluetooth = "{icon} {volume}% {format_source}";
-      format-bluetooth-muted = "󰝟 {icon} {format_source}";
-      format-icons = {
-        car = "󰄋";
-        default = [
-          "󰕿"
-          "󰖀"
-          "󰕾"
-        ];
-        hands-free = "󰗋";
-        headphone = "󰋋";
-        headset = "󰋎";
-        phone = "󰏲";
-        portable = "󰄜";
-      };
       format-muted = "󰝟 {format_source}";
-      format-source = " {volume}%";
-      format-source-muted = "";
-      on-click = "pwvucontrol";
+      format-bluetooth = "{icon} {volume}% {format_source}";
+      format-bluetooth-muted = "{icon} 󰝟 {format_source}";
+      format-icons = [
+        "󰕿"
+        "󰖀"
+        "󰕾"
+      ];
       scroll-step = 1;
+      on-click = "pwvucontrol";
     };
     "sway/mode" = {
       format = "<span style=\"italic\">{}</span>";
