@@ -17,10 +17,4 @@ flake@{ ... }:
       };
       home.packages = [ pkgs.fuzzel ];
     };
-
-  aspects.desktop-sessions__wayland-wm.home = {
-    programs.fuzzel.settings.main = {
-      launch-prefix = "uwsm app -- ";
-    };
-  };
 }

@@ -16,12 +16,6 @@
           package = pkgs.niri-stable;
         };
 
-        programs.uwsm.waylandCompositors.niri = {
-          prettyName = "Niri";
-          comment = "Niri compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/niri";
-        };
-
         xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
 
         xdg.portal.config =

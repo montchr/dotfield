@@ -4,13 +4,6 @@ flake@{ lib, ... }:
     requires = [ "desktop-sessions__wayland-wm" ];
 
     nixos = {
-      programs.hyprland.withUWSM = true;
-      programs.uwsm.waylandCompositors.hyprland = {
-        prettyName = "Hyprland";
-        comment = "Hyprland compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/Hyprland";
-      };
-
       programs.hyprland.enable = true;
       programs.hyprland.xwayland.enable = true;
     };
@@ -36,9 +29,6 @@ flake@{ lib, ... }:
             "$fileManager" = prefs.file-manager;
             "$menu" = prefs.wayland.menu;
             misc.disable_hyprland_logo = true;
-            exec-once = lib.mkAfter [
-              "exec uwsm finalize"
-            ];
             bind = [
               # Brightness
               ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"

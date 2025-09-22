@@ -11,9 +11,6 @@ flake@{ ... }:
       cfg = config.wayland.windowManager.sway;
       mod = cfg.config.modifier;
 
-      app = cmd: "${app'} ${cmd}";
-      app' = "${pkgs.uwsm}/bin/uwsm-app --";
-
       logoutCmd = "${pkgs.uwsm}/bin/uwsm stop";
 
       swaymsg = "swaymsg";
@@ -79,14 +76,14 @@ flake@{ ... }:
         startup = [
           # { command = app "firefox --profile ~/.mozilla/firefox/home"; }
           # { command = app "firefox --profile ~/.mozilla/firefox/work"; }
-          { command = app "emacs"; }
-          { command = app "waypaper --restore"; }
+          { command = "emacs"; }
+          { command = "waypaper --restore"; }
         ];
 
         # NOTE: lib.mkOptionDefault is required in order to not wipe out
         # default keybindings!  See the option description.
         keybindings = lib.mkOptionDefault {
-          # "${mod}+shift+grave" = "exec ${app'} emacsclient";
+          # "${mod}+shift+grave" = "exec emacsclient";
 
           "${mod}+Shift+e" = ''
             exec swaynag -t warning \
