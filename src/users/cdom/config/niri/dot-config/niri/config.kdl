@@ -1,10 +1,5 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-debug {
-    // FIXME: this is weird.... niri works, but this device does not exist...
-    render-drm-device "/dev/dri/card0"
-}
-
 input {
     focus-follows-mouse max-scroll-amount="10%"
     warp-mouse-to-focus
