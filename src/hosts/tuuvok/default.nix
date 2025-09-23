@@ -18,7 +18,7 @@ in
       desktop-sessions__niri
       desktop-sessions__sway
       development__kleinweb
-      # hardware__displaylink
+      hardware__displaylink
       remote-builds__ryosuke
     ];
     configuration = moduleWithSystem (
