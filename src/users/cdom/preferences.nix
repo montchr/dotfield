@@ -16,9 +16,13 @@
     # theme.color.scheme.dark = "catppuccin-macchiato";
     # theme.color.scheme.dark = "black-metal-khold";
     theme.color.scheme.light = "catppuccin-latte";
+    # theme.font.families.sansSerif = {
+    #   name = "Inter";
+    #   pname = "inter";
+    # };
     theme.font.families.sansSerif = {
-      name = "Inter";
-      pname = "inter";
+      name = "Berkeley Mono";
+      pname = "berkeley-mono";
     };
     theme.font.families.serif = {
       name = "Aporetic Serif";
