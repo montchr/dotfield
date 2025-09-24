@@ -136,6 +136,8 @@ window-rule {
 
 prefer-no-csd
 
+spawn-at-startup "swww" "img" "~/Pictures/wallpapers/src/dark/rougier--recursive-voronoi--inverted.png" "--fill-color" "#000000" "--resize" "fit"
+
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y%m%dT%H%M%S.png"
 
 cursor {
