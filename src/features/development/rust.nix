@@ -3,8 +3,8 @@
     { pkgs, ... }:
     {
       home.packages = [
-        pkgs.rustup
-        pkgs.rustic
+        pkgs.rustc
+        pkgs.rustfmt
         pkgs.rustlings
       ];
     };
