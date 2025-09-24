@@ -21,11 +21,6 @@
             progress_bar_corner_radius = 8;
             icon_corner_radius = 4;
             corner_radius = 8;
-            gap_size = 4;
-            # HACK: override stylix
-            font = lib.mkForce "Berkeley Mono 8";
-            # HACK: override stylix
-            separator_color = lib.mkForce "frame";
             dmenu = "${lib.getExe pkgs.fuzzel} --dmenu";
             idle_threshold = "10m";
           };
