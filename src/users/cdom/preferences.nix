@@ -35,7 +35,7 @@
     theme.font.sizes = {
       applications = 10;
       desktop = 10;
-      popups = 10;
+      popups = 8;
       terminal = 10;
     };
     theme.icons = {

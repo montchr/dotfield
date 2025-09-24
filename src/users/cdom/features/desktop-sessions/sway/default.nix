@@ -134,16 +134,6 @@ flake@{ ... }:
             hide_cursor = "when-typing enable";
           };
         };
-
-        fonts = {
-          names = [
-            "Aporetic Sans"
-            "Symbols Nerd Font"
-          ];
-          # style = "Semi-bold";
-          size = 10.0;
-        };
       };
-
     };
 }
