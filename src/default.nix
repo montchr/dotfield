@@ -33,6 +33,7 @@ in
     ++ (loadTree ./features)
     ++ (loadTree ./hosts)
     ++ (loadTree ./modules)
+    ++ (loadTree ./overlays)
     ++ (loadUsers ./users)
     ++ [
       ./meta

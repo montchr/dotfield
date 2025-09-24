@@ -92,7 +92,7 @@ let
         {
           networking = { inherit hostName; };
           nixpkgs.config.allowUnfree = true;
-          nixpkgs = { inherit overlays; };
+          nixpkgs.overlays = [ self.overlays.default ];
           home-manager.users = lib.mapAttrs makeHome hostSpec.users;
         }
       ];
