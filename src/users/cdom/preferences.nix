@@ -33,7 +33,7 @@
       pname = "aporetic";
     };
     theme.font.sizes = {
-      applications = 12;
+      applications = 10;
       desktop = 10;
       popups = 10;
       terminal = 10;
