@@ -54,6 +54,7 @@
           wlogout
           wf-recorder
           wl-clipboard
+          wlr-randr
           xwayland-satellite
 
           nemo # gui file manager
