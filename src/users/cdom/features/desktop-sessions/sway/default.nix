@@ -32,8 +32,6 @@ flake@{ ... }:
 
     in
     {
-      services.swayosd.enable = true;
-
       # services.swayidle.timeouts = [
       #   {
       #     timeout = 15 + 10;

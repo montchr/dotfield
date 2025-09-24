@@ -136,9 +136,7 @@ window-rule {
 
 prefer-no-csd
 
-spawn-at-startup "swww" "img" "~/Pictures/wallpapers/src/dark/rougier--recursive-voronoi--inverted.png" "--fill-color" "#000000" "--resize" "fit"
-
-// spawn-sh-at-startup "swayidle -w timeout 15 'swaylock --daemonize' timeout 40 'niri msg output * off' resume 'niri msg output * on'"
+spawn-at-startup "swww" "img" "~/Pictures/wallpapers/src/dark/rougier--recursive-voronoi--inverted.png" "--fill-color" "#000000" "--resizea" "fit"
 
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y%m%dT%H%M%S.png"
 
@@ -172,12 +170,12 @@ binds {
 
     // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
-    XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute      allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && dunst-meter-notify audio"; }
+    XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && dunst-meter-notify audio"; }
+    XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && dunst-meter-notify audio"; }
+    XF86AudioMicMute      allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && dunst-meter-notify audio"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set +10% && dunst-meter-notify brightness"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set 10%- && dunst-meter-notify brightness"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

@@ -41,6 +41,7 @@ in
         environment.systemPackages = with pkgs; [
           bashInteractive
           bat # :: better cat
+          bc # :: GNU software calculator
           cacert
           coreutils
           curl
