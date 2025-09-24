@@ -52,7 +52,7 @@ layout {
     }
 
     always-center-single-column
-    center-focused-column "on-overflow"
+    center-focused-column "never"
 
     default-column-width { proportion 0.5; }
     preset-column-widths {
@@ -64,12 +64,10 @@ layout {
 
     focus-ring {
         width 1
-        // active-color "#cba6f7"
         active-color "#a6e3a1"
-        // inactive-color "#7f849c"
         inactive-color "#6c7086"
-        // active-gradient in="oklch longer hue" from="#89dceb" to="#a6e3a1" angle=45
-        // inactive-gradient in="oklch longer hue" from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+        active-gradient in="oklch longer hue" from="#89dceb" to="#a6e3a1" angle=45
+        inactive-gradient in="oklch longer hue" from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     border {
@@ -96,9 +94,9 @@ animations {
 // https://yalter.github.io/niri/Configuration%3A-Named-Workspaces.html
 // ==================================================================
 
-workspace "scratch"
-workspace "chat"
 workspace "main"
+workspace "chat"
+workspace "scratch"
 
 /// https://yalter.github.io/niri/Configuration:-Window-Rules
 /// ==================================================================
