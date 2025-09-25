@@ -59,8 +59,6 @@
       home.packages = [
         pkgs.dex # helper for working with xdg desktop entries
         pkgs.imagemagick
-        pkgs.ffmpeg
-        pkgs.ffmpegthumbnailer
         pkgs.mediainfo
         pkgs.signal-desktop
         pkgs.thunderbird-latest
