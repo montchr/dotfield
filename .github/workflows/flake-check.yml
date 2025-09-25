@@ -18,7 +18,7 @@ jobs:
             keep-env-derivations = true
             keep-outputs = true
       - name: Setup binary cache
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v16
         with:
           name: dotfield
           extraPullNames: dotfield,nix-community,nixpkgs-wayland,seadome
