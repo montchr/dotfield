@@ -50,7 +50,7 @@
     nixpkgs-for-beets-not-failing-build.url = "github:NixOS/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc";
 
     ##: core libraries
-    apparat.url = "sourcehut:~montchr/apparat";
+    apparat.url = "git+ssh://git@codeberg.org/astratagem/apparat.git";
     dmerge = {
       url = "github:divnix/dmerge";
       inputs.haumea.follows = "haumea";

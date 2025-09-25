@@ -3,91 +3,57 @@
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
 { lib, inputs, ... }:
 let
-  inherit (inputs.apparat.lib.color) fromHex;
+  inherit (inputs.apparat.lib.color) derivePolarity fromHex;
 
   # TODO: prob more useful to expand scope as a general colorscheme getter since
   #       even with this fn it's pretty repetitive
   asHexStrings = lib.mapAttrs (_: v: v.hex.r + v.hex.g + v.hex.b);
 
   /*
-    Guesstimate light/dark polarity for a decimal color value.
+    # Type
 
-    ## Types
-
-    RgbDecTriplet  :: { r :: Int, g :: Int, b :: Int }
-    SchemePolarity :: "dark" | "light"
-
-    derivePolarity' :: { dec :: RgbDecTriplet, threshold :: Int ? } -> SchemePolarity
-  */
-  derivePolarity =
-    {
-      dec,
-      threshold ? 382,
-    }:
-    let
-      inherit (dec) r g b;
-    in
-    if r + g + b >= threshold then "light" else "dark";
-
-  /*
-    ## Types
-
-    ColorScheme :: {
-      hex :: {
-        r :: String,
-        g :: String,
-        b :: String,
-      },
+    ```
+    mkColor :: String -> {
+      hex :: String,
       dec :: {
         r :: Int,
         g :: Int,
         b :: Int
       }
     }
-
-    mkColor :: String -> ColorScheme
+    ```
   */
-  mkColor =
-    v:
-    let
-      hex = {
-        r = lib.substring 0 2 v;
-        g = lib.substring 2 2 v;
-        b = lib.substring 4 2 v;
-      };
-      dec = {
-        r = fromHex hex.r;
-        g = fromHex hex.g;
-        b = fromHex hex.b;
-      };
-    in
-    {
-      inherit hex dec;
+  mkColor = v: {
+    hex = v;
+    rgb = {
+      r = fromHex lib.substring 0 2 v;
+      g = fromHex lib.substring 2 2 v;
+      b = fromHex lib.substring 4 2 v;
     };
+  };
 
   /*
     Reshape a Base16 color scheme from its canonical form into the shape expected by our theme module.
-
-    FIXME: `name` should be the yaml basename
 
     ## Types
 
     mkColorScheme :: { ${n} :: String } -> {
       name :: String,
       colors :: ColorScheme,
-      kind :: String
+      variant :: String
     }
   */
   mkColorScheme =
     scheme:
     let
       bases = lib.filterAttrs (n: _: lib.hasPrefix "base" n) scheme;
-      colors = lib.mapAttrs (_: mkColor) bases;
+      palette = lib.mapAttrs (_: mkColor) bases;
     in
     {
-      inherit colors;
+      inherit palette;
+      # FIXME: `name` should be the yaml basename
       name = lib.replaceStrings [ " " ] [ "-" ] scheme.scheme;
-      kind = derivePolarity { inherit (colors.base00) dec; };
+      variant = derivePolarity palette.base00.rgb;
     };
 
   toColorSchemePath = pkgs: scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
@@ -96,7 +62,6 @@ in
   flake.lib.theme = {
     inherit
       asHexStrings
-      derivePolarity
       mkColorScheme
       toColorSchemePath
       ;

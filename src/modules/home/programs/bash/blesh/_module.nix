@@ -1,4 +1,4 @@
-{ lib' }:
+{ isEmpty }:
 {
   pkgs,
   config,
@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (lib') isEmpty;
   inherit (lib) mkEnableOption mkOption types;
   bashCfg = config.programs.bash;
   cfg = config.programs.bash.blesh;

@@ -1,4 +1,7 @@
-flake@{ self, ... }:
+flake@{ inputs, self, ... }:
+let
+  inherit (inputs.apparat.lib) isEmpty;
+in
 {
   aspects.workstation.home =
     {
@@ -23,7 +26,7 @@ flake@{ self, ... }:
           ]
         );
         settings = {
-          PASSWORD_STORE_KEY = lib.mkIf (!self.lib.isEmpty key) key;
+          PASSWORD_STORE_KEY = lib.mkIf (!isEmpty key) key;
         };
       };
 

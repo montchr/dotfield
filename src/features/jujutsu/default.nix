@@ -1,6 +1,11 @@
-flake@{ lib, self, ... }:
+flake@{
+  inputs,
+  lib,
+  self,
+  ...
+}:
 let
-  inherit (self.lib) isEmpty;
+  inherit (inputs.apparat.lib) isEmpty;
 in
 {
   aspects.development.home =
