@@ -15,6 +15,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update flake packages
-        uses: selfuryon/nix-update-action@v1.0.1
+        uses: selfuryon/nix-update-action@v1.1.0
         with:
           blacklist: 'sf-pro,tomlfmt'
