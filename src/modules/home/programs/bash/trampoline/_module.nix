@@ -13,7 +13,7 @@ in
   options.programs.bash.trampoline = {
     enable = lib.mkOption {
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Whether to load an alternate shell session during Bash initialisation.
 
         Allows alternate shells to inherit the environment from Bash,
@@ -31,7 +31,7 @@ in
     shell.package = lib.mkOption {
       type = with types; either bool package;
       default = false;
-      description = lib.mdDoc ''
+      description = ''
         Alternate shell package to replace the Bash session and inherit its environment.
       '';
     };
