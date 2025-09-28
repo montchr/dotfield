@@ -257,11 +257,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757274240,
-        "narHash": "sha256-9ZFUBNslTL1tcWPMAqBlEyS4xsRFT8OkN28vL4REsBk=",
+        "lastModified": 1759122433,
+        "narHash": "sha256-IbJDPCC0QyMHHu8GlxQaoJC++225+51W0+Pa/X0lSg0=",
         "owner": "montchr",
         "repo": "ceamx",
-        "rev": "1353537b98e0a05fcea144ce82a76ed3fd2807a8",
+        "rev": "3b59a87acc2e3baf9dc961c79a57b0e35a949fa3",
         "type": "github"
       },
       "original": {

@@ -2,17 +2,12 @@
   users.cdom.aspects.development.home = {
     programs.jujutsu.settings = {
       aliases = {
-        # SYNOPSIS: jj harvest <revset>
-        #
-        # NOTE: `--from` revset argument is deliberately omitted a la
-        # partial application so the argument may be provided in the
-        # shell.  Surprisingly, this Just Works™!
-        "harvest" = [
-          "squash"
-          "--interactive"
-          "--to"
-          "@"
-          "--from"
+        "examine" = [
+          "log"
+          "-T"
+          "builtin_log_detailed"
+          "-p"
+          "-r"
         ];
         "l" = [
           "log"
@@ -23,6 +18,22 @@
           "st"
           "--no-pager"
         ];
+      };
+      templates = {
+        draft_commit_description = ''
+          concat(
+            coalesce(description, default_commit_description, "\n"),
+            if(
+              config("ui.should-sign-off").as_boolean() && !description.contains("Signed-off-by: " ++ author.name()),
+              "\nSigned-off-by: " ++ author.name() ++ " <" ++ author.email() ++ ">",
+            ),
+            "\n",
+            surround(
+              "\nJJ: This commit contains the following changes:\n", "",
+              indent("JJ:     ", diff.summary()),
+            ),
+          )
+        '';
       };
       template-aliases = {
         # Display relative timestamps in log output
