@@ -22,8 +22,6 @@ in
       boot.initrd.supportedFilesystems = [ "btrfs" ];
       boot.supportedFilesystems = [ "btrfs" ];
 
-      services.flatpak.enable = true;
-
       virtualisation.vmVariant = {
         virtualisation.graphics = false;
       };

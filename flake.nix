@@ -126,6 +126,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
     nix-inspect.url = "github:bluskript/nix-inspect";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
