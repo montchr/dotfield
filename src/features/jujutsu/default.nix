@@ -38,7 +38,7 @@ in
         settings = {
           user = {
             name = whoami.name or "";
-            email = whoami.email or "";
+            email = whoami.email.primary or "";
           };
           ui = {
             # For interoperability with other tools that don't know jujutsu.

@@ -69,8 +69,8 @@ in
       (lib.mkIf (!isEmpty (whoami.name or false)) {
         programs.git.userName = whoami.name;
       })
-      (lib.mkIf (!isEmpty (whoami.email or false)) {
-        programs.git.userEmail = whoami.email;
+      (lib.mkIf (!isEmpty (whoami.email.primary or false)) {
+        programs.git.userEmail = whoami.email.primary;
       })
       (lib.mkIf (!isEmpty (whoami.accounts.github or false)) {
         programs.git.extraConfig.github.user = whoami.accounts.github;

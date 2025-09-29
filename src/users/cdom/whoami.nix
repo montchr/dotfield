@@ -1,13 +1,18 @@
 { config, ... }:
 let
   inherit (config.meta) keys;
+  cfg = config.meta.users.cdom.whoami;
 in
 {
   meta.users.cdom.whoami = {
     name = "Chris Montgomery";
     firstName = "Chris";
     lastName = "Montgomery";
-    email = "chmont@protonmail.com";
+    email = {
+      primary = cfg.email.personal;
+      personal = "chmont@protonmail.com";
+      work = "chrismont@temple.edu";
+    };
     pgp = rec {
       id = "0x135EEDD0F71934F3";
       # TODO: how can this be made a default?

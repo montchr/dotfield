@@ -2,6 +2,17 @@
 let
   inherit (lib) mkOption types;
 
+  emailSubmodule = types.submodule {
+    options = {
+      primary = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "Primary email address for the user";
+      };
+    };
+    freeformType = types.lazyAttrsOf (types.nullOr types.str);
+  };
+
   whoamiSubmodule = types.submodule (
     { options, config, ... }:
     {
@@ -21,9 +32,9 @@ let
           default = null;
         };
         email = mkOption {
-          type = with types; nullOr str;
-          description = "Full primary email address for the user";
-          default = null;
+          type = emailSubmodule;
+          description = "Email addresses for the user";
+          default = { };
         };
         accounts = mkOption {
           type = types.submodule accountsSubmodule;
@@ -396,29 +407,32 @@ in
 {
   options.meta.users = lib.mkOption {
     type = types.lazyAttrsOf (
-      types.submodule {
-        options = {
-          preferences = lib.mkOption {
-            type = userPreferencesSubmodule;
-            default = { };
-            description = "User preferences";
-          };
-          whoami = lib.mkOption {
-            type = whoamiSubmodule;
-            default = { };
-            description = "User identifying attributes";
-          };
-          keys.ssh = lib.mkOption {
-            type = with types; listOf str;
-            default = [ ];
-            description = ''
-              SSH public keys for the user.
+      types.submodule (
+        { config, ... }:
+        {
+          options = {
+            preferences = lib.mkOption {
+              type = userPreferencesSubmodule;
+              default = { };
+              description = "User preferences";
+            };
+            whoami = lib.mkOption {
+              type = whoamiSubmodule;
+              default = { };
+              description = "User identifying attributes";
+            };
+            keys.ssh = lib.mkOption {
+              type = with types; listOf str;
+              default = [ ];
+              description = ''
+                SSH public keys for the user.
 
-              Keys should be referenced from the centralized key management in src/metadata/data/keys/.
-            '';
+                Keys should be referenced from the centralized key management in src/metadata/data/keys/.
+              '';
+            };
           };
-        };
-      }
+        }
+      )
     );
     default = { };
     description = "User metadata and preferences configuration";

@@ -30,10 +30,10 @@ in
       # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
       # https://nixos.org/manual/nix/stable/#idm140737322046656
       xdg.configFile."npm/npmrc" =
-        lib.mkIf (!isEmpty (whoami.name or false) && !isEmpty (whoami.email or false))
+        lib.mkIf (!isEmpty (whoami.name or false) && !isEmpty (whoami.email.primary or false))
           {
             text = ''
-              email="${whoami.email}"
+              email="${whoami.email.primary}"
               init-author-name="${whoami.name}"
               init-version=0.0.1
               cache=''${XDG_CACHE_HOME}/npm
