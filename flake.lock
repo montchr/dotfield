@@ -1324,7 +1324,7 @@
           "nixpkgs"
         ],
         "parts": "parts",
-        "rust-overlay": "rust-overlay_3",
+        "rust-overlay": "rust-overlay_4",
         "treefmt": "treefmt"
       },
       "locked": {
@@ -1416,6 +1416,28 @@
       },
       "original": {
         "owner": "YaLTeR",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
+    "niri-with-primary-render-fallback": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_3"
+      },
+      "locked": {
+        "lastModified": 1758216617,
+        "narHash": "sha256-D5fWhmCunvn5No91TCnwRqcmR+hIkh5Cq9jlLo41zfg=",
+        "owner": "scottmckendry",
+        "repo": "niri",
+        "rev": "d9e1be5e96c291dc17774a6df993853afcae6085",
+        "type": "github"
+      },
+      "original": {
+        "owner": "scottmckendry",
+        "ref": "primary-render-fallback",
         "repo": "niri",
         "type": "github"
       }
@@ -2542,6 +2564,7 @@
         "musnix": "musnix",
         "niri": "niri",
         "niri-flake": "niri-flake",
+        "niri-with-primary-render-fallback": "niri-with-primary-render-fallback",
         "nix-ai-tools": "nix-ai-tools",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
@@ -2644,6 +2667,27 @@
       }
     },
     "rust-overlay_3": {
+      "inputs": {
+        "nixpkgs": [
+          "niri-with-primary-render-fallback",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1757989933,
+        "narHash": "sha256-9cpKYWWPCFhgwQTww8S94rTXgg8Q8ydFv9fXM6I8xQM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "8249aa3442fb9b45e615a35f39eca2fe5510d7c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_4": {
       "inputs": {
         "nixpkgs": [
           "nix-inspect",

@@ -112,6 +112,10 @@
       # It is important to keep the Mesa versions in sync.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-with-primary-render-fallback = {
+      url = "github:scottmckendry/niri/primary-render-fallback";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     seadome-wallpapers.url = "sourcehut:~montchr/wallpapers";
     stylix.url = "github:danth/stylix";
     wrapper-manager.url = "github:viperML/wrapper-manager";
