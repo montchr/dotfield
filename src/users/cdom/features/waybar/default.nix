@@ -21,6 +21,8 @@
         @import "./custom.css";
       '';
 
+      wayland.windowManager.sway.config.bars = [ { command = "waybar"; } ];
+
       systemd.user.services.waybar = {
         Unit = {
           # BindsTo = [ "tray.target" ];

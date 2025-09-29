@@ -1,4 +1,4 @@
-flake@{ ... }:
+flake@{ lib, ... }:
 {
   aspects.desktop-sessions__sway = {
     requires = [ "desktop-sessions__wayland-wm" ];
@@ -22,7 +22,6 @@ flake@{ ... }:
     home =
       { pkgs, config, ... }:
       let
-        prefs = flake.config.meta.users.${config.home.username}.preferences;
         app = cmd: "${app'} ${cmd}";
         app' = "${pkgs.uwsm}/bin/uwsm-app --";
       in
@@ -33,16 +32,11 @@ flake@{ ... }:
           # system level.
           package = null;
           extraConfigEarly = ''
-            # FIXME: this does not help
-            # <https://wiki.nixos.org/wiki/Sway#GTK_apps_take_an_exceptionally_long_time_to_start>
             include /etc/sway/config.d/*
           '';
           config = {
-            menu = prefs.wayland.menu;
-            terminal = app (prefs.term);
-            bars = [
-              { command = app prefs.wayland.bar; }
-            ];
+            menu = lib.mkDefault "fuzzel";
+            terminal = lib.mkDefault (app "ghostty");
           };
         };
       };

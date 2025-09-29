@@ -1,4 +1,3 @@
-flake@{ ... }:
 {
   aspects.graphical.home =
     {
@@ -7,13 +6,10 @@ flake@{ ... }:
       lib,
       ...
     }:
-    let
-      prefs = flake.config.meta.users.${config.home.username}.preferences;
-    in
     {
       programs.fuzzel.enable = true;
       programs.fuzzel.settings.main = {
-        terminal = prefs.term;
+        terminal = lib.mkDefault "ghostty";
       };
       home.packages = [ pkgs.fuzzel ];
     };

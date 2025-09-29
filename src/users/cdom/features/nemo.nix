@@ -7,7 +7,6 @@ flake@{ ... }:
       ...
     }:
     let
-      prefs = flake.config.meta.users.${config.home.username}.preferences;
       nemoPackage = pkgs.nemo-with-extensions;
     in
     {
@@ -25,7 +24,6 @@ flake@{ ... }:
         };
       };
 
-      dconf.settings."org/cinnamon/desktop/applications/terminal".exec = prefs.term;
       dconf.settings."org/nemo/desktop" = {
         show-desktop-icons = false;
       };

@@ -1,6 +1,7 @@
-flake@{ ... }:
+{ moduleWithSystem, ... }:
 {
-  users.cdom.aspects.graphical.home =
+  users.cdom.aspects.graphical.home = moduleWithSystem (
+    perSystem@{ config }:
     {
       config,
       lib,
@@ -8,31 +9,57 @@ flake@{ ... }:
       ...
     }:
     let
-      inherit (config.stylix) fonts;
-      prefs = flake.config.meta.users.${config.home.username}.preferences;
-      colorScheme = prefs.theme.color.scheme.${prefs.theme.color.variant};
+      colorScheme = "catppuccin-mocha";
     in
     {
       stylix.enable = true;
       stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${colorScheme}.yaml";
 
       stylix.fonts = {
-        inherit (prefs.theme.font) sizes;
-      }
-      // (lib.mapAttrs (_: v: {
-        inherit (v) name;
-        package = pkgs.${v.pname};
-      }) prefs.theme.font.families);
+        sizes = {
+          applications = 10;
+          desktop = 10;
+          popups = 8;
+          terminal = 10;
+        };
 
+        sansSerif = {
+          name = "Inter";
+          package = pkgs.inter;
+          # name = "Berkeley Mono";
+          # package = perSystem.config.packages.berkeley-mono;
+        };
+
+        serif = {
+          name = "Aporetic Serif";
+          package = pkgs.aporetic;
+        };
+
+        monospace = {
+          name = "Aporetic Sans Mono";
+          package = pkgs.aporetic;
+        };
+      };
+
+      # alternatively: posy-cursors / graphite-cursors / vanilla-dmz /
+      # catppuccin-cursors / hackneyed-x11-cursors / openzone-cursors
       stylix.cursor = {
-        inherit (prefs.theme.cursor) name size;
-        package = pkgs.${prefs.theme.cursor.pname};
+        # name = "phinger-cursors-dark";
+        # package = pkgs.phinger-cursors;
+        # size = 24;
+        # name = "Posy_Cursor_Black";
+        # package = pkgs.posy-cursors;
+        # size = 32;
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 10;
       };
 
       stylix.iconTheme = {
-        inherit (prefs.theme.icons) dark light;
         enable = true;
-        package = pkgs.${prefs.theme.icons.pname};
+        package = pkgs.papirus-icon-theme;
+        dark = "Papirus Dark";
+        light = "Papirus Light";
       };
 
       stylix.targets.floorp.enable = false;
@@ -46,6 +73,7 @@ flake@{ ... }:
       # stylix.targets.firefox.profileNames = builtins.attrNames config.programs.firefox.profiles;
       # stylix.targets.vscode.profileNames = builtins.attrNames config.programs.vscode.profiles;
 
+      # TODO: move this to common aspect
       fonts.fontconfig.enable = true;
       fonts.fontconfig.defaultFonts = {
         monospace = lib.mkBefore [ config.stylix.fonts.monospace.name ];
@@ -66,5 +94,6 @@ flake@{ ... }:
       home.packages = [
         pkgs.fastfetch # another neofetch clone
       ];
-    };
+    }
+  );
 }

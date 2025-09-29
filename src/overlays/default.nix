@@ -9,7 +9,6 @@
     {
       overlayAttrs = {
         inherit (inputs'.nixpkgs-trunk.legacyPackages) zellij;
-        inherit (config.packages) berkeley-mono;
       };
     };
 }
