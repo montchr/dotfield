@@ -393,7 +393,7 @@ let
       wayland = lib.mkOption {
         type = waylandSubmodule;
         default = {
-          desktop = "hyprland";
+          desktop = "sway";
           bar = "waybar";
           menu = "fuzzel";
           launcher = "fuzzel";

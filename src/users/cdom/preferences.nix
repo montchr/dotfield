@@ -69,7 +69,7 @@
     };
 
     wayland = {
-      desktop = "hyprland";
+      desktop = "sway";
       bar = "waybar";
       menu = "fuzzel";
       launcher = "fuzzel";

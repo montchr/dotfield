@@ -13,9 +13,6 @@
       "sway/mode"
       "sway/scratchpad"
 
-      "hyprland/workspaces"
-      "hyprland/submap"
-
       "custom/media"
     ];
     modules-center = [
