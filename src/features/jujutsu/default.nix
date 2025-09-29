@@ -37,8 +37,8 @@ in
         enable = true;
         settings = {
           user = {
-            name = lib.mkIf (!isEmpty (whoami.name or false)) whoami.name;
-            email = lib.mkIf (!isEmpty (whoami.email or false)) whoami.email;
+            name = whoami.name or "";
+            email = whoami.email or "";
           };
           ui = {
             # For interoperability with other tools that don't know jujutsu.
