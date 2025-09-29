@@ -1,6 +1,6 @@
 flake@{ ... }:
 {
-  users.cdom.aspects.desktop-sessions__wayland-wm.home =
+  users.cdom.aspects.noop.home =
     {
       config,
       pkgs,

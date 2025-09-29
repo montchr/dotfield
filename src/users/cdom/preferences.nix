@@ -3,7 +3,6 @@
     editor = "emacsclient";
     term = "ghostty";
     shell = "fish";
-    file-manager = "nemo";
     # audio-player = "mpv";
     pdf-reader = "zathura";
     video-player = "mpv";

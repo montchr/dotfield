@@ -35,14 +35,12 @@
           "_JAVA_AWT_WM_NONREPARENTING" = "1";
         };
 
-        # TODO: provide a default launcher
         environment.systemPackages = with pkgs; [
-          gtk-layer-shell
-
-          # essentials
           brightnessctl
           fuzzel
           grim
+          gtk-layer-shell
+          nautilus
           satty
           slurp
           swaybg
@@ -56,8 +54,6 @@
           wl-clipboard
           wlr-randr
           xwayland-satellite
-
-          nemo # gui file manager
         ];
       };
 
