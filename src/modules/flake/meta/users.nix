@@ -430,6 +430,11 @@ in
                 Keys should be referenced from the centralized key management in src/metadata/data/keys/.
               '';
             };
+            noop = lib.mkOption {
+              type = types.attrsOf types.anything;
+              default = { };
+              description = "Placeholder option for non-operational definitions";
+            };
           };
         }
       )
