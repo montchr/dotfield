@@ -20,20 +20,21 @@
         ];
       };
       templates = {
-        draft_commit_description = ''
-          concat(
-            coalesce(description, default_commit_description, "\n"),
-            if(
-              config("ui.should-sign-off").as_boolean() && !description.contains("Signed-off-by: " ++ author.name()),
-              "\nSigned-off-by: " ++ author.name() ++ " <" ++ author.email() ++ ">",
-            ),
-            "\n",
-            surround(
-              "\nJJ: This commit contains the following changes:\n", "",
-              indent("JJ:     ", diff.summary()),
-            ),
-          )
-        '';
+        # FIXME: error │ 2: Value not found for ui.should-sign-off
+        # draft_commit_description = ''
+        #   concat(
+        #     coalesce(description, default_commit_description, "\n"),
+        #     if(
+        #       config("ui.should-sign-off").as_boolean() && !description.contains("Signed-off-by: " ++ author.name()),
+        #       "\nSigned-off-by: " ++ author.name() ++ " <" ++ author.email() ++ ">",
+        #     ),
+        #     "\n",
+        #     surround(
+        #       "\nJJ: This commit contains the following changes:\n", "",
+        #       indent("JJ:     ", diff.summary()),
+        #     ),
+        #   )
+        # '';
       };
       template-aliases = {
         # Display relative timestamps in log output
