@@ -15,13 +15,9 @@ in
       ...
     }:
     let
-      difftastic-16k = pkgs.difftastic.overrideAttrs (oldAttrs: {
-        JEMALLOC_SYS_WITH_LG_PAGE = "16";
-      });
-
       nix-unit = inputs'.nix-unit.packages.default.overrideAttrs (oldAttrs: {
         postInstall = ''
-          wrapProgram "$out/bin/nix-unit" --prefix PATH : ${difftastic-16k}/bin
+          wrapProgram "$out/bin/nix-unit" --prefix PATH : ${config.packages.difftastic-16k}/bin
         '';
       });
 

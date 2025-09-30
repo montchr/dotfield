@@ -44,8 +44,8 @@ in
           ui = {
             log-synthetic-elided-nodes = lib.mkDefault true;
             # For interoperability with other tools that don't know jujutsu.
-            conflict-marker-style = "git";
-            diff-formatter = ":git";
+            # conflict-marker-style = "git";
+            # diff-formatter = ":git";
           };
 
           git = {

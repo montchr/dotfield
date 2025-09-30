@@ -1,15 +1,16 @@
-{ lib, ... }:
 {
   imports = [
     ./__beets-packages.nix
+    ./__by-name.nix
   ];
 
   perSystem =
     { pkgs, system, ... }:
     {
-      packages = lib.filesystem.packagesFromDirectoryRecursive {
-        inherit (pkgs) callPackage;
-        directory = ./by-name;
+      packages = {
+        difftastic-16k = pkgs.difftastic.overrideAttrs (oldAttrs: {
+          JEMALLOC_SYS_WITH_LG_PAGE = "16";
+        });
       };
     };
 }
