@@ -3,6 +3,8 @@
   aspects.development.home =
     { config, pkgs, ... }:
     {
+      programs.mergiraf.enable = true;
+
       home.packages =
         let
           dataWrangling = [
