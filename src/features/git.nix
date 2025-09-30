@@ -46,11 +46,17 @@ in
             "*.bak"
           ];
 
+          aliases = {
+            snapshot = ''!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'';
+          };
+
           extraConfig = {
             init.defaultBranch = lib.mkDefault "main";
             # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
             pretty.nice = lib.mkDefault "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
             fetch.recurseSubmodules = true;
+            push.default = "current";
+            merge.conflictstyle = "diff3";
             rerere.enabled = true;
           };
         };
