@@ -1,0 +1,131 @@
+# This is a preferences file for the bacon tool
+# More info at https://github.com/Canop/bacon
+
+# Uncomment to have bacon listen for commands on
+# a 'bacon.socket' unix socket (on unix)
+# listen = true
+
+# Uncomment and change the value (true/false) to
+# specify whether bacon should start in summary mode
+#
+# summary = true
+
+
+# Uncomment and change the value (true/false) to
+# specify whether bacon should start with lines wrapped
+#
+# wrap = false
+
+
+# In "reverse" mode, the focus is at the bottom, item
+# order is reversed, and the status bar is on top
+#
+# reverse = true
+
+
+# The grace period is a delay after a file event before the real
+# task is launched and during which other events will be ignored.
+# This is mostly useful when your editor does several operations
+# when saving a file and the state is temporarily wrong (eg it
+# moves the file to a backup name before recreating the right one)
+# You can set it to "none" if it's useless for you.
+#
+# grace_period = "15ms"
+
+
+# Uncomment and change the value (true/false) to
+# specify whether bacon should show a help line.
+#
+# help_line = false
+
+
+# Uncomment and change the value (true/false) to
+# set whether to display the count of changes since last job start
+#
+# show_changes_count = false
+
+
+# Uncomment one of those lines if you don't want the default
+# behavior triggered by a file change. This property can also
+# be set directly in a specific job.
+#
+# on_change_strategy = "kill_then_restart"
+# on_change_strategy = "wait_then_restart"
+
+
+# Exporting "locations" (by setting its 'auto' to true) lets you use
+# them in an external tool, for example as a list of jump locations
+# in an IDE or in a language server.
+# (See https://dystroy.org/bacon/config/#export-locations),
+#
+# Possible line_format parts:
+#  - kind: warning|error|test
+#  - path: complete absolute path to the file
+#  - line: 1-based line number
+#  - column: 1-based column
+#  - message: description of the item
+#  - context: unstyled lines of output, separated with escaped newlines (`\\n`)
+[exports.locations]
+auto = false
+exporter = "locations"
+path = ".bacon-locations"
+line_format = "{kind} {path}:{line}:{column} {message}"
+
+
+# If you want some job to emit a beep on success or on failure,
+# you need to globally enable sound, and you may set up the max volume here
+#
+# With sound enabled, you may set up sound on a job with eg
+#    on_success = "play-sound(name=90s-game-ui-6,volume=50)"
+#    on_failure = "play-sound(name=beep-warning,volume=100)"
+[sound]
+enabled = false      # set true to allow sound
+base_volume = "100%" # global volume multiplier
+
+# Uncomment and change the key-bindings you want to define
+# (some of those ones are the defaults and are just here for illustration)
+[keybindings]
+z = "job:clippy-baby"
+# esc = "back"
+# g = "scroll-to-top"
+# shift-g = "scroll-to-bottom"
+# k = "scroll-lines(-1)"
+# j = "scroll-lines(1)"
+# ctrl-c = "quit"
+# ctrl-c = "copy-unstyled-output"
+# ctrl-q = "quit"
+# q = "quit"
+# F5 = "rerun"
+# alt-s = "toggle-summary"
+# alt-w = "toggle-wrap"
+# alt-b = "toggle-backtrace"
+# Home = "scroll-to-top"
+# End = "scroll-to-bottom"
+# Up = "scroll-lines(-1)"
+# Down = "scroll-lines(1)"
+# PageUp = "scroll-pages(-1)"
+# PageDown = "scroll-pages(1)"
+# Space = "scroll-pages(1)"
+# a = "job:check-all"
+# i = "job:initial"
+# c = "job:clippy"
+# c = "job:clippy-all"
+# d = "job:doc-open"
+# t = "job:test"
+# r = "job:run"
+# ctrl-e = "export:analysis"
+
+# https://github.com/0atman/noboilerplate/blob/main/scripts/28-how-to-speak-basic-rust.md#cargo-clippy
+[jobs.clippy-baby]
+command = [
+  "cargo",
+  "clippy",
+  "--",
+  "-W",
+  "clippy::pedantic",
+  "-W",
+  "clippy::nursery",
+  "-W",
+  "clippy::unwrap_used",
+]
+need_stdout = false
