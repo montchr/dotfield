@@ -2,6 +2,8 @@
 {
   ".." = "cd ..";
   "..." = "cd ../..";
+  "...." = "cd ../../..";
+  "....." = "cd ../../../..";
 
   # FIXME: needs workaround for nushell
   e = "$EDITOR";
