@@ -9,6 +9,8 @@
   rcpu = "rcp --chmod=go=";
   rcpdu = "rcpd --chmod=go=";
 
+  prjr = "cd $PRJ_ROOT";
+
   ### Jujutsu
 
   jjd = "jj describe -m";
