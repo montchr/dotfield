@@ -14,11 +14,10 @@
   ### Jujutsu
 
   jjd = "jj describe -m";
-  jjdn = "jj describe @+ -m";
-  jjdp = "jj describe @- -m";
   jjff = "jj diff";
   jjl = "jj log -n 6 --no-pager";
-  jjn = "jj new -m";
+  jjn = "jj new";
+  jjnm = "jj new -m";
   jjs = "jj st --no-pager";
 
   ### Git
