@@ -1,7 +1,6 @@
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: "Symbols Nerd Font", FontAwesome, "Berkeley Mono", "Input Sans", "Aporetic Serif Mono", "Iosevka Comfy Motion", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 9px;
+  font-family: "Symbols Nerd Font", FontAwesome, "Departure Mono", "Berkeley Mono", "Input Sans", "Aporetic Serif Mono", "Iosevka Comfy Motion", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 10px;
 }
 
 window#waybar {
