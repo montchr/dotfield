@@ -12,6 +12,7 @@ in
     ++ hosts.boschic.users.seadoom.keys.ssh
     ++ hosts.brakhage.users.blink.keys.ssh
     ++ hosts.hodgepodge.users.seadoom.keys.ssh
+    ++ hosts.riebeck.users.cdom.keys.ssh
     ++ hosts.ryosuke.users.cdom.keys.ssh
     ++ hosts.tuvix.users.cdom.keys.ssh
     ++ hosts.tuuvok.users.cdom.keys.ssh;

@@ -67,13 +67,13 @@ inspect:
 lint:
   pre-commit run -a
 
-# <- Write linter fixes to files
+[doc: "Write linter fixes to project files"]
 fix: (_deadnix "--edit")
-  statix fix
+    statix fix
 
 [doc: "Format the project files"]
-fmt:
-  treefmt
+fmt *FILES:
+    treefmt {{ FILES }}
 
 _deadnix method='--fail' *ARGS='--no-underscore':
   fd -t f -e nix --exclude='packages/**/*.nix' --exec-batch \

@@ -12,7 +12,11 @@ trim_trailing_whitespace=true
 indent_style=space
 trim_trailing_whitespace=false
 
-[*.{bash,fish,kdl,plist,php,py,sh,xml}]
+[*.{bash,fish,just,kdl,plist,php,py,sh,xml}]
+indent_size=4
+indent_style=space
+
+[{,.}[Jj]ustfile]
 indent_size=4
 indent_style=space
 
