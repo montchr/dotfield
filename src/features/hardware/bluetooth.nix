@@ -17,5 +17,10 @@
           };
         };
       };
+      environment.systemPackages = [
+        pkgs.blueman
+        pkgs.blueberry
+        pkgs.overskride
+      ];
     };
 }
