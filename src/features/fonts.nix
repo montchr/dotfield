@@ -29,8 +29,9 @@
           atkinson-hyperlegible-mono
           atkinson-hyperlegible-next
           fira
-          libre-baskerville
           gentium
+          libre-baskerville
+          newcomputermodern
         ])
       );
     }
