@@ -17,15 +17,15 @@
       "locked": {
         "lastModified": 1758898369,
         "narHash": "sha256-nTfGE/1sjOXYDdjmXWx8OTw2Wp1zkwl5862fBTP5gbU=",
-        "ref": "refs/heads/main",
+        "owner": "montchr",
+        "repo": "apparat",
         "rev": "c32ab17c6936dc57c934e50a0930a49ad7fa64ad",
-        "revCount": 123,
-        "type": "git",
-        "url": "ssh://git@codeberg.org/astratagem/apparat.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@codeberg.org/astratagem/apparat.git"
+        "owner": "montchr",
+        "repo": "apparat",
+        "type": "github"
       }
     },
     "asahi-tuuvok-firmware": {
