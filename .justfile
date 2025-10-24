@@ -25,7 +25,7 @@ prj-data := env_var('PRJ_DATA_HOME')
 user-configs-dir := justfile_directory() / "src/users" / env("USER") / "config"
 
 push *ARGS="-b main":
-  for remote in origin github sourcehut; do \
+  for remote in origin github; do \
     jj git push {{ ARGS }} --remote $remote; \
   done
 
