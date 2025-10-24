@@ -32,6 +32,7 @@
           gentium
           libre-baskerville
           newcomputermodern
+          stix-two
         ])
       );
     }
