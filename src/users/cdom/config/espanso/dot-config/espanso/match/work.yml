@@ -1,0 +1,6 @@
+---
+matches:
+  - replace: 'Temple University'
+    trigger: ';w;tu'
+  - replace: 'Klein College of Media and Communication'
+    trigger: ';w;kc'
