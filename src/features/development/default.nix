@@ -31,6 +31,7 @@
           pkgs.ast-grep
           pkgs.copier
           pkgs.quicktype # json schema toolkit
+          pkgs.skate
           pkgs.universal-ctags
         ];
 
