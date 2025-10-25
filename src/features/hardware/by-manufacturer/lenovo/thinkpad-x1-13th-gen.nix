@@ -2,7 +2,6 @@
 {
   aspects.hardware__lenovo__thinkpad-x1-13th-gen = {
     requires = [
-      "hardware__fingerprint-scanner"
       "laptop"
     ];
     nixos = {
