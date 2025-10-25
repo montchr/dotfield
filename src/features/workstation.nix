@@ -34,6 +34,7 @@
       { pkgs, ... }:
       {
         home.packages = [
+          pkgs.harper
           pkgs.kdePackages.okular
           pkgs.libreoffice-fresh
           # TODO: ideally this would only be included at the
