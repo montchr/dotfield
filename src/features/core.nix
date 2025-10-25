@@ -45,11 +45,12 @@ in
           cacert
           coreutils
           curl
-          dig # :: network introspection
+          dig
           diskus # :: simple `du -sh` alternative by sharkdp
           dnsutils
           du-dust
           dua
+          exfatprogs
           eza
           fd
           file
@@ -63,15 +64,15 @@ in
           gnused
           gnutar
           grc
-          hyperfine # the benchmarking tool by sharkdp
+          hyperfine
           ijq # interactive jq
           inetutils
           iputils
-          jq # thee json tool
-          less # thee pager
+          jq
+          less
           lm_sensors
           lnav # log file pager
-          lynx # thee web browser
+          lynx
           moreutils
           nh
           nmap
