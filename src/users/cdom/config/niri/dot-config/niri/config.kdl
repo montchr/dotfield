@@ -10,9 +10,6 @@ input {
         numlock
 
         xkb {
-            // You can set rules, model, layout, variant and options.
-            // For more information, see xkeyboard-config(7).
-
             options "compose:ralt"
         }
     }
@@ -47,6 +44,10 @@ layout {
         right 0
         bottom 4
         left 0
+    }
+
+    tab-indicator {
+        place-within-column
     }
 
     always-center-single-column
@@ -92,8 +93,10 @@ animations {
 // https://yalter.github.io/niri/Configuration%3A-Named-Workspaces.html
 // ==================================================================
 
-workspace "main"
 workspace "chat"
+workspace "main"
+workspace "dotfield"
+workspace "ceamx"
 workspace "scratch"
 
 /// https://yalter.github.io/niri/Configuration:-Window-Rules
@@ -106,7 +109,12 @@ window-rule {
 }
 
 window-rule {
+    match app-id="discord"
+    match app-id="fluffychat"
     match app-id="teams-for-linux"
+
+    open-focused true
+    open-maximized true
     open-on-workspace "chat"
 }
 
@@ -116,7 +124,8 @@ window-rule {
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
 
     block-out-from "screen-capture"
-    open-on-workspace "scratch"
+
+    open-focused true
 }
 
 window-rule {
@@ -134,6 +143,7 @@ window-rule {
 
 prefer-no-csd
 
+// FIXME: not working
 spawn-at-startup "swww" "img" "~/Pictures/wallpapers/src/dark/rougier--recursive-voronoi--inverted.png" "--fill-color" "#000000" "--resizea" "fit"
 
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y%m%dT%H%M%S.png"
@@ -231,8 +241,8 @@ binds {
     Mod+I               { focus-workspace-up; }
     Mod+Shift+Page_Down { move-column-to-workspace-down; }
     Mod+Shift+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U          { move-column-to-workspace-down; }
-    Mod+Ctrl+I          { move-column-to-workspace-up; }
+    Mod+Shift+U          { move-column-to-workspace-down; }
+    Mod+Shift+I          { move-column-to-workspace-up; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
@@ -240,8 +250,8 @@ binds {
 
     Mod+Ctrl+Shift+Page_Down { move-workspace-down; }
     Mod+Ctrl+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U              { move-workspace-down; }
-    Mod+Shift+I              { move-workspace-up; }
+    Mod+Ctrl+Shift+U              { move-workspace-down; }
+    Mod+Ctrl+Shift+I              { move-workspace-up; }
 
     // You can bind mouse wheel scroll ticks using the following syntax.
     // These binds will change direction based on the natural-scroll setting.
@@ -369,11 +379,11 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
     Mod+P { screenshot; }
-    Mod+Ctrl+P { screenshot-screen; }
-    Mod+Alt+P { screenshot-window; }
+    Mod+Shift+P { screenshot-screen; }
+    Mod+Ctrl+P { screenshot-window; }
     Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    Shift+Print { screenshot-screen; }
+    Ctrl+Print { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
