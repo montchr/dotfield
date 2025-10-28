@@ -1,5 +1,6 @@
 {
-  hosts.nixos.tuuvok.users.cdom.configuration = {
+  hosts.nixos.riebeck.baseline.home = {
+    services.kanshi.enable = true;
     services.kanshi.settings = [
       {
         output.criteria = "eDP-1";
