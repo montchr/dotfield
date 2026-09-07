@@ -16,7 +16,7 @@
       baseSettings =
         (import ./__settings/common.nix)
         // (import ./__settings/browser-toolbox.nix)
-        // (import ./__settings/ui-state.nix)
+        # // (import ./__settings/ui-state.nix)
         // {
           "browser.startup.homepage" = builtins.concatStringsSep "|" [ "https://lobste.rs" ];
           "identity.fxaccounts.account.device.name" =
