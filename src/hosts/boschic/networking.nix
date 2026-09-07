@@ -1,5 +1,5 @@
 {
-  hosts.nixos.boschic = {
+  hosts.nixos.boschic.configuration = {
     services.tailscale.enable = true;
 
     networking.networkmanager.enable = true;
