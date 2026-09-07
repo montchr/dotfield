@@ -3,10 +3,12 @@
   aspects.hardware__apple__apple-silicon = {
     overlays = [ inputs.nixos-apple-silicon.overlays.default ];
 
-    nixos = {
+    nixos = { pkgs, ... }: {
       imports = [
         inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
       ];
+
+      environment.systemPackages = [ pkgs.nvtopPackages.apple ];
 
       hardware.asahi.enable = true;
 

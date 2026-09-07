@@ -41,7 +41,6 @@
         libnotify
         loupe
         mesa-demos # provides mesa utilities e.g. glxinfo
-        nvtop # gpu+gfx process monitoring
         qt5.qtwayland
         nautilus
         wev

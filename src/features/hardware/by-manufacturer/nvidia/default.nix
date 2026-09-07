@@ -4,8 +4,10 @@
 {
   aspects.hardware__nvidia = {
     nixos =
-      { config, ... }:
+      { pkgs, config, ... }:
       {
+        environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
+
         services.xserver.videoDrivers = [ "nvidia" ];
 
         hardware.graphics.enable = true;
