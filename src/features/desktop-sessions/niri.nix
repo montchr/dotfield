@@ -38,6 +38,7 @@
       {
         home.packages = [
           config.packages.niri-sidebar
+          pkgs.nirius # https://git.sr.ht/~tsdh/nirius
           pkgs.nwg-displays
         ];
 

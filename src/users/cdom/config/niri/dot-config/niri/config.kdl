@@ -167,6 +167,8 @@ overview {
     }
 }
 
+spawn-at-startup "niriusd"
+
 // https://yalter.github.io/niri/Configuration%3A-Key-Bindings.html
 // =====================================================================
 
@@ -386,16 +388,15 @@ binds {
 
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    // Expand the focused column to space not taken up by other fully visible columns.
+    // Makes the column "fill the rest of the space".
+    Mod+Ctrl+F { expand-column-to-available-width; }
 
     // While maximize-column leaves gaps and borders around the window,
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
     // This bind corresponds to normal window maximizing,
     // e.g. by double-clicking on the titlebar.
     Mod+M { maximize-window-to-edges; }
-
-    // Expand the focused column to space not taken up by other fully visible columns.
-    // Makes the column "fill the rest of the space".
-    Mod+Ctrl+F { expand-column-to-available-width; }
 
     Mod+C { center-column; }
 
@@ -420,6 +421,7 @@ binds {
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Ctrl+V  { spawn-sh "nirius toggle-follow-mode --policy if-invisible"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
