@@ -6,7 +6,7 @@
       workstation
       desktop-sessions__gnome
       hardware__amd__cpu
-      hardware__nvidia
+      hardware__nvidia__geforce-rtx-3070-ti
       development__kleinweb
     ];
     configuration = {
