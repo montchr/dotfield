@@ -2,6 +2,7 @@
   hosts.nixos.boschic = {
     services.tailscale.enable = true;
 
+    networking.networkmanager.enable = true;
     networking.usePredictableInterfaceNames = false;
 
     # Whether to enable DHCP on each ethernet and wireless interface. In

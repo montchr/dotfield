@@ -22,6 +22,11 @@ flake@{ self, ... }:
     users.seadoom = {
       configuration = {
         programs.git.signing.signByDefault = true;
+        programs.jujutsu.signing.gpg.enable = true;
+        programs.jujutsu.signing.onPush = true;
+
+        programs.rclone.remotes."whatbox".mounts."".enable = true;
+
         home.stateVersion = "21.11";
       };
     };

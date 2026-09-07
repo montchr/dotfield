@@ -3,19 +3,21 @@
   hosts.nixos.boschic = {
     system = "x86_64-linux";
     aspects = with config.aspects; [
-      workstation
-      desktop-sessions__gnome
       hardware__amd__cpu
       hardware__nvidia__geforce-rtx-3070-ti
+
+      workstation
+      desktop-sessions__niri
       development__kleinweb
+      video-production
     ];
-    configuration = {
+    configuration = { pkgs, ... }: {
       time.timeZone = "America/New_York";
 
       # FIXME: disable. likely interferes with rEFInd.
       boot.loader.efi.canTouchEfiVariables = true;
-
-      boot.loader.timeout = 15;
+      boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.loader.timeout = 7;
       boot.initrd.supportedFilesystems = [ "btrfs" ];
       boot.supportedFilesystems = [ "btrfs" ];
 
