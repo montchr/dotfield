@@ -56,11 +56,8 @@
       inputs.nixlib.follows = "nixpkgs-lib";
     };
     haumea.url = "github:nix-community/haumea";
+    import-tree.url = "github:denful/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    globset = {
-      url = "github:pdtpartners/globset";
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
-    };
     nixpkgs-lib.follows = "flake-parts/nixpkgs-lib";
 
     ##: core modules

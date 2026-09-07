@@ -1,15 +1,6 @@
+{ inputs, ... }:
 {
-  lib,
-  self,
-  inputs,
-  ...
-}:
-{
-  imports =
-    (inputs.globset.lib.globs ./. [
-      "*/**/*.nix"
-    ])
-    |> lib.fileset.toList;
+  imports = [ (inputs.import-tree ./lib) ];
 
   # perSystem =
   #   { ... }:
