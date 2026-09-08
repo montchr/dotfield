@@ -41,6 +41,7 @@
           pkgs.kdePackages.okular
           pkgs.pdfarranger
           pkgs.python313Packages.weasyprint # archive webpages to PDF
+          pkgs.texlivePackages.pdfbook2 # print PDF as booklet
           pkgs.unicode-character-database
           pkgs.visidata
           pkgs.vscode
