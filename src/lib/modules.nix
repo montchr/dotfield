@@ -169,11 +169,11 @@ let
             # This differs from the `options.aspects.*.name` option
             # declaration in that it avoids setting a default value
             # inherited from the submodule's `name` argument.  We avoid
-            # using `name` in this list context because `name` will not
-            # reflect the original value as inherited from the attrset
-            # where the aspect was originally defined -- the latter
-            # `name` is what we want, not the anonymous `name` from the
-            # list context.
+            # using `name` in this list context because it will not
+            # reflect the original value of `name` as inherited from the
+            # attrset where the aspect was originally defined -- the
+            # latter `name` is what we want, not the anonymous `name`
+            # from the list context.
             #
             # How does this not result in an error, you ask?  Because,
             # given project conventions, we *always* create an aspect
@@ -183,8 +183,6 @@ let
             # were to manually define an aspect inside of an option
             # declared with this function (don't!), you would indeed run
             # into an error, and you would need to set `name` manually.
-            #
-            # We can thank Claude(!) for this clever trick.
             name = mkOption {
               type = types.str;
               readOnly = true;
