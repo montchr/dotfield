@@ -6,6 +6,6 @@
   "dependencies": {},
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.6",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.0"
   }
 }
