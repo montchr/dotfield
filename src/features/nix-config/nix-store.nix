@@ -7,7 +7,7 @@
     nix.optimise.automatic = lib.mkDefault (!config.boot.isContainer);
 
     nix.gc.dates = lib.mkDefault "weekly";
-    nix.gc.automatic = lib.mkDefault true;
+    nix.gc.automatic = lib.mkDefault (!config.programs.nh.clean.enable);
 
     # Without this the collector only reaps paths with zero roots, which
     # every retained NixOS generation prevents, thus resulting in
