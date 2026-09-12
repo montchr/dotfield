@@ -13,7 +13,6 @@
       workstation
       desktop-sessions__niri
       development__kleinweb
-      video-production
     ];
   };
 
