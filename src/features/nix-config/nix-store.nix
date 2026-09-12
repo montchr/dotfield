@@ -9,6 +9,11 @@
     nix.gc.dates = lib.mkDefault "weekly";
     nix.gc.automatic = lib.mkDefault true;
 
+    # Without this the collector only reaps paths with zero roots, which
+    # every retained NixOS generation prevents, thus resulting in
+    # indefinitely increasing disk usage.
+    nix.gc.options = lib.mkDefault "--delete-older-than 14d";
+
     systemd.services.nix-gc.serviceConfig = {
       CPUSchedulingPolicy = "batch";
       IOSchedulingClass = "idle";
