@@ -13,12 +13,6 @@ flake@{ lib, inputs, ... }:
       cfg = config.nix;
     in
     {
-      imports = [
-        ./__nix-daemon.nix
-        ./__store.nix
-        ./__substituters.nix
-      ];
-
       environment.systemPackages = [ cfg.package ];
 
       # Disable nix channels. Use flakes instead.
