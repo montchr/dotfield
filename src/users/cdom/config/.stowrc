@@ -1,6 +1,7 @@
 --target=~
 --ignore='\.nix$'
 --ignore='\.stowrc'
+--ignore='nushell'
 --no-folding
 --dotfiles
 --verbose
