@@ -50,13 +50,13 @@
     ##: channels
     nixpkgs.follows = "nixos-unstable";
     nixos-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
-    # nixos-unstable.url = "github:astratagem/nixpkgs/nixos-unstable";
+    # nixos-unstable.url = "github:montchr/nixpkgs/nixos-unstable";
     nixos-stable.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-apple-silicon.follows = "nixos-apple-silicon/nixpkgs";
 
     ##: core libraries
-    apparat.url = "git+https://codeberg.org/astratagem/apparat.git";
+    apparat.url = "git+https://codeberg.org/montchr/apparat.git";
     dmerge = {
       url = "github:divnix/dmerge";
       inputs.haumea.follows = "haumea";
@@ -72,7 +72,7 @@
     beams.inputs.nixpkgs.follows = "nixpkgs";
     # XXX: https://github.com/nix-community/disko/pull/1277
     # disko.url = "github:nix-community/disko";
-    disko.url = "github:astratagem/disko/astratagem";
+    disko.url = "github:montchr/disko/astratagem";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-unstable";
@@ -80,11 +80,11 @@
     ##: hardware
     nixos-apple-silicon = {
       # url = "github:nix-community/nixos-apple-silicon";
-      url = "github:astratagem/nixos-apple-silicon/dev";
+      url = "github:montchr/nixos-apple-silicon/dev";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     # FIXME: ssh not possible in nixos installer
-    # asahi-tuuvok-firmware.url = "git+https://codeberg.org/astratagem/asahi-tuuvok-firmware.git";
+    # asahi-tuuvok-firmware.url = "git+https://codeberg.org/montchr/asahi-tuuvok-firmware.git";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     ##: ops
@@ -100,7 +100,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     ##: customisation
-    base16-schemes.url = "github:astratagem/nix-base16-schemes";
+    base16-schemes.url = "github:montchr/nix-base16-schemes";
     base16-schemes.inputs.nixpkgs.follows = "nixpkgs";
     ironbar.url = "github:JakeStanger/ironbar";
     ironbar.inputs.nixpkgs.follows = "nixpkgs";
@@ -108,7 +108,7 @@
 
     ##: apps/tools
     ceamx = {
-      url = "git+https://codeberg.org/astratagem/ceamx.git";
+      url = "git+https://codeberg.org/montchr/ceamx.git";
       inputs.nixpkgs.follows = "nixos-stable";
       inputs.apparat.follows = "apparat";
     };

@@ -22,11 +22,11 @@
         "rev": "63ec163fb61f71afa867f6f07f6878ca81461886",
         "revCount": 128,
         "type": "git",
-        "url": "https://codeberg.org/astratagem/apparat.git"
+        "url": "https://codeberg.org/montchr/apparat.git"
       },
       "original": {
         "type": "git",
-        "url": "https://codeberg.org/astratagem/apparat.git"
+        "url": "https://codeberg.org/montchr/apparat.git"
       }
     },
     "base16": {
@@ -92,13 +92,13 @@
       "locked": {
         "lastModified": 1685915251,
         "narHash": "sha256-dGzuUxB6Bo+bs0Mw50LurcqIwQXTER/3/dYZr0jwmTU=",
-        "owner": "astratagem",
+        "owner": "montchr",
         "repo": "nix-base16-schemes",
         "rev": "464220d74b2ad19278d60620861911a333d3cdd2",
         "type": "github"
       },
       "original": {
-        "owner": "astratagem",
+        "owner": "montchr",
         "repo": "nix-base16-schemes",
         "type": "github"
       }
@@ -227,11 +227,11 @@
         "rev": "79c8803ae4fc4a867066a22b1251142a21cb248b",
         "revCount": 2390,
         "type": "git",
-        "url": "https://codeberg.org/astratagem/ceamx.git"
+        "url": "https://codeberg.org/montchr/ceamx.git"
       },
       "original": {
         "type": "git",
-        "url": "https://codeberg.org/astratagem/ceamx.git"
+        "url": "https://codeberg.org/montchr/ceamx.git"
       }
     },
     "colmena": {
@@ -369,13 +369,13 @@
       "locked": {
         "lastModified": 1783617614,
         "narHash": "sha256-d0ZLm5yZtJewZI6kU/j4wWtoqEIKgDIG8Gd/qhZkOa4=",
-        "owner": "astratagem",
+        "owner": "montchr",
         "repo": "disko",
         "rev": "6747342da148f6cb28c8405a70fe00455a0ba027",
         "type": "github"
       },
       "original": {
-        "owner": "astratagem",
+        "owner": "montchr",
         "ref": "astratagem",
         "repo": "disko",
         "type": "github"
@@ -1366,13 +1366,13 @@
       "locked": {
         "lastModified": 1758458590,
         "narHash": "sha256-Jnn7Q53dOLNBo8rTEzTnYRkt2fltC1YhI9PzsJERuVk=",
-        "owner": "astratagem",
+        "owner": "montchr",
         "repo": "nixos-apple-silicon",
         "rev": "580cc0bf9479146baed7357f1fcf084c0a2ffbe5",
         "type": "github"
       },
       "original": {
-        "owner": "astratagem",
+        "owner": "montchr",
         "ref": "dev",
         "repo": "nixos-apple-silicon",
         "type": "github"
