@@ -19,11 +19,7 @@ in
       ...
     }:
     let
-      nix-unit = inputs'.nix-unit.packages.default.overrideAttrs (oldAttrs: {
-        postInstall = ''
-          wrapProgram "$out/bin/nix-unit" --prefix PATH : ${config.packages.difftastic-16k}/bin
-        '';
-      });
+      nix-unit = inputs'.nix-unit.packages.default;
 
       commonPkgs = with pkgs; [
         bashInteractive
@@ -35,9 +31,10 @@ in
       ];
 
       checksPkgs = [
+        nix-unit
+
         pkgs.deadnix
         pkgs.editorconfig-checker
-        nix-unit
         pkgs.shellcheck
         pkgs.statix
       ];
