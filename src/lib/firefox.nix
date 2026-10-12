@@ -13,7 +13,7 @@ let
 in
 {
   flake.lib.firefox = {
-    inherit engine;
+    inherit engine withSearchAliasPrefix;
 
     engine' = alias: template: withAlias alias (engine template);
 
