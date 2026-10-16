@@ -19,7 +19,6 @@
           baselineFonts = with pkgs; [
             corefonts
             dejavu_fonts
-            ibm-plex
             input-fonts
             iosevka
             inter
@@ -31,6 +30,7 @@
           serifFonts =
             (with pkgs; [
               bodoni-moda
+              charis
               cooper
               courier-prime
               drafting-mono
@@ -47,11 +47,12 @@
           sansSerifFonts = with pkgs; [
             jost
             merriweather-sans
-            nebula-sans
           ];
 
           monospaceFonts = with pkgs; [
             _0xproto
+            aporetic
+            departure-mono
             ioskeley-mono.nf
             ioskeley-mono.term-nf
           ];
