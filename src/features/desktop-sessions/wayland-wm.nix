@@ -29,8 +29,9 @@
           # <https://github.com/swaywm/sway/wiki/Running-programs-natively-under-wayland>
           "ELECTRON_OZONE_PLATFORM_HINT" = "auto";
           "SDL_VIDEODRIVER" = "wayland";
-          "QT_QPA_PLATFORM" = "wayland";
+          "QT_QPA_PLATFORM" = "wayland-egl";
           "QT_SCALE_FACTOR_ROUNDING_POLICY" = "RoundPreferFloor";
+          "QT_WAYLAND_FORCE_DPI" = "physical";
           "QT_WAYLAND_DISABLE_WINDOWDECORATION" = "1";
           "_JAVA_AWT_WM_NONREPARENTING" = "1";
         };
