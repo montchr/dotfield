@@ -122,6 +122,7 @@ window-rule {
 window-rule {
     match app-id="firefox$" title="^Picture-in-Picture$"
     match app-id="mpv"
+    match app-id="nwg-displays"
 
     open-floating true
 }
