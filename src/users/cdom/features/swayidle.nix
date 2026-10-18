@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2026 Chris Montgomery <chmont@protonmail.com>
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
+
+# FIXME: too many assumptions
 
 {
   users.cdom.aspects.desktop-sessions__wayland-wm.home =
@@ -17,7 +18,8 @@
     in
     {
       services.swayidle = {
-        enable = true;
+        # enable = true;
+
         # FIXME: this isn't quite right, but the daemon needs to be
         # activated after the session is ready.  the defaults aren't
         # cutting it.

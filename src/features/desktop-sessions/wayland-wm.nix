@@ -44,7 +44,6 @@
           satty
           slurp
           swaybg
-          swayidle
           swayimg
           swaylock
           swaylock-effects

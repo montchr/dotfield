@@ -36,14 +36,6 @@ flake@{ ... }:
 
     in
     {
-      # services.swayidle.timeouts = [
-      #   {
-      #     timeout = 15 + 10;
-      #     command = "swaymsg 'output * dpms off'";
-      #     resumeCommand = "swaymsg 'output * dpms on'";
-      #   }
-      # ];
-
       wayland.windowManager.sway.config = {
         modifier = "Mod4";
         focus.followMouse = "always";
