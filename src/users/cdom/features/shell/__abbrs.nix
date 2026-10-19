@@ -4,6 +4,7 @@
 
 { pkgs }:
 {
+  j = "just";
   t = "tail -f";
 
   q = "exit";
