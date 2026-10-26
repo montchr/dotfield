@@ -32,12 +32,18 @@
         ];
 
         perSystem =
-          { system, pkgs, ... }:
+          {
+            config,
+            system,
+            pkgs,
+            ...
+          }:
           {
             _module.args = {
               pkgs = import nixpkgs {
                 inherit system;
                 config.allowUnfree = true;
+                config.overlays = [ config.overlays.default ];
               };
             };
             formatter = pkgs.nixfmt;
