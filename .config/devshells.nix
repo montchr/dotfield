@@ -72,7 +72,11 @@ in
         pkgs.ssh-to-age
       ];
 
-      maintenancePkgs = [ pkgs.reuse ];
+      maintenancePkgs = [
+        # FIXME: manpage build failure on nixos-unstable
+        # pkgs.reuse
+        inputs'.nixos-stable.legacyPackages.reuse
+      ];
 
       developmentPkgs =
         commonPkgs
