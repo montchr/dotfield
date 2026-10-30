@@ -3,11 +3,13 @@ keybinds {
         // FIXME: not working. why?
         // bind "Ctrl Tab" { GoToNextTab; }
         // bind "Ctrl Shift Tab" { GoToPreviousTab; }
+
         // Conflicts with readline/Emacs keybinding to move forward one word.
         // TODO: rebind `ToggleFloatingPanes` to something easy and non-intrusive
         unbind "Alt f"
     }
 }
+
 // Plugin aliases - can be used to change the implementation of Zellij
 // changing these requires a restart to take effect
 plugins {
@@ -25,33 +27,40 @@ plugins {
         welcome_screen true
     }
 }
+
 // Plugins to load in the background when a new session starts
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
 
 }
+
 // Use a simplified UI without special fonts (arrow glyphs)
 // Options:
 //   - true
 //   - false (Default)
 //
 // simplified_ui true
+
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
 theme "ansi"
+
 // Choose the base input mode of zellij.
 // Default: normal
 //
 default_mode "normal"
+
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
 default_shell "fish"
+
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd "/tmp"
+
 // The name of the default layout to load on startup
 // Default: "default"
 //
