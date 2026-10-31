@@ -27,18 +27,28 @@ let
   mkNixSearchTemplate = aliases: template: withNixIcon (engineWithAliases aliases template);
 
   mkNixpkgsSearchTemplate =
-    type: aliases: params:
+    aliases:
+    {
+      type,
+      channel ? "unstable",
+      source ? null,
+    }:
+    let
+      params = {
+        inherit channel type;
+        query = "{searchParams}";
+      };
+    in
     (withNixIcon {
       definedAliases = aliases;
+      # Example URL: <https://search.nixos.org/options?channel=unstable&query=firefox&source=home_manager&type=options>
       urls = [
         {
-          template = "https://search.nixos.org/${type}";
-          params = mapAttrsToList nameValuePair params;
+          template = "https://search.nixos.org";
+          params = params // (lib.optionalAttrs (source != null) { inherit source; });
         }
       ];
     });
-
-  mkNixpkgsSearchTemplate' = type: aliases: mkNixpkgsSearchTemplate type aliases { };
 in
 {
   # Required -- disabled by default to prevent unintentional data loss.
@@ -63,22 +73,30 @@ in
 
     ## Nix
 
-    hm = mkNixpkgsSearchTemplate "options" [ "hm" ] { source = "home_manager"; };
+    hm = mkNixpkgsSearchTemplate [ "hm" ] {
+      type = "options";
+      source = "home_manager";
+    };
+
     nixos-wiki = mkNixSearchTemplate [
       "nixos"
       "nwiki"
     ] "https://wiki.nixos.org/w/index.php?search={searchTerms}";
+
     noogle = mkNixSearchTemplate [ "nixlib" "noogle" ] "https://noogle.dev/q/?term={searchTerms}";
-    nixpkgs = mkNixpkgsSearchTemplate' "packages" [
+
+    nixpkgs = mkNixpkgsSearchTemplate [
       "nixpkgs"
       "npkgs"
       "pkgs"
-    ];
-    nixos-options = mkNixpkgsSearchTemplate' "options" [
+    ] { type = "packages"; };
+
+    nixos-options = mkNixpkgsSearchTemplate [
       "nixopts"
       "nopts"
       "nixos-options"
-    ];
+    ] { type = "options"; };
+
     nixpkgs-pr = mkNixSearchTemplate [
       "nixpr"
       "nixpkgs-pr"
