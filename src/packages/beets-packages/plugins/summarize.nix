@@ -43,7 +43,7 @@ python3.pkgs.buildPythonApplication {
     description = "Summarize beets library statistics";
     homepage = "https://github.com/steven-murray/beet-summarize";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     inherit (beets.meta) platforms;
   };
 }

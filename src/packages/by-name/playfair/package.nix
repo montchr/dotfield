@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/clauseggers/Playfair";
     changelog = "https://github.com/clauseggers/Playfair/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     platforms = lib.platforms.all;
   };
 })

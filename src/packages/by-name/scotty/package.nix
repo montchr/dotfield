@@ -39,7 +39,7 @@ buildGoModule rec {
     description = "Scotty transfers your listens/scrobbles and favorite tracks between various music listen tracking and streaming services.";
     homepage = "https://git.sr.ht/~phw/scotty";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "scotty";
   };
 }

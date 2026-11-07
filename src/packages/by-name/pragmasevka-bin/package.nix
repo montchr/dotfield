@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "Pragmata Pro doppelgänger made of Iosevka SS08";
     homepage = "https://github.com/shytikov/pragmasevka";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "pragmasevka";
     platforms = lib.platforms.all;
   };

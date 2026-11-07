@@ -33,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "RGB conversion tool written in Python for Philips Hue";
     homepage = "https://github.com/benknight/hue-python-rgb-converter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "rgbxy";
   };
 }

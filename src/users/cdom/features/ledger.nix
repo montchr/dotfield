@@ -16,8 +16,8 @@
     {
       home.sessionVariables."DOTFIELD_LEDGER_DIR" = ledgerDir;
 
-      services.git-sync.repositories."astratagem__ledger" = {
-        uri = "git@codeberg.org:astratagem/ledger.git";
+      services.git-sync.repositories."montchr__ledger" = {
+        uri = "git@codeberg.org:montchr/ledger.git";
         path = ledgerDir;
       };
 

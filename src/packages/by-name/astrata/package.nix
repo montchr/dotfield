@@ -40,10 +40,10 @@ in
 }).overrideAttrs
   (_prevAttrs: {
     meta = {
-      description = "A custom Iosevka build by @astratagem";
-      homepage = "https://codeberg.org/astratagem/dotfield";
+      description = "A custom Iosevka build by @montchr";
+      homepage = "https://codeberg.org/montchr/dotfield";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ astratagem ];
+      maintainers = with lib.maintainers; [ montchr ];
       mainProgram = "astrata-mono";
       platforms = lib.platforms.all;
     };

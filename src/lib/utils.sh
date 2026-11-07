@@ -542,7 +542,7 @@ function repo::is_repo {
 
 # Qualify a repo URL.
 # Parameters:
-#   Repo identifier (e.g. astratagem/dotfield) or URL.
+#   Repo identifier (e.g. montchr/dotfield) or URL.
 #   Forge name or shortname (e.g. github or gh).
 function repo::qualify_url {
   local identifier=$1

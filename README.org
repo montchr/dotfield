@@ -66,7 +66,7 @@ export GIT_BRANCH="add-${NEW_HOSTNAME}"
 **** Option 1: Disko
 
 #+begin_src sh
-curl "https://raw.githubusercontent.com/astratagem/dotfield/${GIT_BRANCH}/machines/${NEW_HOSTNAME}/disk-config.nix" -o /tmp/disk-config.nix
+curl "https://raw.githubusercontent.com/montchr/dotfield/${GIT_BRANCH}/machines/${NEW_HOSTNAME}/disk-config.nix" -o /tmp/disk-config.nix
 nix run github:nix-community/disko -- --mode disko /tmp/disk-config.nix
 # to verify:
 mount | grep /mnt
@@ -80,7 +80,7 @@ mount | grep /mnt
 :CUSTOM_ID: configurate
 :END:
 #+begin_src sh
-git clone https://github.com/astratagem/dotfield.git -b "${GIT_BRANCH}" /mnt/etc/nixos
+git clone https://github.com/montchr/dotfield.git -b "${GIT_BRANCH}" /mnt/etc/nixos
 # absolute paths from `/mnt` would break once booted into the system
 cd /mnt/etc && ln -s nixos dotfield && cd nixos
 nixos-generate-config --no-filesystems --root /mnt

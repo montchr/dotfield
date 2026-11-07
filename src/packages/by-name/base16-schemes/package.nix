@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     maintainers = [
       maintainers.DamienCassou
-      maintainers.astratagem
+      maintainers.montchr
     ];
     license = licenses.mit;
   };

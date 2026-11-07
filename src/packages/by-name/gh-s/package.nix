@@ -29,7 +29,7 @@ buildGoModule rec {
     description = "Search github repositories interactively";
     homepage = "https://github.com/gennaro-tedesco/gh-s";
     license = licenses.asl20;
-    maintainers = with maintainers; [ astratagem ];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "gh-s";
   };
 }

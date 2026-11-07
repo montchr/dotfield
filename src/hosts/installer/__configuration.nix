@@ -10,7 +10,7 @@ flake@{ self, inputs, ... }:
 }:
 let
   snapshotPath = "/etc/nixos";
-  remoteUrl = "git@codeberg.org:astratagem/dotfield.git";
+  remoteUrl = "git@codeberg.org:montchr/dotfield.git";
 in
 {
   networking.hostName = "installer";

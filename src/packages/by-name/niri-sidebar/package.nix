@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "A lightweight, external sidebar manager for the Niri window manager";
     homepage = "https://github.com/Vigintillionn/niri-sidebar";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "niri-sidebar";
   };
 })

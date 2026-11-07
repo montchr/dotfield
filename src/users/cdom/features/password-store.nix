@@ -13,7 +13,7 @@
     let
       inherit (lib.hm.dag) entryAfter;
       cfg = config.programs.password-store;
-      passwordStoreRemoteUrl = "git@codeberg.org:astratagem/password-store.git";
+      passwordStoreRemoteUrl = "git@codeberg.org:montchr/password-store.git";
       passwordStorePath = config.programs.password-store.settings.PASSWORD_STORE_DIR;
     in
     {

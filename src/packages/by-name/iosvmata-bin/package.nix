@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     # distributed under the OFL.  For that reason, it is safe to make
     # the claim that this project is de facto licensed under the OFL.
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ astratagem ];
+    maintainers = with lib.maintainers; [ montchr ];
     mainProgram = "iosvmata";
     platforms = lib.platforms.all;
   };

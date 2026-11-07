@@ -28,7 +28,7 @@ php82.buildComposerProject (finalAttrs: {
     homepage = "https://github.com/alleyinteractive/wp-to-psr-4";
     changelog = "https://github.com/alleyinteractive/wp-to-psr-4/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ astratagem ];
+    maintainers = with maintainers; [ montchr ];
     mainProgram = "wp-to-psr-4";
     platforms = platforms.all;
   };
