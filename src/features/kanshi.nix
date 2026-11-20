@@ -42,7 +42,6 @@
             output.transform = "270";
           }
         ];
-        profiles = { };
       };
 
       home.packages = [ cfg.package ];

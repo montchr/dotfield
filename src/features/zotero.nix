@@ -3,12 +3,18 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 {
-  aspects.workstation.home = { lib, pkgs, ... }: {
-    home.packages = [
+  aspects.workstation.nixos = { pkgs, ... }: {
+    # HACK: Zotero package must be installed at system level
+    #       so its insecure Firefox ESR 140 dependency can be allowlisted.
+    #       Home Manager does not seem to respect the
+    #       `permittedInsecurePackages` setting.
+    environment.systemPackages = [
       pkgs.zotero
       pkgs.zotero-translation-server
     ];
+  };
 
+  aspects.workstation.home = { lib, pkgs, ... }: {
     # Make the bundled integration extensions available at a stable path for
     # integration targets.
     #

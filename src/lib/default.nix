@@ -25,6 +25,12 @@
         overlays = [ config.overlays.default ];
 
         allowUnfreePredicate = pkg: elem (getName pkg) allowUnfreePackages;
+
+        # XXX: Required for Zotero: https://github.com/NixOS/nixpkgs/issues/568692#issuecomment-6189832238
+        #      See also: https://github.com/NixOS/nixpkgs/issues/579749#issuecomment-6764501530
+        permittedInsecurePackages = [
+          "firefox-esr-140-bin-unwrapped-140.17.0esr"
+        ];
       };
   };
 }
