@@ -8,7 +8,7 @@
   outputs =
     inputs@{ nixpkgs, flake-parts, ... }:
     (flake-parts.lib.mkFlake { inherit inputs; } (
-      { config, ... }:
+      { self, config, ... }:
       {
         debug = true;
 
@@ -42,8 +42,7 @@
             _module.args = {
               pkgs = import nixpkgs {
                 inherit system;
-                config.allowUnfree = true;
-                config.overlays = [ config.overlays.default ];
+                config = self.lib.nixpkgsConfig;
               };
             };
             formatter = pkgs.nixfmt;

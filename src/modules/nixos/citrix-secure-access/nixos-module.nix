@@ -122,7 +122,7 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      defaultText = lib.literalMD "`packages.citrix-secure-access` from the Dotfield flake";
+      defaultText = lib.literalMD "`packages.citrix-secure-access` from the beams flake";
       description = "The citrix-secure-access package to use.";
     };
   };

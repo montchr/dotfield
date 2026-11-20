@@ -41,7 +41,7 @@ let
         value = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.${hostSpec.channel} {
             inherit system;
-            config.allowUnfree = true;
+            config = self.lib.nixpkgsConfig;
             overlays = resolveUserOverlays {
               inherit username hostAspects hostedUserSpec;
             };

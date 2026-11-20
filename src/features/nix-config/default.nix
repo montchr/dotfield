@@ -22,6 +22,7 @@ in
 
       # Disable nix channels. Use flakes instead.
       nix.channel.enable = lib.mkDefault false;
+      # FIXME: avoid doing this unless it brings a tangible benefit.
       nix.nixPath = [
         "nixpkgs=${pkgs.path}"
         "home-manager=${inputs.home-manager}"

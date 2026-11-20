@@ -27,6 +27,8 @@ in
         services.dbus.implementation = "broker";
         hardware.enableRedistributableFirmware = true;
 
+        nixpkgs.config = self.lib.nixpkgsConfig;
+
         environment.variables = {
           EDITOR = "vim";
           HOSTNAME = config.networking.hostName;
