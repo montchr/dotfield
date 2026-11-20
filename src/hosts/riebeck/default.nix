@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 {
+  self,
   moduleWithSystem,
   inputs,
   config,
@@ -26,9 +27,9 @@
     perSystem@{ config }:
     { config, pkgs, ... }:
     {
-      imports = [ inputs.beams.modules.nixos.citrix-secure-access ];
-
-      services.citrix-secure-access.enable = true;
+      # FIXME: `environment` option not found...
+      # imports = [ self.modules.nixos.citrix-secure-access ];
+      # services.citrix-secure-access.enable = true;
 
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
