@@ -4,16 +4,15 @@
 
 { withSystem, ... }: {
   flake.modules.nixos = {
-    # FIXME: broken
-    # citrix-secure-access =
-    #   { config, pkgs, ... }:
-    #   {
-    #     imports = [ ./citrix-secure-access/nixos-module.nix ];
+    citrix-secure-access =
+      { config, pkgs, ... }:
+      {
+        imports = [ ./citrix-secure-access/nixos-module.nix ];
 
-    #     services.citrix-secure-access.package = withSystem pkgs.stdenv.hostPlatform.system (
-    #       { config, ... }: config.packages.citrix-secure-access
-    #     );
-    #   };
+        services.citrix-secure-access.package = withSystem pkgs.stdenv.hostPlatform.system (
+          { config, ... }: config.packages.citrix-secure-access
+        );
+      };
 
     "hardware/keyboard/keyboardio" = ./hardware/keyboard/keyboardio/__module.nix;
   };
