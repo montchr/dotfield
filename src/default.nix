@@ -12,11 +12,12 @@ in
       ./lib
       ./features
       ./hosts
-      ./modules
       ./overlays
       ./users
     ])
+
     ./meta
+    ./modules
     ./packages
   ];
 }

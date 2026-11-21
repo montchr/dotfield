@@ -4,6 +4,7 @@
 
 { withSystem, ... }: {
   flake.modules.nixos = {
+    # FIXME: broken
     # citrix-secure-access =
     #   { config, pkgs, ... }:
     #   {
