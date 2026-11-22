@@ -22,7 +22,7 @@ in
 
           "gh_pages()" = "ancestors(remote_bookmarks(exact:\"gh-pages\"))";
 
-          "wip()" = "description(glob:\"wip:*\")";
+          "wip()" = "description(regex:\"^wip\\b\") | description(glob:\"wip:*\")";
           "private()" = "description(glob:\"private:*\")";
           "blacklist()" = "wip() | private()";
 
