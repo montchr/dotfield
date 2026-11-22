@@ -26,6 +26,10 @@ in
           "private()" = "description(glob-i:\"private:*\")";
           "blacklist()" = "wip() | private()";
 
+          "closest_pushable(to)" = ''
+            heads(::to & mutable() & ~(blacklist() & mutable()):: & ~description(exact:"") & (~empty() | merges()))
+          '';
+
           # stack(x, n) :: the set of mutable commits reachable from
           #                'x', with 'n' parents.
           #
