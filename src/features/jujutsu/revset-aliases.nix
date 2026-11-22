@@ -22,8 +22,8 @@ in
 
           "gh_pages()" = "ancestors(remote_bookmarks(exact:\"gh-pages\"))";
 
-          "wip()" = "description(regex:\"^wip\\b\") | description(glob:\"wip:*\")";
-          "private()" = "description(glob:\"private:*\")";
+          "wip()" = "description(regex:\"^wip\\b\") | description(glob-i:\"wip:*\")";
+          "private()" = "description(glob-i:\"private:*\")";
           "blacklist()" = "wip() | private()";
 
           # stack(x, n) :: the set of mutable commits reachable from
